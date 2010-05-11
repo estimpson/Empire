@@ -1,0 +1,89 @@
+HA$PBExportHeader$d_destination_setup.srd
+release 6;
+datawindow(units=0 timer_interval=0 color=77633680 processing=0 print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 97 print.margin.bottom = 97 print.paper.source = 0 print.paper.size = 0 print.prompt=no print.buttons=no print.preview.buttons=no )
+summary(height=8 color="536870912" )
+footer(height=8 color="536870912" )
+detail(height=660 color="553648127"  height.autosize=yes)
+table(column=(type=char(20) update=yes updatewhereclause=yes key=yes name=destination dbname="destination.destination" )
+ column=(type=char(50) update=yes updatewhereclause=yes name=name dbname="destination.name" )
+ column=(type=char(50) update=yes updatewhereclause=yes name=address_1 dbname="destination.address_1" )
+ column=(type=char(50) update=yes updatewhereclause=yes name=address_2 dbname="destination.address_2" )
+ column=(type=char(50) update=yes updatewhereclause=yes name=address_3 dbname="destination.address_3" )
+ column=(type=char(10) update=yes updatewhereclause=yes name=customer dbname="destination.customer" )
+ column=(type=char(10) update=yes updatewhereclause=yes name=vendor dbname="destination.vendor" )
+ column=(type=char(2) update=yes updatewhereclause=yes name=type dbname="destination.type" values="Regular	R/Pool	P/" )
+ column=(type=char(15) update=yes updatewhereclause=yes name=scheduler dbname="destination.scheduler" )
+ column=(type=char(40) update=yes updatewhereclause=yes name=address_4 dbname="destination.address_4" )
+ column=(type=char(40) update=yes updatewhereclause=yes name=address_5 dbname="destination.address_5" )
+ column=(type=char(40) update=yes updatewhereclause=yes name=address_6 dbname="destination.address_6" )
+ column=(type=char(3) update=yes updatewhereclause=yes name=default_currency_unit dbname="destination.default_currency_unit" )
+ column=(type=long update=yes updatewhereclause=yes name=show_euro_amount dbname="show_euro_amount" values="Yes	0/No	1/" )
+ column=(type=long updatewhereclause=yes name=euro_enabled dbname="parameters.euro_enabled" )
+ column=(type=char(20) update=yes updatewhereclause=yes name=cs_status dbname="destination.cs_status" )
+ column=(type=char(10) update=yes updatewhereclause=yes name=destination_region_code dbname="destination.region_code" )
+ column=(type=char(10) update=yes updatewhereclause=yes name=custom1 dbname="destination.custom1" values="No	N/Yes	Y/" )
+ column=(type=char(10) update=yes updatewhereclause=yes name=destination_custom2 dbname="destination.custom2" values="Active	A/Inactive	I/" )
+ column=(type=char(10) update=yes updatewhereclause=yes name=destination_custom3 dbname="destination.custom3" )
+ column=(type=char(10) update=yes updatewhereclause=yes name=destination_custom4 dbname="destination.custom4" )
+ column=(type=char(10) update=yes updatewhereclause=yes name=destination_custom5 dbname="destination.custom5" values="Yes	Y/No	N/" )
+ retrieve="  SELECT destination.destination,   
+         destination.name,   
+         destination.address_1,   
+         destination.address_2,   
+         destination.address_3,   
+         destination.customer,   
+         destination.vendor,   
+         destination.type,   
+         destination.scheduler,   
+         destination.address_4,   
+         destination.address_5,   
+         destination.address_6,   
+         destination.default_currency_unit,   
+         isnull(destination.show_euro_amount,1) as show_euro_amount,   
+         parameters.euro_enabled,   
+         destination.cs_status,   
+         destination.region_code,
+		 	destination.custom1,
+			destination.custom2,
+			destination.custom3,
+			destination.custom4,
+			destination.custom5
+    FROM destination,   
+         parameters  
+   WHERE destination = :szCode   AND isnull ( destination.custom2, '' ) <> 'I'
+" update="destination" updatewhere=0 updatekeyinplace=no arguments=(("szCode", string)) )
+text(band=detail alignment="0" text="Code:"border="0" color="0" x="5" y="8" height="52" width="169"  name=destination_t  font.face="MS Sans Serif" font.height="-7" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="77633680" )
+column(band=detail id=1 alignment="0" tabsequence=10 border="5" color="0" x="210" y="4" height="52" width="329" format="[general]"  name=destination editmask.useformat=yes editmask.mask="aaaaaaaaaaaaaaaaaaaa" editmask.focusrectangle=no  font.face="MS Sans Serif" font.height="-7" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="1090519039" )
+text(band=detail alignment="0" text="Name:"border="0" color="0" x="549" y="4" height="52" width="192"  name=name_t  font.face="MS Sans Serif" font.height="-7" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="77633680" )
+column(band=detail id=2 alignment="0" tabsequence=20 border="5" color="0" x="759" y="4" height="52" width="773" format="[general]"  name=name edit.limit=50 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes  font.face="MS Sans Serif" font.height="-7" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="1090519039" )
+text(band=detail alignment="0" text="Address:"border="0" color="0" x="0" y="68" height="52" width="261"  name=address_t  font.face="MS Sans Serif" font.height="-7" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="79741120" )
+column(band=detail id=15 alignment="0" tabsequence=32766 border="0" color="0" x="2953" y="100" height="56" width="992" format="[general]"  name=euro_enabled visible="1~t0" edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="77633680" )
+text(band=detail alignment="0" text="Type:"border="0" color="0" x="18" y="464" height="52" width="165"  font.face="MS Sans Serif" font.height="-7" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="77633680" )
+column(band=detail id=8 alignment="0" tabsequence=90 border="5" color="0" x="210" y="464" height="52" width="366" format="[general]"  name=type ddlb.limit=0 ddlb.allowedit=no ddlb.case=any ddlb.required=yes ddlb.useasborder=yes  font.face="MS Sans Serif" font.height="-7" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="1090519039" )
+column(band=detail id=9 alignment="0" tabsequence=110 border="5" color="0" x="841" y="468" height="52" width="160" format="[general]"  name=scheduler edit.limit=15 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="MS Sans Serif" font.height="-7" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="1090519039" )
+text(band=detail alignment="0" text="Revn.:"border="0" color="0" x="14" y="528" height="52" width="165"  font.face="MS Sans Serif" font.height="-7" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="77633680" )
+column(band=detail id=18 alignment="0" tabsequence=100 border="5" color="0" x="210" y="532" height="56" width="366" format="[general]"  name=custom1 ddlb.limit=0 ddlb.allowedit=no ddlb.case=any ddlb.useasborder=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="1090519039" )
+column(band=detail id=3 alignment="0" tabsequence=30 border="5" color="0" x="210" y="68" height="44" width="795" format="[general]"  name=address_1 edit.limit=50 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes  font.face="MS Sans Serif" font.height="-7" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="1090519039" )
+column(band=detail id=4 alignment="0" tabsequence=40 border="5" color="0" x="210" y="132" height="44" width="795" format="[general]"  name=address_2 edit.limit=50 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes  font.face="MS Sans Serif" font.height="-7" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="1090519039" )
+column(band=detail id=5 alignment="0" tabsequence=50 border="5" color="0" x="210" y="196" height="44" width="795" format="[general]"  name=address_3 edit.limit=50 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes  font.face="MS Sans Serif" font.height="-7" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="1090519039" )
+column(band=detail id=10 alignment="0" tabsequence=60 border="5" color="0" x="210" y="260" height="44" width="795" format="[general]"  name=address_4 edit.limit=40 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes  font.face="MS Sans Serif" font.height="-7" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="1090519039" )
+column(band=detail id=12 alignment="0" tabsequence=80 border="5" color="0" x="210" y="388" height="44" width="795" format="[general]"  name=address_6 edit.limit=40 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes  font.face="MS Sans Serif" font.height="-7" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="1090519039" )
+column(band=detail id=11 alignment="0" tabsequence=70 border="5" color="0" x="210" y="324" height="44" width="795" format="[general]"  name=address_5 edit.limit=40 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes  font.face="MS Sans Serif" font.height="-7" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="1090519039" )
+text(band=detail alignment="0" text="Outside U.S.A.?"border="0" color="16711680" x="1019" y="72" height="52" width="421"  font.face="MS Sans Serif" font.height="-7" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="79741120" )
+column(band=detail id=22 alignment="0" tabsequence=140 border="0" color="16711680" x="1019" y="132" height="60" width="421" format=""  name=destination_custom5 ddlb.limit=1 ddlb.sorted=yes ddlb.allowedit=no ddlb.case=any ddlb.required=yes ddlb.useasborder=yes  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="80269524" )
+text(band=detail alignment="0" text="Scheduler:"border="0" color="0" x="590" y="464" height="52" width="242"  font.face="MS Sans Serif" font.height="-7" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="77633680" )
+text(band=detail alignment="0" text="Show Euro Amount?"border="0" color="0" x="608" y="536" height="52" width="507" visible="1~tif(euro_enabled = 0,1,0)"  font.face="MS Sans Serif" font.height="-7" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="77633680" )
+text(band=detail alignment="0" text="Region Code:"border="0" color="0" x="1120" y="540" height="52" width="507"  font.face="MS Sans Serif" font.height="-7" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="79741120" )
+text(band=detail alignment="0" text="DIA Status:"border="0" color="0" x="1015" y="248" height="52" width="256"  font.face="MS Sans Serif" font.height="-7" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="77633680" )
+text(band=detail alignment="0" text="Days Early:"border="0" color="0" x="1015" y="320" height="56" width="256"  font.face="MS Sans Serif" font.height="-7" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="79741120" )
+text(band=detail alignment="0" text="Days Late:"border="0" color="0" x="1015" y="396" height="52" width="256"  font.face="MS Sans Serif" font.height="-7" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="79741120" )
+column(band=detail id=19 alignment="0" tabsequence=150 border="5" color="0" x="1280" y="248" height="52" width="334" format=""  name=destination_custom2 ddlb.limit=0 ddlb.allowedit=no ddlb.case=any ddlb.useasborder=yes  font.face="MS Sans Serif" font.height="-7" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="1090519039" )
+column(band=detail id=20 alignment="1" tabsequence=160 border="5" color="0" x="1280" y="324" height="52" width="334" format="[general]"  name=destination_custom3 editmask.mask="#####" editmask.focusrectangle=no  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="1090519039" )
+column(band=detail id=21 alignment="1" tabsequence=170 border="5" color="0" x="1280" y="400" height="52" width="334" format="[general]"  name=destination_custom4 editmask.mask="#####" editmask.focusrectangle=no  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="1090519039" )
+text(band=detail alignment="0" text="Status:"border="0" color="0" x="1015" y="468" height="52" width="256"  font.face="MS Sans Serif" font.height="-7" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="77633680" )
+column(band=detail id=16 alignment="0" tabsequence=180 border="5" color="0" x="1275" y="468" height="52" width="334" format="[general]" protect="0~t1"  name=cs_status edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="MS Sans Serif" font.height="-7" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="77633680" )
+text(band=detail alignment="0" text="Default Currency:"border="0" color="0" x="9" y="604" height="52" width="512"  font.face="MS Sans Serif" font.height="-7" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="77633680" )
+column(band=detail id=13 alignment="0" tabsequence=130 border="5" color="0" x="530" y="604" height="52" width="174" format="[general]"  name=default_currency_unit dddw.name=d_currency_list dddw.displaycolumn=currency_code dddw.datacolumn=currency_code dddw.percentwidth=100 dddw.lines=0 dddw.limit=0 dddw.allowedit=no dddw.useasborder=yes dddw.case=any dddw.vscrollbar=yes  font.face="MS Sans Serif" font.height="-7" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="1090519039" )
+column(band=detail id=14 alignment="0" tabsequence=120 border="0" color="0" x="718" y="604" height="52" width="384" format="[general]" protect="0~tif ( euro_enabled = 0, 0, 1 )"  name=show_euro_amount visible="1~tif ( euro_enabled = 0, 1, 0 )" radiobuttons.columns=2 radiobuttons.scale=yes radiobuttons.threed=yes  font.face="MS Sans Serif" font.height="-7" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="77633680" )
+column(band=detail id=17 alignment="0" tabsequence=190 border="5" color="0" x="1120" y="604" height="52" width="507" format="[general]"  name=destination_region_code dddw.name=d_dddw_region_code dddw.displaycolumn=code dddw.datacolumn=code dddw.percentwidth=100 dddw.lines=0 dddw.limit=0 dddw.allowedit=no dddw.useasborder=yes dddw.case=any dddw.hscrollbar=yes dddw.vscrollbar=yes  font.face="MS Sans Serif" font.height="-7" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="1090519039" )
+htmltable(border="1" cellpadding="0" cellspacing="0" generatecss="no" nowrap="yes")
