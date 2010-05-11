@@ -1,0 +1,30 @@
+HA$PBExportHeader$d_eei_nest_ran_invoice.srd
+release 6;
+datawindow(units=0 timer_interval=0 color=1073741824 processing=0 print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 96 print.margin.bottom = 96 print.paper.source = 0 print.paper.size = 0 print.prompt=no print.buttons=no print.preview.buttons=no rows_per_detail = 3 )
+header(height=72 color="536870912" )
+summary(height=0 color="536870912" )
+footer(height=0 color="536870912" )
+detail(height=84 color="536870912" )
+table(column=(type=char(50) updatewhereclause=yes name=rannumber dbname="nalrannumbersshipped.rannumber" )
+ column=(type=decimal(6) updatewhereclause=yes name=qty dbname="nalrannumbersshipped.qty" )
+ retrieve=" SELECT nalrannumbersshipped.rannumber,   
+         nalrannumbersshipped.qty  
+    FROM nalrannumbersshipped  
+   WHERE ( nalrannumbersshipped.orderno = :OrderNo ) AND  
+         ( nalrannumbersshipped.shipper = :Shipper )    
+" arguments=(("OrderNo", number),("Shipper", number)) )
+text(band=header alignment="2" text="PO/RAN"border="0" color="0" x="9" y="4" height="56" width="233"  name=rannumber_t_1  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Qty"border="0" color="0" x="768" y="0" height="56" width="101"  name=qty_t_1  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Qty"border="0" color="0" x="1714" y="8" height="56" width="101"  name=qty_t_2  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Qty"border="0" color="0" x="2423" y="4" height="56" width="101"  name=qty_t_3  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=2 alignment="1" tabsequence=32766 border="0" color="0" x="558" y="4" height="76" width="329" format="#,##0" row_in_detail=1  name=qty_1 edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=2 alignment="1" tabsequence=32766 border="0" color="0" x="1499" y="4" height="76" width="325" format="#,##0" row_in_detail=2  name=qty_2 edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=2 alignment="1" tabsequence=32766 border="0" color="0" x="2432" y="4" height="76" width="329" format="#,##0" row_in_detail=3  name=qty_3 edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="PO/RAN"border="0" color="0" x="951" y="8" height="56" width="233"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="PO/RAN"border="0" color="0" x="1874" y="4" height="56" width="233"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=1 alignment="0" tabsequence=32766 border="0" color="0" x="5" y="4" height="76" width="539" format="[general]" row_in_detail=1  name=rannumber_1 edit.limit=50 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=1 alignment="0" tabsequence=32766 border="0" color="0" x="942" y="4" height="76" width="539" format="[general]" row_in_detail=2  name=rannumber_2 edit.limit=50 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=1 alignment="0" tabsequence=32766 border="0" color="0" x="1874" y="4" height="76" width="539" format="[general]" row_in_detail=3  name=rannumber_3 edit.limit=50 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+line(band=foreground x1="914" y1="0" x2="914" y2="216" pen.style="0" pen.width="14" pen.color="0"  background.mode="1" background.color="553648127" )
+line(band=foreground x1="1851" y1="0" x2="1851" y2="216" pen.style="0" pen.width="14" pen.color="0"  background.mode="1" background.color="553648127" )
+htmltable(border="1" cellpadding="0" cellspacing="0" generatecss="no" nowrap="yes")

@@ -1,0 +1,12 @@
+HA$PBExportHeader$d_freight_type_dddw.srd
+release 6;
+datawindow(units=0 timer_interval=0 color=79741120 processing=1 print.documentname=""  print.orientation=0 print.margin.left=110 print.margin.right=110 print.margin.top=96 print.margin.bottom=96 print.paper.size=0 print.paper.source=0 grid.lines=0 selected.mouse=yes)
+header(height=68 color="536870912" )
+summary(height=0 color="536870912" )
+footer(height=0 color="536870912" )
+detail(height=68 color="536870912" )
+table(column=(type=char(20) updatewhereclause=yes name=type_name dbname="freight_type_definition.type_name"  )
+ retrieve="PBSELECT( VERSION(400) TABLE(NAME=~"freight_type_definition~" ) COLUMN(NAME=~"freight_type_definition.type_name~")) "
+ )
+text(name=type_name_t band=header font.charset="0" font.face="MS Sans Serif" font.family="2" font.height="-8" font.pitch="2" font.weight="400" background.mode="1" background.color="536870912" color="0" alignment="2" border="6" x="9" y="8" height="52" width="576" text="Type Name" )
+column(name=type_name band=detail id=1 x="9" y="8" height="52" width="576" color="0" border="0" alignment="0" format="[general]" edit.focusrectangle=no edit.autohscroll=yes edit.autoselect=yes edit.autovscroll=no edit.case=any edit.codetable=no edit.displayonly=no edit.hscrollbar=no edit.imemode=0 edit.limit=20 edit.password=no edit.vscrollbar=no edit.validatecode=no edit.nilisnull=no edit.required=no criteria.required=no criteria.override_edit=no crosstab.repeat=no background.mode="1" background.color="536870912" font.charset="0" font.face="MS Sans Serif" font.family="2" font.height="-8" font.pitch="2" font.weight="400" tabsequence=0 )
