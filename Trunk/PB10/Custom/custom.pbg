@@ -3,5 +3,6 @@ Save Format v3.0(19990112)
  "..\\..\\..\\CustomerFiles\\EEI\\PB10\\Custom\\custom.pbl" "";
 @end;
 @begin Objects
+ "..\\..\\..\\CustomerFiles\\EEI\\PB10\\Custom\\d_add_vendor_part_profile.srd" "..\\..\\..\\CustomerFiles\\EEI\\PB10\\Custom\\custom.pbl";
  "..\\..\\..\\CustomerFiles\\EEI\\PB10\\Custom\\d_add_parms_cop.srd" "..\\..\\..\\CustomerFiles\\EEI\\PB10\\Custom\\custom.pbl";
 @end;
