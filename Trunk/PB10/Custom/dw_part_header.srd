@@ -1,0 +1,10 @@
+HA$PBExportHeader$dw_part_header.srd
+release 6;
+datawindow(units=0 timer_interval=0 color=81324524 processing=0 print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 96 print.margin.bottom = 96 print.paper.source = 0 print.paper.size = 0 print.prompt=no print.buttons=no print.preview.buttons=no )
+summary(height=0 color="536870912" )
+footer(height=0 color="536870912" )
+detail(height=76 color="536870912" )
+table(column=(type=char(25) update=yes updatewhereclause=yes key=yes name=part dbname="part.part" )
+ retrieve="PBSELECT( VERSION(400) TABLE(NAME=~"part~" ) COLUMN(NAME=~"part.part~")WHERE(    EXP1 =~"~~~"part~~~".~~~"part~~~"~"   OP =~"=~"    EXP2 =~":part~" ) ) ARG(NAME = ~"part~" TYPE = string) " update="part" updatewhere=1 updatekeyinplace=no arguments=(("part", string)) )
+column(band=detail id=1 alignment="0" tabsequence=10 border="0" color="8388608" x="18" y="8" height="64" width="1422" format="[general]"  name=part  tag="Part code" edit.limit=25 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-10" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="81324524" )
+htmltable(border="1" cellpadding="0" cellspacing="0" generatecss="no" nowrap="yes")
