@@ -8,7 +8,6 @@ Save Format v3.0(19990112)
  "..\\..\\..\\CustomerFiles\\EEI\\PB10\\Custom\\w_invoice_register_custom.srw" "..\\..\\..\\CustomerFiles\\EEI\\PB10\\Custom\\custom.pbl";
  "..\\..\\..\\CustomerFiles\\EEI\\PB10\\Custom\\w_production_schedule_grid.srw" "..\\..\\..\\CustomerFiles\\EEI\\PB10\\Custom\\custom.pbl";
  "..\\..\\..\\CustomerFiles\\EEI\\PB10\\Custom\\st_print_preview_generic.srs" "..\\..\\..\\CustomerFiles\\EEI\\PB10\\Custom\\custom.pbl";
- "..\\..\\..\\CustomerFiles\\EEI\\PB10\\Custom\\d_dddw_desc_short.srd" "..\\..\\..\\CustomerFiles\\EEI\\PB10\\Custom\\custom.pbl";
  "..\\..\\..\\CustomerFiles\\EEI\\PB10\\Custom\\d_dddw_destination.srd" "..\\..\\..\\CustomerFiles\\EEI\\PB10\\Custom\\custom.pbl";
  "..\\..\\..\\CustomerFiles\\EEI\\PB10\\Custom\\d_dddw_employeepo.srd" "..\\..\\..\\CustomerFiles\\EEI\\PB10\\Custom\\custom.pbl";
  "..\\..\\..\\CustomerFiles\\EEI\\PB10\\Custom\\d_destination_scf.srd" "..\\..\\..\\CustomerFiles\\EEI\\PB10\\Custom\\custom.pbl";
@@ -93,7 +92,6 @@ Save Format v3.0(19990112)
  "..\\..\\..\\CustomerFiles\\EEI\\PB10\\Custom\\w_shipping_dock.srw" "..\\..\\..\\CustomerFiles\\EEI\\PB10\\Custom\\custom.pbl";
  "..\\..\\..\\CustomerFiles\\EEI\\PB10\\Custom\\d_unit_of_measure_list_ec.srd" "..\\..\\..\\CustomerFiles\\EEI\\PB10\\Custom\\custom.pbl";
  "..\\..\\..\\CustomerFiles\\EEI\\PB10\\Custom\\dw_blanket_po_header.srd" "..\\..\\..\\CustomerFiles\\EEI\\PB10\\Custom\\custom.pbl";
- "..\\..\\..\\CustomerFiles\\EEI\\PB10\\Custom\\dw_descriptionshort.srd" "..\\..\\..\\CustomerFiles\\EEI\\PB10\\Custom\\custom.pbl";
  "..\\..\\..\\CustomerFiles\\EEI\\PB10\\Custom\\dw_normal_po_header.srd" "..\\..\\..\\CustomerFiles\\EEI\\PB10\\Custom\\custom.pbl";
  "..\\..\\..\\CustomerFiles\\EEI\\PB10\\Custom\\w_blanketorder_inquiry.srw" "..\\..\\..\\CustomerFiles\\EEI\\PB10\\Custom\\custom.pbl";
  "..\\..\\..\\CustomerFiles\\EEI\\PB10\\Custom\\dw_blanket_order_header.srd" "..\\..\\..\\CustomerFiles\\EEI\\PB10\\Custom\\custom.pbl";
