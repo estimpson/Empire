@@ -1,0 +1,77 @@
+HA$PBExportHeader$m_object_inquiry.srm
+forward
+global type m_object_inquiry from m_inquiry_ancestor
+end type
+end forward
+
+global type m_object_inquiry from m_inquiry_ancestor
+end type
+global m_object_inquiry m_object_inquiry
+
+forward prototypes
+public subroutine mf_switch (integer ai_switch)
+end prototypes
+
+public subroutine mf_switch (integer ai_switch);if ai_switch = 0 then
+	m_file.m_print.Enabled = FALSE	
+	m_edit.m_cancel.Enabled = TRUE
+	m_edit.m_addlocationmachine.Enabled = FALSE
+	m_edit.m_deletelocationmachine.Enabled = FALSE
+	m_edit.m_sort.Enabled = FALSE
+	m_edit.m_filter.Enabled = FALSE
+	m_edit.m_custom1.Enabled = FALSE
+	m_edit.m_dummy2.Enabled = FALSE	
+else
+	m_file.m_print.Enabled = TRUE		
+	m_edit.m_cancel.Enabled = FALSE
+	m_edit.m_addlocationmachine.Enabled = TRUE
+	m_edit.m_deletelocationmachine.Enabled = TRUE
+	m_edit.m_sort.Enabled = TRUE
+	m_edit.m_filter.Enabled = TRUE
+	m_edit.m_custom1.Enabled = TRUE
+	m_edit.m_dummy2.Enabled = TRUE
+end if 	
+end subroutine
+
+on m_object_inquiry.create
+m_object_inquiry=this
+call super::create
+end on
+
+on m_object_inquiry.destroy
+call super::destroy
+end on
+
+event m_custom1::clicked;call super::clicked;w_object_inquiry.TriggerEvent ( "ue_correct" )
+end event
+
+on m_custom1.create
+call super::create
+this.Text="Correct "
+this.Microhelp="Correct Object Information"
+this.ToolBarItemName="DosEdit5!"
+this.ToolBarItemText="Correct"
+this.Visible=true
+this.ToolBarItemOrder=9
+this.ToolBarItemVisible=true
+end on
+
+on m_dummy2.create
+call super::create
+this.Text="&Label"
+this.Microhelp="Print object label"
+this.ToolBarItemName="label.bmp"
+this.ToolBarItemText="Label"
+this.Visible=true
+this.ToolBarItemOrder=10
+this.ToolBarItemVisible=true
+end on
+
+event m_dummy2::clicked;call super::clicked;w_object_inquiry.TriggerEvent ( "ue_label" )
+end event
+
+on m_dummy3.create
+call super::create
+this.ToolBarItemOrder=11
+end on
+

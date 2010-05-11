@@ -1,0 +1,21 @@
+HA$PBExportHeader$f_get_podet_next_seqno.srf
+global type f_get_podet_next_seqno from function_object
+end type
+
+forward prototypes
+global function integer f_get_podet_next_seqno (integer ai_po)
+end prototypes
+
+global function integer f_get_podet_next_seqno (integer ai_po);Integer li_seqno
+
+select next_seqno
+into   :li_seqno
+from po_header
+where po_number = :ai_po ;
+
+if isnull ( li_seqno ) then li_seqno = 1	
+
+return li_seqno
+
+	
+end function
