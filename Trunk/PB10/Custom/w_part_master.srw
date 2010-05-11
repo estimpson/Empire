@@ -1,7 +1,7 @@
 HA$PBExportHeader$w_part_master.srw
 $PBExportComments$Part master maintenance window.
 forward
-global type w_part_master from Window
+global type w_part_master from window
 end type
 type ole_1 from olecontrol within w_part_master
 end type
@@ -13,11 +13,19 @@ type sle_newpart from singlelineedit within tabpage_general
 end type
 type dw_part_general from datawindow within tabpage_general
 end type
+type tabpage_general from userobject within tab_part_master
+sle_newpart sle_newpart
+dw_part_general dw_part_general
+end type
 type tabpage_inventory from userobject within tab_part_master
 end type
 type dw_header_inventory from datawindow within tabpage_inventory
 end type
 type dw_part_inventory from datawindow within tabpage_inventory
+end type
+type tabpage_inventory from userobject within tab_part_master
+dw_header_inventory dw_header_inventory
+dw_part_inventory dw_part_inventory
 end type
 type tabpage_account_codes from userobject within tab_part_master
 end type
@@ -29,6 +37,12 @@ type dw_sales_account from datawindow within tabpage_account_codes
 end type
 type dw_sales_return_account from datawindow within tabpage_account_codes
 end type
+type tabpage_account_codes from userobject within tab_part_master
+dw_header_accounts dw_header_accounts
+dw_payment_account dw_payment_account
+dw_sales_account dw_sales_account
+dw_sales_return_account dw_sales_return_account
+end type
 type tabpage_ecc from userobject within tab_part_master
 end type
 type dw_part_engineering_change_control from u_dw_ecc within tabpage_ecc
@@ -39,23 +53,42 @@ type cb_2 from commandbutton within tabpage_ecc
 end type
 type cb_3 from commandbutton within tabpage_ecc
 end type
+type tabpage_ecc from userobject within tab_part_master
+dw_part_engineering_change_control dw_part_engineering_change_control
+cb_1 cb_1
+cb_2 cb_2
+cb_3 cb_3
+end type
 type tabpage_kanban_inventory from userobject within tab_part_master
 end type
 type dw_kanban_inventory_header from datawindow within tabpage_kanban_inventory
 end type
 type dw_kanban_inventory_details from datawindow within tabpage_kanban_inventory
 end type
+type tabpage_kanban_inventory from userobject within tab_part_master
+dw_kanban_inventory_header dw_kanban_inventory_header
+dw_kanban_inventory_details dw_kanban_inventory_details
+end type
 type tabpage_issues from userobject within tab_part_master
 end type
 type dw_issues from datawindow within tabpage_issues
+end type
+type tabpage_issues from userobject within tab_part_master
+dw_issues dw_issues
 end type
 type tabpage_where_used from userobject within tab_part_master
 end type
 type dw_where_used from datawindow within tabpage_where_used
 end type
+type tabpage_where_used from userobject within tab_part_master
+dw_where_used dw_where_used
+end type
 type tabpage_custom from userobject within tab_part_master
 end type
 type dw_part_eecustom from datawindow within tabpage_custom
+end type
+type tabpage_custom from userobject within tab_part_master
+dw_part_eecustom dw_part_eecustom
 end type
 type tabpage_csm from userobject within tab_part_master
 end type
@@ -75,27 +108,15 @@ type dw_csm_selectedmnemonics from datawindow within tabpage_csm
 end type
 type dw_csm_header from datawindow within tabpage_csm
 end type
-type tabpage_csmold from userobject within tab_part_master
-end type
-type cbx_1 from checkbox within tabpage_csmold
-end type
-type st_4 from statictext within tabpage_csmold
-end type
-type dw_csmdatareport from datawindow within tabpage_csmold
-end type
-type cb_6 from commandbutton within tabpage_csmold
-end type
-type cb_5 from commandbutton within tabpage_csmold
-end type
-type cb_4 from commandbutton within tabpage_csmold
-end type
-type st_3 from statictext within tabpage_csmold
-end type
-type dw_part_header from datawindow within tabpage_csmold
-end type
-type dw_csmprogrameeipart from datawindow within tabpage_csmold
-end type
-type dw_csmplatforms from datawindow within tabpage_csmold
+type tabpage_csm from userobject within tab_part_master
+sle_mnemoic_search sle_mnemoic_search
+st_5 st_5
+cb_drop cb_drop
+dw_2 dw_2
+dw_csm_unselectedmnemonics dw_csm_unselectedmnemonics
+cb_add cb_add
+dw_csm_selectedmnemonics dw_csm_selectedmnemonics
+dw_csm_header dw_csm_header
 end type
 type tabpage_njb from userobject within tab_part_master
 end type
@@ -108,65 +129,6 @@ end type
 type cb_7 from commandbutton within tabpage_njb
 end type
 type dwpartnjbsetups from datawindow within tabpage_njb
-end type
-type st_2 from statictext within w_part_master
-end type
-type st_1 from statictext within w_part_master
-end type
-type tabpage_general from userobject within tab_part_master
-sle_newpart sle_newpart
-dw_part_general dw_part_general
-end type
-type tabpage_inventory from userobject within tab_part_master
-dw_header_inventory dw_header_inventory
-dw_part_inventory dw_part_inventory
-end type
-type tabpage_account_codes from userobject within tab_part_master
-dw_header_accounts dw_header_accounts
-dw_payment_account dw_payment_account
-dw_sales_account dw_sales_account
-dw_sales_return_account dw_sales_return_account
-end type
-type tabpage_ecc from userobject within tab_part_master
-dw_part_engineering_change_control dw_part_engineering_change_control
-cb_1 cb_1
-cb_2 cb_2
-cb_3 cb_3
-end type
-type tabpage_kanban_inventory from userobject within tab_part_master
-dw_kanban_inventory_header dw_kanban_inventory_header
-dw_kanban_inventory_details dw_kanban_inventory_details
-end type
-type tabpage_issues from userobject within tab_part_master
-dw_issues dw_issues
-end type
-type tabpage_where_used from userobject within tab_part_master
-dw_where_used dw_where_used
-end type
-type tabpage_custom from userobject within tab_part_master
-dw_part_eecustom dw_part_eecustom
-end type
-type tabpage_csm from userobject within tab_part_master
-sle_mnemoic_search sle_mnemoic_search
-st_5 st_5
-cb_drop cb_drop
-dw_2 dw_2
-dw_csm_unselectedmnemonics dw_csm_unselectedmnemonics
-cb_add cb_add
-dw_csm_selectedmnemonics dw_csm_selectedmnemonics
-dw_csm_header dw_csm_header
-end type
-type tabpage_csmold from userobject within tab_part_master
-cbx_1 cbx_1
-st_4 st_4
-dw_csmdatareport dw_csmdatareport
-cb_6 cb_6
-cb_5 cb_5
-cb_4 cb_4
-st_3 st_3
-dw_part_header dw_part_header
-dw_csmprogrameeipart dw_csmprogrameeipart
-dw_csmplatforms dw_csmplatforms
 end type
 type tabpage_njb from userobject within tab_part_master
 dwpartnjb dwpartnjb
@@ -185,8 +147,11 @@ tabpage_issues tabpage_issues
 tabpage_where_used tabpage_where_used
 tabpage_custom tabpage_custom
 tabpage_csm tabpage_csm
-tabpage_csmold tabpage_csmold
 tabpage_njb tabpage_njb
+end type
+type st_2 from statictext within w_part_master
+end type
+type st_1 from statictext within w_part_master
 end type
 end forward
 
@@ -194,18 +159,18 @@ shared variables
 
 end variables
 
-global type w_part_master from Window
-int X=14
-int Y=16
-int Width=4055
-int Height=2004
-boolean TitleBar=true
-string Title="Part Master"
-long BackColor=78682240
-boolean ControlMenu=true
-boolean MinBox=true
-boolean MaxBox=true
-boolean Resizable=true
+global type w_part_master from window
+integer x = 14
+integer y = 16
+integer width = 4055
+integer height = 2004
+boolean titlebar = true
+string title = "Part Master"
+boolean controlmenu = true
+boolean minbox = true
+boolean maxbox = true
+boolean resizable = true
+long backcolor = 78682240
 event new_part ( )
 event save_part ( )
 event exit_routine ( )
@@ -765,39 +730,40 @@ END IF
 end event
 
 type ole_1 from olecontrol within w_part_master
-int X=2025
-int Y=360
-int Width=192
-int Height=224
-int TabOrder=20
-boolean Visible=false
-boolean Enabled=false
-BorderStyle BorderStyle=StyleLowered!
-boolean FocusRectangle=false
-omActivation Activation=ActivateOnDoubleClick!
-omContentsAllowed ContentsAllowed=ContainsAny!
-omDisplayType DisplayType=DisplayAsContent!
+boolean visible = false
+integer x = 2025
+integer y = 360
+integer width = 192
+integer height = 224
+integer taborder = 20
+boolean enabled = false
+borderstyle borderstyle = stylelowered!
+boolean focusrectangle = false
+string binarykey = "w_part_master.win"
+omactivation activation = activateondoubleclick!
+omdisplaytype displaytype = displayascontent!
+omcontentsallowed contentsallowed = containsany!
 end type
 
 type tab_part_master from tab within w_part_master
 event create ( )
 event destroy ( )
-int X=14
-int Y=8
-int Width=3813
-int Height=1688
-int TabOrder=10
-boolean MultiLine=true
-boolean PowerTips=true
-boolean RaggedRight=true
-int SelectedTab=1
-long BackColor=81324524
-int TextSize=-8
-int Weight=400
-string FaceName="MS Sans Serif"
-FontCharSet FontCharSet=Ansi!
-FontFamily FontFamily=Swiss!
-FontPitch FontPitch=Variable!
+integer x = 14
+integer y = 8
+integer width = 3813
+integer height = 1688
+integer taborder = 10
+integer textsize = -8
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "MS Sans Serif"
+long backcolor = 81324524
+boolean multiline = true
+boolean raggedright = true
+boolean powertips = true
+integer selectedtab = 1
 tabpage_general tabpage_general
 tabpage_inventory tabpage_inventory
 tabpage_account_codes tabpage_account_codes
@@ -807,7 +773,6 @@ tabpage_issues tabpage_issues
 tabpage_where_used tabpage_where_used
 tabpage_custom tabpage_custom
 tabpage_csm tabpage_csm
-tabpage_csmold tabpage_csmold
 tabpage_njb tabpage_njb
 end type
 
@@ -821,7 +786,6 @@ this.tabpage_issues=create tabpage_issues
 this.tabpage_where_used=create tabpage_where_used
 this.tabpage_custom=create tabpage_custom
 this.tabpage_csm=create tabpage_csm
-this.tabpage_csmold=create tabpage_csmold
 this.tabpage_njb=create tabpage_njb
 this.Control[]={this.tabpage_general,&
 this.tabpage_inventory,&
@@ -832,7 +796,6 @@ this.tabpage_issues,&
 this.tabpage_where_used,&
 this.tabpage_custom,&
 this.tabpage_csm,&
-this.tabpage_csmold,&
 this.tabpage_njb}
 end on
 
@@ -846,7 +809,6 @@ destroy(this.tabpage_issues)
 destroy(this.tabpage_where_used)
 destroy(this.tabpage_custom)
 destroy(this.tabpage_csm)
-destroy(this.tabpage_csmold)
 destroy(this.tabpage_njb)
 end on
 
@@ -861,15 +823,15 @@ end event
 type tabpage_general from userobject within tab_part_master
 event create ( )
 event destroy ( )
-int X=18
-int Y=152
-int Width=3776
-int Height=1520
-long BackColor=79741120
-string Text="General"
-long TabBackColor=79741120
-long TabTextColor=33554432
-long PictureMaskColor=536870912
+integer x = 18
+integer y = 152
+integer width = 3776
+integer height = 1520
+long backcolor = 79741120
+string text = "General"
+long tabtextcolor = 33554432
+long tabbackcolor = 79741120
+long picturemaskcolor = 536870912
 sle_newpart sle_newpart
 dw_part_general dw_part_general
 end type
@@ -887,22 +849,22 @@ destroy(this.dw_part_general)
 end on
 
 type sle_newpart from singlelineedit within tabpage_general
-int X=827
-int Y=32
-int Width=846
-int Height=80
-int TabOrder=20
-boolean Visible=false
-BorderStyle BorderStyle=StyleLowered!
-boolean AutoHScroll=false
-TextCase TextCase=Upper!
-long TextColor=33554432
-int TextSize=-10
-int Weight=400
-string FaceName="Arial"
-FontCharSet FontCharSet=Ansi!
-FontFamily FontFamily=Swiss!
-FontPitch FontPitch=Variable!
+boolean visible = false
+integer x = 827
+integer y = 32
+integer width = 846
+integer height = 80
+integer taborder = 20
+integer textsize = -10
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long textcolor = 33554432
+boolean autohscroll = false
+textcase textcase = upper!
+borderstyle borderstyle = stylelowered!
 end type
 
 event modified;if text > '' and len(trim(text)) > 0 then 
@@ -980,13 +942,13 @@ type dw_part_general from datawindow within tabpage_general
 event editchanged pbm_dwnchanging
 event itemfocuschanged pbm_dwnitemchangefocus
 event losefocus pbm_dwnkillfocus
-int Y=16
-int Width=1970
-int Height=1180
-int TabOrder=20
-boolean BringToTop=true
-string DataObject="d_part_master_general"
-boolean Border=false
+integer y = 16
+integer width = 1970
+integer height = 1180
+integer taborder = 20
+boolean bringtotop = true
+string dataobject = "d_part_master_general"
+boolean border = false
 end type
 
 event constructor;SetTransObject ( SQLCA )
@@ -1096,15 +1058,15 @@ end event
 type tabpage_inventory from userobject within tab_part_master
 event create ( )
 event destroy ( )
-int X=18
-int Y=152
-int Width=3776
-int Height=1520
-long BackColor=79741120
-string Text="Inventory"
-long TabBackColor=79741120
-long TabTextColor=33554432
-long PictureMaskColor=536870912
+integer x = 18
+integer y = 152
+integer width = 3776
+integer height = 1520
+long backcolor = 79741120
+string text = "Inventory"
+long tabtextcolor = 33554432
+long tabbackcolor = 79741120
+long picturemaskcolor = 536870912
 dw_header_inventory dw_header_inventory
 dw_part_inventory dw_part_inventory
 end type
@@ -1122,29 +1084,29 @@ destroy(this.dw_part_inventory)
 end on
 
 type dw_header_inventory from datawindow within tabpage_inventory
-int X=55
-int Y=72
-int Width=1998
-int Height=304
-int TabOrder=30
-boolean BringToTop=true
-string DataObject="d_part_heading"
-boolean Border=false
-boolean LiveScroll=true
+integer x = 55
+integer y = 72
+integer width = 1998
+integer height = 304
+integer taborder = 30
+boolean bringtotop = true
+string dataobject = "d_part_heading"
+boolean border = false
+boolean livescroll = true
 end type
 
 event constructor;tab_part_master.tabpage_general.dw_part_general.ShareData ( this )
 end event
 
 type dw_part_inventory from datawindow within tabpage_inventory
-int X=78
-int Y=364
-int Width=1623
-int Height=792
-int TabOrder=30
-string DataObject="d_part_master_inventory"
-boolean Border=false
-boolean LiveScroll=true
+integer x = 78
+integer y = 364
+integer width = 1623
+integer height = 792
+integer taborder = 30
+string dataobject = "d_part_master_inventory"
+boolean border = false
+boolean livescroll = true
 end type
 
 event constructor;SetTransObject ( SQLCA )
@@ -1161,15 +1123,15 @@ END IF
 end event
 
 type tabpage_account_codes from userobject within tab_part_master
-int X=18
-int Y=152
-int Width=3776
-int Height=1520
-long BackColor=79741120
-string Text="A/C Codes"
-long TabBackColor=79741120
-long TabTextColor=33554432
-long PictureMaskColor=536870912
+integer x = 18
+integer y = 152
+integer width = 3776
+integer height = 1520
+long backcolor = 79741120
+string text = "A/C Codes"
+long tabtextcolor = 33554432
+long tabbackcolor = 79741120
+long picturemaskcolor = 536870912
 dw_header_accounts dw_header_accounts
 dw_payment_account dw_payment_account
 dw_sales_account dw_sales_account
@@ -1195,29 +1157,29 @@ destroy(this.dw_sales_return_account)
 end on
 
 type dw_header_accounts from datawindow within tabpage_account_codes
-int X=160
-int Y=60
-int Width=1998
-int Height=308
-int TabOrder=30
-boolean BringToTop=true
-string DataObject="d_part_heading"
-boolean Border=false
-boolean LiveScroll=true
+integer x = 160
+integer y = 60
+integer width = 1998
+integer height = 308
+integer taborder = 30
+boolean bringtotop = true
+string dataobject = "d_part_heading"
+boolean border = false
+boolean livescroll = true
 end type
 
 event constructor;tab_part_master.tabpage_general.dw_part_general.ShareData ( this )
 end event
 
 type dw_payment_account from datawindow within tabpage_account_codes
-int X=174
-int Y=368
-int Width=1518
-int Height=80
-int TabOrder=40
-string DataObject="d_part_master_payment_account"
-boolean Border=false
-boolean LiveScroll=true
+integer x = 174
+integer y = 368
+integer width = 1518
+integer height = 80
+integer taborder = 40
+string dataobject = "d_part_master_payment_account"
+boolean border = false
+boolean livescroll = true
 end type
 
 event constructor;SetTransObject ( SQLCA )
@@ -1233,14 +1195,14 @@ END IF
 end event
 
 type dw_sales_account from datawindow within tabpage_account_codes
-int X=114
-int Y=456
-int Width=1426
-int Height=92
-int TabOrder=40
-string DataObject="d_part_master_sales_account"
-boolean Border=false
-boolean LiveScroll=true
+integer x = 114
+integer y = 456
+integer width = 1426
+integer height = 92
+integer taborder = 40
+string dataobject = "d_part_master_sales_account"
+boolean border = false
+boolean livescroll = true
 end type
 
 event constructor;tab_part_master.tabpage_general.dw_part_general.ShareData ( this )
@@ -1250,15 +1212,15 @@ event itemchanged;i_b_modified = TRUE
 end event
 
 type dw_sales_return_account from datawindow within tabpage_account_codes
-int X=114
-int Y=552
-int Width=1426
-int Height=92
-int TabOrder=50
-boolean BringToTop=true
-string DataObject="d_part_eecsalesreturnaccount"
-boolean Border=false
-boolean LiveScroll=true
+integer x = 114
+integer y = 552
+integer width = 1426
+integer height = 92
+integer taborder = 50
+boolean bringtotop = true
+string dataobject = "d_part_eecsalesreturnaccount"
+boolean border = false
+boolean livescroll = true
 end type
 
 event constructor;settransobject(sqlca)
@@ -1268,15 +1230,15 @@ event itemchanged;i_b_modified = TRUE
 end event
 
 type tabpage_ecc from userobject within tab_part_master
-int X=18
-int Y=152
-int Width=3776
-int Height=1520
-long BackColor=79741120
-string Text="Eng. Change"
-long TabBackColor=79741120
-long TabTextColor=33554432
-long PictureMaskColor=536870912
+integer x = 18
+integer y = 152
+integer width = 3776
+integer height = 1520
+long backcolor = 79741120
+string text = "Eng. Change"
+long tabtextcolor = 33554432
+long tabbackcolor = 79741120
+long picturemaskcolor = 536870912
 dw_part_engineering_change_control dw_part_engineering_change_control
 cb_1 cb_1
 cb_2 cb_2
@@ -1302,13 +1264,13 @@ destroy(this.cb_3)
 end on
 
 type dw_part_engineering_change_control from u_dw_ecc within tabpage_ecc
-int X=18
-int Y=48
-int Width=1888
-int Height=860
-int TabOrder=20
-boolean BringToTop=true
-boolean VScrollBar=false
+integer x = 18
+integer y = 48
+integer width = 1888
+integer height = 860
+integer taborder = 20
+boolean bringtotop = true
+boolean vscrollbar = false
 end type
 
 event clicked;call super::clicked;il_clickedrow = row
@@ -1318,18 +1280,18 @@ event dberror;//return 1
 end event
 
 type cb_1 from commandbutton within tabpage_ecc
-int X=18
-int Y=940
-int Width=389
-int Height=92
-int TabOrder=70
-string Text="&Save"
-int TextSize=-8
-int Weight=400
-string FaceName="MS Sans Serif"
-FontCharSet FontCharSet=Ansi!
-FontFamily FontFamily=Swiss!
-FontPitch FontPitch=Variable!
+integer x = 18
+integer y = 940
+integer width = 389
+integer height = 92
+integer taborder = 70
+integer textsize = -8
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "MS Sans Serif"
+string text = "&Save"
 end type
 
 event clicked;tab_part_master.tabpage_ecc.dw_part_engineering_change_control.Update ( )
@@ -1337,18 +1299,18 @@ tab_part_master.tabpage_ecc.dw_part_engineering_change_control.Retrieve ( i_s_pa
 end event
 
 type cb_2 from commandbutton within tabpage_ecc
-int X=430
-int Y=940
-int Width=389
-int Height=92
-int TabOrder=60
-string Text="&Add"
-int TextSize=-8
-int Weight=400
-string FaceName="MS Sans Serif"
-FontCharSet FontCharSet=Ansi!
-FontFamily FontFamily=Swiss!
-FontPitch FontPitch=Variable!
+integer x = 430
+integer y = 940
+integer width = 389
+integer height = 92
+integer taborder = 60
+integer textsize = -8
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "MS Sans Serif"
+string text = "&Add"
 end type
 
 event clicked;tab_part_master.tabpage_ecc.dw_part_engineering_change_control.InsertRow ( 1 )
@@ -1360,18 +1322,18 @@ tab_part_master.tabpage_ecc.dw_part_engineering_change_control.SetFocus ( )
 end event
 
 type cb_3 from commandbutton within tabpage_ecc
-int X=846
-int Y=940
-int Width=389
-int Height=92
-int TabOrder=50
-string Text="&Delete"
-int TextSize=-8
-int Weight=400
-string FaceName="MS Sans Serif"
-FontCharSet FontCharSet=Ansi!
-FontFamily FontFamily=Swiss!
-FontPitch FontPitch=Variable!
+integer x = 846
+integer y = 940
+integer width = 389
+integer height = 92
+integer taborder = 50
+integer textsize = -8
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "MS Sans Serif"
+string text = "&Delete"
 end type
 
 event clicked;datetime	ldt_effectivedate
@@ -1386,15 +1348,15 @@ tab_part_master.tabpage_ecc.dw_part_engineering_change_control.DeleteRow ( il_cl
 end event
 
 type tabpage_kanban_inventory from userobject within tab_part_master
-int X=18
-int Y=152
-int Width=3776
-int Height=1520
-long BackColor=79741120
-string Text="Kanban Inv."
-long TabBackColor=79741120
-long TabTextColor=33554432
-long PictureMaskColor=536870912
+integer x = 18
+integer y = 152
+integer width = 3776
+integer height = 1520
+long backcolor = 79741120
+string text = "Kanban Inv."
+long tabtextcolor = 33554432
+long tabbackcolor = 79741120
+long picturemaskcolor = 536870912
 dw_kanban_inventory_header dw_kanban_inventory_header
 dw_kanban_inventory_details dw_kanban_inventory_details
 end type
@@ -1412,28 +1374,28 @@ destroy(this.dw_kanban_inventory_details)
 end on
 
 type dw_kanban_inventory_header from datawindow within tabpage_kanban_inventory
-int X=55
-int Y=76
-int Width=2002
-int Height=292
-int TabOrder=40
-string DataObject="d_part_heading"
-boolean Border=false
-boolean LiveScroll=true
+integer x = 55
+integer y = 76
+integer width = 2002
+integer height = 292
+integer taborder = 40
+string dataobject = "d_part_heading"
+boolean border = false
+boolean livescroll = true
 end type
 
 event constructor;tab_part_master.tabpage_general.dw_part_general.ShareData ( this )
 end event
 
 type dw_kanban_inventory_details from datawindow within tabpage_kanban_inventory
-int X=146
-int Y=380
-int Width=1893
-int Height=516
-int TabOrder=50
-string DataObject="d_kanban_inventory_details"
-boolean Border=false
-boolean LiveScroll=true
+integer x = 146
+integer y = 380
+integer width = 1893
+integer height = 516
+integer taborder = 50
+string dataobject = "d_kanban_inventory_details"
+boolean border = false
+boolean livescroll = true
 end type
 
 event constructor;SetTransObject (SQLCA)
@@ -1482,15 +1444,15 @@ event retrievestart;//i_dwc_vendor.SetTransObject ( SQLCA )
 end event
 
 type tabpage_issues from userobject within tab_part_master
-int X=18
-int Y=152
-int Width=3776
-int Height=1520
-long BackColor=79741120
-string Text="Issues"
-long TabBackColor=79741120
-long TabTextColor=33554432
-long PictureMaskColor=536870912
+integer x = 18
+integer y = 152
+integer width = 3776
+integer height = 1520
+long backcolor = 79741120
+string text = "Issues"
+long tabtextcolor = 33554432
+long tabbackcolor = 79741120
+long picturemaskcolor = 536870912
 dw_issues dw_issues
 end type
 
@@ -1504,16 +1466,16 @@ destroy(this.dw_issues)
 end on
 
 type dw_issues from datawindow within tabpage_issues
-int Y=12
-int Width=3049
-int Height=1168
-int TabOrder=20
-string DataObject="d_issues_list"
-BorderStyle BorderStyle=StyleLowered!
-boolean HScrollBar=true
-boolean VScrollBar=true
-boolean HSplitScroll=true
-boolean LiveScroll=true
+integer y = 12
+integer width = 3049
+integer height = 1168
+integer taborder = 20
+string dataobject = "d_issues_list"
+boolean hscrollbar = true
+boolean vscrollbar = true
+boolean hsplitscroll = true
+boolean livescroll = true
+borderstyle borderstyle = stylelowered!
 end type
 
 event clicked;if row > 0 then
@@ -1536,14 +1498,14 @@ end if
 end event
 
 type tabpage_where_used from userobject within tab_part_master
-int X=18
-int Y=152
-int Width=3776
-int Height=1520
-long BackColor=81324524
-string Text="Where ~r~nUsed"
-long TabBackColor=81324524
-long PictureMaskColor=536870912
+integer x = 18
+integer y = 152
+integer width = 3776
+integer height = 1520
+long backcolor = 81324524
+string text = "Where ~r~nUsed"
+long tabbackcolor = 81324524
+long picturemaskcolor = 536870912
 dw_where_used dw_where_used
 end type
 
@@ -1557,30 +1519,30 @@ destroy(this.dw_where_used)
 end on
 
 type dw_where_used from datawindow within tabpage_where_used
-int Y=24
-int Width=3081
-int Height=1148
-int TabOrder=30
-string DataObject="d_bom_where_used"
-BorderStyle BorderStyle=StyleLowered!
-boolean HScrollBar=true
-boolean VScrollBar=true
-boolean LiveScroll=true
+integer y = 24
+integer width = 3081
+integer height = 1148
+integer taborder = 30
+string dataobject = "d_bom_where_used"
+boolean hscrollbar = true
+boolean vscrollbar = true
+boolean livescroll = true
+borderstyle borderstyle = stylelowered!
 end type
 
 event constructor;settransobject(sqlca)
 end event
 
 type tabpage_custom from userobject within tab_part_master
-int X=18
-int Y=152
-int Width=3776
-int Height=1520
-long BackColor=81324524
-string Text="Empire~r~nCustom"
-long TabBackColor=16777215
-long TabTextColor=16711680
-long PictureMaskColor=536870912
+integer x = 18
+integer y = 152
+integer width = 3776
+integer height = 1520
+long backcolor = 81324524
+string text = "Empire~r~nCustom"
+long tabtextcolor = 16711680
+long tabbackcolor = 16777215
+long picturemaskcolor = 536870912
 dw_part_eecustom dw_part_eecustom
 end type
 
@@ -1595,14 +1557,14 @@ end on
 
 type dw_part_eecustom from datawindow within tabpage_custom
 event ue_rightclicked pbm_rbuttondown
-int X=14
-int Y=24
-int Width=3063
-int Height=1564
-int TabOrder=50
-string DataObject="d_part_eecustom"
-BorderStyle BorderStyle=StyleLowered!
-boolean HScrollBar=true
+integer x = 14
+integer y = 24
+integer width = 3063
+integer height = 1564
+integer taborder = 50
+string dataobject = "d_part_eecustom"
+boolean hscrollbar = true
+borderstyle borderstyle = stylelowered!
 end type
 
 event ue_rightclicked;String l_s_link, &
@@ -1663,16 +1625,16 @@ end if
 end event
 
 type tabpage_csm from userobject within tab_part_master
-int X=18
-int Y=152
-int Width=3776
-int Height=1520
-long BackColor=82899184
-string Text="CSM"
-long TabBackColor=16777215
-long TabTextColor=16711680
-long PictureMaskColor=553648127
-string PictureName="Graph!"
+integer x = 18
+integer y = 152
+integer width = 3776
+integer height = 1520
+long backcolor = 82899184
+string text = "CSM"
+long tabtextcolor = 16711680
+long tabbackcolor = 16777215
+string picturename = "Graph!"
+long picturemaskcolor = 553648127
 sle_mnemoic_search sle_mnemoic_search
 st_5 st_5
 cb_drop cb_drop
@@ -1714,20 +1676,20 @@ destroy(this.dw_csm_header)
 end on
 
 type sle_mnemoic_search from singlelineedit within tabpage_csm
-int X=288
-int Y=1400
-int Width=1143
-int Height=100
-int TabOrder=90
-BorderStyle BorderStyle=StyleLowered!
-boolean AutoHScroll=false
-long TextColor=33554432
-int TextSize=-8
-int Weight=400
-string FaceName="MS Sans Serif"
-FontCharSet FontCharSet=Ansi!
-FontFamily FontFamily=Swiss!
-FontPitch FontPitch=Variable!
+integer x = 288
+integer y = 1400
+integer width = 1143
+integer height = 100
+integer taborder = 90
+integer textsize = -8
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "MS Sans Serif"
+long textcolor = 33554432
+boolean autohscroll = false
+borderstyle borderstyle = stylelowered!
 end type
 
 event modified;
@@ -1756,37 +1718,38 @@ dw_csm_unselectedmnemonics.Sort()
 dw_csm_unselectedmnemonics.SetRedraw(true)
 
 end event
+
 type st_5 from statictext within tabpage_csm
-int X=91
-int Y=1408
-int Width=229
-int Height=80
-boolean Enabled=false
-string Text="Search:"
-boolean FocusRectangle=false
-long TextColor=33554432
-long BackColor=67108864
-int TextSize=-8
-int Weight=400
-string FaceName="MS Sans Serif"
-FontCharSet FontCharSet=Ansi!
-FontFamily FontFamily=Swiss!
-FontPitch FontPitch=Variable!
+integer x = 91
+integer y = 1408
+integer width = 229
+integer height = 80
+integer textsize = -8
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "MS Sans Serif"
+long textcolor = 33554432
+long backcolor = 67108864
+boolean enabled = false
+string text = "Search:"
+boolean focusrectangle = false
 end type
 
 type cb_drop from commandbutton within tabpage_csm
-int X=3465
-int Y=908
-int Width=293
-int Height=116
-int TabOrder=80
-string Text="<-- DROP /"
-int TextSize=-8
-int Weight=400
-string FaceName="MS Sans Serif"
-FontCharSet FontCharSet=Ansi!
-FontFamily FontFamily=Swiss!
-FontPitch FontPitch=Variable!
+integer x = 3465
+integer y = 908
+integer width = 293
+integer height = 116
+integer taborder = 80
+integer textsize = -8
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "MS Sans Serif"
+string text = "<-- DROP /"
 end type
 
 event clicked;
@@ -1807,31 +1770,31 @@ dw_csm_unselectedmnemonics.Retrieve(basePart)
 end event
 
 type dw_2 from datawindow within tabpage_csm
-int X=311
-int Y=1540
-int Width=2967
-int Height=612
-int TabOrder=90
-string DataObject="d_csm_selectedmnemonics"
-BorderStyle BorderStyle=StyleLowered!
-boolean HScrollBar=true
-boolean VScrollBar=true
-boolean HSplitScroll=true
-boolean LiveScroll=true
+integer x = 311
+integer y = 1540
+integer width = 2967
+integer height = 612
+integer taborder = 90
+string dataobject = "d_csm_selectedmnemonics"
+boolean hscrollbar = true
+boolean vscrollbar = true
+boolean hsplitscroll = true
+boolean livescroll = true
+borderstyle borderstyle = stylelowered!
 end type
 
 type dw_csm_unselectedmnemonics from datawindow within tabpage_csm
-int X=288
-int Y=908
-int Width=3150
-int Height=480
-int TabOrder=70
-string DataObject="d_csm_unselectedmnemonics"
-BorderStyle BorderStyle=StyleLowered!
-boolean HScrollBar=true
-boolean VScrollBar=true
-boolean HSplitScroll=true
-boolean LiveScroll=true
+integer x = 288
+integer y = 908
+integer width = 3150
+integer height = 480
+integer taborder = 70
+string dataobject = "d_csm_unselectedmnemonics"
+boolean hscrollbar = true
+boolean vscrollbar = true
+boolean hsplitscroll = true
+boolean livescroll = true
+borderstyle borderstyle = stylelowered!
 end type
 
 event constructor;
@@ -1852,17 +1815,17 @@ sle_mnemoic_search.Text=""
 end event
 
 type cb_add from commandbutton within tabpage_csm
-int Y=908
-int Width=261
-int Height=116
-int TabOrder=60
-string Text="^-- ADD"
-int TextSize=-8
-int Weight=400
-string FaceName="MS Sans Serif"
-FontCharSet FontCharSet=Ansi!
-FontFamily FontFamily=Swiss!
-FontPitch FontPitch=Variable!
+integer y = 908
+integer width = 261
+integer height = 116
+integer taborder = 60
+integer textsize = -8
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "MS Sans Serif"
+string text = "^-- ADD"
 end type
 
 event clicked;
@@ -1910,16 +1873,16 @@ dw_csm_unselectedmnemonics.Retrieve(basePart)
 end event
 
 type dw_csm_selectedmnemonics from datawindow within tabpage_csm
-int Y=328
-int Width=3758
-int Height=556
-int TabOrder=50
-string DataObject="d_csm_selectedmnemonics"
-BorderStyle BorderStyle=StyleLowered!
-boolean HScrollBar=true
-boolean VScrollBar=true
-boolean HSplitScroll=true
-boolean LiveScroll=true
+integer y = 328
+integer width = 3758
+integer height = 556
+integer taborder = 50
+string dataobject = "d_csm_selectedmnemonics"
+boolean hscrollbar = true
+boolean vscrollbar = true
+boolean hsplitscroll = true
+boolean livescroll = true
+borderstyle borderstyle = stylelowered!
 end type
 
 event constructor;
@@ -1935,15 +1898,15 @@ end if
 end event
 
 type dw_csm_header from datawindow within tabpage_csm
-int Y=16
-int Width=3758
-int Height=288
-int TabOrder=50
-string DataObject="d_csm_header"
-BorderStyle BorderStyle=StyleLowered!
-boolean HScrollBar=true
-boolean VScrollBar=true
-boolean LiveScroll=true
+integer y = 16
+integer width = 3758
+integer height = 288
+integer taborder = 50
+string dataobject = "d_csm_header"
+boolean hscrollbar = true
+boolean vscrollbar = true
+boolean livescroll = true
+borderstyle borderstyle = stylelowered!
 end type
 
 event constructor;
@@ -1964,372 +1927,17 @@ end choose
 
 end event
 
-type tabpage_csmold from userobject within tab_part_master
-int X=18
-int Y=152
-int Width=3776
-int Height=1520
-boolean Visible=false
-long BackColor=82899184
-string Text="CSM"
-long TabBackColor=16777215
-long TabTextColor=16711680
-long PictureMaskColor=553648127
-string PictureName="Graph!"
-cbx_1 cbx_1
-st_4 st_4
-dw_csmdatareport dw_csmdatareport
-cb_6 cb_6
-cb_5 cb_5
-cb_4 cb_4
-st_3 st_3
-dw_part_header dw_part_header
-dw_csmprogrameeipart dw_csmprogrameeipart
-dw_csmplatforms dw_csmplatforms
-end type
-
-on tabpage_csmold.create
-this.cbx_1=create cbx_1
-this.st_4=create st_4
-this.dw_csmdatareport=create dw_csmdatareport
-this.cb_6=create cb_6
-this.cb_5=create cb_5
-this.cb_4=create cb_4
-this.st_3=create st_3
-this.dw_part_header=create dw_part_header
-this.dw_csmprogrameeipart=create dw_csmprogrameeipart
-this.dw_csmplatforms=create dw_csmplatforms
-this.Control[]={this.cbx_1,&
-this.st_4,&
-this.dw_csmdatareport,&
-this.cb_6,&
-this.cb_5,&
-this.cb_4,&
-this.st_3,&
-this.dw_part_header,&
-this.dw_csmprogrameeipart,&
-this.dw_csmplatforms}
-end on
-
-on tabpage_csmold.destroy
-destroy(this.cbx_1)
-destroy(this.st_4)
-destroy(this.dw_csmdatareport)
-destroy(this.cb_6)
-destroy(this.cb_5)
-destroy(this.cb_4)
-destroy(this.st_3)
-destroy(this.dw_part_header)
-destroy(this.dw_csmprogrameeipart)
-destroy(this.dw_csmplatforms)
-end on
-
-type cbx_1 from checkbox within tabpage_csmold
-int X=1595
-int Y=16
-int Width=553
-int Height=80
-string Text="Active Revision Level "
-BorderStyle BorderStyle=StyleLowered!
-boolean LeftText=true
-long TextColor=33554432
-long BackColor=81324524
-int TextSize=-8
-int Weight=400
-string FaceName="MS Sans Serif"
-FontCharSet FontCharSet=Ansi!
-FontFamily FontFamily=Swiss!
-FontPitch FontPitch=Variable!
-end type
-
-event clicked;//cbx_1 Set CurrentRevLevel for all other base parts for this part to NULL when Clicked and Set This part to 'Y'
-
-string	ls_Part
-ls_Part = dw_part_header.object.part[1]
-if checked then
-	update 	part_eecustom 
-	set 	currentRevLevel = 'Y' 
-	where	part = :ls_Part;
-	
-	if SQLCA.SQLCode <> 0 then
-		Rollback;
-		messagebox ('Message', 'Update Failed')
-	end if
-		
-	
-	string ls_BasePart
-	ls_BasePart = left (ls_Part, pos (ls_Part,'-')-1)
-	
-	if len (ls_BasePart) = 7 then
-		update 	part_eecustom 
-		set 	currentRevLevel = 'N' 
-		where	part like :ls_BasePart + '%' and
-			part != :ls_Part;
-		
-		if SQLCA.SQLCode <> 0 then
-			Rollback;
-			messagebox ('Message', 'Update Failed')
-		else
-			Commit;
-			messagebox ('Message', 'Update Success')
-		end if
-	end if
-	
-else
-	update 	part_eecustom 
-	set 	currentRevLevel = 'N' 
-	where	part = :ls_Part;
-	
-	if SQLCA.SQLCode <> 0 then
-		Rollback;
-		messagebox ('Message', 'Update Failed')
-	else
-		Commit;
-		messagebox ('Message', 'Update Success')
-	end if
-	
-	
-end if
-
-end event
-
-type st_4 from statictext within tabpage_csmold
-int X=1477
-int Y=128
-int Width=1257
-int Height=80
-boolean Enabled=false
-boolean Border=true
-string Text="CSM Vehicle Data Associated to Monitor Part"
-boolean FocusRectangle=false
-long TextColor=8388608
-long BackColor=67108864
-int TextSize=-7
-int Weight=700
-string FaceName="MS Sans Serif"
-FontCharSet FontCharSet=Ansi!
-FontFamily FontFamily=Swiss!
-FontPitch FontPitch=Variable!
-end type
-
-type dw_csmdatareport from datawindow within tabpage_csmold
-int X=1504
-int Y=1316
-int Width=686
-int Height=500
-int TabOrder=90
-boolean Visible=false
-string DataObject="dw_report_csmprogram_eeipart"
-BorderStyle BorderStyle=StyleLowered!
-boolean LiveScroll=true
-end type
-
-event constructor;SetTransObject ( SQLCA )
-end event
-
-type cb_6 from commandbutton within tabpage_csmold
-int X=3150
-int Y=8
-int Width=603
-int Height=108
-int TabOrder=30
-string Text="Print CSM Data"
-int TextSize=-7
-int Weight=400
-string FaceName="MS Sans Serif"
-FontCharSet FontCharSet=Ansi!
-FontFamily FontFamily=Swiss!
-FontPitch FontPitch=Variable!
-end type
-
-event clicked;long job
-
-job = PrintOpen( )
-// Each DataWindow starts printing on a new page.
-PrintDataWindow(job, dw_csmdatareport)
-
-
-PrintClose(job)
-end event
-
-type cb_5 from commandbutton within tabpage_csmold
-int X=3090
-int Y=1356
-int Width=654
-int Height=144
-int TabOrder=80
-string Text="Disassociate CSM Programs"
-int TextSize=-7
-int Weight=400
-string FaceName="MS Sans Serif"
-FontCharSet FontCharSet=Ansi!
-FontFamily FontFamily=Swiss!
-FontPitch FontPitch=Variable!
-end type
-
-event clicked;
-//	Loop until no more rows are highlighted.
-do while dw_csmprogrameeipart.GetSelectedRow ( 0 ) > 0
-	dw_csmprogrameeipart.DeleteRow ( dw_csmprogrameeipart.GetSelectedRow ( 0 ) )
-loop
-
-if dw_csmprogrameeipart.Update ( ) = 1 then
-	commit using SQLCA  ;
-	MessageBox ( "Success", "Rows deleted" )
-else
-	rollback using SQLCA  ;
-	MessageBox ( "Failure", "Rows not deleted" )
-end if
-
-//	Retrieve.
-dw_csmprogrameeipart.Retrieve ( i_s_part )
-
-end event
-
-type cb_4 from commandbutton within tabpage_csmold
-int X=960
-int Y=1356
-int Width=590
-int Height=144
-int TabOrder=70
-string Text="Associate CSM Programs"
-int TextSize=-7
-int Weight=400
-string FaceName="MS Sans Serif"
-FontCharSet FontCharSet=Ansi!
-FontFamily FontFamily=Swiss!
-FontPitch FontPitch=Variable!
-end type
-
-event clicked;
-//	Loop through highlighted programs and add to part programs table.
-string	ls_Programs [], ls_SQLError
-ls_Programs = dw_csmplatforms.object.program.selected
-
-integer	li_Program
-
-datastore	lds_Associate
-lds_Associate = create datastore
-lds_Associate.DataObject = "d_associatecsmprogram"
-lds_Associate.SetTransObject (SQLCA)
-for li_Program = 1 to UpperBound ( ls_Programs )
-	
-	
-	if lds_Associate.Retrieve (i_s_part, ls_Programs [li_Program]) < 0 then
-		ls_SQLError = SQLCA.SQLErrText
-		rollback using SQLCA  ;
-		MessageBox ( "Failure on insert", ls_SQLError )
-	else
-		commit using SQLCA  ;
-	end if
-next
-destroy lds_Associate
-
-dw_csmplatforms.SelectRow ( 0, false )
-
-//	Retrieve.
-dw_csmprogrameeipart.Retrieve ( i_s_part )
-
-end event
-
-type st_3 from statictext within tabpage_csmold
-int X=14
-int Y=20
-int Width=197
-int Height=88
-boolean Enabled=false
-string Text="Part"
-Alignment Alignment=Center!
-boolean FocusRectangle=false
-long TextColor=16711680
-long BackColor=81324524
-int TextSize=-10
-int Weight=700
-string FaceName="MS Sans Serif"
-FontCharSet FontCharSet=Ansi!
-FontFamily FontFamily=Swiss!
-FontPitch FontPitch=Variable!
-end type
-
-type dw_part_header from datawindow within tabpage_csmold
-int X=210
-int Y=16
-int Width=1230
-int Height=104
-int TabOrder=30
-string DataObject="dw_part_header"
-BorderStyle BorderStyle=StyleLowered!
-boolean LiveScroll=true
-end type
-
-event constructor;SetTransObject ( SQLCA )
-
-end event
-
-type dw_csmprogrameeipart from datawindow within tabpage_csmold
-int X=663
-int Y=204
-int Width=3081
-int Height=1132
-int TabOrder=60
-string DragIcon="Rectangle!"
-string DataObject="dw_csmprogram_eeipart"
-boolean HScrollBar=true
-boolean VScrollBar=true
-boolean HSplitScroll=true
-boolean LiveScroll=true
-end type
-
-event constructor;SetTransObject ( SQLCA )
-
-end event
-
-event clicked;
-//	Highlight or unhighlight the clicked row.
-if row <= 0 then return
-SelectRow ( row, not IsSelected (row) )
-
-end event
-
-type dw_csmplatforms from datawindow within tabpage_csmold
-int X=9
-int Y=132
-int Width=631
-int Height=1308
-int TabOrder=50
-string DragIcon="C:\PWRS\ArtGal\Icons\BACKUP.ICO"
-string DataObject="dw_csm_mnemonic"
-BorderStyle BorderStyle=StyleLowered!
-boolean HScrollBar=true
-boolean VScrollBar=true
-boolean LiveScroll=true
-end type
-
-event constructor;
-//	Retrieve list.
-SetTransObject ( SQLCA )
-Retrieve ()
-
-end event
-
-event clicked;
-//	Highlight or unhighlight the clicked row.
-if row <= 0 then return
-SelectRow ( row, not IsSelected (row) )
-
-end event
-
 type tabpage_njb from userobject within tab_part_master
-int X=18
-int Y=152
-int Width=3776
-int Height=1520
-long BackColor=81324524
-string Text="New Job~r~nBuild"
-long TabBackColor=16777215
-long TabTextColor=16711680
-long PictureMaskColor=553648127
-string PictureName="Custom044!"
+integer x = 18
+integer y = 152
+integer width = 3776
+integer height = 1520
+long backcolor = 81324524
+string text = "New Job~r~nBuild"
+long tabtextcolor = 16711680
+long tabbackcolor = 16777215
+string picturename = "Custom044!"
+long picturemaskcolor = 553648127
 dwpartnjb dwpartnjb
 cb_9 cb_9
 cb_8 cb_8
@@ -2359,73 +1967,73 @@ destroy(this.dwpartnjbsetups)
 end on
 
 type dwpartnjb from datawindow within tabpage_njb
-int X=59
-int Y=560
-int Width=3694
-int Height=912
-int TabOrder=60
-string DataObject="dw_part_njb"
-BorderStyle BorderStyle=StyleLowered!
-boolean LiveScroll=true
+integer x = 59
+integer y = 560
+integer width = 3694
+integer height = 912
+integer taborder = 60
+string dataobject = "dw_part_njb"
+boolean livescroll = true
+borderstyle borderstyle = stylelowered!
 end type
 
 event constructor;SetTransObject ( SQLCA )
 end event
 
 type cb_9 from commandbutton within tabpage_njb
-int X=3237
-int Y=392
-int Width=343
-int Height=144
-int TabOrder=70
-string Text="Modify NJB"
-int TextSize=-8
-int Weight=400
-string FaceName="MS Sans Serif"
-FontCharSet FontCharSet=Ansi!
-FontFamily FontFamily=Swiss!
-FontPitch FontPitch=Variable!
+integer x = 3237
+integer y = 392
+integer width = 343
+integer height = 144
+integer taborder = 70
+integer textsize = -8
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "MS Sans Serif"
+string text = "Modify NJB"
 end type
 
 type cb_8 from commandbutton within tabpage_njb
-int X=2779
-int Y=220
-int Width=407
-int Height=144
-int TabOrder=70
-string Text="Show Open NJB"
-int TextSize=-8
-int Weight=400
-string FaceName="MS Sans Serif"
-FontCharSet FontCharSet=Ansi!
-FontFamily FontFamily=Swiss!
-FontPitch FontPitch=Variable!
+integer x = 2779
+integer y = 220
+integer width = 407
+integer height = 144
+integer taborder = 70
+integer textsize = -8
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "MS Sans Serif"
+string text = "Show Open NJB"
 end type
 
 type cb_7 from commandbutton within tabpage_njb
-int X=2775
-int Y=388
-int Width=411
-int Height=144
-int TabOrder=60
-string Text="New NJB"
-int TextSize=-8
-int Weight=400
-string FaceName="MS Sans Serif"
-FontCharSet FontCharSet=Ansi!
-FontFamily FontFamily=Swiss!
-FontPitch FontPitch=Variable!
+integer x = 2775
+integer y = 388
+integer width = 411
+integer height = 144
+integer taborder = 60
+integer textsize = -8
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "MS Sans Serif"
+string text = "New NJB"
 end type
 
 type dwpartnjbsetups from datawindow within tabpage_njb
-int X=55
-int Y=44
-int Width=2693
-int Height=484
-int TabOrder=70
-string DataObject="dw_part_njb_setups"
-BorderStyle BorderStyle=StyleLowered!
-boolean LiveScroll=true
+integer x = 55
+integer y = 44
+integer width = 2693
+integer height = 484
+integer taborder = 70
+string dataobject = "dw_part_njb_setups"
+boolean livescroll = true
+borderstyle borderstyle = stylelowered!
 end type
 
 event constructor;SetTransObject ( SQLCA )
@@ -2438,38 +2046,44 @@ END IF
 end event
 
 type st_2 from statictext within w_part_master
-int X=174
-int Y=1720
-int Width=247
-int Height=76
-boolean Enabled=false
-string Text="Required"
-boolean FocusRectangle=false
-long TextColor=255
-long BackColor=78682240
-int TextSize=-8
-int Weight=700
-string FaceName="MS Sans Serif"
-boolean Underline=true
-FontCharSet FontCharSet=Ansi!
-FontFamily FontFamily=Swiss!
-FontPitch FontPitch=Variable!
+integer x = 174
+integer y = 1720
+integer width = 247
+integer height = 76
+integer textsize = -8
+integer weight = 700
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "MS Sans Serif"
+boolean underline = true
+long textcolor = 255
+long backcolor = 78682240
+boolean enabled = false
+string text = "Required"
+boolean focusrectangle = false
 end type
 
 type st_1 from statictext within w_part_master
-int X=87
-int Y=1708
-int Width=69
-int Height=92
-boolean Enabled=false
-string Text="*"
-boolean FocusRectangle=false
-long BackColor=78682240
-int TextSize=-24
-int Weight=400
-string FaceName="MS Sans Serif"
-FontCharSet FontCharSet=Ansi!
-FontFamily FontFamily=Swiss!
-FontPitch FontPitch=Variable!
+integer x = 87
+integer y = 1708
+integer width = 69
+integer height = 92
+integer textsize = -24
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "MS Sans Serif"
+long backcolor = 78682240
+boolean enabled = false
+string text = "*"
+boolean focusrectangle = false
 end type
 
+
+Start of PowerBuilder Binary Data Section : Do NOT Edit
+0Fw_part_master.bin 
+2B00000600e011cfd0e11ab1a1000000000000000000000000000000000003003e0009fffe00000006000000000000000000000001000000010000000000001000fffffffe00000000fffffffe0000000000000000fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffdfffffffeffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff006f00520074006f004500200074006e00790072000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000050016ffffffffffffffffffffffff000000000000000000000000000000000000000000000000000000000000000000000000fffffffe00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000ffffffffffffffffffffffff0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000ffffffffffffffffffffffff0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000ffffffffffffffffffffffff000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+1Fw_part_master.bin 
+End of PowerBuilder Binary Data Section : No Source Expected After This Point
