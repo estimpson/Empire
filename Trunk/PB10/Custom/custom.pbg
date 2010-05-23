@@ -14,7 +14,6 @@ Save Format v3.0(19990112)
  "..\\..\\..\\CustomerFiles\\EEI\\PB10\\Custom\\dw_release_detail.srd" "..\\..\\..\\CustomerFiles\\EEI\\PB10\\Custom\\custom.pbl";
  "..\\..\\..\\CustomerFiles\\EEI\\PB10\\Custom\\dw_shipper_detail.srd" "..\\..\\..\\CustomerFiles\\EEI\\PB10\\Custom\\custom.pbl";
  "..\\..\\..\\CustomerFiles\\EEI\\PB10\\Custom\\w_blanket_po_entry.srw" "..\\..\\..\\CustomerFiles\\EEI\\PB10\\Custom\\custom.pbl";
- "..\\..\\..\\CustomerFiles\\EEI\\PB10\\Custom\\w_inquiry_ancestor.srw" "..\\..\\..\\CustomerFiles\\EEI\\PB10\\Custom\\custom.pbl";
  "..\\..\\..\\CustomerFiles\\EEI\\PB10\\Custom\\w_invoice_register.srw" "..\\..\\..\\CustomerFiles\\EEI\\PB10\\Custom\\custom.pbl";
  "..\\..\\..\\CustomerFiles\\EEI\\PB10\\Custom\\w_normal_po_entry.srw" "..\\..\\..\\CustomerFiles\\EEI\\PB10\\Custom\\custom.pbl";
  "..\\..\\..\\CustomerFiles\\EEI\\PB10\\Custom\\w_normal_po_popup.srw" "..\\..\\..\\CustomerFiles\\EEI\\PB10\\Custom\\custom.pbl";
