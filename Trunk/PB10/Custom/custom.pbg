@@ -87,7 +87,6 @@ Save Format v3.0(19990112)
  "..\\..\\..\\CustomerFiles\\EEI\\PB10\\Custom\\mn_mw30_main.srm" "..\\..\\..\\CustomerFiles\\EEI\\PB10\\Custom\\custom.pbl";
  "..\\..\\..\\CustomerFiles\\EEI\\PB10\\Custom\\w_global_shipping_version2.srw" "..\\..\\..\\CustomerFiles\\EEI\\PB10\\Custom\\custom.pbl";
  "..\\..\\..\\CustomerFiles\\EEI\\PB10\\Custom\\w_part_qtys_per_location.srw" "..\\..\\..\\CustomerFiles\\EEI\\PB10\\Custom\\custom.pbl";
- "..\\..\\..\\CustomerFiles\\EEI\\PB10\\Custom\\w_order_entry_inquiry.srw" "..\\..\\..\\CustomerFiles\\EEI\\PB10\\Custom\\custom.pbl";
  "..\\..\\..\\CustomerFiles\\EEI\\PB10\\Custom\\w_pallet_package_type.srw" "..\\..\\..\\CustomerFiles\\EEI\\PB10\\Custom\\custom.pbl";
  "..\\..\\..\\CustomerFiles\\EEI\\PB10\\Custom\\w_touch_screen_generic_trans.srw" "..\\..\\..\\CustomerFiles\\EEI\\PB10\\Custom\\custom.pbl";
 @end;
