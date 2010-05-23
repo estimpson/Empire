@@ -5,7 +5,6 @@ Save Format v3.0(19990112)
 @begin Objects
  "..\\..\\..\\CustomerFiles\\EEI\\PB10\\Custom\\dw_shipping_dock_detail.srd" "..\\..\\..\\CustomerFiles\\EEI\\PB10\\Custom\\custom.pbl";
  "..\\..\\..\\CustomerFiles\\EEI\\PB10\\Custom\\w_customer_price_matrix.srw" "..\\..\\..\\CustomerFiles\\EEI\\PB10\\Custom\\custom.pbl";
- "..\\..\\..\\CustomerFiles\\EEI\\PB10\\Custom\\w_invoice_register_custom.srw" "..\\..\\..\\CustomerFiles\\EEI\\PB10\\Custom\\custom.pbl";
  "..\\..\\..\\CustomerFiles\\EEI\\PB10\\Custom\\st_print_preview_generic.srs" "..\\..\\..\\CustomerFiles\\EEI\\PB10\\Custom\\custom.pbl";
  "..\\..\\..\\CustomerFiles\\EEI\\PB10\\Custom\\d_dddw_destination.srd" "..\\..\\..\\CustomerFiles\\EEI\\PB10\\Custom\\custom.pbl";
  "..\\..\\..\\CustomerFiles\\EEI\\PB10\\Custom\\d_dddw_employeepo.srd" "..\\..\\..\\CustomerFiles\\EEI\\PB10\\Custom\\custom.pbl";
