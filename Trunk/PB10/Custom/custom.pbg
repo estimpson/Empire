@@ -46,6 +46,7 @@ Save Format v3.0(19990112)
  "..\\..\\..\\CustomerFiles\\EEI\\PB10\\Custom\\d_part_eecsalesreturnaccount.srd" "..\\..\\..\\CustomerFiles\\EEI\\PB10\\Custom\\custom.pbl";
  "..\\..\\..\\CustomerFiles\\EEI\\PB10\\Custom\\d_part_master_sales_account.srd" "..\\..\\..\\CustomerFiles\\EEI\\PB10\\Custom\\custom.pbl";
  "..\\..\\..\\CustomerFiles\\EEI\\PB10\\Custom\\d_part_master_inventory.srd" "..\\..\\..\\CustomerFiles\\EEI\\PB10\\Custom\\custom.pbl";
+ "..\\..\\..\\CustomerFiles\\EEI\\PB10\\Custom\\w_copyreleasestoeea.srw" "..\\..\\..\\CustomerFiles\\EEI\\PB10\\Custom\\custom.pbl";
  "..\\..\\..\\CustomerFiles\\EEI\\PB10\\Custom\\dw_combine_new_object_info.srd" "..\\..\\..\\CustomerFiles\\EEI\\PB10\\Custom\\custom.pbl";
  "..\\..\\..\\CustomerFiles\\EEI\\PB10\\Custom\\d_add_parms_cop.srd" "..\\..\\..\\CustomerFiles\\EEI\\PB10\\Custom\\custom.pbl";
  "..\\..\\..\\CustomerFiles\\EEI\\PB10\\Custom\\d_csm_selectedmnemonics.srd" "..\\..\\..\\CustomerFiles\\EEI\\PB10\\Custom\\custom.pbl";
