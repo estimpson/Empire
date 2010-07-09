@@ -5,36 +5,19 @@ end type
 end forward
 
 global type w_blanketorder_inquiry from w_inquiry_ancestor
-boolean TitleBar=true
-string Title="Blanket Order Inquiry"
-long BackColor=82899184
+string title = "Blanket Order Inquiry"
+string menuname = "m_order_entry_inquiry"
+long backcolor = 82899184
 end type
 global w_blanketorder_inquiry w_blanketorder_inquiry
 
 forward prototypes
-public function integer setactiveorder (string destinationcode, string customerpart, long orderno, ref long procresult)
+public function integer setactiveorder (string _destinationcode, string _customerpart, long _orderno, ref long _procresult)
 end prototypes
 
-public function integer setactiveorder (string destinationcode, string customerpart, long orderno, ref long procresult);
-datastore ds
-ds = create datastore
-ds.dataobject = "d_setactiveorder"
-ds.SetTransObject (SQLCA)
-
-if	ds.Retrieve (DestinationCode, CustomerPart, OrderNo) <> 1 then
-	rollback using SQLCA  ;
-	MessageBox(monsys.msg_Title, "Failed on procedure call, unable to set active order flag!")
-	return -1
-end if
-procResult = ds.object.result[1]
-if	procResult <> 0 then
-	rollback using SQLCA  ;
-	MessageBox(monsys.msg_Title, "Failed on procure result, unable to set active order flag!")
-	return -1
-end if
-
-commit using SQLCA  ;
-destroy ds
+public function integer setactiveorder (string _destinationcode, string _customerpart, long _orderno, ref long _procresult);
+n_cst_blanketorders blanketOrders
+blanketOrders.SetActiveOrder(_destinationCode, _customerPart, _orderNo, _procResult)
 
 //	Return.
 return 1
@@ -43,24 +26,14 @@ end function
 
 on w_blanketorder_inquiry.create
 call super::create
+if IsValid(this.MenuID) then destroy(this.MenuID)
+if this.MenuName = "m_order_entry_inquiry" then this.MenuID = create m_order_entry_inquiry
 end on
 
 on w_blanketorder_inquiry.destroy
 call super::destroy
+if IsValid(MenuID) then destroy(MenuID)
 end on
-
-event activate;if wMainScreen.MenuName <> "m_order_entry_inquiry" then
-	wMainScreen.ChangeMenu ( m_order_entry_inquiry )
-end if
-
-// Added for Custom menu items
-	f_build_custom_arrays("monitor.oeinquiry")
-// Added for Custom menu items
-	f_build_custom_menu(wMainScreen.MenuID, wMainScreen)
-
-
-TriggerEvent ( 'ue_activate' )
-end event
 
 event ue_add;st_generic_structure	lstr_parm
 
@@ -68,7 +41,7 @@ lstr_parm.value1 = ''
 lstr_parm.value2 = ''
 lstr_parm.value3 = ''
 
-OpenSheetWithParm ( w_blanket_order, lstr_parm, wMainScreen, 3, Layered! )
+OpenSheetWithParm ( w_blanket_order, lstr_parm, gnv_App.of_GetFrame(), 3, Original!)
 
 end event
 
@@ -125,14 +98,14 @@ If l_i_rtn_code = 1 Then
 
 	l_s_temp = String ( l_l_order )
 
-	wMainScreen.SetMicroHelp ( "Deleting Records..." )
+	gnv_App.of_GetFrame().SetMicroHelp ( "Deleting Records..." )
 
    DELETE FROM master_prod_sched  
 	    WHERE ( origin = :l_l_order ) ;
 
 	If SQLCA.SQLCode = -1 Then
 		RollBack ;
-		wMainScreen.SetMicroHelp ( "Delete Failed! " + SQLCA.SQLErrText )
+		gnv_App.of_GetFrame().SetMicroHelp ( "Delete Failed! " + SQLCA.SQLErrText )
 		Return
 	End if
 
@@ -147,7 +120,7 @@ If l_i_rtn_code = 1 Then
 	
 	If SQLCA.SQLCode = -1 Then
 		RollBack ;
-		wMainScreen.SetMicroHelp ( "Delete Failed! " + SQLCA.SQLErrText )
+		gnv_App.of_GetFrame().SetMicroHelp ( "Delete Failed! " + SQLCA.SQLErrText )
 		Return
 	End if
 
@@ -156,24 +129,17 @@ If l_i_rtn_code = 1 Then
 	
 	If SQLCA.SQLCode = -1 Then
 		RollBack ;
-		wMainScreen.SetMicroHelp ( "Delete Failed! " + SQLCA.SQLErrText )
+		gnv_App.of_GetFrame().SetMicroHelp ( "Delete Failed! " + SQLCA.SQLErrText )
 		Return
 	End if
 
 
 	If dw_inquiry.DeleteRow ( l_l_row ) = -1 Then
 		RollBack ;
-		wMainScreen.SetMicroHelp ( "Delete Failed! " + SQLCA.SQLErrText )
+		gnv_App.of_GetFrame().SetMicroHelp ( "Delete Failed! " + SQLCA.SQLErrText )
 		Return
 	End if
 
-//	If dw_inquiry.Update ( ) = -1 Then
-//		RollBack ;
-//		wMainScreen.SetMicroHelp ( "Delete Failed! " + SQLCA.SQLErrText )
-//		Return		
-//	End if
-//
-	
 	// deleting data from part_location table for that blanket part & destination 
 	// inc by gph on 7/29/98 at 10:38 am
 	DELETE 
@@ -183,7 +149,7 @@ If l_i_rtn_code = 1 Then
 
 	Commit ;
 
-	wMainScreen.SetMicroHelp ( "Delete Successful!" )
+	gnv_App.of_GetFrame().SetMicroHelp ( "Delete Successful!" )
 //	dw_inquiry.retrieve()
 End if
 
@@ -192,11 +158,12 @@ dw_inquiry.SetFocus ( )
 
 end event
 
+type st_1 from w_inquiry_ancestor`st_1 within w_blanketorder_inquiry
+end type
+
 type dw_inquiry from w_inquiry_ancestor`dw_inquiry within w_blanketorder_inquiry
-string DataObject="d_blanketorder_inquiry"
-boolean HScrollBar=true
-boolean VScrollBar=true
-boolean HSplitScroll=true
+string dataobject = "d_blanketorder_inquiry"
+boolean hsplitscroll = true
 end type
 
 event dw_inquiry::doubleclicked;long	l_l_order
@@ -207,7 +174,7 @@ if row < 1 then return
 
 l_l_order = GetItemNumber ( row, "SalesOrderNo" )
 
-OpenSheetWithParm ( w_blanket_order, l_l_order, wmainscreen, 3, LAYERED! )
+OpenSheetWithParm ( w_blanket_order, l_l_order, gnv_App.of_GetFrame(), 3, Original!)
 
 end event
 
@@ -220,6 +187,7 @@ if	row > 0 then
 end if
 
 end event
+
 event dw_inquiry::itemchanged;call super::itemchanged;
 choose case dwo.Name
 	case "activeflag"
@@ -286,3 +254,4 @@ choose case dwo.Name
 end choose
 
 end event
+
