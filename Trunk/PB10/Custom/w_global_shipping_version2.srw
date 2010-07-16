@@ -1,6 +1,6 @@
 HA$PBExportHeader$w_global_shipping_version2.srw
 forward
-global type w_global_shipping_version2 from Window
+global type w_global_shipping_version2 from w_sheet_4t
 end type
 type st_um from statictext within w_global_shipping_version2
 end type
@@ -13,8 +13,6 @@ end type
 type dw_demand from datawindow within w_global_shipping_version2
 end type
 type cbx_active_demand from checkbox within w_global_shipping_version2
-end type
-type st_message from statictext within w_global_shipping_version2
 end type
 type st_16 from statictext within w_global_shipping_version2
 end type
@@ -66,28 +64,23 @@ type cb_note_save from commandbutton within w_global_shipping_version2
 end type
 type mle_note from multilineedit within w_global_shipping_version2
 end type
-type dw_crosstab from u_dw_crosstab_gss within w_global_shipping_version2
-end type
 type cb_note from commandbutton within w_global_shipping_version2
 end type
 type mle_message from multilineedit within w_global_shipping_version2
 end type
+type st_message from statictext within w_global_shipping_version2
+end type
 type st_drag from statictext within w_global_shipping_version2
+end type
+type dw_crosstab from u_dw_crosstab_gss within w_global_shipping_version2
 end type
 end forward
 
-global type w_global_shipping_version2 from Window
-int X=0
-int Y=0
-int Width=3986
-int Height=1964
-boolean TitleBar=true
-string Title="Shipping Scheduler"
-long BackColor=78682240
-boolean ControlMenu=true
-boolean MaxBox=true
-boolean Resizable=true
-WindowState WindowState=maximized!
+global type w_global_shipping_version2 from w_sheet_4t
+integer x = 214
+integer y = 221
+string title = "Shipping Scheduler"
+string menuname = "m_global_shipping_scheduler"
 event create_shipper pbm_custom01
 event rebuild_crosstab pbm_custom02
 event updt_detail_qty pbm_custom03
@@ -104,7 +97,6 @@ cb_1 cb_1
 mle_selected mle_selected
 dw_demand dw_demand
 cbx_active_demand cbx_active_demand
-st_message st_message
 st_16 st_16
 p_6 p_6
 st_10 st_10
@@ -130,10 +122,11 @@ dw_2 dw_2
 dw_range_weights dw_range_weights
 cb_note_save cb_note_save
 mle_note mle_note
-dw_crosstab dw_crosstab
 cb_note cb_note
 mle_message mle_message
+st_message st_message
 st_drag st_drag
+dw_crosstab dw_crosstab
 end type
 global w_global_shipping_version2 w_global_shipping_version2
 
@@ -312,9 +305,18 @@ dw_2.SetItem(iShipperRow, "ship_via", szShipVia)
 dw_2.SetItem(iShipperRow, "notes", szNote)
 end event
 
-event view_date;w_global_shipping_version2.SetMicroHelp("Change view date for the schedule")
+event view_date;
+//	Open window to select date (refactor to onscreen control).
+SetMicroHelp("Change view date for the schedule...")
+OpenWithParm(w_selectdate,String(dDate1))
 
-open (w_select_view_date)
+//	Check for return value.
+if	Message.StringParm > "" then
+	dDate1 = Date(Message.StringParm)
+	TriggerEvent("rebuild_crosstab")
+	wf_flag_destination()
+end if
+
 end event
 
 event save_releases;wf_save_releases()
@@ -616,7 +618,7 @@ sParm.Title	= "Set up demand flags"
 OpenWithParm(w_progress, sParm)
 w_progress.cb_cancel.visible	= FALSE
 
-w_global_shipping_version2.SetMicroHelp("Setup demand flags")
+SetMicroHelp("Setup demand flags")
 For iRow = 1 to dw_dest.RowCount()
 	If bPartMode then
 		szPart		= dw_dest.GetItemString(iRow, "part")
@@ -644,7 +646,7 @@ dw_demand.Filter()
 
 Close(w_progress)
 
-w_global_shipping_version2.SetMicroHelp("Ready")
+SetMicroHelp("Ready")
 
 
 
@@ -655,7 +657,7 @@ public subroutine wf_get_customers ();//Str_progress sParm
 //Integer 	iTotalCustomers
 //Integer	iCount
 //
-//w_global_shipping_version2.SetMicroHelp("Fetching customer list")
+//SetMicroHelp("Fetching customer list")
 //
 //ddlb_2.Reset()
 //
@@ -684,7 +686,7 @@ public subroutine wf_get_customers ();//Str_progress sParm
 //Close CustomerCur;
 //Close(w_progress)
 //
-//w_global_shipping_version2.SetMicroHelp("Ready")	
+//SetMicroHelp("Ready")	
 //
 Str_progress sParm
 
@@ -692,7 +694,7 @@ String l_s_Customer, &
 	    l_s_Name, &
 		 l_s_Temp
 		 
-w_global_shipping_version2.SetMicroHelp("Fetching customer list")
+SetMicroHelp("Fetching customer list")
 
 ddlb_2.Reset()
 
@@ -704,7 +706,7 @@ Fetch CustomerCur into :l_s_Customer, :l_s_name;
 
 Do while sqlca.sqlcode = 0
 	
-	l_s_Temp = l_s_Customer + Space (11 - Len(l_s_Customer) ) + l_s_name
+	l_s_Temp = l_s_Customer + Space (11 - LenA(l_s_Customer) ) + l_s_name
 	ddlb_2.AddItem(l_s_temp)
 	Fetch CustomerCur into :l_s_Customer , :l_s_Name;                      
 Loop
@@ -712,7 +714,7 @@ Loop
 Close CustomerCur;
 Close(w_progress)
 
-w_global_shipping_version2.SetMicroHelp("Ready")	
+SetMicroHelp("Ready")	
 end subroutine
 
 public subroutine wf_get_plants ();Str_progress sParm
@@ -721,7 +723,7 @@ String szCurrentPlant
 Integer iTotalPlants
 Integer iCount
 
-w_global_shipping_version2.SetMicroHelp("Fetching Plant List")
+SetMicroHelp("Fetching Plant List")
 
 ddlb_2.Reset()
 
@@ -747,7 +749,7 @@ Loop
 Close PlantCur;
 Close(w_progress)
 
-w_global_shipping_version2.SetMicroHelp("Ready")
+SetMicroHelp("Ready")
 	
 end subroutine
 
@@ -1155,7 +1157,7 @@ String szCurrentScheduler
 Integer iTotalSchedulers
 Integer iCount
 
-w_global_shipping_version2.SetMicroHelp("Fetching Scheduler List")
+SetMicroHelp("Fetching Scheduler List")
 
 ddlb_2.Reset()
 
@@ -1187,7 +1189,7 @@ If iTotalSchedulers > 0 then // check to see if there are schedulers in the syst
 
 End if
 
-w_global_shipping_version2.SetMicroHelp("Ready")
+SetMicroHelp("Ready")
 end subroutine
 
 public function string wf_get_release (long isalesorder, date ddate);String szRelease
@@ -1469,6 +1471,8 @@ Else
 
 
 
+
+
 	       ( order_detail.suffix 			is Null );
 End If
 
@@ -1477,12 +1481,12 @@ end function
 
 public function string wf_strip_off_suffix (string szpart, long isuffix);Long iPos, iPos2
 
-iPos	= Pos(szPart, "-" + String(iSuffix))
-iPos2 = Pos ( szPart, "-" + String ( iSuffix ), iPos + 1 )
+iPos	= PosA(szPart, "-" + String(iSuffix))
+iPos2 = PosA ( szPart, "-" + String ( iSuffix ), iPos + 1 )
 If iPos2 > 1 then
-	szPart	= Left(szPart, iPos2 - 1)
+	szPart	= LeftA(szPart, iPos2 - 1)
 ELSEIF iPos > 1 THEN
-	szPart = Left ( szPart, iPos - 1 )
+	szPart = LeftA ( szPart, iPos - 1 )
 End If
 
 Return szPart
@@ -1496,7 +1500,7 @@ String			szDestination
 String			szPart			
 String			szPrompt
 
-w_global_shipping_version2.SetMicroHelp("Fetching Demand List")
+SetMicroHelp("Fetching Demand List")
 
 ddlb_2.Reset()
 
@@ -1528,7 +1532,7 @@ dw_dest.Filter()
 
 Close(w_progress)
 
-w_global_shipping_version2.SetMicroHelp("Ready")
+SetMicroHelp("Ready")
 
 
 
@@ -1560,30 +1564,7 @@ public function decimal wf_on_hand (string szpart);Decimal nOnHand
 Return f_get_value(nOnHand)
 end function
 
-event timer;//If bFirstTime then
-//	If ddlb_1.backcolor	= ddlb_2.backcolor then
-//		ddlb_1.backcolor	= f_get_color_value("white")
-//	Else
-//		ddlb_1.backcolor	= ddlb_2.backcolor
-//	End If
-//End If
-//
-//If bCrosstab then
-//	oval_left_red.visible	= (Not oval_left_red.visible)
-//	st_right_arrow.visible 	= (Not st_right_arrow.visible)
-//	st_left_arrow.visible	= TRUE
-//End If
-//
-//If bShipperDetail then
-//	st_left_arrow.visible	= (Not st_left_arrow.visible)
-//	st_right_arrow.visible	= TRUE
-//	oval_left_red.visible	= FALSE
-//End If
-
-
-end event
-
-event open;//************************************************************************
+event open;call super::open;//************************************************************************
 //* Declaration
 //***********************************************************************
 dw_2.SetTransObject(sqlca)
@@ -1613,24 +1594,22 @@ ddlb_date_selection.text	= "Today"
 
 end event
 
-event activate;wMainScreen.ChangeMenu(m_global_shipping_scheduler)
-m_global_shipping_scheduler.m_file.m_savereleases.ToolbarItemVisible	= cbx_add.checked
-
-// Added for Custom menu items
-	f_build_custom_arrays("monitor.oegss")
-// Added for Custom menu items
-	f_build_custom_menu(wMainScreen.MenuID, wMainScreen)
+event activate;call super::activate;
+m_global_shipping_scheduler.m_file.m_savereleases.ToolbarItemVisible = cbx_add.checked
 
 end event
 
 on w_global_shipping_version2.create
+int iCurrent
+call super::create
+if IsValid(this.MenuID) then destroy(this.MenuID)
+if this.MenuName = "m_global_shipping_scheduler" then this.MenuID = create m_global_shipping_scheduler
 this.st_um=create st_um
 this.dw_range=create dw_range
 this.cb_1=create cb_1
 this.mle_selected=create mle_selected
 this.dw_demand=create dw_demand
 this.cbx_active_demand=create cbx_active_demand
-this.st_message=create st_message
 this.st_16=create st_16
 this.p_6=create p_6
 this.st_10=create st_10
@@ -1656,56 +1635,59 @@ this.dw_2=create dw_2
 this.dw_range_weights=create dw_range_weights
 this.cb_note_save=create cb_note_save
 this.mle_note=create mle_note
-this.dw_crosstab=create dw_crosstab
 this.cb_note=create cb_note
 this.mle_message=create mle_message
+this.st_message=create st_message
 this.st_drag=create st_drag
-this.Control[]={this.st_um,&
-this.dw_range,&
-this.cb_1,&
-this.mle_selected,&
-this.dw_demand,&
-this.cbx_active_demand,&
-this.st_message,&
-this.st_16,&
-this.p_6,&
-this.st_10,&
-this.ddlb_date_selection,&
-this.st_detail_title,&
-this.dw_3,&
-this.st_list_by,&
-this.st_warning,&
-this.st_accum,&
-this.cbx_add,&
-this.dw_parts_per_dest,&
-this.st_drag2,&
-this.ddlb_2,&
-this.st_11,&
-this.p_2,&
-this.dw_qty_assigned,&
-this.dw_4,&
-this.sle_search,&
-this.dw_dest,&
-this.ddlb_1,&
-this.cbx_past_due,&
-this.dw_2,&
-this.dw_range_weights,&
-this.cb_note_save,&
-this.mle_note,&
-this.dw_crosstab,&
-this.cb_note,&
-this.mle_message,&
-this.st_drag}
+this.dw_crosstab=create dw_crosstab
+iCurrent=UpperBound(this.Control)
+this.Control[iCurrent+1]=this.st_um
+this.Control[iCurrent+2]=this.dw_range
+this.Control[iCurrent+3]=this.cb_1
+this.Control[iCurrent+4]=this.mle_selected
+this.Control[iCurrent+5]=this.dw_demand
+this.Control[iCurrent+6]=this.cbx_active_demand
+this.Control[iCurrent+7]=this.st_16
+this.Control[iCurrent+8]=this.p_6
+this.Control[iCurrent+9]=this.st_10
+this.Control[iCurrent+10]=this.ddlb_date_selection
+this.Control[iCurrent+11]=this.st_detail_title
+this.Control[iCurrent+12]=this.dw_3
+this.Control[iCurrent+13]=this.st_list_by
+this.Control[iCurrent+14]=this.st_warning
+this.Control[iCurrent+15]=this.st_accum
+this.Control[iCurrent+16]=this.cbx_add
+this.Control[iCurrent+17]=this.dw_parts_per_dest
+this.Control[iCurrent+18]=this.st_drag2
+this.Control[iCurrent+19]=this.ddlb_2
+this.Control[iCurrent+20]=this.st_11
+this.Control[iCurrent+21]=this.p_2
+this.Control[iCurrent+22]=this.dw_qty_assigned
+this.Control[iCurrent+23]=this.dw_4
+this.Control[iCurrent+24]=this.sle_search
+this.Control[iCurrent+25]=this.dw_dest
+this.Control[iCurrent+26]=this.ddlb_1
+this.Control[iCurrent+27]=this.cbx_past_due
+this.Control[iCurrent+28]=this.dw_2
+this.Control[iCurrent+29]=this.dw_range_weights
+this.Control[iCurrent+30]=this.cb_note_save
+this.Control[iCurrent+31]=this.mle_note
+this.Control[iCurrent+32]=this.cb_note
+this.Control[iCurrent+33]=this.mle_message
+this.Control[iCurrent+34]=this.st_message
+this.Control[iCurrent+35]=this.st_drag
+this.Control[iCurrent+36]=this.dw_crosstab
 end on
 
 on w_global_shipping_version2.destroy
+call super::destroy
+if IsValid(MenuID) then destroy(MenuID)
 destroy(this.st_um)
 destroy(this.dw_range)
 destroy(this.cb_1)
 destroy(this.mle_selected)
 destroy(this.dw_demand)
 destroy(this.cbx_active_demand)
-destroy(this.st_message)
 destroy(this.st_16)
 destroy(this.p_6)
 destroy(this.st_10)
@@ -1731,53 +1713,54 @@ destroy(this.dw_2)
 destroy(this.dw_range_weights)
 destroy(this.cb_note_save)
 destroy(this.mle_note)
-destroy(this.dw_crosstab)
 destroy(this.cb_note)
 destroy(this.mle_message)
+destroy(this.st_message)
 destroy(this.st_drag)
+destroy(this.dw_crosstab)
 end on
 
 type st_um from statictext within w_global_shipping_version2
-int X=3118
-int Y=92
-int Width=247
-int Height=76
-boolean Visible=false
-boolean Enabled=false
-boolean FocusRectangle=false
-long BackColor=16777215
-int TextSize=-10
-int Weight=400
-string FaceName="Arial"
-FontFamily FontFamily=Swiss!
-FontPitch FontPitch=Variable!
+boolean visible = false
+integer x = 3118
+integer y = 92
+integer width = 247
+integer height = 76
+integer textsize = -10
+integer weight = 400
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long backcolor = 16777215
+boolean enabled = false
+boolean focusrectangle = false
 end type
 
 type dw_range from datawindow within w_global_shipping_version2
-int X=3035
-int Y=100
-int Width=731
-int Height=432
-int TabOrder=70
-boolean Visible=false
-string DataObject="d_range"
-boolean VScrollBar=true
-boolean LiveScroll=true
+boolean visible = false
+integer x = 3035
+integer y = 100
+integer width = 731
+integer height = 432
+integer taborder = 70
+string dataobject = "d_range"
+boolean vscrollbar = true
+boolean livescroll = true
 end type
 
 type cb_1 from commandbutton within w_global_shipping_version2
-int X=3785
-int Y=104
-int Width=247
-int Height=88
-int TabOrder=180
-boolean Visible=false
-string Text="Print"
-int TextSize=-10
-int Weight=400
-string FaceName="Arial"
-FontFamily FontFamily=Swiss!
-FontPitch FontPitch=Variable!
+boolean visible = false
+integer x = 3785
+integer y = 104
+integer width = 247
+integer height = 88
+integer taborder = 180
+integer textsize = -10
+integer weight = 400
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+string text = "Print"
 end type
 
 event clicked;LONG	l_l_print
@@ -1788,20 +1771,20 @@ PrintClose ( l_l_print )
 end event
 
 type mle_selected from multilineedit within w_global_shipping_version2
-int X=2949
-int Y=60
-int Width=1061
-int Height=568
-int TabOrder=140
-boolean Visible=false
-Alignment Alignment=Right!
-long TextColor=255
-long BackColor=78682240
-int TextSize=-8
-int Weight=700
-string FaceName="Arial"
-FontFamily FontFamily=Swiss!
-FontPitch FontPitch=Variable!
+boolean visible = false
+integer x = 2949
+integer y = 60
+integer width = 1061
+integer height = 568
+integer taborder = 140
+integer textsize = -8
+integer weight = 700
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long textcolor = 255
+long backcolor = 78682240
+alignment alignment = right!
 end type
 
 event modified;//STRING	l_s_range, &
@@ -1867,27 +1850,27 @@ dw_range.Reset ( )
 l_s_range = text
 
 DO
-	l_i_next = Pos ( l_s_range, ';' )
+	l_i_next = PosA ( l_s_range, ';' )
 	IF l_i_next > 0 THEN
-		l_s_sub_range = Left ( l_s_range, l_i_next - 1 )
-		l_s_range = Right ( l_s_range, Len ( l_s_range ) - l_i_next )
+		l_s_sub_range = LeftA ( l_s_range, l_i_next - 1 )
+		l_s_range = RightA ( l_s_range, LenA ( l_s_range ) - l_i_next )
 	ELSE
 		l_s_sub_range = l_s_range
 		l_s_range = ""
 	END IF
-	l_i_next = Pos ( l_s_sub_range, '/' )
-	l_l_begin_row = Long ( Left ( l_s_sub_range, l_i_next - 1 ) )
-	l_s_sub_range = Right ( l_s_sub_range, Len ( l_s_sub_range ) - l_i_next )
+	l_i_next = PosA ( l_s_sub_range, '/' )
+	l_l_begin_row = Long ( LeftA ( l_s_sub_range, l_i_next - 1 ) )
+	l_s_sub_range = RightA ( l_s_sub_range, LenA ( l_s_sub_range ) - l_i_next )
 
-	l_i_next = Pos ( l_s_sub_range, '/' )
-	l_l_end_row = Long ( Left ( l_s_sub_range, l_i_next - 1 ) )
-	l_s_sub_range = Right ( l_s_sub_range, Len ( l_s_sub_range ) - l_i_next )
+	l_i_next = PosA ( l_s_sub_range, '/' )
+	l_l_end_row = Long ( LeftA ( l_s_sub_range, l_i_next - 1 ) )
+	l_s_sub_range = RightA ( l_s_sub_range, LenA ( l_s_sub_range ) - l_i_next )
 
 	DO
-		l_i_next = Pos ( l_s_sub_range, '/' )
+		l_i_next = PosA ( l_s_sub_range, '/' )
 		IF l_i_next > 0 THEN
-			l_l_column = Long ( dw_crosstab.Describe ( Left ( l_s_sub_range, l_i_next - 1 ) + ".ID" ) )
-			l_s_sub_range = Right ( l_s_sub_range, Len ( l_s_sub_range ) - l_i_next )
+			l_l_column = Long ( dw_crosstab.Describe ( LeftA ( l_s_sub_range, l_i_next - 1 ) + ".ID" ) )
+			l_s_sub_range = RightA ( l_s_sub_range, LenA ( l_s_sub_range ) - l_i_next )
 		ELSE
 			l_l_column = Long ( dw_crosstab.Describe ( l_s_sub_range + ".ID" ) )
 			l_s_sub_range = ""
@@ -1921,32 +1904,32 @@ event constructor;//i_ds_range = CREATE DataStore
 end event
 
 type dw_demand from datawindow within w_global_shipping_version2
-int X=27
-int Y=1628
-int Width=4325
-int Height=520
-int TabOrder=10
-boolean Visible=false
-string DataObject="dw_select_demand"
-boolean HScrollBar=true
-boolean VScrollBar=true
-boolean LiveScroll=true
+boolean visible = false
+integer x = 27
+integer y = 1628
+integer width = 4325
+integer height = 520
+integer taborder = 10
+string dataobject = "dw_select_demand"
+boolean hscrollbar = true
+boolean vscrollbar = true
+boolean livescroll = true
 end type
 
 type cbx_active_demand from checkbox within w_global_shipping_version2
-int X=603
-int Y=108
-int Width=475
-int Height=48
-boolean Visible=false
-string Text="Active Demand Only"
-long BackColor=78682240
-int TextSize=-7
-int Weight=400
-string FaceName="MS Sans Serif"
-FontCharSet FontCharSet=Ansi!
-FontFamily FontFamily=Swiss!
-FontPitch FontPitch=Variable!
+boolean visible = false
+integer x = 603
+integer y = 108
+integer width = 475
+integer height = 48
+integer textsize = -7
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "MS Sans Serif"
+long backcolor = 78682240
+string text = "Active Demand Only"
 end type
 
 on clicked;If this.checked then
@@ -1958,50 +1941,32 @@ End If
 dw_dest.Filter()
 end on
 
-type st_message from statictext within w_global_shipping_version2
-int X=1298
-int Y=112
-int Width=919
-int Height=64
-boolean Visible=false
-boolean Enabled=false
-string Text="Can not view detail for normal order"
-boolean FocusRectangle=false
-long BackColor=78682240
-int TextSize=-7
-int Weight=400
-string FaceName="MS Sans Serif"
-FontCharSet FontCharSet=Ansi!
-FontFamily FontFamily=Swiss!
-FontPitch FontPitch=Variable!
-end type
-
 type st_16 from statictext within w_global_shipping_version2
-int X=3566
-int Y=1324
-int Width=247
-int Height=60
-boolean Enabled=false
-string Text="Part Note"
-boolean FocusRectangle=false
-long TextColor=33554432
-long BackColor=78682240
-int TextSize=-8
-int Weight=400
-string FaceName="MS Sans Serif"
-FontCharSet FontCharSet=Ansi!
-FontFamily FontFamily=Swiss!
-FontPitch FontPitch=Variable!
+integer x = 2597
+integer y = 988
+integer width = 247
+integer height = 60
+integer textsize = -8
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "MS Sans Serif"
+long textcolor = 33554432
+long backcolor = 78682240
+boolean enabled = false
+string text = "Part Note"
+boolean focusrectangle = false
 end type
 
 type p_6 from picture within w_global_shipping_version2
-int X=3479
-int Y=1324
-int Width=73
-int Height=60
-string PictureName="noteyes.bmp"
-boolean Border=true
-boolean FocusRectangle=false
+integer x = 2510
+integer y = 988
+integer width = 73
+integer height = 60
+string picturename = "noteyes.bmp"
+boolean border = true
+boolean focusrectangle = false
 end type
 
 event clicked;If iShipperDetailRow > 0 then
@@ -2014,89 +1979,80 @@ End If
 end event
 
 type st_10 from statictext within w_global_shipping_version2
-int X=3255
-int Y=1228
-int Width=274
-int Height=64
-boolean Enabled=false
-string Text="Date Mode"
-boolean FocusRectangle=false
-long TextColor=33554432
-long BackColor=78682240
-int TextSize=-8
-int Weight=400
-string FaceName="MS Sans Serif"
-FontCharSet FontCharSet=Ansi!
-FontFamily FontFamily=Swiss!
-FontPitch FontPitch=Variable!
+integer x = 2286
+integer y = 892
+integer width = 274
+integer height = 64
+integer textsize = -8
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "MS Sans Serif"
+long textcolor = 33554432
+long backcolor = 78682240
+boolean enabled = false
+string text = "Date Mode"
+boolean focusrectangle = false
 end type
 
 type ddlb_date_selection from dropdownlistbox within w_global_shipping_version2
-int X=3534
-int Y=1220
-int Width=306
-int Height=252
-int TabOrder=120
-BorderStyle BorderStyle=StyleLowered!
-boolean Sorted=false
-boolean VScrollBar=true
-long TextColor=33554432
-long BackColor=78682240
-int TextSize=-9
-int Weight=400
-string FaceName="MS Sans Serif"
-FontCharSet FontCharSet=Ansi!
-FontFamily FontFamily=Swiss!
-FontPitch FontPitch=Variable!
-string Item[]={"Today",&
-"Tomorrow",&
-"Release Date",&
-"Sunday",&
-"Monday",&
-"Tuesday",&
-"Wednesday",&
-"Thursday",&
-"Friday",&
-"Saturday"}
+integer x = 2574
+integer y = 884
+integer width = 306
+integer height = 252
+integer taborder = 120
+integer textsize = -9
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "MS Sans Serif"
+long textcolor = 33554432
+long backcolor = 78682240
+boolean sorted = false
+boolean vscrollbar = true
+string item[] = {"Today","Tomorrow","Release Date","Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"}
+borderstyle borderstyle = stylelowered!
 end type
 
-on losefocus;w_global_shipping_version2.SetMicroHelp("Ready")
+on losefocus;SetMicroHelp("Ready")
 end on
 
-on getfocus;w_global_shipping_version2.SetMicroHelp("Select default shipper date mode")
+on getfocus;SetMicroHelp("Select default shipper date mode")
 end on
 
 type st_detail_title from statictext within w_global_shipping_version2
-int X=2738
-int Y=1324
-int Width=695
-int Height=60
-boolean Enabled=false
-string Text="Detail Items for"
-boolean FocusRectangle=false
-long TextColor=33554432
-long BackColor=78682240
-int TextSize=-8
-int Weight=400
-string FaceName="MS Sans Serif"
-FontCharSet FontCharSet=Ansi!
-FontFamily FontFamily=Swiss!
-FontPitch FontPitch=Variable!
+integer x = 1769
+integer y = 988
+integer width = 695
+integer height = 60
+integer textsize = -8
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "MS Sans Serif"
+long textcolor = 33554432
+long backcolor = 78682240
+boolean enabled = false
+string text = "Detail Items for"
+boolean focusrectangle = false
 end type
 
 type dw_3 from datawindow within w_global_shipping_version2
-int X=2647
-int Y=1388
-int Width=1202
-int Height=380
-int TabOrder=160
-string DragIcon="DRAG1PG.ICO"
-string DataObject="dw_shipper_detail2"
-BorderStyle BorderStyle=StyleLowered!
-boolean HScrollBar=true
-boolean VScrollBar=true
-boolean HSplitScroll=true
-boolean LiveScroll=true
+integer x = 1678
+integer y = 1052
+integer width = 1202
+integer height = 380
+integer taborder = 160
+string dragicon = "DRAG1PG.ICO"
+string dataobject = "dw_shipper_detail2"
+boolean hscrollbar = true
+boolean vscrollbar = true
+boolean hsplitscroll = true
+boolean livescroll = true
+borderstyle borderstyle = stylelowered!
 end type
 
 event clicked;Boolean bChoiceable
@@ -2152,20 +2108,20 @@ bProcessDetail				= FALSE
 end event
 
 type st_list_by from statictext within w_global_shipping_version2
-int X=5
-int Y=188
-int Width=192
-int Height=64
-string Text="Dest"
-boolean FocusRectangle=false
-long TextColor=33554432
-long BackColor=78682240
-int TextSize=-8
-int Weight=400
-string FaceName="MS Sans Serif"
-FontCharSet FontCharSet=Ansi!
-FontFamily FontFamily=Swiss!
-FontPitch FontPitch=Variable!
+integer x = 5
+integer y = 188
+integer width = 192
+integer height = 64
+integer textsize = -8
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "MS Sans Serif"
+long textcolor = 33554432
+long backcolor = 78682240
+string text = "Dest"
+boolean focusrectangle = false
 end type
 
 on clicked;sle_search.visible	= TRUE
@@ -2174,56 +2130,55 @@ sle_search.SetFocus()
 end on
 
 type st_warning from statictext within w_global_shipping_version2
-int X=805
-int Y=896
-int Width=613
-int Height=64
-boolean Visible=false
-boolean Enabled=false
-string Text="Data Entry only  for NET control"
-boolean FocusRectangle=false
-long BackColor=78682240
-int TextSize=-8
-int Weight=400
-string FaceName="MS Sans Serif"
-FontCharSet FontCharSet=Ansi!
-FontFamily FontFamily=Swiss!
-FontPitch FontPitch=Variable!
+boolean visible = false
+integer x = 805
+integer y = 896
+integer width = 613
+integer height = 64
+integer textsize = -8
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "MS Sans Serif"
+long backcolor = 78682240
+boolean enabled = false
+string text = "Data Entry only  for NET control"
+boolean focusrectangle = false
 end type
 
 type st_accum from statictext within w_global_shipping_version2
-int X=567
-int Y=896
-int Width=206
-int Height=72
-boolean Visible=false
-boolean Enabled=false
-string Text="Accum:"
-Alignment Alignment=Center!
-boolean FocusRectangle=false
-long BackColor=78682240
-int TextSize=-8
-int Weight=400
-string FaceName="MS Sans Serif"
-FontCharSet FontCharSet=Ansi!
-FontFamily FontFamily=Swiss!
-FontPitch FontPitch=Variable!
+boolean visible = false
+integer x = 567
+integer y = 896
+integer width = 206
+integer height = 72
+integer textsize = -8
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "MS Sans Serif"
+long backcolor = 78682240
+boolean enabled = false
+string text = "Accum:"
+alignment alignment = center!
+boolean focusrectangle = false
 end type
 
 type cbx_add from checkbox within w_global_shipping_version2
-int Y=896
-int Width=503
-int Height=64
-boolean Visible=false
-string Text="Add/Edit Release "
-BorderStyle BorderStyle=StyleLowered!
-long BackColor=78682240
-int TextSize=-8
-int Weight=400
-string FaceName="MS Sans Serif"
-FontCharSet FontCharSet=Ansi!
-FontFamily FontFamily=Swiss!
-FontPitch FontPitch=Variable!
+boolean visible = false
+integer y = 896
+integer width = 503
+integer height = 64
+integer textsize = -8
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "MS Sans Serif"
+long backcolor = 78682240
+string text = "Add/Edit Release "
 end type
 
 event clicked;If bPartMode then
@@ -2243,60 +2198,60 @@ End If
 end event
 
 type dw_parts_per_dest from datawindow within w_global_shipping_version2
-int X=3840
-int Y=676
-int Width=494
-int Height=364
-int TabOrder=200
-boolean Visible=false
-string DataObject="dw_list_of_all_blanket_parts_per_dest"
-boolean LiveScroll=true
+boolean visible = false
+integer x = 3840
+integer y = 676
+integer width = 494
+integer height = 364
+integer taborder = 200
+string dataobject = "dw_list_of_all_blanket_parts_per_dest"
+boolean livescroll = true
 end type
 
 type st_drag2 from statictext within w_global_shipping_version2
-int X=1307
-int Y=540
-int Width=1065
-int Height=60
-boolean Visible=false
-boolean Enabled=false
-string Text="none"
-boolean FocusRectangle=false
-long TextColor=255
-long BackColor=12632256
-int TextSize=-7
-int Weight=400
-string FaceName="Arial"
-FontFamily FontFamily=Swiss!
-FontPitch FontPitch=Variable!
+boolean visible = false
+integer x = 1307
+integer y = 540
+integer width = 1065
+integer height = 60
+integer textsize = -7
+integer weight = 400
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long textcolor = 255
+long backcolor = 12632256
+boolean enabled = false
+string text = "none"
+boolean focusrectangle = false
 end type
 
 type ddlb_2 from dropdownlistbox within w_global_shipping_version2
-int X=5
-int Y=96
-int Width=567
-int Height=384
-int TabOrder=110
-boolean Visible=false
-BorderStyle BorderStyle=StyleLowered!
-boolean HScrollBar=true
-boolean VScrollBar=true
-boolean AllowEdit=true
-long TextColor=33554432
-long BackColor=78682240
-int TextSize=-8
-int Weight=400
-string FaceName="MS Sans Serif"
-FontCharSet FontCharSet=Ansi!
-FontFamily FontFamily=Swiss!
-FontPitch FontPitch=Variable!
+boolean visible = false
+integer x = 5
+integer y = 96
+integer width = 567
+integer height = 384
+integer taborder = 110
+integer textsize = -8
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "MS Sans Serif"
+long textcolor = 33554432
+long backcolor = 78682240
+boolean allowedit = true
+boolean hscrollbar = true
+boolean vscrollbar = true
+borderstyle borderstyle = stylelowered!
 end type
 
 event selectionchanged;If Not bPartMode then		//If list by destination
 	If ddlb_1.text = "Customer" then
 		dw_dest.DataObject="dw_destinations_per_customer"
 		dw_dest.SetTransObject(sqlca)
-		this.text = TRIM ( LEFT ( this.text, 10 ) )
+		this.text = TRIM ( LeftA ( this.text, 10 ) )
 		dw_dest.Retrieve(this.text)
 	End If 
 
@@ -2324,69 +2279,69 @@ wf_flag_destination()
 end event
 
 type st_11 from statictext within w_global_shipping_version2
-int X=265
-int Y=188
-int Width=297
-int Height=64
-boolean Enabled=false
-string Text="Demand"
-boolean FocusRectangle=false
-long TextColor=33554432
-long BackColor=78682240
-int TextSize=-8
-int Weight=400
-string FaceName="MS Sans Serif"
-FontCharSet FontCharSet=Ansi!
-FontFamily FontFamily=Swiss!
-FontPitch FontPitch=Variable!
+integer x = 265
+integer y = 188
+integer width = 297
+integer height = 64
+integer textsize = -8
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "MS Sans Serif"
+long textcolor = 33554432
+long backcolor = 78682240
+boolean enabled = false
+string text = "Demand"
+boolean focusrectangle = false
 end type
 
 type p_2 from picture within w_global_shipping_version2
-int X=192
-int Y=188
-int Width=78
-int Height=64
-string PictureName="logo2.bmp"
-boolean FocusRectangle=false
+integer x = 192
+integer y = 188
+integer width = 78
+integer height = 64
+string picturename = "logo2.bmp"
+boolean focusrectangle = false
 end type
 
 type dw_qty_assigned from datawindow within w_global_shipping_version2
-int X=352
-int Y=1184
-int Width=3771
-int Height=424
-int TabOrder=190
-boolean Visible=false
-string DataObject="dw_updt_qty_assigned"
-boolean LiveScroll=true
+boolean visible = false
+integer x = 352
+integer y = 1184
+integer width = 3771
+integer height = 424
+integer taborder = 190
+string dataobject = "dw_updt_qty_assigned"
+boolean livescroll = true
 end type
 
 type dw_4 from datawindow within w_global_shipping_version2
-int X=3045
-int Y=680
-int Width=622
-int Height=448
-int TabOrder=170
-boolean Visible=false
-string DataObject="dw_add_part_to_shipper_detail"
-boolean LiveScroll=true
+boolean visible = false
+integer x = 3045
+integer y = 680
+integer width = 622
+integer height = 448
+integer taborder = 170
+string dataobject = "dw_add_part_to_shipper_detail"
+boolean livescroll = true
 end type
 
 type sle_search from singlelineedit within w_global_shipping_version2
-int Y=172
-int Width=462
-int Height=72
-int TabOrder=30
-boolean Visible=false
-BorderStyle BorderStyle=StyleLowered!
-boolean AutoHScroll=false
-long TextColor=33554432
-long BackColor=16776960
-int TextSize=-8
-int Weight=400
-string FaceName="Arial"
-FontFamily FontFamily=Swiss!
-FontPitch FontPitch=Variable!
+boolean visible = false
+integer y = 172
+integer width = 462
+integer height = 72
+integer taborder = 30
+integer textsize = -8
+integer weight = 400
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long textcolor = 33554432
+long backcolor = 16776960
+boolean autohscroll = false
+borderstyle borderstyle = stylelowered!
 end type
 
 event modified;Integer 	iRow
@@ -2426,17 +2381,17 @@ end event
 
 type dw_dest from datawindow within w_global_shipping_version2
 event ue_unapproved_message ( )
-int X=5
-int Y=244
-int Width=567
-int Height=992
-int TabOrder=40
-string DataObject="dw_destinations"
-BorderStyle BorderStyle=StyleLowered!
-boolean HScrollBar=true
-boolean VScrollBar=true
-boolean HSplitScroll=true
-boolean LiveScroll=true
+integer x = 5
+integer y = 244
+integer width = 567
+integer height = 632
+integer taborder = 40
+string dataobject = "dw_destinations"
+boolean hscrollbar = true
+boolean vscrollbar = true
+boolean hsplitscroll = true
+boolean livescroll = true
+borderstyle borderstyle = stylelowered!
 end type
 
 event ue_unapproved_message;MessageBox ( "Existing Order", "This destination's status is " + dw_dest.GetItemString ( dw_dest.GetRow ( ), "cs_status" ) + ".  You will be able to do everything except physically ship out the order.", Information! )
@@ -2493,24 +2448,20 @@ Parent.SetMicroHelp("Ready")
 end event
 
 type ddlb_1 from dropdownlistbox within w_global_shipping_version2
-int Width=567
-int Height=384
-int TabOrder=20
-BorderStyle BorderStyle=StyleLowered!
-boolean VScrollBar=true
-long TextColor=33554432
-long BackColor=78682240
-int TextSize=-8
-int Weight=400
-string FaceName="MS Sans Serif"
-FontCharSet FontCharSet=Ansi!
-FontFamily FontFamily=Swiss!
-FontPitch FontPitch=Variable!
-string Item[]={"All",&
-"Customer",&
-"Demand",&
-"Plant",&
-"Scheduler"}
+integer width = 567
+integer height = 384
+integer taborder = 20
+integer textsize = -8
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "MS Sans Serif"
+long textcolor = 33554432
+long backcolor = 78682240
+boolean vscrollbar = true
+string item[] = {"All","Customer","Demand","Plant","Scheduler"}
+borderstyle borderstyle = stylelowered!
 end type
 
 event selectionchanged;bFirstTime	= FALSE
@@ -2616,23 +2567,23 @@ dw_dest.setfocus()
 end event
 
 type cbx_past_due from checkbox within w_global_shipping_version2
-int X=2469
-int Y=120
-int Width=439
-int Height=48
-boolean Visible=false
-boolean BringToTop=true
-string Text="Flag past due only"
-long BackColor=78682240
-int TextSize=-7
-int Weight=400
-string FaceName="MS Sans Serif"
-FontCharSet FontCharSet=Ansi!
-FontFamily FontFamily=Swiss!
-FontPitch FontPitch=Variable!
+boolean visible = false
+integer x = 2469
+integer y = 120
+integer width = 439
+integer height = 48
+boolean bringtotop = true
+integer textsize = -7
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "MS Sans Serif"
+long backcolor = 78682240
+string text = "Flag past due only"
 end type
 
-on losefocus;w_global_shipping_version2.SetMicroHelp("Ready")
+on losefocus;SetMicroHelp("Ready")
 end on
 
 event clicked;bPastDue	= this.checked
@@ -2651,47 +2602,62 @@ End If
 
 end event
 
-on getfocus;w_global_shipping_version2.SetMicroHelp("Set up flag to only flag past due demand")
+on getfocus;SetMicroHelp("Set up flag to only flag past due demand")
 end on
 
 type dw_2 from datawindow within w_global_shipping_version2
-int X=5
-int Y=1240
-int Width=2610
-int Height=540
-int TabOrder=130
-string DataObject="dw_open_shippers"
-BorderStyle BorderStyle=StyleLowered!
-boolean HScrollBar=true
-boolean VScrollBar=true
-boolean HSplitScroll=true
-boolean LiveScroll=true
+integer x = 5
+integer y = 888
+integer width = 1664
+integer height = 540
+integer taborder = 130
+string dataobject = "dw_open_shippers"
+boolean hscrollbar = true
+boolean vscrollbar = true
+boolean hsplitscroll = true
+boolean livescroll = true
+borderstyle borderstyle = stylelowered!
 end type
 
-event dragdrop;long ll_order, &
-		ll_count
+event dragdrop;
+char	lc_orderstatus
 
-If bCrossTab then		//Only process drop from crosstab
-	bCrossTab = FALSE
+select	order_status
+into	:lc_orderstatus
+from	order_header
+where	order_no = :isalesorder;
+
+if isnull(lc_orderstatus,'A') = 'H' then
+	messagebox(monsys.msg_title, "Sorry you can't proceed as order is on hold")
+	Return
+end if 	
+
+if	bCrossTab then //Only process drop from crosstab
+	bCrossTab = false
 	
-	// MB - 09/29/04 check the price on detail item
-	
-	ll_order	= w_global_shipping_version2.dw_range_weights.object.sales_order[1]
+	long salesOrder, zeroPriceCount
+	salesOrder = dw_range_weights.object.sales_order[1]
 
-	select count(*)
-	into   :ll_count
-	from   order_detail
-	where  order_no = :ll_order and isnull ( price, 0 ) = 0 ;
+	select
+		count(*)
+	into
+			:zeroPriceCount
+	from
+		order_detail
+	where
+		order_no = :salesOrder
+		and
+			isnull(price, 0) = 0 ;
 
-	if ll_count > 0 then 
-		messagebox ( monsys.msg_title, "Must update price before shipment is allowed!", Stopsign! )		
+	if	zeroPriceCount > 0 then 
+		msgbox("Must update price before shipment is allowed!", Stopsign!)
 		return
 	else
-	   OpenWithParm(w_check_same_destination_version2, szDestination)		
+	   OpenWithParm(w_check_same_destination_version2, szDestination)
 	end if
-End If
+end if
 
-w_global_shipping_version2.SetMicroHelp("Ready")
+SetMicroHelp("Ready")
 
 end event
 
@@ -2711,21 +2677,21 @@ on doubleclicked;Long iRow
 
 iRow	= this.GetClickedRow()
 
-w_global_shipping_version2.SetMicroHelp("Update shipper header information")
+SetMicroHelp("Update shipper header information")
 
 If iRow > 0 then
 	this.SelectRow(0, FALSE)
 	this.SelectRow(iRow, TRUE)
 	OpenWithParm ( w_shipper_header_info, this.GetItemNumber( iRow, "id"))
 End If
-w_global_shipping_version2.SetMicroHelp("Ready")
+SetMicroHelp("Ready")
 
 
 end on
 
 event dragenter;choose case source.ClassName ( )
 	case "dw_crosstab"
-		source.DragIcon = "Rectangle!"
+		source.DragIcon = "AppRectangle!"
 end choose
 
 end event
@@ -2739,36 +2705,36 @@ end event
 
 type dw_range_weights from datawindow within w_global_shipping_version2
 event hittest pbm_nchittest
-int X=5
-int Y=892
-int Width=1664
-int Height=540
-int TabOrder=150
-boolean Visible=false
-boolean Enabled=false
-string DataObject="d_range_weights"
-BorderStyle BorderStyle=StyleLowered!
-boolean VScrollBar=true
-boolean LiveScroll=true
+boolean visible = false
+integer x = 5
+integer y = 892
+integer width = 1664
+integer height = 540
+integer taborder = 150
+boolean enabled = false
+string dataobject = "d_range_weights"
+boolean vscrollbar = true
+boolean livescroll = true
+borderstyle borderstyle = stylelowered!
 end type
 
 event constructor;BringToTop = TRUE
 end event
 
 type cb_note_save from commandbutton within w_global_shipping_version2
-int X=1870
-int Y=704
-int Width=247
-int Height=108
-int TabOrder=60
-boolean Visible=false
-string Text="Save"
-int TextSize=-8
-int Weight=400
-string FaceName="MS Sans Serif"
-FontCharSet FontCharSet=Ansi!
-FontFamily FontFamily=Swiss!
-FontPitch FontPitch=Variable!
+boolean visible = false
+integer x = 1870
+integer y = 704
+integer width = 247
+integer height = 108
+integer taborder = 60
+integer textsize = -8
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "MS Sans Serif"
+string text = "Save"
 end type
 
 on clicked;dw_3.SetItem(iShipperDetailRow, "note", mle_note.text)
@@ -2784,30 +2750,102 @@ wf_show_note(FALSE)
 end on
 
 type mle_note from multilineedit within w_global_shipping_version2
-int X=1170
-int Y=320
-int Width=951
-int Height=364
-int TabOrder=80
-boolean Visible=false
-long TextColor=33554432
-long BackColor=16777215
-int TextSize=-8
-int Weight=400
-string FaceName="MS Sans Serif"
-FontCharSet FontCharSet=Ansi!
-FontFamily FontFamily=Swiss!
-FontPitch FontPitch=Variable!
+boolean visible = false
+integer x = 1321
+integer y = 232
+integer width = 951
+integer height = 364
+integer taborder = 80
+boolean bringtotop = true
+integer textsize = -8
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "MS Sans Serif"
+long textcolor = 33554432
+long backcolor = 16777215
+end type
+
+type cb_note from commandbutton within w_global_shipping_version2
+boolean visible = false
+integer x = 1061
+integer y = 256
+integer width = 1134
+integer height = 604
+integer taborder = 90
+integer textsize = -8
+integer weight = 700
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+boolean enabled = false
+end type
+
+type mle_message from multilineedit within w_global_shipping_version2
+integer x = 1216
+integer y = 416
+integer width = 1134
+integer height = 224
+integer taborder = 50
+string dragicon = "AppRectangle!"
+integer textsize = -9
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "MS Sans Serif"
+long backcolor = 16777215
+string text = "Please use dropdown list to make your selection."
+alignment alignment = center!
+end type
+
+type st_message from statictext within w_global_shipping_version2
+boolean visible = false
+integer x = 1298
+integer y = 112
+integer width = 919
+integer height = 64
+integer textsize = -7
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "MS Sans Serif"
+long backcolor = 78682240
+boolean enabled = false
+string text = "Can not view detail for normal order"
+boolean focusrectangle = false
+end type
+
+type st_drag from statictext within w_global_shipping_version2
+boolean visible = false
+integer x = 2926
+integer y = 24
+integer width = 1243
+integer height = 372
+boolean bringtotop = true
+integer textsize = -7
+integer weight = 400
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long backcolor = 79741120
+boolean enabled = false
+string text = "This is for test only"
+boolean border = true
+boolean focusrectangle = false
 end type
 
 type dw_crosstab from u_dw_crosstab_gss within w_global_shipping_version2
-int X=567
-int Y=4
-int Width=2290
-int Height=1224
-int TabOrder=100
-string DragIcon="not.ico"
-boolean VScrollBar=true
+integer x = 590
+integer y = 4
+integer width = 2290
+integer height = 880
+integer taborder = 100
+string dragicon = "not.ico"
+boolean bringtotop = true
+boolean vscrollbar = true
 end type
 
 event doubleclicked;Timer(0)
@@ -2827,7 +2865,7 @@ If row > 0 then
 End If
 end event
 
-event dragdrop;//st_drag.visible			= FALSE
+event dragdrop;st_drag.visible			= FALSE
 bCrosstab					= FALSE
 
 If bShipperDetail then    //If come from shipper detail
@@ -2901,7 +2939,7 @@ Else
 	dw_2.Retrieve(szDestination)				//Retrieve shipping dock information
 End If
 
-w_global_shipping_version2.SetMicroHelp("Ready")
+SetMicroHelp("Ready")
 end event
 
 event ue_range_change;LONG	l_l_row
@@ -2977,33 +3015,27 @@ DESTROY l_ds_part_unit_weight
 
 end event
 
-event ue_object_change;CONSTANT CHAR	c_CR = Char (10)
-
+event ue_object_change;CONSTANT CHAR	c_CR = CharA (10)
 STRING	l_s_note, &
-			l_s_customer_part,&
-			ls_customerpo
+	l_s_customer_part,&
+	ls_customerpo
 string	ls_due
 INTEGER	l_i_column, &
-			l_i_count, &
-			l_i_current
-
+	l_i_count, &
+	l_i_current
 BOOLEAN	l_b_present
+string	ls_rel, ls_releases
 
 l_i_column = newcolumn
-
 iCrossTabCol = l_i_column
 iCrossTabRow = newrow
-
 st_message.visible	= FALSE
 st_drag.text = ""
-//st_drag.visible	= FALSE
+st_drag.visible	= FALSE
 
-IF l_i_column > 9 THEN
-	Return
-END IF
+IF l_i_column > 9 THEN Return
 
 IF newrow > 0 AND l_i_column > 1 THEN
-
 	IF bPartMode THEN
 		szDestination	= dw_crosstab.object.data [ newrow, 1 ]
 	ELSE
@@ -3033,27 +3065,82 @@ IF newrow > 0 AND l_i_column > 1 THEN
 		due_date = :ls_due and
 		part = :szpart;
 
-//messagebox ( szrelease, string(isalesorder) + ' ' + string(dduedate) )
-			
-	SQLCA.oe.select_order_header ( iSalesOrder, l_s_customer_part, szOrderType )
-	SQLCA.oe.select_order_header_po ( iSalesOrder, ls_customerpo )
-/*
-	IF newcolumn > 5 THEN
-		st_drag.x				= X + PointerX () - 840
-	ELSE
-		st_drag.x				= X + PointerX () + 60
-	END IF
-	IF LONG ( dw_crosstab.object.DataWindow.FirstRowOnPage ) + 5  > newrow THEN
-		st_drag.y			= PointerY() + 60
-	ELSE
-		st_drag.y			= PointerY() - 310
-	END IF
-*/
+	ls_releases = ''
+	if l_i_column = 2 then 
+		Declare relcur Cursor for 
+		Select	release_no 
+		from	cdivw_getreleases
+		where	order_no = :isalesorder and
+			due_date < :ls_due and
+			part = :szpart;
+		
+		Open relcur;
+		
+		Fetch relcur into :ls_rel;
+		
+		Do while sqlca.sqlcode = 0
+			if isnull(ls_releases,'') = '' then 
+				ls_releases = ls_rel 
+			else	
+				ls_releases = ls_releases +', '+ ls_rel
+			end if 	
+			Fetch relcur into :ls_rel;
+		Loop
+		
+		Close relcur;
+	else
+		Declare relcur1 Cursor for 
+		Select	release_no 
+		from	cdivw_getreleases
+		where	order_no = :isalesorder and
+			due_date = :ls_due and
+			part = :szpart;
+		
+		Open relcur1;
+		
+		Fetch relcur1 into :ls_rel;
+		
+		Do while sqlca.sqlcode = 0
+			if isnull(ls_releases,'') = '' then 
+				ls_releases = ls_rel 
+			else	
+				ls_releases = ls_releases +', '+ ls_rel
+			end if 	
+			Fetch relcur1 into :ls_rel;
+		Loop
+		
+		Close relcur1;
+	end if
+	
+	SELECT	customer_part,
+		customer_po,
+		order_type
+	INTO	:l_s_customer_part,
+		:ls_customerpo,
+		:szOrderType
+	FROM	order_header
+	WHERE	order_no = :iSalesOrder  ;
 
-//	st_drag.visible	= TRUE
+//	IF newcolumn > 5 THEN
+//		st_drag.x				= X + PointerX () - 840
+//	ELSE
+//		st_drag.x				= X + PointerX () + 60
+//	END IF
+//	IF LONG ( dw_crosstab.object.DataWindow.FirstRowOnPage ) + 5  > newrow THEN
+//		st_drag.y			= PointerY() + 60
+//	ELSE
+//		st_drag.y			= PointerY() - 310
+//	END IF
+
+	st_drag.visible	= TRUE
 	
-	SQLCA.oe.select_order_detail_um ( iSalesOrder, szPart, iSuffix, i_s_unit )
-	
+	SELECT	unit
+	INTO	:i_s_unit
+	FROM	order_detail
+	WHERE	order_no = :iSalesOrder AND
+		part_number = :szPart AND
+		IsNull ( suffix, 0 ) = IsNull ( :iSuffix, 0 )  ;
+		
 	IF IsNull ( i_s_unit, "" ) = "" THEN
 		i_s_unit = f_get_part_info ( szPart, "STANDARD UNIT" )
 	END IF
@@ -3066,7 +3153,8 @@ IF newrow > 0 AND l_i_column > 1 THEN
 										"Customer Part:  " + IsNull ( l_s_customer_part, "" ) + "    UM:  " + i_s_unit + c_CR + &
 										"Customer PO#:  " + IsNull ( ls_customerpo, '' ) + c_CR + &
 										"On Hand Qty:  " + String ( Truncate( wf_on_hand ( szPart ), 0 ) ) + c_CR + &
-										"Release:  " + IsNull ( szRelease, "" )
+										"Release:  " + IsNull ( szRelease, "" ) + c_CR + &
+										"Multiple Releases:  " + IsNull ( ls_releases, "" )
 		ELSE
 			l_s_note				=	Trim ( IsNull ( wf_get_note ( iSalesOrder, szPart, iSuffix ), "" ) )
 			st_drag.text		=	"Destination:  " + szDestination + c_CR + &
@@ -3084,6 +3172,7 @@ IF newrow > 0 AND l_i_column > 1 THEN
 										"Customer Part:  " + IsNull ( l_s_customer_part, "" ) + "    UM:  " + i_s_unit + c_CR + &
 										"Customer PO#:  " + IsNull ( ls_customerpo, '' ) + c_CR + &
 										"Release:  " + IsNull ( szRelease, "" ) + c_CR + &
+										"Multiple Releases:  " + IsNull ( ls_releases, "" )+ c_CR + &
 										"On Hand Qty:  " + String ( Truncate ( wf_on_hand ( szPart ), 0 ) )
 		ELSE
 			l_s_note				=	Trim ( IsNull ( wf_get_note ( iSalesOrder, szPart, iSuffix ), "" ) )
@@ -3096,7 +3185,7 @@ IF newrow > 0 AND l_i_column > 1 THEN
 										"Note:  " + l_s_note
 		END IF
 	END IF
-//	st_drag.visible = TRUE
+	st_drag.visible = TRUE
 	st_accum.visible	= wf_accum ( iSalesOrder )
 
 	bCrossTab = TRUE
@@ -3105,7 +3194,7 @@ IF newrow > 0 AND l_i_column > 1 THEN
 END IF
 end event
 
-event dragwithin;call super::dragwithin;//st_drag.visible	= FALSE
+event dragwithin;call super::dragwithin;st_drag.visible	= FALSE
 end event
 
 event constructor;i_ds_range = CREATE u_ds_range
@@ -3134,55 +3223,4 @@ END IF
 m_global_shipping_scheduler.m_file.m_savereleases.ToolbarItemVisible	= TRUE
 
 end event
-
-type cb_note from commandbutton within w_global_shipping_version2
-int X=1061
-int Y=256
-int Width=1134
-int Height=604
-int TabOrder=90
-boolean Visible=false
-boolean Enabled=false
-int TextSize=-8
-int Weight=700
-string FaceName="Arial"
-FontFamily FontFamily=Swiss!
-FontPitch FontPitch=Variable!
-end type
-
-type mle_message from multilineedit within w_global_shipping_version2
-int X=1216
-int Y=416
-int Width=1134
-int Height=224
-int TabOrder=50
-string DragIcon="Rectangle!"
-Alignment Alignment=Center!
-string Text="Please use dropdown list to make your selection."
-long BackColor=16777215
-int TextSize=-9
-int Weight=400
-string FaceName="MS Sans Serif"
-FontCharSet FontCharSet=Ansi!
-FontFamily FontFamily=Swiss!
-FontPitch FontPitch=Variable!
-end type
-
-type st_drag from statictext within w_global_shipping_version2
-int X=2926
-int Y=104
-int Width=946
-int Height=372
-boolean Enabled=false
-boolean BringToTop=true
-boolean Border=true
-string Text="This is for test only"
-boolean FocusRectangle=false
-long BackColor=79741120
-int TextSize=-7
-int Weight=400
-string FaceName="Arial"
-FontFamily FontFamily=Swiss!
-FontPitch FontPitch=Variable!
-end type
 
