@@ -1,16 +1,18 @@
 HA$PBExportHeader$w_shipping_dock.srw
 forward
-global type w_shipping_dock from Window
-end type
-type dw_destination_scf from datawindow within w_shipping_dock
-end type
-type mle_1 from multilineedit within w_shipping_dock
+global type w_shipping_dock from window
 end type
 type sle_1 from singlelineedit within w_shipping_dock
 end type
+type st_14 from statictext within w_shipping_dock
+end type
 type st_11 from statictext within w_shipping_dock
 end type
-type st_14 from statictext within w_shipping_dock
+type mle_1 from multilineedit within w_shipping_dock
+end type
+type dw_destination_scf from datawindow within w_shipping_dock
+end type
+type dw_dest from datawindow within w_shipping_dock
 end type
 type em_verifyscan from editmask within w_shipping_dock
 end type
@@ -98,6 +100,8 @@ type st_vscanserial from statictext within w_shipping_dock
 end type
 type dw_printscanexception from datawindow within w_shipping_dock
 end type
+type str_oe_detail from structure within w_shipping_dock
+end type
 end forward
 
 type str_oe_detail from structure
@@ -105,19 +109,18 @@ type str_oe_detail from structure
     string szum
 end type
 
-global type w_shipping_dock from Window
-int X=0
-int Y=0
-int Width=5234
-int Height=2960
-boolean TitleBar=true
-string Title="Monitor Shipping Dock"
-long BackColor=79216776
-boolean ControlMenu=true
-boolean MinBox=true
-boolean MaxBox=true
-boolean Resizable=true
-WindowState WindowState=maximized!
+global type w_shipping_dock from window
+integer width = 5234
+integer height = 3036
+boolean titlebar = true
+string title = "Monitor Shipping Dock"
+string menuname = "m_shipping_dock"
+boolean controlmenu = true
+boolean minbox = true
+boolean maxbox = true
+boolean resizable = true
+windowstate windowstate = maximized!
+long backcolor = 79216776
 event create_new_pallet pbm_custom01
 event manul_scan pbm_custom02
 event reconcile pbm_custom03
@@ -136,11 +139,12 @@ event ue_print_update ( string a_b_form_type )
 event ue_open ( )
 event ue_unapproved_message ( )
 event ue_verifyscan ( )
-dw_destination_scf dw_destination_scf
-mle_1 mle_1
 sle_1 sle_1
-st_11 st_11
 st_14 st_14
+st_11 st_11
+mle_1 mle_1
+dw_destination_scf dw_destination_scf
+dw_dest dw_dest
 em_verifyscan em_verifyscan
 p_1 p_1
 sle_document sle_document
@@ -206,7 +210,7 @@ boolean  bType                 //will_call_customer
 Long      iShipper              //Current shipper number
 Long      iSerial                 //Current serial number 
 Long      iShipperRow        //The row for shipper
-Long      iStagedRow =0        //Current staged row
+Long      iStagedRow         //Current staged row
 Long      iPalletSerial         //Current Pallet Serial
 Long      iPalletBoxRow     //Current box row on pallet
 Long      lRedColor            //Red color
@@ -279,7 +283,7 @@ string	is_shipday='Any_Day'
 boolean	ib_displaymessage = True
 string	is_lastpart
 datetime	idt_dateshipped
-boolean	ib_nonshipstatus=true
+
 end variables
 
 forward prototypes
@@ -360,8 +364,10 @@ public subroutine updt_inventory (long al_serial)
 public function integer wf_get_order_release_date (long al_order, string as_part, long al_suffix, ref datetime adt_release_date, ref string as_release_number)
 public function boolean wf_checkforoverstage (long al_serial)
 public function boolean update_kanban (long ai_salesorder)
-public subroutine wf_sendmail (string as_mailnotes)
-public function boolean wf_checkpartstatus ()
+public subroutine wf_write_releases ()
+public subroutine sendemail (string _message)
+public function boolean checkpartstatus ()
+public function boolean checkshipperstatus ()
 end prototypes
 
 event create_new_pallet;/* 01-31-2000 KAZ Modified to use 'of_getnextparmvalue' function instead of 'w_get_parm_value'
@@ -437,6 +443,7 @@ event reconcile;/* 01-31-2000 KAZ Modified to place the rollbacks before the mes
 
 Long      iRow			//To keep the current row number
 Long		 iBoxRow		//To keep the box row on detail screen
+
 Long		 iPallets 	//To keep the total pallets
 
 Decimal	 nTareWeight//To keep the tare weight of the object
@@ -552,35 +559,47 @@ event scan_to_truck;Long	l_i_Row			//To keep the current row number
 Long	l_l_TotalObjects	//To keep the total objects
 Long	l_l_TotalItems		//To keep the total shipper detail items
 Long	l_l_Invoice
-Long	l_l_count
+long holdBoxCount
 Decimal l_n_Qty			//To keep the quantity
 Decimal l_n_OurCum		//To keep the our cum
 String  l_s_Part		//To keep the part number
 String  l_s_OrderType		//To keep the type of the sales order
 Boolean l_b_OK = TRUE
-int	li_ctr
 
 if dw_shipper_header.GetItemString ( 1, "customer_service_status_status_type" ) <> 'A' then
 	MessageBox ( "Shipping Dock", "This shipper's status is " + dw_shipper_header.GetItemString ( 1, "customer_service_status_status_type" ) + ".  You can not ship this out until it is approved.", Information! )
 	return
 end if
 
-if wf_checkpartstatus() = true then 
-	messagebox (monsys.msg_title, "Certain part(s) on this shipper are set to non ship status, can't proceed with ship out routine")
+if	CheckShipperStatus() then 
+	msgbox ("Certain part(s) on this shipper are set to non ship status, can't proceed with ship out routine")
 	return
 end if 
 
 // MB check if objects on pallet have approved qc status 09/28/04 
-SELECT  COUNT(*)
-INTO    :l_l_count
-FROM    object 
-WHERE   shipper = :ishipper  AND 
-		  status  <> 'A' AND 
-	     parent_serial in (SELECT serial FROM object 
-									WHERE shipper = :ishipper AND 
-									TYPE = 'S' ) ;
-			
-if l_l_count > 0 then
+select
+	count(*)
+into
+	:holdBoxCount
+from
+	object 
+where
+	shipper = :ishipper
+	and
+		status <> 'A'
+	and
+		parent_serial in
+		(	select
+				serial
+			from
+				object
+			where
+				shipper = :ishipper
+				and
+					type = 'S'
+		)   ;
+
+if	holdBoxCount > 0 then
 	messagebox ( monsys.msg_title, "Cannot Ship Pallet, it contains objects ON HOLD", StopSign! )
 	return
 end if
@@ -632,17 +651,17 @@ end if
 
 SetPointer ( Arrow! )
 end event
+
 event print_shipper;INTEGER  l_i_job
 
 STRING  szDataWindowName, &
 	szFormName, &
-        l_s_type, &
-	ls_part, &
-	ls_formname
+        l_s_type
+string formName
 
 st_print_preview_generic l_st_Parm
 
-if wf_checkpartstatus() = true then 
+if CheckPartStatus() = true then 
 	messagebox (monsys.msg_title, "Certain part(s) on this shipper are set to non ship status, can't proceed with packing list printing")
 	return
 end if 
@@ -664,30 +683,37 @@ CHOOSE CASE  l_s_type
 		l_st_Parm.form_type = "Outside Process"
 
 	CASE ELSE
-		l_st_Parm.form_type = "Packing List"		
+		l_st_Parm.form_type = "Packing List"
+		
+		wf_write_releases() //Writes to additional table, if enabled at destination
 
 END CHOOSE
 
-select	min(part_original)
-into	:ls_part
-from	shipper_detail
-where	shipper = :ishipper;
-
-select	isnull(form_name,'')
-into	:ls_formname
-from	product_line
-where	id = (select product_line from part where part = :ls_part);
+select
+	min(isnull(form_name,''))
+into
+	:formName
+from
+	dbo.product_line pl
+	join dbo.part p on
+		pl.id = p.product_line
+	join dbo.shipper_detail sd on
+		p.part = sd.part_original
+where
+	sd.shipper = :iShipper  ;
 
 l_st_Parm.document_number = iShipper
-l_st_Parm.additional_formname= ls_formname
+l_st_Parm.additional_formname= formName
 
 IF shipper_is_staged() THEN
-	OpenSheetwithParm ( w_print_preview,  l_st_Parm, wMainScreen, 0, Layered! )
+	OpenSheetwithParm ( w_form_print_preview,  l_st_Parm, gnv_App.of_GetFrame(), 0, Original! )
 ELSE
 	MessageBox(monsys.msg_title, "Can't print document for unstaged shipper", StopSign!)
 	sle_document.text	= "Not Prted"
 END IF
+
 THIS.SetMicroHelp("Ready")
+
 gf_get_info ( 'w_shipping_dock', 0 )
 
 end event
@@ -696,7 +722,7 @@ event print_picklist;st_print_preview_generic l_st_Parm
 l_st_Parm.document_number = iShipper
 l_st_Parm.form_type		 = 'Pick list'
 
-OpenSheetwithParm ( w_print_preview,  l_st_Parm,  wmainscreen, 3, Layered! )
+OpenSheetwithParm ( w_form_print_preview,  l_st_Parm,  gnv_App.of_GetFrame(), 3, Original! )
 
 this.SetMicroHelp("Ready")
 
@@ -737,7 +763,7 @@ l_st_Parm.document_number = iShipper
 
 l_st_Parm.form_type		  = 'Canadian Custom'
 
-OpenSheetwithParm ( w_print_preview,  l_st_Parm, wMainScreen, 3, Layered! )
+OpenSheetwithParm ( w_form_print_preview,  l_st_Parm, gnv_App.of_GetFrame(), 3, Original! )
 
 this.SetMicroHelp("Ready") 
 
@@ -749,7 +775,7 @@ Long l_l_Number
 String l_s_WinName
 String l_s_NumberOfLabels
 Window lw_WinName
-if isnull(iStagedrow) then iStagedrow = 0 
+if isnull(iStagedRow) then iStagedRow=0
 IF isnull(iStagedRow,0) > 0 THEN
 	IF dw_pallets.GetItemString ( iStagedRow, "type" ) = "S" THEN //Pallet 
 		l_l_Serial	= dw_pallets.GetItemNumber ( iStagedRow, "serial" )
@@ -772,7 +798,7 @@ event print_certs;stPrintParm.Form_type			= "Engineering Certs"
 stPrintParm.Document_number	= iShipper
 stPrintParm.Calling_window		= w_shipping_dock
 
-OpenSheetWithParm ( w_print_preview, stPrintParm, wMainScreen, 3, layered!)
+OpenSheetWithParm ( w_form_print_preview, stPrintParm, gnv_App.of_GetFrame(), 3, Original!)
 end event
 
 event relabel;String 	l_s_Type
@@ -938,34 +964,24 @@ DESTROY lds_labels
 this.SetMicroHelp("Ready")
 end event
 
-event ue_print_update;STRING l_s_type
-string	ls_dest
-
+event ue_print_update(string a_b_form_type);STRING l_s_type
 a_b_form_type = string (Message.LongParm, "address")
-
 CHOOSE CASE a_b_form_type
-		
 	CASE 'Pick list'
 			MessageBox(monsys.msg_title, "Pick List has been printed")
 			w_list_of_active_shippers.wf_picklist_print_status()		
-		
 	CASE 'Canadian Custom'
 			MessageBox(monsys.msg_title,"Canadian custom form has been printed")								
-
-	
 	CASE 'Engineering Certs'
 			MessageBox(monsys.msg_title,"Engineering Certs form has been printed")								
-
-	
 	CASE ELSE //'Packing List'
-			MessageBox(monsys.msg_title, a_b_form_type + " has been printed")
+			msgbox(a_b_form_type + " has been printed")
 			w_list_of_active_shippers.wf_set_print_status("Y")
 			sle_document.text		= "Printed"
 			sle_document.textcolor = f_get_color_value ( "green" )	
 			w_list_of_active_shippers.bPrinted		= TRUE
 			w_list_of_active_shippers.bStaged		= TRUE
-			ls_dest = sle_destination.text
-			if dw_destination_scf.retrieve(ls_dest,ishipper) > 0 then 
+			if dw_destination_scf.retrieve(sle_destination.text,ishipper) > 0 then 
 				dw_destination_scf.print()
 			end if 	
 END CHOOSE
@@ -1541,8 +1557,9 @@ end subroutine
 public function boolean box_exist (long iserial);Return (dw_object_info.Retrieve(iserial) > 0)
 end function
 
-public subroutine wf_set_detail_qty (decimal nqty);String szWorkOrder
-nQty				= f_get_value(nQty)
+public subroutine wf_set_detail_qty (decimal nqty);
+String szWorkOrder
+nQty = f_get_value(nQty)
 
 
 If nQty > 0 then
@@ -1557,15 +1574,15 @@ Else
 		dw_objects.Reset()
 	End If
 End If
-		
+
 
 If dw_shipper_detail.Update() > 0 then
 	Commit;
-	if nqty = 0 then 
-		wf_sendmail("Quantity for part "+szpart+" was set to zero, on shipper "+string(ishipper))
+	if	nqty = 0 then 
+		SendEMail("Quantity for part "+szpart+" was set to zero, on shipper "+string(ishipper))
 	else
-		wf_sendmail("Quantity for part "+szpart+" was modified to "+string(nqty)+ ", on shipper "+string(ishipper))
-	end if 	
+		SendEMail("Quantity for part "+szpart+" was modified to "+string(nqty)+ ", on shipper "+string(ishipper))
+	end if 
 	
 	If iDetailRow = 0 then
 		SetNull(szPart)
@@ -2221,6 +2238,7 @@ Do while (Not bDone) and (iRow <= dw_shipper_detail.RowCount())
 	
 		If cSign = "+" then
 			nCurrentQty	= nCurrentQty + nQty
+
 			iTotalBoxes	++	
 		Else
 			nCurrentQty	= nCurrentQty - nQty
@@ -2613,20 +2631,20 @@ End If
 Return TRUE
 end function
 
-public function boolean wf_set_status ();wMainScreen.SetMicroHelp ( "Step: 6a" )
+public function boolean wf_set_status ();gnv_App.of_GetFrame().SetMicroHelp ( "Step: 6a" )
 
-wMainScreen.SetMicroHelp ( "Step: 6b" )
+gnv_App.of_GetFrame().SetMicroHelp ( "Step: 6b" )
 w_list_of_active_shippers.bStaged	= FALSE
 w_list_of_active_shippers.bPrinted  = FALSE
 
-wMainScreen.SetMicroHelp ( "Step: 6c" )
+gnv_App.of_GetFrame().SetMicroHelp ( "Step: 6c" )
 
 UPDATE shipper  
    SET status 				= 'C',   
        staged_objs 		= :w_list_of_active_shippers.iBoxes
  WHERE id = :iShipper   ;
 
-wMainScreen.SetMicroHelp ( "Step: 6d" )
+gnv_App.of_GetFrame().SetMicroHelp ( "Step: 6d" )
 If SQLCA.SQLCode = -1 then
 	MessageBox ( "Error", SQLCA.SQLErrText )
 	Return FALSE
@@ -2770,8 +2788,8 @@ public subroutine wf_print_invoice (integer iinvoice, long ishipper);stPrintParm
 stPrintParm.Document_number	= iInvoice
 stPrintParm.Calling_window		= w_shipping_dock
 
-OpenSheetWithParm(w_print_preview, stPrintParm, wmainscreen , 4, layered!)
-w_print_preview.ib_missingdata = True
+OpenSheetWithParm(w_form_print_preview, stPrintParm, gnv_App.of_GetFrame() , 4, Original!)
+w_form_print_preview.ib_missingdata = True
 
 
 end subroutine
@@ -3035,52 +3053,35 @@ END IF
 bPalletVisible = TRUE
 end subroutine
 
-public function long wf_get_current_row (string as_part);Long	 l_row, &
-		 l_prev_row, &
-	 	 l_Count, &
-		 l_suffix
-
-String ls_part
-
-Dec  	 n_required
-Dec  	 n_packed
-
+public function long wf_get_current_row (string as_part);Long	l_row, &
+	l_prev_row, &
+	l_Count, &
+	l_suffix
+String	ls_part
+Dec	n_required
+Dec	n_packed
 Boolean b_found = false
-
 For l_count = 1 to dw_shipper_Detail.Rowcount()
-
-     l_suffix 			= dw_shipper_Detail.Getitemnumber( l_count, "shipper_detail_suffix" )
-     ls_part		 	= wf_strip_off_suffix ( dw_shipper_Detail.GetitemString( l_count, "part" ), l_suffix )
-
-     If as_part = ls_part  then
-
-			n_required = dw_shipper_Detail.Getitemnumber( l_count, "shipper_detail_qty_required" )	
-			n_packed	  = dw_shipper_Detail.Getitemnumber( l_count, "shipper_detail_alternative_qty" )
-			l_prev_row = l_count
-
-			If n_required > n_packed then
-			  idetailrow = l_count
-		     return l_count    
-           b_found = true
-			End If
-
-			If l_Count = dw_shipper_Detail.Rowcount() then
-	   		  idetailrow = l_prev_row
-				  return l_prev_row
-			End If
-
-     End If
-
-
+	l_suffix= dw_shipper_Detail.Getitemnumber( l_count, "shipper_detail_suffix" )
+	ls_part	= wf_strip_off_suffix ( dw_shipper_Detail.GetitemString( l_count, "part" ), l_suffix )
+	If as_part = ls_part  then
+		n_required = dw_shipper_Detail.Getitemnumber( l_count, "shipper_detail_qty_required" )	
+		n_packed   = dw_shipper_Detail.Getitemnumber( l_count, "shipper_detail_alternative_qty" )
+		l_prev_row = l_count
+		If n_required > n_packed then
+			idetailrow = l_count
+			b_found = true			
+			return l_count    
+		End If
+		If l_Count = dw_shipper_Detail.Rowcount() then
+			idetailrow = l_prev_row
+			return l_prev_row
+		End If
+	End If
 Next
-
 If b_found = false Then
-
 	return -1
-
 End If
-
-
 
 end function
 
@@ -3123,16 +3124,12 @@ public function integer wf_stage_object (long al_serial);LONG	ll_currentpallet, 
 	ll_currentshipper, &
 	ll_count, &
 	ll_row
-
 BOOLEAN	bRightPackage
-
 STRING	ls_objectpackage, &
 	ls_objectpart
-
 DECIMAL	ldec_tareweight
 
 IF box_exist ( al_serial ) THEN
-
 	/////////////////////////////////////////////////////
 	// check to see if destination allows for overstaging
 	//		if it doesn't make sure object won't go over
@@ -3140,7 +3137,7 @@ IF box_exist ( al_serial ) THEN
 	/////////////////////////////////////////////////////
 
 	ls_objectpart	= dw_object_info.GetItemString ( 1, "part" )
-	
+
 	// Reset display for overstage when part number changes
 	if ls_objectpart <> is_lastpart then
 		ib_displaymessage = true
@@ -3161,7 +3158,6 @@ IF box_exist ( al_serial ) THEN
 	/////////////////////////////////////////////////////
 
 	iSerial = al_serial
-	
 	// removed "AND ( NOT bneedsuffix )" from below if
 	IF IsNull ( iSuffix ) THEN
 		idetailrow = wf_get_current_row ( ls_objectpart )
@@ -3275,8 +3271,12 @@ IF box_exist ( al_serial ) THEN
 				dw_object_info.SetItem ( 1, "destination", szdestination ) 
 				// removed "AND ( NOT bneedsuffix )" from below if
 				IF IsNull(iSuffix) THEN   // for 'consider suffix option'
-					 iSuffix = dw_shipper_Detail.GetItemNumber ( iDetailRow, "shipper_Detail_suffix" )
-					 dw_object_info.Setitem ( 1, "suffix", isuffix )
+					 idetailrow = wf_get_current_row ( ls_objectpart )				
+					 if idetailrow > 0 then 
+					 	iSuffix = dw_shipper_Detail.GetItemNumber ( iDetailRow, "shipper_Detail_suffix" )
+					 	dw_object_info.Setitem ( 1, "suffix", isuffix )
+						 
+					 end if 	
 				END IF
 			ELSE
 				dw_object_info.SetItem(1, "shipper", iShipper)
@@ -3284,11 +3284,13 @@ IF box_exist ( al_serial ) THEN
 				dw_object_info.SetItem ( 1, "destination", szdestination ) 
 				// removed "AND ( NOT bneedsuffix )" from below if
 				IF IsNull(iSuffix) THEN   // for 'consider suffix option'
+					idetailrow = wf_get_current_row ( ls_objectpart )				
 					IF idetailrow > 0 THEN
 						 iSuffix = dw_shipper_Detail.GetItemNumber ( iDetailRow, "shipper_Detail_suffix" )
 						 dw_object_info.setitem( 1, "suffix", isuffix )
 					END IF
 				END IF
+
 				IF bScanPallet THEN					//IF staging a pallet now
 					wf_update_pallet_numbers ( "+", 1 )		//Update # of pallets in shipper
 					wf_assign_shipper_to_boxes ( al_serial )	//Assign shipper # to
@@ -3400,8 +3402,9 @@ ELSE
 	f_beep ( 3 )
 	MessageBox ( monsys.msg_title, "Serial# :" + String(al_serial) + " not Found", StopSign!)
 	ll_row = dw_object_info.Find ( "serial = " + String ( al_serial ), 1, dw_object_info.RowCount ( ) )
-	IF ll_row > 0 AND dw_object_info.GetItemNumber ( ll_row, "serial" ) = al_serial THEN
-		dw_object_info.DeleteRow ( ll_row )
+	IF ll_row > 0 then
+		if dw_object_info.GetItemNumber ( ll_row, "serial" ) = al_serial THEN &
+			dw_object_info.DeleteRow ( ll_row )
 	END IF
 	Return -1
 END IF
@@ -3768,7 +3771,87 @@ END IF
 
 end function
 
-public subroutine wf_sendmail (string as_mailnotes);mailSession mSes
+public subroutine wf_write_releases ();string	ls_custom10
+string	ls_part
+dec	ld_sdqty
+long	ll_order
+datetime ldt_reldate
+int	li_cnt=0
+dec	ld_odqty
+string	ls_release
+boolean	lb_inserted=false
+
+select	custom10 
+into	:ls_custom10
+from	destination 
+where	destination = :szdestination and
+	customer = :szcustomer;
+	
+if isnull(ls_custom10,'N') = 'Y' then // if enabled
+	// declare a cursor to get all the order #s, part, quantity from shipper detail 
+	// for the current shipper. 
+	// for each of those shipper, part
+	// for each of those orders
+	
+	delete	multireleases where id = :ishipper;
+	
+	declare sdcur cursor for 
+	select	part_original, qty_packed, order_no, release_date 
+	from	shipper_detail
+	where	shipper = :ishipper;
+	
+	open	sdcur;
+	
+	fetch	sdcur into :ls_part, :ld_sdqty, :ll_order, :ldt_reldate;
+	
+	do while sqlca.sqlcode = 0
+		
+		declare odcur cursor for 
+		select	quantity, release_no, due_date
+		from	order_detail
+		where	order_no = :ll_order and 
+			part_number = :ls_part
+		order by due_date;	
+		
+		open	odcur;
+		
+		fetch	odcur into :ld_odqty, :ls_release, :ldt_reldate;
+		
+		do while sqlca.sqlcode = 0 and ld_sdqty > 0 
+			
+			if ld_odqty < ld_sdqty then 
+				insert	into multireleases
+				values	(:ishipper, :ls_part, :ls_release, :ld_odqty, :ldt_reldate) ;
+				ld_sdqty = ld_sdqty - ld_odqty
+				lb_inserted = true
+			else
+				insert	into multireleases
+				values	(:ishipper, :ls_part, :ls_release, :ld_sdqty, :ldt_reldate) ;
+				ld_sdqty = 0 
+				lb_inserted = true				
+			end if 	
+
+			fetch	odcur into :ld_odqty, :ls_release, :ldt_reldate;
+			
+		loop
+		
+		close	odcur;
+		
+		fetch	sdcur into :ls_part, :ld_sdqty, :ll_order, :ldt_reldate;		
+	loop
+	
+	close	sdcur;
+	if lb_inserted then 
+		commit;
+	else	
+		rollback;
+	end if 	
+end if
+
+end subroutine
+
+public subroutine sendemail (string _message);
+mailSession mSes
 mailReturnCode mRet
 mailMessage mMsg
 // Create a mail session
@@ -3777,23 +3860,37 @@ mSes = create mailSession
 mRet = mSes.mailLogon("useralert","empua5903")
 // Populate the mailMessage structure
 mMsg.Subject = 'Quantity edit alter'
-mMsg.NoteText = as_mailnotes
+mMsg.NoteText = _message
 mMsg.Recipient[1].name = 'useralert'
 // Send the mail
 mRet = mSes.mailSend(mMsg)
 mSes.mailLogoff()
 DESTROY mSes
 Return
+
 end subroutine
 
-public function boolean wf_checkpartstatus ();integer li_ctr
-for li_ctr = 1 to dw_shipper_detail.rowcount()
-	if dw_shipper_detail.object.non_ship[li_ctr] = 'Y' and &
-		isnull(dw_shipper_detail.object.group_no[li_ctr],'Y') = 'Y' then
+public function boolean checkpartstatus ();
+integer rowShipperDetail
+rowShipperDetail = dw_shipper_detail.GetRow()
+if	dw_shipper_detail.object.non_ship[rowShipperDetail] = "Y" and &
+	isnull(dw_shipper_detail.object.group_no[rowShipperDetail],"Y") = "Y" then
+	return true
+end if 	
+return false
+
+end function
+
+public function boolean checkshipperstatus ();
+integer rowShipperDetail
+for	rowShipperDetail = 1 to dw_shipper_detail.rowcount()
+	if	dw_shipper_detail.object.non_ship[rowShipperDetail] = "Y" and &
+		isnull(dw_shipper_detail.object.group_no[rowShipperDetail],"Y") = "Y" then
 		return true
 	end if 	
 next
 return false
+
 end function
 
 event open;
@@ -3842,15 +3939,15 @@ If dw_shipper_detail.RowCount() > 0 then
 	iDetailRow = 1
 	sle_1.text = dw_shipper_detail.object.non_ship_operator[1]
 	mle_1.text = dw_shipper_detail.object.non_ship_note[1]
-	
-//	dw_shipper_detail.SelectRow ( 1, TRUE )
 End If
 
 dw_pallet_info.Reset()
 
 sle_shipper.text		= String(iShipper)
 sle_destination.text	= w_list_of_active_shippers.szDestination
-szdestination = sle_destination.text
+szDestination = sle_destination.text
+
+dw_dest.retrieve(wf_get_customer(sle_destination.text))
 
 If w_list_of_active_shippers.bStaged then
 	sle_status.text	= "Staged"
@@ -3948,11 +4045,13 @@ END IF
 end event
 
 on w_shipping_dock.create
-this.dw_destination_scf=create dw_destination_scf
-this.mle_1=create mle_1
+if this.MenuName = "m_shipping_dock" then this.MenuID = create m_shipping_dock
 this.sle_1=create sle_1
-this.st_11=create st_11
 this.st_14=create st_14
+this.st_11=create st_11
+this.mle_1=create mle_1
+this.dw_destination_scf=create dw_destination_scf
+this.dw_dest=create dw_dest
 this.em_verifyscan=create em_verifyscan
 this.p_1=create p_1
 this.sle_document=create sle_document
@@ -3996,11 +4095,12 @@ this.mle_scan_out=create mle_scan_out
 this.gb_vscan=create gb_vscan
 this.st_vscanserial=create st_vscanserial
 this.dw_printscanexception=create dw_printscanexception
-this.Control[]={this.dw_destination_scf,&
-this.mle_1,&
-this.sle_1,&
-this.st_11,&
+this.Control[]={this.sle_1,&
 this.st_14,&
+this.st_11,&
+this.mle_1,&
+this.dw_destination_scf,&
+this.dw_dest,&
 this.em_verifyscan,&
 this.p_1,&
 this.sle_document,&
@@ -4047,11 +4147,13 @@ this.dw_printscanexception}
 end on
 
 on w_shipping_dock.destroy
-destroy(this.dw_destination_scf)
-destroy(this.mle_1)
+if IsValid(MenuID) then destroy(MenuID)
 destroy(this.sle_1)
-destroy(this.st_11)
 destroy(this.st_14)
+destroy(this.st_11)
+destroy(this.mle_1)
+destroy(this.dw_destination_scf)
+destroy(this.dw_dest)
 destroy(this.em_verifyscan)
 destroy(this.p_1)
 destroy(this.sle_document)
@@ -4097,143 +4199,210 @@ destroy(this.st_vscanserial)
 destroy(this.dw_printscanexception)
 end on
 
-type dw_destination_scf from datawindow within w_shipping_dock
-int X=14
-int Y=1432
-int Width=2830
-int Height=432
-int TabOrder=70
-boolean Visible=false
-string DataObject="d_destination_scf"
-BorderStyle BorderStyle=StyleLowered!
-boolean LiveScroll=true
-end type
-
-event constructor;settransobject(sqlca)
-end event
-
-type mle_1 from multilineedit within w_shipping_dock
-int X=2880
-int Y=324
-int Width=544
-int Height=1096
-BorderStyle BorderStyle=StyleLowered!
-boolean AutoVScroll=true
-boolean DisplayOnly=true
-long BackColor=79741120
-int TextSize=-10
-int Weight=400
-string FaceName="Arial"
-FontCharSet FontCharSet=Ansi!
-FontFamily FontFamily=Swiss!
-FontPitch FontPitch=Variable!
-end type
-
 type sle_1 from singlelineedit within w_shipping_dock
-int X=3209
-int Y=164
-int Width=215
-int Height=76
-BorderStyle BorderStyle=StyleLowered!
-boolean AutoHScroll=false
-boolean HideSelection=false
-boolean DisplayOnly=true
-long BackColor=79216776
-int TextSize=-10
-int Weight=400
-string FaceName="Arial"
-FontCharSet FontCharSet=Ansi!
-FontFamily FontFamily=Swiss!
-FontPitch FontPitch=Variable!
-end type
-
-type st_11 from statictext within w_shipping_dock
-int X=2880
-int Y=164
-int Width=325
-int Height=76
-boolean Enabled=false
-string Text="NSS Operator:"
-boolean FocusRectangle=false
-long TextColor=33554432
-long BackColor=67108864
-int TextSize=-8
-int Weight=400
-string FaceName="Arial"
-FontCharSet FontCharSet=Ansi!
-FontFamily FontFamily=Swiss!
-FontPitch FontPitch=Variable!
+integer x = 3209
+integer y = 164
+integer width = 215
+integer height = 76
+integer textsize = -10
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long backcolor = 79216776
+boolean autohscroll = false
+boolean displayonly = true
+borderstyle borderstyle = stylelowered!
+boolean hideselection = false
 end type
 
 type st_14 from statictext within w_shipping_dock
-int X=2880
-int Y=256
-int Width=325
-int Height=64
-boolean Enabled=false
-string Text="NSS Note:"
-boolean FocusRectangle=false
-long TextColor=33554432
-long BackColor=67108864
-int TextSize=-8
-int Weight=400
-string FaceName="Arial"
-FontCharSet FontCharSet=Ansi!
-FontFamily FontFamily=Swiss!
-FontPitch FontPitch=Variable!
+integer x = 2880
+integer y = 256
+integer width = 325
+integer height = 64
+integer textsize = -8
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long textcolor = 33554432
+long backcolor = 67108864
+boolean enabled = false
+string text = "NSS Note:"
+boolean focusrectangle = false
 end type
 
-type em_verifyscan from editmask within w_shipping_dock
-int X=1385
-int Y=568
-int Width=462
-int Height=88
-int TabOrder=100
-boolean Visible=false
-Alignment Alignment=Right!
-BorderStyle BorderStyle=StyleLowered!
-string Mask="########"
-long TextColor=33554432
-int TextSize=-10
-int Weight=400
-string FaceName="Arial"
-FontCharSet FontCharSet=Ansi!
-FontFamily FontFamily=Swiss!
-FontPitch FontPitch=Variable!
+type st_11 from statictext within w_shipping_dock
+integer x = 2880
+integer y = 164
+integer width = 325
+integer height = 76
+integer textsize = -8
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long textcolor = 33554432
+long backcolor = 67108864
+boolean enabled = false
+string text = "NSS Operator:"
+boolean focusrectangle = false
 end type
 
-event modified;long	ll_row, ll_foundrow, ll_curnrow, ll_totalrows
-long	ll_serial, ll_objectserial
-ll_serial = long(text)
-if ll_serial > 0 then 
-	if dw_verifyscan.find("serial="+string(ll_serial),1,dw_verifyscan.rowcount()) <= 0 then
-		ll_row = dw_verifyscan.insertrow(0)
-		if ll_row > 0 then 
-			dw_verifyscan.setitem(ll_row, "serial", ll_serial)
-			ll_totalrows = dw_view_boxes_on_pallet.retrieve(ll_serial)
-			if ll_totalrows > 0 then
-				for ll_curnrow = 1 to ll_totalrows
-					ll_objectserial= dw_view_boxes_on_pallet.object.serial[ll_curnrow]
-					ll_row = dw_verifyscan.insertrow(0)
-					dw_verifyscan.setitem(ll_row, "serial", ll_objectserial)
-					dw_verifyscan.setitem(ll_row, "parent_serial", ll_serial)
-				next
-			end if 	
-		end if
-	end if 	
-	text = ""	
-end if
+type mle_1 from multilineedit within w_shipping_dock
+integer x = 2880
+integer y = 324
+integer width = 544
+integer height = 1096
+integer textsize = -10
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long backcolor = 79741120
+boolean autovscroll = true
+boolean displayonly = true
+borderstyle borderstyle = stylelowered!
+end type
+
+type dw_destination_scf from datawindow within w_shipping_dock
+boolean visible = false
+integer x = 14
+integer y = 1432
+integer width = 2830
+integer height = 432
+integer taborder = 70
+string title = "none"
+string dataobject = "d_destination_scf"
+boolean livescroll = true
+borderstyle borderstyle = stylelowered!
+end type
+
+type dw_dest from datawindow within w_shipping_dock
+integer x = 2894
+integer y = 32
+integer width = 617
+integer height = 1384
+integer taborder = 10
+string dataobject = "d_dddw_destination_list_customerwise"
+boolean vscrollbar = true
+boolean livescroll = true
+borderstyle borderstyle = stylelowered!
+end type
+
+event constructor;settransobject(sqlca)
 
 end event
 
+event clicked;if row > 0 then 
+	int	li_bol
+	string	ls_boldest, ls_type
+	if sle_destination.text <> object.destination[row] then
+		sle_destination.text = object.destination[row]
+		szdestination = object.destination[row]
+		update	shipper
+		set	destination = :szdestination
+		where	id = :ishipper;
+		if sqlca.sqlcode = 0 then
+			commit;
+			select	isnull(bill_of_lading_number,0) 
+			into	:li_bol
+			from	shipper 
+			where	id = :ishipper;
+			if li_bol > 0 then 
+				select	bol.destination,
+					d.type
+				into	:ls_boldest,
+					:ls_type
+				from	bill_of_lading bol
+					join destination d on d.destination = bol.destination
+				where	bol.bol_number = :li_bol;
+				
+				if isnull(ls_type,'R') = 'R' then 
+					update	bill_of_lading
+					set	destination = :szdestination
+					where	bol_number = :li_bol;
+					
+					if sqlca.sqlcode = 0 then 
+						commit;
+					else
+						rollback;
+					end if 	
+				end if 	
+			end if 	
+		else
+			rollback;
+		end if 
+	end if
+end if 
+
+end event
+
+type em_verifyscan from editmask within w_shipping_dock
+boolean visible = false
+integer x = 1385
+integer y = 568
+integer width = 462
+integer height = 88
+integer taborder = 100
+integer textsize = -10
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long textcolor = 33554432
+alignment alignment = right!
+borderstyle borderstyle = stylelowered!
+maskdatatype maskdatatype = stringmask!
+string mask = "!!!!!!!!"
+end type
+
+event modified;long	ll_row, ll_foundrow, ll_curnrow, ll_totalrows
+long	ll_serial, ll_objectserial, ll_len, ll_char, ll_idx
+if text > '' then 
+	ll_len = len(trim(text))
+	for ll_idx = 1 to ll_len
+		if asc(mid(text,ll_idx,1)) > 64 and asc(mid(text,ll_idx,1)) < 91 then   
+			exit
+		end if 	
+	next
+	if ll_idx >= ll_len then ll_idx = 0 
+	ll_serial = Long ( Right ( text, ( ll_len - ll_idx)))
+	if ll_serial > 0 then 
+		if dw_verifyscan.find("serial="+string(ll_serial),1,dw_verifyscan.rowcount()) <= 0 then
+			ll_row = dw_verifyscan.insertrow(0)
+			if ll_row > 0 then 
+				dw_verifyscan.setitem(ll_row, "serial", ll_serial)
+				ll_totalrows = dw_view_boxes_on_pallet.retrieve(ll_serial)
+				if ll_totalrows > 0 then
+					for ll_curnrow = 1 to ll_totalrows
+						ll_objectserial= dw_view_boxes_on_pallet.object.serial[ll_curnrow]
+						ll_row = dw_verifyscan.insertrow(0)
+						dw_verifyscan.setitem(ll_row, "serial", ll_objectserial)
+						dw_verifyscan.setitem(ll_row, "parent_serial", ll_serial)
+					next
+				end if 	
+			end if
+		end if 	
+		text = ""	
+	end if
+end if 
+end event
+
 type p_1 from picture within w_shipping_dock
-int X=14
-int Y=176
-int Width=73
-int Height=64
-boolean Visible=false
-string PictureName="exit2.bmp"
-boolean FocusRectangle=false
+boolean visible = false
+integer x = 14
+integer y = 176
+integer width = 73
+integer height = 64
+string picturename = "exit2.bmp"
+boolean focusrectangle = false
 end type
 
 event clicked;p_1.visible 						  = FALSE
@@ -4247,303 +4416,303 @@ w_shipping_mdi_screen.ChangeMenu(m_shipping_dock)
 end event
 
 type sle_document from statictext within w_shipping_dock
-int X=2446
-int Y=48
-int Width=347
-int Height=80
-boolean Enabled=false
-boolean Border=true
-Alignment Alignment=Center!
-boolean FocusRectangle=false
-long TextColor=8421504
-int TextSize=-8
-int Weight=700
-string FaceName="Arial"
-FontFamily FontFamily=Swiss!
-FontPitch FontPitch=Variable!
+integer x = 2446
+integer y = 48
+integer width = 347
+integer height = 80
+integer textsize = -8
+integer weight = 700
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long textcolor = 8421504
+boolean enabled = false
+alignment alignment = center!
+boolean border = true
+boolean focusrectangle = false
 end type
 
 type sle_status from statictext within w_shipping_dock
-int X=1673
-int Y=48
-int Width=347
-int Height=80
-boolean Enabled=false
-boolean Border=true
-Alignment Alignment=Center!
-boolean FocusRectangle=false
-long TextColor=8421504
-int TextSize=-8
-int Weight=700
-string FaceName="Arial"
-FontFamily FontFamily=Swiss!
-FontPitch FontPitch=Variable!
+integer x = 1673
+integer y = 48
+integer width = 347
+integer height = 80
+integer textsize = -8
+integer weight = 700
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long textcolor = 8421504
+boolean enabled = false
+alignment alignment = center!
+boolean border = true
+boolean focusrectangle = false
 end type
 
 type st_black from statictext within w_shipping_dock
-int X=2487
-int Y=796
-int Width=334
-int Height=44
-boolean Enabled=false
-string Text="Black = Available"
-boolean FocusRectangle=false
-long BackColor=16777215
-int TextSize=-7
-int Weight=400
-string FaceName="Arial"
-FontFamily FontFamily=Swiss!
-FontPitch FontPitch=Variable!
+integer x = 2487
+integer y = 796
+integer width = 334
+integer height = 44
+integer textsize = -7
+integer weight = 400
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long backcolor = 16777215
+boolean enabled = false
+string text = "Black = Available"
+boolean focusrectangle = false
 end type
 
 type st_blue from statictext within w_shipping_dock
-int X=2153
-int Y=796
-int Width=311
-int Height=44
-boolean Enabled=false
-string Text="Blue = On Pallet"
-boolean FocusRectangle=false
-long TextColor=16711680
-long BackColor=16777215
-int TextSize=-7
-int Weight=400
-string FaceName="Arial"
-FontFamily FontFamily=Swiss!
-FontPitch FontPitch=Variable!
+integer x = 2153
+integer y = 796
+integer width = 311
+integer height = 44
+integer textsize = -7
+integer weight = 400
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long textcolor = 16711680
+long backcolor = 16777215
+boolean enabled = false
+string text = "Blue = On Pallet"
+boolean focusrectangle = false
 end type
 
 type cb_note_exit from commandbutton within w_shipping_dock
-int X=1920
-int Y=716
-int Width=247
-int Height=108
-int TabOrder=120
-boolean Visible=false
-string Text="Exit"
-int TextSize=-10
-int Weight=700
-string FaceName="Arial"
-FontFamily FontFamily=Swiss!
-FontPitch FontPitch=Variable!
+boolean visible = false
+integer x = 1920
+integer y = 716
+integer width = 247
+integer height = 108
+integer taborder = 120
+integer textsize = -10
+integer weight = 700
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+string text = "Exit"
 end type
 
 on clicked;wf_show_note(FALSE)
 end on
 
 type st_13 from statictext within w_shipping_dock
-int X=2432
-int Y=176
-int Width=165
-int Height=60
-boolean Enabled=false
-string Text="Staged"
-boolean FocusRectangle=false
-long TextColor=255
-long BackColor=16777215
-long BorderColor=16777215
-int TextSize=-8
-int Weight=400
-string FaceName="Arial"
-FontFamily FontFamily=Swiss!
-FontPitch FontPitch=Variable!
+integer x = 2432
+integer y = 176
+integer width = 165
+integer height = 60
+integer textsize = -8
+integer weight = 400
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long textcolor = 255
+long backcolor = 16777215
+boolean enabled = false
+string text = "Staged"
+long bordercolor = 16777215
+boolean focusrectangle = false
 end type
 
 type p_5 from picture within w_shipping_dock
-int X=2345
-int Y=176
-int Width=73
-int Height=60
-string PictureName="logo2.bmp"
-boolean FocusRectangle=false
+integer x = 2345
+integer y = 176
+integer width = 73
+integer height = 60
+string picturename = "logo2.bmp"
+boolean focusrectangle = false
 end type
 
 type st_12 from statictext within w_shipping_dock
-int X=2107
-int Y=176
-int Width=210
-int Height=60
-boolean Enabled=false
-string Text="Part Note"
-boolean FocusRectangle=false
-long TextColor=255
-long BackColor=16777215
-long BorderColor=16777215
-int TextSize=-8
-int Weight=400
-string FaceName="Arial"
-FontFamily FontFamily=Swiss!
-FontPitch FontPitch=Variable!
+integer x = 2107
+integer y = 176
+integer width = 210
+integer height = 60
+integer textsize = -8
+integer weight = 400
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long textcolor = 255
+long backcolor = 16777215
+boolean enabled = false
+string text = "Part Note"
+long bordercolor = 16777215
+boolean focusrectangle = false
 end type
 
 type p_4 from picture within w_shipping_dock
-int X=2021
-int Y=172
-int Width=73
-int Height=60
-string PictureName="noteyes.bmp"
-boolean FocusRectangle=false
+integer x = 2021
+integer y = 172
+integer width = 73
+integer height = 60
+string picturename = "noteyes.bmp"
+boolean focusrectangle = false
 end type
 
 on clicked;w_shipping_dock.TriggerEvent("show_note")
 end on
 
 type st_red from statictext within w_shipping_dock
-int X=1842
-int Y=796
-int Width=306
-int Height=44
-boolean Enabled=false
-string Text="Red = Staged"
-boolean FocusRectangle=false
-long TextColor=255
-long BackColor=16777215
-int TextSize=-7
-int Weight=400
-string FaceName="Arial"
-FontFamily FontFamily=Swiss!
-FontPitch FontPitch=Variable!
+integer x = 1842
+integer y = 796
+integer width = 306
+integer height = 44
+integer textsize = -7
+integer weight = 400
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long textcolor = 255
+long backcolor = 16777215
+boolean enabled = false
+string text = "Red = Staged"
+boolean focusrectangle = false
 end type
 
 type st_10 from statictext within w_shipping_dock
-int X=1353
-int Y=784
-int Width=110
-int Height=48
-boolean Enabled=false
-string Text="Box"
-boolean FocusRectangle=false
-long TextColor=255
-long BackColor=16777215
-int TextSize=-8
-int Weight=400
-string FaceName="Arial"
-FontFamily FontFamily=Swiss!
-FontPitch FontPitch=Variable!
+integer x = 1353
+integer y = 784
+integer width = 110
+integer height = 48
+integer textsize = -8
+integer weight = 400
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long textcolor = 255
+long backcolor = 16777215
+boolean enabled = false
+string text = "Box"
+boolean focusrectangle = false
 end type
 
 type p_3 from picture within w_shipping_dock
-int X=1280
-int Y=788
-int Width=55
-int Height=48
-string PictureName="box.bmp"
-boolean FocusRectangle=false
+integer x = 1280
+integer y = 788
+integer width = 55
+integer height = 48
+string picturename = "box.bmp"
+boolean focusrectangle = false
 end type
 
 type st_9 from statictext within w_shipping_dock
-int X=1152
-int Y=784
-int Width=128
-int Height=48
-boolean Enabled=false
-string Text="Pallet"
-boolean FocusRectangle=false
-long TextColor=255
-long BackColor=16777215
-int TextSize=-8
-int Weight=400
-string FaceName="Arial"
-FontFamily FontFamily=Swiss!
-FontPitch FontPitch=Variable!
+integer x = 1152
+integer y = 784
+integer width = 128
+integer height = 48
+integer textsize = -8
+integer weight = 400
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long textcolor = 255
+long backcolor = 16777215
+boolean enabled = false
+string text = "Pallet"
+boolean focusrectangle = false
 end type
 
 type p_2 from picture within w_shipping_dock
-int X=1079
-int Y=796
-int Width=64
-int Height=44
-string PictureName="pallet.bmp"
-boolean FocusRectangle=false
+integer x = 1079
+integer y = 796
+integer width = 64
+integer height = 44
+string picturename = "pallet.bmp"
+boolean focusrectangle = false
 end type
 
 type st_8 from statictext within w_shipping_dock
-int X=2066
-int Y=48
-int Width=366
-int Height=76
-boolean Enabled=false
-string Text="Packing List"
-boolean FocusRectangle=false
-long TextColor=33554432
-long BackColor=79216776
-int TextSize=-10
-int Weight=700
-string FaceName="Arial"
-FontCharSet FontCharSet=Ansi!
-FontFamily FontFamily=Swiss!
-FontPitch FontPitch=Variable!
+integer x = 2066
+integer y = 48
+integer width = 366
+integer height = 76
+integer textsize = -10
+integer weight = 700
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long textcolor = 33554432
+long backcolor = 79216776
+boolean enabled = false
+string text = "Packing List"
+boolean focusrectangle = false
 end type
 
 type st_7 from statictext within w_shipping_dock
-int X=1467
-int Y=48
-int Width=201
-int Height=76
-boolean Enabled=false
-string Text="Status"
-boolean FocusRectangle=false
-long TextColor=33554432
-long BackColor=79216776
-int TextSize=-10
-int Weight=700
-string FaceName="Arial"
-FontCharSet FontCharSet=Ansi!
-FontFamily FontFamily=Swiss!
-FontPitch FontPitch=Variable!
+integer x = 1467
+integer y = 48
+integer width = 201
+integer height = 76
+integer textsize = -10
+integer weight = 700
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long textcolor = 33554432
+long backcolor = 79216776
+boolean enabled = false
+string text = "Status"
+boolean focusrectangle = false
 end type
 
 type st_5 from statictext within w_shipping_dock
-int X=1504
-int Y=780
-int Width=1353
-int Height=76
-boolean Enabled=false
-boolean Border=true
-BorderStyle BorderStyle=StyleLowered!
-string Text="   Objects"
-boolean FocusRectangle=false
-long TextColor=33554432
-long BackColor=16777215
-int TextSize=-10
-int Weight=700
-string FaceName="Arial"
-FontFamily FontFamily=Swiss!
-FontPitch FontPitch=Variable!
+integer x = 1504
+integer y = 780
+integer width = 1353
+integer height = 76
+integer textsize = -10
+integer weight = 700
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long textcolor = 33554432
+long backcolor = 16777215
+boolean enabled = false
+string text = "   Objects"
+boolean border = true
+borderstyle borderstyle = stylelowered!
+boolean focusrectangle = false
 end type
 
 type st_4 from statictext within w_shipping_dock
-int X=9
-int Y=780
-int Width=1463
-int Height=76
-boolean Enabled=false
-boolean Border=true
-BorderStyle BorderStyle=StyleLowered!
-string Text="             Staged Pallets/Objects"
-boolean FocusRectangle=false
-long TextColor=33554432
-long BackColor=16777215
-int TextSize=-10
-int Weight=700
-string FaceName="Arial"
-FontFamily FontFamily=Swiss!
-FontPitch FontPitch=Variable!
+integer x = 9
+integer y = 780
+integer width = 1463
+integer height = 76
+integer textsize = -10
+integer weight = 700
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long textcolor = 33554432
+long backcolor = 16777215
+boolean enabled = false
+string text = "             Staged Pallets/Objects"
+boolean border = true
+borderstyle borderstyle = stylelowered!
+boolean focusrectangle = false
 end type
 
 type dw_objects from datawindow within w_shipping_dock
 event ue_dragdrop ( )
-int X=1504
-int Y=860
-int Width=1353
-int Height=564
-int TabOrder=170
-string DragIcon="MONITOR.ICO"
-string DataObject="dw_available_objects"
-BorderStyle BorderStyle=StyleLowered!
-boolean HScrollBar=true
-boolean VScrollBar=true
-boolean LiveScroll=true
+integer x = 1504
+integer y = 860
+integer width = 1353
+integer height = 564
+integer taborder = 170
+string dragicon = "MONITOR.ICO"
+string dataobject = "dw_available_objects"
+boolean hscrollbar = true
+boolean vscrollbar = true
+boolean livescroll = true
+borderstyle borderstyle = stylelowered!
 end type
 
 event ue_dragdrop;Integer iCurrentShipper
@@ -4604,7 +4773,7 @@ ELSE
 	string	ls_nonshipnote
 	string	ls_nonshipoperator
 	long	ll_rowfnd
-	if ib_nonshipstatus then
+	if checkpartstatus() then
 		ls_part = dw_objects.object.part[row]
 		ll_rowfnd = dw_shipper_detail.find("part_original='"+ls_part+"'",1,dw_shipper_detail.rowcount())
 		if ll_rowfnd > 0 then 
@@ -4617,9 +4786,8 @@ ELSE
 				end if 	
 			end if
 		end if 
-		ib_nonshipstatus = false		
 	end if 
-	
+
 	bDragInvObj 	= FALSE
 	bDragStagedObj = FALSE
 	bDragInvObj    = TRUE
@@ -4647,22 +4815,22 @@ event dragdrop;Post Event ue_dragdrop ( )
 end event
 
 type sle_orig_pallet_tare from editmask within w_shipping_dock
-int X=357
-int Y=476
-int Width=224
-int Height=80
-int TabOrder=40
-boolean Visible=false
-Alignment Alignment=Right!
-boolean Border=false
-string Mask="###,###.00"
-long TextColor=33554432
-long BackColor=8421376
-int TextSize=-9
-int Weight=400
-string FaceName="Arial"
-FontFamily FontFamily=Swiss!
-FontPitch FontPitch=Variable!
+boolean visible = false
+integer x = 357
+integer y = 476
+integer width = 224
+integer height = 80
+integer taborder = 50
+integer textsize = -9
+integer weight = 400
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long textcolor = 33554432
+long backcolor = 8421376
+boolean border = false
+alignment alignment = right!
+string mask = "###,###.00"
 end type
 
 on modified;Decimal nTareWeight
@@ -4686,158 +4854,157 @@ wf_calculate_pallet_weight(iSerial, nPalletTare)
 end on
 
 type st_pallet from statictext within w_shipping_dock
-int X=5
-int Y=172
-int Width=1467
-int Height=80
-boolean Visible=false
-boolean Enabled=false
-string Text="Pallet"
-Alignment Alignment=Center!
-boolean FocusRectangle=false
-long TextColor=33554432
-long BackColor=16777215
-int TextSize=-10
-int Weight=700
-string FaceName="Arial"
-FontFamily FontFamily=Swiss!
-FontPitch FontPitch=Variable!
+boolean visible = false
+integer x = 5
+integer y = 172
+integer width = 1467
+integer height = 80
+integer textsize = -10
+integer weight = 700
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long textcolor = 33554432
+long backcolor = 16777215
+boolean enabled = false
+string text = "Pallet"
+alignment alignment = center!
+boolean focusrectangle = false
 end type
 
 type st_6 from statictext within w_shipping_dock
-int X=713
-int Y=48
-int Width=338
-int Height=76
-boolean Enabled=false
-string Text="Destination"
-boolean FocusRectangle=false
-long TextColor=33554432
-long BackColor=79216776
-int TextSize=-10
-int Weight=700
-string FaceName="Arial"
-FontCharSet FontCharSet=Ansi!
-FontFamily FontFamily=Swiss!
-FontPitch FontPitch=Variable!
+integer x = 713
+integer y = 48
+integer width = 338
+integer height = 76
+integer textsize = -10
+integer weight = 700
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long textcolor = 33554432
+long backcolor = 79216776
+boolean enabled = false
+string text = "Destination"
+boolean focusrectangle = false
 end type
 
 type sle_destination from singlelineedit within w_shipping_dock
-int X=1065
-int Y=48
-int Width=347
-int Height=80
-boolean Enabled=false
-boolean AutoHScroll=false
-long TextColor=8421504
-int TextSize=-8
-int Weight=700
-string FaceName="Arial"
-FontFamily FontFamily=Swiss!
-FontPitch FontPitch=Variable!
+integer x = 1065
+integer y = 48
+integer width = 347
+integer height = 80
+integer textsize = -8
+integer weight = 700
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long backcolor = 80269524
+boolean autohscroll = false
 end type
 
 type sle_shipper from singlelineedit within w_shipping_dock
-int X=293
-int Y=48
-int Width=347
-int Height=80
-boolean Enabled=false
-boolean AutoHScroll=false
-long TextColor=8421504
-int TextSize=-8
-int Weight=700
-string FaceName="Arial"
-FontFamily FontFamily=Swiss!
-FontPitch FontPitch=Variable!
+integer x = 293
+integer y = 48
+integer width = 347
+integer height = 80
+integer textsize = -8
+integer weight = 700
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long textcolor = 8421504
+boolean enabled = false
+boolean autohscroll = false
 end type
 
 type st_1 from statictext within w_shipping_dock
-int X=41
-int Y=48
-int Width=251
-int Height=76
-boolean Enabled=false
-string Text="Shipper"
-boolean FocusRectangle=false
-long TextColor=33554432
-long BackColor=79216776
-int TextSize=-10
-int Weight=700
-string FaceName="Arial"
-FontCharSet FontCharSet=Ansi!
-FontFamily FontFamily=Swiss!
-FontPitch FontPitch=Variable!
+integer x = 41
+integer y = 48
+integer width = 251
+integer height = 76
+integer textsize = -10
+integer weight = 700
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long textcolor = 33554432
+long backcolor = 79216776
+boolean enabled = false
+string text = "Shipper"
+boolean focusrectangle = false
 end type
 
 type gb_1 from groupbox within w_shipping_dock
-int X=5
-int Width=2866
-int Height=144
-BorderStyle BorderStyle=StyleLowered!
-long TextColor=33554432
-long BackColor=79216776
-int TextSize=-10
-int Weight=700
-string FaceName="Arial"
-FontCharSet FontCharSet=Ansi!
-FontFamily FontFamily=Swiss!
-FontPitch FontPitch=Variable!
+integer x = 5
+integer width = 2866
+integer height = 144
+integer textsize = -10
+integer weight = 700
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long textcolor = 33554432
+long backcolor = 79216776
 end type
 
 type st_3 from statictext within w_shipping_dock
-int X=9
-int Y=164
-int Width=2853
-int Height=76
-boolean Enabled=false
-boolean Border=true
-BorderStyle BorderStyle=StyleLowered!
-string Text="Shipper Detail Item"
-Alignment Alignment=Center!
-boolean FocusRectangle=false
-long TextColor=33554432
-long BackColor=16777215
-int TextSize=-10
-int Weight=700
-string FaceName="Arial"
-FontFamily FontFamily=Swiss!
-FontPitch FontPitch=Variable!
+integer x = 9
+integer y = 164
+integer width = 2853
+integer height = 76
+integer textsize = -10
+integer weight = 700
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long textcolor = 33554432
+long backcolor = 16777215
+boolean enabled = false
+string text = "Shipper Detail Item"
+alignment alignment = center!
+boolean border = true
+borderstyle borderstyle = stylelowered!
+boolean focusrectangle = false
 end type
 
 type st_2 from statictext within w_shipping_dock
-int X=37
-int Y=176
-int Width=1463
-int Height=80
-boolean Visible=false
-boolean Enabled=false
-boolean Border=true
-BorderStyle BorderStyle=StyleLowered!
-string Text="Shipping Dock"
-Alignment Alignment=Center!
-boolean FocusRectangle=false
-long TextColor=33554432
-long BackColor=16777215
-int TextSize=-10
-int Weight=700
-string FaceName="Arial"
-FontFamily FontFamily=Swiss!
-FontPitch FontPitch=Variable!
+boolean visible = false
+integer x = 37
+integer y = 176
+integer width = 1463
+integer height = 80
+integer textsize = -10
+integer weight = 700
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long textcolor = 33554432
+long backcolor = 16777215
+boolean enabled = false
+string text = "Shipping Dock"
+alignment alignment = center!
+boolean border = true
+borderstyle borderstyle = stylelowered!
+boolean focusrectangle = false
 end type
 
 type dw_verifyscan from datawindow within w_shipping_dock
-int X=1513
-int Y=788
-int Width=855
-int Height=636
-int TabOrder=110
-boolean Visible=false
-string DataObject="d_verifyscan"
-boolean TitleBar=true
-string Title="Verify Scan Data"
-BorderStyle BorderStyle=StyleLowered!
-boolean VScrollBar=true
+boolean visible = false
+integer x = 1513
+integer y = 788
+integer width = 855
+integer height = 636
+integer taborder = 110
+boolean titlebar = true
+string title = "Verify Scan Data"
+string dataobject = "d_verifyscan"
+boolean vscrollbar = true
+borderstyle borderstyle = stylelowered!
 end type
 
 event buttonclicked;long	ll_curnrow, ll_totalrows, ll_foundrow, ll_insertrow, ll_trows
@@ -4889,13 +5056,13 @@ end if
 end event
 
 type uo_dw_scan from u_serial_scan within w_shipping_dock
-int X=640
-int Y=944
-int Width=1787
-int TabOrder=80
-boolean Visible=false
-boolean Border=false
-BorderStyle BorderStyle=StyleBox!
+boolean visible = false
+integer x = 640
+integer y = 944
+integer width = 1787
+integer taborder = 80
+boolean border = false
+borderstyle borderstyle = stylebox!
 end type
 
 event itemchanged;call super::itemchanged;LONG	ll_boxserial, &
@@ -4945,17 +5112,17 @@ SetFocus ( )
 end event
 
 type dw_pallets from datawindow within w_shipping_dock
-int X=9
-int Y=860
-int Width=1463
-int Height=564
-int TabOrder=160
-string DragIcon="MONITOR.ICO"
-string DataObject="dw_pallets"
-BorderStyle BorderStyle=StyleLowered!
-boolean HScrollBar=true
-boolean VScrollBar=true
-boolean LiveScroll=true
+integer x = 9
+integer y = 860
+integer width = 1463
+integer height = 564
+integer taborder = 160
+string dragicon = "MONITOR.ICO"
+string dataobject = "dw_pallets"
+boolean hscrollbar = true
+boolean vscrollbar = true
+boolean livescroll = true
+borderstyle borderstyle = stylelowered!
 end type
 
 event dragdrop;Long iCurrentPallet
@@ -4999,7 +5166,7 @@ If bPalletvisible then
 End If
 
 bDragStagedObj = FALSE
-iRow 				= row //This.GetClickedRow()
+iRow 				= This.GetClickedRow()
 
 If iRow > 0 then
 
@@ -5091,14 +5258,14 @@ End If
 
 end on
 
-event clicked;Integer iRow
+on clicked;Integer iRow
 String  cTemp
 
 If bPalletvisible then
 	Return
 End If
 
-iRow = row //dw_pallets.GetClickedRow()
+iRow = dw_pallets.GetClickedRow()
 
 bDragStagedObj = FALSE
 bDragInvObj 	= FALSE
@@ -5114,21 +5281,21 @@ If iRow > 0 then
 	dw_pallets.SelectRow(iRow, Not this.IsSelected(iRow))
 End If
 	
-end event
+end on
 
 type dw_view_boxes_on_pallet from datawindow within w_shipping_dock
-int Y=576
-int Width=1463
-int Height=512
-int TabOrder=50
-boolean Visible=false
-string DragIcon="MONITOR.ICO"
-string DataObject="dw_view_boxes_on_pallet"
-boolean TitleBar=true
-string Title="Detail Information on Pallet"
-boolean HScrollBar=true
-boolean VScrollBar=true
-boolean HSplitScroll=true
+boolean visible = false
+integer y = 576
+integer width = 1463
+integer height = 512
+integer taborder = 60
+string dragicon = "MONITOR.ICO"
+boolean titlebar = true
+string title = "Detail Information on Pallet"
+string dataobject = "dw_view_boxes_on_pallet"
+boolean hscrollbar = true
+boolean vscrollbar = true
+boolean hsplitscroll = true
 end type
 
 event clicked;bDragPalletBox = FALSE
@@ -5166,16 +5333,16 @@ dw_shipper_detail.Retrieve ( iShipper )
 end event
 
 type dw_shipper_detail from datawindow within w_shipping_dock
-int X=9
-int Y=256
-int Width=2853
-int Height=496
-int TabOrder=20
-string DataObject="dw_shipper_detail"
-BorderStyle BorderStyle=StyleLowered!
-boolean HScrollBar=true
-boolean VScrollBar=true
-boolean LiveScroll=true
+integer x = 9
+integer y = 256
+integer width = 2853
+integer height = 496
+integer taborder = 30
+string dataobject = "dw_shipper_detail"
+boolean hscrollbar = true
+boolean vscrollbar = true
+boolean livescroll = true
+borderstyle borderstyle = stylelowered!
 end type
 
 event clicked;If bPalletvisible then
@@ -5195,7 +5362,6 @@ If row > 0 then
 	dw_shipper_detail.SelectRow(0, FALSE)
 	dw_shipper_detail.SelectRow(row, TRUE)
 	is_SelectedPart = szPart
-	ib_nonshipstatus = true	
 	sle_1.text = dw_shipper_detail.object.non_ship_operator[row]
 	mle_1.text = dw_shipper_detail.object.non_ship_note[row]
 End If
@@ -5231,14 +5397,14 @@ end if
 end event
 
 type dw_pallet_info from datawindow within w_shipping_dock
-int X=14
-int Y=256
-int Width=1463
-int Height=320
-int TabOrder=30
-boolean Visible=false
-string DataObject="dw_pallet_info"
-boolean LiveScroll=true
+boolean visible = false
+integer x = 14
+integer y = 256
+integer width = 1463
+integer height = 320
+integer taborder = 40
+string dataobject = "dw_pallet_info"
+boolean livescroll = true
 end type
 
 event dragdrop;Long iCurrentPallet 		//to keep the current pallet serial number
@@ -5264,119 +5430,118 @@ dw_shipper_detail.Retrieve ( iShipper )
 end event
 
 type cb_note from commandbutton within w_shipping_dock
-int X=1074
-int Y=240
-int Width=1170
-int Height=608
-int TabOrder=130
-boolean Visible=false
-boolean Enabled=false
-int TextSize=-10
-int Weight=700
-string FaceName="Arial"
-FontFamily FontFamily=Swiss!
-FontPitch FontPitch=Variable!
+boolean visible = false
+integer x = 1074
+integer y = 240
+integer width = 1170
+integer height = 608
+integer taborder = 130
+integer textsize = -10
+integer weight = 700
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+boolean enabled = false
 end type
 
 type mle_note from multilineedit within w_shipping_dock
-int X=1138
-int Y=284
-int Width=1029
-int Height=416
-int TabOrder=10
-boolean Visible=false
-boolean Enabled=false
-long TextColor=33554432
-long BackColor=16776960
-int TextSize=-10
-int Weight=700
-string FaceName="Arial"
-FontFamily FontFamily=Swiss!
-FontPitch FontPitch=Variable!
+boolean visible = false
+integer x = 1138
+integer y = 284
+integer width = 1029
+integer height = 416
+integer taborder = 20
+integer textsize = -10
+integer weight = 700
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long textcolor = 33554432
+long backcolor = 16776960
+boolean enabled = false
 end type
 
 type cb_scan_out from commandbutton within w_shipping_dock
-int X=1147
-int Y=348
-int Width=859
-int Height=412
-int TabOrder=140
-boolean Visible=false
-int TextSize=-10
-int Weight=400
-string FaceName="Arial"
-FontFamily FontFamily=Swiss!
-FontPitch FontPitch=Variable!
+boolean visible = false
+integer x = 1147
+integer y = 348
+integer width = 859
+integer height = 412
+integer taborder = 140
+integer textsize = -10
+integer weight = 400
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
 end type
 
 type mle_scan_out from multilineedit within w_shipping_dock
-int X=1230
-int Y=384
-int Width=713
-int Height=348
-int TabOrder=150
-boolean Visible=false
-Alignment Alignment=Center!
-long TextColor=33554432
-int TextSize=-10
-int Weight=400
-string FaceName="Arial"
-FontFamily FontFamily=Swiss!
-FontPitch FontPitch=Variable!
+boolean visible = false
+integer x = 1230
+integer y = 384
+integer width = 713
+integer height = 348
+integer taborder = 150
+integer textsize = -10
+integer weight = 400
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long textcolor = 33554432
+alignment alignment = center!
 end type
 
 type gb_vscan from groupbox within w_shipping_dock
-int X=1024
-int Y=488
-int Width=850
-int Height=220
-int TabOrder=60
-boolean Visible=false
-BorderStyle BorderStyle=StyleLowered!
-long TextColor=33554432
-long BackColor=67108864
-int TextSize=-10
-int Weight=400
-string FaceName="Arial"
-FontCharSet FontCharSet=Ansi!
-FontFamily FontFamily=Swiss!
-FontPitch FontPitch=Variable!
+boolean visible = false
+integer x = 1024
+integer y = 488
+integer width = 850
+integer height = 220
+integer taborder = 70
+integer textsize = -10
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long textcolor = 33554432
+long backcolor = 67108864
 end type
 
 type st_vscanserial from statictext within w_shipping_dock
-int X=1042
-int Y=576
-int Width=338
-int Height=76
-boolean Visible=false
-boolean Enabled=false
-string Text="Scan Serial:"
-Alignment Alignment=Right!
-boolean FocusRectangle=false
-long TextColor=33554432
-long BackColor=67108864
-int TextSize=-10
-int Weight=400
-string FaceName="Arial"
-FontCharSet FontCharSet=Ansi!
-FontFamily FontFamily=Swiss!
-FontPitch FontPitch=Variable!
+boolean visible = false
+integer x = 1042
+integer y = 576
+integer width = 338
+integer height = 76
+integer textsize = -10
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long textcolor = 33554432
+long backcolor = 67108864
+boolean enabled = false
+string text = "Scan Serial:"
+alignment alignment = right!
+boolean focusrectangle = false
 end type
 
 type dw_printscanexception from datawindow within w_shipping_dock
-int X=14
-int Y=172
-int Width=2848
-int Height=1252
-int TabOrder=90
-boolean Visible=false
-string DataObject="d_printscanexception"
-boolean TitleBar=true
-string Title="Staged Vs. Scanned Exceptions"
-boolean HScrollBar=true
-boolean VScrollBar=true
-boolean Resizable=true
-boolean HSplitScroll=true
+boolean visible = false
+integer x = 14
+integer y = 172
+integer width = 2848
+integer height = 1252
+integer taborder = 90
+boolean titlebar = true
+string title = "Staged Vs. Scanned Exceptions"
+string dataobject = "d_printscanexception"
+boolean hscrollbar = true
+boolean vscrollbar = true
+boolean resizable = true
+boolean hsplitscroll = true
 end type
 
 event buttonclicked;if dwo.name = 'cb_close' then 
