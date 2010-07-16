@@ -1,7 +1,7 @@
 HA$PBExportHeader$w_orders_detail.srw
 $PBExportComments$moe
 forward
-global type w_orders_detail from Window
+global type w_orders_detail from w_sheet_4t
 end type
 type st_10 from statictext within w_orders_detail
 end type
@@ -103,18 +103,11 @@ type em_1 from editmask within w_orders_detail
 end type
 end forward
 
-global type w_orders_detail from Window
-int X=5
-int Y=4
-int Width=5198
-int Height=2088
-boolean TitleBar=true
-string Title="Sales Order Detail"
-long BackColor=79216776
-boolean ControlMenu=true
-boolean MaxBox=true
-boolean Resizable=true
-WindowState WindowState=maximized!
+global type w_orders_detail from w_sheet_4t
+integer x = 214
+integer y = 221
+string title = "Sales Order Detail"
+string menuname = "m_normal_order_main"
 event add_new_item pbm_custom01
 event edit_note pbm_custom02
 event save_item pbm_custom03
@@ -236,6 +229,8 @@ boolean			ib_selectall = TRUE
 str_super_cop_parms            istr_super_cop_parms
 st_dda_parmlist                      st_prmlst
 boolean			ib_getprofile
+boolean	ib_fromquotes=FALSE
+
 end variables
 
 forward prototypes
@@ -257,6 +252,7 @@ public function long wf_create_order_from_quote (long a_l_quote)
 public function boolean wf_create_shipper_detail (long a_l_shipper, long a_l_row)
 public function boolean wf_suffix (long a_l_order, string a_s_part)
 public subroutine wf_setup_values_part (string a_s_part, string a_s_desc)
+public subroutine wf_updatedestinall (string as_dest, string as_olddest, string as_customer)
 end prototypes
 
 event add_new_item;String	ls_TabSequence
@@ -274,60 +270,45 @@ wf_detail_popup ( True, lOrder, 0, szCustomer, szDestination, dw_detail.RowCount
 
 end event
 
-event save_item;//
-//   Update database
-//
-/* 01-27-2000 KAZ Modified to use 'of_getnextparmvalue' function instead of 'w_get_parm_value'
-                  window to populate 'lOrder' (next Sales Order number).  */
-
-String 	szPlants
+event save_item;//	Declarations
+String	szPlants
 String	ls_Destination
 String	ls_PlantRequired
-Int 		iRtnCode,&
-			li_count
+Int	iRtnCode,&
+	li_count
 boolean	lb_ask_zero_qty
-long		ll_row
+long	ll_row
+String	ls_olddest, l_s_dest
+string	ls_customer
 
 szPlants = f_get_string_value ( dw_header.GetItemString ( 1, "Plant" ) )
-
-
-SELECT plant_required
-  INTO :ls_PlantRequired
-  FROM parameters  ;
-
-If ls_PlantRequired = 'Y' And szPlants = "" Then
+SELECT	plant_required
+INTO	:ls_PlantRequired
+FROM	parameters;
+If (ls_PlantRequired = 'Y' And szPlants = "") and not(ib_fromquotes) Then
 	MessageBox ( monsys.msg_title, "You must select a plant.", StopSign! )
 	dw_header.SetColumn ( "plant" )
 	dw_header.SetFocus ( )
 	Return
 End If
-
 If szDestination = dw_header.GetItemString (1, "destination" ) Then
 	If Not f_valid_destination(szDestination) Then	
 		bdesterror = True
 	End If
 End If
-
 If f_get_string_value ( dw_header.GetItemString ( 1, "destination" ) ) = "" OR + &
-		bdesterror Then
+	bdesterror Then
 	MessageBox ( monsys.msg_title, "Enter a valid destination.", StopSign! )
-   bdesterror = True
+	bdesterror = True
 	Return
 End if
-
 If lOrder < 0 Then
-
-//	OpenWithParm ( w_get_parm_value, "sales_order" )																				-  CHG 01-27-2000 KAZ
-//
-//	lOrder = Message.DoubleParm																											-  CHG 01-27-2000 KAZ
-
 	if not sqlca.of_getnextparmvalue ( "sales_order", lOrder ) then    // Failed to get current value 				-  ADD 01-27-2000 KAZ
 		Rollback;																																// ADD 01-27-2000 KAZ
 		MessageBox(monsys.msg_title, "Failed to get a new Sales Order number, Please try again", Exclamation! )	// ADD 01-27-2000 KAZ
 		lOrder	= 0																															// ADD 01-27-2000 KAZ
 		Return																																	// ADD 01-27-2000 KAZ
 	end if																																		// ADD 01-27-2000 KAZ
-
 	dw_header.SetItem ( 1, "order_no", lOrder )
 	dw_header.SetItem ( 1, "type", 'N' )
 
@@ -344,10 +325,10 @@ If lOrder < 0 Then
 		lFlag = 0
 		szDestination = dw_header.GetItemString ( 1, "destination" )
 		szCustomer    = dw_header.GetItemString ( 1, "customer" )
-	   SELECT salestax_rate  
-	     INTO :dTaxRate  
-	     FROM destination  
-	    WHERE destination = :szDestination   ;
+		SELECT	salestax_rate  
+		INTO	:dTaxRate  
+		FROM	destination  
+		WHERE	destination = :szDestination;
 		if isnull(dTaxRate,0) > 0 then
 			dTaxRate = dTaxRate / 100
 		else
@@ -355,18 +336,14 @@ If lOrder < 0 Then
 		end if
 		dw_detail.Enabled = True
 	End if
-
 	cb_get_profile.Enabled = TRUE
 	rb_internalpart.Enabled = TRUE
 	rb_customerpart.Enabled = TRUE
-
 	if dw_header.GetItemString ( 1, "status_type" ) <> 'A' then
 		MessageBox ( "Existing Order", "The order has been saved, however, this order's status is " + dw_header.GetItemString ( 1, "cs_status" ) + ".  You will be able to do everything except physically ship out the order.", Information! )
 	end if
 Else
-
 	dw_detail.AcceptText ( )
-	
 	if dw_detail.RowCount ( ) > 0 then
 		li_count = dw_detail.Find ( "quantity = 0 or weight = 0", 1, dw_detail.RowCount ( ) )
 		if li_count > 0 then
@@ -375,7 +352,6 @@ Else
 				lb_ask_zero_qty = TRUE
 		end if
 	end if
-	
 	if lb_ask_zero_qty then
 		if MessageBox (monsys.msg_title, "Would you like to delete the releases with a quantity/weight of 0?", Question!, YesNo!, 1 ) = 1 then
 			datastore	lds_list
@@ -385,26 +361,25 @@ Else
 			dw_detail.SetFilter ( "quantity = 0" )
 			dw_detail.Filter ( )
 			dw_detail.RowsMove ( 1, dw_detail.RowCount ( ), Primary!, lds_list, 1, Primary! )
-
 			dw_detail.SetFilter ( "" )
 			dw_detail.Filter ( )
 			DESTROY lds_list
-//			For li_count = dw_detail.RowCount ( ) to 1 step -1
-//				if dw_detail.GetItemNumber ( li_count, "quantity" ) = 0 or dw_detail.GetItemNumber ( li_count, "weight" ) = 0 then &
-//					dw_detail.DeleteRow ( li_count )
-//			Next
 		end if
 	end if
-
 	dw_detail.Sort ( )
 	wf_re_sequence ( )
-
 	If dw_header.Update ( ) = -1 then
 		RollBack ;
 		ib_Changed = TRUE
 		MessageBox ( monsys.msg_title, SQLCA.SQLErrText, Information! )
 		Return
 	Else
+		ls_olddest = dw_header.object.destination.original[1]
+		l_s_dest = dw_header.object.destination.current[1]
+		ls_customer = dw_header.object.customer.current[1]
+
+		if ls_olddest <> l_s_dest then wf_updatedestinall(l_s_dest, ls_olddest, ls_customer)			
+		
 		if dw_detail.update ( ) = -1 Then
 			RollBack ;
 			ib_Changed = True
@@ -412,10 +387,10 @@ Else
 			dw_detail.Retrieve ( lOrder )
 			If f_ask_minicop ( ) Then
 				If MessageBox(monsys.msg_title, "Do you want to run MiniCOP?", Question!, YesNo!) = 1 then				
-                istr_super_cop_parms.a_regen_all = 'N'
-					 istr_super_cop_parms.a_order_no  = lorder
-                OpenWithParm ( w_bom_explode , istr_super_cop_parms)         
-					 wmainscreen.Setmicrohelp("System has successfully updated the information...")
+					istr_super_cop_parms.a_regen_all = 'N'
+					istr_super_cop_parms.a_order_no  = lorder
+					OpenWithParm ( w_bom_explode , istr_super_cop_parms)         
+					gnv_App.of_GetFrame().Setmicrohelp("System has successfully updated the information...")
 				End if
 			End If
 			Commit ;
@@ -423,12 +398,10 @@ Else
 		End if
 	End if
 End if
-
-if ib_getprofile then &
-	ib_getprofile = FALSE
-	
-wmainscreen.Setmicrohelp("Ready")
+if ib_getprofile then ib_getprofile = FALSE
+gnv_App.of_GetFrame().Setmicrohelp("Ready")
 gf_get_info ( 'w_orders_detail', 2 )
+
 end event
 
 event delete_item;Long		ll_Suffix
@@ -508,7 +481,6 @@ end on
 
 event create_shipper;Long 		iRow
 Long 		iTotalRows
-Long		ll_count
 
 String	l_s_Destination
 String	l_s_Customer
@@ -527,10 +499,10 @@ Do while (Not bOk) AND (iRow	<= iTotalRows)
 	iRow ++
 Loop
 
-If bOk then	
-	// MB - 09/29/04 check the price on detail item
-	for ll_Count = 1 to iTotalrows step 1
-		if dw_detail.IsSelected(ll_count) and isnull ( dw_detail.object.price[ll_count], 0 ) = 0 then
+If bOk then
+	long row
+	for row = 1 to iTotalrows step 1
+		if dw_detail.IsSelected(row) and isnull ( dw_detail.object.price[row], 0 ) = 0 then
 			messagebox ( monsys.msg_title, "Must update price before shipment is allowed!", Stopsign! )		
 			return
 		end if
@@ -548,6 +520,7 @@ Else
 	MessageBox(monsys.msg_title, "Please use single click to highlight rows first.", StopSign!)
 End If
 end event
+
 event create_shipper_header;/* 01-26-2000 KAZ Modified to use 'of_getnextparmvalue' function instead of 'w_get_parm_value'
                   window to populate 'l_l_Shipper' (next Shipper number).  Also placed the  
 						rollback before the message box to release the database to avoid deadlocks. */
@@ -681,8 +654,7 @@ If lCurrentRow > 0 Then
 	lstr_Parm.value1	= String(lOrder)
 	lstr_Parm.value2	= String(dw_detail.GetItemNumber(lCurrentRow, "row_id"))
 
-	OpenSheetWithParm(w_order_promise_date_processor, lstr_Parm, &
-							wMainScreen, 3, Layered!)
+	OpenSheetWithParm(w_order_promise_date_processor, lstr_Parm, gnv_App.of_GetFrame(), 3, Original!)
 
 	w_order_promise_date_processor.wf_get_parent_window(w_orders_detail)
 
@@ -692,36 +664,21 @@ End if
 
 end event
 
-on ue_retrieve_detail;/* 
-Description	:To retrieve the datawindow again after the promise date being
-				 saved.
-Author		:Jim Wu
-Start Date	:1/26/96
-Modification:
-*/
-
-/* Declaration */
-
-/* Initialization */
-
-/* Main Process */
+event ue_retrieve_detail;
 dw_detail.Retrieve(lOrder)
 
-end on
+end event
 
-on print_work_order;/*		Declare Variables		*/
-st_print_preview_generic	lstr_Parm
+event print_work_order;
+n_cst_associative_array	lnv_Parm
+lnv_Parm.of_SetItem("Report", "Sales Order - Normal")
+lnv_Parm.of_SetItem("Arg1", lOrder)
+Print (lnv_Parm)
 
-/*		Initialize Variables		*/
-lstr_Parm.Form_type = "Sales Order - Normal"
-lstr_Parm.Document_number = lOrder
-lstr_Parm.Calling_window = w_orders_detail
 
-/*		Main		*/
-OpenSheetWithParm ( w_print_preview, lstr_Parm, wMainScreen, 3, Layered! )
 gf_get_info ( 'w_orders_detail', 1 )
 
-end on
+end event
 
 event ue_unapproved_message;MessageBox ( "Existing Order", "This order's status is " + dw_header.GetItemString ( 1, "cs_status" ) + ".  You will be able to do everything except physically ship out the order.", Information! )
 
@@ -736,9 +693,8 @@ m_normal_order_main.m_file.m_add.Enabled = bMode
 m_normal_order_main.m_file.m_delete.Enabled = bMode
 m_normal_order_main.m_file.m_save.Enabled = bMode
 m_normal_order_main.m_file.m_print.Enabled = bMode
-m_normal_order_main.m_file.m_contacts.Enabled = bMode
 m_normal_order_main.m_file.m_ship.Enabled = bMode
-m_normal_order_main.m_file.m_exit.Enabled = bMode
+m_normal_order_main.m_file.m_close.Enabled = bMode
 
 end subroutine
 
@@ -815,6 +771,8 @@ public subroutine wf_header_notes (boolean bmode);If bMode Then
 Else
 	wf_set_screen_tab_order ( "Main" )
 	cb_notes_ok.Hide ( )
+
+
 	cb_notes_cancel.Hide ( )
 	st_notes.Hide ( )
 	mle_notes.Hide ( )
@@ -958,6 +916,7 @@ If bMode Then
 		end if
 
 		bDblClick = True
+
 		dw_detail_info.Modify ( "part_number.TabSequence=0" )
 		If dw_detail_info.Retrieve ( lOrder_f, lRowId_f ) > 0 Then
 			szPart 	= dw_detail_info.GetItemString ( 1, "part_number" )
@@ -1102,7 +1061,7 @@ If bMode Then
 	pb_2.x = 874 //1798
 	pb_2.y = 39 //119
 	sle_package_unit.x = 2357
-	sle_package_unit.y = 502
+	sle_package_unit.y = 436//502
 	cb_background.Show ( )
 	st_2.Show ( )
 	cb_popup_availability.Show ( )
@@ -1160,6 +1119,8 @@ Else
 	wf_set_screen_tab_order ( "Main" )
 	dw_header.Retrieve ( lOrder )
 End if
+
+
 end subroutine
 
 public subroutine wf_unit_list (string szpartnumber);Int 	iCount
@@ -1913,17 +1874,35 @@ if dwc_package.Rowcount() = 1 then
 end if
 end subroutine
 
-event activate;STRING	ls_dest
+public subroutine wf_updatedestinall (string as_dest, string as_olddest, string as_customer);//if quote > 0 then 
+//	update	quote
+//	set	destination = @newdest
+//	where 	quote_number = @quote
+//end if 
 
-If wMainScreen.MenuName <> "m_normal_order_main" Then
-	wMainScreen.ChangeMenu ( m_normal_order_main )
-End if
+update	shipper
+set	destination = :as_dest,
+	customer = :as_customer
+where	id in (select	sd.shipper
+from	shipper_detail sd
+	join shipper s on s.id = sd.shipper
+where	sd.order_no = :lorder and
+	isnull(s.status,'O') not in ('C','Z','E'));
 
-// Added for Custom menu items
-	f_build_custom_arrays("monitor.oenormal")
-// Added for Custom menu items
-	f_build_custom_menu(wMainScreen.MenuID, wMainScreen)
+update	bill_of_lading
+set	destination = :as_dest
+where	destination = :as_olddest and
+	isnull(status,'O') <> 'C';
 
+update	work_order
+set	destination = :as_dest,
+	customer = :as_customer
+where	order_no = :lorder and
+	destination = :as_olddest;
+Return
+end subroutine
+
+event activate;call super::activate;STRING	ls_dest
 
 If bDetailUO Then
 	wf_screen_attrib ( True )
@@ -1931,14 +1910,14 @@ If bDetailUO Then
 	bDetailUO = False
 End if
 
-ls_dest = dw_header.object.destination[1]
-if ls_dest > '' then 
-	dw_header.object.destination[1] = ''
-	dw_header.object.destination[1] = ls_dest
-end if
+//ls_dest = dw_header.object.destination[1]
+//if ls_dest > '' then 
+//	dw_header.object.destination[1] = ''
+//	dw_header.object.destination[1] = ls_dest
+//end if
 end event
 
-event open;// 04/03/00	cbr	added initialization of il_maxrowid to 0
+event open;call super::open;// 04/03/00	cbr	added initialization of il_maxrowid to 0
 Int						iCount
 String					ls_PlantRequired,&
 							ls_status_type,&
@@ -1957,14 +1936,20 @@ SELECT plant_required,
 		 :is_inv_reg_col
   FROM parameters ;
 
+//	Not sure why this was enforced. Removing the same. 1/31/02
+/*
 If f_get_string_value ( ls_PlantRequired ) <> 'Y' Then
 	dw_header.Modify ( "plant.TabSequence=0" )
 End if
+*/
+
+ib_fromquotes = FALSE
 
 // Check for st_generic_structure, if so, create order from quote sent
 if IsValid ( Message.PowerObjectParm ) then
 	l_str_parm = Message.PowerObjectParm
 	if isnull(l_str_parm.value1,'') > '' then
+		ib_fromquotes = true
 		lOrder = wf_create_order_from_quote ( long ( l_str_parm.value1 ) )
 	else
 		lOrder = -1
@@ -2047,6 +2032,10 @@ End if
 end on
 
 on w_orders_detail.create
+int iCurrent
+call super::create
+if IsValid(this.MenuID) then destroy(this.MenuID)
+if this.MenuName = "m_normal_order_main" then this.MenuID = create m_normal_order_main
 this.st_10=create st_10
 this.st_9=create st_9
 this.st_8=create st_8
@@ -2096,58 +2085,61 @@ this.em_3=create em_3
 this.em_2=create em_2
 this.em_4=create em_4
 this.em_1=create em_1
-this.Control[]={this.st_10,&
-this.st_9,&
-this.st_8,&
-this.st_7,&
-this.st_6,&
-this.rb_customerpart,&
-this.rb_internalpart,&
-this.dw_pc_su,&
-this.cb_notes_ok,&
-this.cb_selectall,&
-this.cb_get_profile,&
-this.pb_2,&
-this.pb_1,&
-this.dw_price_matrix,&
-this.sle_package_unit,&
-this.dw_detail,&
-this.cb_popup_availability,&
-this.cb_popup_save,&
-this.cb_popup_exit,&
-this.p_1,&
-this.st_5,&
-this.st_4,&
-this.p_3,&
-this.p_2,&
-this.dw_order_detail_notes,&
-this.lb_1,&
-this.st_2,&
-this.dw_detail_taxable,&
-this.st_notes,&
-this.mle_notes,&
-this.cb_popup_drop_ship,&
-this.uo_notes,&
-this.dw_header,&
-this.uo_shipper_header,&
-this.cb_notes,&
-this.cb_notes_cancel,&
-this.gb_3,&
-this.gb_4,&
-this.dw_detail_info,&
-this.cb_1,&
-this.cb_background,&
-this.st_3,&
-this.rb_2,&
-this.rb_1,&
-this.st_1,&
-this.em_3,&
-this.em_2,&
-this.em_4,&
-this.em_1}
+iCurrent=UpperBound(this.Control)
+this.Control[iCurrent+1]=this.st_10
+this.Control[iCurrent+2]=this.st_9
+this.Control[iCurrent+3]=this.st_8
+this.Control[iCurrent+4]=this.st_7
+this.Control[iCurrent+5]=this.st_6
+this.Control[iCurrent+6]=this.rb_customerpart
+this.Control[iCurrent+7]=this.rb_internalpart
+this.Control[iCurrent+8]=this.dw_pc_su
+this.Control[iCurrent+9]=this.cb_notes_ok
+this.Control[iCurrent+10]=this.cb_selectall
+this.Control[iCurrent+11]=this.cb_get_profile
+this.Control[iCurrent+12]=this.pb_2
+this.Control[iCurrent+13]=this.pb_1
+this.Control[iCurrent+14]=this.dw_price_matrix
+this.Control[iCurrent+15]=this.sle_package_unit
+this.Control[iCurrent+16]=this.dw_detail
+this.Control[iCurrent+17]=this.cb_popup_availability
+this.Control[iCurrent+18]=this.cb_popup_save
+this.Control[iCurrent+19]=this.cb_popup_exit
+this.Control[iCurrent+20]=this.p_1
+this.Control[iCurrent+21]=this.st_5
+this.Control[iCurrent+22]=this.st_4
+this.Control[iCurrent+23]=this.p_3
+this.Control[iCurrent+24]=this.p_2
+this.Control[iCurrent+25]=this.dw_order_detail_notes
+this.Control[iCurrent+26]=this.lb_1
+this.Control[iCurrent+27]=this.st_2
+this.Control[iCurrent+28]=this.dw_detail_taxable
+this.Control[iCurrent+29]=this.st_notes
+this.Control[iCurrent+30]=this.mle_notes
+this.Control[iCurrent+31]=this.cb_popup_drop_ship
+this.Control[iCurrent+32]=this.uo_notes
+this.Control[iCurrent+33]=this.dw_header
+this.Control[iCurrent+34]=this.uo_shipper_header
+this.Control[iCurrent+35]=this.cb_notes
+this.Control[iCurrent+36]=this.cb_notes_cancel
+this.Control[iCurrent+37]=this.gb_3
+this.Control[iCurrent+38]=this.gb_4
+this.Control[iCurrent+39]=this.dw_detail_info
+this.Control[iCurrent+40]=this.cb_1
+this.Control[iCurrent+41]=this.cb_background
+this.Control[iCurrent+42]=this.st_3
+this.Control[iCurrent+43]=this.rb_2
+this.Control[iCurrent+44]=this.rb_1
+this.Control[iCurrent+45]=this.st_1
+this.Control[iCurrent+46]=this.em_3
+this.Control[iCurrent+47]=this.em_2
+this.Control[iCurrent+48]=this.em_4
+this.Control[iCurrent+49]=this.em_1
 end on
 
 on w_orders_detail.destroy
+call super::destroy
+if IsValid(MenuID) then destroy(MenuID)
 destroy(this.st_10)
 destroy(this.st_9)
 destroy(this.st_8)
@@ -2199,7 +2191,7 @@ destroy(this.em_4)
 destroy(this.em_1)
 end on
 
-event closequery;If ib_Changed Then
+event closequery;call super::closequery;If ib_Changed Then
 	Choose case Messagebox (monsys.msg_title, "Do you want to save changes?", Question!, YesNoCancel!,1)
 		case 1
 			w_Orders_detail.TriggerEvent ("save_item")
@@ -2220,159 +2212,157 @@ End If
 end event
 
 type st_10 from statictext within w_orders_detail
-int X=1765
-int Y=1324
-int Width=238
-int Height=48
-boolean Enabled=false
-string Text="Total"
-boolean FocusRectangle=false
-long TextColor=16711680
-long BackColor=67108864
-int TextSize=-8
-int Weight=700
-string FaceName="Arial"
-FontCharSet FontCharSet=Ansi!
-FontFamily FontFamily=Swiss!
-FontPitch FontPitch=Variable!
+integer x = 1765
+integer y = 1324
+integer width = 238
+integer height = 48
+integer textsize = -8
+integer weight = 700
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long textcolor = 16711680
+long backcolor = 67108864
+boolean enabled = false
+string text = "Total"
+boolean focusrectangle = false
 end type
 
 type st_9 from statictext within w_orders_detail
-int X=1765
-int Y=1264
-int Width=238
-int Height=48
-boolean Enabled=false
-string Text="Sales Tax"
-boolean FocusRectangle=false
-long TextColor=16711680
-long BackColor=67108864
-int TextSize=-8
-int Weight=700
-string FaceName="Arial"
-FontCharSet FontCharSet=Ansi!
-FontFamily FontFamily=Swiss!
-FontPitch FontPitch=Variable!
+integer x = 1765
+integer y = 1264
+integer width = 238
+integer height = 48
+integer textsize = -8
+integer weight = 700
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long textcolor = 16711680
+long backcolor = 67108864
+boolean enabled = false
+string text = "Sales Tax"
+boolean focusrectangle = false
 end type
 
 type st_8 from statictext within w_orders_detail
-int X=1765
-int Y=1200
-int Width=238
-int Height=48
-boolean Enabled=false
-string Text="Sub Total"
-boolean FocusRectangle=false
-long TextColor=16711680
-long BackColor=67108864
-int TextSize=-8
-int Weight=700
-string FaceName="Arial"
-FontCharSet FontCharSet=Ansi!
-FontFamily FontFamily=Swiss!
-FontPitch FontPitch=Variable!
+integer x = 1765
+integer y = 1200
+integer width = 238
+integer height = 48
+integer textsize = -8
+integer weight = 700
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long textcolor = 16711680
+long backcolor = 67108864
+boolean enabled = false
+string text = "Sub Total"
+boolean focusrectangle = false
 end type
 
 type st_7 from statictext within w_orders_detail
-int X=1536
-int Y=1200
-int Width=229
-int Height=48
-boolean Enabled=false
-string Text="Total Wt."
-boolean FocusRectangle=false
-long TextColor=16711680
-long BackColor=79741120
-int TextSize=-8
-int Weight=700
-string FaceName="Arial"
-FontCharSet FontCharSet=Ansi!
-FontFamily FontFamily=Swiss!
-FontPitch FontPitch=Variable!
+integer x = 1536
+integer y = 1200
+integer width = 229
+integer height = 48
+integer textsize = -8
+integer weight = 700
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long textcolor = 16711680
+long backcolor = 79741120
+boolean enabled = false
+string text = "Total Wt."
+boolean focusrectangle = false
 end type
 
 type st_6 from statictext within w_orders_detail
-int X=859
-int Y=544
-int Width=128
-int Height=64
-boolean Enabled=false
-string Text="Sort"
-boolean FocusRectangle=false
-long TextColor=33554432
-long BackColor=67108864
-int TextSize=-8
-int Weight=400
-string FaceName="MS Sans Serif"
-FontCharSet FontCharSet=Ansi!
-FontFamily FontFamily=Swiss!
-FontPitch FontPitch=Variable!
+integer x = 859
+integer y = 544
+integer width = 128
+integer height = 64
+integer textsize = -8
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "MS Sans Serif"
+long textcolor = 33554432
+long backcolor = 67108864
+boolean enabled = false
+string text = "Sort"
+boolean focusrectangle = false
 end type
 
 type rb_customerpart from radiobutton within w_orders_detail
-int X=1353
-int Y=544
-int Width=402
-int Height=64
-boolean Enabled=false
-string Text="Customer Part"
-BorderStyle BorderStyle=StyleLowered!
-long TextColor=33554432
-long BackColor=67108864
-int TextSize=-8
-int Weight=400
-string FaceName="MS Sans Serif"
-FontCharSet FontCharSet=Ansi!
-FontFamily FontFamily=Swiss!
-FontPitch FontPitch=Variable!
+integer x = 1353
+integer y = 544
+integer width = 402
+integer height = 64
+integer textsize = -8
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "MS Sans Serif"
+long textcolor = 33554432
+long backcolor = 67108864
+boolean enabled = false
+string text = "Customer Part"
 end type
 
 type rb_internalpart from radiobutton within w_orders_detail
-int X=987
-int Y=544
-int Width=366
-int Height=64
-boolean Enabled=false
-string Text="Internal Part"
-BorderStyle BorderStyle=StyleLowered!
-boolean Checked=true
-long TextColor=33554432
-long BackColor=67108864
-int TextSize=-8
-int Weight=400
-string FaceName="MS Sans Serif"
-FontCharSet FontCharSet=Ansi!
-FontFamily FontFamily=Swiss!
-FontPitch FontPitch=Variable!
+integer x = 987
+integer y = 544
+integer width = 366
+integer height = 64
+integer textsize = -8
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "MS Sans Serif"
+long textcolor = 33554432
+long backcolor = 67108864
+boolean enabled = false
+string text = "Internal Part"
+boolean checked = true
 end type
 
 type dw_pc_su from datawindow within w_orders_detail
-int X=5321
-int Y=64
-int Width=475
-int Height=288
-int TabOrder=20
-boolean Visible=false
-string DataObject="d_part_customer_std_unit"
-boolean LiveScroll=true
+boolean visible = false
+integer x = 5321
+integer y = 64
+integer width = 475
+integer height = 288
+integer taborder = 20
+string dataobject = "d_part_customer_std_unit"
+boolean livescroll = true
 end type
 
 on constructor;settransobject(sqlca)
 end on
 
 type cb_notes_ok from commandbutton within w_orders_detail
-int X=1221
-int Y=816
-int Width=270
-int Height=100
-boolean Visible=false
-string Text="&Ok"
-int TextSize=-9
-int Weight=400
-string FaceName="MS Sans Serif"
-FontCharSet FontCharSet=Ansi!
-FontFamily FontFamily=Swiss!
-FontPitch FontPitch=Variable!
+boolean visible = false
+integer x = 1221
+integer y = 816
+integer width = 270
+integer height = 100
+integer textsize = -9
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "MS Sans Serif"
+string text = "&Ok"
 end type
 
 on clicked;UPDATE order_header  
@@ -2398,18 +2388,18 @@ wf_header_notes ( False )
 end on
 
 type cb_selectall from commandbutton within w_orders_detail
-int X=73
-int Y=544
-int Width=389
-int Height=64
-int TabOrder=70
-string Text="Select All/None"
-int TextSize=-8
-int Weight=400
-string FaceName="MS Sans Serif"
-FontCharSet FontCharSet=Ansi!
-FontFamily FontFamily=Swiss!
-FontPitch FontPitch=Variable!
+integer x = 73
+integer y = 544
+integer width = 389
+integer height = 64
+integer taborder = 80
+integer textsize = -8
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "MS Sans Serif"
+string text = "Select All/None"
 end type
 
 event clicked;long		ll_row
@@ -2425,19 +2415,19 @@ ib_selectall = ( not ib_selectall )
 end event
 
 type cb_get_profile from commandbutton within w_orders_detail
-int X=457
-int Y=544
-int Width=384
-int Height=64
-int TabOrder=30
-boolean Enabled=false
-string Text="Get Profile"
-int TextSize=-8
-int Weight=400
-string FaceName="MS Sans Serif"
-FontCharSet FontCharSet=Ansi!
-FontFamily FontFamily=Swiss!
-FontPitch FontPitch=Variable!
+integer x = 457
+integer y = 544
+integer width = 384
+integer height = 64
+integer taborder = 30
+integer textsize = -8
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "MS Sans Serif"
+boolean enabled = false
+string text = "Get Profile"
 end type
 
 event clicked;LONG	ll_rows,&
@@ -2453,18 +2443,18 @@ end if
 end event
 
 type pb_2 from picturebutton within w_orders_detail
-int X=4512
-int Y=144
-int Width=87
-int Height=80
-boolean Visible=false
-string PictureName="g:\monw31\test\logo90.bmp"
-string DisabledName="g:\monw31\test\blank.bmp"
-int TextSize=-8
-int Weight=400
-string FaceName="Arial"
-FontFamily FontFamily=Swiss!
-FontPitch FontPitch=Variable!
+boolean visible = false
+integer x = 4512
+integer y = 92
+integer width = 87
+integer height = 80
+integer textsize = -8
+integer weight = 400
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+string picturename = "logo90.bmp"
+string disabledname = "blank.bmp"
 end type
 
 event clicked;DataWindowChild 	dwcParts
@@ -2492,7 +2482,7 @@ st_3.BringToTop = TRUE
   SELECT part,
          name
     FROM part  
-   WHERE (type = 'F' or type = 'R')
+   WHERE type = 'F'   
 ORDER BY part ASC  ;
 
 Open part_list ;
@@ -2516,32 +2506,28 @@ dw_detail_info.SetFocus ( )
 end event
 
 type pb_1 from picturebutton within w_orders_detail
-int X=3374
-int Y=64
-int Width=87
-int Height=80
-boolean Visible=false
-string PictureName="search.bmp"
-int TextSize=-10
-int Weight=700
-string FaceName="Arial"
-FontFamily FontFamily=Swiss!
-FontPitch FontPitch=Variable!
+boolean visible = false
+integer x = 3374
+integer y = 80
+integer width = 87
+integer height = 80
+integer textsize = -10
+integer weight = 700
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+string picturename = "search.bmp"
 end type
 
-event clicked;DataWindowChild 	dwcParts
-String				szPartNumber
-String				ls_Desc
-String            ls_CustomerCheck
-
+event clicked;DataWindowChild	dwcParts
+String		szPartNumber
+String		ls_Desc
+String		ls_CustomerCheck
 dw_detail_info.GetChild ( "part_number", dwcParts )
-
 dwcParts.SetTransObject ( sqlca )
 dwcParts.Reset ( )
-
 pb_1.Hide ( )
 bShowSearch = FALSE
-
 cb_1.x = 1318
 cb_1.y = 513
 st_3.x = 1409
@@ -2551,77 +2537,71 @@ cb_1.BringToTop = TRUE
 st_3.Show ( )
 st_3.BringToTop = TRUE
 
-SELECT customer
-  INTO :ls_CustomerCheck
-  FROM part_customer
- WHERE customer = :szCustomer	;
+SELECT	customer
+INTO	:ls_CustomerCheck
+FROM	part_customer
+WHERE	customer = :szCustomer;
 
 IF IsNull ( ls_CustomerCheck ) OR ls_CustomerCheck = "" THEN
-	 DECLARE part_list CURSOR FOR  
-	  SELECT part,
-				name
-	    FROM part  
-	   WHERE (type = 'F' or type = 'R')
+	DECLARE part_list CURSOR FOR  
+	SELECT	part,
+		name
+	FROM	part  
+	WHERE	type = 'F'   
 	ORDER BY part ASC  ;
-
-	Open part_list ;
-	Fetch part_list Into :szPartNumber, :ls_Desc ;
-
+	
+	Open	part_list ;
+	Fetch	part_list Into :szPartNumber, :ls_Desc ;
+	
 	Do While SQLCA.SQLCode = 0
 		dwcParts.InsertRow ( 0 )
 		dwcParts.SetItem ( dwcParts.RowCount ( ), "part", szPartNumber )
 		dwcParts.SetItem ( dwcParts.RowCount ( ), "desc", ls_Desc )
 		Fetch part_list Into :szPartNumber, :ls_Desc ;
 	Loop
-
+	
 	Close part_list ;
 ELSE
-   DECLARE customer_part_list CURSOR FOR  
-    SELECT part
-	   FROM part_customer  
-	  WHERE customer = :szCustomer   
-	ORDER BY part ASC  ;
-
-	Open customer_part_list ;
-	Fetch customer_part_list Into :szPartNumber;
-
+	DECLARE customer_part_list CURSOR FOR  
+	SELECT	pc.part,
+		p.name
+	FROM	part_customer pc
+		join part p on p.part = pc.part
+	WHERE	customer = :szCustomer   
+	ORDER BY pc.part ASC  ;
+	
+	Open	customer_part_list ;
+	Fetch	customer_part_list Into :szPartNumber, :ls_desc;
+	
 	Do While SQLCA.SQLCode = 0
-
-		SELECT name
-		  INTO :ls_Desc
-		  FROM part
-		 WHERE part = :szPartNumber	;
-
 		dwcParts.InsertRow ( 0 )
 		dwcParts.SetItem ( dwcParts.RowCount ( ), "part", szPartNumber )
 		dwcParts.SetItem ( dwcParts.RowCount ( ), "desc", ls_Desc )
-
-		Fetch customer_part_list Into :szPartNumber;
+		Fetch	customer_part_list Into :szPartNumber, :ls_desc;
 	Loop 
-
-	Close customer_part_list ;
-
+	
+	Close	customer_part_list ;
+	
 	pb_2.Show ( )	
 	pb_2.Show ( )
 	pb_2.BringToTop = True
 END IF
-
 st_3.Hide ( )
 cb_1.Hide ( )
-
 dw_detail_info.SetFocus ( )
+
 end event
 
 type dw_price_matrix from datawindow within w_orders_detail
-int X=2985
-int Y=984
-int Width=1079
-int Height=352
-boolean Visible=false
-string DataObject="d_customer_price_matrix_no"
-BorderStyle BorderStyle=StyleLowered!
-boolean VScrollBar=true
-boolean LiveScroll=true
+boolean visible = false
+integer x = 2985
+integer y = 984
+integer width = 1079
+integer height = 352
+string dataobject = "d_customer_price_matrix_no"
+boolean vscrollbar = true
+boolean livescroll = true
+borderstyle borderstyle = stylelowered!
 end type
 
 event clicked;If row < 1 Then Return
@@ -2643,32 +2623,32 @@ event constructor;SetTransObject ( sqlca )
 end event
 
 type sle_package_unit from singlelineedit within w_orders_detail
-int X=4905
-int Y=528
-int Width=137
-int Height=80
-boolean Visible=false
-boolean Enabled=false
-BorderStyle BorderStyle=StyleLowered!
-boolean AutoHScroll=false
-long BackColor=16777215
-int TextSize=-9
-int Weight=400
-string FaceName="Arial"
-FontFamily FontFamily=Swiss!
-FontPitch FontPitch=Variable!
+boolean visible = false
+integer x = 4905
+integer y = 500
+integer width = 137
+integer height = 68
+integer textsize = -9
+integer weight = 400
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long backcolor = 16777215
+boolean enabled = false
+boolean autohscroll = false
+borderstyle borderstyle = stylelowered!
 end type
 
 type dw_detail from datawindow within w_orders_detail
-int X=69
-int Y=608
-int Width=2725
-int Height=580
-string DataObject="d_detail_no_notes"
-boolean HScrollBar=true
-boolean VScrollBar=true
-boolean HSplitScroll=true
-boolean LiveScroll=true
+integer x = 69
+integer y = 608
+integer width = 2725
+integer height = 580
+string dataobject = "d_detail_no_notes"
+boolean hscrollbar = true
+boolean vscrollbar = true
+boolean hsplitscroll = true
+boolean livescroll = true
 end type
 
 event doubleclicked;if ib_getprofile then return
@@ -2907,43 +2887,43 @@ end if
 end event
 
 type cb_popup_availability from commandbutton within w_orders_detail
-int X=4663
-int Y=1372
-int Width=370
-int Height=84
-boolean Visible=false
-string Text="&Availability"
-int TextSize=-9
-int Weight=400
-string FaceName="MS Sans Serif"
-FontCharSet FontCharSet=Ansi!
-FontFamily FontFamily=Swiss!
-FontPitch FontPitch=Variable!
+boolean visible = false
+integer x = 4663
+integer y = 1372
+integer width = 370
+integer height = 84
+integer textsize = -9
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "MS Sans Serif"
+string text = "&Availability"
 end type
 
-on clicked;st_generic_structure stSendParm
+event clicked;st_generic_structure stSendParm
 
 stSendParm.Value1 = szPart
 stSendParm.Value2 = String ( lOrder )
 stSendParm.Value3 = dw_detail_info.GetItemString(1, "unit")
 stSendParm.Value4 = String(dw_detail_info.GetItemNumber(1, "price"))
 
-OpenSheetWithParm ( w_detail_info_of_demand_parm, stSendParm, wMainScreen, 3, Layered! )
-end on
+OpenSheetWithParm ( w_detail_info_of_demand_parm, stSendParm, gnv_App.of_GetFrame(), 3, Original! )
+end event
 
 type cb_popup_save from commandbutton within w_orders_detail
-int X=2981
-int Y=1372
-int Width=343
-int Height=84
-boolean Visible=false
-string Text="&Save"
-int TextSize=-9
-int Weight=400
-string FaceName="MS Sans Serif"
-FontCharSet FontCharSet=Ansi!
-FontFamily FontFamily=Swiss!
-FontPitch FontPitch=Variable!
+boolean visible = false
+integer x = 2981
+integer y = 1372
+integer width = 343
+integer height = 84
+integer textsize = -9
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "MS Sans Serif"
+string text = "&Save"
 end type
 
 event clicked;st_generic_structure l_st_Parm
@@ -3056,30 +3036,30 @@ If bMiniCop Then
     
           OpenWithParm ( w_bom_explode , istr_super_cop_parms)   
 
-			wmainscreen.Setmicrohelp("System has successfully updated the information...")
+			gnv_App.of_GetFrame().Setmicrohelp("System has successfully updated the information...")
 		End if
 	End If
 End if
 
 ib_Add = FALSE
-wmainscreen.Setmicrohelp("Ready")
+gnv_App.of_GetFrame().Setmicrohelp("Ready")
 wf_screen_attrib ( True )
 
 end event
 
 type cb_popup_exit from commandbutton within w_orders_detail
-int X=3374
-int Y=1372
-int Width=343
-int Height=84
-boolean Visible=false
-string Text="&Cancel"
-int TextSize=-9
-int Weight=400
-string FaceName="MS Sans Serif"
-FontCharSet FontCharSet=Ansi!
-FontFamily FontFamily=Swiss!
-FontPitch FontPitch=Variable!
+boolean visible = false
+integer x = 3374
+integer y = 1372
+integer width = 343
+integer height = 84
+integer textsize = -9
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "MS Sans Serif"
+string text = "&Cancel"
 end type
 
 event clicked;ib_Add = FALSE
@@ -3093,12 +3073,12 @@ wf_screen_attrib ( True )
 end event
 
 type p_1 from picture within w_orders_detail
-int X=2702
-int Y=392
-int Width=73
-int Height=72
-string PictureName="noteno.bmp"
-boolean FocusRectangle=false
+integer x = 2702
+integer y = 392
+integer width = 73
+integer height = 72
+string picturename = "noteno.bmp"
+boolean focusrectangle = false
 end type
 
 on clicked;If f_get_value ( lOrder ) > 0 Then
@@ -3107,171 +3087,171 @@ End if
 end on
 
 type st_5 from statictext within w_orders_detail
-int X=2354
-int Y=480
-int Width=306
-int Height=64
-boolean Enabled=false
-string Text=" = Drop Ship"
-boolean FocusRectangle=false
-long TextColor=33554432
-long BackColor=77897888
-int TextSize=-9
-int Weight=400
-string FaceName="MS Sans Serif"
-FontCharSet FontCharSet=Ansi!
-FontFamily FontFamily=Swiss!
-FontPitch FontPitch=Variable!
+integer x = 2354
+integer y = 480
+integer width = 306
+integer height = 64
+integer textsize = -9
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "MS Sans Serif"
+long textcolor = 33554432
+long backcolor = 77897888
+boolean enabled = false
+string text = " = Drop Ship"
+boolean focusrectangle = false
 end type
 
 type st_4 from statictext within w_orders_detail
-int X=1719
-int Y=480
-int Width=512
-int Height=64
-boolean Enabled=false
-string Text=" =Scheduled to Ship"
-boolean FocusRectangle=false
-long TextColor=33554432
-long BackColor=77897888
-int TextSize=-9
-int Weight=400
-string FaceName="MS Sans Serif"
-FontCharSet FontCharSet=Ansi!
-FontFamily FontFamily=Swiss!
-FontPitch FontPitch=Variable!
+integer x = 1719
+integer y = 480
+integer width = 512
+integer height = 64
+integer textsize = -9
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "MS Sans Serif"
+long textcolor = 33554432
+long backcolor = 77897888
+boolean enabled = false
+string text = " =Scheduled to Ship"
+boolean focusrectangle = false
 end type
 
 type p_3 from picture within w_orders_detail
-int X=2277
-int Y=480
-int Width=78
-int Height=60
-string PictureName="pick.bmp"
-boolean Border=true
-boolean FocusRectangle=false
+integer x = 2277
+integer y = 480
+integer width = 78
+integer height = 60
+string picturename = "pick.bmp"
+boolean border = true
+boolean focusrectangle = false
 end type
 
 type p_2 from picture within w_orders_detail
-int X=1641
-int Y=484
-int Width=78
-int Height=60
-string PictureName="logo2.bmp"
-boolean Border=true
-boolean FocusRectangle=false
+integer x = 1641
+integer y = 484
+integer width = 78
+integer height = 60
+string picturename = "logo2.bmp"
+boolean border = true
+boolean focusrectangle = false
 end type
 
 type dw_order_detail_notes from datawindow within w_orders_detail
-int X=5317
-int Y=768
-int Width=489
-int Height=356
-boolean Visible=false
-string DataObject="d_parts_with_notes_for_order_detail"
-boolean LiveScroll=true
+boolean visible = false
+integer x = 5317
+integer y = 768
+integer width = 489
+integer height = 356
+string dataobject = "d_parts_with_notes_for_order_detail"
+boolean livescroll = true
 end type
 
 event constructor;this.settransobject ( sqlca )
 end event
 
 type lb_1 from listbox within w_orders_detail
-int X=5317
-int Y=384
-int Width=489
-int Height=356
-boolean Visible=false
-BorderStyle BorderStyle=StyleLowered!
-boolean VScrollBar=true
-long TextColor=33554432
-int TextSize=-10
-int Weight=700
-string FaceName="Arial"
-FontFamily FontFamily=Swiss!
-FontPitch FontPitch=Variable!
+boolean visible = false
+integer x = 5317
+integer y = 384
+integer width = 489
+integer height = 356
+integer textsize = -10
+integer weight = 700
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long textcolor = 33554432
+boolean vscrollbar = true
+borderstyle borderstyle = stylelowered!
 end type
 
 type st_2 from statictext within w_orders_detail
-int X=2912
-int Y=64
-int Width=2185
-int Height=64
-boolean Visible=false
-boolean Enabled=false
-string Text="Detail Information"
-Alignment Alignment=Center!
-boolean FocusRectangle=false
-long TextColor=33554432
-long BackColor=79216776
-int TextSize=-10
-int Weight=400
-string FaceName="MS Sans Serif"
-FontCharSet FontCharSet=Ansi!
-FontFamily FontFamily=Swiss!
-FontPitch FontPitch=Variable!
+boolean visible = false
+integer x = 2912
+integer y = 64
+integer width = 2185
+integer height = 64
+integer textsize = -10
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "MS Sans Serif"
+long textcolor = 33554432
+long backcolor = 79216776
+boolean enabled = false
+string text = "Detail Information"
+alignment alignment = center!
+boolean focusrectangle = false
 end type
 
 type dw_detail_taxable from datawindow within w_orders_detail
-int X=2080
-int Y=1792
-int Width=489
-int Height=356
-boolean Visible=false
-string DataObject="d_order_detail_taxable"
-boolean LiveScroll=true
+boolean visible = false
+integer x = 2080
+integer y = 1792
+integer width = 489
+integer height = 356
+string dataobject = "d_order_detail_taxable"
+boolean livescroll = true
 end type
 
 type st_notes from statictext within w_orders_detail
-int X=1093
-int Y=400
-int Width=946
-int Height=64
-boolean Visible=false
-boolean Enabled=false
-string Text="Header Notes:"
-Alignment Alignment=Center!
-boolean FocusRectangle=false
-long TextColor=33554432
-long BackColor=77897888
-int TextSize=-9
-int Weight=400
-string FaceName="MS Sans Serif"
-FontCharSet FontCharSet=Ansi!
-FontFamily FontFamily=Swiss!
-FontPitch FontPitch=Variable!
+boolean visible = false
+integer x = 1093
+integer y = 400
+integer width = 946
+integer height = 64
+integer textsize = -9
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "MS Sans Serif"
+long textcolor = 33554432
+long backcolor = 77897888
+boolean enabled = false
+string text = "Header Notes:"
+alignment alignment = center!
+boolean focusrectangle = false
 end type
 
 type mle_notes from multilineedit within w_orders_detail
-int X=1074
-int Y=464
-int Width=983
-int Height=336
-boolean Visible=false
-BorderStyle BorderStyle=StyleLowered!
-boolean VScrollBar=true
-boolean AutoVScroll=true
-boolean HideSelection=false
-int Limit=254
-long TextColor=33554432
-int TextSize=-10
-int Weight=400
-string FaceName="Arial"
-FontFamily FontFamily=Swiss!
-FontPitch FontPitch=Variable!
+boolean visible = false
+integer x = 1074
+integer y = 464
+integer width = 983
+integer height = 336
+integer textsize = -10
+integer weight = 400
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long textcolor = 33554432
+boolean vscrollbar = true
+boolean autovscroll = true
+integer limit = 254
+borderstyle borderstyle = stylelowered!
+boolean hideselection = false
 end type
 
 type cb_popup_drop_ship from commandbutton within w_orders_detail
-int X=2606
-int Y=1808
-int Width=384
-int Height=128
-boolean Visible=false
-string Text="&Drop Ship"
-int TextSize=-10
-int Weight=700
-string FaceName="Arial"
-FontFamily FontFamily=Swiss!
-FontPitch FontPitch=Variable!
+boolean visible = false
+integer x = 2606
+integer y = 1808
+integer width = 384
+integer height = 128
+integer textsize = -10
+integer weight = 700
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+string text = "&Drop Ship"
 end type
 
 on clicked;dw_detail.DataObject = "d_detail_no_notes"
@@ -3282,9 +3262,11 @@ dw_detail.Retrieve ( lOrder, dTaxRate )
 end on
 
 type uo_notes from uo_notes_entry within w_orders_detail
-int X=690
-int Y=1984
-boolean Visible=false
+boolean visible = false
+integer x = 690
+integer y = 1984
+integer width = 1298
+integer height = 640
 end type
 
 on uo_notes.destroy
@@ -3293,49 +3275,59 @@ end on
 
 type dw_header from datawindow within w_orders_detail
 event ue_stupid_powerbuilder_bug_event ( )
-int X=73
-int Y=64
-int Width=2738
-int Height=400
-int TabOrder=10
-string DataObject="d_order_header_info"
-boolean Border=false
-boolean LiveScroll=true
+integer x = 73
+integer y = 64
+integer width = 2738
+integer height = 400
+integer taborder = 10
+string dataobject = "d_order_header_info"
+boolean border = false
+boolean livescroll = true
 end type
 
-event ue_stupid_powerbuilder_bug_event;STRING	ls_dest
-
-if rowcount() > 0 then
-	IF object.destination[1] > '' THEN
-		ls_dest = object.destination[1]
-		object.destination[1] = ''
-		object.destination[1] = ls_dest
-	END IF
-end if
+event ue_stupid_powerbuilder_bug_event;//STRING	ls_dest
+//
+//if rowcount() > 0 then
+//	IF object.destination[1] > '' THEN
+//		ls_dest = object.destination[1]
+//		object.destination[1] = ''
+//		object.destination[1] = ls_dest
+//	END IF
+//end if
 end event
 
-event itemchanged;String   l_s_destination, &
-			szTerms, &
-			szSalesRep, &
-			szDest, &
-			l_s_customer,&
-			ls_default_currency,&
-			ls_status
+event itemchanged;String	l_s_destination, &
+	szTerms, &
+	szSalesRep, &
+	szDest, &
+	l_s_customer,&
+	ls_default_currency,&
+	ls_status
 String	szContact
-INT		li_show_euro_amount
+INT	li_show_euro_amount
 DataWindowChild	l_dwc_destination
-long		ll_row
-long		ll_rowcount
-
+long	ll_row
+long	ll_rowcount
+int	li_dcnt
+string	ls_cust, ls_dest
 ib_Changed = True
-
-AcceptText ( )
-
 Choose Case dwo.name
 	Case "destination"
-
+		if isnull(object.order_no[1],-1) > 0 then 
+			ls_cust = object.customer[1]			
+			ls_dest = object.destination[1]
+			select count(1) into :li_dcnt from destination where customer = :ls_cust and destination = :data;
+			
+			if isnull(li_dcnt,0) = 0 then
+				object.destination[1] = ls_dest				
+				MessageBox(monsys.msg_title, data+" is not a valid destination for customer "+ls_cust, StopSign!)
+				bDestError	= TRUE
+				Return
+			else
+				Messagebox(monsys.msg_title, "Open Shippers & BOLs will be updated with the new destination related to this sales order!")				
+			End If
+		end if 	
 		l_s_destination = data
-	
 		If Not f_valid_destination(l_s_destination) Then	
 			MessageBox( monsys.msg_title, "Enter a valid destination.", StopSign!)
 			dw_header.SetColumn("destination")
@@ -3344,59 +3336,48 @@ Choose Case dwo.name
 		Else
 			bdesterror = False     
 		End If
-	
-		l_s_destination = dw_header.GetText ( )
-	
-		SELECT 	destination.customer,
-					destination.default_currency_unit,
-					destination.show_euro_amount,
-					destination.cs_status
-		INTO 		:szCustomer,
-					:ls_default_currency,
-					:li_show_euro_amount,
-					:ls_status
-		FROM 		destination  
-		WHERE 	destination.destination = :l_s_destination   ;
-	
+		SELECT	destination.customer,
+			destination.default_currency_unit,
+			destination.show_euro_amount,
+			destination.cs_status
+		INTO	:szCustomer,
+			:ls_default_currency,
+			:li_show_euro_amount,
+			:ls_status
+		FROM 	destination  
+		WHERE 	destination.destination = :l_s_destination;
+
 		dw_header.SetItem ( 1, "customer", szCustomer )
-	
 		IF Isnull ( ls_default_currency, '' ) > '' then
-			
 			SELECT	customer.terms,   
-						customer.salesrep,
-						customer.contact
-			INTO 		:szTerms,   
-						:szSalesRep,
-						:szContact
-			FROM 		customer  
-			WHERE 	customer.customer = :szCustomer   ;
-			
+				customer.salesrep,
+				customer.contact
+			INTO	:szTerms,   
+				:szSalesRep,
+				:szContact
+			FROM	customer  
+			WHERE	customer.customer = :szCustomer;
 		else
-	
 			SELECT	customer.terms,   
-						customer.salesrep,
-						customer.contact,
-						customer.default_currency_unit,
-						customer.show_euro_amount
-			INTO 		:szTerms,   
-						:szSalesRep,
-						:szContact,
-						:ls_default_currency,
-						:li_show_euro_amount 
-			FROM 		customer  
-			WHERE 	customer.customer = :szCustomer   ;
-			
+				customer.salesrep,
+				customer.contact,
+				customer.default_currency_unit,
+				customer.show_euro_amount
+			INTO	:szTerms,   
+				:szSalesRep,
+				:szContact,
+				:ls_default_currency,
+				:li_show_euro_amount 
+			FROM	customer  
+			WHERE 	customer.customer = :szCustomer;
 		end if
-		
 		dw_header.SetItem ( 1, "term", szTerms )
 		dw_header.SetItem ( 1, "salesman", szSalesRep )
 		dw_header.SetItem ( 1, "contact", szContact )
 		dw_header.SetItem ( 1, "currency_unit", ls_default_currency )
 		dw_header.SetItem ( 1, "show_euro_amount", li_show_euro_amount )
 		dw_header.SetItem ( 1, "cs_status", ls_status )
-		
 	Case  "customer"
-
 		GetChild ( "destination", l_dwc_destination )
 		l_s_customer = data
 		if isnull ( l_s_customer, '' ) > '' then
@@ -3429,7 +3410,7 @@ Choose Case dwo.name
 		end if
 	Case "customer_po"
 		if sqlca.of_customerpoexists ( data, GetItemString ( 1, "destination" ) ) then
-			MessageBox ( monsys.msg_title, "The customer PO entered already exists for this destination.", Information! )
+		MessageBox ( monsys.msg_title, "The customer PO entered already exists for this destination.", Information! )
 		end if
 End Choose
 
@@ -3442,9 +3423,9 @@ event retrieveend;//Post Event ue_stupid_powerbuilder_bug_event ( )
 end event
 
 type uo_shipper_header from u_create_shipper_header within w_orders_detail
-int X=581
-int Y=256
-boolean Visible=false
+boolean visible = false
+integer x = 581
+integer y = 256
 end type
 
 on uo_shipper_header.destroy
@@ -3452,78 +3433,76 @@ call u_create_shipper_header::destroy
 end on
 
 type cb_notes from commandbutton within w_orders_detail
-int X=1038
-int Y=384
-int Width=1056
-int Height=560
-boolean Visible=false
-boolean Enabled=false
-int TextSize=-10
-int Weight=400
-string FaceName="Arial"
-FontFamily FontFamily=Swiss!
-FontPitch FontPitch=Variable!
+boolean visible = false
+integer x = 1038
+integer y = 384
+integer width = 1056
+integer height = 560
+integer textsize = -10
+integer weight = 400
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+boolean enabled = false
 end type
 
 type cb_notes_cancel from commandbutton within w_orders_detail
-int X=1641
-int Y=816
-int Width=270
-int Height=112
-boolean Visible=false
-string Text="&Cancel"
-int TextSize=-10
-int Weight=400
-string FaceName="Arial"
-FontFamily FontFamily=Swiss!
-FontPitch FontPitch=Variable!
+boolean visible = false
+integer x = 1641
+integer y = 816
+integer width = 270
+integer height = 112
+integer textsize = -10
+integer weight = 400
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+string text = "&Cancel"
 end type
 
 on clicked;wf_header_notes ( False )
 end on
 
 type gb_3 from groupbox within w_orders_detail
-int X=32
-int Width=2816
-int Height=480
-string Text="Normal Order Header Information"
-BorderStyle BorderStyle=StyleLowered!
-long TextColor=33554432
-long BackColor=77897888
-int TextSize=-9
-int Weight=400
-string FaceName="MS Sans Serif"
-FontCharSet FontCharSet=Ansi!
-FontFamily FontFamily=Swiss!
-FontPitch FontPitch=Variable!
+integer x = 32
+integer width = 2816
+integer height = 480
+integer textsize = -9
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "MS Sans Serif"
+long textcolor = 33554432
+long backcolor = 77897888
+string text = "Normal Order Header Information"
 end type
 
 type gb_4 from groupbox within w_orders_detail
-int X=32
-int Y=480
-int Width=2816
-int Height=928
-string Text="Detail Items"
-BorderStyle BorderStyle=StyleLowered!
-long TextColor=33554432
-long BackColor=77897888
-int TextSize=-9
-int Weight=400
-string FaceName="MS Sans Serif"
-FontCharSet FontCharSet=Ansi!
-FontFamily FontFamily=Swiss!
-FontPitch FontPitch=Variable!
+integer x = 32
+integer y = 480
+integer width = 2816
+integer height = 928
+integer textsize = -9
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "MS Sans Serif"
+long textcolor = 33554432
+long backcolor = 77897888
+string text = "Detail Items"
 end type
 
 type dw_detail_info from datawindow within w_orders_detail
 event ue_keypress pbm_dwnkey
-int X=2976
-int Y=152
-int Width=2085
-int Height=1212
-boolean Visible=false
-string DataObject="d_normal_order_detail_info"
-boolean Border=false
+boolean visible = false
+integer x = 2976
+integer y = 148
+integer width = 2085
+integer height = 1212
+string dataobject = "d_normal_order_detail_info"
+boolean border = false
 end type
 
 event ue_keypress;if key = keytab! or key = keyenter! then
@@ -3633,7 +3612,8 @@ CHOOSE CASE getcolumnname()
 	   SELECT part.name  
    	  INTO :szDesc  
 	     FROM part  
-	    WHERE part.part = :szPart; // and type = 'F' ;
+	    WHERE part.part = :szPart and
+		 		type = 'F' ;
 
 		IF SQLCA.SQLCode <> 0 THEN
 			MessageBox ( monsys.msg_title, "Invalid part number!", StopSign! )
@@ -3882,65 +3862,64 @@ this.settransobject ( sqlca )
 end event
 
 type cb_1 from commandbutton within w_orders_detail
-int X=3634
-int Y=532
-int Width=640
-int Height=336
-boolean Visible=false
-boolean Enabled=false
-int TextSize=-10
-int Weight=700
-string FaceName="Arial"
-FontFamily FontFamily=Swiss!
-FontPitch FontPitch=Variable!
+boolean visible = false
+integer x = 3634
+integer y = 532
+integer width = 640
+integer height = 336
+integer textsize = -10
+integer weight = 700
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+boolean enabled = false
 end type
 
 type cb_background from commandbutton within w_orders_detail
-int X=2898
-int Y=56
-int Width=2217
-int Height=1432
-boolean Visible=false
-boolean Enabled=false
-int TextSize=-8
-int Weight=400
-string FaceName="Arial"
-FontFamily FontFamily=Swiss!
-FontPitch FontPitch=Variable!
+boolean visible = false
+integer x = 2898
+integer y = 56
+integer width = 2217
+integer height = 1432
+integer textsize = -8
+integer weight = 400
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+boolean enabled = false
 end type
 
 type st_3 from statictext within w_orders_detail
-int X=3721
-int Y=592
-int Width=489
-int Height=208
-boolean Visible=false
-boolean Enabled=false
-string Text="Retrieving Part    Numbers.      Please Wait..."
-Alignment Alignment=Center!
-boolean FocusRectangle=false
-long BackColor=77897888
-int TextSize=-10
-int Weight=700
-string FaceName="Arial"
-FontFamily FontFamily=Swiss!
-FontPitch FontPitch=Variable!
+boolean visible = false
+integer x = 3721
+integer y = 592
+integer width = 489
+integer height = 208
+integer textsize = -10
+integer weight = 700
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long backcolor = 77897888
+boolean enabled = false
+string text = "Retrieving Part    Numbers.      Please Wait..."
+alignment alignment = center!
+boolean focusrectangle = false
 end type
 
 type rb_2 from radiobutton within w_orders_detail
-int X=2976
-int Y=464
-int Width=352
-int Height=64
-boolean Visible=false
-string Text="With Notes "
-BorderStyle BorderStyle=StyleLowered!
-long BackColor=77897888
-int TextSize=-8
-int Weight=700
-string FaceName="Arial"
-FontFamily FontFamily=Swiss!
-FontPitch FontPitch=Variable!
+boolean visible = false
+integer x = 2976
+integer y = 464
+integer width = 352
+integer height = 64
+integer textsize = -8
+integer weight = 700
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long backcolor = 77897888
+string text = "With Notes "
 end type
 
 on constructor;BringToTop = TRUE
@@ -3954,20 +3933,19 @@ dw_detail.Retrieve ( lOrder )
 end on
 
 type rb_1 from radiobutton within w_orders_detail
-int X=3013
-int Y=544
-int Width=270
-int Height=64
-boolean Visible=false
-string Text="Normal"
-BorderStyle BorderStyle=StyleLowered!
-boolean Checked=true
-long BackColor=77897888
-int TextSize=-8
-int Weight=700
-string FaceName="Arial"
-FontFamily FontFamily=Swiss!
-FontPitch FontPitch=Variable!
+boolean visible = false
+integer x = 3013
+integer y = 544
+integer width = 270
+integer height = 64
+integer textsize = -8
+integer weight = 700
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long backcolor = 77897888
+string text = "Normal"
+boolean checked = true
 end type
 
 on clicked;dw_detail.DataObject = "d_detail_no_notes"
@@ -3979,101 +3957,101 @@ dw_detail.Retrieve ( lOrder )
 end on
 
 type st_1 from statictext within w_orders_detail
-int X=1943
-int Y=544
-int Width=887
-int Height=64
-boolean Enabled=false
-boolean BringToTop=true
-string Text="(Single click to highlight item for shipper)"
-boolean FocusRectangle=false
-long TextColor=33554432
-long BackColor=77897888
-int TextSize=-9
-int Weight=400
-string FaceName="MS Sans Serif"
-FontCharSet FontCharSet=Ansi!
-FontFamily FontFamily=Swiss!
-FontPitch FontPitch=Variable!
+integer x = 1943
+integer y = 544
+integer width = 887
+integer height = 64
+boolean bringtotop = true
+integer textsize = -9
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "MS Sans Serif"
+long textcolor = 33554432
+long backcolor = 77897888
+boolean enabled = false
+string text = "(Single click to highlight item for shipper)"
+boolean focusrectangle = false
 end type
 
 type em_3 from editmask within w_orders_detail
-int X=2002
-int Y=1264
-int Width=256
-int Height=64
-int TabOrder=50
-boolean BringToTop=true
-Alignment Alignment=Right!
-boolean Border=false
-string Mask="###,##0.00"
-long TextColor=33554432
-long BackColor=79741120
-int TextSize=-8
-int Weight=700
-string FaceName="Arial"
-FontCharSet FontCharSet=Ansi!
-FontFamily FontFamily=Swiss!
-FontPitch FontPitch=Variable!
+integer x = 2002
+integer y = 1264
+integer width = 256
+integer height = 64
+integer taborder = 50
+boolean bringtotop = true
+integer textsize = -8
+integer weight = 700
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long textcolor = 33554432
+long backcolor = 79741120
+boolean border = false
+alignment alignment = right!
+string mask = "###,##0.00"
 end type
 
 type em_2 from editmask within w_orders_detail
-int X=2002
-int Y=1200
-int Width=256
-int Height=60
-int TabOrder=60
-boolean BringToTop=true
-Alignment Alignment=Right!
-boolean Border=false
-string Mask="###,##0.00"
-long TextColor=33554432
-long BackColor=79741120
-int TextSize=-8
-int Weight=700
-string FaceName="Arial"
-FontCharSet FontCharSet=Ansi!
-FontFamily FontFamily=Swiss!
-FontPitch FontPitch=Variable!
+integer x = 2002
+integer y = 1200
+integer width = 256
+integer height = 60
+integer taborder = 70
+boolean bringtotop = true
+integer textsize = -8
+integer weight = 700
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long textcolor = 33554432
+long backcolor = 79741120
+boolean border = false
+alignment alignment = right!
+string mask = "###,##0.00"
 end type
 
 type em_4 from editmask within w_orders_detail
-int X=2002
-int Y=1324
-int Width=256
-int Height=60
-int TabOrder=50
-boolean BringToTop=true
-Alignment Alignment=Right!
-boolean Border=false
-string Mask="###,##0.00"
-long TextColor=33554432
-long BackColor=79741120
-int TextSize=-8
-int Weight=700
-string FaceName="Arial"
-FontCharSet FontCharSet=Ansi!
-FontFamily FontFamily=Swiss!
-FontPitch FontPitch=Variable!
+integer x = 2002
+integer y = 1324
+integer width = 256
+integer height = 60
+integer taborder = 60
+boolean bringtotop = true
+integer textsize = -8
+integer weight = 700
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long textcolor = 33554432
+long backcolor = 79741120
+boolean border = false
+alignment alignment = right!
+string mask = "###,##0.00"
 end type
 
 type em_1 from editmask within w_orders_detail
-int X=1481
-int Y=1264
-int Width=270
-int Height=56
-int TabOrder=40
-boolean BringToTop=true
-Alignment Alignment=Right!
-boolean Border=false
-string Mask="###,##0.00"
-long TextColor=33554432
-long BackColor=79741120
-int TextSize=-8
-int Weight=700
-string FaceName="Arial"
-FontCharSet FontCharSet=Ansi!
-FontFamily FontFamily=Swiss!
-FontPitch FontPitch=Variable!
+integer x = 1481
+integer y = 1264
+integer width = 270
+integer height = 56
+integer taborder = 40
+boolean bringtotop = true
+integer textsize = -8
+integer weight = 700
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long textcolor = 33554432
+long backcolor = 79741120
+boolean border = false
+alignment alignment = right!
+string mask = "###,##0.00"
 end type
 
