@@ -1,0 +1,14 @@
+Save Format v3.0(19990112)
+@begin Libraries
+ "BO\\bo.pbl" "";
+@end;
+@begin Objects
+ "BO\\u_explorerpanel.sru" "BO\\bo.pbl";
+ "BO\\n_businessobject.sru" "BO\\bo.pbl";
+ "BO\\m_explorerview.srm" "BO\\bo.pbl";
+ "BO\\u_explorerview.sru" "BO\\bo.pbl";
+ "BO\\u_dw_explorerview.sru" "BO\\bo.pbl";
+ "BO\\n_businessobjectfactory.sru" "BO\\bo.pbl";
+ "BO\\n_businessobjectinstantiablefactory.sru" "BO\\bo.pbl";
+ "BO\\m_explorerview_window.srm" "BO\\bo.pbl";
+@end;
