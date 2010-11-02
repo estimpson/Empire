@@ -1,0 +1,22 @@
+Save Format v3.0(19990112)
+@begin Libraries
+ "PFC\\pfewnsrv.pbl" "";
+@end;
+@begin Objects
+ "PFC\\n_cst_resizeattrib.sru" "PFC\\pfewnsrv.pbl";
+ "PFC\\n_cst_winsrv_ddelabellibrary.sru" "PFC\\pfewnsrv.pbl";
+ "PFC\\n_cst_menu.sru" "PFC\\pfewnsrv.pbl";
+ "PFC\\n_cst_winsrv_sheetmanager.sru" "PFC\\pfewnsrv.pbl";
+ "PFC\\m_frame.srm" "PFC\\pfewnsrv.pbl";
+ "PFC\\w_toolbars.srw" "PFC\\pfewnsrv.pbl";
+ "PFC\\n_cst_winsrv_sheetmanagerattrib.sru" "PFC\\pfewnsrv.pbl";
+ "PFC\\n_cst_resize.sru" "PFC\\pfewnsrv.pbl";
+ "PFC\\w_statusbar.srw" "PFC\\pfewnsrv.pbl";
+ "PFC\\n_cst_toolbarattrib.sru" "PFC\\pfewnsrv.pbl";
+ "PFC\\n_cst_winsrv_preference.sru" "PFC\\pfewnsrv.pbl";
+ "PFC\\m_master.srm" "PFC\\pfewnsrv.pbl";
+ "PFC\\n_cst_winsrv.sru" "PFC\\pfewnsrv.pbl";
+ "PFC\\n_cst_winsrv_icontray.sru" "PFC\\pfewnsrv.pbl";
+ "PFC\\n_cst_winsrv_statusbarattrib.sru" "PFC\\pfewnsrv.pbl";
+ "PFC\\n_cst_winsrv_statusbar.sru" "PFC\\pfewnsrv.pbl";
+@end;
