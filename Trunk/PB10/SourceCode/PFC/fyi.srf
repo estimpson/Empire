@@ -1,0 +1,14 @@
+HA$PBExportHeader$fyi.srf
+global type fyi from function_object
+end type
+
+forward prototypes
+global function integer fyi (integer as_message)
+end prototypes
+
+global function integer fyi (integer as_message);
+//	Send an FYI message.
+return MessageBox ( "FYI", as_Message )
+
+end function
+

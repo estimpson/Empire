@@ -1,0 +1,13 @@
+HA$PBExportHeader$msgbox.srf
+global type msgbox from function_object
+end type
+
+forward prototypes
+global function integer msgbox (string as_message)
+end prototypes
+
+global function integer msgbox (string as_message);
+return MessageBox (gnv_App.iapp_Object.DisplayName, as_Message)
+
+end function
+
