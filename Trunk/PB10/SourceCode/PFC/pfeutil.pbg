@@ -1,0 +1,40 @@
+Save Format v3.0(19990112)
+@begin Libraries
+ "PFC\\pfeutil.pbl" "";
+@end;
+@begin Objects
+ "PFC\\u_tabpg_dwproperty_srvdropdownsearch.sru" "PFC\\pfeutil.pbl";
+ "PFC\\w_sqlspy.srw" "PFC\\pfeutil.pbl";
+ "PFC\\u_tabpg_dwproperty_srvcalendar.sru" "PFC\\pfeutil.pbl";
+ "PFC\\u_tabpg_dwproperty_srvcalendar2.sru" "PFC\\pfeutil.pbl";
+ "PFC\\n_cst_propertyattrib.sru" "PFC\\pfeutil.pbl";
+ "PFC\\u_tabpg_dwproperty_status.sru" "PFC\\pfeutil.pbl";
+ "PFC\\u_tabpg_dwproperty_srvfilter.sru" "PFC\\pfeutil.pbl";
+ "PFC\\w_dwpropertyservices.srw" "PFC\\pfeutil.pbl";
+ "PFC\\u_tabpg_dwproperty_services.sru" "PFC\\pfeutil.pbl";
+ "PFC\\u_tabpg_dwproperty_srvlinkage.sru" "PFC\\pfeutil.pbl";
+ "PFC\\u_tabpg_dwproperty_srvfind.sru" "PFC\\pfeutil.pbl";
+ "PFC\\u_tabpg_dwproperty_srvreport.sru" "PFC\\pfeutil.pbl";
+ "PFC\\u_tabpg_dwproperty_srvresize.sru" "PFC\\pfeutil.pbl";
+ "PFC\\n_cst_dwpropertyattrib.sru" "PFC\\pfeutil.pbl";
+ "PFC\\n_cst_dwsrv_property.sru" "PFC\\pfeutil.pbl";
+ "PFC\\u_tabpg_dwproperty_srvlinkage2.sru" "PFC\\pfeutil.pbl";
+ "PFC\\u_tab_dwproperty_srv.sru" "PFC\\pfeutil.pbl";
+ "PFC\\u_tabpg_dwproperty_srvprintpreview.sru" "PFC\\pfeutil.pbl";
+ "PFC\\u_tabpg_dwproperty_srvreqcolumn.sru" "PFC\\pfeutil.pbl";
+ "PFC\\u_tabpg_dwproperty_srvsort.sru" "PFC\\pfeutil.pbl";
+ "PFC\\u_tabpg_dwproperty_srvrowselection.sru" "PFC\\pfeutil.pbl";
+ "PFC\\u_tabpg_dwproperty_srvquerymode.sru" "PFC\\pfeutil.pbl";
+ "PFC\\n_cst_debug.sru" "PFC\\pfeutil.pbl";
+ "PFC\\u_tabpg_dwproperty_srvmultitable.sru" "PFC\\pfeutil.pbl";
+ "PFC\\u_tabpg_dwproperty_srvsyntax.sru" "PFC\\pfeutil.pbl";
+ "PFC\\u_tabpg_dwproperty_srvrowmanager.sru" "PFC\\pfeutil.pbl";
+ "PFC\\w_sqlspyinspect.srw" "PFC\\pfeutil.pbl";
+ "PFC\\w_debuglog.srw" "PFC\\pfeutil.pbl";
+ "PFC\\u_tab_dwproperty.sru" "PFC\\pfeutil.pbl";
+ "PFC\\w_dwproperty.srw" "PFC\\pfeutil.pbl";
+ "PFC\\n_cst_sqlspy.sru" "PFC\\pfeutil.pbl";
+ "PFC\\u_tabpg_dwproperty_buffers.sru" "PFC\\pfeutil.pbl";
+ "PFC\\u_tabpg_dwproperty_base.sru" "PFC\\pfeutil.pbl";
+ "PFC\\u_tabpg_dwproperty_srvcalculator.sru" "PFC\\pfeutil.pbl";
+@end;
