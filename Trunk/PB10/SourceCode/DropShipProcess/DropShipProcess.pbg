@@ -1,0 +1,24 @@
+Save Format v3.0(19990112)
+@begin Libraries
+ "dropshipprocess\\DropShipProcess.pbl" "";
+@end;
+@begin Objects
+ "dropshipprocess\\d_dropship_listshipments.srd" "dropshipprocess\\DropShipProcess.pbl";
+ "dropshipprocess\\d_dropship_listsuppliers.srd" "dropshipprocess\\DropShipProcess.pbl";
+ "dropshipprocess\\app_dropshipporefresh.sra" "dropshipprocess\\DropShipProcess.pbl";
+ "dropshipprocess\\n_cst_dropship_appmanager.sru" "dropshipprocess\\DropShipProcess.pbl";
+ "dropshipprocess\\m_dropship_frame.srm" "dropshipprocess\\DropShipProcess.pbl";
+ "dropshipprocess\\w_dropship_frame.srw" "dropshipprocess\\DropShipProcess.pbl";
+ "dropshipprocess\\n_cst_dropshiprefreshpo_appmanager.sru" "dropshipprocess\\DropShipProcess.pbl";
+ "dropshipprocess\\d_dropship_listrequirements.srd" "dropshipprocess\\DropShipProcess.pbl";
+ "dropshipprocess\\app_dropshipprocess.sra" "dropshipprocess\\DropShipProcess.pbl";
+ "dropshipprocess\\d_dropship_choosesuppliershipto.srd" "dropshipprocess\\DropShipProcess.pbl";
+ "dropshipprocess\\n_tr_dropship.sru" "dropshipprocess\\DropShipProcess.pbl";
+ "dropshipprocess\\prj_dropship.srj" "dropshipprocess\\DropShipProcess.pbl";
+ "dropshipprocess\\w_dropship_sheet.srw" "dropshipprocess\\DropShipProcess.pbl";
+ "dropshipprocess\\w_dropshiprefreshpo_frame.srw" "dropshipprocess\\DropShipProcess.pbl";
+ "dropshipprocess\\d_dropship_listshiptos.srd" "dropshipprocess\\DropShipProcess.pbl";
+ "dropshipprocess\\d_dropship_shipout.srd" "dropshipprocess\\DropShipProcess.pbl";
+ "dropshipprocess\\w_dropship_shipment.srw" "dropshipprocess\\DropShipProcess.pbl";
+ "dropshipprocess\\prj_dropshiprefreshpo.srj" "dropshipprocess\\DropShipProcess.pbl";
+@end;
