@@ -1,0 +1,20 @@
+HA$PBExportHeader$print.srf
+global type print from function_object
+end type
+
+forward prototypes
+global function integer print (ref n_cst_associative_array anv_parm)
+end prototypes
+
+global function integer print (ref n_cst_associative_array anv_parm);
+if IsValid (gnv_App.of_GetFrame ()) then
+	if IsValid (gnv_App.of_GetFrame ().inv_Report) then
+		return gnv_App.of_GetFrame ().inv_Report.of_PrintRpt (anv_Parm)
+	end if
+end if
+
+n_cst_report	lnv_Report; lnv_Report = create n_cst_report
+return lnv_Report.of_PrintRpt (anv_Parm)
+
+end function
+
