@@ -1,0 +1,48 @@
+Save Format v3.0(19990112)
+@begin Libraries
+ "PFC\\pfcutil.pbl" "";
+@end;
+@begin Objects
+ "PFC\\pfc_u_tabpg_dwproperty_srvcalculator.sru" "PFC\\pfcutil.pbl";
+ "PFC\\d_dwproperty_srvcal.srd" "PFC\\pfcutil.pbl";
+ "PFC\\pfc_u_tabpg_dwproperty_buffers.sru" "PFC\\pfcutil.pbl";
+ "PFC\\pfc_u_tabpg_dwproperty_services.sru" "PFC\\pfcutil.pbl";
+ "PFC\\pfc_w_dwpropertyservices.srw" "PFC\\pfcutil.pbl";
+ "PFC\\pfc_u_tabpg_dwproperty_srvcalendar.sru" "PFC\\pfcutil.pbl";
+ "PFC\\pfc_u_tabpg_dwproperty_srvcalendar2.sru" "PFC\\pfcutil.pbl";
+ "PFC\\pfc_n_cst_dwsrv_property.sru" "PFC\\pfcutil.pbl";
+ "PFC\\pfc_w_sqlspyinspect.srw" "PFC\\pfcutil.pbl";
+ "PFC\\pfc_u_tab_dwproperty_srv.sru" "PFC\\pfcutil.pbl";
+ "PFC\\pfc_u_tabpg_dwproperty_status.sru" "PFC\\pfcutil.pbl";
+ "PFC\\pfc_u_tabpg_dwproperty_srvfind.sru" "PFC\\pfcutil.pbl";
+ "PFC\\pfc_u_tabpg_dwproperty_srvsort.sru" "PFC\\pfcutil.pbl";
+ "PFC\\pfc_u_tabpg_dwproperty_srvlinkage2.sru" "PFC\\pfcutil.pbl";
+ "PFC\\pfc_u_tabpg_dwproperty_base.sru" "PFC\\pfcutil.pbl";
+ "PFC\\pfc_u_tabpg_dwproperty_srvdropdownsearch.sru" "PFC\\pfcutil.pbl";
+ "PFC\\pfc_u_tabpg_dwproperty_srvfilter.sru" "PFC\\pfcutil.pbl";
+ "PFC\\pfc_u_tabpg_dwproperty_srvlinkage.sru" "PFC\\pfcutil.pbl";
+ "PFC\\pfc_u_tabpg_dwproperty_srvreport.sru" "PFC\\pfcutil.pbl";
+ "PFC\\pfc_u_tabpg_dwproperty_srvresize.sru" "PFC\\pfcutil.pbl";
+ "PFC\\pfc_u_tabpg_dwproperty_srvsyntax.sru" "PFC\\pfcutil.pbl";
+ "PFC\\pfc_n_cst_dwpropertyattrib.sru" "PFC\\pfcutil.pbl";
+ "PFC\\pfc_n_cst_propertyattrib.sru" "PFC\\pfcutil.pbl";
+ "PFC\\pfc_u_tabpg_dwproperty_srvquerymode.sru" "PFC\\pfcutil.pbl";
+ "PFC\\pfc_u_tabpg_dwproperty_srvrowmanager.sru" "PFC\\pfcutil.pbl";
+ "PFC\\d_dwproperty_srvresize.srd" "PFC\\pfcutil.pbl";
+ "PFC\\pfc_u_tab_dwproperty.sru" "PFC\\pfcutil.pbl";
+ "PFC\\pfc_u_tabpg_dwproperty_srvmultitable.sru" "PFC\\pfcutil.pbl";
+ "PFC\\pfc_u_tabpg_dwproperty_srvreqcolumn.sru" "PFC\\pfcutil.pbl";
+ "PFC\\pfc_u_tabpg_dwproperty_srvprintpreview.sru" "PFC\\pfcutil.pbl";
+ "PFC\\pfc_n_cst_debug.sru" "PFC\\pfcutil.pbl";
+ "PFC\\pfc_u_tabpg_dwproperty_srvrowselection.sru" "PFC\\pfcutil.pbl";
+ "PFC\\pfc_w_debuglog.srw" "PFC\\pfcutil.pbl";
+ "PFC\\d_dwproperty_dates.srd" "PFC\\pfcutil.pbl";
+ "PFC\\d_dwproperty_linkageargs.srd" "PFC\\pfcutil.pbl";
+ "PFC\\d_debuglog.srd" "PFC\\pfcutil.pbl";
+ "PFC\\d_sqlspyprint.srd" "PFC\\pfcutil.pbl";
+ "PFC\\pfc_n_cst_sqlspy.sru" "PFC\\pfcutil.pbl";
+ "PFC\\pfc_w_dwproperty.srw" "PFC\\pfcutil.pbl";
+ "PFC\\pfc_w_sqlspy.srw" "PFC\\pfcutil.pbl";
+ "PFC\\d_dwproperty_multitable.srd" "PFC\\pfcutil.pbl";
+ "PFC\\d_dwproperty_services.srd" "PFC\\pfcutil.pbl";
+@end;
