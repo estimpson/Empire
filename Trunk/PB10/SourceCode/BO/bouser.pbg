@@ -1,0 +1,9 @@
+Save Format v3.0(19990112)
+@begin Libraries
+ "BO\\bouser.pbl" "";
+@end;
+@begin Objects
+ "BO\\fuser.sru" "BO\\bouser.pbl";
+ "BO\\d_userlogin_simple.srd" "BO\\bouser.pbl";
+ "BO\\bouser.sru" "BO\\bouser.pbl";
+@end;
