@@ -1,0 +1,8 @@
+Save Format v3.0(19990112)
+@begin Libraries
+ "BO\\boobsoletematerialanalysis.pbl" "";
+@end;
+@begin Objects
+ "BO\\boobsoletematerialanalysis.sru" "BO\\boobsoletematerialanalysis.pbl";
+ "BO\\fobsoletematerialanalysis.sru" "BO\\boobsoletematerialanalysis.pbl";
+@end;
