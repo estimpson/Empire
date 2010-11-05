@@ -19,5 +19,4 @@ Save Format v3.0(19990112)
  "dropshipprocess\\d_dropship_listshiptos.srd" "dropshipprocess\\DropShipProcess.pbl";
  "dropshipprocess\\d_dropship_shipout.srd" "dropshipprocess\\DropShipProcess.pbl";
  "dropshipprocess\\w_dropship_shipment.srw" "dropshipprocess\\DropShipProcess.pbl";
- "dropshipprocess\\prj_dropshiprefreshpo.srj" "dropshipprocess\\DropShipProcess.pbl";
 @end;
