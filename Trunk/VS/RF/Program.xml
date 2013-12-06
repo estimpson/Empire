@@ -1,0 +1,11 @@
+<TEMP>
+<ReceivingSQL>Initial Catalog=EEH;Data Source=10.10.0.34;User ID=sa;Password=;</ReceivingSQL>
+<TransferSQL>Initial Catalog=EEH;Data Source=10.10.0.34;User ID=sa;Password=;</TransferSQL>
+<PutAwaySQL>Initial Catalog=MONITOR;Data Source=192.168.1.102;User ID=EEIUSER;Password=;</PutAwaySQL>
+<LVSQL>Initial Catalog=EEH;Data Source=10.10.0.34;User ID=sa;Password=;</LVSQL>
+<DPrintServer>HABS</DPrintServer>
+<PrintServer1>LEAFS</PrintServer1>
+<TransferLocation>CONT-TROY</TransferLocation>
+<ReceivingLocation>EEI-STAGE</ReceivingLocation>
+<PutAwayLocation>TROY</PutAwayLocation>
+</TEMP>

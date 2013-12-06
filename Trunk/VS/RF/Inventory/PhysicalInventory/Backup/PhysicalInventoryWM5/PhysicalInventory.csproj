@@ -1,0 +1,159 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.50727</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{F5C72132-12FA-48E2-A07E-A8BA638A3A30}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>PhysicalInventory</RootNamespace>
+    <AssemblyName>PhysicalInventory</AssemblyName>
+    <ProjectTypeGuids>{4D628B5B-2FBC-4AA6-8C16-197242AEB884};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <PlatformFamilyName>WindowsCE</PlatformFamilyName>
+    <PlatformID>E2BECB1F-8C8C-41ba-B736-9BE7D946A398</PlatformID>
+    <OSVersion>5.0</OSVersion>
+    <DeployDirSuffix>PhysicalInventory</DeployDirSuffix>
+    <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
+    <FormFactorID>
+    </FormFactorID>
+    <SccProjectName>
+    </SccProjectName>
+    <SccLocalPath>
+    </SccLocalPath>
+    <SccAuxPath>
+    </SccAuxPath>
+    <SccProvider>
+    </SccProvider>
+    <FileUpgradeFlags>40</FileUpgradeFlags>
+    <UpgradeBackupLocation>S:\IT\Code\MobileCode\Physical Inventory\PhysicalInventory\PhysicalInventory\PhysicalInventoryWM5\Backup\</UpgradeBackupLocation>
+    <OldToolsVersion>3.5</OldToolsVersion>
+    <NativePlatformName>Windows CE</NativePlatformName>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE;$(PlatformFamilyName)</DefineConstants>
+    <NoStdLib>true</NoStdLib>
+    <NoConfig>true</NoConfig>
+    <ErrorReport>prompt</ErrorReport>
+    <FileAlignment>512</FileAlignment>
+    <WarningLevel>4</WarningLevel>
+    <GenerateSerializationAssemblies>Off</GenerateSerializationAssemblies>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE;$(PlatformFamilyName)</DefineConstants>
+    <NoStdLib>true</NoStdLib>
+    <NoConfig>true</NoConfig>
+    <ErrorReport>prompt</ErrorReport>
+    <FileAlignment>512</FileAlignment>
+    <WarningLevel>4</WarningLevel>
+    <GenerateSerializationAssemblies>Off</GenerateSerializationAssemblies>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="mscorlib" />
+    <Reference Include="OpenNETCF, Version=2.2.0.0, Culture=neutral, PublicKeyToken=e60dbea84bb431b7, processorArchitecture=MSIL" />
+    <Reference Include="OpenNETCF.Configuration, Version=2.2.0.0, Culture=neutral, PublicKeyToken=e60dbea84bb431b7, processorArchitecture=MSIL" />
+    <Reference Include="Symbol, Version=1.5.1.1, Culture=neutral, PublicKeyToken=68ec8db391f150ca" />
+    <Reference Include="Symbol.Audio, Version=1.5.1.1, Culture=neutral, PublicKeyToken=68ec8db391f150ca" />
+    <Reference Include="Symbol.Barcode, Version=1.5.1.1, Culture=neutral, PublicKeyToken=68ec8db391f150ca" />
+    <Reference Include="Symbol.StandardForms, Version=1.5.1.1, Culture=neutral, PublicKeyToken=68ec8db391f150ca" />
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.SqlClient, Version=3.0.3600.0, Culture=neutral, PublicKeyToken=3be235df1c8d2ad3, processorArchitecture=MSIL" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Windows.Forms.DataGrid" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="ChooseAddress.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ChooseAddress.Designer.cs">
+      <DependentUpon>ChooseAddress.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CacheAddress.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="ChooseAddress.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>ChooseAddress.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="RFBase.resx">
+      <DependentUpon>RFBase.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ScanToLocation.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>ScanToLocation.cs</DependentUpon>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="RFBase.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="RFBase.designer.cs">
+      <DependentUpon>RFBase.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ScanToLocation.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ScanToLocation.Designer.cs">
+      <DependentUpon>ScanToLocation.cs</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Compact.SAF\Compact.SAF.Cache\Compact.SAF.Cache.csproj">
+      <Project>{6D755544-8472-4E97-ABCB-334E676E7B03}</Project>
+      <Name>Compact.SAF.Cache</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Compact.SAF\Compact.SAF.ClassFactory\Compact.SAF.ClassFactory.csproj">
+      <Project>{4B20A55B-2945-43F8-B870-ADF0DAB613ED}</Project>
+      <Name>Compact.SAF.ClassFactory</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Compact.SAF\Compact.SAF.Configuration\Compact.SAF.Configuration.csproj">
+      <Project>{DA06BC4D-0923-4A9F-9E07-775BD96448CD}</Project>
+      <Name>Compact.SAF.Configuration</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Symbol\SymbolRFGun.csproj">
+      <Project>{6C13AF88-615C-44D3-B8AB-90F27A3B5B4C}</Project>
+      <Name>SymbolRFGun</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\PhysicalInventoryData\PhysicalInventoryData.csproj">
+      <Project>{0FADD7E0-B0A7-4C61-8A1E-6A13411BAD2B}</Project>
+      <Name>PhysicalInventoryData</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Condition="'$(TargetFrameworkVersion)' == 'v1.0'" Project="$(MSBuildBinPath)\Microsoft.CompactFramework.CSharp.v1.targets" />
+  <Import Condition="'$(TargetFrameworkVersion)' == 'v2.0'" Project="$(MSBuildBinPath)\Microsoft.CompactFramework.CSharp.targets" />
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}">
+        <HostingProcess disable="1" />
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+  <Import Condition="'$(TargetFrameworkVersion)' == 'v3.5'" Project="$(MSBuildBinPath)\Microsoft.CompactFramework.CSharp.targets" />
+</Project>

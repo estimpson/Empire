@@ -1,0 +1,77 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 9.00
+# Visual Studio 2005
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PhysicalInventory", "PhysicalInventory.csproj", "{F5C72132-12FA-48E2-A07E-A8BA638A3A30}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PhysicalInventoryData", "..\PhysicalInventoryData\PhysicalInventoryData.csproj", "{0FADD7E0-B0A7-4C61-8A1E-6A13411BAD2B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Compact.SAF.Cache", "..\..\..\..\Compact.SAF\Compact.SAF.Cache\Compact.SAF.Cache.csproj", "{6D755544-8472-4E97-ABCB-334E676E7B03}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Compact.SAF.ClassFactory", "..\..\..\..\Compact.SAF\Compact.SAF.ClassFactory\Compact.SAF.ClassFactory.csproj", "{4B20A55B-2945-43F8-B870-ADF0DAB613ED}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Compact.SAF.Configuration", "..\..\..\..\Compact.SAF\Compact.SAF.Configuration\Compact.SAF.Configuration.csproj", "{DA06BC4D-0923-4A9F-9E07-775BD96448CD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SymbolRFGun", "..\..\..\RF.Symbol\SymbolRFGun.csproj", "{6C13AF88-615C-44D3-B8AB-90F27A3B5B4C}"
+EndProject
+Global
+	GlobalSection(SourceCodeControl) = preSolution
+		SccNumberOfProjects = 7
+		SccProjectName0 = AppsVS2005/PhysicalInventory
+		SccLocalPath0 = ..\\..\\..\\..
+		SccProvider0 = MSSCCI:PushOk\u0020SVNSCC
+		SccProjectFilePathRelativizedFromConnection0 = RF\\RF.Empire\\RF.Empire.PhysicalInventory\\PhysicalInventory\\
+		SccProjectUniqueName1 = ..\\..\\..\\..\\Compact.SAF\\Compact.SAF.Cache\\Compact.SAF.Cache.csproj
+		SccLocalPath1 = ..\\..\\..\\..
+		SccProjectFilePathRelativizedFromConnection1 = Compact.SAF\\Compact.SAF.Cache\\
+		SccProjectUniqueName2 = ..\\..\\..\\..\\Compact.SAF\\Compact.SAF.ClassFactory\\Compact.SAF.ClassFactory.csproj
+		SccLocalPath2 = ..\\..\\..\\..
+		SccProjectFilePathRelativizedFromConnection2 = Compact.SAF\\Compact.SAF.ClassFactory\\
+		SccProjectUniqueName3 = ..\\..\\..\\..\\Compact.SAF\\Compact.SAF.Configuration\\Compact.SAF.Configuration.csproj
+		SccLocalPath3 = ..\\..\\..\\..
+		SccProjectFilePathRelativizedFromConnection3 = Compact.SAF\\Compact.SAF.Configuration\\
+		SccProjectUniqueName4 = PhysicalInventory.csproj
+		SccLocalPath4 = ..\\..\\..\\..
+		SccProjectFilePathRelativizedFromConnection4 = RF\\RF.Empire\\RF.Empire.PhysicalInventory\\PhysicalInventory\\
+		SccProjectUniqueName5 = ..\\PhysicalInventoryData\\PhysicalInventoryData.csproj
+		SccLocalPath5 = ..\\..\\..\\..
+		SccProjectFilePathRelativizedFromConnection5 = RF\\RF.Empire\\RF.Empire.PhysicalInventory\\PhysicalInventoryData\\
+		SccProjectUniqueName6 = ..\\..\\..\\RF.Symbol\\SymbolRFGun.csproj
+		SccLocalPath6 = ..\\..\\..\\..
+		SccProjectFilePathRelativizedFromConnection6 = RF\\RF.Symbol\\
+	EndGlobalSection
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F5C72132-12FA-48E2-A07E-A8BA638A3A30}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F5C72132-12FA-48E2-A07E-A8BA638A3A30}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F5C72132-12FA-48E2-A07E-A8BA638A3A30}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{F5C72132-12FA-48E2-A07E-A8BA638A3A30}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F5C72132-12FA-48E2-A07E-A8BA638A3A30}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F5C72132-12FA-48E2-A07E-A8BA638A3A30}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{0FADD7E0-B0A7-4C61-8A1E-6A13411BAD2B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0FADD7E0-B0A7-4C61-8A1E-6A13411BAD2B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0FADD7E0-B0A7-4C61-8A1E-6A13411BAD2B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0FADD7E0-B0A7-4C61-8A1E-6A13411BAD2B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6D755544-8472-4E97-ABCB-334E676E7B03}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6D755544-8472-4E97-ABCB-334E676E7B03}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6D755544-8472-4E97-ABCB-334E676E7B03}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6D755544-8472-4E97-ABCB-334E676E7B03}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4B20A55B-2945-43F8-B870-ADF0DAB613ED}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4B20A55B-2945-43F8-B870-ADF0DAB613ED}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4B20A55B-2945-43F8-B870-ADF0DAB613ED}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4B20A55B-2945-43F8-B870-ADF0DAB613ED}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DA06BC4D-0923-4A9F-9E07-775BD96448CD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DA06BC4D-0923-4A9F-9E07-775BD96448CD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DA06BC4D-0923-4A9F-9E07-775BD96448CD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DA06BC4D-0923-4A9F-9E07-775BD96448CD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6C13AF88-615C-44D3-B8AB-90F27A3B5B4C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6C13AF88-615C-44D3-B8AB-90F27A3B5B4C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6C13AF88-615C-44D3-B8AB-90F27A3B5B4C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6C13AF88-615C-44D3-B8AB-90F27A3B5B4C}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

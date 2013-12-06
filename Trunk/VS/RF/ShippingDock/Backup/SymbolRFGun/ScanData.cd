@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Font Name="Tahoma" Size="8.25" />
+  <Class Name="ShippingDock.ScanData">
+    <Position X="1" Y="0.75" Width="2.25" />
+    <TypeIdentifier>
+      <FileName>ScanData.cs</FileName>
+      <HashCode>AAIAAAAIAAAAAAAAAgAAAQAAAgAAAAAQAAAAAAAAEAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Enum Name="ShippingDock.eScanDataType">
+    <Position X="3.5" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>ScanDataType.cs</FileName>
+      <HashCode>AAAAAAAAAAAAAAAAIAAAAAAAABAAAAAAAAAAAAAAAAA=</HashCode>
+    </TypeIdentifier>
+  </Enum>
+</ClassDiagram>

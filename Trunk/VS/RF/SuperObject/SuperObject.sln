@@ -1,0 +1,58 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 10.00
+# Visual Studio 2008
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SymbolRFGun", "..\Common\SymbolRFGun\SymbolRFGun.csproj", "{3A628CEE-EAE1-4A6F-9908-779B5C93AFD3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SuperObject", "SuperObject\SuperObject.csproj", "{8D50D810-20D5-4080-928A-B5F78C6EA450}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		CycleCount|Any CPU = CycleCount|Any CPU
+		Debug|Any CPU = Debug|Any CPU
+		Pallets|Any CPU = Pallets|Any CPU
+		Release|Any CPU = Release|Any CPU
+		Repack|Any CPU = Repack|Any CPU
+		RFReceiving|Any CPU = RFReceiving|Any CPU
+		Transfers|Any CPU = Transfers|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{3A628CEE-EAE1-4A6F-9908-779B5C93AFD3}.CycleCount|Any CPU.ActiveCfg = CycleCount|Any CPU
+		{3A628CEE-EAE1-4A6F-9908-779B5C93AFD3}.CycleCount|Any CPU.Build.0 = CycleCount|Any CPU
+		{3A628CEE-EAE1-4A6F-9908-779B5C93AFD3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3A628CEE-EAE1-4A6F-9908-779B5C93AFD3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3A628CEE-EAE1-4A6F-9908-779B5C93AFD3}.Pallets|Any CPU.ActiveCfg = Pallets|Any CPU
+		{3A628CEE-EAE1-4A6F-9908-779B5C93AFD3}.Pallets|Any CPU.Build.0 = Pallets|Any CPU
+		{3A628CEE-EAE1-4A6F-9908-779B5C93AFD3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3A628CEE-EAE1-4A6F-9908-779B5C93AFD3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3A628CEE-EAE1-4A6F-9908-779B5C93AFD3}.Repack|Any CPU.ActiveCfg = Repack|Any CPU
+		{3A628CEE-EAE1-4A6F-9908-779B5C93AFD3}.Repack|Any CPU.Build.0 = Repack|Any CPU
+		{3A628CEE-EAE1-4A6F-9908-779B5C93AFD3}.RFReceiving|Any CPU.ActiveCfg = RFReceiving|Any CPU
+		{3A628CEE-EAE1-4A6F-9908-779B5C93AFD3}.RFReceiving|Any CPU.Build.0 = RFReceiving|Any CPU
+		{3A628CEE-EAE1-4A6F-9908-779B5C93AFD3}.Transfers|Any CPU.ActiveCfg = Transfers|Any CPU
+		{3A628CEE-EAE1-4A6F-9908-779B5C93AFD3}.Transfers|Any CPU.Build.0 = Transfers|Any CPU
+		{8D50D810-20D5-4080-928A-B5F78C6EA450}.CycleCount|Any CPU.ActiveCfg = Release|Any CPU
+		{8D50D810-20D5-4080-928A-B5F78C6EA450}.CycleCount|Any CPU.Build.0 = Release|Any CPU
+		{8D50D810-20D5-4080-928A-B5F78C6EA450}.CycleCount|Any CPU.Deploy.0 = Release|Any CPU
+		{8D50D810-20D5-4080-928A-B5F78C6EA450}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8D50D810-20D5-4080-928A-B5F78C6EA450}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8D50D810-20D5-4080-928A-B5F78C6EA450}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{8D50D810-20D5-4080-928A-B5F78C6EA450}.Pallets|Any CPU.ActiveCfg = Release|Any CPU
+		{8D50D810-20D5-4080-928A-B5F78C6EA450}.Pallets|Any CPU.Build.0 = Release|Any CPU
+		{8D50D810-20D5-4080-928A-B5F78C6EA450}.Pallets|Any CPU.Deploy.0 = Release|Any CPU
+		{8D50D810-20D5-4080-928A-B5F78C6EA450}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8D50D810-20D5-4080-928A-B5F78C6EA450}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8D50D810-20D5-4080-928A-B5F78C6EA450}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{8D50D810-20D5-4080-928A-B5F78C6EA450}.Repack|Any CPU.ActiveCfg = Release|Any CPU
+		{8D50D810-20D5-4080-928A-B5F78C6EA450}.Repack|Any CPU.Build.0 = Release|Any CPU
+		{8D50D810-20D5-4080-928A-B5F78C6EA450}.Repack|Any CPU.Deploy.0 = Release|Any CPU
+		{8D50D810-20D5-4080-928A-B5F78C6EA450}.RFReceiving|Any CPU.ActiveCfg = Release|Any CPU
+		{8D50D810-20D5-4080-928A-B5F78C6EA450}.RFReceiving|Any CPU.Build.0 = Release|Any CPU
+		{8D50D810-20D5-4080-928A-B5F78C6EA450}.RFReceiving|Any CPU.Deploy.0 = Release|Any CPU
+		{8D50D810-20D5-4080-928A-B5F78C6EA450}.Transfers|Any CPU.ActiveCfg = Release|Any CPU
+		{8D50D810-20D5-4080-928A-B5F78C6EA450}.Transfers|Any CPU.Build.0 = Release|Any CPU
+		{8D50D810-20D5-4080-928A-B5F78C6EA450}.Transfers|Any CPU.Deploy.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
