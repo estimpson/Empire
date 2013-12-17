@@ -1,0 +1,212 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{BFB96AEC-C530-462F-AF2F-FB5367767807}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>QuoteLogData</RootNamespace>
+    <AssemblyName>QuoteLogData</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\..\Program Files (x86)\Microsoft Visual Studio 11.0\Common7\IDE\Extensions\Microsoft\Entity Framework Tools\NuGet Packages\EntityFramework.5.0.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.Entity" />
+    <Reference Include="System.Data.Linq" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="DataLayer\QuoteMaintenanceDL.cs" />
+    <Compile Include="Models\Application.cs">
+      <DependentUpon>QuoteLogModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ApplicationNames.cs">
+      <DependentUpon>QuoteLogModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\CategoryByQuantity.cs">
+      <DependentUpon>QuoteLogModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\CompletedQuotes.cs">
+      <DependentUpon>QuoteLogModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\CSM_Mnemonic.cs">
+      <DependentUpon>QuoteLogModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Customer.cs">
+      <DependentUpon>QuoteLogModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\CustomerQuoteInitials.cs">
+      <DependentUpon>QuoteLogModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\EngineeringInitials.cs">
+      <DependentUpon>QuoteLogModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\EngineeringMaterialsInitials.cs">
+      <DependentUpon>QuoteLogModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Functions.cs">
+      <DependentUpon>QuoteLogModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\OnTimeByQuoteEngineer.cs">
+      <DependentUpon>QuoteLogModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\OnTimeDelivery.cs">
+      <DependentUpon>QuoteLogModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ProgramManagerInitials.cs">
+      <DependentUpon>QuoteLogModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\QT_Test.cs">
+      <DependentUpon>QuoteLogModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\QuoteCSM.cs">
+      <DependentUpon>QuoteLogModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\QuoteEntry.cs">
+      <DependentUpon>QuoteLogModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\QuoteLogModel.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>QuoteLogModel.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\QuoteLogModel.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>QuoteLogModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\QuoteLogModel.Designer.cs">
+      <DependentUpon>QuoteLogModel.edmx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Models\QuoteLTA.cs">
+      <DependentUpon>QuoteLogModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\QuoteManualProgramData.cs">
+      <DependentUpon>QuoteLogModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\QuotePricingInitials.cs">
+      <DependentUpon>QuoteLogModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\QuotePrints.cs">
+      <DependentUpon>QuoteLogModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\QuoteRequestsPerMonth.cs">
+      <DependentUpon>QuoteLogModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\QuoteRequestsPerMonthSalesperson.cs">
+      <DependentUpon>QuoteLogModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\QuoteReviewInitials.cs">
+      <DependentUpon>QuoteLogModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\QuotesCompletedByEstimator.cs">
+      <DependentUpon>QuoteLogModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\QuotesPerMonth.cs">
+      <DependentUpon>QuoteLogModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\QuoteTreeList.cs">
+      <DependentUpon>QuoteLogModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Requote.cs">
+      <DependentUpon>QuoteLogModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\SalesInitials.cs">
+      <DependentUpon>QuoteLogModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\TopCustomersByQuotes.cs">
+      <DependentUpon>QuoteLogModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\TopCustomersBySales.cs">
+      <DependentUpon>QuoteLogModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\TotalQuotesReceivedPerYear.cs">
+      <DependentUpon>QuoteLogModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\TypeOfRequests.cs">
+      <DependentUpon>QuoteLogModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\TypeOfRequestsPerCustomer.cs">
+      <DependentUpon>QuoteLogModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <EntityDeploy Include="Models\QuoteLogModel.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>QuoteLogModel.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="Models\QuoteLogModel.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>QuoteLogModel.edmx</DependentUpon>
+      <LastGenOutput>QuoteLogModel.Context.cs</LastGenOutput>
+    </None>
+    <None Include="Models\QuoteLogModel.edmx.diagram">
+      <DependentUpon>QuoteLogModel.edmx</DependentUpon>
+    </None>
+    <None Include="Models\QuoteLogModel.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>QuoteLogModel.edmx</DependentUpon>
+      <LastGenOutput>QuoteLogModel.cs</LastGenOutput>
+    </None>
+    <None Include="packages.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{3259AA49-8AA1-44D3-9025-A0B520596A8C}" />
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
