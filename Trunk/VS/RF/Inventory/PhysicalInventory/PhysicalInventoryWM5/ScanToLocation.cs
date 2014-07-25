@@ -1,291 +1,255 @@
+#region Using
+
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Data.SqlClient;
-using System.Drawing;
-using System.Text;
+using System.Diagnostics;
 using System.Windows.Forms;
+using PhysicalInventoryData.dsPhysicalInventoryTableAdapters;
+using Symbol.Audio;
+using Symbol.Exceptions;
+using Symbol.StandardForms;
 using SymbolRFGun;
-using PhysicalInventoryData;
-using PhysicalInventoryData.DataSetPhysicalInventoryTableAdapters;
-using SAF.Configuration;
-using SAF.Cache;
+
+#endregion
 
 namespace PhysicalInventory
 {
-    public partial class frmScanToLocation : Form
+    public partial class ScanToLocationView : Form
     {
-        private string OperatorCode = null;
-        private string PutAwayAisle = null;
-        private Int32 PutAwayShelf = -1;
-        private Int32 PutAwaySubshelf = -1;
-        private Int32 BeginPhysicalShelf = -1;
-        private Int32 BeginPhysicalSubshelf = -1;
-        private SymbolRFGun.SymbolRFGun MyRFGun = null;
-        private Cache cache = SAF.Cache.Cache.GetSAFCacheService();
-        private DataSetPhysicalInventory dsPhysicalInventory = null;
-        private EmployeeTableAdapter taEmployee = null;
-        private PhysicalProgressTableAdapter taPhysicalProgress = null;
-        private PhysicalProgressSummaryTableAdapter taPhysicalProgressSummary = null;
-        private WarehouseInventoryTableAdapter taWarehouseInventory = null;
-        private Symbol.Audio.Controller MyAudioController = null;
+        public string Plant, OperatorCode;
+        public string BeginPhysicalRack, BeginPhysicalShelf, BeginPhysicalPosition;
+        private string _putAwayRack;
+        private string _putAwayShelf;
+        private string _putAwayPosition;
+        private SymbolRFGun.SymbolRFGun _myRFGun;
+        private Controller _myAudioController;
 
-        public frmScanToLocation()
+        public ScanToLocationView()
         {
             InitializeComponent();
         }
 
-        private void menuItemClose_Click(object sender, EventArgs e)
+        private void MenuItemCloseClick(object sender, EventArgs e)
         {
-            MyAudioController.Dispose();
-            MyRFGun.Close();
-            this.Close();
+            _myAudioController.Dispose();
+            _myRFGun.Close();
+            Close();
         }
 
-        private void frmScanToLocation_Load(object sender, EventArgs e)
+        private void ScanToLocationViewLoad(object sender, EventArgs e)
         {
+            uxLabelOperatorCode.Text = OperatorCode;
+
             try
             {
-                MyRFGun = new SymbolRFGun.SymbolRFGun();
-                MyRFGun.RFScan += new RFScanEventHandler(MyRFGunRFScan);
+                _myRFGun = new SymbolRFGun.SymbolRFGun();
+                _myRFGun.RFScan += MyRFGunRFScan;
             }
             catch (SymbolRFGunException ex)
             {
                 MessageBox.Show(ex.Message);
-                this.Close();
+                Close();
             }
 
             try
             {
                 //Select Device from device list
-                Symbol.Audio.Device MyDevice = (Symbol.Audio.Device)Symbol.StandardForms.SelectDevice.Select(
-                    Symbol.Audio.Controller.Title,
-                    Symbol.Audio.Device.AvailableDevices);
+                Debug.Assert(Device.AvailableDevices != null, "Device.AvailableDevices != null");
+                var myDevice = (Device) SelectDevice.Select(
+                    Controller.Title,
+                    Device.AvailableDevices);
 
-                if (MyDevice == null)
+                if (myDevice == null)
                 {
                     MessageBox.Show("No Device Selected", "SelectDevice");
 
                     //close the form
-                    this.Close();
+                    Close();
 
                     return;
                 }
 
                 //check the device type
-                switch (MyDevice.AudioType)
+                switch (myDevice.AudioType)
                 {
-                    //if standard device
-                    case Symbol.Audio.AudioType.StandardAudio:
-                        MyAudioController = new Symbol.Audio.StandardAudio(MyDevice);
+                        //if standard device
+                    case AudioType.StandardAudio:
+                        _myAudioController = new StandardAudio(myDevice);
                         break;
 
-                    //if simulated device
-                    case Symbol.Audio.AudioType.SimulatedAudio:
-                        MyAudioController = new Symbol.Audio.SimulatedAudio(MyDevice);
+                        //if simulated device
+                    case AudioType.SimulatedAudio:
+                        _myAudioController = new SimulatedAudio(myDevice);
                         break;
 
                     default:
-                        throw new Symbol.Exceptions.InvalidDataTypeException("Unknown Device Type");
+                        throw new InvalidDataTypeException("Unknown Device Type");
                 }
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }
-            
+
             try
             {
-                Exception ex = null;
-                dsPhysicalInventory = (DataSetPhysicalInventory)cache.RetrieveObject(CacheAddress.PhysicalInventoryData);
-                taEmployee = (EmployeeTableAdapter)cache.RetrieveObject(CacheAddress.EmployeeTableAdapter);
-                taPhysicalProgress = (PhysicalProgressTableAdapter)cache.RetrieveObject(CacheAddress.PhysicalProgressTableAdapter);
-                taPhysicalProgressSummary = (PhysicalProgressSummaryTableAdapter)cache.RetrieveObject(CacheAddress.PhysicalProgressSummaryTableAdapter);
-                taWarehouseInventory = (WarehouseInventoryTableAdapter)cache.RetrieveObject(CacheAddress.WarehouseInventoryTableAdapter);
-
-                switch (dsPhysicalInventory.Employee.Rows.Count)
+                using (var racksDT = new RackListTableAdapter().GetRackList(Plant))
                 {
-                    case 1:
-                        OperatorCode = dsPhysicalInventory.Employee[0].OperatorCode;
-                        uxLabelOperatorCode.Text = OperatorCode;
-                        break;
-                    case 0:
-                        ex = new Exception("Invalid password.");
-                        throw ex;
-                    default:
-                        ex = new Exception("Unknown error validating password.");
-                        throw ex;
+                    RackSelection.DataSource = racksDT;
+                    RackSelection.DisplayMember = "Rack";
+                    RackSelection.Text = BeginPhysicalRack;
                 }
-                PutAwayAisle = (string)cache.RetrieveObject(CacheAddress.BeginPhysicalAisle);
-                BeginPhysicalShelf = (Int32)cache.RetrieveObject(CacheAddress.BeginPhysicalShelf);
-                BeginPhysicalSubshelf = (Int32)cache.RetrieveObject(CacheAddress.BeginPhysicalSubshelf);
-                uxCBAisle.Items.Add(PutAwayAisle);
-                uxCBAisle.SelectedIndex = 0;
-                if (BeginPhysicalShelf == 0)
+                using (var shelvesDT = new ShelfListTableAdapter().GetShelfList(Plant))
                 {
-                    uxCBShelf.Items.Add("1");
-                    uxCBShelf.Items.Add("2");
-                    uxCBShelf.Items.Add("3");
-                    uxCBShelf.Items.Add("4");
-                    PutAwayShelf = 1;
+                    ShelfSelection.DataSource = shelvesDT;
+                    ShelfSelection.DisplayMember = "Shelf";
+                    ShelfSelection.Text = BeginPhysicalShelf;
                 }
-                else
+                using (var positionsDT = new PositionListTableAdapter().GetPositionList(Plant))
                 {
-                    uxCBShelf.Items.Add(BeginPhysicalShelf.ToString());
-                    PutAwayShelf = BeginPhysicalShelf;
+                    PositionSelection.DataSource = positionsDT;
+                    PositionSelection.DisplayMember = "Position";
+                    PositionSelection.Text = BeginPhysicalPosition;
                 }
-                uxCBShelf.SelectedIndex = 0;
-
-                if (BeginPhysicalSubshelf == 0)
-                {
-                    uxCBSubshelf.Items.Add("1");
-                    uxCBSubshelf.Items.Add("2");
-                    uxCBSubshelf.Items.Add("3");
-                    uxCBSubshelf.Items.Add("4");
-                    uxCBSubshelf.Items.Add("5");
-                    uxCBSubshelf.Items.Add("6");
-                    uxCBSubshelf.Items.Add("7");
-                    uxCBSubshelf.Items.Add("8");
-                    uxCBSubshelf.Items.Add("9");
-                    uxCBSubshelf.Items.Add("10");
-                    uxCBSubshelf.Items.Add("11");
-                    uxCBSubshelf.Items.Add("12");
-                    PutAwaySubshelf = 1;
-                }
-                else
-                {
-                    uxCBSubshelf.Items.Add(BeginPhysicalSubshelf.ToString());
-                    PutAwaySubshelf = BeginPhysicalSubshelf;
-                }
-                uxCBSubshelf.SelectedIndex = 0;
-                RefreshProgress();
             }
             catch (SqlException ex)
             {
-                foreach (SqlError SQLErr in ex.Errors) MessageBox.Show(SQLErr.Message);
+                foreach (SqlError sqlErr in ex.Errors) MessageBox.Show(sqlErr.Message);
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }
+            RefreshProgress();
         }
 
-        void ResetGun()
+        private void ResetGun()
         {
             try
             {
-                MyRFGun.Close();
-                MyRFGun = new SymbolRFGun.SymbolRFGun();
-                MyRFGun.RFScan += new RFScanEventHandler(MyRFGunRFScan);
+                _myRFGun.Close();
+                _myRFGun = new SymbolRFGun.SymbolRFGun();
+                _myRFGun.RFScan += MyRFGunRFScan;
             }
             catch (SymbolRFGunException ex)
             {
                 MessageBox.Show(ex.Message);
-                this.Close();
+                Close();
             }
         }
 
-        void RefreshProgress()
+        private void RefreshProgress()
         {
             try
             {
-                Exception ex;
-
-                PutAwayAisle = uxCBAisle.Text;
-                PutAwayShelf = Int32.Parse(uxCBShelf.Text);
-                if (!(PutAwayShelf > 0))
+                _putAwayRack = RackSelection.Text;
+                _putAwayShelf = ShelfSelection.Text;
+                if (string.IsNullOrEmpty(_putAwayShelf))
                 {
-                    ex = new Exception("Shelf not selected.");
-                    uxCBShelf.Focus();
-                    throw ex;
+                    ShelfSelection.Focus();
+                    return;
                 }
-                PutAwaySubshelf = Int32.Parse(uxCBSubshelf.Text);
-                if (!(PutAwaySubshelf > 0))
+                _putAwayPosition = PositionSelection.Text;
+                if (string.IsNullOrEmpty(_putAwayPosition))
                 {
-                    ex = new Exception("Subshelf not selected.");
-                    uxCBSubshelf.Focus();
-                    throw ex;
+                    PositionSelection.Focus();
+                    return;
                 }
 
-                taPhysicalProgress.Fill(dsPhysicalInventory.PhysicalProgress, PutAwayAisle, PutAwayShelf, PutAwaySubshelf);
-                uxGridProgress.DataSource = taPhysicalProgress.GetPhysicalProgressByAddress(PutAwayAisle, PutAwayShelf, PutAwaySubshelf);
-
-                taPhysicalProgressSummary.Fill(dsPhysicalInventory.PhysicalProgressSummary, PutAwayAisle, PutAwayShelf, PutAwaySubshelf);
-                switch (dsPhysicalInventory.PhysicalProgressSummary.Rows.Count)
+                using (var ppTA = new PhysicalProgressTableAdapter())
                 {
-                    case 1:
-                        uxLabelProgress.Text = dsPhysicalInventory.PhysicalProgressSummary[0].FoundCount.ToString() + " Found, " +
-                            dsPhysicalInventory.PhysicalProgressSummary[0].MissingCount.ToString() + " Missing, " +
-                            dsPhysicalInventory.PhysicalProgressSummary[0].TotalCount.ToString() + " Total";
-                        break;
-                    default:
-                        ex = new Exception("Unable to retrieve summary.");
-                        throw ex;
+                    uxGridProgress.DataSource = ppTA.GetCycleCountProgressByAddress(Plant, _putAwayRack, _putAwayShelf,
+                        _putAwayPosition);
+                }
+
+                using (var ppsTA = new PhysicalProgressSummaryTableAdapter())
+                {
+                    var ppsDT = ppsTA.GetCycleCountProgressSummary(Plant, _putAwayRack, _putAwayShelf, _putAwayPosition);
+
+                    switch (ppsDT.Rows.Count)
+                    {
+                        case 1:
+                            uxLabelProgress.Text = ppsDT[0].FoundCount +
+                                                   " Found, " +
+                                                   ppsDT[0].MissingCount +
+                                                   " Missing, " +
+                                                   ppsDT[0].TotalCount +
+                                                   " Total";
+                            break;
+                        default:
+                            throw new Exception("Unable to retrieve summary.");
+                    }
                 }
             }
             catch (SqlException ex)
             {
-                foreach (SqlError SQLErr in ex.Errors) MessageBox.Show(SQLErr.Message);
+                foreach (SqlError sqlErr in ex.Errors) MessageBox.Show(sqlErr.Message);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
             }
         }
 
-        private int TryProcessSerial(Int32 BoxSerial)
+        private int TryProcessSerial(Int32 boxSerial)
         {
             try
             {
-                Exception ex;
-
                 //  Verify that shelf and subshelf are selected.
-                PutAwayAisle = uxCBAisle.Text;
-                PutAwayShelf = Int32.Parse(uxCBShelf.Text);
-                if (!(PutAwayShelf > 0))
+                _putAwayRack = RackSelection.Text;
+                _putAwayShelf = ShelfSelection.Text;
+                if (string.IsNullOrEmpty(_putAwayShelf))
                 {
-                    ex = new Exception("Shelf not selected.");
-                    uxCBShelf.Focus();
-                    throw ex;
+                    ShelfSelection.Focus();
+                    throw new Exception("Shelf not selected.");
                 }
-                PutAwaySubshelf = Int32.Parse(uxCBSubshelf.Text);
-                if (!(PutAwaySubshelf > 0))
+                _putAwayPosition = PositionSelection.Text;
+                if (string.IsNullOrEmpty(_putAwayPosition))
                 {
-                    ex = new Exception("Subshelf not selected.");
-                    uxCBSubshelf.Focus();
-                    throw ex;
+                    PositionSelection.Focus();
+                    throw new Exception("Subshelf not selected.");
                 }
 
                 //  Scan object to location.
-                Int32 Result;
-                taPhysicalProgress.PutAwayObject_BySerial(OperatorCode, BoxSerial, PutAwayAisle, PutAwayShelf, PutAwaySubshelf, out Result);
+                using (var ppTA = new PhysicalProgressTableAdapter())
+                {
+                    DateTime? tranDT = null;
+                    Int32? result = null;
+                    ppTA.ScanSerial(OperatorCode, boxSerial, Plant, _putAwayRack, _putAwayShelf, _putAwayPosition,
+                        ref tranDT,
+                        ref result);
+                }
 
                 //  Refresh screen and find row.
-                taWarehouseInventory.FillBySerial(dsPhysicalInventory.WarehouseInventory, BoxSerial);
-                switch (dsPhysicalInventory.WarehouseInventory.Rows.Count)
+                using (var wiTA = new WarehouseInventoryTableAdapter())
                 {
-                    case 1:
-                        string Part = dsPhysicalInventory.WarehouseInventory[0].Part;
-                        uxLabelMessage.Text = "Serial " + BoxSerial.ToString() + " Part " + Part;
-                        break;
-                    default:
-                        ex = new Exception("Part not found!");
-                        throw ex;
+                    var wiDT = wiTA.GetInventoryBySerial(boxSerial);
+                    switch (wiDT.Rows.Count)
+                    {
+                        case 1:
+                            uxLabelMessage.Text = "Serial " + boxSerial + " Part " + wiDT[0].Part;
+                            break;
+                        default:
+                            throw new Exception("Part not found!");
+                    }
                 }
                 RefreshProgress();
                 return 1;
             }
             catch (SqlException ex)
             {
-                foreach (SqlError SQLErr in ex.Errors) MessageBox.Show(SQLErr.Message);
+                foreach (SqlError sqlErr in ex.Errors) MessageBox.Show(sqlErr.Message);
                 return -1;
             }
             catch (Exception ex)
             {
                 uxLabelMessage.Text = ex.Message;
-                int Duration = 1500;//millisec
-                int Frequency = 2670;//hz
+                const int DURATION = 1500; //millisec
+                const int FREQUENCY = 2670; //hz
 
                 try
                 {
-                    this.MyAudioController.PlayAudio(Duration, Frequency);//play Default beep
+                    _myAudioController.PlayAudio(DURATION, FREQUENCY); //play Default beep
                 }
                 catch
                 {
@@ -295,7 +259,7 @@ namespace PhysicalInventory
             }
         }
 
-        void MyRFGunRFScan(object sender, RFScanEventArgs e)
+        private void MyRFGunRFScan(object sender, RFScanEventArgs e)
         {
             string scanData = e.Text;
             try
@@ -318,57 +282,55 @@ namespace PhysicalInventory
                 }
                 catch (Exception ex)
                 {
-                    throw new Exception(string.Format("{0} No identifier, but scan data {1} not recognized.", ex.Message, scanData));
+                    throw new Exception(string.Format("{0} No identifier, but scan data {1} not recognized.", ex.Message,
+                        scanData));
                 }
 
                 //  Look first for serial scan.
-                if (scanData.Substring(0, 1) == "S" || scanData.Substring(0,1) == " ")
+                if (scanData.Substring(0, 1) == "S" || scanData.Substring(0, 1) == " ")
                 {
                     //  Scan object to location.
                     serial = Int32.Parse(scanData.Substring(1));
                     if (TryProcessSerial(serial) == -1)
                     {
-                        throw new Exception(string.Format("\"S\" identifier found, but scan data {0} not recognized", scanData));
+                        throw new Exception(string.Format("\"S\" identifier found, but scan data {0} not recognized",
+                            scanData));
                     }
-                    RefreshProgress(); 
+                    RefreshProgress();
                     return;
                 }
-                if (scanData.Substring(1,1) == "S" || scanData.Substring(0,1) == "1T")
+                if (scanData.Substring(1, 1) == "S" || scanData.Substring(0, 1) == "1T")
                 {
                     //  Scan object to location.
                     serial = Int32.Parse(scanData.Substring(2));
                     if (TryProcessSerial(serial) == -1)
                     {
-                        throw new Exception(string.Format("\"#S\" or 1T identifier found, but scan data {0} not recognized", scanData));
+                        throw new Exception(
+                            string.Format("\"#S\" or 1T identifier found, but scan data {0} not recognized", scanData));
                     }
                     RefreshProgress();
                     return;
                 }
-                if (scanData.Substring(1, 1) == "-" && scanData.Substring(3, 1) == "-")
+
+                //  Handle a location label scan.
+                using (var wlTA = new WarehouseLocationsTableAdapter())
                 {
-                    //  Look for location.
-                    if (scanData.Substring(0, 1) != PutAwayAisle)
+                    var wlDT = wlTA.GetDataByLocation(scanData);
+                    switch (wlDT.Rows.Count)
                     {
-                        throw new Exception("Expecting label or serial scan.");
+                        case 1:
+                            RackSelection.Text = wlDT[0].Rack;
+                            ShelfSelection.Text = wlDT[0].Shelf;
+                            PositionSelection.Text = wlDT[0].Position;
+                            RefreshProgress();
+                            return;
                     }
-                    if (BeginPhysicalShelf > 0 && Int32.Parse(scanData.Substring(2,1)) != BeginPhysicalShelf)
-                    {
-                        throw new Exception("Shelf not part of current physical.");
-                    }
-                    uxCBShelf.Text = scanData.Substring(2,1);
-                    PutAwayShelf = Int32.Parse(uxCBShelf.Text);
-                    if (BeginPhysicalSubshelf > 0 && Int32.Parse(scanData.Substring(4,2)) != BeginPhysicalSubshelf)
-                    {
-                        throw new Exception("Position not part of current physical.");
-                    }
-                    uxCBSubshelf.Text = scanData.Substring(4,2);
-                    PutAwaySubshelf = Int32.Parse(uxCBSubshelf.Text);
-                    RefreshProgress ();
+                    throw new Exception("Expecting label or serial scan.");
                 }
             }
             catch (SqlException ex)
             {
-                foreach (SqlError SQLErr in ex.Errors) MessageBox.Show(SQLErr.Message);
+                foreach (SqlError sqlErr in ex.Errors) MessageBox.Show(sqlErr.Message);
             }
             catch (ArgumentNullException ex)
             {
@@ -388,28 +350,28 @@ namespace PhysicalInventory
             }
         }
 
-        private void menuItemRefresh_Click(object sender, EventArgs e)
+        private void MenuItemRefreshClick(object sender, EventArgs e)
         {
             RefreshProgress();
         }
 
-        private void frmScanToLocation_Activated(object sender, EventArgs e)
+        private void ScanToLocationViewActivated(object sender, EventArgs e)
         {
             ResetGun();
         }
 
-        private void frmScanToLocation_Deactivate(object sender, EventArgs e)
+        private void ScanToLocationViewDeactivated(object sender, EventArgs e)
         {
             //this.StopRead();
         }
 
-        private void uxCBSerialEnter_Click(object sender, EventArgs e)
+        private void UxCbSerialEnterClick(object sender, EventArgs e)
         {
-            string SerialData = uxTextBoxSerial.Text;
+            string serialData = uxTextBoxSerial.Text;
             try
             {
                 //  Scan object to location.
-                TryProcessSerial(Int32.Parse(SerialData));
+                TryProcessSerial(Int32.Parse(serialData));
             }
             catch (ArgumentNullException ex)
             {
@@ -417,15 +379,15 @@ namespace PhysicalInventory
             }
             catch (OverflowException ex)
             {
-                uxLabelMessage.Text = ex.Message + "Scan not recognized.  " + SerialData;
+                uxLabelMessage.Text = ex.Message + "Scan not recognized.  " + serialData;
             }
             catch (FormatException ex)
             {
-                uxLabelMessage.Text = ex.Message + "Scan not recognized.  " + SerialData;
+                uxLabelMessage.Text = ex.Message + "Scan not recognized.  " + serialData;
             }
             catch (Exception ex)
             {
-                uxLabelMessage.Text = ex.Message + SerialData;
+                uxLabelMessage.Text = ex.Message + serialData;
             }
         }
     }

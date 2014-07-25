@@ -12,7 +12,7 @@ namespace PhysicalInventory
         [MTAThread]
         static void Main()
         {
-            Application.Run(new ChooseAddress());
+            Application.Run(new ChooseAddressView());
         }
     }
 }

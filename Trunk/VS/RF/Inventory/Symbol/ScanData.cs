@@ -85,6 +85,7 @@ namespace SymbolRFGun
         {
             //  This should probably be implemented as an interface...
             ScanDataIdentifiers = new Dictionary<string, eScanDataType>();
+            ScanDataIdentifiers.Add("1J", eScanDataType.Serial);
             ScanDataIdentifiers.Add("2K", eScanDataType.Shipper);
             ScanDataIdentifiers.Add("2S", eScanDataType.Shipper);
             ScanDataIdentifiers.Add("S", eScanDataType.Serial);

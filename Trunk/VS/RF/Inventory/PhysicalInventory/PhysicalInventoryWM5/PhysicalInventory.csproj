@@ -73,18 +73,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ChooseAddress.cs">
+    <Compile Include="ChooseAddressView.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="ChooseAddress.Designer.cs">
-      <DependentUpon>ChooseAddress.cs</DependentUpon>
+    <Compile Include="ChooseAddressView.Designer.cs">
+      <DependentUpon>ChooseAddressView.cs</DependentUpon>
     </Compile>
     <Compile Include="CacheAddress.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="ChooseAddress.resx">
+    <EmbeddedResource Include="ChooseAddressView.resx">
       <SubType>Designer</SubType>
-      <DependentUpon>ChooseAddress.cs</DependentUpon>
+      <DependentUpon>ChooseAddressView.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -110,6 +110,7 @@
     <Compile Include="RFBase.designer.cs">
       <DependentUpon>RFBase.cs</DependentUpon>
     </Compile>
+    <Compile Include="RFGlobals.cs" />
     <Compile Include="ScanToLocation.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -138,6 +139,11 @@
       <Project>{0FADD7E0-B0A7-4C61-8A1E-6A13411BAD2B}</Project>
       <Name>PhysicalInventoryData</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="RFGlobals.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <Import Condition="'$(TargetFrameworkVersion)' == 'v1.0'" Project="$(MSBuildBinPath)\Microsoft.CompactFramework.CSharp.v1.targets" />
   <Import Condition="'$(TargetFrameworkVersion)' == 'v2.0'" Project="$(MSBuildBinPath)\Microsoft.CompactFramework.CSharp.targets" />
