@@ -3,7 +3,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>9.0.21022</ProductVersion>
+    <ProductVersion>9.0.30729</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{0FADD7E0-B0A7-4C61-8A1E-6A13411BAD2B}</ProjectGuid>
     <OutputType>Library</OutputType>
@@ -68,27 +68,27 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DataSetPhysicalInventory.cs">
-      <DependentUpon>DataSetPhysicalInventory.xsd</DependentUpon>
+    <Compile Include="dsPhysicalInventory.cs">
+      <DependentUpon>dsPhysicalInventory.xsd</DependentUpon>
     </Compile>
-    <Compile Include="DataSetPhysicalInventory.Designer.cs">
+    <Compile Include="dsPhysicalInventory.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>DataSetPhysicalInventory.xsd</DependentUpon>
+      <DependentUpon>dsPhysicalInventory.xsd</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="DataSetPhysicalInventory.xsc">
-      <DependentUpon>DataSetPhysicalInventory.xsd</DependentUpon>
+    <None Include="dsPhysicalInventory.xsc">
+      <DependentUpon>dsPhysicalInventory.xsd</DependentUpon>
     </None>
-    <None Include="DataSetPhysicalInventory.xsd">
+    <None Include="dsPhysicalInventory.xsd">
       <SubType>Designer</SubType>
       <Generator>MSDataSetGenerator</Generator>
-      <LastGenOutput>DataSetPhysicalInventory.Designer.cs</LastGenOutput>
+      <LastGenOutput>dsPhysicalInventory.Designer.cs</LastGenOutput>
     </None>
-    <None Include="DataSetPhysicalInventory.xss">
-      <DependentUpon>DataSetPhysicalInventory.xsd</DependentUpon>
+    <None Include="dsPhysicalInventory.xss">
+      <DependentUpon>dsPhysicalInventory.xsd</DependentUpon>
     </None>
   </ItemGroup>
   <Import Condition="'$(TargetFrameworkVersion)' == 'v1.0'" Project="$(MSBuildBinPath)\Microsoft.CompactFramework.CSharp.v1.targets" />

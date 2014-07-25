@@ -1,6 +1,6 @@
 namespace PhysicalInventory
 {
-    partial class frmScanToLocation
+    partial class ScanToLocationView
     {
         /// <summary>
         /// Required designer variable.
@@ -29,16 +29,16 @@ namespace PhysicalInventory
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmScanToLocation));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ScanToLocationView));
             this.mainMenu1 = new System.Windows.Forms.MainMenu();
             this.menuItemClose = new System.Windows.Forms.MenuItem();
             this.menuItemRefresh = new System.Windows.Forms.MenuItem();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
-            this.uxCBSubshelf = new System.Windows.Forms.ComboBox();
-            this.uxCBShelf = new System.Windows.Forms.ComboBox();
-            this.uxCBAisle = new System.Windows.Forms.ComboBox();
+            this.PositionSelection = new System.Windows.Forms.ComboBox();
+            this.ShelfSelection = new System.Windows.Forms.ComboBox();
+            this.RackSelection = new System.Windows.Forms.ComboBox();
             this.uxGridProgress = new System.Windows.Forms.DataGrid();
             this.uxLabelOperatorCode = new System.Windows.Forms.Label();
             this.uxLabelProgress = new System.Windows.Forms.Label();
@@ -55,12 +55,12 @@ namespace PhysicalInventory
             // menuItemClose
             // 
             resources.ApplyResources(this.menuItemClose, "menuItemClose");
-            this.menuItemClose.Click += new System.EventHandler(this.menuItemClose_Click);
+            this.menuItemClose.Click += new System.EventHandler(this.MenuItemCloseClick);
             // 
             // menuItemRefresh
             // 
             resources.ApplyResources(this.menuItemRefresh, "menuItemRefresh");
-            this.menuItemRefresh.Click += new System.EventHandler(this.menuItemRefresh_Click);
+            this.menuItemRefresh.Click += new System.EventHandler(this.MenuItemRefreshClick);
             // 
             // label1
             // 
@@ -77,23 +77,23 @@ namespace PhysicalInventory
             resources.ApplyResources(this.label3, "label3");
             this.label3.Name = "label3";
             // 
-            // uxCBSubshelf
+            // PositionSelection
             // 
-            this.uxCBSubshelf.BackColor = System.Drawing.Color.Chartreuse;
-            resources.ApplyResources(this.uxCBSubshelf, "uxCBSubshelf");
-            this.uxCBSubshelf.Name = "uxCBSubshelf";
+            this.PositionSelection.BackColor = System.Drawing.Color.Chartreuse;
+            resources.ApplyResources(this.PositionSelection, "PositionSelection");
+            this.PositionSelection.Name = "PositionSelection";
             // 
-            // uxCBShelf
+            // ShelfSelection
             // 
-            this.uxCBShelf.BackColor = System.Drawing.Color.Chartreuse;
-            resources.ApplyResources(this.uxCBShelf, "uxCBShelf");
-            this.uxCBShelf.Name = "uxCBShelf";
+            this.ShelfSelection.BackColor = System.Drawing.Color.Chartreuse;
+            resources.ApplyResources(this.ShelfSelection, "ShelfSelection");
+            this.ShelfSelection.Name = "ShelfSelection";
             // 
-            // uxCBAisle
+            // RackSelection
             // 
-            this.uxCBAisle.BackColor = System.Drawing.Color.Chartreuse;
-            resources.ApplyResources(this.uxCBAisle, "uxCBAisle");
-            this.uxCBAisle.Name = "uxCBAisle";
+            this.RackSelection.BackColor = System.Drawing.Color.Chartreuse;
+            resources.ApplyResources(this.RackSelection, "RackSelection");
+            this.RackSelection.Name = "RackSelection";
             // 
             // uxGridProgress
             // 
@@ -126,9 +126,9 @@ namespace PhysicalInventory
             // 
             resources.ApplyResources(this.uxCBSerialEnter, "uxCBSerialEnter");
             this.uxCBSerialEnter.Name = "uxCBSerialEnter";
-            this.uxCBSerialEnter.Click += new System.EventHandler(this.uxCBSerialEnter_Click);
+            this.uxCBSerialEnter.Click += new System.EventHandler(this.UxCbSerialEnterClick);
             // 
-            // frmScanToLocation
+            // ScanToLocationView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
@@ -143,14 +143,14 @@ namespace PhysicalInventory
             this.Controls.Add(this.label1);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label3);
-            this.Controls.Add(this.uxCBSubshelf);
-            this.Controls.Add(this.uxCBShelf);
-            this.Controls.Add(this.uxCBAisle);
+            this.Controls.Add(this.PositionSelection);
+            this.Controls.Add(this.ShelfSelection);
+            this.Controls.Add(this.RackSelection);
             this.Menu = this.mainMenu1;
-            this.Name = "frmScanToLocation";
-            this.Deactivate += new System.EventHandler(this.frmScanToLocation_Deactivate);
-            this.Activated += new System.EventHandler(this.frmScanToLocation_Activated);
-            this.Load += new System.EventHandler(this.frmScanToLocation_Load);
+            this.Name = "ScanToLocationView";
+            this.Deactivate += new System.EventHandler(this.ScanToLocationViewDeactivated);
+            this.Load += new System.EventHandler(this.ScanToLocationViewLoad);
+            this.Activated += new System.EventHandler(this.ScanToLocationViewActivated);
             this.ResumeLayout(false);
 
         }
@@ -161,9 +161,9 @@ namespace PhysicalInventory
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.ComboBox uxCBSubshelf;
-        private System.Windows.Forms.ComboBox uxCBShelf;
-        private System.Windows.Forms.ComboBox uxCBAisle;
+        private System.Windows.Forms.ComboBox PositionSelection;
+        private System.Windows.Forms.ComboBox ShelfSelection;
+        private System.Windows.Forms.ComboBox RackSelection;
         private System.Windows.Forms.DataGrid uxGridProgress;
         private System.Windows.Forms.Label uxLabelOperatorCode;
         private System.Windows.Forms.MenuItem menuItemRefresh;
