@@ -1,0 +1,132 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="2.0" xmlns:edmx="http://schemas.microsoft.com/ado/2008/10/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="MONITORModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+        <EntityContainer Name="MONITORModelStoreContainer">
+          <EntitySet Name="APHeaderBarcodes" EntityType="MONITORModel.Store.APHeaderBarcodes" store:Type="Tables" Schema="FT" />
+        </EntityContainer>
+        <EntityType Name="APHeaderBarcodes">
+          <Key>
+            <PropertyRef Name="RowID" />
+          </Key>
+          <Property Name="Vendor" Type="varchar" MaxLength="25" />
+          <Property Name="InvCMFlag" Type="char" MaxLength="1" />
+          <Property Name="InvoiceCM" Type="varchar" MaxLength="25" />
+          <Property Name="Status" Type="int" Nullable="false" />
+          <Property Name="Type" Type="int" Nullable="false" />
+          <Property Name="RowID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="RowCreateDT" Type="datetime" />
+          <Property Name="RowCreateUser" Type="nvarchar" Nullable="false" MaxLength="128" />
+          <Property Name="RowModifiedDT" Type="datetime" />
+          <Property Name="RowModifiedUser" Type="nvarchar" Nullable="false" MaxLength="128" />
+        </EntityType>
+        <Function Name="usp_APHeaderBarcodes_Get" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="FT">
+          <Parameter Name="TranDT" Type="datetime" Mode="InOut" />
+          <Parameter Name="Result" Type="int" Mode="InOut" />
+        </Function>
+        <Function Name="usp_APHeaderBarcodes_Update" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="FT">
+          <Parameter Name="RowId" Type="int" Mode="In" />
+          <Parameter Name="TranDT" Type="datetime" Mode="InOut" />
+          <Parameter Name="Result" Type="int" Mode="InOut" />
+        </Function>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="MONITORModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+        <EntityContainer Name="MONITOREntities" annotation:LazyLoadingEnabled="true">
+          <FunctionImport Name="usp_APHeaderBarcodes_Update">
+            <Parameter Name="RowId" Mode="In" Type="Int32" />
+            <Parameter Name="TranDT" Mode="InOut" Type="DateTime" />
+            <Parameter Name="Result" Mode="InOut" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="usp_APHeaderBarcodes_Get" ReturnType="Collection(MONITORModel.usp_APHeaderBarcodes_Get_Result)">
+            <Parameter Name="TranDT" Mode="InOut" Type="DateTime" />
+            <Parameter Name="Result" Mode="InOut" Type="Int32" />
+          </FunctionImport>
+          <EntitySet Name="APHeaderBarcodes" EntityType="MONITORModel.APHeaderBarcode" />
+        </EntityContainer>
+        <ComplexType Name="usp_GetAPHeaderBarcodesData_Result">
+          <Property Type="Int32" Name="RowID" Nullable="false" />
+          <Property Type="String" Name="Vendor" Nullable="true" MaxLength="25" />
+          <Property Type="String" Name="InvoiceCM" Nullable="true" MaxLength="25" />
+        </ComplexType>
+        <ComplexType Name="usp_APHeaderBarcodes_Get_Result">
+          <Property Type="Int32" Name="RowID" Nullable="false" />
+          <Property Type="String" Name="Vendor" Nullable="true" MaxLength="25" />
+          <Property Type="String" Name="InvoiceCM" Nullable="true" MaxLength="25" />
+          <Property Type="String" Name="InvCMFlag" Nullable="true" MaxLength="1" />
+        </ComplexType>
+        <EntityType Name="APHeaderBarcode">
+          <Key>
+            <PropertyRef Name="RowID" />
+          </Key>
+          <Property Type="String" Name="Vendor" MaxLength="25" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="InvCMFlag" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Type="String" Name="InvoiceCM" MaxLength="25" FixedLength="false" Unicode="false" />
+          <Property Type="Int32" Name="Status" Nullable="false" />
+          <Property Type="Int32" Name="Type" Nullable="false" />
+          <Property Type="Int32" Name="RowID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="DateTime" Name="RowCreateDT" Precision="3" />
+          <Property Type="String" Name="RowCreateUser" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Type="DateTime" Name="RowModifiedDT" Precision="3" />
+          <Property Type="String" Name="RowModifiedUser" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="MONITORModelStoreContainer" CdmEntityContainer="MONITOREntities">
+          <FunctionImportMapping FunctionImportName="usp_APHeaderBarcodes_Update" FunctionName="MONITORModel.Store.usp_APHeaderBarcodes_Update" />
+          <FunctionImportMapping FunctionImportName="usp_APHeaderBarcodes_Get" FunctionName="MONITORModel.Store.usp_APHeaderBarcodes_Get">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="MONITORModel.usp_APHeaderBarcodes_Get_Result">
+                <ScalarProperty Name="RowID" ColumnName="RowID" />
+                <ScalarProperty Name="Vendor" ColumnName="Vendor" />
+                <ScalarProperty Name="InvoiceCM" ColumnName="InvoiceCM" />
+                <ScalarProperty Name="InvCMFlag" ColumnName="InvCMFlag" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <EntitySetMapping Name="APHeaderBarcodes">
+            <EntityTypeMapping TypeName="MONITORModel.APHeaderBarcode">
+              <MappingFragment StoreEntitySet="APHeaderBarcodes">
+                <ScalarProperty Name="RowModifiedUser" ColumnName="RowModifiedUser" />
+                <ScalarProperty Name="RowModifiedDT" ColumnName="RowModifiedDT" />
+                <ScalarProperty Name="RowCreateUser" ColumnName="RowCreateUser" />
+                <ScalarProperty Name="RowCreateDT" ColumnName="RowCreateDT" />
+                <ScalarProperty Name="RowID" ColumnName="RowID" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="InvoiceCM" ColumnName="InvoiceCM" />
+                <ScalarProperty Name="InvCMFlag" ColumnName="InvCMFlag" />
+                <ScalarProperty Name="Vendor" ColumnName="Vendor" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2008/10/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="True" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
