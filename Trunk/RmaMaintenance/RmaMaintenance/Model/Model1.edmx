@@ -1,0 +1,282 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="2.0" xmlns:edmx="http://schemas.microsoft.com/ado/2008/10/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="MONITORModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+        <EntityContainer Name="MONITORModelStoreContainer">
+          <EntitySet Name="employee" EntityType="MONITORModel.Store.employee" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="SerialsQuantitiesToAutoRMA_RTV" EntityType="MONITORModel.Store.SerialsQuantitiesToAutoRMA_RTV" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="vw_CreateRma_Destinations" EntityType="MONITORModel.Store.vw_CreateRma_Destinations" store:Type="Views" store:Schema="dbo" store:Name="vw_CreateRma_Destinations">
+            <DefiningQuery>SELECT 
+      [vw_CreateRma_Destinations].[destination] AS [destination]
+      FROM [dbo].[vw_CreateRma_Destinations] AS [vw_CreateRma_Destinations]</DefiningQuery>
+          </EntitySet>
+        </EntityContainer>
+        <EntityType Name="employee">
+          <Key>
+            <PropertyRef Name="operator_code" />
+          </Key>
+          <Property Name="name" Type="varchar" Nullable="false" MaxLength="40" />
+          <Property Name="operator_code" Type="varchar" Nullable="false" MaxLength="5" />
+          <Property Name="password" Type="varchar" Nullable="false" MaxLength="5" />
+          <Property Name="serial_number" Type="int" />
+          <Property Name="epassword" Type="text" />
+          <Property Name="operatorlevel" Type="int" />
+          <Property Name="employee" Type="varchar" MaxLength="15" />
+          <Property Name="npassword" Type="varbinary" MaxLength="255" />
+          <Property Name="EmployeeID" Type="nvarchar" MaxLength="15" />
+        </EntityType>
+        <EntityType Name="SerialsQuantitiesToAutoRMA_RTV">
+          <Key>
+            <PropertyRef Name="Serial" />
+          </Key>
+          <Property Name="Serial" Type="int" Nullable="false" />
+          <Property Name="Quantity" Type="numeric" Nullable="false" Precision="20" Scale="6" />
+        </EntityType>
+        <!--Errors Found During Generation:
+      warning 6002: The table/view 'MONITOR.dbo.vw_CreateRma_Destinations' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
+      -->
+        <EntityType Name="vw_CreateRma_Destinations">
+          <Key>
+            <PropertyRef Name="destination" />
+          </Key>
+          <Property Name="destination" Type="varchar" Nullable="false" MaxLength="20" />
+        </EntityType>
+        <Function Name="usp_CreateRma_DeleteSerialsQuantities" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="TranDT" Type="datetime" Mode="InOut" />
+          <Parameter Name="Result" Type="int" Mode="InOut" />
+        </Function>
+        <Function Name="usp_CreateRma_GetSerialsFromPartDest" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="OperatorCode" Type="varchar" Mode="In" />
+          <Parameter Name="Destination" Type="varchar" Mode="In" />
+          <Parameter Name="PartNumber" Type="varchar" Mode="In" />
+          <Parameter Name="RequiredQuantity" Type="numeric" Mode="In" />
+          <Parameter Name="TranDT" Type="datetime" Mode="InOut" />
+          <Parameter Name="Result" Type="int" Mode="InOut" />
+        </Function>
+        <Function Name="usp_CreateRma_Honduras" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="OperatorCode" Type="varchar" Mode="In" />
+          <Parameter Name="RtvShipper" Type="int" Mode="In" />
+          <Parameter Name="LocationCode" Type="varchar" Mode="In" />
+          <Parameter Name="TranDT" Type="datetime" Mode="InOut" />
+          <Parameter Name="Result" Type="int" Mode="InOut" />
+        </Function>
+        <Function Name="usp_CreateRma_ImportSerialsQuantities" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Serial" Type="int" Mode="In" />
+          <Parameter Name="Quantity" Type="numeric" Mode="In" />
+          <Parameter Name="TranDT" Type="datetime" Mode="InOut" />
+          <Parameter Name="Result" Type="int" Mode="InOut" />
+        </Function>
+        <Function Name="usp_CreateRma_ProcessByDestGl" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="OperatorCode" Type="varchar" Mode="In" />
+          <Parameter Name="RmaNumber" Type="varchar" Mode="In" />
+          <Parameter Name="CreateRTV" Type="int" Mode="In" />
+          <Parameter Name="PlaceSerialsOnHold" Type="int" Mode="In" />
+          <Parameter Name="TranDT" Type="datetime" Mode="InOut" />
+          <Parameter Name="Result" Type="int" Mode="InOut" />
+        </Function>
+        <Function Name="usp_CreateRma_ProcessSerialsQuantities" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="OperatorCode" Type="varchar" Mode="In" />
+          <Parameter Name="RmaNumber" Type="varchar" Mode="In" />
+          <Parameter Name="CreateRTV" Type="int" Mode="In" />
+          <Parameter Name="PlaceSerialsOnHold" Type="int" Mode="In" />
+          <Parameter Name="NextShipper" Type="int" Mode="InOut" />
+          <Parameter Name="NextShipperRTV" Type="int" Mode="InOut" />
+          <Parameter Name="TranDT" Type="datetime" Mode="InOut" />
+          <Parameter Name="Result" Type="int" Mode="InOut" />
+        </Function>
+        <Function Name="usp_CreateRma_TransferOnHoldSerials" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="OperatorCode" Type="varchar" Mode="In" />
+          <Parameter Name="RmaShipper" Type="int" Mode="In" />
+          <Parameter Name="Location" Type="varchar" Mode="In" />
+          <Parameter Name="TranDT" Type="datetime" Mode="InOut" />
+          <Parameter Name="Result" Type="int" Mode="InOut" />
+        </Function>
+        <Function Name="usp_ShipRtv" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="OperatorCode" Type="varchar" Mode="In" />
+          <Parameter Name="RtvShipper" Type="int" Mode="In" />
+          <Parameter Name="LocationCode" Type="varchar" Mode="In" />
+          <Parameter Name="TranDT" Type="datetime" Mode="InOut" />
+          <Parameter Name="Result" Type="int" Mode="InOut" />
+        </Function>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="MONITORModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+        <EntityContainer Name="MONITOREntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="employees" EntityType="MONITORModel.employee" />
+          <EntitySet Name="vw_CreateRma_Destinations" EntityType="MONITORModel.vw_CreateRma_Destinations" />
+          <FunctionImport Name="usp_CreateRma_ImportSerialsQuantities">
+            <Parameter Name="Serial" Mode="In" Type="Int32" />
+            <Parameter Name="Quantity" Mode="In" Type="Decimal" />
+            <Parameter Name="TranDT" Mode="InOut" Type="DateTime" />
+            <Parameter Name="Result" Mode="InOut" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="usp_CreateRma_ProcessSerialsQuantities">
+            <Parameter Name="OperatorCode" Mode="In" Type="String" />
+            <Parameter Name="RmaNumber" Mode="In" Type="String" />
+            <Parameter Name="CreateRTV" Mode="In" Type="Int32" />
+            <Parameter Name="PlaceSerialsOnHold" Mode="In" Type="Int32" />
+            <Parameter Name="NextShipper" Mode="InOut" Type="Int32" />
+            <Parameter Name="NextShipperRTV" Mode="InOut" Type="Int32" />
+            <Parameter Name="TranDT" Mode="InOut" Type="DateTime" />
+            <Parameter Name="Result" Mode="InOut" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="usp_CreateRma_DeleteSerialsQuantities">
+            <Parameter Name="TranDT" Mode="InOut" Type="DateTime" />
+            <Parameter Name="Result" Mode="InOut" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="usp_CreateRma_TransferOnHoldSerials">
+            <Parameter Name="OperatorCode" Mode="In" Type="String" />
+            <Parameter Name="RmaShipper" Mode="In" Type="Int32" />
+            <Parameter Name="Location" Mode="In" Type="String" />
+            <Parameter Name="TranDT" Mode="InOut" Type="DateTime" />
+            <Parameter Name="Result" Mode="InOut" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="usp_CreateRma_GetSerialsFromPartDest">
+            <Parameter Name="OperatorCode" Mode="In" Type="String" />
+            <Parameter Name="Destination" Mode="In" Type="String" />
+            <Parameter Name="PartNumber" Mode="In" Type="String" />
+            <Parameter Name="RequiredQuantity" Mode="In" Type="Decimal" />
+            <Parameter Name="TranDT" Mode="InOut" Type="DateTime" />
+            <Parameter Name="Result" Mode="InOut" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="usp_CreateRma_ProcessByDestGl" ReturnType="Collection(MONITORModel.usp_CreateRma_ProcessByDestGl_Result)">
+            <Parameter Name="OperatorCode" Mode="In" Type="String" />
+            <Parameter Name="RmaNumber" Mode="In" Type="String" />
+            <Parameter Name="CreateRTV" Mode="In" Type="Int32" />
+            <Parameter Name="PlaceSerialsOnHold" Mode="In" Type="Int32" />
+            <Parameter Name="TranDT" Mode="InOut" Type="DateTime" />
+            <Parameter Name="Result" Mode="InOut" Type="Int32" />
+          </FunctionImport>
+          <EntitySet Name="SerialsQuantitiesToAutoRMA_RTV" EntityType="MONITORModel.SerialsQuantitiesToAutoRMA_RTV" />
+          <FunctionImport Name="usp_CreateRma_Honduras">
+            <Parameter Name="OperatorCode" Mode="In" Type="String" />
+            <Parameter Name="RtvShipper" Mode="In" Type="Int32" />
+            <Parameter Name="LocationCode" Mode="In" Type="String" />
+            <Parameter Name="TranDT" Mode="InOut" Type="DateTime" />
+            <Parameter Name="Result" Mode="InOut" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="usp_ShipRtv">
+            <Parameter Name="OperatorCode" Mode="In" Type="String" />
+            <Parameter Name="RtvShipper" Mode="In" Type="Int32" />
+            <Parameter Name="LocationCode" Mode="In" Type="String" />
+            <Parameter Name="TranDT" Mode="InOut" Type="DateTime" />
+            <Parameter Name="Result" Mode="InOut" Type="Int32" />
+          </FunctionImport>
+        </EntityContainer>
+        <EntityType Name="employee">
+          <Key>
+            <PropertyRef Name="operator_code" />
+          </Key>
+          <Property Name="name" Type="String" Nullable="false" MaxLength="40" Unicode="false" FixedLength="false" />
+          <Property Name="operator_code" Type="String" Nullable="false" MaxLength="5" Unicode="false" FixedLength="false" />
+          <Property Name="password" Type="String" Nullable="false" MaxLength="5" Unicode="false" FixedLength="false" />
+          <Property Name="serial_number" Type="Int32" />
+          <Property Name="epassword" Type="String" MaxLength="Max" Unicode="false" FixedLength="false" />
+          <Property Name="operatorlevel" Type="Int32" />
+          <Property Name="employee1" Type="String" MaxLength="15" Unicode="false" FixedLength="false" />
+          <Property Name="npassword" Type="Binary" MaxLength="255" FixedLength="false" />
+          <Property Name="EmployeeID" Type="String" MaxLength="15" Unicode="true" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="vw_CreateRma_Destinations">
+          <Key>
+            <PropertyRef Name="destination" />
+          </Key>
+          <Property Type="String" Name="destination" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <ComplexType Name="usp_CreateRma_GetCustomersDestinations_Result">
+          <Property Type="String" Name="customer" Nullable="true" MaxLength="10" />
+          <Property Type="String" Name="destination" Nullable="true" MaxLength="20" />
+        </ComplexType>
+        <ComplexType Name="usp_CreateRma_ProcessByDest_Result">
+          <Property Type="Int32" Name="RmaShipper" Nullable="true" />
+          <Property Type="Int32" Name="RtvShipper" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="usp_CreateRma_ProcessByDestGl_Result">
+          <Property Type="Int32" Name="RmaShipper" Nullable="true" />
+          <Property Type="Int32" Name="RtvShipper" Nullable="true" />
+        </ComplexType>
+        <EntityType Name="SerialsQuantitiesToAutoRMA_RTV">
+          <Key>
+            <PropertyRef Name="Serial" />
+          </Key>
+          <Property Type="Int32" Name="Serial" Nullable="false" />
+          <Property Type="Decimal" Name="Quantity" Nullable="false" Precision="20" Scale="6" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="MONITORModelStoreContainer" CdmEntityContainer="MONITOREntities">
+          <EntitySetMapping Name="employees">
+            <EntityTypeMapping TypeName="MONITORModel.employee">
+              <MappingFragment StoreEntitySet="employee">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="operator_code" ColumnName="operator_code" />
+                <ScalarProperty Name="password" ColumnName="password" />
+                <ScalarProperty Name="serial_number" ColumnName="serial_number" />
+                <ScalarProperty Name="epassword" ColumnName="epassword" />
+                <ScalarProperty Name="operatorlevel" ColumnName="operatorlevel" />
+                <ScalarProperty Name="employee1" ColumnName="employee" />
+                <ScalarProperty Name="npassword" ColumnName="npassword" />
+                <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="vw_CreateRma_Destinations">
+            <EntityTypeMapping TypeName="MONITORModel.vw_CreateRma_Destinations">
+              <MappingFragment StoreEntitySet="vw_CreateRma_Destinations">
+                <ScalarProperty Name="destination" ColumnName="destination" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="usp_CreateRma_ImportSerialsQuantities" FunctionName="MONITORModel.Store.usp_CreateRma_ImportSerialsQuantities" />
+          <FunctionImportMapping FunctionImportName="usp_CreateRma_ProcessSerialsQuantities" FunctionName="MONITORModel.Store.usp_CreateRma_ProcessSerialsQuantities" />
+          <FunctionImportMapping FunctionImportName="usp_CreateRma_DeleteSerialsQuantities" FunctionName="MONITORModel.Store.usp_CreateRma_DeleteSerialsQuantities" />
+          <FunctionImportMapping FunctionImportName="usp_CreateRma_TransferOnHoldSerials" FunctionName="MONITORModel.Store.usp_CreateRma_TransferOnHoldSerials" />
+          <FunctionImportMapping FunctionImportName="usp_CreateRma_GetSerialsFromPartDest" FunctionName="MONITORModel.Store.usp_CreateRma_GetSerialsFromPartDest" />
+          <FunctionImportMapping FunctionImportName="usp_CreateRma_ProcessByDestGl" FunctionName="MONITORModel.Store.usp_CreateRma_ProcessByDestGl">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="MONITORModel.usp_CreateRma_ProcessByDestGl_Result">
+                <ScalarProperty Name="RmaShipper" ColumnName="RmaShipper" />
+                <ScalarProperty Name="RtvShipper" ColumnName="RtvShipper" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <EntitySetMapping Name="SerialsQuantitiesToAutoRMA_RTV">
+            <EntityTypeMapping TypeName="MONITORModel.SerialsQuantitiesToAutoRMA_RTV">
+              <MappingFragment StoreEntitySet="SerialsQuantitiesToAutoRMA_RTV">
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="Serial" ColumnName="Serial" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="usp_CreateRma_Honduras" FunctionName="MONITORModel.Store.usp_CreateRma_Honduras" />
+          <FunctionImportMapping FunctionImportName="usp_ShipRtv" FunctionName="MONITORModel.Store.usp_ShipRtv" />
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2008/10/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="True" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
