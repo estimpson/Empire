@@ -13,6 +13,7 @@ namespace RmaMaintenance
 
         private readonly MainController _controller;
         private NewRmaView _newRmaView;
+        private AssignPoView _assignPoView;
 
         #endregion
 
@@ -64,6 +65,8 @@ namespace RmaMaintenance
 
             lblScanInstructions.Visible = false;
             TogglePasswordEntry(ManualLogon.Show, "");
+
+            mesBtnEditRma.Visible = false;
         }
 
 
@@ -122,6 +125,12 @@ namespace RmaMaintenance
         {
             _newRmaView = new NewRmaView {OperatorCode = _operatorCode};
             _newRmaView.ShowDialog();
+        }
+
+        private void mesBtnAssignPo_Click(object sender, EventArgs e)
+        {
+            _assignPoView = new AssignPoView { OperatorCode = _operatorCode };
+            _assignPoView.ShowDialog();
         }
 
         private void mesBtnEditRma_Click(object sender, EventArgs e)

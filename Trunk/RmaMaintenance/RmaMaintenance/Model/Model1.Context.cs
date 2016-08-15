@@ -109,27 +109,6 @@ namespace RmaMaintenance.Model
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("usp_CreateRma_GetSerialsFromPartDest", operatorCodeParameter, destinationParameter, partNumberParameter, requiredQuantityParameter, tranDT, result);
         }
     
-        public virtual ObjectResult<usp_CreateRma_ProcessByDestGl_Result> usp_CreateRma_ProcessByDestGl(string operatorCode, string rmaNumber, Nullable<int> createRTV, Nullable<int> placeSerialsOnHold, ObjectParameter tranDT, ObjectParameter result)
-        {
-            var operatorCodeParameter = operatorCode != null ?
-                new ObjectParameter("OperatorCode", operatorCode) :
-                new ObjectParameter("OperatorCode", typeof(string));
-    
-            var rmaNumberParameter = rmaNumber != null ?
-                new ObjectParameter("RmaNumber", rmaNumber) :
-                new ObjectParameter("RmaNumber", typeof(string));
-    
-            var createRTVParameter = createRTV.HasValue ?
-                new ObjectParameter("CreateRTV", createRTV) :
-                new ObjectParameter("CreateRTV", typeof(int));
-    
-            var placeSerialsOnHoldParameter = placeSerialsOnHold.HasValue ?
-                new ObjectParameter("PlaceSerialsOnHold", placeSerialsOnHold) :
-                new ObjectParameter("PlaceSerialsOnHold", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_CreateRma_ProcessByDestGl_Result>("usp_CreateRma_ProcessByDestGl", operatorCodeParameter, rmaNumberParameter, createRTVParameter, placeSerialsOnHoldParameter, tranDT, result);
-        }
-    
         public virtual int usp_CreateRma_Honduras(string operatorCode, Nullable<int> rtvShipper, string locationCode, ObjectParameter tranDT, ObjectParameter result)
         {
             var operatorCodeParameter = operatorCode != null ?
@@ -162,6 +141,48 @@ namespace RmaMaintenance.Model
                 new ObjectParameter("LocationCode", typeof(string));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("usp_ShipRtv", operatorCodeParameter, rtvShipperParameter, locationCodeParameter, tranDT, result);
+        }
+    
+        public virtual ObjectResult<usp_CreateRma_ProcessByDestGl_Result> usp_CreateRma_ProcessByDestGl(string operatorCode, string rmaNumber, Nullable<int> createRTV, Nullable<int> placeSerialsOnHold, string notes, ObjectParameter tranDT, ObjectParameter result)
+        {
+            var operatorCodeParameter = operatorCode != null ?
+                new ObjectParameter("OperatorCode", operatorCode) :
+                new ObjectParameter("OperatorCode", typeof(string));
+    
+            var rmaNumberParameter = rmaNumber != null ?
+                new ObjectParameter("RmaNumber", rmaNumber) :
+                new ObjectParameter("RmaNumber", typeof(string));
+    
+            var createRTVParameter = createRTV.HasValue ?
+                new ObjectParameter("CreateRTV", createRTV) :
+                new ObjectParameter("CreateRTV", typeof(int));
+    
+            var placeSerialsOnHoldParameter = placeSerialsOnHold.HasValue ?
+                new ObjectParameter("PlaceSerialsOnHold", placeSerialsOnHold) :
+                new ObjectParameter("PlaceSerialsOnHold", typeof(int));
+    
+            var notesParameter = notes != null ?
+                new ObjectParameter("Notes", notes) :
+                new ObjectParameter("Notes", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_CreateRma_ProcessByDestGl_Result>("usp_CreateRma_ProcessByDestGl", operatorCodeParameter, rmaNumberParameter, createRTVParameter, placeSerialsOnHoldParameter, notesParameter, tranDT, result);
+        }
+    
+        public virtual int usp_StageShipoutRtv_UpdatePo(string operatorCode, Nullable<int> shipper, string part, ObjectParameter tranDT, ObjectParameter result)
+        {
+            var operatorCodeParameter = operatorCode != null ?
+                new ObjectParameter("OperatorCode", operatorCode) :
+                new ObjectParameter("OperatorCode", typeof(string));
+    
+            var shipperParameter = shipper.HasValue ?
+                new ObjectParameter("Shipper", shipper) :
+                new ObjectParameter("Shipper", typeof(int));
+    
+            var partParameter = part != null ?
+                new ObjectParameter("Part", part) :
+                new ObjectParameter("Part", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("usp_StageShipoutRtv_UpdatePo", operatorCodeParameter, shipperParameter, partParameter, tranDT, result);
         }
     }
 }

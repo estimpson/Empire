@@ -74,6 +74,7 @@
           <Parameter Name="RmaNumber" Type="varchar" Mode="In" />
           <Parameter Name="CreateRTV" Type="int" Mode="In" />
           <Parameter Name="PlaceSerialsOnHold" Type="int" Mode="In" />
+          <Parameter Name="Notes" Type="varchar" Mode="In" />
           <Parameter Name="TranDT" Type="datetime" Mode="InOut" />
           <Parameter Name="Result" Type="int" Mode="InOut" />
         </Function>
@@ -98,6 +99,13 @@
           <Parameter Name="OperatorCode" Type="varchar" Mode="In" />
           <Parameter Name="RtvShipper" Type="int" Mode="In" />
           <Parameter Name="LocationCode" Type="varchar" Mode="In" />
+          <Parameter Name="TranDT" Type="datetime" Mode="InOut" />
+          <Parameter Name="Result" Type="int" Mode="InOut" />
+        </Function>
+        <Function Name="usp_StageShipoutRtv_UpdatePo" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="OperatorCode" Type="varchar" Mode="In" />
+          <Parameter Name="Shipper" Type="int" Mode="In" />
+          <Parameter Name="Part" Type="varchar" Mode="In" />
           <Parameter Name="TranDT" Type="datetime" Mode="InOut" />
           <Parameter Name="Result" Type="int" Mode="InOut" />
         </Function>
@@ -143,14 +151,6 @@
             <Parameter Name="TranDT" Mode="InOut" Type="DateTime" />
             <Parameter Name="Result" Mode="InOut" Type="Int32" />
           </FunctionImport>
-          <FunctionImport Name="usp_CreateRma_ProcessByDestGl" ReturnType="Collection(MONITORModel.usp_CreateRma_ProcessByDestGl_Result)">
-            <Parameter Name="OperatorCode" Mode="In" Type="String" />
-            <Parameter Name="RmaNumber" Mode="In" Type="String" />
-            <Parameter Name="CreateRTV" Mode="In" Type="Int32" />
-            <Parameter Name="PlaceSerialsOnHold" Mode="In" Type="Int32" />
-            <Parameter Name="TranDT" Mode="InOut" Type="DateTime" />
-            <Parameter Name="Result" Mode="InOut" Type="Int32" />
-          </FunctionImport>
           <EntitySet Name="SerialsQuantitiesToAutoRMA_RTV" EntityType="MONITORModel.SerialsQuantitiesToAutoRMA_RTV" />
           <FunctionImport Name="usp_CreateRma_Honduras">
             <Parameter Name="OperatorCode" Mode="In" Type="String" />
@@ -163,6 +163,22 @@
             <Parameter Name="OperatorCode" Mode="In" Type="String" />
             <Parameter Name="RtvShipper" Mode="In" Type="Int32" />
             <Parameter Name="LocationCode" Mode="In" Type="String" />
+            <Parameter Name="TranDT" Mode="InOut" Type="DateTime" />
+            <Parameter Name="Result" Mode="InOut" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="usp_CreateRma_ProcessByDestGl" ReturnType="Collection(MONITORModel.usp_CreateRma_ProcessByDestGl_Result)">
+            <Parameter Name="OperatorCode" Mode="In" Type="String" />
+            <Parameter Name="RmaNumber" Mode="In" Type="String" />
+            <Parameter Name="CreateRTV" Mode="In" Type="Int32" />
+            <Parameter Name="PlaceSerialsOnHold" Mode="In" Type="Int32" />
+            <Parameter Name="Notes" Mode="In" Type="String" />
+            <Parameter Name="TranDT" Mode="InOut" Type="DateTime" />
+            <Parameter Name="Result" Mode="InOut" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="usp_StageShipoutRtv_UpdatePo">
+            <Parameter Name="OperatorCode" Mode="In" Type="String" />
+            <Parameter Name="Shipper" Mode="In" Type="Int32" />
+            <Parameter Name="Part" Mode="In" Type="String" />
             <Parameter Name="TranDT" Mode="InOut" Type="DateTime" />
             <Parameter Name="Result" Mode="InOut" Type="Int32" />
           </FunctionImport>
@@ -206,6 +222,14 @@
           <Property Type="Int32" Name="Serial" Nullable="false" />
           <Property Type="Decimal" Name="Quantity" Nullable="false" Precision="20" Scale="6" />
         </EntityType>
+        <ComplexType Name="usp_CreateRma_ProcessByDestGl_Result1">
+          <Property Type="Int32" Name="Serial" Nullable="false" />
+          <Property Type="Decimal" Name="Quantity" Nullable="false" Precision="20" Scale="6" />
+        </ComplexType>
+        <ComplexType Name="usp_CreateRma_ProcessByDestGl_Result2">
+          <Property Type="Int32" Name="Serial" Nullable="false" />
+          <Property Type="Decimal" Name="Quantity" Nullable="false" Precision="20" Scale="6" />
+        </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -239,14 +263,6 @@
           <FunctionImportMapping FunctionImportName="usp_CreateRma_DeleteSerialsQuantities" FunctionName="MONITORModel.Store.usp_CreateRma_DeleteSerialsQuantities" />
           <FunctionImportMapping FunctionImportName="usp_CreateRma_TransferOnHoldSerials" FunctionName="MONITORModel.Store.usp_CreateRma_TransferOnHoldSerials" />
           <FunctionImportMapping FunctionImportName="usp_CreateRma_GetSerialsFromPartDest" FunctionName="MONITORModel.Store.usp_CreateRma_GetSerialsFromPartDest" />
-          <FunctionImportMapping FunctionImportName="usp_CreateRma_ProcessByDestGl" FunctionName="MONITORModel.Store.usp_CreateRma_ProcessByDestGl">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="MONITORModel.usp_CreateRma_ProcessByDestGl_Result">
-                <ScalarProperty Name="RmaShipper" ColumnName="RmaShipper" />
-                <ScalarProperty Name="RtvShipper" ColumnName="RtvShipper" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
           <EntitySetMapping Name="SerialsQuantitiesToAutoRMA_RTV">
             <EntityTypeMapping TypeName="MONITORModel.SerialsQuantitiesToAutoRMA_RTV">
               <MappingFragment StoreEntitySet="SerialsQuantitiesToAutoRMA_RTV">
@@ -257,6 +273,15 @@
           </EntitySetMapping>
           <FunctionImportMapping FunctionImportName="usp_CreateRma_Honduras" FunctionName="MONITORModel.Store.usp_CreateRma_Honduras" />
           <FunctionImportMapping FunctionImportName="usp_ShipRtv" FunctionName="MONITORModel.Store.usp_ShipRtv" />
+          <FunctionImportMapping FunctionImportName="usp_CreateRma_ProcessByDestGl" FunctionName="MONITORModel.Store.usp_CreateRma_ProcessByDestGl">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="MONITORModel.usp_CreateRma_ProcessByDestGl_Result">
+                <ScalarProperty Name="RmaShipper" ColumnName="RmaShipper" />
+                <ScalarProperty Name="RtvShipper" ColumnName="RtvShipper" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="usp_StageShipoutRtv_UpdatePo" FunctionName="MONITORModel.Store.usp_StageShipoutRtv_UpdatePo" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
