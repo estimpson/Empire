@@ -51,6 +51,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controllers\AssignPoController.cs" />
     <Compile Include="Controllers\MainController.cs" />
     <Compile Include="Controllers\NewRmaCreateController.cs" />
     <Compile Include="Controls\Messages.cs">
@@ -101,6 +102,12 @@
     <Compile Include="Model\usp_CreateRma_ProcessByDestGl_Result.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Model\usp_CreateRma_ProcessByDestGl_Result1.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\usp_CreateRma_ProcessByDestGl_Result2.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="Model\usp_CreateRma_ProcessByDest_Result.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -126,6 +133,12 @@
     </Compile>
     <Compile Include="UserControls\ucNewRmaOptions.Designer.cs">
       <DependentUpon>ucNewRmaOptions.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\AssignPoView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\AssignPoView.Designer.cs">
+      <DependentUpon>AssignPoView.cs</DependentUpon>
     </Compile>
     <Compile Include="Views\EditRmaView.cs">
       <SubType>Form</SubType>
@@ -171,6 +184,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UserControls\ucNewRmaOptions.resx">
       <DependentUpon>ucNewRmaOptions.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\AssignPoView.resx">
+      <DependentUpon>AssignPoView.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\EditRmaView.resx">
       <DependentUpon>EditRmaView.cs</DependentUpon>

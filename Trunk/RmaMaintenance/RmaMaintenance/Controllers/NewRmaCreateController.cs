@@ -188,14 +188,14 @@ namespace RmaMaintenance.Controllers
             return 1;
         }
 
-        public int ProcessData(string operatorCode, string rmaNumber, int createRtvShipper, int placeSerialsOnHold)
+        public int ProcessData(string operatorCode, string rmaNumber, int createRtvShipper, int placeSerialsOnHold, string note)
         {
             var dt = new ObjectParameter("TranDT", typeof(DateTime));
             var result = new ObjectParameter("Result", typeof(int));
 
             try
             {
-                var query = _context.usp_CreateRma_ProcessByDestGl(operatorCode, rmaNumber, createRtvShipper, placeSerialsOnHold, dt, result);
+                var query = _context.usp_CreateRma_ProcessByDestGl(operatorCode, rmaNumber, createRtvShipper, placeSerialsOnHold, note, dt, result);
 
                 foreach (var item in query)
                 {

@@ -32,6 +32,7 @@
             this.linkLblClose = new System.Windows.Forms.LinkLabel();
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.mesBtnNewRma = new Fx.WinForms.Flat.MESButton();
+            this.mesBtnAssignPo = new Fx.WinForms.Flat.MESButton();
             this.mesBtnEditRma = new Fx.WinForms.Flat.MESButton();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.label1 = new System.Windows.Forms.Label();
@@ -83,6 +84,7 @@
             // flowLayoutPanel1
             // 
             this.flowLayoutPanel1.Controls.Add(this.mesBtnNewRma);
+            this.flowLayoutPanel1.Controls.Add(this.mesBtnAssignPo);
             this.flowLayoutPanel1.Controls.Add(this.mesBtnEditRma);
             this.flowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.flowLayoutPanel1.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
@@ -101,13 +103,31 @@
             this.mesBtnNewRma.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.mesBtnNewRma.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
             this.mesBtnNewRma.Location = new System.Drawing.Point(3, 3);
-            this.mesBtnNewRma.Margin = new System.Windows.Forms.Padding(3, 3, 3, 6);
+            this.mesBtnNewRma.Margin = new System.Windows.Forms.Padding(3, 3, 3, 9);
             this.mesBtnNewRma.Name = "mesBtnNewRma";
             this.mesBtnNewRma.Size = new System.Drawing.Size(158, 35);
             this.mesBtnNewRma.TabIndex = 0;
             this.mesBtnNewRma.Text = "RMA / RTV";
             this.mesBtnNewRma.UseVisualStyleBackColor = false;
             this.mesBtnNewRma.Click += new System.EventHandler(this.mesBtnNewRma_Click);
+            // 
+            // mesBtnAssignPo
+            // 
+            this.mesBtnAssignPo.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(31)))), ((int)(((byte)(31)))), ((int)(((byte)(32)))));
+            this.mesBtnAssignPo.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(67)))), ((int)(((byte)(67)))), ((int)(((byte)(70)))));
+            this.mesBtnAssignPo.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(122)))), ((int)(((byte)(204)))));
+            this.mesBtnAssignPo.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(84)))), ((int)(((byte)(84)))), ((int)(((byte)(92)))));
+            this.mesBtnAssignPo.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.mesBtnAssignPo.Font = new System.Drawing.Font("Tahoma", 14F);
+            this.mesBtnAssignPo.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
+            this.mesBtnAssignPo.Location = new System.Drawing.Point(3, 50);
+            this.mesBtnAssignPo.Margin = new System.Windows.Forms.Padding(3, 3, 3, 9);
+            this.mesBtnAssignPo.Name = "mesBtnAssignPo";
+            this.mesBtnAssignPo.Size = new System.Drawing.Size(158, 35);
+            this.mesBtnAssignPo.TabIndex = 2;
+            this.mesBtnAssignPo.Text = "Assign PO";
+            this.mesBtnAssignPo.UseVisualStyleBackColor = false;
+            this.mesBtnAssignPo.Click += new System.EventHandler(this.mesBtnAssignPo_Click);
             // 
             // mesBtnEditRma
             // 
@@ -118,7 +138,7 @@
             this.mesBtnEditRma.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.mesBtnEditRma.Font = new System.Drawing.Font("Tahoma", 14F);
             this.mesBtnEditRma.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
-            this.mesBtnEditRma.Location = new System.Drawing.Point(3, 47);
+            this.mesBtnEditRma.Location = new System.Drawing.Point(3, 97);
             this.mesBtnEditRma.Margin = new System.Windows.Forms.Padding(3, 3, 3, 6);
             this.mesBtnEditRma.Name = "mesBtnEditRma";
             this.mesBtnEditRma.Size = new System.Drawing.Size(158, 35);
@@ -282,6 +302,7 @@
         private System.Windows.Forms.Label lblLogonError;
         private System.Windows.Forms.Label lblScanInstructions;
         private Fx.WinForms.Flat.MESButton mesBtnEditRma;
+        private Fx.WinForms.Flat.MESButton mesBtnAssignPo;
     }
 }
 

@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             this.tlpMain = new System.Windows.Forms.TableLayoutPanel();
             this.tlpPasteSerials = new System.Windows.Forms.TableLayoutPanel();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
@@ -52,6 +52,7 @@
             this.rbtnTransferHonduras = new System.Windows.Forms.RadioButton();
             this.rbtnTransferWarehouse = new System.Windows.Forms.RadioButton();
             this.tableLayoutPanel8 = new System.Windows.Forms.TableLayoutPanel();
+            this.mesTbxHonLoc = new Fx.WinForms.Flat.MESTextEdit();
             this.lblRmaShipper = new System.Windows.Forms.Label();
             this.lblRtvShipper = new System.Windows.Forms.Label();
             this.mesTbxRmaShipper = new Fx.WinForms.Flat.MESTextEdit();
@@ -59,7 +60,6 @@
             this.mesTbxRtvShipper = new Fx.WinForms.Flat.MESTextEdit();
             this.mesBtnRtvShipper = new Fx.WinForms.Flat.MESButton();
             this.label3 = new System.Windows.Forms.Label();
-            this.mesTbxHonLoc = new Fx.WinForms.Flat.MESTextEdit();
             this.tableLayoutPanel7 = new System.Windows.Forms.TableLayoutPanel();
             this.dgvNewShippers = new System.Windows.Forms.DataGridView();
             this.tableLayoutPanel9 = new System.Windows.Forms.TableLayoutPanel();
@@ -67,6 +67,10 @@
             this.cbxSerialsOnHold = new System.Windows.Forms.CheckBox();
             this.cbxCreateRtv = new System.Windows.Forms.CheckBox();
             this.mesBtnCreateRma = new Fx.WinForms.Flat.MESButton();
+            this.tableLayoutPanel5 = new System.Windows.Forms.TableLayoutPanel();
+            this.tableLayoutPanel11 = new System.Windows.Forms.TableLayoutPanel();
+            this.label4 = new System.Windows.Forms.Label();
+            this.mesTbxRmaNote = new Fx.WinForms.Flat.MESTextEdit();
             this.tlpMain.SuspendLayout();
             this.tlpPasteSerials.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
@@ -82,6 +86,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.dgvNewShippers)).BeginInit();
             this.tableLayoutPanel9.SuspendLayout();
             this.tableLayoutPanel6.SuspendLayout();
+            this.tableLayoutPanel5.SuspendLayout();
+            this.tableLayoutPanel11.SuspendLayout();
             this.SuspendLayout();
             // 
             // tlpMain
@@ -100,7 +106,7 @@
             this.tlpMain.Name = "tlpMain";
             this.tlpMain.RowCount = 1;
             this.tlpMain.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tlpMain.Size = new System.Drawing.Size(975, 412);
+            this.tlpMain.Size = new System.Drawing.Size(1191, 412);
             this.tlpMain.TabIndex = 0;
             // 
             // tlpPasteSerials
@@ -316,7 +322,7 @@
             this.tlpRmaProcess.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 125F));
             this.tlpRmaProcess.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 185F));
             this.tlpRmaProcess.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tlpRmaProcess.Size = new System.Drawing.Size(427, 406);
+            this.tlpRmaProcess.Size = new System.Drawing.Size(643, 406);
             this.tlpRmaProcess.TabIndex = 2;
             // 
             // tableLayoutPanel10
@@ -335,7 +341,7 @@
             this.tableLayoutPanel10.RowCount = 2;
             this.tableLayoutPanel10.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 45F));
             this.tableLayoutPanel10.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel10.Size = new System.Drawing.Size(421, 90);
+            this.tableLayoutPanel10.Size = new System.Drawing.Size(637, 90);
             this.tableLayoutPanel10.TabIndex = 3;
             // 
             // mesTbxWarehouseLoc
@@ -391,7 +397,7 @@
             this.tableLayoutPanel3.Name = "tableLayoutPanel3";
             this.tableLayoutPanel3.RowCount = 1;
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 45F));
-            this.tableLayoutPanel3.Size = new System.Drawing.Size(261, 45);
+            this.tableLayoutPanel3.Size = new System.Drawing.Size(477, 45);
             this.tableLayoutPanel3.TabIndex = 12;
             // 
             // rbtnTransferHonduras
@@ -445,8 +451,20 @@
             this.tableLayoutPanel8.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 33F));
             this.tableLayoutPanel8.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 33F));
             this.tableLayoutPanel8.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel8.Size = new System.Drawing.Size(421, 179);
+            this.tableLayoutPanel8.Size = new System.Drawing.Size(637, 179);
             this.tableLayoutPanel8.TabIndex = 1;
+            // 
+            // mesTbxHonLoc
+            // 
+            this.mesTbxHonLoc.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(37)))), ((int)(((byte)(38)))));
+            this.mesTbxHonLoc.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.mesTbxHonLoc.Font = new System.Drawing.Font("Tahoma", 12F);
+            this.mesTbxHonLoc.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
+            this.mesTbxHonLoc.Location = new System.Drawing.Point(163, 112);
+            this.mesTbxHonLoc.MaxLength = 20;
+            this.mesTbxHonLoc.Name = "mesTbxHonLoc";
+            this.mesTbxHonLoc.Size = new System.Drawing.Size(113, 27);
+            this.mesTbxHonLoc.TabIndex = 9;
             // 
             // lblRmaShipper
             // 
@@ -534,54 +552,42 @@
             this.label3.TabIndex = 8;
             this.label3.Text = "HN RMA Location:";
             // 
-            // mesTbxHonLoc
-            // 
-            this.mesTbxHonLoc.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(37)))), ((int)(((byte)(38)))));
-            this.mesTbxHonLoc.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.mesTbxHonLoc.Font = new System.Drawing.Font("Tahoma", 12F);
-            this.mesTbxHonLoc.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
-            this.mesTbxHonLoc.Location = new System.Drawing.Point(163, 112);
-            this.mesTbxHonLoc.MaxLength = 20;
-            this.mesTbxHonLoc.Name = "mesTbxHonLoc";
-            this.mesTbxHonLoc.Size = new System.Drawing.Size(113, 27);
-            this.mesTbxHonLoc.TabIndex = 9;
-            // 
             // tableLayoutPanel7
             // 
             this.tableLayoutPanel7.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(19)))), ((int)(((byte)(19)))), ((int)(((byte)(19)))));
             this.tableLayoutPanel7.ColumnCount = 2;
             this.tableLayoutPanel7.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 160F));
             this.tableLayoutPanel7.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel7.Controls.Add(this.dgvNewShippers, 1, 0);
             this.tableLayoutPanel7.Controls.Add(this.tableLayoutPanel9, 0, 0);
+            this.tableLayoutPanel7.Controls.Add(this.tableLayoutPanel5, 1, 0);
             this.tableLayoutPanel7.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel7.Location = new System.Drawing.Point(3, 3);
             this.tableLayoutPanel7.Name = "tableLayoutPanel7";
             this.tableLayoutPanel7.RowCount = 1;
             this.tableLayoutPanel7.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 45F));
-            this.tableLayoutPanel7.Size = new System.Drawing.Size(421, 119);
+            this.tableLayoutPanel7.Size = new System.Drawing.Size(637, 119);
             this.tableLayoutPanel7.TabIndex = 0;
             // 
             // dgvNewShippers
             // 
             this.dgvNewShippers.BackgroundColor = System.Drawing.Color.Black;
             this.dgvNewShippers.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle8.BackColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle8.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle8.ForeColor = System.Drawing.Color.White;
-            dataGridViewCellStyle8.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle8.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle8.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgvNewShippers.DefaultCellStyle = dataGridViewCellStyle8;
-            this.dgvNewShippers.Location = new System.Drawing.Point(163, 3);
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.BackColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle3.ForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgvNewShippers.DefaultCellStyle = dataGridViewCellStyle3;
+            this.dgvNewShippers.Location = new System.Drawing.Point(3, 3);
             this.dgvNewShippers.MultiSelect = false;
             this.dgvNewShippers.Name = "dgvNewShippers";
             this.dgvNewShippers.ReadOnly = true;
             this.dgvNewShippers.RowHeadersVisible = false;
             this.dgvNewShippers.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.dgvNewShippers.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvNewShippers.Size = new System.Drawing.Size(255, 108);
+            this.dgvNewShippers.Size = new System.Drawing.Size(250, 107);
             this.dgvNewShippers.TabIndex = 4;
             this.dgvNewShippers.RowPrePaint += new System.Windows.Forms.DataGridViewRowPrePaintEventHandler(this.dgvNewShippers_RowPrePaint);
             this.dgvNewShippers.SelectionChanged += new System.EventHandler(this.dgvNewShippers_SelectionChanged);
@@ -660,6 +666,61 @@
             this.mesBtnCreateRma.UseVisualStyleBackColor = false;
             this.mesBtnCreateRma.Click += new System.EventHandler(this.mesBtnCreateRma_Click);
             // 
+            // tableLayoutPanel5
+            // 
+            this.tableLayoutPanel5.ColumnCount = 2;
+            this.tableLayoutPanel5.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 260F));
+            this.tableLayoutPanel5.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel5.Controls.Add(this.dgvNewShippers, 0, 0);
+            this.tableLayoutPanel5.Controls.Add(this.tableLayoutPanel11, 1, 0);
+            this.tableLayoutPanel5.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanel5.Location = new System.Drawing.Point(163, 3);
+            this.tableLayoutPanel5.Name = "tableLayoutPanel5";
+            this.tableLayoutPanel5.RowCount = 1;
+            this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel5.Size = new System.Drawing.Size(471, 113);
+            this.tableLayoutPanel5.TabIndex = 4;
+            // 
+            // tableLayoutPanel11
+            // 
+            this.tableLayoutPanel11.ColumnCount = 1;
+            this.tableLayoutPanel11.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel11.Controls.Add(this.label4, 0, 0);
+            this.tableLayoutPanel11.Controls.Add(this.mesTbxRmaNote, 0, 1);
+            this.tableLayoutPanel11.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanel11.Location = new System.Drawing.Point(260, 0);
+            this.tableLayoutPanel11.Margin = new System.Windows.Forms.Padding(0);
+            this.tableLayoutPanel11.Name = "tableLayoutPanel11";
+            this.tableLayoutPanel11.RowCount = 2;
+            this.tableLayoutPanel11.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25F));
+            this.tableLayoutPanel11.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel11.Size = new System.Drawing.Size(211, 113);
+            this.tableLayoutPanel11.TabIndex = 5;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.ForeColor = System.Drawing.Color.White;
+            this.label4.Location = new System.Drawing.Point(3, 0);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(39, 16);
+            this.label4.TabIndex = 1;
+            this.label4.Text = "Note:";
+            // 
+            // mesTbxRmaNote
+            // 
+            this.mesTbxRmaNote.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(37)))), ((int)(((byte)(38)))));
+            this.mesTbxRmaNote.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.mesTbxRmaNote.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.mesTbxRmaNote.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
+            this.mesTbxRmaNote.Location = new System.Drawing.Point(3, 28);
+            this.mesTbxRmaNote.MaxLength = 110;
+            this.mesTbxRmaNote.Multiline = true;
+            this.mesTbxRmaNote.Name = "mesTbxRmaNote";
+            this.mesTbxRmaNote.Size = new System.Drawing.Size(202, 82);
+            this.mesTbxRmaNote.TabIndex = 2;
+            // 
             // ucNewRmaCreate
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -667,7 +728,7 @@
             this.BackColor = System.Drawing.Color.Black;
             this.Controls.Add(this.tlpMain);
             this.Name = "ucNewRmaCreate";
-            this.Size = new System.Drawing.Size(975, 412);
+            this.Size = new System.Drawing.Size(1191, 412);
             this.tlpMain.ResumeLayout(false);
             this.tlpMain.PerformLayout();
             this.tlpPasteSerials.ResumeLayout(false);
@@ -689,6 +750,9 @@
             this.tableLayoutPanel9.ResumeLayout(false);
             this.tableLayoutPanel6.ResumeLayout(false);
             this.tableLayoutPanel6.PerformLayout();
+            this.tableLayoutPanel5.ResumeLayout(false);
+            this.tableLayoutPanel11.ResumeLayout(false);
+            this.tableLayoutPanel11.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -734,5 +798,9 @@
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel9;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel6;
         private Fx.WinForms.Flat.MESButton mesBtnCreateRma;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel5;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel11;
+        private System.Windows.Forms.Label label4;
+        private Fx.WinForms.Flat.MESTextEdit mesTbxRmaNote;
     }
 }

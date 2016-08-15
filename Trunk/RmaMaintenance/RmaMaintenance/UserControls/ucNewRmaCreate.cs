@@ -408,8 +408,9 @@ namespace RmaMaintenance.UserControls
         {
             int createRtvShipper = (cbxCreateRtv.Checked) ? 1 : 0;
             int placeSerialsOnHold = (cbxSerialsOnHold.Checked) ? 1 : 0;
+            string note = mesTbxRmaNote.Text.Trim();
 
-            int result = _controller.ProcessData(_view.OperatorCode, _view.RmaNumber, createRtvShipper, placeSerialsOnHold);
+            int result = _controller.ProcessData(_view.OperatorCode, _view.RmaNumber, createRtvShipper, placeSerialsOnHold, note);
             if (result == 0) return;
 
             // Success
