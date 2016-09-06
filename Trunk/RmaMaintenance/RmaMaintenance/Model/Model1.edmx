@@ -104,8 +104,7 @@
         </Function>
         <Function Name="usp_StageShipoutRtv_UpdatePo" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="OperatorCode" Type="varchar" Mode="In" />
-          <Parameter Name="Shipper" Type="int" Mode="In" />
-          <Parameter Name="Part" Type="varchar" Mode="In" />
+          <Parameter Name="Serial" Type="int" Mode="In" />
           <Parameter Name="TranDT" Type="datetime" Mode="InOut" />
           <Parameter Name="Result" Type="int" Mode="InOut" />
         </Function>
@@ -177,8 +176,7 @@
           </FunctionImport>
           <FunctionImport Name="usp_StageShipoutRtv_UpdatePo">
             <Parameter Name="OperatorCode" Mode="In" Type="String" />
-            <Parameter Name="Shipper" Mode="In" Type="Int32" />
-            <Parameter Name="Part" Mode="In" Type="String" />
+            <Parameter Name="Serial" Mode="In" Type="Int32" />
             <Parameter Name="TranDT" Mode="InOut" Type="DateTime" />
             <Parameter Name="Result" Mode="InOut" Type="Int32" />
           </FunctionImport>
