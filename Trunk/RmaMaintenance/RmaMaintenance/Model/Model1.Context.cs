@@ -168,21 +168,17 @@ namespace RmaMaintenance.Model
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_CreateRma_ProcessByDestGl_Result>("usp_CreateRma_ProcessByDestGl", operatorCodeParameter, rmaNumberParameter, createRTVParameter, placeSerialsOnHoldParameter, notesParameter, tranDT, result);
         }
     
-        public virtual int usp_StageShipoutRtv_UpdatePo(string operatorCode, Nullable<int> shipper, string part, ObjectParameter tranDT, ObjectParameter result)
+        public virtual int usp_StageShipoutRtv_UpdatePo(string operatorCode, Nullable<int> serial, ObjectParameter tranDT, ObjectParameter result)
         {
             var operatorCodeParameter = operatorCode != null ?
                 new ObjectParameter("OperatorCode", operatorCode) :
                 new ObjectParameter("OperatorCode", typeof(string));
     
-            var shipperParameter = shipper.HasValue ?
-                new ObjectParameter("Shipper", shipper) :
-                new ObjectParameter("Shipper", typeof(int));
+            var serialParameter = serial.HasValue ?
+                new ObjectParameter("Serial", serial) :
+                new ObjectParameter("Serial", typeof(int));
     
-            var partParameter = part != null ?
-                new ObjectParameter("Part", part) :
-                new ObjectParameter("Part", typeof(string));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("usp_StageShipoutRtv_UpdatePo", operatorCodeParameter, shipperParameter, partParameter, tranDT, result);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("usp_StageShipoutRtv_UpdatePo", operatorCodeParameter, serialParameter, tranDT, result);
         }
     }
 }
