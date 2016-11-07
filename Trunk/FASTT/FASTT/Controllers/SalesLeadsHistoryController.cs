@@ -56,6 +56,7 @@ namespace FASTT.Controllers
                     {
                         _salesLeadHistoryDataModel = new SalesLeadHistoryDataModel
                             {
+                                Status = item.StatusType,
                                 Activity = item.Activity,
                                 ActivityDate = item.ActivityDate,
                                 Duration = item.Duration,

@@ -40,8 +40,8 @@
             this.mesBtnCopy = new Fx.WinForms.Flat.MESButton();
             this.mesBtnNew = new Fx.WinForms.Flat.MESButton();
             this.tableLayoutPanel4 = new System.Windows.Forms.TableLayoutPanel();
-            this.label3 = new System.Windows.Forms.Label();
             this.lblHeaderInfo = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.grdSalesActivity)).BeginInit();
@@ -98,6 +98,8 @@
             // 
             // gridView1
             // 
+            this.gridView1.Appearance.HeaderPanel.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.gridView1.Appearance.HeaderPanel.Options.UseFont = true;
             this.gridView1.GridControl = this.grdSalesActivity;
             this.gridView1.Name = "gridView1";
             // 
@@ -138,9 +140,9 @@
             this.label1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(122)))), ((int)(((byte)(204)))));
             this.label1.Location = new System.Drawing.Point(3, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(205, 25);
+            this.label1.Size = new System.Drawing.Size(174, 25);
             this.label1.TabIndex = 4;
-            this.label1.Text = "Sales Activity History";
+            this.label1.Text = "Sales Activity Log";
             // 
             // lblErrorMessage
             // 
@@ -220,6 +222,20 @@
             this.tableLayoutPanel4.Size = new System.Drawing.Size(606, 49);
             this.tableLayoutPanel4.TabIndex = 2;
             // 
+            // lblHeaderInfo
+            // 
+            this.lblHeaderInfo.AutoSize = true;
+            this.lblHeaderInfo.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(122)))), ((int)(((byte)(204)))));
+            this.lblHeaderInfo.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.lblHeaderInfo.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblHeaderInfo.ForeColor = System.Drawing.Color.White;
+            this.lblHeaderInfo.Location = new System.Drawing.Point(3, 23);
+            this.lblHeaderInfo.Margin = new System.Windows.Forms.Padding(3, 3, 3, 0);
+            this.lblHeaderInfo.Name = "lblHeaderInfo";
+            this.lblHeaderInfo.Size = new System.Drawing.Size(155, 20);
+            this.lblHeaderInfo.TabIndex = 12;
+            this.lblHeaderInfo.Text = "Sales lead header info";
+            // 
             // label3
             // 
             this.label3.AutoSize = true;
@@ -228,23 +244,10 @@
             this.label3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(122)))), ((int)(((byte)(204)))));
             this.label3.Location = new System.Drawing.Point(3, 0);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(519, 16);
+            this.label3.Size = new System.Drawing.Size(508, 16);
             this.label3.TabIndex = 10;
-            this.label3.Text = "Double click a sales lead activity row to edit it, or highlight a row and click C" +
-    "opy or New.";
-            // 
-            // lblHeaderInfo
-            // 
-            this.lblHeaderInfo.AutoSize = true;
-            this.lblHeaderInfo.BackColor = System.Drawing.Color.Black;
-            this.lblHeaderInfo.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.lblHeaderInfo.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblHeaderInfo.ForeColor = System.Drawing.Color.White;
-            this.lblHeaderInfo.Location = new System.Drawing.Point(3, 20);
-            this.lblHeaderInfo.Name = "lblHeaderInfo";
-            this.lblHeaderInfo.Size = new System.Drawing.Size(169, 22);
-            this.lblHeaderInfo.TabIndex = 12;
-            this.lblHeaderInfo.Text = "Sales lead header info";
+            this.label3.Text = "Double-click a sales activity record to edit it, or highlight a row and click Cop" +
+    "y or New.";
             // 
             // SalesLeadsHistoryView
             // 

@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using FASTT.Controllers;
+using FASTT.Controls;
 
 namespace FASTT.Views
 {
@@ -15,6 +16,7 @@ namespace FASTT.Views
         #region Class Objects
 
         private readonly SalesLeadsHistoryController _controller;
+        private readonly CustomMessageBox _messageBox;
 
         #endregion
 
@@ -23,10 +25,12 @@ namespace FASTT.Views
 
         public string OperatorCode { get; set; }
         public int SalesLeadId { get; set; }
+        public int CombinedLightingId { get; set; }
         public string Customer { get; set; }
         public string Program { get; set; }
         public string Application { get; set; }
         public string Sop { get; set; }
+        public string Eop { get; set; }
         public string Volume { get; set; }
 
         private string _error;
@@ -64,6 +68,7 @@ namespace FASTT.Views
             InitializeComponent();
 
             _controller = new SalesLeadsHistoryController();
+            _messageBox = new CustomMessageBox();
         }
 
         private void SalesLeadsHistoryView_Load(object sender, EventArgs e)
@@ -72,7 +77,7 @@ namespace FASTT.Views
             linkLblClose.LinkBehavior = LinkBehavior.NeverUnderline;
             Error = "";
 
-            lblHeaderInfo.Text = string.Format("{0}   {1}   {2}   {3}   {4}", Customer, Program, Application, Sop, Volume);
+            lblHeaderInfo.Text = string.Format("{0}   {1}   {2}    SOP:  {3}    EOP:  {4}    VOL:  {5}", Customer, Program, Application, Sop, Eop, Volume);
 
             if (GetActivityHistory() == 0) Close();
         }
@@ -137,12 +142,34 @@ namespace FASTT.Views
 
         private void mesBtnCopy_Click(object sender, EventArgs e)
         {
+            int r = gridView1.GetSelectedRows()[0];
+            if (r < 0) return;
+
+            string status = (gridView1.GetRowCellValue(r, "Status") != null) ? gridView1.GetRowCellValue(r, "Status").ToString() : "";
+            if (status == "Awarded" || status == "Closed")
+            {
+                _messageBox.Message = "Cannot copy an Awarded or Closed activity.";
+                _messageBox.ShowDialog();
+                return;
+            }
+
             _type = ActivityType.Copy;
             SalesLeadActivity();
         }
 
         private void mesBtnNew_Click(object sender, EventArgs e)
         {
+            int r = gridView1.GetSelectedRows()[0];
+            if (r < 0) return;
+
+            //string status = (gridView1.GetRowCellValue(r, "Status") != null) ? gridView1.GetRowCellValue(r, "Status").ToString() : "";
+            //if (status == "Awarded" || status == "Closed")
+            //{
+            //    _messageBox.Message = "Cannot create new activity entries for sales leads that have been awarded or closed.";
+            //    _messageBox.ShowDialog();
+            //    return;
+            //}
+
             _type = ActivityType.New;
             SalesLeadActivity();
         }
@@ -183,17 +210,22 @@ namespace FASTT.Views
             string contactPhone = (gridView1.GetRowCellValue(r, "ContactPhoneNumber") != null) ? gridView1.GetRowCellValue(r, "ContactPhoneNumber").ToString() : "";
             string contactEmail = (gridView1.GetRowCellValue(r, "ContactEmailAddress") != null) ? gridView1.GetRowCellValue(r, "ContactEmailAddress").ToString() : "";
             string notes = (gridView1.GetRowCellValue(r, "Notes") != null) ? gridView1.GetRowCellValue(r, "Notes").ToString() : "";
+            string status = (gridView1.GetRowCellValue(r, "Status") != null) ? gridView1.GetRowCellValue(r, "Status").ToString() : "";
             int rowId = Convert.ToInt32(gridView1.GetRowCellValue(r, "RowId"));
 
             var form = new SalesLeadsActivityDetailsView();
 
             form.OperatorCode = OperatorCode;
             form.SalesLeadId = SalesLeadId;
+            form.CombinedLightingId = CombinedLightingId;
             form.Customer = Customer;
             form.Program = Program;
             form.Application = Application;
             form.Sop = Sop;
+            form.Eop = Eop;
             form.Volume = Volume;
+
+            form.Status = status;
 
             if (_type == ActivityType.Edit) form.ActivityRowId = rowId;
             if (_type == ActivityType.Edit) form.ActivityDate = activityDate;

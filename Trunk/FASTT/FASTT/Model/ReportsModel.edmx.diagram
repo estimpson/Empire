@@ -4,7 +4,16 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2008/10/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="ace5a80ecf4b4accba8b2459c018724c" Name="Diagram1" />
+      <Diagram DiagramId="ace5a80ecf4b4accba8b2459c018724c" Name="Diagram1" >
+        <EntityTypeShape EntityType="MONITORModel1.ST_CustomersWithProgramsLaunching2017" Width="3.25" PointX="3.375" PointY="0.5" />
+        <EntityTypeShape EntityType="MONITORModel1.ST_CustomersWithProgramsLaunching2018" Width="3.25" PointX="3.375" PointY="2.125" />
+        <EntityTypeShape EntityType="MONITORModel1.ST_CustomersWithProgramsLaunching2019" Width="3.25" PointX="3.375" PointY="3.75" />
+        <EntityTypeShape EntityType="MONITORModel1.vw_ST_LightingStudy_2016" Width="2.25" PointX="0.625" PointY="0.5" />
+        <EntityTypeShape EntityType="MONITORModel1.vw_ST_SalesPersonActivity_OneWeek" Width="2.875" PointX="7.125" PointY="0.5" />
+        <EntityTypeShape EntityType="MONITORModel1.ST_CustomersWithProgramsClosing2017" Width="3.25" PointX="3.375" PointY="5.625" />
+        <EntityTypeShape EntityType="MONITORModel1.ST_CustomersWithProgramsClosing2018" Width="3.25" PointX="3.375" PointY="7.25" />
+        <EntityTypeShape EntityType="MONITORModel1.ST_CustomersWithProgramsClosing2019" Width="3.25" PointX="3.375" PointY="8.875" />
+      </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
 </edmx:Edmx>

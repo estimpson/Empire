@@ -69,10 +69,12 @@ namespace FASTT.Controllers
                             Program = item.Program,
                             Application = item.Application,
                             Sop = item.SOP,
-                            Volume = item.Volume,
-                            SalesValue = item.SalesValue,
+                            Eop = item.EOP,
+                            Status = item.Status,
+                            PeakVolume = string.Format("{0:n0}", item.PeakVolume),
                             LastSalesActivity = item.LastSalesActivity,
-                            ID = item.RowID
+                            ID = item.RowID,
+                            CombinedLightingID = item.CombinedLightingId
                         };
                         SalesLeadList.Add(_salesLeadActivityDataModel);
                     }

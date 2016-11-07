@@ -39,6 +39,7 @@ namespace FASTT.Views
         public string Program { get; set; }
         public string Application { get; set; }
         public string Sop { get; set; }
+        public string Eop { get; set; }
         public string Volume { get; set; }
         public string Activity { get; set; }
         public string ActivityDate { get; set; }
@@ -47,6 +48,7 @@ namespace FASTT.Views
         public string ContactPhone { get; set; }
         public string ContactEmail { get; set; }
         public string Notes { get; set; }
+        public string Status { get; set; }
 
         #endregion
 
@@ -112,6 +114,35 @@ namespace FASTT.Views
         #endregion
 
 
+        #region ComboBox Events
+
+        private void cbxSalesPersonActivity_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (cbxSalesPersonActivity.Text == "Meeting")
+            {
+                lblMeetingLocation.Visible = mesTbxMeetingLocation.Visible = true;
+            }
+            else
+            {
+                lblMeetingLocation.Visible = mesTbxMeetingLocation.Visible = false;
+            }
+        }
+
+        private void cbxSalesLeadStatus_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (cbxSalesLeadStatus.Text == "Quoted")
+            {
+                lblQuoteNumber.Visible = mesTbxQuoteNumber.Visible = true;
+            }
+            else
+            {
+                lblQuoteNumber.Visible = mesTbxQuoteNumber.Visible = false;                
+            }
+        }
+
+        #endregion
+
+
         #region Button Click Events
 
         private void mesBtnSaveSalesLead_Click(object sender, EventArgs e)
@@ -131,8 +162,17 @@ namespace FASTT.Views
             cbxSalesPersonActivity.Items.Add("Meeting");
             cbxSalesPersonActivity.Items.Add("Phone Call");
 
-            cbxSalesLeadStatus.Items.Add("Open");
-            cbxSalesLeadStatus.Items.Add("Closed");
+            GetStatusTypes();
+        }
+
+        private void GetStatusTypes()
+        {
+            cbxSalesLeadStatus.DataSource = null;
+
+            _controller.GetStatusTypes();
+            cbxSalesLeadStatus.DataSource = _controller.StatusList;
+            cbxSalesLeadStatus.DisplayMember = "StatusType";
+            cbxSalesLeadStatus.ValueMember = "StatusValue";
         }
 
         private void PopulateFields()
@@ -141,6 +181,7 @@ namespace FASTT.Views
             mesTbxApplication.Text = Application;
             mesTbxCustomer.Text = Customer;
             mesTbxSop.Text = Sop;
+            mesTbxEop.Text = Eop;
             mesTbxVolume.Text = Volume;
             cbxSalesPersonActivity.Text = Activity;
             if (ActivityDate != null) dtpCalendar.Value = Convert.ToDateTime(ActivityDate);
@@ -154,7 +195,7 @@ namespace FASTT.Views
             mesTbxHours.Text = hours.ToString();
             mesTbxMinutes.Text = minutes.ToString();
 
-            cbxSalesLeadStatus.Text = "Open";
+            cbxSalesLeadStatus.Text = Status;
         }
 
         private void PopulateSalesLeadContactInfo()
@@ -170,6 +211,10 @@ namespace FASTT.Views
 
         private void SaveSalesLead()
         {
+            string activity = "";
+            string meetingLocation = "";
+            decimal duration = 0;
+
             // Data validation
             if (cbxSalesLeadStatus.Text.Trim() == "")
             {
@@ -177,71 +222,93 @@ namespace FASTT.Views
                 _messageBox.ShowDialog();
                 return;
             }
-            int salesLeadStatus = (cbxSalesLeadStatus.Text.Trim() == "Open") ? 0 : 1;
+            int salesLeadStatus = Convert.ToInt32(cbxSalesLeadStatus.SelectedValue);  // 0 = Open, 1 = Quoted, 2 = Awarded, 3 = Closed
 
-            string activity = cbxSalesPersonActivity.Text.Trim();
-            if (activity == "" && salesLeadStatus == 0)
+            string notes = mesTbxNotes.Text.Trim();
+            if (salesLeadStatus == 3 && notes == "")
             {
-                _messageBox.Message = "You must select an Activity.";
-                _messageBox.ShowDialog();
-                return;
-            }
-            decimal durationHrs;
-            try
-            {
-                durationHrs = Convert.ToDecimal(mesTbxHours.Text.Trim());
-            }
-            catch (Exception)
-            {
-                _messageBox.Message = "Invalid duration hours.";
-                _messageBox.ShowDialog();
-                return;
-            }
-            if (durationHrs < 0)
-            {
-                _messageBox.Message = "Invalid duration hours.";
-                _messageBox.ShowDialog();
-                return;
-            }
-            decimal durationMns;
-            try
-            {
-                durationMns = Convert.ToDecimal(mesTbxMinutes.Text.Trim());
-            }
-            catch (Exception)
-            {
-                _messageBox.Message = "Invalid duration minutes.";
-                _messageBox.ShowDialog();
-                return;
-            }
-            if (durationMns < 0)
-            {
-                _messageBox.Message = "Invalid duration minutes.";
-                _messageBox.ShowDialog();
-                return;
-            }
-            if (durationHrs == 0 && durationMns == 0)
-            {
-                _messageBox.Message = "You must enter the duration of the activity.";
+                _messageBox.Message = "To close a sales lead, you must enter a note.  Why is the lead closing?";
                 _messageBox.ShowDialog();
                 return;
             }
 
-            decimal duration = (durationHrs > 0) ? (durationHrs * 60) + durationMns : durationMns;
+            if (salesLeadStatus < 2)
+            {
+                activity = cbxSalesPersonActivity.Text.Trim();
+                if (activity == "" && salesLeadStatus == 0)
+                {
+                    _messageBox.Message = "You must select an Activity.";
+                    _messageBox.ShowDialog();
+                    return;
+                }
+
+                meetingLocation = mesTbxMeetingLocation.Text.Trim();
+                if (activity == "Meeting" && meetingLocation == "")
+                {
+                    _messageBox.Message = "You must enter a meeting location.";
+                    _messageBox.ShowDialog();
+                    return;
+                }
+
+                decimal durationHrs;
+                try
+                {
+                    durationHrs = Convert.ToDecimal(mesTbxHours.Text.Trim());
+                }
+                catch (Exception)
+                {
+                    _messageBox.Message = "Invalid duration hours.";
+                    _messageBox.ShowDialog();
+                    return;
+                }
+                if (durationHrs < 0)
+                {
+                    _messageBox.Message = "Invalid duration hours.";
+                    _messageBox.ShowDialog();
+                    return;
+                }
+
+                decimal durationMns;
+                try
+                {
+                    durationMns = Convert.ToDecimal(mesTbxMinutes.Text.Trim());
+                }
+                catch (Exception)
+                {
+                    _messageBox.Message = "Invalid duration minutes.";
+                    _messageBox.ShowDialog();
+                    return;
+                }
+                if (durationMns < 0)
+                {
+                    _messageBox.Message = "Invalid duration minutes.";
+                    _messageBox.ShowDialog();
+                    return;
+                }
+                if (durationHrs == 0 && durationMns == 0)
+                {
+                    _messageBox.Message = "You must enter the duration of the activity.";
+                    _messageBox.ShowDialog();
+                    return;
+                }
+
+                duration = (durationHrs > 0) ? (durationHrs*60) + durationMns : durationMns;
+            }
+
             DateTime activityDate = dtpCalendar.Value;
             string contactName = mesTbxContactName.Text.Trim();
             string contactPhoneNumber = mesTbxContactPhone.Text.Trim();
             string contactEmailAddress = mesTbxContactEmail.Text.Trim();
-            string notes = mesTbxNotes.Text.Trim();
+            string quoteNumber = mesTbxQuoteNumber.Text.Trim();
 
-            DateTime? sop = null;
-            if (Sop != string.Empty)
-            {
-                sop = Convert.ToDateTime(Sop);
-            }
+            //DateTime? sop = null;
+            //if (Sop != string.Empty)
+            //{
+            //    sop = Convert.ToDateTime(Sop);
+            //}
 
             int result = _controller.SaveSalesLeadActivity(OperatorCode, CombinedLightingId, SalesLeadId, salesLeadStatus, ActivityRowId, 
-                activity, activityDate, contactName, contactPhoneNumber, contactEmailAddress, duration, notes);
+                activity, activityDate, meetingLocation, contactName, contactPhoneNumber, contactEmailAddress, duration, notes, quoteNumber);
 
             if (result == 1) Close();
         }

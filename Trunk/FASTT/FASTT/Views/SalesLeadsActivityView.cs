@@ -122,7 +122,7 @@ namespace FASTT.Views
 
             grdSalesLeads.DataSource = _activityController.SalesLeadList;
 
-            gridView1.Columns["ID"].Visible = false;
+            gridView1.Columns["ID"].Visible = gridView1.Columns["CombinedLightingID"].Visible = false;
 
             Cursor.Current = Cursors.Default;
 
@@ -135,11 +135,13 @@ namespace FASTT.Views
             int r = gridView1.GetSelectedRows()[0];
 
             string iD = (gridView1.GetRowCellValue(r, "ID") != null) ? gridView1.GetRowCellValue(r, "ID").ToString() : "";
+            string combinedLightingId = (gridView1.GetRowCellValue(r, "CombinedLightingID") != null) ? gridView1.GetRowCellValue(r, "CombinedLightingID").ToString() : "";
             string customer = (gridView1.GetRowCellValue(r, "Customer") != null) ? gridView1.GetRowCellValue(r, "Customer").ToString() : "";
             string program = (gridView1.GetRowCellValue(r, "Program") != null) ? gridView1.GetRowCellValue(r, "Program").ToString() : "";
             string application = (gridView1.GetRowCellValue(r, "Application") != null) ? gridView1.GetRowCellValue(r, "Application").ToString() : "";
             string sop = (gridView1.GetRowCellValue(r, "Sop") != null) ? gridView1.GetRowCellValue(r, "Sop").ToString() : "";
-            string volume = (gridView1.GetRowCellValue(r, "Volume") != null) ? gridView1.GetRowCellValue(r, "Volume").ToString() : "";
+            string eop = (gridView1.GetRowCellValue(r, "Eop") != null) ? gridView1.GetRowCellValue(r, "Eop").ToString() : "";
+            string volume = (gridView1.GetRowCellValue(r, "PeakVolume") != null) ? gridView1.GetRowCellValue(r, "PeakVolume").ToString() : "";
 
             //GetSalesLeadContactInfo(rowId);
 
@@ -147,11 +149,13 @@ namespace FASTT.Views
                 {
                     OperatorCode = OperatorCode,
                     SalesLeadId = Convert.ToInt32(iD),
+                    CombinedLightingId = Convert.ToInt32(combinedLightingId),
                     Customer = customer,
                     Program = program,
                     Application = application,
                     Sop = sop,
-                    Volume = volume
+                    Eop = eop,
+                    Volume = volume,
                 };
 
             form.ShowDialog();

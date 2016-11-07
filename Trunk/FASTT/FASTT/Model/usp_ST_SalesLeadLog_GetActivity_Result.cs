@@ -13,11 +13,15 @@ namespace FASTT.Model
     
     public partial class usp_ST_SalesLeadLog_GetActivity_Result
     {
+        public string Customer { get; set; }
         public string Program { get; set; }
         public string Application { get; set; }
-        public string Customer { get; set; }
         public string SOP { get; set; }
-        public Nullable<int> Volume { get; set; }
-        public int RowID { get; set; }
+        public string EOP { get; set; }
+        public Nullable<int> PeakVolume { get; set; }
+        public string LastSalesActivity { get; set; }
+        public string Status { get; set; }
+        public Nullable<int> RowID { get; set; }
+        public Nullable<int> CombinedLightingId { get; set; }
     }
 }

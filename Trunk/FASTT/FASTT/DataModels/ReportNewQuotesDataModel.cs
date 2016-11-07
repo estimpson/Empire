@@ -15,6 +15,6 @@ namespace FASTT.DataModels
         public string SalesInitials { get; set; }
         public string Sop { get; set; }
         public string EeiPartNumber { get; set; }
-        public decimal? TotalQuotedSales { get; set; }
+        public string TotalQuotedSales { get; set; }
     }
 }

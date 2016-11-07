@@ -5,7 +5,225 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="MONITORModel1.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
-        <EntityContainer Name="MONITORModel1StoreContainer" />
+        <EntityContainer Name="MONITORModel1StoreContainer">
+          <EntitySet Name="ST_CustomersWithProgramsClosing2017" EntityType="MONITORModel1.Store.ST_CustomersWithProgramsClosing2017" store:Type="Views" store:Schema="EEIUser" store:Name="ST_CustomersWithProgramsClosing2017">
+            <DefiningQuery>SELECT 
+      [ST_CustomersWithProgramsClosing2017].[RowNumber] AS [RowNumber], 
+      [ST_CustomersWithProgramsClosing2017].[Customer] AS [Customer]
+      FROM [EEIUser].[ST_CustomersWithProgramsClosing2017] AS [ST_CustomersWithProgramsClosing2017]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="ST_CustomersWithProgramsClosing2018" EntityType="MONITORModel1.Store.ST_CustomersWithProgramsClosing2018" store:Type="Views" store:Schema="EEIUser" store:Name="ST_CustomersWithProgramsClosing2018">
+            <DefiningQuery>SELECT 
+      [ST_CustomersWithProgramsClosing2018].[RowNumber] AS [RowNumber], 
+      [ST_CustomersWithProgramsClosing2018].[Customer] AS [Customer]
+      FROM [EEIUser].[ST_CustomersWithProgramsClosing2018] AS [ST_CustomersWithProgramsClosing2018]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="ST_CustomersWithProgramsClosing2019" EntityType="MONITORModel1.Store.ST_CustomersWithProgramsClosing2019" store:Type="Views" store:Schema="EEIUser" store:Name="ST_CustomersWithProgramsClosing2019">
+            <DefiningQuery>SELECT 
+      [ST_CustomersWithProgramsClosing2019].[RowNumber] AS [RowNumber], 
+      [ST_CustomersWithProgramsClosing2019].[Customer] AS [Customer]
+      FROM [EEIUser].[ST_CustomersWithProgramsClosing2019] AS [ST_CustomersWithProgramsClosing2019]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="ST_CustomersWithProgramsLaunching2017" EntityType="MONITORModel1.Store.ST_CustomersWithProgramsLaunching2017" store:Type="Views" store:Schema="EEIUser" store:Name="ST_CustomersWithProgramsLaunching2017">
+            <DefiningQuery>SELECT 
+      [ST_CustomersWithProgramsLaunching2017].[RowNumber] AS [RowNumber], 
+      [ST_CustomersWithProgramsLaunching2017].[Customer] AS [Customer]
+      FROM [EEIUser].[ST_CustomersWithProgramsLaunching2017] AS [ST_CustomersWithProgramsLaunching2017]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="ST_CustomersWithProgramsLaunching2018" EntityType="MONITORModel1.Store.ST_CustomersWithProgramsLaunching2018" store:Type="Views" store:Schema="EEIUser" store:Name="ST_CustomersWithProgramsLaunching2018">
+            <DefiningQuery>SELECT 
+      [ST_CustomersWithProgramsLaunching2018].[RowNumber] AS [RowNumber], 
+      [ST_CustomersWithProgramsLaunching2018].[Customer] AS [Customer]
+      FROM [EEIUser].[ST_CustomersWithProgramsLaunching2018] AS [ST_CustomersWithProgramsLaunching2018]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="ST_CustomersWithProgramsLaunching2019" EntityType="MONITORModel1.Store.ST_CustomersWithProgramsLaunching2019" store:Type="Views" store:Schema="EEIUser" store:Name="ST_CustomersWithProgramsLaunching2019">
+            <DefiningQuery>SELECT 
+      [ST_CustomersWithProgramsLaunching2019].[RowNumber] AS [RowNumber], 
+      [ST_CustomersWithProgramsLaunching2019].[Customer] AS [Customer]
+      FROM [EEIUser].[ST_CustomersWithProgramsLaunching2019] AS [ST_CustomersWithProgramsLaunching2019]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="vw_ST_LightingStudy_2016" EntityType="MONITORModel1.Store.vw_ST_LightingStudy_2016" store:Type="Views" store:Schema="EEIUser" store:Name="vw_ST_LightingStudy_2016">
+            <DefiningQuery>SELECT 
+      [vw_ST_LightingStudy_2016].[Customer] AS [Customer], 
+      [vw_ST_LightingStudy_2016].[Program] AS [Program], 
+      [vw_ST_LightingStudy_2016].[SOP] AS [SOP], 
+      [vw_ST_LightingStudy_2016].[SOPYear] AS [SOPYear], 
+      [vw_ST_LightingStudy_2016].[EOP] AS [EOP], 
+      [vw_ST_LightingStudy_2016].[EOPYear] AS [EOPYear], 
+      [vw_ST_LightingStudy_2016].[BulbType] AS [BulbType], 
+      [vw_ST_LightingStudy_2016].[Application] AS [Application], 
+      [vw_ST_LightingStudy_2016].[Description] AS [Description], 
+      [vw_ST_LightingStudy_2016].[OEM] AS [OEM], 
+      [vw_ST_LightingStudy_2016].[NamePlate] AS [NamePlate], 
+      [vw_ST_LightingStudy_2016].[Label] AS [Label], 
+      [vw_ST_LightingStudy_2016].[Region] AS [Region], 
+      [vw_ST_LightingStudy_2016].[Status] AS [Status], 
+      [vw_ST_LightingStudy_2016].[Volume2017] AS [Volume2017], 
+      [vw_ST_LightingStudy_2016].[Volume2018] AS [Volume2018], 
+      [vw_ST_LightingStudy_2016].[Volume2019] AS [Volume2019], 
+      [vw_ST_LightingStudy_2016].[PeakVolume] AS [PeakVolume], 
+      [vw_ST_LightingStudy_2016].[ID] AS [ID]
+      FROM [EEIUser].[vw_ST_LightingStudy_2016] AS [vw_ST_LightingStudy_2016]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="vw_ST_SalesPersonActivity_OneWeek" EntityType="MONITORModel1.Store.vw_ST_SalesPersonActivity_OneWeek" store:Type="Views" store:Schema="EEIUser" store:Name="vw_ST_SalesPersonActivity_OneWeek">
+            <DefiningQuery>SELECT 
+      [vw_ST_SalesPersonActivity_OneWeek].[RowID] AS [RowID], 
+      [vw_ST_SalesPersonActivity_OneWeek].[SalesPerson] AS [SalesPerson], 
+      [vw_ST_SalesPersonActivity_OneWeek].[Customer] AS [Customer], 
+      [vw_ST_SalesPersonActivity_OneWeek].[Program] AS [Program], 
+      [vw_ST_SalesPersonActivity_OneWeek].[Application] AS [Application], 
+      [vw_ST_SalesPersonActivity_OneWeek].[SOP] AS [SOP], 
+      [vw_ST_SalesPersonActivity_OneWeek].[PeakVolume] AS [PeakVolume], 
+      [vw_ST_SalesPersonActivity_OneWeek].[Status] AS [Status], 
+      [vw_ST_SalesPersonActivity_OneWeek].[ActivityDate] AS [ActivityDate], 
+      [vw_ST_SalesPersonActivity_OneWeek].[Activity] AS [Activity], 
+      [vw_ST_SalesPersonActivity_OneWeek].[MeetingLocation] AS [MeetingLocation], 
+      [vw_ST_SalesPersonActivity_OneWeek].[ContactName] AS [ContactName], 
+      [vw_ST_SalesPersonActivity_OneWeek].[ContactPhoneNumber] AS [ContactPhoneNumber], 
+      [vw_ST_SalesPersonActivity_OneWeek].[ContactEmailAddress] AS [ContactEmailAddress], 
+      [vw_ST_SalesPersonActivity_OneWeek].[Duration] AS [Duration], 
+      [vw_ST_SalesPersonActivity_OneWeek].[Notes] AS [Notes], 
+      [vw_ST_SalesPersonActivity_OneWeek].[SalesPersonCode] AS [SalesPersonCode]
+      FROM [EEIUser].[vw_ST_SalesPersonActivity_OneWeek] AS [vw_ST_SalesPersonActivity_OneWeek]</DefiningQuery>
+          </EntitySet>
+        </EntityContainer>
+        <!--Errors Found During Generation:
+      warning 6002: The table/view 'MONITOR.EEIUser.ST_CustomersWithProgramsClosing2017' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
+      -->
+        <EntityType Name="ST_CustomersWithProgramsClosing2017">
+          <Key>
+            <PropertyRef Name="RowNumber" />
+          </Key>
+          <Property Name="RowNumber" Type="bigint" Nullable="false" />
+          <Property Name="Customer" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <!--Errors Found During Generation:
+      warning 6002: The table/view 'MONITOR.EEIUser.ST_CustomersWithProgramsClosing2018' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
+      -->
+        <EntityType Name="ST_CustomersWithProgramsClosing2018">
+          <Key>
+            <PropertyRef Name="RowNumber" />
+          </Key>
+          <Property Name="RowNumber" Type="bigint" Nullable="false" />
+          <Property Name="Customer" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <!--Errors Found During Generation:
+      warning 6002: The table/view 'MONITOR.EEIUser.ST_CustomersWithProgramsClosing2019' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
+      -->
+        <EntityType Name="ST_CustomersWithProgramsClosing2019">
+          <Key>
+            <PropertyRef Name="RowNumber" />
+          </Key>
+          <Property Name="RowNumber" Type="bigint" Nullable="false" />
+          <Property Name="Customer" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <!--Errors Found During Generation:
+      warning 6002: The table/view 'MONITOR.EEIUser.ST_CustomersWithProgramsLaunching2017' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
+      -->
+        <EntityType Name="ST_CustomersWithProgramsLaunching2017">
+          <Key>
+            <PropertyRef Name="RowNumber" />
+          </Key>
+          <Property Name="RowNumber" Type="bigint" Nullable="false" />
+          <Property Name="Customer" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <!--Errors Found During Generation:
+      warning 6002: The table/view 'MONITOR.EEIUser.ST_CustomersWithProgramsLaunching2018' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
+      -->
+        <EntityType Name="ST_CustomersWithProgramsLaunching2018">
+          <Key>
+            <PropertyRef Name="RowNumber" />
+          </Key>
+          <Property Name="RowNumber" Type="bigint" Nullable="false" />
+          <Property Name="Customer" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <!--Errors Found During Generation:
+      warning 6002: The table/view 'MONITOR.EEIUser.ST_CustomersWithProgramsLaunching2019' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
+      -->
+        <EntityType Name="ST_CustomersWithProgramsLaunching2019">
+          <Key>
+            <PropertyRef Name="RowNumber" />
+          </Key>
+          <Property Name="RowNumber" Type="bigint" Nullable="false" />
+          <Property Name="Customer" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <!--Errors Found During Generation:
+      warning 6002: The table/view 'MONITOR.EEIUser.vw_ST_LightingStudy_2016' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
+      -->
+        <EntityType Name="vw_ST_LightingStudy_2016">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="Customer" Type="varchar" MaxLength="50" />
+          <Property Name="Program" Type="varchar" MaxLength="50" />
+          <Property Name="SOP" Type="varchar" MaxLength="30" />
+          <Property Name="SOPYear" Type="int" />
+          <Property Name="EOP" Type="varchar" MaxLength="30" />
+          <Property Name="EOPYear" Type="int" />
+          <Property Name="BulbType" Type="varchar" MaxLength="50" />
+          <Property Name="Application" Type="varchar" MaxLength="50" />
+          <Property Name="Description" Type="varchar" MaxLength="50" />
+          <Property Name="OEM" Type="varchar" MaxLength="50" />
+          <Property Name="NamePlate" Type="varchar" MaxLength="50" />
+          <Property Name="Label" Type="varchar" MaxLength="100" />
+          <Property Name="Region" Type="varchar" MaxLength="50" />
+          <Property Name="Status" Type="varchar" MaxLength="50" />
+          <Property Name="Volume2017" Type="int" />
+          <Property Name="Volume2018" Type="int" />
+          <Property Name="Volume2019" Type="int" />
+          <Property Name="PeakVolume" Type="int" />
+          <Property Name="ID" Type="int" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+      warning 6002: The table/view 'MONITOR.EEIUser.vw_ST_SalesPersonActivity_OneWeek' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
+      -->
+        <EntityType Name="vw_ST_SalesPersonActivity_OneWeek">
+          <Key>
+            <PropertyRef Name="RowID" />
+            <PropertyRef Name="SalesPerson" />
+            <PropertyRef Name="Status" />
+          </Key>
+          <Property Name="RowID" Type="int" Nullable="false" />
+          <Property Name="SalesPerson" Type="varchar" Nullable="false" MaxLength="40" />
+          <Property Name="Customer" Type="varchar" MaxLength="50" />
+          <Property Name="Program" Type="varchar" MaxLength="50" />
+          <Property Name="Application" Type="varchar" MaxLength="50" />
+          <Property Name="SOP" Type="varchar" MaxLength="30" />
+          <Property Name="PeakVolume" Type="varchar" />
+          <Property Name="Status" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="ActivityDate" Type="varchar" MaxLength="20" />
+          <Property Name="Activity" Type="varchar" MaxLength="50" />
+          <Property Name="MeetingLocation" Type="varchar" MaxLength="50" />
+          <Property Name="ContactName" Type="varchar" MaxLength="50" />
+          <Property Name="ContactPhoneNumber" Type="varchar" MaxLength="25" />
+          <Property Name="ContactEmailAddress" Type="varchar" MaxLength="320" />
+          <Property Name="Duration" Type="varchar" MaxLength="35" />
+          <Property Name="Notes" Type="varchar(max)" />
+          <Property Name="SalesPersonCode" Type="varchar" MaxLength="5" />
+        </EntityType>
+        <Function Name="usp_ST_Metrics_PeakVolumeOfProgramsClosing2017" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="EEIUser">
+          <Parameter Name="Customer" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="usp_ST_Metrics_PeakVolumeOfProgramsClosing2018" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="EEIUser">
+          <Parameter Name="Customer" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="usp_ST_Metrics_PeakVolumeOfProgramsClosing2019" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="EEIUser">
+          <Parameter Name="Customer" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="usp_ST_Metrics_PeakVolumeOfProgramsLaunching" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="EEIUser" />
+        <Function Name="usp_ST_Metrics_PeakVolumeOfProgramsLaunching2017" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="EEIUser">
+          <Parameter Name="Customer" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="usp_ST_Metrics_PeakVolumeOfProgramsLaunching2018" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="EEIUser">
+          <Parameter Name="Customer" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="usp_ST_Metrics_PeakVolumeOfProgramsLaunching2019" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="EEIUser">
+          <Parameter Name="Customer" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="usp_ST_Metrics_ProgramsLaunchingByCustomer" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="EEIUser" />
+        <Function Name="usp_ST_Metrics_TotalSalesActivityOneMonth" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="EEIUser" />
+        <Function Name="usp_ST_Report_SalesActivityOneWeek" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="EEIUser" />
+        <Function Name="usp_ST_Report_TopLeads" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="EEIUser" />
         <Function Name="usp_ST_SalesLeadLog_Report_NewQuotes" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="EEIUser">
           <Parameter Name="TranDT" Type="datetime" Mode="InOut" />
           <Parameter Name="Result" Type="int" Mode="InOut" />
@@ -27,6 +245,37 @@
             <Parameter Name="TranDT" Mode="InOut" Type="DateTime" />
             <Parameter Name="Result" Mode="InOut" Type="Int32" />
           </FunctionImport>
+          <FunctionImport Name="usp_ST_Metrics_ProgramsLaunchingByCustomer" ReturnType="Collection(MONITORModel1.ProgramsLaunchingByCustomer)" />
+          <FunctionImport Name="usp_ST_Metrics_PeakVolumeOfProgramsLaunching" ReturnType="Collection(MONITORModel1.PeakVolumeOfProgramsLaunching)" />
+          <FunctionImport Name="usp_ST_Metrics_PeakVolumeOfProgramsLaunching2017" ReturnType="Collection(MONITORModel1.PeakVolumeOfProgramsLaunching2017_Result)" >
+          <Parameter Name="Customer" Mode="In" Type="String" />
+          </FunctionImport>
+          <EntitySet Name="ST_CustomersWithProgramsLaunching2017" EntityType="MONITORModel1.ST_CustomersWithProgramsLaunching2017" />
+          <EntitySet Name="ST_CustomersWithProgramsLaunching2018" EntityType="MONITORModel1.ST_CustomersWithProgramsLaunching2018" />
+          <EntitySet Name="ST_CustomersWithProgramsLaunching2019" EntityType="MONITORModel1.ST_CustomersWithProgramsLaunching2019" />
+          <FunctionImport Name="usp_ST_Metrics_PeakVolumeOfProgramsLaunching2018" ReturnType="Collection(MONITORModel1.PeakVolumeOfProgramsLaunching2018_Result)">
+          <Parameter Name="Customer" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="usp_ST_Metrics_PeakVolumeOfProgramsLaunching2019" ReturnType="Collection(MONITORModel1.PeakVolumeOfProgramsLaunching2019_Result)">
+          <Parameter Name="Customer" Mode="In" Type="String" />
+          </FunctionImport>
+          <EntitySet Name="vw_ST_LightingStudy_2016" EntityType="MONITORModel1.vw_ST_LightingStudy_2016" />
+          <EntitySet Name="vw_ST_SalesPersonActivity_OneWeek" EntityType="MONITORModel1.vw_ST_SalesPersonActivity_OneWeek" />
+          <FunctionImport Name="usp_ST_Metrics_PeakVolumeOfProgramsClosing2017" ReturnType="Collection(MONITORModel1.PeakVolumeOfProgramsClosing2017_Result)">
+          <Parameter Name="Customer" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="usp_ST_Metrics_PeakVolumeOfProgramsClosing2018" ReturnType="Collection(MONITORModel1.PeakVolumeOfProgramsClosing2018_Result)">
+          <Parameter Name="Customer" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="usp_ST_Metrics_PeakVolumeOfProgramsClosing2019" ReturnType="Collection(MONITORModel1.PeakVolumeOfProgramsClosing2019_Result)">
+          <Parameter Name="Customer" Mode="In" Type="String" />
+          </FunctionImport>
+          <EntitySet Name="ST_CustomersWithProgramsClosing2017" EntityType="MONITORModel1.ST_CustomersWithProgramsClosing2017" />
+          <EntitySet Name="ST_CustomersWithProgramsClosing2018" EntityType="MONITORModel1.ST_CustomersWithProgramsClosing2018" />
+          <EntitySet Name="ST_CustomersWithProgramsClosing2019" EntityType="MONITORModel1.ST_CustomersWithProgramsClosing2019" />
+          <FunctionImport Name="usp_ST_Report_SalesActivityOneWeek" ReturnType="Collection(MONITORModel1.usp_ST_Report_SalesActivityOneWeek_Result)" />
+          <FunctionImport Name="usp_ST_Report_TopLeads" ReturnType="Collection(MONITORModel1.usp_ST_Report_TopLeads_Result)" />
+          <FunctionImport Name="usp_ST_Metrics_TotalSalesActivityOneMonth" ReturnType="Collection(MONITORModel1.usp_ST_Metrics_TotalSalesActivityOneMonth_Result)" />
         </EntityContainer>
         <ComplexType Name="usp_ST_SalesLeadLog_Report_OpenQuotes_Result">
           <Property Type="String" Name="QuoteNumber" Nullable="false" MaxLength="50" />
@@ -48,6 +297,195 @@
           <Property Type="String" Name="SOP" Nullable="true" MaxLength="20" />
           <Property Type="String" Name="EEIPartNumber" Nullable="true" MaxLength="50" />
           <Property Type="Decimal" Name="TotalQuotedSales" Nullable="true" Precision="38" Scale="4" />
+        </ComplexType>
+        <ComplexType Name="ProgramsLaunchingByCustomer">
+          <Property Type="String" Name="Customer" Nullable="true" MaxLength="255" />
+          <Property Type="Int32" Name="HeadLampCount" Nullable="true" />
+          <Property Type="Int32" Name="TailLampCount" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="PeakVolumeOfProgramsLaunching">
+          <Property Type="String" Name="Customer" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="HalogenHeadLampPeakVolume" Nullable="true" />
+          <Property Type="Int32" Name="LedHeadLampPeakVolume" Nullable="true" />
+          <Property Type="Int32" Name="ConventionalTailLampPeakVolume" Nullable="true" />
+          <Property Type="Int32" Name="LedTailLampPeakVolume" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="PeakVolumeOfProgramsLaunching2017_Result">
+          <Property Type="String" Name="Program" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="HalogenHeadlampPeakVolume2017" Nullable="true" />
+          <Property Type="Int32" Name="LedHeadlampPeakVolume2017" Nullable="true" />
+          <Property Type="Int32" Name="XenonHeadlampPeakVolume2017" Nullable="true" />
+          <Property Type="Int32" Name="ConventionalTaillampPeakVolume2017" Nullable="true" />
+          <Property Type="Int32" Name="LedTaillampPeakVolume2017" Nullable="true" />
+        </ComplexType>
+        <EntityType Name="ST_CustomersWithProgramsLaunching2017">
+          <Key>
+            <PropertyRef Name="RowNumber" />
+          </Key>
+          <Property Type="Int64" Name="RowNumber" Nullable="false" />
+          <Property Type="String" Name="Customer" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="ST_CustomersWithProgramsLaunching2018">
+          <Key>
+            <PropertyRef Name="RowNumber" />
+          </Key>
+          <Property Type="Int64" Name="RowNumber" Nullable="false" />
+          <Property Type="String" Name="Customer" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="ST_CustomersWithProgramsLaunching2019">
+          <Key>
+            <PropertyRef Name="RowNumber" />
+          </Key>
+          <Property Type="Int64" Name="RowNumber" Nullable="false" />
+          <Property Type="String" Name="Customer" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <ComplexType Name="PeakVolumeOfProgramsLaunching2018_Result">
+          <Property Type="String" Name="Program" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="HalogenHeadlampPeakVolume2018" Nullable="true" />
+          <Property Type="Int32" Name="LedHeadlampPeakVolume2018" Nullable="true" />
+          <Property Type="Int32" Name="XenonHeadlampPeakVolume2018" Nullable="true" />
+          <Property Type="Int32" Name="ConventionalTaillampPeakVolume2018" Nullable="true" />
+          <Property Type="Int32" Name="LedTaillampPeakVolume2018" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="PeakVolumeOfProgramsLaunching2019_Result">
+          <Property Type="String" Name="Program" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="HalogenHeadlampPeakVolume2019" Nullable="true" />
+          <Property Type="Int32" Name="LedHeadlampPeakVolume2019" Nullable="true" />
+          <Property Type="Int32" Name="XenonHeadlampPeakVolume2019" Nullable="true" />
+          <Property Type="Int32" Name="ConventionalTaillampPeakVolume2019" Nullable="true" />
+          <Property Type="Int32" Name="LedTaillampPeakVolume2019" Nullable="true" />
+        </ComplexType>
+        <EntityType Name="vw_ST_LightingStudy_2016">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Type="String" Name="Customer" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="Program" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="SOP" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Type="Int32" Name="SOPYear" />
+          <Property Type="String" Name="BulbType" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="Application" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="Description" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="OEM" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="NamePlate" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="Label" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="Region" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="Status" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="Int32" Name="Volume2017" />
+          <Property Type="Int32" Name="Volume2018" />
+          <Property Type="Int32" Name="Volume2019" />
+          <Property Type="Int32" Name="PeakVolume" />
+          <Property Type="Int32" Name="ID" Nullable="false" />
+          <Property Type="String" Name="EOP" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Type="Int32" Name="EOPYear" />
+        </EntityType>
+        <EntityType Name="vw_ST_SalesPersonActivity_OneWeek">
+          <Key>
+            <PropertyRef Name="RowID" />
+            <PropertyRef Name="SalesPerson" />
+            <PropertyRef Name="Status" />
+          </Key>
+          <Property Type="Int32" Name="RowID" Nullable="false" />
+          <Property Type="String" Name="SalesPerson" Nullable="false" MaxLength="40" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="Customer" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="Program" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="Application" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="SOP" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="PeakVolume" MaxLength="8000" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="Status" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="ActivityDate" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="Activity" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="MeetingLocation" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="ContactName" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="ContactPhoneNumber" MaxLength="25" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="ContactEmailAddress" MaxLength="320" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="Duration" MaxLength="35" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="Notes" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="SalesPersonCode" MaxLength="5" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <ComplexType Name="PeakVolumeOfProgramsClosing2017_Result">
+          <Property Type="String" Name="Program" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="HalogenHeadlampPeakVolume2017" Nullable="true" />
+          <Property Type="Int32" Name="LedHeadlampPeakVolume2017" Nullable="true" />
+          <Property Type="Int32" Name="XenonHeadlampPeakVolume2017" Nullable="true" />
+          <Property Type="Int32" Name="ConventionalTaillampPeakVolume2017" Nullable="true" />
+          <Property Type="Int32" Name="LedTaillampPeakVolume2017" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="PeakVolumeOfProgramsClosing2018_Result">
+          <Property Type="String" Name="Program" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="HalogenHeadlampPeakVolume2018" Nullable="true" />
+          <Property Type="Int32" Name="LedHeadlampPeakVolume2018" Nullable="true" />
+          <Property Type="Int32" Name="XenonHeadlampPeakVolume2018" Nullable="true" />
+          <Property Type="Int32" Name="ConventionalTaillampPeakVolume2018" Nullable="true" />
+          <Property Type="Int32" Name="LedTaillampPeakVolume2018" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="PeakVolumeOfProgramsClosing2019_Result">
+          <Property Type="String" Name="Program" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="HalogenHeadlampPeakVolume2019" Nullable="true" />
+          <Property Type="Int32" Name="LedHeadlampPeakVolume2019" Nullable="true" />
+          <Property Type="Int32" Name="XenonHeadlampPeakVolume2019" Nullable="true" />
+          <Property Type="Int32" Name="ConventionalTaillampPeakVolume2019" Nullable="true" />
+          <Property Type="Int32" Name="LedTaillampPeakVolume2019" Nullable="true" />
+        </ComplexType>
+        <EntityType Name="ST_CustomersWithProgramsClosing2017">
+          <Key>
+            <PropertyRef Name="RowNumber" />
+          </Key>
+          <Property Type="Int64" Name="RowNumber" Nullable="false" />
+          <Property Type="String" Name="Customer" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="ST_CustomersWithProgramsClosing2018">
+          <Key>
+            <PropertyRef Name="RowNumber" />
+          </Key>
+          <Property Type="Int64" Name="RowNumber" Nullable="false" />
+          <Property Type="String" Name="Customer" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="ST_CustomersWithProgramsClosing2019">
+          <Key>
+            <PropertyRef Name="RowNumber" />
+          </Key>
+          <Property Type="Int64" Name="RowNumber" Nullable="false" />
+          <Property Type="String" Name="Customer" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <ComplexType Name="usp_ST_Report_SalesActivityOneWeek_Result">
+          <Property Type="Int32" Name="RowID" Nullable="false" />
+          <Property Type="Int32" Name="CombinedLightingId" Nullable="true" />
+          <Property Type="String" Name="SalesPerson" Nullable="false" MaxLength="40" />
+          <Property Type="String" Name="Customer" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Program" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Application" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="SOP" Nullable="true" MaxLength="30" />
+          <Property Type="String" Name="EOP" Nullable="true" MaxLength="30" />
+          <Property Type="String" Name="PeakVolume" Nullable="true" MaxLength="8000" />
+          <Property Type="String" Name="Status" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="ActivityDate" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="Activity" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="MeetingLocation" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="ContactName" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="ContactPhoneNumber" Nullable="true" MaxLength="25" />
+          <Property Type="String" Name="ContactEmailAddress" Nullable="true" MaxLength="320" />
+          <Property Type="String" Name="Duration" Nullable="true" MaxLength="35" />
+          <Property Type="String" Name="Notes" Nullable="true" />
+          <Property Type="String" Name="SalesPersonCode" Nullable="true" MaxLength="5" />
+        </ComplexType>
+        <ComplexType Name="usp_ST_Report_TopLeads_Result">
+          <Property Type="String" Name="Volume" Nullable="true" MaxLength="8000" />
+          <Property Type="String" Name="Customer" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Program" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Application" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="SOP" Nullable="true" MaxLength="30" />
+          <Property Type="String" Name="EOP" Nullable="true" MaxLength="30" />
+          <Property Type="String" Name="SalesLeadStatus" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="SalesPerson" Nullable="true" MaxLength="40" />
+          <Property Type="Int32" Name="SalesLeadId" Nullable="true" />
+          <Property Type="Int32" Name="CombinedLightingId" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="usp_ST_Metrics_TotalSalesActivityOneMonth_Result">
+          <Property Type="Int32" Name="Opened" Nullable="true" />
+          <Property Type="Int32" Name="Quoted" Nullable="true" />
+          <Property Type="Int32" Name="Awarded" Nullable="true" />
+          <Property Type="Int32" Name="Closed" Nullable="true" />
         </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
@@ -81,6 +519,245 @@
                 <ScalarProperty Name="SOP" ColumnName="SOP" />
                 <ScalarProperty Name="EEIPartNumber" ColumnName="EEIPartNumber" />
                 <ScalarProperty Name="TotalQuotedSales" ColumnName="TotalQuotedSales" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="usp_ST_Metrics_ProgramsLaunchingByCustomer" FunctionName="MONITORModel1.Store.usp_ST_Metrics_ProgramsLaunchingByCustomer">
+          <ResultMapping>
+              <ComplexTypeMapping TypeName="MONITORModel1.ProgramsLaunchingByCustomer">
+                <ScalarProperty Name="Customer" ColumnName="Customer" />
+                <ScalarProperty Name="HeadLampCount" ColumnName="HeadLampCount" />
+                <ScalarProperty Name="TailLampCount" ColumnName="TailLampCount" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="usp_ST_Metrics_PeakVolumeOfProgramsLaunching" FunctionName="MONITORModel1.Store.usp_ST_Metrics_PeakVolumeOfProgramsLaunching">
+          <ResultMapping>
+              <ComplexTypeMapping TypeName="MONITORModel1.PeakVolumeOfProgramsLaunching">
+                <ScalarProperty Name="Customer" ColumnName="Customer" />
+                <ScalarProperty Name="HalogenHeadLampPeakVolume" ColumnName="HalogenHeadLampPeakVolume" />
+                <ScalarProperty Name="LedHeadLampPeakVolume" ColumnName="LedHeadLampPeakVolume" />
+                <ScalarProperty Name="ConventionalTailLampPeakVolume" ColumnName="ConventionalTailLampPeakVolume" />
+                <ScalarProperty Name="LedTailLampPeakVolume" ColumnName="LedTailLampPeakVolume" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="usp_ST_Metrics_PeakVolumeOfProgramsLaunching2017" FunctionName="MONITORModel1.Store.usp_ST_Metrics_PeakVolumeOfProgramsLaunching2017">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="MONITORModel1.PeakVolumeOfProgramsLaunching2017_Result">
+                <ScalarProperty Name="Program" ColumnName="Program" />
+                <ScalarProperty Name="HalogenHeadlampPeakVolume2017" ColumnName="HalogenHeadlampPeakVolume2017" />
+                <ScalarProperty Name="LedHeadlampPeakVolume2017" ColumnName="LedHeadlampPeakVolume2017" />
+                <ScalarProperty Name="XenonHeadlampPeakVolume2017" ColumnName="XenonHeadlampPeakVolume2017" />
+                <ScalarProperty Name="ConventionalTaillampPeakVolume2017" ColumnName="ConventionalTaillampPeakVolume2017" />
+                <ScalarProperty Name="LedTaillampPeakVolume2017" ColumnName="LedTaillampPeakVolume2017" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <EntitySetMapping Name="ST_CustomersWithProgramsLaunching2017">
+            <EntityTypeMapping TypeName="MONITORModel1.ST_CustomersWithProgramsLaunching2017">
+              <MappingFragment StoreEntitySet="ST_CustomersWithProgramsLaunching2017">
+                <ScalarProperty Name="Customer" ColumnName="Customer" />
+                <ScalarProperty Name="RowNumber" ColumnName="RowNumber" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ST_CustomersWithProgramsLaunching2018">
+            <EntityTypeMapping TypeName="MONITORModel1.ST_CustomersWithProgramsLaunching2018">
+              <MappingFragment StoreEntitySet="ST_CustomersWithProgramsLaunching2018">
+                <ScalarProperty Name="Customer" ColumnName="Customer" />
+                <ScalarProperty Name="RowNumber" ColumnName="RowNumber" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ST_CustomersWithProgramsLaunching2019">
+            <EntityTypeMapping TypeName="MONITORModel1.ST_CustomersWithProgramsLaunching2019">
+              <MappingFragment StoreEntitySet="ST_CustomersWithProgramsLaunching2019">
+                <ScalarProperty Name="Customer" ColumnName="Customer" />
+                <ScalarProperty Name="RowNumber" ColumnName="RowNumber" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="usp_ST_Metrics_PeakVolumeOfProgramsLaunching2018" FunctionName="MONITORModel1.Store.usp_ST_Metrics_PeakVolumeOfProgramsLaunching2018">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="MONITORModel1.PeakVolumeOfProgramsLaunching2018_Result">
+                <ScalarProperty Name="Program" ColumnName="Program" />
+                <ScalarProperty Name="HalogenHeadlampPeakVolume2018" ColumnName="HalogenHeadlampPeakVolume2018" />
+                <ScalarProperty Name="LedHeadlampPeakVolume2018" ColumnName="LedHeadlampPeakVolume2018" />
+                <ScalarProperty Name="XenonHeadlampPeakVolume2018" ColumnName="XenonHeadlampPeakVolume2018" />
+                <ScalarProperty Name="ConventionalTaillampPeakVolume2018" ColumnName="ConventionalTaillampPeakVolume2018" />
+                <ScalarProperty Name="LedTaillampPeakVolume2018" ColumnName="LedTaillampPeakVolume2018" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="usp_ST_Metrics_PeakVolumeOfProgramsLaunching2019" FunctionName="MONITORModel1.Store.usp_ST_Metrics_PeakVolumeOfProgramsLaunching2019">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="MONITORModel1.PeakVolumeOfProgramsLaunching2019_Result">
+                <ScalarProperty Name="Program" ColumnName="Program" />
+                <ScalarProperty Name="HalogenHeadlampPeakVolume2019" ColumnName="HalogenHeadlampPeakVolume2019" />
+                <ScalarProperty Name="LedHeadlampPeakVolume2019" ColumnName="LedHeadlampPeakVolume2019" />
+                <ScalarProperty Name="XenonHeadlampPeakVolume2019" ColumnName="XenonHeadlampPeakVolume2019" />
+                <ScalarProperty Name="ConventionalTaillampPeakVolume2019" ColumnName="ConventionalTaillampPeakVolume2019" />
+                <ScalarProperty Name="LedTaillampPeakVolume2019" ColumnName="LedTaillampPeakVolume2019" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <EntitySetMapping Name="vw_ST_LightingStudy_2016">
+            <EntityTypeMapping TypeName="MONITORModel1.vw_ST_LightingStudy_2016">
+              <MappingFragment StoreEntitySet="vw_ST_LightingStudy_2016">
+                <ScalarProperty Name="EOPYear" ColumnName="EOPYear" />
+                <ScalarProperty Name="EOP" ColumnName="EOP" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="PeakVolume" ColumnName="PeakVolume" />
+                <ScalarProperty Name="Volume2019" ColumnName="Volume2019" />
+                <ScalarProperty Name="Volume2018" ColumnName="Volume2018" />
+                <ScalarProperty Name="Volume2017" ColumnName="Volume2017" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="Region" ColumnName="Region" />
+                <ScalarProperty Name="Label" ColumnName="Label" />
+                <ScalarProperty Name="NamePlate" ColumnName="NamePlate" />
+                <ScalarProperty Name="OEM" ColumnName="OEM" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Application" ColumnName="Application" />
+                <ScalarProperty Name="BulbType" ColumnName="BulbType" />
+                <ScalarProperty Name="SOPYear" ColumnName="SOPYear" />
+                <ScalarProperty Name="SOP" ColumnName="SOP" />
+                <ScalarProperty Name="Program" ColumnName="Program" />
+                <ScalarProperty Name="Customer" ColumnName="Customer" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="vw_ST_SalesPersonActivity_OneWeek">
+            <EntityTypeMapping TypeName="MONITORModel1.vw_ST_SalesPersonActivity_OneWeek">
+              <MappingFragment StoreEntitySet="vw_ST_SalesPersonActivity_OneWeek">
+                <ScalarProperty Name="SalesPersonCode" ColumnName="SalesPersonCode" />
+                <ScalarProperty Name="Notes" ColumnName="Notes" />
+                <ScalarProperty Name="Duration" ColumnName="Duration" />
+                <ScalarProperty Name="ContactEmailAddress" ColumnName="ContactEmailAddress" />
+                <ScalarProperty Name="ContactPhoneNumber" ColumnName="ContactPhoneNumber" />
+                <ScalarProperty Name="ContactName" ColumnName="ContactName" />
+                <ScalarProperty Name="MeetingLocation" ColumnName="MeetingLocation" />
+                <ScalarProperty Name="Activity" ColumnName="Activity" />
+                <ScalarProperty Name="ActivityDate" ColumnName="ActivityDate" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="PeakVolume" ColumnName="PeakVolume" />
+                <ScalarProperty Name="SOP" ColumnName="SOP" />
+                <ScalarProperty Name="Application" ColumnName="Application" />
+                <ScalarProperty Name="Program" ColumnName="Program" />
+                <ScalarProperty Name="Customer" ColumnName="Customer" />
+                <ScalarProperty Name="SalesPerson" ColumnName="SalesPerson" />
+                <ScalarProperty Name="RowID" ColumnName="RowID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="usp_ST_Metrics_PeakVolumeOfProgramsClosing2017" FunctionName="MONITORModel1.Store.usp_ST_Metrics_PeakVolumeOfProgramsClosing2017">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="MONITORModel1.PeakVolumeOfProgramsClosing2017_Result">
+                <ScalarProperty Name="Program" ColumnName="Program" />
+                <ScalarProperty Name="HalogenHeadlampPeakVolume2017" ColumnName="HalogenHeadlampPeakVolume2017" />
+                <ScalarProperty Name="LedHeadlampPeakVolume2017" ColumnName="LedHeadlampPeakVolume2017" />
+                <ScalarProperty Name="XenonHeadlampPeakVolume2017" ColumnName="XenonHeadlampPeakVolume2017" />
+                <ScalarProperty Name="ConventionalTaillampPeakVolume2017" ColumnName="ConventionalTaillampPeakVolume2017" />
+                <ScalarProperty Name="LedTaillampPeakVolume2017" ColumnName="LedTaillampPeakVolume2017" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="usp_ST_Metrics_PeakVolumeOfProgramsClosing2018" FunctionName="MONITORModel1.Store.usp_ST_Metrics_PeakVolumeOfProgramsClosing2018">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="MONITORModel1.PeakVolumeOfProgramsClosing2018_Result">
+                <ScalarProperty Name="Program" ColumnName="Program" />
+                <ScalarProperty Name="HalogenHeadlampPeakVolume2018" ColumnName="HalogenHeadlampPeakVolume2018" />
+                <ScalarProperty Name="LedHeadlampPeakVolume2018" ColumnName="LedHeadlampPeakVolume2018" />
+                <ScalarProperty Name="XenonHeadlampPeakVolume2018" ColumnName="XenonHeadlampPeakVolume2018" />
+                <ScalarProperty Name="ConventionalTaillampPeakVolume2018" ColumnName="ConventionalTaillampPeakVolume2018" />
+                <ScalarProperty Name="LedTaillampPeakVolume2018" ColumnName="LedTaillampPeakVolume2018" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="usp_ST_Metrics_PeakVolumeOfProgramsClosing2019" FunctionName="MONITORModel1.Store.usp_ST_Metrics_PeakVolumeOfProgramsClosing2019">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="MONITORModel1.PeakVolumeOfProgramsClosing2019_Result">
+                <ScalarProperty Name="Program" ColumnName="Program" />
+                <ScalarProperty Name="HalogenHeadlampPeakVolume2019" ColumnName="HalogenHeadlampPeakVolume2019" />
+                <ScalarProperty Name="LedHeadlampPeakVolume2019" ColumnName="LedHeadlampPeakVolume2019" />
+                <ScalarProperty Name="XenonHeadlampPeakVolume2019" ColumnName="XenonHeadlampPeakVolume2019" />
+                <ScalarProperty Name="ConventionalTaillampPeakVolume2019" ColumnName="ConventionalTaillampPeakVolume2019" />
+                <ScalarProperty Name="LedTaillampPeakVolume2019" ColumnName="LedTaillampPeakVolume2019" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <EntitySetMapping Name="ST_CustomersWithProgramsClosing2017">
+            <EntityTypeMapping TypeName="MONITORModel1.ST_CustomersWithProgramsClosing2017">
+              <MappingFragment StoreEntitySet="ST_CustomersWithProgramsClosing2017">
+                <ScalarProperty Name="Customer" ColumnName="Customer" />
+                <ScalarProperty Name="RowNumber" ColumnName="RowNumber" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ST_CustomersWithProgramsClosing2018">
+            <EntityTypeMapping TypeName="MONITORModel1.ST_CustomersWithProgramsClosing2018">
+              <MappingFragment StoreEntitySet="ST_CustomersWithProgramsClosing2018">
+                <ScalarProperty Name="Customer" ColumnName="Customer" />
+                <ScalarProperty Name="RowNumber" ColumnName="RowNumber" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ST_CustomersWithProgramsClosing2019">
+            <EntityTypeMapping TypeName="MONITORModel1.ST_CustomersWithProgramsClosing2019">
+              <MappingFragment StoreEntitySet="ST_CustomersWithProgramsClosing2019">
+                <ScalarProperty Name="Customer" ColumnName="Customer" />
+                <ScalarProperty Name="RowNumber" ColumnName="RowNumber" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="usp_ST_Report_SalesActivityOneWeek" FunctionName="MONITORModel1.Store.usp_ST_Report_SalesActivityOneWeek">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="MONITORModel1.usp_ST_Report_SalesActivityOneWeek_Result">
+                <ScalarProperty Name="RowID" ColumnName="RowID" />
+                <ScalarProperty Name="CombinedLightingId" ColumnName="CombinedLightingId" />
+                <ScalarProperty Name="SalesPerson" ColumnName="SalesPerson" />
+                <ScalarProperty Name="Customer" ColumnName="Customer" />
+                <ScalarProperty Name="Program" ColumnName="Program" />
+                <ScalarProperty Name="Application" ColumnName="Application" />
+                <ScalarProperty Name="SOP" ColumnName="SOP" />
+                <ScalarProperty Name="EOP" ColumnName="EOP" />
+                <ScalarProperty Name="PeakVolume" ColumnName="PeakVolume" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="ActivityDate" ColumnName="ActivityDate" />
+                <ScalarProperty Name="Activity" ColumnName="Activity" />
+                <ScalarProperty Name="MeetingLocation" ColumnName="MeetingLocation" />
+                <ScalarProperty Name="ContactName" ColumnName="ContactName" />
+                <ScalarProperty Name="ContactPhoneNumber" ColumnName="ContactPhoneNumber" />
+                <ScalarProperty Name="ContactEmailAddress" ColumnName="ContactEmailAddress" />
+                <ScalarProperty Name="Duration" ColumnName="Duration" />
+                <ScalarProperty Name="Notes" ColumnName="Notes" />
+                <ScalarProperty Name="SalesPersonCode" ColumnName="SalesPersonCode" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="usp_ST_Report_TopLeads" FunctionName="MONITORModel1.Store.usp_ST_Report_TopLeads">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="MONITORModel1.usp_ST_Report_TopLeads_Result">
+                <ScalarProperty Name="Volume" ColumnName="Volume" />
+                <ScalarProperty Name="Customer" ColumnName="Customer" />
+                <ScalarProperty Name="Program" ColumnName="Program" />
+                <ScalarProperty Name="Application" ColumnName="Application" />
+                <ScalarProperty Name="SOP" ColumnName="SOP" />
+                <ScalarProperty Name="EOP" ColumnName="EOP" />
+                <ScalarProperty Name="SalesLeadStatus" ColumnName="SalesLeadStatus" />
+                <ScalarProperty Name="SalesPerson" ColumnName="SalesPerson" />
+                <ScalarProperty Name="SalesLeadId" ColumnName="SalesLeadId" />
+                <ScalarProperty Name="CombinedLightingId" ColumnName="CombinedLightingId" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="usp_ST_Metrics_TotalSalesActivityOneMonth" FunctionName="MONITORModel1.Store.usp_ST_Metrics_TotalSalesActivityOneMonth">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="MONITORModel1.usp_ST_Metrics_TotalSalesActivityOneMonth_Result">
+                <ScalarProperty Name="Opened" ColumnName="Opened" />
+                <ScalarProperty Name="Quoted" ColumnName="Quoted" />
+                <ScalarProperty Name="Awarded" ColumnName="Awarded" />
+                <ScalarProperty Name="Closed" ColumnName="Closed" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
