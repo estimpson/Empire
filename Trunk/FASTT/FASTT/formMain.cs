@@ -70,6 +70,12 @@ namespace FASTT
 
             //RFIDReader.RFIDRead += RFIDReader_RFIDRead;
 
+            var salesOpportunitiesToolTip = new ToolTip();
+            salesOpportunitiesToolTip.SetToolTip(mesBtnPrograms, "Click here to create a new sales lead.");
+
+            var openSalesLeadsToolTip = new ToolTip();
+            openSalesLeadsToolTip.SetToolTip(mesBtnSalesActivity, "Click here to view open sales leads.");
+
             mesBtnCharts.Visible = false;
             lblScanInstructions.Visible = false;
             TogglePasswordEntry(ManualLogon.Show, "");
@@ -145,6 +151,22 @@ namespace FASTT
             _reportsView = new ReportsView();
             _reportsView.OperatorCode = _operatorCode;
             _reportsView.ShowDialog();
+        }
+
+        #endregion
+
+
+        #region Other Methods
+
+        private void mesTbxPassword_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                string password = mesTbxPassword.Text.Trim();
+                if (password == "") return;
+
+                ValidateLogonAttempt(password);
+            }
         }
 
         #endregion

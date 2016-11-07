@@ -13,11 +13,14 @@ namespace FASTT.Model
     
     public partial class usp_ST_SalesLeadLog_GetActivityHistory_Result
     {
+        public string StatusType { get; set; }
         public string Activity { get; set; }
         public Nullable<System.DateTime> ActivityDate { get; set; }
         public string ContactName { get; set; }
         public string ContactPhoneNumber { get; set; }
         public string ContactEmailAddress { get; set; }
+        public Nullable<decimal> Duration { get; set; }
         public string Notes { get; set; }
+        public int RowID { get; set; }
     }
 }

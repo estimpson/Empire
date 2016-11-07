@@ -4,6 +4,7 @@ namespace FASTT.DataModels
 {
     public class SalesLeadHistoryDataModel
     {
+        public string Status { get; set; }
         public string Activity { get; set; }
         public DateTime? ActivityDate { get; set; }
         public decimal? Duration { get; set; }

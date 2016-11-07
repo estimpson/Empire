@@ -39,8 +39,10 @@
             this.grdSalesData = new DevExpress.XtraGrid.GridControl();
             this.gridView1 = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
-            this.cbxCustomers = new System.Windows.Forms.ComboBox();
+            this.cbxYear = new System.Windows.Forms.ComboBox();
             this.label2 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
+            this.cbxCustomers = new System.Windows.Forms.ComboBox();
             this.label3 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
@@ -129,9 +131,9 @@
             this.label1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(122)))), ((int)(((byte)(204)))));
             this.label1.Location = new System.Drawing.Point(3, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(120, 25);
+            this.label1.Size = new System.Drawing.Size(193, 25);
             this.label1.TabIndex = 2;
-            this.label1.Text = "Sales Leads";
+            this.label1.Text = "Sales Opportunities";
             // 
             // tlpMain
             // 
@@ -180,17 +182,27 @@
             // 
             // gridView1
             // 
+            this.gridView1.Appearance.HeaderPanel.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.gridView1.Appearance.HeaderPanel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(122)))), ((int)(((byte)(204)))));
+            this.gridView1.Appearance.HeaderPanel.Options.UseFont = true;
+            this.gridView1.Appearance.HeaderPanel.Options.UseForeColor = true;
+            this.gridView1.Appearance.Row.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.gridView1.Appearance.Row.Options.UseFont = true;
             this.gridView1.GridControl = this.grdSalesData;
             this.gridView1.Name = "gridView1";
             // 
             // tableLayoutPanel3
             // 
-            this.tableLayoutPanel3.ColumnCount = 3;
-            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 85F));
-            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 250F));
+            this.tableLayoutPanel3.ColumnCount = 5;
+            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 80F));
+            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 260F));
+            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 55F));
+            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 160F));
             this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel3.Controls.Add(this.cbxCustomers, 1, 0);
+            this.tableLayoutPanel3.Controls.Add(this.cbxYear, 3, 0);
             this.tableLayoutPanel3.Controls.Add(this.label2, 0, 0);
+            this.tableLayoutPanel3.Controls.Add(this.label4, 2, 0);
+            this.tableLayoutPanel3.Controls.Add(this.cbxCustomers, 1, 0);
             this.tableLayoutPanel3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel3.Location = new System.Drawing.Point(3, 28);
             this.tableLayoutPanel3.Name = "tableLayoutPanel3";
@@ -199,20 +211,20 @@
             this.tableLayoutPanel3.Size = new System.Drawing.Size(1506, 44);
             this.tableLayoutPanel3.TabIndex = 6;
             // 
-            // cbxCustomers
+            // cbxYear
             // 
-            this.cbxCustomers.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
-            this.cbxCustomers.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
-            this.cbxCustomers.BackColor = System.Drawing.Color.Black;
-            this.cbxCustomers.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.cbxCustomers.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cbxCustomers.ForeColor = System.Drawing.Color.White;
-            this.cbxCustomers.FormattingEnabled = true;
-            this.cbxCustomers.Location = new System.Drawing.Point(88, 3);
-            this.cbxCustomers.Name = "cbxCustomers";
-            this.cbxCustomers.Size = new System.Drawing.Size(207, 27);
-            this.cbxCustomers.TabIndex = 3;
-            this.cbxCustomers.SelectedIndexChanged += new System.EventHandler(this.cbxParentCustomers_SelectedIndexChanged);
+            this.cbxYear.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.cbxYear.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
+            this.cbxYear.BackColor = System.Drawing.Color.Black;
+            this.cbxYear.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.cbxYear.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cbxYear.ForeColor = System.Drawing.Color.White;
+            this.cbxYear.FormattingEnabled = true;
+            this.cbxYear.Location = new System.Drawing.Point(398, 3);
+            this.cbxYear.Name = "cbxYear";
+            this.cbxYear.Size = new System.Drawing.Size(97, 27);
+            this.cbxYear.TabIndex = 8;
+            this.cbxYear.SelectedIndexChanged += new System.EventHandler(this.cbxYear_SelectedIndexChanged);
             // 
             // label2
             // 
@@ -225,6 +237,32 @@
             this.label2.TabIndex = 6;
             this.label2.Text = "Customer:";
             // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.ForeColor = System.Drawing.Color.White;
+            this.label4.Location = new System.Drawing.Point(343, 0);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(39, 16);
+            this.label4.TabIndex = 7;
+            this.label4.Text = "SOP:";
+            // 
+            // cbxCustomers
+            // 
+            this.cbxCustomers.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.cbxCustomers.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
+            this.cbxCustomers.BackColor = System.Drawing.Color.Black;
+            this.cbxCustomers.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.cbxCustomers.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cbxCustomers.ForeColor = System.Drawing.Color.White;
+            this.cbxCustomers.FormattingEnabled = true;
+            this.cbxCustomers.Location = new System.Drawing.Point(83, 3);
+            this.cbxCustomers.Name = "cbxCustomers";
+            this.cbxCustomers.Size = new System.Drawing.Size(217, 27);
+            this.cbxCustomers.TabIndex = 3;
+            this.cbxCustomers.SelectedIndexChanged += new System.EventHandler(this.cbxParentCustomers_SelectedIndexChanged);
+            // 
             // label3
             // 
             this.label3.AutoSize = true;
@@ -233,9 +271,10 @@
             this.label3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(122)))), ((int)(((byte)(204)))));
             this.label3.Location = new System.Drawing.Point(3, 0);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(453, 16);
+            this.label3.Size = new System.Drawing.Size(505, 16);
             this.label3.TabIndex = 7;
-            this.label3.Text = "1) Select a customer.  2) Double click a row to create a new Sales Log entry.";
+            this.label3.Text = "1) Select a customer and year.  2) Double click a grid row to create a new sales " +
+    "lead.";
             // 
             // SalesLeadsView
             // 
@@ -283,5 +322,7 @@
         private System.Windows.Forms.ComboBox cbxCustomers;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.ComboBox cbxYear;
+        private System.Windows.Forms.Label label4;
     }
 }

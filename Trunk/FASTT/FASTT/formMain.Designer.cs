@@ -31,7 +31,7 @@
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.linkLblClose = new System.Windows.Forms.LinkLabel();
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
-            this.mesBtnSalesLeads = new Fx.WinForms.Flat.MESButton();
+            this.mesBtnPrograms = new Fx.WinForms.Flat.MESButton();
             this.mesBtnSalesActivity = new Fx.WinForms.Flat.MESButton();
             this.mesBtnCharts = new Fx.WinForms.Flat.MESButton();
             this.mesBtnReports = new Fx.WinForms.Flat.MESButton();
@@ -43,6 +43,7 @@
             this.mesTbxPassword = new Fx.WinForms.Flat.MESTextEdit();
             this.mesBtnLogon = new Fx.WinForms.Flat.MESButton();
             this.lblScanInstructions = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
             this.tableLayoutPanel1.SuspendLayout();
             this.flowLayoutPanel1.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
@@ -84,7 +85,7 @@
             // 
             // flowLayoutPanel1
             // 
-            this.flowLayoutPanel1.Controls.Add(this.mesBtnSalesLeads);
+            this.flowLayoutPanel1.Controls.Add(this.mesBtnPrograms);
             this.flowLayoutPanel1.Controls.Add(this.mesBtnSalesActivity);
             this.flowLayoutPanel1.Controls.Add(this.mesBtnCharts);
             this.flowLayoutPanel1.Controls.Add(this.mesBtnReports);
@@ -95,23 +96,23 @@
             this.flowLayoutPanel1.Size = new System.Drawing.Size(174, 534);
             this.flowLayoutPanel1.TabIndex = 1;
             // 
-            // mesBtnSalesLeads
+            // mesBtnPrograms
             // 
-            this.mesBtnSalesLeads.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(31)))), ((int)(((byte)(31)))), ((int)(((byte)(32)))));
-            this.mesBtnSalesLeads.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(67)))), ((int)(((byte)(67)))), ((int)(((byte)(70)))));
-            this.mesBtnSalesLeads.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(122)))), ((int)(((byte)(204)))));
-            this.mesBtnSalesLeads.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(84)))), ((int)(((byte)(84)))), ((int)(((byte)(92)))));
-            this.mesBtnSalesLeads.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.mesBtnSalesLeads.Font = new System.Drawing.Font("Tahoma", 14F);
-            this.mesBtnSalesLeads.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
-            this.mesBtnSalesLeads.Location = new System.Drawing.Point(3, 3);
-            this.mesBtnSalesLeads.Margin = new System.Windows.Forms.Padding(3, 3, 3, 6);
-            this.mesBtnSalesLeads.Name = "mesBtnSalesLeads";
-            this.mesBtnSalesLeads.Size = new System.Drawing.Size(159, 35);
-            this.mesBtnSalesLeads.TabIndex = 0;
-            this.mesBtnSalesLeads.Text = "Sales Leads";
-            this.mesBtnSalesLeads.UseVisualStyleBackColor = false;
-            this.mesBtnSalesLeads.Click += new System.EventHandler(this.mesBtnSalesLeads_Click);
+            this.mesBtnPrograms.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(31)))), ((int)(((byte)(31)))), ((int)(((byte)(32)))));
+            this.mesBtnPrograms.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(67)))), ((int)(((byte)(67)))), ((int)(((byte)(70)))));
+            this.mesBtnPrograms.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(122)))), ((int)(((byte)(204)))));
+            this.mesBtnPrograms.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(84)))), ((int)(((byte)(84)))), ((int)(((byte)(92)))));
+            this.mesBtnPrograms.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.mesBtnPrograms.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.mesBtnPrograms.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
+            this.mesBtnPrograms.Location = new System.Drawing.Point(3, 3);
+            this.mesBtnPrograms.Margin = new System.Windows.Forms.Padding(3, 3, 3, 6);
+            this.mesBtnPrograms.Name = "mesBtnPrograms";
+            this.mesBtnPrograms.Size = new System.Drawing.Size(159, 35);
+            this.mesBtnPrograms.TabIndex = 0;
+            this.mesBtnPrograms.Text = "Sales Opportunities";
+            this.mesBtnPrograms.UseVisualStyleBackColor = false;
+            this.mesBtnPrograms.Click += new System.EventHandler(this.mesBtnSalesLeads_Click);
             // 
             // mesBtnSalesActivity
             // 
@@ -120,14 +121,14 @@
             this.mesBtnSalesActivity.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(122)))), ((int)(((byte)(204)))));
             this.mesBtnSalesActivity.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(84)))), ((int)(((byte)(84)))), ((int)(((byte)(92)))));
             this.mesBtnSalesActivity.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.mesBtnSalesActivity.Font = new System.Drawing.Font("Tahoma", 14F);
+            this.mesBtnSalesActivity.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.mesBtnSalesActivity.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
             this.mesBtnSalesActivity.Location = new System.Drawing.Point(3, 47);
             this.mesBtnSalesActivity.Margin = new System.Windows.Forms.Padding(3, 3, 3, 6);
             this.mesBtnSalesActivity.Name = "mesBtnSalesActivity";
             this.mesBtnSalesActivity.Size = new System.Drawing.Size(159, 35);
             this.mesBtnSalesActivity.TabIndex = 2;
-            this.mesBtnSalesActivity.Text = "Sales Activity";
+            this.mesBtnSalesActivity.Text = "Open Sales Leads";
             this.mesBtnSalesActivity.UseVisualStyleBackColor = false;
             this.mesBtnSalesActivity.Click += new System.EventHandler(this.mesBtnSalesActivity_Click);
             // 
@@ -138,7 +139,7 @@
             this.mesBtnCharts.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(122)))), ((int)(((byte)(204)))));
             this.mesBtnCharts.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(84)))), ((int)(((byte)(84)))), ((int)(((byte)(92)))));
             this.mesBtnCharts.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.mesBtnCharts.Font = new System.Drawing.Font("Tahoma", 14F);
+            this.mesBtnCharts.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.mesBtnCharts.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
             this.mesBtnCharts.Location = new System.Drawing.Point(3, 91);
             this.mesBtnCharts.Margin = new System.Windows.Forms.Padding(3, 3, 3, 6);
@@ -155,7 +156,7 @@
             this.mesBtnReports.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(122)))), ((int)(((byte)(204)))));
             this.mesBtnReports.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(84)))), ((int)(((byte)(84)))), ((int)(((byte)(92)))));
             this.mesBtnReports.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.mesBtnReports.Font = new System.Drawing.Font("Tahoma", 14F);
+            this.mesBtnReports.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.mesBtnReports.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
             this.mesBtnReports.Location = new System.Drawing.Point(3, 135);
             this.mesBtnReports.Margin = new System.Windows.Forms.Padding(3, 3, 3, 6);
@@ -173,13 +174,15 @@
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
             this.tableLayoutPanel2.Controls.Add(this.lblTitle, 1, 1);
             this.tableLayoutPanel2.Controls.Add(this.tableLayoutPanel3, 1, 0);
-            this.tableLayoutPanel2.Controls.Add(this.lblScanInstructions, 1, 2);
+            this.tableLayoutPanel2.Controls.Add(this.lblScanInstructions, 1, 3);
+            this.tableLayoutPanel2.Controls.Add(this.label1, 1, 2);
             this.tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel2.Location = new System.Drawing.Point(203, 3);
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
-            this.tableLayoutPanel2.RowCount = 3;
+            this.tableLayoutPanel2.RowCount = 4;
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 200F));
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 60F));
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel2.Size = new System.Drawing.Size(744, 534);
             this.tableLayoutPanel2.TabIndex = 2;
@@ -189,11 +192,12 @@
             this.lblTitle.AutoSize = true;
             this.lblTitle.Font = new System.Drawing.Font("Century Gothic", 36F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblTitle.ForeColor = System.Drawing.Color.White;
-            this.lblTitle.Location = new System.Drawing.Point(93, 200);
+            this.lblTitle.Location = new System.Drawing.Point(240, 200);
+            this.lblTitle.Margin = new System.Windows.Forms.Padding(150, 0, 3, 0);
             this.lblTitle.Name = "lblTitle";
-            this.lblTitle.Size = new System.Drawing.Size(477, 58);
+            this.lblTitle.Size = new System.Drawing.Size(149, 58);
             this.lblTitle.TabIndex = 0;
-            this.lblTitle.Text = "FASTT Maintenance";
+            this.lblTitle.Text = "FASTT";
             this.lblTitle.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // tableLayoutPanel3
@@ -248,6 +252,7 @@
             this.mesTbxPassword.PasswordChar = '*';
             this.mesTbxPassword.Size = new System.Drawing.Size(100, 27);
             this.mesTbxPassword.TabIndex = 4;
+            this.mesTbxPassword.KeyDown += new System.Windows.Forms.KeyEventHandler(this.mesTbxPassword_KeyDown);
             // 
             // mesBtnLogon
             // 
@@ -271,12 +276,25 @@
             this.lblScanInstructions.AutoSize = true;
             this.lblScanInstructions.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblScanInstructions.ForeColor = System.Drawing.Color.White;
-            this.lblScanInstructions.Location = new System.Drawing.Point(93, 260);
+            this.lblScanInstructions.Location = new System.Drawing.Point(240, 280);
+            this.lblScanInstructions.Margin = new System.Windows.Forms.Padding(150, 0, 3, 0);
             this.lblScanInstructions.Name = "lblScanInstructions";
             this.lblScanInstructions.Padding = new System.Windows.Forms.Padding(10, 0, 0, 0);
             this.lblScanInstructions.Size = new System.Drawing.Size(190, 18);
             this.lblScanInstructions.TabIndex = 2;
             this.lblScanInstructions.Text = "Scan your badge to begin.";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.ForeColor = System.Drawing.Color.White;
+            this.label1.Location = new System.Drawing.Point(210, 260);
+            this.label1.Margin = new System.Windows.Forms.Padding(120, 0, 3, 0);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(212, 16);
+            this.label1.TabIndex = 3;
+            this.label1.Text = "Forecast and Sales Tracking Tool";
             // 
             // formMain
             // 
@@ -315,12 +333,13 @@
         private System.Windows.Forms.Label lblPassword;
         private System.Windows.Forms.Label lblLogonError;
         private System.Windows.Forms.Label lblScanInstructions;
-        private Fx.WinForms.Flat.MESButton mesBtnSalesLeads;
+        private Fx.WinForms.Flat.MESButton mesBtnPrograms;
         private Fx.WinForms.Flat.MESButton mesBtnCharts;
         private Fx.WinForms.Flat.MESTextEdit mesTbxPassword;
         private Fx.WinForms.Flat.MESButton mesBtnLogon;
         private Fx.WinForms.Flat.MESButton mesBtnSalesActivity;
         private Fx.WinForms.Flat.MESButton mesBtnReports;
+        private System.Windows.Forms.Label label1;
     }
 }
 

@@ -5,8 +5,9 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="f11c09493dd648a1a7201f07d962bdb1" Name="Diagram1" >
-        <EntityTypeShape EntityType="MONITORModel.vw_ST_CombinedLighting" Width="2.125" PointX="0.5" PointY="0.5" />
-        <EntityTypeShape EntityType="MONITORModel.employee" Width="1.5" PointX="3.25" PointY="0.5" />
+        <EntityTypeShape EntityType="MONITORModel.employee" Width="1.5" PointX="3.625" PointY="0.5" />
+        <EntityTypeShape EntityType="MONITORModel.ST_SalesLeadLog_StatusDefinition" Width="2.625" PointX="5.75" PointY="0.5" />
+        <EntityTypeShape EntityType="MONITORModel.vw_ST_LightingStudy_2016" Width="2.375" PointX="0.625" PointY="0.5" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

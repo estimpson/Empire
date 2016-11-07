@@ -28,8 +28,9 @@ namespace FASTT.Model
             throw new UnintentionalCodeFirstException();
         }
     
-        public DbSet<vw_ST_CombinedLighting> vw_ST_CombinedLighting { get; set; }
         public DbSet<employee> employees { get; set; }
+        public DbSet<ST_SalesLeadLog_StatusDefinition> ST_SalesLeadLog_StatusDefinition { get; set; }
+        public DbSet<vw_ST_LightingStudy_2016> vw_ST_LightingStudy_2016 { get; set; }
     
         public virtual ObjectResult<usp_ST_Csm_SalesForecast_Result1> usp_ST_Csm_SalesForecast(string parentCustomer, ObjectParameter tranDT, ObjectParameter result)
         {
@@ -38,15 +39,6 @@ namespace FASTT.Model
                 new ObjectParameter("ParentCustomer", typeof(string));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_ST_Csm_SalesForecast_Result1>("usp_ST_Csm_SalesForecast", parentCustomerParameter, tranDT, result);
-        }
-    
-        public virtual ObjectResult<usp_ST_SalesLeadLog_GetActivityHistory_Result2> usp_ST_SalesLeadLog_GetActivityHistory(Nullable<int> salesLeadId, ObjectParameter tranDT, ObjectParameter result)
-        {
-            var salesLeadIdParameter = salesLeadId.HasValue ?
-                new ObjectParameter("SalesLeadId", salesLeadId) :
-                new ObjectParameter("SalesLeadId", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_ST_SalesLeadLog_GetActivityHistory_Result2>("usp_ST_SalesLeadLog_GetActivityHistory", salesLeadIdParameter, tranDT, result);
         }
     
         public virtual ObjectResult<usp_ST_SalesLeadLog_GetContactInfo_Result> usp_ST_SalesLeadLog_GetContactInfo(Nullable<int> id, ObjectParameter tranDT, ObjectParameter result)
@@ -58,16 +50,7 @@ namespace FASTT.Model
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_ST_SalesLeadLog_GetContactInfo_Result>("usp_ST_SalesLeadLog_GetContactInfo", idParameter, tranDT, result);
         }
     
-        public virtual ObjectResult<usp_ST_SalesLeadLog_GetActivity_Result1> usp_ST_SalesLeadLog_GetActivity(string salesPersonCode, ObjectParameter tranDT, ObjectParameter result)
-        {
-            var salesPersonCodeParameter = salesPersonCode != null ?
-                new ObjectParameter("SalesPersonCode", salesPersonCode) :
-                new ObjectParameter("SalesPersonCode", typeof(string));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_ST_SalesLeadLog_GetActivity_Result1>("usp_ST_SalesLeadLog_GetActivity", salesPersonCodeParameter, tranDT, result);
-        }
-    
-        public virtual int usp_ST_SalesLeadLog_Update(string operatorCode, Nullable<int> combinedLightingId, Nullable<int> salesLeadId, Nullable<int> salesLeadStatus, Nullable<int> activityRowId, string activity, Nullable<System.DateTime> activityDate, string contactName, string contactPhoneNumber, string contactEmailAddress, Nullable<decimal> duration, string notes, ObjectParameter tranDT, ObjectParameter result)
+        public virtual int usp_ST_SalesLeadLog_Update(string operatorCode, Nullable<int> combinedLightingId, Nullable<int> salesLeadId, Nullable<int> salesLeadStatus, Nullable<int> activityRowId, string activity, Nullable<System.DateTime> activityDate, string meetingLocation, string contactName, string contactPhoneNumber, string contactEmailAddress, Nullable<decimal> duration, string notes, string quoteNumber, ObjectParameter tranDT, ObjectParameter result)
         {
             var operatorCodeParameter = operatorCode != null ?
                 new ObjectParameter("OperatorCode", operatorCode) :
@@ -97,6 +80,10 @@ namespace FASTT.Model
                 new ObjectParameter("ActivityDate", activityDate) :
                 new ObjectParameter("ActivityDate", typeof(System.DateTime));
     
+            var meetingLocationParameter = meetingLocation != null ?
+                new ObjectParameter("MeetingLocation", meetingLocation) :
+                new ObjectParameter("MeetingLocation", typeof(string));
+    
             var contactNameParameter = contactName != null ?
                 new ObjectParameter("ContactName", contactName) :
                 new ObjectParameter("ContactName", typeof(string));
@@ -117,7 +104,29 @@ namespace FASTT.Model
                 new ObjectParameter("Notes", notes) :
                 new ObjectParameter("Notes", typeof(string));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("usp_ST_SalesLeadLog_Update", operatorCodeParameter, combinedLightingIdParameter, salesLeadIdParameter, salesLeadStatusParameter, activityRowIdParameter, activityParameter, activityDateParameter, contactNameParameter, contactPhoneNumberParameter, contactEmailAddressParameter, durationParameter, notesParameter, tranDT, result);
+            var quoteNumberParameter = quoteNumber != null ?
+                new ObjectParameter("QuoteNumber", quoteNumber) :
+                new ObjectParameter("QuoteNumber", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("usp_ST_SalesLeadLog_Update", operatorCodeParameter, combinedLightingIdParameter, salesLeadIdParameter, salesLeadStatusParameter, activityRowIdParameter, activityParameter, activityDateParameter, meetingLocationParameter, contactNameParameter, contactPhoneNumberParameter, contactEmailAddressParameter, durationParameter, notesParameter, quoteNumberParameter, tranDT, result);
+        }
+    
+        public virtual ObjectResult<usp_ST_SalesLeadLog_GetActivityHistory_Result> usp_ST_SalesLeadLog_GetActivityHistory(Nullable<int> salesLeadId, ObjectParameter tranDT, ObjectParameter result)
+        {
+            var salesLeadIdParameter = salesLeadId.HasValue ?
+                new ObjectParameter("SalesLeadId", salesLeadId) :
+                new ObjectParameter("SalesLeadId", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_ST_SalesLeadLog_GetActivityHistory_Result>("usp_ST_SalesLeadLog_GetActivityHistory", salesLeadIdParameter, tranDT, result);
+        }
+    
+        public virtual ObjectResult<usp_ST_SalesLeadLog_GetActivity_Result> usp_ST_SalesLeadLog_GetActivity(string salesPersonCode, ObjectParameter tranDT, ObjectParameter result)
+        {
+            var salesPersonCodeParameter = salesPersonCode != null ?
+                new ObjectParameter("SalesPersonCode", salesPersonCode) :
+                new ObjectParameter("SalesPersonCode", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_ST_SalesLeadLog_GetActivity_Result>("usp_ST_SalesLeadLog_GetActivity", salesPersonCodeParameter, tranDT, result);
         }
     }
 }

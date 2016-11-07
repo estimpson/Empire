@@ -32,12 +32,16 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="DevExpress.Charts.v13.2.Core, Version=13.2.13.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.Data.v13.2, Version=13.2.13.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
     <Reference Include="DevExpress.Printing.v13.2.Core, Version=13.2.13.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
     <Reference Include="DevExpress.Utils.v13.2, Version=13.2.13.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.XtraCharts.v13.2, Version=13.2.13.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.XtraCharts.v13.2.UI, Version=13.2.13.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.XtraEditors.v13.2, Version=13.2.13.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
     <Reference Include="DevExpress.XtraGrid.v13.2, Version=13.2.13.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.XtraLayout.v13.2, Version=13.2.13.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.XtraNavBar.v13.2, Version=13.2.13.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.XtraPrinting.v13.2, Version=13.2.13.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
     <Reference Include="EntityFramework">
       <HintPath>..\packages\EntityFramework.5.0.0\lib\net40\EntityFramework.dll</HintPath>
@@ -59,6 +63,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controllers\MainController.cs" />
+    <Compile Include="Controllers\ReportsNavigationController.cs" />
     <Compile Include="Controllers\SalesLeadsController.cs" />
     <Compile Include="Controllers\ReportsController.cs" />
     <Compile Include="Controllers\SalesLeadsActivityController.cs" />
@@ -70,11 +75,26 @@
     <Compile Include="Controls\CustomMessageBox.Designer.cs">
       <DependentUpon>CustomMessageBox.cs</DependentUpon>
     </Compile>
+    <Compile Include="DataModels\Metrics_PeakVolumeOfProgramsClosing2017.cs" />
+    <Compile Include="DataModels\Metrics_PeakVolumeOfProgramsClosing2018.cs" />
+    <Compile Include="DataModels\Metrics_PeakVolumeOfProgramsClosing2019.cs" />
+    <Compile Include="DataModels\Metrics_PeakVolumeOfProgramsLaunching.cs" />
+    <Compile Include="DataModels\Metrics_PeakVolumeOfProgramsLaunching2017.cs" />
+    <Compile Include="DataModels\Metrics_PeakVolumeOfProgramsLaunching2017_HeadLamps.cs" />
+    <Compile Include="DataModels\Metrics_PeakVolumeOfProgramsLaunching2018.cs" />
+    <Compile Include="DataModels\Metrics_PeakVolumeOfProgramsLaunching2019.cs" />
+    <Compile Include="DataModels\Metrics_ProgramsLaunchingByCustomer.cs" />
+    <Compile Include="DataModels\Metrics_TotalSalesActivity_ThirtyDays.cs" />
+    <Compile Include="DataModels\NavigationGroupDataModel.cs" />
+    <Compile Include="DataModels\NavigationItemDataModel.cs" />
     <Compile Include="DataModels\ReportNewQuotesDataModel.cs" />
     <Compile Include="DataModels\ReportOpenQuotesDataModel.cs" />
+    <Compile Include="DataModels\ReportTopLeadsDataModel.cs" />
     <Compile Include="DataModels\SalesLeadActivityDataModel.cs" />
     <Compile Include="DataModels\SalesLeadDataModel.cs" />
     <Compile Include="DataModels\SalesLeadHistoryDataModel.cs" />
+    <Compile Include="DataModels\SalesLeadStatusDataModel.cs" />
+    <Compile Include="DataModels\ReportSalesPersonActivityDataModel.cs" />
     <Compile Include="formMain.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -99,6 +119,41 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Model1.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Model\Model11.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Model1.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Model\NavigationGroups.cs">
+      <DependentUpon>ReportsNavigationModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\NavigationItems.cs">
+      <DependentUpon>ReportsNavigationModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\PeakVolumeOfProgramsClosing2017_Result.cs">
+      <DependentUpon>ReportsModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\PeakVolumeOfProgramsClosing2018_Result.cs">
+      <DependentUpon>ReportsModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\PeakVolumeOfProgramsClosing2019_Result.cs">
+      <DependentUpon>ReportsModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\PeakVolumeOfProgramsLaunching.cs">
+      <DependentUpon>ReportsModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\PeakVolumeOfProgramsLaunching2017_Result.cs">
+      <DependentUpon>ReportsModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\PeakVolumeOfProgramsLaunching2018_Result.cs">
+      <DependentUpon>ReportsModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\PeakVolumeOfProgramsLaunching2019_Result.cs">
+      <DependentUpon>ReportsModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\ProgramsLaunchingByCustomer.cs">
+      <DependentUpon>ReportsModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Model\ReportsModel.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -113,6 +168,42 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>ReportsModel.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Model\ReportsNavigationModel.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ReportsNavigationModel.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\ReportsNavigationModel.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ReportsNavigationModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\ReportsNavigationModel.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ReportsNavigationModel.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Model\ST_CustomersWithProgramsClosing2017.cs">
+      <DependentUpon>ReportsModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\ST_CustomersWithProgramsClosing2018.cs">
+      <DependentUpon>ReportsModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\ST_CustomersWithProgramsClosing2019.cs">
+      <DependentUpon>ReportsModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\ST_CustomersWithProgramsLaunching2017.cs">
+      <DependentUpon>ReportsModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\ST_CustomersWithProgramsLaunching2018.cs">
+      <DependentUpon>ReportsModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\ST_CustomersWithProgramsLaunching2019.cs">
+      <DependentUpon>ReportsModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\ST_SalesLeadLog_StatusDefinition.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Model\usp_ST_Csm_SalesForecast_Result.cs">
       <DependentUpon>Model1.tt</DependentUpon>
@@ -129,25 +220,19 @@
     <Compile Include="Model\usp_ST_GetSalesLeadHeader_Result1.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
-    <Compile Include="Model\usp_ST_GetSalesLeadHeader_Result2.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
+    <Compile Include="Model\usp_ST_Metrics_TotalSalesActivityOneMonth_Result.cs">
+      <DependentUpon>ReportsModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Model\usp_ST_SalesLeadLog_GetActivityData_Result.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
+    <Compile Include="Model\usp_ST_Report_SalesActivityOneWeek_Result.cs">
+      <DependentUpon>ReportsModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\usp_ST_Report_TopLeads_Result.cs">
+      <DependentUpon>ReportsModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Model\usp_ST_SalesLeadLog_GetActivityHistory_Result.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
-    <Compile Include="Model\usp_ST_SalesLeadLog_GetActivityHistory_Result1.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Model\usp_ST_SalesLeadLog_GetActivityHistory_Result2.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
-    </Compile>
     <Compile Include="Model\usp_ST_SalesLeadLog_GetActivity_Result.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Model\usp_ST_SalesLeadLog_GetActivity_Result1.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Model\usp_ST_SalesLeadLog_GetContactInfo_Result.cs">
@@ -159,8 +244,11 @@
     <Compile Include="Model\usp_ST_SalesLeadLog_Report_OpenQuotes_Result.cs">
       <DependentUpon>ReportsModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Model\vw_ST_CombinedLighting.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
+    <Compile Include="Model\vw_ST_LightingStudy_2016.cs">
+      <DependentUpon>ReportsModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\vw_ST_SalesPersonActivity_OneWeek.cs">
+      <DependentUpon>ReportsModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -228,7 +316,7 @@
     <None Include="App.Config" />
     <EntityDeploy Include="Model\Model1.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>Model1.Designer.cs</LastGenOutput>
+      <LastGenOutput>Model11.Designer.cs</LastGenOutput>
     </EntityDeploy>
     <None Include="Model\Model1.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
@@ -259,6 +347,23 @@
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>ReportsModel.edmx</DependentUpon>
       <LastGenOutput>ReportsModel.cs</LastGenOutput>
+    </None>
+    <EntityDeploy Include="Model\ReportsNavigationModel.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>ReportsNavigationModel.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="Model\ReportsNavigationModel.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>ReportsNavigationModel.edmx</DependentUpon>
+      <LastGenOutput>ReportsNavigationModel.Context.cs</LastGenOutput>
+    </None>
+    <None Include="Model\ReportsNavigationModel.edmx.diagram">
+      <DependentUpon>ReportsNavigationModel.edmx</DependentUpon>
+    </None>
+    <None Include="Model\ReportsNavigationModel.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>ReportsNavigationModel.edmx</DependentUpon>
+      <LastGenOutput>ReportsNavigationModel.cs</LastGenOutput>
     </None>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">

@@ -52,10 +52,10 @@ namespace FASTT.Controllers
 
                 if (_context != null)
                 {
-                    _context.vw_ST_CombinedLighting.Load();
-                    if (!_context.vw_ST_CombinedLighting.Any()) return null;
+                    _context.vw_ST_LightingStudy_2016.Load();
+                    if (!_context.vw_ST_LightingStudy_2016.Any()) return null;
 
-                    var q = from cl in _context.vw_ST_CombinedLighting
+                    var q = from cl in _context.vw_ST_LightingStudy_2016
                             group cl by new { cl.Customer }    
                             into clGroup
                             orderby clGroup.Key.Customer
@@ -74,17 +74,195 @@ namespace FASTT.Controllers
             return null;
         }
 
-        public void GetGridDataByCustomer(string customer)
+        public int GetGridDataAllCustomersAllYears()
         {
-            var res = new ObjectParameter("Result", typeof(Int32));
-            var td = new ObjectParameter("TranDT", typeof(DateTime));
+            SalesLeadsList.Clear();
+            try
+            {
+                if (_context != null)
+                {
+                    _context.Dispose();
+                    _context = new MONITOREntities1();
+                }
+
+                if (_context != null)
+                {
+                    var q = from cl in _context.vw_ST_LightingStudy_2016
+                            where cl.SOPYear == 2017 || cl.SOPYear == 2018 || cl.SOPYear == 2019
+                            orderby cl.SOP, cl.Program
+                            select cl;
+
+                    foreach (var item in q.ToList())
+                    {
+                        _salesLeadDataModel = new SalesLeadDataModel
+                        {
+                            Customer = item.Customer,
+                            Program = item.Program,
+                            Application = item.Application,
+                            Sop = item.SOP,
+                            Eop = item.EOP,
+                            Volume = string.Format("{0:n0}", item.PeakVolume),
+                            Status = item.Status,
+                            ID = item.ID
+                        };
+                        SalesLeadsList.Add(_salesLeadDataModel);
+                    }
+
+                    if (SalesLeadsList.Count < 1)
+                    {
+                        _messageBox.Message = "No sales leads were found.";
+                        _messageBox.ShowDialog();
+                        return 0;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                string error = (ex.InnerException != null) ? ex.InnerException.Message : ex.Message;
+                _messageBox.Message = string.Format("Failed to return sales lead data.  Error: {0}", error);
+                _messageBox.ShowDialog();
+                return 0;
+            }
+            return 1;
+        }
+
+        public int GetGridDataAllCustomersOneYear(string year)
+        {
+            int iYear;
+            try
+            {
+                iYear = Convert.ToInt32(year);
+            }
+            catch (Exception ex)
+            {
+                _messageBox.Message = string.Format("Year must be numeric");
+                _messageBox.ShowDialog();
+                return 0;
+            }
+
+            SalesLeadsList.Clear();
+            try
+            {
+                if (_context != null)
+                {
+                    _context.Dispose();
+                    _context = new MONITOREntities1();
+                }
+
+                if (_context != null)
+                {
+                    var q = from cl in _context.vw_ST_LightingStudy_2016
+                            where cl.SOPYear == iYear
+                            orderby cl.SOP, cl.Program
+                            select cl;
+
+                    foreach (var item in q.ToList())
+                    {
+                        _salesLeadDataModel = new SalesLeadDataModel
+                        {
+                            Customer = item.Customer,
+                            Program = item.Program,
+                            Application = item.Application,
+                            Sop = item.SOP,
+                            Eop = item.EOP,
+                            Volume = string.Format("{0:n0}", item.PeakVolume),
+                            Status = item.Status,
+                            ID = item.ID
+                        };
+                        SalesLeadsList.Add(_salesLeadDataModel);
+                    }
+
+                    if (SalesLeadsList.Count < 1)
+                    {
+                        _messageBox.Message = "No sales leads were found.";
+                        _messageBox.ShowDialog();
+                        return 0;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                string error = (ex.InnerException != null) ? ex.InnerException.Message : ex.Message;
+                _messageBox.Message = string.Format("Failed to return sales lead data.  Error: {0}", error);
+                _messageBox.ShowDialog();
+                return 0;
+            }
+            return 1;
+        }
+
+        public int GetGridDataOneCustomerAllYears(string customer)
+        {
+            SalesLeadsList.Clear();
+            try
+            {
+                if (_context != null)
+                {
+                    _context.Dispose();
+                    _context = new MONITOREntities1();
+                }
+
+                if (_context != null)
+                {
+                    var q = from cl in _context.vw_ST_LightingStudy_2016
+                            where cl.Customer == customer && (cl.SOPYear == 2017 || cl.SOPYear == 2018 || cl.SOPYear == 2019)
+                            orderby cl.SOP, cl.Program
+                            select cl;
+
+                    foreach (var item in q.ToList())
+                    {
+                        _salesLeadDataModel = new SalesLeadDataModel
+                        {
+                            Customer = item.Customer,
+                            Program = item.Program,
+                            Application = item.Application,
+                            Sop = item.SOP,
+                            Eop = item.EOP,
+                            Volume = string.Format("{0:n0}", item.PeakVolume),
+                            Status = item.Status,
+                            ID = item.ID
+                        };
+                        SalesLeadsList.Add(_salesLeadDataModel);
+                    }
+
+                    if (SalesLeadsList.Count < 1)
+                    {
+                        _messageBox.Message = "No sales leads were found.";
+                        _messageBox.ShowDialog();
+                        return 0;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                string error = (ex.InnerException != null) ? ex.InnerException.Message : ex.Message;
+                _messageBox.Message = string.Format("Failed to return sales lead data.  Error: {0}", error);
+                _messageBox.ShowDialog();
+                return 0;
+            }
+            return 1;
+        }
+
+        public int GetGridDataOneCustomerOneYear(string customer, string year)
+        {
+            //var res = new ObjectParameter("Result", typeof(Int32));
+            //var td = new ObjectParameter("TranDT", typeof(DateTime));
 
             //BindingSource = null;
             //BindingSource = new BindingSource();
 
-            SalesLeadsList.Clear();
-            if (customer == "") return;
+            int iYear;
+            try
+            {
+                iYear = Convert.ToInt32(year);
+            }
+            catch (Exception ex)
+            {
+                _messageBox.Message = string.Format("Year must be numeric");
+                _messageBox.ShowDialog();
+                return 0;
+            }
 
+            SalesLeadsList.Clear();
             try
             {              
                 if (_context != null)
@@ -99,53 +277,32 @@ namespace FASTT.Controllers
                     //if (!_context.ST_Csm_SalesForecast.Any()) return;
                     //BindingSource.DataSource = _context.ST_Csm_SalesForecast.Local;
 
-                    if (customer == "All")
+                    var q = from cl in _context.vw_ST_LightingStudy_2016
+                            where cl.Customer == customer && cl.SOPYear == iYear
+                            orderby cl.SOP, cl.Program
+                            select cl;
+
+                    foreach (var item in q.ToList())
                     {
-                        var q = from cl in _context.vw_ST_CombinedLighting
-                                orderby cl.Customer, cl.Sop, cl.Program
-                                select cl;
-
-                        foreach (var item in q.ToList())
+                        _salesLeadDataModel = new SalesLeadDataModel
                         {
-                            _salesLeadDataModel = new SalesLeadDataModel
-                            {
-                                Customer = item.Customer,
-                                Program = item.Program,
-                                Application = item.Application,
-                                Sop = item.Sop,
-                                Volume = item.TotalComponentVolume,
-                                ID = item.ID
-                            };
-                            SalesLeadsList.Add(_salesLeadDataModel);
-                        }
+                            Customer = item.Customer,
+                            Program = item.Program,
+                            Application = item.Application,
+                            Sop = item.SOP,
+                            Eop = item.EOP,
+                            Volume = string.Format("{0:n0}", item.PeakVolume),
+                            Status = item.Status,
+                            ID = item.ID
+                        };
+                        SalesLeadsList.Add(_salesLeadDataModel);
                     }
-                    else
-                    {
-                        var q = from cl in _context.vw_ST_CombinedLighting
-                                where cl.Customer == customer 
-                                orderby cl.Sop, cl.Program
-                                select cl;
-
-                        foreach (var item in q.ToList())
-                        {
-                            _salesLeadDataModel = new SalesLeadDataModel
-                            {
-                                Customer = item.Customer,
-                                Program = item.Program,
-                                Application = item.Application,
-                                Sop = item.Sop,
-                                Volume = item.TotalComponentVolume,
-                                ID = item.ID
-                            };
-                            SalesLeadsList.Add(_salesLeadDataModel);
-                        }
-                    }
-
 
                     if (SalesLeadsList.Count < 1)
                     {
                         _messageBox.Message = string.Format("No sales leads were found for {0}.", customer);
                         _messageBox.ShowDialog();
+                        return 0;
                     }
                 }
             }
@@ -154,7 +311,9 @@ namespace FASTT.Controllers
                 string error = (ex.InnerException != null) ? ex.InnerException.Message : ex.Message;
                 _messageBox.Message = string.Format("Failed to return sales lead data.  Error: {0}", error);
                 _messageBox.ShowDialog();
+                return 0;
             }
+            return 1;
         }
 
         #endregion

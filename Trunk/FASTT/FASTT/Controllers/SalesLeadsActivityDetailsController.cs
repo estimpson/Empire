@@ -14,6 +14,8 @@ namespace FASTT.Controllers
         #region Class Objects
 
         private MONITOREntities1 _context;
+        private SalesLeadStatusDataModel _statusModel;
+        public List<SalesLeadStatusDataModel> StatusList = new List<SalesLeadStatusDataModel>();
         private readonly CustomMessageBox _messageBox;
 
         #endregion
@@ -41,6 +43,35 @@ namespace FASTT.Controllers
 
         #region Methods
 
+        public void GetStatusTypes()
+        {
+            try
+            {
+                StatusList.Clear();
+
+                var q = from sd in _context.ST_SalesLeadLog_StatusDefinition
+                        orderby sd.StatusValue
+                        select sd;
+
+                if (!q.Any()) return;
+                foreach (var item in q)
+                {
+                    _statusModel = new SalesLeadStatusDataModel
+                        {
+                            StatusType = item.StatusType,
+                            StatusValue = item.StatusValue
+                        };
+                    StatusList.Add(_statusModel);
+                }
+            }
+            catch (Exception ex)
+            {
+                string error = (ex.InnerException != null) ? ex.InnerException.Message : ex.Message;
+                _messageBox.Message = string.Format("Failed to return sales lead status data.  Error: {0}", error);
+                _messageBox.ShowDialog();
+            }
+        }
+
         public void GetSalesLeadContactInfo(int id)
         {
             var res = new ObjectParameter("Result", typeof(Int32));
@@ -65,7 +96,7 @@ namespace FASTT.Controllers
         }
 
         public int SaveSalesLeadActivity(string operatorCode, int? combinedLightingId, int? salesLeadId, int salesLeadStatus, int? activityRowId, string activity,
-            DateTime activityDate, string contactName, string contactPhone, string contactEmail, decimal duration, string notes)
+            DateTime activityDate, string meetingLoc, string contactName, string contactPhone, string contactEmail, decimal duration, string notes, string quoteNumber)
         {
             var res = new ObjectParameter("Result", typeof(Int32));
             var td = new ObjectParameter("TranDT", typeof(DateTime));
@@ -81,7 +112,7 @@ namespace FASTT.Controllers
                 if (_context != null)
                 {
                     _context.usp_ST_SalesLeadLog_Update(operatorCode, combinedLightingId, salesLeadId, salesLeadStatus, activityRowId, activity,
-                        activityDate, contactName, contactPhone, contactEmail, duration, notes, td, res);
+                        activityDate, meetingLoc, contactName, contactPhone, contactEmail, duration, notes, quoteNumber, td, res);
 
                     _messageBox.Message = "Success.";
                     _messageBox.ShowDialog();

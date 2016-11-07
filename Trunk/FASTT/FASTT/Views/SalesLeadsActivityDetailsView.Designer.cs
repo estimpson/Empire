@@ -60,6 +60,7 @@
             this.mesTbxMinutes = new Fx.WinForms.Flat.MESTextEdit();
             this.mesBtnSaveSalesLead = new Fx.WinForms.Flat.MESButton();
             this.tableLayoutPanel6 = new System.Windows.Forms.TableLayoutPanel();
+            this.lblQuoteNumber = new System.Windows.Forms.Label();
             this.label15 = new System.Windows.Forms.Label();
             this.label12 = new System.Windows.Forms.Label();
             this.label14 = new System.Windows.Forms.Label();
@@ -68,6 +69,12 @@
             this.mesTbxContactPhone = new Fx.WinForms.Flat.MESTextEdit();
             this.mesTbxContactEmail = new Fx.WinForms.Flat.MESTextEdit();
             this.cbxSalesLeadStatus = new System.Windows.Forms.ComboBox();
+            this.mesTbxQuoteNumber = new Fx.WinForms.Flat.MESTextEdit();
+            this.tableLayoutPanel7 = new System.Windows.Forms.TableLayoutPanel();
+            this.mesTbxMeetingLocation = new Fx.WinForms.Flat.MESTextEdit();
+            this.lblMeetingLocation = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
+            this.mesTbxEop = new Fx.WinForms.Flat.MESTextEdit();
             this.panel1.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
@@ -76,6 +83,7 @@
             this.tlpForm.SuspendLayout();
             this.tableLayoutPanel5.SuspendLayout();
             this.tableLayoutPanel6.SuspendLayout();
+            this.tableLayoutPanel7.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel1
@@ -163,19 +171,21 @@
             // 
             this.tableLayoutPanel3.ColumnCount = 1;
             this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel3.Controls.Add(this.tableLayoutPanel4, 0, 2);
+            this.tableLayoutPanel3.Controls.Add(this.tableLayoutPanel4, 0, 3);
             this.tableLayoutPanel3.Controls.Add(this.tlpForm, 0, 0);
             this.tableLayoutPanel3.Controls.Add(this.tableLayoutPanel5, 0, 1);
-            this.tableLayoutPanel3.Controls.Add(this.mesBtnSaveSalesLead, 0, 4);
-            this.tableLayoutPanel3.Controls.Add(this.tableLayoutPanel6, 0, 3);
+            this.tableLayoutPanel3.Controls.Add(this.mesBtnSaveSalesLead, 0, 5);
+            this.tableLayoutPanel3.Controls.Add(this.tableLayoutPanel6, 0, 4);
+            this.tableLayoutPanel3.Controls.Add(this.tableLayoutPanel7, 0, 2);
             this.tableLayoutPanel3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel3.Location = new System.Drawing.Point(20, 60);
             this.tableLayoutPanel3.Margin = new System.Windows.Forms.Padding(0);
             this.tableLayoutPanel3.Name = "tableLayoutPanel3";
-            this.tableLayoutPanel3.RowCount = 5;
+            this.tableLayoutPanel3.RowCount = 6;
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 100F));
-            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 50F));
-            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 170F));
+            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 45F));
+            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40F));
+            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 150F));
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 95F));
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel3.Size = new System.Drawing.Size(998, 482);
@@ -188,13 +198,13 @@
             this.tableLayoutPanel4.Controls.Add(this.label8, 0, 0);
             this.tableLayoutPanel4.Controls.Add(this.mesTbxNotes, 0, 1);
             this.tableLayoutPanel4.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel4.Location = new System.Drawing.Point(3, 153);
+            this.tableLayoutPanel4.Location = new System.Drawing.Point(3, 188);
             this.tableLayoutPanel4.Name = "tableLayoutPanel4";
             this.tableLayoutPanel4.RowCount = 2;
             this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25F));
             this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 80F));
             this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel4.Size = new System.Drawing.Size(992, 164);
+            this.tableLayoutPanel4.Size = new System.Drawing.Size(992, 144);
             this.tableLayoutPanel4.TabIndex = 16;
             // 
             // label8
@@ -240,6 +250,8 @@
             this.tlpForm.Controls.Add(this.mesTbxApplication, 1, 1);
             this.tlpForm.Controls.Add(this.label2, 0, 1);
             this.tlpForm.Controls.Add(this.mesTbxSop, 3, 1);
+            this.tlpForm.Controls.Add(this.label5, 4, 1);
+            this.tlpForm.Controls.Add(this.mesTbxEop, 5, 1);
             this.tlpForm.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tlpForm.Location = new System.Drawing.Point(3, 3);
             this.tlpForm.Name = "tlpForm";
@@ -388,7 +400,7 @@
             this.tableLayoutPanel5.Name = "tableLayoutPanel5";
             this.tableLayoutPanel5.RowCount = 1;
             this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel5.Size = new System.Drawing.Size(992, 44);
+            this.tableLayoutPanel5.Size = new System.Drawing.Size(992, 39);
             this.tableLayoutPanel5.TabIndex = 15;
             // 
             // label11
@@ -413,8 +425,9 @@
             this.cbxSalesPersonActivity.FormattingEnabled = true;
             this.cbxSalesPersonActivity.Location = new System.Drawing.Point(68, 3);
             this.cbxSalesPersonActivity.Name = "cbxSalesPersonActivity";
-            this.cbxSalesPersonActivity.Size = new System.Drawing.Size(186, 27);
+            this.cbxSalesPersonActivity.Size = new System.Drawing.Size(197, 27);
             this.cbxSalesPersonActivity.TabIndex = 14;
+            this.cbxSalesPersonActivity.SelectedIndexChanged += new System.EventHandler(this.cbxSalesPersonActivity_SelectedIndexChanged);
             // 
             // label9
             // 
@@ -491,7 +504,7 @@
             this.mesBtnSaveSalesLead.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.mesBtnSaveSalesLead.Font = new System.Drawing.Font("Tahoma", 14F);
             this.mesBtnSaveSalesLead.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
-            this.mesBtnSaveSalesLead.Location = new System.Drawing.Point(845, 418);
+            this.mesBtnSaveSalesLead.Location = new System.Drawing.Point(845, 433);
             this.mesBtnSaveSalesLead.Name = "mesBtnSaveSalesLead";
             this.mesBtnSaveSalesLead.Size = new System.Drawing.Size(150, 35);
             this.mesBtnSaveSalesLead.TabIndex = 0;
@@ -508,6 +521,7 @@
             this.tableLayoutPanel6.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 160F));
             this.tableLayoutPanel6.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 60F));
             this.tableLayoutPanel6.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel6.Controls.Add(this.lblQuoteNumber, 2, 1);
             this.tableLayoutPanel6.Controls.Add(this.label15, 0, 1);
             this.tableLayoutPanel6.Controls.Add(this.label12, 0, 0);
             this.tableLayoutPanel6.Controls.Add(this.label14, 4, 0);
@@ -516,14 +530,26 @@
             this.tableLayoutPanel6.Controls.Add(this.mesTbxContactPhone, 3, 0);
             this.tableLayoutPanel6.Controls.Add(this.mesTbxContactEmail, 5, 0);
             this.tableLayoutPanel6.Controls.Add(this.cbxSalesLeadStatus, 1, 1);
+            this.tableLayoutPanel6.Controls.Add(this.mesTbxQuoteNumber, 3, 1);
             this.tableLayoutPanel6.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel6.Location = new System.Drawing.Point(3, 323);
+            this.tableLayoutPanel6.Location = new System.Drawing.Point(3, 338);
             this.tableLayoutPanel6.Name = "tableLayoutPanel6";
             this.tableLayoutPanel6.RowCount = 2;
             this.tableLayoutPanel6.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40F));
             this.tableLayoutPanel6.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel6.Size = new System.Drawing.Size(992, 89);
             this.tableLayoutPanel6.TabIndex = 17;
+            // 
+            // lblQuoteNumber
+            // 
+            this.lblQuoteNumber.AutoSize = true;
+            this.lblQuoteNumber.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblQuoteNumber.ForeColor = System.Drawing.Color.Gainsboro;
+            this.lblQuoteNumber.Location = new System.Drawing.Point(273, 40);
+            this.lblQuoteNumber.Name = "lblQuoteNumber";
+            this.lblQuoteNumber.Size = new System.Drawing.Size(96, 16);
+            this.lblQuoteNumber.TabIndex = 25;
+            this.lblQuoteNumber.Text = "Quote Number:";
             // 
             // label15
             // 
@@ -618,6 +644,79 @@
             this.cbxSalesLeadStatus.Name = "cbxSalesLeadStatus";
             this.cbxSalesLeadStatus.Size = new System.Drawing.Size(142, 27);
             this.cbxSalesLeadStatus.TabIndex = 23;
+            this.cbxSalesLeadStatus.SelectedIndexChanged += new System.EventHandler(this.cbxSalesLeadStatus_SelectedIndexChanged);
+            // 
+            // mesTbxQuoteNumber
+            // 
+            this.mesTbxQuoteNumber.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(37)))), ((int)(((byte)(38)))));
+            this.mesTbxQuoteNumber.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.mesTbxQuoteNumber.Font = new System.Drawing.Font("Tahoma", 12F);
+            this.mesTbxQuoteNumber.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
+            this.mesTbxQuoteNumber.Location = new System.Drawing.Point(393, 43);
+            this.mesTbxQuoteNumber.Name = "mesTbxQuoteNumber";
+            this.mesTbxQuoteNumber.Size = new System.Drawing.Size(142, 27);
+            this.mesTbxQuoteNumber.TabIndex = 24;
+            // 
+            // tableLayoutPanel7
+            // 
+            this.tableLayoutPanel7.ColumnCount = 2;
+            this.tableLayoutPanel7.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 120F));
+            this.tableLayoutPanel7.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel7.Controls.Add(this.mesTbxMeetingLocation, 0, 0);
+            this.tableLayoutPanel7.Controls.Add(this.lblMeetingLocation, 0, 0);
+            this.tableLayoutPanel7.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanel7.Location = new System.Drawing.Point(3, 148);
+            this.tableLayoutPanel7.Name = "tableLayoutPanel7";
+            this.tableLayoutPanel7.RowCount = 1;
+            this.tableLayoutPanel7.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel7.Size = new System.Drawing.Size(992, 34);
+            this.tableLayoutPanel7.TabIndex = 18;
+            // 
+            // mesTbxMeetingLocation
+            // 
+            this.mesTbxMeetingLocation.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(37)))), ((int)(((byte)(38)))));
+            this.mesTbxMeetingLocation.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.mesTbxMeetingLocation.Font = new System.Drawing.Font("Tahoma", 12F);
+            this.mesTbxMeetingLocation.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
+            this.mesTbxMeetingLocation.Location = new System.Drawing.Point(123, 3);
+            this.mesTbxMeetingLocation.MaxLength = 25;
+            this.mesTbxMeetingLocation.Name = "mesTbxMeetingLocation";
+            this.mesTbxMeetingLocation.Size = new System.Drawing.Size(142, 27);
+            this.mesTbxMeetingLocation.TabIndex = 21;
+            // 
+            // lblMeetingLocation
+            // 
+            this.lblMeetingLocation.AutoSize = true;
+            this.lblMeetingLocation.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblMeetingLocation.ForeColor = System.Drawing.Color.Gainsboro;
+            this.lblMeetingLocation.Location = new System.Drawing.Point(3, 0);
+            this.lblMeetingLocation.Name = "lblMeetingLocation";
+            this.lblMeetingLocation.Size = new System.Drawing.Size(109, 16);
+            this.lblMeetingLocation.TabIndex = 16;
+            this.lblMeetingLocation.Text = "Meeting Location:";
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label5.ForeColor = System.Drawing.Color.White;
+            this.label5.Location = new System.Drawing.Point(553, 35);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(34, 14);
+            this.label5.TabIndex = 18;
+            this.label5.Text = "EOP:";
+            // 
+            // mesTbxEop
+            // 
+            this.mesTbxEop.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(37)))), ((int)(((byte)(38)))));
+            this.mesTbxEop.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.mesTbxEop.Font = new System.Drawing.Font("Tahoma", 12F);
+            this.mesTbxEop.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
+            this.mesTbxEop.Location = new System.Drawing.Point(623, 38);
+            this.mesTbxEop.Name = "mesTbxEop";
+            this.mesTbxEop.ReadOnly = true;
+            this.mesTbxEop.Size = new System.Drawing.Size(161, 27);
+            this.mesTbxEop.TabIndex = 19;
             // 
             // SalesLeadsActivityDetailsView
             // 
@@ -646,6 +745,8 @@
             this.tableLayoutPanel5.PerformLayout();
             this.tableLayoutPanel6.ResumeLayout(false);
             this.tableLayoutPanel6.PerformLayout();
+            this.tableLayoutPanel7.ResumeLayout(false);
+            this.tableLayoutPanel7.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -692,5 +793,12 @@
         private System.Windows.Forms.ComboBox cbxSalesLeadStatus;
         private System.Windows.Forms.Label label16;
         private Fx.WinForms.Flat.MESTextEdit mesTbxMinutes;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel7;
+        private Fx.WinForms.Flat.MESTextEdit mesTbxMeetingLocation;
+        private System.Windows.Forms.Label lblMeetingLocation;
+        private System.Windows.Forms.Label lblQuoteNumber;
+        private Fx.WinForms.Flat.MESTextEdit mesTbxQuoteNumber;
+        private System.Windows.Forms.Label label5;
+        private Fx.WinForms.Flat.MESTextEdit mesTbxEop;
     }
 }
