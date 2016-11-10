@@ -1,0 +1,83 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="2.0" xmlns:edmx="http://schemas.microsoft.com/ado/2008/10/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="MONITORModel2.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+        <EntityContainer Name="MONITORModel2StoreContainer" />
+        <Function Name="usp_PlanningReleaseManualImport_GetOrders" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Destination" Type="varchar" Mode="In" />
+          <Parameter Name="TranDT" Type="datetime" Mode="InOut" />
+          <Parameter Name="Result" Type="int" Mode="InOut" />
+        </Function>
+        <Function Name="usp_PlanningReleaseManualImport_UpdateModelYear" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="OrderNo" Type="int" Mode="In" />
+          <Parameter Name="ModelYear" Type="char" Mode="In" />
+          <Parameter Name="TranDT" Type="datetime" Mode="InOut" />
+          <Parameter Name="Result" Type="int" Mode="InOut" />
+        </Function>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="MONITORModel2" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+        <EntityContainer Name="MONITOREntities_OrderMaintenance" annotation:LazyLoadingEnabled="true" >
+          <FunctionImport Name="usp_PlanningReleaseManualImport_GetOrders" ReturnType="Collection(MONITORModel2.usp_PlanningReleaseManualImport_GetOrders_Result)">
+            <Parameter Name="Destination" Mode="In" Type="String" />
+            <Parameter Name="TranDT" Mode="InOut" Type="DateTime" />
+            <Parameter Name="Result" Mode="InOut" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="usp_PlanningReleaseManualImport_UpdateModelYear">
+            <Parameter Name="OrderNo" Mode="In" Type="Int32" />
+            <Parameter Name="ModelYear" Mode="In" Type="String" />
+            <Parameter Name="TranDT" Mode="InOut" Type="DateTime" />
+            <Parameter Name="Result" Mode="InOut" Type="Int32" />
+          </FunctionImport>
+        </EntityContainer>
+        <ComplexType Name="usp_PlanningReleaseManualImport_GetOrders_Result">
+          <Property Type="Decimal" Name="OrderNo" Nullable="false" Precision="8" Scale="0" />
+          <Property Type="String" Name="CustomerPart" Nullable="true" MaxLength="35" />
+          <Property Type="String" Name="BlanketPart" Nullable="true" MaxLength="25" />
+          <Property Type="String" Name="ModelYear" Nullable="true" MaxLength="4" />
+        </ComplexType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="MONITORModel2StoreContainer" CdmEntityContainer="MONITOREntities_OrderMaintenance" >
+          <FunctionImportMapping FunctionImportName="usp_PlanningReleaseManualImport_GetOrders" FunctionName="MONITORModel2.Store.usp_PlanningReleaseManualImport_GetOrders">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="MONITORModel2.usp_PlanningReleaseManualImport_GetOrders_Result">
+                <ScalarProperty Name="OrderNo" ColumnName="OrderNo" />
+                <ScalarProperty Name="CustomerPart" ColumnName="CustomerPart" />
+                <ScalarProperty Name="BlanketPart" ColumnName="BlanketPart" />
+                <ScalarProperty Name="ModelYear" ColumnName="ModelYear" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="usp_PlanningReleaseManualImport_UpdateModelYear" FunctionName="MONITORModel2.Store.usp_PlanningReleaseManualImport_UpdateModelYear" />
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2008/10/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="True" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

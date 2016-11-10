@@ -1,0 +1,274 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{3DAFAB0A-E0C2-479B-B9F5-86B8CE8C6455}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>ImportSpreadsheetData</RootNamespace>
+    <AssemblyName>ImportSpreadsheetData</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework">
+      <HintPath>..\packages\EntityFramework.5.0.0\lib\net40\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.Entity" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="DataLayer\ImportDataLiteTek.cs" />
+    <Compile Include="DataLayer\ImportDataSLAKorea.cs" />
+    <Compile Include="DataLayer\ImportDataSLAmerica.cs" />
+    <Compile Include="DataLayer\SalesOrderMaintenance.cs" />
+    <Compile Include="DataModels\SalesOrderDataModel.cs" />
+    <Compile Include="frmImport.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmImport.Designer.cs">
+      <DependentUpon>frmImport.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmSalesOrderMaintenance.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmSalesOrderMaintenance.Designer.cs">
+      <DependentUpon>frmSalesOrderMaintenance.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Model\Model1.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Model1.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\Model1.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\Model1.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Model1.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Model\Model_LiteTek.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Model_LiteTek.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\Model_LiteTek.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Model_LiteTek.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\Model_LiteTek.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Model_LiteTek.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Model\Model_OrderMaintenance.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Model_OrderMaintenance.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\Model_OrderMaintenance.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Model_OrderMaintenance.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\Model_OrderMaintenance.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Model_OrderMaintenance.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Model\Model_SLA.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Model_SLA.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\Model_SLA.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Model_SLA.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\Model_SLA.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Model_SLA.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Model\Model_SLAKorea.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Model_SLAKorea.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\Model_SLAKorea.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Model_SLAKorea.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\Model_SLAKorea.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Model_SLAKorea.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Model\usp_PlanningReleaseManualImport_GetOrders_Result.cs">
+      <DependentUpon>Model_OrderMaintenance.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="frmImport.resx">
+      <DependentUpon>frmImport.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmSalesOrderMaintenance.resx">
+      <DependentUpon>frmSalesOrderMaintenance.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <EntityDeploy Include="Model\Model1.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>Model1.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="App.Config" />
+    <None Include="Model\Model1.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>Model1.edmx</DependentUpon>
+      <LastGenOutput>Model1.Context.cs</LastGenOutput>
+    </None>
+    <None Include="Model\Model1.edmx.diagram">
+      <DependentUpon>Model1.edmx</DependentUpon>
+    </None>
+    <None Include="Model\Model1.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>Model1.edmx</DependentUpon>
+      <LastGenOutput>Model1.cs</LastGenOutput>
+    </None>
+    <EntityDeploy Include="Model\Model_SLA.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>Model_SLA.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <EntityDeploy Include="Model\Model_OrderMaintenance.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>Model_OrderMaintenance.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <EntityDeploy Include="Model\Model_LiteTek.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>Model_LiteTek.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="Model\Model_LiteTek.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>Model_LiteTek.edmx</DependentUpon>
+      <LastGenOutput>Model_LiteTek.Context.cs</LastGenOutput>
+    </None>
+    <None Include="Model\Model_LiteTek.edmx.diagram">
+      <DependentUpon>Model_LiteTek.edmx</DependentUpon>
+    </None>
+    <None Include="Model\Model_LiteTek.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>Model_LiteTek.edmx</DependentUpon>
+      <LastGenOutput>Model_LiteTek.cs</LastGenOutput>
+    </None>
+    <None Include="Model\Model_OrderMaintenance.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>Model_OrderMaintenance.edmx</DependentUpon>
+      <LastGenOutput>Model_OrderMaintenance.Context.cs</LastGenOutput>
+    </None>
+    <None Include="Model\Model_OrderMaintenance.edmx.diagram">
+      <DependentUpon>Model_OrderMaintenance.edmx</DependentUpon>
+    </None>
+    <None Include="Model\Model_OrderMaintenance.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>Model_OrderMaintenance.edmx</DependentUpon>
+      <LastGenOutput>Model_OrderMaintenance.cs</LastGenOutput>
+    </None>
+    <None Include="Model\Model_SLA.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>Model_SLA.edmx</DependentUpon>
+      <LastGenOutput>Model_SLA.Context.cs</LastGenOutput>
+    </None>
+    <None Include="Model\Model_SLA.edmx.diagram">
+      <DependentUpon>Model_SLA.edmx</DependentUpon>
+    </None>
+    <None Include="Model\Model_SLA.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>Model_SLA.edmx</DependentUpon>
+      <LastGenOutput>Model_SLA.cs</LastGenOutput>
+    </None>
+    <EntityDeploy Include="Model\Model_SLAKorea.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>Model_SLAKorea.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="Model\Model_SLAKorea.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>Model_SLAKorea.edmx</DependentUpon>
+      <LastGenOutput>Model_SLAKorea.Context.cs</LastGenOutput>
+    </None>
+    <None Include="Model\Model_SLAKorea.edmx.diagram">
+      <DependentUpon>Model_SLAKorea.edmx</DependentUpon>
+    </None>
+    <None Include="Model\Model_SLAKorea.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>Model_SLAKorea.edmx</DependentUpon>
+      <LastGenOutput>Model_SLAKorea.cs</LastGenOutput>
+    </None>
+    <None Include="packages.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
