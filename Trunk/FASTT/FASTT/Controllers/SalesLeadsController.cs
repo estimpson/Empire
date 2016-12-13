@@ -103,6 +103,7 @@ namespace FASTT.Controllers
                             Eop = item.EOP,
                             Volume = string.Format("{0:n0}", item.PeakVolume),
                             Status = item.Status,
+                            AwardedVolume = (item.AwardedVolume.HasValue) ? item.AwardedVolume.ToString() : "",
                             ID = item.ID
                         };
                         SalesLeadsList.Add(_salesLeadDataModel);
@@ -167,6 +168,7 @@ namespace FASTT.Controllers
                             Eop = item.EOP,
                             Volume = string.Format("{0:n0}", item.PeakVolume),
                             Status = item.Status,
+                            AwardedVolume = (item.AwardedVolume.HasValue) ? item.AwardedVolume.ToString() : "",
                             ID = item.ID
                         };
                         SalesLeadsList.Add(_salesLeadDataModel);
@@ -219,6 +221,7 @@ namespace FASTT.Controllers
                             Eop = item.EOP,
                             Volume = string.Format("{0:n0}", item.PeakVolume),
                             Status = item.Status,
+                            AwardedVolume = (item.AwardedVolume.HasValue) ? item.AwardedVolume.ToString() : "",
                             ID = item.ID
                         };
                         SalesLeadsList.Add(_salesLeadDataModel);
@@ -293,6 +296,8 @@ namespace FASTT.Controllers
                             Eop = item.EOP,
                             Volume = string.Format("{0:n0}", item.PeakVolume),
                             Status = item.Status,
+                            SalesPerson = item.SalesPerson,
+                            AwardedVolume = (item.AwardedVolume.HasValue) ? item.AwardedVolume.ToString() : "",
                             ID = item.ID
                         };
                         SalesLeadsList.Add(_salesLeadDataModel);
@@ -310,6 +315,34 @@ namespace FASTT.Controllers
             {
                 string error = (ex.InnerException != null) ? ex.InnerException.Message : ex.Message;
                 _messageBox.Message = string.Format("Failed to return sales lead data.  Error: {0}", error);
+                _messageBox.ShowDialog();
+                return 0;
+            }
+            return 1;
+        }
+
+        public int SearchForExistingSalesLead(int combinedLightingId)
+        {
+            var res = new ObjectParameter("Result", typeof(Int32));
+            var td = new ObjectParameter("TranDT", typeof(DateTime));
+
+            try
+            {
+                if (_context != null)
+                {
+                    _context.Dispose();
+                    _context = new MONITOREntities1();
+                }
+
+                if (_context != null)
+                {
+                    _context.usp_ST_SalesLeadLog_SearchForSalesLeads(combinedLightingId, td, res);
+                }
+            }
+            catch (Exception ex)
+            {
+                string error = (ex.InnerException != null) ? ex.InnerException.Message : ex.Message;
+                _messageBox.Message = error;
                 _messageBox.ShowDialog();
                 return 0;
             }

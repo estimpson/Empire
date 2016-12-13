@@ -96,7 +96,7 @@ namespace FASTT.Controllers
         }
 
         public int SaveSalesLeadActivity(string operatorCode, int? combinedLightingId, int? salesLeadId, int salesLeadStatus, int? activityRowId, string activity,
-            DateTime activityDate, string meetingLoc, string contactName, string contactPhone, string contactEmail, decimal duration, string notes, string quoteNumber)
+            DateTime activityDate, string meetingLoc, string contactName, string contactPhone, string contactEmail, decimal duration, string notes, string quoteNumber, int? awardedVolume)
         {
             var res = new ObjectParameter("Result", typeof(Int32));
             var td = new ObjectParameter("TranDT", typeof(DateTime));
@@ -112,7 +112,7 @@ namespace FASTT.Controllers
                 if (_context != null)
                 {
                     _context.usp_ST_SalesLeadLog_Update(operatorCode, combinedLightingId, salesLeadId, salesLeadStatus, activityRowId, activity,
-                        activityDate, meetingLoc, contactName, contactPhone, contactEmail, duration, notes, quoteNumber, td, res);
+                        activityDate, meetingLoc, contactName, contactPhone, contactEmail, duration, notes, quoteNumber, awardedVolume, td, res);
 
                     _messageBox.Message = "Success.";
                     _messageBox.ShowDialog();

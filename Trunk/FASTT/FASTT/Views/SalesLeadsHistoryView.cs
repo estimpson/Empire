@@ -210,6 +210,8 @@ namespace FASTT.Views
             string contactPhone = (gridView1.GetRowCellValue(r, "ContactPhoneNumber") != null) ? gridView1.GetRowCellValue(r, "ContactPhoneNumber").ToString() : "";
             string contactEmail = (gridView1.GetRowCellValue(r, "ContactEmailAddress") != null) ? gridView1.GetRowCellValue(r, "ContactEmailAddress").ToString() : "";
             string notes = (gridView1.GetRowCellValue(r, "Notes") != null) ? gridView1.GetRowCellValue(r, "Notes").ToString() : "";
+            string quoteNumber = (gridView1.GetRowCellValue(r, "QuoteNumber") != null) ? gridView1.GetRowCellValue(r, "QuoteNumber").ToString() : "";
+            string awarded = (gridView1.GetRowCellValue(r, "AwardedVolume") != null) ? gridView1.GetRowCellValue(r, "AwardedVolume").ToString() : "";
             string status = (gridView1.GetRowCellValue(r, "Status") != null) ? gridView1.GetRowCellValue(r, "Status").ToString() : "";
             int rowId = Convert.ToInt32(gridView1.GetRowCellValue(r, "RowId"));
 
@@ -224,6 +226,8 @@ namespace FASTT.Views
             form.Sop = Sop;
             form.Eop = Eop;
             form.Volume = Volume;
+            form.QuoteNumber = quoteNumber;
+            form.AwardedVolume = awarded;
 
             form.Status = status;
 

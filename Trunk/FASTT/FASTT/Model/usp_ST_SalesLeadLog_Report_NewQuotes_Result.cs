@@ -13,14 +13,16 @@ namespace FASTT.Model
     
     public partial class usp_ST_SalesLeadLog_Report_NewQuotes_Result
     {
-        public string QuoteNumber { get; set; }
         public string QuoteStatus { get; set; }
+        public string Customer { get; set; }
         public string Program { get; set; }
         public string ApplicationName { get; set; }
-        public string Customer { get; set; }
         public string SalesInitials { get; set; }
         public string SOP { get; set; }
+        public string EOP { get; set; }
         public string EEIPartNumber { get; set; }
         public Nullable<decimal> TotalQuotedSales { get; set; }
+        public string Notes { get; set; }
+        public string QuoteNumber { get; set; }
     }
 }

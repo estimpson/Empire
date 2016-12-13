@@ -128,18 +128,7 @@ namespace FASTT.Views
 
         private void grdSalesData_DoubleClick(object sender, EventArgs e)
         {
-            int r = gridView1.GetSelectedRows()[0];
-            if (r < 0) return;
-
-            string status = (gridView1.GetRowCellValue(r, "Status") != null) ? gridView1.GetRowCellValue(r, "Status").ToString() : "";
-            if (status != "")
-            {
-                _messageBox.Message = "A sales lead for this customer / program / application already exists.";
-                _messageBox.ShowDialog();
-                return;
-            }
-
-            ModifySalesLead();
+            if (SearchForExistingSalesLead() == 1) ModifySalesLead();
         }
 
         #endregion
@@ -208,6 +197,17 @@ namespace FASTT.Views
             gridView1.Focus();
         }
 
+        private int SearchForExistingSalesLead()
+        {
+            int r = gridView1.GetSelectedRows()[0];
+
+            string iD = (gridView1.GetRowCellValue(r, "ID") != null) ? gridView1.GetRowCellValue(r, "ID").ToString() : "";
+            int combinedLightingId = Convert.ToInt32(iD);
+
+            int result = _controller.SearchForExistingSalesLead(combinedLightingId);
+            return result;
+        }
+
         private void ModifySalesLead()
         {
             int r = gridView1.GetSelectedRows()[0];
@@ -219,7 +219,8 @@ namespace FASTT.Views
             string sop = (gridView1.GetRowCellValue(r, "Sop") != null) ? gridView1.GetRowCellValue(r, "Sop").ToString() : "";
             string eop = (gridView1.GetRowCellValue(r, "Eop") != null) ? gridView1.GetRowCellValue(r, "Eop").ToString() : "";
             string volume = (gridView1.GetRowCellValue(r, "Volume") != null) ? gridView1.GetRowCellValue(r, "Volume").ToString() : "";
-
+            string status = (gridView1.GetRowCellValue(r, "Status") != null) ? gridView1.GetRowCellValue(r, "Status").ToString() : "";
+;
             var form = new SalesLeadsActivityDetailsView
                 {
                     OperatorCode = OperatorCode,
@@ -230,11 +231,13 @@ namespace FASTT.Views
                     Sop = sop,
                     Eop = eop,
                     Volume = volume,
+                    Status = status,
                     SalesLeadClicked = true
                 };
 
             form.ShowDialog();
 
+            // Returned, so refresh data on this form
             GetGridDataByCustomerAndYear();
         }
 

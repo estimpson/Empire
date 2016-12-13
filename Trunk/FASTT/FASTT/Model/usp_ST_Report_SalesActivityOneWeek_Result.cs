@@ -19,9 +19,11 @@ namespace FASTT.Model
         public string Customer { get; set; }
         public string Program { get; set; }
         public string Application { get; set; }
+        public string BulbType { get; set; }
+        public string Region { get; set; }
         public string SOP { get; set; }
         public string EOP { get; set; }
-        public string PeakVolume { get; set; }
+        public Nullable<int> PeakVolume { get; set; }
         public string Status { get; set; }
         public string ActivityDate { get; set; }
         public string Activity { get; set; }
@@ -31,6 +33,7 @@ namespace FASTT.Model
         public string ContactEmailAddress { get; set; }
         public string Duration { get; set; }
         public string Notes { get; set; }
+        public Nullable<int> AwardedVolume { get; set; }
         public string SalesPersonCode { get; set; }
     }
 }

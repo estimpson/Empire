@@ -28,24 +28,11 @@ namespace FASTT.Model
             throw new UnintentionalCodeFirstException();
         }
     
-        public DbSet<ST_CustomersWithProgramsLaunching2017> ST_CustomersWithProgramsLaunching2017 { get; set; }
-        public DbSet<ST_CustomersWithProgramsLaunching2018> ST_CustomersWithProgramsLaunching2018 { get; set; }
-        public DbSet<ST_CustomersWithProgramsLaunching2019> ST_CustomersWithProgramsLaunching2019 { get; set; }
         public DbSet<vw_ST_LightingStudy_2016> vw_ST_LightingStudy_2016 { get; set; }
         public DbSet<vw_ST_SalesPersonActivity_OneWeek> vw_ST_SalesPersonActivity_OneWeek { get; set; }
-        public DbSet<ST_CustomersWithProgramsClosing2017> ST_CustomersWithProgramsClosing2017 { get; set; }
-        public DbSet<ST_CustomersWithProgramsClosing2018> ST_CustomersWithProgramsClosing2018 { get; set; }
-        public DbSet<ST_CustomersWithProgramsClosing2019> ST_CustomersWithProgramsClosing2019 { get; set; }
-    
-        public virtual ObjectResult<usp_ST_SalesLeadLog_Report_OpenQuotes_Result> usp_ST_SalesLeadLog_Report_OpenQuotes(ObjectParameter tranDT, ObjectParameter result)
-        {
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_ST_SalesLeadLog_Report_OpenQuotes_Result>("usp_ST_SalesLeadLog_Report_OpenQuotes", tranDT, result);
-        }
-    
-        public virtual ObjectResult<usp_ST_SalesLeadLog_Report_NewQuotes_Result> usp_ST_SalesLeadLog_Report_NewQuotes(ObjectParameter tranDT, ObjectParameter result)
-        {
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_ST_SalesLeadLog_Report_NewQuotes_Result>("usp_ST_SalesLeadLog_Report_NewQuotes", tranDT, result);
-        }
+        public DbSet<ST_CustomersWithProgramsLaunchingClosing2017> ST_CustomersWithProgramsLaunchingClosing2017 { get; set; }
+        public DbSet<ST_CustomersWithProgramsLaunchingClosing2018> ST_CustomersWithProgramsLaunchingClosing2018 { get; set; }
+        public DbSet<ST_CustomersWithProgramsLaunchingClosing2019> ST_CustomersWithProgramsLaunchingClosing2019 { get; set; }
     
         public virtual ObjectResult<ProgramsLaunchingByCustomer> usp_ST_Metrics_ProgramsLaunchingByCustomer()
         {
@@ -57,58 +44,97 @@ namespace FASTT.Model
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<PeakVolumeOfProgramsLaunching>("usp_ST_Metrics_PeakVolumeOfProgramsLaunching");
         }
     
-        public virtual ObjectResult<PeakVolumeOfProgramsLaunching2017_Result> usp_ST_Metrics_PeakVolumeOfProgramsLaunching2017(string customer)
+        public virtual ObjectResult<usp_ST_Metrics_TotalSalesActivityOneMonth_Result> usp_ST_Metrics_TotalSalesActivityOneMonth()
         {
-            var customerParameter = customer != null ?
-                new ObjectParameter("Customer", customer) :
-                new ObjectParameter("Customer", typeof(string));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<PeakVolumeOfProgramsLaunching2017_Result>("usp_ST_Metrics_PeakVolumeOfProgramsLaunching2017", customerParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_ST_Metrics_TotalSalesActivityOneMonth_Result>("usp_ST_Metrics_TotalSalesActivityOneMonth");
         }
     
-        public virtual ObjectResult<PeakVolumeOfProgramsLaunching2018_Result> usp_ST_Metrics_PeakVolumeOfProgramsLaunching2018(string customer)
+        public virtual ObjectResult<usp_ST_SalesLeadLog_Report_NewQuotes_Result> usp_ST_SalesLeadLog_Report_NewQuotes(ObjectParameter tranDT, ObjectParameter result)
         {
-            var customerParameter = customer != null ?
-                new ObjectParameter("Customer", customer) :
-                new ObjectParameter("Customer", typeof(string));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<PeakVolumeOfProgramsLaunching2018_Result>("usp_ST_Metrics_PeakVolumeOfProgramsLaunching2018", customerParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_ST_SalesLeadLog_Report_NewQuotes_Result>("usp_ST_SalesLeadLog_Report_NewQuotes", tranDT, result);
         }
     
-        public virtual ObjectResult<PeakVolumeOfProgramsLaunching2019_Result> usp_ST_Metrics_PeakVolumeOfProgramsLaunching2019(string customer)
+        public virtual ObjectResult<usp_ST_SalesLeadLog_Report_OpenQuotes_Result> usp_ST_SalesLeadLog_Report_OpenQuotes(ObjectParameter tranDT, ObjectParameter result)
         {
-            var customerParameter = customer != null ?
-                new ObjectParameter("Customer", customer) :
-                new ObjectParameter("Customer", typeof(string));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<PeakVolumeOfProgramsLaunching2019_Result>("usp_ST_Metrics_PeakVolumeOfProgramsLaunching2019", customerParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_ST_SalesLeadLog_Report_OpenQuotes_Result>("usp_ST_SalesLeadLog_Report_OpenQuotes", tranDT, result);
         }
     
-        public virtual ObjectResult<PeakVolumeOfProgramsClosing2017_Result> usp_ST_Metrics_PeakVolumeOfProgramsClosing2017(string customer)
+        public virtual ObjectResult<PeakVolumeOfProgramsClosing2017_Result> usp_ST_Metrics_PeakVolumeOfProgramsClosing2017(string customer, string region)
         {
             var customerParameter = customer != null ?
                 new ObjectParameter("Customer", customer) :
                 new ObjectParameter("Customer", typeof(string));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<PeakVolumeOfProgramsClosing2017_Result>("usp_ST_Metrics_PeakVolumeOfProgramsClosing2017", customerParameter);
+            var regionParameter = region != null ?
+                new ObjectParameter("Region", region) :
+                new ObjectParameter("Region", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<PeakVolumeOfProgramsClosing2017_Result>("usp_ST_Metrics_PeakVolumeOfProgramsClosing2017", customerParameter, regionParameter);
         }
     
-        public virtual ObjectResult<PeakVolumeOfProgramsClosing2018_Result> usp_ST_Metrics_PeakVolumeOfProgramsClosing2018(string customer)
+        public virtual ObjectResult<PeakVolumeOfProgramsClosing2018_Result> usp_ST_Metrics_PeakVolumeOfProgramsClosing2018(string customer, string region)
         {
             var customerParameter = customer != null ?
                 new ObjectParameter("Customer", customer) :
                 new ObjectParameter("Customer", typeof(string));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<PeakVolumeOfProgramsClosing2018_Result>("usp_ST_Metrics_PeakVolumeOfProgramsClosing2018", customerParameter);
+            var regionParameter = region != null ?
+                new ObjectParameter("Region", region) :
+                new ObjectParameter("Region", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<PeakVolumeOfProgramsClosing2018_Result>("usp_ST_Metrics_PeakVolumeOfProgramsClosing2018", customerParameter, regionParameter);
         }
     
-        public virtual ObjectResult<PeakVolumeOfProgramsClosing2019_Result> usp_ST_Metrics_PeakVolumeOfProgramsClosing2019(string customer)
+        public virtual ObjectResult<PeakVolumeOfProgramsClosing2019_Result> usp_ST_Metrics_PeakVolumeOfProgramsClosing2019(string customer, string region)
         {
             var customerParameter = customer != null ?
                 new ObjectParameter("Customer", customer) :
                 new ObjectParameter("Customer", typeof(string));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<PeakVolumeOfProgramsClosing2019_Result>("usp_ST_Metrics_PeakVolumeOfProgramsClosing2019", customerParameter);
+            var regionParameter = region != null ?
+                new ObjectParameter("Region", region) :
+                new ObjectParameter("Region", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<PeakVolumeOfProgramsClosing2019_Result>("usp_ST_Metrics_PeakVolumeOfProgramsClosing2019", customerParameter, regionParameter);
+        }
+    
+        public virtual ObjectResult<PeakVolumeOfProgramsLaunching2018_Result> usp_ST_Metrics_PeakVolumeOfProgramsLaunching2018(string customer, string region)
+        {
+            var customerParameter = customer != null ?
+                new ObjectParameter("Customer", customer) :
+                new ObjectParameter("Customer", typeof(string));
+    
+            var regionParameter = region != null ?
+                new ObjectParameter("Region", region) :
+                new ObjectParameter("Region", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<PeakVolumeOfProgramsLaunching2018_Result>("usp_ST_Metrics_PeakVolumeOfProgramsLaunching2018", customerParameter, regionParameter);
+        }
+    
+        public virtual ObjectResult<PeakVolumeOfProgramsLaunching2019_Result> usp_ST_Metrics_PeakVolumeOfProgramsLaunching2019(string customer, string region)
+        {
+            var customerParameter = customer != null ?
+                new ObjectParameter("Customer", customer) :
+                new ObjectParameter("Customer", typeof(string));
+    
+            var regionParameter = region != null ?
+                new ObjectParameter("Region", region) :
+                new ObjectParameter("Region", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<PeakVolumeOfProgramsLaunching2019_Result>("usp_ST_Metrics_PeakVolumeOfProgramsLaunching2019", customerParameter, regionParameter);
+        }
+    
+        public virtual ObjectResult<PeakVolumeOfProgramsLaunching2017_Result> usp_ST_Metrics_PeakVolumeOfProgramsLaunching2017(string customer, string region)
+        {
+            var customerParameter = customer != null ?
+                new ObjectParameter("Customer", customer) :
+                new ObjectParameter("Customer", typeof(string));
+    
+            var regionParameter = region != null ?
+                new ObjectParameter("Region", region) :
+                new ObjectParameter("Region", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<PeakVolumeOfProgramsLaunching2017_Result>("usp_ST_Metrics_PeakVolumeOfProgramsLaunching2017", customerParameter, regionParameter);
         }
     
         public virtual ObjectResult<usp_ST_Report_SalesActivityOneWeek_Result> usp_ST_Report_SalesActivityOneWeek()
@@ -119,11 +145,6 @@ namespace FASTT.Model
         public virtual ObjectResult<usp_ST_Report_TopLeads_Result> usp_ST_Report_TopLeads()
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_ST_Report_TopLeads_Result>("usp_ST_Report_TopLeads");
-        }
-    
-        public virtual ObjectResult<usp_ST_Metrics_TotalSalesActivityOneMonth_Result> usp_ST_Metrics_TotalSalesActivityOneMonth()
-        {
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_ST_Metrics_TotalSalesActivityOneMonth_Result>("usp_ST_Metrics_TotalSalesActivityOneMonth");
         }
     }
 }
