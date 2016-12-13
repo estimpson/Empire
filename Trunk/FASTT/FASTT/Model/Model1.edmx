@@ -28,7 +28,9 @@
       [vw_ST_LightingStudy_2016].[Volume2018] AS [Volume2018], 
       [vw_ST_LightingStudy_2016].[Volume2019] AS [Volume2019], 
       [vw_ST_LightingStudy_2016].[PeakVolume] AS [PeakVolume], 
-      [vw_ST_LightingStudy_2016].[ID] AS [ID]
+      [vw_ST_LightingStudy_2016].[AwardedVolume] AS [AwardedVolume], 
+      [vw_ST_LightingStudy_2016].[ID] AS [ID], 
+      [vw_ST_LightingStudy_2016].[SalesPerson] AS [SalesPerson]
       FROM [EEIUser].[vw_ST_LightingStudy_2016] AS [vw_ST_LightingStudy_2016]</DefiningQuery>
           </EntitySet>
         </EntityContainer>
@@ -78,7 +80,9 @@
           <Property Name="Volume2018" Type="int" />
           <Property Name="Volume2019" Type="int" />
           <Property Name="PeakVolume" Type="int" />
+          <Property Name="AwardedVolume" Type="int" />
           <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="SalesPerson" Type="varchar" MaxLength="40" />
         </EntityType>
         <Function Name="usp_ST_Csm_SalesForecast" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="EEIUser">
           <Parameter Name="ParentCustomer" Type="varchar" Mode="In" />
@@ -100,6 +104,11 @@
           <Parameter Name="TranDT" Type="datetime" Mode="InOut" />
           <Parameter Name="Result" Type="int" Mode="InOut" />
         </Function>
+        <Function Name="usp_ST_SalesLeadLog_SearchForSalesLeads" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="EEIUser">
+          <Parameter Name="CombinedLightingId" Type="int" Mode="In" />
+          <Parameter Name="TranDT" Type="datetime" Mode="InOut" />
+          <Parameter Name="Result" Type="int" Mode="InOut" />
+        </Function>
         <Function Name="usp_ST_SalesLeadLog_Update" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="EEIUser">
           <Parameter Name="OperatorCode" Type="varchar" Mode="In" />
           <Parameter Name="CombinedLightingId" Type="int" Mode="In" />
@@ -115,6 +124,7 @@
           <Parameter Name="Duration" Type="numeric" Mode="In" />
           <Parameter Name="Notes" Type="varchar(max)" Mode="In" />
           <Parameter Name="QuoteNumber" Type="varchar" Mode="In" />
+          <Parameter Name="AwardedVolume" Type="int" Mode="In" />
           <Parameter Name="TranDT" Type="datetime" Mode="InOut" />
           <Parameter Name="Result" Type="int" Mode="InOut" />
         </Function>
@@ -135,6 +145,12 @@
           </FunctionImport>
           <EntitySet Name="employees" EntityType="MONITORModel.employee" />
           <EntitySet Name="ST_SalesLeadLog_StatusDefinition" EntityType="MONITORModel.ST_SalesLeadLog_StatusDefinition" />
+          <FunctionImport Name="usp_ST_SalesLeadLog_SearchForSalesLeads">
+            <Parameter Name="CombinedLightingId" Mode="In" Type="Int32" />
+            <Parameter Name="TranDT" Mode="InOut" Type="DateTime" />
+            <Parameter Name="Result" Mode="InOut" Type="Int32" />
+          </FunctionImport>
+          <EntitySet Name="vw_ST_LightingStudy_2016" EntityType="MONITORModel.vw_ST_LightingStudy_2016" />
           <FunctionImport Name="usp_ST_SalesLeadLog_Update">
             <Parameter Name="OperatorCode" Mode="In" Type="String" />
             <Parameter Name="CombinedLightingId" Mode="In" Type="Int32" />
@@ -150,17 +166,17 @@
             <Parameter Name="Duration" Mode="In" Type="Decimal" />
             <Parameter Name="Notes" Mode="In" Type="String" />
             <Parameter Name="QuoteNumber" Mode="In" Type="String" />
-            <Parameter Name="TranDT" Mode="InOut" Type="DateTime" />
-            <Parameter Name="Result" Mode="InOut" Type="Int32" />
-          </FunctionImport>
-          <EntitySet Name="vw_ST_LightingStudy_2016" EntityType="MONITORModel.vw_ST_LightingStudy_2016" />
-          <FunctionImport Name="usp_ST_SalesLeadLog_GetActivityHistory" ReturnType="Collection(MONITORModel.usp_ST_SalesLeadLog_GetActivityHistory_Result)">
-            <Parameter Name="SalesLeadId" Mode="In" Type="Int32" />
+            <Parameter Name="AwardedVolume" Mode="In" Type="Int32" />
             <Parameter Name="TranDT" Mode="InOut" Type="DateTime" />
             <Parameter Name="Result" Mode="InOut" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="usp_ST_SalesLeadLog_GetActivity" ReturnType="Collection(MONITORModel.usp_ST_SalesLeadLog_GetActivity_Result)">
             <Parameter Name="SalesPersonCode" Mode="In" Type="String" />
+            <Parameter Name="TranDT" Mode="InOut" Type="DateTime" />
+            <Parameter Name="Result" Mode="InOut" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="usp_ST_SalesLeadLog_GetActivityHistory" ReturnType="Collection(MONITORModel.usp_ST_SalesLeadLog_GetActivityHistory_Result)">
+            <Parameter Name="SalesLeadId" Mode="In" Type="Int32" />
             <Parameter Name="TranDT" Mode="InOut" Type="DateTime" />
             <Parameter Name="Result" Mode="InOut" Type="Int32" />
           </FunctionImport>
@@ -280,18 +296,9 @@
           <Property Type="Int32" Name="Volume2019" />
           <Property Type="Int32" Name="PeakVolume" />
           <Property Type="Int32" Name="ID" Nullable="false" />
+          <Property Type="String" Name="SalesPerson" MaxLength="40" FixedLength="false" Unicode="false" />
+          <Property Type="Int32" Name="AwardedVolume" />
         </EntityType>
-        <ComplexType Name="usp_ST_SalesLeadLog_GetActivityHistory_Result">
-          <Property Type="String" Name="StatusType" Nullable="false" MaxLength="50" />
-          <Property Type="String" Name="Activity" Nullable="true" MaxLength="50" />
-          <Property Type="DateTime" Name="ActivityDate" Nullable="true" Precision="23" />
-          <Property Type="String" Name="ContactName" Nullable="true" MaxLength="50" />
-          <Property Type="String" Name="ContactPhoneNumber" Nullable="true" MaxLength="25" />
-          <Property Type="String" Name="ContactEmailAddress" Nullable="true" MaxLength="320" />
-          <Property Type="Decimal" Name="Duration" Nullable="true" Precision="20" Scale="6" />
-          <Property Type="String" Name="Notes" Nullable="true" />
-          <Property Type="Int32" Name="RowID" Nullable="false" />
-        </ComplexType>
         <ComplexType Name="usp_ST_SalesLeadLog_GetActivity_Result">
           <Property Type="String" Name="Customer" Nullable="true" MaxLength="50" />
           <Property Type="String" Name="Program" Nullable="true" MaxLength="50" />
@@ -300,9 +307,23 @@
           <Property Type="String" Name="EOP" Nullable="true" MaxLength="30" />
           <Property Type="Int32" Name="PeakVolume" Nullable="true" />
           <Property Type="String" Name="LastSalesActivity" Nullable="true" MaxLength="30" />
-          <Property Type="String" Name="Status" Nullable="true" MaxLength="50" />
-          <Property Type="Int32" Name="RowID" Nullable="true" />
+          <Property Type="String" Name="Status" Nullable="false" MaxLength="50" />
+          <Property Type="Int32" Name="RowID" Nullable="false" />
           <Property Type="Int32" Name="CombinedLightingId" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="usp_ST_SalesLeadLog_GetActivityHistory_Result">
+          <Property Type="String" Name="SalesPerson" Nullable="true" MaxLength="40" />
+          <Property Type="String" Name="StatusType" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="Activity" Nullable="true" MaxLength="50" />
+          <Property Type="DateTime" Name="ActivityDate" Nullable="true" Precision="23" />
+          <Property Type="String" Name="ContactName" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="ContactPhoneNumber" Nullable="true" MaxLength="25" />
+          <Property Type="String" Name="ContactEmailAddress" Nullable="true" MaxLength="320" />
+          <Property Type="Decimal" Name="Duration" Nullable="true" Precision="20" Scale="6" />
+          <Property Type="String" Name="Notes" Nullable="true" />
+          <Property Type="String" Name="QuoteNumber" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="AwardedVolume" Nullable="true" />
+          <Property Type="Int32" Name="RowID" Nullable="false" />
         </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
@@ -362,10 +383,12 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <FunctionImportMapping FunctionImportName="usp_ST_SalesLeadLog_Update" FunctionName="MONITORModel.Store.usp_ST_SalesLeadLog_Update" />
+          <FunctionImportMapping FunctionImportName="usp_ST_SalesLeadLog_SearchForSalesLeads" FunctionName="MONITORModel.Store.usp_ST_SalesLeadLog_SearchForSalesLeads" />
           <EntitySetMapping Name="vw_ST_LightingStudy_2016">
             <EntityTypeMapping TypeName="MONITORModel.vw_ST_LightingStudy_2016">
               <MappingFragment StoreEntitySet="vw_ST_LightingStudy_2016">
+                <ScalarProperty Name="AwardedVolume" ColumnName="AwardedVolume" />
+                <ScalarProperty Name="SalesPerson" ColumnName="SalesPerson" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="PeakVolume" ColumnName="PeakVolume" />
                 <ScalarProperty Name="Volume2019" ColumnName="Volume2019" />
@@ -388,21 +411,7 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <FunctionImportMapping FunctionImportName="usp_ST_SalesLeadLog_GetActivityHistory" FunctionName="MONITORModel.Store.usp_ST_SalesLeadLog_GetActivityHistory">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="MONITORModel.usp_ST_SalesLeadLog_GetActivityHistory_Result">
-                <ScalarProperty Name="StatusType" ColumnName="StatusType" />
-                <ScalarProperty Name="Activity" ColumnName="Activity" />
-                <ScalarProperty Name="ActivityDate" ColumnName="ActivityDate" />
-                <ScalarProperty Name="ContactName" ColumnName="ContactName" />
-                <ScalarProperty Name="ContactPhoneNumber" ColumnName="ContactPhoneNumber" />
-                <ScalarProperty Name="ContactEmailAddress" ColumnName="ContactEmailAddress" />
-                <ScalarProperty Name="Duration" ColumnName="Duration" />
-                <ScalarProperty Name="Notes" ColumnName="Notes" />
-                <ScalarProperty Name="RowID" ColumnName="RowID" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="usp_ST_SalesLeadLog_Update" FunctionName="MONITORModel.Store.usp_ST_SalesLeadLog_Update" />
           <FunctionImportMapping FunctionImportName="usp_ST_SalesLeadLog_GetActivity" FunctionName="MONITORModel.Store.usp_ST_SalesLeadLog_GetActivity">
             <ResultMapping>
               <ComplexTypeMapping TypeName="MONITORModel.usp_ST_SalesLeadLog_GetActivity_Result">
@@ -416,6 +425,24 @@
                 <ScalarProperty Name="Status" ColumnName="Status" />
                 <ScalarProperty Name="RowID" ColumnName="RowID" />
                 <ScalarProperty Name="CombinedLightingId" ColumnName="CombinedLightingId" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="usp_ST_SalesLeadLog_GetActivityHistory" FunctionName="MONITORModel.Store.usp_ST_SalesLeadLog_GetActivityHistory">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="MONITORModel.usp_ST_SalesLeadLog_GetActivityHistory_Result">
+                <ScalarProperty Name="SalesPerson" ColumnName="SalesPerson" />
+                <ScalarProperty Name="StatusType" ColumnName="StatusType" />
+                <ScalarProperty Name="Activity" ColumnName="Activity" />
+                <ScalarProperty Name="ActivityDate" ColumnName="ActivityDate" />
+                <ScalarProperty Name="ContactName" ColumnName="ContactName" />
+                <ScalarProperty Name="ContactPhoneNumber" ColumnName="ContactPhoneNumber" />
+                <ScalarProperty Name="ContactEmailAddress" ColumnName="ContactEmailAddress" />
+                <ScalarProperty Name="Duration" ColumnName="Duration" />
+                <ScalarProperty Name="Notes" ColumnName="Notes" />
+                <ScalarProperty Name="QuoteNumber" ColumnName="QuoteNumber" />
+                <ScalarProperty Name="AwardedVolume" ColumnName="AwardedVolume" />
+                <ScalarProperty Name="RowID" ColumnName="RowID" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>

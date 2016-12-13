@@ -21,7 +21,7 @@ namespace FASTT.Model
         public Nullable<int> PeakVolume { get; set; }
         public string LastSalesActivity { get; set; }
         public string Status { get; set; }
-        public Nullable<int> RowID { get; set; }
+        public int RowID { get; set; }
         public Nullable<int> CombinedLightingId { get; set; }
     }
 }

@@ -73,7 +73,7 @@ namespace FASTT.Controllers
 
         #region Methods
 
-        public int GetCustomersForProgramsLaunching2017()
+        public int GetCustomersForProgramsLaunchingClosing2017(string region)
         {
             CustomersList.Clear();
             try
@@ -86,10 +86,11 @@ namespace FASTT.Controllers
 
                 if (_context != null)
                 {
-                    _context.ST_CustomersWithProgramsLaunching2017.Load();
-                    if (!_context.ST_CustomersWithProgramsLaunching2017.Any()) return 0;
+                    _context.ST_CustomersWithProgramsLaunchingClosing2017.Load();
+                    if (!_context.ST_CustomersWithProgramsLaunchingClosing2017.Any()) return 0;
 
-                    var q = from pl in _context.ST_CustomersWithProgramsLaunching2017
+                    var q = from pl in _context.ST_CustomersWithProgramsLaunchingClosing2017
+                            where pl.Region == region
                             orderby pl.Customer
                             select pl;
 
@@ -107,7 +108,7 @@ namespace FASTT.Controllers
             return 1;
         }
 
-        public int GetCustomersForProgramsLaunching2018()
+        public int GetCustomersForProgramsLaunchingClosing2018(string region)
         {
             CustomersList.Clear();
             try
@@ -120,10 +121,11 @@ namespace FASTT.Controllers
 
                 if (_context != null)
                 {
-                    _context.ST_CustomersWithProgramsLaunching2018.Load();
-                    if (!_context.ST_CustomersWithProgramsLaunching2018.Any()) return 0;
+                    _context.ST_CustomersWithProgramsLaunchingClosing2018.Load();
+                    if (!_context.ST_CustomersWithProgramsLaunchingClosing2018.Any()) return 0;
 
-                    var q = from pl in _context.ST_CustomersWithProgramsLaunching2018
+                    var q = from pl in _context.ST_CustomersWithProgramsLaunchingClosing2018
+                            where pl.Region == region
                             orderby pl.Customer
                             select pl;
 
@@ -141,7 +143,7 @@ namespace FASTT.Controllers
             return 1;
         }
 
-        public int GetCustomersForProgramsLaunching2019()
+        public int GetCustomersForProgramsLaunchingClosing2019(string region)
         {
             CustomersList.Clear();
             try
@@ -154,112 +156,11 @@ namespace FASTT.Controllers
 
                 if (_context != null)
                 {
-                    _context.ST_CustomersWithProgramsLaunching2019.Load();
-                    if (!_context.ST_CustomersWithProgramsLaunching2019.Any()) return 0;
+                    _context.ST_CustomersWithProgramsLaunchingClosing2019.Load();
+                    if (!_context.ST_CustomersWithProgramsLaunchingClosing2019.Any()) return 0;
 
-                    var q = from pl in _context.ST_CustomersWithProgramsLaunching2019
-                            orderby pl.Customer
-                            select pl;
-
-                    CustomersList.Add("");
-                    CustomersList.AddRange(q.Select(item => item.Customer));
-                }
-            }
-            catch (Exception ex)
-            {
-                string error = (ex.InnerException != null) ? ex.InnerException.Message : ex.Message;
-                _messageBox.Message = string.Format("Failed to return Customers list.  Error: {0}", error);
-                _messageBox.ShowDialog();
-                return 0;
-            }
-            return 1;
-        }
-
-        public int GetCustomersForProgramsClosing2017()
-        {
-            CustomersList.Clear();
-            try
-            {
-                if (_context != null)
-                {
-                    _context.Dispose();
-                    _context = new MONITOREntities();
-                }
-
-                if (_context != null)
-                {
-                    _context.ST_CustomersWithProgramsClosing2017.Load();
-                    if (!_context.ST_CustomersWithProgramsClosing2017.Any()) return 0;
-
-                    var q = from pl in _context.ST_CustomersWithProgramsClosing2017
-                            orderby pl.Customer
-                            select pl;
-
-                    CustomersList.Add("");
-                    CustomersList.AddRange(q.Select(item => item.Customer));
-                }
-            }
-            catch (Exception ex)
-            {
-                string error = (ex.InnerException != null) ? ex.InnerException.Message : ex.Message;
-                _messageBox.Message = string.Format("Failed to return Customers list.  Error: {0}", error);
-                _messageBox.ShowDialog();
-                return 0;
-            }
-            return 1;
-        }
-
-        public int GetCustomersForProgramsClosing2018()
-        {
-            CustomersList.Clear();
-            try
-            {
-                if (_context != null)
-                {
-                    _context.Dispose();
-                    _context = new MONITOREntities();
-                }
-
-                if (_context != null)
-                {
-                    _context.ST_CustomersWithProgramsClosing2018.Load();
-                    if (!_context.ST_CustomersWithProgramsClosing2018.Any()) return 0;
-
-                    var q = from pl in _context.ST_CustomersWithProgramsClosing2018
-                            orderby pl.Customer
-                            select pl;
-
-                    CustomersList.Add("");
-                    CustomersList.AddRange(q.Select(item => item.Customer));
-                }
-            }
-            catch (Exception ex)
-            {
-                string error = (ex.InnerException != null) ? ex.InnerException.Message : ex.Message;
-                _messageBox.Message = string.Format("Failed to return Customers list.  Error: {0}", error);
-                _messageBox.ShowDialog();
-                return 0;
-            }
-            return 1;
-        }
-
-        public int GetCustomersForProgramsClosing2019()
-        {
-            CustomersList.Clear();
-            try
-            {
-                if (_context != null)
-                {
-                    _context.Dispose();
-                    _context = new MONITOREntities();
-                }
-
-                if (_context != null)
-                {
-                    _context.ST_CustomersWithProgramsClosing2019.Load();
-                    if (!_context.ST_CustomersWithProgramsClosing2019.Any()) return 0;
-
-                    var q = from pl in _context.ST_CustomersWithProgramsClosing2019
+                    var q = from pl in _context.ST_CustomersWithProgramsLaunchingClosing2019
+                            where pl.Region == region
                             orderby pl.Customer
                             select pl;
 
@@ -298,14 +199,18 @@ namespace FASTT.Controllers
                     {
                         _openQuotesDataModel = new ReportOpenQuotesDataModel
                         {
-                            QuoteNumber = item.QuoteNumber,
+                            Status = item.QuoteStatus,
+                            Customer = item.Customer,
                             Program = item.Program,
                             ApplicationName = item.ApplicationName,
-                            Customer = item.Customer,
                             SalesInitials = item.SalesInitials,
                             Sop = item.SOP,
+                            Eop = item.EOP,
                             EeiPartNumber = item.EEIPartNumber,
-                            TotalQuotedSales = string.Format("{0:n0}", item.TotalQuotedSales)
+                            //TotalQuotedSales = string.Format("{0:n0}", item.TotalQuotedSales),
+                            TotalQuotedSales = item.TotalQuotedSales,
+                            Notes = item.Notes,
+                            QuoteNumber = item.QuoteNumber
                         };
                         ListOpenQuotes.Add(_openQuotesDataModel);
                     }
@@ -339,16 +244,19 @@ namespace FASTT.Controllers
                     foreach (var item in queryResult.ToList())
                     {
                         _newQuotesDataModel = new ReportNewQuotesDataModel
-                        {
-                            QuoteNumber = item.QuoteNumber,
+                        {  
                             QuoteStatus = item.QuoteStatus,
+                            Customer = item.Customer,
                             Program = item.Program,
                             ApplicationName = item.ApplicationName,
-                            Customer = item.Customer,
                             SalesInitials = item.SalesInitials,
                             Sop = item.SOP,
+                            Eop = item.EOP,
                             EeiPartNumber = item.EEIPartNumber,
-                            TotalQuotedSales = string.Format("{0:n0}", item.TotalQuotedSales),
+                            //TotalQuotedSales = string.Format("{0:n0}", item.TotalQuotedSales),
+                            TotalQuotedSales = item.TotalQuotedSales,
+                            Notes = item.Notes,
+                            QuoteNumber = item.QuoteNumber
                         };
                         ListNewQuotes.Add(_newQuotesDataModel);
                     }
@@ -381,13 +289,15 @@ namespace FASTT.Controllers
                     {
                         _salesPersonActivityDataModel = new ReportSalesPersonActivityDataModel
                             {
-                                SalesPerson = item.SalesPerson,
+                                LastSalesPerson = item.SalesPerson,
                                 Customer = item.Customer,
                                 Program = item.Program,
                                 Application = item.Application,
+                                BulbType = item.BulbType,
+                                Region = item.Region,
                                 SOP = item.SOP,
                                 EOP = item.EOP,
-                                PeakVolume = item.PeakVolume,
+                                PeakVolume = item.PeakVolume ?? 0,
                                 Status = item.Status,
                                 ActivityDate = item.ActivityDate,
                                 Activity = item.Activity,
@@ -398,6 +308,7 @@ namespace FASTT.Controllers
                                 Duration = item.Duration,
                                 Notes = item.Notes,
                                 SalesPersonCode = item.SalesPersonCode,
+                                AwardedVolume = (item.AwardedVolume.HasValue) ? item.AwardedVolume.ToString() : "",
                                 RowId = Convert.ToInt32(item.RowID),
                                 CombinedLightingStudyId = item.CombinedLightingId
                             };
@@ -431,14 +342,17 @@ namespace FASTT.Controllers
                     {
                         _topLeadsDataModel = new ReportTopLeadsDataModel
                         {
-                            PeakVolume = item.Volume,
+                            PeakVolume = item.PeakVolume ?? 0,
                             Customer = item.Customer,
                             Program = item.Program,
                             Application = item.Application,
+                            BulbType = item.BulbType,
+                            Region = item.Region,
                             SOP = item.SOP,
                             EOP = item.EOP,
                             SalesLeadStatus = item.SalesLeadStatus,
                             SalesPerson = item.SalesPerson,
+                            AwardedVolume = (item.AwardedVolume.HasValue) ? item.AwardedVolume.ToString() : "",
                             RowId = item.SalesLeadId,
                             CombinedLightingStudyId = item.CombinedLightingId
                         };
@@ -510,14 +424,14 @@ namespace FASTT.Controllers
             }
         }
 
-        public void GetPeakVolumeOfProgramsLaunching2017ByCustomer(string customer, out string error)
+        public void GetPeakVolumeOfProgramsLaunching2017ByCustomer(string region, string customer, out string error)
         {
             error = "";
             PeakVolumeOfProgramsLaunching2017List.Clear();
 
             try
             {
-                foreach (PeakVolumeOfProgramsLaunching2017_Result item in _context.usp_ST_Metrics_PeakVolumeOfProgramsLaunching2017(customer))
+                foreach (PeakVolumeOfProgramsLaunching2017_Result item in _context.usp_ST_Metrics_PeakVolumeOfProgramsLaunching2017(customer, region))
                 {
                     _peakVolumeOfProgramsLaunching2017 = new Metrics_PeakVolumeOfProgramsLaunching2017
                     {
@@ -538,14 +452,14 @@ namespace FASTT.Controllers
             }
         }
 
-        public void GetPeakVolumeOfProgramsLaunching2018ByCustomer(string customer, out string error)
+        public void GetPeakVolumeOfProgramsLaunching2018ByCustomer(string region, string customer, out string error)
         {
             error = "";
             PeakVolumeOfProgramsLaunching2018List.Clear();
 
             try
             {
-                foreach (PeakVolumeOfProgramsLaunching2018_Result item in _context.usp_ST_Metrics_PeakVolumeOfProgramsLaunching2018(customer))
+                foreach (PeakVolumeOfProgramsLaunching2018_Result item in _context.usp_ST_Metrics_PeakVolumeOfProgramsLaunching2018(customer, region))
                 {
                     _peakVolumeOfProgramsLaunching2018 = new Metrics_PeakVolumeOfProgramsLaunching2018
                     {
@@ -566,14 +480,14 @@ namespace FASTT.Controllers
             }
         }
 
-        public void GetPeakVolumeOfProgramsLaunching2019ByCustomer(string customer, out string error)
+        public void GetPeakVolumeOfProgramsLaunching2019ByCustomer(string region, string customer, out string error)
         {
             error = "";
             PeakVolumeOfProgramsLaunching2019List.Clear();
 
             try
             {
-                foreach (PeakVolumeOfProgramsLaunching2019_Result item in _context.usp_ST_Metrics_PeakVolumeOfProgramsLaunching2019(customer))
+                foreach (PeakVolumeOfProgramsLaunching2019_Result item in _context.usp_ST_Metrics_PeakVolumeOfProgramsLaunching2019(customer, region))
                 {
                     _peakVolumeOfProgramsLaunching2019 = new Metrics_PeakVolumeOfProgramsLaunching2019
                     {
@@ -594,14 +508,14 @@ namespace FASTT.Controllers
             }
         }
 
-        public void GetPeakVolumeOfProgramsClosing2017ByCustomer(string customer, out string error)
+        public void GetPeakVolumeOfProgramsClosing2017ByCustomer(string region, string customer, out string error)
         {
             error = "";
             PeakVolumeOfProgramsClosing2017List.Clear();
 
             try
             {
-                foreach (PeakVolumeOfProgramsClosing2017_Result item in _context.usp_ST_Metrics_PeakVolumeOfProgramsClosing2017(customer))
+                foreach (PeakVolumeOfProgramsClosing2017_Result item in _context.usp_ST_Metrics_PeakVolumeOfProgramsClosing2017(customer, region))
                 {
                     _peakVolumeOfProgramsClosing2017 = new Metrics_PeakVolumeOfProgramsClosing2017
                     {
@@ -622,14 +536,14 @@ namespace FASTT.Controllers
             }
         }
 
-        public void GetPeakVolumeOfProgramsClosing2018ByCustomer(string customer, out string error)
+        public void GetPeakVolumeOfProgramsClosing2018ByCustomer(string region, string customer, out string error)
         {
             error = "";
             PeakVolumeOfProgramsClosing2018List.Clear();
 
             try
             {
-                foreach (PeakVolumeOfProgramsClosing2018_Result item in _context.usp_ST_Metrics_PeakVolumeOfProgramsClosing2018(customer))
+                foreach (PeakVolumeOfProgramsClosing2018_Result item in _context.usp_ST_Metrics_PeakVolumeOfProgramsClosing2018(customer, region))
                 {
                     _peakVolumeOfProgramsClosing2018 = new Metrics_PeakVolumeOfProgramsClosing2018
                     {
@@ -650,14 +564,14 @@ namespace FASTT.Controllers
             }
         }
 
-        public void GetPeakVolumeOfProgramsClosing2019ByCustomer(string customer, out string error)
+        public void GetPeakVolumeOfProgramsClosing2019ByCustomer(string region, string customer, out string error)
         {
             error = "";
             PeakVolumeOfProgramsClosing2019List.Clear();
 
             try
             {
-                foreach (PeakVolumeOfProgramsClosing2019_Result item in _context.usp_ST_Metrics_PeakVolumeOfProgramsClosing2019(customer))
+                foreach (PeakVolumeOfProgramsClosing2019_Result item in _context.usp_ST_Metrics_PeakVolumeOfProgramsClosing2019(customer, region))
                 {
                     _peakVolumeOfProgramsClosing2019 = new Metrics_PeakVolumeOfProgramsClosing2019
                     {

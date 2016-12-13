@@ -56,6 +56,7 @@ namespace FASTT.Controllers
                     {
                         _salesLeadHistoryDataModel = new SalesLeadHistoryDataModel
                             {
+                                SalesPerson = item.SalesPerson,
                                 Status = item.StatusType,
                                 Activity = item.Activity,
                                 ActivityDate = item.ActivityDate,
@@ -64,6 +65,8 @@ namespace FASTT.Controllers
                                 ContactEmailAddress = item.ContactEmailAddress,
                                 ContactPhoneNumber = item.ContactPhoneNumber,
                                 Notes = item.Notes,
+                                QuoteNumber = item.QuoteNumber,
+                                AwardedVolume = (item.AwardedVolume.HasValue) ? item.AwardedVolume.ToString() : "",
                                 RowId = item.RowID
                             };
                         SalesLeadHistoryList.Add(_salesLeadHistoryDataModel);

@@ -49,6 +49,8 @@
             this.mesTbxApplication = new Fx.WinForms.Flat.MESTextEdit();
             this.label2 = new System.Windows.Forms.Label();
             this.mesTbxSop = new Fx.WinForms.Flat.MESTextEdit();
+            this.label5 = new System.Windows.Forms.Label();
+            this.mesTbxEop = new Fx.WinForms.Flat.MESTextEdit();
             this.tableLayoutPanel5 = new System.Windows.Forms.TableLayoutPanel();
             this.label11 = new System.Windows.Forms.Label();
             this.cbxSalesPersonActivity = new System.Windows.Forms.ComboBox();
@@ -73,8 +75,8 @@
             this.tableLayoutPanel7 = new System.Windows.Forms.TableLayoutPanel();
             this.mesTbxMeetingLocation = new Fx.WinForms.Flat.MESTextEdit();
             this.lblMeetingLocation = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
-            this.mesTbxEop = new Fx.WinForms.Flat.MESTextEdit();
+            this.lblAwardedVolume = new System.Windows.Forms.Label();
+            this.mesTbxAwardedVolume = new Fx.WinForms.Flat.MESTextEdit();
             this.panel1.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
@@ -182,10 +184,10 @@
             this.tableLayoutPanel3.Margin = new System.Windows.Forms.Padding(0);
             this.tableLayoutPanel3.Name = "tableLayoutPanel3";
             this.tableLayoutPanel3.RowCount = 6;
-            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 100F));
+            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 120F));
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 45F));
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40F));
-            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 150F));
+            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 130F));
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 95F));
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel3.Size = new System.Drawing.Size(998, 482);
@@ -198,20 +200,20 @@
             this.tableLayoutPanel4.Controls.Add(this.label8, 0, 0);
             this.tableLayoutPanel4.Controls.Add(this.mesTbxNotes, 0, 1);
             this.tableLayoutPanel4.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel4.Location = new System.Drawing.Point(3, 188);
+            this.tableLayoutPanel4.Location = new System.Drawing.Point(3, 208);
             this.tableLayoutPanel4.Name = "tableLayoutPanel4";
             this.tableLayoutPanel4.RowCount = 2;
             this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25F));
             this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 80F));
             this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel4.Size = new System.Drawing.Size(992, 144);
+            this.tableLayoutPanel4.Size = new System.Drawing.Size(992, 124);
             this.tableLayoutPanel4.TabIndex = 16;
             // 
             // label8
             // 
             this.label8.AutoSize = true;
             this.label8.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label8.ForeColor = System.Drawing.Color.Gainsboro;
+            this.label8.ForeColor = System.Drawing.Color.White;
             this.label8.Location = new System.Drawing.Point(3, 0);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(45, 16);
@@ -228,7 +230,7 @@
             this.mesTbxNotes.MaxLength = 1000;
             this.mesTbxNotes.Multiline = true;
             this.mesTbxNotes.Name = "mesTbxNotes";
-            this.mesTbxNotes.Size = new System.Drawing.Size(915, 103);
+            this.mesTbxNotes.Size = new System.Drawing.Size(925, 83);
             this.mesTbxNotes.TabIndex = 14;
             // 
             // tlpForm
@@ -258,7 +260,7 @@
             this.tlpForm.RowCount = 2;
             this.tlpForm.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35F));
             this.tlpForm.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tlpForm.Size = new System.Drawing.Size(992, 94);
+            this.tlpForm.Size = new System.Drawing.Size(992, 114);
             this.tlpForm.TabIndex = 2;
             // 
             // label4
@@ -376,13 +378,36 @@
             this.mesTbxSop.Size = new System.Drawing.Size(161, 26);
             this.mesTbxSop.TabIndex = 17;
             // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label5.ForeColor = System.Drawing.Color.White;
+            this.label5.Location = new System.Drawing.Point(553, 35);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(34, 14);
+            this.label5.TabIndex = 18;
+            this.label5.Text = "EOP:";
+            // 
+            // mesTbxEop
+            // 
+            this.mesTbxEop.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(37)))), ((int)(((byte)(38)))));
+            this.mesTbxEop.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.mesTbxEop.Font = new System.Drawing.Font("Tahoma", 12F);
+            this.mesTbxEop.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
+            this.mesTbxEop.Location = new System.Drawing.Point(623, 38);
+            this.mesTbxEop.Name = "mesTbxEop";
+            this.mesTbxEop.ReadOnly = true;
+            this.mesTbxEop.Size = new System.Drawing.Size(161, 27);
+            this.mesTbxEop.TabIndex = 19;
+            // 
             // tableLayoutPanel5
             // 
             this.tableLayoutPanel5.ColumnCount = 8;
             this.tableLayoutPanel5.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 65F));
             this.tableLayoutPanel5.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 225F));
             this.tableLayoutPanel5.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 55F));
-            this.tableLayoutPanel5.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 250F));
+            this.tableLayoutPanel5.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 260F));
             this.tableLayoutPanel5.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 95F));
             this.tableLayoutPanel5.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 70F));
             this.tableLayoutPanel5.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 100F));
@@ -396,7 +421,7 @@
             this.tableLayoutPanel5.Controls.Add(this.label16, 6, 0);
             this.tableLayoutPanel5.Controls.Add(this.mesTbxMinutes, 7, 0);
             this.tableLayoutPanel5.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel5.Location = new System.Drawing.Point(3, 103);
+            this.tableLayoutPanel5.Location = new System.Drawing.Point(3, 123);
             this.tableLayoutPanel5.Name = "tableLayoutPanel5";
             this.tableLayoutPanel5.RowCount = 1;
             this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
@@ -407,8 +432,8 @@
             // 
             this.label11.AutoSize = true;
             this.label11.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label11.ForeColor = System.Drawing.Color.Gainsboro;
-            this.label11.Location = new System.Drawing.Point(598, 0);
+            this.label11.ForeColor = System.Drawing.Color.White;
+            this.label11.Location = new System.Drawing.Point(608, 0);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(84, 16);
             this.label11.TabIndex = 18;
@@ -433,7 +458,7 @@
             // 
             this.label9.AutoSize = true;
             this.label9.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label9.ForeColor = System.Drawing.Color.Gainsboro;
+            this.label9.ForeColor = System.Drawing.Color.White;
             this.label9.Location = new System.Drawing.Point(3, 0);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(53, 16);
@@ -444,7 +469,7 @@
             // 
             this.label10.AutoSize = true;
             this.label10.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label10.ForeColor = System.Drawing.Color.Gainsboro;
+            this.label10.ForeColor = System.Drawing.Color.White;
             this.label10.Location = new System.Drawing.Point(293, 0);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(39, 16);
@@ -465,7 +490,7 @@
             this.mesTbxHours.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.mesTbxHours.Font = new System.Drawing.Font("Tahoma", 12F);
             this.mesTbxHours.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
-            this.mesTbxHours.Location = new System.Drawing.Point(693, 3);
+            this.mesTbxHours.Location = new System.Drawing.Point(703, 3);
             this.mesTbxHours.MaxLength = 2;
             this.mesTbxHours.Name = "mesTbxHours";
             this.mesTbxHours.Size = new System.Drawing.Size(55, 27);
@@ -476,7 +501,7 @@
             this.label16.AutoSize = true;
             this.label16.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label16.ForeColor = System.Drawing.Color.White;
-            this.label16.Location = new System.Drawing.Point(763, 0);
+            this.label16.Location = new System.Drawing.Point(773, 0);
             this.label16.Name = "label16";
             this.label16.Size = new System.Drawing.Size(88, 16);
             this.label16.TabIndex = 20;
@@ -488,7 +513,7 @@
             this.mesTbxMinutes.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.mesTbxMinutes.Font = new System.Drawing.Font("Tahoma", 12F);
             this.mesTbxMinutes.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
-            this.mesTbxMinutes.Location = new System.Drawing.Point(863, 3);
+            this.mesTbxMinutes.Location = new System.Drawing.Point(873, 3);
             this.mesTbxMinutes.MaxLength = 2;
             this.mesTbxMinutes.Name = "mesTbxMinutes";
             this.mesTbxMinutes.Size = new System.Drawing.Size(55, 27);
@@ -519,9 +544,8 @@
             this.tableLayoutPanel6.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 160F));
             this.tableLayoutPanel6.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 120F));
             this.tableLayoutPanel6.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 160F));
-            this.tableLayoutPanel6.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 60F));
+            this.tableLayoutPanel6.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 70F));
             this.tableLayoutPanel6.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel6.Controls.Add(this.lblQuoteNumber, 2, 1);
             this.tableLayoutPanel6.Controls.Add(this.label15, 0, 1);
             this.tableLayoutPanel6.Controls.Add(this.label12, 0, 0);
             this.tableLayoutPanel6.Controls.Add(this.label14, 4, 0);
@@ -530,7 +554,10 @@
             this.tableLayoutPanel6.Controls.Add(this.mesTbxContactPhone, 3, 0);
             this.tableLayoutPanel6.Controls.Add(this.mesTbxContactEmail, 5, 0);
             this.tableLayoutPanel6.Controls.Add(this.cbxSalesLeadStatus, 1, 1);
-            this.tableLayoutPanel6.Controls.Add(this.mesTbxQuoteNumber, 3, 1);
+            this.tableLayoutPanel6.Controls.Add(this.mesTbxQuoteNumber, 5, 1);
+            this.tableLayoutPanel6.Controls.Add(this.lblQuoteNumber, 4, 1);
+            this.tableLayoutPanel6.Controls.Add(this.lblAwardedVolume, 2, 1);
+            this.tableLayoutPanel6.Controls.Add(this.mesTbxAwardedVolume, 3, 1);
             this.tableLayoutPanel6.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel6.Location = new System.Drawing.Point(3, 338);
             this.tableLayoutPanel6.Name = "tableLayoutPanel6";
@@ -544,18 +571,18 @@
             // 
             this.lblQuoteNumber.AutoSize = true;
             this.lblQuoteNumber.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblQuoteNumber.ForeColor = System.Drawing.Color.Gainsboro;
-            this.lblQuoteNumber.Location = new System.Drawing.Point(273, 40);
+            this.lblQuoteNumber.ForeColor = System.Drawing.Color.White;
+            this.lblQuoteNumber.Location = new System.Drawing.Point(553, 40);
             this.lblQuoteNumber.Name = "lblQuoteNumber";
-            this.lblQuoteNumber.Size = new System.Drawing.Size(96, 16);
+            this.lblQuoteNumber.Size = new System.Drawing.Size(60, 16);
             this.lblQuoteNumber.TabIndex = 25;
-            this.lblQuoteNumber.Text = "Quote Number:";
+            this.lblQuoteNumber.Text = "Quote #:";
             // 
             // label15
             // 
             this.label15.AutoSize = true;
             this.label15.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label15.ForeColor = System.Drawing.Color.Gainsboro;
+            this.label15.ForeColor = System.Drawing.Color.White;
             this.label15.Location = new System.Drawing.Point(3, 40);
             this.label15.Name = "label15";
             this.label15.Size = new System.Drawing.Size(80, 16);
@@ -566,7 +593,7 @@
             // 
             this.label12.AutoSize = true;
             this.label12.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label12.ForeColor = System.Drawing.Color.Gainsboro;
+            this.label12.ForeColor = System.Drawing.Color.White;
             this.label12.Location = new System.Drawing.Point(3, 0);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(93, 16);
@@ -577,7 +604,7 @@
             // 
             this.label14.AutoSize = true;
             this.label14.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label14.ForeColor = System.Drawing.Color.Gainsboro;
+            this.label14.ForeColor = System.Drawing.Color.White;
             this.label14.Location = new System.Drawing.Point(553, 0);
             this.label14.Name = "label14";
             this.label14.Size = new System.Drawing.Size(44, 16);
@@ -588,7 +615,7 @@
             // 
             this.label13.AutoSize = true;
             this.label13.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label13.ForeColor = System.Drawing.Color.Gainsboro;
+            this.label13.ForeColor = System.Drawing.Color.White;
             this.label13.Location = new System.Drawing.Point(273, 0);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(97, 16);
@@ -625,7 +652,7 @@
             this.mesTbxContactEmail.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.mesTbxContactEmail.Font = new System.Drawing.Font("Tahoma", 12F);
             this.mesTbxContactEmail.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
-            this.mesTbxContactEmail.Location = new System.Drawing.Point(613, 3);
+            this.mesTbxContactEmail.Location = new System.Drawing.Point(623, 3);
             this.mesTbxContactEmail.MaxLength = 320;
             this.mesTbxContactEmail.Name = "mesTbxContactEmail";
             this.mesTbxContactEmail.Size = new System.Drawing.Size(305, 27);
@@ -652,9 +679,9 @@
             this.mesTbxQuoteNumber.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.mesTbxQuoteNumber.Font = new System.Drawing.Font("Tahoma", 12F);
             this.mesTbxQuoteNumber.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
-            this.mesTbxQuoteNumber.Location = new System.Drawing.Point(393, 43);
+            this.mesTbxQuoteNumber.Location = new System.Drawing.Point(623, 43);
             this.mesTbxQuoteNumber.Name = "mesTbxQuoteNumber";
-            this.mesTbxQuoteNumber.Size = new System.Drawing.Size(142, 27);
+            this.mesTbxQuoteNumber.Size = new System.Drawing.Size(135, 27);
             this.mesTbxQuoteNumber.TabIndex = 24;
             // 
             // tableLayoutPanel7
@@ -665,7 +692,7 @@
             this.tableLayoutPanel7.Controls.Add(this.mesTbxMeetingLocation, 0, 0);
             this.tableLayoutPanel7.Controls.Add(this.lblMeetingLocation, 0, 0);
             this.tableLayoutPanel7.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel7.Location = new System.Drawing.Point(3, 148);
+            this.tableLayoutPanel7.Location = new System.Drawing.Point(3, 168);
             this.tableLayoutPanel7.Name = "tableLayoutPanel7";
             this.tableLayoutPanel7.RowCount = 1;
             this.tableLayoutPanel7.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
@@ -688,35 +715,34 @@
             // 
             this.lblMeetingLocation.AutoSize = true;
             this.lblMeetingLocation.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblMeetingLocation.ForeColor = System.Drawing.Color.Gainsboro;
+            this.lblMeetingLocation.ForeColor = System.Drawing.Color.White;
             this.lblMeetingLocation.Location = new System.Drawing.Point(3, 0);
             this.lblMeetingLocation.Name = "lblMeetingLocation";
             this.lblMeetingLocation.Size = new System.Drawing.Size(109, 16);
             this.lblMeetingLocation.TabIndex = 16;
             this.lblMeetingLocation.Text = "Meeting Location:";
             // 
-            // label5
+            // lblAwardedVolume
             // 
-            this.label5.AutoSize = true;
-            this.label5.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.ForeColor = System.Drawing.Color.White;
-            this.label5.Location = new System.Drawing.Point(553, 35);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(34, 14);
-            this.label5.TabIndex = 18;
-            this.label5.Text = "EOP:";
+            this.lblAwardedVolume.AutoSize = true;
+            this.lblAwardedVolume.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblAwardedVolume.ForeColor = System.Drawing.Color.White;
+            this.lblAwardedVolume.Location = new System.Drawing.Point(273, 40);
+            this.lblAwardedVolume.Name = "lblAwardedVolume";
+            this.lblAwardedVolume.Size = new System.Drawing.Size(114, 16);
+            this.lblAwardedVolume.TabIndex = 26;
+            this.lblAwardedVolume.Text = "Awarded Volume:";
             // 
-            // mesTbxEop
+            // mesTbxAwardedVolume
             // 
-            this.mesTbxEop.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(37)))), ((int)(((byte)(38)))));
-            this.mesTbxEop.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.mesTbxEop.Font = new System.Drawing.Font("Tahoma", 12F);
-            this.mesTbxEop.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
-            this.mesTbxEop.Location = new System.Drawing.Point(623, 38);
-            this.mesTbxEop.Name = "mesTbxEop";
-            this.mesTbxEop.ReadOnly = true;
-            this.mesTbxEop.Size = new System.Drawing.Size(161, 27);
-            this.mesTbxEop.TabIndex = 19;
+            this.mesTbxAwardedVolume.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(37)))), ((int)(((byte)(38)))));
+            this.mesTbxAwardedVolume.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.mesTbxAwardedVolume.Font = new System.Drawing.Font("Tahoma", 12F);
+            this.mesTbxAwardedVolume.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
+            this.mesTbxAwardedVolume.Location = new System.Drawing.Point(393, 43);
+            this.mesTbxAwardedVolume.Name = "mesTbxAwardedVolume";
+            this.mesTbxAwardedVolume.Size = new System.Drawing.Size(142, 27);
+            this.mesTbxAwardedVolume.TabIndex = 27;
             // 
             // SalesLeadsActivityDetailsView
             // 
@@ -800,5 +826,7 @@
         private Fx.WinForms.Flat.MESTextEdit mesTbxQuoteNumber;
         private System.Windows.Forms.Label label5;
         private Fx.WinForms.Flat.MESTextEdit mesTbxEop;
+        private System.Windows.Forms.Label lblAwardedVolume;
+        private Fx.WinForms.Flat.MESTextEdit mesTbxAwardedVolume;
     }
 }

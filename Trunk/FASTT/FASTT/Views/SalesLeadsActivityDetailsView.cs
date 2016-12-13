@@ -12,6 +12,7 @@ namespace FASTT.Views
 
         private readonly SalesLeadsActivityDetailsController _controller;
         private readonly CustomMessageBox _messageBox;
+        //private readonly CustomMessageBoxResponse _messageBoxResponse;
 
         #endregion
 
@@ -49,6 +50,8 @@ namespace FASTT.Views
         public string ContactEmail { get; set; }
         public string Notes { get; set; }
         public string Status { get; set; }
+        public string QuoteNumber { get; set; }
+        public string AwardedVolume { get; set; }
 
         #endregion
 
@@ -61,10 +64,13 @@ namespace FASTT.Views
 
             _controller = new SalesLeadsActivityDetailsController();
             _messageBox = new CustomMessageBox();
+            //_messageBoxResponse = new CustomMessageBoxResponse();
         }
 
         private void SalesLeadsDetailsView_Load(object sender, EventArgs e)
         {
+            lblMeetingLocation.Visible = lblAwardedVolume.Visible = lblQuoteNumber.Visible = 
+                mesTbxMeetingLocation.Visible = mesTbxAwardedVolume.Visible = mesTbxQuoteNumber.Visible = false;
             SetDropDownLists();
             PopulateFields();
             PopulateSalesLeadContactInfo();
@@ -133,10 +139,16 @@ namespace FASTT.Views
             if (cbxSalesLeadStatus.Text == "Quoted")
             {
                 lblQuoteNumber.Visible = mesTbxQuoteNumber.Visible = true;
+                lblAwardedVolume.Visible = mesTbxAwardedVolume.Visible = false;
+            }
+            else if (cbxSalesLeadStatus.Text == "Awarded")
+            {
+                lblAwardedVolume.Visible = mesTbxAwardedVolume.Visible = true;
+                lblQuoteNumber.Visible = mesTbxQuoteNumber.Visible = false;
             }
             else
             {
-                lblQuoteNumber.Visible = mesTbxQuoteNumber.Visible = false;                
+                lblQuoteNumber.Visible = lblAwardedVolume.Visible = mesTbxQuoteNumber.Visible = mesTbxAwardedVolume.Visible = false;                
             }
         }
 
@@ -189,6 +201,8 @@ namespace FASTT.Views
             mesTbxContactEmail.Text = ContactEmail;
             mesTbxContactPhone.Text = ContactPhone;
             mesTbxNotes.Text = Notes;
+            mesTbxQuoteNumber.Text = QuoteNumber;
+            mesTbxAwardedVolume.Text = AwardedVolume;
 
             int hours = Convert.ToInt32(Math.Floor(Duration/60));
             int minutes = Convert.ToInt32(Duration%60);
@@ -214,6 +228,7 @@ namespace FASTT.Views
             string activity = "";
             string meetingLocation = "";
             decimal duration = 0;
+            int? awardedVolume = null;
 
             // Data validation
             if (cbxSalesLeadStatus.Text.Trim() == "")
@@ -227,9 +242,24 @@ namespace FASTT.Views
             string notes = mesTbxNotes.Text.Trim();
             if (salesLeadStatus == 3 && notes == "")
             {
-                _messageBox.Message = "To close a sales lead, you must enter a note.  Why is the lead closing?";
+                _messageBox.Message = "To close a sales lead, you must enter a note.  Why is the lead being closed?";
                 _messageBox.ShowDialog();
                 return;
+            }
+
+            string awardedVol = mesTbxAwardedVolume.Text.Trim();
+            if (awardedVol != "")
+            {
+                try
+                {
+                    awardedVolume = Convert.ToInt32(awardedVol);
+                }
+                catch (Exception ex)
+                {
+                    _messageBox.Message = "Awarded Volume must be numeric.";
+                    _messageBox.ShowDialog();
+                    return;
+                }
             }
 
             if (salesLeadStatus < 2)
@@ -295,11 +325,27 @@ namespace FASTT.Views
                 duration = (durationHrs > 0) ? (durationHrs*60) + durationMns : durationMns;
             }
 
+            
+            //// Confirmation required if marking as Awarded or Closed
+            //if (salesLeadStatus == 2)
+            //{
+            //    _messageBoxResponse.Message = "Marking this sales lead as Awarded will close it out.  Continue?";
+            //    DialogResult dialogResult = _messageBoxResponse.ShowDialog();
+            //    if (dialogResult == DialogResult.No) return;
+            //}
+            //else if (salesLeadStatus == 3)
+            //{
+            //    _messageBoxResponse.Message = "Are you sure you want to mark this sales lead as Closed?";
+            //    DialogResult dialogResult = _messageBoxResponse.ShowDialog();
+            //    if (dialogResult == DialogResult.No) return;
+            //}
+
             DateTime activityDate = dtpCalendar.Value;
             string contactName = mesTbxContactName.Text.Trim();
             string contactPhoneNumber = mesTbxContactPhone.Text.Trim();
             string contactEmailAddress = mesTbxContactEmail.Text.Trim();
             string quoteNumber = mesTbxQuoteNumber.Text.Trim();
+
 
             //DateTime? sop = null;
             //if (Sop != string.Empty)
@@ -308,7 +354,7 @@ namespace FASTT.Views
             //}
 
             int result = _controller.SaveSalesLeadActivity(OperatorCode, CombinedLightingId, SalesLeadId, salesLeadStatus, ActivityRowId, 
-                activity, activityDate, meetingLocation, contactName, contactPhoneNumber, contactEmailAddress, duration, notes, quoteNumber);
+                activity, activityDate, meetingLocation, contactName, contactPhoneNumber, contactEmailAddress, duration, notes, quoteNumber, awardedVolume);
 
             if (result == 1) Close();
         }

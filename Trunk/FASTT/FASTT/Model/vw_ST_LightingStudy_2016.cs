@@ -18,6 +18,8 @@ namespace FASTT.Model
         public string Program { get; set; }
         public string SOP { get; set; }
         public Nullable<int> SOPYear { get; set; }
+        public string EOP { get; set; }
+        public Nullable<int> EOPYear { get; set; }
         public string BulbType { get; set; }
         public string Application { get; set; }
         public string Description { get; set; }
@@ -31,7 +33,7 @@ namespace FASTT.Model
         public Nullable<int> Volume2019 { get; set; }
         public Nullable<int> PeakVolume { get; set; }
         public int ID { get; set; }
-        public string EOP { get; set; }
-        public Nullable<int> EOPYear { get; set; }
+        public string SalesPerson { get; set; }
+        public Nullable<int> AwardedVolume { get; set; }
     }
 }

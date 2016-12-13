@@ -10,6 +10,8 @@ namespace FASTT.DataModels
         public string Eop { get; set; }
         public string Volume { get; set; }
         public string Status { get; set; }
+        public string SalesPerson { get; set; }
+        public string AwardedVolume { get; set; }
         public int ID { get; set; }
     }
 }
