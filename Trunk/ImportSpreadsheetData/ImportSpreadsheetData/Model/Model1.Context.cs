@@ -66,5 +66,18 @@ namespace ImportSpreadsheetData.Model
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("usp_Process", tranDT, result, testingParameter, debugParameter);
         }
+    
+        public virtual int usp_PlanningReleaseManualImport_CheckDestination(string customer, string destination, ObjectParameter tranDT, ObjectParameter result)
+        {
+            var customerParameter = customer != null ?
+                new ObjectParameter("Customer", customer) :
+                new ObjectParameter("Customer", typeof(string));
+    
+            var destinationParameter = destination != null ?
+                new ObjectParameter("Destination", destination) :
+                new ObjectParameter("Destination", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("usp_PlanningReleaseManualImport_CheckDestination", customerParameter, destinationParameter, tranDT, result);
+        }
     }
 }

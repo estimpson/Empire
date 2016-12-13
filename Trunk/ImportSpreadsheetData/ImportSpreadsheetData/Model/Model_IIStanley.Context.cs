@@ -16,10 +16,10 @@ namespace ImportSpreadsheetData.Model
     using System.Data.Objects.DataClasses;
     using System.Linq;
     
-    public partial class MONITOREntities_LiteTek : DbContext
+    public partial class MONITOREntities_IIStanley : DbContext
     {
-        public MONITOREntities_LiteTek()
-            : base("name=MONITOREntities_LiteTek")
+        public MONITOREntities_IIStanley()
+            : base("name=MONITOREntities_IIStanley")
         {
         }
     

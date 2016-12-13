@@ -41,12 +41,12 @@ namespace ImportSpreadsheetData.DataLayer
 
             try
             {
-                SalesOrdersList.Clear();
+                SalesOrdersList.Clear(); 
 
                 if (_context != null)
                 {
                     _context.Dispose();
-                    _context = new MONITOREntities_OrderMaintenance();
+                    _context = new MONITOREntities_OrderMaintenance(); 
                 }
 
                 if (_context != null)
