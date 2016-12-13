@@ -4,21 +4,21 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="MONITORModel3.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
-        <EntityContainer Name="MONITORModel3StoreContainer" />
-        <Function Name="usp_DeleteRecords_ManualImport" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="EDILiteTek">
+    <Schema Namespace="MONITORModel_IIStanley.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+        <EntityContainer Name="MONITORModel_IIStanleyStoreContainer" />
+        <Function Name="usp_DeleteRecords_ManualImport" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="EDIStanley">
           <Parameter Name="Release" Type="varchar" Mode="In" />
           <Parameter Name="TranDT" Type="datetime" Mode="InOut" />
           <Parameter Name="Result" Type="int" Mode="InOut" />
         </Function>
-        <Function Name="usp_Process_ManualImport" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="EDILiteTek">
+        <Function Name="usp_Process_ManualImport" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="EDIStanley">
           <Parameter Name="Destination" Type="varchar" Mode="In" />
           <Parameter Name="TranDT" Type="datetime" Mode="InOut" />
           <Parameter Name="Result" Type="int" Mode="InOut" />
           <Parameter Name="Testing" Type="int" Mode="In" />
           <Parameter Name="Debug" Type="int" Mode="In" />
         </Function>
-        <Function Name="usp_Stage_2_ManualImport" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="EDILiteTek">
+        <Function Name="usp_Stage_2_ManualImport" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="EDIStanley">
           <Parameter Name="Release" Type="varchar" Mode="In" />
           <Parameter Name="CustomerPart" Type="varchar" Mode="In" />
           <Parameter Name="Part" Type="varchar" Mode="In" />
@@ -31,8 +31,8 @@
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
-      <Schema Namespace="MONITORModel3" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
-        <EntityContainer Name="MONITOREntities_LiteTek" annotation:LazyLoadingEnabled="true" >
+      <Schema Namespace="MONITORModel_IIStanley" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+        <EntityContainer Name="MONITOREntities_IIStanley" annotation:LazyLoadingEnabled="true" >
           <FunctionImport Name="usp_DeleteRecords_ManualImport">
             <Parameter Name="Release" Mode="In" Type="String" />
             <Parameter Name="TranDT" Mode="InOut" Type="DateTime" />
@@ -61,10 +61,10 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="MONITORModel3StoreContainer" CdmEntityContainer="MONITOREntities_LiteTek" >
-          <FunctionImportMapping FunctionImportName="usp_DeleteRecords_ManualImport" FunctionName="MONITORModel3.Store.usp_DeleteRecords_ManualImport" />
-          <FunctionImportMapping FunctionImportName="usp_Process_ManualImport" FunctionName="MONITORModel3.Store.usp_Process_ManualImport" />
-          <FunctionImportMapping FunctionImportName="usp_Stage_2_ManualImport" FunctionName="MONITORModel3.Store.usp_Stage_2_ManualImport" />
+        <EntityContainerMapping StorageEntityContainer="MONITORModel_IIStanleyStoreContainer" CdmEntityContainer="MONITOREntities_IIStanley" >
+          <FunctionImportMapping FunctionImportName="usp_DeleteRecords_ManualImport" FunctionName="MONITORModel_IIStanley.Store.usp_DeleteRecords_ManualImport" />
+          <FunctionImportMapping FunctionImportName="usp_Process_ManualImport" FunctionName="MONITORModel_IIStanley.Store.usp_Process_ManualImport" />
+          <FunctionImportMapping FunctionImportName="usp_Stage_2_ManualImport" FunctionName="MONITORModel_IIStanley.Store.usp_Stage_2_ManualImport" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

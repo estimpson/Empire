@@ -1,11 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.IO;
-using System.Linq;
-using System.Text;
 using System.Windows.Forms;
 using ImportSpreadsheetData.DataLayer;
 
@@ -15,9 +10,12 @@ namespace ImportSpreadsheetData
     {
         #region Class Objects
 
+        private readonly CheckDestination _checkDest;
         private readonly ImportDataSLAmerica _importDataSlAmerica;
         private readonly ImportDataSLAKorea _importDataSlaKorea;
         private readonly ImportDataLiteTek _importDataLiteTek;
+        private readonly ImportDataIIStanley _importDataIIStanley;
+        private readonly ImportDataSUS _importDataSus;
 
         #endregion
 
@@ -48,7 +46,7 @@ namespace ImportSpreadsheetData
 
         private bool _firstRow;
         private bool _datesRow;
-        private readonly bool _dataBinding;
+        private bool _dataBinding;
 
         #endregion
 
@@ -59,24 +57,15 @@ namespace ImportSpreadsheetData
         {
             InitializeComponent();
 
+            _checkDest = new CheckDestination();
             _importDataSlAmerica = new ImportDataSLAmerica();
             _importDataSlaKorea = new ImportDataSLAKorea();
             _importDataLiteTek = new ImportDataLiteTek();
+            _importDataIIStanley = new ImportDataIIStanley();
+            _importDataSus = new ImportDataSUS();
 
-            lvwImportedData.Columns.Add("Part", 90);
-            lvwImportedData.Columns.Add("Customer Part", 100);
-            lvwImportedData.Columns.Add("Quantity", 70);
-            lvwImportedData.Columns.Add("Due Date", 110);
-
-            _dataBinding = true;
-
-            cbxCustomer.Items.Add("");
-            cbxCustomer.Items.Add("LiteTek");
-            cbxCustomer.Items.Add("SLAmerica");
-            cbxCustomer.Items.Add("SLAKOREA");
-            //cbxCustomer.Items.Add("Stanley");
-            
-            _dataBinding = false;
+            SetGridColumns();
+            PopulateCustomersDropDown();
 
             btnImport.Visible = false;
         }
@@ -88,15 +77,15 @@ namespace ImportSpreadsheetData
 
         private void btnImport_Click(object sender, EventArgs e)
         {
-            if (LocateFile() == 0) return;
+            //if (LocateFile() == 0) return;
 
             if (ImportData() == 0)
             {
-                ResetImport();
-                return;
+                //ResetImport();
+                //return;
             }
 
-            if (ProcessData() == 1) RenameFile();
+            //if (ProcessData() == 1) RenameFile();
         }
 
         private void btnSetOrderUpdateFlag_Click(object sender, EventArgs e)
@@ -125,6 +114,28 @@ namespace ImportSpreadsheetData
 
 
         #region Methods
+
+        private void SetGridColumns()
+        {
+            lvwImportedData.Columns.Add("Part", 90);
+            lvwImportedData.Columns.Add("Customer Part", 100);
+            lvwImportedData.Columns.Add("Quantity", 70);
+            lvwImportedData.Columns.Add("Due Date", 110);
+        }
+
+        private void PopulateCustomersDropDown()
+        {
+            _dataBinding = true;
+
+            cbxCustomer.Items.Add("");
+            cbxCustomer.Items.Add("LiteTek");
+            cbxCustomer.Items.Add("SLAmerica");
+            cbxCustomer.Items.Add("SLAKOREA");
+            cbxCustomer.Items.Add("IIStanley");
+            cbxCustomer.Items.Add("SUS");
+
+            _dataBinding = false;
+        }
 
         //private int ImportDataOld()
         //{
@@ -267,8 +278,8 @@ namespace ImportSpreadsheetData
 
             try
             {
-                //var reader = new StreamReader(File.OpenRead(@"C:\PlanningReleases\" + _customer + @"\Import.csv"));
-                var reader = new StreamReader(File.OpenRead(@"S:\PlanningReleases\" + _customer + @"\Import.csv"));
+                var reader = new StreamReader(File.OpenRead(@"C:\PlanningReleases\" + _customer + @"\Import.csv"));
+                //var reader = new StreamReader(File.OpenRead(@"S:\PlanningReleases\" + _customer + @"\Import.csv"));
                 while (!reader.EndOfStream)
                 {
                     string line = reader.ReadLine();
@@ -281,6 +292,11 @@ namespace ImportSpreadsheetData
                         // Get the release number and destination
                         release = tbxRelease.Text = values[0];
                         destination = tbxDestination.Text = values[1];
+
+                        // Make sure the destination in the spreadsheet is tied to the selected customer
+                        int res = CheckDestinationAgainstSelectedCustomer(destination);
+                        if (res == 0) return 0;
+
                         _firstRow = false;
                         _datesRow = true;
                     }
@@ -344,6 +360,12 @@ namespace ImportSpreadsheetData
                                 case "LiteTek":
                                     _importDataLiteTek.Import(customerPart, part, destination, quantityList[j], dueDateList[j], release, out error);
                                     break;
+                                case "IIStanley":
+                                    _importDataIIStanley.Import(customerPart, part, destination, quantityList[j], dueDateList[j], release, out error);
+                                    break;
+                                case "SUS":
+                                    _importDataSus.Import(customerPart, part, destination, quantityList[j], dueDateList[j], release, out error);
+                                    break;
                             }
 
                             if (error != "")
@@ -393,6 +415,18 @@ namespace ImportSpreadsheetData
             return result;
         }
 
+        private int CheckDestinationAgainstSelectedCustomer(string destination)
+        {
+            string error;
+            _checkDest.CheckDestinationAgainstCustomer(_customer, destination, out error);
+            if (error != "")
+            {
+                MessageBox.Show(error, "Import Failed");
+                return 0;
+            }
+            return 1;
+        }
+
         private void ResetImport()
         {
             string error = "";
@@ -408,6 +442,12 @@ namespace ImportSpreadsheetData
                     break;
                 case "LiteTek":
                     _importDataLiteTek.ResetImport(release, out error);
+                    break;
+                case "IIStanley":
+                    _importDataIIStanley.ResetImport(release, out error);
+                    break;
+                case "SUS":
+                    _importDataSus.ResetImport(release, out error);
                     break;
             }
 
@@ -437,6 +477,12 @@ namespace ImportSpreadsheetData
                     break;
                 case "LiteTek":
                     _importDataLiteTek.Process(destination, out error);
+                    break;
+                case "IIStanley":
+                    _importDataIIStanley.Process(destination, out error);
+                    break;
+                case "SUS":
+                    _importDataSus.Process(destination, out error);
                     break;
             }
 

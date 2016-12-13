@@ -6,6 +6,12 @@
     <edmx:StorageModels>
     <Schema Namespace="MONITORModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
         <EntityContainer Name="MONITORModelStoreContainer" />
+        <Function Name="usp_PlanningReleaseManualImport_CheckDestination" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Customer" Type="varchar" Mode="In" />
+          <Parameter Name="Destination" Type="varchar" Mode="In" />
+          <Parameter Name="TranDT" Type="datetime" Mode="InOut" />
+          <Parameter Name="Result" Type="int" Mode="InOut" />
+        </Function>
         <Function Name="usp_Process" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="EDIStanley">
           <Parameter Name="TranDT" Type="datetime" Mode="InOut" />
           <Parameter Name="Result" Type="int" Mode="InOut" />
@@ -41,6 +47,12 @@
             <Parameter Name="Testing" Mode="In" Type="Int32" />
             <Parameter Name="Debug" Mode="In" Type="Int32" />
           </FunctionImport>
+          <FunctionImport Name="usp_PlanningReleaseManualImport_CheckDestination">
+            <Parameter Name="Customer" Mode="In" Type="String" />
+            <Parameter Name="Destination" Mode="In" Type="String" />
+            <Parameter Name="TranDT" Mode="InOut" Type="DateTime" />
+            <Parameter Name="Result" Mode="InOut" Type="Int32" />
+          </FunctionImport>
         </EntityContainer>
       </Schema>
     </edmx:ConceptualModels>
@@ -50,6 +62,7 @@
         <EntityContainerMapping StorageEntityContainer="MONITORModelStoreContainer" CdmEntityContainer="MONITOREntities" >
           <FunctionImportMapping FunctionImportName="usp_Stage_2" FunctionName="MONITORModel.Store.usp_Stage_2" />
           <FunctionImportMapping FunctionImportName="usp_Process" FunctionName="MONITORModel.Store.usp_Process" />
+          <FunctionImportMapping FunctionImportName="usp_PlanningReleaseManualImport_CheckDestination" FunctionName="MONITORModel.Store.usp_PlanningReleaseManualImport_CheckDestination" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

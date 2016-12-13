@@ -51,9 +51,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DataLayer\CheckDestination.cs" />
+    <Compile Include="DataLayer\ImportDataIIStanley.cs" />
     <Compile Include="DataLayer\ImportDataLiteTek.cs" />
     <Compile Include="DataLayer\ImportDataSLAKorea.cs" />
     <Compile Include="DataLayer\ImportDataSLAmerica.cs" />
+    <Compile Include="DataLayer\ImportDataSUS.cs" />
     <Compile Include="DataLayer\SalesOrderMaintenance.cs" />
     <Compile Include="DataModels\SalesOrderDataModel.cs" />
     <Compile Include="frmImport.cs">
@@ -82,6 +85,21 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Model1.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Model\Model_IIStanley.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Model_IIStanley.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\Model_IIStanley.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Model_IIStanley.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\Model_IIStanley.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Model_IIStanley.edmx</DependentUpon>
     </Compile>
     <Compile Include="Model\Model_LiteTek.Context.cs">
       <AutoGen>True</AutoGen>
@@ -143,6 +161,21 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Model_SLAKorea.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Model\Model_SUS.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Model_SUS.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\Model_SUS.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Model_SUS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\Model_SUS.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Model_SUS.edmx</DependentUpon>
+    </Compile>
     <Compile Include="Model\usp_PlanningReleaseManualImport_GetOrders_Result.cs">
       <DependentUpon>Model_OrderMaintenance.tt</DependentUpon>
     </Compile>
@@ -193,6 +226,23 @@
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>Model_LiteTek.Designer.cs</LastGenOutput>
     </EntityDeploy>
+    <EntityDeploy Include="Model\Model_IIStanley.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>Model_IIStanley.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="Model\Model_IIStanley.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>Model_IIStanley.edmx</DependentUpon>
+      <LastGenOutput>Model_IIStanley.Context.cs</LastGenOutput>
+    </None>
+    <None Include="Model\Model_IIStanley.edmx.diagram">
+      <DependentUpon>Model_IIStanley.edmx</DependentUpon>
+    </None>
+    <None Include="Model\Model_IIStanley.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>Model_IIStanley.edmx</DependentUpon>
+      <LastGenOutput>Model_IIStanley.cs</LastGenOutput>
+    </None>
     <None Include="Model\Model_LiteTek.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>Model_LiteTek.edmx</DependentUpon>
@@ -248,6 +298,23 @@
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>Model_SLAKorea.edmx</DependentUpon>
       <LastGenOutput>Model_SLAKorea.cs</LastGenOutput>
+    </None>
+    <EntityDeploy Include="Model\Model_SUS.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>Model_SUS.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="Model\Model_SUS.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>Model_SUS.edmx</DependentUpon>
+      <LastGenOutput>Model_SUS.Context.cs</LastGenOutput>
+    </None>
+    <None Include="Model\Model_SUS.edmx.diagram">
+      <DependentUpon>Model_SUS.edmx</DependentUpon>
+    </None>
+    <None Include="Model\Model_SUS.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>Model_SUS.edmx</DependentUpon>
+      <LastGenOutput>Model_SUS.cs</LastGenOutput>
     </None>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
