@@ -11,7 +11,7 @@ namespace FASTT.Model
 {
     using System;
     
-    public partial class usp_ST_SalesLeadLog_Report_NewQuotes_Result
+    public partial class usp_ST_SalesLeadLog_Report_NewQuotesByCustomer_Result
     {
         public string QuoteStatus { get; set; }
         public string Customer { get; set; }

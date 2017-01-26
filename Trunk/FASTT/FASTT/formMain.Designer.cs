@@ -106,7 +106,7 @@
             this.mesBtnPrograms.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.mesBtnPrograms.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
             this.mesBtnPrograms.Location = new System.Drawing.Point(3, 3);
-            this.mesBtnPrograms.Margin = new System.Windows.Forms.Padding(3, 3, 3, 6);
+            this.mesBtnPrograms.Margin = new System.Windows.Forms.Padding(3, 3, 3, 9);
             this.mesBtnPrograms.Name = "mesBtnPrograms";
             this.mesBtnPrograms.Size = new System.Drawing.Size(159, 35);
             this.mesBtnPrograms.TabIndex = 0;
@@ -123,8 +123,8 @@
             this.mesBtnSalesActivity.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.mesBtnSalesActivity.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.mesBtnSalesActivity.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
-            this.mesBtnSalesActivity.Location = new System.Drawing.Point(3, 47);
-            this.mesBtnSalesActivity.Margin = new System.Windows.Forms.Padding(3, 3, 3, 6);
+            this.mesBtnSalesActivity.Location = new System.Drawing.Point(3, 50);
+            this.mesBtnSalesActivity.Margin = new System.Windows.Forms.Padding(3, 3, 3, 9);
             this.mesBtnSalesActivity.Name = "mesBtnSalesActivity";
             this.mesBtnSalesActivity.Size = new System.Drawing.Size(159, 35);
             this.mesBtnSalesActivity.TabIndex = 2;
@@ -141,8 +141,8 @@
             this.mesBtnCharts.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.mesBtnCharts.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.mesBtnCharts.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
-            this.mesBtnCharts.Location = new System.Drawing.Point(3, 91);
-            this.mesBtnCharts.Margin = new System.Windows.Forms.Padding(3, 3, 3, 6);
+            this.mesBtnCharts.Location = new System.Drawing.Point(3, 97);
+            this.mesBtnCharts.Margin = new System.Windows.Forms.Padding(3, 3, 3, 9);
             this.mesBtnCharts.Name = "mesBtnCharts";
             this.mesBtnCharts.Size = new System.Drawing.Size(159, 35);
             this.mesBtnCharts.TabIndex = 1;
@@ -158,8 +158,8 @@
             this.mesBtnReports.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.mesBtnReports.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.mesBtnReports.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
-            this.mesBtnReports.Location = new System.Drawing.Point(3, 135);
-            this.mesBtnReports.Margin = new System.Windows.Forms.Padding(3, 3, 3, 6);
+            this.mesBtnReports.Location = new System.Drawing.Point(3, 144);
+            this.mesBtnReports.Margin = new System.Windows.Forms.Padding(3, 3, 3, 9);
             this.mesBtnReports.Name = "mesBtnReports";
             this.mesBtnReports.Size = new System.Drawing.Size(159, 35);
             this.mesBtnReports.TabIndex = 3;

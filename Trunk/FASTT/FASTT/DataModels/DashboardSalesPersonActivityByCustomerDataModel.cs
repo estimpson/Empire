@@ -1,7 +1,6 @@
-﻿
-namespace FASTT.DataModels
+﻿namespace FASTT.DataModels
 {
-    public class ReportSalesPersonActivityDataModel
+    public class DashboardSalesPersonActivityByCustomerDataModel
     {
         public string LastSalesPerson { get; set; }
         public string OEM { get; set; }
@@ -26,6 +25,6 @@ namespace FASTT.DataModels
         public string SalesPersonCode { get; set; }
         public string AwardedVolume { get; set; }
         public int RowId { get; set; }
-        public int? CombinedLightingStudyId { get; set; }
+        public int? CombinedLightingId { get; set; }
     }
 }

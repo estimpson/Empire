@@ -1,14 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace FASTT.DataModels
+﻿namespace FASTT.DataModels
 {
-    public class ReportTopLeadsDataModel
+    public class DashboardTopLeadsByCustomerDataModel
     {
-        public decimal? PeakVolumeSalesEstimate { get; set; }
         public int? PeakVolume { get; set; }
+        public decimal? PeakVolumeSalesEstimate { get; set; }
         public string Customer { get; set; }
         public string OEM { get; set; }
         public string Program { get; set; }
@@ -22,6 +17,6 @@ namespace FASTT.DataModels
         public string SalesPerson { get; set; }
         public string AwardedVolume { get; set; }
         public int? RowId { get; set; }
-        public int? CombinedLightingStudyId { get; set; }
+        public int? CombinedLightingId { get; set; }
     }
 }
