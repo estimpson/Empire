@@ -33,6 +33,7 @@ namespace FASTT.Model
         public DbSet<ST_CustomersWithProgramsLaunchingClosing2017> ST_CustomersWithProgramsLaunchingClosing2017 { get; set; }
         public DbSet<ST_CustomersWithProgramsLaunchingClosing2018> ST_CustomersWithProgramsLaunchingClosing2018 { get; set; }
         public DbSet<ST_CustomersWithProgramsLaunchingClosing2019> ST_CustomersWithProgramsLaunchingClosing2019 { get; set; }
+        public DbSet<ST_CustomersAll> ST_CustomersAll { get; set; }
     
         public virtual ObjectResult<ProgramsLaunchingByCustomer> usp_ST_Metrics_ProgramsLaunchingByCustomer()
         {
@@ -47,16 +48,6 @@ namespace FASTT.Model
         public virtual ObjectResult<usp_ST_Metrics_TotalSalesActivityOneMonth_Result> usp_ST_Metrics_TotalSalesActivityOneMonth()
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_ST_Metrics_TotalSalesActivityOneMonth_Result>("usp_ST_Metrics_TotalSalesActivityOneMonth");
-        }
-    
-        public virtual ObjectResult<usp_ST_SalesLeadLog_Report_NewQuotes_Result> usp_ST_SalesLeadLog_Report_NewQuotes(ObjectParameter tranDT, ObjectParameter result)
-        {
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_ST_SalesLeadLog_Report_NewQuotes_Result>("usp_ST_SalesLeadLog_Report_NewQuotes", tranDT, result);
-        }
-    
-        public virtual ObjectResult<usp_ST_SalesLeadLog_Report_OpenQuotes_Result> usp_ST_SalesLeadLog_Report_OpenQuotes(ObjectParameter tranDT, ObjectParameter result)
-        {
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_ST_SalesLeadLog_Report_OpenQuotes_Result>("usp_ST_SalesLeadLog_Report_OpenQuotes", tranDT, result);
         }
     
         public virtual ObjectResult<PeakVolumeOfProgramsClosing2017_Result> usp_ST_Metrics_PeakVolumeOfProgramsClosing2017(string customer, string region)
@@ -142,9 +133,55 @@ namespace FASTT.Model
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_ST_Report_SalesActivityOneWeek_Result>("usp_ST_Report_SalesActivityOneWeek");
         }
     
+        public virtual ObjectResult<usp_ST_SalesLeadLog_Report_NewQuotes_Result> usp_ST_SalesLeadLog_Report_NewQuotes(ObjectParameter tranDT, ObjectParameter result)
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_ST_SalesLeadLog_Report_NewQuotes_Result>("usp_ST_SalesLeadLog_Report_NewQuotes", tranDT, result);
+        }
+    
+        public virtual ObjectResult<usp_ST_SalesLeadLog_Report_OpenQuotes_Result> usp_ST_SalesLeadLog_Report_OpenQuotes(ObjectParameter tranDT, ObjectParameter result)
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_ST_SalesLeadLog_Report_OpenQuotes_Result>("usp_ST_SalesLeadLog_Report_OpenQuotes", tranDT, result);
+        }
+    
+        public virtual ObjectResult<usp_ST_Reports_GetSalesForecastData_Result> usp_ST_Reports_GetSalesForecastData(string lightingStudyCustomer, ObjectParameter tranDT, ObjectParameter result)
+        {
+            var lightingStudyCustomerParameter = lightingStudyCustomer != null ?
+                new ObjectParameter("LightingStudyCustomer", lightingStudyCustomer) :
+                new ObjectParameter("LightingStudyCustomer", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_ST_Reports_GetSalesForecastData_Result>("usp_ST_Reports_GetSalesForecastData", lightingStudyCustomerParameter, tranDT, result);
+        }
+    
+        public virtual ObjectResult<usp_ST_Report_SalesActivityByCustomer_Result> usp_ST_Report_SalesActivityByCustomer(string customer)
+        {
+            var customerParameter = customer != null ?
+                new ObjectParameter("Customer", customer) :
+                new ObjectParameter("Customer", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_ST_Report_SalesActivityByCustomer_Result>("usp_ST_Report_SalesActivityByCustomer", customerParameter);
+        }
+    
         public virtual ObjectResult<usp_ST_Report_TopLeads_Result> usp_ST_Report_TopLeads()
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_ST_Report_TopLeads_Result>("usp_ST_Report_TopLeads");
+        }
+    
+        public virtual ObjectResult<usp_ST_Report_TopLeadsByCustomer_Result> usp_ST_Report_TopLeadsByCustomer(string customer)
+        {
+            var customerParameter = customer != null ?
+                new ObjectParameter("Customer", customer) :
+                new ObjectParameter("Customer", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_ST_Report_TopLeadsByCustomer_Result>("usp_ST_Report_TopLeadsByCustomer", customerParameter);
+        }
+    
+        public virtual ObjectResult<usp_ST_SalesLeadLog_Report_NewQuotesByCustomer_Result> usp_ST_SalesLeadLog_Report_NewQuotesByCustomer(string customer, ObjectParameter tranDT, ObjectParameter result)
+        {
+            var customerParameter = customer != null ?
+                new ObjectParameter("Customer", customer) :
+                new ObjectParameter("Customer", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_ST_SalesLeadLog_Report_NewQuotesByCustomer_Result>("usp_ST_SalesLeadLog_Report_NewQuotesByCustomer", customerParameter, tranDT, result);
         }
     }
 }

@@ -1,7 +1,7 @@
 ﻿
 namespace FASTT.DataModels
 {
-    public class ReportNewQuotesDataModel
+    public class DashboardNewQuotesByCustomerDataModel
     {
         public string QuoteStatus { get; set; }
         public string Customer { get; set; }

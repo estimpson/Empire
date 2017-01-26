@@ -11,7 +11,7 @@ namespace FASTT.Model
 {
     using System;
     
-    public partial class usp_ST_Report_SalesActivityOneWeek_Result
+    public partial class usp_ST_Report_SalesActivityByCustomer_Result
     {
         public int RowID { get; set; }
         public Nullable<int> CombinedLightingId { get; set; }

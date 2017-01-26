@@ -7,6 +7,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using DevExpress.Utils;
 using DevExpress.XtraCharts;
 using DevExpress.XtraGrid;
 using DevExpress.XtraGrid.Views.Grid;
@@ -23,13 +24,6 @@ namespace FASTT.Views
 
         private readonly ReportsController _controller;
         private readonly ReportsNavigationController _navigationController;
-        private ChartControl _chartControl;
-        private ChartControl _chartControlLaunching;
-        private ChartControl _chartControlClosing;
-        private GridControl _gridControl;
-        private GridView _gridView;
-        private GridControl _gridControlActivity;
-        private GridView _gridViewActivity;
         private readonly CustomMessageBox _messageBox;
         private GridControlEnum _gridControlEnum;
         
@@ -39,8 +33,10 @@ namespace FASTT.Views
         #region Variables
 
         private string _reportName;
-        private bool _isChart;
         private string _currentActivityHistoryReport;
+        private bool _isDashboardFull;
+        private bool _isChart;
+        private bool _isDatabinding;
         private int _year;
 
         #endregion
@@ -61,13 +57,14 @@ namespace FASTT.Views
             }
         }
 
-        private bool _isFormBeginState;
-        public bool IsFormBeginState
+        private bool _isDashboardIntro;
+        public bool IsDashboardIntro
         {
-            get { return _isFormBeginState; }
+            get { return _isDashboardIntro; }
             set 
             { 
-                _isFormBeginState = value;
+                _isDashboardIntro = value;
+                mesBtnShowDashboard.Visible = !value;
                 mesClearGridSettings.Text = (value) ? "Clear All Grid Settings" : "Clear Grid Settings";
             }
         }
@@ -83,15 +80,9 @@ namespace FASTT.Views
 
             _controller = new ReportsController();
             _navigationController = new ReportsNavigationController();
-            _chartControl = new ChartControl();
-            _chartControlLaunching = new ChartControl {Dock = DockStyle.Fill};
-            _chartControlClosing = new ChartControl {Dock = DockStyle.Fill};
-            _gridControl = new GridControl();
-            _gridView = new GridView();
             _messageBox = new CustomMessageBox();
 
             _gridControlEnum = GridControlEnum.None;
-            IsFormBeginState = true;
         }
 
         private void ReportsView_Load(object sender, EventArgs e)
@@ -100,11 +91,8 @@ namespace FASTT.Views
 
             lnkLblMinMax.LinkBehavior = linkLblClose.LinkBehavior = LinkBehavior.NeverUnderline;
 
-            lblSelectCustomer.Visible = cbxReportCustomer.Visible =
-                mesBtnGo.Visible = mesBtnExportChart.Visible = lblDoubleClick.Visible = 
-                rbtnNorthAmerica.Visible = rbtnChina.Visible = tlpSplitCharts.Visible = false;
-
             rbtnNorthAmerica.Checked = true;
+            ControlScreenState(FormStateEnum.DashboardIntro);
 
             Error = "";
         }
@@ -175,20 +163,24 @@ namespace FASTT.Views
         #endregion
 
 
-        #region Activity Grid Control DoubleClick Event
+        #region Button Click Events
 
-        void _gridControlActivity_DoubleClick(object sender, EventArgs e)
+        private void mesBtnShowDashboard_Click(object sender, EventArgs e)
         {
-            int r = _gridViewActivity.GetSelectedRows()[0];
-            if (r < 0) return;
+            // Save the settings of the last opened and closed grid control
+            if (_gridControlEnum != GridControlEnum.None)
+            {
+                SaveGridControlSettings();
+                _gridControlEnum = GridControlEnum.None;
+            }
 
-            ModifySalesLead();
+            ControlScreenState(FormStateEnum.DashboardIntro);
         }
 
-        #endregion
-
-
-        #region Button Click Events
+        private void mesClearGridSettings_Click(object sender, EventArgs e)
+        {
+            ClearGridLayoutSettings();
+        }
 
         private void mesBtnExportChart_Click(object sender, EventArgs e)
         {
@@ -196,75 +188,35 @@ namespace FASTT.Views
             ExportToExcel();
         }
 
-        private void mesClearGridSettings_Click(object sender, EventArgs e)
-        {
-            ClearGridSettings();
-        }
-
         private void mesBtnGo_Click(object sender, EventArgs e)
         {
             string customer = cbxReportCustomer.Text;
-            if (customer == "")
-            {
-                //_chartControl.Dispose();
-                return;
-            }
-            ShowReport(_reportName);
+            if (customer == "") return;
+
+            ControlScreenState(FormStateEnum.ChartDual);
+
+            ShowLaunchingClosingReport(_reportName);
         }
 
-        #endregion  
+        #endregion
 
 
         #region RadioButton Click Events
 
         private void rbtnNorthAmerica_CheckedChanged(object sender, EventArgs e)
         {
-            if (_isFormBeginState) return;
+            if (_isDashboardIntro) return;
+
             rbtnChina.Checked = (!rbtnNorthAmerica.Checked);
-
-            tlpSplitCharts.Controls.Remove(_chartControlLaunching);
-            tlpSplitCharts.Controls.Remove(_chartControlClosing);
-
-            if (_chartControl != null) _chartControl.Dispose();
-            if (_gridControl != null)
-            {
-                _gridControl.Dispose();
-                _gridView.Dispose();
-            }
-            
-            if (_gridControlActivity != null)
-            {
-                _gridControlActivity.Dispose();
-                _gridViewActivity.Dispose();
-            }
-
-            GetCustomersLaunchingClosing(_year);
+            RadioButtonAction();
         }
 
         private void rbtnChina_CheckedChanged(object sender, EventArgs e)
         {
-            if (_isFormBeginState) return;
+            if (_isDashboardIntro) return;
+
             rbtnNorthAmerica.Checked = (!rbtnChina.Checked);
-
-            tlpSplitCharts.Controls.Remove(_chartControlLaunching);
-            tlpSplitCharts.Controls.Remove(_chartControlClosing);
-
-            if (_chartControl != null)
-            {
-                _chartControl.Dispose();
-            }
-            if (_gridControl != null)
-            {
-                _gridControl.Dispose();
-                _gridView.Dispose();
-            }
-            if (_gridControlActivity != null)
-            {
-                _gridControlActivity.Dispose();
-                _gridViewActivity.Dispose();
-            }
-
-            GetCustomersLaunchingClosing(_year);
+            RadioButtonAction();
         }
 
         #endregion
@@ -274,9 +226,19 @@ namespace FASTT.Views
 
         private void cbxReportCustomer_SelectedIndexChanged(object sender, EventArgs e)
         {
+            if (_isDatabinding || cbxReportCustomer.Text.Trim() == "") return;
+
+            if (_isDashboardIntro || _isDashboardFull)
+            {
+                ControlScreenState(FormStateEnum.DashboardFull);
+                return;
+            }
+            mesBtnGo.Visible = (cbxReportCustomer.Text.Trim() != "");
         }
 
         #endregion
+
+
 
 
         #region NavBar Link Events
@@ -284,9 +246,6 @@ namespace FASTT.Views
         void navBarControl1_LinkClicked(object sender, NavBarLinkEventArgs e)
         {
             _reportName = e.Link.Caption;
-            IsFormBeginState = false;
-
-            tlpSplitCharts.Visible = false;
 
             // Save the settings of the last opened and closed grid control
             if (_gridControlEnum != GridControlEnum.None)
@@ -295,29 +254,37 @@ namespace FASTT.Views
                 _gridControlEnum = GridControlEnum.None;
             }
 
-            DisposeGridsCharts();
-
-            // Populate the Customers dropdown list based on region and whether they have programs launching or closing in the selected year
             switch (_reportName)
             {
                 case "Programs Launching/Closing 2017 Peak Volume":
                     _year = 2017;
-                    GetCustomersLaunchingClosing(_year);
+                    GetCustomersLaunchingClosingList(_year);
                     break;
                 case "Programs Launching/Closing 2018 Peak Volume":
                     _year = 2018;
-                    GetCustomersLaunchingClosing(_year);
+                    GetCustomersLaunchingClosingList(_year);
                     break;
                 case "Programs Launching/Closing 2019 Peak Volume":
                     _year = 2019;
-                    GetCustomersLaunchingClosing(_year);
+                    GetCustomersLaunchingClosingList(_year);
                     break;
                 default:
                     ShowReport(_reportName);
                     break;
             }
+        }
 
-            lblDoubleClick.Visible = (_reportName == "Top Leads by Volume" || _reportName == "Activity History Last 7 Days");
+        #endregion
+
+
+        #region Activity Grid Control DoubleClick Event
+
+        private void grdActivity_DoubleClick(object sender, EventArgs e)
+        {
+            int r = grdViewActivity.GetSelectedRows()[0];
+            if (r < 0) return;
+
+            ModifySalesLead();
         }
 
         #endregion
@@ -325,18 +292,38 @@ namespace FASTT.Views
 
         #region Methods
 
+        private void RadioButtonAction()
+        {
+            Cursor.Current = Cursors.WaitCursor;
+
+            if (_isDashboardIntro || _isDashboardFull)
+            {
+                GetDashboardCustomerList();
+            }
+            else if (tlpDashboard.Visible)
+            {
+                GetCustomersList();
+            }
+            else
+            {
+                GetCustomersLaunchingClosingList(_year);
+            }
+
+            Cursor.Current = Cursors.Default;
+        }
+
         private void ModifySalesLead()
         {
-            int r = _gridViewActivity.GetSelectedRows()[0];
+            int r = grdViewActivity.GetSelectedRows()[0];
 
-            string iD = (_gridViewActivity.GetRowCellValue(r, "RowId") != null) ? _gridViewActivity.GetRowCellValue(r, "RowId").ToString() : "";
-            int combinedLightingStudyId = (_gridViewActivity.GetRowCellValue(r, "CombinedLightingStudyId") != null) ? Convert.ToInt32(_gridViewActivity.GetRowCellValue(r, "CombinedLightingStudyId")) : 0;
-            string customer = (_gridViewActivity.GetRowCellValue(r, "Customer") != null) ? _gridViewActivity.GetRowCellValue(r, "Customer").ToString() : "";
-            string program = (_gridViewActivity.GetRowCellValue(r, "Program") != null) ? _gridViewActivity.GetRowCellValue(r, "Program").ToString() : "";
-            string application = (_gridViewActivity.GetRowCellValue(r, "Application") != null) ? _gridViewActivity.GetRowCellValue(r, "Application").ToString() : "";
-            string sop = (_gridViewActivity.GetRowCellValue(r, "SOP") != null) ? _gridViewActivity.GetRowCellValue(r, "SOP").ToString() : "";
-            string eop = (_gridViewActivity.GetRowCellValue(r, "EOP") != null) ? _gridViewActivity.GetRowCellValue(r, "EOP").ToString() : "";
-            string volume = (_gridViewActivity.GetRowCellValue(r, "PeakVolume") != null) ? _gridViewActivity.GetRowCellValue(r, "PeakVolume").ToString() : "";
+            string iD = (grdViewActivity.GetRowCellValue(r, "RowId") != null) ? grdViewActivity.GetRowCellValue(r, "RowId").ToString() : "";
+            int combinedLightingStudyId = (grdViewActivity.GetRowCellValue(r, "CombinedLightingStudyId") != null) ? Convert.ToInt32(grdViewActivity.GetRowCellValue(r, "CombinedLightingStudyId")) : 0;
+            string customer = (grdViewActivity.GetRowCellValue(r, "Customer") != null) ? grdViewActivity.GetRowCellValue(r, "Customer").ToString() : "";
+            string program = (grdViewActivity.GetRowCellValue(r, "Program") != null) ? grdViewActivity.GetRowCellValue(r, "Program").ToString() : "";
+            string application = (grdViewActivity.GetRowCellValue(r, "Application") != null) ? grdViewActivity.GetRowCellValue(r, "Application").ToString() : "";
+            string sop = (grdViewActivity.GetRowCellValue(r, "SOP") != null) ? grdViewActivity.GetRowCellValue(r, "SOP").ToString() : "";
+            string eop = (grdViewActivity.GetRowCellValue(r, "EOP") != null) ? grdViewActivity.GetRowCellValue(r, "EOP").ToString() : "";
+            string volume = (grdViewActivity.GetRowCellValue(r, "PeakVolume") != null) ? grdViewActivity.GetRowCellValue(r, "PeakVolume").ToString() : "";
 
             if (iD == "")
             {
@@ -361,7 +348,6 @@ namespace FASTT.Views
             form.ShowDialog();
 
             // Refresh grid data
-            DisposeGridsCharts();
             if (_currentActivityHistoryReport == "History")
             {
                 GetSalesActivityHistory();
@@ -442,7 +428,7 @@ namespace FASTT.Views
                     fileName = @"C:\FasttGridSettings\XtraGrid_SaveLayoutToXML_ActivityHistory.xml";
                     try
                     {
-                        _gridControlActivity.MainView.SaveLayoutToXml(fileName);
+                        grdActivity.MainView.SaveLayoutToXml(fileName);
                     }
                     catch (Exception ex)
                     {
@@ -454,7 +440,7 @@ namespace FASTT.Views
                     fileName = @"C:\FasttGridSettings\XtraGrid_SaveLayoutToXML_TopLeads.xml";
                     try
                     {
-                        _gridControlActivity.MainView.SaveLayoutToXml(fileName);
+                        grdActivity.MainView.SaveLayoutToXml(fileName);
                     }
                     catch (Exception ex)
                     {
@@ -466,7 +452,7 @@ namespace FASTT.Views
                     fileName = @"C:\FasttGridSettings\XtraGrid_SaveLayoutToXML_OpenQuotes.xml";
                     try
                     {
-                        _gridControl.MainView.SaveLayoutToXml(fileName);
+                        grdGeneral.MainView.SaveLayoutToXml(fileName);
                     }
                     catch (Exception ex)
                     {
@@ -478,7 +464,7 @@ namespace FASTT.Views
                     fileName = @"C:\FasttGridSettings\XtraGrid_SaveLayoutToXML_NewQuotes.xml";
                     try
                     {
-                        _gridControl.MainView.SaveLayoutToXml(fileName);
+                        grdGeneral.MainView.SaveLayoutToXml(fileName);
                     }
                     catch (Exception ex)
                     {
@@ -489,15 +475,15 @@ namespace FASTT.Views
             }
         }
 
-        private void GetCustomersLaunchingClosing(int year)
+        private void GetCustomersLaunchingClosingList(int year)
         {
             Cursor.Current = Cursors.WaitCursor;
 
             int result = 0;
+
             string region = (rbtnNorthAmerica.Checked) ? "North America" : "China";
 
-            cbxReportCustomer.DataSource = null;
-
+            // Populate the Customers dropdown list based on region and whether they have programs launching or closing in the selected year
             switch (year)
             {
                 case 2017:
@@ -511,12 +497,15 @@ namespace FASTT.Views
                     break;
             }
 
-            if (result != 1) return;
+            if (result == 0) return;
+            _isDatabinding = true;
+            cbxReportCustomer.DataSource = null;
             cbxReportCustomer.DataSource = _controller.CustomersList;
             cbxReportCustomer.DisplayMember = "Customer";
             cbxReportCustomer.Text = "";
+            _isDatabinding = false;
 
-            lblSelectCustomer.Visible = cbxReportCustomer.Visible = rbtnNorthAmerica.Visible = rbtnChina.Visible = mesBtnGo.Visible = true;
+            ControlScreenState(FormStateEnum.LaunchingClosingLinkClicked);
 
             Cursor.Current = Cursors.Default;
         }
@@ -525,20 +514,10 @@ namespace FASTT.Views
         {
             Cursor.Current = Cursors.WaitCursor;
 
-            DisposeGridsCharts();
-
             switch (caption)
             {
-                case "Total Sales Lead Activity Last 30 Days":
-                    //lblSelectCustomer.Visible = cbxReportCustomer.Visible = rbtnNorthAmerica.Visible = rbtnChina.Visible = mesBtnGo.Visible = false;
-
-                    //ShowTotalSalesLeadActivityForThirtyDays();
-                    
-                    //_isChart = false;
-                    //_gridControlEnum = GridControlEnum.None;
-                    //break;
                 case "Activity History Last 7 Days":
-                    lblSelectCustomer.Visible = cbxReportCustomer.Visible = rbtnNorthAmerica.Visible = rbtnChina.Visible = mesBtnGo.Visible = false;
+                    ControlScreenState(FormStateEnum.ActivityGrid);
 
                     GetSalesActivityHistory();
 
@@ -547,7 +526,7 @@ namespace FASTT.Views
                     _gridControlEnum = GridControlEnum.ActivityHistory;
                     break;
                 case "Top Leads by Volume":
-                    lblSelectCustomer.Visible = cbxReportCustomer.Visible = rbtnNorthAmerica.Visible = rbtnChina.Visible = mesBtnGo.Visible = false;
+                    ControlScreenState(FormStateEnum.ActivityGrid);
 
                     GetTopLeads();
 
@@ -556,7 +535,7 @@ namespace FASTT.Views
                     _gridControlEnum = GridControlEnum.TopLeads;
                     break;
                 case "All Completed Quotes":
-                    lblSelectCustomer.Visible = cbxReportCustomer.Visible = rbtnNorthAmerica.Visible = rbtnChina.Visible = mesBtnGo.Visible = false;
+                    ControlScreenState(FormStateEnum.QuoteGrid);
 
                     GetOpenQuotes();
                     
@@ -564,17 +543,15 @@ namespace FASTT.Views
                     _gridControlEnum = GridControlEnum.OpenQuotes;
                     break;
                 case "Quotes Opened in the Last 60 Days":
+                    ControlScreenState(FormStateEnum.QuoteGrid);
+
                     GetNewQuotes();
-                    lblSelectCustomer.Visible = cbxReportCustomer.Visible = rbtnNorthAmerica.Visible = rbtnChina.Visible = mesBtnGo.Visible = false;
+
                     _isChart = false;
                     _gridControlEnum = GridControlEnum.NewQuotes;
                     break;
                 case "Number of Programs 2017-2019 by Customer":
-                    lblSelectCustomer.Visible = cbxReportCustomer.Visible = rbtnNorthAmerica.Visible = rbtnChina.Visible = mesBtnGo.Visible = false;
-            
-                    _chartControl = new ChartControl();
-                    _chartControl.Dock = DockStyle.Fill;
-                    pnlCanvas.Controls.Add(_chartControl);
+                    ControlScreenState(FormStateEnum.ChartSingle);
 
                     ShowNumberOfProgramsLaunchingByCustomer();
                     
@@ -582,23 +559,24 @@ namespace FASTT.Views
                     _gridControlEnum = GridControlEnum.None;
                     break;
                 case "Peak Volume of Programs 2017-2019 by Customer":
-                    lblSelectCustomer.Visible = cbxReportCustomer.Visible = rbtnNorthAmerica.Visible = rbtnChina.Visible = mesBtnGo.Visible = false;
-
-                    _chartControl = new ChartControl{Dock = DockStyle.Fill};
-                    pnlCanvas.Controls.Add(_chartControl);
+                    ControlScreenState(FormStateEnum.ChartSingle);
 
                     ShowPeakVolumeOfProgramsLaunching();
                     
                     _isChart = true;
                     _gridControlEnum = GridControlEnum.None;
                     break;
+            }
+            Cursor.Current = Cursors.Default;
+        }
+
+        private void ShowLaunchingClosingReport(string caption)
+        {
+            Cursor.Current = Cursors.WaitCursor;
+
+            switch (caption)
+            {
                 case "Programs Launching/Closing 2017 Peak Volume":
-                    tlpSplitCharts.Visible = true;
-                    _chartControlLaunching = new ChartControl {Dock = DockStyle.Fill};
-                    _chartControlClosing = new ChartControl {Dock = DockStyle.Fill};
-                    tlpSplitCharts.Controls.Add(_chartControlLaunching, 0, 0);
-                    tlpSplitCharts.Controls.Add(_chartControlClosing, 0, 1);
-                    
                     ShowPeakVolumeOfProgramsLaunchingByCustomerByYear(2017);
                     ShowPeakVolumeOfProgramsClosingByCustomerByYear(2017);
 
@@ -606,12 +584,6 @@ namespace FASTT.Views
                     _gridControlEnum = GridControlEnum.None;
                     break;
                 case "Programs Launching/Closing 2018 Peak Volume":
-                    tlpSplitCharts.Visible = true;
-                    _chartControlLaunching = new ChartControl {Dock = DockStyle.Fill};
-                    _chartControlClosing = new ChartControl {Dock = DockStyle.Fill};
-                    tlpSplitCharts.Controls.Add(_chartControlLaunching, 0, 0);
-                    tlpSplitCharts.Controls.Add(_chartControlClosing, 0, 1);
-
                     ShowPeakVolumeOfProgramsLaunchingByCustomerByYear(2018);
                     ShowPeakVolumeOfProgramsClosingByCustomerByYear(2018);
 
@@ -619,12 +591,6 @@ namespace FASTT.Views
                     _gridControlEnum = GridControlEnum.None;
                     break;
                 case "Programs Launching/Closing 2019 Peak Volume":
-                    tlpSplitCharts.Visible = true;
-                    _chartControlLaunching = new ChartControl {Dock = DockStyle.Fill};
-                    _chartControlClosing = new ChartControl {Dock = DockStyle.Fill};
-                    tlpSplitCharts.Controls.Add(_chartControlLaunching, 0, 0);
-                    tlpSplitCharts.Controls.Add(_chartControlClosing, 0, 1);
-
                     ShowPeakVolumeOfProgramsLaunchingByCustomerByYear(2019);
                     ShowPeakVolumeOfProgramsClosingByCustomerByYear(2019);
 
@@ -632,31 +598,32 @@ namespace FASTT.Views
                     _gridControlEnum = GridControlEnum.None;
                     break;
             }
-
-            mesBtnExportChart.Visible = true;
-            mesClearGridSettings.Visible = (caption == "Activity History Last 7 Days" || caption == "Top Leads by Volume" ||
-                                            caption == "All Completed Quotes" || caption == "Quotes Opened in the Last 60 Days");
+            ControlScreenState(FormStateEnum.ChartDual);
 
             Cursor.Current = Cursors.Default;
         }
 
         private void ExportToExcel()
         {
+            _messageBox.Message = "Locate the Excel file (.xlsx) where you want this data exported.";
+            _messageBox.ShowDialog();
+
             try
             {
                 OpenFileDialog ofd = new OpenFileDialog();
-                ofd.Filter = "*.xlxs|*.xlxs";
+                ofd.Title = "Select the Excel file (.xlsx) you want to import the data into";
+                ofd.Filter = "*.xlsx|*.xlsx";
                 if (ofd.ShowDialog() == DialogResult.OK)
                 {
                     string filePath = ofd.FileName;
 
                     if (_isChart)
                     {
-                        _chartControl.ExportToXlsx(filePath);
+                        ccGeneral.ExportToXlsx(filePath);
                     }
                     else
                     {
-                        _gridControl.ExportToXlsx(filePath);
+                        grdGeneral.ExportToXlsx(filePath);
                     }
                 }
             }
@@ -668,50 +635,9 @@ namespace FASTT.Views
             }
         }
 
-        private void DisposeGridsCharts()
+        private void ClearGridLayoutSettings()
         {
-            if (_gridControlActivity != null)
-            {
-                _gridControlActivity.Dispose();
-                _gridControlActivity = null;
-            }
-            if (_gridViewActivity != null)
-            {
-                _gridViewActivity.Dispose();
-                _gridViewActivity = null;
-            }
-            if (_gridControl != null)
-            {
-                _gridControl.Dispose();
-                _gridControl = null;
-            }
-            if (_gridView != null)
-            {
-                _gridView.Dispose();
-                _gridView = null;
-            }
-            if (_chartControl != null)
-            {
-                _chartControl.Dispose();
-                _chartControl = null;
-            }
-            if (_chartControlLaunching != null)
-            {
-                tlpSplitCharts.Controls.Remove(_chartControlLaunching);
-                _chartControlLaunching.Dispose();
-                _chartControlLaunching = null;
-            }
-            if (_chartControlClosing != null)
-            {
-                tlpSplitCharts.Controls.Remove(_chartControlClosing);
-                _chartControlClosing.Dispose();
-                _chartControlClosing = null;
-            }
-        }
-
-        private void ClearGridSettings()
-        {
-            if (_isFormBeginState)
+            if (_isDashboardIntro)
             {
                 // Delete all saved grid settings XML files
                 try
@@ -740,34 +666,34 @@ namespace FASTT.Views
                 case GridControlEnum.ActivityHistory:
                     fileName = @"C:\FasttGridSettings\XtraGrid_SaveLayoutToXML_ActivityHistory.xml";
 
-                    _gridViewActivity.ClearGrouping();
-                    _gridViewActivity.ClearColumnsFilter();
-                    _gridViewActivity.ClearSorting();
-                    //_gridControlEnum = GridControlEnum.None;
+                    grdViewActivity.ClearGrouping();
+                    grdViewActivity.ClearColumnsFilter();
+                    grdViewActivity.ClearSorting();
+                    _gridControlEnum = GridControlEnum.None;
                     break;
                 case GridControlEnum.TopLeads:
                     fileName = @"C:\FasttGridSettings\XtraGrid_SaveLayoutToXML_TopLeads.xml";
 
-                    _gridViewActivity.ClearGrouping();
-                    _gridViewActivity.ClearColumnsFilter();
-                    _gridViewActivity.ClearSorting();
-                    //_gridControlEnum = GridControlEnum.None;
+                    grdViewActivity.ClearGrouping();
+                    grdViewActivity.ClearColumnsFilter();
+                    grdViewActivity.ClearSorting();
+                    _gridControlEnum = GridControlEnum.None;
                     break;
                 case GridControlEnum.OpenQuotes:
                     fileName = @"C:\FasttGridSettings\XtraGrid_SaveLayoutToXML_OpenQuotes.xml";
 
-                    _gridView.ClearGrouping();
-                    _gridView.ClearColumnsFilter();
-                    _gridView.ClearSorting();
-                    //_gridControlEnum = GridControlEnum.None;
+                    grdViewGeneral.ClearGrouping();
+                    grdViewGeneral.ClearColumnsFilter();
+                    grdViewGeneral.ClearSorting();
+                    _gridControlEnum = GridControlEnum.None;
                     break;
                 case GridControlEnum.NewQuotes:
                     fileName = @"C:\FasttGridSettings\XtraGrid_SaveLayoutToXML_NewQuotes.xml";
 
-                    _gridView.ClearGrouping();
-                    _gridView.ClearColumnsFilter();
-                    _gridView.ClearSorting();
-                    //_gridControlEnum = GridControlEnum.None;
+                    grdViewGeneral.ClearGrouping();
+                    grdViewGeneral.ClearColumnsFilter();
+                    grdViewGeneral.ClearSorting();
+                    _gridControlEnum = GridControlEnum.None;
                     break;
             }
 
@@ -792,34 +718,33 @@ namespace FASTT.Views
         {
             Cursor.Current = Cursors.WaitCursor;
 
-            _gridControl = new GridControl();
-            _gridControl.LookAndFeel.SkinName = "Visual Studio 2013 Dark";
-            _gridControl.LookAndFeel.UseDefaultLookAndFeel = false;
-            _gridView = new GridView();
-
-            _gridControl.ViewCollection.Add(_gridView);
-            _gridControl.MainView = _gridView;
-
-            _gridView.GridControl = _gridControl;
-
-            _gridControl.Dock = DockStyle.Fill;
-            pnlCanvas.Controls.Add(_gridControl);
-
+            grdViewGeneral.Columns.Clear();
+            grdViewGeneral.GroupSummary.Clear();
+            grdGeneral.DataSource = null;
 
             _controller.GetOpenQuotes();
             if (!_controller.ListOpenQuotes.Any()) return;
 
-            _gridControl.DataSource = _controller.ListOpenQuotes;
-            //gridView1.Columns["Quote Number"].Visible = false;
+            grdGeneral.DataSource = _controller.ListOpenQuotes;
 
-            var view = _gridControl.MainView as GridView;
-            view.OptionsBehavior.Editable = false;
-            view.Columns["TotalQuotedSales"].DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
-            view.Columns["TotalQuotedSales"].DisplayFormat.FormatString = "c2";
+            grdViewGeneral.Columns["TotalQuotedSales"].DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
+            grdViewGeneral.Columns["TotalQuotedSales"].DisplayFormat.FormatString = "c2";
+
+
+            // Make the group footers always visible
+            grdViewGeneral.GroupFooterShowMode = GroupFooterShowMode.VisibleAlways;
+
+            // Create and setup the first summary item
+            var item = new GridGroupSummaryItem();
+            item.FieldName = "TotalQuotedSales";
+            item.SummaryType = DevExpress.Data.SummaryItemType.Sum;
+            item.DisplayFormat = " - Total Quoted Sales:  {0:c2}";
+            item.ShowInGroupColumnFooter = gridView1.Columns["TotalQuotedSales"];
+            grdViewGeneral.GroupSummary.Add(item);
 
             // Restore saved grid settings if they exist
             string filePath = @"C:\FasttGridSettings\XtraGrid_SaveLayoutToXML_OpenQuotes.xml";
-            if (File.Exists(filePath)) _gridControl.MainView.RestoreLayoutFromXml(filePath);
+            if (File.Exists(filePath)) grdGeneral.MainView.RestoreLayoutFromXml(filePath);
 
             Cursor.Current = Cursors.Default;
         }
@@ -828,29 +753,37 @@ namespace FASTT.Views
         {
             Cursor.Current = Cursors.WaitCursor;
 
-            _gridControl = new GridControl();
-            _gridControl.LookAndFeel.SkinName = "Visual Studio 2013 Dark";
-            _gridControl.LookAndFeel.UseDefaultLookAndFeel = false;
-            _gridView = new GridView();
-
-            _gridControl.ViewCollection.Add(_gridView);
-            _gridControl.MainView = _gridView;
-
-            _gridView.GridControl = _gridControl;
-
-            _gridControl.Dock = DockStyle.Fill;
-            pnlCanvas.Controls.Add(_gridControl);
-
+            grdViewGeneral.Columns.Clear();
+            grdViewGeneral.GroupSummary.Clear();
+            grdGeneral.DataSource = null;
 
             _controller.GetNewQuotes();
             if (!_controller.ListNewQuotes.Any()) return;
 
-            _gridControl.DataSource = _controller.ListNewQuotes;
+            grdGeneral.DataSource = _controller.ListNewQuotes;
 
-            var view = _gridControl.MainView as GridView;
-            view.OptionsBehavior.Editable = false;
-            view.Columns["TotalQuotedSales"].DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
-            view.Columns["TotalQuotedSales"].DisplayFormat.FormatString = "c2";
+            grdViewGeneral.Columns["TotalQuotedSales"].DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
+            grdViewGeneral.Columns["TotalQuotedSales"].DisplayFormat.FormatString = "c2";
+
+            // Make the group footers always visible
+            grdViewGeneral.GroupFooterShowMode = GroupFooterShowMode.VisibleAlways;
+
+            // Create and setup the first summary item
+            var item = new GridGroupSummaryItem();
+            item.FieldName = "TotalQuotedSales";
+            item.SummaryType = DevExpress.Data.SummaryItemType.Sum;
+            item.DisplayFormat = " - Total Quoted Sales:  {0:c2}";
+            item.ShowInGroupColumnFooter = gridView1.Columns["TotalQuotedSales"];
+            grdViewGeneral.GroupSummary.Add(item);
+
+            //// Create and setup the second summary item
+            //GridGroupSummaryItem item1 = new GridGroupSummaryItem();
+            //item1.FieldName = "UnitPrice";
+            //item1.SummaryType = DevExpress.Data.SummaryItemType.Sum;
+            //item1.DisplayFormat = "Total {0:c2}";
+            //item1.ShowInGroupColumnFooter = view.Columns["UnitPrice"];
+            //view.GroupSummary.Add(item1);
+
 
             // Restore saved grid settings if they exist
             string filePath = @"C:\FasttGridSettings\XtraGrid_SaveLayoutToXML_NewQuotes.xml";
@@ -858,7 +791,7 @@ namespace FASTT.Views
             {
                 try
                 {
-                    _gridControl.MainView.RestoreLayoutFromXml(filePath);
+                    grdGeneral.MainView.RestoreLayoutFromXml(filePath);
                 }
                 catch (Exception ex)
                 {
@@ -874,38 +807,22 @@ namespace FASTT.Views
         {           
             Cursor.Current = Cursors.WaitCursor;
 
-            //DisposeGridsCharts();
+            grdViewActivity.Columns.Clear();
+            grdActivity.DataSource = null;
             
-            _gridControlActivity = new GridControl();
-            _gridControlActivity.LookAndFeel.SkinName = "Visual Studio 2013 Dark";
-            _gridControlActivity.LookAndFeel.UseDefaultLookAndFeel = false;
-            _gridViewActivity = new GridView();
-
-            _gridControlActivity.ViewCollection.Add(_gridViewActivity);
-            _gridControlActivity.MainView = _gridViewActivity;
-
-            _gridViewActivity.GridControl = _gridControlActivity;
-
-            _gridControlActivity.DoubleClick += _gridControlActivity_DoubleClick;
-            
-            _gridControlActivity.Dock = DockStyle.Fill;
-            pnlCanvas.Controls.Add(_gridControlActivity);
-
-
             _controller.GetSalesActivityHistory();
             if (!_controller.ListSalesPersonActivity.Any()) return;
 
-            _gridControlActivity.DataSource = _controller.ListSalesPersonActivity;
+            grdActivity.DataSource = _controller.ListSalesPersonActivity;
 
-            _gridViewActivity.OptionsBehavior.Editable = false;
-            _gridViewActivity.Columns["SalesPersonCode"].Visible = 
-                _gridViewActivity.Columns["RowId"].Visible = _gridViewActivity.Columns["CombinedLightingStudyId"].Visible = false;
-            _gridViewActivity.Columns["PeakVolume"].DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
-            _gridViewActivity.Columns["PeakVolume"].DisplayFormat.FormatString = "n0";
+            grdViewActivity.OptionsBehavior.Editable = false;
+            grdViewActivity.Columns["SalesPersonCode"].Visible = grdViewActivity.Columns["RowId"].Visible = grdViewActivity.Columns["CombinedLightingStudyId"].Visible = false;
+            grdViewActivity.Columns["PeakVolume"].DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
+            grdViewActivity.Columns["PeakVolume"].DisplayFormat.FormatString = "n0";
 
             // Restore saved grid settings if they exist
             string filePath = @"C:\FasttGridSettings\XtraGrid_SaveLayoutToXML_ActivityHistory.xml";
-            if (File.Exists(filePath)) _gridControlActivity.MainView.RestoreLayoutFromXml(filePath);
+            if (File.Exists(filePath)) grdActivity.MainView.RestoreLayoutFromXml(filePath);
 
             Cursor.Current = Cursors.Default;
         }
@@ -914,108 +831,26 @@ namespace FASTT.Views
         {
             Cursor.Current = Cursors.WaitCursor;
 
-            //DisposeGridsCharts();
-
-            _gridControlActivity = new GridControl();
-            _gridControlActivity.LookAndFeel.SkinName = "Visual Studio 2013 Dark";
-            _gridControlActivity.LookAndFeel.UseDefaultLookAndFeel = false;
-            _gridViewActivity = new GridView();
-
-            _gridControlActivity.ViewCollection.Add(_gridViewActivity);
-            _gridControlActivity.MainView = _gridViewActivity;
-
-            _gridViewActivity.GridControl = _gridControlActivity;
-
-            _gridControlActivity.DoubleClick += _gridControlActivity_DoubleClick;
-
-            _gridControlActivity.Dock = DockStyle.Fill;
-            pnlCanvas.Controls.Add(_gridControlActivity);
-
+            grdViewActivity.Columns.Clear();
+            grdActivity.DataSource = null;
 
             _controller.GetTopLeads();
             if (!_controller.ListTopLeads.Any()) return;
 
-            _gridControlActivity.DataSource = _controller.ListTopLeads;
+            grdActivity.DataSource = _controller.ListTopLeads;
 
-            _gridViewActivity.OptionsBehavior.Editable = false;
-            _gridViewActivity.Columns["RowId"].Visible = _gridViewActivity.Columns["CombinedLightingStudyId"].Visible = false;
-            _gridViewActivity.Columns["PeakVolume"].DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
-            _gridViewActivity.Columns["PeakVolume"].DisplayFormat.FormatString = "n0";
+            grdViewActivity.OptionsBehavior.Editable = false;
+            grdViewActivity.Columns["RowId"].Visible = grdViewActivity.Columns["CombinedLightingStudyId"].Visible = false;
+            grdViewActivity.Columns["PeakVolume"].DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
+            grdViewActivity.Columns["PeakVolume"].DisplayFormat.FormatString = "n0";
+            grdViewActivity.Columns["PeakVolumeSalesEstimate"].DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
+            grdViewActivity.Columns["PeakVolumeSalesEstimate"].DisplayFormat.FormatString = "c2";
 
             // Restore saved grid settings if they exist
             string filePath = @"C:\FasttGridSettings\XtraGrid_SaveLayoutToXML_TopLeads.xml";
-            if (File.Exists(filePath)) _gridControlActivity.MainView.RestoreLayoutFromXml(filePath);
+            if (File.Exists(filePath)) grdActivity.MainView.RestoreLayoutFromXml(filePath);
 
-
-            //_gridControl = new GridControl();
-            //_gridControl.Dock = DockStyle.Fill;
-            //pnlCanvas.Controls.Add(_gridControl);
-
-            //_controller.GetTopLeads();
-            //if (!_controller.ListTopLeads.Any()) return;
-
-            //_gridControl.DataSource = _controller.ListTopLeads;
-
-            //var view = _gridControl.MainView as GridView;
             //view.OptionsBehavior.Editable = false;
-
-            Cursor.Current = Cursors.Default;
-        }
-
-        private void ShowTotalSalesLeadActivityForThirtyDays()
-        {
-            string error;
-            Cursor.Current = Cursors.WaitCursor;
-
-            if (_gridControlActivity != null)
-            {
-                _gridControlActivity.Dispose();
-                _gridControlActivity = null;
-                _gridViewActivity.Dispose();
-                _gridViewActivity = null;
-            }
-            if (_gridControl != null)
-            {
-                _gridControl.Dispose();
-                _gridControl = null;
-            }
-            if (_chartControl != null)
-            {
-                _chartControl.Dispose();
-                _chartControl = null;
-            }
-            if (_chartControlLaunching != null)
-            {
-                tlpSplitCharts.Controls.Remove(_chartControlLaunching);
-                _chartControlLaunching.Dispose();
-                _chartControlLaunching = null;
-            }
-            if (_chartControlClosing != null)
-            {
-                tlpSplitCharts.Controls.Remove(_chartControlClosing);
-                _chartControlClosing.Dispose();
-                _chartControlClosing = null;
-            }
-
-            _gridControl = new GridControl();
-            //_gridControl.Dock = DockStyle.Fill;
-            _gridControl.LookAndFeel.SkinName = "Visual Studio 2013 Dark";
-            _gridControl.LookAndFeel.UseDefaultLookAndFeel = false;
-            pnlCanvas.Controls.Add(_gridControl);
-
-            _controller.GetTotalSalesActivityThirtyDays(out error);
-            if (error != "")
-            {
-                _messageBox.Message = error;
-                _messageBox.ShowDialog();
-                return;
-            }
-            if (!_controller.TotalSalesActivityThirtyDaysList.Any()) return;
-
-            _gridControl.DataSource = _controller.TotalSalesActivityThirtyDaysList;
-
-            var view = _gridControl.MainView as GridView;
-            view.OptionsBehavior.Editable = false;
 
             Cursor.Current = Cursors.Default;
         }
@@ -1025,19 +860,13 @@ namespace FASTT.Views
 
         #region Chart Query Methods
 
-        void _chartControl_CustomDrawCrosshair(object sender, CustomDrawCrosshairEventArgs e)
-        {
-            foreach (CrosshairElement element in e.CrosshairElements)
-            {
-                element.LabelElement.TextColor = Color.Black;
-                element.LabelElement.Font = new Font("Tahoma", 10f, FontStyle.Bold);
-                element.LabelElement.MarkerSize = new Size(10, 10);
-            }
-        }
-
         private void ShowNumberOfProgramsLaunchingByCustomer()
         {
             string error;
+
+            ccGeneral.DataSource = null;
+            ccGeneral.Series.Clear();
+            ccGeneral.Titles.Clear();
             _controller.GetProgramsLaunchingByCustomer(out error);
             if (error != "")
             {
@@ -1045,9 +874,9 @@ namespace FASTT.Views
                 _messageBox.ShowDialog();
                 return;
             }
-            _chartControl.DataSource = _controller.ProgramsLaunchingByCustomerList;
+            ccGeneral.DataSource = _controller.ProgramsLaunchingByCustomerList;
 
-            _chartControl.CustomDrawCrosshair += _chartControl_CustomDrawCrosshair;
+            ccGeneral.CustomDrawCrosshair += _ccGeneral_CustomDrawCrosshair;
 
             var series1 = new Series();
             series1.LegendText = "HeadLamps";
@@ -1070,28 +899,32 @@ namespace FASTT.Views
             //series2.DataFilters.Add(new DataFilter("QuoteYear", "System.Int32", DataFilterCondition.Equal, DateTime.Now.Year - 1));
 
             // Add series to chart
-            _chartControl.Series.Add(series1);
-            _chartControl.Series.Add(series2);
+            ccGeneral.Series.Add(series1);
+            ccGeneral.Series.Add(series2);
 
-            _chartControl.Legend.Visible = false;
+            ccGeneral.Legend.Visible = false;
 
             // Cast the chart's diagram to the XYDiagram type, to access its axes.
-            XYDiagram diagram = _chartControl.Diagram as XYDiagram;
+            XYDiagram diagram = ccGeneral.Diagram as XYDiagram;
             diagram.AxisY.Label.NumericOptions.Format = NumericFormat.Number;
             diagram.AxisY.Label.NumericOptions.Precision = 0;
 
             // Allow commas
-            _chartControl.SeriesTemplate.Label.PointOptions.ValueNumericOptions.Format = NumericFormat.Number;
+            ccGeneral.SeriesTemplate.Label.PointOptions.ValueNumericOptions.Format = NumericFormat.Number;
 
             // Add title to chart
             var chartTitle = new ChartTitle();
             chartTitle.Text = "Number of Programs Launching from 2017-2019 by Customer";
-            _chartControl.Titles.Add(chartTitle);
+            ccGeneral.Titles.Add(chartTitle);
         }
 
         private void ShowPeakVolumeOfProgramsLaunching()
         {
             string error;
+
+            ccGeneral.DataSource = null;
+            ccGeneral.Series.Clear();
+            ccGeneral.Titles.Clear();
             _controller.GetPeakVolumeOfProgramsLaunchingByCustomer(out error);
             if (error != "")
             {
@@ -1099,9 +932,9 @@ namespace FASTT.Views
                 _messageBox.ShowDialog();
                 return;
             }
-            _chartControl.DataSource = _controller.PeakVolumeOfProgramsLaunchingList;
+            ccGeneral.DataSource = _controller.PeakVolumeOfProgramsLaunchingList;
 
-            _chartControl.CustomDrawCrosshair += _chartControl_CustomDrawCrosshair;
+            ccGeneral.CustomDrawCrosshair += _ccGeneral_CustomDrawCrosshair;
 
             var series1 = new Series();
             series1.LegendText = "Halogen HeadLamps";
@@ -1140,33 +973,47 @@ namespace FASTT.Views
             series4.CrosshairLabelPattern = "{S}: {V:N0}";
 
             // Add series to chart
-            _chartControl.Series.Add(series1);
-            _chartControl.Series.Add(series2);
-            _chartControl.Series.Add(series3);
-            _chartControl.Series.Add(series4);
+            ccGeneral.Series.Add(series1);
+            ccGeneral.Series.Add(series2);
+            ccGeneral.Series.Add(series3);
+            ccGeneral.Series.Add(series4);
 
-            _chartControl.Legend.Visible = false;
+            ccGeneral.Legend.Visible = false;
            
             // Cast the chart's diagram to the XYDiagram type, to access its axes.
-            XYDiagram diagram = _chartControl.Diagram as XYDiagram;
+            XYDiagram diagram = ccGeneral.Diagram as XYDiagram;
             diagram.AxisY.Label.NumericOptions.Format = NumericFormat.Number;
             diagram.AxisY.Label.NumericOptions.Precision = 0;
 
             // Add title to chart
             var chartTitle = new ChartTitle();
             chartTitle.Text = "Peak Volume of Programs Launching from 2017-2019 by Customer";
-            _chartControl.Titles.Add(chartTitle);
+            ccGeneral.Titles.Add(chartTitle);
+        }
+
+        void _ccGeneral_CustomDrawCrosshair(object sender, CustomDrawCrosshairEventArgs e)
+        {
+            foreach (CrosshairElement element in e.CrosshairElements)
+            {
+                element.LabelElement.TextColor = Color.Black;
+                element.LabelElement.Font = new Font("Tahoma", 10f, FontStyle.Bold);
+                element.LabelElement.MarkerSize = new Size(10, 10);
+            }
         }
 
         private void ShowPeakVolumeOfProgramsLaunchingByCustomerByYear(int year)
         {
+            string error;
             string region = (rbtnNorthAmerica.Checked) ? "North America" : "China";
             string customer = cbxReportCustomer.Text;
 
-            _chartControlLaunching.CustomDrawCrosshair += _chartControlLaunching_CustomDrawCrosshair;
-            _chartControlLaunching.ObjectSelected += _chartControlLaunching_ObjectSelected;
+            ccLaunching.DataSource = null;
+            ccLaunching.Series.Clear();
+            ccLaunching.Titles.Clear();
 
-            string error;
+            ccLaunching.CustomDrawCrosshair += _ccLaunching_CustomDrawCrosshair;
+            ccLaunching.ObjectSelected += _ccLaunching_ObjectSelected;
+
             switch (year)
             {
                 case 2017:
@@ -1178,7 +1025,7 @@ namespace FASTT.Views
                         return;
                     }
                     if (!_controller.PeakVolumeOfProgramsLaunching2017List.Any()) return;
-                    _chartControlLaunching.DataSource = _controller.PeakVolumeOfProgramsLaunching2017List;
+                    ccLaunching.DataSource = _controller.PeakVolumeOfProgramsLaunching2017List;
                     break;
                 case 2018:
                     _controller.GetPeakVolumeOfProgramsLaunching2018ByCustomer(region, customer, out error);
@@ -1188,7 +1035,7 @@ namespace FASTT.Views
                         _messageBox.ShowDialog();
                         return;
                     }
-                    _chartControlLaunching.DataSource = _controller.PeakVolumeOfProgramsLaunching2018List;
+                    ccLaunching.DataSource = _controller.PeakVolumeOfProgramsLaunching2018List;
                     break;
                 case 2019:
                     _controller.GetPeakVolumeOfProgramsLaunching2019ByCustomer(region, customer, out error);
@@ -1198,7 +1045,7 @@ namespace FASTT.Views
                         _messageBox.ShowDialog();
                         return;
                     }
-                    _chartControlLaunching.DataSource = _controller.PeakVolumeOfProgramsLaunching2019List;
+                    ccLaunching.DataSource = _controller.PeakVolumeOfProgramsLaunching2019List;
                     break;
             }
        
@@ -1249,21 +1096,19 @@ namespace FASTT.Views
 
 
             // Add series to chart
-            _chartControlLaunching.Series.Add(series1);
-            _chartControlLaunching.Series.Add(series2);
-            _chartControlLaunching.Series.Add(series3);
-            _chartControlLaunching.Series.Add(series4);
-            _chartControlLaunching.Series.Add(series5);
+            ccLaunching.Series.Add(series1);
+            ccLaunching.Series.Add(series2);
+            ccLaunching.Series.Add(series3);
+            ccLaunching.Series.Add(series4);
+            ccLaunching.Series.Add(series5);
 
-
-            _chartControlLaunching.Legend.Visible = false;
+            ccLaunching.Legend.Visible = false;
 
             // Cast the chart's diagram to the XYDiagram type, to access its axes.
-            XYDiagram diagram = _chartControlLaunching.Diagram as XYDiagram;
+            XYDiagram diagram = ccLaunching.Diagram as XYDiagram;
             diagram.AxisY.Label.NumericOptions.Format = NumericFormat.Number;
             diagram.AxisY.Label.NumericOptions.Precision = 0;
             diagram.Rotated = true;
-
 
             // Add title to chart
             var chartTitle = new ChartTitle();
@@ -1279,13 +1124,13 @@ namespace FASTT.Views
                     chartTitle.Text = string.Format("Peak Volume of {0} Programs Launching in 2019", customer);
                     break;
             }
-            _chartControlLaunching.Titles.Add(chartTitle);
+            ccLaunching.Titles.Add(chartTitle);
         }
 
-        void _chartControlLaunching_ObjectSelected(object sender, HotTrackEventArgs e)
+        void _ccLaunching_ObjectSelected(object sender, HotTrackEventArgs e)
         {
+            // Testing ...
             string x = e.AdditionalObject.ToString();
-
 
             if (e.AdditionalObject is SeriesPoint)
             {
@@ -1301,7 +1146,7 @@ namespace FASTT.Views
             }
         }
 
-        void _chartControlLaunching_CustomDrawCrosshair(object sender, CustomDrawCrosshairEventArgs e)
+        void _ccLaunching_CustomDrawCrosshair(object sender, CustomDrawCrosshairEventArgs e)
         {
             foreach (CrosshairElement element in e.CrosshairElements)
             {
@@ -1313,12 +1158,16 @@ namespace FASTT.Views
 
         private void ShowPeakVolumeOfProgramsClosingByCustomerByYear(int year)
         {
+            string error;
             string region = (rbtnNorthAmerica.Checked) ? "North America" : "China";
             string customer = cbxReportCustomer.Text;
 
-            _chartControlClosing.CustomDrawCrosshair += _chartControlClosing_CustomDrawCrosshair;
+            ccClosing.DataSource = null;
+            ccClosing.Series.Clear();
+            ccClosing.Titles.Clear();
 
-            string error;
+            ccClosing.CustomDrawCrosshair += _ccClosing_CustomDrawCrosshair;
+
             switch (year)
             {
                 case 2017:
@@ -1329,7 +1178,7 @@ namespace FASTT.Views
                         _messageBox.ShowDialog();
                         return;
                     }
-                    _chartControlClosing.DataSource = _controller.PeakVolumeOfProgramsClosing2017List;
+                    ccClosing.DataSource = _controller.PeakVolumeOfProgramsClosing2017List;
                     break;
                 case 2018:
                     _controller.GetPeakVolumeOfProgramsClosing2018ByCustomer(region, customer, out error);
@@ -1339,7 +1188,7 @@ namespace FASTT.Views
                         _messageBox.ShowDialog();
                         return;
                     }
-                    _chartControlClosing.DataSource = _controller.PeakVolumeOfProgramsClosing2018List;
+                    ccClosing.DataSource = _controller.PeakVolumeOfProgramsClosing2018List;
                     break;
                 case 2019:
                     _controller.GetPeakVolumeOfProgramsClosing2019ByCustomer(region, customer, out error);
@@ -1349,7 +1198,7 @@ namespace FASTT.Views
                         _messageBox.ShowDialog();
                         return;
                     }
-                    _chartControlClosing.DataSource = _controller.PeakVolumeOfProgramsClosing2019List;
+                    ccClosing.DataSource = _controller.PeakVolumeOfProgramsClosing2019List;
                     break;
             }
             
@@ -1400,17 +1249,17 @@ namespace FASTT.Views
 
 
             // Add series to chart
-            _chartControlClosing.Series.Add(series1);
-            _chartControlClosing.Series.Add(series2);
-            _chartControlClosing.Series.Add(series3);
-            _chartControlClosing.Series.Add(series4);
-            _chartControlClosing.Series.Add(series5);
+            ccClosing.Series.Add(series1);
+            ccClosing.Series.Add(series2);
+            ccClosing.Series.Add(series3);
+            ccClosing.Series.Add(series4);
+            ccClosing.Series.Add(series5);
 
 
-            _chartControlClosing.Legend.Visible = false;
+            ccClosing.Legend.Visible = false;
 
             // Cast the chart's diagram to the XYDiagram type, to access its axes.
-            XYDiagram diagram = _chartControlClosing.Diagram as XYDiagram;
+            XYDiagram diagram = ccClosing.Diagram as XYDiagram;
             diagram.AxisY.Label.NumericOptions.Format = NumericFormat.Number;
             diagram.AxisY.Label.NumericOptions.Precision = 0;
             diagram.Rotated = true;
@@ -1430,10 +1279,10 @@ namespace FASTT.Views
                     chartTitle.Text = string.Format("Peak Volume of {0} Programs Closing in 2019", customer);
                     break;
             }
-            _chartControlClosing.Titles.Add(chartTitle);
+            ccClosing.Titles.Add(chartTitle);
         }
 
-        void _chartControlClosing_CustomDrawCrosshair(object sender, CustomDrawCrosshairEventArgs e)
+        void _ccClosing_CustomDrawCrosshair(object sender, CustomDrawCrosshairEventArgs e)
         {
             foreach (CrosshairElement element in e.CrosshairElements)
             {
@@ -1444,6 +1293,278 @@ namespace FASTT.Views
         }
         
         #endregion
+
+
+        #region Dashboard Methods
+
+        private void GetDashboardCustomerList()
+        {
+            var custList = new List<string>();
+            custList.Add("");
+            custList.Add("ADAC");
+            custList.Add("Flex-N-Gate");
+            custList.Add("Hella");
+            custList.Add("Magna");
+            custList.Add("Magneti Marelli (ALC)");
+            custList.Add("Koito (NAL)");
+            custList.Add("Koito Tayih (NAL)");
+            custList.Add("Shanghai Koito (NAL)");
+            custList.Add("SL Corporation");
+            custList.Add("Stanley");
+            custList.Add("Valeo");
+            custList.Add("Varroc");
+
+            _isDatabinding = true;
+            cbxReportCustomer.DataSource = null;
+            cbxReportCustomer.DataSource = custList;
+            _isDatabinding = false;
+        }
+
+        private void GetCustomersList()
+        {
+            string region = (rbtnNorthAmerica.Checked) ? "North America" : "China";
+
+            int result = _controller.GetAllLightingStudyCustomers(region);
+
+            if (result == 0) return;
+            _isDatabinding = true;
+            cbxReportCustomer.DataSource = null;
+            cbxReportCustomer.DataSource = _controller.CustomersList;
+            cbxReportCustomer.DisplayMember = "Customer";
+            cbxReportCustomer.Text = "";
+            _isDatabinding = false;
+        }
+        
+        private void GetSalesForecastData()
+        {
+            string customer = cbxReportCustomer.Text.Trim();
+
+            grdDashboard1.DataSource = null;
+            _controller.GetSalesForecastDataByCustomer(customer);
+            if (!_controller.DashboardSalesForecastList.Any()) return;
+
+            grdDashboard1.DataSource = _controller.DashboardSalesForecastList;
+
+            grdViewDashboard1.OptionsBehavior.Editable = false;
+            grdViewDashboard1.Columns["Sales2016"].DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
+            grdViewDashboard1.Columns["Sales2016"].DisplayFormat.FormatString = "c2";
+            grdViewDashboard1.Columns["Sales2016"].AppearanceCell.TextOptions.HAlignment = HorzAlignment.Near;
+            grdViewDashboard1.Columns["Sales2016"].Caption = "2016";
+            grdViewDashboard1.Columns["Sales2017"].DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
+            grdViewDashboard1.Columns["Sales2017"].DisplayFormat.FormatString = "c2";
+            grdViewDashboard1.Columns["Sales2017"].AppearanceCell.TextOptions.HAlignment = HorzAlignment.Near;
+            grdViewDashboard1.Columns["Sales2017"].Caption = "2017";
+            grdViewDashboard1.Columns["Sales2018"].DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
+            grdViewDashboard1.Columns["Sales2018"].DisplayFormat.FormatString = "c2";
+            grdViewDashboard1.Columns["Sales2018"].AppearanceCell.TextOptions.HAlignment = HorzAlignment.Near;
+            grdViewDashboard1.Columns["Sales2018"].Caption = "2018";
+            grdViewDashboard1.Columns["Sales2019"].DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
+            grdViewDashboard1.Columns["Sales2019"].DisplayFormat.FormatString = "c2";
+            grdViewDashboard1.Columns["Sales2019"].AppearanceCell.TextOptions.HAlignment = HorzAlignment.Near;
+            grdViewDashboard1.Columns["Sales2019"].Caption = "2019";
+            grdViewDashboard1.Columns["Sales2020"].DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
+            grdViewDashboard1.Columns["Sales2020"].DisplayFormat.FormatString = "c2";
+            grdViewDashboard1.Columns["Sales2020"].AppearanceCell.TextOptions.HAlignment = HorzAlignment.Near;
+            grdViewDashboard1.Columns["Sales2020"].Caption = "2020";
+            grdViewDashboard1.Columns["Sales2021"].DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
+            grdViewDashboard1.Columns["Sales2021"].DisplayFormat.FormatString = "c2";
+            grdViewDashboard1.Columns["Sales2021"].AppearanceCell.TextOptions.HAlignment = HorzAlignment.Near;
+            grdViewDashboard1.Columns["Sales2021"].Caption = "2021";
+            grdViewDashboard1.Columns["Sales2022"].DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
+            grdViewDashboard1.Columns["Sales2022"].DisplayFormat.FormatString = "c2";
+            grdViewDashboard1.Columns["Sales2022"].AppearanceCell.TextOptions.HAlignment = HorzAlignment.Near;
+            grdViewDashboard1.Columns["Sales2022"].Caption = "2022";
+
+            // Make the group footers always visible
+            grdViewDashboard1.GroupFooterShowMode = GroupFooterShowMode.VisibleAlways;
+
+            //// Create and setup the first summary item
+            //var item = new GridGroupSummaryItem();
+            //item.FieldName = "";
+            //item.SummaryType = DevExpress.Data.SummaryItemType.Sum;
+            //_gridView.GroupSummary.Add(item);
+
+            //// Restore saved grid settings if they exist
+            //string filePath = @"C:\FasttGridSettings\XtraGrid_SaveLayoutToXML_TopLeads.xml";
+            //if (File.Exists(filePath)) _gridControlActivity.MainView.RestoreLayoutFromXml(filePath);
+        }
+
+        private void GetRecentQuotesByCustomer()
+        {
+            string customer = cbxReportCustomer.Text.Trim();
+
+            grdDashboard2.DataSource = null;
+            _controller.GetNewQuotesByCustomer(customer);
+            if (!_controller.DashboardNewQuotesByCustomerList.Any()) return;
+
+            grdDashboard2.DataSource = _controller.DashboardNewQuotesByCustomerList;
+
+            grdViewDashboard2.Columns["TotalQuotedSales"].DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
+            grdViewDashboard2.Columns["TotalQuotedSales"].DisplayFormat.FormatString = "c2";
+
+            // Make the group footers always visible
+            grdViewDashboard2.OptionsView.GroupFooterShowMode = GroupFooterShowMode.VisibleAlways;
+
+            // Create and setup the first summary item
+            var item = new GridGroupSummaryItem();
+            item.FieldName = "TotalQuotedSales";
+            item.SummaryType = DevExpress.Data.SummaryItemType.Sum;
+            item.DisplayFormat = "Total:  {0:c2}";
+            item.ShowInGroupColumnFooter = grdViewDashboard2.Columns["TotalQuotedSales"];
+            grdViewDashboard2.GroupSummary.Add(item);
+        }
+
+        private void GetSalesActivityHistoryByCustomer()
+        {
+            string customer = cbxReportCustomer.Text.Trim();
+
+            grdDashboard3.DataSource = null;
+            _controller.GetSalesActivityHistoryByCustomer(customer);
+            if (!_controller.DashboardSalesPersonActivityByCustomerList.Any()) return;
+
+            grdDashboard3.DataSource = _controller.DashboardSalesPersonActivityByCustomerList;
+
+            grdViewDashboard3.OptionsBehavior.Editable = false;
+            grdViewDashboard3.Columns["SalesPersonCode"].Visible = grdViewDashboard3.Columns["RowId"].Visible = grdViewDashboard3.Columns["CombinedLightingId"].Visible = false;
+            grdViewDashboard3.Columns["PeakVolume"].DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
+            grdViewDashboard3.Columns["PeakVolume"].DisplayFormat.FormatString = "n0";
+
+            // Restore saved grid settings if they exist
+            string filePath = @"C:\FasttGridSettings\XtraGrid_SaveLayoutToXML_ActivityHistory.xml";
+            if (File.Exists(filePath)) grdActivity.MainView.RestoreLayoutFromXml(filePath);
+        }
+
+        private void GetTopLeadsByCustomer()
+        {
+            string customer = cbxReportCustomer.Text.Trim();
+
+            grdDashboard4.DataSource = null;
+            _controller.GetTopLeadsByCustomer(customer);
+            if (!_controller.DashboardTopLeadsByCustomerList.Any()) return;
+
+            grdDashboard4.DataSource = _controller.DashboardTopLeadsByCustomerList;
+
+            grdViewDashboard4.OptionsBehavior.Editable = false;
+            grdViewDashboard4.Columns["RowId"].Visible = grdViewDashboard4.Columns["CombinedLightingId"].Visible = false;
+            grdViewDashboard4.Columns["PeakVolume"].DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
+            grdViewDashboard4.Columns["PeakVolume"].DisplayFormat.FormatString = "n0";
+            grdViewDashboard4.Columns["PeakVolumeSalesEstimate"].DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
+            grdViewDashboard4.Columns["PeakVolumeSalesEstimate"].DisplayFormat.FormatString = "c2";
+
+            // Restore saved grid settings if they exist
+            string filePath = @"C:\FasttGridSettings\XtraGrid_SaveLayoutToXML_TopLeads.xml";
+            if (File.Exists(filePath)) grdActivity.MainView.RestoreLayoutFromXml(filePath);
+        }
+
+        #endregion
+
+
+        
+        
+        private void ControlScreenState(FormStateEnum state)
+        {
+            switch (state)
+            {
+                case FormStateEnum.DashboardIntro:
+                    IsDashboardIntro = true;
+                    _isDashboardFull = false;
+
+                    tlpDashboard.Visible = tlpSplitCharts.Visible = grdActivity.Visible = grdGeneral.Visible = ccGeneral.Visible = false;
+                    wbDashboard.Visible = true;
+                    wbDashboard.Dock = DockStyle.Fill;
+                    wbDashboard.Navigate("http://evision/empireweb/SalesForecastSummarybyCustomer.aspx");
+
+                    flpRadioButtons.Visible = mesBtnGo.Visible = mesBtnExportChart.Visible = false;
+                    lblSelectCustomer.Visible = cbxReportCustomer.Visible = mesClearGridSettings.Visible = true;
+                    lblInstructions.Text = "";
+
+                    GetDashboardCustomerList();
+                    break;
+                case FormStateEnum.DashboardFull:
+                    Cursor.Current = Cursors.WaitCursor;
+
+                    IsDashboardIntro = false;
+                    _isDashboardFull = true;
+
+                    wbDashboard.Visible = tlpSplitCharts.Visible = grdActivity.Visible = grdGeneral.Visible = ccGeneral.Visible = false;
+                    tlpDashboard.Visible = true;
+                    tlpDashboard.Dock = DockStyle.Fill;
+
+                    flpRadioButtons.Visible = mesBtnGo.Visible = mesBtnExportChart.Visible = mesClearGridSettings.Visible = false;
+                    lblSelectCustomer.Visible = cbxReportCustomer.Visible = true;
+                    lblInstructions.Text = "";
+
+                    // Row 1:  Grid - customer's sales forecasts (2016-2022)
+                    GetSalesForecastData();
+
+                    // Row 2:  Grid - recently quoted for this customer
+                    GetRecentQuotesByCustomer();
+
+                    // Row 3:  Grid - recent sales activity for this customer
+                    GetSalesActivityHistoryByCustomer();
+
+                    // Row 4:  Grid - top 10 sales leads by "estimated yearly sales"
+                    GetTopLeadsByCustomer();
+
+                    Cursor.Current = Cursors.Default;
+                    break;
+                case FormStateEnum.ChartSingle:
+                    IsDashboardIntro = false;
+                    _isDashboardFull = false;
+
+                    wbDashboard.Visible = tlpDashboard.Visible = tlpSplitCharts.Visible = grdActivity.Visible = grdGeneral.Visible = false;
+                    ccGeneral.Visible = true;
+                    ccGeneral.Dock = DockStyle.Fill;
+
+                    flpRadioButtons.Visible = lblSelectCustomer.Visible = cbxReportCustomer.Visible = mesBtnGo.Visible = mesClearGridSettings.Visible = false;
+                    mesBtnExportChart.Visible = true;
+                    lblInstructions.Text = "";
+                    break;
+                case FormStateEnum.LaunchingClosingLinkClicked:
+                    IsDashboardIntro = false;
+                    _isDashboardFull = false;
+
+                    wbDashboard.Visible = tlpDashboard.Visible = tlpSplitCharts.Visible = grdActivity.Visible = grdGeneral.Visible = ccGeneral.Visible = false;
+                    mesBtnExportChart.Visible = mesClearGridSettings.Visible = false;
+
+                    flpRadioButtons.Visible = lblSelectCustomer.Visible = cbxReportCustomer.Visible = mesBtnGo.Visible = true;
+                    lblInstructions.Text = "";
+                    break;
+                case FormStateEnum.ChartDual:
+                    tlpSplitCharts.Visible = true;
+                    _isDashboardFull = false;
+
+                    tlpSplitCharts.Dock = DockStyle.Fill;
+
+                    mesBtnExportChart.Visible = false;
+                    lblInstructions.Text = "";
+                    break;
+                case FormStateEnum.ActivityGrid:
+                    IsDashboardIntro = false;
+                    _isDashboardFull = false;
+
+                    wbDashboard.Visible = tlpDashboard.Visible = tlpSplitCharts.Visible = grdGeneral.Visible = ccGeneral.Visible = false;
+                    grdActivity.Visible = true;
+                    grdActivity.Dock = DockStyle.Fill;
+
+                    flpRadioButtons.Visible = lblSelectCustomer.Visible = cbxReportCustomer.Visible = mesBtnGo.Visible = false;
+                    mesBtnExportChart.Visible = mesClearGridSettings.Visible = true;
+                    lblInstructions.Text = "Double-click a row to see all activity history for a sales lead.";
+                    break;    
+                case FormStateEnum.QuoteGrid:
+                    IsDashboardIntro = false;
+                    _isDashboardFull = false;
+
+                    wbDashboard.Visible = tlpDashboard.Visible = tlpSplitCharts.Visible = grdActivity.Visible = ccGeneral.Visible = false;
+                    grdGeneral.Visible = true;
+                    grdGeneral.Dock = DockStyle.Fill;
+
+                    flpRadioButtons.Visible = lblSelectCustomer.Visible = cbxReportCustomer.Visible = mesBtnGo.Visible = false;
+                    mesBtnExportChart.Visible = mesClearGridSettings.Visible = true;
+                    lblInstructions.Text = "";
+                    break;
+            }
+        }
 
 
     }

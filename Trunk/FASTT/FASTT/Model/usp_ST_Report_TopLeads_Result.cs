@@ -14,6 +14,7 @@ namespace FASTT.Model
     public partial class usp_ST_Report_TopLeads_Result
     {
         public Nullable<int> PeakVolume { get; set; }
+        public Nullable<decimal> PeakVolumeSalesEstimate { get; set; }
         public string Customer { get; set; }
         public string Program { get; set; }
         public string Application { get; set; }
@@ -23,6 +24,8 @@ namespace FASTT.Model
         public string EOP { get; set; }
         public string SalesLeadStatus { get; set; }
         public Nullable<int> AwardedVolume { get; set; }
+        public string OEM { get; set; }
+        public string NamePlate { get; set; }
         public string SalesPerson { get; set; }
         public Nullable<int> SalesLeadId { get; set; }
         public Nullable<int> CombinedLightingId { get; set; }

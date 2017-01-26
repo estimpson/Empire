@@ -24,5 +24,6 @@ namespace FASTT.Model
         public Nullable<decimal> TotalQuotedSales { get; set; }
         public string Notes { get; set; }
         public string QuoteNumber { get; set; }
+        public string PackageNumber { get; set; }
     }
 }

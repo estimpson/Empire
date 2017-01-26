@@ -85,7 +85,6 @@ namespace FASTT.Views
         #endregion
 
 
-
         #region Panel Events
 
         private void panel1_Paint(object sender, PaintEventArgs e)
