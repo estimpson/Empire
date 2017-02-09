@@ -292,6 +292,111 @@ namespace FASTT.Views
 
         #region Methods
 
+        private void ControlScreenState(FormStateEnum state)
+        {
+            switch (state)
+            {
+                case FormStateEnum.DashboardIntro:
+                    IsDashboardIntro = true;
+                    _isDashboardFull = false;
+
+                    tlpDashboard.Visible = tlpSplitCharts.Visible = grdActivity.Visible = grdGeneral.Visible = ccGeneral.Visible = false;
+                    wbDashboard.Visible = true;
+                    wbDashboard.Dock = DockStyle.Fill;
+                    wbDashboard.Navigate("http://evision/empireweb/SalesForecastSummarybyCustomer.aspx");
+
+                    flpRadioButtons.Visible = mesBtnGo.Visible = mesBtnExportChart.Visible = false;
+                    lblSelectCustomer.Visible = cbxReportCustomer.Visible = mesClearGridSettings.Visible = true;
+                    lblInstructions.Text = "";
+
+                    GetDashboardCustomerList();
+                    break;
+                case FormStateEnum.DashboardFull:
+                    Cursor.Current = Cursors.WaitCursor;
+
+                    IsDashboardIntro = false;
+                    _isDashboardFull = true;
+
+                    wbDashboard.Visible = tlpSplitCharts.Visible = grdActivity.Visible = grdGeneral.Visible = ccGeneral.Visible = false;
+                    tlpDashboard.Visible = true;
+                    tlpDashboard.Dock = DockStyle.Fill;
+
+                    flpRadioButtons.Visible = mesBtnGo.Visible = mesBtnExportChart.Visible = mesClearGridSettings.Visible = false;
+                    lblSelectCustomer.Visible = cbxReportCustomer.Visible = true;
+                    lblInstructions.Text = "";
+
+                    // Row 1:  Grid - customer's sales forecasts (2016-2022)
+                    GetSalesForecastData();
+
+                    // Row 2:  Grid - recently quoted for this customer
+                    GetRecentQuotesByCustomer();
+
+                    // Row 3:  Grid - recent sales activity for this customer
+                    GetSalesActivityHistoryByCustomer();
+
+                    // Row 4:  Grid - top 10 sales leads by "estimated yearly sales"
+                    GetTopLeadsByCustomer();
+
+                    Cursor.Current = Cursors.Default;
+                    break;
+                case FormStateEnum.ChartSingle:
+                    IsDashboardIntro = false;
+                    _isDashboardFull = false;
+
+                    wbDashboard.Visible = tlpDashboard.Visible = tlpSplitCharts.Visible = grdActivity.Visible = grdGeneral.Visible = false;
+                    ccGeneral.Visible = true;
+                    ccGeneral.Dock = DockStyle.Fill;
+
+                    flpRadioButtons.Visible = lblSelectCustomer.Visible = cbxReportCustomer.Visible = mesBtnGo.Visible = mesClearGridSettings.Visible = false;
+                    mesBtnExportChart.Visible = true;
+                    lblInstructions.Text = "";
+                    break;
+                case FormStateEnum.LaunchingClosingLinkClicked:
+                    IsDashboardIntro = false;
+                    _isDashboardFull = false;
+
+                    wbDashboard.Visible = tlpDashboard.Visible = tlpSplitCharts.Visible = grdActivity.Visible = grdGeneral.Visible = ccGeneral.Visible = false;
+                    mesBtnExportChart.Visible = mesClearGridSettings.Visible = false;
+
+                    flpRadioButtons.Visible = lblSelectCustomer.Visible = cbxReportCustomer.Visible = mesBtnGo.Visible = true;
+                    lblInstructions.Text = "";
+                    break;
+                case FormStateEnum.ChartDual:
+                    tlpSplitCharts.Visible = true;
+                    _isDashboardFull = false;
+
+                    tlpSplitCharts.Dock = DockStyle.Fill;
+
+                    mesBtnExportChart.Visible = false;
+                    lblInstructions.Text = "";
+                    break;
+                case FormStateEnum.ActivityGrid:
+                    IsDashboardIntro = false;
+                    _isDashboardFull = false;
+
+                    wbDashboard.Visible = tlpDashboard.Visible = tlpSplitCharts.Visible = grdGeneral.Visible = ccGeneral.Visible = false;
+                    grdActivity.Visible = true;
+                    grdActivity.Dock = DockStyle.Fill;
+
+                    flpRadioButtons.Visible = lblSelectCustomer.Visible = cbxReportCustomer.Visible = mesBtnGo.Visible = false;
+                    mesBtnExportChart.Visible = mesClearGridSettings.Visible = true;
+                    lblInstructions.Text = "Double-click a row to see all activity history for a sales lead.";
+                    break;
+                case FormStateEnum.QuoteGrid:
+                    IsDashboardIntro = false;
+                    _isDashboardFull = false;
+
+                    wbDashboard.Visible = tlpDashboard.Visible = tlpSplitCharts.Visible = grdActivity.Visible = ccGeneral.Visible = false;
+                    grdGeneral.Visible = true;
+                    grdGeneral.Dock = DockStyle.Fill;
+
+                    flpRadioButtons.Visible = lblSelectCustomer.Visible = cbxReportCustomer.Visible = mesBtnGo.Visible = false;
+                    mesBtnExportChart.Visible = mesClearGridSettings.Visible = true;
+                    lblInstructions.Text = "";
+                    break;
+            }
+        }
+
         private void RadioButtonAction()
         {
             Cursor.Current = Cursors.WaitCursor;
@@ -542,10 +647,18 @@ namespace FASTT.Views
                     _isChart = false;
                     _gridControlEnum = GridControlEnum.OpenQuotes;
                     break;
+                case "Quotes Opened in the Last 7 Days":
+                    ControlScreenState(FormStateEnum.QuoteGrid);
+
+                    GetNewQuotes(7);
+
+                    _isChart = false;
+                    _gridControlEnum = GridControlEnum.NewQuotes;
+                    break;
                 case "Quotes Opened in the Last 60 Days":
                     ControlScreenState(FormStateEnum.QuoteGrid);
 
-                    GetNewQuotes();
+                    GetNewQuotes(60);
 
                     _isChart = false;
                     _gridControlEnum = GridControlEnum.NewQuotes;
@@ -729,6 +842,13 @@ namespace FASTT.Views
 
             grdViewGeneral.Columns["TotalQuotedSales"].DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
             grdViewGeneral.Columns["TotalQuotedSales"].DisplayFormat.FormatString = "c2";
+            grdViewGeneral.Columns["TotalQuotedSales"].AppearanceCell.TextOptions.HAlignment = HorzAlignment.Near;
+            grdViewGeneral.Columns["Eau"].AppearanceCell.TextOptions.HAlignment = HorzAlignment.Near;
+            grdViewGeneral.Columns["Eau"].DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
+            grdViewGeneral.Columns["Eau"].DisplayFormat.FormatString = "n0";
+            grdViewGeneral.Columns["QuotePrice"].AppearanceCell.TextOptions.HAlignment = HorzAlignment.Near;
+            grdViewGeneral.Columns["QuotePrice"].DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
+            grdViewGeneral.Columns["QuotePrice"].DisplayFormat.FormatString = "n2";
 
 
             // Make the group footers always visible
@@ -749,7 +869,7 @@ namespace FASTT.Views
             Cursor.Current = Cursors.Default;
         }
 
-        private void GetNewQuotes()
+        private void GetNewQuotes(int numberOfDays)
         {
             Cursor.Current = Cursors.WaitCursor;
 
@@ -757,13 +877,20 @@ namespace FASTT.Views
             grdViewGeneral.GroupSummary.Clear();
             grdGeneral.DataSource = null;
 
-            _controller.GetNewQuotes();
+            _controller.GetNewQuotes(numberOfDays);
             if (!_controller.ListNewQuotes.Any()) return;
 
             grdGeneral.DataSource = _controller.ListNewQuotes;
 
             grdViewGeneral.Columns["TotalQuotedSales"].DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
             grdViewGeneral.Columns["TotalQuotedSales"].DisplayFormat.FormatString = "c2";
+            grdViewGeneral.Columns["TotalQuotedSales"].AppearanceCell.TextOptions.HAlignment = HorzAlignment.Near;
+            grdViewGeneral.Columns["Eau"].AppearanceCell.TextOptions.HAlignment = HorzAlignment.Near;
+            grdViewGeneral.Columns["Eau"].DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
+            grdViewGeneral.Columns["Eau"].DisplayFormat.FormatString = "n0";
+            grdViewGeneral.Columns["QuotePrice"].AppearanceCell.TextOptions.HAlignment = HorzAlignment.Near;
+            grdViewGeneral.Columns["QuotePrice"].DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
+            grdViewGeneral.Columns["QuotePrice"].DisplayFormat.FormatString = "n2";
 
             // Make the group footers always visible
             grdViewGeneral.GroupFooterShowMode = GroupFooterShowMode.VisibleAlways;
@@ -1401,6 +1528,13 @@ namespace FASTT.Views
 
             grdViewDashboard2.Columns["TotalQuotedSales"].DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
             grdViewDashboard2.Columns["TotalQuotedSales"].DisplayFormat.FormatString = "c2";
+            grdViewDashboard2.Columns["TotalQuotedSales"].AppearanceCell.TextOptions.HAlignment = HorzAlignment.Near;
+            grdViewDashboard2.Columns["Eau"].AppearanceCell.TextOptions.HAlignment = HorzAlignment.Near;
+            grdViewDashboard2.Columns["Eau"].DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
+            grdViewDashboard2.Columns["Eau"].DisplayFormat.FormatString = "n0";
+            grdViewDashboard2.Columns["QuotePrice"].AppearanceCell.TextOptions.HAlignment = HorzAlignment.Near;
+            grdViewDashboard2.Columns["QuotePrice"].DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
+            grdViewDashboard2.Columns["QuotePrice"].DisplayFormat.FormatString = "n2";
 
             // Make the group footers always visible
             grdViewDashboard2.OptionsView.GroupFooterShowMode = GroupFooterShowMode.VisibleAlways;
@@ -1428,10 +1562,6 @@ namespace FASTT.Views
             grdViewDashboard3.Columns["SalesPersonCode"].Visible = grdViewDashboard3.Columns["RowId"].Visible = grdViewDashboard3.Columns["CombinedLightingId"].Visible = false;
             grdViewDashboard3.Columns["PeakVolume"].DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
             grdViewDashboard3.Columns["PeakVolume"].DisplayFormat.FormatString = "n0";
-
-            // Restore saved grid settings if they exist
-            string filePath = @"C:\FasttGridSettings\XtraGrid_SaveLayoutToXML_ActivityHistory.xml";
-            if (File.Exists(filePath)) grdActivity.MainView.RestoreLayoutFromXml(filePath);
         }
 
         private void GetTopLeadsByCustomer()
@@ -1457,114 +1587,6 @@ namespace FASTT.Views
         }
 
         #endregion
-
-
-        
-        
-        private void ControlScreenState(FormStateEnum state)
-        {
-            switch (state)
-            {
-                case FormStateEnum.DashboardIntro:
-                    IsDashboardIntro = true;
-                    _isDashboardFull = false;
-
-                    tlpDashboard.Visible = tlpSplitCharts.Visible = grdActivity.Visible = grdGeneral.Visible = ccGeneral.Visible = false;
-                    wbDashboard.Visible = true;
-                    wbDashboard.Dock = DockStyle.Fill;
-                    wbDashboard.Navigate("http://evision/empireweb/SalesForecastSummarybyCustomer.aspx");
-
-                    flpRadioButtons.Visible = mesBtnGo.Visible = mesBtnExportChart.Visible = false;
-                    lblSelectCustomer.Visible = cbxReportCustomer.Visible = mesClearGridSettings.Visible = true;
-                    lblInstructions.Text = "";
-
-                    GetDashboardCustomerList();
-                    break;
-                case FormStateEnum.DashboardFull:
-                    Cursor.Current = Cursors.WaitCursor;
-
-                    IsDashboardIntro = false;
-                    _isDashboardFull = true;
-
-                    wbDashboard.Visible = tlpSplitCharts.Visible = grdActivity.Visible = grdGeneral.Visible = ccGeneral.Visible = false;
-                    tlpDashboard.Visible = true;
-                    tlpDashboard.Dock = DockStyle.Fill;
-
-                    flpRadioButtons.Visible = mesBtnGo.Visible = mesBtnExportChart.Visible = mesClearGridSettings.Visible = false;
-                    lblSelectCustomer.Visible = cbxReportCustomer.Visible = true;
-                    lblInstructions.Text = "";
-
-                    // Row 1:  Grid - customer's sales forecasts (2016-2022)
-                    GetSalesForecastData();
-
-                    // Row 2:  Grid - recently quoted for this customer
-                    GetRecentQuotesByCustomer();
-
-                    // Row 3:  Grid - recent sales activity for this customer
-                    GetSalesActivityHistoryByCustomer();
-
-                    // Row 4:  Grid - top 10 sales leads by "estimated yearly sales"
-                    GetTopLeadsByCustomer();
-
-                    Cursor.Current = Cursors.Default;
-                    break;
-                case FormStateEnum.ChartSingle:
-                    IsDashboardIntro = false;
-                    _isDashboardFull = false;
-
-                    wbDashboard.Visible = tlpDashboard.Visible = tlpSplitCharts.Visible = grdActivity.Visible = grdGeneral.Visible = false;
-                    ccGeneral.Visible = true;
-                    ccGeneral.Dock = DockStyle.Fill;
-
-                    flpRadioButtons.Visible = lblSelectCustomer.Visible = cbxReportCustomer.Visible = mesBtnGo.Visible = mesClearGridSettings.Visible = false;
-                    mesBtnExportChart.Visible = true;
-                    lblInstructions.Text = "";
-                    break;
-                case FormStateEnum.LaunchingClosingLinkClicked:
-                    IsDashboardIntro = false;
-                    _isDashboardFull = false;
-
-                    wbDashboard.Visible = tlpDashboard.Visible = tlpSplitCharts.Visible = grdActivity.Visible = grdGeneral.Visible = ccGeneral.Visible = false;
-                    mesBtnExportChart.Visible = mesClearGridSettings.Visible = false;
-
-                    flpRadioButtons.Visible = lblSelectCustomer.Visible = cbxReportCustomer.Visible = mesBtnGo.Visible = true;
-                    lblInstructions.Text = "";
-                    break;
-                case FormStateEnum.ChartDual:
-                    tlpSplitCharts.Visible = true;
-                    _isDashboardFull = false;
-
-                    tlpSplitCharts.Dock = DockStyle.Fill;
-
-                    mesBtnExportChart.Visible = false;
-                    lblInstructions.Text = "";
-                    break;
-                case FormStateEnum.ActivityGrid:
-                    IsDashboardIntro = false;
-                    _isDashboardFull = false;
-
-                    wbDashboard.Visible = tlpDashboard.Visible = tlpSplitCharts.Visible = grdGeneral.Visible = ccGeneral.Visible = false;
-                    grdActivity.Visible = true;
-                    grdActivity.Dock = DockStyle.Fill;
-
-                    flpRadioButtons.Visible = lblSelectCustomer.Visible = cbxReportCustomer.Visible = mesBtnGo.Visible = false;
-                    mesBtnExportChart.Visible = mesClearGridSettings.Visible = true;
-                    lblInstructions.Text = "Double-click a row to see all activity history for a sales lead.";
-                    break;    
-                case FormStateEnum.QuoteGrid:
-                    IsDashboardIntro = false;
-                    _isDashboardFull = false;
-
-                    wbDashboard.Visible = tlpDashboard.Visible = tlpSplitCharts.Visible = grdActivity.Visible = ccGeneral.Visible = false;
-                    grdGeneral.Visible = true;
-                    grdGeneral.Dock = DockStyle.Fill;
-
-                    flpRadioButtons.Visible = lblSelectCustomer.Visible = cbxReportCustomer.Visible = mesBtnGo.Visible = false;
-                    mesBtnExportChart.Visible = mesClearGridSettings.Visible = true;
-                    lblInstructions.Text = "";
-                    break;
-            }
-        }
 
 
     }

@@ -388,25 +388,25 @@
             this.tlpDashboard.Name = "tlpDashboard";
             this.tlpDashboard.RowCount = 8;
             this.tlpDashboard.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tlpDashboard.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 20F));
+            this.tlpDashboard.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
             this.tlpDashboard.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tlpDashboard.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 20F));
+            this.tlpDashboard.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
             this.tlpDashboard.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tlpDashboard.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 20F));
+            this.tlpDashboard.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
             this.tlpDashboard.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tlpDashboard.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 40F));
+            this.tlpDashboard.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
             this.tlpDashboard.Size = new System.Drawing.Size(238, 539);
             this.tlpDashboard.TabIndex = 1;
             // 
             // grdDashboard4
             // 
             this.grdDashboard4.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.grdDashboard4.Location = new System.Drawing.Point(3, 372);
+            this.grdDashboard4.Location = new System.Drawing.Point(3, 429);
             this.grdDashboard4.LookAndFeel.SkinName = "Visual Studio 2013 Dark";
             this.grdDashboard4.LookAndFeel.UseDefaultLookAndFeel = false;
             this.grdDashboard4.MainView = this.grdViewDashboard4;
             this.grdDashboard4.Name = "grdDashboard4";
-            this.grdDashboard4.Size = new System.Drawing.Size(232, 164);
+            this.grdDashboard4.Size = new System.Drawing.Size(232, 107);
             this.grdDashboard4.TabIndex = 7;
             this.grdDashboard4.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.grdViewDashboard4,
@@ -431,12 +431,12 @@
             // grdDashboard3
             // 
             this.grdDashboard3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.grdDashboard3.Location = new System.Drawing.Point(3, 256);
+            this.grdDashboard3.Location = new System.Drawing.Point(3, 293);
             this.grdDashboard3.LookAndFeel.SkinName = "Visual Studio 2013 Dark";
             this.grdDashboard3.LookAndFeel.UseDefaultLookAndFeel = false;
             this.grdDashboard3.MainView = this.grdViewDashboard3;
             this.grdDashboard3.Name = "grdDashboard3";
-            this.grdDashboard3.Size = new System.Drawing.Size(232, 77);
+            this.grdDashboard3.Size = new System.Drawing.Size(232, 104);
             this.grdDashboard3.TabIndex = 6;
             this.grdDashboard3.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.grdViewDashboard3,
@@ -461,12 +461,12 @@
             // grdDashboard2
             // 
             this.grdDashboard2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.grdDashboard2.Location = new System.Drawing.Point(3, 140);
+            this.grdDashboard2.Location = new System.Drawing.Point(3, 157);
             this.grdDashboard2.LookAndFeel.SkinName = "Visual Studio 2013 Dark";
             this.grdDashboard2.LookAndFeel.UseDefaultLookAndFeel = false;
             this.grdDashboard2.MainView = this.grdViewDashboard2;
             this.grdDashboard2.Name = "grdDashboard2";
-            this.grdDashboard2.Size = new System.Drawing.Size(232, 77);
+            this.grdDashboard2.Size = new System.Drawing.Size(232, 104);
             this.grdDashboard2.TabIndex = 5;
             this.grdDashboard2.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.grdViewDashboard2,
@@ -491,12 +491,12 @@
             // grdDashboard1
             // 
             this.grdDashboard1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.grdDashboard1.Location = new System.Drawing.Point(3, 24);
+            this.grdDashboard1.Location = new System.Drawing.Point(3, 21);
             this.grdDashboard1.LookAndFeel.SkinName = "Visual Studio 2013 Dark";
             this.grdDashboard1.LookAndFeel.UseDefaultLookAndFeel = false;
             this.grdDashboard1.MainView = this.grdViewDashboard1;
             this.grdDashboard1.Name = "grdDashboard1";
-            this.grdDashboard1.Size = new System.Drawing.Size(232, 77);
+            this.grdDashboard1.Size = new System.Drawing.Size(232, 104);
             this.grdDashboard1.TabIndex = 4;
             this.grdDashboard1.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.grdViewDashboard1,
@@ -521,48 +521,47 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(122)))), ((int)(((byte)(204)))));
             this.label2.Location = new System.Drawing.Point(3, 0);
             this.label2.Name = "label2";
-            this.label2.Padding = new System.Windows.Forms.Padding(0, 0, 0, 2);
-            this.label2.Size = new System.Drawing.Size(125, 21);
+            this.label2.Size = new System.Drawing.Size(124, 18);
             this.label2.TabIndex = 0;
             this.label2.Text = "Forecasted Sales";
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(122)))), ((int)(((byte)(204)))));
-            this.label3.Location = new System.Drawing.Point(3, 104);
+            this.label3.Location = new System.Drawing.Point(3, 128);
             this.label3.Name = "label3";
-            this.label3.Padding = new System.Windows.Forms.Padding(0, 12, 0, 2);
-            this.label3.Size = new System.Drawing.Size(160, 33);
+            this.label3.Padding = new System.Windows.Forms.Padding(0, 8, 0, 0);
+            this.label3.Size = new System.Drawing.Size(149, 26);
             this.label3.TabIndex = 1;
             this.label3.Text = "Quotes (last 60 days)";
             // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label4.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(122)))), ((int)(((byte)(204)))));
-            this.label4.Location = new System.Drawing.Point(3, 220);
+            this.label4.Location = new System.Drawing.Point(3, 264);
             this.label4.Name = "label4";
-            this.label4.Padding = new System.Windows.Forms.Padding(0, 12, 0, 2);
-            this.label4.Size = new System.Drawing.Size(203, 33);
+            this.label4.Padding = new System.Windows.Forms.Padding(0, 8, 0, 0);
+            this.label4.Size = new System.Drawing.Size(186, 26);
             this.label4.TabIndex = 2;
             this.label4.Text = "Sales Activity (last 30 days)";
             // 
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label5.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(122)))), ((int)(((byte)(204)))));
-            this.label5.Location = new System.Drawing.Point(3, 336);
+            this.label5.Location = new System.Drawing.Point(3, 400);
             this.label5.Name = "label5";
-            this.label5.Padding = new System.Windows.Forms.Padding(0, 12, 0, 2);
-            this.label5.Size = new System.Drawing.Size(105, 33);
+            this.label5.Padding = new System.Windows.Forms.Padding(0, 8, 0, 0);
+            this.label5.Size = new System.Drawing.Size(98, 26);
             this.label5.TabIndex = 3;
             this.label5.Text = "Top 10 Leads";
             // 
