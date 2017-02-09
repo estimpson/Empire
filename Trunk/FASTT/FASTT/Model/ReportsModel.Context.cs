@@ -133,16 +133,6 @@ namespace FASTT.Model
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_ST_Report_SalesActivityOneWeek_Result>("usp_ST_Report_SalesActivityOneWeek");
         }
     
-        public virtual ObjectResult<usp_ST_SalesLeadLog_Report_NewQuotes_Result> usp_ST_SalesLeadLog_Report_NewQuotes(ObjectParameter tranDT, ObjectParameter result)
-        {
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_ST_SalesLeadLog_Report_NewQuotes_Result>("usp_ST_SalesLeadLog_Report_NewQuotes", tranDT, result);
-        }
-    
-        public virtual ObjectResult<usp_ST_SalesLeadLog_Report_OpenQuotes_Result> usp_ST_SalesLeadLog_Report_OpenQuotes(ObjectParameter tranDT, ObjectParameter result)
-        {
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_ST_SalesLeadLog_Report_OpenQuotes_Result>("usp_ST_SalesLeadLog_Report_OpenQuotes", tranDT, result);
-        }
-    
         public virtual ObjectResult<usp_ST_Reports_GetSalesForecastData_Result> usp_ST_Reports_GetSalesForecastData(string lightingStudyCustomer, ObjectParameter tranDT, ObjectParameter result)
         {
             var lightingStudyCustomerParameter = lightingStudyCustomer != null ?
@@ -175,6 +165,15 @@ namespace FASTT.Model
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_ST_Report_TopLeadsByCustomer_Result>("usp_ST_Report_TopLeadsByCustomer", customerParameter);
         }
     
+        public virtual ObjectResult<usp_ST_SalesLeadLog_Report_NewQuotes_Result> usp_ST_SalesLeadLog_Report_NewQuotes(Nullable<int> numberOfDays, ObjectParameter tranDT, ObjectParameter result)
+        {
+            var numberOfDaysParameter = numberOfDays.HasValue ?
+                new ObjectParameter("NumberOfDays", numberOfDays) :
+                new ObjectParameter("NumberOfDays", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_ST_SalesLeadLog_Report_NewQuotes_Result>("usp_ST_SalesLeadLog_Report_NewQuotes", numberOfDaysParameter, tranDT, result);
+        }
+    
         public virtual ObjectResult<usp_ST_SalesLeadLog_Report_NewQuotesByCustomer_Result> usp_ST_SalesLeadLog_Report_NewQuotesByCustomer(string customer, ObjectParameter tranDT, ObjectParameter result)
         {
             var customerParameter = customer != null ?
@@ -182,6 +181,11 @@ namespace FASTT.Model
                 new ObjectParameter("Customer", typeof(string));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_ST_SalesLeadLog_Report_NewQuotesByCustomer_Result>("usp_ST_SalesLeadLog_Report_NewQuotesByCustomer", customerParameter, tranDT, result);
+        }
+    
+        public virtual ObjectResult<usp_ST_SalesLeadLog_Report_OpenQuotes_Result> usp_ST_SalesLeadLog_Report_OpenQuotes(ObjectParameter tranDT, ObjectParameter result)
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_ST_SalesLeadLog_Report_OpenQuotes_Result>("usp_ST_SalesLeadLog_Report_OpenQuotes", tranDT, result);
         }
     }
 }

@@ -255,12 +255,15 @@ namespace FASTT.Controllers
                             SalesInitials = item.SalesInitials,
                             Sop = item.SOP,
                             Eop = item.EOP,
-                            PackageNumber = item.PackageNumber,
                             EeiPartNumber = item.EEIPartNumber,
                             //TotalQuotedSales = string.Format("{0:n0}", item.TotalQuotedSales),
                             TotalQuotedSales = item.TotalQuotedSales,
-                            Notes = item.Notes,
-                            QuoteNumber = item.QuoteNumber
+                            Notes = item.Notes,                           
+                            Eau = item.EAU,
+                            QuotePrice = item.QuotePrice,
+                            QuotePricingDate = item.QuotePricingDate,
+                            Awarded = item.Awarded,
+                            MaterialPercentage = (item.MaterialPercentage > 0) ? string.Format("{0:P2}", item.MaterialPercentage) : ""
                         };
                         ListOpenQuotes.Add(_openQuotesDataModel);
                     }
@@ -274,7 +277,7 @@ namespace FASTT.Controllers
             }
         }
 
-        public void GetNewQuotes()
+        public void GetNewQuotes(int numberOfDays)
         {
             var res = new ObjectParameter("Result", typeof(Int32));
             var td = new ObjectParameter("TranDT", typeof(DateTime));
@@ -290,7 +293,7 @@ namespace FASTT.Controllers
 
                 if (_context != null)
                 {
-                    var queryResult = _context.usp_ST_SalesLeadLog_Report_NewQuotes(td, res);
+                    var queryResult = _context.usp_ST_SalesLeadLog_Report_NewQuotes(numberOfDays, td, res);
                     foreach (var item in queryResult.ToList())
                     {
                         _newQuotesDataModel = new ReportNewQuotesDataModel
@@ -302,12 +305,15 @@ namespace FASTT.Controllers
                             SalesInitials = item.SalesInitials,
                             Sop = item.SOP,
                             Eop = item.EOP,
-                            PackageNumber = item.PackageNumber,
                             EeiPartNumber = item.EEIPartNumber,
                             //TotalQuotedSales = string.Format("{0:n0}", item.TotalQuotedSales),
                             TotalQuotedSales = item.TotalQuotedSales,
                             Notes = item.Notes,
-                            QuoteNumber = item.QuoteNumber
+                            Eau = item.EAU,
+                            QuotePrice = item.QuotePrice,
+                            QuotePricingDate = item.QuotePricingDate,
+                            Awarded = item.Awarded,
+                            MaterialPercentage = (item.MaterialPercentage > 0) ? string.Format("{0:P2}", item.MaterialPercentage) : ""
                         };
                         ListNewQuotes.Add(_newQuotesDataModel);
                     }
@@ -733,12 +739,15 @@ namespace FASTT.Controllers
                             SalesInitials = item.SalesInitials,
                             Sop = item.SOP,
                             Eop = item.EOP,
-                            PackageNumber = item.PackageNumber,
                             EeiPartNumber = item.EEIPartNumber,
                             //TotalQuotedSales = string.Format("{0:n0}", item.TotalQuotedSales),
                             TotalQuotedSales = item.TotalQuotedSales,
-                            Notes = item.Notes,
-                            QuoteNumber = item.QuoteNumber
+                            Notes = item.Notes,                         
+                            Eau = item.EAU,
+                            QuotePrice = item.QuotePrice,
+                            QuotePricingDate = item.QuotePricingDate,
+                            Awarded = item.Awarded,
+                            MaterialPercentage = (item.MaterialPercentage > 0) ? string.Format("{0:P2}", item.MaterialPercentage) : ""
                         };
                         DashboardNewQuotesByCustomerList.Add(_dashboardNewQuotesByCustomer);
                     }
