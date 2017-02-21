@@ -25,7 +25,7 @@ namespace ImportSpreadsheetData.DataLayer
 
         #region Methods
 
-        public void Import(string customerPart, string part, string destination, decimal quantity, DateTime dueDate, string release, out string error)
+        public void Import(string customerPart, string part, string destination, decimal quantity, DateTime dueDate, string release, string releasePo, out string error)
         {
             error = "";
             var tranDt = new ObjectParameter("TranDT", typeof(DateTime));
@@ -33,7 +33,7 @@ namespace ImportSpreadsheetData.DataLayer
 
             try
             {
-                _context.usp_Stage_2_ManualImport(release, customerPart, part, destination, quantity, dueDate, tranDt, result);
+                _context.usp_Stage_2_ManualImport(release, customerPart, part, destination, quantity, dueDate, releasePo, tranDt, result);
             }
             catch (Exception ex)
             {

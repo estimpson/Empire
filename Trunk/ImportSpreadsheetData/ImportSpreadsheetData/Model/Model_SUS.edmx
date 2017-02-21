@@ -25,6 +25,7 @@
           <Parameter Name="Destination" Type="varchar" Mode="In" />
           <Parameter Name="ReleaseQty" Type="numeric" Mode="In" />
           <Parameter Name="ReleaseDT" Type="datetime" Mode="In" />
+          <Parameter Name="CustomerPOLine" Type="varchar" Mode="In" />
           <Parameter Name="TranDT" Type="datetime" Mode="InOut" />
           <Parameter Name="Result" Type="int" Mode="InOut" />
         </Function>
@@ -52,6 +53,7 @@
             <Parameter Name="Destination" Mode="In" Type="String" />
             <Parameter Name="ReleaseQty" Mode="In" Type="Decimal" />
             <Parameter Name="ReleaseDT" Mode="In" Type="DateTime" />
+            <Parameter Name="CustomerPOLine" Mode="In" Type="String" />
             <Parameter Name="TranDT" Mode="InOut" Type="DateTime" />
             <Parameter Name="Result" Mode="InOut" Type="Int32" />
           </FunctionImport>
