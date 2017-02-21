@@ -77,15 +77,14 @@ namespace ImportSpreadsheetData
 
         private void btnImport_Click(object sender, EventArgs e)
         {
-            //if (LocateFile() == 0) return;
+            if (LocateFile() == 0) return;
 
-            if (ImportData() == 0)
-            {
-                //ResetImport();
-                //return;
-            }
+            string release = GetReleaseNumber();
+            if (ClearTables(release) == 0) return;
+            
+            if (ImportData() == 0) return;
 
-            //if (ProcessData() == 1) RenameFile();
+            if (ProcessData() == 1) RenameFile();
         }
 
         private void btnSetOrderUpdateFlag_Click(object sender, EventArgs e)
@@ -135,6 +134,66 @@ namespace ImportSpreadsheetData
             cbxCustomer.Items.Add("SUS");
 
             _dataBinding = false;
+        }
+
+        private string GetReleaseNumber()
+        {
+            string release = "";
+            try
+            {
+                var reader = new StreamReader(File.OpenRead(@"S:\PlanningReleases\" + _customer + @"\Import.csv"));
+                while (!reader.EndOfStream)
+                {
+                    string line = reader.ReadLine();
+                    char[] charSeparators = new char[] {','};
+                    string[] values = line.Split(charSeparators, StringSplitOptions.None);
+
+                    release = tbxRelease.Text = values[0];
+                    if (release == "") continue;
+
+                    reader.Close();
+                    reader.Dispose();
+                    break;
+                }
+            }
+            catch (Exception)
+            {
+                // Do nothing
+            }
+            return release;
+        }
+
+        private int ClearTables(string release)
+        {
+            string error = "";
+
+            switch (_customer)
+            {
+                case "SLAmerica":
+                    _importDataSlAmerica.ResetImport(release, out error);
+                    break;
+                case "SLAKOREA":
+                    _importDataSlaKorea.ResetImport(release, out error);
+                    break;
+                case "LiteTek":
+                    _importDataLiteTek.ResetImport(release, out error);
+                    break;
+                case "IIStanley":
+                    _importDataIIStanley.ResetImport(release, out error);
+                    break;
+                case "SUS":
+                    _importDataSus.ResetImport(release, out error);
+                    break;
+            }
+
+            if (error != "")
+            {
+                MessageBox.Show(string.Format("Failed to clear the manual import tables.  Cannot continue with import.  {0}", error), "Error at ClearTables()");
+                return 0;
+            }
+
+            ClearForm();
+            return 1;
         }
 
         //private int ImportDataOld()
@@ -271,6 +330,7 @@ namespace ImportSpreadsheetData
             string release = "";
             string destination = "";
             var dueDateList = new List<DateTime>();
+            var releasePoList = new List<string>();
             var quantityList = new List<int>();
             //var exceptionList = new List<string>();
 
@@ -278,13 +338,13 @@ namespace ImportSpreadsheetData
 
             try
             {
-                var reader = new StreamReader(File.OpenRead(@"C:\PlanningReleases\" + _customer + @"\Import.csv"));
-                //var reader = new StreamReader(File.OpenRead(@"S:\PlanningReleases\" + _customer + @"\Import.csv"));
+                //var reader = new StreamReader(File.OpenRead(@"C:\PlanningReleases\" + _customer + @"\Import.csv"));
+                var reader = new StreamReader(File.OpenRead(@"S:\PlanningReleases\" + _customer + @"\Import.csv"));
                 while (!reader.EndOfStream)
                 {
                     string line = reader.ReadLine();
                     char[] charSeparators = new char[] { ',' };
-                    string[] values = line.Split(charSeparators, StringSplitOptions.RemoveEmptyEntries);
+                    string[] values = line.Split(charSeparators, StringSplitOptions.None);
 
 
                     if (_firstRow)
@@ -296,6 +356,18 @@ namespace ImportSpreadsheetData
                         // Make sure the destination in the spreadsheet is tied to the selected customer
                         int res = CheckDestinationAgainstSelectedCustomer(destination);
                         if (res == 0) return 0;
+
+                        // Capture release PO numbers if they exist (applies to Stanley only)
+                        releasePoList.Clear();
+                        foreach (var value in values)
+                        {
+                            // Skip over release and destination columns
+                            if (value == values[0] || value == values[1]) continue;
+
+                            string po = value;
+                            if (po == "") po = release;
+                            releasePoList.Add(po);
+                        }
 
                         _firstRow = false;
                         _datesRow = true;
@@ -364,7 +436,7 @@ namespace ImportSpreadsheetData
                                     _importDataIIStanley.Import(customerPart, part, destination, quantityList[j], dueDateList[j], release, out error);
                                     break;
                                 case "SUS":
-                                    _importDataSus.Import(customerPart, part, destination, quantityList[j], dueDateList[j], release, out error);
+                                    _importDataSus.Import(customerPart, part, destination, quantityList[j], dueDateList[j], release, releasePoList[j], out error);
                                     break;
                             }
 
@@ -425,35 +497,6 @@ namespace ImportSpreadsheetData
                 return 0;
             }
             return 1;
-        }
-
-        private void ResetImport()
-        {
-            string error = "";
-            string release = tbxRelease.Text.Trim();
-
-            switch (_customer)
-            {
-                case "SLAmerica":
-                    _importDataSlAmerica.ResetImport(release, out error);
-                    break;
-                case "SLAKOREA":
-                    _importDataSlaKorea.ResetImport(release, out error);
-                    break;
-                case "LiteTek":
-                    _importDataLiteTek.ResetImport(release, out error);
-                    break;
-                case "IIStanley":
-                    _importDataIIStanley.ResetImport(release, out error);
-                    break;
-                case "SUS":
-                    _importDataSus.ResetImport(release, out error);
-                    break;
-            }
-
-            if (error != "") MessageBox.Show(error, "Error at ResetImport()");
-
-            ClearForm();
         }
 
         private int ProcessData()

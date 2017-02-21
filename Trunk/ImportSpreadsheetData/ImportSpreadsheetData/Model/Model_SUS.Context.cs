@@ -21,6 +21,7 @@ namespace ImportSpreadsheetData.Model
         public MONITOREntities_SUS()
             : base("name=MONITOREntities_SUS")
         {
+    		((IObjectContextAdapter)this).ObjectContext.CommandTimeout = 300;
         }
     
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
@@ -55,7 +56,7 @@ namespace ImportSpreadsheetData.Model
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("usp_Process_ManualImport", destinationParameter, tranDT, result, testingParameter, debugParameter);
         }
     
-        public virtual int usp_Stage_2_ManualImport(string release, string customerPart, string part, string destination, Nullable<decimal> releaseQty, Nullable<System.DateTime> releaseDT, ObjectParameter tranDT, ObjectParameter result)
+        public virtual int usp_Stage_2_ManualImport(string release, string customerPart, string part, string destination, Nullable<decimal> releaseQty, Nullable<System.DateTime> releaseDT, string customerPOLine, ObjectParameter tranDT, ObjectParameter result)
         {
             var releaseParameter = release != null ?
                 new ObjectParameter("Release", release) :
@@ -81,7 +82,11 @@ namespace ImportSpreadsheetData.Model
                 new ObjectParameter("ReleaseDT", releaseDT) :
                 new ObjectParameter("ReleaseDT", typeof(System.DateTime));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("usp_Stage_2_ManualImport", releaseParameter, customerPartParameter, partParameter, destinationParameter, releaseQtyParameter, releaseDTParameter, tranDT, result);
+            var customerPOLineParameter = customerPOLine != null ?
+                new ObjectParameter("CustomerPOLine", customerPOLine) :
+                new ObjectParameter("CustomerPOLine", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("usp_Stage_2_ManualImport", releaseParameter, customerPartParameter, partParameter, destinationParameter, releaseQtyParameter, releaseDTParameter, customerPOLineParameter, tranDT, result);
         }
     }
 }
