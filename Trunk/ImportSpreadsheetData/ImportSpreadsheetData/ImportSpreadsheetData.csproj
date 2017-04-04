@@ -57,6 +57,7 @@
     <Compile Include="DataLayer\ImportDataSLAKorea.cs" />
     <Compile Include="DataLayer\ImportDataSLAmerica.cs" />
     <Compile Include="DataLayer\ImportDataSUS.cs" />
+    <Compile Include="DataLayer\ImportDataTRWSAF.cs" />
     <Compile Include="DataLayer\SalesOrderMaintenance.cs" />
     <Compile Include="DataModels\SalesOrderDataModel.cs" />
     <Compile Include="frmImport.cs">
@@ -175,6 +176,21 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Model_SUS.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Model\Model_TRWSAF.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Model_TRWSAF.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\Model_TRWSAF.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Model_TRWSAF.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\Model_TRWSAF.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Model_TRWSAF.edmx</DependentUpon>
     </Compile>
     <Compile Include="Model\usp_PlanningReleaseManualImport_GetOrders_Result.cs">
       <DependentUpon>Model_OrderMaintenance.tt</DependentUpon>
@@ -316,6 +332,13 @@
       <DependentUpon>Model_SUS.edmx</DependentUpon>
       <LastGenOutput>Model_SUS.cs</LastGenOutput>
     </None>
+    <EntityDeploy Include="Model\Model_TRWSAF.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>Model_TRWSAF.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="Model\Model_TRWSAF.edmx.diagram">
+      <DependentUpon>Model_TRWSAF.edmx</DependentUpon>
+    </None>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -329,6 +352,18 @@
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Model\Model_TRWSAF.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>Model_TRWSAF.edmx</DependentUpon>
+      <LastGenOutput>Model_TRWSAF.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Model\Model_TRWSAF.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>Model_TRWSAF.edmx</DependentUpon>
+      <LastGenOutput>Model_TRWSAF.cs</LastGenOutput>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
