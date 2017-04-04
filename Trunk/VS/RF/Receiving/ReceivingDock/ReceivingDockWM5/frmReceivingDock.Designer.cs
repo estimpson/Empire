@@ -104,7 +104,6 @@ namespace ReceivingDockWM5
             this.uxMessage.Size = new System.Drawing.Size(229, 50);
             this.uxMessage.Text = "Login.";
             this.uxMessage.TextAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.uxMessage.ParentChanged += new System.EventHandler(this.uxMessage_ParentChanged);
             // 
             // label4
             // 
@@ -133,7 +132,6 @@ namespace ReceivingDockWM5
             this.uxPO.Name = "uxPO";
             this.uxPO.Size = new System.Drawing.Size(93, 21);
             this.uxPO.TabIndex = 3;
-            this.uxPO.TextChanged += new System.EventHandler(this.uxPO_TextChanged);
             this.uxPO.GotFocus += new System.EventHandler(this.uxPO_GotFocus);
             this.uxPO.KeyDown += new System.Windows.Forms.KeyEventHandler(this.uxPO_KeyDown);
             // 
@@ -152,7 +150,6 @@ namespace ReceivingDockWM5
             this.uxPWD.PasswordChar = '*';
             this.uxPWD.Size = new System.Drawing.Size(93, 21);
             this.uxPWD.TabIndex = 6;
-            this.uxPWD.TextChanged += new System.EventHandler(this.uxPWD_TextChanged);
             this.uxPWD.KeyDown += new System.Windows.Forms.KeyEventHandler(this.uxPWD_KeyDown);
             // 
             // uxQty
@@ -170,7 +167,6 @@ namespace ReceivingDockWM5
             this.uxLot.Name = "uxLot";
             this.uxLot.Size = new System.Drawing.Size(93, 21);
             this.uxLot.TabIndex = 9;
-            this.uxLot.TextChanged += new System.EventHandler(this.uxLot_TextChanged);
             this.uxLot.GotFocus += new System.EventHandler(this.uxLot_GotFocus);
             this.uxLot.KeyDown += new System.Windows.Forms.KeyEventHandler(this.uxLot_KeyDown);
             // 
@@ -180,7 +176,6 @@ namespace ReceivingDockWM5
             this.uxPart.Name = "uxPart";
             this.uxPart.Size = new System.Drawing.Size(93, 21);
             this.uxPart.TabIndex = 5;
-            this.uxPart.TextChanged += new System.EventHandler(this.uxPart_TextChanged);
             this.uxPart.GotFocus += new System.EventHandler(this.uxPart_GotFocus);
             this.uxPart.KeyDown += new System.Windows.Forms.KeyEventHandler(this.uxPart_KeyDown);
             // 
@@ -243,7 +238,6 @@ namespace ReceivingDockWM5
             this.uxOperator.Size = new System.Drawing.Size(111, 19);
             this.uxOperator.Text = "label2";
             this.uxOperator.Visible = false;
-            this.uxOperator.ParentChanged += new System.EventHandler(this.uxOperator_ParentChanged);
             // 
             // panelStdReceiving
             // 
@@ -269,7 +263,6 @@ namespace ReceivingDockWM5
             this.panelStdReceiving.Location = new System.Drawing.Point(6, 33);
             this.panelStdReceiving.Name = "panelStdReceiving";
             this.panelStdReceiving.Size = new System.Drawing.Size(229, 232);
-            this.panelStdReceiving.GotFocus += new System.EventHandler(this.panelStdReceiving_GotFocus);
             // 
             // uxStoreSID
             // 
@@ -298,7 +291,6 @@ namespace ReceivingDockWM5
             this.menuItemPrintServer.MenuItems.Add(this.menuItem4PrintServer);
             this.menuItemPrintServer.MenuItems.Add(this.menuItem5PrintServer);
             this.menuItemPrintServer.Text = "";
-            this.menuItemPrintServer.Click += new System.EventHandler(this.menuItemPrintServer_Click);
             // 
             // menuItem1PrintServer
             // 
@@ -328,7 +320,6 @@ namespace ReceivingDockWM5
             // menuItemLocation
             // 
             this.menuItemLocation.Text = "Location";
-            this.menuItemLocation.Click += new System.EventHandler(this.menuItem1_Click);
             // 
             // frmReceivingDock
             // 
@@ -344,7 +335,7 @@ namespace ReceivingDockWM5
             this.Controls.Add(this.panelStdReceiving);
             this.Menu = this.mainMenuReceivingDock;
             this.Name = "frmReceivingDock";
-            this.Text = "Receiving Dock 1.02";
+            this.Text = "Receiving Dock 1.1";
             this.Load += new System.EventHandler(this.frmReceivingDock_Load);
             this.Closing += new System.ComponentModel.CancelEventHandler(this.frmReceivingDock_Closing);
             this.panelStdReceiving.ResumeLayout(false);

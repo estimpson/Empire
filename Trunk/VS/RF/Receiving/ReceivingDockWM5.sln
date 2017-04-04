@@ -5,7 +5,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReceivingDockWM5", "Receivi
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReceivingDockData", "ReceivingDock\ReceivingDockData\ReceivingDockData.csproj", "{DD7C0C98-6464-4362-A23E-19CD6FA5F9CA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CommonData", "..\..\CommonData\7-26-2010\CommonData.csproj", "{041D2313-2AC5-49D2-AB13-458CF7E21FD0}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CommonData", "CommonData\7-26-2010\CommonData.csproj", "{041D2313-2AC5-49D2-AB13-458CF7E21FD0}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SymbolRFGun", "SymbolRFGun\SymbolRFGun.csproj", "{6C13AF88-615C-44D3-B8AB-90F27A3B5B4C}"
 EndProject

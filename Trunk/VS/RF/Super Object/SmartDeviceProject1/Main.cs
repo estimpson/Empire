@@ -268,8 +268,8 @@ namespace SmartDeviceProject1
             }
             reader.Close();
             //Majority of this code I took from the receiving program. Just Checks if the password is correct.
-            EEHEmployeeTableAdapter taEmployee = new EEHEmployeeTableAdapter();
-            dsCommon.EEHEmployeeDataTable dtEmployees = taEmployee.GetDataBy(sPassword);
+            var taEmployee = new EEHEmployeeTableAdapter{Connection = new SqlConnection{ConnectionString = connectionString1}};
+            var dtEmployees = taEmployee.GetDataBy(sPassword);
             string sOperatorCode;
             switch (dtEmployees.Rows.Count)
             {
