@@ -62,7 +62,6 @@
             this.mesTbxMinutes = new Fx.WinForms.Flat.MESTextEdit();
             this.mesBtnSaveSalesLead = new Fx.WinForms.Flat.MESButton();
             this.tableLayoutPanel6 = new System.Windows.Forms.TableLayoutPanel();
-            this.lblQuoteNumber = new System.Windows.Forms.Label();
             this.label15 = new System.Windows.Forms.Label();
             this.label12 = new System.Windows.Forms.Label();
             this.label14 = new System.Windows.Forms.Label();
@@ -72,11 +71,12 @@
             this.mesTbxContactEmail = new Fx.WinForms.Flat.MESTextEdit();
             this.cbxSalesLeadStatus = new System.Windows.Forms.ComboBox();
             this.mesTbxQuoteNumber = new Fx.WinForms.Flat.MESTextEdit();
+            this.lblQuoteNumber = new System.Windows.Forms.Label();
+            this.lblAwardedVolume = new System.Windows.Forms.Label();
+            this.mesTbxAwardedVolume = new Fx.WinForms.Flat.MESTextEdit();
             this.tableLayoutPanel7 = new System.Windows.Forms.TableLayoutPanel();
             this.mesTbxMeetingLocation = new Fx.WinForms.Flat.MESTextEdit();
             this.lblMeetingLocation = new System.Windows.Forms.Label();
-            this.lblAwardedVolume = new System.Windows.Forms.Label();
-            this.mesTbxAwardedVolume = new Fx.WinForms.Flat.MESTextEdit();
             this.panel1.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
@@ -237,7 +237,7 @@
             // 
             this.tlpForm.ColumnCount = 6;
             this.tlpForm.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 90F));
-            this.tlpForm.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 190F));
+            this.tlpForm.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 260F));
             this.tlpForm.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 80F));
             this.tlpForm.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 190F));
             this.tlpForm.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 70F));
@@ -283,7 +283,7 @@
             this.mesTbxProgram.Location = new System.Drawing.Point(93, 3);
             this.mesTbxProgram.Name = "mesTbxProgram";
             this.mesTbxProgram.ReadOnly = true;
-            this.mesTbxProgram.Size = new System.Drawing.Size(161, 26);
+            this.mesTbxProgram.Size = new System.Drawing.Size(239, 26);
             this.mesTbxProgram.TabIndex = 9;
             // 
             // label3
@@ -291,7 +291,7 @@
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label3.ForeColor = System.Drawing.Color.Gainsboro;
-            this.label3.Location = new System.Drawing.Point(283, 0);
+            this.label3.Location = new System.Drawing.Point(353, 0);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(68, 16);
             this.label3.TabIndex = 2;
@@ -303,10 +303,10 @@
             this.mesTbxCustomer.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.mesTbxCustomer.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.mesTbxCustomer.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
-            this.mesTbxCustomer.Location = new System.Drawing.Point(363, 3);
+            this.mesTbxCustomer.Location = new System.Drawing.Point(433, 3);
             this.mesTbxCustomer.Name = "mesTbxCustomer";
             this.mesTbxCustomer.ReadOnly = true;
-            this.mesTbxCustomer.Size = new System.Drawing.Size(161, 26);
+            this.mesTbxCustomer.Size = new System.Drawing.Size(164, 26);
             this.mesTbxCustomer.TabIndex = 3;
             // 
             // label7
@@ -314,7 +314,7 @@
             this.label7.AutoSize = true;
             this.label7.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label7.ForeColor = System.Drawing.Color.Gainsboro;
-            this.label7.Location = new System.Drawing.Point(553, 0);
+            this.label7.Location = new System.Drawing.Point(623, 0);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(56, 16);
             this.label7.TabIndex = 8;
@@ -326,7 +326,7 @@
             this.mesTbxVolume.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.mesTbxVolume.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.mesTbxVolume.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
-            this.mesTbxVolume.Location = new System.Drawing.Point(623, 3);
+            this.mesTbxVolume.Location = new System.Drawing.Point(693, 3);
             this.mesTbxVolume.Name = "mesTbxVolume";
             this.mesTbxVolume.ReadOnly = true;
             this.mesTbxVolume.Size = new System.Drawing.Size(161, 26);
@@ -337,7 +337,7 @@
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label6.ForeColor = System.Drawing.Color.Gainsboro;
-            this.label6.Location = new System.Drawing.Point(283, 35);
+            this.label6.Location = new System.Drawing.Point(353, 35);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(37, 16);
             this.label6.TabIndex = 15;
@@ -352,7 +352,7 @@
             this.mesTbxApplication.Location = new System.Drawing.Point(93, 38);
             this.mesTbxApplication.Name = "mesTbxApplication";
             this.mesTbxApplication.ReadOnly = true;
-            this.mesTbxApplication.Size = new System.Drawing.Size(161, 26);
+            this.mesTbxApplication.Size = new System.Drawing.Size(239, 26);
             this.mesTbxApplication.TabIndex = 16;
             // 
             // label2
@@ -372,10 +372,10 @@
             this.mesTbxSop.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.mesTbxSop.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.mesTbxSop.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
-            this.mesTbxSop.Location = new System.Drawing.Point(363, 38);
+            this.mesTbxSop.Location = new System.Drawing.Point(433, 38);
             this.mesTbxSop.Name = "mesTbxSop";
             this.mesTbxSop.ReadOnly = true;
-            this.mesTbxSop.Size = new System.Drawing.Size(161, 26);
+            this.mesTbxSop.Size = new System.Drawing.Size(164, 26);
             this.mesTbxSop.TabIndex = 17;
             // 
             // label5
@@ -383,7 +383,7 @@
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label5.ForeColor = System.Drawing.Color.White;
-            this.label5.Location = new System.Drawing.Point(553, 35);
+            this.label5.Location = new System.Drawing.Point(623, 35);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(34, 14);
             this.label5.TabIndex = 18;
@@ -395,7 +395,7 @@
             this.mesTbxEop.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.mesTbxEop.Font = new System.Drawing.Font("Tahoma", 12F);
             this.mesTbxEop.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
-            this.mesTbxEop.Location = new System.Drawing.Point(623, 38);
+            this.mesTbxEop.Location = new System.Drawing.Point(693, 38);
             this.mesTbxEop.Name = "mesTbxEop";
             this.mesTbxEop.ReadOnly = true;
             this.mesTbxEop.Size = new System.Drawing.Size(161, 27);
@@ -567,17 +567,6 @@
             this.tableLayoutPanel6.Size = new System.Drawing.Size(992, 89);
             this.tableLayoutPanel6.TabIndex = 17;
             // 
-            // lblQuoteNumber
-            // 
-            this.lblQuoteNumber.AutoSize = true;
-            this.lblQuoteNumber.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblQuoteNumber.ForeColor = System.Drawing.Color.White;
-            this.lblQuoteNumber.Location = new System.Drawing.Point(553, 40);
-            this.lblQuoteNumber.Name = "lblQuoteNumber";
-            this.lblQuoteNumber.Size = new System.Drawing.Size(60, 16);
-            this.lblQuoteNumber.TabIndex = 25;
-            this.lblQuoteNumber.Text = "Quote #:";
-            // 
             // label15
             // 
             this.label15.AutoSize = true;
@@ -683,6 +672,41 @@
             this.mesTbxQuoteNumber.Name = "mesTbxQuoteNumber";
             this.mesTbxQuoteNumber.Size = new System.Drawing.Size(135, 27);
             this.mesTbxQuoteNumber.TabIndex = 24;
+            this.mesTbxQuoteNumber.Visible = false;
+            // 
+            // lblQuoteNumber
+            // 
+            this.lblQuoteNumber.AutoSize = true;
+            this.lblQuoteNumber.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblQuoteNumber.ForeColor = System.Drawing.Color.White;
+            this.lblQuoteNumber.Location = new System.Drawing.Point(553, 40);
+            this.lblQuoteNumber.Name = "lblQuoteNumber";
+            this.lblQuoteNumber.Size = new System.Drawing.Size(60, 16);
+            this.lblQuoteNumber.TabIndex = 25;
+            this.lblQuoteNumber.Text = "Quote #:";
+            this.lblQuoteNumber.Visible = false;
+            // 
+            // lblAwardedVolume
+            // 
+            this.lblAwardedVolume.AutoSize = true;
+            this.lblAwardedVolume.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblAwardedVolume.ForeColor = System.Drawing.Color.White;
+            this.lblAwardedVolume.Location = new System.Drawing.Point(273, 40);
+            this.lblAwardedVolume.Name = "lblAwardedVolume";
+            this.lblAwardedVolume.Size = new System.Drawing.Size(114, 16);
+            this.lblAwardedVolume.TabIndex = 26;
+            this.lblAwardedVolume.Text = "Awarded Volume:";
+            // 
+            // mesTbxAwardedVolume
+            // 
+            this.mesTbxAwardedVolume.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(37)))), ((int)(((byte)(38)))));
+            this.mesTbxAwardedVolume.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.mesTbxAwardedVolume.Font = new System.Drawing.Font("Tahoma", 12F);
+            this.mesTbxAwardedVolume.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
+            this.mesTbxAwardedVolume.Location = new System.Drawing.Point(393, 43);
+            this.mesTbxAwardedVolume.Name = "mesTbxAwardedVolume";
+            this.mesTbxAwardedVolume.Size = new System.Drawing.Size(142, 27);
+            this.mesTbxAwardedVolume.TabIndex = 27;
             // 
             // tableLayoutPanel7
             // 
@@ -721,28 +745,6 @@
             this.lblMeetingLocation.Size = new System.Drawing.Size(109, 16);
             this.lblMeetingLocation.TabIndex = 16;
             this.lblMeetingLocation.Text = "Meeting Location:";
-            // 
-            // lblAwardedVolume
-            // 
-            this.lblAwardedVolume.AutoSize = true;
-            this.lblAwardedVolume.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblAwardedVolume.ForeColor = System.Drawing.Color.White;
-            this.lblAwardedVolume.Location = new System.Drawing.Point(273, 40);
-            this.lblAwardedVolume.Name = "lblAwardedVolume";
-            this.lblAwardedVolume.Size = new System.Drawing.Size(114, 16);
-            this.lblAwardedVolume.TabIndex = 26;
-            this.lblAwardedVolume.Text = "Awarded Volume:";
-            // 
-            // mesTbxAwardedVolume
-            // 
-            this.mesTbxAwardedVolume.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(37)))), ((int)(((byte)(38)))));
-            this.mesTbxAwardedVolume.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.mesTbxAwardedVolume.Font = new System.Drawing.Font("Tahoma", 12F);
-            this.mesTbxAwardedVolume.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
-            this.mesTbxAwardedVolume.Location = new System.Drawing.Point(393, 43);
-            this.mesTbxAwardedVolume.Name = "mesTbxAwardedVolume";
-            this.mesTbxAwardedVolume.Size = new System.Drawing.Size(142, 27);
-            this.mesTbxAwardedVolume.TabIndex = 27;
             // 
             // SalesLeadsActivityDetailsView
             // 

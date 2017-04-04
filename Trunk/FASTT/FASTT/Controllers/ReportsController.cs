@@ -17,6 +17,8 @@ namespace FASTT.Controllers
         private readonly CustomMessageBox _messageBox;
 
         public List<string> CustomersList = new List<string>(); 
+        public List<string> HitlistCustomersList = new List<string>();
+        public List<string> HitlistCustomerSopsList = new List<string>();
 
         private ReportOpenQuotesDataModel _openQuotesDataModel;
         public readonly List<ReportOpenQuotesDataModel> ListOpenQuotes = new List<ReportOpenQuotesDataModel>();
@@ -51,20 +53,14 @@ namespace FASTT.Controllers
         private ReportSalesPersonActivityDataModel _salesPersonActivityDataModel;
         public readonly List<ReportSalesPersonActivityDataModel> ListSalesPersonActivity = new List<ReportSalesPersonActivityDataModel>();
 
-        private ReportTopLeadsDataModel _topLeadsDataModel;
-        public readonly List<ReportTopLeadsDataModel> ListTopLeads = new List<ReportTopLeadsDataModel>();
+        private ReportHitlistMsfDataModel _hitlistMsfDataModel;
+        public readonly List<ReportHitlistMsfDataModel> ListHitlistMsf = new List<ReportHitlistMsfDataModel>(); 
 
         private DashboardSalesForecastDataModel _dashboardSalesForecast;
         public readonly List<DashboardSalesForecastDataModel> DashboardSalesForecastList = new List<DashboardSalesForecastDataModel>();
 
         private DashboardNewQuotesByCustomerDataModel _dashboardNewQuotesByCustomer;
         public readonly List<DashboardNewQuotesByCustomerDataModel> DashboardNewQuotesByCustomerList = new List<DashboardNewQuotesByCustomerDataModel>();
-
-        private DashboardTopLeadsByCustomerDataModel _dashboardTopLeadsByCustomer;
-        public readonly List<DashboardTopLeadsByCustomerDataModel> DashboardTopLeadsByCustomerList = new List<DashboardTopLeadsByCustomerDataModel>();
-
-        private DashboardSalesPersonActivityByCustomerDataModel _dashboardSalesPersonActivityByCustomer;
-        public readonly List<DashboardSalesPersonActivityByCustomerDataModel> DashboardSalesPersonActivityByCustomerList = new List<DashboardSalesPersonActivityByCustomerDataModel>();
 
         #endregion
 
@@ -80,7 +76,7 @@ namespace FASTT.Controllers
         #endregion
 
 
-        #region Customer ComboBox Methods
+        #region Customer ComboBox Methods (Charts)
 
         public int GetAllLightingStudyCustomers(string region)
         {
@@ -225,6 +221,67 @@ namespace FASTT.Controllers
         #endregion
 
 
+        #region Customer ComboBox Methods (Hitlist report)
+
+        public int GetHitListCustomers(string region)
+        {
+            HitlistCustomersList.Clear();
+            try
+            {
+                if (_context != null)
+                {
+                    _context.Dispose();
+                    _context = new MONITOREntities();
+                }
+
+                if (_context != null)
+                {
+                    HitlistCustomersList.Add("");
+                    var queryResult = _context.usp_ST_Report_Hitlist_GetCustomerList(region).ToList();
+                    foreach (var item in queryResult) HitlistCustomersList.Add(item.Customer);
+                }
+            }
+            catch (Exception ex)
+            {
+                string error = (ex.InnerException != null) ? ex.InnerException.Message : ex.Message;
+                _messageBox.Message = string.Format("Failed to return Customers list for report.  Error: {0}", error);
+                _messageBox.ShowDialog();
+                return 0;
+            }
+            return 1;
+        }
+
+        public int GetHitListCustomerSops(string customer)
+        {
+            HitlistCustomerSopsList.Clear();
+            try
+            {
+                if (_context != null)
+                {
+                    _context.Dispose();
+                    _context = new MONITOREntities();
+                }
+
+                if (_context != null)
+                {
+                    HitlistCustomerSopsList.Add("");
+                    var queryResult = _context.usp_ST_Report_Hitlist_GetSopList(customer).ToList();
+                    foreach (var item in queryResult) HitlistCustomerSopsList.Add(item.SOPYear.ToString());
+                }
+            }
+            catch (Exception ex)
+            {
+                string error = (ex.InnerException != null) ? ex.InnerException.Message : ex.Message;
+                _messageBox.Message = string.Format("Failed to return Customer SOPs list for report.  Error: {0}", error);
+                _messageBox.ShowDialog();
+                return 0;
+            }
+            return 1;
+        }
+
+        #endregion
+
+
         #region Quote Log Grid Methods
 
         public void GetOpenQuotes()
@@ -346,7 +403,7 @@ namespace FASTT.Controllers
 
                 if (_context != null)
                 {
-                    var queryResult = _context.usp_ST_Report_SalesActivityOneWeek();
+                    var queryResult = _context.usp_ST_Report_Hitlist_SalesActivityOneWeek();
                     foreach (var item in queryResult)
                     {
                         _salesPersonActivityDataModel = new ReportSalesPersonActivityDataModel
@@ -356,12 +413,13 @@ namespace FASTT.Controllers
                             Customer = item.Customer,
                             Program = item.Program,
                             Application = item.Application,
-                            BulbType = item.BulbType,
-                            Nameplate = item.NamePlate,
+                            Type = item.Type,
+                            Nameplate = item.Nameplate,
                             Region = item.Region,
                             SOP = item.SOP,
                             EOP = item.EOP,
-                            PeakVolume = item.PeakVolume ?? 0,
+                            PeakYearlyVolume = string.Format("{0:n0}", item.PeakYearlyVolume),
+                            EstYearlySales = item.EstYearlySales,
                             Status = item.Status,
                             ActivityDate = item.ActivityDate,
                             Activity = item.Activity,
@@ -371,10 +429,13 @@ namespace FASTT.Controllers
                             ContactEmailAddress = item.ContactEmailAddress,
                             Duration = item.Duration,
                             Notes = item.Notes,
-                            SalesPersonCode = item.SalesPersonCode,
-                            AwardedVolume = (item.AwardedVolume.HasValue) ? item.AwardedVolume.ToString() : "",
-                            RowId = Convert.ToInt32(item.RowID),
-                            CombinedLightingStudyId = item.CombinedLightingId
+                            AwardedVolume = (item.AwardedVolume.HasValue) ? string.Format("{0:n0}", item.AwardedVolume) : "",
+                            Price = item.Price,
+                            SOPYear = item.SOPYear,
+                            Component = item.Component,
+                            LED_Harness = item.LED_Harness,
+                            ID = item.ID,
+                            SalesLeadID = Convert.ToInt32(item.RowID)
                         };
                         ListSalesPersonActivity.Add(_salesPersonActivityDataModel);
                     }
@@ -388,9 +449,9 @@ namespace FASTT.Controllers
             }
         }
 
-        public void GetTopLeads()
+        public void GetHitlist(string region, string customer, int? sopYear)
         {
-            ListTopLeads.Clear();
+            ListHitlistMsf.Clear();
             try
             {
                 if (_context != null)
@@ -401,36 +462,57 @@ namespace FASTT.Controllers
 
                 if (_context != null)
                 {
-                    var queryResult = _context.usp_ST_Report_TopLeads();
+                    var queryResult = _context.usp_ST_Report_Hitlist_MSF(customer, region, sopYear);            
                     foreach (var item in queryResult)
                     {
-                        _topLeadsDataModel = new ReportTopLeadsDataModel
+                        _hitlistMsfDataModel = new ReportHitlistMsfDataModel
                         {
-                            PeakVolumeSalesEstimate = item.PeakVolumeSalesEstimate ?? 0,
-                            PeakVolume = item.PeakVolume ?? 0,
-                            OEM = item.OEM,
                             Customer = item.Customer,
                             Program = item.Program,
-                            Application = item.Application,
-                            BulbType = item.BulbType,
-                            Nameplate = item.NamePlate,
+                            EstYearlySales = item.EstYearlySales,
+                            PeakYearlyVolume = string.Format("{0:n0}", item.PeakYearlyVolume),
+                            SOPYear = item.SOPYear,
+                            LED_Harness = item.LED_Harness,
+                            Application = item.Application, 
                             Region = item.Region,
+                            OEM = item.OEM,
+                            Nameplate = item.NamePlate,
+                            Component = item.Component,
                             SOP = item.SOP,
                             EOP = item.EOP,
-                            SalesLeadStatus = item.SalesLeadStatus,
+                            Type = item.Type,
+                            Price = item.Price,
+                            Volume2017 = item.Volume2017,
+                            Volume2018 = item.Volume2018,
+                            Volume2019 = item.Volume2019,
+                            Volume2020 = item.Volume2020,
+                            Volume2021 = item.Volume2021,
+                            Volume2022 = item.Volume2022,
+                            ID = item.ID,
+                            SalesLeadID = item.SalesLeadId,
                             SalesPerson = item.SalesPerson,
-                            AwardedVolume = (item.AwardedVolume.HasValue) ? item.AwardedVolume.ToString() : "",
-                            RowId = item.SalesLeadId,
-                            CombinedLightingStudyId = item.CombinedLightingId
+                            QuoteNumber = item.QuoteNumber,
+                            EEIPartNumber = item.EEIPartNumber,
+                            EAU = item.EAU,
+                            ApplicationName = item.ApplicationName,
+                            SalesInitials = item.SalesInitials,
+                            QuotePrice = item.QuotePrice,
+                            Awarded = item.Awarded,
+                            QuoteStatus = item.QuoteStatus,
+                            StraightMaterialCost = item.StraightMaterialCost,
+                            TotalQuotedSales = item.TotalQuotedSales,
+                            SalesForecastEEIBasePart = item.SalesForecastEEIBasePart,
+                            SalesForecastPeakYearlyVolume = (item.SalesForecastPeakYearlyVolume.HasValue) ? item.SalesForecastPeakYearlyVolume : 0,
+                            SalesForecastApplication = item.SalesForecastApplication
                         };
-                        ListTopLeads.Add(_topLeadsDataModel);
+                        ListHitlistMsf.Add(_hitlistMsfDataModel);
                     }
                 }
             }
             catch (Exception ex)
             {
                 string error = (ex.InnerException != null) ? ex.InnerException.Message : ex.Message;
-                _messageBox.Message = string.Format("Failed to return top leads data.  Error: {0}", error);
+                _messageBox.Message = string.Format("Failed to return sales hitlist data.  Error: {0}", error);
                 _messageBox.ShowDialog();
             }
         }
@@ -761,9 +843,9 @@ namespace FASTT.Controllers
             }
         }
 
-        public void GetTopLeadsByCustomer(string customer)
+        public void GetHitlistMsfDashboard(string customer, int? sopYear)
         {
-            DashboardTopLeadsByCustomerList.Clear();
+            ListHitlistMsf.Clear();
             try
             {
                 if (_context != null)
@@ -774,36 +856,56 @@ namespace FASTT.Controllers
 
                 if (_context != null)
                 {
-                    var queryResult = _context.usp_ST_Report_TopLeadsByCustomer(customer);
+                    var queryResult = _context.usp_ST_Report_Hitlist_MSF_Dashboard(customer, sopYear);
                     foreach (var item in queryResult)
                     {
-                        _dashboardTopLeadsByCustomer = new DashboardTopLeadsByCustomerDataModel
+                        _hitlistMsfDataModel = new ReportHitlistMsfDataModel
                         {
-                            PeakVolume = item.PeakVolume ?? 0,
-                            PeakVolumeSalesEstimate = item.PeakVolumeSalesEstimate ?? 0,
-                            OEM = item.OEM,
                             Customer = item.Customer,
                             Program = item.Program,
+                            EstYearlySales = item.EstYearlySales,
+                            PeakYearlyVolume = string.Format("{0:n0}", item.PeakYearlyVolume),
+                            SOPYear = item.SOPYear,
+                            LED_Harness = item.LED_Harness,
                             Application = item.Application,
-                            BulbType = item.BulbType,
-                            Nameplate = item.NamePlate,
                             Region = item.Region,
+                            OEM = item.OEM,
+                            Nameplate = item.NamePlate,
+                            Component = item.Component,
                             SOP = item.SOP,
                             EOP = item.EOP,
-                            SalesLeadStatus = item.SalesLeadStatus,
+                            Type = item.Type,
+                            Price = item.Price,
+                            Volume2017 = item.Volume2017,
+                            Volume2018 = item.Volume2018,
+                            Volume2019 = item.Volume2019,
+                            Volume2020 = item.Volume2020,
+                            Volume2021 = item.Volume2021,
+                            Volume2022 = item.Volume2022,
+                            ID = item.ID,
+                            SalesLeadID = item.SalesLeadId,
                             SalesPerson = item.SalesPerson,
-                            AwardedVolume = (item.AwardedVolume.HasValue) ? item.AwardedVolume.ToString() : "",
-                            RowId = item.SalesLeadId,
-                            CombinedLightingId = item.CombinedLightingId
+                            QuoteNumber = item.QuoteNumber,
+                            EEIPartNumber = item.EEIPartNumber,
+                            EAU = item.EAU,
+                            ApplicationName = item.ApplicationName,
+                            SalesInitials = item.SalesInitials,
+                            QuotePrice = item.QuotePrice,
+                            Awarded = item.Awarded,
+                            QuoteStatus = item.QuoteStatus,
+                            StraightMaterialCost = item.StraightMaterialCost,
+                            TotalQuotedSales = item.TotalQuotedSales,
+                            SalesForecastEEIBasePart = item.SalesForecastEEIBasePart,
+                            SalesForecastPeakYearlyVolume = (item.SalesForecastPeakYearlyVolume.HasValue) ? item.SalesForecastPeakYearlyVolume : 0
                         };
-                        DashboardTopLeadsByCustomerList.Add(_dashboardTopLeadsByCustomer);
+                        ListHitlistMsf.Add(_hitlistMsfDataModel);
                     }
                 }
             }
             catch (Exception ex)
             {
                 string error = (ex.InnerException != null) ? ex.InnerException.Message : ex.Message;
-                _messageBox.Message = string.Format("Failed to return top leads data for this customer.  {0}", error);
+                _messageBox.Message = string.Format("Failed to return sales hitlist data.  Error: {0}", error);
                 _messageBox.ShowDialog();
             }
         }
@@ -812,7 +914,7 @@ namespace FASTT.Controllers
         {
             try
             {
-                DashboardSalesPersonActivityByCustomerList.Clear();
+                ListSalesPersonActivity.Clear();
 
                 if (_context != null)
                 {
@@ -822,22 +924,23 @@ namespace FASTT.Controllers
 
                 if (_context != null)
                 {
-                    var queryResult = _context.usp_ST_Report_SalesActivityByCustomer(customer);
+                    var queryResult = _context.usp_ST_Report_Hitlist_SalesActivityByCustomer(customer);
                     foreach (var item in queryResult)
                     {
-                        _dashboardSalesPersonActivityByCustomer = new DashboardSalesPersonActivityByCustomerDataModel
+                        _salesPersonActivityDataModel = new ReportSalesPersonActivityDataModel
                         {
                             LastSalesPerson = item.SalesPerson,
                             OEM = item.OEM,
                             Customer = item.Customer,
                             Program = item.Program,
                             Application = item.Application,
-                            BulbType = item.BulbType,
-                            Nameplate = item.NamePlate,
+                            Type = item.Type,
+                            Nameplate = item.Nameplate,
                             Region = item.Region,
                             SOP = item.SOP,
                             EOP = item.EOP,
-                            PeakVolume = item.PeakVolume ?? 0,
+                            PeakYearlyVolume = string.Format("{0:n0}", item.PeakYearlyVolume),
+                            EstYearlySales = item.EstYearlySales,
                             Status = item.Status,
                             ActivityDate = item.ActivityDate,
                             Activity = item.Activity,
@@ -847,19 +950,22 @@ namespace FASTT.Controllers
                             ContactEmailAddress = item.ContactEmailAddress,
                             Duration = item.Duration,
                             Notes = item.Notes,
-                            SalesPersonCode = item.SalesPersonCode,
-                            AwardedVolume = (item.AwardedVolume.HasValue) ? item.AwardedVolume.ToString() : "",
-                            RowId = Convert.ToInt32(item.RowID),
-                            CombinedLightingId = item.CombinedLightingId
+                            AwardedVolume = (item.AwardedVolume.HasValue) ? string.Format("{0:n0}", item.AwardedVolume) : "",
+                            Price = item.Price,
+                            SOPYear = item.SOPYear,
+                            Component = item.Component,
+                            LED_Harness = item.LED_Harness,
+                            ID = Convert.ToInt32(item.ID),
+                            SalesLeadID = item.RowID
                         };
-                        DashboardSalesPersonActivityByCustomerList.Add(_dashboardSalesPersonActivityByCustomer);
+                        ListSalesPersonActivity.Add(_salesPersonActivityDataModel);
                     }
                 }
             }
             catch (Exception ex)
             {
                 string error = (ex.InnerException != null) ? ex.InnerException.Message : ex.Message;
-                _messageBox.Message = string.Format("Failed to return sales activity history for this customer.  {0}", error);
+                _messageBox.Message = string.Format("Failed to return sales activity history.  Error: {0}", error);
                 _messageBox.ShowDialog();
             }
         }

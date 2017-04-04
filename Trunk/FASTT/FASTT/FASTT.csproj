@@ -84,7 +84,6 @@
     </Compile>
     <Compile Include="DataModels\DashboardNewQuotesByCustomerDataModel.cs" />
     <Compile Include="DataModels\DashboardSalesForecastDataModel.cs" />
-    <Compile Include="DataModels\DashboardSalesPersonActivityByCustomerDataModel.cs" />
     <Compile Include="DataModels\Metrics_PeakVolumeOfProgramsClosing2017.cs" />
     <Compile Include="DataModels\Metrics_PeakVolumeOfProgramsClosing2018.cs" />
     <Compile Include="DataModels\Metrics_PeakVolumeOfProgramsClosing2019.cs" />
@@ -97,10 +96,9 @@
     <Compile Include="DataModels\Metrics_TotalSalesActivity_ThirtyDays.cs" />
     <Compile Include="DataModels\NavigationGroupDataModel.cs" />
     <Compile Include="DataModels\NavigationItemDataModel.cs" />
+    <Compile Include="DataModels\ReportHitlistMsfDataModel.cs" />
     <Compile Include="DataModels\ReportNewQuotesDataModel.cs" />
     <Compile Include="DataModels\ReportOpenQuotesDataModel.cs" />
-    <Compile Include="DataModels\DashboardTopLeadsByCustomerDataModel.cs" />
-    <Compile Include="DataModels\ReportTopLeadsDataModel.cs" />
     <Compile Include="DataModels\SalesLeadActivityDataModel.cs" />
     <Compile Include="DataModels\SalesLeadDataModel.cs" />
     <Compile Include="DataModels\SalesLeadHistoryDataModel.cs" />
@@ -233,25 +231,37 @@
     <Compile Include="Model\usp_ST_Reports_GetSalesForecastData_Result.cs">
       <DependentUpon>ReportsModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Model\usp_ST_Report_Hitlist_GetCustomerList_Result.cs">
+      <DependentUpon>ReportsModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\usp_ST_Report_Hitlist_GetSopList_Result.cs">
+      <DependentUpon>ReportsModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\usp_ST_Report_Hitlist_MSF_Dashboard_Result.cs">
+      <DependentUpon>ReportsModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\usp_ST_Report_Hitlist_MSF_Result.cs">
+      <DependentUpon>ReportsModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\usp_ST_Report_Hitlist_SalesActivityByCustomer_Result.cs">
+      <DependentUpon>ReportsModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\usp_ST_Report_Hitlist_SalesActivityOneWeek_Result.cs">
+      <DependentUpon>ReportsModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Model\usp_ST_Report_SalesActivityByCustomer_Result.cs">
       <DependentUpon>ReportsModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Model\usp_ST_Report_SalesActivityOneWeek_Result.cs">
       <DependentUpon>ReportsModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Model\usp_ST_Report_TopLeadsByCustomer_Result.cs">
-      <DependentUpon>ReportsModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Model\usp_ST_Report_TopLeads_Result.cs">
-      <DependentUpon>ReportsModel.tt</DependentUpon>
-    </Compile>
     <Compile Include="Model\usp_ST_SalesLeadLog_GetActivityHistory_Result.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
-    <Compile Include="Model\usp_ST_SalesLeadLog_GetActivity_Result.cs">
+    <Compile Include="Model\usp_ST_SalesLeadLog_GetContactInfo_Result.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
-    <Compile Include="Model\usp_ST_SalesLeadLog_GetContactInfo_Result.cs">
+    <Compile Include="Model\usp_ST_SalesLeadLog_Hitlist_GetActivity_Result.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Model\usp_ST_SalesLeadLog_Report_NewQuotesByCustomer_Result.cs">
@@ -266,8 +276,8 @@
     <Compile Include="Model\vw_ST_LightingStudy_2016.cs">
       <DependentUpon>ReportsModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Model\vw_ST_SalesPersonActivity_OneWeek.cs">
-      <DependentUpon>ReportsModel.tt</DependentUpon>
+    <Compile Include="Model\vw_ST_LightingStudy_Hitlist_2016.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -111,7 +111,7 @@ namespace FASTT.Controllers
 
                 if (_context != null)
                 {
-                    _context.usp_ST_SalesLeadLog_Update(operatorCode, combinedLightingId, salesLeadId, salesLeadStatus, activityRowId, activity,
+                    _context.usp_ST_SalesLeadLog_Hitlist_Update(operatorCode, combinedLightingId, salesLeadId, salesLeadStatus, activityRowId, activity,
                         activityDate, meetingLoc, contactName, contactPhone, contactEmail, duration, notes, quoteNumber, awardedVolume, td, res);
 
                     _messageBox.Message = "Success.";

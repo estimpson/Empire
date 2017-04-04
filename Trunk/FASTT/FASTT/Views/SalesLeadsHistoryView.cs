@@ -24,8 +24,8 @@ namespace FASTT.Views
         #region Properties
 
         public string OperatorCode { get; set; }
+        public int HitlistId { get; set; }
         public int SalesLeadId { get; set; }
-        public int CombinedLightingId { get; set; }
         public string Customer { get; set; }
         public string Program { get; set; }
         public string Application { get; set; }
@@ -218,7 +218,7 @@ namespace FASTT.Views
 
             form.OperatorCode = OperatorCode;
             form.SalesLeadId = SalesLeadId;
-            form.CombinedLightingId = CombinedLightingId;
+            form.HitlistId = HitlistId;
             form.Customer = Customer;
             form.Program = Program;
             form.Application = Application;

@@ -13,6 +13,6 @@ namespace FASTT.DataModels
         public string LastSalesActivity { get; set; }
         public string Status { get; set; }
         public int? ID { get; set; }
-        public int? CombinedLightingID { get; set; }
+        public int? SalesLeadID { get; set; }
     }
 }

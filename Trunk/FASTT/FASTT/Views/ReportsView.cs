@@ -6,10 +6,12 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Xml;
 using System.Windows.Forms;
 using DevExpress.Utils;
 using DevExpress.XtraCharts;
 using DevExpress.XtraGrid;
+using DevExpress.XtraGrid.Views.Base;
 using DevExpress.XtraGrid.Views.Grid;
 using DevExpress.XtraNavBar;
 using FASTT.Controllers;
@@ -38,6 +40,7 @@ namespace FASTT.Views
         private bool _isChart;
         private bool _isDatabinding;
         private int _year;
+        private bool _restoreGridSettings;
 
         #endregion
        
@@ -190,12 +193,20 @@ namespace FASTT.Views
 
         private void mesBtnGo_Click(object sender, EventArgs e)
         {
-            string customer = cbxReportCustomer.Text;
+            string customer = cbxReportCustomer.Text.Trim();
             if (customer == "") return;
 
-            ControlScreenState(FormStateEnum.ChartDual);
-
-            ShowLaunchingClosingReport(_reportName);
+            // Both the hitlist grid and the launching/closing charts use the filter header, so determine which to show
+            if (_gridControlEnum == GridControlEnum.Hitlist)
+            {
+                GetHitlist();
+                ControlScreenState(FormStateEnum.ActivityGridHitlist);
+            }
+            else
+            {
+                ControlScreenState(FormStateEnum.ChartDual);
+                ShowLaunchingClosingReport(_reportName);
+            }
         }
 
         #endregion
@@ -226,14 +237,52 @@ namespace FASTT.Views
 
         private void cbxReportCustomer_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (_isDatabinding || cbxReportCustomer.Text.Trim() == "") return;
+            if (_isDatabinding) return;
+
+            string customer = cbxReportCustomer.Text.Trim();
+            if (customer == "") return;
 
             if (_isDashboardIntro || _isDashboardFull)
             {
                 ControlScreenState(FormStateEnum.DashboardFull);
                 return;
             }
+            if (_gridControlEnum == GridControlEnum.Hitlist)
+            {
+                string fileName = @"C:\FasttGridSettings\XtraGrid_SaveLayoutToXML_Hitlist.xml";
+                //ClearGridColumnWidths(fileName);
+
+                // Hit list has a SOP filter option that needs to be populated
+                GetHitlistCustomerSops();
+            }
             mesBtnGo.Visible = (cbxReportCustomer.Text.Trim() != "");
+        }
+
+        #endregion
+
+
+        #region Grid RowCellStyle Events
+
+        private void grdViewActivity_RowCellStyle(object sender, RowCellStyleEventArgs e)
+        {
+            if (e.Column.FieldName == "QuoteNumber" || e.Column.FieldName == "EAU" || e.Column.FieldName == "EEIPartNumber"
+                || e.Column.FieldName == "ApplicationName" || e.Column.FieldName == "SalesInitials" || e.Column.FieldName == "QuotePrice"
+                || e.Column.FieldName == "Awarded" || e.Column.FieldName == "QuoteStatus" || e.Column.FieldName == "StraightMaterialCost"
+                || e.Column.FieldName == "TotalQuotedSales")
+            {
+                e.Appearance.ForeColor = Color.PaleGreen;
+            }
+        }
+
+        private void grdViewDashboard4_RowCellStyle(object sender, RowCellStyleEventArgs e)
+        {
+            if (e.Column.FieldName == "QuoteNumber" || e.Column.FieldName == "EAU" || e.Column.FieldName == "EEIPartNumber"
+                || e.Column.FieldName == "ApplicationName" || e.Column.FieldName == "SalesInitials" || e.Column.FieldName == "QuotePrice" 
+                || e.Column.FieldName == "Awarded" || e.Column.FieldName == "QuoteStatus" || e.Column.FieldName == "StraightMaterialCost"
+                || e.Column.FieldName == "TotalQuotedSales")
+            {
+                e.Appearance.ForeColor = Color.PaleGreen;
+            }
         }
 
         #endregion
@@ -307,6 +356,7 @@ namespace FASTT.Views
 
                     flpRadioButtons.Visible = mesBtnGo.Visible = mesBtnExportChart.Visible = false;
                     lblSelectCustomer.Visible = cbxReportCustomer.Visible = mesClearGridSettings.Visible = true;
+                    lblSelectSop.Visible = cbxSOP.Visible = false;
                     lblInstructions.Text = "";
 
                     GetDashboardCustomerList();
@@ -323,6 +373,7 @@ namespace FASTT.Views
 
                     flpRadioButtons.Visible = mesBtnGo.Visible = mesBtnExportChart.Visible = mesClearGridSettings.Visible = false;
                     lblSelectCustomer.Visible = cbxReportCustomer.Visible = true;
+                    lblSelectSop.Visible = cbxSOP.Visible = false;
                     lblInstructions.Text = "";
 
                     // Row 1:  Grid - customer's sales forecasts (2016-2022)
@@ -334,8 +385,8 @@ namespace FASTT.Views
                     // Row 3:  Grid - recent sales activity for this customer
                     GetSalesActivityHistoryByCustomer();
 
-                    // Row 4:  Grid - top 10 sales leads by "estimated yearly sales"
-                    GetTopLeadsByCustomer();
+                    // Row 4:  Grid - sales leads (Hitlist)
+                    GetHitlistMsfByCustomer();
 
                     Cursor.Current = Cursors.Default;
                     break;
@@ -347,7 +398,8 @@ namespace FASTT.Views
                     ccGeneral.Visible = true;
                     ccGeneral.Dock = DockStyle.Fill;
 
-                    flpRadioButtons.Visible = lblSelectCustomer.Visible = cbxReportCustomer.Visible = mesBtnGo.Visible = mesClearGridSettings.Visible = false;
+                    flpRadioButtons.Visible = lblSelectCustomer.Visible = cbxReportCustomer.Visible = lblSelectSop.Visible = 
+                        cbxSOP.Visible = mesBtnGo.Visible = mesClearGridSettings.Visible = false;
                     mesBtnExportChart.Visible = true;
                     lblInstructions.Text = "";
                     break;
@@ -359,12 +411,11 @@ namespace FASTT.Views
                     mesBtnExportChart.Visible = mesClearGridSettings.Visible = false;
 
                     flpRadioButtons.Visible = lblSelectCustomer.Visible = cbxReportCustomer.Visible = mesBtnGo.Visible = true;
+                    lblSelectSop.Visible = cbxSOP.Visible = false;
                     lblInstructions.Text = "";
                     break;
                 case FormStateEnum.ChartDual:
                     tlpSplitCharts.Visible = true;
-                    _isDashboardFull = false;
-
                     tlpSplitCharts.Dock = DockStyle.Fill;
 
                     mesBtnExportChart.Visible = false;
@@ -378,9 +429,29 @@ namespace FASTT.Views
                     grdActivity.Visible = true;
                     grdActivity.Dock = DockStyle.Fill;
 
-                    flpRadioButtons.Visible = lblSelectCustomer.Visible = cbxReportCustomer.Visible = mesBtnGo.Visible = false;
+                    flpRadioButtons.Visible = lblSelectCustomer.Visible = cbxReportCustomer.Visible = lblSelectSop.Visible = cbxSOP.Visible = mesBtnGo.Visible = false;
                     mesBtnExportChart.Visible = mesClearGridSettings.Visible = true;
                     lblInstructions.Text = "Double-click a row to see all activity history for a sales lead.";
+                    break;
+                case FormStateEnum.HitlistLinkClicked:
+                    IsDashboardIntro = false;
+                    _isDashboardFull = false;
+
+                    wbDashboard.Visible = tlpDashboard.Visible = tlpSplitCharts.Visible = grdGeneral.Visible = grdActivity.Visible = ccGeneral.Visible = false;
+                    flpRadioButtons.Visible = lblSelectCustomer.Visible = cbxReportCustomer.Visible = lblSelectSop.Visible = cbxSOP.Visible = mesBtnGo.Visible = true;
+
+                    rbtnNorthAmerica.Checked = true;
+                    cbxReportCustomer.Text = "";
+                    cbxSOP.DataSource = null;
+
+                    lblInstructions.Text = "";
+                    break;
+                case FormStateEnum.ActivityGridHitlist:
+                    grdActivity.Visible = true;
+                    grdActivity.Dock = DockStyle.Fill;
+
+                    mesBtnExportChart.Visible = mesClearGridSettings.Visible = true;
+                    //lblInstructions.Text = "Double-click a row to see all activity history for a sales lead.";
                     break;
                 case FormStateEnum.QuoteGrid:
                     IsDashboardIntro = false;
@@ -390,7 +461,7 @@ namespace FASTT.Views
                     grdGeneral.Visible = true;
                     grdGeneral.Dock = DockStyle.Fill;
 
-                    flpRadioButtons.Visible = lblSelectCustomer.Visible = cbxReportCustomer.Visible = mesBtnGo.Visible = false;
+                    flpRadioButtons.Visible = lblSelectCustomer.Visible = cbxReportCustomer.Visible = lblSelectSop.Visible = cbxSOP.Visible = mesBtnGo.Visible = false;
                     mesBtnExportChart.Visible = mesClearGridSettings.Visible = true;
                     lblInstructions.Text = "";
                     break;
@@ -409,6 +480,11 @@ namespace FASTT.Views
             {
                 GetCustomersList();
             }
+            else if (_gridControlEnum == GridControlEnum.Hitlist)
+            {
+                grdActivity.DataSource = null; 
+                GetHitlistCustomers();
+            }
             else
             {
                 GetCustomersLaunchingClosingList(_year);
@@ -421,16 +497,16 @@ namespace FASTT.Views
         {
             int r = grdViewActivity.GetSelectedRows()[0];
 
-            string iD = (grdViewActivity.GetRowCellValue(r, "RowId") != null) ? grdViewActivity.GetRowCellValue(r, "RowId").ToString() : "";
-            int combinedLightingStudyId = (grdViewActivity.GetRowCellValue(r, "CombinedLightingStudyId") != null) ? Convert.ToInt32(grdViewActivity.GetRowCellValue(r, "CombinedLightingStudyId")) : 0;
+            int hitListId = (grdViewActivity.GetRowCellValue(r, "ID") != null) ? Convert.ToInt32(grdViewActivity.GetRowCellValue(r, "ID")) : 0;
+            int salesLeadId = (grdViewActivity.GetRowCellValue(r, "SalesLeadID") != null) ? Convert.ToInt32(grdViewActivity.GetRowCellValue(r, "SalesLeadID")) : 0;
             string customer = (grdViewActivity.GetRowCellValue(r, "Customer") != null) ? grdViewActivity.GetRowCellValue(r, "Customer").ToString() : "";
             string program = (grdViewActivity.GetRowCellValue(r, "Program") != null) ? grdViewActivity.GetRowCellValue(r, "Program").ToString() : "";
             string application = (grdViewActivity.GetRowCellValue(r, "Application") != null) ? grdViewActivity.GetRowCellValue(r, "Application").ToString() : "";
             string sop = (grdViewActivity.GetRowCellValue(r, "SOP") != null) ? grdViewActivity.GetRowCellValue(r, "SOP").ToString() : "";
             string eop = (grdViewActivity.GetRowCellValue(r, "EOP") != null) ? grdViewActivity.GetRowCellValue(r, "EOP").ToString() : "";
-            string volume = (grdViewActivity.GetRowCellValue(r, "PeakVolume") != null) ? grdViewActivity.GetRowCellValue(r, "PeakVolume").ToString() : "";
+            string volume = (grdViewActivity.GetRowCellValue(r, "PeakYearlyVolume") != null) ? grdViewActivity.GetRowCellValue(r, "PeakYearlyVolume").ToString() : "";
 
-            if (iD == "")
+            if (salesLeadId == 0)
             {
                 _messageBox.Message = "No sales activity found.";
                 _messageBox.ShowDialog();
@@ -440,8 +516,8 @@ namespace FASTT.Views
             var form = new SalesLeadsHistoryView
             {
                 OperatorCode = OperatorCode,
-                SalesLeadId = Convert.ToInt32(iD),
-                CombinedLightingId = combinedLightingStudyId,
+                SalesLeadId = salesLeadId,
+                HitlistId = hitListId,
                 Customer = customer,
                 Program = program,
                 Application = application,
@@ -455,11 +531,13 @@ namespace FASTT.Views
             // Refresh grid data
             if (_currentActivityHistoryReport == "History")
             {
+                _restoreGridSettings = false;
                 GetSalesActivityHistory();
             }
-            else if (_currentActivityHistoryReport == "TopLeads")
+            else if (_currentActivityHistoryReport == "HitList")
             {
-                GetTopLeads();
+                _restoreGridSettings = false;
+                GetHitlist();
             }
         }
 
@@ -529,6 +607,20 @@ namespace FASTT.Views
             {
                 case GridControlEnum.None:
                     break;
+                case GridControlEnum.Hitlist:
+                    fileName = @"C:\FasttGridSettings\XtraGrid_SaveLayoutToXML_Hitlist.xml";
+                    try
+                    {
+                        grdActivity.MainView.SaveLayoutToXml(fileName);
+
+                        //ClearGridColumnWidths(fileName);
+                    }
+                    catch (Exception ex)
+                    {
+                        _messageBox.Message = "Failed to save grid settings.  " + ex.Message;
+                        _messageBox.ShowDialog();
+                    }
+                    break;
                 case GridControlEnum.ActivityHistory:
                     fileName = @"C:\FasttGridSettings\XtraGrid_SaveLayoutToXML_ActivityHistory.xml";
                     try
@@ -565,7 +657,19 @@ namespace FASTT.Views
                         _messageBox.ShowDialog();
                     }
                     break;
-                case GridControlEnum.NewQuotes:
+                case GridControlEnum.NewQuotesSevenDays:
+                    fileName = @"C:\FasttGridSettings\XtraGrid_SaveLayoutToXML_NewQuotes.xml";
+                    try
+                    {
+                        grdGeneral.MainView.SaveLayoutToXml(fileName);
+                    }
+                    catch (Exception ex)
+                    {
+                        _messageBox.Message = "Failed to save grid settings.  " + ex.Message;
+                        _messageBox.ShowDialog();
+                    }
+                    break;
+                case GridControlEnum.NewQuotesSixtyDays:
                     fileName = @"C:\FasttGridSettings\XtraGrid_SaveLayoutToXML_NewQuotes.xml";
                     try
                     {
@@ -578,6 +682,73 @@ namespace FASTT.Views
                     }
                     break;
             }
+        }
+
+        //private void ClearGridColumnWidths(string fileName)
+        //{
+        //    var doc = new XmlDocument();
+        //    doc.Load(fileName);
+        //    XmlElement root = doc.DocumentElement;
+        //    XmlNodeList nodes = root.SelectNodes("property");
+        //    foreach (XmlNode node in nodes)
+        //    {
+        //        if (node.ChildNodes.Count < 1) continue;
+        //        foreach (XmlNode childNode1 in node.ChildNodes)
+        //        {
+        //            if (childNode1.ChildNodes.Count < 1) continue;
+        //            foreach (XmlNode childNode2 in childNode1.ChildNodes)
+        //            {
+        //                if (childNode2.Attributes == null) continue;
+        //                if (childNode2.Attributes[0].Value == "Width")
+        //                {
+        //                    childNode2.InnerText = "";
+        //                }
+        //            }
+        //        }
+        //    }
+        //    doc.Save(fileName);
+        //}
+
+        private void GetHitlistCustomers()
+        {
+            Cursor.Current = Cursors.WaitCursor;
+
+            cbxSOP.DataSource = null;
+            string region = (rbtnNorthAmerica.Checked) ? "North America" : "China";
+
+            int result = _controller.GetHitListCustomers(region);
+            if (result == 0) return;
+
+            _isDatabinding = true;
+            cbxReportCustomer.DataSource = null;
+            cbxReportCustomer.DataSource = _controller.HitlistCustomersList;
+            cbxReportCustomer.DisplayMember = "Customer";
+            cbxReportCustomer.Text = "";
+            _isDatabinding = false;
+
+            //ControlScreenState(FormStateEnum.LaunchingClosingLinkClicked);
+
+            Cursor.Current = Cursors.Default;
+        }
+
+        private void GetHitlistCustomerSops()
+        {
+            Cursor.Current = Cursors.WaitCursor;
+
+            cbxSOP.DataSource = null;
+            string customer = cbxReportCustomer.Text.Trim();
+
+            int result = _controller.GetHitListCustomerSops(customer);
+            if (result == 0) return;
+
+            _isDatabinding = true;
+            cbxSOP.DataSource = null;
+            cbxSOP.DataSource = _controller.HitlistCustomerSopsList;
+            cbxSOP.DisplayMember = "SOPYear";
+            cbxSOP.Text = "";
+            _isDatabinding = false;
+
+            Cursor.Current = Cursors.Default;
         }
 
         private void GetCustomersLaunchingClosingList(int year)
@@ -621,9 +792,20 @@ namespace FASTT.Views
 
             switch (caption)
             {
+                case "Sales Hit List":
+                    ControlScreenState(FormStateEnum.HitlistLinkClicked);
+
+                    _restoreGridSettings = true;
+                    GetHitlistCustomers();
+
+                    _currentActivityHistoryReport = "HitList";
+                    _isChart = false;
+                    _gridControlEnum = GridControlEnum.Hitlist;
+                    break;
                 case "Activity History Last 7 Days":
                     ControlScreenState(FormStateEnum.ActivityGrid);
 
+                    _restoreGridSettings = true;
                     GetSalesActivityHistory();
 
                     _currentActivityHistoryReport = "History";
@@ -631,17 +813,18 @@ namespace FASTT.Views
                     _gridControlEnum = GridControlEnum.ActivityHistory;
                     break;
                 case "Top Leads by Volume":
-                    ControlScreenState(FormStateEnum.ActivityGrid);
+                    //ControlScreenState(FormStateEnum.ActivityGrid);
 
-                    GetTopLeads();
+                    //GetTopLeads();
 
-                    _currentActivityHistoryReport = "TopLeads";
-                    _isChart = false;
-                    _gridControlEnum = GridControlEnum.TopLeads;
-                    break;
+                    //_currentActivityHistoryReport = "TopLeads";
+                    //_isChart = false;
+                    //_gridControlEnum = GridControlEnum.TopLeads;
+                    //break;
                 case "All Completed Quotes":
                     ControlScreenState(FormStateEnum.QuoteGrid);
 
+                    _restoreGridSettings = true;
                     GetOpenQuotes();
                     
                     _isChart = false;
@@ -650,18 +833,20 @@ namespace FASTT.Views
                 case "Quotes Opened in the Last 7 Days":
                     ControlScreenState(FormStateEnum.QuoteGrid);
 
+                    _restoreGridSettings = true;
                     GetNewQuotes(7);
 
                     _isChart = false;
-                    _gridControlEnum = GridControlEnum.NewQuotes;
+                    _gridControlEnum = GridControlEnum.NewQuotesSevenDays;
                     break;
                 case "Quotes Opened in the Last 60 Days":
                     ControlScreenState(FormStateEnum.QuoteGrid);
 
+                    _restoreGridSettings = true;
                     GetNewQuotes(60);
 
                     _isChart = false;
-                    _gridControlEnum = GridControlEnum.NewQuotes;
+                    _gridControlEnum = GridControlEnum.NewQuotesSixtyDays;
                     break;
                 case "Number of Programs 2017-2019 by Customer":
                     ControlScreenState(FormStateEnum.ChartSingle);
@@ -776,21 +961,35 @@ namespace FASTT.Views
             string fileName = "";
             switch (_gridControlEnum)
             {
+                case GridControlEnum.Hitlist:
+                    fileName = @"C:\FasttGridSettings\XtraGrid_SaveLayoutToXML_Hitlist.xml";
+
+                    grdViewActivity.ClearGrouping();
+                    grdViewActivity.ClearColumnsFilter();
+                    grdViewActivity.ClearSorting();
+                    //_gridControlEnum = GridControlEnum.None;
+
+                    _restoreGridSettings = false;
+                    GetHitlist();
+                    break;
                 case GridControlEnum.ActivityHistory:
                     fileName = @"C:\FasttGridSettings\XtraGrid_SaveLayoutToXML_ActivityHistory.xml";
 
                     grdViewActivity.ClearGrouping();
                     grdViewActivity.ClearColumnsFilter();
                     grdViewActivity.ClearSorting();
-                    _gridControlEnum = GridControlEnum.None;
+                    //_gridControlEnum = GridControlEnum.None;
+
+                    _restoreGridSettings = false;
+                    GetSalesActivityHistory();
                     break;
                 case GridControlEnum.TopLeads:
-                    fileName = @"C:\FasttGridSettings\XtraGrid_SaveLayoutToXML_TopLeads.xml";
+                    //fileName = @"C:\FasttGridSettings\XtraGrid_SaveLayoutToXML_TopLeads.xml";
 
-                    grdViewActivity.ClearGrouping();
-                    grdViewActivity.ClearColumnsFilter();
-                    grdViewActivity.ClearSorting();
-                    _gridControlEnum = GridControlEnum.None;
+                    //grdViewActivity.ClearGrouping();
+                    //grdViewActivity.ClearColumnsFilter();
+                    //grdViewActivity.ClearSorting();
+                    ////_gridControlEnum = GridControlEnum.None;
                     break;
                 case GridControlEnum.OpenQuotes:
                     fileName = @"C:\FasttGridSettings\XtraGrid_SaveLayoutToXML_OpenQuotes.xml";
@@ -798,15 +997,32 @@ namespace FASTT.Views
                     grdViewGeneral.ClearGrouping();
                     grdViewGeneral.ClearColumnsFilter();
                     grdViewGeneral.ClearSorting();
-                    _gridControlEnum = GridControlEnum.None;
+                    //_gridControlEnum = GridControlEnum.None;
+
+                    _restoreGridSettings = false;
+                    GetOpenQuotes();
                     break;
-                case GridControlEnum.NewQuotes:
+                case GridControlEnum.NewQuotesSevenDays:
                     fileName = @"C:\FasttGridSettings\XtraGrid_SaveLayoutToXML_NewQuotes.xml";
 
                     grdViewGeneral.ClearGrouping();
                     grdViewGeneral.ClearColumnsFilter();
                     grdViewGeneral.ClearSorting();
-                    _gridControlEnum = GridControlEnum.None;
+                    //_gridControlEnum = GridControlEnum.None;
+
+                    _restoreGridSettings = false;
+                    GetNewQuotes(7);
+                    break;
+                case GridControlEnum.NewQuotesSixtyDays:
+                    fileName = @"C:\FasttGridSettings\XtraGrid_SaveLayoutToXML_NewQuotes.xml";
+
+                    grdViewGeneral.ClearGrouping();
+                    grdViewGeneral.ClearColumnsFilter();
+                    grdViewGeneral.ClearSorting();
+                    //_gridControlEnum = GridControlEnum.None;
+
+                    _restoreGridSettings = false;
+                    GetNewQuotes(60);
                     break;
             }
 
@@ -840,8 +1056,12 @@ namespace FASTT.Views
 
             grdGeneral.DataSource = _controller.ListOpenQuotes;
 
+            grdViewGeneral.OptionsView.ColumnAutoWidth = false;
+            grdViewGeneral.ScrollStyle = ScrollStyleFlags.LiveHorzScroll | ScrollStyleFlags.LiveVertScroll;
+            grdViewGeneral.HorzScrollVisibility = ScrollVisibility.Always;
+
             grdViewGeneral.Columns["TotalQuotedSales"].DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
-            grdViewGeneral.Columns["TotalQuotedSales"].DisplayFormat.FormatString = "c2";
+            grdViewGeneral.Columns["TotalQuotedSales"].DisplayFormat.FormatString = "c0";
             grdViewGeneral.Columns["TotalQuotedSales"].AppearanceCell.TextOptions.HAlignment = HorzAlignment.Near;
             grdViewGeneral.Columns["Eau"].AppearanceCell.TextOptions.HAlignment = HorzAlignment.Near;
             grdViewGeneral.Columns["Eau"].DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
@@ -849,6 +1069,22 @@ namespace FASTT.Views
             grdViewGeneral.Columns["QuotePrice"].AppearanceCell.TextOptions.HAlignment = HorzAlignment.Near;
             grdViewGeneral.Columns["QuotePrice"].DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
             grdViewGeneral.Columns["QuotePrice"].DisplayFormat.FormatString = "n2";
+
+            grdViewGeneral.Columns["Customer"].Width = 100;
+            grdViewGeneral.Columns["Program"].Width = 100;
+            grdViewGeneral.Columns["Status"].Width = 90;
+            grdViewGeneral.Columns["ApplicationName"].Width = 200;
+            grdViewGeneral.Columns["SalesInitials"].Width = 80;
+            grdViewGeneral.Columns["Sop"].Width = 80;
+            grdViewGeneral.Columns["Eop"].Width = 80;
+            grdViewGeneral.Columns["EeiPartNumber"].Width = 130;
+            grdViewGeneral.Columns["TotalQuotedSales"].Width = 120;
+            grdViewGeneral.Columns["QuotePrice"].Width = 80;
+            grdViewGeneral.Columns["QuotePricingDate"].Width = 120;
+            grdViewGeneral.Columns["Awarded"].Width = 60;
+            grdViewGeneral.Columns["Eau"].Width = 70;
+            grdViewGeneral.Columns["Notes"].Width = 300;
+            grdViewGeneral.Columns["MaterialPercentage"].Width = 120;
 
 
             // Make the group footers always visible
@@ -861,6 +1097,12 @@ namespace FASTT.Views
             item.DisplayFormat = " - Total Quoted Sales:  {0:c2}";
             item.ShowInGroupColumnFooter = gridView1.Columns["TotalQuotedSales"];
             grdViewGeneral.GroupSummary.Add(item);
+
+            if (!_restoreGridSettings)
+            {
+                Cursor.Current = Cursors.Default;
+                return;
+            }
 
             // Restore saved grid settings if they exist
             string filePath = @"C:\FasttGridSettings\XtraGrid_SaveLayoutToXML_OpenQuotes.xml";
@@ -882,8 +1124,12 @@ namespace FASTT.Views
 
             grdGeneral.DataSource = _controller.ListNewQuotes;
 
+            grdViewGeneral.OptionsView.ColumnAutoWidth = false;
+            grdViewGeneral.ScrollStyle = ScrollStyleFlags.LiveHorzScroll | ScrollStyleFlags.LiveVertScroll;
+            grdViewGeneral.HorzScrollVisibility = ScrollVisibility.Always;
+
             grdViewGeneral.Columns["TotalQuotedSales"].DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
-            grdViewGeneral.Columns["TotalQuotedSales"].DisplayFormat.FormatString = "c2";
+            grdViewGeneral.Columns["TotalQuotedSales"].DisplayFormat.FormatString = "c0";
             grdViewGeneral.Columns["TotalQuotedSales"].AppearanceCell.TextOptions.HAlignment = HorzAlignment.Near;
             grdViewGeneral.Columns["Eau"].AppearanceCell.TextOptions.HAlignment = HorzAlignment.Near;
             grdViewGeneral.Columns["Eau"].DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
@@ -891,6 +1137,23 @@ namespace FASTT.Views
             grdViewGeneral.Columns["QuotePrice"].AppearanceCell.TextOptions.HAlignment = HorzAlignment.Near;
             grdViewGeneral.Columns["QuotePrice"].DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
             grdViewGeneral.Columns["QuotePrice"].DisplayFormat.FormatString = "n2";
+
+            grdViewGeneral.Columns["Customer"].Width = 100;
+            grdViewGeneral.Columns["Program"].Width = 100;
+            grdViewGeneral.Columns["QuoteStatus"].Width = 90;
+            grdViewGeneral.Columns["ApplicationName"].Width = 200;
+            grdViewGeneral.Columns["SalesInitials"].Width = 80;
+            grdViewGeneral.Columns["Sop"].Width = 80;
+            grdViewGeneral.Columns["Eop"].Width = 80;
+            grdViewGeneral.Columns["EeiPartNumber"].Width = 130;
+            grdViewGeneral.Columns["TotalQuotedSales"].Width = 120;
+            grdViewGeneral.Columns["QuotePrice"].Width = 80;
+            grdViewGeneral.Columns["QuotePricingDate"].Width = 120;
+            grdViewGeneral.Columns["Awarded"].Width = 60;
+            grdViewGeneral.Columns["Eau"].Width = 70;
+            grdViewGeneral.Columns["Notes"].Width = 300;
+            grdViewGeneral.Columns["MaterialPercentage"].Width = 120;
+
 
             // Make the group footers always visible
             grdViewGeneral.GroupFooterShowMode = GroupFooterShowMode.VisibleAlways;
@@ -911,6 +1174,11 @@ namespace FASTT.Views
             //item1.ShowInGroupColumnFooter = view.Columns["UnitPrice"];
             //view.GroupSummary.Add(item1);
 
+            if (!_restoreGridSettings)
+            {
+                Cursor.Current = Cursors.Default;
+                return;
+            }
 
             // Restore saved grid settings if they exist
             string filePath = @"C:\FasttGridSettings\XtraGrid_SaveLayoutToXML_NewQuotes.xml";
@@ -942,10 +1210,61 @@ namespace FASTT.Views
 
             grdActivity.DataSource = _controller.ListSalesPersonActivity;
 
+            grdViewActivity.OptionsView.ColumnAutoWidth = false;
+            grdViewActivity.ScrollStyle = ScrollStyleFlags.LiveHorzScroll | ScrollStyleFlags.LiveVertScroll;
+            grdViewActivity.HorzScrollVisibility = ScrollVisibility.Always;
+
             grdViewActivity.OptionsBehavior.Editable = false;
-            grdViewActivity.Columns["SalesPersonCode"].Visible = grdViewActivity.Columns["RowId"].Visible = grdViewActivity.Columns["CombinedLightingStudyId"].Visible = false;
-            grdViewActivity.Columns["PeakVolume"].DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
-            grdViewActivity.Columns["PeakVolume"].DisplayFormat.FormatString = "n0";
+            grdViewActivity.Columns["ID"].Visible = grdViewActivity.Columns["SalesLeadID"].Visible = false;
+
+            grdViewActivity.Columns["EstYearlySales"].DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
+            grdViewActivity.Columns["EstYearlySales"].DisplayFormat.FormatString = "c0";
+            grdViewActivity.Columns["Price"].DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
+            grdViewActivity.Columns["Price"].DisplayFormat.FormatString = "c2";
+            grdViewActivity.Columns["PeakYearlyVolume"].DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
+            grdViewActivity.Columns["PeakYearlyVolume"].DisplayFormat.FormatString = "n0";
+            grdViewActivity.Columns["AwardedVolume"].DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
+            grdViewActivity.Columns["AwardedVolume"].DisplayFormat.FormatString = "n0";
+
+            grdViewActivity.Columns["EstYearlySales"].AppearanceCell.TextOptions.HAlignment = HorzAlignment.Near;
+            grdViewActivity.Columns["Price"].AppearanceCell.TextOptions.HAlignment = HorzAlignment.Near;
+            grdViewActivity.Columns["PeakYearlyVolume"].AppearanceCell.TextOptions.HAlignment = HorzAlignment.Near;
+            grdViewActivity.Columns["SOPYear"].AppearanceCell.TextOptions.HAlignment = HorzAlignment.Near;
+            grdViewActivity.Columns["AwardedVolume"].AppearanceCell.TextOptions.HAlignment = HorzAlignment.Near;
+
+            grdViewActivity.Columns["Customer"].Width = 120;
+            grdViewActivity.Columns["Program"].Width = 100;
+            grdViewActivity.Columns["EstYearlySales"].Width = 120;
+            grdViewActivity.Columns["PeakYearlyVolume"].Width = 130;
+            grdViewActivity.Columns["SOPYear"].Width = 70;
+            grdViewActivity.Columns["Application"].Width = 200;
+            grdViewActivity.Columns["Region"].Width = 100;
+            grdViewActivity.Columns["OEM"].Width = 100;
+            grdViewActivity.Columns["SOP"].Width = 80;
+            grdViewActivity.Columns["EOP"].Width = 80;
+            grdViewActivity.Columns["Type"].Width = 120;
+            grdViewActivity.Columns["Nameplate"].Width = 110;
+            grdViewActivity.Columns["Price"].Width = 60;
+            grdViewActivity.Columns["AwardedVolume"].Width = 120;
+            grdViewActivity.Columns["Component"].Width = 90;
+            grdViewActivity.Columns["LED_Harness"].Width = 90;
+            grdViewActivity.Columns["Status"].Width = 80;
+            grdViewActivity.Columns["ActivityDate"].Width = 150;
+            grdViewActivity.Columns["Activity"].Width = 100;
+            grdViewActivity.Columns["MeetingLocation"].Width = 120;
+            grdViewActivity.Columns["ContactName"].Width = 120;
+            grdViewActivity.Columns["ContactPhoneNumber"].Width = 150;
+            grdViewActivity.Columns["ContactEmailAddress"].Width = 150;
+            grdViewActivity.Columns["Duration"].Width = 100;
+            grdViewActivity.Columns["Notes"].Width = 220;
+            grdViewActivity.Columns["LastSalesPerson"].Width = 140;
+
+
+            if (!_restoreGridSettings)
+            {
+                Cursor.Current = Cursors.Default;
+                return;
+            }
 
             // Restore saved grid settings if they exist
             string filePath = @"C:\FasttGridSettings\XtraGrid_SaveLayoutToXML_ActivityHistory.xml";
@@ -954,30 +1273,145 @@ namespace FASTT.Views
             Cursor.Current = Cursors.Default;
         }
 
-        private void GetTopLeads()
+        private void GetHitlist()
         {
             Cursor.Current = Cursors.WaitCursor;
 
             grdViewActivity.Columns.Clear();
             grdActivity.DataSource = null;
 
-            _controller.GetTopLeads();
-            if (!_controller.ListTopLeads.Any()) return;
+            string region = (rbtnNorthAmerica.Checked) ? "North America" : "China";
+            string customer = cbxReportCustomer.Text.Trim();
+            string sop = cbxSOP.Text.Trim();
+            int? iSop = null;
+            if (sop != "") iSop = Convert.ToInt16(sop);
+            
+            _controller.GetHitlist(region, customer, iSop);
+            if (!_controller.ListHitlistMsf.Any()) return;
 
-            grdActivity.DataSource = _controller.ListTopLeads;
+            grdActivity.DataSource = _controller.ListHitlistMsf;
+
+            grdViewActivity.OptionsView.ColumnAutoWidth = false;
+            grdViewActivity.ScrollStyle = ScrollStyleFlags.LiveHorzScroll | ScrollStyleFlags.LiveVertScroll;
+            grdViewActivity.HorzScrollVisibility = ScrollVisibility.Always;
 
             grdViewActivity.OptionsBehavior.Editable = false;
-            grdViewActivity.Columns["RowId"].Visible = grdViewActivity.Columns["CombinedLightingStudyId"].Visible = false;
-            grdViewActivity.Columns["PeakVolume"].DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
-            grdViewActivity.Columns["PeakVolume"].DisplayFormat.FormatString = "n0";
-            grdViewActivity.Columns["PeakVolumeSalesEstimate"].DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
-            grdViewActivity.Columns["PeakVolumeSalesEstimate"].DisplayFormat.FormatString = "c2";
+            grdViewActivity.Columns["ID"].Visible = false;
+            grdViewActivity.Columns["SalesLeadID"].Visible = false;
+            grdViewActivity.Columns["EstYearlySales"].DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
+            grdViewActivity.Columns["EstYearlySales"].DisplayFormat.FormatString = "c0";
+            grdViewActivity.Columns["Price"].DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
+            grdViewActivity.Columns["Price"].DisplayFormat.FormatString = "c2";
+            grdViewActivity.Columns["PeakYearlyVolume"].DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
+            grdViewActivity.Columns["PeakYearlyVolume"].DisplayFormat.FormatString = "n0";
+            grdViewActivity.Columns["Volume2017"].DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
+            grdViewActivity.Columns["Volume2017"].DisplayFormat.FormatString = "n0";
+            grdViewActivity.Columns["Volume2018"].DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
+            grdViewActivity.Columns["Volume2018"].DisplayFormat.FormatString = "n0";
+            grdViewActivity.Columns["Volume2019"].DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
+            grdViewActivity.Columns["Volume2019"].DisplayFormat.FormatString = "n0";
+            grdViewActivity.Columns["Volume2020"].DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
+            grdViewActivity.Columns["Volume2020"].DisplayFormat.FormatString = "n0";
+            grdViewActivity.Columns["Volume2021"].DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
+            grdViewActivity.Columns["Volume2021"].DisplayFormat.FormatString = "n0";
+            grdViewActivity.Columns["Volume2022"].DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
+            grdViewActivity.Columns["Volume2022"].DisplayFormat.FormatString = "n0";
+            grdViewActivity.Columns["EAU"].DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
+            grdViewActivity.Columns["EAU"].DisplayFormat.FormatString = "n0";
+            grdViewActivity.Columns["QuotePrice"].DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
+            grdViewActivity.Columns["QuotePrice"].DisplayFormat.FormatString = "c2";
+            grdViewActivity.Columns["StraightMaterialCost"].DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
+            grdViewActivity.Columns["StraightMaterialCost"].DisplayFormat.FormatString = "c2";
+            grdViewActivity.Columns["TotalQuotedSales"].DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
+            grdViewActivity.Columns["TotalQuotedSales"].DisplayFormat.FormatString = "c2";
+            grdViewActivity.Columns["SalesForecastPeakYearlyVolume"].DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
+            grdViewActivity.Columns["SalesForecastPeakYearlyVolume"].DisplayFormat.FormatString = "c0";
+
+            grdViewActivity.Columns["EstYearlySales"].AppearanceCell.TextOptions.HAlignment = HorzAlignment.Near;
+            grdViewActivity.Columns["Price"].AppearanceCell.TextOptions.HAlignment = HorzAlignment.Near;
+            grdViewActivity.Columns["PeakYearlyVolume"].AppearanceCell.TextOptions.HAlignment = HorzAlignment.Near;
+            grdViewActivity.Columns["SOPYear"].AppearanceCell.TextOptions.HAlignment = HorzAlignment.Near;
+            grdViewActivity.Columns["Volume2017"].AppearanceCell.TextOptions.HAlignment = HorzAlignment.Near;
+            grdViewActivity.Columns["Volume2018"].AppearanceCell.TextOptions.HAlignment = HorzAlignment.Near;
+            grdViewActivity.Columns["Volume2019"].AppearanceCell.TextOptions.HAlignment = HorzAlignment.Near;
+            grdViewActivity.Columns["Volume2020"].AppearanceCell.TextOptions.HAlignment = HorzAlignment.Near;
+            grdViewActivity.Columns["Volume2021"].AppearanceCell.TextOptions.HAlignment = HorzAlignment.Near;
+            grdViewActivity.Columns["Volume2022"].AppearanceCell.TextOptions.HAlignment = HorzAlignment.Near;
+            grdViewActivity.Columns["EAU"].AppearanceCell.TextOptions.HAlignment = HorzAlignment.Near;
+            grdViewActivity.Columns["QuotePrice"].AppearanceCell.TextOptions.HAlignment = HorzAlignment.Near;
+            grdViewActivity.Columns["StraightMaterialCost"].AppearanceCell.TextOptions.HAlignment = HorzAlignment.Near;
+            grdViewActivity.Columns["TotalQuotedSales"].AppearanceCell.TextOptions.HAlignment = HorzAlignment.Near;
+            grdViewActivity.Columns["SalesForecastPeakYearlyVolume"].AppearanceCell.TextOptions.HAlignment = HorzAlignment.Near;
+
+            //grdViewActivity.Columns["Customer"].BestFit();
+            //grdViewActivity.Columns["Program"].BestFit();
+            //grdViewActivity.Columns["EstYearlySales"].BestFit();
+            //grdViewActivity.Columns["PeakYearlyVolume"].BestFit();
+            //grdViewActivity.Columns["SOPYear"].BestFit();
+            //grdViewActivity.Columns["LED_Harness"].BestFit();
+            //grdViewActivity.Columns["Application"].BestFit();
+            //grdViewActivity.Columns["Region"].BestFit();
+            //grdViewActivity.Columns["OEM"].BestFit();
+            //grdViewActivity.Columns["SOP"].BestFit();
+            //grdViewActivity.Columns["EOP"].BestFit();
+            //grdViewActivity.Columns["Nameplate"].BestFit();
+            //grdViewActivity.Columns["Component"].BestFit();
+            //grdViewActivity.Columns["Type"].BestFit();
+            //grdViewActivity.Columns["Price"].BestFit();
+            //grdViewActivity.Columns["Volume2017"].BestFit();
+            //grdViewActivity.Columns["Volume2018"].BestFit();
+            //grdViewActivity.Columns["Volume2019"].BestFit();
+            //grdViewActivity.Columns["Volume2020"].BestFit();
+            //grdViewActivity.Columns["Volume2021"].BestFit();
+            //grdViewActivity.Columns["Volume2022"].BestFit();
+            //grdViewActivity.Columns["QuoteNumber"].BestFit();
+
+            grdViewActivity.Columns["Customer"].Width = 160;
+            grdViewActivity.Columns["Program"].Width = 100;
+            grdViewActivity.Columns["EstYearlySales"].Width = 120;
+            grdViewActivity.Columns["PeakYearlyVolume"].Width= 120;
+            grdViewActivity.Columns["SOPYear"].Width = 70;
+            grdViewActivity.Columns["LED_Harness"].Width = 90;
+            grdViewActivity.Columns["Application"].Width = 180;
+            grdViewActivity.Columns["Region"].Width = 100;
+            grdViewActivity.Columns["OEM"].Width = 100;
+            grdViewActivity.Columns["SOP"].Width = 80;
+            grdViewActivity.Columns["EOP"].Width = 80;
+            grdViewActivity.Columns["Nameplate"].Width = 120;
+            grdViewActivity.Columns["Component"].Width = 90;
+            grdViewActivity.Columns["Type"].Width = 130;
+            grdViewActivity.Columns["Price"].Width = 60;
+            grdViewActivity.Columns["Volume2017"].Width = 80;
+            grdViewActivity.Columns["Volume2018"].Width = 80;
+            grdViewActivity.Columns["Volume2019"].Width = 80;
+            grdViewActivity.Columns["Volume2020"].Width = 80;
+            grdViewActivity.Columns["Volume2021"].Width = 80;
+            grdViewActivity.Columns["Volume2022"].Width = 80;
+            grdViewActivity.Columns["QuoteNumber"].Width = 100;
+            grdViewActivity.Columns["EEIPartNumber"].Width = 130;
+            grdViewActivity.Columns["EAU"].Width = 70;
+            grdViewActivity.Columns["ApplicationName"].Width = 100;
+            grdViewActivity.Columns["SalesInitials"].Width = 80;
+            grdViewActivity.Columns["QuotePrice"].Width = 80;
+            grdViewActivity.Columns["Awarded"].Width = 60;
+            grdViewActivity.Columns["QuoteStatus"].Width = 90;
+            grdViewActivity.Columns["StraightMaterialCost"].Width = 140;
+            grdViewActivity.Columns["TotalQuotedSales"].Width = 120;
+            grdViewActivity.Columns["SalesForecastEEIBasePart"].Width = 200;
+            grdViewActivity.Columns["SalesForecastPeakYearlyVolume"].Width = 200;
+            grdViewActivity.Columns["SalesForecastApplication"].Width = 400;
+            grdViewActivity.Columns["SalesPerson"].Width = 120;
+        
+
+            if (!_restoreGridSettings)
+            {
+                Cursor.Current = Cursors.Default;
+                return;
+            }
 
             // Restore saved grid settings if they exist
-            string filePath = @"C:\FasttGridSettings\XtraGrid_SaveLayoutToXML_TopLeads.xml";
+            string filePath = @"C:\FasttGridSettings\XtraGrid_SaveLayoutToXML_Hitlist.xml";
             if (File.Exists(filePath)) grdActivity.MainView.RestoreLayoutFromXml(filePath);
-
-            //view.OptionsBehavior.Editable = false;
 
             Cursor.Current = Cursors.Default;
         }
@@ -1472,6 +1906,10 @@ namespace FASTT.Views
 
             grdDashboard1.DataSource = _controller.DashboardSalesForecastList;
 
+            grdViewDashboard1.OptionsView.ColumnAutoWidth = false;
+            grdViewDashboard1.ScrollStyle = ScrollStyleFlags.LiveHorzScroll | ScrollStyleFlags.LiveVertScroll;
+            grdViewDashboard1.HorzScrollVisibility = ScrollVisibility.Always;
+
             grdViewDashboard1.OptionsBehavior.Editable = false;
             grdViewDashboard1.Columns["Sales2016"].DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
             grdViewDashboard1.Columns["Sales2016"].DisplayFormat.FormatString = "c2";
@@ -1502,6 +1940,15 @@ namespace FASTT.Views
             grdViewDashboard1.Columns["Sales2022"].AppearanceCell.TextOptions.HAlignment = HorzAlignment.Near;
             grdViewDashboard1.Columns["Sales2022"].Caption = "2022";
 
+            grdViewDashboard1.Columns["Customer"].Width = 110;
+            grdViewDashboard1.Columns["Sales2016"].Width = 130;
+            grdViewDashboard1.Columns["Sales2017"].Width = 130;
+            grdViewDashboard1.Columns["Sales2018"].Width = 130;
+            grdViewDashboard1.Columns["Sales2019"].Width = 130;
+            grdViewDashboard1.Columns["Sales2020"].Width = 130;
+            grdViewDashboard1.Columns["Sales2021"].Width = 130;
+            grdViewDashboard1.Columns["Sales2022"].Width = 130;
+
             // Make the group footers always visible
             grdViewDashboard1.GroupFooterShowMode = GroupFooterShowMode.VisibleAlways;
 
@@ -1526,8 +1973,12 @@ namespace FASTT.Views
 
             grdDashboard2.DataSource = _controller.DashboardNewQuotesByCustomerList;
 
+            grdViewDashboard2.OptionsView.ColumnAutoWidth = false;
+            grdViewDashboard2.ScrollStyle = ScrollStyleFlags.LiveHorzScroll | ScrollStyleFlags.LiveVertScroll;
+            grdViewDashboard2.HorzScrollVisibility = ScrollVisibility.Always;
+
             grdViewDashboard2.Columns["TotalQuotedSales"].DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
-            grdViewDashboard2.Columns["TotalQuotedSales"].DisplayFormat.FormatString = "c2";
+            grdViewDashboard2.Columns["TotalQuotedSales"].DisplayFormat.FormatString = "c0";
             grdViewDashboard2.Columns["TotalQuotedSales"].AppearanceCell.TextOptions.HAlignment = HorzAlignment.Near;
             grdViewDashboard2.Columns["Eau"].AppearanceCell.TextOptions.HAlignment = HorzAlignment.Near;
             grdViewDashboard2.Columns["Eau"].DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
@@ -1535,6 +1986,23 @@ namespace FASTT.Views
             grdViewDashboard2.Columns["QuotePrice"].AppearanceCell.TextOptions.HAlignment = HorzAlignment.Near;
             grdViewDashboard2.Columns["QuotePrice"].DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
             grdViewDashboard2.Columns["QuotePrice"].DisplayFormat.FormatString = "n2";
+
+            grdViewDashboard2.Columns["QuoteStatus"].Width = 100;
+            grdViewDashboard2.Columns["Customer"].Width = 110;
+            grdViewDashboard2.Columns["Program"].Width = 100;
+            grdViewDashboard2.Columns["ApplicationName"].Width = 230;
+            grdViewDashboard2.Columns["SalesInitials"].Width = 90;
+            grdViewDashboard2.Columns["Sop"].Width = 90;
+            grdViewDashboard2.Columns["Eop"].Width = 90;
+            grdViewDashboard2.Columns["EeiPartNumber"].Width = 150;
+            grdViewDashboard2.Columns["TotalQuotedSales"].Width = 130;
+            grdViewDashboard2.Columns["Notes"].Width = 210;
+            grdViewDashboard2.Columns["Eau"].Width = 80;
+            grdViewDashboard2.Columns["QuotePrice"].Width = 90;
+            grdViewDashboard2.Columns["QuotePricingDate"].Width = 130;
+            grdViewDashboard2.Columns["Awarded"].Width = 70;
+            grdViewDashboard2.Columns["MaterialPercentage"].Width = 130;
+
 
             // Make the group footers always visible
             grdViewDashboard2.OptionsView.GroupFooterShowMode = GroupFooterShowMode.VisibleAlways;
@@ -1552,41 +2020,167 @@ namespace FASTT.Views
         {
             string customer = cbxReportCustomer.Text.Trim();
 
+            grdViewDashboard3.Columns.Clear();
             grdDashboard3.DataSource = null;
-            _controller.GetSalesActivityHistoryByCustomer(customer);
-            if (!_controller.DashboardSalesPersonActivityByCustomerList.Any()) return;
 
-            grdDashboard3.DataSource = _controller.DashboardSalesPersonActivityByCustomerList;
+            _controller.GetSalesActivityHistoryByCustomer(customer);
+            if (!_controller.ListSalesPersonActivity.Any()) return;
+
+            grdDashboard3.DataSource = _controller.ListSalesPersonActivity;
+
+            grdViewDashboard3.OptionsView.ColumnAutoWidth = false;
+            grdViewDashboard3.ScrollStyle = ScrollStyleFlags.LiveHorzScroll | ScrollStyleFlags.LiveVertScroll;
+            grdViewDashboard3.HorzScrollVisibility = ScrollVisibility.Always;
 
             grdViewDashboard3.OptionsBehavior.Editable = false;
-            grdViewDashboard3.Columns["SalesPersonCode"].Visible = grdViewDashboard3.Columns["RowId"].Visible = grdViewDashboard3.Columns["CombinedLightingId"].Visible = false;
-            grdViewDashboard3.Columns["PeakVolume"].DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
-            grdViewDashboard3.Columns["PeakVolume"].DisplayFormat.FormatString = "n0";
+            grdViewDashboard3.Columns["ID"].Visible = grdViewDashboard3.Columns["SalesLeadID"].Visible = false;
+
+            grdViewDashboard3.Columns["EstYearlySales"].DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
+            grdViewDashboard3.Columns["EstYearlySales"].DisplayFormat.FormatString = "c0";
+            grdViewDashboard3.Columns["Price"].DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
+            grdViewDashboard3.Columns["Price"].DisplayFormat.FormatString = "c2";
+            grdViewDashboard3.Columns["PeakYearlyVolume"].DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
+            grdViewDashboard3.Columns["PeakYearlyVolume"].DisplayFormat.FormatString = "n0";
+            grdViewDashboard3.Columns["AwardedVolume"].DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
+            grdViewDashboard3.Columns["AwardedVolume"].DisplayFormat.FormatString = "n0";
+
+            grdViewDashboard3.Columns["EstYearlySales"].AppearanceCell.TextOptions.HAlignment = HorzAlignment.Near;
+            grdViewDashboard3.Columns["Price"].AppearanceCell.TextOptions.HAlignment = HorzAlignment.Near;
+            grdViewDashboard3.Columns["PeakYearlyVolume"].AppearanceCell.TextOptions.HAlignment = HorzAlignment.Near;
+            grdViewDashboard3.Columns["SOPYear"].AppearanceCell.TextOptions.HAlignment = HorzAlignment.Near;
+            grdViewDashboard3.Columns["AwardedVolume"].AppearanceCell.TextOptions.HAlignment = HorzAlignment.Near;
+
+            grdViewDashboard3.Columns["Customer"].Width = 120;
+            grdViewDashboard3.Columns["Program"].Width = 100;
+            grdViewDashboard3.Columns["EstYearlySales"].Width = 120;
+            grdViewDashboard3.Columns["PeakYearlyVolume"].Width = 130;
+            grdViewDashboard3.Columns["SOPYear"].Width = 70;
+            grdViewDashboard3.Columns["Application"].Width = 200;
+            grdViewDashboard3.Columns["Region"].Width = 100;
+            grdViewDashboard3.Columns["OEM"].Width = 100;
+            grdViewDashboard3.Columns["SOP"].Width = 80;
+            grdViewDashboard3.Columns["EOP"].Width = 80;
+            grdViewDashboard3.Columns["Type"].Width = 120;
+            grdViewDashboard3.Columns["Nameplate"].Width = 110;
+            grdViewDashboard3.Columns["Price"].Width = 60;
+            grdViewDashboard3.Columns["AwardedVolume"].Width = 120;
+            grdViewDashboard3.Columns["Component"].Width = 90;
+            grdViewDashboard3.Columns["LED_Harness"].Width = 90;
+            grdViewDashboard3.Columns["Status"].Width = 80;
+            grdViewDashboard3.Columns["ActivityDate"].Width = 150;
+            grdViewDashboard3.Columns["Activity"].Width = 100;
+            grdViewDashboard3.Columns["MeetingLocation"].Width = 120;
+            grdViewDashboard3.Columns["ContactName"].Width = 120;
+            grdViewDashboard3.Columns["ContactPhoneNumber"].Width = 150;
+            grdViewDashboard3.Columns["ContactEmailAddress"].Width = 150;
+            grdViewDashboard3.Columns["Duration"].Width = 100;
+            grdViewDashboard3.Columns["Notes"].Width = 220;
+            grdViewDashboard3.Columns["LastSalesPerson"].Width = 140;
         }
 
-        private void GetTopLeadsByCustomer()
+        private void GetHitlistMsfByCustomer()
         {
             string customer = cbxReportCustomer.Text.Trim();
+            int? sop = null;
 
+            grdViewDashboard4.Columns.Clear();
             grdDashboard4.DataSource = null;
-            _controller.GetTopLeadsByCustomer(customer);
-            if (!_controller.DashboardTopLeadsByCustomerList.Any()) return;
 
-            grdDashboard4.DataSource = _controller.DashboardTopLeadsByCustomerList;
+            _controller.GetHitlistMsfDashboard(customer, sop);
+            if (!_controller.ListHitlistMsf.Any()) return;
+
+            grdDashboard4.DataSource = _controller.ListHitlistMsf;
+
+            grdViewDashboard4.OptionsView.ColumnAutoWidth = false;
+            grdViewDashboard4.ScrollStyle = ScrollStyleFlags.LiveHorzScroll | ScrollStyleFlags.LiveVertScroll;
+            grdViewDashboard4.HorzScrollVisibility = ScrollVisibility.Always;
 
             grdViewDashboard4.OptionsBehavior.Editable = false;
-            grdViewDashboard4.Columns["RowId"].Visible = grdViewDashboard4.Columns["CombinedLightingId"].Visible = false;
-            grdViewDashboard4.Columns["PeakVolume"].DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
-            grdViewDashboard4.Columns["PeakVolume"].DisplayFormat.FormatString = "n0";
-            grdViewDashboard4.Columns["PeakVolumeSalesEstimate"].DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
-            grdViewDashboard4.Columns["PeakVolumeSalesEstimate"].DisplayFormat.FormatString = "c2";
+            grdViewDashboard4.Columns["ID"].Visible = false;
+            grdViewDashboard4.Columns["SalesLeadID"].Visible = false;
+            grdViewDashboard4.Columns["EstYearlySales"].DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
+            grdViewDashboard4.Columns["EstYearlySales"].DisplayFormat.FormatString = "c0";
+            grdViewDashboard4.Columns["Price"].DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
+            grdViewDashboard4.Columns["Price"].DisplayFormat.FormatString = "c2";
+            grdViewDashboard4.Columns["PeakYearlyVolume"].DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
+            grdViewDashboard4.Columns["PeakYearlyVolume"].DisplayFormat.FormatString = "n0";
+            grdViewDashboard4.Columns["Volume2017"].DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
+            grdViewDashboard4.Columns["Volume2017"].DisplayFormat.FormatString = "n0";
+            grdViewDashboard4.Columns["Volume2018"].DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
+            grdViewDashboard4.Columns["Volume2018"].DisplayFormat.FormatString = "n0";
+            grdViewDashboard4.Columns["Volume2019"].DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
+            grdViewDashboard4.Columns["Volume2019"].DisplayFormat.FormatString = "n0";
+            grdViewDashboard4.Columns["Volume2020"].DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
+            grdViewDashboard4.Columns["Volume2020"].DisplayFormat.FormatString = "n0";
+            grdViewDashboard4.Columns["Volume2021"].DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
+            grdViewDashboard4.Columns["Volume2021"].DisplayFormat.FormatString = "n0";
+            grdViewDashboard4.Columns["Volume2022"].DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
+            grdViewDashboard4.Columns["Volume2022"].DisplayFormat.FormatString = "n0";
+            grdViewDashboard4.Columns["EAU"].DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
+            grdViewDashboard4.Columns["EAU"].DisplayFormat.FormatString = "n0";
+            grdViewDashboard4.Columns["QuotePrice"].DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
+            grdViewDashboard4.Columns["QuotePrice"].DisplayFormat.FormatString = "c2";
+            grdViewDashboard4.Columns["StraightMaterialCost"].DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
+            grdViewDashboard4.Columns["StraightMaterialCost"].DisplayFormat.FormatString = "c2";
+            grdViewDashboard4.Columns["TotalQuotedSales"].DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
+            grdViewDashboard4.Columns["TotalQuotedSales"].DisplayFormat.FormatString = "c2";
+            grdViewDashboard4.Columns["SalesForecastPeakYearlyVolume"].DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
+            grdViewDashboard4.Columns["SalesForecastPeakYearlyVolume"].DisplayFormat.FormatString = "c0";
 
-            // Restore saved grid settings if they exist
-            string filePath = @"C:\FasttGridSettings\XtraGrid_SaveLayoutToXML_TopLeads.xml";
-            if (File.Exists(filePath)) grdActivity.MainView.RestoreLayoutFromXml(filePath);
+            grdViewDashboard4.Columns["EstYearlySales"].AppearanceCell.TextOptions.HAlignment = HorzAlignment.Near;
+            grdViewDashboard4.Columns["Price"].AppearanceCell.TextOptions.HAlignment = HorzAlignment.Near;
+            grdViewDashboard4.Columns["PeakYearlyVolume"].AppearanceCell.TextOptions.HAlignment = HorzAlignment.Near;
+            grdViewDashboard4.Columns["SOPYear"].AppearanceCell.TextOptions.HAlignment = HorzAlignment.Near;
+            grdViewDashboard4.Columns["Volume2017"].AppearanceCell.TextOptions.HAlignment = HorzAlignment.Near;
+            grdViewDashboard4.Columns["Volume2018"].AppearanceCell.TextOptions.HAlignment = HorzAlignment.Near;
+            grdViewDashboard4.Columns["Volume2019"].AppearanceCell.TextOptions.HAlignment = HorzAlignment.Near;
+            grdViewDashboard4.Columns["Volume2020"].AppearanceCell.TextOptions.HAlignment = HorzAlignment.Near;
+            grdViewDashboard4.Columns["Volume2021"].AppearanceCell.TextOptions.HAlignment = HorzAlignment.Near;
+            grdViewDashboard4.Columns["Volume2022"].AppearanceCell.TextOptions.HAlignment = HorzAlignment.Near;
+            grdViewDashboard4.Columns["EAU"].AppearanceCell.TextOptions.HAlignment = HorzAlignment.Near;
+            grdViewDashboard4.Columns["QuotePrice"].AppearanceCell.TextOptions.HAlignment = HorzAlignment.Near;
+            grdViewDashboard4.Columns["StraightMaterialCost"].AppearanceCell.TextOptions.HAlignment = HorzAlignment.Near;
+            grdViewDashboard4.Columns["TotalQuotedSales"].AppearanceCell.TextOptions.HAlignment = HorzAlignment.Near;
+            grdViewDashboard4.Columns["SalesForecastPeakYearlyVolume"].AppearanceCell.TextOptions.HAlignment = HorzAlignment.Near;
+
+            grdViewDashboard4.Columns["Customer"].Width = 160;
+            grdViewDashboard4.Columns["Program"].Width = 100;
+            grdViewDashboard4.Columns["EstYearlySales"].Width = 120;
+            grdViewDashboard4.Columns["PeakYearlyVolume"].Width = 120;
+            grdViewDashboard4.Columns["SOPYear"].Width = 70;
+            grdViewDashboard4.Columns["LED_Harness"].Width = 90;
+            grdViewDashboard4.Columns["Application"].Width = 180;
+            grdViewDashboard4.Columns["Region"].Width = 100;
+            grdViewDashboard4.Columns["OEM"].Width = 100;
+            grdViewDashboard4.Columns["SOP"].Width = 80;
+            grdViewDashboard4.Columns["EOP"].Width = 80;
+            grdViewDashboard4.Columns["Nameplate"].Width = 120;
+            grdViewDashboard4.Columns["Component"].Width = 90;
+            grdViewDashboard4.Columns["Type"].Width = 130;
+            grdViewDashboard4.Columns["Price"].Width = 60;
+            grdViewDashboard4.Columns["Volume2017"].Width = 80;
+            grdViewDashboard4.Columns["Volume2018"].Width = 80;
+            grdViewDashboard4.Columns["Volume2019"].Width = 80;
+            grdViewDashboard4.Columns["Volume2020"].Width = 80;
+            grdViewDashboard4.Columns["Volume2021"].Width = 80;
+            grdViewDashboard4.Columns["Volume2022"].Width = 80;
+            grdViewDashboard4.Columns["QuoteNumber"].Width = 100;
+            grdViewDashboard4.Columns["EEIPartNumber"].Width = 130;
+            grdViewDashboard4.Columns["EAU"].Width = 70;
+            grdViewDashboard4.Columns["ApplicationName"].Width = 130;
+            grdViewDashboard4.Columns["SalesInitials"].Width = 80;
+            grdViewDashboard4.Columns["QuotePrice"].Width = 80;
+            grdViewDashboard4.Columns["Awarded"].Width = 60;
+            grdViewDashboard4.Columns["QuoteStatus"].Width = 90;
+            grdViewDashboard4.Columns["StraightMaterialCost"].Width = 140;
+            grdViewDashboard4.Columns["TotalQuotedSales"].Width = 120;
+            grdViewDashboard4.Columns["SalesForecastEEIBasePart"].Width = 200;
+            grdViewDashboard4.Columns["SalesForecastPeakYearlyVolume"].Width = 200;
+            grdViewDashboard4.Columns["SalesPerson"].Width = 120;
         }
 
         #endregion
+
 
 
     }

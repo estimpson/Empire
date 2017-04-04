@@ -7,7 +7,9 @@
         DashboardIntro,
         DashboardFull,
         ActivityGrid,
+        ActivityGridHitlist,
         QuoteGrid,
+        HitlistLinkClicked,
         LaunchingClosingLinkClicked
     }
 }
