@@ -320,13 +320,13 @@
     <None Include="Resources\RMA.ico" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\..\..\3rdPartyControls\ObjectListView2012\ObjectListView2012.csproj">
+      <Project>{18feda0c-d147-4286-b39a-01204808106a}</Project>
+      <Name>ObjectListView2012</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Fx.WinForms.Flat\Fx.WinForms.Flat.csproj">
       <Project>{5E3C1188-AF29-46E7-8371-D3EEB667C8A1}</Project>
       <Name>Fx.WinForms.Flat</Name>
-    </ProjectReference>
-    <ProjectReference Include="D:\G-Drive\Fx\Fx.WinForms.ObjectListView\ObjectListView2012.csproj">
-      <Project>{18FEDA0C-D147-4286-B39A-01204808106A}</Project>
-      <Name>ObjectListView2012</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

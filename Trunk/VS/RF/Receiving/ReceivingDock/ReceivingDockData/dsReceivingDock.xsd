@@ -4,7 +4,7 @@
     <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
       <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
         <Connections>
-          <Connection ConnectionStringObject="Data Source=10.10.0.34;Initial Catalog=EEH;User ID=sa" IsAppSettingsProperty="false" Modifier="Assembly" Name="EEHConnectionString" ParameterPrefix="@" Provider="System.Data.SqlClient" />
+          <Connection ConnectionStringObject="Data Source=10.10.0.130;Initial Catalog=EEH;User ID=sa" IsAppSettingsProperty="false" Modifier="Assembly" Name="EEHConnectionString" ParameterPrefix="@" Provider="System.Data.SqlClient" />
         </Connections>
         <Tables>
           <TableAdapter BaseClass="System.ComponentModel.Component" DataAccessorModifier="AutoLayout, AnsiClass, Class, Public" DataAccessorName="PODetailsTableAdapter" GeneratorDataComponentClassName="PODetailsTableAdapter" Name="PODetails" UserDataComponentName="PODetailsTableAdapter">
@@ -135,45 +135,45 @@ where	date_due between dateadd (dd, -7, (getdate() - datepart (dw, getdate()) + 
         <xs:element name="PODetails" msprop:Generator_UserTableName="PODetails" msprop:Generator_RowDeletedName="PODetailsRowDeleted" msprop:Generator_RowChangedName="PODetailsRowChanged" msprop:Generator_RowClassName="PODetailsRow" msprop:Generator_RowChangingName="PODetailsRowChanging" msprop:Generator_RowEvArgName="PODetailsRowChangeEvent" msprop:Generator_RowEvHandlerName="PODetailsRowChangeEventHandler" msprop:Generator_TableClassName="PODetailsDataTable" msprop:Generator_TableVarName="tablePODetails" msprop:Generator_RowDeletingName="PODetailsRowDeleting" msprop:Generator_TablePropName="PODetails">
           <xs:complexType>
             <xs:sequence>
-              <xs:element name="PONumber" msprop:Generator_UserColumnName="PONumber" msprop:Generator_ColumnPropNameInRow="PONumber" msprop:Generator_ColumnVarNameInTable="columnPONumber" msprop:Generator_ColumnPropNameInTable="PONumberColumn" type="xs:int" />
-              <xs:element name="VendorCode" msprop:Generator_UserColumnName="VendorCode" msprop:Generator_ColumnPropNameInRow="VendorCode" msprop:Generator_ColumnVarNameInTable="columnVendorCode" msprop:Generator_ColumnPropNameInTable="VendorCodeColumn">
+              <xs:element name="PONumber" msprop:Generator_UserColumnName="PONumber" msprop:Generator_ColumnVarNameInTable="columnPONumber" msprop:Generator_ColumnPropNameInRow="PONumber" msprop:Generator_ColumnPropNameInTable="PONumberColumn" type="xs:int" />
+              <xs:element name="VendorCode" msprop:Generator_UserColumnName="VendorCode" msprop:Generator_ColumnVarNameInTable="columnVendorCode" msprop:Generator_ColumnPropNameInRow="VendorCode" msprop:Generator_ColumnPropNameInTable="VendorCodeColumn">
                 <xs:simpleType>
                   <xs:restriction base="xs:string">
                     <xs:maxLength value="10" />
                   </xs:restriction>
                 </xs:simpleType>
               </xs:element>
-              <xs:element name="PartNumber" msprop:Generator_UserColumnName="PartNumber" msprop:Generator_ColumnPropNameInRow="PartNumber" msprop:Generator_ColumnVarNameInTable="columnPartNumber" msprop:Generator_ColumnPropNameInTable="PartNumberColumn">
+              <xs:element name="PartNumber" msprop:Generator_UserColumnName="PartNumber" msprop:Generator_ColumnVarNameInTable="columnPartNumber" msprop:Generator_ColumnPropNameInRow="PartNumber" msprop:Generator_ColumnPropNameInTable="PartNumberColumn">
                 <xs:simpleType>
                   <xs:restriction base="xs:string">
                     <xs:maxLength value="25" />
                   </xs:restriction>
                 </xs:simpleType>
               </xs:element>
-              <xs:element name="Description" msprop:Generator_UserColumnName="Description" msprop:Generator_ColumnPropNameInRow="Description" msprop:Generator_ColumnVarNameInTable="columnDescription" msprop:Generator_ColumnPropNameInTable="DescriptionColumn" minOccurs="0">
+              <xs:element name="Description" msprop:Generator_UserColumnName="Description" msprop:Generator_ColumnVarNameInTable="columnDescription" msprop:Generator_ColumnPropNameInRow="Description" msprop:Generator_ColumnPropNameInTable="DescriptionColumn" minOccurs="0">
                 <xs:simpleType>
                   <xs:restriction base="xs:string">
                     <xs:maxLength value="100" />
                   </xs:restriction>
                 </xs:simpleType>
               </xs:element>
-              <xs:element name="Unit" msprop:Generator_UserColumnName="Unit" msprop:Generator_ColumnPropNameInRow="Unit" msprop:Generator_ColumnVarNameInTable="columnUnit" msprop:Generator_ColumnPropNameInTable="UnitColumn" minOccurs="0">
+              <xs:element name="Unit" msprop:Generator_UserColumnName="Unit" msprop:Generator_ColumnVarNameInTable="columnUnit" msprop:Generator_ColumnPropNameInRow="Unit" msprop:Generator_ColumnPropNameInTable="UnitColumn" minOccurs="0">
                 <xs:simpleType>
                   <xs:restriction base="xs:string">
                     <xs:maxLength value="2" />
                   </xs:restriction>
                 </xs:simpleType>
               </xs:element>
-              <xs:element name="DueDT" msprop:Generator_UserColumnName="DueDT" msprop:Generator_ColumnPropNameInRow="DueDT" msprop:Generator_ColumnVarNameInTable="columnDueDT" msprop:Generator_ColumnPropNameInTable="DueDTColumn" type="xs:dateTime" />
-              <xs:element name="Balance" msprop:Generator_UserColumnName="Balance" msprop:Generator_ColumnPropNameInRow="Balance" msprop:Generator_ColumnVarNameInTable="columnBalance" msprop:Generator_ColumnPropNameInTable="BalanceColumn" type="xs:decimal" minOccurs="0" />
-              <xs:element name="Type" msprop:Generator_UserColumnName="Type" msprop:Generator_ColumnPropNameInRow="Type" msprop:Generator_ColumnVarNameInTable="columnType" msprop:Generator_ColumnPropNameInTable="TypeColumn" minOccurs="0">
+              <xs:element name="DueDT" msprop:Generator_UserColumnName="DueDT" msprop:Generator_ColumnVarNameInTable="columnDueDT" msprop:Generator_ColumnPropNameInRow="DueDT" msprop:Generator_ColumnPropNameInTable="DueDTColumn" type="xs:dateTime" />
+              <xs:element name="Balance" msprop:Generator_UserColumnName="Balance" msprop:Generator_ColumnVarNameInTable="columnBalance" msprop:Generator_ColumnPropNameInRow="Balance" msprop:Generator_ColumnPropNameInTable="BalanceColumn" type="xs:decimal" minOccurs="0" />
+              <xs:element name="Type" msprop:Generator_UserColumnName="Type" msprop:Generator_ColumnVarNameInTable="columnType" msprop:Generator_ColumnPropNameInRow="Type" msprop:Generator_ColumnPropNameInTable="TypeColumn" minOccurs="0">
                 <xs:simpleType>
                   <xs:restriction base="xs:string">
                     <xs:maxLength value="1" />
                   </xs:restriction>
                 </xs:simpleType>
               </xs:element>
-              <xs:element name="RowID" msprop:Generator_UserColumnName="RowID" msprop:Generator_ColumnPropNameInRow="RowID" msprop:Generator_ColumnVarNameInTable="columnRowID" msprop:Generator_ColumnPropNameInTable="RowIDColumn" type="xs:decimal" />
+              <xs:element name="RowID" msprop:Generator_UserColumnName="RowID" msprop:Generator_ColumnVarNameInTable="columnRowID" msprop:Generator_ColumnPropNameInRow="RowID" msprop:Generator_ColumnPropNameInTable="RowIDColumn" type="xs:decimal" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>

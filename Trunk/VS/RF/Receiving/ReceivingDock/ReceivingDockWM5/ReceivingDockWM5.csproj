@@ -58,10 +58,6 @@
     <GenerateSerializationAssemblies>Off</GenerateSerializationAssemblies>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="CommonData, Version=1.0.3824.18460, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\CommonData\7-26-2010\bin\Release\CommonData.dll</HintPath>
-    </Reference>
     <Reference Include="mscorlib" />
     <Reference Include="SymbolRFGun, Version=1.0.3875.25067, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -99,6 +95,10 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\CommonData\7-26-2010\CommonData.csproj">
+      <Project>{041D2313-2AC5-49D2-AB13-458CF7E21FD0}</Project>
+      <Name>CommonData</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ReceivingDockData\ReceivingDockData.csproj">
       <Project>{DD7C0C98-6464-4362-A23E-19CD6FA5F9CA}</Project>
       <Name>ReceivingDockData</Name>

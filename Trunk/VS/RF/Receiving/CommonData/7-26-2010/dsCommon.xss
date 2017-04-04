@@ -9,7 +9,7 @@
     <Shape ID="DesignTable:Employee" ZOrder="4" X="66" Y="29" Height="161" Width="256" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="46" />
     <Shape ID="DesignTable:EEIEmployee" ZOrder="3" X="55" Y="215" Height="88" Width="314" AdapterExpanded="true" DataTableExpanded="false" OldAdapterHeight="45" OldDataTableHeight="40" SplitterPosition="24" />
     <Shape ID="DesignTable:EEHEmployee" ZOrder="2" X="454" Y="327" Height="138" Width="255" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="40" />
-    <Shape ID="DesignTable:Messages" ZOrder="1" X="483" Y="79" Height="219" Width="210" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="121" />
+    <Shape ID="DesignTable:Messages" ZOrder="1" X="523" Y="48" Height="219" Width="210" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="121" />
   </Shapes>
   <Connectors />
 </DiagramLayout>
