@@ -1,31 +1,34 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
+﻿#region Using
+
+using System;
 using System.Drawing;
-using System.Linq;
-using System.Text;
 using System.Windows.Forms;
 using RmaMaintenance.UserControls;
+
+#endregion
 
 namespace RmaMaintenance.Views
 {
     public partial class NewRmaView : Form
     {
-        #region Class Objects
-
-        private readonly ucNewRmaCreate _ucNewRmaCreate;
-        private readonly ucNewRmaOptions _ucNewRmaOptions;
-
-        #endregion
-
-
         #region Properties
 
         public string OperatorCode { get; set; }
-        public string RmaNumber { get; set; }
+
+        public string RMANumber
+        {
+            get { return ucNewRmaCreate1.RMANumber; }
+            set { ucNewRmaCreate1.RMANumber = value; }
+        }
+
+        public string RTVNumber
+        {
+            get { return ucNewRmaCreate1.RTVNumber; }
+            set { ucNewRmaCreate1.RTVNumber = value; }
+        }
 
         private string _error;
+
         public string Error
         {
             get { return _error; }
@@ -37,6 +40,7 @@ namespace RmaMaintenance.Views
         }
 
         private bool _optionOneSelected;
+
         public bool OptionOneSelected
         {
             get { return _optionOneSelected; }
@@ -46,26 +50,27 @@ namespace RmaMaintenance.Views
                 if (value) // Paste serials
                 {
                     tlpCreateRma.Visible = true;
-                    _ucNewRmaCreate.ShowOptionOne = true;
+                    ucNewRmaCreate1.ShowOptionOne = true;
                 }
                 else // Enter parts and quantities
                 {
                     tlpCreateRma.Visible = true;
-                    _ucNewRmaCreate.ShowOptionOne = false;
+                    ucNewRmaCreate1.ShowOptionOne = false;
                 }
             }
         }
 
         private bool _clearingForm;
+
         public bool ClearingForm
         {
             get { return _clearingForm; }
-            set 
-            { 
+            set
+            {
                 _clearingForm = value;
                 if (!value) return;
 
-                _ucNewRmaCreate.ClearAll();
+                ucNewRmaCreate1.ClearAll();
                 tlpCreateRma.Visible = false;
                 Error = "";
             }
@@ -73,97 +78,98 @@ namespace RmaMaintenance.Views
 
         #endregion
 
-
         #region Constuctor, Load, Activated
 
         public NewRmaView()
         {
             InitializeComponent();
 
-            _ucNewRmaCreate = new ucNewRmaCreate(this);
-            _ucNewRmaOptions = new ucNewRmaOptions(this);
+            ucNewRmaCreate1.SetView(this);
+            ucNewRmaOptions1.SetView(this);
 
-            tlpCreateRma.SuspendLayout();
-            tlpCreateRma.Controls.Add(_ucNewRmaCreate);
-            tlpCreateRma.ResumeLayout();
-
-            tlpOptions.SuspendLayout();
-            tlpOptions.Controls.Add(_ucNewRmaOptions);
-            tlpOptions.ResumeLayout();
+            RMAButton.Click += RMAButtonOnClick;
+            RTVButton.Click += RTVButtonOnClick;
         }
 
-        private void NewRmaView_Load(object sender, EventArgs e)
+        private void RMAButtonOnClick(object sender, EventArgs eventArgs)
         {
-            _ucNewRmaOptions.ShowOptions = tlpCreateRma.Visible = false;
+            RMAButton.Checked = false;
+            RTVButton.Checked = false;
+            ucNewRmaOptions1.RMAMode = true;
+        }
+
+        private void RTVButtonOnClick(object sender, EventArgs eventArgs)
+        {
+            RMAButton.Checked = false;
+            RTVButton.Checked = false;
+            ucNewRmaOptions1.RTVMode = true;
+        }
+
+        private void NewRmaViewLoad(object sender, EventArgs e)
+        {
+            ucNewRmaOptions1.ShowOptions = tlpCreateRma.Visible = false;
             linkLblClose.LinkBehavior = LinkBehavior.NeverUnderline;
 
             GetDestinations();
         }
 
-        private void NewRmaView_Activated(object sender, EventArgs e)
+        private void NewRmaViewActivated(object sender, EventArgs e)
         {
-            _ucNewRmaOptions.mesTxtRmaNumber.Focus();
+            ucNewRmaOptions1.mesTxtRmaNumber.Focus();
         }
 
         #endregion
 
-
         #region Panel Events
 
-        private void panel1_Paint(object sender, PaintEventArgs e)
+        private void Panel1Paint(object sender, PaintEventArgs e)
         {
-            int thickness = 2;
-            int halfThickness = thickness / 2;
-            using (var p = new Pen(Color.FromArgb(0, 122, 204), thickness))
+            const int THICKNESS = 2;
+            const int HALF_THICKNESS = THICKNESS/2;
+            using (var p = new Pen(Color.FromArgb(0, 122, 204), THICKNESS))
             {
-                e.Graphics.DrawRectangle(p, new Rectangle(halfThickness,
-                                                          halfThickness,
-                                                          panel1.ClientSize.Width - thickness,
-                                                          panel1.ClientSize.Height - thickness));
+                e.Graphics.DrawRectangle(p, new Rectangle(HALF_THICKNESS,
+                    HALF_THICKNESS,
+                    panel1.ClientSize.Width - THICKNESS,
+                    panel1.ClientSize.Height - THICKNESS));
             }
         }
 
         #endregion
 
-
         #region LinkLabel Events
 
-        private void linkLblClose_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        private void LinkLblCloseLinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             Close();
         }
 
-        private void linkLblClose_MouseEnter(object sender, EventArgs e)
+        private void LinkLblCloseMouseEnter(object sender, EventArgs e)
         {
             linkLblClose.LinkColor = Color.Red;
         }
 
-        private void linkLblClose_MouseLeave(object sender, EventArgs e)
+        private void LinkLblCloseMouseLeave(object sender, EventArgs e)
         {
             linkLblClose.LinkColor = ColorTranslator.FromHtml("0,122,204");
         }
 
         #endregion
 
-
         #region Methods
 
-        private int GetDestinations()
+        private void GetDestinations()
         {
             Error = "";
 
             string error;
-            _ucNewRmaCreate.GetDestinations(out error);
+            ucNewRmaCreate1.GetDestinations(out error);
             if (error != "")
             {
                 Error = error;
-                return 0;
             }
-            return 1;
         }
 
         #endregion
-
-
     }
 }

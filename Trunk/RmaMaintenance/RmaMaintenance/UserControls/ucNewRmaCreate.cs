@@ -1,14 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
+﻿#region Using
+
+using System;
 using System.Drawing;
-using System.Data;
-using System.Linq;
-using System.Text;
 using System.Windows.Forms;
+using RmaMaintenance.Controllers;
 using RmaMaintenance.Controls;
 using RmaMaintenance.Views;
-using RmaMaintenance.Controllers;
+
+#endregion
 
 namespace RmaMaintenance.UserControls
 {
@@ -16,17 +15,18 @@ namespace RmaMaintenance.UserControls
     {
         #region Class Objects
 
-        private readonly NewRmaView _view;
+        private NewRmaView _view;
         private readonly NewRmaCreateController _controller;
         private readonly Messages _message;
         private readonly MessagesDialogResult _messageDialogResult;
 
         #endregion
 
-
         #region Properties
 
         private bool _showOptionOne;
+        private string _rmaNumber;
+
         public bool ShowOptionOne
         {
             get { return _showOptionOne; }
@@ -46,21 +46,53 @@ namespace RmaMaintenance.UserControls
             }
         }
 
-        #endregion
+        public string RMANumber
+        {
+            get { return _rmaNumber; }
+            set
+            {
+                _rmaNumber = value;
+                if (string.IsNullOrEmpty(_rmaNumber))
+                {
+                    return;
+                }
+                if (_controller.QualityRMADetails(_rmaNumber) <= 0) return;
+                _messageDialogResult.Message =
+                    "Existing RTV found.";
 
+                dgvNewShippers.DataSource = null;
+                dgvNewShippers.DataSource = _controller.NewShippersList;
+            }
+        }
+
+        private string _rtvNumber;
+        public string RTVNumber
+        {
+            get { return _rtvNumber; }
+            set
+            {
+                _rtvNumber = value;
+                if (string.IsNullOrEmpty(_rtvNumber))
+                {
+                    _rtvNumber =_controller.NewRTV();
+                    return;
+                }
+                if (_controller.GetRTVDetails(_rtvNumber) <= 0) return;
+                _messageDialogResult.Message =
+                    "Existing RTV found.";
+
+                dgvNewShippers.DataSource = null;
+                dgvNewShippers.DataSource = _controller.NewShippersList;
+            }
+        }
+
+        #endregion
 
         #region Constructor
 
         public ucNewRmaCreate()
         {
             InitializeComponent();
-        }
-
-        public ucNewRmaCreate(NewRmaView view)
-        {
-            InitializeComponent();
-
-            _view = view;
             _controller = new NewRmaCreateController();
             _message = new Messages();
             _messageDialogResult = new MessagesDialogResult();
@@ -68,7 +100,7 @@ namespace RmaMaintenance.UserControls
             SetPartsGridColumnProperties();
             SetPartsGridProperties();
             SetShippersGridProperties();
-            
+
 
             mesBtnCreateRma.Enabled = false;
             cbxCreateRtv.Visible = cbxSerialsOnHold.Visible = false;
@@ -76,8 +108,12 @@ namespace RmaMaintenance.UserControls
             rbtnTransferWarehouse.Checked = true;
         }
 
-        #endregion
+        public void SetView(NewRmaView view)
+        {
+            _view = view;
+        }
 
+        #endregion
 
         #region DataGridView Events
 
@@ -103,13 +139,12 @@ namespace RmaMaintenance.UserControls
         {
             foreach (DataGridViewRow row in dgvNewShippers.SelectedRows)
             {
-                mesTbxRmaShipper.Text =  row.Cells[0].Value.ToString();
+                mesTbxRmaShipper.Text = row.Cells[0].Value.ToString();
                 mesTbxRtvShipper.Text = row.Cells[1].Value.ToString();
             }
         }
 
         #endregion
-
 
         #region CheckBox Check Changed Events
 
@@ -119,7 +154,6 @@ namespace RmaMaintenance.UserControls
         }
 
         #endregion
-
 
         #region RadioButton Click Events
 
@@ -134,7 +168,6 @@ namespace RmaMaintenance.UserControls
         }
 
         #endregion
-
 
         #region Serials Button Click Events
 
@@ -153,14 +186,13 @@ namespace RmaMaintenance.UserControls
 
         #endregion
 
-
         #region Parts/Quantities Button Click Events
 
         private void mesBtnShowSerials_Click(object sender, EventArgs e)
         {
             if (mesBtnShowSerials.Text == "Get Serials")
             {
-                GetSerialsList();    
+                GetSerialsList();
             }
             else
             {
@@ -175,21 +207,22 @@ namespace RmaMaintenance.UserControls
 
         #endregion
 
-
         #region Processing Button Click Events
 
         private void mesBtnCreateRma_Click(object sender, EventArgs e)
         {
             if (!cbxCreateRtv.Checked)
             {
-                _messageDialogResult.Message = "Create RTV shipper is not checked, so only a RMA will be created.  Continue?";
+                _messageDialogResult.Message =
+                    "Create RTV shipper is not checked, so only a RMA will be created.  Continue?";
                 DialogResult dr = _messageDialogResult.ShowDialog();
                 if (dr == DialogResult.No) return;
             }
 
             if (cbxCreateRtv.Checked && cbxSerialsOnHold.Checked)
             {
-                _messageDialogResult.Message = "Serials will not be staged to the RTV shipper if you place them on hold.  Do you want to continue? (Not recommended.)";
+                _messageDialogResult.Message =
+                    "Serials will not be staged to the RTV shipper if you place them on hold.  Do you want to continue? (Not recommended.)";
                 DialogResult dr = _messageDialogResult.ShowDialog();
                 if (dr == DialogResult.No) return;
             }
@@ -215,7 +248,6 @@ namespace RmaMaintenance.UserControls
         }
 
         #endregion
-
 
         #region PartsQuantities Option Methods
 
@@ -249,7 +281,7 @@ namespace RmaMaintenance.UserControls
 
             // Loop through parts / quantities grid and return a list of serials to RMA
             if (GetSerialsFromPartDest(destination) == 0) return;
-            
+
             // Show serials
             var view = new SerialsListView();
             view.dgvSerialsList.DataSource = _controller.SerialsList;
@@ -286,7 +318,8 @@ namespace RmaMaintenance.UserControls
 
                 if (quantity == "")
                 {
-                    _message.Message = string.Format("A quantity needs to be entered for part {0}.  Nothing was processed.", part);
+                    _message.Message =
+                        string.Format("A quantity needs to be entered for part {0}.  Nothing was processed.", part);
                     _message.ShowDialog();
                     return 0;
                 }
@@ -298,7 +331,8 @@ namespace RmaMaintenance.UserControls
                 }
                 catch (Exception)
                 {
-                    _message.Message = string.Format("Invalid quantity found for part {0}.  Nothing was processed.", part);
+                    _message.Message = string.Format("Invalid quantity found for part {0}.  Nothing was processed.",
+                        part);
                     _message.ShowDialog();
                     return 0;
                 }
@@ -314,9 +348,9 @@ namespace RmaMaintenance.UserControls
         {
             dgvPartsQuantities.ColumnHeadersDefaultCellStyle.Font = new Font("Tahoma", 10);
 
-            var partCol = new DataGridViewTextBoxColumn { HeaderText = "Part", Name = "colPart", Width = 160 };
-            var quantityCol = new DataGridViewTextBoxColumn { HeaderText = "Quantity", Name = "colQuantity", Width = 80 };
-            dgvPartsQuantities.Columns.AddRange(new DataGridViewColumn[] { partCol, quantityCol });
+            var partCol = new DataGridViewTextBoxColumn {HeaderText = "Part", Name = "colPart", Width = 160};
+            var quantityCol = new DataGridViewTextBoxColumn {HeaderText = "Quantity", Name = "colQuantity", Width = 80};
+            dgvPartsQuantities.Columns.AddRange(new DataGridViewColumn[] {partCol, quantityCol});
         }
 
         private void SetPartsGridProperties()
@@ -349,7 +383,6 @@ namespace RmaMaintenance.UserControls
 
         #endregion
 
-
         #region Serials Option Methods
 
         private void CreateRmaSerialsOption()
@@ -377,7 +410,7 @@ namespace RmaMaintenance.UserControls
 
         private int DeleteOldSerialsQuantities()
         {
-            int result = _controller.DeleteOldSerialsQuantities(); 
+            int result = _controller.DeleteOldSerialsQuantities();
             return result;
         }
 
@@ -401,7 +434,6 @@ namespace RmaMaintenance.UserControls
 
         #endregion
 
-
         #region Overlap Methods
 
         private void ProcessSerials()
@@ -410,7 +442,8 @@ namespace RmaMaintenance.UserControls
             int placeSerialsOnHold = (cbxSerialsOnHold.Checked) ? 1 : 0;
             string note = mesTbxRmaNote.Text.Trim();
 
-            int result = _controller.ProcessData(_view.OperatorCode, _view.RmaNumber, createRtvShipper, placeSerialsOnHold, note);
+            int result = _controller.ProcessData(_view.OperatorCode, RMANumber, createRtvShipper,
+                placeSerialsOnHold, note);
             if (result == 0) return;
 
             // Success
@@ -574,6 +607,31 @@ namespace RmaMaintenance.UserControls
 
         #endregion
 
+        private void RtvPackingSlipButtonClick(object sender, EventArgs e)
+        {
+            string rtvShipperText = mesTbxRtvShipper.Text.Trim();
 
+            if (rtvShipperText == "")
+            {
+                _message.Message = "RTV shipper is required.";
+                _message.ShowDialog();
+                return;
+            }
+
+            int rtvShipper;
+            try
+            {
+                rtvShipper = Convert.ToInt32(rtvShipperText);
+            }
+            catch (Exception)
+            {
+                _message.Message = "The RTV shipper number is not valid.";
+                _message.ShowDialog();
+                return;
+            }
+
+            var dialogRTVPackingSlip = new RTVPackingSlip { RTVShipperID = rtvShipper };
+            dialogRTVPackingSlip.ShowDialog();
+        }
     }
 }

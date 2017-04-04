@@ -62,7 +62,7 @@ namespace Fx.WinForms.Flat
             //_checkedColor = Color.FromArgb(0, 122, 204);
             //_uncheckedBorderColor = Color.FromArgb(67, 67, 70);
             //_uncheckedColor = Color.FromArgb(31, 31, 32);
-            ((MESButton)this).Click += OnClick;
+            ((MESButton) this).Click += OnClick;
         }
 
         private void OnClick(object sender, EventArgs eventArgs)

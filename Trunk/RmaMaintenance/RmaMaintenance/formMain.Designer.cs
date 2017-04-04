@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(formMain));
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.linkLblClose = new System.Windows.Forms.LinkLabel();
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
@@ -42,6 +43,7 @@
             this.mesBtnLogon = new Fx.WinForms.Flat.MESButton();
             this.lblLogonError = new System.Windows.Forms.Label();
             this.lblScanInstructions = new System.Windows.Forms.Label();
+            this.RtvButton = new Fx.WinForms.Flat.MESButton();
             this.tableLayoutPanel1.SuspendLayout();
             this.flowLayoutPanel1.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
@@ -86,6 +88,7 @@
             this.flowLayoutPanel1.Controls.Add(this.mesBtnNewRma);
             this.flowLayoutPanel1.Controls.Add(this.mesBtnAssignPo);
             this.flowLayoutPanel1.Controls.Add(this.mesBtnEditRma);
+            this.flowLayoutPanel1.Controls.Add(this.RtvButton);
             this.flowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.flowLayoutPanel1.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
             this.flowLayoutPanel1.Location = new System.Drawing.Point(23, 3);
@@ -219,6 +222,7 @@
             this.mesTbxPassword.PasswordChar = '*';
             this.mesTbxPassword.Size = new System.Drawing.Size(100, 27);
             this.mesTbxPassword.TabIndex = 1;
+            this.mesTbxPassword.KeyDown += new System.Windows.Forms.KeyEventHandler(this.MESTbxPasswordKeyDown);
             // 
             // mesBtnLogon
             // 
@@ -260,6 +264,24 @@
             this.lblScanInstructions.TabIndex = 2;
             this.lblScanInstructions.Text = "Scan your badge to begin.";
             // 
+            // RtvButton
+            // 
+            this.RtvButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(31)))), ((int)(((byte)(31)))), ((int)(((byte)(32)))));
+            this.RtvButton.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(67)))), ((int)(((byte)(67)))), ((int)(((byte)(70)))));
+            this.RtvButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(122)))), ((int)(((byte)(204)))));
+            this.RtvButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(84)))), ((int)(((byte)(84)))), ((int)(((byte)(92)))));
+            this.RtvButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.RtvButton.Font = new System.Drawing.Font("Tahoma", 14F);
+            this.RtvButton.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
+            this.RtvButton.Location = new System.Drawing.Point(3, 141);
+            this.RtvButton.Margin = new System.Windows.Forms.Padding(3, 3, 3, 6);
+            this.RtvButton.Name = "RtvButton";
+            this.RtvButton.Size = new System.Drawing.Size(158, 35);
+            this.RtvButton.TabIndex = 3;
+            this.RtvButton.Text = "RTV";
+            this.RtvButton.UseVisualStyleBackColor = false;
+            this.RtvButton.Click += new System.EventHandler(this.RtvButtonClick);
+            // 
             // formMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -269,11 +291,13 @@
             this.ControlBox = false;
             this.Controls.Add(this.tableLayoutPanel1);
             this.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MinimumSize = new System.Drawing.Size(1038, 582);
             this.Name = "formMain";
             this.Padding = new System.Windows.Forms.Padding(0, 24, 0, 0);
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.Text = "RMA Processing";
             this.Activated += new System.EventHandler(this.formMain_Activated);
             this.Load += new System.EventHandler(this.formMain_Load);
             this.tableLayoutPanel1.ResumeLayout(false);
@@ -303,6 +327,7 @@
         private System.Windows.Forms.Label lblScanInstructions;
         private Fx.WinForms.Flat.MESButton mesBtnEditRma;
         private Fx.WinForms.Flat.MESButton mesBtnAssignPo;
+        private Fx.WinForms.Flat.MESButton RtvButton;
     }
 }
 

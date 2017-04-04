@@ -31,6 +31,10 @@ namespace RmaMaintenance.Model
         public DbSet<employee> employees { get; set; }
         public DbSet<vw_CreateRma_Destinations> vw_CreateRma_Destinations { get; set; }
         public DbSet<SerialsQuantitiesToAutoRMA_RTV> SerialsQuantitiesToAutoRMA_RTV { get; set; }
+        public DbSet<CreateRma_RTV_PackingSlip> RTV_PackingSlip { get; set; }
+        public DbSet<InventoryToRTV> InventoryToRTVs { get; set; }
+        public DbSet<OpenRTV> OpenRTVs { get; set; }
+        public DbSet<HondurasLocation> HondurasLocations { get; set; }
     
         public virtual int usp_CreateRma_ImportSerialsQuantities(Nullable<int> serial, Nullable<decimal> quantity, ObjectParameter tranDT, ObjectParameter result)
         {
@@ -179,6 +183,50 @@ namespace RmaMaintenance.Model
                 new ObjectParameter("Serial", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("usp_StageShipoutRtv_UpdatePo", operatorCodeParameter, serialParameter, tranDT, result);
+        }
+    
+        public virtual ObjectResult<QualityRMA_Details> usp_CreateRma_GetQualityRMA(string rMANumber, ObjectParameter tranDT, ObjectParameter result)
+        {
+            var rMANumberParameter = rMANumber != null ?
+                new ObjectParameter("RMANumber", rMANumber) :
+                new ObjectParameter("RMANumber", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<QualityRMA_Details>("usp_CreateRma_GetQualityRMA", rMANumberParameter, tranDT, result);
+        }
+    
+        public virtual int usp_CreateRTV_ImportSerials(string operatorCode, string serialList, ObjectParameter firstNewRTVShipper, ObjectParameter rTVShipperCount, ObjectParameter tranDT, ObjectParameter result)
+        {
+            var operatorCodeParameter = operatorCode != null ?
+                new ObjectParameter("OperatorCode", operatorCode) :
+                new ObjectParameter("OperatorCode", typeof(string));
+    
+            var serialListParameter = serialList != null ?
+                new ObjectParameter("SerialList", serialList) :
+                new ObjectParameter("SerialList", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("usp_CreateRTV_ImportSerials", operatorCodeParameter, serialListParameter, firstNewRTVShipper, rTVShipperCount, tranDT, result);
+        }
+    
+        public virtual ObjectResult<usp_EEHLivelyTest_Result> usp_EEHLivelyTest(ObjectParameter tranDT, ObjectParameter result)
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_EEHLivelyTest_Result>("usp_EEHLivelyTest", tranDT, result);
+        }
+    
+        public virtual int usp_CreateRTV_ImportSerials_ToExistingRTV(string operatorCode, string serialList, Nullable<int> rTVShipper, ObjectParameter tranDT, ObjectParameter result)
+        {
+            var operatorCodeParameter = operatorCode != null ?
+                new ObjectParameter("OperatorCode", operatorCode) :
+                new ObjectParameter("OperatorCode", typeof(string));
+    
+            var serialListParameter = serialList != null ?
+                new ObjectParameter("SerialList", serialList) :
+                new ObjectParameter("SerialList", typeof(string));
+    
+            var rTVShipperParameter = rTVShipper.HasValue ?
+                new ObjectParameter("RTVShipper", rTVShipper) :
+                new ObjectParameter("RTVShipper", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("usp_CreateRTV_ImportSerials_ToExistingRTV", operatorCodeParameter, serialListParameter, rTVShipperParameter, tranDT, result);
         }
     }
 }
