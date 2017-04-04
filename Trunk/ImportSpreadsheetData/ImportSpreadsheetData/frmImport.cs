@@ -16,6 +16,7 @@ namespace ImportSpreadsheetData
         private readonly ImportDataLiteTek _importDataLiteTek;
         private readonly ImportDataIIStanley _importDataIIStanley;
         private readonly ImportDataSUS _importDataSus;
+        private readonly ImportDataTRWSAF _importDataTrwsaf;
 
         #endregion
 
@@ -63,6 +64,7 @@ namespace ImportSpreadsheetData
             _importDataLiteTek = new ImportDataLiteTek();
             _importDataIIStanley = new ImportDataIIStanley();
             _importDataSus = new ImportDataSUS();
+            _importDataTrwsaf = new ImportDataTRWSAF();
 
             SetGridColumns();
             PopulateCustomersDropDown();
@@ -132,6 +134,7 @@ namespace ImportSpreadsheetData
             cbxCustomer.Items.Add("SLAKOREA");
             cbxCustomer.Items.Add("IIStanley");
             cbxCustomer.Items.Add("SUS");
+            cbxCustomer.Items.Add("TRWSAF");
 
             _dataBinding = false;
         }
@@ -183,6 +186,9 @@ namespace ImportSpreadsheetData
                     break;
                 case "SUS":
                     _importDataSus.ResetImport(release, out error);
+                    break;
+                case "TRWSAF":
+                    _importDataTrwsaf.ResetImport(release, out error);
                     break;
             }
 
@@ -438,6 +444,9 @@ namespace ImportSpreadsheetData
                                 case "SUS":
                                     _importDataSus.Import(customerPart, part, destination, quantityList[j], dueDateList[j], release, releasePoList[j], out error);
                                     break;
+                                case "TRWSAF":
+                                    _importDataTrwsaf.Import(customerPart, part, destination, quantityList[j], dueDateList[j], release, out error);
+                                    break;
                             }
 
                             if (error != "")
@@ -526,6 +535,9 @@ namespace ImportSpreadsheetData
                     break;
                 case "SUS":
                     _importDataSus.Process(destination, out error);
+                    break;
+                case "TRWSAF":
+                    _importDataTrwsaf.Process(destination, out error);
                     break;
             }
 
