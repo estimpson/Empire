@@ -8,6 +8,10 @@
         <EntityTypeShape EntityType="MONITORModel.employee" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="MONITORModel.vw_CreateRma_Destinations" Width="2.375" PointX="2.625" PointY="0.75" />
         <EntityTypeShape EntityType="MONITORModel.SerialsQuantitiesToAutoRMA_RTV" Width="2.625" PointX="5.375" PointY="0.75" />
+        <EntityTypeShape EntityType="MONITORModel.CreateRma_RTV_PackingSlip" Width="1.5" PointX="2.75" PointY="2.125" />
+        <EntityTypeShape EntityType="MONITORModel.InventoryToRTV" Width="2" PointX="5.125" PointY="2.75" />
+        <EntityTypeShape EntityType="MONITORModel.OpenRTV" Width="1.5" PointX="7.375" PointY="2.75" />
+        <EntityTypeShape EntityType="MONITORModel.HondurasLocation" Width="1.5" PointX="9.25" PointY="2.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

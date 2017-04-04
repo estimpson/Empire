@@ -5,7 +5,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RmaMaintenance", "RmaMainte
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fx.WinForms.Flat", "Fx.WinForms.Flat\Fx.WinForms.Flat.csproj", "{5E3C1188-AF29-46E7-8371-D3EEB667C8A1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fx.RFID.Controller", "Fx.RFID.Controller\Fx.RFID.Controller.csproj", "{6795C625-9429-4CAD-9F14-5813EE1D67F1}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ObjectListView2012", "D:\G-Drive\Fx\Fx.WinForms.ObjectListView\ObjectListView2012.csproj", "{18FEDA0C-D147-4286-B39A-01204808106A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -26,12 +26,12 @@ Global
 		{5E3C1188-AF29-46E7-8371-D3EEB667C8A1}.Release|Any CPU.Build.0 = Release|Any CPU
 		{5E3C1188-AF29-46E7-8371-D3EEB667C8A1}.Test|Any CPU.ActiveCfg = Release|Any CPU
 		{5E3C1188-AF29-46E7-8371-D3EEB667C8A1}.Test|Any CPU.Build.0 = Release|Any CPU
-		{6795C625-9429-4CAD-9F14-5813EE1D67F1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{6795C625-9429-4CAD-9F14-5813EE1D67F1}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{6795C625-9429-4CAD-9F14-5813EE1D67F1}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{6795C625-9429-4CAD-9F14-5813EE1D67F1}.Release|Any CPU.Build.0 = Release|Any CPU
-		{6795C625-9429-4CAD-9F14-5813EE1D67F1}.Test|Any CPU.ActiveCfg = Test|Any CPU
-		{6795C625-9429-4CAD-9F14-5813EE1D67F1}.Test|Any CPU.Build.0 = Test|Any CPU
+		{18FEDA0C-D147-4286-B39A-01204808106A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{18FEDA0C-D147-4286-B39A-01204808106A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{18FEDA0C-D147-4286-B39A-01204808106A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{18FEDA0C-D147-4286-B39A-01204808106A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{18FEDA0C-D147-4286-B39A-01204808106A}.Test|Any CPU.ActiveCfg = Release|Any CPU
+		{18FEDA0C-D147-4286-B39A-01204808106A}.Test|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

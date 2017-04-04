@@ -52,22 +52,27 @@
             this.rbtnTransferHonduras = new System.Windows.Forms.RadioButton();
             this.rbtnTransferWarehouse = new System.Windows.Forms.RadioButton();
             this.tableLayoutPanel8 = new System.Windows.Forms.TableLayoutPanel();
+            this.label6 = new System.Windows.Forms.Label();
             this.mesTbxHonLoc = new Fx.WinForms.Flat.MESTextEdit();
             this.lblRmaShipper = new System.Windows.Forms.Label();
             this.lblRtvShipper = new System.Windows.Forms.Label();
             this.mesTbxRmaShipper = new Fx.WinForms.Flat.MESTextEdit();
             this.label2 = new System.Windows.Forms.Label();
-            this.mesTbxRtvShipper = new Fx.WinForms.Flat.MESTextEdit();
             this.mesBtnRtvShipper = new Fx.WinForms.Flat.MESButton();
             this.label3 = new System.Windows.Forms.Label();
+            this.tableLayoutPanel12 = new System.Windows.Forms.TableLayoutPanel();
+            this.mesTbxRtvShipper = new Fx.WinForms.Flat.MESTextEdit();
+            this.RTVPackingSlipButton = new Fx.WinForms.Flat.MESButton();
+            this.tableLayoutPanel13 = new System.Windows.Forms.TableLayoutPanel();
+            this.label7 = new System.Windows.Forms.Label();
             this.tableLayoutPanel7 = new System.Windows.Forms.TableLayoutPanel();
-            this.dgvNewShippers = new System.Windows.Forms.DataGridView();
             this.tableLayoutPanel9 = new System.Windows.Forms.TableLayoutPanel();
             this.tableLayoutPanel6 = new System.Windows.Forms.TableLayoutPanel();
             this.cbxSerialsOnHold = new System.Windows.Forms.CheckBox();
             this.cbxCreateRtv = new System.Windows.Forms.CheckBox();
             this.mesBtnCreateRma = new Fx.WinForms.Flat.MESButton();
             this.tableLayoutPanel5 = new System.Windows.Forms.TableLayoutPanel();
+            this.dgvNewShippers = new System.Windows.Forms.DataGridView();
             this.tableLayoutPanel11 = new System.Windows.Forms.TableLayoutPanel();
             this.label4 = new System.Windows.Forms.Label();
             this.mesTbxRmaNote = new Fx.WinForms.Flat.MESTextEdit();
@@ -82,11 +87,13 @@
             this.tableLayoutPanel10.SuspendLayout();
             this.tableLayoutPanel3.SuspendLayout();
             this.tableLayoutPanel8.SuspendLayout();
+            this.tableLayoutPanel12.SuspendLayout();
+            this.tableLayoutPanel13.SuspendLayout();
             this.tableLayoutPanel7.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvNewShippers)).BeginInit();
             this.tableLayoutPanel9.SuspendLayout();
             this.tableLayoutPanel6.SuspendLayout();
             this.tableLayoutPanel5.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvNewShippers)).BeginInit();
             this.tableLayoutPanel11.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -97,7 +104,7 @@
             this.tlpMain.ColumnCount = 3;
             this.tlpMain.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
             this.tlpMain.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.tlpMain.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tlpMain.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
             this.tlpMain.Controls.Add(this.tlpPasteSerials, 0, 0);
             this.tlpMain.Controls.Add(this.tlpEnterPartQty, 1, 0);
             this.tlpMain.Controls.Add(this.tlpRmaProcess, 2, 0);
@@ -105,8 +112,8 @@
             this.tlpMain.Location = new System.Drawing.Point(0, 0);
             this.tlpMain.Name = "tlpMain";
             this.tlpMain.RowCount = 1;
-            this.tlpMain.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tlpMain.Size = new System.Drawing.Size(1191, 412);
+            this.tlpMain.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tlpMain.Size = new System.Drawing.Size(1191, 418);
             this.tlpMain.TabIndex = 0;
             // 
             // tlpPasteSerials
@@ -123,7 +130,7 @@
             this.tlpPasteSerials.RowCount = 2;
             this.tlpPasteSerials.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tlpPasteSerials.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 45F));
-            this.tlpPasteSerials.Size = new System.Drawing.Size(220, 406);
+            this.tlpPasteSerials.Size = new System.Drawing.Size(220, 412);
             this.tlpPasteSerials.TabIndex = 0;
             // 
             // tableLayoutPanel1
@@ -134,7 +141,7 @@
             this.tableLayoutPanel1.Controls.Add(this.mesBtnImportSerials, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.mesBtnClearList, 1, 0);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 361);
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 367);
             this.tableLayoutPanel1.Margin = new System.Windows.Forms.Padding(0);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 1;
@@ -204,7 +211,7 @@
             this.tlpEnterPartQty.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40F));
             this.tlpEnterPartQty.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 320F));
             this.tlpEnterPartQty.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tlpEnterPartQty.Size = new System.Drawing.Size(310, 406);
+            this.tlpEnterPartQty.Size = new System.Drawing.Size(310, 412);
             this.tlpEnterPartQty.TabIndex = 1;
             // 
             // tableLayoutPanel2
@@ -271,7 +278,7 @@
             this.tableLayoutPanel4.Name = "tableLayoutPanel4";
             this.tableLayoutPanel4.RowCount = 1;
             this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel4.Size = new System.Drawing.Size(304, 40);
+            this.tableLayoutPanel4.Size = new System.Drawing.Size(304, 46);
             this.tableLayoutPanel4.TabIndex = 2;
             // 
             // mesBtnClear
@@ -310,8 +317,9 @@
             // 
             // tlpRmaProcess
             // 
+            this.tlpRmaProcess.AutoSize = true;
             this.tlpRmaProcess.ColumnCount = 1;
-            this.tlpRmaProcess.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tlpRmaProcess.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
             this.tlpRmaProcess.Controls.Add(this.tableLayoutPanel10, 0, 2);
             this.tlpRmaProcess.Controls.Add(this.tableLayoutPanel8, 0, 1);
             this.tlpRmaProcess.Controls.Add(this.tableLayoutPanel7, 0, 0);
@@ -319,10 +327,10 @@
             this.tlpRmaProcess.Location = new System.Drawing.Point(545, 3);
             this.tlpRmaProcess.Name = "tlpRmaProcess";
             this.tlpRmaProcess.RowCount = 3;
-            this.tlpRmaProcess.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 125F));
-            this.tlpRmaProcess.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 185F));
-            this.tlpRmaProcess.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tlpRmaProcess.Size = new System.Drawing.Size(643, 406);
+            this.tlpRmaProcess.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tlpRmaProcess.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tlpRmaProcess.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tlpRmaProcess.Size = new System.Drawing.Size(643, 412);
             this.tlpRmaProcess.TabIndex = 2;
             // 
             // tableLayoutPanel10
@@ -341,7 +349,7 @@
             this.tableLayoutPanel10.RowCount = 2;
             this.tableLayoutPanel10.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 45F));
             this.tableLayoutPanel10.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel10.Size = new System.Drawing.Size(637, 90);
+            this.tableLayoutPanel10.Size = new System.Drawing.Size(637, 96);
             this.tableLayoutPanel10.TabIndex = 3;
             // 
             // mesTbxWarehouseLoc
@@ -430,29 +438,44 @@
             // 
             // tableLayoutPanel8
             // 
+            this.tableLayoutPanel8.AutoSize = true;
             this.tableLayoutPanel8.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(19)))), ((int)(((byte)(19)))), ((int)(((byte)(19)))));
             this.tableLayoutPanel8.ColumnCount = 2;
             this.tableLayoutPanel8.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 160F));
             this.tableLayoutPanel8.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel8.Controls.Add(this.label6, 0, 4);
             this.tableLayoutPanel8.Controls.Add(this.mesTbxHonLoc, 1, 3);
             this.tableLayoutPanel8.Controls.Add(this.lblRmaShipper, 0, 1);
             this.tableLayoutPanel8.Controls.Add(this.lblRtvShipper, 0, 2);
             this.tableLayoutPanel8.Controls.Add(this.mesTbxRmaShipper, 1, 1);
             this.tableLayoutPanel8.Controls.Add(this.label2, 1, 0);
-            this.tableLayoutPanel8.Controls.Add(this.mesTbxRtvShipper, 1, 2);
             this.tableLayoutPanel8.Controls.Add(this.mesBtnRtvShipper, 0, 0);
             this.tableLayoutPanel8.Controls.Add(this.label3, 0, 3);
+            this.tableLayoutPanel8.Controls.Add(this.tableLayoutPanel12, 1, 2);
+            this.tableLayoutPanel8.Controls.Add(this.tableLayoutPanel13, 1, 4);
             this.tableLayoutPanel8.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel8.Location = new System.Drawing.Point(3, 128);
             this.tableLayoutPanel8.Name = "tableLayoutPanel8";
             this.tableLayoutPanel8.RowCount = 5;
             this.tableLayoutPanel8.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 43F));
             this.tableLayoutPanel8.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 33F));
+            this.tableLayoutPanel8.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel8.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 33F));
-            this.tableLayoutPanel8.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 33F));
-            this.tableLayoutPanel8.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel8.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel8.Size = new System.Drawing.Size(637, 179);
             this.tableLayoutPanel8.TabIndex = 1;
+            // 
+            // label6
+            // 
+            this.label6.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.label6.AutoSize = true;
+            this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label6.ForeColor = System.Drawing.Color.White;
+            this.label6.Location = new System.Drawing.Point(88, 156);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(69, 16);
+            this.label6.TabIndex = 11;
+            this.label6.Text = "Serial List:";
             // 
             // mesTbxHonLoc
             // 
@@ -460,7 +483,7 @@
             this.mesTbxHonLoc.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.mesTbxHonLoc.Font = new System.Drawing.Font("Tahoma", 12F);
             this.mesTbxHonLoc.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
-            this.mesTbxHonLoc.Location = new System.Drawing.Point(163, 112);
+            this.mesTbxHonLoc.Location = new System.Drawing.Point(163, 126);
             this.mesTbxHonLoc.MaxLength = 20;
             this.mesTbxHonLoc.Name = "mesTbxHonLoc";
             this.mesTbxHonLoc.Size = new System.Drawing.Size(113, 27);
@@ -512,17 +535,6 @@
             this.label2.TabIndex = 6;
             this.label2.Text = "* Reminder: print packing list";
             // 
-            // mesTbxRtvShipper
-            // 
-            this.mesTbxRtvShipper.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(37)))), ((int)(((byte)(38)))));
-            this.mesTbxRtvShipper.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.mesTbxRtvShipper.Font = new System.Drawing.Font("Tahoma", 12F);
-            this.mesTbxRtvShipper.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
-            this.mesTbxRtvShipper.Location = new System.Drawing.Point(163, 79);
-            this.mesTbxRtvShipper.Name = "mesTbxRtvShipper";
-            this.mesTbxRtvShipper.Size = new System.Drawing.Size(113, 27);
-            this.mesTbxRtvShipper.TabIndex = 5;
-            // 
             // mesBtnRtvShipper
             // 
             this.mesBtnRtvShipper.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(31)))), ((int)(((byte)(31)))), ((int)(((byte)(32)))));
@@ -546,11 +558,81 @@
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label3.ForeColor = System.Drawing.Color.White;
-            this.label3.Location = new System.Drawing.Point(39, 109);
+            this.label3.Location = new System.Drawing.Point(39, 123);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(118, 16);
             this.label3.TabIndex = 8;
             this.label3.Text = "HN RMA Location:";
+            // 
+            // tableLayoutPanel12
+            // 
+            this.tableLayoutPanel12.AutoSize = true;
+            this.tableLayoutPanel12.ColumnCount = 2;
+            this.tableLayoutPanel12.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel12.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 144F));
+            this.tableLayoutPanel12.Controls.Add(this.mesTbxRtvShipper, 0, 0);
+            this.tableLayoutPanel12.Controls.Add(this.RTVPackingSlipButton, 1, 0);
+            this.tableLayoutPanel12.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanel12.Location = new System.Drawing.Point(163, 79);
+            this.tableLayoutPanel12.Name = "tableLayoutPanel12";
+            this.tableLayoutPanel12.RowCount = 1;
+            this.tableLayoutPanel12.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanel12.Size = new System.Drawing.Size(471, 41);
+            this.tableLayoutPanel12.TabIndex = 10;
+            // 
+            // mesTbxRtvShipper
+            // 
+            this.mesTbxRtvShipper.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(37)))), ((int)(((byte)(38)))));
+            this.mesTbxRtvShipper.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.mesTbxRtvShipper.Font = new System.Drawing.Font("Tahoma", 12F);
+            this.mesTbxRtvShipper.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
+            this.mesTbxRtvShipper.Location = new System.Drawing.Point(3, 3);
+            this.mesTbxRtvShipper.Name = "mesTbxRtvShipper";
+            this.mesTbxRtvShipper.Size = new System.Drawing.Size(113, 27);
+            this.mesTbxRtvShipper.TabIndex = 5;
+            // 
+            // RTVPackingSlipButton
+            // 
+            this.RTVPackingSlipButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(31)))), ((int)(((byte)(31)))), ((int)(((byte)(32)))));
+            this.RTVPackingSlipButton.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(67)))), ((int)(((byte)(67)))), ((int)(((byte)(70)))));
+            this.RTVPackingSlipButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(122)))), ((int)(((byte)(204)))));
+            this.RTVPackingSlipButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(84)))), ((int)(((byte)(84)))), ((int)(((byte)(92)))));
+            this.RTVPackingSlipButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.RTVPackingSlipButton.Font = new System.Drawing.Font("Tahoma", 14F);
+            this.RTVPackingSlipButton.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
+            this.RTVPackingSlipButton.Location = new System.Drawing.Point(330, 3);
+            this.RTVPackingSlipButton.Name = "RTVPackingSlipButton";
+            this.RTVPackingSlipButton.Size = new System.Drawing.Size(132, 35);
+            this.RTVPackingSlipButton.TabIndex = 7;
+            this.RTVPackingSlipButton.Text = "Packing Slip";
+            this.RTVPackingSlipButton.UseVisualStyleBackColor = false;
+            this.RTVPackingSlipButton.Click += new System.EventHandler(this.RtvPackingSlipButtonClick);
+            // 
+            // tableLayoutPanel13
+            // 
+            this.tableLayoutPanel13.ColumnCount = 2;
+            this.tableLayoutPanel13.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel13.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel13.Controls.Add(this.label7, 0, 0);
+            this.tableLayoutPanel13.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanel13.Location = new System.Drawing.Point(163, 159);
+            this.tableLayoutPanel13.Name = "tableLayoutPanel13";
+            this.tableLayoutPanel13.RowCount = 1;
+            this.tableLayoutPanel13.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanel13.Size = new System.Drawing.Size(471, 17);
+            this.tableLayoutPanel13.TabIndex = 12;
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label7.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label7.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(122)))), ((int)(((byte)(204)))));
+            this.label7.Location = new System.Drawing.Point(3, 0);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(229, 18);
+            this.label7.TabIndex = 7;
+            this.label7.Text = "Serials...";
             // 
             // tableLayoutPanel7
             // 
@@ -567,30 +649,6 @@
             this.tableLayoutPanel7.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 45F));
             this.tableLayoutPanel7.Size = new System.Drawing.Size(637, 119);
             this.tableLayoutPanel7.TabIndex = 0;
-            // 
-            // dgvNewShippers
-            // 
-            this.dgvNewShippers.BackgroundColor = System.Drawing.Color.Black;
-            this.dgvNewShippers.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle3.BackColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle3.ForeColor = System.Drawing.Color.White;
-            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgvNewShippers.DefaultCellStyle = dataGridViewCellStyle3;
-            this.dgvNewShippers.Location = new System.Drawing.Point(3, 3);
-            this.dgvNewShippers.MultiSelect = false;
-            this.dgvNewShippers.Name = "dgvNewShippers";
-            this.dgvNewShippers.ReadOnly = true;
-            this.dgvNewShippers.RowHeadersVisible = false;
-            this.dgvNewShippers.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.dgvNewShippers.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvNewShippers.Size = new System.Drawing.Size(250, 107);
-            this.dgvNewShippers.TabIndex = 4;
-            this.dgvNewShippers.RowPrePaint += new System.Windows.Forms.DataGridViewRowPrePaintEventHandler(this.dgvNewShippers_RowPrePaint);
-            this.dgvNewShippers.SelectionChanged += new System.EventHandler(this.dgvNewShippers_SelectionChanged);
             // 
             // tableLayoutPanel9
             // 
@@ -681,6 +739,30 @@
             this.tableLayoutPanel5.Size = new System.Drawing.Size(471, 113);
             this.tableLayoutPanel5.TabIndex = 4;
             // 
+            // dgvNewShippers
+            // 
+            this.dgvNewShippers.BackgroundColor = System.Drawing.Color.Black;
+            this.dgvNewShippers.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.BackColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle3.ForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgvNewShippers.DefaultCellStyle = dataGridViewCellStyle3;
+            this.dgvNewShippers.Location = new System.Drawing.Point(3, 3);
+            this.dgvNewShippers.MultiSelect = false;
+            this.dgvNewShippers.Name = "dgvNewShippers";
+            this.dgvNewShippers.ReadOnly = true;
+            this.dgvNewShippers.RowHeadersVisible = false;
+            this.dgvNewShippers.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.dgvNewShippers.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dgvNewShippers.Size = new System.Drawing.Size(250, 107);
+            this.dgvNewShippers.TabIndex = 4;
+            this.dgvNewShippers.RowPrePaint += new System.Windows.Forms.DataGridViewRowPrePaintEventHandler(this.dgvNewShippers_RowPrePaint);
+            this.dgvNewShippers.SelectionChanged += new System.EventHandler(this.dgvNewShippers_SelectionChanged);
+            // 
             // tableLayoutPanel11
             // 
             this.tableLayoutPanel11.ColumnCount = 1;
@@ -712,23 +794,25 @@
             // 
             this.mesTbxRmaNote.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(37)))), ((int)(((byte)(38)))));
             this.mesTbxRmaNote.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.mesTbxRmaNote.Dock = System.Windows.Forms.DockStyle.Fill;
             this.mesTbxRmaNote.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.mesTbxRmaNote.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
             this.mesTbxRmaNote.Location = new System.Drawing.Point(3, 28);
             this.mesTbxRmaNote.MaxLength = 110;
             this.mesTbxRmaNote.Multiline = true;
             this.mesTbxRmaNote.Name = "mesTbxRmaNote";
-            this.mesTbxRmaNote.Size = new System.Drawing.Size(202, 82);
+            this.mesTbxRmaNote.Size = new System.Drawing.Size(205, 82);
             this.mesTbxRmaNote.TabIndex = 2;
             // 
             // ucNewRmaCreate
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoSize = true;
             this.BackColor = System.Drawing.Color.Black;
             this.Controls.Add(this.tlpMain);
             this.Name = "ucNewRmaCreate";
-            this.Size = new System.Drawing.Size(1191, 412);
+            this.Size = new System.Drawing.Size(1191, 418);
             this.tlpMain.ResumeLayout(false);
             this.tlpMain.PerformLayout();
             this.tlpPasteSerials.ResumeLayout(false);
@@ -739,18 +823,23 @@
             ((System.ComponentModel.ISupportInitialize)(this.dgvPartsQuantities)).EndInit();
             this.tableLayoutPanel4.ResumeLayout(false);
             this.tlpRmaProcess.ResumeLayout(false);
+            this.tlpRmaProcess.PerformLayout();
             this.tableLayoutPanel10.ResumeLayout(false);
             this.tableLayoutPanel10.PerformLayout();
             this.tableLayoutPanel3.ResumeLayout(false);
             this.tableLayoutPanel3.PerformLayout();
             this.tableLayoutPanel8.ResumeLayout(false);
             this.tableLayoutPanel8.PerformLayout();
+            this.tableLayoutPanel12.ResumeLayout(false);
+            this.tableLayoutPanel12.PerformLayout();
+            this.tableLayoutPanel13.ResumeLayout(false);
+            this.tableLayoutPanel13.PerformLayout();
             this.tableLayoutPanel7.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dgvNewShippers)).EndInit();
             this.tableLayoutPanel9.ResumeLayout(false);
             this.tableLayoutPanel6.ResumeLayout(false);
             this.tableLayoutPanel6.PerformLayout();
             this.tableLayoutPanel5.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dgvNewShippers)).EndInit();
             this.tableLayoutPanel11.ResumeLayout(false);
             this.tableLayoutPanel11.PerformLayout();
             this.ResumeLayout(false);
@@ -802,5 +891,10 @@
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel11;
         private System.Windows.Forms.Label label4;
         private Fx.WinForms.Flat.MESTextEdit mesTbxRmaNote;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel12;
+        private Fx.WinForms.Flat.MESButton RTVPackingSlipButton;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel13;
+        private System.Windows.Forms.Label label7;
     }
 }

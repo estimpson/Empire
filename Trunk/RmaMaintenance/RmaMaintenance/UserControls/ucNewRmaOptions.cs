@@ -8,12 +8,32 @@ namespace RmaMaintenance.UserControls
     {
         #region Class Objects
 
-        private readonly NewRmaView _view;
+        private  NewRmaView _view;
 
         #endregion
 
 
         #region Properties
+
+        private bool _rmaMode;
+        public bool RMAMode
+        {
+            get { return _rmaMode; }
+            set
+            {
+                _rmaMode = value;
+                PanelRMA.Visible = _rmaMode;
+                PanelRTV.Visible = !_rmaMode;
+            }
+        }
+        public bool RTVMode
+        {
+            get { return !_rmaMode; }
+            set
+            {
+                RMAMode = !value;
+            }
+        }
 
         private bool _showOptions;
         public bool ShowOptions
@@ -43,10 +63,8 @@ namespace RmaMaintenance.UserControls
             InitializeComponent();
         }
         
-        public ucNewRmaOptions(NewRmaView view)
+        public void SetView (NewRmaView view)
         {
-            InitializeComponent();
-
             _view = view;
         }
 
@@ -98,7 +116,7 @@ namespace RmaMaintenance.UserControls
                 mesTxtRmaNumber.Enabled = false;
                 mesBtnEnterRmaNumber.Text = "Change";
 
-                _view.RmaNumber = mesTxtRmaNumber.Text.Trim();
+                _view.RMANumber = mesTxtRmaNumber.Text.Trim();
             }
             else
             {
@@ -115,8 +133,41 @@ namespace RmaMaintenance.UserControls
             }
         }
 
+        public void ToggleRtvOptions()
+        {
+            if (EnterRTVNumber.Text == "Enter")
+            {
+                rbtnPasteSerials2.Visible = true;
+                rbtnPasteSerials2.Checked = true;
+
+                EnterRTVNumber.Text = "Change";
+                _view.RTVNumber = RTVNumberEdit.Text.Trim();
+
+            }
+            else
+            {
+                _view.ClearingForm = _formClearing = true;
+
+                rbtnPasteSerials2.Visible = false;
+
+                EnterRTVNumber.Text = "Enter";
+            }
+        }
+
         #endregion
 
+        private void MESTxtRmaNumberKeyUp(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                if (mesTxtRmaNumber.Text.Trim() == "") return;
+                ToggleRmaOptions();
+            }
+        }
 
+        private void EnterRTVButtonClick(object sender, EventArgs e)
+        {
+            _view.OptionOneSelected = true;
+        }
     }
 }
