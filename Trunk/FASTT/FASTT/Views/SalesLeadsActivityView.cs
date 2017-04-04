@@ -122,7 +122,7 @@ namespace FASTT.Views
 
             grdSalesLeads.DataSource = _activityController.SalesLeadList;
 
-            gridView1.Columns["ID"].Visible = gridView1.Columns["CombinedLightingID"].Visible = false;
+            gridView1.Columns["ID"].Visible = gridView1.Columns["SalesLeadID"].Visible = false;
 
             Cursor.Current = Cursors.Default;
 
@@ -135,7 +135,7 @@ namespace FASTT.Views
             int r = gridView1.GetSelectedRows()[0];
 
             string iD = (gridView1.GetRowCellValue(r, "ID") != null) ? gridView1.GetRowCellValue(r, "ID").ToString() : "";
-            string combinedLightingId = (gridView1.GetRowCellValue(r, "CombinedLightingID") != null) ? gridView1.GetRowCellValue(r, "CombinedLightingID").ToString() : "";
+            string salesLeadId = (gridView1.GetRowCellValue(r, "SalesLeadID") != null) ? gridView1.GetRowCellValue(r, "SalesLeadID").ToString() : "";
             string customer = (gridView1.GetRowCellValue(r, "Customer") != null) ? gridView1.GetRowCellValue(r, "Customer").ToString() : "";
             string program = (gridView1.GetRowCellValue(r, "Program") != null) ? gridView1.GetRowCellValue(r, "Program").ToString() : "";
             string application = (gridView1.GetRowCellValue(r, "Application") != null) ? gridView1.GetRowCellValue(r, "Application").ToString() : "";
@@ -148,8 +148,8 @@ namespace FASTT.Views
             var form = new SalesLeadsHistoryView
                 {
                     OperatorCode = OperatorCode,
-                    SalesLeadId = Convert.ToInt32(iD),
-                    CombinedLightingId = Convert.ToInt32(combinedLightingId),
+                    HitlistId = Convert.ToInt32(iD),
+                    SalesLeadId = Convert.ToInt32(salesLeadId),
                     Customer = customer,
                     Program = program,
                     Application = application,

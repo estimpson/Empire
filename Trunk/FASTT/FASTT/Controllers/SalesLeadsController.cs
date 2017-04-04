@@ -52,10 +52,10 @@ namespace FASTT.Controllers
 
                 if (_context != null)
                 {
-                    _context.vw_ST_LightingStudy_2016.Load();
-                    if (!_context.vw_ST_LightingStudy_2016.Any()) return null;
+                    _context.vw_ST_LightingStudy_Hitlist_2016.Load();
+                    if (!_context.vw_ST_LightingStudy_Hitlist_2016.Any()) return null;
 
-                    var q = from cl in _context.vw_ST_LightingStudy_2016
+                    var q = from cl in _context.vw_ST_LightingStudy_Hitlist_2016
                             group cl by new { cl.Customer }    
                             into clGroup
                             orderby clGroup.Key.Customer
@@ -87,7 +87,7 @@ namespace FASTT.Controllers
 
                 if (_context != null)
                 {
-                    var q = from cl in _context.vw_ST_LightingStudy_2016
+                    var q = from cl in _context.vw_ST_LightingStudy_Hitlist_2016
                             where cl.SOPYear == 2017 || cl.SOPYear == 2018 || cl.SOPYear == 2019
                             orderby cl.SOP, cl.Program
                             select cl;
@@ -101,9 +101,9 @@ namespace FASTT.Controllers
                             Application = item.Application,
                             Sop = item.SOP,
                             Eop = item.EOP,
-                            Volume = string.Format("{0:n0}", item.PeakVolume),
+                            Volume = string.Format("{0:n0}", item.PeakYearlyVolume),
                             Status = item.Status,
-                            AwardedVolume = (item.AwardedVolume.HasValue) ? item.AwardedVolume.ToString() : "",
+                            AwardedVolume = (item.AwardedVolume.HasValue) ? string.Format("{0:n0}", item.AwardedVolume) : "",
                             ID = item.ID
                         };
                         SalesLeadsList.Add(_salesLeadDataModel);
@@ -152,7 +152,7 @@ namespace FASTT.Controllers
 
                 if (_context != null)
                 {
-                    var q = from cl in _context.vw_ST_LightingStudy_2016
+                    var q = from cl in _context.vw_ST_LightingStudy_Hitlist_2016
                             where cl.SOPYear == iYear
                             orderby cl.SOP, cl.Program
                             select cl;
@@ -166,9 +166,9 @@ namespace FASTT.Controllers
                             Application = item.Application,
                             Sop = item.SOP,
                             Eop = item.EOP,
-                            Volume = string.Format("{0:n0}", item.PeakVolume),
+                            Volume = string.Format("{0:n0}", item.PeakYearlyVolume),
                             Status = item.Status,
-                            AwardedVolume = (item.AwardedVolume.HasValue) ? item.AwardedVolume.ToString() : "",
+                            AwardedVolume = (item.AwardedVolume.HasValue) ? string.Format("{0:n0}", item.AwardedVolume) : "",
                             ID = item.ID
                         };
                         SalesLeadsList.Add(_salesLeadDataModel);
@@ -205,7 +205,7 @@ namespace FASTT.Controllers
 
                 if (_context != null)
                 {
-                    var q = from cl in _context.vw_ST_LightingStudy_2016
+                    var q = from cl in _context.vw_ST_LightingStudy_Hitlist_2016
                             where cl.Customer == customer && (cl.SOPYear == 2017 || cl.SOPYear == 2018 || cl.SOPYear == 2019)
                             orderby cl.SOP, cl.Program
                             select cl;
@@ -219,9 +219,9 @@ namespace FASTT.Controllers
                             Application = item.Application,
                             Sop = item.SOP,
                             Eop = item.EOP,
-                            Volume = string.Format("{0:n0}", item.PeakVolume),
+                            Volume = string.Format("{0:n0}", item.PeakYearlyVolume),
                             Status = item.Status,
-                            AwardedVolume = (item.AwardedVolume.HasValue) ? item.AwardedVolume.ToString() : "",
+                            AwardedVolume = (item.AwardedVolume.HasValue) ? string.Format("{0:n0}", item.AwardedVolume) : "",
                             ID = item.ID
                         };
                         SalesLeadsList.Add(_salesLeadDataModel);
@@ -280,7 +280,7 @@ namespace FASTT.Controllers
                     //if (!_context.ST_Csm_SalesForecast.Any()) return;
                     //BindingSource.DataSource = _context.ST_Csm_SalesForecast.Local;
 
-                    var q = from cl in _context.vw_ST_LightingStudy_2016
+                    var q = from cl in _context.vw_ST_LightingStudy_Hitlist_2016
                             where cl.Customer == customer && cl.SOPYear == iYear
                             orderby cl.SOP, cl.Program
                             select cl;
@@ -294,10 +294,10 @@ namespace FASTT.Controllers
                             Application = item.Application,
                             Sop = item.SOP,
                             Eop = item.EOP,
-                            Volume = string.Format("{0:n0}", item.PeakVolume),
+                            Volume = string.Format("{0:n0}", item.PeakYearlyVolume),
                             Status = item.Status,
                             SalesPerson = item.SalesPerson,
-                            AwardedVolume = (item.AwardedVolume.HasValue) ? item.AwardedVolume.ToString() : "",
+                            AwardedVolume = (item.AwardedVolume.HasValue) ? string.Format("{0:n0}", item.AwardedVolume) : "",
                             ID = item.ID
                         };
                         SalesLeadsList.Add(_salesLeadDataModel);
@@ -336,7 +336,7 @@ namespace FASTT.Controllers
 
                 if (_context != null)
                 {
-                    _context.usp_ST_SalesLeadLog_SearchForSalesLeads(combinedLightingId, td, res);
+                    _context.usp_ST_SalesLeadLog_Hitlist_SearchForSalesLeads(combinedLightingId, td, res);
                 }
             }
             catch (Exception ex)

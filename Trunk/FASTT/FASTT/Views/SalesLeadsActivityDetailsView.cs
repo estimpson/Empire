@@ -33,7 +33,7 @@ namespace FASTT.Views
             }
         }
 
-        public int? CombinedLightingId { get; set; }
+        public int? HitlistId { get; set; }
         public int? SalesLeadId { get; set; }
         public int? ActivityRowId { get; set; }
         public string Customer { get; set; }
@@ -353,7 +353,7 @@ namespace FASTT.Views
             //    sop = Convert.ToDateTime(Sop);
             //}
 
-            int result = _controller.SaveSalesLeadActivity(OperatorCode, CombinedLightingId, SalesLeadId, salesLeadStatus, ActivityRowId, 
+            int result = _controller.SaveSalesLeadActivity(OperatorCode, HitlistId, SalesLeadId, salesLeadStatus, ActivityRowId, 
                 activity, activityDate, meetingLocation, contactName, contactPhoneNumber, contactEmailAddress, duration, notes, quoteNumber, awardedVolume);
 
             if (result == 1) Close();

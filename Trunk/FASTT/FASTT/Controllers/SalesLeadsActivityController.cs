@@ -60,7 +60,7 @@ namespace FASTT.Controllers
 
                 if (_context != null)
                 {
-                    var queryResult = _context.usp_ST_SalesLeadLog_GetActivity(operatorCode, td, res);
+                    var queryResult = _context.usp_ST_SalesLeadLog_Hitlist_GetActivity(operatorCode, td, res);
                     foreach (var item in queryResult.ToList())
                     {
                         _salesLeadActivityDataModel = new SalesLeadActivityDataModel
@@ -71,10 +71,10 @@ namespace FASTT.Controllers
                             Sop = item.SOP,
                             Eop = item.EOP,
                             Status = item.Status,
-                            PeakVolume = string.Format("{0:n0}", item.PeakVolume),
+                            PeakVolume = string.Format("{0:n0}", item.PeakYearlyVolume),
                             LastSalesActivity = item.LastSalesActivity,
-                            ID = item.RowID,
-                            CombinedLightingID = item.CombinedLightingId
+                            ID = item.ID,
+                            SalesLeadID = item.SalesLeadID
                         };
                         SalesLeadList.Add(_salesLeadActivityDataModel);
                     }

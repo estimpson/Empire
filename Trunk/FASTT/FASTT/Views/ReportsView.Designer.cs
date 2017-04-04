@@ -79,6 +79,8 @@
             this.rbtnChina = new System.Windows.Forms.RadioButton();
             this.lblSelectCustomer = new System.Windows.Forms.Label();
             this.cbxReportCustomer = new System.Windows.Forms.ComboBox();
+            this.lblSelectSop = new System.Windows.Forms.Label();
+            this.cbxSOP = new System.Windows.Forms.ComboBox();
             this.mesBtnGo = new Fx.WinForms.Flat.MESButton();
             this.tableLayoutPanel6 = new System.Windows.Forms.TableLayoutPanel();
             this.navBarControl1 = new DevExpress.XtraNavBar.NavBarControl();
@@ -365,7 +367,10 @@
             this.grdViewActivity.Appearance.Row.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.grdViewActivity.Appearance.Row.Options.UseFont = true;
             this.grdViewActivity.GridControl = this.grdActivity;
+            this.grdViewActivity.HorzScrollVisibility = DevExpress.XtraGrid.Views.Base.ScrollVisibility.Always;
             this.grdViewActivity.Name = "grdViewActivity";
+            this.grdViewActivity.OptionsView.ColumnAutoWidth = false;
+            this.grdViewActivity.RowCellStyle += new DevExpress.XtraGrid.Views.Grid.RowCellStyleEventHandler(this.grdViewActivity_RowCellStyle);
             // 
             // gridView5
             // 
@@ -422,6 +427,7 @@
             this.grdViewDashboard4.Appearance.Row.Options.UseFont = true;
             this.grdViewDashboard4.GridControl = this.grdDashboard4;
             this.grdViewDashboard4.Name = "grdViewDashboard4";
+            this.grdViewDashboard4.RowCellStyle += new DevExpress.XtraGrid.Views.Grid.RowCellStyleEventHandler(this.grdViewDashboard4_RowCellStyle);
             // 
             // gridView4
             // 
@@ -561,9 +567,9 @@
             this.label5.Location = new System.Drawing.Point(3, 400);
             this.label5.Name = "label5";
             this.label5.Padding = new System.Windows.Forms.Padding(0, 8, 0, 0);
-            this.label5.Size = new System.Drawing.Size(98, 26);
+            this.label5.Size = new System.Drawing.Size(90, 26);
             this.label5.TabIndex = 3;
-            this.label5.Text = "Top 10 Leads";
+            this.label5.Text = "Sales HitList";
             // 
             // tableLayoutPanel5
             // 
@@ -605,7 +611,8 @@
             this.flowLayoutPanel1.FlowDirection = System.Windows.Forms.FlowDirection.RightToLeft;
             this.flowLayoutPanel1.Location = new System.Drawing.Point(689, 3);
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
-            this.flowLayoutPanel1.Size = new System.Drawing.Size(680, 40);
+            this.flowLayoutPanel1.Padding = new System.Windows.Forms.Padding(0, 0, 7, 0);
+            this.flowLayoutPanel1.Size = new System.Drawing.Size(856, 40);
             this.flowLayoutPanel1.TabIndex = 17;
             // 
             // mesBtnExportChart
@@ -618,7 +625,7 @@
             this.mesBtnExportChart.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.mesBtnExportChart.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.mesBtnExportChart.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
-            this.mesBtnExportChart.Location = new System.Drawing.Point(533, 3);
+            this.mesBtnExportChart.Location = new System.Drawing.Point(702, 3);
             this.mesBtnExportChart.Name = "mesBtnExportChart";
             this.mesBtnExportChart.Size = new System.Drawing.Size(144, 32);
             this.mesBtnExportChart.TabIndex = 1;
@@ -635,7 +642,7 @@
             this.mesClearGridSettings.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.mesClearGridSettings.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.mesClearGridSettings.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
-            this.mesClearGridSettings.Location = new System.Drawing.Point(378, 3);
+            this.mesClearGridSettings.Location = new System.Drawing.Point(547, 3);
             this.mesClearGridSettings.Margin = new System.Windows.Forms.Padding(3, 3, 8, 3);
             this.mesClearGridSettings.Name = "mesClearGridSettings";
             this.mesClearGridSettings.Size = new System.Drawing.Size(144, 32);
@@ -653,7 +660,7 @@
             this.mesBtnShowDashboard.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.mesBtnShowDashboard.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.mesBtnShowDashboard.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
-            this.mesBtnShowDashboard.Location = new System.Drawing.Point(223, 3);
+            this.mesBtnShowDashboard.Location = new System.Drawing.Point(392, 3);
             this.mesBtnShowDashboard.Margin = new System.Windows.Forms.Padding(3, 3, 8, 3);
             this.mesBtnShowDashboard.Name = "mesBtnShowDashboard";
             this.mesBtnShowDashboard.Size = new System.Drawing.Size(144, 32);
@@ -668,7 +675,7 @@
             this.lblInstructions.AutoSize = true;
             this.lblInstructions.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblInstructions.ForeColor = System.Drawing.Color.White;
-            this.lblInstructions.Location = new System.Drawing.Point(133, 20);
+            this.lblInstructions.Location = new System.Drawing.Point(302, 20);
             this.lblInstructions.Margin = new System.Windows.Forms.Padding(3, 0, 13, 2);
             this.lblInstructions.Name = "lblInstructions";
             this.lblInstructions.Size = new System.Drawing.Size(74, 16);
@@ -680,6 +687,8 @@
             this.flowLayoutPanel2.Controls.Add(this.flpRadioButtons);
             this.flowLayoutPanel2.Controls.Add(this.lblSelectCustomer);
             this.flowLayoutPanel2.Controls.Add(this.cbxReportCustomer);
+            this.flowLayoutPanel2.Controls.Add(this.lblSelectSop);
+            this.flowLayoutPanel2.Controls.Add(this.cbxSOP);
             this.flowLayoutPanel2.Controls.Add(this.mesBtnGo);
             this.flowLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.flowLayoutPanel2.Location = new System.Drawing.Point(3, 3);
@@ -692,9 +701,10 @@
             this.flpRadioButtons.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.flpRadioButtons.Controls.Add(this.rbtnNorthAmerica);
             this.flpRadioButtons.Controls.Add(this.rbtnChina);
-            this.flpRadioButtons.Location = new System.Drawing.Point(3, 3);
+            this.flpRadioButtons.Location = new System.Drawing.Point(3, 5);
+            this.flpRadioButtons.Margin = new System.Windows.Forms.Padding(3, 5, 3, 3);
             this.flpRadioButtons.Name = "flpRadioButtons";
-            this.flpRadioButtons.Size = new System.Drawing.Size(224, 32);
+            this.flpRadioButtons.Size = new System.Drawing.Size(146, 32);
             this.flpRadioButtons.TabIndex = 18;
             // 
             // rbtnNorthAmerica
@@ -705,10 +715,10 @@
             this.rbtnNorthAmerica.Location = new System.Drawing.Point(15, 3);
             this.rbtnNorthAmerica.Margin = new System.Windows.Forms.Padding(15, 3, 3, 3);
             this.rbtnNorthAmerica.Name = "rbtnNorthAmerica";
-            this.rbtnNorthAmerica.Size = new System.Drawing.Size(121, 22);
+            this.rbtnNorthAmerica.Size = new System.Drawing.Size(46, 22);
             this.rbtnNorthAmerica.TabIndex = 0;
             this.rbtnNorthAmerica.TabStop = true;
-            this.rbtnNorthAmerica.Text = "North America";
+            this.rbtnNorthAmerica.Text = "NA";
             this.rbtnNorthAmerica.UseVisualStyleBackColor = true;
             this.rbtnNorthAmerica.CheckedChanged += new System.EventHandler(this.rbtnNorthAmerica_CheckedChanged);
             // 
@@ -717,7 +727,7 @@
             this.rbtnChina.AutoSize = true;
             this.rbtnChina.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.rbtnChina.ForeColor = System.Drawing.Color.White;
-            this.rbtnChina.Location = new System.Drawing.Point(144, 3);
+            this.rbtnChina.Location = new System.Drawing.Point(69, 3);
             this.rbtnChina.Margin = new System.Windows.Forms.Padding(5, 3, 3, 3);
             this.rbtnChina.Name = "rbtnChina";
             this.rbtnChina.Size = new System.Drawing.Size(64, 22);
@@ -732,8 +742,8 @@
             this.lblSelectCustomer.AutoSize = true;
             this.lblSelectCustomer.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblSelectCustomer.ForeColor = System.Drawing.Color.White;
-            this.lblSelectCustomer.Location = new System.Drawing.Point(235, 6);
-            this.lblSelectCustomer.Margin = new System.Windows.Forms.Padding(5, 6, 0, 0);
+            this.lblSelectCustomer.Location = new System.Drawing.Point(162, 12);
+            this.lblSelectCustomer.Margin = new System.Windows.Forms.Padding(10, 12, 0, 0);
             this.lblSelectCustomer.Name = "lblSelectCustomer";
             this.lblSelectCustomer.Size = new System.Drawing.Size(68, 16);
             this.lblSelectCustomer.TabIndex = 22;
@@ -745,15 +755,40 @@
             this.cbxReportCustomer.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.cbxReportCustomer.BackColor = System.Drawing.Color.Black;
             this.cbxReportCustomer.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.cbxReportCustomer.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cbxReportCustomer.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cbxReportCustomer.ForeColor = System.Drawing.Color.White;
             this.cbxReportCustomer.FormattingEnabled = true;
-            this.cbxReportCustomer.Location = new System.Drawing.Point(306, 8);
+            this.cbxReportCustomer.Location = new System.Drawing.Point(233, 8);
             this.cbxReportCustomer.Margin = new System.Windows.Forms.Padding(3, 8, 3, 3);
             this.cbxReportCustomer.Name = "cbxReportCustomer";
-            this.cbxReportCustomer.Size = new System.Drawing.Size(214, 27);
+            this.cbxReportCustomer.Size = new System.Drawing.Size(214, 28);
             this.cbxReportCustomer.TabIndex = 15;
             this.cbxReportCustomer.SelectedIndexChanged += new System.EventHandler(this.cbxReportCustomer_SelectedIndexChanged);
+            // 
+            // lblSelectSop
+            // 
+            this.lblSelectSop.AutoSize = true;
+            this.lblSelectSop.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblSelectSop.ForeColor = System.Drawing.Color.White;
+            this.lblSelectSop.Location = new System.Drawing.Point(460, 12);
+            this.lblSelectSop.Margin = new System.Windows.Forms.Padding(10, 12, 0, 0);
+            this.lblSelectSop.Name = "lblSelectSop";
+            this.lblSelectSop.Size = new System.Drawing.Size(39, 16);
+            this.lblSelectSop.TabIndex = 23;
+            this.lblSelectSop.Text = "SOP:";
+            // 
+            // cbxSOP
+            // 
+            this.cbxSOP.BackColor = System.Drawing.Color.Black;
+            this.cbxSOP.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.cbxSOP.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cbxSOP.ForeColor = System.Drawing.Color.White;
+            this.cbxSOP.FormattingEnabled = true;
+            this.cbxSOP.Location = new System.Drawing.Point(502, 8);
+            this.cbxSOP.Margin = new System.Windows.Forms.Padding(3, 8, 3, 3);
+            this.cbxSOP.Name = "cbxSOP";
+            this.cbxSOP.Size = new System.Drawing.Size(79, 28);
+            this.cbxSOP.TabIndex = 24;
             // 
             // mesBtnGo
             // 
@@ -765,8 +800,8 @@
             this.mesBtnGo.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.mesBtnGo.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.mesBtnGo.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
-            this.mesBtnGo.Location = new System.Drawing.Point(531, 5);
-            this.mesBtnGo.Margin = new System.Windows.Forms.Padding(8, 5, 3, 3);
+            this.mesBtnGo.Location = new System.Drawing.Point(601, 5);
+            this.mesBtnGo.Margin = new System.Windows.Forms.Padding(17, 5, 3, 3);
             this.mesBtnGo.Name = "mesBtnGo";
             this.mesBtnGo.Size = new System.Drawing.Size(72, 32);
             this.mesBtnGo.TabIndex = 19;
@@ -920,5 +955,7 @@
         private Fx.WinForms.Flat.MESButton mesBtnShowDashboard;
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel2;
         private System.Windows.Forms.Label lblSelectCustomer;
+        private System.Windows.Forms.Label lblSelectSop;
+        private System.Windows.Forms.ComboBox cbxSOP;
     }
 }

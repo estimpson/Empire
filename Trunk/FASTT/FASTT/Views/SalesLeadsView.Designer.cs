@@ -286,7 +286,7 @@
             this.Controls.Add(this.panel1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "SalesLeadsView";
-            this.Opacity = 0.96D;
+            this.Opacity = 0.99D;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "SalesDataView";
             this.Load += new System.EventHandler(this.MnemonicsView_Load);

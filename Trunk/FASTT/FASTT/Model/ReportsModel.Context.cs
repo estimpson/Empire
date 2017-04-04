@@ -29,7 +29,6 @@ namespace FASTT.Model
         }
     
         public DbSet<vw_ST_LightingStudy_2016> vw_ST_LightingStudy_2016 { get; set; }
-        public DbSet<vw_ST_SalesPersonActivity_OneWeek> vw_ST_SalesPersonActivity_OneWeek { get; set; }
         public DbSet<ST_CustomersWithProgramsLaunchingClosing2017> ST_CustomersWithProgramsLaunchingClosing2017 { get; set; }
         public DbSet<ST_CustomersWithProgramsLaunchingClosing2018> ST_CustomersWithProgramsLaunchingClosing2018 { get; set; }
         public DbSet<ST_CustomersWithProgramsLaunchingClosing2019> ST_CustomersWithProgramsLaunchingClosing2019 { get; set; }
@@ -128,11 +127,6 @@ namespace FASTT.Model
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<PeakVolumeOfProgramsLaunching2017_Result>("usp_ST_Metrics_PeakVolumeOfProgramsLaunching2017", customerParameter, regionParameter);
         }
     
-        public virtual ObjectResult<usp_ST_Report_SalesActivityOneWeek_Result> usp_ST_Report_SalesActivityOneWeek()
-        {
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_ST_Report_SalesActivityOneWeek_Result>("usp_ST_Report_SalesActivityOneWeek");
-        }
-    
         public virtual ObjectResult<usp_ST_Reports_GetSalesForecastData_Result> usp_ST_Reports_GetSalesForecastData(string lightingStudyCustomer, ObjectParameter tranDT, ObjectParameter result)
         {
             var lightingStudyCustomerParameter = lightingStudyCustomer != null ?
@@ -149,20 +143,6 @@ namespace FASTT.Model
                 new ObjectParameter("Customer", typeof(string));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_ST_Report_SalesActivityByCustomer_Result>("usp_ST_Report_SalesActivityByCustomer", customerParameter);
-        }
-    
-        public virtual ObjectResult<usp_ST_Report_TopLeads_Result> usp_ST_Report_TopLeads()
-        {
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_ST_Report_TopLeads_Result>("usp_ST_Report_TopLeads");
-        }
-    
-        public virtual ObjectResult<usp_ST_Report_TopLeadsByCustomer_Result> usp_ST_Report_TopLeadsByCustomer(string customer)
-        {
-            var customerParameter = customer != null ?
-                new ObjectParameter("Customer", customer) :
-                new ObjectParameter("Customer", typeof(string));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_ST_Report_TopLeadsByCustomer_Result>("usp_ST_Report_TopLeadsByCustomer", customerParameter);
         }
     
         public virtual ObjectResult<usp_ST_SalesLeadLog_Report_NewQuotes_Result> usp_ST_SalesLeadLog_Report_NewQuotes(Nullable<int> numberOfDays, ObjectParameter tranDT, ObjectParameter result)
@@ -186,6 +166,86 @@ namespace FASTT.Model
         public virtual ObjectResult<usp_ST_SalesLeadLog_Report_OpenQuotes_Result> usp_ST_SalesLeadLog_Report_OpenQuotes(ObjectParameter tranDT, ObjectParameter result)
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_ST_SalesLeadLog_Report_OpenQuotes_Result>("usp_ST_SalesLeadLog_Report_OpenQuotes", tranDT, result);
+        }
+    
+        public virtual ObjectResult<usp_ST_Report_Hitlist_GetCustomerList_Result> usp_ST_Report_Hitlist_GetCustomerList(string region)
+        {
+            var regionParameter = region != null ?
+                new ObjectParameter("Region", region) :
+                new ObjectParameter("Region", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_ST_Report_Hitlist_GetCustomerList_Result>("usp_ST_Report_Hitlist_GetCustomerList", regionParameter);
+        }
+    
+        public virtual ObjectResult<usp_ST_Report_Hitlist_GetSopList_Result> usp_ST_Report_Hitlist_GetSopList(string customer)
+        {
+            var customerParameter = customer != null ?
+                new ObjectParameter("Customer", customer) :
+                new ObjectParameter("Customer", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_ST_Report_Hitlist_GetSopList_Result>("usp_ST_Report_Hitlist_GetSopList", customerParameter);
+        }
+    
+        public virtual int usp_ST_Report_Hitlist(string customer, Nullable<int> sOPYear)
+        {
+            var customerParameter = customer != null ?
+                new ObjectParameter("Customer", customer) :
+                new ObjectParameter("Customer", typeof(string));
+    
+            var sOPYearParameter = sOPYear.HasValue ?
+                new ObjectParameter("SOPYear", sOPYear) :
+                new ObjectParameter("SOPYear", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("usp_ST_Report_Hitlist", customerParameter, sOPYearParameter);
+        }
+    
+        public virtual ObjectResult<usp_ST_Report_Hitlist_MSF_Result> usp_ST_Report_Hitlist_MSF(string customer, string region, Nullable<int> sOPYear)
+        {
+            var customerParameter = customer != null ?
+                new ObjectParameter("Customer", customer) :
+                new ObjectParameter("Customer", typeof(string));
+    
+            var regionParameter = region != null ?
+                new ObjectParameter("Region", region) :
+                new ObjectParameter("Region", typeof(string));
+    
+            var sOPYearParameter = sOPYear.HasValue ?
+                new ObjectParameter("SOPYear", sOPYear) :
+                new ObjectParameter("SOPYear", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_ST_Report_Hitlist_MSF_Result>("usp_ST_Report_Hitlist_MSF", customerParameter, regionParameter, sOPYearParameter);
+        }
+    
+        public virtual ObjectResult<usp_ST_Report_Hitlist_MSF_Dashboard_Result> usp_ST_Report_Hitlist_MSF_Dashboard(string customer, Nullable<int> sOPYear)
+        {
+            var customerParameter = customer != null ?
+                new ObjectParameter("Customer", customer) :
+                new ObjectParameter("Customer", typeof(string));
+    
+            var sOPYearParameter = sOPYear.HasValue ?
+                new ObjectParameter("SOPYear", sOPYear) :
+                new ObjectParameter("SOPYear", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_ST_Report_Hitlist_MSF_Dashboard_Result>("usp_ST_Report_Hitlist_MSF_Dashboard", customerParameter, sOPYearParameter);
+        }
+    
+        public virtual ObjectResult<usp_ST_Report_SalesActivityOneWeek_Result> usp_ST_Report_SalesActivityOneWeek()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_ST_Report_SalesActivityOneWeek_Result>("usp_ST_Report_SalesActivityOneWeek");
+        }
+    
+        public virtual ObjectResult<usp_ST_Report_Hitlist_SalesActivityOneWeek_Result> usp_ST_Report_Hitlist_SalesActivityOneWeek()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_ST_Report_Hitlist_SalesActivityOneWeek_Result>("usp_ST_Report_Hitlist_SalesActivityOneWeek");
+        }
+    
+        public virtual ObjectResult<usp_ST_Report_Hitlist_SalesActivityByCustomer_Result> usp_ST_Report_Hitlist_SalesActivityByCustomer(string customer)
+        {
+            var customerParameter = customer != null ?
+                new ObjectParameter("Customer", customer) :
+                new ObjectParameter("Customer", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_ST_Report_Hitlist_SalesActivityByCustomer_Result>("usp_ST_Report_Hitlist_SalesActivityByCustomer", customerParameter);
         }
     }
 }

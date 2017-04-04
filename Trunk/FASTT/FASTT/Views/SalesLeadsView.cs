@@ -224,7 +224,7 @@ namespace FASTT.Views
             var form = new SalesLeadsActivityDetailsView
                 {
                     OperatorCode = OperatorCode,
-                    CombinedLightingId = Convert.ToInt32(iD),
+                    HitlistId = Convert.ToInt32(iD),
                     Customer = customer,
                     Program = program,
                     Application = application,

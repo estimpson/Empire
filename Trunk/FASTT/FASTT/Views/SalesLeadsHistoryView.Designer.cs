@@ -64,6 +64,7 @@
             // 
             // tableLayoutPanel1
             // 
+            this.tableLayoutPanel1.BackColor = System.Drawing.Color.Transparent;
             this.tableLayoutPanel1.ColumnCount = 1;
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel1.Controls.Add(this.grdSalesActivity, 0, 2);
@@ -258,7 +259,6 @@
             this.Controls.Add(this.panel1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "SalesLeadsHistoryView";
-            this.Opacity = 0.96D;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "SalesLeadsHistoryView";
             this.Load += new System.EventHandler(this.SalesLeadsHistoryView_Load);
