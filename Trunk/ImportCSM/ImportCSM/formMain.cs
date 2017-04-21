@@ -409,6 +409,7 @@ namespace ImportCSM
                     {
                         string otherFields = quotesSplit[0];
                         string notes = quotesSplit[1].Replace("\"", "");
+                        notes = notes.Replace("'", "''");
 
                         // Skip the header row
                         string[] arry = otherFields.Split(',');

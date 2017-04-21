@@ -49,6 +49,8 @@
             this.btnDeltaImport = new System.Windows.Forms.Button();
             this.label8 = new System.Windows.Forms.Label();
             this.tbxCurrentDeltaReleaseId = new System.Windows.Forms.TextBox();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tpCsm.SuspendLayout();
@@ -72,7 +74,7 @@
             // 
             this.btnExit.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.btnExit.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnExit.Location = new System.Drawing.Point(489, 21);
+            this.btnExit.Location = new System.Drawing.Point(537, 31);
             this.btnExit.Name = "btnExit";
             this.btnExit.Size = new System.Drawing.Size(114, 41);
             this.btnExit.TabIndex = 3;
@@ -86,7 +88,7 @@
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(122)))), ((int)(((byte)(204)))));
-            this.label1.Location = new System.Drawing.Point(27, 21);
+            this.label1.Location = new System.Drawing.Point(33, 31);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(224, 29);
             this.label1.TabIndex = 2;
@@ -141,7 +143,7 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(636, 531);
+            this.panel1.Size = new System.Drawing.Size(693, 550);
             this.panel1.TabIndex = 11;
             this.panel1.Paint += new System.Windows.Forms.PaintEventHandler(this.panel1_Paint);
             // 
@@ -150,16 +152,17 @@
             this.tabControl1.Controls.Add(this.tpCsm);
             this.tabControl1.Controls.Add(this.tpCsmDelta);
             this.tabControl1.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tabControl1.Location = new System.Drawing.Point(32, 92);
+            this.tabControl1.Location = new System.Drawing.Point(38, 91);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(571, 415);
+            this.tabControl1.Size = new System.Drawing.Size(613, 415);
             this.tabControl1.TabIndex = 18;
             this.tabControl1.SelectedIndexChanged += new System.EventHandler(this.tabControl1_SelectedIndexChanged);
             // 
             // tpCsm
             // 
             this.tpCsm.BackColor = System.Drawing.Color.Black;
+            this.tpCsm.Controls.Add(this.label2);
             this.tpCsm.Controls.Add(this.lblStep3);
             this.tpCsm.Controls.Add(this.lblStep1);
             this.tpCsm.Controls.Add(this.pnlImport);
@@ -168,7 +171,7 @@
             this.tpCsm.Location = new System.Drawing.Point(4, 27);
             this.tpCsm.Name = "tpCsm";
             this.tpCsm.Padding = new System.Windows.Forms.Padding(3);
-            this.tpCsm.Size = new System.Drawing.Size(563, 384);
+            this.tpCsm.Size = new System.Drawing.Size(605, 384);
             this.tpCsm.TabIndex = 0;
             this.tpCsm.Text = "CSM";
             // 
@@ -177,7 +180,7 @@
             this.lblStep3.AutoSize = true;
             this.lblStep3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblStep3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(51)))), ((int)(((byte)(51)))));
-            this.lblStep3.Location = new System.Drawing.Point(186, 242);
+            this.lblStep3.Location = new System.Drawing.Point(198, 259);
             this.lblStep3.Name = "lblStep3";
             this.lblStep3.Size = new System.Drawing.Size(172, 16);
             this.lblStep3.TabIndex = 13;
@@ -188,7 +191,7 @@
             this.lblStep1.AutoSize = true;
             this.lblStep1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblStep1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(51)))), ((int)(((byte)(51)))));
-            this.lblStep1.Location = new System.Drawing.Point(186, 206);
+            this.lblStep1.Location = new System.Drawing.Point(198, 223);
             this.lblStep1.Name = "lblStep1";
             this.lblStep1.Size = new System.Drawing.Size(221, 16);
             this.lblStep1.TabIndex = 11;
@@ -201,7 +204,7 @@
             this.pnlImport.Controls.Add(this.label3);
             this.pnlImport.Controls.Add(this.tbxCurrentReleaseId);
             this.pnlImport.Controls.Add(this.tbxPriorReleaseId);
-            this.pnlImport.Location = new System.Drawing.Point(9, 47);
+            this.pnlImport.Location = new System.Drawing.Point(21, 64);
             this.pnlImport.Name = "pnlImport";
             this.pnlImport.Size = new System.Drawing.Size(343, 151);
             this.pnlImport.TabIndex = 17;
@@ -211,7 +214,7 @@
             this.lblStep2.AutoSize = true;
             this.lblStep2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblStep2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(51)))), ((int)(((byte)(51)))));
-            this.lblStep2.Location = new System.Drawing.Point(186, 224);
+            this.lblStep2.Location = new System.Drawing.Point(198, 241);
             this.lblStep2.Name = "lblStep2";
             this.lblStep2.Size = new System.Drawing.Size(149, 16);
             this.lblStep2.TabIndex = 12;
@@ -222,7 +225,7 @@
             this.lblStep4.AutoSize = true;
             this.lblStep4.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblStep4.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(51)))), ((int)(((byte)(51)))));
-            this.lblStep4.Location = new System.Drawing.Point(186, 260);
+            this.lblStep4.Location = new System.Drawing.Point(198, 277);
             this.lblStep4.Name = "lblStep4";
             this.lblStep4.Size = new System.Drawing.Size(124, 16);
             this.lblStep4.TabIndex = 14;
@@ -231,12 +234,13 @@
             // tpCsmDelta
             // 
             this.tpCsmDelta.BackColor = System.Drawing.Color.Black;
+            this.tpCsmDelta.Controls.Add(this.label4);
             this.tpCsmDelta.Controls.Add(this.lblDeltaImportComplete);
             this.tpCsmDelta.Controls.Add(this.pnlDeltaImport);
             this.tpCsmDelta.Location = new System.Drawing.Point(4, 27);
             this.tpCsmDelta.Name = "tpCsmDelta";
             this.tpCsmDelta.Padding = new System.Windows.Forms.Padding(3);
-            this.tpCsmDelta.Size = new System.Drawing.Size(559, 384);
+            this.tpCsmDelta.Size = new System.Drawing.Size(616, 384);
             this.tpCsmDelta.TabIndex = 1;
             this.tpCsmDelta.Text = "CSM Delta";
             // 
@@ -245,7 +249,7 @@
             this.lblDeltaImportComplete.AutoSize = true;
             this.lblDeltaImportComplete.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblDeltaImportComplete.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(51)))), ((int)(((byte)(51)))));
-            this.lblDeltaImportComplete.Location = new System.Drawing.Point(187, 206);
+            this.lblDeltaImportComplete.Location = new System.Drawing.Point(199, 223);
             this.lblDeltaImportComplete.Name = "lblDeltaImportComplete";
             this.lblDeltaImportComplete.Size = new System.Drawing.Size(107, 16);
             this.lblDeltaImportComplete.TabIndex = 11;
@@ -256,7 +260,7 @@
             this.pnlDeltaImport.Controls.Add(this.btnDeltaImport);
             this.pnlDeltaImport.Controls.Add(this.label8);
             this.pnlDeltaImport.Controls.Add(this.tbxCurrentDeltaReleaseId);
-            this.pnlDeltaImport.Location = new System.Drawing.Point(9, 47);
+            this.pnlDeltaImport.Location = new System.Drawing.Point(21, 64);
             this.pnlDeltaImport.Name = "pnlDeltaImport";
             this.pnlDeltaImport.Size = new System.Drawing.Size(343, 151);
             this.pnlDeltaImport.TabIndex = 19;
@@ -292,12 +296,34 @@
             this.tbxCurrentDeltaReleaseId.Size = new System.Drawing.Size(114, 24);
             this.tbxCurrentDeltaReleaseId.TabIndex = 1;
             // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(122)))), ((int)(((byte)(204)))));
+            this.label2.Location = new System.Drawing.Point(58, 34);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(342, 16);
+            this.label2.TabIndex = 18;
+            this.label2.Text = "Copy column names and row data from the spreadsheet.";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(122)))), ((int)(((byte)(204)))));
+            this.label4.Location = new System.Drawing.Point(58, 34);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(254, 16);
+            this.label4.TabIndex = 20;
+            this.label4.Text = "Copy row data only from the spreadsheet.";
+            // 
             // formMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Black;
-            this.ClientSize = new System.Drawing.Size(636, 531);
+            this.ClientSize = new System.Drawing.Size(693, 550);
             this.ControlBox = false;
             this.Controls.Add(this.panel1);
             this.ForeColor = System.Drawing.Color.Black;
@@ -344,6 +370,8 @@
         private System.Windows.Forms.Button btnDeltaImport;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.TextBox tbxCurrentDeltaReleaseId;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label label4;
     }
 }
 
