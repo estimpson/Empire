@@ -69,9 +69,9 @@
             this.tableLayoutPanel5 = new System.Windows.Forms.TableLayoutPanel();
             this.tableLayoutPanel7 = new System.Windows.Forms.TableLayoutPanel();
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
-            this.mesBtnExportChart = new Fx.WinForms.Flat.MESButton();
-            this.mesClearGridSettings = new Fx.WinForms.Flat.MESButton();
             this.mesBtnShowDashboard = new Fx.WinForms.Flat.MESButton();
+            this.mesClearGridSettings = new Fx.WinForms.Flat.MESButton();
+            this.mesBtnExportChart = new Fx.WinForms.Flat.MESButton();
             this.lblInstructions = new System.Windows.Forms.Label();
             this.flowLayoutPanel2 = new System.Windows.Forms.FlowLayoutPanel();
             this.flpRadioButtons = new System.Windows.Forms.FlowLayoutPanel();
@@ -379,6 +379,7 @@
             // 
             // tlpDashboard
             // 
+            this.tlpDashboard.AutoScroll = true;
             this.tlpDashboard.ColumnCount = 1;
             this.tlpDashboard.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tlpDashboard.Controls.Add(this.grdDashboard4, 0, 7);
@@ -393,25 +394,25 @@
             this.tlpDashboard.Name = "tlpDashboard";
             this.tlpDashboard.RowCount = 8;
             this.tlpDashboard.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tlpDashboard.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
             this.tlpDashboard.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tlpDashboard.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
             this.tlpDashboard.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tlpDashboard.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
             this.tlpDashboard.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tlpDashboard.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.tlpDashboard.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tlpDashboard.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tlpDashboard.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tlpDashboard.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tlpDashboard.Size = new System.Drawing.Size(238, 539);
             this.tlpDashboard.TabIndex = 1;
             // 
             // grdDashboard4
             // 
             this.grdDashboard4.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.grdDashboard4.Location = new System.Drawing.Point(3, 429);
+            this.grdDashboard4.Location = new System.Drawing.Point(3, 1017);
             this.grdDashboard4.LookAndFeel.SkinName = "Visual Studio 2013 Dark";
             this.grdDashboard4.LookAndFeel.UseDefaultLookAndFeel = false;
             this.grdDashboard4.MainView = this.grdViewDashboard4;
             this.grdDashboard4.Name = "grdDashboard4";
-            this.grdDashboard4.Size = new System.Drawing.Size(232, 107);
+            this.grdDashboard4.Size = new System.Drawing.Size(232, 300);
             this.grdDashboard4.TabIndex = 7;
             this.grdDashboard4.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.grdViewDashboard4,
@@ -437,12 +438,12 @@
             // grdDashboard3
             // 
             this.grdDashboard3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.grdDashboard3.Location = new System.Drawing.Point(3, 293);
+            this.grdDashboard3.Location = new System.Drawing.Point(3, 685);
             this.grdDashboard3.LookAndFeel.SkinName = "Visual Studio 2013 Dark";
             this.grdDashboard3.LookAndFeel.UseDefaultLookAndFeel = false;
             this.grdDashboard3.MainView = this.grdViewDashboard3;
             this.grdDashboard3.Name = "grdDashboard3";
-            this.grdDashboard3.Size = new System.Drawing.Size(232, 104);
+            this.grdDashboard3.Size = new System.Drawing.Size(232, 300);
             this.grdDashboard3.TabIndex = 6;
             this.grdDashboard3.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.grdViewDashboard3,
@@ -467,12 +468,12 @@
             // grdDashboard2
             // 
             this.grdDashboard2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.grdDashboard2.Location = new System.Drawing.Point(3, 157);
+            this.grdDashboard2.Location = new System.Drawing.Point(3, 353);
             this.grdDashboard2.LookAndFeel.SkinName = "Visual Studio 2013 Dark";
             this.grdDashboard2.LookAndFeel.UseDefaultLookAndFeel = false;
             this.grdDashboard2.MainView = this.grdViewDashboard2;
             this.grdDashboard2.Name = "grdDashboard2";
-            this.grdDashboard2.Size = new System.Drawing.Size(232, 104);
+            this.grdDashboard2.Size = new System.Drawing.Size(232, 300);
             this.grdDashboard2.TabIndex = 5;
             this.grdDashboard2.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.grdViewDashboard2,
@@ -502,7 +503,7 @@
             this.grdDashboard1.LookAndFeel.UseDefaultLookAndFeel = false;
             this.grdDashboard1.MainView = this.grdViewDashboard1;
             this.grdDashboard1.Name = "grdDashboard1";
-            this.grdDashboard1.Size = new System.Drawing.Size(232, 104);
+            this.grdDashboard1.Size = new System.Drawing.Size(232, 300);
             this.grdDashboard1.TabIndex = 4;
             this.grdDashboard1.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.grdViewDashboard1,
@@ -540,7 +541,7 @@
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(122)))), ((int)(((byte)(204)))));
-            this.label3.Location = new System.Drawing.Point(3, 128);
+            this.label3.Location = new System.Drawing.Point(3, 324);
             this.label3.Name = "label3";
             this.label3.Padding = new System.Windows.Forms.Padding(0, 8, 0, 0);
             this.label3.Size = new System.Drawing.Size(149, 26);
@@ -552,7 +553,7 @@
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label4.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(122)))), ((int)(((byte)(204)))));
-            this.label4.Location = new System.Drawing.Point(3, 264);
+            this.label4.Location = new System.Drawing.Point(3, 656);
             this.label4.Name = "label4";
             this.label4.Padding = new System.Windows.Forms.Padding(0, 8, 0, 0);
             this.label4.Size = new System.Drawing.Size(186, 26);
@@ -564,7 +565,7 @@
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label5.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(122)))), ((int)(((byte)(204)))));
-            this.label5.Location = new System.Drawing.Point(3, 400);
+            this.label5.Location = new System.Drawing.Point(3, 988);
             this.label5.Name = "label5";
             this.label5.Padding = new System.Windows.Forms.Padding(0, 8, 0, 0);
             this.label5.Size = new System.Drawing.Size(90, 26);
@@ -603,17 +604,52 @@
             // 
             // flowLayoutPanel1
             // 
-            this.flowLayoutPanel1.Controls.Add(this.mesBtnExportChart);
-            this.flowLayoutPanel1.Controls.Add(this.mesClearGridSettings);
             this.flowLayoutPanel1.Controls.Add(this.mesBtnShowDashboard);
+            this.flowLayoutPanel1.Controls.Add(this.mesClearGridSettings);
+            this.flowLayoutPanel1.Controls.Add(this.mesBtnExportChart);
             this.flowLayoutPanel1.Controls.Add(this.lblInstructions);
             this.flowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.flowLayoutPanel1.FlowDirection = System.Windows.Forms.FlowDirection.RightToLeft;
-            this.flowLayoutPanel1.Location = new System.Drawing.Point(689, 3);
+            this.flowLayoutPanel1.Location = new System.Drawing.Point(657, 3);
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
             this.flowLayoutPanel1.Padding = new System.Windows.Forms.Padding(0, 0, 7, 0);
-            this.flowLayoutPanel1.Size = new System.Drawing.Size(856, 40);
+            this.flowLayoutPanel1.Size = new System.Drawing.Size(888, 40);
             this.flowLayoutPanel1.TabIndex = 17;
+            // 
+            // mesBtnShowDashboard
+            // 
+            this.mesBtnShowDashboard.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(31)))), ((int)(((byte)(31)))), ((int)(((byte)(32)))));
+            this.mesBtnShowDashboard.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(67)))), ((int)(((byte)(67)))), ((int)(((byte)(70)))));
+            this.mesBtnShowDashboard.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(122)))), ((int)(((byte)(204)))));
+            this.mesBtnShowDashboard.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(84)))), ((int)(((byte)(84)))), ((int)(((byte)(92)))));
+            this.mesBtnShowDashboard.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.mesBtnShowDashboard.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.mesBtnShowDashboard.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
+            this.mesBtnShowDashboard.Location = new System.Drawing.Point(3, 3);
+            this.mesBtnShowDashboard.Margin = new System.Windows.Forms.Padding(3, 3, 8, 3);
+            this.mesBtnShowDashboard.Name = "mesBtnShowDashboard";
+            this.mesBtnShowDashboard.Size = new System.Drawing.Size(88, 32);
+            this.mesBtnShowDashboard.TabIndex = 22;
+            this.mesBtnShowDashboard.Text = "Dashboard";
+            this.mesBtnShowDashboard.UseVisualStyleBackColor = false;
+            this.mesBtnShowDashboard.Click += new System.EventHandler(this.mesBtnShowDashboard_Click);
+            // 
+            // mesClearGridSettings
+            // 
+            this.mesClearGridSettings.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(31)))), ((int)(((byte)(31)))), ((int)(((byte)(32)))));
+            this.mesClearGridSettings.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(67)))), ((int)(((byte)(67)))), ((int)(((byte)(70)))));
+            this.mesClearGridSettings.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(122)))), ((int)(((byte)(204)))));
+            this.mesClearGridSettings.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(84)))), ((int)(((byte)(84)))), ((int)(((byte)(92)))));
+            this.mesClearGridSettings.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.mesClearGridSettings.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.mesClearGridSettings.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
+            this.mesClearGridSettings.Location = new System.Drawing.Point(102, 3);
+            this.mesClearGridSettings.Margin = new System.Windows.Forms.Padding(3, 3, 8, 3);
+            this.mesClearGridSettings.Name = "mesClearGridSettings";
+            this.mesClearGridSettings.Size = new System.Drawing.Size(144, 32);
+            this.mesClearGridSettings.TabIndex = 2;
+            this.mesClearGridSettings.Text = "Clear All Grid Settings";
+            this.mesClearGridSettings.UseVisualStyleBackColor = false;
+            this.mesClearGridSettings.Click += new System.EventHandler(this.mesClearGridSettings_Click);
             // 
             // mesBtnExportChart
             // 
@@ -625,60 +661,24 @@
             this.mesBtnExportChart.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.mesBtnExportChart.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.mesBtnExportChart.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
-            this.mesBtnExportChart.Location = new System.Drawing.Point(702, 3);
+            this.mesBtnExportChart.Location = new System.Drawing.Point(257, 3);
             this.mesBtnExportChart.Name = "mesBtnExportChart";
-            this.mesBtnExportChart.Size = new System.Drawing.Size(144, 32);
+            this.mesBtnExportChart.Size = new System.Drawing.Size(67, 32);
             this.mesBtnExportChart.TabIndex = 1;
             this.mesBtnExportChart.Text = "Export";
             this.mesBtnExportChart.UseVisualStyleBackColor = false;
             this.mesBtnExportChart.Click += new System.EventHandler(this.mesBtnExportChart_Click);
             // 
-            // mesClearGridSettings
-            // 
-            this.mesClearGridSettings.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(31)))), ((int)(((byte)(31)))), ((int)(((byte)(32)))));
-            this.mesClearGridSettings.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(67)))), ((int)(((byte)(67)))), ((int)(((byte)(70)))));
-            this.mesClearGridSettings.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(122)))), ((int)(((byte)(204)))));
-            this.mesClearGridSettings.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(84)))), ((int)(((byte)(84)))), ((int)(((byte)(92)))));
-            this.mesClearGridSettings.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.mesClearGridSettings.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.mesClearGridSettings.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
-            this.mesClearGridSettings.Location = new System.Drawing.Point(547, 3);
-            this.mesClearGridSettings.Margin = new System.Windows.Forms.Padding(3, 3, 8, 3);
-            this.mesClearGridSettings.Name = "mesClearGridSettings";
-            this.mesClearGridSettings.Size = new System.Drawing.Size(144, 32);
-            this.mesClearGridSettings.TabIndex = 2;
-            this.mesClearGridSettings.Text = "Clear All Grid Settings";
-            this.mesClearGridSettings.UseVisualStyleBackColor = false;
-            this.mesClearGridSettings.Click += new System.EventHandler(this.mesClearGridSettings_Click);
-            // 
-            // mesBtnShowDashboard
-            // 
-            this.mesBtnShowDashboard.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(31)))), ((int)(((byte)(31)))), ((int)(((byte)(32)))));
-            this.mesBtnShowDashboard.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(67)))), ((int)(((byte)(67)))), ((int)(((byte)(70)))));
-            this.mesBtnShowDashboard.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(122)))), ((int)(((byte)(204)))));
-            this.mesBtnShowDashboard.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(84)))), ((int)(((byte)(84)))), ((int)(((byte)(92)))));
-            this.mesBtnShowDashboard.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.mesBtnShowDashboard.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.mesBtnShowDashboard.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
-            this.mesBtnShowDashboard.Location = new System.Drawing.Point(392, 3);
-            this.mesBtnShowDashboard.Margin = new System.Windows.Forms.Padding(3, 3, 8, 3);
-            this.mesBtnShowDashboard.Name = "mesBtnShowDashboard";
-            this.mesBtnShowDashboard.Size = new System.Drawing.Size(144, 32);
-            this.mesBtnShowDashboard.TabIndex = 22;
-            this.mesBtnShowDashboard.Text = "Show Dashboard";
-            this.mesBtnShowDashboard.UseVisualStyleBackColor = false;
-            this.mesBtnShowDashboard.Click += new System.EventHandler(this.mesBtnShowDashboard_Click);
-            // 
             // lblInstructions
             // 
             this.lblInstructions.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.lblInstructions.AutoSize = true;
-            this.lblInstructions.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblInstructions.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblInstructions.ForeColor = System.Drawing.Color.White;
-            this.lblInstructions.Location = new System.Drawing.Point(302, 20);
+            this.lblInstructions.Location = new System.Drawing.Point(330, 21);
             this.lblInstructions.Margin = new System.Windows.Forms.Padding(3, 0, 13, 2);
             this.lblInstructions.Name = "lblInstructions";
-            this.lblInstructions.Size = new System.Drawing.Size(74, 16);
+            this.lblInstructions.Size = new System.Drawing.Size(69, 15);
             this.lblInstructions.TabIndex = 21;
             this.lblInstructions.Text = "Instructions";
             // 
@@ -693,7 +693,7 @@
             this.flowLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.flowLayoutPanel2.Location = new System.Drawing.Point(3, 3);
             this.flowLayoutPanel2.Name = "flowLayoutPanel2";
-            this.flowLayoutPanel2.Size = new System.Drawing.Size(680, 40);
+            this.flowLayoutPanel2.Size = new System.Drawing.Size(648, 40);
             this.flowLayoutPanel2.TabIndex = 19;
             // 
             // flpRadioButtons
@@ -740,12 +740,12 @@
             // lblSelectCustomer
             // 
             this.lblSelectCustomer.AutoSize = true;
-            this.lblSelectCustomer.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblSelectCustomer.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblSelectCustomer.ForeColor = System.Drawing.Color.White;
             this.lblSelectCustomer.Location = new System.Drawing.Point(162, 12);
             this.lblSelectCustomer.Margin = new System.Windows.Forms.Padding(10, 12, 0, 0);
             this.lblSelectCustomer.Name = "lblSelectCustomer";
-            this.lblSelectCustomer.Size = new System.Drawing.Size(68, 16);
+            this.lblSelectCustomer.Size = new System.Drawing.Size(63, 15);
             this.lblSelectCustomer.TabIndex = 22;
             this.lblSelectCustomer.Text = "Customer:";
             // 
@@ -758,22 +758,22 @@
             this.cbxReportCustomer.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cbxReportCustomer.ForeColor = System.Drawing.Color.White;
             this.cbxReportCustomer.FormattingEnabled = true;
-            this.cbxReportCustomer.Location = new System.Drawing.Point(233, 8);
+            this.cbxReportCustomer.Location = new System.Drawing.Point(228, 8);
             this.cbxReportCustomer.Margin = new System.Windows.Forms.Padding(3, 8, 3, 3);
             this.cbxReportCustomer.Name = "cbxReportCustomer";
-            this.cbxReportCustomer.Size = new System.Drawing.Size(214, 28);
+            this.cbxReportCustomer.Size = new System.Drawing.Size(201, 28);
             this.cbxReportCustomer.TabIndex = 15;
             this.cbxReportCustomer.SelectedIndexChanged += new System.EventHandler(this.cbxReportCustomer_SelectedIndexChanged);
             // 
             // lblSelectSop
             // 
             this.lblSelectSop.AutoSize = true;
-            this.lblSelectSop.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblSelectSop.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblSelectSop.ForeColor = System.Drawing.Color.White;
-            this.lblSelectSop.Location = new System.Drawing.Point(460, 12);
+            this.lblSelectSop.Location = new System.Drawing.Point(442, 12);
             this.lblSelectSop.Margin = new System.Windows.Forms.Padding(10, 12, 0, 0);
             this.lblSelectSop.Name = "lblSelectSop";
-            this.lblSelectSop.Size = new System.Drawing.Size(39, 16);
+            this.lblSelectSop.Size = new System.Drawing.Size(35, 15);
             this.lblSelectSop.TabIndex = 23;
             this.lblSelectSop.Text = "SOP:";
             // 
@@ -784,7 +784,7 @@
             this.cbxSOP.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cbxSOP.ForeColor = System.Drawing.Color.White;
             this.cbxSOP.FormattingEnabled = true;
-            this.cbxSOP.Location = new System.Drawing.Point(502, 8);
+            this.cbxSOP.Location = new System.Drawing.Point(480, 8);
             this.cbxSOP.Margin = new System.Windows.Forms.Padding(3, 8, 3, 3);
             this.cbxSOP.Name = "cbxSOP";
             this.cbxSOP.Size = new System.Drawing.Size(79, 28);
@@ -800,10 +800,10 @@
             this.mesBtnGo.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.mesBtnGo.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.mesBtnGo.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
-            this.mesBtnGo.Location = new System.Drawing.Point(601, 5);
-            this.mesBtnGo.Margin = new System.Windows.Forms.Padding(17, 5, 3, 3);
+            this.mesBtnGo.Location = new System.Drawing.Point(575, 5);
+            this.mesBtnGo.Margin = new System.Windows.Forms.Padding(13, 5, 3, 3);
             this.mesBtnGo.Name = "mesBtnGo";
-            this.mesBtnGo.Size = new System.Drawing.Size(72, 32);
+            this.mesBtnGo.Size = new System.Drawing.Size(65, 32);
             this.mesBtnGo.TabIndex = 19;
             this.mesBtnGo.Text = "GO";
             this.mesBtnGo.UseVisualStyleBackColor = false;

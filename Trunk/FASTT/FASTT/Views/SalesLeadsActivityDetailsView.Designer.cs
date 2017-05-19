@@ -60,7 +60,6 @@
             this.mesTbxHours = new Fx.WinForms.Flat.MESTextEdit();
             this.label16 = new System.Windows.Forms.Label();
             this.mesTbxMinutes = new Fx.WinForms.Flat.MESTextEdit();
-            this.mesBtnSaveSalesLead = new Fx.WinForms.Flat.MESButton();
             this.tableLayoutPanel6 = new System.Windows.Forms.TableLayoutPanel();
             this.label15 = new System.Windows.Forms.Label();
             this.label12 = new System.Windows.Forms.Label();
@@ -77,6 +76,9 @@
             this.tableLayoutPanel7 = new System.Windows.Forms.TableLayoutPanel();
             this.mesTbxMeetingLocation = new Fx.WinForms.Flat.MESTextEdit();
             this.lblMeetingLocation = new System.Windows.Forms.Label();
+            this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
+            this.mesBtnSaveSalesLead = new Fx.WinForms.Flat.MESButton();
+            this.mesBtnEmail = new Fx.WinForms.Flat.MESButton();
             this.panel1.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
@@ -86,6 +88,7 @@
             this.tableLayoutPanel5.SuspendLayout();
             this.tableLayoutPanel6.SuspendLayout();
             this.tableLayoutPanel7.SuspendLayout();
+            this.flowLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel1
@@ -176,9 +179,9 @@
             this.tableLayoutPanel3.Controls.Add(this.tableLayoutPanel4, 0, 3);
             this.tableLayoutPanel3.Controls.Add(this.tlpForm, 0, 0);
             this.tableLayoutPanel3.Controls.Add(this.tableLayoutPanel5, 0, 1);
-            this.tableLayoutPanel3.Controls.Add(this.mesBtnSaveSalesLead, 0, 5);
             this.tableLayoutPanel3.Controls.Add(this.tableLayoutPanel6, 0, 4);
             this.tableLayoutPanel3.Controls.Add(this.tableLayoutPanel7, 0, 2);
+            this.tableLayoutPanel3.Controls.Add(this.flowLayoutPanel1, 0, 5);
             this.tableLayoutPanel3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel3.Location = new System.Drawing.Point(20, 60);
             this.tableLayoutPanel3.Margin = new System.Windows.Forms.Padding(0);
@@ -519,24 +522,6 @@
             this.mesTbxMinutes.Size = new System.Drawing.Size(55, 27);
             this.mesTbxMinutes.TabIndex = 21;
             // 
-            // mesBtnSaveSalesLead
-            // 
-            this.mesBtnSaveSalesLead.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.mesBtnSaveSalesLead.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(31)))), ((int)(((byte)(31)))), ((int)(((byte)(32)))));
-            this.mesBtnSaveSalesLead.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(67)))), ((int)(((byte)(67)))), ((int)(((byte)(70)))));
-            this.mesBtnSaveSalesLead.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(122)))), ((int)(((byte)(204)))));
-            this.mesBtnSaveSalesLead.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(84)))), ((int)(((byte)(84)))), ((int)(((byte)(92)))));
-            this.mesBtnSaveSalesLead.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.mesBtnSaveSalesLead.Font = new System.Drawing.Font("Tahoma", 14F);
-            this.mesBtnSaveSalesLead.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
-            this.mesBtnSaveSalesLead.Location = new System.Drawing.Point(845, 433);
-            this.mesBtnSaveSalesLead.Name = "mesBtnSaveSalesLead";
-            this.mesBtnSaveSalesLead.Size = new System.Drawing.Size(150, 35);
-            this.mesBtnSaveSalesLead.TabIndex = 0;
-            this.mesBtnSaveSalesLead.Text = "Save";
-            this.mesBtnSaveSalesLead.UseVisualStyleBackColor = false;
-            this.mesBtnSaveSalesLead.Click += new System.EventHandler(this.mesBtnSaveSalesLead_Click);
-            // 
             // tableLayoutPanel6
             // 
             this.tableLayoutPanel6.ColumnCount = 6;
@@ -746,6 +731,53 @@
             this.lblMeetingLocation.TabIndex = 16;
             this.lblMeetingLocation.Text = "Meeting Location:";
             // 
+            // flowLayoutPanel1
+            // 
+            this.flowLayoutPanel1.Controls.Add(this.mesBtnSaveSalesLead);
+            this.flowLayoutPanel1.Controls.Add(this.mesBtnEmail);
+            this.flowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.flowLayoutPanel1.FlowDirection = System.Windows.Forms.FlowDirection.RightToLeft;
+            this.flowLayoutPanel1.Location = new System.Drawing.Point(1, 431);
+            this.flowLayoutPanel1.Margin = new System.Windows.Forms.Padding(1);
+            this.flowLayoutPanel1.Name = "flowLayoutPanel1";
+            this.flowLayoutPanel1.Size = new System.Drawing.Size(996, 50);
+            this.flowLayoutPanel1.TabIndex = 19;
+            // 
+            // mesBtnSaveSalesLead
+            // 
+            this.mesBtnSaveSalesLead.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.mesBtnSaveSalesLead.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(31)))), ((int)(((byte)(31)))), ((int)(((byte)(32)))));
+            this.mesBtnSaveSalesLead.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(67)))), ((int)(((byte)(67)))), ((int)(((byte)(70)))));
+            this.mesBtnSaveSalesLead.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(122)))), ((int)(((byte)(204)))));
+            this.mesBtnSaveSalesLead.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(84)))), ((int)(((byte)(84)))), ((int)(((byte)(92)))));
+            this.mesBtnSaveSalesLead.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.mesBtnSaveSalesLead.Font = new System.Drawing.Font("Tahoma", 14F);
+            this.mesBtnSaveSalesLead.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
+            this.mesBtnSaveSalesLead.Location = new System.Drawing.Point(843, 3);
+            this.mesBtnSaveSalesLead.Name = "mesBtnSaveSalesLead";
+            this.mesBtnSaveSalesLead.Size = new System.Drawing.Size(150, 35);
+            this.mesBtnSaveSalesLead.TabIndex = 1;
+            this.mesBtnSaveSalesLead.Text = "Save";
+            this.mesBtnSaveSalesLead.UseVisualStyleBackColor = false;
+            // 
+            // mesBtnEmail
+            // 
+            this.mesBtnEmail.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(31)))), ((int)(((byte)(31)))), ((int)(((byte)(32)))));
+            this.mesBtnEmail.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(67)))), ((int)(((byte)(67)))), ((int)(((byte)(70)))));
+            this.mesBtnEmail.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(122)))), ((int)(((byte)(204)))));
+            this.mesBtnEmail.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(84)))), ((int)(((byte)(84)))), ((int)(((byte)(92)))));
+            this.mesBtnEmail.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.mesBtnEmail.Font = new System.Drawing.Font("Tahoma", 14F);
+            this.mesBtnEmail.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
+            this.mesBtnEmail.Location = new System.Drawing.Point(744, 3);
+            this.mesBtnEmail.Margin = new System.Windows.Forms.Padding(3, 3, 15, 3);
+            this.mesBtnEmail.Name = "mesBtnEmail";
+            this.mesBtnEmail.Size = new System.Drawing.Size(81, 35);
+            this.mesBtnEmail.TabIndex = 2;
+            this.mesBtnEmail.Text = "Email";
+            this.mesBtnEmail.UseVisualStyleBackColor = false;
+            this.mesBtnEmail.Click += new System.EventHandler(this.mesBtnEmail_Click);
+            // 
             // SalesLeadsActivityDetailsView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -775,6 +807,7 @@
             this.tableLayoutPanel6.PerformLayout();
             this.tableLayoutPanel7.ResumeLayout(false);
             this.tableLayoutPanel7.PerformLayout();
+            this.flowLayoutPanel1.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -788,7 +821,6 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label lblErrorMessage;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel3;
-        private Fx.WinForms.Flat.MESButton mesBtnSaveSalesLead;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel4;
         private System.Windows.Forms.Label label8;
         private Fx.WinForms.Flat.MESTextEdit mesTbxNotes;
@@ -830,5 +862,8 @@
         private Fx.WinForms.Flat.MESTextEdit mesTbxEop;
         private System.Windows.Forms.Label lblAwardedVolume;
         private Fx.WinForms.Flat.MESTextEdit mesTbxAwardedVolume;
+        private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
+        private Fx.WinForms.Flat.MESButton mesBtnSaveSalesLead;
+        private Fx.WinForms.Flat.MESButton mesBtnEmail;
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Drawing;
+using System.Diagnostics;
 using System.Windows.Forms;
 using FASTT.Controllers;
 using FASTT.Controls;
@@ -160,6 +161,11 @@ namespace FASTT.Views
         private void mesBtnSaveSalesLead_Click(object sender, EventArgs e)
         {
             SaveSalesLead();
+        }
+
+        private void mesBtnEmail_Click(object sender, EventArgs e)
+        {
+            SendEmail();
         }
 
         #endregion
@@ -359,7 +365,32 @@ namespace FASTT.Views
             if (result == 1) Close();
         }
 
+        private void SendEmail()
+        {
+            int hours = Convert.ToInt32(Math.Floor(Duration / 60));
+            int minutes = Convert.ToInt32(Duration % 60);
+            string hr = hours.ToString();
+            string min = minutes.ToString();
+
+            string subject = string.Format("Sales Lead Log:  {0}   {1}   {2}", Customer, Activity, ActivityDate);
+
+            string body = string.Format("{0}%0D%0A" +
+                                        "{1}%0D%0A" +
+                                        "{2}%0D%0A" +
+                                        "SOP: {3},  EOP: {4},  Volume: {5}%0D%0A%0D%0A" +
+                                        "{6}   {7}   {8} hr   {9} min%0D%0A" +
+                                        "Contact Info: {10}   {11}   {12}%0D%0A%0D%0A" +
+                                        "Notes: {13}%0D%0A%0D%0A" +
+                                        "Status: {14}%0D%0A" +
+                                        "Awarded Volume: {15}", Customer, Program, Application, Sop, Eop, Volume, Activity, ActivityDate, hr, min, ContactName, ContactEmail, ContactPhone, Notes, Status, AwardedVolume);
+
+
+            var url = "mailto:?subject=" + subject + "&body=" + body;
+            Process.Start(url);
+        }
+
         #endregion
+
 
 
     }
