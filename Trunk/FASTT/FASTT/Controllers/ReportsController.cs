@@ -264,7 +264,7 @@ namespace FASTT.Controllers
 
                 if (_context != null)
                 {
-                    HitlistCustomerSopsList.Add("");
+                    HitlistCustomerSopsList.Add("All");
                     var queryResult = _context.usp_ST_Report_Hitlist_GetSopList(customer).ToList();
                     foreach (var item in queryResult) HitlistCustomerSopsList.Add(item.SOPYear.ToString());
                 }
@@ -389,7 +389,7 @@ namespace FASTT.Controllers
 
         #region Sales Activity Grid Methods
 
-        public void GetSalesActivityHistory()
+        public void GetSalesActivityHistory(int numberOfDays)
         {
             try
             {
@@ -403,7 +403,7 @@ namespace FASTT.Controllers
 
                 if (_context != null)
                 {
-                    var queryResult = _context.usp_ST_Report_Hitlist_SalesActivityOneWeek();
+                    var queryResult = _context.usp_ST_Report_Hitlist_SalesActivity(numberOfDays);
                     foreach (var item in queryResult)
                     {
                         _salesPersonActivityDataModel = new ReportSalesPersonActivityDataModel
@@ -462,7 +462,8 @@ namespace FASTT.Controllers
 
                 if (_context != null)
                 {
-                    var queryResult = _context.usp_ST_Report_Hitlist_MSF(customer, region, sopYear);            
+                    //var queryResult = _context.usp_ST_Report_Hitlist_MSF(customer, region, sopYear);            
+                    var queryResult = _context.usp_ST_Report_Hitlist_MSF_New3(customer, region, sopYear);
                     foreach (var item in queryResult)
                     {
                         _hitlistMsfDataModel = new ReportHitlistMsfDataModel
@@ -501,9 +502,12 @@ namespace FASTT.Controllers
                             QuoteStatus = item.QuoteStatus,
                             StraightMaterialCost = item.StraightMaterialCost,
                             TotalQuotedSales = item.TotalQuotedSales,
-                            SalesForecastEEIBasePart = item.SalesForecastEEIBasePart,
-                            SalesForecastPeakYearlyVolume = (item.SalesForecastPeakYearlyVolume.HasValue) ? item.SalesForecastPeakYearlyVolume : 0,
-                            SalesForecastApplication = item.SalesForecastApplication
+                            MsfVehicle = item.SalesForecastVehicle,
+                            MsfEeiBasePart = item.SalesForecastEEIBasePart,
+                            MsfSopYear = item.SalesForecastSopYear,
+                            MsfEopYear = item.SalesForecastEopYear,
+                            MsfTotalPeakYearlySales = (item.SalesForecastTotalPeakYearlySales.HasValue) ? item.SalesForecastTotalPeakYearlySales : 0,
+                            MsfApplication = item.SalesForecastApplication
                         };
                         ListHitlistMsf.Add(_hitlistMsfDataModel);
                     }
@@ -856,7 +860,8 @@ namespace FASTT.Controllers
 
                 if (_context != null)
                 {
-                    var queryResult = _context.usp_ST_Report_Hitlist_MSF_Dashboard(customer, sopYear);
+                    //var queryResult = _context.usp_ST_Report_Hitlist_MSF(customer, region, sopYear);            
+                    var queryResult = _context.usp_ST_Report_Hitlist_MSF_Dashboard_New3(customer, sopYear);
                     foreach (var item in queryResult)
                     {
                         _hitlistMsfDataModel = new ReportHitlistMsfDataModel
@@ -895,8 +900,12 @@ namespace FASTT.Controllers
                             QuoteStatus = item.QuoteStatus,
                             StraightMaterialCost = item.StraightMaterialCost,
                             TotalQuotedSales = item.TotalQuotedSales,
-                            SalesForecastEEIBasePart = item.SalesForecastEEIBasePart,
-                            SalesForecastPeakYearlyVolume = (item.SalesForecastPeakYearlyVolume.HasValue) ? item.SalesForecastPeakYearlyVolume : 0
+                            MsfVehicle = item.SalesForecastVehicle,
+                            MsfEeiBasePart = item.SalesForecastEEIBasePart,
+                            MsfSopYear = item.SalesForecastSopYear,
+                            MsfEopYear = item.SalesForecastEopYear,
+                            MsfTotalPeakYearlySales = (item.SalesForecastTotalPeakYearlySales.HasValue) ? item.SalesForecastTotalPeakYearlySales : 0,
+                            MsfApplication = item.SalesForecastApplication
                         };
                         ListHitlistMsf.Add(_hitlistMsfDataModel);
                     }
@@ -908,6 +917,71 @@ namespace FASTT.Controllers
                 _messageBox.Message = string.Format("Failed to return sales hitlist data.  Error: {0}", error);
                 _messageBox.ShowDialog();
             }
+
+            //ListHitlistMsf.Clear();
+            //try
+            //{
+            //    if (_context != null)
+            //    {
+            //        _context.Dispose();
+            //        _context = new MONITOREntities();
+            //    }
+
+            //    if (_context != null)
+            //    {
+            //        var queryResult = _context.usp_ST_Report_Hitlist_MSF_Dashboard(customer, sopYear);
+            //        foreach (var item in queryResult)
+            //        {
+            //            _hitlistMsfDataModel = new ReportHitlistMsfDataModel
+            //            {
+            //                Customer = item.Customer,
+            //                Program = item.Program,
+            //                EstYearlySales = item.EstYearlySales,
+            //                PeakYearlyVolume = string.Format("{0:n0}", item.PeakYearlyVolume),
+            //                SOPYear = item.SOPYear,
+            //                LED_Harness = item.LED_Harness,
+            //                Application = item.Application,
+            //                Region = item.Region,
+            //                OEM = item.OEM,
+            //                Nameplate = item.NamePlate,
+            //                Component = item.Component,
+            //                SOP = item.SOP,
+            //                EOP = item.EOP,
+            //                Type = item.Type,
+            //                Price = item.Price,
+            //                Volume2017 = item.Volume2017,
+            //                Volume2018 = item.Volume2018,
+            //                Volume2019 = item.Volume2019,
+            //                Volume2020 = item.Volume2020,
+            //                Volume2021 = item.Volume2021,
+            //                Volume2022 = item.Volume2022,
+            //                ID = item.ID,
+            //                SalesLeadID = item.SalesLeadId,
+            //                SalesPerson = item.SalesPerson,
+            //                QuoteNumber = item.QuoteNumber,
+            //                EEIPartNumber = item.EEIPartNumber,
+            //                EAU = item.EAU,
+            //                ApplicationName = item.ApplicationName,
+            //                SalesInitials = item.SalesInitials,
+            //                QuotePrice = item.QuotePrice,
+            //                Awarded = item.Awarded,
+            //                QuoteStatus = item.QuoteStatus,
+            //                StraightMaterialCost = item.StraightMaterialCost,
+            //                SalesForecastVehicle = item.SalesForecastVehicle,
+            //                TotalQuotedSales = item.TotalQuotedSales,
+            //                SalesForecastEEIBasePart = item.SalesForecastEEIBasePart,
+            //                SalesForecastTotalPeakYearlySales = (item.SalesForecastTotalPeakYearlySales.HasValue) ? item.SalesForecastTotalPeakYearlySales : 0
+            //            };
+            //            ListHitlistMsf.Add(_hitlistMsfDataModel);
+            //        }
+            //    }
+            //}
+            //catch (Exception ex)
+            //{
+            //    string error = (ex.InnerException != null) ? ex.InnerException.Message : ex.Message;
+            //    _messageBox.Message = string.Format("Failed to return sales hitlist data.  Error: {0}", error);
+            //    _messageBox.ShowDialog();
+            //}
         }
 
         public void GetSalesActivityHistoryByCustomer(string customer)
