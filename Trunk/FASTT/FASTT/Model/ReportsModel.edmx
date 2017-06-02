@@ -302,6 +302,14 @@
           <FunctionImport Name="usp_ST_Report_Hitlist_SalesActivityByCustomer" ReturnType="Collection(MONITORModel1.usp_ST_Report_Hitlist_SalesActivityByCustomer_Result)">
           <Parameter Name="Customer" Mode="In" Type="String" />
           </FunctionImport>
+          <FunctionImport Name="usp_ST_SalesLeadLog_Hitlist_GetActivity" ReturnType="Collection(MONITORModel1.usp_ST_SalesLeadLog_Hitlist_GetActivity_Result)">
+            <Parameter Name="SalesPersonCode" Mode="In" Type="String" />
+            <Parameter Name="TranDT" Mode="InOut" Type="DateTime" />
+            <Parameter Name="Result" Mode="InOut" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="usp_ST_Report_Hitlist_SalesActivity" ReturnType="Collection(MONITORModel1.usp_ST_Report_Hitlist_SalesActivity_Result)">
+          <Parameter Name="ReportingDays" Mode="In" Type="Int32" />
+          </FunctionImport>
           <FunctionImport Name="usp_ST_Report_Hitlist_MSF_New3" ReturnType="Collection(MONITORModel1.usp_ST_Report_Hitlist_MSF_New3_Result)">
             <Parameter Name="Customer" Mode="In" Type="String" />
             <Parameter Name="Region" Mode="In" Type="String" />
@@ -310,14 +318,6 @@
           <FunctionImport Name="usp_ST_Report_Hitlist_MSF_Dashboard_New3" ReturnType="Collection(MONITORModel1.usp_ST_Report_Hitlist_MSF_Dashboard_New3_Result)">
             <Parameter Name="Customer" Mode="In" Type="String" />
             <Parameter Name="SOPYear" Mode="In" Type="Int32" />
-          </FunctionImport>
-          <FunctionImport Name="usp_ST_SalesLeadLog_Hitlist_GetActivity" ReturnType="Collection(MONITORModel1.usp_ST_SalesLeadLog_Hitlist_GetActivity_Result)">
-            <Parameter Name="SalesPersonCode" Mode="In" Type="String" />
-            <Parameter Name="TranDT" Mode="InOut" Type="DateTime" />
-            <Parameter Name="Result" Mode="InOut" Type="Int32" />
-          </FunctionImport>
-          <FunctionImport Name="usp_ST_Report_Hitlist_SalesActivity" ReturnType="Collection(MONITORModel1.usp_ST_Report_Hitlist_SalesActivity_Result)">
-            <Parameter Name="ReportingDays" Mode="In" Type="Int32" />
           </FunctionImport>
         </EntityContainer>
         <ComplexType Name="ProgramsLaunchingByCustomer">
@@ -646,90 +646,6 @@
           <Property Type="Int32" Name="AwardedVolume" Nullable="true" />
           <Property Type="String" Name="SalesPersonCode" Nullable="true" MaxLength="5" />
         </ComplexType>
-        <ComplexType Name="usp_ST_Report_Hitlist_MSF_New3_Result">
-          <Property Type="String" Name="Customer" Nullable="true" MaxLength="50" />
-          <Property Type="String" Name="Program" Nullable="true" MaxLength="50" />
-          <Property Type="Int32" Name="EstYearlySales" Nullable="true" />
-          <Property Type="Int32" Name="PeakYearlyVolume" Nullable="true" />
-          <Property Type="Int32" Name="SOPYear" Nullable="true" />
-          <Property Type="String" Name="LED_Harness" Nullable="true" MaxLength="50" />
-          <Property Type="String" Name="Application" Nullable="true" MaxLength="50" />
-          <Property Type="String" Name="Region" Nullable="true" MaxLength="50" />
-          <Property Type="String" Name="OEM" Nullable="true" MaxLength="50" />
-          <Property Type="String" Name="NamePlate" Nullable="true" MaxLength="50" />
-          <Property Type="String" Name="Component" Nullable="true" MaxLength="50" />
-          <Property Type="String" Name="SOP" Nullable="true" MaxLength="20" />
-          <Property Type="String" Name="EOP" Nullable="true" MaxLength="20" />
-          <Property Type="String" Name="Type" Nullable="true" MaxLength="50" />
-          <Property Type="Decimal" Name="Price" Nullable="true" Precision="10" Scale="2" />
-          <Property Type="Int32" Name="Volume2017" Nullable="true" />
-          <Property Type="Int32" Name="Volume2018" Nullable="true" />
-          <Property Type="Int32" Name="Volume2019" Nullable="true" />
-          <Property Type="Int32" Name="Volume2020" Nullable="true" />
-          <Property Type="Int32" Name="Volume2021" Nullable="true" />
-          <Property Type="Int32" Name="Volume2022" Nullable="true" />
-          <Property Type="Int32" Name="ID" Nullable="false" />
-          <Property Type="Int32" Name="SalesLeadId" Nullable="true" />
-          <Property Type="String" Name="SalesPerson" Nullable="true" MaxLength="50" />
-          <Property Type="String" Name="QuoteNumber" Nullable="true" MaxLength="100" />
-          <Property Type="String" Name="EEIPartNumber" Nullable="true" MaxLength="250" />
-          <Property Type="String" Name="EAU" Nullable="true" MaxLength="100" />
-          <Property Type="String" Name="ApplicationName" Nullable="true" MaxLength="1000" />
-          <Property Type="String" Name="SalesInitials" Nullable="true" MaxLength="50" />
-          <Property Type="String" Name="QuotePrice" Nullable="true" MaxLength="100" />
-          <Property Type="String" Name="Awarded" Nullable="true" MaxLength="50" />
-          <Property Type="String" Name="QuoteStatus" Nullable="true" MaxLength="100" />
-          <Property Type="String" Name="StraightMaterialCost" Nullable="true" MaxLength="100" />
-          <Property Type="String" Name="TotalQuotedSales" Nullable="true" MaxLength="100" />
-          <Property Type="String" Name="SalesForecastVehicle" Nullable="true" MaxLength="100" />
-          <Property Type="String" Name="SalesForecastEEIBasePart" Nullable="true" MaxLength="500" />
-          <Property Type="Decimal" Name="SalesForecastTotalPeakYearlySales" Nullable="true" Precision="20" Scale="6" />
-          <Property Type="String" Name="SalesForecastApplication" Nullable="true" MaxLength="1000" />
-          <Property Type="String" Name="SalesForecastSopYear" Nullable="true" MaxLength="100" />
-          <Property Type="String" Name="SalesForecastEopYear" Nullable="true" MaxLength="100" />
-        </ComplexType>
-        <ComplexType Name="usp_ST_Report_Hitlist_MSF_Dashboard_New3_Result">
-          <Property Type="String" Name="Customer" Nullable="true" MaxLength="50" />
-          <Property Type="String" Name="Program" Nullable="true" MaxLength="50" />
-          <Property Type="Int32" Name="EstYearlySales" Nullable="true" />
-          <Property Type="Int32" Name="PeakYearlyVolume" Nullable="true" />
-          <Property Type="Int32" Name="SOPYear" Nullable="true" />
-          <Property Type="String" Name="LED_Harness" Nullable="true" MaxLength="50" />
-          <Property Type="String" Name="Application" Nullable="true" MaxLength="50" />
-          <Property Type="String" Name="Region" Nullable="true" MaxLength="50" />
-          <Property Type="String" Name="OEM" Nullable="true" MaxLength="50" />
-          <Property Type="String" Name="NamePlate" Nullable="true" MaxLength="50" />
-          <Property Type="String" Name="Component" Nullable="true" MaxLength="50" />
-          <Property Type="String" Name="SOP" Nullable="true" MaxLength="20" />
-          <Property Type="String" Name="EOP" Nullable="true" MaxLength="20" />
-          <Property Type="String" Name="Type" Nullable="true" MaxLength="50" />
-          <Property Type="Decimal" Name="Price" Nullable="true" Precision="10" Scale="2" />
-          <Property Type="Int32" Name="Volume2017" Nullable="true" />
-          <Property Type="Int32" Name="Volume2018" Nullable="true" />
-          <Property Type="Int32" Name="Volume2019" Nullable="true" />
-          <Property Type="Int32" Name="Volume2020" Nullable="true" />
-          <Property Type="Int32" Name="Volume2021" Nullable="true" />
-          <Property Type="Int32" Name="Volume2022" Nullable="true" />
-          <Property Type="Int32" Name="ID" Nullable="false" />
-          <Property Type="Int32" Name="SalesLeadId" Nullable="true" />
-          <Property Type="String" Name="SalesPerson" Nullable="true" MaxLength="50" />
-          <Property Type="String" Name="QuoteNumber" Nullable="true" MaxLength="100" />
-          <Property Type="String" Name="EEIPartNumber" Nullable="true" MaxLength="250" />
-          <Property Type="String" Name="EAU" Nullable="true" MaxLength="100" />
-          <Property Type="String" Name="ApplicationName" Nullable="true" MaxLength="1000" />
-          <Property Type="String" Name="SalesInitials" Nullable="true" MaxLength="50" />
-          <Property Type="String" Name="QuotePrice" Nullable="true" MaxLength="100" />
-          <Property Type="String" Name="Awarded" Nullable="true" MaxLength="50" />
-          <Property Type="String" Name="QuoteStatus" Nullable="true" MaxLength="100" />
-          <Property Type="String" Name="StraightMaterialCost" Nullable="true" MaxLength="100" />
-          <Property Type="String" Name="TotalQuotedSales" Nullable="true" MaxLength="100" />
-          <Property Type="String" Name="SalesForecastVehicle" Nullable="true" MaxLength="100" />
-          <Property Type="String" Name="SalesForecastEEIBasePart" Nullable="true" MaxLength="500" />
-          <Property Type="Decimal" Name="SalesForecastTotalPeakYearlySales" Nullable="true" Precision="20" Scale="6" />
-          <Property Type="String" Name="SalesForecastApplication" Nullable="true" MaxLength="1000" />
-          <Property Type="String" Name="SalesForecastSopYear" Nullable="true" MaxLength="100" />
-          <Property Type="String" Name="SalesForecastEopYear" Nullable="true" MaxLength="100" />
-        </ComplexType>
         <ComplexType Name="usp_ST_SalesLeadLog_Hitlist_GetActivity_Result">
           <Property Type="String" Name="Customer" Nullable="true" MaxLength="50" />
           <Property Type="String" Name="Program" Nullable="true" MaxLength="50" />
@@ -772,6 +688,90 @@
           <Property Type="String" Name="Notes" Nullable="true" />
           <Property Type="Int32" Name="AwardedVolume" Nullable="true" />
           <Property Type="String" Name="SalesPersonCode" Nullable="true" MaxLength="5" />
+        </ComplexType>
+        <ComplexType Name="usp_ST_Report_Hitlist_MSF_New3_Result">
+          <Property Type="String" Name="Customer" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Program" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="EstYearlySales" Nullable="true" />
+          <Property Type="Int32" Name="PeakYearlyVolume" Nullable="true" />
+          <Property Type="Int32" Name="SOPYear" Nullable="true" />
+          <Property Type="String" Name="LED_Harness" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Application" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Region" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="OEM" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="NamePlate" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Component" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="SOP" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="EOP" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="Type" Nullable="true" MaxLength="50" />
+          <Property Type="Decimal" Name="Price" Nullable="true" Precision="10" Scale="2" />
+          <Property Type="Int32" Name="Volume2017" Nullable="true" />
+          <Property Type="Int32" Name="Volume2018" Nullable="true" />
+          <Property Type="Int32" Name="Volume2019" Nullable="true" />
+          <Property Type="Int32" Name="Volume2020" Nullable="true" />
+          <Property Type="Int32" Name="Volume2021" Nullable="true" />
+          <Property Type="Int32" Name="Volume2022" Nullable="true" />
+          <Property Type="Int32" Name="ID" Nullable="false" />
+          <Property Type="Int32" Name="SalesLeadId" Nullable="true" />
+          <Property Type="String" Name="SalesPerson" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="QuoteNumber" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="EEIPartNumber" Nullable="true" MaxLength="250" />
+          <Property Type="String" Name="EAU" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="ApplicationName" Nullable="true" MaxLength="1000" />
+          <Property Type="String" Name="SalesInitials" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="QuotePrice" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="Awarded" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="QuoteStatus" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="StraightMaterialCost" Nullable="true" MaxLength="100" />
+          <Property Type="Decimal" Name="TotalQuotedSales" Nullable="true" Precision="20" Scale="6" />
+          <Property Type="String" Name="SalesForecastVehicle" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="SalesForecastEEIBasePart" Nullable="true" MaxLength="500" />
+          <Property Type="Decimal" Name="SalesForecastTotalPeakYearlySales" Nullable="true" Precision="20" Scale="6" />
+          <Property Type="String" Name="SalesForecastApplication" Nullable="true" MaxLength="1000" />
+          <Property Type="String" Name="SalesForecastSopYear" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="SalesForecastEopYear" Nullable="true" MaxLength="100" />
+        </ComplexType>
+        <ComplexType Name="usp_ST_Report_Hitlist_MSF_Dashboard_New3_Result">
+          <Property Type="String" Name="Customer" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Program" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="EstYearlySales" Nullable="true" />
+          <Property Type="Int32" Name="PeakYearlyVolume" Nullable="true" />
+          <Property Type="Int32" Name="SOPYear" Nullable="true" />
+          <Property Type="String" Name="LED_Harness" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Application" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Region" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="OEM" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="NamePlate" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Component" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="SOP" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="EOP" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="Type" Nullable="true" MaxLength="50" />
+          <Property Type="Decimal" Name="Price" Nullable="true" Precision="10" Scale="2" />
+          <Property Type="Int32" Name="Volume2017" Nullable="true" />
+          <Property Type="Int32" Name="Volume2018" Nullable="true" />
+          <Property Type="Int32" Name="Volume2019" Nullable="true" />
+          <Property Type="Int32" Name="Volume2020" Nullable="true" />
+          <Property Type="Int32" Name="Volume2021" Nullable="true" />
+          <Property Type="Int32" Name="Volume2022" Nullable="true" />
+          <Property Type="Int32" Name="ID" Nullable="false" />
+          <Property Type="Int32" Name="SalesLeadId" Nullable="true" />
+          <Property Type="String" Name="SalesPerson" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="QuoteNumber" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="EEIPartNumber" Nullable="true" MaxLength="250" />
+          <Property Type="String" Name="EAU" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="ApplicationName" Nullable="true" MaxLength="1000" />
+          <Property Type="String" Name="SalesInitials" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="QuotePrice" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="Awarded" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="QuoteStatus" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="StraightMaterialCost" Nullable="true" MaxLength="100" />
+          <Property Type="Decimal" Name="TotalQuotedSales" Nullable="true" Precision="20" Scale="6" />
+          <Property Type="String" Name="SalesForecastVehicle" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="SalesForecastEEIBasePart" Nullable="true" MaxLength="500" />
+          <Property Type="Decimal" Name="SalesForecastTotalPeakYearlySales" Nullable="true" Precision="20" Scale="6" />
+          <Property Type="String" Name="SalesForecastApplication" Nullable="true" MaxLength="1000" />
+          <Property Type="String" Name="SalesForecastSopYear" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="SalesForecastEopYear" Nullable="true" MaxLength="100" />
         </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
@@ -1188,6 +1188,57 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="usp_ST_SalesLeadLog_Hitlist_GetActivity" FunctionName="MONITORModel1.Store.usp_ST_SalesLeadLog_Hitlist_GetActivity">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="MONITORModel1.usp_ST_SalesLeadLog_Hitlist_GetActivity_Result">
+                <ScalarProperty Name="Customer" ColumnName="Customer" />
+                <ScalarProperty Name="Program" ColumnName="Program" />
+                <ScalarProperty Name="Application" ColumnName="Application" />
+                <ScalarProperty Name="SOP" ColumnName="SOP" />
+                <ScalarProperty Name="EOP" ColumnName="EOP" />
+                <ScalarProperty Name="PeakYearlyVolume" ColumnName="PeakYearlyVolume" />
+                <ScalarProperty Name="LastSalesActivity" ColumnName="LastSalesActivity" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="SalesLeadID" ColumnName="SalesLeadID" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="usp_ST_Report_Hitlist_SalesActivity" FunctionName="MONITORModel1.Store.usp_ST_Report_Hitlist_SalesActivity">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="MONITORModel1.usp_ST_Report_Hitlist_SalesActivity_Result">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="RowID" ColumnName="RowID" />
+                <ScalarProperty Name="SalesPerson" ColumnName="SalesPerson" />
+                <ScalarProperty Name="Customer" ColumnName="Customer" />
+                <ScalarProperty Name="Program" ColumnName="Program" />
+                <ScalarProperty Name="EstYearlySales" ColumnName="EstYearlySales" />
+                <ScalarProperty Name="PeakYearlyVolume" ColumnName="PeakYearlyVolume" />
+                <ScalarProperty Name="SOPYear" ColumnName="SOPYear" />
+                <ScalarProperty Name="LED_Harness" ColumnName="LED/Harness" />
+                <ScalarProperty Name="Application" ColumnName="Application" />
+                <ScalarProperty Name="Region" ColumnName="Region" />
+                <ScalarProperty Name="OEM" ColumnName="OEM" />
+                <ScalarProperty Name="Nameplate" ColumnName="Nameplate" />
+                <ScalarProperty Name="Component" ColumnName="Component" />
+                <ScalarProperty Name="SOP" ColumnName="SOP" />
+                <ScalarProperty Name="EOP" ColumnName="EOP" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="ActivityDate" ColumnName="ActivityDate" />
+                <ScalarProperty Name="Activity" ColumnName="Activity" />
+                <ScalarProperty Name="MeetingLocation" ColumnName="MeetingLocation" />
+                <ScalarProperty Name="ContactName" ColumnName="ContactName" />
+                <ScalarProperty Name="ContactPhoneNumber" ColumnName="ContactPhoneNumber" />
+                <ScalarProperty Name="ContactEmailAddress" ColumnName="ContactEmailAddress" />
+                <ScalarProperty Name="Duration" ColumnName="Duration" />
+                <ScalarProperty Name="Notes" ColumnName="Notes" />
+                <ScalarProperty Name="AwardedVolume" ColumnName="AwardedVolume" />
+                <ScalarProperty Name="SalesPersonCode" ColumnName="SalesPersonCode" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="usp_ST_Report_Hitlist_MSF_New3" FunctionName="MONITORModel1.Store.usp_ST_Report_Hitlist_MSF_New3">
             <ResultMapping>
               <ComplexTypeMapping TypeName="MONITORModel1.usp_ST_Report_Hitlist_MSF_New3_Result">
@@ -1277,57 +1328,6 @@
                 <ScalarProperty Name="SalesForecastApplication" ColumnName="SalesForecastApplication" />
                 <ScalarProperty Name="SalesForecastSopYear" ColumnName="SalesForecastSopYear" />
                 <ScalarProperty Name="SalesForecastEopYear" ColumnName="SalesForecastEopYear" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="usp_ST_SalesLeadLog_Hitlist_GetActivity" FunctionName="MONITORModel1.Store.usp_ST_SalesLeadLog_Hitlist_GetActivity">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="MONITORModel1.usp_ST_SalesLeadLog_Hitlist_GetActivity_Result">
-                <ScalarProperty Name="Customer" ColumnName="Customer" />
-                <ScalarProperty Name="Program" ColumnName="Program" />
-                <ScalarProperty Name="Application" ColumnName="Application" />
-                <ScalarProperty Name="SOP" ColumnName="SOP" />
-                <ScalarProperty Name="EOP" ColumnName="EOP" />
-                <ScalarProperty Name="PeakYearlyVolume" ColumnName="PeakYearlyVolume" />
-                <ScalarProperty Name="LastSalesActivity" ColumnName="LastSalesActivity" />
-                <ScalarProperty Name="Status" ColumnName="Status" />
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="SalesLeadID" ColumnName="SalesLeadID" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="usp_ST_Report_Hitlist_SalesActivity" FunctionName="MONITORModel1.Store.usp_ST_Report_Hitlist_SalesActivity">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="MONITORModel1.usp_ST_Report_Hitlist_SalesActivity_Result">
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="RowID" ColumnName="RowID" />
-                <ScalarProperty Name="SalesPerson" ColumnName="SalesPerson" />
-                <ScalarProperty Name="Customer" ColumnName="Customer" />
-                <ScalarProperty Name="Program" ColumnName="Program" />
-                <ScalarProperty Name="EstYearlySales" ColumnName="EstYearlySales" />
-                <ScalarProperty Name="PeakYearlyVolume" ColumnName="PeakYearlyVolume" />
-                <ScalarProperty Name="SOPYear" ColumnName="SOPYear" />
-                <ScalarProperty Name="LED_Harness" ColumnName="LED/Harness" />
-                <ScalarProperty Name="Application" ColumnName="Application" />
-                <ScalarProperty Name="Region" ColumnName="Region" />
-                <ScalarProperty Name="OEM" ColumnName="OEM" />
-                <ScalarProperty Name="Nameplate" ColumnName="Nameplate" />
-                <ScalarProperty Name="Component" ColumnName="Component" />
-                <ScalarProperty Name="SOP" ColumnName="SOP" />
-                <ScalarProperty Name="EOP" ColumnName="EOP" />
-                <ScalarProperty Name="Type" ColumnName="Type" />
-                <ScalarProperty Name="Price" ColumnName="Price" />
-                <ScalarProperty Name="Status" ColumnName="Status" />
-                <ScalarProperty Name="ActivityDate" ColumnName="ActivityDate" />
-                <ScalarProperty Name="Activity" ColumnName="Activity" />
-                <ScalarProperty Name="MeetingLocation" ColumnName="MeetingLocation" />
-                <ScalarProperty Name="ContactName" ColumnName="ContactName" />
-                <ScalarProperty Name="ContactPhoneNumber" ColumnName="ContactPhoneNumber" />
-                <ScalarProperty Name="ContactEmailAddress" ColumnName="ContactEmailAddress" />
-                <ScalarProperty Name="Duration" ColumnName="Duration" />
-                <ScalarProperty Name="Notes" ColumnName="Notes" />
-                <ScalarProperty Name="AwardedVolume" ColumnName="AwardedVolume" />
-                <ScalarProperty Name="SalesPersonCode" ColumnName="SalesPersonCode" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>

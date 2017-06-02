@@ -46,7 +46,7 @@ namespace FASTT.Model
         public string Awarded { get; set; }
         public string QuoteStatus { get; set; }
         public string StraightMaterialCost { get; set; }
-        public string TotalQuotedSales { get; set; }
+        public Nullable<decimal> TotalQuotedSales { get; set; }
         public string SalesForecastVehicle { get; set; }
         public string SalesForecastEEIBasePart { get; set; }
         public Nullable<decimal> SalesForecastTotalPeakYearlySales { get; set; }

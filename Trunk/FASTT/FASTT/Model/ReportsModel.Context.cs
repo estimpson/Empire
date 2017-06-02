@@ -238,6 +238,24 @@ namespace FASTT.Model
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_ST_Report_Hitlist_SalesActivityByCustomer_Result>("usp_ST_Report_Hitlist_SalesActivityByCustomer", customerParameter);
         }
     
+        public virtual ObjectResult<usp_ST_SalesLeadLog_Hitlist_GetActivity_Result> usp_ST_SalesLeadLog_Hitlist_GetActivity(string salesPersonCode, ObjectParameter tranDT, ObjectParameter result)
+        {
+            var salesPersonCodeParameter = salesPersonCode != null ?
+                new ObjectParameter("SalesPersonCode", salesPersonCode) :
+                new ObjectParameter("SalesPersonCode", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_ST_SalesLeadLog_Hitlist_GetActivity_Result>("usp_ST_SalesLeadLog_Hitlist_GetActivity", salesPersonCodeParameter, tranDT, result);
+        }
+    
+        public virtual ObjectResult<usp_ST_Report_Hitlist_SalesActivity_Result> usp_ST_Report_Hitlist_SalesActivity(Nullable<int> reportingDays)
+        {
+            var reportingDaysParameter = reportingDays.HasValue ?
+                new ObjectParameter("ReportingDays", reportingDays) :
+                new ObjectParameter("ReportingDays", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_ST_Report_Hitlist_SalesActivity_Result>("usp_ST_Report_Hitlist_SalesActivity", reportingDaysParameter);
+        }
+    
         public virtual ObjectResult<usp_ST_Report_Hitlist_MSF_New3_Result> usp_ST_Report_Hitlist_MSF_New3(string customer, string region, Nullable<int> sOPYear)
         {
             var customerParameter = customer != null ?
@@ -266,24 +284,6 @@ namespace FASTT.Model
                 new ObjectParameter("SOPYear", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_ST_Report_Hitlist_MSF_Dashboard_New3_Result>("usp_ST_Report_Hitlist_MSF_Dashboard_New3", customerParameter, sOPYearParameter);
-        }
-    
-        public virtual ObjectResult<usp_ST_SalesLeadLog_Hitlist_GetActivity_Result> usp_ST_SalesLeadLog_Hitlist_GetActivity(string salesPersonCode, ObjectParameter tranDT, ObjectParameter result)
-        {
-            var salesPersonCodeParameter = salesPersonCode != null ?
-                new ObjectParameter("SalesPersonCode", salesPersonCode) :
-                new ObjectParameter("SalesPersonCode", typeof(string));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_ST_SalesLeadLog_Hitlist_GetActivity_Result>("usp_ST_SalesLeadLog_Hitlist_GetActivity", salesPersonCodeParameter, tranDT, result);
-        }
-    
-        public virtual ObjectResult<usp_ST_Report_Hitlist_SalesActivity_Result> usp_ST_Report_Hitlist_SalesActivity(Nullable<int> reportingDays)
-        {
-            var reportingDaysParameter = reportingDays.HasValue ?
-                new ObjectParameter("ReportingDays", reportingDays) :
-                new ObjectParameter("ReportingDays", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_ST_Report_Hitlist_SalesActivity_Result>("usp_ST_Report_Hitlist_SalesActivity", reportingDaysParameter);
         }
     }
 }
