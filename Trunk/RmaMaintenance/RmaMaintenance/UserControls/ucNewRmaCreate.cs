@@ -6,6 +6,7 @@ using System.Windows.Forms;
 using RmaMaintenance.Controllers;
 using RmaMaintenance.Controls;
 using RmaMaintenance.Views;
+using RmaMaintenance.Emums;
 
 #endregion
 
@@ -21,6 +22,14 @@ namespace RmaMaintenance.UserControls
         private readonly MessagesDialogResult _messageDialogResult;
 
         #endregion
+
+
+        #region Enums
+
+        private FormAction _action;
+
+        #endregion
+
 
         #region Properties
 
@@ -101,10 +110,7 @@ namespace RmaMaintenance.UserControls
             SetPartsGridProperties();
             SetShippersGridProperties();
 
-
-            mesBtnCreateRma.Enabled = false;
-            cbxCreateRtv.Visible = cbxSerialsOnHold.Visible = false;
-            cbxCreateRtv.Checked = true;
+            //mesBtnCreateRma.Enabled = mesBtnCreateRmaOnly.Enabled = false;
             rbtnTransferWarehouse.Checked = true;
         }
 
@@ -146,15 +152,6 @@ namespace RmaMaintenance.UserControls
 
         #endregion
 
-        #region CheckBox Check Changed Events
-
-        private void cbxCreateRtv_CheckedChanged(object sender, EventArgs e)
-        {
-            cbxSerialsOnHold.Checked = (!cbxCreateRtv.Checked);
-        }
-
-        #endregion
-
         #region RadioButton Click Events
 
         private void rbtnTransferHonduras_CheckedChanged(object sender, EventArgs e)
@@ -175,8 +172,7 @@ namespace RmaMaintenance.UserControls
         {
             if (ImportFromSpreadsheet() == 0) return;
 
-            mesBtnCreateRma.Enabled = true;
-            cbxCreateRtv.Visible = cbxSerialsOnHold.Visible = true;
+            //mesBtnCreateRma.Enabled = true;
         }
 
         private void mesBtnClearList_Click(object sender, EventArgs e)
@@ -192,7 +188,9 @@ namespace RmaMaintenance.UserControls
         {
             if (mesBtnShowSerials.Text == "Get Serials")
             {
+                tlpMain.Enabled = false;
                 GetSerialsList();
+                tlpMain.Enabled = true;
             }
             else
             {
@@ -211,21 +209,35 @@ namespace RmaMaintenance.UserControls
 
         private void mesBtnCreateRma_Click(object sender, EventArgs e)
         {
-            if (!cbxCreateRtv.Checked)
-            {
-                _messageDialogResult.Message =
-                    "Create RTV shipper is not checked, so only a RMA will be created.  Continue?";
-                DialogResult dr = _messageDialogResult.ShowDialog();
-                if (dr == DialogResult.No) return;
-            }
+            //if (!cbxCreateRtv.Checked)
+            //{
+            //    _messageDialogResult.Message =
+            //        "Create RTV shipper is not checked, so only the RMA will be created.  Continue?";
+            //    DialogResult dr = _messageDialogResult.ShowDialog();
+            //    if (dr == DialogResult.No) return;
+            //}
 
-            if (cbxCreateRtv.Checked && cbxSerialsOnHold.Checked)
-            {
-                _messageDialogResult.Message =
-                    "Serials will not be staged to the RTV shipper if you place them on hold.  Do you want to continue? (Not recommended.)";
-                DialogResult dr = _messageDialogResult.ShowDialog();
-                if (dr == DialogResult.No) return;
-            }
+            //if (cbxCreateRtv.Checked && cbxSerialsOnHold.Checked)
+            //{
+            //    _messageDialogResult.Message =
+            //        "Serials will not be staged to the RTV shipper if you place them on hold.  Do you want to continue? (Not recommended.)";
+            //    DialogResult dr = _messageDialogResult.ShowDialog();
+            //    if (dr == DialogResult.No) return;
+            //}
+
+
+
+
+            //if ()
+
+            //if (lbxSerials.Items.Count < 1)
+            //{
+            //    _messageDialogResult.Message = ""
+            //}
+
+
+
+            _action = FormAction.RmaRtv;
 
             if (_showOptionOne)
             {
@@ -235,6 +247,19 @@ namespace RmaMaintenance.UserControls
             {
                 CreateRmaPartsQuantitiesOption();
             }
+        }
+
+        private void mesBtnCreateRmaOnly_Click(object sender, EventArgs e)
+        {
+            _messageDialogResult.Message = "Do you want to place these serials on hold?";
+            DialogResult dr = _messageDialogResult.ShowDialog();
+                    
+            _action = (dr == DialogResult.No) ? FormAction.RmaOnly : FormAction.RmaOnlyOnHold;
+        }
+
+        private void mesBtnCreateRtvOnly_Click(object sender, EventArgs e)
+        {
+            _action = FormAction.RtvOnly;
         }
 
         private void mesBtnRtvShipper_Click(object sender, EventArgs e)
@@ -264,14 +289,7 @@ namespace RmaMaintenance.UserControls
             string destination = cbxDestination.Text.Trim();
             if (destination == "")
             {
-                _message.Message = "The destination (where the parts are coming from) must be selected.";
-                _message.ShowDialog();
-                return;
-            }
-
-            if (dgvPartsQuantities.Rows.Count == 0)
-            {
-                _message.Message = "You have not entered any parts.";
+                _message.Message = "The original destination (where the parts are coming from or came from) must be selected.";
                 _message.ShowDialog();
                 return;
             }
@@ -308,18 +326,28 @@ namespace RmaMaintenance.UserControls
         private int GetSerialsFromPartDest(string destination)
         {
             _controller.SerialsList.Clear();
+            bool partEntered = false;
 
             foreach (DataGridViewRow dr in dgvPartsQuantities.Rows)
             {
-                if (dr.Cells[0].Value == null) break;
+                if (!partEntered)
+                {
+                    if ((dr.Cells[0].Value == null || dr.Cells[0].Value.ToString() == ""))
+                    {
+                        _message.Message = "At least one part and quantity must be entered.";
+                        _message.ShowDialog();
+                        return 0;
+                    }
+                    partEntered = true;
+                }
 
+                if (dr.Cells[0].Value == null) break;  // The end of entered parts has been reached
+                
                 string part = dr.Cells[0].Value.ToString();
                 string quantity = (dr.Cells[1].Value != null) ? dr.Cells[1].Value.ToString() : "";
-
                 if (quantity == "")
                 {
-                    _message.Message =
-                        string.Format("A quantity needs to be entered for part {0}.  Nothing was processed.", part);
+                    _message.Message = string.Format("A quantity needs to be entered for part {0}.  Nothing was processed.", part);
                     _message.ShowDialog();
                     return 0;
                 }
@@ -331,14 +359,12 @@ namespace RmaMaintenance.UserControls
                 }
                 catch (Exception)
                 {
-                    _message.Message = string.Format("Invalid quantity found for part {0}.  Nothing was processed.",
-                        part);
+                    _message.Message = string.Format("Invalid quantity found for part {0}.  Nothing was processed.", part);
                     _message.ShowDialog();
                     return 0;
                 }
 
-                // Create a list of the most recent serials for the parts entered that have been
-                //  shipped to the destination to be RMA'd
+                // Create a list of the most recent serials for the parts entered that have been shipped to the destination to be RMA'd
                 if (_controller.GetSerialsFromPartDest(_view.OperatorCode, destination, part, qty) == 0) return 0;
             }
             return 1;
@@ -348,8 +374,8 @@ namespace RmaMaintenance.UserControls
         {
             dgvPartsQuantities.ColumnHeadersDefaultCellStyle.Font = new Font("Tahoma", 10);
 
-            var partCol = new DataGridViewTextBoxColumn {HeaderText = "Part", Name = "colPart", Width = 160};
-            var quantityCol = new DataGridViewTextBoxColumn {HeaderText = "Quantity", Name = "colQuantity", Width = 80};
+            var partCol = new DataGridViewTextBoxColumn {HeaderText = "Part", Name = "colPart", Width = 158};
+            var quantityCol = new DataGridViewTextBoxColumn {HeaderText = "Qty", Name = "colQuantity", Width = 66};
             dgvPartsQuantities.Columns.AddRange(new DataGridViewColumn[] {partCol, quantityCol});
         }
 
@@ -378,6 +404,7 @@ namespace RmaMaintenance.UserControls
             dgvPartsQuantities.Rows.Clear();
             dgvPartsQuantities.Refresh();
 
+            mesBtnShowSerials.Text = "Get Serials";
             mesBtnCreateRma.Enabled = false;
         }
 
@@ -408,9 +435,9 @@ namespace RmaMaintenance.UserControls
             return 1;
         }
 
-        private int DeleteOldSerialsQuantities()
+        public int DeleteOldSerialsQuantities()
         {
-            int result = _controller.DeleteOldSerialsQuantities();
+            int result = _controller.DeleteOldSerialsQuantities(_view.OperatorCode);
             return result;
         }
 
@@ -438,13 +465,13 @@ namespace RmaMaintenance.UserControls
 
         private void ProcessSerials()
         {
-            int createRtvShipper = (cbxCreateRtv.Checked) ? 1 : 0;
-            int placeSerialsOnHold = (cbxSerialsOnHold.Checked) ? 1 : 0;
+            int createRtvShipper = (_action == FormAction.RmaRtv) ? 1 : 0;
+            //int placeSerialsOnHold = (cbxSerialsOnHold.Checked) ? 1 : 0;
+
             string note = mesTbxRmaNote.Text.Trim();
 
-            int result = _controller.ProcessData(_view.OperatorCode, RMANumber, createRtvShipper,
-                placeSerialsOnHold, note);
-            if (result == 0) return;
+            //int result = _controller.ProcessData(_view.OperatorCode, RMANumber, createRtvShipper, placeSerialsOnHold, note);
+            //if (result == 0) return;
 
             // Success
             dgvNewShippers.DataSource = null;
@@ -454,8 +481,6 @@ namespace RmaMaintenance.UserControls
                 ClearSerialsList();
                 ClearPartsQuantitiesDataGrid();
             }
-
-            mesBtnShowSerials.Text = "Get Serials";
         }
 
         private int ShipRtvHondurasRma()
@@ -493,15 +518,16 @@ namespace RmaMaintenance.UserControls
             DialogResult dr = _messageDialogResult.ShowDialog();
             if (dr == DialogResult.No) return 0;
 
-            Cursor.Current = Cursors.WaitCursor;
+            //Cursor.Current = Cursors.WaitCursor;
+            tlpMain.Enabled = false;
             int result = _controller.ShipRtvHondurasRma(_view.OperatorCode, iRtvShipper, location);
-
             if (result == 1)
             {
                 // RTV has been shipped, so create the Honduras RMA
                 _controller.CreateHondurasRma(_view.OperatorCode, iRtvShipper, location);
             }
-            Cursor.Current = Cursors.Default;
+            tlpMain.Enabled = true;
+            //Cursor.Current = Cursors.Default;
 
             return result;
         }
@@ -599,8 +625,6 @@ namespace RmaMaintenance.UserControls
 
             mesTbxHonLoc.Text = mesTbxRmaShipper.Text = mesTbxRtvShipper.Text = mesTbxWarehouseLoc.Text = "";
 
-            cbxCreateRtv.Checked = cbxSerialsOnHold.Checked = false;
-
             cbxDestination.SelectedIndex = -1;
             dgvPartsQuantities.Rows.Clear();
         }
@@ -633,5 +657,12 @@ namespace RmaMaintenance.UserControls
             var dialogRTVPackingSlip = new RTVPackingSlip { RTVShipperID = rtvShipper };
             dialogRTVPackingSlip.ShowDialog();
         }
+
+        private void mesBtnEnterRmaNumber_Click(object sender, EventArgs e)
+        {
+
+        }
+
+
     }
 }

@@ -35,16 +35,16 @@ namespace RmaMaintenance.UserControls
             }
         }
 
-        private bool _showOptions;
-        public bool ShowOptions
-        {
-            get { return _showOptions; }
-            set
-            {
-                _showOptions = value;
-                rbtnPasteSerials.Visible = rbtnEnterPartQty.Visible = (value);
-            }
-        }
+        //private bool _showOptions;
+        //public bool ShowOptions
+        //{
+        //    get { return _showOptions; }
+        //    set
+        //    {
+        //        _showOptions = value;
+        //        rbtnPasteSerials.Visible = rbtnEnterPartQty.Visible = (value);
+        //    }
+        //}
 
         #endregion
 
@@ -66,6 +66,7 @@ namespace RmaMaintenance.UserControls
         public void SetView (NewRmaView view)
         {
             _view = view;
+            rbtnPasteSerials.Checked = true;
         }
 
         #endregion
@@ -155,6 +156,8 @@ namespace RmaMaintenance.UserControls
         }
 
         #endregion
+
+
 
         private void MESTxtRmaNumberKeyUp(object sender, KeyEventArgs e)
         {

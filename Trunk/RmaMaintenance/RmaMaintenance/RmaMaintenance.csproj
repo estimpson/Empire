@@ -60,9 +60,17 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controllers\AssignPoController.cs" />
+    <Compile Include="Controllers\CreateRmaRtvConroller.cs" />
     <Compile Include="Controllers\MainController.cs" />
     <Compile Include="Controllers\NewRmaCreateController.cs" />
+    <Compile Include="Controllers\ReviewRmaRtvController.cs" />
+    <Compile Include="Controllers\RmaRtvHistoryController.cs" />
     <Compile Include="Controllers\RtvController.cs" />
+    <Compile Include="Controllers\SerialEntryCopyController.cs" />
+    <Compile Include="Controllers\SerialEntryManualController.cs" />
+    <Compile Include="Controllers\SerialEntryPartsController.cs" />
+    <Compile Include="Controllers\ShipoutRmaRtvController.cs" />
+    <Compile Include="Controllers\TransferInventoryController.cs" />
     <Compile Include="Controls\Messages.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -76,8 +84,14 @@
       <DependentUpon>MessagesDialogResult.cs</DependentUpon>
     </Compile>
     <Compile Include="DataModels\NewShippersDataModel.cs" />
+    <Compile Include="DataModels\PartQuantityDataModel.cs" />
+    <Compile Include="DataModels\ReviewRmaRtvDataModel.cs" />
+    <Compile Include="DataModels\RmaRtvHistoryByDatesDataModel.cs" />
+    <Compile Include="DataModels\RmaRtvHistoryByShipperDataModel.cs" />
+    <Compile Include="DataModels\RmaRtvHistoryDataModel.cs" />
     <Compile Include="DataModels\SerialQuantityDataModel.cs" />
     <Compile Include="DataModels\SerialQuantityFromRmaDataModel.cs" />
+    <Compile Include="Emums\FormAction.cs" />
     <Compile Include="formMain.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -121,16 +135,25 @@
     <Compile Include="Model\SerialsQuantitiesToAutoRMA_RTV.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Model\usp_CreatedRmaRtvHistoryByDates_Result.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\usp_CreatedRmaRtvHistoryByShipper_Result.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\usp_CreatedRmaRtvHistory_Result.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\usp_CreatedRmaRtvSummary_Result.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="Model\usp_CreateRma_GetCustomersDestinations_Result.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Model\usp_CreateRma_ProcessByDestGl2_Result.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="Model\usp_CreateRma_ProcessByDestGl_Result.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Model\usp_CreateRma_ProcessByDestGl_Result1.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Model\usp_CreateRma_ProcessByDestGl_Result2.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Model\usp_CreateRma_ProcessByDest_Result.cs">
@@ -192,6 +215,18 @@
     <Compile Include="Views\AssignPoView.Designer.cs">
       <DependentUpon>AssignPoView.cs</DependentUpon>
     </Compile>
+    <Compile Include="Views\CreateOptions.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\CreateOptions.Designer.cs">
+      <DependentUpon>CreateOptions.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\CreateRmaRtv.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\CreateRmaRtv.Designer.cs">
+      <DependentUpon>CreateRmaRtv.cs</DependentUpon>
+    </Compile>
     <Compile Include="Views\EditRmaView.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -212,17 +247,101 @@
     <Compile Include="Views\NewRtvView.Designer.cs">
       <DependentUpon>NewRtvView.cs</DependentUpon>
     </Compile>
+    <Compile Include="Views\RmaRtvHistory.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\RmaRtvHistory.Designer.cs">
+      <DependentUpon>RmaRtvHistory.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\RmaRtvHistoryByDateRange.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\RmaRtvHistoryByDateRange.Designer.cs">
+      <DependentUpon>RmaRtvHistoryByDateRange.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\RmaRtvHistoryByShipper.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\RmaRtvHistoryByShipper.Designer.cs">
+      <DependentUpon>RmaRtvHistoryByShipper.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\RmaRtvHistoryOptions.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\RmaRtvHistoryOptions.Designer.cs">
+      <DependentUpon>RmaRtvHistoryOptions.cs</DependentUpon>
+    </Compile>
     <Compile Include="Views\RTVPackingSlip.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Views\RTVPackingSlip.Designer.cs">
       <DependentUpon>RTVPackingSlip.cs</DependentUpon>
     </Compile>
+    <Compile Include="Views\SerialEntryCopy.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\SerialEntryCopy.Designer.cs">
+      <DependentUpon>SerialEntryCopy.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\SerialEntryManual.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\SerialEntryManual.Designer.cs">
+      <DependentUpon>SerialEntryManual.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\SerialEntryParts.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\SerialEntryParts.Designer.cs">
+      <DependentUpon>SerialEntryParts.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\SerialEntryOptions.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\SerialEntryOptions.Designer.cs">
+      <DependentUpon>SerialEntryOptions.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\SerialEntryPartsCopy.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\SerialEntryPartsCopy.Designer.cs">
+      <DependentUpon>SerialEntryPartsCopy.cs</DependentUpon>
+    </Compile>
     <Compile Include="Views\SerialsListView.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Views\SerialsListView.Designer.cs">
       <DependentUpon>SerialsListView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ReviewRmaRtv.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\ReviewRmaRtv.Designer.cs">
+      <DependentUpon>ReviewRmaRtv.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ShipoutRmaRtv.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\ShipoutRmaRtv.Designer.cs">
+      <DependentUpon>ShipoutRmaRtv.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ShipoutExistingRtvOnly.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\ShipoutExistingRtvOnly.Designer.cs">
+      <DependentUpon>ShipoutExistingRtvOnly.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\TransferInventory.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\TransferInventory.Designer.cs">
+      <DependentUpon>TransferInventory.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\TransferOptions.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\TransferOptions.Designer.cs">
+      <DependentUpon>TransferOptions.cs</DependentUpon>
     </Compile>
     <EmbeddedResource Include="Controls\Messages.resx">
       <DependentUpon>Messages.cs</DependentUpon>
@@ -270,6 +389,12 @@
     <EmbeddedResource Include="Views\AssignPoView.resx">
       <DependentUpon>AssignPoView.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Views\CreateOptions.resx">
+      <DependentUpon>CreateOptions.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\CreateRmaRtv.resx">
+      <DependentUpon>CreateRmaRtv.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Views\EditRmaView.resx">
       <DependentUpon>EditRmaView.cs</DependentUpon>
     </EmbeddedResource>
@@ -279,11 +404,53 @@
     <EmbeddedResource Include="Views\NewRtvView.resx">
       <DependentUpon>NewRtvView.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Views\RmaRtvHistory.resx">
+      <DependentUpon>RmaRtvHistory.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\RmaRtvHistoryByDateRange.resx">
+      <DependentUpon>RmaRtvHistoryByDateRange.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\RmaRtvHistoryByShipper.resx">
+      <DependentUpon>RmaRtvHistoryByShipper.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\RmaRtvHistoryOptions.resx">
+      <DependentUpon>RmaRtvHistoryOptions.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Views\RTVPackingSlip.resx">
       <DependentUpon>RTVPackingSlip.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Views\SerialEntryCopy.resx">
+      <DependentUpon>SerialEntryCopy.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\SerialEntryManual.resx">
+      <DependentUpon>SerialEntryManual.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\SerialEntryParts.resx">
+      <DependentUpon>SerialEntryParts.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\SerialEntryOptions.resx">
+      <DependentUpon>SerialEntryOptions.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\SerialEntryPartsCopy.resx">
+      <DependentUpon>SerialEntryPartsCopy.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Views\SerialsListView.resx">
       <DependentUpon>SerialsListView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\ReviewRmaRtv.resx">
+      <DependentUpon>ReviewRmaRtv.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\ShipoutRmaRtv.resx">
+      <DependentUpon>ShipoutRmaRtv.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\ShipoutExistingRtvOnly.resx">
+      <DependentUpon>ShipoutExistingRtvOnly.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\TransferInventory.resx">
+      <DependentUpon>TransferInventory.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\TransferOptions.resx">
+      <DependentUpon>TransferOptions.cs</DependentUpon>
     </EmbeddedResource>
     <EntityDeploy Include="Model\Model1.edmx">
       <Generator>EntityModelCodeGenerator</Generator>

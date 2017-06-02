@@ -28,27 +28,20 @@ namespace RmaMaintenance.Controllers
 
         #region Methods
 
-        public void ValidateLogon(string password, out string name, out string operatorCode, out string error)
+        public void ValidateLogon(string operatorCode, string password, out string error)
         {
-            error = name = operatorCode = "";
+            error = "";
             try
             {
-                _context.employees.Where(e => e.password == password).Load();
+                _context.employees.Where(e => e.operator_code == operatorCode && e.password == password).Load();
                 if (!_context.employees.Local.Any())
                 {
-                    error = "Invalid password.";
-                    return;
-                }
-
-                foreach (var item in _context.employees.Local)
-                {
-                    name = item.name;
-                    operatorCode = item.operator_code;
+                    error = "Operator code is invalid or password is incorrect.";
                 }
             }
             catch (Exception ex)
             {
-                error = "Failed to validate logon.";
+                error = "Failed to validate logon.  Please try again.";
 
                 //error = (ex.InnerException == null)
                 //    ? "Failed to validate logon.  " + ex.Message

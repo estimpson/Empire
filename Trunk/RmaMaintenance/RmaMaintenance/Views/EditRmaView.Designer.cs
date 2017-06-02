@@ -30,10 +30,10 @@
         {
             this.panel1 = new System.Windows.Forms.Panel();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
-            this.label1 = new System.Windows.Forms.Label();
-            this.linkLblClose = new System.Windows.Forms.LinkLabel();
             this.lblErrorMessage = new System.Windows.Forms.Label();
+            this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
+            this.linkLblClose = new System.Windows.Forms.LinkLabel();
+            this.label1 = new System.Windows.Forms.Label();
             this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
             this.panel1.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
@@ -69,6 +69,17 @@
             this.tableLayoutPanel1.Size = new System.Drawing.Size(1022, 748);
             this.tableLayoutPanel1.TabIndex = 0;
             // 
+            // lblErrorMessage
+            // 
+            this.lblErrorMessage.AutoSize = true;
+            this.lblErrorMessage.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblErrorMessage.ForeColor = System.Drawing.Color.Red;
+            this.lblErrorMessage.Location = new System.Drawing.Point(23, 708);
+            this.lblErrorMessage.Name = "lblErrorMessage";
+            this.lblErrorMessage.Size = new System.Drawing.Size(92, 16);
+            this.lblErrorMessage.TabIndex = 3;
+            this.lblErrorMessage.Text = "Error message";
+            // 
             // tableLayoutPanel2
             // 
             this.tableLayoutPanel2.ColumnCount = 2;
@@ -84,6 +95,19 @@
             this.tableLayoutPanel2.Size = new System.Drawing.Size(976, 34);
             this.tableLayoutPanel2.TabIndex = 0;
             // 
+            // linkLblClose
+            // 
+            this.linkLblClose.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.linkLblClose.AutoSize = true;
+            this.linkLblClose.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.linkLblClose.LinkColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(122)))), ((int)(((byte)(204)))));
+            this.linkLblClose.Location = new System.Drawing.Point(910, 0);
+            this.linkLblClose.Name = "linkLblClose";
+            this.linkLblClose.Size = new System.Drawing.Size(63, 20);
+            this.linkLblClose.TabIndex = 2;
+            this.linkLblClose.TabStop = true;
+            this.linkLblClose.Text = "CLOSE";
+            // 
             // label1
             // 
             this.label1.AutoSize = true;
@@ -94,29 +118,6 @@
             this.label1.Size = new System.Drawing.Size(97, 25);
             this.label1.TabIndex = 1;
             this.label1.Text = "Edit RMA";
-            // 
-            // linkLblClose
-            // 
-            this.linkLblClose.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.linkLblClose.AutoSize = true;
-            this.linkLblClose.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.linkLblClose.Location = new System.Drawing.Point(910, 0);
-            this.linkLblClose.Name = "linkLblClose";
-            this.linkLblClose.Size = new System.Drawing.Size(63, 20);
-            this.linkLblClose.TabIndex = 2;
-            this.linkLblClose.TabStop = true;
-            this.linkLblClose.Text = "CLOSE";
-            // 
-            // lblErrorMessage
-            // 
-            this.lblErrorMessage.AutoSize = true;
-            this.lblErrorMessage.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblErrorMessage.ForeColor = System.Drawing.Color.Red;
-            this.lblErrorMessage.Location = new System.Drawing.Point(23, 708);
-            this.lblErrorMessage.Name = "lblErrorMessage";
-            this.lblErrorMessage.Size = new System.Drawing.Size(92, 16);
-            this.lblErrorMessage.TabIndex = 3;
-            this.lblErrorMessage.Text = "Error message";
             // 
             // tableLayoutPanel3
             // 

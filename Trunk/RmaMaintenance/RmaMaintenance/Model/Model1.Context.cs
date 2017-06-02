@@ -70,11 +70,6 @@ namespace RmaMaintenance.Model
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("usp_CreateRma_ProcessSerialsQuantities", operatorCodeParameter, rmaNumberParameter, createRTVParameter, placeSerialsOnHoldParameter, nextShipper, nextShipperRTV, tranDT, result);
         }
     
-        public virtual int usp_CreateRma_DeleteSerialsQuantities(ObjectParameter tranDT, ObjectParameter result)
-        {
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("usp_CreateRma_DeleteSerialsQuantities", tranDT, result);
-        }
-    
         public virtual int usp_CreateRma_TransferOnHoldSerials(string operatorCode, Nullable<int> rmaShipper, string location, ObjectParameter tranDT, ObjectParameter result)
         {
             var operatorCodeParameter = operatorCode != null ?
@@ -194,39 +189,143 @@ namespace RmaMaintenance.Model
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<QualityRMA_Details>("usp_CreateRma_GetQualityRMA", rMANumberParameter, tranDT, result);
         }
     
-        public virtual int usp_CreateRTV_ImportSerials(string operatorCode, string serialList, ObjectParameter firstNewRTVShipper, ObjectParameter rTVShipperCount, ObjectParameter tranDT, ObjectParameter result)
-        {
-            var operatorCodeParameter = operatorCode != null ?
-                new ObjectParameter("OperatorCode", operatorCode) :
-                new ObjectParameter("OperatorCode", typeof(string));
-    
-            var serialListParameter = serialList != null ?
-                new ObjectParameter("SerialList", serialList) :
-                new ObjectParameter("SerialList", typeof(string));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("usp_CreateRTV_ImportSerials", operatorCodeParameter, serialListParameter, firstNewRTVShipper, rTVShipperCount, tranDT, result);
-        }
-    
         public virtual ObjectResult<usp_EEHLivelyTest_Result> usp_EEHLivelyTest(ObjectParameter tranDT, ObjectParameter result)
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_EEHLivelyTest_Result>("usp_EEHLivelyTest", tranDT, result);
         }
     
-        public virtual int usp_CreateRTV_ImportSerials_ToExistingRTV(string operatorCode, string serialList, Nullable<int> rTVShipper, ObjectParameter tranDT, ObjectParameter result)
+        public virtual int usp_CreateRma_DeleteSerialsQuantitiesByOperator(string operatorCode, ObjectParameter tranDT, ObjectParameter result)
         {
             var operatorCodeParameter = operatorCode != null ?
                 new ObjectParameter("OperatorCode", operatorCode) :
                 new ObjectParameter("OperatorCode", typeof(string));
     
-            var serialListParameter = serialList != null ?
-                new ObjectParameter("SerialList", serialList) :
-                new ObjectParameter("SerialList", typeof(string));
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("usp_CreateRma_DeleteSerialsQuantitiesByOperator", operatorCodeParameter, tranDT, result);
+        }
     
-            var rTVShipperParameter = rTVShipper.HasValue ?
-                new ObjectParameter("RTVShipper", rTVShipper) :
-                new ObjectParameter("RTVShipper", typeof(int));
+        public virtual int usp_CreatedRmaRtvRollback(string operatorCode, string rmaRtvNumber, ObjectParameter tranDT, ObjectParameter result)
+        {
+            var operatorCodeParameter = operatorCode != null ?
+                new ObjectParameter("OperatorCode", operatorCode) :
+                new ObjectParameter("OperatorCode", typeof(string));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("usp_CreateRTV_ImportSerials_ToExistingRTV", operatorCodeParameter, serialListParameter, rTVShipperParameter, tranDT, result);
+            var rmaRtvNumberParameter = rmaRtvNumber != null ?
+                new ObjectParameter("RmaRtvNumber", rmaRtvNumber) :
+                new ObjectParameter("RmaRtvNumber", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("usp_CreatedRmaRtvRollback", operatorCodeParameter, rmaRtvNumberParameter, tranDT, result);
+        }
+    
+        public virtual ObjectResult<usp_CreatedRmaRtvSummary_Result> usp_CreatedRmaRtvSummary(string operatorCode, string rmaRtvNumber, ObjectParameter tranDT, ObjectParameter result)
+        {
+            var operatorCodeParameter = operatorCode != null ?
+                new ObjectParameter("OperatorCode", operatorCode) :
+                new ObjectParameter("OperatorCode", typeof(string));
+    
+            var rmaRtvNumberParameter = rmaRtvNumber != null ?
+                new ObjectParameter("RmaRtvNumber", rmaRtvNumber) :
+                new ObjectParameter("RmaRtvNumber", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_CreatedRmaRtvSummary_Result>("usp_CreatedRmaRtvSummary", operatorCodeParameter, rmaRtvNumberParameter, tranDT, result);
+        }
+    
+        public virtual int usp_CreateRma_ImportSerialsQuantitiesByOperator(string operatorCode, Nullable<int> serial, Nullable<decimal> quantity, ObjectParameter tranDT, ObjectParameter result)
+        {
+            var operatorCodeParameter = operatorCode != null ?
+                new ObjectParameter("OperatorCode", operatorCode) :
+                new ObjectParameter("OperatorCode", typeof(string));
+    
+            var serialParameter = serial.HasValue ?
+                new ObjectParameter("Serial", serial) :
+                new ObjectParameter("Serial", typeof(int));
+    
+            var quantityParameter = quantity.HasValue ?
+                new ObjectParameter("Quantity", quantity) :
+                new ObjectParameter("Quantity", typeof(decimal));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("usp_CreateRma_ImportSerialsQuantitiesByOperator", operatorCodeParameter, serialParameter, quantityParameter, tranDT, result);
+        }
+    
+        public virtual ObjectResult<usp_CreateRma_ProcessByDestGl2_Result> usp_CreateRma_ProcessByDestGl2(string operatorCode, ObjectParameter rmaRtvNumber, Nullable<int> transactionType, string notes, ObjectParameter tranDT, ObjectParameter result)
+        {
+            var operatorCodeParameter = operatorCode != null ?
+                new ObjectParameter("OperatorCode", operatorCode) :
+                new ObjectParameter("OperatorCode", typeof(string));
+    
+            var transactionTypeParameter = transactionType.HasValue ?
+                new ObjectParameter("TransactionType", transactionType) :
+                new ObjectParameter("TransactionType", typeof(int));
+    
+            var notesParameter = notes != null ?
+                new ObjectParameter("Notes", notes) :
+                new ObjectParameter("Notes", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_CreateRma_ProcessByDestGl2_Result>("usp_CreateRma_ProcessByDestGl2", operatorCodeParameter, rmaRtvNumber, transactionTypeParameter, notesParameter, tranDT, result);
+        }
+    
+        public virtual ObjectResult<usp_CreatedRmaRtvHistory_Result> usp_CreatedRmaRtvHistory(string operatorCode, string rmaRtvNumber, ObjectParameter tranDT, ObjectParameter result)
+        {
+            var operatorCodeParameter = operatorCode != null ?
+                new ObjectParameter("OperatorCode", operatorCode) :
+                new ObjectParameter("OperatorCode", typeof(string));
+    
+            var rmaRtvNumberParameter = rmaRtvNumber != null ?
+                new ObjectParameter("RmaRtvNumber", rmaRtvNumber) :
+                new ObjectParameter("RmaRtvNumber", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_CreatedRmaRtvHistory_Result>("usp_CreatedRmaRtvHistory", operatorCodeParameter, rmaRtvNumberParameter, tranDT, result);
+        }
+    
+        public virtual ObjectResult<usp_CreatedRmaRtvHistoryByDates_Result> usp_CreatedRmaRtvHistoryByDates(string operatorCode, Nullable<System.DateTime> startDate, Nullable<System.DateTime> endDate, ObjectParameter tranDT, ObjectParameter result)
+        {
+            var operatorCodeParameter = operatorCode != null ?
+                new ObjectParameter("OperatorCode", operatorCode) :
+                new ObjectParameter("OperatorCode", typeof(string));
+    
+            var startDateParameter = startDate.HasValue ?
+                new ObjectParameter("StartDate", startDate) :
+                new ObjectParameter("StartDate", typeof(System.DateTime));
+    
+            var endDateParameter = endDate.HasValue ?
+                new ObjectParameter("EndDate", endDate) :
+                new ObjectParameter("EndDate", typeof(System.DateTime));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_CreatedRmaRtvHistoryByDates_Result>("usp_CreatedRmaRtvHistoryByDates", operatorCodeParameter, startDateParameter, endDateParameter, tranDT, result);
+        }
+    
+        public virtual ObjectResult<usp_CreatedRmaRtvHistoryByShipper_Result> usp_CreatedRmaRtvHistoryByShipper(string operatorCode, string shipper, ObjectParameter tranDT, ObjectParameter result)
+        {
+            var operatorCodeParameter = operatorCode != null ?
+                new ObjectParameter("OperatorCode", operatorCode) :
+                new ObjectParameter("OperatorCode", typeof(string));
+    
+            var shipperParameter = shipper != null ?
+                new ObjectParameter("Shipper", shipper) :
+                new ObjectParameter("Shipper", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_CreatedRmaRtvHistoryByShipper_Result>("usp_CreatedRmaRtvHistoryByShipper", operatorCodeParameter, shipperParameter, tranDT, result);
+        }
+    
+        public virtual int usp_CreateRma_Honduras_RecordException(string operatorCode, string exception, ObjectParameter tranDT, ObjectParameter result)
+        {
+            var operatorCodeParameter = operatorCode != null ?
+                new ObjectParameter("OperatorCode", operatorCode) :
+                new ObjectParameter("OperatorCode", typeof(string));
+    
+            var exceptionParameter = exception != null ?
+                new ObjectParameter("Exception", exception) :
+                new ObjectParameter("Exception", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("usp_CreateRma_Honduras_RecordException", operatorCodeParameter, exceptionParameter, tranDT, result);
+        }
+    
+        public virtual int usp_CreateRTV_ImportSerials(string operatorCode, ObjectParameter firstNewRTVShipper, ObjectParameter rTVShipperCount, ObjectParameter rtvShipperList, ObjectParameter rtvNumber, ObjectParameter tranDT, ObjectParameter result)
+        {
+            var operatorCodeParameter = operatorCode != null ?
+                new ObjectParameter("OperatorCode", operatorCode) :
+                new ObjectParameter("OperatorCode", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("usp_CreateRTV_ImportSerials", operatorCodeParameter, firstNewRTVShipper, rTVShipperCount, rtvShipperList, rtvNumber, tranDT, result);
         }
     }
 }

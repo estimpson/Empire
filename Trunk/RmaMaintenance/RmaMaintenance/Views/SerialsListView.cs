@@ -16,6 +16,8 @@ namespace RmaMaintenance.Views
             InitializeComponent();
 
             SetPartsGridProperties();
+
+            linkLblClose.LinkBehavior = LinkBehavior.NeverUnderline;
         }
 
 

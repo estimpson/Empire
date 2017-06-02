@@ -84,38 +84,38 @@ namespace RmaMaintenance.Views
         {
             InitializeComponent();
 
-            ucNewRmaCreate1.SetView(this);
-            ucNewRmaOptions1.SetView(this);
+            //ucNewRmaCreate1.SetView(this);
+            //ucNewRmaOptions1.SetView(this);
 
-            RMAButton.Click += RMAButtonOnClick;
-            RTVButton.Click += RTVButtonOnClick;
+            //RMAButton.Click += RMAButtonOnClick;
+            //RTVButton.Click += RTVButtonOnClick;
         }
 
-        private void RMAButtonOnClick(object sender, EventArgs eventArgs)
-        {
-            RMAButton.Checked = false;
-            RTVButton.Checked = false;
-            ucNewRmaOptions1.RMAMode = true;
-        }
+        //private void RMAButtonOnClick(object sender, EventArgs eventArgs)
+        //{
+        //    RMAButton.Checked = false;
+        //    RTVButton.Checked = false;
+        //    ucNewRmaOptions1.RMAMode = true;
+        //}
 
-        private void RTVButtonOnClick(object sender, EventArgs eventArgs)
-        {
-            RMAButton.Checked = false;
-            RTVButton.Checked = false;
-            ucNewRmaOptions1.RTVMode = true;
-        }
+        //private void RTVButtonOnClick(object sender, EventArgs eventArgs)
+        //{
+        //    RMAButton.Checked = false;
+        //    RTVButton.Checked = false;
+        //    ucNewRmaOptions1.RTVMode = true;
+        //}
 
         private void NewRmaViewLoad(object sender, EventArgs e)
         {
-            ucNewRmaOptions1.ShowOptions = tlpCreateRma.Visible = false;
+            //ucNewRmaOptions1.ShowOptions = tlpCreateRma.Visible = false;
             linkLblClose.LinkBehavior = LinkBehavior.NeverUnderline;
-
+            tlpCreateRma.Visible = true;
             GetDestinations();
         }
 
         private void NewRmaViewActivated(object sender, EventArgs e)
         {
-            ucNewRmaOptions1.mesTxtRmaNumber.Focus();
+            //ucNewRmaOptions1.mesTxtRmaNumber.Focus();
         }
 
         #endregion
@@ -141,6 +141,7 @@ namespace RmaMaintenance.Views
 
         private void LinkLblCloseLinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
+            ucNewRmaCreate1.DeleteOldSerialsQuantities();
             Close();
         }
 
@@ -171,5 +172,6 @@ namespace RmaMaintenance.Views
         }
 
         #endregion
+
     }
 }
