@@ -26,11 +26,13 @@ namespace ImportCSM
 
             _processData = new ProcessData();
             _messageBox = new CustomMessageBox();
+
+            linkLblClose.LinkBehavior = LinkBehavior.NeverUnderline;
         }
 
         private void formMain_Activated(object sender, EventArgs e)
         {
-            ControlScreenState(ProgressStates.Open);
+            tbxPriorReleaseId.Focus();
         }
 
         #endregion
@@ -61,34 +63,114 @@ namespace ImportCSM
         {
             if (tabControl1.SelectedTab == tabControl1.TabPages["tpCsm"])
             {
-                tbxPriorReleaseId.Text = tbxCurrentReleaseId.Text = "";
-                tbxPriorReleaseId.Focus();
+                ControlScreenState(ClearTabs.ImportCsmClear);
+            }
+            else if(tabControl1.SelectedTab == tabControl1.TabPages["tpCsmDelta"])
+            {
+                ControlScreenState(ClearTabs.ImportDeltaCsmClear);
+            }
+            else if (tabControl1.SelectedTab == tabControl1.TabPages["tpOfficialForecast"])
+            {
+                ControlScreenState(ClearTabs.InsertOfficialForecastClear);
             }
             else
             {
-                tbxCurrentDeltaReleaseId.Text = "";
-                tbxCurrentDeltaReleaseId.Focus();
+                ControlScreenState(ClearTabs.InsertHistoricalSalesClear);
             }
         }
 
         #endregion
 
 
-        #region Button Events
+        #region LinkLabel Events
+
+        private void linkLblClose_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            Close();
+        }
+
+        private void linkLblClose_MouseEnter(object sender, EventArgs e)
+        {
+            linkLblClose.LinkColor = Color.Red;
+        }
+
+        private void linkLblClose_MouseLeave(object sender, EventArgs e)
+        {
+            linkLblClose.LinkColor = ColorTranslator.FromHtml("0,122,204");
+        }
+
+        #endregion
+
+
+        #region Button MouseDown Events
+
+        private void btnImport_MouseDown(object sender, MouseEventArgs e)
+        {
+            Cursor.Current = Cursors.WaitCursor;
+        }
+
+        private void btnDeltaImport_MouseDown(object sender, MouseEventArgs e)
+        {
+            Cursor.Current = Cursors.WaitCursor;
+        }
+
+        private void btnInsertForecast_MouseDown(object sender, MouseEventArgs e)
+        {
+            Cursor.Current = Cursors.WaitCursor;
+        }
+
+        private void btnInsertHistoricalSales_MouseDown(object sender, MouseEventArgs e)
+        {
+            Cursor.Current = Cursors.WaitCursor;
+        }
+
+        #endregion
+        
+
+        #region Button Click Events
 
         private void btnImport_Click(object sender, EventArgs e)
         {
-            ProcessCsm();
+            if (ProcessCsm() == 1)
+            {
+                _messageBox.Message = "Success.";
+                _messageBox.ShowDialog();
+                ControlScreenState(ClearTabs.ImportCsmClear);
+            }
+            Cursor.Current = Cursors.Default;
         }
 
         private void btnDeltaImport_Click(object sender, EventArgs e)
         {
-            ProcessCsmDelta();
+            if (ProcessCsmDelta() == 1)
+            {
+                _messageBox.Message = "Success.";
+                _messageBox.ShowDialog();
+                ControlScreenState(ClearTabs.ImportDeltaCsmClear);
+            }
+            Cursor.Current = Cursors.Default;
         }
 
-        private void btnExit_Click(object sender, EventArgs e)
+        private void btnInsertForecast_Click(object sender, EventArgs e)
         {
-            Close();
+            if (InsertOfficialForecast() == 1)
+            {
+                _messageBox.Message = "Success.";
+                _messageBox.ShowDialog();
+                ControlScreenState(ClearTabs.InsertOfficialForecastClear);
+            }
+            Cursor.Current = Cursors.Default;
+        }
+
+        private void btnInsertHistoricalSales_Click(object sender, EventArgs e)
+        {
+            if (InsertHistoricalSales() == 1)
+            {
+                _messageBox.Message = "Success.";
+                _messageBox.ShowDialog();
+                ControlScreenState(ClearTabs.InsertHistoricalSalesClear);
+            }
+            Cursor.Current = Cursors.Default;
         }
 
         #endregion
@@ -96,7 +178,7 @@ namespace ImportCSM
 
         #region CSM Methods
 
-        private void ProcessCsm()
+        private int ProcessCsm()
         {
             string priorRelease = tbxPriorReleaseId.Text.Trim();
             string currentRelease = tbxCurrentReleaseId.Text.Trim();
@@ -104,44 +186,27 @@ namespace ImportCSM
             {
                 _messageBox.Message = "Enter a prior release.";
                 _messageBox.ShowDialog();
-                return;
+                return 0;
             }
             if (currentRelease == "")
             {
                 _messageBox.Message = "Enter a current release.";
                 _messageBox.ShowDialog();
-                return;
+                return 0;
             }
 
             // Create a temp table and insert the raw data into it
-            ControlScreenState(ProgressStates.CreateTableInsertRows);
-            if (ImportRawData() == 0)
-            {
-                ControlScreenState(ProgressStates.ImportFailed);
-                return;
-            }
+            if (ImportRawData() == 0) return 0;
 
             // Roll old CSM data forward
-            ControlScreenState(ProgressStates.RollCsmForward);
-            if (RollCSMForward(priorRelease, currentRelease) == 0)
-            {
-                ControlScreenState(ProgressStates.ImportFailed);
-                return;
-            }
-
+            if (RollCSMForward(priorRelease, currentRelease) == 0) return 0;
+       
             // Import new CSM data
-            ControlScreenState(ProgressStates.ImportCsm);
-            if (ImportCsm(currentRelease) == 0)
-            {
-                ControlScreenState(ProgressStates.ImportFailed);
-                return;
-            }
-
+            if (ImportCsm(currentRelease) == 0) return 0;
+          
             // Clean up the database
             RemoveTempTable();
-
-            // Reset screen
-            ControlScreenState(ProgressStates.ImportComplete);
+            return 1;
         }
 
         private int ImportRawData()
@@ -353,22 +418,19 @@ namespace ImportCSM
 
         #region CSM Delta Methods
 
-        private void ProcessCsmDelta()
+        private int ProcessCsmDelta()
         {
             string release = tbxCurrentDeltaReleaseId.Text.Trim();
-            string version = "CSM";
+            const string VERSION = "CSM";
             if (release == "")
             {
                 _messageBox.Message = "Enter a current release.";
                 _messageBox.ShowDialog();
-                return;
+                return 0;
             }
 
             // Import new CSM Delta data
-            if (ImportCsmDelta(release, version) == 0) return;
-
-            // Reset screen
-            ControlScreenState(ProgressStates.ImportDeltaCsmComplete);
+            return ImportCsmDelta(release, VERSION) == 0 ? 0 : 1;
         }
 
         private int ImportCsmDelta(string release, string version)
@@ -500,58 +562,89 @@ namespace ImportCSM
         }
 
         #endregion
+        
+
+        #region Official Forecast Methods
+        
+        private int InsertOfficialForecast()
+        {
+            string forecastName = tbxForecastName.Text.Trim();
+            if (forecastName == "")
+            {
+                _messageBox.Message = "Please enter a forecast name.";
+                _messageBox.ShowDialog();
+                return 0;
+            }
+
+            DateTime dateTimeStamp = dtpDateTimeStamp.Value;
+
+            string error;
+            _processData.InsertOfficialForecast(forecastName, dateTimeStamp, out error);
+            if (error != "")
+            {
+                _messageBox.Message = string.Format("Insert failed.  Exception thrown at InsertOfficialForecast().  {0}", error);
+                _messageBox.ShowDialog();
+                return 0;
+            }
+            return 1;
+        }
+
+        #endregion
+
+
+        #region Historical Sales Methods
+
+        private int InsertHistoricalSales()
+        {
+            string forecastName = tbxHistoricalForecastName.Text.Trim();
+            if (forecastName == "")
+            {
+                _messageBox.Message = "Please enter a forecast name.";
+                _messageBox.ShowDialog();
+                return 0;
+            }
+
+            DateTime dateTimeStamp = dtpHistoricalDateTimeStamp.Value;
+            DateTime startDate = dtpStartDate.Value;
+            DateTime endDate = dtpEndDate.Value;
+
+            string error;
+            _processData.InsertHistoricalSales(forecastName, dateTimeStamp, startDate, endDate, out error);
+            if (error != "")
+            {
+                _messageBox.Message = string.Format("Insert failed.  Exception thrown at InsertHistoricalSales().  {0}", error);
+                _messageBox.ShowDialog();
+                return 0;
+            }
+            return 1;
+        }
+
+        #endregion
 
 
         #region Other Methods
 
-        private void ControlScreenState(ProgressStates progressState)
+        private void ControlScreenState(ClearTabs clearTab)
         {
-            switch (progressState)
+            switch (clearTab)
             {
-                case ProgressStates.Open:
+                case ClearTabs.ImportCsmClear:
+                    tbxPriorReleaseId.Text = tbxCurrentReleaseId.Text = "";
                     tbxPriorReleaseId.Focus();
                     break;
-                case ProgressStates.CreateTableInsertRows:
-                    pnlImport.Enabled = btnExit.Enabled = false;
-                    lblStep1.ForeColor = Color.White;
-                    lblStep2.ForeColor = lblStep3.ForeColor = lblStep4.ForeColor = ColorTranslator.FromHtml("#333333");
-                    break;
-                case ProgressStates.RollCsmForward:
-                    lblStep1.ForeColor = ColorTranslator.FromHtml("#333333");
-                    lblStep2.ForeColor = Color.White;
-                    lblStep3.ForeColor = ColorTranslator.FromHtml("#333333");
-                    lblStep4.ForeColor = ColorTranslator.FromHtml("#333333");
-                    break;
-                case ProgressStates.ImportCsm:
-                    lblStep1.ForeColor = ColorTranslator.FromHtml("#333333");
-                    lblStep2.ForeColor = ColorTranslator.FromHtml("#333333");
-                    lblStep3.ForeColor = Color.White;
-                    lblStep4.ForeColor = ColorTranslator.FromHtml("#333333");
-                    break;
-                case ProgressStates.ImportComplete:
-                    pnlImport.Enabled = btnExit.Enabled = true;
-                    tbxPriorReleaseId.Text = tbxCurrentReleaseId.Text = "";
-
-                    lblStep1.ForeColor = lblStep2.ForeColor = lblStep3.ForeColor = ColorTranslator.FromHtml("#333333");
-                    lblStep4.ForeColor = Color.White;
-                    break;
-                case ProgressStates.ImportFailed:
-                    pnlImport.Enabled = btnExit.Enabled = true;
-
-                    lblStep1.ForeColor = lblStep2.ForeColor = lblStep3.ForeColor = lblStep4.ForeColor = ColorTranslator.FromHtml("#333333");
-                    break;
-                case ProgressStates.ImportDeltaCsm:
-                    pnlDeltaImport.Enabled = btnExit.Enabled = false;
-                    lblDeltaImportComplete.ForeColor = ColorTranslator.FromHtml("#333333");
-                    break;
-                case ProgressStates.ImportDeltaCsmComplete:
-                    pnlDeltaImport.Enabled = btnExit.Enabled = true;
+                case ClearTabs.ImportDeltaCsmClear:
                     tbxCurrentDeltaReleaseId.Text = "";
-                    lblDeltaImportComplete.ForeColor = Color.White;
+                    tbxCurrentDeltaReleaseId.Focus();
                     break;
-                case ProgressStates.ImportDeltaCsmFailed:
-                    pnlDeltaImport.Enabled = btnExit.Enabled = true;
-                    lblDeltaImportComplete.ForeColor = ColorTranslator.FromHtml("#333333");
+                case ClearTabs.InsertOfficialForecastClear:
+                    dtpDateTimeStamp.Value = DateTime.Now;
+                    tbxForecastName.Text = "";
+                    tbxForecastName.Focus();
+                    break;
+                case ClearTabs.InsertHistoricalSalesClear:
+                    dtpHistoricalDateTimeStamp.Value = dtpStartDate.Value = dtpEndDate.Value = DateTime.Now;
+                    tbxHistoricalForecastName.Text = "";
+                    tbxHistoricalForecastName.Focus();
                     break;
             }
         }
