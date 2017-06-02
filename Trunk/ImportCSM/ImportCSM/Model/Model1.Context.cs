@@ -54,5 +54,39 @@ namespace ImportCSM.Model
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("acctg_csm_sp_import_CSM_demand", release_IDParameter, versionParameter, tranDT, result);
         }
+    
+        public virtual int acctg_sales_sp_insert_historical_sales(string forecast_name, Nullable<System.DateTime> time_stamp, Nullable<System.DateTime> fromDate, Nullable<System.DateTime> throughDate)
+        {
+            var forecast_nameParameter = forecast_name != null ?
+                new ObjectParameter("forecast_name", forecast_name) :
+                new ObjectParameter("forecast_name", typeof(string));
+    
+            var time_stampParameter = time_stamp.HasValue ?
+                new ObjectParameter("time_stamp", time_stamp) :
+                new ObjectParameter("time_stamp", typeof(System.DateTime));
+    
+            var fromDateParameter = fromDate.HasValue ?
+                new ObjectParameter("FromDate", fromDate) :
+                new ObjectParameter("FromDate", typeof(System.DateTime));
+    
+            var throughDateParameter = throughDate.HasValue ?
+                new ObjectParameter("throughDate", throughDate) :
+                new ObjectParameter("throughDate", typeof(System.DateTime));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("acctg_sales_sp_insert_historical_sales", forecast_nameParameter, time_stampParameter, fromDateParameter, throughDateParameter);
+        }
+    
+        public virtual int acctg_sales_sp_insert_official_forecast(string forecast_name, Nullable<System.DateTime> time_stamp)
+        {
+            var forecast_nameParameter = forecast_name != null ?
+                new ObjectParameter("forecast_name", forecast_name) :
+                new ObjectParameter("forecast_name", typeof(string));
+    
+            var time_stampParameter = time_stamp.HasValue ?
+                new ObjectParameter("time_stamp", time_stamp) :
+                new ObjectParameter("time_stamp", typeof(System.DateTime));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("acctg_sales_sp_insert_official_forecast", forecast_nameParameter, time_stampParameter);
+        }
     }
 }

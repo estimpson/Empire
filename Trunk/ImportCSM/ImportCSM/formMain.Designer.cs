@@ -29,34 +29,53 @@
         private void InitializeComponent()
         {
             this.btnImport = new System.Windows.Forms.Button();
-            this.btnExit = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.lblPriorReleaseId = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.tbxPriorReleaseId = new System.Windows.Forms.TextBox();
             this.tbxCurrentReleaseId = new System.Windows.Forms.TextBox();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.linkLblClose = new System.Windows.Forms.LinkLabel();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tpCsm = new System.Windows.Forms.TabPage();
-            this.lblStep3 = new System.Windows.Forms.Label();
-            this.lblStep1 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
             this.pnlImport = new System.Windows.Forms.Panel();
-            this.lblStep2 = new System.Windows.Forms.Label();
-            this.lblStep4 = new System.Windows.Forms.Label();
             this.tpCsmDelta = new System.Windows.Forms.TabPage();
-            this.lblDeltaImportComplete = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
             this.pnlDeltaImport = new System.Windows.Forms.Panel();
             this.btnDeltaImport = new System.Windows.Forms.Button();
             this.label8 = new System.Windows.Forms.Label();
             this.tbxCurrentDeltaReleaseId = new System.Windows.Forms.TextBox();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
+            this.tpOfficialForecast = new System.Windows.Forms.TabPage();
+            this.tpHistoricalSales = new System.Windows.Forms.TabPage();
+            this.label5 = new System.Windows.Forms.Label();
+            this.panel2 = new System.Windows.Forms.Panel();
+            this.btnInsertForecast = new System.Windows.Forms.Button();
+            this.label6 = new System.Windows.Forms.Label();
+            this.tbxForecastName = new System.Windows.Forms.TextBox();
+            this.label9 = new System.Windows.Forms.Label();
+            this.panel3 = new System.Windows.Forms.Panel();
+            this.btnInsertHistoricalSales = new System.Windows.Forms.Button();
+            this.label10 = new System.Windows.Forms.Label();
+            this.tbxHistoricalForecastName = new System.Windows.Forms.TextBox();
+            this.label11 = new System.Windows.Forms.Label();
+            this.dtpStartDate = new System.Windows.Forms.DateTimePicker();
+            this.dtpEndDate = new System.Windows.Forms.DateTimePicker();
+            this.label12 = new System.Windows.Forms.Label();
+            this.dtpDateTimeStamp = new System.Windows.Forms.DateTimePicker();
+            this.label7 = new System.Windows.Forms.Label();
+            this.dtpHistoricalDateTimeStamp = new System.Windows.Forms.DateTimePicker();
+            this.label13 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tpCsm.SuspendLayout();
             this.pnlImport.SuspendLayout();
             this.tpCsmDelta.SuspendLayout();
             this.pnlDeltaImport.SuspendLayout();
+            this.tpOfficialForecast.SuspendLayout();
+            this.tpHistoricalSales.SuspendLayout();
+            this.panel2.SuspendLayout();
+            this.panel3.SuspendLayout();
             this.SuspendLayout();
             // 
             // btnImport
@@ -69,30 +88,19 @@
             this.btnImport.Text = "Import";
             this.btnImport.UseVisualStyleBackColor = true;
             this.btnImport.Click += new System.EventHandler(this.btnImport_Click);
-            // 
-            // btnExit
-            // 
-            this.btnExit.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.btnExit.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnExit.Location = new System.Drawing.Point(537, 31);
-            this.btnExit.Name = "btnExit";
-            this.btnExit.Size = new System.Drawing.Size(114, 41);
-            this.btnExit.TabIndex = 3;
-            this.btnExit.Text = "Close";
-            this.btnExit.UseVisualStyleBackColor = true;
-            this.btnExit.Click += new System.EventHandler(this.btnExit_Click);
+            this.btnImport.MouseDown += new System.Windows.Forms.MouseEventHandler(this.btnImport_MouseDown);
             // 
             // label1
             // 
             this.label1.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(122)))), ((int)(((byte)(204)))));
-            this.label1.Location = new System.Drawing.Point(33, 31);
+            this.label1.Location = new System.Drawing.Point(6, 8);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(224, 29);
+            this.label1.Size = new System.Drawing.Size(274, 25);
             this.label1.TabIndex = 2;
-            this.label1.Text = "Empire CSM Import";
+            this.label1.Text = "Empire Import / Insert Tools";
             // 
             // lblPriorReleaseId
             // 
@@ -137,25 +145,44 @@
             // panel1
             // 
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel1.Controls.Add(this.linkLblClose);
             this.panel1.Controls.Add(this.tabControl1);
-            this.panel1.Controls.Add(this.btnExit);
             this.panel1.Controls.Add(this.label1);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(693, 550);
+            this.panel1.Size = new System.Drawing.Size(895, 576);
             this.panel1.TabIndex = 11;
             this.panel1.Paint += new System.Windows.Forms.PaintEventHandler(this.panel1_Paint);
             // 
+            // linkLblClose
+            // 
+            this.linkLblClose.AutoSize = true;
+            this.linkLblClose.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.linkLblClose.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(122)))), ((int)(((byte)(204)))));
+            this.linkLblClose.LinkColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(122)))), ((int)(((byte)(204)))));
+            this.linkLblClose.Location = new System.Drawing.Point(833, 8);
+            this.linkLblClose.Name = "linkLblClose";
+            this.linkLblClose.Size = new System.Drawing.Size(49, 20);
+            this.linkLblClose.TabIndex = 19;
+            this.linkLblClose.TabStop = true;
+            this.linkLblClose.Text = "Close";
+            this.linkLblClose.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLblClose_LinkClicked);
+            this.linkLblClose.MouseEnter += new System.EventHandler(this.linkLblClose_MouseEnter);
+            this.linkLblClose.MouseLeave += new System.EventHandler(this.linkLblClose_MouseLeave);
+            // 
             // tabControl1
             // 
+            this.tabControl1.Appearance = System.Windows.Forms.TabAppearance.FlatButtons;
             this.tabControl1.Controls.Add(this.tpCsm);
             this.tabControl1.Controls.Add(this.tpCsmDelta);
+            this.tabControl1.Controls.Add(this.tpOfficialForecast);
+            this.tabControl1.Controls.Add(this.tpHistoricalSales);
             this.tabControl1.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tabControl1.Location = new System.Drawing.Point(38, 91);
+            this.tabControl1.Location = new System.Drawing.Point(11, 91);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(613, 415);
+            this.tabControl1.Size = new System.Drawing.Size(871, 472);
             this.tabControl1.TabIndex = 18;
             this.tabControl1.SelectedIndexChanged += new System.EventHandler(this.tabControl1_SelectedIndexChanged);
             // 
@@ -163,39 +190,24 @@
             // 
             this.tpCsm.BackColor = System.Drawing.Color.Black;
             this.tpCsm.Controls.Add(this.label2);
-            this.tpCsm.Controls.Add(this.lblStep3);
-            this.tpCsm.Controls.Add(this.lblStep1);
             this.tpCsm.Controls.Add(this.pnlImport);
-            this.tpCsm.Controls.Add(this.lblStep2);
-            this.tpCsm.Controls.Add(this.lblStep4);
-            this.tpCsm.Location = new System.Drawing.Point(4, 27);
+            this.tpCsm.Location = new System.Drawing.Point(4, 30);
             this.tpCsm.Name = "tpCsm";
             this.tpCsm.Padding = new System.Windows.Forms.Padding(3);
-            this.tpCsm.Size = new System.Drawing.Size(605, 384);
+            this.tpCsm.Size = new System.Drawing.Size(863, 438);
             this.tpCsm.TabIndex = 0;
             this.tpCsm.Text = "CSM";
             // 
-            // lblStep3
+            // label2
             // 
-            this.lblStep3.AutoSize = true;
-            this.lblStep3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblStep3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(51)))), ((int)(((byte)(51)))));
-            this.lblStep3.Location = new System.Drawing.Point(198, 259);
-            this.lblStep3.Name = "lblStep3";
-            this.lblStep3.Size = new System.Drawing.Size(172, 16);
-            this.lblStep3.TabIndex = 13;
-            this.lblStep3.Text = "3)  Importing new CSM data.";
-            // 
-            // lblStep1
-            // 
-            this.lblStep1.AutoSize = true;
-            this.lblStep1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblStep1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(51)))), ((int)(((byte)(51)))));
-            this.lblStep1.Location = new System.Drawing.Point(198, 223);
-            this.lblStep1.Name = "lblStep1";
-            this.lblStep1.Size = new System.Drawing.Size(221, 16);
-            this.lblStep1.TabIndex = 11;
-            this.lblStep1.Text = "1)  Creating table, inserting raw data.";
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(122)))), ((int)(((byte)(204)))));
+            this.label2.Location = new System.Drawing.Point(204, 37);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(318, 16);
+            this.label2.TabIndex = 18;
+            this.label2.Text = "Copy column names and data from the spreadsheet.";
             // 
             // pnlImport
             // 
@@ -204,77 +216,55 @@
             this.pnlImport.Controls.Add(this.label3);
             this.pnlImport.Controls.Add(this.tbxCurrentReleaseId);
             this.pnlImport.Controls.Add(this.tbxPriorReleaseId);
-            this.pnlImport.Location = new System.Drawing.Point(21, 64);
+            this.pnlImport.Location = new System.Drawing.Point(27, 68);
             this.pnlImport.Name = "pnlImport";
             this.pnlImport.Size = new System.Drawing.Size(343, 151);
             this.pnlImport.TabIndex = 17;
-            // 
-            // lblStep2
-            // 
-            this.lblStep2.AutoSize = true;
-            this.lblStep2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblStep2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(51)))), ((int)(((byte)(51)))));
-            this.lblStep2.Location = new System.Drawing.Point(198, 241);
-            this.lblStep2.Name = "lblStep2";
-            this.lblStep2.Size = new System.Drawing.Size(149, 16);
-            this.lblStep2.TabIndex = 12;
-            this.lblStep2.Text = "2)  Rolling CSM forward.";
-            // 
-            // lblStep4
-            // 
-            this.lblStep4.AutoSize = true;
-            this.lblStep4.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblStep4.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(51)))), ((int)(((byte)(51)))));
-            this.lblStep4.Location = new System.Drawing.Point(198, 277);
-            this.lblStep4.Name = "lblStep4";
-            this.lblStep4.Size = new System.Drawing.Size(124, 16);
-            this.lblStep4.TabIndex = 14;
-            this.lblStep4.Text = "4)  Import complete.";
             // 
             // tpCsmDelta
             // 
             this.tpCsmDelta.BackColor = System.Drawing.Color.Black;
             this.tpCsmDelta.Controls.Add(this.label4);
-            this.tpCsmDelta.Controls.Add(this.lblDeltaImportComplete);
             this.tpCsmDelta.Controls.Add(this.pnlDeltaImport);
-            this.tpCsmDelta.Location = new System.Drawing.Point(4, 27);
+            this.tpCsmDelta.Location = new System.Drawing.Point(4, 30);
             this.tpCsmDelta.Name = "tpCsmDelta";
             this.tpCsmDelta.Padding = new System.Windows.Forms.Padding(3);
-            this.tpCsmDelta.Size = new System.Drawing.Size(616, 384);
+            this.tpCsmDelta.Size = new System.Drawing.Size(863, 438);
             this.tpCsmDelta.TabIndex = 1;
             this.tpCsmDelta.Text = "CSM Delta";
             // 
-            // lblDeltaImportComplete
+            // label4
             // 
-            this.lblDeltaImportComplete.AutoSize = true;
-            this.lblDeltaImportComplete.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblDeltaImportComplete.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(51)))), ((int)(((byte)(51)))));
-            this.lblDeltaImportComplete.Location = new System.Drawing.Point(199, 223);
-            this.lblDeltaImportComplete.Name = "lblDeltaImportComplete";
-            this.lblDeltaImportComplete.Size = new System.Drawing.Size(107, 16);
-            this.lblDeltaImportComplete.TabIndex = 11;
-            this.lblDeltaImportComplete.Text = "Import complete.";
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(122)))), ((int)(((byte)(204)))));
+            this.label4.Location = new System.Drawing.Point(205, 37);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(254, 16);
+            this.label4.TabIndex = 20;
+            this.label4.Text = "Copy row data only from the spreadsheet.";
             // 
             // pnlDeltaImport
             // 
             this.pnlDeltaImport.Controls.Add(this.btnDeltaImport);
             this.pnlDeltaImport.Controls.Add(this.label8);
             this.pnlDeltaImport.Controls.Add(this.tbxCurrentDeltaReleaseId);
-            this.pnlDeltaImport.Location = new System.Drawing.Point(21, 64);
+            this.pnlDeltaImport.Location = new System.Drawing.Point(27, 68);
             this.pnlDeltaImport.Name = "pnlDeltaImport";
-            this.pnlDeltaImport.Size = new System.Drawing.Size(343, 151);
+            this.pnlDeltaImport.Size = new System.Drawing.Size(343, 121);
             this.pnlDeltaImport.TabIndex = 19;
             // 
             // btnDeltaImport
             // 
             this.btnDeltaImport.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnDeltaImport.Location = new System.Drawing.Point(180, 98);
+            this.btnDeltaImport.Location = new System.Drawing.Point(180, 65);
             this.btnDeltaImport.Name = "btnDeltaImport";
             this.btnDeltaImport.Size = new System.Drawing.Size(114, 41);
             this.btnDeltaImport.TabIndex = 2;
             this.btnDeltaImport.Text = "Import";
             this.btnDeltaImport.UseVisualStyleBackColor = true;
             this.btnDeltaImport.Click += new System.EventHandler(this.btnDeltaImport_Click);
+            this.btnDeltaImport.MouseDown += new System.Windows.Forms.MouseEventHandler(this.btnDeltaImport_MouseDown);
             // 
             // label8
             // 
@@ -296,34 +286,220 @@
             this.tbxCurrentDeltaReleaseId.Size = new System.Drawing.Size(114, 24);
             this.tbxCurrentDeltaReleaseId.TabIndex = 1;
             // 
-            // label2
+            // tpOfficialForecast
             // 
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(122)))), ((int)(((byte)(204)))));
-            this.label2.Location = new System.Drawing.Point(58, 34);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(342, 16);
-            this.label2.TabIndex = 18;
-            this.label2.Text = "Copy column names and row data from the spreadsheet.";
+            this.tpOfficialForecast.BackColor = System.Drawing.Color.Black;
+            this.tpOfficialForecast.Controls.Add(this.label5);
+            this.tpOfficialForecast.Controls.Add(this.panel2);
+            this.tpOfficialForecast.Location = new System.Drawing.Point(4, 30);
+            this.tpOfficialForecast.Name = "tpOfficialForecast";
+            this.tpOfficialForecast.Size = new System.Drawing.Size(863, 438);
+            this.tpOfficialForecast.TabIndex = 2;
+            this.tpOfficialForecast.Text = "Official Forecast";
             // 
-            // label4
+            // tpHistoricalSales
             // 
-            this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(122)))), ((int)(((byte)(204)))));
-            this.label4.Location = new System.Drawing.Point(58, 34);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(254, 16);
-            this.label4.TabIndex = 20;
-            this.label4.Text = "Copy row data only from the spreadsheet.";
+            this.tpHistoricalSales.BackColor = System.Drawing.Color.Black;
+            this.tpHistoricalSales.Controls.Add(this.label9);
+            this.tpHistoricalSales.Controls.Add(this.panel3);
+            this.tpHistoricalSales.Location = new System.Drawing.Point(4, 30);
+            this.tpHistoricalSales.Name = "tpHistoricalSales";
+            this.tpHistoricalSales.Size = new System.Drawing.Size(863, 438);
+            this.tpHistoricalSales.TabIndex = 3;
+            this.tpHistoricalSales.Text = "Historical Sales";
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label5.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(122)))), ((int)(((byte)(204)))));
+            this.label5.Location = new System.Drawing.Point(204, 38);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(184, 16);
+            this.label5.TabIndex = 20;
+            this.label5.Text = "Insert official forecast records.";
+            // 
+            // panel2
+            // 
+            this.panel2.Controls.Add(this.dtpDateTimeStamp);
+            this.panel2.Controls.Add(this.label7);
+            this.panel2.Controls.Add(this.btnInsertForecast);
+            this.panel2.Controls.Add(this.label6);
+            this.panel2.Controls.Add(this.tbxForecastName);
+            this.panel2.Location = new System.Drawing.Point(27, 68);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(439, 170);
+            this.panel2.TabIndex = 19;
+            // 
+            // btnInsertForecast
+            // 
+            this.btnInsertForecast.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnInsertForecast.Location = new System.Drawing.Point(180, 103);
+            this.btnInsertForecast.Name = "btnInsertForecast";
+            this.btnInsertForecast.Size = new System.Drawing.Size(200, 41);
+            this.btnInsertForecast.TabIndex = 2;
+            this.btnInsertForecast.Text = "Insert";
+            this.btnInsertForecast.UseVisualStyleBackColor = true;
+            this.btnInsertForecast.Click += new System.EventHandler(this.btnInsertForecast_Click);
+            this.btnInsertForecast.MouseDown += new System.Windows.Forms.MouseEventHandler(this.btnInsertForecast_MouseDown);
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label6.ForeColor = System.Drawing.Color.White;
+            this.label6.Location = new System.Drawing.Point(59, 21);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(115, 18);
+            this.label6.TabIndex = 4;
+            this.label6.Text = "Forecast Name:";
+            // 
+            // tbxForecastName
+            // 
+            this.tbxForecastName.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.tbxForecastName.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tbxForecastName.Location = new System.Drawing.Point(180, 21);
+            this.tbxForecastName.Name = "tbxForecastName";
+            this.tbxForecastName.Size = new System.Drawing.Size(200, 24);
+            this.tbxForecastName.TabIndex = 0;
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label9.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(122)))), ((int)(((byte)(204)))));
+            this.label9.Location = new System.Drawing.Point(204, 38);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(184, 16);
+            this.label9.TabIndex = 22;
+            this.label9.Text = "Insert historical sales records.";
+            // 
+            // panel3
+            // 
+            this.panel3.Controls.Add(this.dtpHistoricalDateTimeStamp);
+            this.panel3.Controls.Add(this.label13);
+            this.panel3.Controls.Add(this.dtpEndDate);
+            this.panel3.Controls.Add(this.label12);
+            this.panel3.Controls.Add(this.dtpStartDate);
+            this.panel3.Controls.Add(this.btnInsertHistoricalSales);
+            this.panel3.Controls.Add(this.label10);
+            this.panel3.Controls.Add(this.label11);
+            this.panel3.Controls.Add(this.tbxHistoricalForecastName);
+            this.panel3.Location = new System.Drawing.Point(27, 68);
+            this.panel3.Name = "panel3";
+            this.panel3.Size = new System.Drawing.Size(439, 257);
+            this.panel3.TabIndex = 21;
+            // 
+            // btnInsertHistoricalSales
+            // 
+            this.btnInsertHistoricalSales.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnInsertHistoricalSales.Location = new System.Drawing.Point(180, 180);
+            this.btnInsertHistoricalSales.Name = "btnInsertHistoricalSales";
+            this.btnInsertHistoricalSales.Size = new System.Drawing.Size(200, 41);
+            this.btnInsertHistoricalSales.TabIndex = 2;
+            this.btnInsertHistoricalSales.Text = "Insert";
+            this.btnInsertHistoricalSales.UseVisualStyleBackColor = true;
+            this.btnInsertHistoricalSales.Click += new System.EventHandler(this.btnInsertHistoricalSales_Click);
+            this.btnInsertHistoricalSales.MouseDown += new System.Windows.Forms.MouseEventHandler(this.btnInsertHistoricalSales_MouseDown);
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label10.ForeColor = System.Drawing.Color.White;
+            this.label10.Location = new System.Drawing.Point(59, 21);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(115, 18);
+            this.label10.TabIndex = 4;
+            this.label10.Text = "Forecast Name:";
+            // 
+            // tbxHistoricalForecastName
+            // 
+            this.tbxHistoricalForecastName.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.tbxHistoricalForecastName.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tbxHistoricalForecastName.Location = new System.Drawing.Point(180, 21);
+            this.tbxHistoricalForecastName.Name = "tbxHistoricalForecastName";
+            this.tbxHistoricalForecastName.Size = new System.Drawing.Size(200, 24);
+            this.tbxHistoricalForecastName.TabIndex = 0;
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label11.ForeColor = System.Drawing.Color.White;
+            this.label11.Location = new System.Drawing.Point(98, 96);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(78, 18);
+            this.label11.TabIndex = 5;
+            this.label11.Text = "Start Date:";
+            // 
+            // dtpStartDate
+            // 
+            this.dtpStartDate.Location = new System.Drawing.Point(180, 96);
+            this.dtpStartDate.Name = "dtpStartDate";
+            this.dtpStartDate.Size = new System.Drawing.Size(200, 24);
+            this.dtpStartDate.TabIndex = 6;
+            // 
+            // dtpEndDate
+            // 
+            this.dtpEndDate.Location = new System.Drawing.Point(180, 134);
+            this.dtpEndDate.Name = "dtpEndDate";
+            this.dtpEndDate.Size = new System.Drawing.Size(200, 24);
+            this.dtpEndDate.TabIndex = 8;
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label12.ForeColor = System.Drawing.Color.White;
+            this.label12.Location = new System.Drawing.Point(101, 134);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(73, 18);
+            this.label12.TabIndex = 7;
+            this.label12.Text = "End Date:";
+            // 
+            // dtpDateTimeStamp
+            // 
+            this.dtpDateTimeStamp.Location = new System.Drawing.Point(180, 58);
+            this.dtpDateTimeStamp.Name = "dtpDateTimeStamp";
+            this.dtpDateTimeStamp.Size = new System.Drawing.Size(200, 24);
+            this.dtpDateTimeStamp.TabIndex = 8;
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label7.ForeColor = System.Drawing.Color.White;
+            this.label7.Location = new System.Drawing.Point(51, 58);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(123, 18);
+            this.label7.TabIndex = 7;
+            this.label7.Text = "DateTime Stamp:";
+            // 
+            // dtpHistoricalDateTimeStamp
+            // 
+            this.dtpHistoricalDateTimeStamp.Location = new System.Drawing.Point(180, 58);
+            this.dtpHistoricalDateTimeStamp.Name = "dtpHistoricalDateTimeStamp";
+            this.dtpHistoricalDateTimeStamp.Size = new System.Drawing.Size(200, 24);
+            this.dtpHistoricalDateTimeStamp.TabIndex = 10;
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label13.ForeColor = System.Drawing.Color.White;
+            this.label13.Location = new System.Drawing.Point(51, 58);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(123, 18);
+            this.label13.TabIndex = 9;
+            this.label13.Text = "DateTime Stamp:";
             // 
             // formMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Black;
-            this.ClientSize = new System.Drawing.Size(693, 550);
+            this.ClientSize = new System.Drawing.Size(895, 576);
             this.ControlBox = false;
             this.Controls.Add(this.panel1);
             this.ForeColor = System.Drawing.Color.Black;
@@ -343,6 +519,14 @@
             this.tpCsmDelta.PerformLayout();
             this.pnlDeltaImport.ResumeLayout(false);
             this.pnlDeltaImport.PerformLayout();
+            this.tpOfficialForecast.ResumeLayout(false);
+            this.tpOfficialForecast.PerformLayout();
+            this.tpHistoricalSales.ResumeLayout(false);
+            this.tpHistoricalSales.PerformLayout();
+            this.panel2.ResumeLayout(false);
+            this.panel2.PerformLayout();
+            this.panel3.ResumeLayout(false);
+            this.panel3.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -350,28 +534,43 @@
         #endregion
 
         private System.Windows.Forms.Button btnImport;
-        private System.Windows.Forms.Button btnExit;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label lblPriorReleaseId;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.TextBox tbxPriorReleaseId;
         private System.Windows.Forms.TextBox tbxCurrentReleaseId;
         private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.Label lblStep1;
-        private System.Windows.Forms.Label lblStep4;
-        private System.Windows.Forms.Label lblStep3;
-        private System.Windows.Forms.Label lblStep2;
         private System.Windows.Forms.Panel pnlImport;
         private System.Windows.Forms.TabControl tabControl1;
         private System.Windows.Forms.TabPage tpCsm;
         private System.Windows.Forms.TabPage tpCsmDelta;
-        private System.Windows.Forms.Label lblDeltaImportComplete;
         private System.Windows.Forms.Panel pnlDeltaImport;
         private System.Windows.Forms.Button btnDeltaImport;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.TextBox tbxCurrentDeltaReleaseId;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.LinkLabel linkLblClose;
+        private System.Windows.Forms.TabPage tpOfficialForecast;
+        private System.Windows.Forms.TabPage tpHistoricalSales;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Panel panel2;
+        private System.Windows.Forms.Button btnInsertForecast;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.TextBox tbxForecastName;
+        private System.Windows.Forms.DateTimePicker dtpDateTimeStamp;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.Panel panel3;
+        private System.Windows.Forms.DateTimePicker dtpHistoricalDateTimeStamp;
+        private System.Windows.Forms.Label label13;
+        private System.Windows.Forms.DateTimePicker dtpEndDate;
+        private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.DateTimePicker dtpStartDate;
+        private System.Windows.Forms.Button btnInsertHistoricalSales;
+        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.TextBox tbxHistoricalForecastName;
     }
 }
 

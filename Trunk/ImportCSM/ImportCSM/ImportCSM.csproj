@@ -80,7 +80,7 @@
       <DependentUpon>Model1.edmx</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
-    <Compile Include="ProgressStates.cs" />
+    <Compile Include="ClearTabs.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Controls\CustomMessageBox.resx">
       <DependentUpon>CustomMessageBox.cs</DependentUpon>

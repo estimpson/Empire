@@ -18,6 +18,16 @@
           <Parameter Name="TranDT" Type="datetime" Mode="InOut" />
           <Parameter Name="Result" Type="int" Mode="InOut" />
         </Function>
+        <Function Name="acctg_sales_sp_insert_historical_sales" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="EEIUser">
+          <Parameter Name="forecast_name" Type="varchar" Mode="In" />
+          <Parameter Name="time_stamp" Type="datetime" Mode="In" />
+          <Parameter Name="FromDate" Type="datetime" Mode="In" />
+          <Parameter Name="throughDate" Type="datetime" Mode="In" />
+        </Function>
+        <Function Name="acctg_sales_sp_insert_official_forecast" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="EEIUser">
+          <Parameter Name="forecast_name" Type="varchar" Mode="In" />
+          <Parameter Name="time_stamp" Type="datetime" Mode="In" />
+        </Function>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
@@ -35,6 +45,16 @@
             <Parameter Name="TranDT" Mode="InOut" Type="DateTime" />
             <Parameter Name="Result" Mode="InOut" Type="Int32" />
           </FunctionImport>
+          <FunctionImport Name="acctg_sales_sp_insert_historical_sales">
+            <Parameter Name="forecast_name" Mode="In" Type="String" />
+            <Parameter Name="time_stamp" Mode="In" Type="DateTime" />
+            <Parameter Name="FromDate" Mode="In" Type="DateTime" />
+            <Parameter Name="throughDate" Mode="In" Type="DateTime" />
+          </FunctionImport>
+          <FunctionImport Name="acctg_sales_sp_insert_official_forecast">
+            <Parameter Name="forecast_name" Mode="In" Type="String" />
+            <Parameter Name="time_stamp" Mode="In" Type="DateTime" />
+          </FunctionImport>
         </EntityContainer>
       </Schema>
     </edmx:ConceptualModels>
@@ -44,6 +64,8 @@
         <EntityContainerMapping StorageEntityContainer="MONITORModelStoreContainer" CdmEntityContainer="MONITOREntities" >
           <FunctionImportMapping FunctionImportName="acctg_csm_sp_roll_forward_CSM_data_one_month" FunctionName="MONITORModel.Store.acctg_csm_sp_roll_forward_CSM_data_one_month" />
           <FunctionImportMapping FunctionImportName="acctg_csm_sp_import_CSM_demand" FunctionName="MONITORModel.Store.acctg_csm_sp_import_CSM_demand" />
+          <FunctionImportMapping FunctionImportName="acctg_sales_sp_insert_historical_sales" FunctionName="MONITORModel.Store.acctg_sales_sp_insert_historical_sales" />
+          <FunctionImportMapping FunctionImportName="acctg_sales_sp_insert_official_forecast" FunctionName="MONITORModel.Store.acctg_sales_sp_insert_official_forecast" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
