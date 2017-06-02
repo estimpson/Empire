@@ -4,14 +4,84 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="MONITORModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+    <Schema Namespace="MONITORModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+        <EntityContainer Name="MONITORModelStoreContainer">
+          <EntitySet Name="employee" EntityType="MONITORModel.Store.employee" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="SerialsQuantitiesToAutoRMA_RTV" EntityType="MONITORModel.Store.SerialsQuantitiesToAutoRMA_RTV" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="CreateRma_RTV_PackingSlip" EntityType="MONITORModel.Store.CreateRma_RTV_PackingSlip" store:Type="Views" store:Schema="dbo" store:Name="CreateRma_RTV_PackingSlip">
+            <DefiningQuery>SELECT 
+      [CreateRma_RTV_PackingSlip].[RTVShipperID] AS [RTVShipperID], 
+      [CreateRma_RTV_PackingSlip].[ShipperNotes] AS [ShipperNotes], 
+      [CreateRma_RTV_PackingSlip].[AETCNumber] AS [AETCNumber], 
+      [CreateRma_RTV_PackingSlip].[Carrier] AS [Carrier], 
+      [CreateRma_RTV_PackingSlip].[BoxCount] AS [BoxCount], 
+      [CreateRma_RTV_PackingSlip].[Freight] AS [Freight], 
+      [CreateRma_RTV_PackingSlip].[DestinationName] AS [DestinationName], 
+      [CreateRma_RTV_PackingSlip].[DestinationAddress1] AS [DestinationAddress1], 
+      [CreateRma_RTV_PackingSlip].[DestinationAddress2] AS [DestinationAddress2], 
+      [CreateRma_RTV_PackingSlip].[DestinationAddress3] AS [DestinationAddress3], 
+      [CreateRma_RTV_PackingSlip].[DestinationCode] AS [DestinationCode], 
+      [CreateRma_RTV_PackingSlip].[LineNote] AS [LineNote], 
+      [CreateRma_RTV_PackingSlip].[LineBoxCount] AS [LineBoxCount], 
+      [CreateRma_RTV_PackingSlip].[QtyPacked] AS [QtyPacked], 
+      [CreateRma_RTV_PackingSlip].[LineNetWeight] AS [LineNetWeight], 
+      [CreateRma_RTV_PackingSlip].[LineTareWeight] AS [LineTareWeight], 
+      [CreateRma_RTV_PackingSlip].[LineGrossWeight] AS [LineGrossWeight], 
+      [CreateRma_RTV_PackingSlip].[PartName] AS [PartName], 
+      [CreateRma_RTV_PackingSlip].[PartCode] AS [PartCode], 
+      [CreateRma_RTV_PackingSlip].[Terms] AS [Terms], 
+      [CreateRma_RTV_PackingSlip].[UnitMeasure] AS [UnitMeasure], 
+      [CreateRma_RTV_PackingSlip].[VendorName] AS [VendorName], 
+      [CreateRma_RTV_PackingSlip].[VendorAddress1] AS [VendorAddress1], 
+      [CreateRma_RTV_PackingSlip].[VendorAddress2] AS [VendorAddress2], 
+      [CreateRma_RTV_PackingSlip].[VendorAddress3] AS [VendorAddress3], 
+      [CreateRma_RTV_PackingSlip].[CompanyName] AS [CompanyName], 
+      [CreateRma_RTV_PackingSlip].[CompanyAddress1] AS [CompanyAddress1], 
+      [CreateRma_RTV_PackingSlip].[CompanyAddress2] AS [CompanyAddress2], 
+      [CreateRma_RTV_PackingSlip].[CompanyAddress3] AS [CompanyAddress3], 
+      [CreateRma_RTV_PackingSlip].[CompanyPhone] AS [CompanyPhone], 
+      [CreateRma_RTV_PackingSlip].[SerialList] AS [SerialList]
+      FROM [dbo].[CreateRma_RTV_PackingSlip] AS [CreateRma_RTV_PackingSlip]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="vw_CreateRma_Destinations" EntityType="MONITORModel.Store.vw_CreateRma_Destinations" store:Type="Views" store:Schema="dbo" store:Name="vw_CreateRma_Destinations">
+            <DefiningQuery>SELECT 
+      [vw_CreateRma_Destinations].[destination] AS [destination]
+      FROM [dbo].[vw_CreateRma_Destinations] AS [vw_CreateRma_Destinations]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="HondurasLocations" EntityType="MONITORModel.Store.HondurasLocations" store:Type="Views" store:Schema="RTV" store:Name="HondurasLocations">
+            <DefiningQuery>SELECT 
+      [HondurasLocations].[LocationCode] AS [LocationCode], 
+      [HondurasLocations].[IsStorage] AS [IsStorage], 
+      [HondurasLocations].[IsSecure] AS [IsSecure]
+      FROM [RTV].[HondurasLocations] AS [HondurasLocations]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="InventoryToRTV" EntityType="MONITORModel.Store.InventoryToRTV" store:Type="Views" store:Schema="RTV" store:Name="InventoryToRTV">
+            <DefiningQuery>SELECT 
+      [InventoryToRTV].[Serial] AS [Serial], 
+      [InventoryToRTV].[Part] AS [Part], 
+      [InventoryToRTV].[Quantity] AS [Quantity], 
+      [InventoryToRTV].[ProductLine] AS [ProductLine], 
+      [InventoryToRTV].[Valid] AS [Valid], 
+      [InventoryToRTV].[Message] AS [Message]
+      FROM [RTV].[InventoryToRTV] AS [InventoryToRTV]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="OpenRTVs" EntityType="MONITORModel.Store.OpenRTVs" store:Type="Views" store:Schema="RTV" store:Name="OpenRTVs">
+            <DefiningQuery>SELECT 
+      [OpenRTVs].[RTVShipper] AS [RTVShipper], 
+      [OpenRTVs].[PackingSlipPrinted] AS [PackingSlipPrinted], 
+      [OpenRTVs].[HN_RMA_Location] AS [HN_RMA_Location], 
+      [OpenRTVs].[ProductLine] AS [ProductLine], 
+      [OpenRTVs].[SerialList] AS [SerialList]
+      FROM [RTV].[OpenRTVs] AS [OpenRTVs]</DefiningQuery>
+          </EntitySet>
+        </EntityContainer>
         <EntityType Name="employee">
           <Key>
             <PropertyRef Name="operator_code" />
           </Key>
-          <Property Name="name" Type="varchar" MaxLength="40" Nullable="false" />
-          <Property Name="operator_code" Type="varchar" MaxLength="5" Nullable="false" />
-          <Property Name="password" Type="varchar" MaxLength="5" Nullable="false" />
+          <Property Name="name" Type="varchar" Nullable="false" MaxLength="40" />
+          <Property Name="operator_code" Type="varchar" Nullable="false" MaxLength="5" />
+          <Property Name="password" Type="varchar" Nullable="false" MaxLength="5" />
           <Property Name="serial_number" Type="int" />
           <Property Name="epassword" Type="text" />
           <Property Name="operatorlevel" Type="int" />
@@ -24,10 +94,12 @@
             <PropertyRef Name="Serial" />
           </Key>
           <Property Name="Serial" Type="int" Nullable="false" />
-          <Property Name="Quantity" Type="numeric" Precision="20" Scale="6" Nullable="false" />
+          <Property Name="Quantity" Type="numeric" Nullable="false" Precision="20" Scale="6" />
+          <Property Name="OperatorCode" Type="varchar" MaxLength="5" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'MONITOR.dbo.CreateRma_RTV_PackingSlip' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+      warning 6002: The table/view 'MONITOR.dbo.CreateRma_RTV_PackingSlip' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
+      -->
         <EntityType Name="CreateRma_RTV_PackingSlip">
           <Key>
             <PropertyRef Name="RTVShipperID" />
@@ -47,22 +119,22 @@ warning 6002: The table/view 'MONITOR.dbo.CreateRma_RTV_PackingSlip' does not ha
           <Property Name="DestinationAddress1" Type="varchar" MaxLength="50" />
           <Property Name="DestinationAddress2" Type="varchar" MaxLength="50" />
           <Property Name="DestinationAddress3" Type="varchar" MaxLength="50" />
-          <Property Name="DestinationCode" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="DestinationCode" Type="varchar" Nullable="false" MaxLength="20" />
           <Property Name="LineNote" Type="varchar" MaxLength="254" />
           <Property Name="LineBoxCount" Type="int" />
           <Property Name="QtyPacked" Type="numeric" Precision="20" Scale="6" />
           <Property Name="LineNetWeight" Type="numeric" Precision="20" Scale="6" />
           <Property Name="LineTareWeight" Type="numeric" Precision="20" Scale="6" />
           <Property Name="LineGrossWeight" Type="numeric" Precision="20" Scale="6" />
-          <Property Name="PartName" Type="varchar" MaxLength="100" Nullable="false" />
-          <Property Name="PartCode" Type="varchar" MaxLength="25" Nullable="false" />
+          <Property Name="PartName" Type="varchar" Nullable="false" MaxLength="100" />
+          <Property Name="PartCode" Type="varchar" Nullable="false" MaxLength="25" />
           <Property Name="Terms" Type="varchar" MaxLength="25" />
           <Property Name="UnitMeasure" Type="varchar" MaxLength="15" />
-          <Property Name="VendorName" Type="varchar" MaxLength="35" Nullable="false" />
+          <Property Name="VendorName" Type="varchar" Nullable="false" MaxLength="35" />
           <Property Name="VendorAddress1" Type="varchar" MaxLength="50" />
           <Property Name="VendorAddress2" Type="varchar" MaxLength="50" />
           <Property Name="VendorAddress3" Type="varchar" MaxLength="50" />
-          <Property Name="CompanyName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="CompanyName" Type="varchar" Nullable="false" MaxLength="50" />
           <Property Name="CompanyAddress1" Type="varchar" MaxLength="30" />
           <Property Name="CompanyAddress2" Type="varchar" MaxLength="30" />
           <Property Name="CompanyAddress3" Type="varchar" MaxLength="30" />
@@ -70,27 +142,30 @@ warning 6002: The table/view 'MONITOR.dbo.CreateRma_RTV_PackingSlip' does not ha
           <Property Name="SerialList" Type="nvarchar(max)" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'MONITOR.dbo.vw_CreateRma_Destinations' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+      warning 6002: The table/view 'MONITOR.dbo.vw_CreateRma_Destinations' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
+      -->
         <EntityType Name="vw_CreateRma_Destinations">
           <Key>
             <PropertyRef Name="destination" />
           </Key>
-          <Property Name="destination" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="destination" Type="varchar" Nullable="false" MaxLength="20" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'MONITOR.RTV.HondurasLocations' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+      warning 6002: The table/view 'MONITOR.RTV.HondurasLocations' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
+      -->
         <EntityType Name="HondurasLocations">
           <Key>
             <PropertyRef Name="LocationCode" />
             
             
           </Key>
-          <Property Name="LocationCode" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="LocationCode" Type="varchar" Nullable="false" MaxLength="10" />
           <Property Name="IsStorage" Type="int" Nullable="false" />
           <Property Name="IsSecure" Type="int" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'MONITOR.RTV.InventoryToRTV' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+      warning 6002: The table/view 'MONITOR.RTV.InventoryToRTV' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
+      -->
         <EntityType Name="InventoryToRTV">
           <Key>
             <PropertyRef Name="Serial" />
@@ -104,7 +179,8 @@ warning 6002: The table/view 'MONITOR.RTV.InventoryToRTV' does not have a primar
           <Property Name="Message" Type="varchar" MaxLength="53" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'MONITOR.RTV.OpenRTVs' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+      warning 6002: The table/view 'MONITOR.RTV.OpenRTVs' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
+      -->
         <EntityType Name="OpenRTVs">
           <Key>
             <PropertyRef Name="RTVShipper" />
@@ -115,7 +191,39 @@ warning 6002: The table/view 'MONITOR.RTV.OpenRTVs' does not have a primary key 
           <Property Name="ProductLine" Type="varchar" MaxLength="25" />
           <Property Name="SerialList" Type="nvarchar(max)" />
         </EntityType>
-        <Function Name="usp_CreateRma_DeleteSerialsQuantities" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+        <Function Name="usp_CreatedRmaRtvHistory" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="OperatorCode" Type="varchar" Mode="In" />
+          <Parameter Name="RmaRtvNumber" Type="varchar" Mode="In" />
+          <Parameter Name="TranDT" Type="datetime" Mode="InOut" />
+          <Parameter Name="Result" Type="int" Mode="InOut" />
+        </Function>
+        <Function Name="usp_CreatedRmaRtvHistoryByDates" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="OperatorCode" Type="varchar" Mode="In" />
+          <Parameter Name="StartDate" Type="datetime" Mode="In" />
+          <Parameter Name="EndDate" Type="datetime" Mode="In" />
+          <Parameter Name="TranDT" Type="datetime" Mode="InOut" />
+          <Parameter Name="Result" Type="int" Mode="InOut" />
+        </Function>
+        <Function Name="usp_CreatedRmaRtvHistoryByShipper" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="OperatorCode" Type="varchar" Mode="In" />
+          <Parameter Name="Shipper" Type="varchar" Mode="In" />
+          <Parameter Name="TranDT" Type="datetime" Mode="InOut" />
+          <Parameter Name="Result" Type="int" Mode="InOut" />
+        </Function>
+        <Function Name="usp_CreatedRmaRtvRollback" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="OperatorCode" Type="varchar" Mode="In" />
+          <Parameter Name="RmaRtvNumber" Type="varchar" Mode="In" />
+          <Parameter Name="TranDT" Type="datetime" Mode="InOut" />
+          <Parameter Name="Result" Type="int" Mode="InOut" />
+        </Function>
+        <Function Name="usp_CreatedRmaRtvSummary" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="OperatorCode" Type="varchar" Mode="In" />
+          <Parameter Name="RmaRtvNumber" Type="varchar" Mode="In" />
+          <Parameter Name="TranDT" Type="datetime" Mode="InOut" />
+          <Parameter Name="Result" Type="int" Mode="InOut" />
+        </Function>
+        <Function Name="usp_CreateRma_DeleteSerialsQuantitiesByOperator" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="OperatorCode" Type="varchar" Mode="In" />
           <Parameter Name="TranDT" Type="datetime" Mode="InOut" />
           <Parameter Name="Result" Type="int" Mode="InOut" />
         </Function>
@@ -139,7 +247,20 @@ warning 6002: The table/view 'MONITOR.RTV.OpenRTVs' does not have a primary key 
           <Parameter Name="TranDT" Type="datetime" Mode="InOut" />
           <Parameter Name="Result" Type="int" Mode="InOut" />
         </Function>
+        <Function Name="usp_CreateRma_Honduras_RecordException" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="OperatorCode" Type="varchar" Mode="In" />
+          <Parameter Name="Exception" Type="varchar" Mode="In" />
+          <Parameter Name="TranDT" Type="datetime" Mode="InOut" />
+          <Parameter Name="Result" Type="int" Mode="InOut" />
+        </Function>
         <Function Name="usp_CreateRma_ImportSerialsQuantities" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Serial" Type="int" Mode="In" />
+          <Parameter Name="Quantity" Type="numeric" Mode="In" />
+          <Parameter Name="TranDT" Type="datetime" Mode="InOut" />
+          <Parameter Name="Result" Type="int" Mode="InOut" />
+        </Function>
+        <Function Name="usp_CreateRma_ImportSerialsQuantitiesByOperator" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="OperatorCode" Type="varchar" Mode="In" />
           <Parameter Name="Serial" Type="int" Mode="In" />
           <Parameter Name="Quantity" Type="numeric" Mode="In" />
           <Parameter Name="TranDT" Type="datetime" Mode="InOut" />
@@ -150,6 +271,14 @@ warning 6002: The table/view 'MONITOR.RTV.OpenRTVs' does not have a primary key 
           <Parameter Name="RmaNumber" Type="varchar" Mode="In" />
           <Parameter Name="CreateRTV" Type="int" Mode="In" />
           <Parameter Name="PlaceSerialsOnHold" Type="int" Mode="In" />
+          <Parameter Name="Notes" Type="varchar" Mode="In" />
+          <Parameter Name="TranDT" Type="datetime" Mode="InOut" />
+          <Parameter Name="Result" Type="int" Mode="InOut" />
+        </Function>
+        <Function Name="usp_CreateRma_ProcessByDestGl2" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="OperatorCode" Type="varchar" Mode="In" />
+          <Parameter Name="RmaRtvNumber" Type="varchar" Mode="InOut" />
+          <Parameter Name="TransactionType" Type="int" Mode="In" />
           <Parameter Name="Notes" Type="varchar" Mode="In" />
           <Parameter Name="TranDT" Type="datetime" Mode="InOut" />
           <Parameter Name="Result" Type="int" Mode="InOut" />
@@ -190,89 +319,13 @@ warning 6002: The table/view 'MONITOR.RTV.OpenRTVs' does not have a primary key 
         </Function>
         <Function Name="usp_CreateRTV_ImportSerials" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="RTV">
           <Parameter Name="OperatorCode" Type="varchar" Mode="In" />
-          <Parameter Name="SerialList" Type="varchar(max)" Mode="In" />
           <Parameter Name="FirstNewRTVShipper" Type="int" Mode="InOut" />
           <Parameter Name="RTVShipperCount" Type="int" Mode="InOut" />
+          <Parameter Name="RtvShipperList" Type="varchar" Mode="InOut" />
+          <Parameter Name="RtvNumber" Type="varchar" Mode="InOut" />
           <Parameter Name="TranDT" Type="datetime" Mode="InOut" />
           <Parameter Name="Result" Type="int" Mode="InOut" />
         </Function>
-        <Function Name="usp_CreateRTV_ImportSerials_ToExistingRTV" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="RTV">
-          <Parameter Name="OperatorCode" Type="varchar" Mode="In" />
-          <Parameter Name="SerialList" Type="varchar(max)" Mode="In" />
-          <Parameter Name="RTVShipper" Type="int" Mode="In" />
-          <Parameter Name="TranDT" Type="datetime" Mode="InOut" />
-          <Parameter Name="Result" Type="int" Mode="InOut" />
-        </Function>
-        <EntityContainer Name="MONITORModelStoreContainer">
-          <EntitySet Name="employee" EntityType="Self.employee" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="SerialsQuantitiesToAutoRMA_RTV" EntityType="Self.SerialsQuantitiesToAutoRMA_RTV" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="CreateRma_RTV_PackingSlip" EntityType="Self.CreateRma_RTV_PackingSlip" store:Type="Views" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-[CreateRma_RTV_PackingSlip].[RTVShipperID] AS [RTVShipperID], 
-[CreateRma_RTV_PackingSlip].[ShipperNotes] AS [ShipperNotes], 
-[CreateRma_RTV_PackingSlip].[AETCNumber] AS [AETCNumber], 
-[CreateRma_RTV_PackingSlip].[Carrier] AS [Carrier], 
-[CreateRma_RTV_PackingSlip].[BoxCount] AS [BoxCount], 
-[CreateRma_RTV_PackingSlip].[Freight] AS [Freight], 
-[CreateRma_RTV_PackingSlip].[DestinationName] AS [DestinationName], 
-[CreateRma_RTV_PackingSlip].[DestinationAddress1] AS [DestinationAddress1], 
-[CreateRma_RTV_PackingSlip].[DestinationAddress2] AS [DestinationAddress2], 
-[CreateRma_RTV_PackingSlip].[DestinationAddress3] AS [DestinationAddress3], 
-[CreateRma_RTV_PackingSlip].[DestinationCode] AS [DestinationCode], 
-[CreateRma_RTV_PackingSlip].[LineNote] AS [LineNote], 
-[CreateRma_RTV_PackingSlip].[LineBoxCount] AS [LineBoxCount], 
-[CreateRma_RTV_PackingSlip].[QtyPacked] AS [QtyPacked], 
-[CreateRma_RTV_PackingSlip].[LineNetWeight] AS [LineNetWeight], 
-[CreateRma_RTV_PackingSlip].[LineTareWeight] AS [LineTareWeight], 
-[CreateRma_RTV_PackingSlip].[LineGrossWeight] AS [LineGrossWeight], 
-[CreateRma_RTV_PackingSlip].[PartName] AS [PartName], 
-[CreateRma_RTV_PackingSlip].[PartCode] AS [PartCode], 
-[CreateRma_RTV_PackingSlip].[Terms] AS [Terms], 
-[CreateRma_RTV_PackingSlip].[UnitMeasure] AS [UnitMeasure], 
-[CreateRma_RTV_PackingSlip].[VendorName] AS [VendorName], 
-[CreateRma_RTV_PackingSlip].[VendorAddress1] AS [VendorAddress1], 
-[CreateRma_RTV_PackingSlip].[VendorAddress2] AS [VendorAddress2], 
-[CreateRma_RTV_PackingSlip].[VendorAddress3] AS [VendorAddress3], 
-[CreateRma_RTV_PackingSlip].[CompanyName] AS [CompanyName], 
-[CreateRma_RTV_PackingSlip].[CompanyAddress1] AS [CompanyAddress1], 
-[CreateRma_RTV_PackingSlip].[CompanyAddress2] AS [CompanyAddress2], 
-[CreateRma_RTV_PackingSlip].[CompanyAddress3] AS [CompanyAddress3], 
-[CreateRma_RTV_PackingSlip].[CompanyPhone] AS [CompanyPhone], 
-[CreateRma_RTV_PackingSlip].[SerialList] AS [SerialList]
-FROM [dbo].[CreateRma_RTV_PackingSlip] AS [CreateRma_RTV_PackingSlip]</DefiningQuery>
-          </EntitySet>
-          <EntitySet Name="vw_CreateRma_Destinations" EntityType="Self.vw_CreateRma_Destinations" store:Type="Views" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-[vw_CreateRma_Destinations].[destination] AS [destination]
-FROM [dbo].[vw_CreateRma_Destinations] AS [vw_CreateRma_Destinations]</DefiningQuery>
-          </EntitySet>
-          <EntitySet Name="HondurasLocations" EntityType="Self.HondurasLocations" store:Type="Views" store:Schema="RTV">
-            <DefiningQuery>SELECT 
-[HondurasLocations].[LocationCode] AS [LocationCode], 
-[HondurasLocations].[IsStorage] AS [IsStorage], 
-[HondurasLocations].[IsSecure] AS [IsSecure]
-FROM [RTV].[HondurasLocations] AS [HondurasLocations]</DefiningQuery>
-          </EntitySet>
-          <EntitySet Name="InventoryToRTV" EntityType="Self.InventoryToRTV" store:Type="Views" store:Schema="RTV">
-            <DefiningQuery>SELECT 
-[InventoryToRTV].[Serial] AS [Serial], 
-[InventoryToRTV].[Part] AS [Part], 
-[InventoryToRTV].[Quantity] AS [Quantity], 
-[InventoryToRTV].[ProductLine] AS [ProductLine], 
-[InventoryToRTV].[Valid] AS [Valid], 
-[InventoryToRTV].[Message] AS [Message]
-FROM [RTV].[InventoryToRTV] AS [InventoryToRTV]</DefiningQuery>
-          </EntitySet>
-          <EntitySet Name="OpenRTVs" EntityType="Self.OpenRTVs" store:Type="Views" store:Schema="RTV">
-            <DefiningQuery>SELECT 
-[OpenRTVs].[RTVShipper] AS [RTVShipper], 
-[OpenRTVs].[PackingSlipPrinted] AS [PackingSlipPrinted], 
-[OpenRTVs].[HN_RMA_Location] AS [HN_RMA_Location], 
-[OpenRTVs].[ProductLine] AS [ProductLine], 
-[OpenRTVs].[SerialList] AS [SerialList]
-FROM [RTV].[OpenRTVs] AS [OpenRTVs]</DefiningQuery>
-          </EntitySet>
-        </EntityContainer>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
@@ -293,10 +346,6 @@ FROM [RTV].[OpenRTVs] AS [OpenRTVs]</DefiningQuery>
             <Parameter Name="PlaceSerialsOnHold" Mode="In" Type="Int32" />
             <Parameter Name="NextShipper" Mode="InOut" Type="Int32" />
             <Parameter Name="NextShipperRTV" Mode="InOut" Type="Int32" />
-            <Parameter Name="TranDT" Mode="InOut" Type="DateTime" />
-            <Parameter Name="Result" Mode="InOut" Type="Int32" />
-          </FunctionImport>
-          <FunctionImport Name="usp_CreateRma_DeleteSerialsQuantities">
             <Parameter Name="TranDT" Mode="InOut" Type="DateTime" />
             <Parameter Name="Result" Mode="InOut" Type="Int32" />
           </FunctionImport>
@@ -354,22 +403,73 @@ FROM [RTV].[OpenRTVs] AS [OpenRTVs]</DefiningQuery>
           <EntitySet Name="InventoryToRTVs" EntityType="MONITORModel.InventoryToRTV" />
           <EntitySet Name="OpenRTVs" EntityType="MONITORModel.OpenRTV" />
           <EntitySet Name="HondurasLocations" EntityType="MONITORModel.HondurasLocation" />
-          <FunctionImport Name="usp_CreateRTV_ImportSerials">
-            <Parameter Name="OperatorCode" Mode="In" Type="String" />
-            <Parameter Name="SerialList" Mode="In" Type="String" />
-            <Parameter Name="FirstNewRTVShipper" Mode="InOut" Type="Int32" />
-            <Parameter Name="RTVShipperCount" Mode="InOut" Type="Int32" />
-            <Parameter Name="TranDT" Mode="InOut" Type="DateTime" />
-            <Parameter Name="Result" Mode="InOut" Type="Int32" />
-          </FunctionImport>
           <FunctionImport Name="usp_EEHLivelyTest" ReturnType="Collection(MONITORModel.usp_EEHLivelyTest_Result)">
             <Parameter Name="TranDT" Mode="InOut" Type="DateTime" />
             <Parameter Name="Result" Mode="InOut" Type="Int32" />
           </FunctionImport>
-          <FunctionImport Name="usp_CreateRTV_ImportSerials_ToExistingRTV">
+          <FunctionImport Name="usp_CreateRma_DeleteSerialsQuantitiesByOperator">
             <Parameter Name="OperatorCode" Mode="In" Type="String" />
-            <Parameter Name="SerialList" Mode="In" Type="String" />
-            <Parameter Name="RTVShipper" Mode="In" Type="Int32" />
+            <Parameter Name="TranDT" Mode="InOut" Type="DateTime" />
+            <Parameter Name="Result" Mode="InOut" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="usp_CreatedRmaRtvRollback">
+            <Parameter Name="OperatorCode" Mode="In" Type="String" />
+            <Parameter Name="RmaRtvNumber" Mode="In" Type="String" />
+            <Parameter Name="TranDT" Mode="InOut" Type="DateTime" />
+            <Parameter Name="Result" Mode="InOut" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="usp_CreatedRmaRtvSummary" ReturnType="Collection(MONITORModel.usp_CreatedRmaRtvSummary_Result)">
+            <Parameter Name="OperatorCode" Mode="In" Type="String" />
+            <Parameter Name="RmaRtvNumber" Mode="In" Type="String" />
+            <Parameter Name="TranDT" Mode="InOut" Type="DateTime" />
+            <Parameter Name="Result" Mode="InOut" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="usp_CreateRma_ImportSerialsQuantitiesByOperator">
+            <Parameter Name="OperatorCode" Mode="In" Type="String" />
+            <Parameter Name="Serial" Mode="In" Type="Int32" />
+            <Parameter Name="Quantity" Mode="In" Type="Decimal" />
+            <Parameter Name="TranDT" Mode="InOut" Type="DateTime" />
+            <Parameter Name="Result" Mode="InOut" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="usp_CreateRma_ProcessByDestGl2" ReturnType="Collection(MONITORModel.usp_CreateRma_ProcessByDestGl2_Result)">
+            <Parameter Name="OperatorCode" Mode="In" Type="String" />
+            <Parameter Name="RmaRtvNumber" Mode="InOut" Type="String" />
+            <Parameter Name="TransactionType" Mode="In" Type="Int32" />
+            <Parameter Name="Notes" Mode="In" Type="String" />
+            <Parameter Name="TranDT" Mode="InOut" Type="DateTime" />
+            <Parameter Name="Result" Mode="InOut" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="usp_CreatedRmaRtvHistory" ReturnType="Collection(MONITORModel.usp_CreatedRmaRtvHistory_Result)">
+            <Parameter Name="OperatorCode" Mode="In" Type="String" />
+            <Parameter Name="RmaRtvNumber" Mode="In" Type="String" />
+            <Parameter Name="TranDT" Mode="InOut" Type="DateTime" />
+            <Parameter Name="Result" Mode="InOut" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="usp_CreatedRmaRtvHistoryByDates" ReturnType="Collection(MONITORModel.usp_CreatedRmaRtvHistoryByDates_Result)">
+            <Parameter Name="OperatorCode" Mode="In" Type="String" />
+            <Parameter Name="StartDate" Mode="In" Type="DateTime" />
+            <Parameter Name="EndDate" Mode="In" Type="DateTime" />
+            <Parameter Name="TranDT" Mode="InOut" Type="DateTime" />
+            <Parameter Name="Result" Mode="InOut" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="usp_CreatedRmaRtvHistoryByShipper" ReturnType="Collection(MONITORModel.usp_CreatedRmaRtvHistoryByShipper_Result)">
+            <Parameter Name="OperatorCode" Mode="In" Type="String" />
+            <Parameter Name="Shipper" Mode="In" Type="String" />
+            <Parameter Name="TranDT" Mode="InOut" Type="DateTime" />
+            <Parameter Name="Result" Mode="InOut" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="usp_CreateRma_Honduras_RecordException">
+            <Parameter Name="OperatorCode" Mode="In" Type="String" />
+            <Parameter Name="Exception" Mode="In" Type="String" />
+            <Parameter Name="TranDT" Mode="InOut" Type="DateTime" />
+            <Parameter Name="Result" Mode="InOut" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="usp_CreateRTV_ImportSerials">
+            <Parameter Name="OperatorCode" Mode="In" Type="String" />
+            <Parameter Name="FirstNewRTVShipper" Mode="InOut" Type="Int32" />
+            <Parameter Name="RTVShipperCount" Mode="InOut" Type="Int32" />
+            <Parameter Name="RtvShipperList" Mode="InOut" Type="String" />
+            <Parameter Name="RtvNumber" Mode="InOut" Type="String" />
             <Parameter Name="TranDT" Mode="InOut" Type="DateTime" />
             <Parameter Name="Result" Mode="InOut" Type="Int32" />
           </FunctionImport>
@@ -412,15 +512,8 @@ FROM [RTV].[OpenRTVs] AS [OpenRTVs]</DefiningQuery>
           </Key>
           <Property Type="Int32" Name="Serial" Nullable="false" />
           <Property Type="Decimal" Name="Quantity" Nullable="false" Precision="20" Scale="6" />
+          <Property Type="String" Name="OperatorCode" MaxLength="5" FixedLength="false" Unicode="false" />
         </EntityType>
-        <ComplexType Name="usp_CreateRma_ProcessByDestGl_Result1">
-          <Property Type="Int32" Name="Serial" Nullable="false" />
-          <Property Type="Decimal" Name="Quantity" Nullable="false" Precision="20" Scale="6" />
-        </ComplexType>
-        <ComplexType Name="usp_CreateRma_ProcessByDestGl_Result2">
-          <Property Type="Int32" Name="Serial" Nullable="false" />
-          <Property Type="Decimal" Name="Quantity" Nullable="false" Precision="20" Scale="6" />
-        </ComplexType>
         <ComplexType Name="QualityRMA_Details">
           <Property Type="Int32" Name="RMAShipperID" Nullable="true" />
           <Property Type="DateTime" Name="RMADateStamp" Nullable="true" Precision="23" />
@@ -505,6 +598,46 @@ FROM [RTV].[OpenRTVs] AS [OpenRTVs]</DefiningQuery>
           <Property Type="DateTime" Name="EEHDateTime" Nullable="true" Precision="23" />
           <Property Type="DateTime" Name="LocalDatetime" Nullable="true" Precision="23" />
         </ComplexType>
+        <ComplexType Name="usp_CreatedRmaRtvSummary_Result">
+          <Property Type="String" Name="ShipperType" Nullable="false" MaxLength="3" />
+          <Property Type="String" Name="Shipper" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="Part" Nullable="false" MaxLength="25" />
+          <Property Type="String" Name="GlSegment" Nullable="true" MaxLength="20" />
+          <Property Type="Int32" Name="TotalSerials" Nullable="true" />
+          <Property Type="Decimal" Name="TotalQuantity" Nullable="true" Precision="38" Scale="6" />
+        </ComplexType>
+        <ComplexType Name="usp_CreateRma_ProcessByDestGl2_Result">
+          <Property Type="Int32" Name="RmaShipper" Nullable="true" />
+          <Property Type="Int32" Name="RtvShipper" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="usp_CreatedRmaRtvHistory_Result">
+          <Property Type="String" Name="Type" Nullable="false" MaxLength="3" />
+          <Property Type="String" Name="Shipper" Nullable="true" MaxLength="20" />
+          <Property Type="Int32" Name="Serial" Nullable="false" />
+          <Property Type="String" Name="Part" Nullable="false" MaxLength="25" />
+          <Property Type="String" Name="GlSegment" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="Quantity" Nullable="true" MaxLength="30" />
+          <Property Type="String" Name="AuditTrailDate" Nullable="true" MaxLength="30" />
+        </ComplexType>
+        <ComplexType Name="usp_CreatedRmaRtvHistoryByDates_Result">
+          <Property Type="String" Name="Type" Nullable="false" MaxLength="3" />
+          <Property Type="String" Name="RmaRtvNumber" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="Shipper" Nullable="true" MaxLength="20" />
+          <Property Type="Int32" Name="Serial" Nullable="false" />
+          <Property Type="String" Name="Part" Nullable="false" MaxLength="25" />
+          <Property Type="String" Name="GlSegment" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="Quantity" Nullable="true" MaxLength="30" />
+          <Property Type="String" Name="AuditTrailDate" Nullable="true" MaxLength="30" />
+        </ComplexType>
+        <ComplexType Name="usp_CreatedRmaRtvHistoryByShipper_Result">
+          <Property Type="String" Name="Type" Nullable="false" MaxLength="3" />
+          <Property Type="String" Name="RmaRtvNumber" Nullable="false" MaxLength="50" />
+          <Property Type="Int32" Name="Serial" Nullable="false" />
+          <Property Type="String" Name="Part" Nullable="false" MaxLength="25" />
+          <Property Type="String" Name="GlSegment" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="Quantity" Nullable="true" MaxLength="30" />
+          <Property Type="String" Name="AuditTrailDate" Nullable="true" MaxLength="30" />
+        </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -535,12 +668,12 @@ FROM [RTV].[OpenRTVs] AS [OpenRTVs]</DefiningQuery>
           </EntitySetMapping>
           <FunctionImportMapping FunctionImportName="usp_CreateRma_ImportSerialsQuantities" FunctionName="MONITORModel.Store.usp_CreateRma_ImportSerialsQuantities" />
           <FunctionImportMapping FunctionImportName="usp_CreateRma_ProcessSerialsQuantities" FunctionName="MONITORModel.Store.usp_CreateRma_ProcessSerialsQuantities" />
-          <FunctionImportMapping FunctionImportName="usp_CreateRma_DeleteSerialsQuantities" FunctionName="MONITORModel.Store.usp_CreateRma_DeleteSerialsQuantities" />
           <FunctionImportMapping FunctionImportName="usp_CreateRma_TransferOnHoldSerials" FunctionName="MONITORModel.Store.usp_CreateRma_TransferOnHoldSerials" />
           <FunctionImportMapping FunctionImportName="usp_CreateRma_GetSerialsFromPartDest" FunctionName="MONITORModel.Store.usp_CreateRma_GetSerialsFromPartDest" />
           <EntitySetMapping Name="SerialsQuantitiesToAutoRMA_RTV">
             <EntityTypeMapping TypeName="MONITORModel.SerialsQuantitiesToAutoRMA_RTV">
               <MappingFragment StoreEntitySet="SerialsQuantitiesToAutoRMA_RTV">
+                <ScalarProperty Name="OperatorCode" ColumnName="OperatorCode" />
                 <ScalarProperty Name="Quantity" ColumnName="Quantity" />
                 <ScalarProperty Name="Serial" ColumnName="Serial" />
               </MappingFragment>
@@ -640,7 +773,6 @@ FROM [RTV].[OpenRTVs] AS [OpenRTVs]</DefiningQuery>
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <FunctionImportMapping FunctionImportName="usp_CreateRTV_ImportSerials" FunctionName="MONITORModel.Store.usp_CreateRTV_ImportSerials" />
           <FunctionImportMapping FunctionImportName="usp_EEHLivelyTest" FunctionName="MONITORModel.Store.usp_EEHLivelyTest">
             <ResultMapping>
               <ComplexTypeMapping TypeName="MONITORModel.usp_EEHLivelyTest_Result">
@@ -649,7 +781,71 @@ FROM [RTV].[OpenRTVs] AS [OpenRTVs]</DefiningQuery>
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="usp_CreateRTV_ImportSerials_ToExistingRTV" FunctionName="MONITORModel.Store.usp_CreateRTV_ImportSerials_ToExistingRTV" />
+          <FunctionImportMapping FunctionImportName="usp_CreateRma_DeleteSerialsQuantitiesByOperator" FunctionName="MONITORModel.Store.usp_CreateRma_DeleteSerialsQuantitiesByOperator" />
+          <FunctionImportMapping FunctionImportName="usp_CreatedRmaRtvRollback" FunctionName="MONITORModel.Store.usp_CreatedRmaRtvRollback" />
+          <FunctionImportMapping FunctionImportName="usp_CreatedRmaRtvSummary" FunctionName="MONITORModel.Store.usp_CreatedRmaRtvSummary">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="MONITORModel.usp_CreatedRmaRtvSummary_Result">
+                <ScalarProperty Name="ShipperType" ColumnName="ShipperType" />
+                <ScalarProperty Name="Shipper" ColumnName="Shipper" />
+                <ScalarProperty Name="Part" ColumnName="Part" />
+                <ScalarProperty Name="GlSegment" ColumnName="GlSegment" />
+                <ScalarProperty Name="TotalSerials" ColumnName="TotalSerials" />
+                <ScalarProperty Name="TotalQuantity" ColumnName="TotalQuantity" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="usp_CreateRma_ImportSerialsQuantitiesByOperator" FunctionName="MONITORModel.Store.usp_CreateRma_ImportSerialsQuantitiesByOperator" />
+          <FunctionImportMapping FunctionImportName="usp_CreateRma_ProcessByDestGl2" FunctionName="MONITORModel.Store.usp_CreateRma_ProcessByDestGl2">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="MONITORModel.usp_CreateRma_ProcessByDestGl2_Result">
+                <ScalarProperty Name="RmaShipper" ColumnName="RmaShipper" />
+                <ScalarProperty Name="RtvShipper" ColumnName="RtvShipper" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="usp_CreatedRmaRtvHistory" FunctionName="MONITORModel.Store.usp_CreatedRmaRtvHistory">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="MONITORModel.usp_CreatedRmaRtvHistory_Result">
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="Shipper" ColumnName="Shipper" />
+                <ScalarProperty Name="Serial" ColumnName="Serial" />
+                <ScalarProperty Name="Part" ColumnName="Part" />
+                <ScalarProperty Name="GlSegment" ColumnName="GlSegment" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="AuditTrailDate" ColumnName="AuditTrailDate" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="usp_CreatedRmaRtvHistoryByDates" FunctionName="MONITORModel.Store.usp_CreatedRmaRtvHistoryByDates">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="MONITORModel.usp_CreatedRmaRtvHistoryByDates_Result">
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="RmaRtvNumber" ColumnName="RmaRtvNumber" />
+                <ScalarProperty Name="Shipper" ColumnName="Shipper" />
+                <ScalarProperty Name="Serial" ColumnName="Serial" />
+                <ScalarProperty Name="Part" ColumnName="Part" />
+                <ScalarProperty Name="GlSegment" ColumnName="GlSegment" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="AuditTrailDate" ColumnName="AuditTrailDate" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="usp_CreatedRmaRtvHistoryByShipper" FunctionName="MONITORModel.Store.usp_CreatedRmaRtvHistoryByShipper">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="MONITORModel.usp_CreatedRmaRtvHistoryByShipper_Result">
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="RmaRtvNumber" ColumnName="RmaRtvNumber" />
+                <ScalarProperty Name="Serial" ColumnName="Serial" />
+                <ScalarProperty Name="Part" ColumnName="Part" />
+                <ScalarProperty Name="GlSegment" ColumnName="GlSegment" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="AuditTrailDate" ColumnName="AuditTrailDate" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="usp_CreateRma_Honduras_RecordException" FunctionName="MONITORModel.Store.usp_CreateRma_Honduras_RecordException" />
+          <FunctionImportMapping FunctionImportName="usp_CreateRTV_ImportSerials" FunctionName="MONITORModel.Store.usp_CreateRTV_ImportSerials" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

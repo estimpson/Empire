@@ -35,19 +35,28 @@
             this.mesBtnNewRma = new Fx.WinForms.Flat.MESButton();
             this.mesBtnAssignPo = new Fx.WinForms.Flat.MESButton();
             this.mesBtnEditRma = new Fx.WinForms.Flat.MESButton();
+            this.RtvButton = new Fx.WinForms.Flat.MESButton();
+            this.mesBtnTransferInv = new Fx.WinForms.Flat.MESButton();
+            this.mesBtnShipoutExistingRtv = new Fx.WinForms.Flat.MESButton();
+            this.mesBtnHistory = new Fx.WinForms.Flat.MESButton();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.label1 = new System.Windows.Forms.Label();
             this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
-            this.lblPassword = new System.Windows.Forms.Label();
+            this.tableLayoutPanel4 = new System.Windows.Forms.TableLayoutPanel();
+            this.lblOpCode = new System.Windows.Forms.Label();
+            this.mesTbxOpCode = new Fx.WinForms.Flat.MESTextEdit();
+            this.tableLayoutPanel5 = new System.Windows.Forms.TableLayoutPanel();
             this.mesTbxPassword = new Fx.WinForms.Flat.MESTextEdit();
+            this.lblPassword = new System.Windows.Forms.Label();
             this.mesBtnLogon = new Fx.WinForms.Flat.MESButton();
             this.lblLogonError = new System.Windows.Forms.Label();
             this.lblScanInstructions = new System.Windows.Forms.Label();
-            this.RtvButton = new Fx.WinForms.Flat.MESButton();
             this.tableLayoutPanel1.SuspendLayout();
             this.flowLayoutPanel1.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
             this.tableLayoutPanel3.SuspendLayout();
+            this.tableLayoutPanel4.SuspendLayout();
+            this.tableLayoutPanel5.SuspendLayout();
             this.SuspendLayout();
             // 
             // tableLayoutPanel1
@@ -61,22 +70,23 @@
             this.tableLayoutPanel1.Controls.Add(this.flowLayoutPanel1, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.tableLayoutPanel2, 1, 0);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 24);
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 20);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.Padding = new System.Windows.Forms.Padding(20, 0, 20, 20);
             this.tableLayoutPanel1.RowCount = 1;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(1038, 558);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(1038, 574);
             this.tableLayoutPanel1.TabIndex = 0;
             // 
             // linkLblClose
             // 
             this.linkLblClose.AutoSize = true;
             this.linkLblClose.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.linkLblClose.LinkColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(122)))), ((int)(((byte)(204)))));
             this.linkLblClose.Location = new System.Drawing.Point(951, 0);
             this.linkLblClose.Name = "linkLblClose";
             this.linkLblClose.Size = new System.Drawing.Size(63, 20);
-            this.linkLblClose.TabIndex = 0;
+            this.linkLblClose.TabIndex = 10;
             this.linkLblClose.TabStop = true;
             this.linkLblClose.Text = "CLOSE";
             this.linkLblClose.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLblClose_LinkClicked);
@@ -89,11 +99,14 @@
             this.flowLayoutPanel1.Controls.Add(this.mesBtnAssignPo);
             this.flowLayoutPanel1.Controls.Add(this.mesBtnEditRma);
             this.flowLayoutPanel1.Controls.Add(this.RtvButton);
+            this.flowLayoutPanel1.Controls.Add(this.mesBtnTransferInv);
+            this.flowLayoutPanel1.Controls.Add(this.mesBtnShipoutExistingRtv);
+            this.flowLayoutPanel1.Controls.Add(this.mesBtnHistory);
             this.flowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.flowLayoutPanel1.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
             this.flowLayoutPanel1.Location = new System.Drawing.Point(23, 3);
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
-            this.flowLayoutPanel1.Size = new System.Drawing.Size(174, 532);
+            this.flowLayoutPanel1.Size = new System.Drawing.Size(174, 548);
             this.flowLayoutPanel1.TabIndex = 1;
             // 
             // mesBtnNewRma
@@ -105,11 +118,11 @@
             this.mesBtnNewRma.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.mesBtnNewRma.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.mesBtnNewRma.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
-            this.mesBtnNewRma.Location = new System.Drawing.Point(3, 3);
-            this.mesBtnNewRma.Margin = new System.Windows.Forms.Padding(3, 3, 3, 9);
+            this.mesBtnNewRma.Location = new System.Drawing.Point(3, 12);
+            this.mesBtnNewRma.Margin = new System.Windows.Forms.Padding(3, 12, 3, 12);
             this.mesBtnNewRma.Name = "mesBtnNewRma";
             this.mesBtnNewRma.Size = new System.Drawing.Size(158, 35);
-            this.mesBtnNewRma.TabIndex = 0;
+            this.mesBtnNewRma.TabIndex = 3;
             this.mesBtnNewRma.Text = "RMA / RTV";
             this.mesBtnNewRma.UseVisualStyleBackColor = false;
             this.mesBtnNewRma.Click += new System.EventHandler(this.mesBtnNewRma_Click);
@@ -123,11 +136,11 @@
             this.mesBtnAssignPo.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.mesBtnAssignPo.Font = new System.Drawing.Font("Tahoma", 14F);
             this.mesBtnAssignPo.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
-            this.mesBtnAssignPo.Location = new System.Drawing.Point(3, 50);
-            this.mesBtnAssignPo.Margin = new System.Windows.Forms.Padding(3, 3, 3, 9);
+            this.mesBtnAssignPo.Location = new System.Drawing.Point(3, 62);
+            this.mesBtnAssignPo.Margin = new System.Windows.Forms.Padding(3, 3, 3, 12);
             this.mesBtnAssignPo.Name = "mesBtnAssignPo";
             this.mesBtnAssignPo.Size = new System.Drawing.Size(158, 35);
-            this.mesBtnAssignPo.TabIndex = 2;
+            this.mesBtnAssignPo.TabIndex = 4;
             this.mesBtnAssignPo.Text = "Assign PO";
             this.mesBtnAssignPo.UseVisualStyleBackColor = false;
             this.mesBtnAssignPo.Click += new System.EventHandler(this.mesBtnAssignPo_Click);
@@ -141,14 +154,91 @@
             this.mesBtnEditRma.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.mesBtnEditRma.Font = new System.Drawing.Font("Tahoma", 14F);
             this.mesBtnEditRma.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
-            this.mesBtnEditRma.Location = new System.Drawing.Point(3, 97);
-            this.mesBtnEditRma.Margin = new System.Windows.Forms.Padding(3, 3, 3, 6);
+            this.mesBtnEditRma.Location = new System.Drawing.Point(3, 112);
+            this.mesBtnEditRma.Margin = new System.Windows.Forms.Padding(3, 3, 3, 12);
             this.mesBtnEditRma.Name = "mesBtnEditRma";
             this.mesBtnEditRma.Size = new System.Drawing.Size(158, 35);
-            this.mesBtnEditRma.TabIndex = 1;
+            this.mesBtnEditRma.TabIndex = 5;
+            this.mesBtnEditRma.TabStop = false;
             this.mesBtnEditRma.Text = "Edit";
             this.mesBtnEditRma.UseVisualStyleBackColor = false;
+            this.mesBtnEditRma.Visible = false;
             this.mesBtnEditRma.Click += new System.EventHandler(this.mesBtnEditRma_Click);
+            // 
+            // RtvButton
+            // 
+            this.RtvButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(31)))), ((int)(((byte)(31)))), ((int)(((byte)(32)))));
+            this.RtvButton.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(67)))), ((int)(((byte)(67)))), ((int)(((byte)(70)))));
+            this.RtvButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(122)))), ((int)(((byte)(204)))));
+            this.RtvButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(84)))), ((int)(((byte)(84)))), ((int)(((byte)(92)))));
+            this.RtvButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.RtvButton.Font = new System.Drawing.Font("Tahoma", 14F);
+            this.RtvButton.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
+            this.RtvButton.Location = new System.Drawing.Point(3, 162);
+            this.RtvButton.Margin = new System.Windows.Forms.Padding(3, 3, 3, 12);
+            this.RtvButton.Name = "RtvButton";
+            this.RtvButton.Size = new System.Drawing.Size(158, 35);
+            this.RtvButton.TabIndex = 6;
+            this.RtvButton.TabStop = false;
+            this.RtvButton.Text = "RTV";
+            this.RtvButton.UseVisualStyleBackColor = false;
+            this.RtvButton.Visible = false;
+            this.RtvButton.Click += new System.EventHandler(this.RtvButtonClick);
+            // 
+            // mesBtnTransferInv
+            // 
+            this.mesBtnTransferInv.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(31)))), ((int)(((byte)(31)))), ((int)(((byte)(32)))));
+            this.mesBtnTransferInv.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(67)))), ((int)(((byte)(67)))), ((int)(((byte)(70)))));
+            this.mesBtnTransferInv.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(122)))), ((int)(((byte)(204)))));
+            this.mesBtnTransferInv.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(84)))), ((int)(((byte)(84)))), ((int)(((byte)(92)))));
+            this.mesBtnTransferInv.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.mesBtnTransferInv.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.mesBtnTransferInv.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
+            this.mesBtnTransferInv.Location = new System.Drawing.Point(3, 212);
+            this.mesBtnTransferInv.Margin = new System.Windows.Forms.Padding(3, 3, 3, 12);
+            this.mesBtnTransferInv.Name = "mesBtnTransferInv";
+            this.mesBtnTransferInv.Size = new System.Drawing.Size(158, 35);
+            this.mesBtnTransferInv.TabIndex = 7;
+            this.mesBtnTransferInv.Text = "Transfer Inv";
+            this.mesBtnTransferInv.UseVisualStyleBackColor = false;
+            this.mesBtnTransferInv.Click += new System.EventHandler(this.mesBtnTransferInv_Click);
+            // 
+            // mesBtnShipoutExistingRtv
+            // 
+            this.mesBtnShipoutExistingRtv.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(31)))), ((int)(((byte)(31)))), ((int)(((byte)(32)))));
+            this.mesBtnShipoutExistingRtv.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(67)))), ((int)(((byte)(67)))), ((int)(((byte)(70)))));
+            this.mesBtnShipoutExistingRtv.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(122)))), ((int)(((byte)(204)))));
+            this.mesBtnShipoutExistingRtv.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(84)))), ((int)(((byte)(84)))), ((int)(((byte)(92)))));
+            this.mesBtnShipoutExistingRtv.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.mesBtnShipoutExistingRtv.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.mesBtnShipoutExistingRtv.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
+            this.mesBtnShipoutExistingRtv.Location = new System.Drawing.Point(3, 262);
+            this.mesBtnShipoutExistingRtv.Margin = new System.Windows.Forms.Padding(3, 3, 3, 12);
+            this.mesBtnShipoutExistingRtv.Name = "mesBtnShipoutExistingRtv";
+            this.mesBtnShipoutExistingRtv.Size = new System.Drawing.Size(158, 35);
+            this.mesBtnShipoutExistingRtv.TabIndex = 8;
+            this.mesBtnShipoutExistingRtv.Text = "Ship Existing RTV";
+            this.mesBtnShipoutExistingRtv.UseVisualStyleBackColor = false;
+            this.mesBtnShipoutExistingRtv.Click += new System.EventHandler(this.mesBtnShipoutExistingRtv_Click);
+            // 
+            // mesBtnHistory
+            // 
+            this.mesBtnHistory.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(31)))), ((int)(((byte)(31)))), ((int)(((byte)(32)))));
+            this.mesBtnHistory.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(67)))), ((int)(((byte)(67)))), ((int)(((byte)(70)))));
+            this.mesBtnHistory.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(122)))), ((int)(((byte)(204)))));
+            this.mesBtnHistory.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(84)))), ((int)(((byte)(84)))), ((int)(((byte)(92)))));
+            this.mesBtnHistory.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.mesBtnHistory.Font = new System.Drawing.Font("Tahoma", 14F);
+            this.mesBtnHistory.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
+            this.mesBtnHistory.Location = new System.Drawing.Point(3, 312);
+            this.mesBtnHistory.Margin = new System.Windows.Forms.Padding(3, 3, 3, 12);
+            this.mesBtnHistory.Name = "mesBtnHistory";
+            this.mesBtnHistory.Size = new System.Drawing.Size(158, 35);
+            this.mesBtnHistory.TabIndex = 9;
+            this.mesBtnHistory.TabStop = false;
+            this.mesBtnHistory.Text = "History";
+            this.mesBtnHistory.UseVisualStyleBackColor = false;
+            this.mesBtnHistory.Click += new System.EventHandler(this.mesBtnHistory_Click);
             // 
             // tableLayoutPanel2
             // 
@@ -162,10 +252,10 @@
             this.tableLayoutPanel2.Location = new System.Drawing.Point(203, 3);
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
             this.tableLayoutPanel2.RowCount = 3;
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 200F));
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 212F));
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 60F));
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(742, 532);
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(742, 548);
             this.tableLayoutPanel2.TabIndex = 2;
             // 
             // label1
@@ -173,22 +263,22 @@
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Century Gothic", 36F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.ForeColor = System.Drawing.Color.White;
-            this.label1.Location = new System.Drawing.Point(93, 200);
+            this.label1.Location = new System.Drawing.Point(93, 212);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(462, 58);
-            this.label1.TabIndex = 0;
+            this.label1.TabIndex = 4;
             this.label1.Text = "RMA Maintenance";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // tableLayoutPanel3
             // 
             this.tableLayoutPanel3.ColumnCount = 4;
-            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 80F));
-            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 120F));
-            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 130F));
+            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 90F));
+            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 95F));
+            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 115F));
             this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.tableLayoutPanel3.Controls.Add(this.lblPassword, 0, 0);
-            this.tableLayoutPanel3.Controls.Add(this.mesTbxPassword, 1, 0);
+            this.tableLayoutPanel3.Controls.Add(this.tableLayoutPanel4, 0, 0);
+            this.tableLayoutPanel3.Controls.Add(this.tableLayoutPanel5, 1, 0);
             this.tableLayoutPanel3.Controls.Add(this.mesBtnLogon, 2, 0);
             this.tableLayoutPanel3.Controls.Add(this.lblLogonError, 3, 0);
             this.tableLayoutPanel3.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -196,8 +286,76 @@
             this.tableLayoutPanel3.Name = "tableLayoutPanel3";
             this.tableLayoutPanel3.RowCount = 1;
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel3.Size = new System.Drawing.Size(656, 194);
+            this.tableLayoutPanel3.Size = new System.Drawing.Size(656, 206);
             this.tableLayoutPanel3.TabIndex = 1;
+            // 
+            // tableLayoutPanel4
+            // 
+            this.tableLayoutPanel4.ColumnCount = 1;
+            this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel4.Controls.Add(this.lblOpCode, 0, 0);
+            this.tableLayoutPanel4.Controls.Add(this.mesTbxOpCode, 0, 1);
+            this.tableLayoutPanel4.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanel4.Location = new System.Drawing.Point(0, 0);
+            this.tableLayoutPanel4.Margin = new System.Windows.Forms.Padding(0);
+            this.tableLayoutPanel4.Name = "tableLayoutPanel4";
+            this.tableLayoutPanel4.RowCount = 2;
+            this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 19F));
+            this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanel4.Size = new System.Drawing.Size(90, 206);
+            this.tableLayoutPanel4.TabIndex = 4;
+            // 
+            // lblOpCode
+            // 
+            this.lblOpCode.AutoSize = true;
+            this.lblOpCode.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblOpCode.ForeColor = System.Drawing.Color.White;
+            this.lblOpCode.Location = new System.Drawing.Point(3, 0);
+            this.lblOpCode.Name = "lblOpCode";
+            this.lblOpCode.Size = new System.Drawing.Size(64, 16);
+            this.lblOpCode.TabIndex = 7;
+            this.lblOpCode.Text = "Operator:";
+            // 
+            // mesTbxOpCode
+            // 
+            this.mesTbxOpCode.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(37)))), ((int)(((byte)(38)))));
+            this.mesTbxOpCode.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.mesTbxOpCode.Font = new System.Drawing.Font("Tahoma", 12F);
+            this.mesTbxOpCode.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
+            this.mesTbxOpCode.Location = new System.Drawing.Point(3, 22);
+            this.mesTbxOpCode.Name = "mesTbxOpCode";
+            this.mesTbxOpCode.Size = new System.Drawing.Size(72, 27);
+            this.mesTbxOpCode.TabIndex = 0;
+            // 
+            // tableLayoutPanel5
+            // 
+            this.tableLayoutPanel5.ColumnCount = 1;
+            this.tableLayoutPanel5.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel5.Controls.Add(this.mesTbxPassword, 0, 1);
+            this.tableLayoutPanel5.Controls.Add(this.lblPassword, 0, 0);
+            this.tableLayoutPanel5.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanel5.Location = new System.Drawing.Point(90, 0);
+            this.tableLayoutPanel5.Margin = new System.Windows.Forms.Padding(0);
+            this.tableLayoutPanel5.Name = "tableLayoutPanel5";
+            this.tableLayoutPanel5.RowCount = 2;
+            this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 19F));
+            this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanel5.Size = new System.Drawing.Size(95, 206);
+            this.tableLayoutPanel5.TabIndex = 5;
+            // 
+            // mesTbxPassword
+            // 
+            this.mesTbxPassword.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(37)))), ((int)(((byte)(38)))));
+            this.mesTbxPassword.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.mesTbxPassword.Font = new System.Drawing.Font("Tahoma", 12F);
+            this.mesTbxPassword.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
+            this.mesTbxPassword.Location = new System.Drawing.Point(3, 22);
+            this.mesTbxPassword.MaxLength = 10;
+            this.mesTbxPassword.Name = "mesTbxPassword";
+            this.mesTbxPassword.PasswordChar = '*';
+            this.mesTbxPassword.Size = new System.Drawing.Size(72, 27);
+            this.mesTbxPassword.TabIndex = 1;
+            this.mesTbxPassword.KeyDown += new System.Windows.Forms.KeyEventHandler(this.MESTbxPasswordKeyDown);
             // 
             // lblPassword
             // 
@@ -207,22 +365,8 @@
             this.lblPassword.Location = new System.Drawing.Point(3, 0);
             this.lblPassword.Name = "lblPassword";
             this.lblPassword.Size = new System.Drawing.Size(68, 16);
-            this.lblPassword.TabIndex = 0;
+            this.lblPassword.TabIndex = 8;
             this.lblPassword.Text = "Password:";
-            // 
-            // mesTbxPassword
-            // 
-            this.mesTbxPassword.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(37)))), ((int)(((byte)(38)))));
-            this.mesTbxPassword.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.mesTbxPassword.Font = new System.Drawing.Font("Tahoma", 12F);
-            this.mesTbxPassword.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
-            this.mesTbxPassword.Location = new System.Drawing.Point(83, 3);
-            this.mesTbxPassword.MaxLength = 10;
-            this.mesTbxPassword.Name = "mesTbxPassword";
-            this.mesTbxPassword.PasswordChar = '*';
-            this.mesTbxPassword.Size = new System.Drawing.Size(100, 27);
-            this.mesTbxPassword.TabIndex = 1;
-            this.mesTbxPassword.KeyDown += new System.Windows.Forms.KeyEventHandler(this.MESTbxPasswordKeyDown);
             // 
             // mesBtnLogon
             // 
@@ -233,9 +377,10 @@
             this.mesBtnLogon.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.mesBtnLogon.Font = new System.Drawing.Font("Tahoma", 14F);
             this.mesBtnLogon.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
-            this.mesBtnLogon.Location = new System.Drawing.Point(203, 3);
+            this.mesBtnLogon.Location = new System.Drawing.Point(188, 18);
+            this.mesBtnLogon.Margin = new System.Windows.Forms.Padding(3, 18, 3, 3);
             this.mesBtnLogon.Name = "mesBtnLogon";
-            this.mesBtnLogon.Size = new System.Drawing.Size(110, 35);
+            this.mesBtnLogon.Size = new System.Drawing.Size(99, 35);
             this.mesBtnLogon.TabIndex = 2;
             this.mesBtnLogon.Text = "Log On";
             this.mesBtnLogon.UseVisualStyleBackColor = false;
@@ -246,10 +391,11 @@
             this.lblLogonError.AutoSize = true;
             this.lblLogonError.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblLogonError.ForeColor = System.Drawing.Color.Red;
-            this.lblLogonError.Location = new System.Drawing.Point(333, 0);
+            this.lblLogonError.Location = new System.Drawing.Point(303, 15);
+            this.lblLogonError.Margin = new System.Windows.Forms.Padding(3, 15, 3, 0);
             this.lblLogonError.Name = "lblLogonError";
             this.lblLogonError.Size = new System.Drawing.Size(92, 16);
-            this.lblLogonError.TabIndex = 3;
+            this.lblLogonError.TabIndex = 6;
             this.lblLogonError.Text = "Error message";
             // 
             // lblScanInstructions
@@ -257,45 +403,27 @@
             this.lblScanInstructions.AutoSize = true;
             this.lblScanInstructions.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblScanInstructions.ForeColor = System.Drawing.Color.White;
-            this.lblScanInstructions.Location = new System.Drawing.Point(93, 260);
+            this.lblScanInstructions.Location = new System.Drawing.Point(93, 272);
             this.lblScanInstructions.Name = "lblScanInstructions";
             this.lblScanInstructions.Padding = new System.Windows.Forms.Padding(10, 0, 0, 0);
             this.lblScanInstructions.Size = new System.Drawing.Size(190, 18);
-            this.lblScanInstructions.TabIndex = 2;
+            this.lblScanInstructions.TabIndex = 5;
             this.lblScanInstructions.Text = "Scan your badge to begin.";
-            // 
-            // RtvButton
-            // 
-            this.RtvButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(31)))), ((int)(((byte)(31)))), ((int)(((byte)(32)))));
-            this.RtvButton.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(67)))), ((int)(((byte)(67)))), ((int)(((byte)(70)))));
-            this.RtvButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(122)))), ((int)(((byte)(204)))));
-            this.RtvButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(84)))), ((int)(((byte)(84)))), ((int)(((byte)(92)))));
-            this.RtvButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.RtvButton.Font = new System.Drawing.Font("Tahoma", 14F);
-            this.RtvButton.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
-            this.RtvButton.Location = new System.Drawing.Point(3, 141);
-            this.RtvButton.Margin = new System.Windows.Forms.Padding(3, 3, 3, 6);
-            this.RtvButton.Name = "RtvButton";
-            this.RtvButton.Size = new System.Drawing.Size(158, 35);
-            this.RtvButton.TabIndex = 3;
-            this.RtvButton.Text = "RTV";
-            this.RtvButton.UseVisualStyleBackColor = false;
-            this.RtvButton.Click += new System.EventHandler(this.RtvButtonClick);
             // 
             // formMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(15)))), ((int)(((byte)(15)))));
-            this.ClientSize = new System.Drawing.Size(1038, 582);
+            this.ClientSize = new System.Drawing.Size(1038, 594);
             this.ControlBox = false;
             this.Controls.Add(this.tableLayoutPanel1);
             this.ForeColor = System.Drawing.SystemColors.ControlText;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.MinimumSize = new System.Drawing.Size(1038, 582);
+            this.MinimumSize = new System.Drawing.Size(1038, 594);
             this.Name = "formMain";
-            this.Padding = new System.Windows.Forms.Padding(0, 24, 0, 0);
+            this.Padding = new System.Windows.Forms.Padding(0, 20, 0, 0);
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "RMA Processing";
             this.Activated += new System.EventHandler(this.formMain_Activated);
@@ -307,6 +435,10 @@
             this.tableLayoutPanel2.PerformLayout();
             this.tableLayoutPanel3.ResumeLayout(false);
             this.tableLayoutPanel3.PerformLayout();
+            this.tableLayoutPanel4.ResumeLayout(false);
+            this.tableLayoutPanel4.PerformLayout();
+            this.tableLayoutPanel5.ResumeLayout(false);
+            this.tableLayoutPanel5.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -328,6 +460,13 @@
         private Fx.WinForms.Flat.MESButton mesBtnEditRma;
         private Fx.WinForms.Flat.MESButton mesBtnAssignPo;
         private Fx.WinForms.Flat.MESButton RtvButton;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel4;
+        private System.Windows.Forms.Label lblOpCode;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel5;
+        private Fx.WinForms.Flat.MESTextEdit mesTbxOpCode;
+        private Fx.WinForms.Flat.MESButton mesBtnHistory;
+        private Fx.WinForms.Flat.MESButton mesBtnTransferInv;
+        private Fx.WinForms.Flat.MESButton mesBtnShipoutExistingRtv;
     }
 }
 

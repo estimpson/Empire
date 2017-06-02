@@ -30,10 +30,14 @@
         {
             this.components = new System.ComponentModel.Container();
             Microsoft.Reporting.WinForms.ReportDataSource reportDataSource1 = new Microsoft.Reporting.WinForms.ReportDataSource();
-            this.reportViewer1 = new Microsoft.Reporting.WinForms.ReportViewer();
             this.createRmaRTVPackingSlipBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.reportViewer1 = new Microsoft.Reporting.WinForms.ReportViewer();
             ((System.ComponentModel.ISupportInitialize)(this.createRmaRTVPackingSlipBindingSource)).BeginInit();
             this.SuspendLayout();
+            // 
+            // createRmaRTVPackingSlipBindingSource
+            // 
+            this.createRmaRTVPackingSlipBindingSource.DataSource = typeof(RmaMaintenance.Model.CreateRma_RTV_PackingSlip);
             // 
             // reportViewer1
             // 
@@ -47,10 +51,6 @@
             this.reportViewer1.Size = new System.Drawing.Size(679, 302);
             this.reportViewer1.TabIndex = 0;
             // 
-            // createRmaRTVPackingSlipBindingSource
-            // 
-            this.createRmaRTVPackingSlipBindingSource.DataSource = typeof(RmaMaintenance.Model.CreateRma_RTV_PackingSlip);
-            // 
             // RTVPackingSlip
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -63,6 +63,7 @@
             this.ShowIcon = false;
             this.ShowInTaskbar = false;
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "RTV Packing Slip";
             this.Load += new System.EventHandler(this.RTVPackingSlip_Load);
             ((System.ComponentModel.ISupportInitialize)(this.createRmaRTVPackingSlipBindingSource)).EndInit();

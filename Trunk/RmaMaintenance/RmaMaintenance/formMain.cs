@@ -16,17 +16,22 @@ namespace RmaMaintenance
         #region Class Objects
 
         private readonly MainController _controller;
-        private NewRmaView _newRmaView;
+        //private NewRmaView _newRmaView;
+        private SerialEntryOptions _serialOptions;
         private AssignPoView _assignPoView;
+        private TransferOptions _transferOptions;
+        private ShipoutExistingRtvOnly _shipoutExistingRtvOnly;
+        private RmaRtvHistoryOptions _rmaRtvHistoryOptions;
 
         #endregion
+
 
         #region Variables
 
-        private string _name;
         private string _operatorCode;
 
         #endregion
+
 
         #region Constants
 
@@ -34,6 +39,7 @@ namespace RmaMaintenance
         private const int CCaption = 24; // Caption bar height;
 
         #endregion
+
 
         #region Enums
 
@@ -45,6 +51,7 @@ namespace RmaMaintenance
 
         #endregion
 
+
         #region Constructor, Load, Activated
 
         public formMain()
@@ -53,9 +60,9 @@ namespace RmaMaintenance
 
             _controller = new MainController();
 
-            var newRtvView = new NewRtvView();
-            newRtvView.SetViewModel(new RtvController { OperatorCode = _operatorCode });
-            newRtvView.ShowDialog();
+            //var newRtvView = new NewRtvView();
+            //newRtvView.SetViewModel(new RtvController { OperatorCode = _operatorCode });
+            //newRtvView.ShowDialog();
         }
 
         private void formMain_Load(object sender, EventArgs e)
@@ -68,18 +75,19 @@ namespace RmaMaintenance
             //RFIDReader.RFIDRead += RFIDReader_RFIDRead;
 
             lblScanInstructions.Visible = false;
-            TogglePasswordEntry(ManualLogon.Show, "");
+            lblLogonError.Text = "";
 
-            mesBtnEditRma.Visible = false;
+            flowLayoutPanel1.Enabled = false;
         }
 
 
         private void formMain_Activated(object sender, EventArgs e)
         {
-            mesTbxPassword.Focus();
+            mesTbxOpCode.Focus();
         }
 
         #endregion
+
 
         #region LinkButton Events
 
@@ -100,20 +108,29 @@ namespace RmaMaintenance
 
         #endregion
 
+
         #region Button Click Events
 
         private void mesBtnLogon_Click(object sender, EventArgs e)
         {
-            string password = mesTbxPassword.Text.Trim();
-            if (password == "") return;
-
-            ValidateLogonAttempt(password);
+            ValidateLogonAttempt();
         }
 
         private void mesBtnNewRma_Click(object sender, EventArgs e)
         {
-            _newRmaView = new NewRmaView {OperatorCode = _operatorCode};
-            _newRmaView.ShowDialog();
+            //_newRmaView = new NewRmaView {OperatorCode = _operatorCode};
+            //_newRmaView.OptionOneSelected = true;
+            //_newRmaView.ShowDialog();
+
+            _serialOptions = new SerialEntryOptions(_operatorCode);
+            _serialOptions.ShowDialog();
+        }
+
+        private void RtvButtonClick(object sender, EventArgs e)
+        {
+            var newRtvView = new NewRtvView();
+            newRtvView.SetViewModel(new RtvController { OperatorCode = _operatorCode });
+            newRtvView.ShowDialog();
         }
 
         private void mesBtnAssignPo_Click(object sender, EventArgs e)
@@ -122,11 +139,40 @@ namespace RmaMaintenance
             _assignPoView.ShowDialog();
         }
 
+        private void mesBtnTransferInv_Click(object sender, EventArgs e)
+        {
+            _transferOptions = new TransferOptions(_operatorCode);
+            _transferOptions.ShowDialog();
+        }
+
         private void mesBtnEditRma_Click(object sender, EventArgs e)
         {
         }
 
+        private void mesBtnShipoutExistingRtv_Click(object sender, EventArgs e)
+        {
+            _shipoutExistingRtvOnly = new ShipoutExistingRtvOnly(_operatorCode);
+            _shipoutExistingRtvOnly.ShowDialog();
+        }
+
+        private void mesBtnHistory_Click(object sender, EventArgs e)
+        {
+            _rmaRtvHistoryOptions = new RmaRtvHistoryOptions(_operatorCode);
+            _rmaRtvHistoryOptions.ShowDialog();
+        }
+
         #endregion
+
+
+        #region Textbox KeyDown Events
+
+        private void MESTbxPasswordKeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter) ValidateLogonAttempt();
+        }
+
+        #endregion
+
 
         #region Methods
 
@@ -145,67 +191,54 @@ namespace RmaMaintenance
                 pos = PointToClient(pos);
                 if (pos.Y < CCaption)
                 {
-                    m.Result = (IntPtr) 2; // HTCAPTION
+                    m.Result = (IntPtr)2; // HTCAPTION
                     return;
                 }
                 if (pos.X >= ClientSize.Width - CGrip && pos.Y >= ClientSize.Height - CGrip)
                 {
-                    m.Result = (IntPtr) 17; // HTBOTTOMRIGHT
+                    m.Result = (IntPtr)17; // HTBOTTOMRIGHT
                     return;
                 }
             }
             base.WndProc(ref m);
         }
 
-        private void ValidateLogonAttempt(string password)
+        private void ValidateLogonAttempt()
         {
-            string error;
-            _controller.ValidateLogon(password, out _name, out _operatorCode, out error);
-
-            TogglePasswordEntry(error != "" ? ManualLogon.Show : ManualLogon.Hide, error);
-        }
-
-        private void TogglePasswordEntry(ManualLogon manualLogon, string errorMessage)
-        {
-            lblLogonError.Text = errorMessage;
-            mesTbxPassword.Text = "";
-
-            if (manualLogon == ManualLogon.Show)
+            string operatorCode = mesTbxOpCode.Text.Trim();
+            string password = mesTbxPassword.Text.Trim();
+            if (operatorCode == "")
             {
-                lblPassword.Visible = mesTbxPassword.Visible =
-                    mesBtnLogon.Visible = lblLogonError.Visible = true;
+                lblLogonError.Text = "Please enter your operator code.";
+                return;
+            }
+            if (password == "")
+            {
+                lblLogonError.Text = "Please enter your password.";
+                return;
+            }
 
+            string error;
+            _controller.ValidateLogon(operatorCode, password, out error);
+            if (error != "")
+            {
+                lblLogonError.Text = error;
+                mesTbxPassword.Text = "";
                 flowLayoutPanel1.Enabled = false;
 
-                mesTbxPassword.Focus();
+                mesTbxOpCode.Focus();
             }
             else
             {
-                lblPassword.Visible = mesTbxPassword.Visible =
-                    mesBtnLogon.Visible = lblLogonError.Visible = false;
-
+                _operatorCode = operatorCode;
+                lblLogonError.Text = "";
+                lblOpCode.Visible = lblPassword.Visible = mesTbxOpCode.Visible = mesTbxPassword.Visible = mesBtnLogon.Visible = false;
                 flowLayoutPanel1.Enabled = true;
             }
         }
 
         #endregion
 
-        private void MESTbxPasswordKeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.KeyCode == Keys.Enter)
-            {
-                string password = mesTbxPassword.Text.Trim();
-                if (password == "") return;
 
-                ValidateLogonAttempt(password);
-            }
-        }
-
-        private void RtvButtonClick(object sender, EventArgs e)
-        {
-            var newRtvView = new NewRtvView();
-            newRtvView.SetViewModel(new RtvController { OperatorCode = _operatorCode });
-            newRtvView.ShowDialog();
-        }
     }
 }

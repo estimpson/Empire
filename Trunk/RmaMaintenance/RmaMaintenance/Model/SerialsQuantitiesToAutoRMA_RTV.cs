@@ -16,5 +16,6 @@ namespace RmaMaintenance.Model
     {
         public int Serial { get; set; }
         public decimal Quantity { get; set; }
+        public string OperatorCode { get; set; }
     }
 }

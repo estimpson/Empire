@@ -50,15 +50,15 @@ namespace RmaMaintenance.Views
 
         private void panel1_Paint(object sender, PaintEventArgs e)
         {
-            int thickness = 2;
-            int halfThickness = thickness / 2;
-            using (var p = new Pen(Color.FromArgb(0, 122, 204), thickness))
-            {
-                e.Graphics.DrawRectangle(p, new Rectangle(halfThickness,
-                                                          halfThickness,
-                                                          panel1.ClientSize.Width - thickness,
-                                                          panel1.ClientSize.Height - thickness));
-            }
+            //int thickness = 2;
+            //int halfThickness = thickness / 2;
+            //using (var p = new Pen(Color.FromArgb(0, 122, 204), thickness))
+            //{
+            //    e.Graphics.DrawRectangle(p, new Rectangle(halfThickness,
+            //                                              halfThickness,
+            //                                              panel1.ClientSize.Width - thickness,
+            //                                              panel1.ClientSize.Height - thickness));
+            //}
         }
 
         #endregion
