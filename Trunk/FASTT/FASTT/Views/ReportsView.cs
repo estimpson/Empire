@@ -1337,8 +1337,8 @@ namespace FASTT.Views
             //grdViewActivity.Columns["QuotePrice"].DisplayFormat.FormatString = "c2";
             //grdViewActivity.Columns["StraightMaterialCost"].DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
             //grdViewActivity.Columns["StraightMaterialCost"].DisplayFormat.FormatString = "c2";
-            //grdViewActivity.Columns["TotalQuotedSales"].DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
-            //grdViewActivity.Columns["TotalQuotedSales"].DisplayFormat.FormatString = "c2";
+            grdViewActivity.Columns["TotalQuotedSales"].DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
+            grdViewActivity.Columns["TotalQuotedSales"].DisplayFormat.FormatString = "c0";
             grdViewActivity.Columns["MsfTotalPeakYearlySales"].DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
             grdViewActivity.Columns["MsfTotalPeakYearlySales"].DisplayFormat.FormatString = "c0";
 
@@ -1383,6 +1383,7 @@ namespace FASTT.Views
 
             grdViewActivity.Columns["Customer"].Fixed = FixedStyle.Left;
             grdViewActivity.Columns["Program"].Fixed = FixedStyle.Left;
+            grdViewActivity.Columns["Nameplate"].Fixed = FixedStyle.Left;
             grdViewActivity.Columns["EstYearlySales"].Fixed = FixedStyle.Left;
 
             grdViewActivity.Columns["Customer"].Width = 160;
@@ -2148,8 +2149,8 @@ namespace FASTT.Views
             //grdViewDashboard4.Columns["QuotePrice"].DisplayFormat.FormatString = "c2";
             //grdViewDashboard4.Columns["StraightMaterialCost"].DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
             //grdViewDashboard4.Columns["StraightMaterialCost"].DisplayFormat.FormatString = "c2";
-            //grdViewDashboard4.Columns["TotalQuotedSales"].DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
-            //grdViewDashboard4.Columns["TotalQuotedSales"].DisplayFormat.FormatString = "c2";
+            grdViewDashboard4.Columns["TotalQuotedSales"].DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
+            grdViewDashboard4.Columns["TotalQuotedSales"].DisplayFormat.FormatString = "c0";
             grdViewDashboard4.Columns["MsfTotalPeakYearlySales"].DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
             grdViewDashboard4.Columns["MsfTotalPeakYearlySales"].DisplayFormat.FormatString = "c0";
 
@@ -2172,6 +2173,7 @@ namespace FASTT.Views
 
             grdViewDashboard4.Columns["Customer"].Fixed = FixedStyle.Left;
             grdViewDashboard4.Columns["Program"].Fixed = FixedStyle.Left;
+            grdViewDashboard4.Columns["Nameplate"].Fixed = FixedStyle.Left;
             grdViewDashboard4.Columns["EstYearlySales"].Fixed = FixedStyle.Left;
 
             grdViewDashboard4.Columns["Customer"].Width = 160;

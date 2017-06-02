@@ -36,7 +36,7 @@ namespace FASTT.DataModels
         public string Awarded { get; set; }
         public string QuoteStatus { get; set; }
         public string StraightMaterialCost { get; set; }
-        public string TotalQuotedSales { get; set; }
+        public decimal? TotalQuotedSales { get; set; }
         public string MsfVehicle { get; set; }
         public string MsfEeiBasePart { get; set; }
         public string MsfSopYear { get; set; }

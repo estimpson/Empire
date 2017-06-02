@@ -501,7 +501,7 @@ namespace FASTT.Controllers
                             Awarded = item.Awarded,
                             QuoteStatus = item.QuoteStatus,
                             StraightMaterialCost = item.StraightMaterialCost,
-                            TotalQuotedSales = item.TotalQuotedSales,
+                            TotalQuotedSales = (item.TotalQuotedSales.HasValue) ?item.TotalQuotedSales : 0,
                             MsfVehicle = item.SalesForecastVehicle,
                             MsfEeiBasePart = item.SalesForecastEEIBasePart,
                             MsfSopYear = item.SalesForecastSopYear,
