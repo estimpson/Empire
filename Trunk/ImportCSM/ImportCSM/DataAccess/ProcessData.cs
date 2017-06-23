@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Data.Entity.Infrastructure;
 using System.Data.Objects;
+using System.Runtime.Remoting.Contexts;
 using ImportCSM.Model;
 
 namespace ImportCSM.DataAccess
@@ -62,6 +64,8 @@ namespace ImportCSM.DataAccess
             {
                 using (var context = new MONITOREntities())
                 {
+                    ((IObjectContextAdapter)context).ObjectContext.CommandTimeout = 1200;
+
                     context.acctg_sales_sp_insert_official_forecast(forecastName, dateTimeStamp);
                 }
             }

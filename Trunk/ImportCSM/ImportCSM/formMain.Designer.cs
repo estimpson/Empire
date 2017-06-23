@@ -47,25 +47,27 @@
             this.label8 = new System.Windows.Forms.Label();
             this.tbxCurrentDeltaReleaseId = new System.Windows.Forms.TextBox();
             this.tpOfficialForecast = new System.Windows.Forms.TabPage();
-            this.tpHistoricalSales = new System.Windows.Forms.TabPage();
             this.label5 = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.dtpDateTimeStamp = new System.Windows.Forms.DateTimePicker();
+            this.label7 = new System.Windows.Forms.Label();
             this.btnInsertForecast = new System.Windows.Forms.Button();
             this.label6 = new System.Windows.Forms.Label();
             this.tbxForecastName = new System.Windows.Forms.TextBox();
+            this.tpHistoricalSales = new System.Windows.Forms.TabPage();
             this.label9 = new System.Windows.Forms.Label();
             this.panel3 = new System.Windows.Forms.Panel();
-            this.btnInsertHistoricalSales = new System.Windows.Forms.Button();
-            this.label10 = new System.Windows.Forms.Label();
-            this.tbxHistoricalForecastName = new System.Windows.Forms.TextBox();
-            this.label11 = new System.Windows.Forms.Label();
-            this.dtpStartDate = new System.Windows.Forms.DateTimePicker();
-            this.dtpEndDate = new System.Windows.Forms.DateTimePicker();
-            this.label12 = new System.Windows.Forms.Label();
-            this.dtpDateTimeStamp = new System.Windows.Forms.DateTimePicker();
-            this.label7 = new System.Windows.Forms.Label();
             this.dtpHistoricalDateTimeStamp = new System.Windows.Forms.DateTimePicker();
             this.label13 = new System.Windows.Forms.Label();
+            this.dtpEndDate = new System.Windows.Forms.DateTimePicker();
+            this.label12 = new System.Windows.Forms.Label();
+            this.dtpStartDate = new System.Windows.Forms.DateTimePicker();
+            this.btnInsertHistoricalSales = new System.Windows.Forms.Button();
+            this.label10 = new System.Windows.Forms.Label();
+            this.label11 = new System.Windows.Forms.Label();
+            this.tbxHistoricalForecastName = new System.Windows.Forms.TextBox();
+            this.label14 = new System.Windows.Forms.Label();
+            this.label15 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tpCsm.SuspendLayout();
@@ -73,8 +75,8 @@
             this.tpCsmDelta.SuspendLayout();
             this.pnlDeltaImport.SuspendLayout();
             this.tpOfficialForecast.SuspendLayout();
-            this.tpHistoricalSales.SuspendLayout();
             this.panel2.SuspendLayout();
+            this.tpHistoricalSales.SuspendLayout();
             this.panel3.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -158,12 +160,12 @@
             // linkLblClose
             // 
             this.linkLblClose.AutoSize = true;
-            this.linkLblClose.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.linkLblClose.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.linkLblClose.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(122)))), ((int)(((byte)(204)))));
             this.linkLblClose.LinkColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(122)))), ((int)(((byte)(204)))));
-            this.linkLblClose.Location = new System.Drawing.Point(833, 8);
+            this.linkLblClose.Location = new System.Drawing.Point(828, 8);
             this.linkLblClose.Name = "linkLblClose";
-            this.linkLblClose.Size = new System.Drawing.Size(49, 20);
+            this.linkLblClose.Size = new System.Drawing.Size(58, 24);
             this.linkLblClose.TabIndex = 19;
             this.linkLblClose.TabStop = true;
             this.linkLblClose.Text = "Close";
@@ -179,10 +181,10 @@
             this.tabControl1.Controls.Add(this.tpOfficialForecast);
             this.tabControl1.Controls.Add(this.tpHistoricalSales);
             this.tabControl1.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tabControl1.Location = new System.Drawing.Point(11, 91);
+            this.tabControl1.Location = new System.Drawing.Point(3, 91);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(871, 472);
+            this.tabControl1.Size = new System.Drawing.Size(887, 480);
             this.tabControl1.TabIndex = 18;
             this.tabControl1.SelectedIndexChanged += new System.EventHandler(this.tabControl1_SelectedIndexChanged);
             // 
@@ -201,13 +203,13 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(122)))), ((int)(((byte)(204)))));
-            this.label2.Location = new System.Drawing.Point(204, 37);
+            this.label2.Location = new System.Drawing.Point(204, 45);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(318, 16);
+            this.label2.Size = new System.Drawing.Size(360, 18);
             this.label2.TabIndex = 18;
-            this.label2.Text = "Copy column names and data from the spreadsheet.";
+            this.label2.Text = "Copy data AND column names from the spreadsheet.";
             // 
             // pnlImport
             // 
@@ -236,13 +238,13 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label4.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(122)))), ((int)(((byte)(204)))));
-            this.label4.Location = new System.Drawing.Point(205, 37);
+            this.label4.Location = new System.Drawing.Point(205, 45);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(254, 16);
+            this.label4.Size = new System.Drawing.Size(416, 18);
             this.label4.TabIndex = 20;
-            this.label4.Text = "Copy row data only from the spreadsheet.";
+            this.label4.Text = "Copy row data only from the spreadsheet (no column names).";
             // 
             // pnlDeltaImport
             // 
@@ -289,33 +291,23 @@
             // tpOfficialForecast
             // 
             this.tpOfficialForecast.BackColor = System.Drawing.Color.Black;
+            this.tpOfficialForecast.Controls.Add(this.label14);
             this.tpOfficialForecast.Controls.Add(this.label5);
             this.tpOfficialForecast.Controls.Add(this.panel2);
             this.tpOfficialForecast.Location = new System.Drawing.Point(4, 30);
             this.tpOfficialForecast.Name = "tpOfficialForecast";
-            this.tpOfficialForecast.Size = new System.Drawing.Size(863, 438);
+            this.tpOfficialForecast.Size = new System.Drawing.Size(879, 446);
             this.tpOfficialForecast.TabIndex = 2;
             this.tpOfficialForecast.Text = "Official Forecast";
-            // 
-            // tpHistoricalSales
-            // 
-            this.tpHistoricalSales.BackColor = System.Drawing.Color.Black;
-            this.tpHistoricalSales.Controls.Add(this.label9);
-            this.tpHistoricalSales.Controls.Add(this.panel3);
-            this.tpHistoricalSales.Location = new System.Drawing.Point(4, 30);
-            this.tpHistoricalSales.Name = "tpHistoricalSales";
-            this.tpHistoricalSales.Size = new System.Drawing.Size(863, 438);
-            this.tpHistoricalSales.TabIndex = 3;
-            this.tpHistoricalSales.Text = "Historical Sales";
             // 
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label5.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(122)))), ((int)(((byte)(204)))));
             this.label5.Location = new System.Drawing.Point(204, 38);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(184, 16);
+            this.label5.Size = new System.Drawing.Size(207, 18);
             this.label5.TabIndex = 20;
             this.label5.Text = "Insert official forecast records.";
             // 
@@ -328,8 +320,26 @@
             this.panel2.Controls.Add(this.tbxForecastName);
             this.panel2.Location = new System.Drawing.Point(27, 68);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(439, 170);
+            this.panel2.Size = new System.Drawing.Size(401, 170);
             this.panel2.TabIndex = 19;
+            // 
+            // dtpDateTimeStamp
+            // 
+            this.dtpDateTimeStamp.Location = new System.Drawing.Point(180, 58);
+            this.dtpDateTimeStamp.Name = "dtpDateTimeStamp";
+            this.dtpDateTimeStamp.Size = new System.Drawing.Size(200, 24);
+            this.dtpDateTimeStamp.TabIndex = 8;
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label7.ForeColor = System.Drawing.Color.White;
+            this.label7.Location = new System.Drawing.Point(51, 58);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(123, 18);
+            this.label7.TabIndex = 7;
+            this.label7.Text = "DateTime Stamp:";
             // 
             // btnInsertForecast
             // 
@@ -363,14 +373,26 @@
             this.tbxForecastName.Size = new System.Drawing.Size(200, 24);
             this.tbxForecastName.TabIndex = 0;
             // 
+            // tpHistoricalSales
+            // 
+            this.tpHistoricalSales.BackColor = System.Drawing.Color.Black;
+            this.tpHistoricalSales.Controls.Add(this.label15);
+            this.tpHistoricalSales.Controls.Add(this.label9);
+            this.tpHistoricalSales.Controls.Add(this.panel3);
+            this.tpHistoricalSales.Location = new System.Drawing.Point(4, 30);
+            this.tpHistoricalSales.Name = "tpHistoricalSales";
+            this.tpHistoricalSales.Size = new System.Drawing.Size(879, 446);
+            this.tpHistoricalSales.TabIndex = 3;
+            this.tpHistoricalSales.Text = "Historical Sales";
+            // 
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label9.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(122)))), ((int)(((byte)(204)))));
             this.label9.Location = new System.Drawing.Point(204, 38);
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(184, 16);
+            this.label9.Size = new System.Drawing.Size(205, 18);
             this.label9.TabIndex = 22;
             this.label9.Text = "Insert historical sales records.";
             // 
@@ -387,8 +409,51 @@
             this.panel3.Controls.Add(this.tbxHistoricalForecastName);
             this.panel3.Location = new System.Drawing.Point(27, 68);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(439, 257);
+            this.panel3.Size = new System.Drawing.Size(401, 257);
             this.panel3.TabIndex = 21;
+            // 
+            // dtpHistoricalDateTimeStamp
+            // 
+            this.dtpHistoricalDateTimeStamp.Location = new System.Drawing.Point(180, 58);
+            this.dtpHistoricalDateTimeStamp.Name = "dtpHistoricalDateTimeStamp";
+            this.dtpHistoricalDateTimeStamp.Size = new System.Drawing.Size(200, 24);
+            this.dtpHistoricalDateTimeStamp.TabIndex = 10;
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label13.ForeColor = System.Drawing.Color.White;
+            this.label13.Location = new System.Drawing.Point(51, 58);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(123, 18);
+            this.label13.TabIndex = 9;
+            this.label13.Text = "DateTime Stamp:";
+            // 
+            // dtpEndDate
+            // 
+            this.dtpEndDate.Location = new System.Drawing.Point(180, 134);
+            this.dtpEndDate.Name = "dtpEndDate";
+            this.dtpEndDate.Size = new System.Drawing.Size(200, 24);
+            this.dtpEndDate.TabIndex = 8;
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label12.ForeColor = System.Drawing.Color.White;
+            this.label12.Location = new System.Drawing.Point(101, 134);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(73, 18);
+            this.label12.TabIndex = 7;
+            this.label12.Text = "End Date:";
+            // 
+            // dtpStartDate
+            // 
+            this.dtpStartDate.Location = new System.Drawing.Point(180, 96);
+            this.dtpStartDate.Name = "dtpStartDate";
+            this.dtpStartDate.Size = new System.Drawing.Size(200, 24);
+            this.dtpStartDate.TabIndex = 6;
             // 
             // btnInsertHistoricalSales
             // 
@@ -413,15 +478,6 @@
             this.label10.TabIndex = 4;
             this.label10.Text = "Forecast Name:";
             // 
-            // tbxHistoricalForecastName
-            // 
-            this.tbxHistoricalForecastName.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.tbxHistoricalForecastName.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tbxHistoricalForecastName.Location = new System.Drawing.Point(180, 21);
-            this.tbxHistoricalForecastName.Name = "tbxHistoricalForecastName";
-            this.tbxHistoricalForecastName.Size = new System.Drawing.Size(200, 24);
-            this.tbxHistoricalForecastName.TabIndex = 0;
-            // 
             // label11
             // 
             this.label11.AutoSize = true;
@@ -433,66 +489,36 @@
             this.label11.TabIndex = 5;
             this.label11.Text = "Start Date:";
             // 
-            // dtpStartDate
+            // tbxHistoricalForecastName
             // 
-            this.dtpStartDate.Location = new System.Drawing.Point(180, 96);
-            this.dtpStartDate.Name = "dtpStartDate";
-            this.dtpStartDate.Size = new System.Drawing.Size(200, 24);
-            this.dtpStartDate.TabIndex = 6;
+            this.tbxHistoricalForecastName.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.tbxHistoricalForecastName.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tbxHistoricalForecastName.Location = new System.Drawing.Point(180, 21);
+            this.tbxHistoricalForecastName.Name = "tbxHistoricalForecastName";
+            this.tbxHistoricalForecastName.Size = new System.Drawing.Size(200, 24);
+            this.tbxHistoricalForecastName.TabIndex = 0;
             // 
-            // dtpEndDate
+            // label14
             // 
-            this.dtpEndDate.Location = new System.Drawing.Point(180, 134);
-            this.dtpEndDate.Name = "dtpEndDate";
-            this.dtpEndDate.Size = new System.Drawing.Size(200, 24);
-            this.dtpEndDate.TabIndex = 8;
+            this.label14.AutoSize = true;
+            this.label14.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label14.ForeColor = System.Drawing.Color.White;
+            this.label14.Location = new System.Drawing.Point(434, 93);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(175, 16);
+            this.label14.TabIndex = 21;
+            this.label14.Text = "* Example:   2017/06/20 OSF";
             // 
-            // label12
+            // label15
             // 
-            this.label12.AutoSize = true;
-            this.label12.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label12.ForeColor = System.Drawing.Color.White;
-            this.label12.Location = new System.Drawing.Point(101, 134);
-            this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(73, 18);
-            this.label12.TabIndex = 7;
-            this.label12.Text = "End Date:";
-            // 
-            // dtpDateTimeStamp
-            // 
-            this.dtpDateTimeStamp.Location = new System.Drawing.Point(180, 58);
-            this.dtpDateTimeStamp.Name = "dtpDateTimeStamp";
-            this.dtpDateTimeStamp.Size = new System.Drawing.Size(200, 24);
-            this.dtpDateTimeStamp.TabIndex = 8;
-            // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label7.ForeColor = System.Drawing.Color.White;
-            this.label7.Location = new System.Drawing.Point(51, 58);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(123, 18);
-            this.label7.TabIndex = 7;
-            this.label7.Text = "DateTime Stamp:";
-            // 
-            // dtpHistoricalDateTimeStamp
-            // 
-            this.dtpHistoricalDateTimeStamp.Location = new System.Drawing.Point(180, 58);
-            this.dtpHistoricalDateTimeStamp.Name = "dtpHistoricalDateTimeStamp";
-            this.dtpHistoricalDateTimeStamp.Size = new System.Drawing.Size(200, 24);
-            this.dtpHistoricalDateTimeStamp.TabIndex = 10;
-            // 
-            // label13
-            // 
-            this.label13.AutoSize = true;
-            this.label13.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label13.ForeColor = System.Drawing.Color.White;
-            this.label13.Location = new System.Drawing.Point(51, 58);
-            this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(123, 18);
-            this.label13.TabIndex = 9;
-            this.label13.Text = "DateTime Stamp:";
+            this.label15.AutoSize = true;
+            this.label15.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label15.ForeColor = System.Drawing.Color.White;
+            this.label15.Location = new System.Drawing.Point(434, 93);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(201, 16);
+            this.label15.TabIndex = 23;
+            this.label15.Text = "* Example:   2017/06/20 ACTUAL";
             // 
             // formMain
             // 
@@ -521,10 +547,10 @@
             this.pnlDeltaImport.PerformLayout();
             this.tpOfficialForecast.ResumeLayout(false);
             this.tpOfficialForecast.PerformLayout();
-            this.tpHistoricalSales.ResumeLayout(false);
-            this.tpHistoricalSales.PerformLayout();
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
+            this.tpHistoricalSales.ResumeLayout(false);
+            this.tpHistoricalSales.PerformLayout();
             this.panel3.ResumeLayout(false);
             this.panel3.PerformLayout();
             this.ResumeLayout(false);
@@ -571,6 +597,8 @@
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.TextBox tbxHistoricalForecastName;
+        private System.Windows.Forms.Label label14;
+        private System.Windows.Forms.Label label15;
     }
 }
 
