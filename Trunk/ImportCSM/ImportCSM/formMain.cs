@@ -6,6 +6,7 @@ using System.Windows.Forms;
 using ImportCSM.Controls;
 using ImportCSM.DataAccess;
 
+
 namespace ImportCSM
 {
     public partial class formMain : Form
@@ -237,7 +238,7 @@ namespace ImportCSM
                     string rowData = "";
 
                     var row = rowRaw.Replace("\n", "");
-                    //if (row == "\0") break;
+                    if (row.Contains("\0")) break;
                     if (row == "") break;
 
                     // Skip over header data
@@ -261,7 +262,14 @@ namespace ImportCSM
                     }
                     else
                     {
-                        foreach (var item in arry) rowData += (item + ",");
+                        foreach (var item in arry)
+                        {
+                            //if (item == "37942")
+                            //{
+                            //    string i = item;
+                            //}
+                            rowData += (item + ",");
+                        }
 
                         // Place quotes around each field
                         string rowDataFormatted = "'" + rowData.Replace(",", "','") + "'";
@@ -269,6 +277,8 @@ namespace ImportCSM
                         // End of string correction
                         int stringLength = rowDataFormatted.Length;
                         rowDataFormatted = rowDataFormatted.Remove(stringLength - 3, 3);
+
+                        if (rowDataFormatted.Trim() == "'") break;
 
                         // Insert a row of data into the table
                         int result = InsertDataRow(rowDataFormatted);
@@ -462,7 +472,7 @@ namespace ImportCSM
                     string rowData = guidStr + "," + release + "," + version + ",";
 
                     var row = rowRaw.Replace("\n", "");
-                    //if (row == "\0") break;
+                    if (row == "\0") break;
                     if (row == "") break;
 
 
