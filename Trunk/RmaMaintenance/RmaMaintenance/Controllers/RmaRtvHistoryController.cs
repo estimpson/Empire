@@ -49,13 +49,15 @@ namespace RmaMaintenance.Controllers
                     {
                         _rmaRtvHistoryDataModel = new RmaRtvHistoryDataModel
                             {
-                                Type = item.Type,
+                                Type = item.ShipperType,
                                 Shipper = item.Shipper,
                                 Serial = item.Serial,
                                 Part = item.Part,
                                 GlSegment = item.GlSegment,
                                 Quantity = item.Quantity,
-                                AuditTrailDate = item.AuditTrailDate
+                                AuditTrailDate = item.AuditTrailDate,
+                                FromLocation = item.FromLoc,
+                                ToLocation = item.ToLoc
                             };
                         DetailsList.Add(_rmaRtvHistoryDataModel);
                     }
@@ -93,14 +95,15 @@ namespace RmaMaintenance.Controllers
                     {
                         _rmaRtvHistoryByDatesDataModel = new RmaRtvHistoryByDatesDataModel
                         {
-                            Type = item.Type,
-                            RmaRtvNumber = item.RmaRtvNumber,
+                            Type = item.ShipperType,
                             Shipper = item.Shipper,
                             Serial = item.Serial,
                             Part = item.Part,
                             GlSegment = item.GlSegment,
                             Quantity = item.Quantity,
-                            AuditTrailDate = item.AuditTrailDate
+                            AuditTrailDate = item.AuditTrailDate,
+                            FromLocation = item.FromLoc,
+                            ToLocation = item.ToLoc
                         };
                         DetailsByDatesList.Add(_rmaRtvHistoryByDatesDataModel);
                     }
@@ -138,13 +141,15 @@ namespace RmaMaintenance.Controllers
                     {
                         _rmaRtvHistoryByShipperDataModel = new RmaRtvHistoryByShipperDataModel
                         {
-                            Type = item.Type,
-                            RmaRtvNumber = item.RmaRtvNumber,
+                            Type = item.ShipperType,
+                            Shipper = item.Shipper,
                             Serial = item.Serial,
                             Part = item.Part,
                             GlSegment = item.GlSegment,
                             Quantity = item.Quantity,
-                            AuditTrailDate = item.AuditTrailDate
+                            AuditTrailDate = item.AuditTrailDate,
+                            FromLocation = item.FromLoc,
+                            ToLocation = item.ToLoc
                         };
                         DetailsByShipperList.Add(_rmaRtvHistoryByShipperDataModel);
                     }

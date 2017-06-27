@@ -105,6 +105,7 @@ namespace RmaMaintenance.Controllers
                     context.usp_CreateRma_GetSerialsFromPartDest(operatorCode, destination, part, quantity, dt, result);
 
                     var query = from s in context.SerialsQuantitiesToAutoRMA_RTV
+                                where s.OperatorCode == operatorCode 
                                 select s;
 
                     foreach (var item in query)
@@ -114,7 +115,10 @@ namespace RmaMaintenance.Controllers
                             Serial = item.Serial,
                             Quantity = Math.Round(item.Quantity, 2)
                         };
-                        SerialsList.Add(_serialQuantityDataModel);
+
+                        // Querying the SerialsQuantitiesToAutoRMA_RTV table every time will duplicate List items,
+                        //   so only add an item if it isn't already in the List.
+                        if (!SerialsList.Any(x => x.Serial == item.Serial)) SerialsList.Add(_serialQuantityDataModel);
                     }
                 }
             }

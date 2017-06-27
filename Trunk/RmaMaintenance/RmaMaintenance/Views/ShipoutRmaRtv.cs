@@ -31,6 +31,7 @@ namespace RmaMaintenance.Views
         #region Variables
 
         private readonly string _operatorCode;
+        private readonly string _rmaRtvNumber;
         private bool _isDataBinding;
 
         #endregion
@@ -38,7 +39,7 @@ namespace RmaMaintenance.Views
 
         #region Constructor
 
-        public ShipoutRmaRtv(string operatorCode, List<NewShippersDataModel> newShippersList)
+        public ShipoutRmaRtv(string operatorCode, string rmaRtvNumber, List<NewShippersDataModel> newShippersList)
         {
             InitializeComponent();
 
@@ -47,6 +48,7 @@ namespace RmaMaintenance.Views
             _messagesDialogResult = new MessagesDialogResult();
 
             _operatorCode = operatorCode;
+            _rmaRtvNumber = rmaRtvNumber;
             _newShippersList = newShippersList;
 
             PopulateShippersList();
@@ -173,7 +175,8 @@ namespace RmaMaintenance.Views
 
             if (ShipoutRtv(rtvShipper, shipper, location) == 1)
             {
-                // Success (or RTV shipper had previously been shipped)
+                // Success (or the RTV shipper had previously been shipped, and the Honduras RMA was a success)
+                SendEmail();
                 ResetNewShippersList();
                 DeleteSerialsQuantities();
             }
@@ -282,7 +285,6 @@ namespace RmaMaintenance.Views
                 successMessage += "  And created the Honduras RMA.";
             }
 
-            Cursor.Current = Cursors.Default;
             _messages.Message = successMessage;
             _messages.ShowDialog();
 
@@ -292,6 +294,14 @@ namespace RmaMaintenance.Views
 
             linkLblClose.Visible = false;
             return 1;
+        }
+
+        private void SendEmail()
+        {
+            string error;
+
+            // Send out an email report showing all Troy and Honduras serial transactions that took place
+            _controller.SendEmail(_operatorCode, _rmaRtvNumber, out error);
         }
 
         private void ResetNewShippersList()
@@ -311,6 +321,8 @@ namespace RmaMaintenance.Views
 
             // Delete this batch of serials processed by this operator
             _controller.DeleteOldSerialsQuantities(_operatorCode, out error);
+
+            Cursor.Current = Cursors.Default;
         }
 
         #endregion

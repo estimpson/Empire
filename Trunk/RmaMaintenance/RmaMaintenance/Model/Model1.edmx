@@ -191,6 +191,12 @@
           <Property Name="ProductLine" Type="varchar" MaxLength="25" />
           <Property Name="SerialList" Type="nvarchar(max)" />
         </EntityType>
+        <Function Name="usp_CreatedRmaRtvEmail" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="OperatorCode" Type="varchar" Mode="In" />
+          <Parameter Name="RmaRtvNumber" Type="varchar" Mode="In" />
+          <Parameter Name="TranDT" Type="datetime" Mode="InOut" />
+          <Parameter Name="Result" Type="int" Mode="InOut" />
+        </Function>
         <Function Name="usp_CreatedRmaRtvHistory" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="OperatorCode" Type="varchar" Mode="In" />
           <Parameter Name="RmaRtvNumber" Type="varchar" Mode="In" />
@@ -418,12 +424,6 @@
             <Parameter Name="TranDT" Mode="InOut" Type="DateTime" />
             <Parameter Name="Result" Mode="InOut" Type="Int32" />
           </FunctionImport>
-          <FunctionImport Name="usp_CreatedRmaRtvSummary" ReturnType="Collection(MONITORModel.usp_CreatedRmaRtvSummary_Result)">
-            <Parameter Name="OperatorCode" Mode="In" Type="String" />
-            <Parameter Name="RmaRtvNumber" Mode="In" Type="String" />
-            <Parameter Name="TranDT" Mode="InOut" Type="DateTime" />
-            <Parameter Name="Result" Mode="InOut" Type="Int32" />
-          </FunctionImport>
           <FunctionImport Name="usp_CreateRma_ImportSerialsQuantitiesByOperator">
             <Parameter Name="OperatorCode" Mode="In" Type="String" />
             <Parameter Name="Serial" Mode="In" Type="Int32" />
@@ -436,6 +436,33 @@
             <Parameter Name="RmaRtvNumber" Mode="InOut" Type="String" />
             <Parameter Name="TransactionType" Mode="In" Type="Int32" />
             <Parameter Name="Notes" Mode="In" Type="String" />
+            <Parameter Name="TranDT" Mode="InOut" Type="DateTime" />
+            <Parameter Name="Result" Mode="InOut" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="usp_CreateRma_Honduras_RecordException">
+            <Parameter Name="OperatorCode" Mode="In" Type="String" />
+            <Parameter Name="Exception" Mode="In" Type="String" />
+            <Parameter Name="TranDT" Mode="InOut" Type="DateTime" />
+            <Parameter Name="Result" Mode="InOut" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="usp_CreateRTV_ImportSerials">
+            <Parameter Name="OperatorCode" Mode="In" Type="String" />
+            <Parameter Name="FirstNewRTVShipper" Mode="InOut" Type="Int32" />
+            <Parameter Name="RTVShipperCount" Mode="InOut" Type="Int32" />
+            <Parameter Name="RtvShipperList" Mode="InOut" Type="String" />
+            <Parameter Name="RtvNumber" Mode="InOut" Type="String" />
+            <Parameter Name="TranDT" Mode="InOut" Type="DateTime" />
+            <Parameter Name="Result" Mode="InOut" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="usp_CreatedRmaRtvSummary" ReturnType="Collection(MONITORModel.usp_CreatedRmaRtvSummary_Result)">
+            <Parameter Name="OperatorCode" Mode="In" Type="String" />
+            <Parameter Name="RmaRtvNumber" Mode="In" Type="String" />
+            <Parameter Name="TranDT" Mode="InOut" Type="DateTime" />
+            <Parameter Name="Result" Mode="InOut" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="usp_CreatedRmaRtvEmail">
+            <Parameter Name="OperatorCode" Mode="In" Type="String" />
+            <Parameter Name="RmaRtvNumber" Mode="In" Type="String" />
             <Parameter Name="TranDT" Mode="InOut" Type="DateTime" />
             <Parameter Name="Result" Mode="InOut" Type="Int32" />
           </FunctionImport>
@@ -455,21 +482,6 @@
           <FunctionImport Name="usp_CreatedRmaRtvHistoryByShipper" ReturnType="Collection(MONITORModel.usp_CreatedRmaRtvHistoryByShipper_Result)">
             <Parameter Name="OperatorCode" Mode="In" Type="String" />
             <Parameter Name="Shipper" Mode="In" Type="String" />
-            <Parameter Name="TranDT" Mode="InOut" Type="DateTime" />
-            <Parameter Name="Result" Mode="InOut" Type="Int32" />
-          </FunctionImport>
-          <FunctionImport Name="usp_CreateRma_Honduras_RecordException">
-            <Parameter Name="OperatorCode" Mode="In" Type="String" />
-            <Parameter Name="Exception" Mode="In" Type="String" />
-            <Parameter Name="TranDT" Mode="InOut" Type="DateTime" />
-            <Parameter Name="Result" Mode="InOut" Type="Int32" />
-          </FunctionImport>
-          <FunctionImport Name="usp_CreateRTV_ImportSerials">
-            <Parameter Name="OperatorCode" Mode="In" Type="String" />
-            <Parameter Name="FirstNewRTVShipper" Mode="InOut" Type="Int32" />
-            <Parameter Name="RTVShipperCount" Mode="InOut" Type="Int32" />
-            <Parameter Name="RtvShipperList" Mode="InOut" Type="String" />
-            <Parameter Name="RtvNumber" Mode="InOut" Type="String" />
             <Parameter Name="TranDT" Mode="InOut" Type="DateTime" />
             <Parameter Name="Result" Mode="InOut" Type="Int32" />
           </FunctionImport>
@@ -598,45 +610,50 @@
           <Property Type="DateTime" Name="EEHDateTime" Nullable="true" Precision="23" />
           <Property Type="DateTime" Name="LocalDatetime" Nullable="true" Precision="23" />
         </ComplexType>
-        <ComplexType Name="usp_CreatedRmaRtvSummary_Result">
-          <Property Type="String" Name="ShipperType" Nullable="false" MaxLength="3" />
-          <Property Type="String" Name="Shipper" Nullable="true" MaxLength="20" />
-          <Property Type="String" Name="Part" Nullable="false" MaxLength="25" />
-          <Property Type="String" Name="GlSegment" Nullable="true" MaxLength="20" />
-          <Property Type="Int32" Name="TotalSerials" Nullable="true" />
-          <Property Type="Decimal" Name="TotalQuantity" Nullable="true" Precision="38" Scale="6" />
-        </ComplexType>
         <ComplexType Name="usp_CreateRma_ProcessByDestGl2_Result">
           <Property Type="Int32" Name="RmaShipper" Nullable="true" />
           <Property Type="Int32" Name="RtvShipper" Nullable="true" />
         </ComplexType>
-        <ComplexType Name="usp_CreatedRmaRtvHistory_Result">
-          <Property Type="String" Name="Type" Nullable="false" MaxLength="3" />
-          <Property Type="String" Name="Shipper" Nullable="true" MaxLength="20" />
-          <Property Type="Int32" Name="Serial" Nullable="false" />
-          <Property Type="String" Name="Part" Nullable="false" MaxLength="25" />
+        <ComplexType Name="usp_CreatedRmaRtvSummary_Result">
+          <Property Type="String" Name="ShipperType" Nullable="true" MaxLength="10" />
+          <Property Type="String" Name="Shipper" Nullable="true" MaxLength="30" />
+          <Property Type="String" Name="Part" Nullable="true" MaxLength="30" />
           <Property Type="String" Name="GlSegment" Nullable="true" MaxLength="20" />
-          <Property Type="String" Name="Quantity" Nullable="true" MaxLength="30" />
-          <Property Type="String" Name="AuditTrailDate" Nullable="true" MaxLength="30" />
+          <Property Type="Int32" Name="TotalSerials" Nullable="true" />
+          <Property Type="Decimal" Name="TotalQuantity" Nullable="true" Precision="20" Scale="6" />
+        </ComplexType>
+        <ComplexType Name="usp_CreatedRmaRtvHistory_Result">
+          <Property Type="String" Name="ShipperType" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="Shipper" Nullable="true" MaxLength="30" />
+          <Property Type="String" Name="Serial" Nullable="true" MaxLength="30" />
+          <Property Type="String" Name="Part" Nullable="true" MaxLength="30" />
+          <Property Type="String" Name="GlSegment" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="Quantity" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="AuditTrailDate" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="FromLoc" Nullable="true" MaxLength="30" />
+          <Property Type="String" Name="ToLoc" Nullable="true" MaxLength="30" />
         </ComplexType>
         <ComplexType Name="usp_CreatedRmaRtvHistoryByDates_Result">
-          <Property Type="String" Name="Type" Nullable="false" MaxLength="3" />
-          <Property Type="String" Name="RmaRtvNumber" Nullable="false" MaxLength="50" />
-          <Property Type="String" Name="Shipper" Nullable="true" MaxLength="20" />
-          <Property Type="Int32" Name="Serial" Nullable="false" />
-          <Property Type="String" Name="Part" Nullable="false" MaxLength="25" />
+          <Property Type="String" Name="ShipperType" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="Shipper" Nullable="true" MaxLength="30" />
+          <Property Type="String" Name="Serial" Nullable="true" MaxLength="30" />
+          <Property Type="String" Name="Part" Nullable="true" MaxLength="30" />
           <Property Type="String" Name="GlSegment" Nullable="true" MaxLength="20" />
-          <Property Type="String" Name="Quantity" Nullable="true" MaxLength="30" />
-          <Property Type="String" Name="AuditTrailDate" Nullable="true" MaxLength="30" />
+          <Property Type="String" Name="Quantity" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="AuditTrailDate" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="FromLoc" Nullable="true" MaxLength="30" />
+          <Property Type="String" Name="ToLoc" Nullable="true" MaxLength="30" />
         </ComplexType>
         <ComplexType Name="usp_CreatedRmaRtvHistoryByShipper_Result">
-          <Property Type="String" Name="Type" Nullable="false" MaxLength="3" />
-          <Property Type="String" Name="RmaRtvNumber" Nullable="false" MaxLength="50" />
-          <Property Type="Int32" Name="Serial" Nullable="false" />
-          <Property Type="String" Name="Part" Nullable="false" MaxLength="25" />
+          <Property Type="String" Name="ShipperType" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="Shipper" Nullable="true" MaxLength="30" />
+          <Property Type="String" Name="Serial" Nullable="true" MaxLength="30" />
+          <Property Type="String" Name="Part" Nullable="true" MaxLength="30" />
           <Property Type="String" Name="GlSegment" Nullable="true" MaxLength="20" />
-          <Property Type="String" Name="Quantity" Nullable="true" MaxLength="30" />
-          <Property Type="String" Name="AuditTrailDate" Nullable="true" MaxLength="30" />
+          <Property Type="String" Name="Quantity" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="AuditTrailDate" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="FromLoc" Nullable="true" MaxLength="30" />
+          <Property Type="String" Name="ToLoc" Nullable="true" MaxLength="30" />
         </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
@@ -783,6 +800,17 @@
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="usp_CreateRma_DeleteSerialsQuantitiesByOperator" FunctionName="MONITORModel.Store.usp_CreateRma_DeleteSerialsQuantitiesByOperator" />
           <FunctionImportMapping FunctionImportName="usp_CreatedRmaRtvRollback" FunctionName="MONITORModel.Store.usp_CreatedRmaRtvRollback" />
+          <FunctionImportMapping FunctionImportName="usp_CreateRma_ImportSerialsQuantitiesByOperator" FunctionName="MONITORModel.Store.usp_CreateRma_ImportSerialsQuantitiesByOperator" />
+          <FunctionImportMapping FunctionImportName="usp_CreateRma_ProcessByDestGl2" FunctionName="MONITORModel.Store.usp_CreateRma_ProcessByDestGl2">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="MONITORModel.usp_CreateRma_ProcessByDestGl2_Result">
+                <ScalarProperty Name="RmaShipper" ColumnName="RmaShipper" />
+                <ScalarProperty Name="RtvShipper" ColumnName="RtvShipper" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="usp_CreateRma_Honduras_RecordException" FunctionName="MONITORModel.Store.usp_CreateRma_Honduras_RecordException" />
+          <FunctionImportMapping FunctionImportName="usp_CreateRTV_ImportSerials" FunctionName="MONITORModel.Store.usp_CreateRTV_ImportSerials" />
           <FunctionImportMapping FunctionImportName="usp_CreatedRmaRtvSummary" FunctionName="MONITORModel.Store.usp_CreatedRmaRtvSummary">
             <ResultMapping>
               <ComplexTypeMapping TypeName="MONITORModel.usp_CreatedRmaRtvSummary_Result">
@@ -795,57 +823,52 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="usp_CreateRma_ImportSerialsQuantitiesByOperator" FunctionName="MONITORModel.Store.usp_CreateRma_ImportSerialsQuantitiesByOperator" />
-          <FunctionImportMapping FunctionImportName="usp_CreateRma_ProcessByDestGl2" FunctionName="MONITORModel.Store.usp_CreateRma_ProcessByDestGl2">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="MONITORModel.usp_CreateRma_ProcessByDestGl2_Result">
-                <ScalarProperty Name="RmaShipper" ColumnName="RmaShipper" />
-                <ScalarProperty Name="RtvShipper" ColumnName="RtvShipper" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="usp_CreatedRmaRtvEmail" FunctionName="MONITORModel.Store.usp_CreatedRmaRtvEmail" />
           <FunctionImportMapping FunctionImportName="usp_CreatedRmaRtvHistory" FunctionName="MONITORModel.Store.usp_CreatedRmaRtvHistory">
             <ResultMapping>
               <ComplexTypeMapping TypeName="MONITORModel.usp_CreatedRmaRtvHistory_Result">
-                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="ShipperType" ColumnName="ShipperType" />
                 <ScalarProperty Name="Shipper" ColumnName="Shipper" />
                 <ScalarProperty Name="Serial" ColumnName="Serial" />
                 <ScalarProperty Name="Part" ColumnName="Part" />
                 <ScalarProperty Name="GlSegment" ColumnName="GlSegment" />
                 <ScalarProperty Name="Quantity" ColumnName="Quantity" />
                 <ScalarProperty Name="AuditTrailDate" ColumnName="AuditTrailDate" />
+                <ScalarProperty Name="FromLoc" ColumnName="FromLoc" />
+                <ScalarProperty Name="ToLoc" ColumnName="ToLoc" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="usp_CreatedRmaRtvHistoryByDates" FunctionName="MONITORModel.Store.usp_CreatedRmaRtvHistoryByDates">
             <ResultMapping>
               <ComplexTypeMapping TypeName="MONITORModel.usp_CreatedRmaRtvHistoryByDates_Result">
-                <ScalarProperty Name="Type" ColumnName="Type" />
-                <ScalarProperty Name="RmaRtvNumber" ColumnName="RmaRtvNumber" />
+                <ScalarProperty Name="ShipperType" ColumnName="ShipperType" />
                 <ScalarProperty Name="Shipper" ColumnName="Shipper" />
                 <ScalarProperty Name="Serial" ColumnName="Serial" />
                 <ScalarProperty Name="Part" ColumnName="Part" />
                 <ScalarProperty Name="GlSegment" ColumnName="GlSegment" />
                 <ScalarProperty Name="Quantity" ColumnName="Quantity" />
                 <ScalarProperty Name="AuditTrailDate" ColumnName="AuditTrailDate" />
+                <ScalarProperty Name="FromLoc" ColumnName="FromLoc" />
+                <ScalarProperty Name="ToLoc" ColumnName="ToLoc" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="usp_CreatedRmaRtvHistoryByShipper" FunctionName="MONITORModel.Store.usp_CreatedRmaRtvHistoryByShipper">
             <ResultMapping>
               <ComplexTypeMapping TypeName="MONITORModel.usp_CreatedRmaRtvHistoryByShipper_Result">
-                <ScalarProperty Name="Type" ColumnName="Type" />
-                <ScalarProperty Name="RmaRtvNumber" ColumnName="RmaRtvNumber" />
+                <ScalarProperty Name="ShipperType" ColumnName="ShipperType" />
+                <ScalarProperty Name="Shipper" ColumnName="Shipper" />
                 <ScalarProperty Name="Serial" ColumnName="Serial" />
                 <ScalarProperty Name="Part" ColumnName="Part" />
                 <ScalarProperty Name="GlSegment" ColumnName="GlSegment" />
                 <ScalarProperty Name="Quantity" ColumnName="Quantity" />
                 <ScalarProperty Name="AuditTrailDate" ColumnName="AuditTrailDate" />
+                <ScalarProperty Name="FromLoc" ColumnName="FromLoc" />
+                <ScalarProperty Name="ToLoc" ColumnName="ToLoc" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="usp_CreateRma_Honduras_RecordException" FunctionName="MONITORModel.Store.usp_CreateRma_Honduras_RecordException" />
-          <FunctionImportMapping FunctionImportName="usp_CreateRTV_ImportSerials" FunctionName="MONITORModel.Store.usp_CreateRTV_ImportSerials" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

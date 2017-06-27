@@ -121,7 +121,7 @@ namespace RmaMaintenance.Views
             if (GetSerialsFromPartDest(destination) == 0) return;
 
             // Import serials for processing
-            if (ImportSerialsQuantities() == 0) return;
+            //if (ImportSerialsQuantities() == 0) return;
 
             Cursor.Current = Cursors.Default;
 
@@ -171,7 +171,7 @@ namespace RmaMaintenance.Views
         {
             string error;
 
-            // Get spreadsheet serials and quantities
+            // Get spreadsheet parts and quantities
             _controller.GetSpreadsheetData(out error);
             if (error != "")
             {

@@ -59,7 +59,7 @@
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(122)))), ((int)(((byte)(204)))));
-            this.label2.Location = new System.Drawing.Point(385, 161);
+            this.label2.Location = new System.Drawing.Point(385, 164);
             this.label2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 0);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(282, 20);
@@ -75,9 +75,9 @@
             this.cbxDestination.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cbxDestination.ForeColor = System.Drawing.Color.White;
             this.cbxDestination.FormattingEnabled = true;
-            this.cbxDestination.Location = new System.Drawing.Point(389, 186);
+            this.cbxDestination.Location = new System.Drawing.Point(411, 194);
             this.cbxDestination.Name = "cbxDestination";
-            this.cbxDestination.Size = new System.Drawing.Size(256, 26);
+            this.cbxDestination.Size = new System.Drawing.Size(239, 26);
             this.cbxDestination.TabIndex = 26;
             // 
             // label1
@@ -85,12 +85,12 @@
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(122)))), ((int)(((byte)(204)))));
-            this.label1.Location = new System.Drawing.Point(385, 332);
+            this.label1.Location = new System.Drawing.Point(385, 309);
             this.label1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(254, 20);
+            this.label1.Size = new System.Drawing.Size(262, 20);
             this.label1.TabIndex = 25;
-            this.label1.Text = "3.  Import the parts and get serials.";
+            this.label1.Text = "3.  Get serial numbers for each part.";
             // 
             // mesBtnImportParts
             // 
@@ -101,11 +101,11 @@
             this.mesBtnImportParts.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.mesBtnImportParts.Font = new System.Drawing.Font("Tahoma", 14F);
             this.mesBtnImportParts.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
-            this.mesBtnImportParts.Location = new System.Drawing.Point(389, 358);
+            this.mesBtnImportParts.Location = new System.Drawing.Point(411, 339);
             this.mesBtnImportParts.Name = "mesBtnImportParts";
-            this.mesBtnImportParts.Size = new System.Drawing.Size(136, 35);
+            this.mesBtnImportParts.Size = new System.Drawing.Size(151, 35);
             this.mesBtnImportParts.TabIndex = 23;
-            this.mesBtnImportParts.Text = "Import";
+            this.mesBtnImportParts.Text = "Get Serials";
             this.mesBtnImportParts.UseVisualStyleBackColor = false;
             this.mesBtnImportParts.Click += new System.EventHandler(this.mesBtnImportParts_Click);
             this.mesBtnImportParts.MouseDown += new System.Windows.Forms.MouseEventHandler(this.mesBtnImportParts_MouseDown);
@@ -115,7 +115,7 @@
             this.label7.AutoSize = true;
             this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label7.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(122)))), ((int)(((byte)(204)))));
-            this.label7.Location = new System.Drawing.Point(385, 262);
+            this.label7.Location = new System.Drawing.Point(385, 254);
             this.label7.Margin = new System.Windows.Forms.Padding(3, 2, 3, 0);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(333, 20);

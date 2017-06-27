@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.Objects;
 using System.Data.SqlClient;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using RmaMaintenance.DataModels;
@@ -84,6 +85,25 @@ namespace RmaMaintenance.Controllers
                 using (var context = new MONITOREntities())
                 {
                     context.usp_CreateRma_Honduras(opCode, rtvShipper, location, dt, result);
+                }
+            }
+            catch (Exception ex)
+            {
+                error = (ex.InnerException == null) ? ex.Message : ex.InnerException.Message;
+            }
+        }
+
+        public void SendEmail(string opCode, string rmaRtvNumber, out string error)
+        {
+            var dt = new ObjectParameter("TranDT", typeof(DateTime));
+            var result = new ObjectParameter("Result", typeof(int));
+
+            error = "";
+            try
+            {
+                using (var context = new MONITOREntities())
+                {
+                    context.usp_CreatedRmaRtvEmail(opCode, rmaRtvNumber, dt, result);
                 }
             }
             catch (Exception ex)

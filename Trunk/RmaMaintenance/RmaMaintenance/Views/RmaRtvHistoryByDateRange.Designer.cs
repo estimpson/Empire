@@ -30,6 +30,7 @@
         {
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.dtpEndDate = new System.Windows.Forms.DateTimePicker();
             this.dtpStartDate = new System.Windows.Forms.DateTimePicker();
@@ -43,6 +44,7 @@
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.label2);
             this.panel1.Controls.Add(this.label1);
             this.panel1.Controls.Add(this.dtpEndDate);
             this.panel1.Controls.Add(this.dtpStartDate);
@@ -58,13 +60,25 @@
             this.panel1.TabIndex = 0;
             this.panel1.Paint += new System.Windows.Forms.PaintEventHandler(this.panel1_Paint);
             // 
+            // label2
+            // 
+            this.label2.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(122)))), ((int)(((byte)(204)))));
+            this.label2.Location = new System.Drawing.Point(650, 539);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(328, 16);
+            this.label2.TabIndex = 100;
+            this.label2.Text = "* Will only find shippers that were created with this app.";
+            // 
             // label1
             // 
             this.label1.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(122)))), ((int)(((byte)(204)))));
-            this.label1.Location = new System.Drawing.Point(334, 48);
+            this.label1.Location = new System.Drawing.Point(279, 44);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(67, 16);
             this.label1.TabIndex = 99;
@@ -73,7 +87,7 @@
             // dtpEndDate
             // 
             this.dtpEndDate.CalendarFont = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.dtpEndDate.Location = new System.Drawing.Point(337, 69);
+            this.dtpEndDate.Location = new System.Drawing.Point(282, 64);
             this.dtpEndDate.Name = "dtpEndDate";
             this.dtpEndDate.Size = new System.Drawing.Size(200, 20);
             this.dtpEndDate.TabIndex = 1;
@@ -81,7 +95,7 @@
             // dtpStartDate
             // 
             this.dtpStartDate.CalendarFont = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.dtpStartDate.Location = new System.Drawing.Point(110, 69);
+            this.dtpStartDate.Location = new System.Drawing.Point(60, 64);
             this.dtpStartDate.Name = "dtpStartDate";
             this.dtpStartDate.Size = new System.Drawing.Size(200, 20);
             this.dtpStartDate.TabIndex = 0;
@@ -95,13 +109,14 @@
             this.mesBtnSubmit.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.mesBtnSubmit.Font = new System.Drawing.Font("Tahoma", 14F);
             this.mesBtnSubmit.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
-            this.mesBtnSubmit.Location = new System.Drawing.Point(564, 61);
+            this.mesBtnSubmit.Location = new System.Drawing.Point(503, 56);
             this.mesBtnSubmit.Name = "mesBtnSubmit";
             this.mesBtnSubmit.Size = new System.Drawing.Size(109, 35);
             this.mesBtnSubmit.TabIndex = 2;
             this.mesBtnSubmit.Text = "Submit";
             this.mesBtnSubmit.UseVisualStyleBackColor = false;
             this.mesBtnSubmit.Click += new System.EventHandler(this.mesBtnSubmit_Click);
+            this.mesBtnSubmit.MouseDown += new System.Windows.Forms.MouseEventHandler(this.mesBtnSubmit_MouseDown);
             // 
             // label9
             // 
@@ -109,7 +124,7 @@
             this.label9.AutoSize = true;
             this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label9.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(122)))), ((int)(((byte)(204)))));
-            this.label9.Location = new System.Drawing.Point(107, 48);
+            this.label9.Location = new System.Drawing.Point(57, 44);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(70, 16);
             this.label9.TabIndex = 94;
@@ -127,13 +142,13 @@
             dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
             this.dgvRmaRtvHistory.DefaultCellStyle = dataGridViewCellStyle1;
-            this.dgvRmaRtvHistory.Location = new System.Drawing.Point(110, 103);
+            this.dgvRmaRtvHistory.Location = new System.Drawing.Point(60, 98);
             this.dgvRmaRtvHistory.Name = "dgvRmaRtvHistory";
             this.dgvRmaRtvHistory.ReadOnly = true;
             this.dgvRmaRtvHistory.RowHeadersVisible = false;
             this.dgvRmaRtvHistory.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.dgvRmaRtvHistory.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvRmaRtvHistory.Size = new System.Drawing.Size(821, 438);
+            this.dgvRmaRtvHistory.Size = new System.Drawing.Size(913, 438);
             this.dgvRmaRtvHistory.TabIndex = 93;
             // 
             // linkLblClose
@@ -181,5 +196,6 @@
         private Fx.WinForms.Flat.MESButton mesBtnSubmit;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.DataGridView dgvRmaRtvHistory;
+        private System.Windows.Forms.Label label2;
     }
 }
