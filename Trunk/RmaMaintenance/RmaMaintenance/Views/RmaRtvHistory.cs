@@ -82,11 +82,17 @@ namespace RmaMaintenance.Views
         #endregion
 
 
-        #region Button Click Events
+        #region Button Events
+
+        private void mesBtnSubmit_MouseDown(object sender, MouseEventArgs e)
+        {
+            Cursor.Current = Cursors.WaitCursor;
+        }
 
         private void mesBtnSubmit_Click(object sender, EventArgs e)
         {
             GetHistory();
+            Cursor.Current = Cursors.Default;
         }
 
         #endregion
@@ -96,7 +102,12 @@ namespace RmaMaintenance.Views
 
         private void mesTbxRmaRtv_KeyDown(object sender, KeyEventArgs e)
         {
-            if (e.KeyCode == Keys.Enter) GetHistory();
+            if (e.KeyCode == Keys.Enter)
+            {
+                Cursor.Current = Cursors.WaitCursor;
+                GetHistory();
+                Cursor.Current = Cursors.Default;
+            }
         }
 
         #endregion

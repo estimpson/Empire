@@ -127,7 +127,9 @@ namespace RmaMaintenance.Views
 
             if (ShipoutRtv(rtvShipper, shipper, location) == 1)
             {
-                // Success (or RTV shipper had previously been shipped)
+                // Success (or the RTV shipper had previously been shipped, and the Honduras RMA was a success)
+                SendEmail();
+
                 mesTbxHonLoc.Text = mesTbxRtvShipper.Text = "";
                 mesTbxRtvShipper.Focus();
             }
@@ -224,10 +226,20 @@ namespace RmaMaintenance.Views
                 successMessage += "  And created the Honduras RMA.";
             }
 
-            Cursor.Current = Cursors.Default;
             _messages.Message = successMessage;
             _messages.ShowDialog();
             return 1;
+        }
+
+        private void SendEmail()
+        {
+            string error;
+            string rmaRtvNumber = "";
+
+            // Send out an email report showing all Troy and Honduras serial transactions that took place
+            _controller.SendEmail(_operatorCode, rmaRtvNumber, out error);
+
+            Cursor.Current = Cursors.Default;
         }
 
         #endregion

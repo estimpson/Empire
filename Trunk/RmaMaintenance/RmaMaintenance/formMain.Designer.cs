@@ -87,7 +87,6 @@
             this.linkLblClose.Name = "linkLblClose";
             this.linkLblClose.Size = new System.Drawing.Size(63, 20);
             this.linkLblClose.TabIndex = 10;
-            this.linkLblClose.TabStop = true;
             this.linkLblClose.Text = "CLOSE";
             this.linkLblClose.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLblClose_LinkClicked);
             this.linkLblClose.MouseEnter += new System.EventHandler(this.linkLblClose_MouseEnter);

@@ -118,7 +118,7 @@ namespace RmaMaintenance.Views
 
         private void mesBtnContinue_Click(object sender, EventArgs e)
         {
-            _shipoutRmaRtv = new ShipoutRmaRtv(_operatorCode, _newShippersList);
+            _shipoutRmaRtv = new ShipoutRmaRtv(_operatorCode, _rmaRtvNumber, _newShippersList);
             _shipoutRmaRtv.ShowDialog();
 
             if (!_shipoutRmaRtv.CloseAll) return;

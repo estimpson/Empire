@@ -30,6 +30,7 @@
         {
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.label1 = new System.Windows.Forms.Label();
             this.mesBtnSubmit = new Fx.WinForms.Flat.MESButton();
             this.mesTbxRmaRtv = new Fx.WinForms.Flat.MESTextEdit();
             this.label9 = new System.Windows.Forms.Label();
@@ -41,6 +42,7 @@
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.label1);
             this.panel1.Controls.Add(this.mesBtnSubmit);
             this.panel1.Controls.Add(this.mesTbxRmaRtv);
             this.panel1.Controls.Add(this.label9);
@@ -54,6 +56,18 @@
             this.panel1.TabIndex = 0;
             this.panel1.Paint += new System.Windows.Forms.PaintEventHandler(this.panel1_Paint);
             // 
+            // label1
+            // 
+            this.label1.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(122)))), ((int)(((byte)(204)))));
+            this.label1.Location = new System.Drawing.Point(648, 539);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(328, 16);
+            this.label1.TabIndex = 99;
+            this.label1.Text = "* Will only find shippers that were created with this app.";
+            // 
             // mesBtnSubmit
             // 
             this.mesBtnSubmit.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(31)))), ((int)(((byte)(31)))), ((int)(((byte)(32)))));
@@ -63,13 +77,14 @@
             this.mesBtnSubmit.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.mesBtnSubmit.Font = new System.Drawing.Font("Tahoma", 14F);
             this.mesBtnSubmit.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
-            this.mesBtnSubmit.Location = new System.Drawing.Point(289, 60);
+            this.mesBtnSubmit.Location = new System.Drawing.Point(244, 54);
             this.mesBtnSubmit.Name = "mesBtnSubmit";
-            this.mesBtnSubmit.Size = new System.Drawing.Size(109, 35);
+            this.mesBtnSubmit.Size = new System.Drawing.Size(107, 35);
             this.mesBtnSubmit.TabIndex = 1;
             this.mesBtnSubmit.Text = "Submit";
             this.mesBtnSubmit.UseVisualStyleBackColor = false;
             this.mesBtnSubmit.Click += new System.EventHandler(this.mesBtnSubmit_Click);
+            this.mesBtnSubmit.MouseDown += new System.Windows.Forms.MouseEventHandler(this.mesBtnSubmit_MouseDown);
             // 
             // mesTbxRmaRtv
             // 
@@ -77,9 +92,9 @@
             this.mesTbxRmaRtv.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.mesTbxRmaRtv.Font = new System.Drawing.Font("Tahoma", 12F);
             this.mesTbxRmaRtv.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
-            this.mesTbxRmaRtv.Location = new System.Drawing.Point(114, 64);
+            this.mesTbxRmaRtv.Location = new System.Drawing.Point(64, 59);
             this.mesTbxRmaRtv.Name = "mesTbxRmaRtv";
-            this.mesTbxRmaRtv.Size = new System.Drawing.Size(161, 27);
+            this.mesTbxRmaRtv.Size = new System.Drawing.Size(164, 27);
             this.mesTbxRmaRtv.TabIndex = 0;
             this.mesTbxRmaRtv.KeyDown += new System.Windows.Forms.KeyEventHandler(this.mesTbxRmaRtv_KeyDown);
             // 
@@ -89,7 +104,7 @@
             this.label9.AutoSize = true;
             this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label9.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(122)))), ((int)(((byte)(204)))));
-            this.label9.Location = new System.Drawing.Point(111, 45);
+            this.label9.Location = new System.Drawing.Point(61, 40);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(130, 16);
             this.label9.TabIndex = 90;
@@ -107,13 +122,13 @@
             dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
             this.dgvRmaRtvHistory.DefaultCellStyle = dataGridViewCellStyle1;
-            this.dgvRmaRtvHistory.Location = new System.Drawing.Point(114, 103);
+            this.dgvRmaRtvHistory.Location = new System.Drawing.Point(64, 98);
             this.dgvRmaRtvHistory.Name = "dgvRmaRtvHistory";
             this.dgvRmaRtvHistory.ReadOnly = true;
             this.dgvRmaRtvHistory.RowHeadersVisible = false;
             this.dgvRmaRtvHistory.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.dgvRmaRtvHistory.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvRmaRtvHistory.Size = new System.Drawing.Size(821, 438);
+            this.dgvRmaRtvHistory.Size = new System.Drawing.Size(908, 438);
             this.dgvRmaRtvHistory.TabIndex = 89;
             // 
             // linkLblClose
@@ -159,5 +174,6 @@
         private Fx.WinForms.Flat.MESTextEdit mesTbxRmaRtv;
         private System.Windows.Forms.Label label9;
         private Fx.WinForms.Flat.MESButton mesBtnSubmit;
+        private System.Windows.Forms.Label label1;
     }
 }

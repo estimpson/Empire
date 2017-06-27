@@ -82,11 +82,17 @@ namespace RmaMaintenance.Views
 
 
 
-        #region Button Click Events
+        #region Button Events
+
+        private void mesBtnSubmit_MouseDown(object sender, MouseEventArgs e)
+        {
+            Cursor.Current = Cursors.WaitCursor;
+        }
 
         private void mesBtnSubmit_Click(object sender, EventArgs e)
         {
             GetHistoryByDateRange();
+            Cursor.Current = Cursors.Default;
         }
 
         #endregion

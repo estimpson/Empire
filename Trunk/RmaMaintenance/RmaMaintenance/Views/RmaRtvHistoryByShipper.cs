@@ -81,11 +81,17 @@ namespace RmaMaintenance.Views
         #endregion
 
 
-        #region Button Click Events
+        #region Button Events
+
+        private void mesBtnSubmit_MouseDown(object sender, MouseEventArgs e)
+        {
+            Cursor.Current = Cursors.WaitCursor;
+        }
 
         private void mesBtnSubmit_Click(object sender, EventArgs e)
         {
             GetHistoryByShipper();
+            Cursor.Current = Cursors.Default;
         }
 
         #endregion
@@ -95,7 +101,12 @@ namespace RmaMaintenance.Views
 
         private void mesTbxShipper_KeyDown(object sender, KeyEventArgs e)
         {
-            if (e.KeyCode == Keys.Enter) GetHistoryByShipper();
+            if (e.KeyCode == Keys.Enter)
+            {
+                Cursor.Current = Cursors.WaitCursor;
+                GetHistoryByShipper();
+                Cursor.Current = Cursors.Default;
+            }
         }
         #endregion
 

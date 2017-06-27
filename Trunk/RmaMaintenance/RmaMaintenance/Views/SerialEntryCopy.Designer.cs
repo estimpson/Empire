@@ -55,7 +55,7 @@
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(122)))), ((int)(((byte)(204)))));
-            this.label1.Location = new System.Drawing.Point(356, 273);
+            this.label1.Location = new System.Drawing.Point(356, 264);
             this.label1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 0);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(377, 20);
@@ -71,11 +71,11 @@
             this.mesBtnImportSerials.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.mesBtnImportSerials.Font = new System.Drawing.Font("Tahoma", 14F);
             this.mesBtnImportSerials.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
-            this.mesBtnImportSerials.Location = new System.Drawing.Point(360, 300);
+            this.mesBtnImportSerials.Location = new System.Drawing.Point(382, 297);
             this.mesBtnImportSerials.Name = "mesBtnImportSerials";
-            this.mesBtnImportSerials.Size = new System.Drawing.Size(139, 35);
+            this.mesBtnImportSerials.Size = new System.Drawing.Size(181, 35);
             this.mesBtnImportSerials.TabIndex = 0;
-            this.mesBtnImportSerials.Text = "Import";
+            this.mesBtnImportSerials.Text = "Import Serials";
             this.mesBtnImportSerials.UseVisualStyleBackColor = false;
             this.mesBtnImportSerials.Click += new System.EventHandler(this.mesBtnImportSerials_Click);
             this.mesBtnImportSerials.MouseDown += new System.Windows.Forms.MouseEventHandler(this.mesBtnImportSerials_MouseDown);
@@ -85,7 +85,7 @@
             this.label7.AutoSize = true;
             this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label7.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(122)))), ((int)(((byte)(204)))));
-            this.label7.Location = new System.Drawing.Point(356, 199);
+            this.label7.Location = new System.Drawing.Point(356, 217);
             this.label7.Margin = new System.Windows.Forms.Padding(3, 2, 3, 0);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(342, 20);
