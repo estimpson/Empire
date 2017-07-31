@@ -1,10 +1,13 @@
 ﻿using System;
+using System.Data;
 using System.Data.SqlClient;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 using ImportCSM.Controls;
 using ImportCSM.DataAccess;
+using Microsoft.VisualBasic.FileIO;
 
 
 namespace ImportCSM
@@ -143,6 +146,10 @@ namespace ImportCSM
 
         private void btnDeltaImport_Click(object sender, EventArgs e)
         {
+            if (LocateFile() == 0) return;
+
+            if (ValidateReleaseId() == 0) return;
+
             if (ProcessCsmDelta() == 1)
             {
                 _messageBox.Message = "Success.";
@@ -428,22 +435,113 @@ namespace ImportCSM
 
         #region CSM Delta Methods
 
+        private int LocateFile()
+        {
+            string folderPathImport = @"S:\CSM Data";
+            string filePath = @"S:\CSM Data\NA Delta.csv";
+
+            if (!File.Exists(filePath))
+            {
+                _messageBox.Message = string.Format("A file named NA Delta.csv was not found in {0}.  Cannot import data.", folderPathImport);
+                _messageBox.ShowDialog();
+                return 0;
+            }
+            return 1;
+        }
+
+        private void DeleteFile()
+        {
+            try
+            {
+                File.Delete(@"S:\CSM Data\NA Delta.csv");
+            }
+            catch (Exception ex)
+            {
+                string error = (ex.InnerException != null) ? ex.InnerException.Message : ex.Message;
+                _messageBox.Message = string.Format("Error when attempting to delete the file.  {0}", error);
+                _messageBox.ShowDialog();
+            }
+        }
+
         private int ProcessCsmDelta()
         {
             string release = tbxCurrentDeltaReleaseId.Text.Trim();
             const string VERSION = "CSM";
+
+            // Import new CSM Delta data
+            int importResult = ImportCsmDelta(release, VERSION);
+
+            // If the import failed at any point, roll back
+            if (importResult == 0)
+            {
+                DeleteCsmDelta(release, VERSION);
+                return importResult;
+            }
+
+            // Success
+            //DeleteFile(); 
+            return importResult;
+        }
+
+        private int ValidateReleaseId()
+        {
+            int result = 1;
+
+            string release = tbxCurrentDeltaReleaseId.Text.Trim();
+            const string VERSION = "CSM";
             if (release == "")
             {
-                _messageBox.Message = "Enter a current release.";
+                _messageBox.Message = "Please enter a current release.";
                 _messageBox.ShowDialog();
                 return 0;
             }
 
-            // Import new CSM Delta data
-            return ImportCsmDelta(release, VERSION) == 0 ? 0 : 1;
+            var con =
+                new SqlConnection(
+                    "data source=eeisql1.empireelect.local;initial catalog=MONITOR;persist security info=True;user id=Andre");
+
+            try
+            {
+                string rowCount = "";
+
+                var cmd = new SqlCommand();
+                cmd.CommandText = "SELECT COUNT(1) AS cnt FROM EEIUser.acctg_csm_NAIHS_Delta WHERE Release_ID = '" +
+                                  release + "' AND Version = '" + VERSION + "'";
+                cmd.CommandType = CommandType.Text;
+                cmd.Connection = con;
+                con.Open();
+
+                SqlDataReader reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    rowCount = reader[0].ToString();
+                }
+                reader.Close();
+
+                int iRowCount = Convert.ToInt32(rowCount);
+                if (iRowCount > 0)
+                {
+                    _messageBox.Message = string.Format("Release ID {0} already exists in the database.  Make sure the correct file is in place.", release);
+                    _messageBox.ShowDialog();
+                    result = 0;
+                }
+            }
+            catch (Exception ex)
+            {
+                string error = (ex.InnerException != null) ? ex.InnerException.Message : ex.Message;
+                _messageBox.Message = string.Format("Error when attempting to validate the release ID {0}.", error);
+                _messageBox.ShowDialog();
+                result = 0;
+            }
+            finally
+            {
+                con.Close();
+                con.Dispose();
+            }
+            return result;
         }
 
-        private int ImportCsmDelta(string release, string version)
+        private int ImportCsmDeltaOld(string release, string version)
         {
             try
             {
@@ -539,8 +637,71 @@ namespace ImportCSM
             return 1;
         }
 
+        private int ImportCsmDelta(string release, string version)
+        {
+            int methodResult = 1;
+
+            //var parser = new TextFieldParser(@"S:\LogisticsVariance\FedEx\FedExVariance.csv") {HasFieldsEnclosedInQuotes = true};
+            var parser = new TextFieldParser(@"S:\CSM Data\NA Delta.csv") { HasFieldsEnclosedInQuotes = true };
+            parser.SetDelimiters(",");
+
+            try
+            {
+                while (!parser.EndOfData)
+                {
+                    string guidStr = Guid.NewGuid().ToString();
+                    string newRow = "'" + guidStr + "','" + release + "','" + version + "',";
+
+                    int fieldCount = 0;
+                    string[] fields = parser.ReadFields();
+                    foreach (var field in fields)
+                    {
+                        fieldCount++;
+                        if (fieldCount > 13) break;
+
+                        // Handle any single quotes
+                        string editedField = field.Replace("'", "''");
+
+                        string newField = "'" + editedField + "',";
+                        newRow += newField;
+                    }
+
+                    // End of string correction
+                    int stringLength = newRow.Length;
+                    newRow = newRow.Remove(stringLength - 1, 1);
+
+                    if (!newRow.Contains("North America Delta") && !newRow.Contains("Design parent/ manufacturer") &&
+                        !newRow.Contains("Design parent/manufacturer") && !newRow.Contains("Design parent / manufacturer") &&
+                        !newRow.Contains("Design parent /manufacturer") && !newRow.Contains("Source: IHS Markit"))
+                    {
+                        // Insert row into the raw data table
+                        int result = InsertCsmDeltaDataRow(newRow);
+                        if (result == 0) return 0;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                methodResult = 0;
+
+                string error = (ex.InnerException != null) ? ex.InnerException.Message : ex.Message;
+                _messageBox.Message = string.Format("Failed to import raw CSM Delta data.  {0}", error);
+                _messageBox.ShowDialog();
+            }
+            finally
+            {
+                parser.Close();
+            }
+
+            return methodResult;
+        }
+
         private int InsertCsmDeltaDataRow(string values)
         {
+            // Ignore any empty rows
+            var arr = values.Split(',');
+            if (arr[3] == "''") return 1;
+
             var con =
                 new SqlConnection(
                     "data source=eeisql1.empireelect.local;initial catalog=MONITOR;persist security info=True;user id=Andre");
@@ -569,6 +730,37 @@ namespace ImportCSM
                 con.Dispose();
             }
             return 1;
+        }
+
+        private void DeleteCsmDelta(string release, string version)
+        {
+            var con =
+                new SqlConnection(
+                    "data source=eeisql1.empireelect.local;initial catalog=MONITOR;persist security info=True;user id=Andre");
+
+            try
+            {
+                var command = new SqlCommand("DELETE FROM EEIUser.acctg_csm_NAIHS_Delta " +
+                                             "WHERE Release_ID = '" + release + "' AND Version = '" + version + "'",
+                                             con);
+
+                con.Open();
+                command.ExecuteNonQuery();
+                command.Dispose();
+            }
+            catch (Exception ex)
+            {
+                //string error = (ex.InnerException != null) ? ex.InnerException.Message : ex.Message;
+                //_messageBox.Message = "Import failed.  Exception thrown at InsertCsmDeltaDataRow().  " + error;
+                //_messageBox.ShowDialog();
+                //return 0;
+            }
+            finally
+            {
+                con.Close();
+                con.Dispose();
+            }
+            //return 1;
         }
 
         #endregion
