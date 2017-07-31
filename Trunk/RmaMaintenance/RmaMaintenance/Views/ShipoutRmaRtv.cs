@@ -51,6 +51,8 @@ namespace RmaMaintenance.Views
             _rmaRtvNumber = rmaRtvNumber;
             _newShippersList = newShippersList;
 
+            ShowInTaskbar = false;
+
             PopulateShippersList();
             mesTbxRtvShipper.Enabled = false;
 
@@ -226,9 +228,9 @@ namespace RmaMaintenance.Views
             string error;
 
             // Make sure a connection to the Honduras EEH database can be established
-            int objectCount;
+            int? objectCount;
             _controller.CheckHondurasConnection(out objectCount, out error);
-            if (objectCount < 1)
+            if (!objectCount.HasValue || objectCount < 1)
             {
                 Cursor.Current = Cursors.Default;
                 _messages.Message = "Failed to connect to the Honduras database.  Nothing was processed.  Please try again.";

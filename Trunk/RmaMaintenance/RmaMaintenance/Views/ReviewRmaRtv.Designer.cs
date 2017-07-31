@@ -68,6 +68,7 @@
             this.linkLblClose.TabIndex = 2;
             this.linkLblClose.TabStop = true;
             this.linkLblClose.Text = "Close";
+            this.linkLblClose.Visible = false;
             this.linkLblClose.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLblClose_LinkClicked);
             this.linkLblClose.MouseEnter += new System.EventHandler(this.linkLblClose_MouseEnter);
             this.linkLblClose.MouseLeave += new System.EventHandler(this.linkLblClose_MouseLeave);
@@ -126,10 +127,9 @@
             this.lblInstructions.Location = new System.Drawing.Point(185, 103);
             this.lblInstructions.Margin = new System.Windows.Forms.Padding(3, 2, 3, 0);
             this.lblInstructions.Name = "lblInstructions";
-            this.lblInstructions.Size = new System.Drawing.Size(581, 18);
+            this.lblInstructions.Size = new System.Drawing.Size(426, 18);
             this.lblInstructions.TabIndex = 64;
-            this.lblInstructions.Text = "If everything looks okay, click Continue to ship out the RTV and / or Transfer th" +
-    "e serials.";
+            this.lblInstructions.Text = "If everything looks okay, click Continue to go to the next screen.";
             // 
             // dgvReviewRmaRtv
             // 

@@ -103,6 +103,25 @@ namespace RmaMaintenance.Controllers
             }
         }
 
+        public void SendEmail(string opCode, string rmaRtvNumber, out string error)
+        {
+            var dt = new ObjectParameter("TranDT", typeof(DateTime));
+            var result = new ObjectParameter("Result", typeof(int));
+
+            error = "";
+            try
+            {
+                using (var context = new MONITOREntities())
+                {
+                    context.usp_CreatedRmaEmail(opCode, rmaRtvNumber, dt, result);
+                }
+            }
+            catch (Exception ex)
+            {
+                error = (ex.InnerException == null) ? ex.Message : ex.InnerException.Message;
+            }
+        }
+
         //public int ProcessData(string operatorCode, string rmaNumber, int createRtvShipper, int placeSerialsOnHold, string note)
         //{
         //    var dt = new ObjectParameter("TranDT", typeof(DateTime));

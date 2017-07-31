@@ -50,6 +50,8 @@ namespace RmaMaintenance.Views
             SetPartsGridColumnProperties();
             SetPartsGridProperties();
 
+            ShowInTaskbar = false;
+
             linkLblClose.LinkBehavior = LinkBehavior.NeverUnderline;
 
             dgvSerialsQuantities.Focus();

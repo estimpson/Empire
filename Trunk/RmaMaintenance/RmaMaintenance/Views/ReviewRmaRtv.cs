@@ -14,6 +14,7 @@ namespace RmaMaintenance.Views
 
         private readonly ReviewRmaRtvController _controller;
         private readonly Messages _messages;
+        //private RmaCreditMemo _rmaCreditMemo;
         private ShipoutRmaRtv _shipoutRmaRtv;
 
         private readonly List<NewShippersDataModel> _newShippersList = new List<NewShippersDataModel>();
@@ -118,10 +119,28 @@ namespace RmaMaintenance.Views
 
         private void mesBtnContinue_Click(object sender, EventArgs e)
         {
+            // ***** A call to the RMA credit memo procedure has been built into RMA processing (7/21/2017). *****
+
+            //if (_transactionType < 3) // RMA is involved (not RTV-only)
+            //{
+            //    _rmaCreditMemo = new RmaCreditMemo(_operatorCode, _rmaRtvNumber, _transactionType, _newShippersList);
+            //    _rmaCreditMemo.ShowDialog();
+
+            //    if (!_rmaCreditMemo.CloseAll) return;
+            //}
+            //else // RTV-only
+            //{
+            //    _shipoutRmaRtv = new ShipoutRmaRtv(_operatorCode, _rmaRtvNumber, _newShippersList);
+            //    _shipoutRmaRtv.ShowDialog();
+
+            //    if (!_shipoutRmaRtv.CloseAll) return;
+            //}
+
             _shipoutRmaRtv = new ShipoutRmaRtv(_operatorCode, _rmaRtvNumber, _newShippersList);
             _shipoutRmaRtv.ShowDialog();
 
             if (!_shipoutRmaRtv.CloseAll) return;
+
             CloseAll = true;
             Close();
         }

@@ -38,6 +38,8 @@ namespace RmaMaintenance.Views
 
             _operatorCode = operatorCode;
 
+            ShowInTaskbar = false;
+
             linkLblClose.LinkBehavior = LinkBehavior.NeverUnderline;
         }
 
@@ -128,7 +130,7 @@ namespace RmaMaintenance.Views
             if (ShipoutRtv(rtvShipper, shipper, location) == 1)
             {
                 // Success (or the RTV shipper had previously been shipped, and the Honduras RMA was a success)
-                SendEmail();
+                SendEmail(rtvShipper);
 
                 mesTbxHonLoc.Text = mesTbxRtvShipper.Text = "";
                 mesTbxRtvShipper.Focus();
@@ -172,9 +174,9 @@ namespace RmaMaintenance.Views
             string error;
 
             // Make sure a connection to the Honduras EEH database can be established
-            int objectCount;
+            int? objectCount;
             _controller.CheckHondurasConnection(out objectCount, out error);
-            if (objectCount < 1)
+            if (!objectCount.HasValue || objectCount < 1)
             {
                 Cursor.Current = Cursors.Default;
                 _messages.Message = "Failed to connect to the Honduras database.  Nothing was processed.  Please try again.";
@@ -231,13 +233,12 @@ namespace RmaMaintenance.Views
             return 1;
         }
 
-        private void SendEmail()
+        private void SendEmail(string shipper)
         {
             string error;
-            string rmaRtvNumber = "";
 
             // Send out an email report showing all Troy and Honduras serial transactions that took place
-            _controller.SendEmail(_operatorCode, rmaRtvNumber, out error);
+            _controller.SendExistingRtvEmail(_operatorCode, shipper, out error);
 
             Cursor.Current = Cursors.Default;
         }

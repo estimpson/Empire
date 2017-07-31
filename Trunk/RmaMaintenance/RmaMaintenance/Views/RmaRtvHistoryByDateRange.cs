@@ -37,6 +37,8 @@ namespace RmaMaintenance.Views
             SetGridColumnProperties();
             SetGridProperties();
 
+            ShowInTaskbar = false;
+
             linkLblClose.LinkBehavior = LinkBehavior.NeverUnderline;
         }
 

@@ -191,6 +191,17 @@
           <Property Name="ProductLine" Type="varchar" MaxLength="25" />
           <Property Name="SerialList" Type="nvarchar(max)" />
         </EntityType>
+        <Function Name="msp_credit_memo" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="rma" Type="int" Mode="In" />
+          <Parameter Name="operator" Type="varchar" Mode="In" />
+          <Parameter Name="invoice" Type="int" Mode="InOut" />
+        </Function>
+        <Function Name="usp_CreatedRmaEmail" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="OperatorCode" Type="varchar" Mode="In" />
+          <Parameter Name="RmaNumber" Type="varchar" Mode="In" />
+          <Parameter Name="TranDT" Type="datetime" Mode="InOut" />
+          <Parameter Name="Result" Type="int" Mode="InOut" />
+        </Function>
         <Function Name="usp_CreatedRmaRtvEmail" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="OperatorCode" Type="varchar" Mode="In" />
           <Parameter Name="RmaRtvNumber" Type="varchar" Mode="In" />
@@ -225,6 +236,11 @@
         <Function Name="usp_CreatedRmaRtvSummary" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="OperatorCode" Type="varchar" Mode="In" />
           <Parameter Name="RmaRtvNumber" Type="varchar" Mode="In" />
+          <Parameter Name="TranDT" Type="datetime" Mode="InOut" />
+          <Parameter Name="Result" Type="int" Mode="InOut" />
+        </Function>
+        <Function Name="usp_CreatedRmaValidateShipperForCreditMemo" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="RmaShipper" Type="int" Mode="In" />
           <Parameter Name="TranDT" Type="datetime" Mode="InOut" />
           <Parameter Name="Result" Type="int" Mode="InOut" />
         </Function>
@@ -303,6 +319,12 @@
           <Parameter Name="OperatorCode" Type="varchar" Mode="In" />
           <Parameter Name="RmaShipper" Type="int" Mode="In" />
           <Parameter Name="Location" Type="varchar" Mode="In" />
+          <Parameter Name="TranDT" Type="datetime" Mode="InOut" />
+          <Parameter Name="Result" Type="int" Mode="InOut" />
+        </Function>
+        <Function Name="usp_ShippedOutExistingRtvEmail" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="OperatorCode" Type="varchar" Mode="In" />
+          <Parameter Name="Shipper" Type="varchar" Mode="In" />
           <Parameter Name="TranDT" Type="datetime" Mode="InOut" />
           <Parameter Name="Result" Type="int" Mode="InOut" />
         </Function>
@@ -482,6 +504,28 @@
           <FunctionImport Name="usp_CreatedRmaRtvHistoryByShipper" ReturnType="Collection(MONITORModel.usp_CreatedRmaRtvHistoryByShipper_Result)">
             <Parameter Name="OperatorCode" Mode="In" Type="String" />
             <Parameter Name="Shipper" Mode="In" Type="String" />
+            <Parameter Name="TranDT" Mode="InOut" Type="DateTime" />
+            <Parameter Name="Result" Mode="InOut" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="usp_ShippedOutExistingRtvEmail">
+            <Parameter Name="OperatorCode" Mode="In" Type="String" />
+            <Parameter Name="Shipper" Mode="In" Type="String" />
+            <Parameter Name="TranDT" Mode="InOut" Type="DateTime" />
+            <Parameter Name="Result" Mode="InOut" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="msp_credit_memo">
+            <Parameter Name="rma" Mode="In" Type="Int32" />
+            <Parameter Name="operator" Mode="In" Type="String" />
+            <Parameter Name="invoice" Mode="InOut" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="usp_CreatedRmaEmail">
+            <Parameter Name="OperatorCode" Mode="In" Type="String" />
+            <Parameter Name="RmaNumber" Mode="In" Type="String" />
+            <Parameter Name="TranDT" Mode="InOut" Type="DateTime" />
+            <Parameter Name="Result" Mode="InOut" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="usp_CreatedRmaValidateShipperForCreditMemo">
+            <Parameter Name="RmaShipper" Mode="In" Type="Int32" />
             <Parameter Name="TranDT" Mode="InOut" Type="DateTime" />
             <Parameter Name="Result" Mode="InOut" Type="Int32" />
           </FunctionImport>
@@ -869,6 +913,10 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="usp_ShippedOutExistingRtvEmail" FunctionName="MONITORModel.Store.usp_ShippedOutExistingRtvEmail" />
+          <FunctionImportMapping FunctionImportName="msp_credit_memo" FunctionName="MONITORModel.Store.msp_credit_memo" />
+          <FunctionImportMapping FunctionImportName="usp_CreatedRmaEmail" FunctionName="MONITORModel.Store.usp_CreatedRmaEmail" />
+          <FunctionImportMapping FunctionImportName="usp_CreatedRmaValidateShipperForCreditMemo" FunctionName="MONITORModel.Store.usp_CreatedRmaValidateShipperForCreditMemo" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

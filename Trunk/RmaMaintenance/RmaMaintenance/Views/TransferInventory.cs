@@ -46,6 +46,8 @@ namespace RmaMaintenance.Views
             _operatorCode = operatorCode;
             _hondurasTransfer = hondurasTransfer;
 
+            ShowInTaskbar = false;
+
             SetInstructions();
 
             linkLblClose.LinkBehavior = LinkBehavior.NeverUnderline;

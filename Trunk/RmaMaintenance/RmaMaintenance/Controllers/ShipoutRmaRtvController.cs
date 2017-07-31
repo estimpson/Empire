@@ -50,7 +50,7 @@ namespace RmaMaintenance.Controllers
             NewShippersList.RemoveAll(newShippersDataModel => newShippersDataModel.RtvShipper == rtvShipper);
         }
 
-        public void CheckHondurasConnection(out int objectCount, out string error)
+        public void CheckHondurasConnection(out int? objectCount, out string error)
         {
             error = "";
             objectCount = 0;
@@ -104,6 +104,25 @@ namespace RmaMaintenance.Controllers
                 using (var context = new MONITOREntities())
                 {
                     context.usp_CreatedRmaRtvEmail(opCode, rmaRtvNumber, dt, result);
+                }
+            }
+            catch (Exception ex)
+            {
+                error = (ex.InnerException == null) ? ex.Message : ex.InnerException.Message;
+            }
+        }
+
+        public void SendExistingRtvEmail(string opCode, string shipper, out string error)
+        {
+            var dt = new ObjectParameter("TranDT", typeof(DateTime));
+            var result = new ObjectParameter("Result", typeof(int));
+
+            error = "";
+            try
+            {
+                using (var context = new MONITOREntities())
+                {
+                    context.usp_ShippedOutExistingRtvEmail(opCode, shipper, dt, result);
                 }
             }
             catch (Exception ex)

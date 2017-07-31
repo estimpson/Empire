@@ -34,6 +34,8 @@ namespace RmaMaintenance.Views
 
             _operatorCode = operatorCode;
 
+            ShowInTaskbar = false;
+
             SetGridColumnProperties();
             SetGridProperties();
 
