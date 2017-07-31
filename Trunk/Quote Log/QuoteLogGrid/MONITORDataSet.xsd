@@ -1,0 +1,44 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="MONITORDataSet" targetNamespace="http://tempuri.org/MONITORDataSet.xsd" xmlns:mstns="http://tempuri.org/MONITORDataSet.xsd" xmlns="http://tempuri.org/MONITORDataSet.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:annotation>
+    <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+        <Connections>
+          <Connection AppSettingsObjectName="Settings" AppSettingsPropertyName="MONITORConnectionString" ConnectionStringObject="" IsAppSettingsProperty="true" Modifier="Assembly" Name="MONITORConnectionString (Settings)" ParameterPrefix="@" PropertyReference="ApplicationSettings.QuoteLogGrid.Properties.Settings.GlobalReference.Default.MONITORConnectionString" Provider="System.Data.SqlClient" />
+        </Connections>
+        <Tables>
+          <TableAdapter BaseClass="System.ComponentModel.Component" DataAccessorModifier="AutoLayout, AnsiClass, Class, Public" DataAccessorName="QT_Report_TotalQuotesReceivedTableAdapter" GeneratorDataComponentClassName="QT_Report_TotalQuotesReceivedTableAdapter" Name="QT_Report_TotalQuotesReceived" UserDataComponentName="QT_Report_TotalQuotesReceivedTableAdapter">
+            <MainSource>
+              <DbSource ConnectionRef="MONITORConnectionString (Settings)" DbObjectName="MONITOR.EEIUser.QT_Report_TotalQuotesReceived" DbObjectType="View" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="false" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetData" UserSourceName="Fill">
+                <SelectCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="false">
+                    <CommandText>SELECT YearOne FROM EEIUser.QT_Report_TotalQuotesReceived</CommandText>
+                    <Parameters />
+                  </DbCommand>
+                </SelectCommand>
+              </DbSource>
+            </MainSource>
+            <Mappings>
+              <Mapping SourceColumn="YearOne" DataSetColumn="YearOne" />
+            </Mappings>
+            <Sources />
+          </TableAdapter>
+        </Tables>
+        <Sources />
+      </DataSource>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:element name="MONITORDataSet" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="True" msprop:Generator_DataSetName="MONITORDataSet" msprop:Generator_UserDSName="MONITORDataSet">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="QT_Report_TotalQuotesReceived" msprop:Generator_TableClassName="QT_Report_TotalQuotesReceivedDataTable" msprop:Generator_TableVarName="tableQT_Report_TotalQuotesReceived" msprop:Generator_TablePropName="QT_Report_TotalQuotesReceived" msprop:Generator_RowDeletingName="QT_Report_TotalQuotesReceivedRowDeleting" msprop:Generator_RowChangingName="QT_Report_TotalQuotesReceivedRowChanging" msprop:Generator_RowEvHandlerName="QT_Report_TotalQuotesReceivedRowChangeEventHandler" msprop:Generator_RowDeletedName="QT_Report_TotalQuotesReceivedRowDeleted" msprop:Generator_UserTableName="QT_Report_TotalQuotesReceived" msprop:Generator_RowChangedName="QT_Report_TotalQuotesReceivedRowChanged" msprop:Generator_RowEvArgName="QT_Report_TotalQuotesReceivedRowChangeEvent" msprop:Generator_RowClassName="QT_Report_TotalQuotesReceivedRow">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="YearOne" msprop:Generator_ColumnVarNameInTable="columnYearOne" msprop:Generator_ColumnPropNameInRow="YearOne" msprop:Generator_ColumnPropNameInTable="YearOneColumn" msprop:Generator_UserColumnName="YearOne" type="xs:int" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>
