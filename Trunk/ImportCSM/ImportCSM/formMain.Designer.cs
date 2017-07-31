@@ -47,6 +47,7 @@
             this.label8 = new System.Windows.Forms.Label();
             this.tbxCurrentDeltaReleaseId = new System.Windows.Forms.TextBox();
             this.tpOfficialForecast = new System.Windows.Forms.TabPage();
+            this.label14 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
             this.dtpDateTimeStamp = new System.Windows.Forms.DateTimePicker();
@@ -55,6 +56,7 @@
             this.label6 = new System.Windows.Forms.Label();
             this.tbxForecastName = new System.Windows.Forms.TextBox();
             this.tpHistoricalSales = new System.Windows.Forms.TabPage();
+            this.label15 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
             this.panel3 = new System.Windows.Forms.Panel();
             this.dtpHistoricalDateTimeStamp = new System.Windows.Forms.DateTimePicker();
@@ -66,8 +68,10 @@
             this.label10 = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
             this.tbxHistoricalForecastName = new System.Windows.Forms.TextBox();
-            this.label14 = new System.Windows.Forms.Label();
-            this.label15 = new System.Windows.Forms.Label();
+            this.label16 = new System.Windows.Forms.Label();
+            this.label17 = new System.Windows.Forms.Label();
+            this.label18 = new System.Windows.Forms.Label();
+            this.label19 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tpCsm.SuspendLayout();
@@ -191,12 +195,14 @@
             // tpCsm
             // 
             this.tpCsm.BackColor = System.Drawing.Color.Black;
+            this.tpCsm.Controls.Add(this.label18);
+            this.tpCsm.Controls.Add(this.label17);
             this.tpCsm.Controls.Add(this.label2);
             this.tpCsm.Controls.Add(this.pnlImport);
             this.tpCsm.Location = new System.Drawing.Point(4, 30);
             this.tpCsm.Name = "tpCsm";
             this.tpCsm.Padding = new System.Windows.Forms.Padding(3);
-            this.tpCsm.Size = new System.Drawing.Size(863, 438);
+            this.tpCsm.Size = new System.Drawing.Size(879, 446);
             this.tpCsm.TabIndex = 0;
             this.tpCsm.Text = "CSM";
             // 
@@ -204,12 +210,12 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(122)))), ((int)(((byte)(204)))));
+            this.label2.ForeColor = System.Drawing.Color.White;
             this.label2.Location = new System.Drawing.Point(204, 45);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(360, 18);
+            this.label2.Size = new System.Drawing.Size(455, 18);
             this.label2.TabIndex = 18;
-            this.label2.Text = "Copy data AND column names from the spreadsheet.";
+            this.label2.Text = "1.  Copy column names and data from the spreadsheet, then Import.";
             // 
             // pnlImport
             // 
@@ -218,7 +224,7 @@
             this.pnlImport.Controls.Add(this.label3);
             this.pnlImport.Controls.Add(this.tbxCurrentReleaseId);
             this.pnlImport.Controls.Add(this.tbxPriorReleaseId);
-            this.pnlImport.Location = new System.Drawing.Point(27, 68);
+            this.pnlImport.Location = new System.Drawing.Point(27, 90);
             this.pnlImport.Name = "pnlImport";
             this.pnlImport.Size = new System.Drawing.Size(343, 151);
             this.pnlImport.TabIndex = 17;
@@ -226,12 +232,14 @@
             // tpCsmDelta
             // 
             this.tpCsmDelta.BackColor = System.Drawing.Color.Black;
+            this.tpCsmDelta.Controls.Add(this.label19);
+            this.tpCsmDelta.Controls.Add(this.label16);
             this.tpCsmDelta.Controls.Add(this.label4);
             this.tpCsmDelta.Controls.Add(this.pnlDeltaImport);
             this.tpCsmDelta.Location = new System.Drawing.Point(4, 30);
             this.tpCsmDelta.Name = "tpCsmDelta";
             this.tpCsmDelta.Padding = new System.Windows.Forms.Padding(3);
-            this.tpCsmDelta.Size = new System.Drawing.Size(863, 438);
+            this.tpCsmDelta.Size = new System.Drawing.Size(879, 446);
             this.tpCsmDelta.TabIndex = 1;
             this.tpCsmDelta.Text = "CSM Delta";
             // 
@@ -239,19 +247,19 @@
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(122)))), ((int)(((byte)(204)))));
-            this.label4.Location = new System.Drawing.Point(205, 45);
+            this.label4.ForeColor = System.Drawing.Color.White;
+            this.label4.Location = new System.Drawing.Point(204, 45);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(416, 18);
+            this.label4.Size = new System.Drawing.Size(464, 18);
             this.label4.TabIndex = 20;
-            this.label4.Text = "Copy row data only from the spreadsheet (no column names).";
+            this.label4.Text = "1.  Save the spreadsheet into the CSM Data folder as:  NA Delta.CSV.";
             // 
             // pnlDeltaImport
             // 
             this.pnlDeltaImport.Controls.Add(this.btnDeltaImport);
             this.pnlDeltaImport.Controls.Add(this.label8);
             this.pnlDeltaImport.Controls.Add(this.tbxCurrentDeltaReleaseId);
-            this.pnlDeltaImport.Location = new System.Drawing.Point(27, 68);
+            this.pnlDeltaImport.Location = new System.Drawing.Point(27, 90);
             this.pnlDeltaImport.Name = "pnlDeltaImport";
             this.pnlDeltaImport.Size = new System.Drawing.Size(343, 121);
             this.pnlDeltaImport.TabIndex = 19;
@@ -299,6 +307,17 @@
             this.tpOfficialForecast.Size = new System.Drawing.Size(879, 446);
             this.tpOfficialForecast.TabIndex = 2;
             this.tpOfficialForecast.Text = "Official Forecast";
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label14.ForeColor = System.Drawing.Color.White;
+            this.label14.Location = new System.Drawing.Point(434, 93);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(175, 16);
+            this.label14.TabIndex = 21;
+            this.label14.Text = "* Example:   2017/06/20 OSF";
             // 
             // label5
             // 
@@ -384,6 +403,17 @@
             this.tpHistoricalSales.Size = new System.Drawing.Size(879, 446);
             this.tpHistoricalSales.TabIndex = 3;
             this.tpHistoricalSales.Text = "Historical Sales";
+            // 
+            // label15
+            // 
+            this.label15.AutoSize = true;
+            this.label15.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label15.ForeColor = System.Drawing.Color.White;
+            this.label15.Location = new System.Drawing.Point(434, 93);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(201, 16);
+            this.label15.TabIndex = 23;
+            this.label15.Text = "* Example:   2017/06/20 ACTUAL";
             // 
             // label9
             // 
@@ -498,27 +528,49 @@
             this.tbxHistoricalForecastName.Size = new System.Drawing.Size(200, 24);
             this.tbxHistoricalForecastName.TabIndex = 0;
             // 
-            // label14
+            // label16
             // 
-            this.label14.AutoSize = true;
-            this.label14.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label14.ForeColor = System.Drawing.Color.White;
-            this.label14.Location = new System.Drawing.Point(434, 93);
-            this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(175, 16);
-            this.label14.TabIndex = 21;
-            this.label14.Text = "* Example:   2017/06/20 OSF";
+            this.label16.AutoSize = true;
+            this.label16.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label16.ForeColor = System.Drawing.Color.White;
+            this.label16.Location = new System.Drawing.Point(204, 67);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(74, 18);
+            this.label16.TabIndex = 21;
+            this.label16.Text = "2.  Import.";
             // 
-            // label15
+            // label17
             // 
-            this.label15.AutoSize = true;
-            this.label15.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label15.ForeColor = System.Drawing.Color.White;
-            this.label15.Location = new System.Drawing.Point(434, 93);
-            this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(201, 16);
-            this.label15.TabIndex = 23;
-            this.label15.Text = "* Example:   2017/06/20 ACTUAL";
+            this.label17.AutoSize = true;
+            this.label17.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label17.ForeColor = System.Drawing.Color.White;
+            this.label17.Location = new System.Drawing.Point(204, 67);
+            this.label17.Name = "label17";
+            this.label17.Size = new System.Drawing.Size(74, 18);
+            this.label17.TabIndex = 21;
+            this.label17.Text = "2.  Import.";
+            // 
+            // label18
+            // 
+            this.label18.AutoSize = true;
+            this.label18.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label18.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(122)))), ((int)(((byte)(204)))));
+            this.label18.Location = new System.Drawing.Point(147, 45);
+            this.label18.Name = "label18";
+            this.label18.Size = new System.Drawing.Size(51, 24);
+            this.label18.TabIndex = 22;
+            this.label18.Text = "CSM";
+            // 
+            // label19
+            // 
+            this.label19.AutoSize = true;
+            this.label19.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label19.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(122)))), ((int)(((byte)(204)))));
+            this.label19.Location = new System.Drawing.Point(100, 45);
+            this.label19.Name = "label19";
+            this.label19.Size = new System.Drawing.Size(98, 24);
+            this.label19.TabIndex = 23;
+            this.label19.Text = "CSM Delta";
             // 
             // formMain
             // 
@@ -599,6 +651,10 @@
         private System.Windows.Forms.TextBox tbxHistoricalForecastName;
         private System.Windows.Forms.Label label14;
         private System.Windows.Forms.Label label15;
+        private System.Windows.Forms.Label label18;
+        private System.Windows.Forms.Label label17;
+        private System.Windows.Forms.Label label19;
+        private System.Windows.Forms.Label label16;
     }
 }
 
