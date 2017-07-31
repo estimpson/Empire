@@ -46,6 +46,8 @@ namespace RmaMaintenance.Views
             _controller = new SerialEntryCopyController();
             _messages = new Messages();
 
+            ShowInTaskbar = false;
+
             linkLblClose.LinkBehavior = LinkBehavior.NeverUnderline;
         }
 

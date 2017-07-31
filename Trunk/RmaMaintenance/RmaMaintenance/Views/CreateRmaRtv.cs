@@ -12,6 +12,7 @@ namespace RmaMaintenance.Views
     {
         #region Class Objects
 
+        //private RmaCreditMemo _rmaCreditMemo;
         private ReviewRmaRtv _reviewRmaRtv;
         private readonly CreateRmaRtvConroller _controller;
         private readonly Messages _messages;
@@ -31,7 +32,7 @@ namespace RmaMaintenance.Views
         #region Variables
 
         private readonly string _operatorCode;
-        private readonly int _transactionType;
+        private readonly int _transactionType; // 0 = rma + rtv, 1 = rma only, 2 = rma only w/serials on hold, 3 = rtv only
 
         #endregion
 
@@ -51,6 +52,8 @@ namespace RmaMaintenance.Views
 
             ShowSerialsList();
             SetControlAppearance();
+
+            ShowInTaskbar = false;
 
             linkLblClose.LinkBehavior = LinkBehavior.NeverUnderline;
             mesTxtRmaNumber.Focus();
@@ -124,15 +127,34 @@ namespace RmaMaintenance.Views
                 if (ProcessSerialsRtvOnly() == 0) return;
             }
             
+            if (_transactionType == 1 || _transactionType == 2) // RMA-only (without or with serials on hold)
+            {
+                Cursor.Current = Cursors.WaitCursor;
+
+                // Send RMA-only email report
+                string error;
+                _controller.SendEmail(_operatorCode, rmaRtvNumber, out error);
+
+
+
+                // ***** A call to the RMA credit memo procedure has been built into RMA processing (7/21/2017). *****
+
+                // Since there will be no RTV to ship, go directly to the Create Credit Memo form
+                //_rmaCreditMemo = new RmaCreditMemo(_operatorCode, rmaRtvNumber, _transactionType, _controller.NewShippersList);
+                //_rmaCreditMemo.ShowDialog();
+
+                Cursor.Current = Cursors.Default;
+                CloseAll = true;
+                Close();
+            }
+
             // RMA / RTV created; show the user the results before proceeding to the shipout form
             _reviewRmaRtv = new ReviewRmaRtv(_operatorCode, _transactionType, _controller.ReturnedRmaRtvNumber, _controller.NewShippersList);
             _reviewRmaRtv.ShowDialog();
 
-            if (_reviewRmaRtv.CloseAll)
-            {
-                CloseAll = true;
-                Close();
-            }
+            if (!_reviewRmaRtv.CloseAll) return;
+            CloseAll = true;
+            Close();
         }
 
         #endregion

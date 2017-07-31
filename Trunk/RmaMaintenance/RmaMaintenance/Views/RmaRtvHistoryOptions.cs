@@ -30,6 +30,8 @@ namespace RmaMaintenance.Views
 
             _operatorCode = operatorCode;
 
+            ShowInTaskbar = false;
+
             linkLblClose.LinkBehavior = LinkBehavior.NeverUnderline;
             rbtnLookupByShipper.Checked = true;
             mesBtnGo.Focus();

@@ -40,6 +40,8 @@ namespace RmaMaintenance.Views
             _operatorCode = operatorCode;
             _serialQuantityList = serialQuantityList;
 
+            ShowInTaskbar = false;
+
             linkLblClose.LinkBehavior = LinkBehavior.NeverUnderline;
             rbtnCreateRmaRtv.Checked = true;
             mesBtnGo.Focus();

@@ -340,5 +340,53 @@ namespace RmaMaintenance.Model
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_CreatedRmaRtvHistoryByShipper_Result>("usp_CreatedRmaRtvHistoryByShipper", operatorCodeParameter, shipperParameter, tranDT, result);
         }
+    
+        public virtual int usp_ShippedOutExistingRtvEmail(string operatorCode, string shipper, ObjectParameter tranDT, ObjectParameter result)
+        {
+            var operatorCodeParameter = operatorCode != null ?
+                new ObjectParameter("OperatorCode", operatorCode) :
+                new ObjectParameter("OperatorCode", typeof(string));
+    
+            var shipperParameter = shipper != null ?
+                new ObjectParameter("Shipper", shipper) :
+                new ObjectParameter("Shipper", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("usp_ShippedOutExistingRtvEmail", operatorCodeParameter, shipperParameter, tranDT, result);
+        }
+    
+        public virtual int msp_credit_memo(Nullable<int> rma, string @operator, ObjectParameter invoice)
+        {
+            var rmaParameter = rma.HasValue ?
+                new ObjectParameter("rma", rma) :
+                new ObjectParameter("rma", typeof(int));
+    
+            var operatorParameter = @operator != null ?
+                new ObjectParameter("operator", @operator) :
+                new ObjectParameter("operator", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("msp_credit_memo", rmaParameter, operatorParameter, invoice);
+        }
+    
+        public virtual int usp_CreatedRmaEmail(string operatorCode, string rmaNumber, ObjectParameter tranDT, ObjectParameter result)
+        {
+            var operatorCodeParameter = operatorCode != null ?
+                new ObjectParameter("OperatorCode", operatorCode) :
+                new ObjectParameter("OperatorCode", typeof(string));
+    
+            var rmaNumberParameter = rmaNumber != null ?
+                new ObjectParameter("RmaNumber", rmaNumber) :
+                new ObjectParameter("RmaNumber", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("usp_CreatedRmaEmail", operatorCodeParameter, rmaNumberParameter, tranDT, result);
+        }
+    
+        public virtual int usp_CreatedRmaValidateShipperForCreditMemo(Nullable<int> rmaShipper, ObjectParameter tranDT, ObjectParameter result)
+        {
+            var rmaShipperParameter = rmaShipper.HasValue ?
+                new ObjectParameter("RmaShipper", rmaShipper) :
+                new ObjectParameter("RmaShipper", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("usp_CreatedRmaValidateShipperForCreditMemo", rmaShipperParameter, tranDT, result);
+        }
     }
 }

@@ -47,6 +47,8 @@ namespace RmaMaintenance.Views
             _controller = new SerialEntryPartsController();
             _messages = new Messages();
 
+            ShowInTaskbar = false;
+
             GetDestinations();
 
             linkLblClose.LinkBehavior = LinkBehavior.NeverUnderline;

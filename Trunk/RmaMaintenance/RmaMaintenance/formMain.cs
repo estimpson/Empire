@@ -2,6 +2,7 @@
 
 //using Fx.RFID.Controller;
 using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
 using RmaMaintenance.Controllers;
@@ -22,6 +23,7 @@ namespace RmaMaintenance
         private TransferOptions _transferOptions;
         private ShipoutExistingRtvOnly _shipoutExistingRtvOnly;
         private RmaRtvHistoryOptions _rmaRtvHistoryOptions;
+        //private RmaCreditMemoExisting _rmaCreditMemoExisting;
 
         #endregion
 
@@ -67,6 +69,8 @@ namespace RmaMaintenance
 
         private void formMain_Load(object sender, EventArgs e)
         {
+            linkLblClose.TabStop = false;
+
             SetLinkLabelProperties();
 
             //this.KeyPress += RFIDReader.ViewOnKeyPress;
@@ -159,6 +163,14 @@ namespace RmaMaintenance
         {
             _rmaRtvHistoryOptions = new RmaRtvHistoryOptions(_operatorCode);
             _rmaRtvHistoryOptions.ShowDialog();
+        }
+
+        private void mesBtnCreditMemo_Click(object sender, EventArgs e)
+        {
+            // ***** A call to the RMA credit memo procedure has been built into RMA processing (7/21/2017). *****
+
+            //_rmaCreditMemoExisting = new RmaCreditMemoExisting(_operatorCode);
+            //_rmaCreditMemoExisting.ShowDialog();
         }
 
         #endregion

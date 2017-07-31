@@ -34,6 +34,8 @@ namespace RmaMaintenance.Views
 
             rbtnCopySerials.Checked = true;
 
+            ShowInTaskbar = false;
+
             linkLblClose.LinkBehavior = LinkBehavior.NeverUnderline;
         }
 

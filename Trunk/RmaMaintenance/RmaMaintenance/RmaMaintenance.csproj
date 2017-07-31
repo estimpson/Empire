@@ -64,6 +64,7 @@
     <Compile Include="Controllers\MainController.cs" />
     <Compile Include="Controllers\NewRmaCreateController.cs" />
     <Compile Include="Controllers\ReviewRmaRtvController.cs" />
+    <Compile Include="Controllers\RmaCreditMemoController.cs" />
     <Compile Include="Controllers\RmaRtvHistoryController.cs" />
     <Compile Include="Controllers\RtvController.cs" />
     <Compile Include="Controllers\SerialEntryCopyController.cs" />
@@ -247,6 +248,18 @@
     <Compile Include="Views\NewRtvView.Designer.cs">
       <DependentUpon>NewRtvView.cs</DependentUpon>
     </Compile>
+    <Compile Include="Views\RmaCreditMemo.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\RmaCreditMemo.Designer.cs">
+      <DependentUpon>RmaCreditMemo.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\RmaCreditMemoExisting.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\RmaCreditMemoExisting.Designer.cs">
+      <DependentUpon>RmaCreditMemoExisting.cs</DependentUpon>
+    </Compile>
     <Compile Include="Views\RmaRtvHistory.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -403,6 +416,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Views\NewRtvView.resx">
       <DependentUpon>NewRtvView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\RmaCreditMemo.resx">
+      <DependentUpon>RmaCreditMemo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\RmaCreditMemoExisting.resx">
+      <DependentUpon>RmaCreditMemoExisting.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\RmaRtvHistory.resx">
       <DependentUpon>RmaRtvHistory.cs</DependentUpon>

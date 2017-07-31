@@ -30,7 +30,6 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(formMain));
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.linkLblClose = new System.Windows.Forms.LinkLabel();
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.mesBtnNewRma = new Fx.WinForms.Flat.MESButton();
             this.mesBtnAssignPo = new Fx.WinForms.Flat.MESButton();
@@ -39,6 +38,7 @@
             this.mesBtnTransferInv = new Fx.WinForms.Flat.MESButton();
             this.mesBtnShipoutExistingRtv = new Fx.WinForms.Flat.MESButton();
             this.mesBtnHistory = new Fx.WinForms.Flat.MESButton();
+            this.mesBtnCreditMemo = new Fx.WinForms.Flat.MESButton();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.label1 = new System.Windows.Forms.Label();
             this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
@@ -51,6 +51,7 @@
             this.mesBtnLogon = new Fx.WinForms.Flat.MESButton();
             this.lblLogonError = new System.Windows.Forms.Label();
             this.lblScanInstructions = new System.Windows.Forms.Label();
+            this.linkLblClose = new System.Windows.Forms.LinkLabel();
             this.tableLayoutPanel1.SuspendLayout();
             this.flowLayoutPanel1.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
@@ -66,9 +67,9 @@
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 180F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 70F));
-            this.tableLayoutPanel1.Controls.Add(this.linkLblClose, 2, 0);
             this.tableLayoutPanel1.Controls.Add(this.flowLayoutPanel1, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.tableLayoutPanel2, 1, 0);
+            this.tableLayoutPanel1.Controls.Add(this.linkLblClose, 2, 0);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 20);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
@@ -77,20 +78,6 @@
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel1.Size = new System.Drawing.Size(1038, 574);
             this.tableLayoutPanel1.TabIndex = 0;
-            // 
-            // linkLblClose
-            // 
-            this.linkLblClose.AutoSize = true;
-            this.linkLblClose.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.linkLblClose.LinkColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(122)))), ((int)(((byte)(204)))));
-            this.linkLblClose.Location = new System.Drawing.Point(951, 0);
-            this.linkLblClose.Name = "linkLblClose";
-            this.linkLblClose.Size = new System.Drawing.Size(63, 20);
-            this.linkLblClose.TabIndex = 10;
-            this.linkLblClose.Text = "CLOSE";
-            this.linkLblClose.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLblClose_LinkClicked);
-            this.linkLblClose.MouseEnter += new System.EventHandler(this.linkLblClose_MouseEnter);
-            this.linkLblClose.MouseLeave += new System.EventHandler(this.linkLblClose_MouseLeave);
             // 
             // flowLayoutPanel1
             // 
@@ -101,6 +88,7 @@
             this.flowLayoutPanel1.Controls.Add(this.mesBtnTransferInv);
             this.flowLayoutPanel1.Controls.Add(this.mesBtnShipoutExistingRtv);
             this.flowLayoutPanel1.Controls.Add(this.mesBtnHistory);
+            this.flowLayoutPanel1.Controls.Add(this.mesBtnCreditMemo);
             this.flowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.flowLayoutPanel1.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
             this.flowLayoutPanel1.Location = new System.Drawing.Point(23, 3);
@@ -234,10 +222,29 @@
             this.mesBtnHistory.Name = "mesBtnHistory";
             this.mesBtnHistory.Size = new System.Drawing.Size(158, 35);
             this.mesBtnHistory.TabIndex = 9;
-            this.mesBtnHistory.TabStop = false;
             this.mesBtnHistory.Text = "History";
             this.mesBtnHistory.UseVisualStyleBackColor = false;
             this.mesBtnHistory.Click += new System.EventHandler(this.mesBtnHistory_Click);
+            // 
+            // mesBtnCreditMemo
+            // 
+            this.mesBtnCreditMemo.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(31)))), ((int)(((byte)(31)))), ((int)(((byte)(32)))));
+            this.mesBtnCreditMemo.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(67)))), ((int)(((byte)(67)))), ((int)(((byte)(70)))));
+            this.mesBtnCreditMemo.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(122)))), ((int)(((byte)(204)))));
+            this.mesBtnCreditMemo.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(84)))), ((int)(((byte)(84)))), ((int)(((byte)(92)))));
+            this.mesBtnCreditMemo.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.mesBtnCreditMemo.Font = new System.Drawing.Font("Tahoma", 14F);
+            this.mesBtnCreditMemo.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
+            this.mesBtnCreditMemo.Location = new System.Drawing.Point(3, 362);
+            this.mesBtnCreditMemo.Margin = new System.Windows.Forms.Padding(3, 3, 3, 12);
+            this.mesBtnCreditMemo.Name = "mesBtnCreditMemo";
+            this.mesBtnCreditMemo.Size = new System.Drawing.Size(158, 35);
+            this.mesBtnCreditMemo.TabIndex = 10;
+            this.mesBtnCreditMemo.TabStop = false;
+            this.mesBtnCreditMemo.Text = "Credit Memo";
+            this.mesBtnCreditMemo.UseVisualStyleBackColor = false;
+            this.mesBtnCreditMemo.Visible = false;
+            this.mesBtnCreditMemo.Click += new System.EventHandler(this.mesBtnCreditMemo_Click);
             // 
             // tableLayoutPanel2
             // 
@@ -330,7 +337,7 @@
             // 
             this.tableLayoutPanel5.ColumnCount = 1;
             this.tableLayoutPanel5.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel5.Controls.Add(this.mesTbxPassword, 0, 1);
+            this.tableLayoutPanel5.Controls.Add(this.mesTbxPassword, 1, 1);
             this.tableLayoutPanel5.Controls.Add(this.lblPassword, 0, 0);
             this.tableLayoutPanel5.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel5.Location = new System.Drawing.Point(90, 0);
@@ -409,6 +416,21 @@
             this.lblScanInstructions.TabIndex = 5;
             this.lblScanInstructions.Text = "Scan your badge to begin.";
             // 
+            // linkLblClose
+            // 
+            this.linkLblClose.AutoSize = true;
+            this.linkLblClose.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.linkLblClose.LinkColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(122)))), ((int)(((byte)(204)))));
+            this.linkLblClose.Location = new System.Drawing.Point(951, 0);
+            this.linkLblClose.Name = "linkLblClose";
+            this.linkLblClose.Size = new System.Drawing.Size(63, 20);
+            this.linkLblClose.TabIndex = 99;
+            this.linkLblClose.TabStop = true;
+            this.linkLblClose.Text = "CLOSE";
+            this.linkLblClose.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLblClose_LinkClicked);
+            this.linkLblClose.MouseEnter += new System.EventHandler(this.linkLblClose_MouseEnter);
+            this.linkLblClose.MouseLeave += new System.EventHandler(this.linkLblClose_MouseLeave);
+            // 
             // formMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -445,7 +467,6 @@
         #endregion
 
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
-        private System.Windows.Forms.LinkLabel linkLblClose;
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
         private System.Windows.Forms.Label label1;
@@ -466,6 +487,8 @@
         private Fx.WinForms.Flat.MESButton mesBtnHistory;
         private Fx.WinForms.Flat.MESButton mesBtnTransferInv;
         private Fx.WinForms.Flat.MESButton mesBtnShipoutExistingRtv;
+        private Fx.WinForms.Flat.MESButton mesBtnCreditMemo;
+        private System.Windows.Forms.LinkLabel linkLblClose;
     }
 }
 
