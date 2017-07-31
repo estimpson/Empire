@@ -1,0 +1,20 @@
+<TEMP>
+<connectionString>Data Source=192.168.1.102;Initial Catalog=Monitor;User ID=EEIUSER;</connectionString>
+<AutoFile>VIST-CARPL</AutoFile>
+<AutoFile>ES3VIST</AutoFile>
+<AutoFile>CHR</AutoFile>
+<AutoFile>ES3GMS</AutoFile>
+<AutoFile>FORD-PART</AutoFile>
+<AutoFile>GM BRAZIL</AutoFile>
+<AutoFile>GMSPO</AutoFile>
+<AutoFile>KSI</AutoFile>
+<AutoFile>GM</AutoFile>
+<AutoFile>TRWBCS</AutoFile>
+<NeedToSend>POLYCON</NeedToSend>
+<NeedToSend>VALEOSYLV</NeedToSend>
+<NeedToSend>KSITROY</NeedToSend>
+<NeedToSendandEmail>VISTCZECH</NeedToSendandEmail>
+<NeedToSendandEmail>ES3VISTCZ</NeedToSendandEmail>
+<Prepaid>ES3GPAP</Prepaid>
+<Prepaid>KSME01</Prepaid>
+</TEMP>
