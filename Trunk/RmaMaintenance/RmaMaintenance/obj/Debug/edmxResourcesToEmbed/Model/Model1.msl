@@ -1,0 +1,217 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="MONITORModelStoreContainer" CdmEntityContainer="MONITOREntities">
+    <EntitySetMapping Name="employees">
+      <EntityTypeMapping TypeName="MONITORModel.employee">
+        <MappingFragment StoreEntitySet="employee">
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="operator_code" ColumnName="operator_code" />
+          <ScalarProperty Name="password" ColumnName="password" />
+          <ScalarProperty Name="serial_number" ColumnName="serial_number" />
+          <ScalarProperty Name="epassword" ColumnName="epassword" />
+          <ScalarProperty Name="operatorlevel" ColumnName="operatorlevel" />
+          <ScalarProperty Name="employee1" ColumnName="employee" />
+          <ScalarProperty Name="npassword" ColumnName="npassword" />
+          <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="vw_CreateRma_Destinations">
+      <EntityTypeMapping TypeName="MONITORModel.vw_CreateRma_Destinations">
+        <MappingFragment StoreEntitySet="vw_CreateRma_Destinations">
+          <ScalarProperty Name="destination" ColumnName="destination" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="usp_CreateRma_ImportSerialsQuantities" FunctionName="MONITORModel.Store.usp_CreateRma_ImportSerialsQuantities" />
+    <FunctionImportMapping FunctionImportName="usp_CreateRma_ProcessSerialsQuantities" FunctionName="MONITORModel.Store.usp_CreateRma_ProcessSerialsQuantities" />
+    <FunctionImportMapping FunctionImportName="usp_CreateRma_TransferOnHoldSerials" FunctionName="MONITORModel.Store.usp_CreateRma_TransferOnHoldSerials" />
+    <FunctionImportMapping FunctionImportName="usp_CreateRma_GetSerialsFromPartDest" FunctionName="MONITORModel.Store.usp_CreateRma_GetSerialsFromPartDest" />
+    <EntitySetMapping Name="SerialsQuantitiesToAutoRMA_RTV">
+      <EntityTypeMapping TypeName="MONITORModel.SerialsQuantitiesToAutoRMA_RTV">
+        <MappingFragment StoreEntitySet="SerialsQuantitiesToAutoRMA_RTV">
+          <ScalarProperty Name="OperatorCode" ColumnName="OperatorCode" />
+          <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+          <ScalarProperty Name="Serial" ColumnName="Serial" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="usp_CreateRma_Honduras" FunctionName="MONITORModel.Store.usp_CreateRma_Honduras" />
+    <FunctionImportMapping FunctionImportName="usp_ShipRtv" FunctionName="MONITORModel.Store.usp_ShipRtv" />
+    <FunctionImportMapping FunctionImportName="usp_CreateRma_ProcessByDestGl" FunctionName="MONITORModel.Store.usp_CreateRma_ProcessByDestGl">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="MONITORModel.usp_CreateRma_ProcessByDestGl_Result">
+          <ScalarProperty Name="RmaShipper" ColumnName="RmaShipper" />
+          <ScalarProperty Name="RtvShipper" ColumnName="RtvShipper" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="usp_StageShipoutRtv_UpdatePo" FunctionName="MONITORModel.Store.usp_StageShipoutRtv_UpdatePo" />
+    <FunctionImportMapping FunctionImportName="usp_CreateRma_GetQualityRMA" FunctionName="MONITORModel.Store.usp_CreateRma_GetQualityRMA">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="MONITORModel.QualityRMA_Details">
+          <ScalarProperty Name="RMAShipperID" ColumnName="RMAShipperID" />
+          <ScalarProperty Name="RMADateStamp" ColumnName="RMADateStamp" />
+          <ScalarProperty Name="RMASerialList" ColumnName="RMASerialList" />
+          <ScalarProperty Name="RMAStatus" ColumnName="RMAStatus" />
+          <ScalarProperty Name="RTVShipperID" ColumnName="RTVShipperID" />
+          <ScalarProperty Name="RTVDateStamp" ColumnName="RTVDateStamp" />
+          <ScalarProperty Name="RTVSerialList" ColumnName="RTVSerialList" />
+          <ScalarProperty Name="RTVStatus" ColumnName="RTVStatus" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <EntitySetMapping Name="RTV_PackingSlip">
+      <EntityTypeMapping TypeName="MONITORModel.CreateRma_RTV_PackingSlip">
+        <MappingFragment StoreEntitySet="CreateRma_RTV_PackingSlip">
+          <ScalarProperty Name="SerialList" ColumnName="SerialList" />
+          <ScalarProperty Name="CompanyPhone" ColumnName="CompanyPhone" />
+          <ScalarProperty Name="CompanyAddress3" ColumnName="CompanyAddress3" />
+          <ScalarProperty Name="CompanyAddress2" ColumnName="CompanyAddress2" />
+          <ScalarProperty Name="CompanyAddress1" ColumnName="CompanyAddress1" />
+          <ScalarProperty Name="CompanyName" ColumnName="CompanyName" />
+          <ScalarProperty Name="VendorAddress3" ColumnName="VendorAddress3" />
+          <ScalarProperty Name="VendorAddress2" ColumnName="VendorAddress2" />
+          <ScalarProperty Name="VendorAddress1" ColumnName="VendorAddress1" />
+          <ScalarProperty Name="VendorName" ColumnName="VendorName" />
+          <ScalarProperty Name="UnitMeasure" ColumnName="UnitMeasure" />
+          <ScalarProperty Name="Terms" ColumnName="Terms" />
+          <ScalarProperty Name="PartCode" ColumnName="PartCode" />
+          <ScalarProperty Name="PartName" ColumnName="PartName" />
+          <ScalarProperty Name="LineGrossWeight" ColumnName="LineGrossWeight" />
+          <ScalarProperty Name="LineTareWeight" ColumnName="LineTareWeight" />
+          <ScalarProperty Name="LineNetWeight" ColumnName="LineNetWeight" />
+          <ScalarProperty Name="QtyPacked" ColumnName="QtyPacked" />
+          <ScalarProperty Name="LineBoxCount" ColumnName="LineBoxCount" />
+          <ScalarProperty Name="LineNote" ColumnName="LineNote" />
+          <ScalarProperty Name="DestinationCode" ColumnName="DestinationCode" />
+          <ScalarProperty Name="DestinationAddress3" ColumnName="DestinationAddress3" />
+          <ScalarProperty Name="DestinationAddress2" ColumnName="DestinationAddress2" />
+          <ScalarProperty Name="DestinationAddress1" ColumnName="DestinationAddress1" />
+          <ScalarProperty Name="DestinationName" ColumnName="DestinationName" />
+          <ScalarProperty Name="Freight" ColumnName="Freight" />
+          <ScalarProperty Name="BoxCount" ColumnName="BoxCount" />
+          <ScalarProperty Name="Carrier" ColumnName="Carrier" />
+          <ScalarProperty Name="AETCNumber" ColumnName="AETCNumber" />
+          <ScalarProperty Name="ShipperNotes" ColumnName="ShipperNotes" />
+          <ScalarProperty Name="RTVShipperID" ColumnName="RTVShipperID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="InventoryToRTVs">
+      <EntityTypeMapping TypeName="MONITORModel.InventoryToRTV">
+        <MappingFragment StoreEntitySet="InventoryToRTV">
+          <ScalarProperty Name="Message" ColumnName="Message" />
+          <ScalarProperty Name="Valid" ColumnName="Valid" />
+          <ScalarProperty Name="ProductLine" ColumnName="ProductLine" />
+          <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+          <ScalarProperty Name="Part" ColumnName="Part" />
+          <ScalarProperty Name="Serial" ColumnName="Serial" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="OpenRTVs">
+      <EntityTypeMapping TypeName="MONITORModel.OpenRTV">
+        <MappingFragment StoreEntitySet="OpenRTVs">
+          <ScalarProperty Name="SerialList" ColumnName="SerialList" />
+          <ScalarProperty Name="ProductLine" ColumnName="ProductLine" />
+          <ScalarProperty Name="HN_RMA_Location" ColumnName="HN_RMA_Location" />
+          <ScalarProperty Name="PackingSlipPrinted" ColumnName="PackingSlipPrinted" />
+          <ScalarProperty Name="RTVShipper" ColumnName="RTVShipper" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="HondurasLocations">
+      <EntityTypeMapping TypeName="MONITORModel.HondurasLocation">
+        <MappingFragment StoreEntitySet="HondurasLocations">
+          <ScalarProperty Name="IsSecure" ColumnName="IsSecure" />
+          <ScalarProperty Name="IsStorage" ColumnName="IsStorage" />
+          <ScalarProperty Name="LocationCode" ColumnName="LocationCode" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="usp_EEHLivelyTest" FunctionName="MONITORModel.Store.usp_EEHLivelyTest">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="MONITORModel.usp_EEHLivelyTest_Result">
+          <ScalarProperty Name="EEHDateTime" ColumnName="EEHDateTime" />
+          <ScalarProperty Name="LocalDatetime" ColumnName="LocalDatetime" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="usp_CreateRma_DeleteSerialsQuantitiesByOperator" FunctionName="MONITORModel.Store.usp_CreateRma_DeleteSerialsQuantitiesByOperator" />
+    <FunctionImportMapping FunctionImportName="usp_CreatedRmaRtvRollback" FunctionName="MONITORModel.Store.usp_CreatedRmaRtvRollback" />
+    <FunctionImportMapping FunctionImportName="usp_CreateRma_ImportSerialsQuantitiesByOperator" FunctionName="MONITORModel.Store.usp_CreateRma_ImportSerialsQuantitiesByOperator" />
+    <FunctionImportMapping FunctionImportName="usp_CreateRma_ProcessByDestGl2" FunctionName="MONITORModel.Store.usp_CreateRma_ProcessByDestGl2">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="MONITORModel.usp_CreateRma_ProcessByDestGl2_Result">
+          <ScalarProperty Name="RmaShipper" ColumnName="RmaShipper" />
+          <ScalarProperty Name="RtvShipper" ColumnName="RtvShipper" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="usp_CreateRma_Honduras_RecordException" FunctionName="MONITORModel.Store.usp_CreateRma_Honduras_RecordException" />
+    <FunctionImportMapping FunctionImportName="usp_CreateRTV_ImportSerials" FunctionName="MONITORModel.Store.usp_CreateRTV_ImportSerials" />
+    <FunctionImportMapping FunctionImportName="usp_CreatedRmaRtvSummary" FunctionName="MONITORModel.Store.usp_CreatedRmaRtvSummary">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="MONITORModel.usp_CreatedRmaRtvSummary_Result">
+          <ScalarProperty Name="ShipperType" ColumnName="ShipperType" />
+          <ScalarProperty Name="Shipper" ColumnName="Shipper" />
+          <ScalarProperty Name="Part" ColumnName="Part" />
+          <ScalarProperty Name="GlSegment" ColumnName="GlSegment" />
+          <ScalarProperty Name="TotalSerials" ColumnName="TotalSerials" />
+          <ScalarProperty Name="TotalQuantity" ColumnName="TotalQuantity" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="usp_CreatedRmaRtvEmail" FunctionName="MONITORModel.Store.usp_CreatedRmaRtvEmail" />
+    <FunctionImportMapping FunctionImportName="usp_CreatedRmaRtvHistory" FunctionName="MONITORModel.Store.usp_CreatedRmaRtvHistory">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="MONITORModel.usp_CreatedRmaRtvHistory_Result">
+          <ScalarProperty Name="ShipperType" ColumnName="ShipperType" />
+          <ScalarProperty Name="Shipper" ColumnName="Shipper" />
+          <ScalarProperty Name="Serial" ColumnName="Serial" />
+          <ScalarProperty Name="Part" ColumnName="Part" />
+          <ScalarProperty Name="GlSegment" ColumnName="GlSegment" />
+          <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+          <ScalarProperty Name="AuditTrailDate" ColumnName="AuditTrailDate" />
+          <ScalarProperty Name="FromLoc" ColumnName="FromLoc" />
+          <ScalarProperty Name="ToLoc" ColumnName="ToLoc" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="usp_CreatedRmaRtvHistoryByDates" FunctionName="MONITORModel.Store.usp_CreatedRmaRtvHistoryByDates">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="MONITORModel.usp_CreatedRmaRtvHistoryByDates_Result">
+          <ScalarProperty Name="ShipperType" ColumnName="ShipperType" />
+          <ScalarProperty Name="Shipper" ColumnName="Shipper" />
+          <ScalarProperty Name="Serial" ColumnName="Serial" />
+          <ScalarProperty Name="Part" ColumnName="Part" />
+          <ScalarProperty Name="GlSegment" ColumnName="GlSegment" />
+          <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+          <ScalarProperty Name="AuditTrailDate" ColumnName="AuditTrailDate" />
+          <ScalarProperty Name="FromLoc" ColumnName="FromLoc" />
+          <ScalarProperty Name="ToLoc" ColumnName="ToLoc" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="usp_CreatedRmaRtvHistoryByShipper" FunctionName="MONITORModel.Store.usp_CreatedRmaRtvHistoryByShipper">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="MONITORModel.usp_CreatedRmaRtvHistoryByShipper_Result">
+          <ScalarProperty Name="ShipperType" ColumnName="ShipperType" />
+          <ScalarProperty Name="Shipper" ColumnName="Shipper" />
+          <ScalarProperty Name="Serial" ColumnName="Serial" />
+          <ScalarProperty Name="Part" ColumnName="Part" />
+          <ScalarProperty Name="GlSegment" ColumnName="GlSegment" />
+          <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+          <ScalarProperty Name="AuditTrailDate" ColumnName="AuditTrailDate" />
+          <ScalarProperty Name="FromLoc" ColumnName="FromLoc" />
+          <ScalarProperty Name="ToLoc" ColumnName="ToLoc" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="usp_ShippedOutExistingRtvEmail" FunctionName="MONITORModel.Store.usp_ShippedOutExistingRtvEmail" />
+    <FunctionImportMapping FunctionImportName="msp_credit_memo" FunctionName="MONITORModel.Store.msp_credit_memo" />
+    <FunctionImportMapping FunctionImportName="usp_CreatedRmaEmail" FunctionName="MONITORModel.Store.usp_CreatedRmaEmail" />
+    <FunctionImportMapping FunctionImportName="usp_CreatedRmaValidateShipperForCreditMemo" FunctionName="MONITORModel.Store.usp_CreatedRmaValidateShipperForCreditMemo" />
+  </EntityContainerMapping>
+</Mapping>

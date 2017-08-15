@@ -130,13 +130,6 @@ namespace RmaMaintenance
             _serialOptions.ShowDialog();
         }
 
-        private void RtvButtonClick(object sender, EventArgs e)
-        {
-            var newRtvView = new NewRtvView();
-            newRtvView.SetViewModel(new RtvController { OperatorCode = _operatorCode });
-            newRtvView.ShowDialog();
-        }
-
         private void mesBtnAssignPo_Click(object sender, EventArgs e)
         {
             _assignPoView = new AssignPoView {OperatorCode = _operatorCode};

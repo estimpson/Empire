@@ -64,9 +64,7 @@
     <Compile Include="Controllers\MainController.cs" />
     <Compile Include="Controllers\NewRmaCreateController.cs" />
     <Compile Include="Controllers\ReviewRmaRtvController.cs" />
-    <Compile Include="Controllers\RmaCreditMemoController.cs" />
     <Compile Include="Controllers\RmaRtvHistoryController.cs" />
-    <Compile Include="Controllers\RtvController.cs" />
     <Compile Include="Controllers\SerialEntryCopyController.cs" />
     <Compile Include="Controllers\SerialEntryManualController.cs" />
     <Compile Include="Controllers\SerialEntryPartsController.cs" />
@@ -174,18 +172,6 @@
     <Compile Include="UserControls\RtvAddInventory.Designer.cs">
       <DependentUpon>RtvAddInventory.cs</DependentUpon>
     </Compile>
-    <Compile Include="UserControls\RtvAddInventoryOLV.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="UserControls\RtvAddInventoryOLV.Designer.cs">
-      <DependentUpon>RtvAddInventoryOLV.cs</DependentUpon>
-    </Compile>
-    <Compile Include="UserControls\RtvOpenList.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="UserControls\RtvOpenList.Designer.cs">
-      <DependentUpon>RtvOpenList.cs</DependentUpon>
-    </Compile>
     <Compile Include="UserControls\RtvPrintSend.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -234,31 +220,12 @@
     <Compile Include="Views\EditRmaView.Designer.cs">
       <DependentUpon>EditRmaView.cs</DependentUpon>
     </Compile>
-    <Compile Include="Views\Helpers\ViewPreferencesHelper.cs" />
     <Compile Include="Views\Interfaces\IPreferencesView.cs" />
     <Compile Include="Views\NewRmaView.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Views\NewRmaView.Designer.cs">
       <DependentUpon>NewRmaView.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Views\NewRtvView.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Views\NewRtvView.Designer.cs">
-      <DependentUpon>NewRtvView.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Views\RmaCreditMemo.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Views\RmaCreditMemo.Designer.cs">
-      <DependentUpon>RmaCreditMemo.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Views\RmaCreditMemoExisting.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Views\RmaCreditMemoExisting.Designer.cs">
-      <DependentUpon>RmaCreditMemoExisting.cs</DependentUpon>
     </Compile>
     <Compile Include="Views\RmaRtvHistory.cs">
       <SubType>Form</SubType>
@@ -381,12 +348,6 @@
     <EmbeddedResource Include="UserControls\RtvAddInventory.resx">
       <DependentUpon>RtvAddInventory.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UserControls\RtvAddInventoryOLV.resx">
-      <DependentUpon>RtvAddInventoryOLV.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="UserControls\RtvOpenList.resx">
-      <DependentUpon>RtvOpenList.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="UserControls\RtvPrintSend.resx">
       <DependentUpon>RtvPrintSend.cs</DependentUpon>
     </EmbeddedResource>
@@ -413,15 +374,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Views\NewRmaView.resx">
       <DependentUpon>NewRmaView.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Views\NewRtvView.resx">
-      <DependentUpon>NewRtvView.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Views\RmaCreditMemo.resx">
-      <DependentUpon>RmaCreditMemo.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Views\RmaCreditMemoExisting.resx">
-      <DependentUpon>RmaCreditMemoExisting.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\RmaRtvHistory.resx">
       <DependentUpon>RmaRtvHistory.cs</DependentUpon>
@@ -506,10 +458,6 @@
     <None Include="Resources\RMA.ico" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\..\3rdPartyControls\ObjectListView2012\ObjectListView2012.csproj">
-      <Project>{18feda0c-d147-4286-b39a-01204808106a}</Project>
-      <Name>ObjectListView2012</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Fx.WinForms.Flat\Fx.WinForms.Flat.csproj">
       <Project>{5E3C1188-AF29-46E7-8371-D3EEB667C8A1}</Project>
       <Name>Fx.WinForms.Flat</Name>
