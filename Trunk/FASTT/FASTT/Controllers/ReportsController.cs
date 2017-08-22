@@ -16,7 +16,9 @@ namespace FASTT.Controllers
         private MONITOREntities _context;
         private readonly CustomMessageBox _messageBox;
 
-        public List<string> CustomersList = new List<string>(); 
+        public List<string> CustomersList = new List<string>();
+        public List<string> HitlistVehiclesList = new List<string>();
+        public List<string> HitlistProgramsList = new List<string>();
         public List<string> HitlistCustomersList = new List<string>();
         public List<string> HitlistCustomerSopsList = new List<string>();
 
@@ -223,6 +225,62 @@ namespace FASTT.Controllers
 
         #region Customer ComboBox Methods (Hitlist report)
 
+        public int GetHitListVehicles(string region)
+        {
+            HitlistVehiclesList.Clear();
+            try
+            {
+                if (_context != null)
+                {
+                    _context.Dispose();
+                    _context = new MONITOREntities();
+                }
+
+                if (_context != null)
+                {
+                    HitlistVehiclesList.Add("");
+                    var queryResult = _context.usp_ST_Report_Hitlist_GetVehicleList(region).ToList();
+                    foreach (var item in queryResult) HitlistVehiclesList.Add(item.vehicle);
+                }
+            }
+            catch (Exception ex)
+            {
+                string error = (ex.InnerException != null) ? ex.InnerException.Message : ex.Message;
+                _messageBox.Message = string.Format("Failed to return Vehicles list for report filter.  Error: {0}", error);
+                _messageBox.ShowDialog();
+                return 0;
+            }
+            return 1;
+        }
+
+        public int GetHitListPrograms(string region)
+        {
+            HitlistProgramsList.Clear();
+            try
+            {
+                if (_context != null)
+                {
+                    _context.Dispose();
+                    _context = new MONITOREntities();
+                }
+
+                if (_context != null)
+                {
+                    HitlistProgramsList.Add("");
+                    var queryResult = _context.usp_ST_Report_Hitlist_GetProgramList(region).ToList();
+                    foreach (var item in queryResult) HitlistProgramsList.Add(item.Program);
+                }
+            }
+            catch (Exception ex)
+            {
+                string error = (ex.InnerException != null) ? ex.InnerException.Message : ex.Message;
+                _messageBox.Message = string.Format("Failed to return Programs list for report filter.  Error: {0}", error);
+                _messageBox.ShowDialog();
+                return 0;
+            }
+            return 1;
+        }
+
         public int GetHitListCustomers(string region)
         {
             HitlistCustomersList.Clear();
@@ -244,7 +302,7 @@ namespace FASTT.Controllers
             catch (Exception ex)
             {
                 string error = (ex.InnerException != null) ? ex.InnerException.Message : ex.Message;
-                _messageBox.Message = string.Format("Failed to return Customers list for report.  Error: {0}", error);
+                _messageBox.Message = string.Format("Failed to return Customers list for report filter.  Error: {0}", error);
                 _messageBox.ShowDialog();
                 return 0;
             }
@@ -502,6 +560,148 @@ namespace FASTT.Controllers
                             QuoteStatus = item.QuoteStatus,
                             StraightMaterialCost = item.StraightMaterialCost,
                             TotalQuotedSales = (item.TotalQuotedSales.HasValue) ?item.TotalQuotedSales : 0,
+                            MsfVehicle = item.SalesForecastVehicle,
+                            MsfEeiBasePart = item.SalesForecastEEIBasePart,
+                            MsfSopYear = item.SalesForecastSopYear,
+                            MsfEopYear = item.SalesForecastEopYear,
+                            MsfTotalPeakYearlySales = (item.SalesForecastTotalPeakYearlySales.HasValue) ? item.SalesForecastTotalPeakYearlySales : 0,
+                            MsfApplication = item.SalesForecastApplication
+                        };
+                        ListHitlistMsf.Add(_hitlistMsfDataModel);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                string error = (ex.InnerException != null) ? ex.InnerException.Message : ex.Message;
+                _messageBox.Message = string.Format("Failed to return sales hitlist data.  Error: {0}", error);
+                _messageBox.ShowDialog();
+            }
+        }
+
+        public void GetHitlistByVehicle(string vehicle, int? sopYear)
+        {
+            ListHitlistMsf.Clear();
+            try
+            {
+                if (_context != null)
+                {
+                    _context.Dispose();
+                    _context = new MONITOREntities();
+                }
+
+                if (_context != null)
+                {          
+                    var queryResult = _context.usp_ST_Report_Hitlist_MSF_VehicleParam(vehicle, sopYear);
+                    foreach (var item in queryResult)
+                    {
+                        _hitlistMsfDataModel = new ReportHitlistMsfDataModel
+                        {
+                            Customer = item.Customer,
+                            Program = item.Program,
+                            EstYearlySales = item.EstYearlySales,
+                            PeakYearlyVolume = string.Format("{0:n0}", item.PeakYearlyVolume),
+                            SOPYear = item.SOPYear,
+                            LED_Harness = item.LED_Harness,
+                            Application = item.Application,
+                            Region = item.Region,
+                            OEM = item.OEM,
+                            Nameplate = item.NamePlate,
+                            Component = item.Component,
+                            SOP = item.SOP,
+                            EOP = item.EOP,
+                            Type = item.Type,
+                            Price = item.Price,
+                            Volume2017 = item.Volume2017,
+                            Volume2018 = item.Volume2018,
+                            Volume2019 = item.Volume2019,
+                            Volume2020 = item.Volume2020,
+                            Volume2021 = item.Volume2021,
+                            Volume2022 = item.Volume2022,
+                            ID = item.ID,
+                            SalesLeadID = item.SalesLeadId,
+                            SalesPerson = item.SalesPerson,
+                            QuoteNumber = item.QuoteNumber,
+                            EEIPartNumber = item.EEIPartNumber,
+                            EAU = item.EAU,
+                            ApplicationName = item.ApplicationName,
+                            SalesInitials = item.SalesInitials,
+                            QuotePrice = item.QuotePrice,
+                            Awarded = item.Awarded,
+                            QuoteStatus = item.QuoteStatus,
+                            StraightMaterialCost = item.StraightMaterialCost,
+                            TotalQuotedSales = (item.TotalQuotedSales.HasValue) ? item.TotalQuotedSales : 0,
+                            MsfVehicle = item.SalesForecastVehicle,
+                            MsfEeiBasePart = item.SalesForecastEEIBasePart,
+                            MsfSopYear = item.SalesForecastSopYear,
+                            MsfEopYear = item.SalesForecastEopYear,
+                            MsfTotalPeakYearlySales = (item.SalesForecastTotalPeakYearlySales.HasValue) ? item.SalesForecastTotalPeakYearlySales : 0,
+                            MsfApplication = item.SalesForecastApplication
+                        };
+                        ListHitlistMsf.Add(_hitlistMsfDataModel);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                string error = (ex.InnerException != null) ? ex.InnerException.Message : ex.Message;
+                _messageBox.Message = string.Format("Failed to return sales hitlist data.  Error: {0}", error);
+                _messageBox.ShowDialog();
+            }
+        }
+
+        public void GetHitlistByProgram(string program, int? sopYear)
+        {
+            ListHitlistMsf.Clear();
+            try
+            {
+                if (_context != null)
+                {
+                    _context.Dispose();
+                    _context = new MONITOREntities();
+                }
+
+                if (_context != null)
+                {
+                    var queryResult = _context.usp_ST_Report_Hitlist_MSF_ProgramParam(program, sopYear);
+                    foreach (var item in queryResult)
+                    {
+                        _hitlistMsfDataModel = new ReportHitlistMsfDataModel
+                        {
+                            Customer = item.Customer,
+                            Program = item.Program,
+                            EstYearlySales = item.EstYearlySales,
+                            PeakYearlyVolume = string.Format("{0:n0}", item.PeakYearlyVolume),
+                            SOPYear = item.SOPYear,
+                            LED_Harness = item.LED_Harness,
+                            Application = item.Application,
+                            Region = item.Region,
+                            OEM = item.OEM,
+                            Nameplate = item.NamePlate,
+                            Component = item.Component,
+                            SOP = item.SOP,
+                            EOP = item.EOP,
+                            Type = item.Type,
+                            Price = item.Price,
+                            Volume2017 = item.Volume2017,
+                            Volume2018 = item.Volume2018,
+                            Volume2019 = item.Volume2019,
+                            Volume2020 = item.Volume2020,
+                            Volume2021 = item.Volume2021,
+                            Volume2022 = item.Volume2022,
+                            ID = item.ID,
+                            SalesLeadID = item.SalesLeadId,
+                            SalesPerson = item.SalesPerson,
+                            QuoteNumber = item.QuoteNumber,
+                            EEIPartNumber = item.EEIPartNumber,
+                            EAU = item.EAU,
+                            ApplicationName = item.ApplicationName,
+                            SalesInitials = item.SalesInitials,
+                            QuotePrice = item.QuotePrice,
+                            Awarded = item.Awarded,
+                            QuoteStatus = item.QuoteStatus,
+                            StraightMaterialCost = item.StraightMaterialCost,
+                            TotalQuotedSales = (item.TotalQuotedSales.HasValue) ? item.TotalQuotedSales : 0,
                             MsfVehicle = item.SalesForecastVehicle,
                             MsfEeiBasePart = item.SalesForecastEEIBasePart,
                             MsfSopYear = item.SalesForecastSopYear,

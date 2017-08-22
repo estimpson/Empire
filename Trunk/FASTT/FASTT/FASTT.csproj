@@ -234,19 +234,37 @@
     <Compile Include="Model\usp_ST_Report_Hitlist_GetCustomerList_Result.cs">
       <DependentUpon>ReportsModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Model\usp_ST_Report_Hitlist_GetProgramList_Result.cs">
+      <DependentUpon>ReportsModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Model\usp_ST_Report_Hitlist_GetSopList_Result.cs">
+      <DependentUpon>ReportsModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\usp_ST_Report_Hitlist_GetVehicleList_Result.cs">
       <DependentUpon>ReportsModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Model\usp_ST_Report_Hitlist_MSF_Dashboard_New3_Result.cs">
       <DependentUpon>ReportsModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Model\usp_ST_Report_Hitlist_MSF_Dashboard_ProgramParam_Result.cs">
+      <DependentUpon>ReportsModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Model\usp_ST_Report_Hitlist_MSF_Dashboard_Result.cs">
+      <DependentUpon>ReportsModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\usp_ST_Report_Hitlist_MSF_Dashboard_VehicleParam_Result.cs">
       <DependentUpon>ReportsModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Model\usp_ST_Report_Hitlist_MSF_New3_Result.cs">
       <DependentUpon>ReportsModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Model\usp_ST_Report_Hitlist_MSF_ProgramParam_Result.cs">
+      <DependentUpon>ReportsModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Model\usp_ST_Report_Hitlist_MSF_Result.cs">
+      <DependentUpon>ReportsModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\usp_ST_Report_Hitlist_MSF_VehicleParam_Result.cs">
       <DependentUpon>ReportsModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Model\usp_ST_Report_Hitlist_SalesActivityByCustomer_Result.cs">
@@ -284,6 +302,12 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Views\Form1.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\Form1.Designer.cs">
+      <DependentUpon>Form1.cs</DependentUpon>
+    </Compile>
     <Compile Include="Views\ReportsDasboardView.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -339,6 +363,9 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="Views\Form1.resx">
+      <DependentUpon>Form1.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Views\ReportsDasboardView.resx">
       <DependentUpon>ReportsDasboardView.cs</DependentUpon>
     </EmbeddedResource>

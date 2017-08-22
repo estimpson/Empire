@@ -1,0 +1,134 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="MONITORModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+  <EntityContainer Name="MONITORModelStoreContainer">
+    <EntitySet Name="employee" EntityType="MONITORModel.Store.employee" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="ST_SalesLeadLog_StatusDefinition" EntityType="MONITORModel.Store.ST_SalesLeadLog_StatusDefinition" store:Type="Tables" Schema="EEIUser" />
+    <EntitySet Name="vw_ST_LightingStudy_Hitlist_2016" EntityType="MONITORModel.Store.vw_ST_LightingStudy_Hitlist_2016" store:Type="Views" store:Schema="EEIUser" store:Name="vw_ST_LightingStudy_Hitlist_2016">
+      <DefiningQuery>SELECT 
+      [vw_ST_LightingStudy_Hitlist_2016].[Customer] AS [Customer], 
+      [vw_ST_LightingStudy_Hitlist_2016].[Program] AS [Program], 
+      [vw_ST_LightingStudy_Hitlist_2016].[EstYearlySales] AS [EstYearlySales], 
+      [vw_ST_LightingStudy_Hitlist_2016].[PeakYearlyVolume] AS [PeakYearlyVolume], 
+      [vw_ST_LightingStudy_Hitlist_2016].[SOPYear] AS [SOPYear], 
+      [vw_ST_LightingStudy_Hitlist_2016].[LED/Harness] AS [LED/Harness], 
+      [vw_ST_LightingStudy_Hitlist_2016].[Application] AS [Application], 
+      [vw_ST_LightingStudy_Hitlist_2016].[Region] AS [Region], 
+      [vw_ST_LightingStudy_Hitlist_2016].[OEM] AS [OEM], 
+      [vw_ST_LightingStudy_Hitlist_2016].[NamePlate] AS [NamePlate], 
+      [vw_ST_LightingStudy_Hitlist_2016].[Component] AS [Component], 
+      [vw_ST_LightingStudy_Hitlist_2016].[SOP] AS [SOP], 
+      [vw_ST_LightingStudy_Hitlist_2016].[EOP] AS [EOP], 
+      [vw_ST_LightingStudy_Hitlist_2016].[Type] AS [Type], 
+      [vw_ST_LightingStudy_Hitlist_2016].[Price] AS [Price], 
+      [vw_ST_LightingStudy_Hitlist_2016].[Volume2017] AS [Volume2017], 
+      [vw_ST_LightingStudy_Hitlist_2016].[Volume2018] AS [Volume2018], 
+      [vw_ST_LightingStudy_Hitlist_2016].[Volume2019] AS [Volume2019], 
+      [vw_ST_LightingStudy_Hitlist_2016].[Volume2020] AS [Volume2020], 
+      [vw_ST_LightingStudy_Hitlist_2016].[Volume2021] AS [Volume2021], 
+      [vw_ST_LightingStudy_Hitlist_2016].[Volume2022] AS [Volume2022], 
+      [vw_ST_LightingStudy_Hitlist_2016].[Status] AS [Status], 
+      [vw_ST_LightingStudy_Hitlist_2016].[AwardedVolume] AS [AwardedVolume], 
+      [vw_ST_LightingStudy_Hitlist_2016].[ID] AS [ID], 
+      [vw_ST_LightingStudy_Hitlist_2016].[SalesPerson] AS [SalesPerson]
+      FROM [EEIUser].[vw_ST_LightingStudy_Hitlist_2016] AS [vw_ST_LightingStudy_Hitlist_2016]</DefiningQuery>
+    </EntitySet>
+  </EntityContainer>
+  <EntityType Name="employee">
+    <Key>
+      <PropertyRef Name="operator_code" />
+    </Key>
+    <Property Name="name" Type="varchar" Nullable="false" MaxLength="40" />
+    <Property Name="operator_code" Type="varchar" Nullable="false" MaxLength="5" />
+    <Property Name="password" Type="varchar" Nullable="false" MaxLength="5" />
+    <Property Name="serial_number" Type="int" />
+    <Property Name="epassword" Type="text" />
+    <Property Name="operatorlevel" Type="int" />
+    <Property Name="employee" Type="varchar" MaxLength="15" />
+    <Property Name="npassword" Type="varbinary" MaxLength="255" />
+    <Property Name="EmployeeID" Type="nvarchar" MaxLength="15" />
+  </EntityType>
+  <EntityType Name="ST_SalesLeadLog_StatusDefinition">
+    <Key>
+      <PropertyRef Name="StatusType" />
+    </Key>
+    <Property Name="StatusType" Type="varchar" Nullable="false" MaxLength="50" />
+    <Property Name="StatusValue" Type="int" Nullable="false" />
+  </EntityType>
+  <!--Errors Found During Generation:
+      warning 6002: The table/view 'MONITOR.EEIUser.vw_ST_LightingStudy_Hitlist_2016' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
+      -->
+  <EntityType Name="vw_ST_LightingStudy_Hitlist_2016">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="Customer" Type="varchar" MaxLength="50" />
+    <Property Name="Program" Type="varchar" MaxLength="50" />
+    <Property Name="EstYearlySales" Type="int" />
+    <Property Name="PeakYearlyVolume" Type="int" />
+    <Property Name="SOPYear" Type="int" />
+    <Property Name="LED/Harness" Type="varchar" MaxLength="50" />
+    <Property Name="Application" Type="varchar" MaxLength="50" />
+    <Property Name="Region" Type="varchar" MaxLength="50" />
+    <Property Name="OEM" Type="varchar" MaxLength="50" />
+    <Property Name="NamePlate" Type="varchar" MaxLength="50" />
+    <Property Name="Component" Type="varchar" MaxLength="50" />
+    <Property Name="SOP" Type="varchar" MaxLength="30" />
+    <Property Name="EOP" Type="varchar" MaxLength="30" />
+    <Property Name="Type" Type="varchar" MaxLength="50" />
+    <Property Name="Price" Type="decimal" Precision="10" Scale="2" />
+    <Property Name="Volume2017" Type="int" />
+    <Property Name="Volume2018" Type="int" />
+    <Property Name="Volume2019" Type="int" />
+    <Property Name="Volume2020" Type="int" />
+    <Property Name="Volume2021" Type="int" />
+    <Property Name="Volume2022" Type="int" />
+    <Property Name="Status" Type="varchar" MaxLength="50" />
+    <Property Name="AwardedVolume" Type="int" />
+    <Property Name="ID" Type="int" Nullable="false" />
+    <Property Name="SalesPerson" Type="varchar" MaxLength="40" />
+  </EntityType>
+  <Function Name="usp_ST_Csm_SalesForecast" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="EEIUser">
+    <Parameter Name="ParentCustomer" Type="varchar" Mode="In" />
+    <Parameter Name="TranDT" Type="datetime" Mode="InOut" />
+    <Parameter Name="Result" Type="int" Mode="InOut" />
+  </Function>
+  <Function Name="usp_ST_SalesLeadLog_GetActivityHistory" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="EEIUser">
+    <Parameter Name="SalesLeadId" Type="int" Mode="In" />
+    <Parameter Name="TranDT" Type="datetime" Mode="InOut" />
+    <Parameter Name="Result" Type="int" Mode="InOut" />
+  </Function>
+  <Function Name="usp_ST_SalesLeadLog_GetContactInfo" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="EEIUser">
+    <Parameter Name="Id" Type="int" Mode="In" />
+    <Parameter Name="TranDT" Type="datetime" Mode="InOut" />
+    <Parameter Name="Result" Type="int" Mode="InOut" />
+  </Function>
+  <Function Name="usp_ST_SalesLeadLog_Hitlist_GetActivity" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="EEIUser">
+    <Parameter Name="SalesPersonCode" Type="varchar" Mode="In" />
+    <Parameter Name="TranDT" Type="datetime" Mode="InOut" />
+    <Parameter Name="Result" Type="int" Mode="InOut" />
+  </Function>
+  <Function Name="usp_ST_SalesLeadLog_Hitlist_SearchForSalesLeads" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="EEIUser">
+    <Parameter Name="HitlistId" Type="int" Mode="In" />
+    <Parameter Name="TranDT" Type="datetime" Mode="InOut" />
+    <Parameter Name="Result" Type="int" Mode="InOut" />
+  </Function>
+  <Function Name="usp_ST_SalesLeadLog_Hitlist_Update" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="EEIUser">
+    <Parameter Name="OperatorCode" Type="varchar" Mode="In" />
+    <Parameter Name="CombinedLightingId" Type="int" Mode="In" />
+    <Parameter Name="SalesLeadId" Type="int" Mode="In" />
+    <Parameter Name="SalesLeadStatus" Type="int" Mode="In" />
+    <Parameter Name="ActivityRowId" Type="int" Mode="In" />
+    <Parameter Name="Activity" Type="varchar" Mode="In" />
+    <Parameter Name="ActivityDate" Type="datetime" Mode="In" />
+    <Parameter Name="MeetingLocation" Type="varchar" Mode="In" />
+    <Parameter Name="ContactName" Type="varchar" Mode="In" />
+    <Parameter Name="ContactPhoneNumber" Type="varchar" Mode="In" />
+    <Parameter Name="ContactEmailAddress" Type="varchar" Mode="In" />
+    <Parameter Name="Duration" Type="numeric" Mode="In" />
+    <Parameter Name="Notes" Type="varchar(max)" Mode="In" />
+    <Parameter Name="QuoteNumber" Type="varchar" Mode="In" />
+    <Parameter Name="AwardedVolume" Type="int" Mode="In" />
+    <Parameter Name="TranDT" Type="datetime" Mode="InOut" />
+    <Parameter Name="Result" Type="int" Mode="InOut" />
+  </Function>
+</Schema>

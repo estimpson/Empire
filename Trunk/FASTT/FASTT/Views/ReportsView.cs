@@ -195,8 +195,37 @@ namespace FASTT.Views
 
         private void mesBtnGo_Click(object sender, EventArgs e)
         {
-            string customer = cbxReportCustomer.Text.Trim();
-            if (customer == "") return;
+            if (rbtnCustomerFilter.Checked)
+            {
+                string customer = cbxReportCustomer.Text.Trim();
+                if (customer == "")
+                {
+                    _messageBox.Message = "Please select a customer.";
+                    _messageBox.ShowDialog();
+                    return;
+                }
+            }
+            else if(rbtnProgramFilter.Checked)
+            {
+                string program = cbxReportProgram.Text.Trim();
+                if (program == "")
+                {
+                    _messageBox.Message = "Please select a program.";
+                    _messageBox.ShowDialog();
+                    return;
+                }
+            }
+            else
+            {
+                string vehicle = cbxReportVehicle.Text.Trim();
+                if (vehicle == "")
+                {
+                    _messageBox.Message = "Please select a vehicle.";
+                    _messageBox.ShowDialog();
+                    return;
+                }
+            }
+
 
             // Both the hitlist grid and the launching/closing charts use the filter header, so determine which to show
             if (_gridControlEnum == GridControlEnum.Hitlist)
@@ -230,6 +259,47 @@ namespace FASTT.Views
 
             rbtnNorthAmerica.Checked = (!rbtnChina.Checked);
             RadioButtonAction();
+        }
+
+
+        private void rbtnCustomerFilter_CheckedChanged(object sender, EventArgs e)
+        {
+            if (rbtnCustomerFilter.Checked)
+            {
+                rbtnProgramFilter.Checked = rbtnVehicleFilter.Checked = false;
+                cbxReportProgram.Visible = cbxReportVehicle.Visible = false;
+                cbxReportCustomer.Visible = true;
+
+                cbxReportCustomer.Text = "";
+            }
+        }
+
+        private void rbtnProgramFilter_CheckedChanged(object sender, EventArgs e)
+        {
+            if (rbtnProgramFilter.Checked)
+            {
+                rbtnCustomerFilter.Checked = rbtnVehicleFilter.Checked = false;
+                cbxReportCustomer.Visible = cbxReportVehicle.Visible = false;
+                cbxReportProgram.Visible = true;
+
+                cbxSOP.DataSource = null;
+                cbxSOP.Items.Add("All");
+                cbxSOP.Text = "All";
+            }
+        }
+
+        private void rbtnVehicleFilter_CheckedChanged(object sender, EventArgs e)
+        {
+            if (rbtnVehicleFilter.Checked)
+            {
+                rbtnCustomerFilter.Checked = rbtnProgramFilter.Checked = false;
+                cbxReportCustomer.Visible = cbxReportProgram.Visible = false;
+                cbxReportVehicle.Visible = true;
+
+                cbxSOP.DataSource = null;
+                cbxSOP.Items.Add("All");
+                cbxSOP.Text = "All";
+            }
         }
 
         #endregion
@@ -356,10 +426,14 @@ namespace FASTT.Views
                     wbDashboard.Dock = DockStyle.Fill;
                     wbDashboard.Navigate("http://evision/empireweb/SalesForecastSummarybyCustomer.aspx");
 
-                    flpRadioButtons.Visible = mesBtnGo.Visible = mesBtnExportChart.Visible = false;
-                    lblSelectCustomer.Visible = cbxReportCustomer.Visible = mesClearGridSettings.Visible = true;
+                    mesBtnGo.Visible = mesBtnExportChart.Visible = false;
+                    mesClearGridSettings.Visible = true;
                     lblSelectSop.Visible = cbxSOP.Visible = false;
                     lblInstructions.Text = "";
+
+                    rbtnCustomerFilter.Checked = true;
+                    rbtnChina.Visible = rbtnNorthAmerica.Visible = false;
+                    rbtnProgramFilter.Visible = rbtnVehicleFilter.Visible = false;
 
                     GetDashboardCustomerList();
                     break;
@@ -373,8 +447,11 @@ namespace FASTT.Views
                     tlpDashboard.Visible = true;
                     tlpDashboard.Dock = DockStyle.Fill;
 
-                    flpRadioButtons.Visible = mesBtnGo.Visible = mesBtnExportChart.Visible = mesClearGridSettings.Visible = false;
-                    lblSelectCustomer.Visible = cbxReportCustomer.Visible = true;
+                    mesBtnGo.Visible = mesBtnExportChart.Visible = mesClearGridSettings.Visible = false;
+                    //cbxReportCustomer.Visible = true;
+                    rbtnCustomerFilter.Checked = true;
+                    rbtnProgramFilter.Visible = rbtnVehicleFilter.Visible = false;
+
                     lblSelectSop.Visible = cbxSOP.Visible = false;
                     lblInstructions.Text = "";
 
@@ -400,8 +477,14 @@ namespace FASTT.Views
                     ccGeneral.Visible = true;
                     ccGeneral.Dock = DockStyle.Fill;
 
-                    flpRadioButtons.Visible = lblSelectCustomer.Visible = cbxReportCustomer.Visible = lblSelectSop.Visible = 
-                        cbxSOP.Visible = mesBtnGo.Visible = mesClearGridSettings.Visible = false;
+                    rbtnChina.Visible = rbtnNorthAmerica.Visible = false;
+                    rbtnCustomerFilter.Visible = rbtnProgramFilter.Visible = rbtnVehicleFilter.Visible = false;
+                    cbxReportCustomer.Visible = cbxReportProgram.Visible = cbxReportVehicle.Visible = false;
+                    lblSelectSop.Visible = cbxSOP.Visible = mesBtnGo.Visible = false;
+
+                    mesClearGridSettings.Visible = false;
+                    rbtnCustomerFilter.Checked = true;
+
                     mesBtnExportChart.Visible = true;
                     lblInstructions.Text = "";
                     break;
@@ -412,13 +495,26 @@ namespace FASTT.Views
                     wbDashboard.Visible = tlpDashboard.Visible = tlpSplitCharts.Visible = grdActivity.Visible = grdGeneral.Visible = ccGeneral.Visible = false;
                     mesBtnExportChart.Visible = mesClearGridSettings.Visible = false;
 
-                    flpRadioButtons.Visible = lblSelectCustomer.Visible = cbxReportCustomer.Visible = mesBtnGo.Visible = true;
+                    rbtnChina.Visible = rbtnNorthAmerica.Visible = true;
+                    rbtnCustomerFilter.Visible = true;
+                    rbtnProgramFilter.Visible = rbtnVehicleFilter.Visible = false;
+                    cbxReportCustomer.Visible = true;
+                    cbxReportProgram.Visible = cbxReportVehicle.Visible = false;
                     lblSelectSop.Visible = cbxSOP.Visible = false;
+
+                    mesBtnGo.Visible = true;
+                    rbtnCustomerFilter.Checked = true;
+
                     lblInstructions.Text = "";
                     break;
                 case FormStateEnum.ChartDual:
                     tlpSplitCharts.Visible = true;
                     tlpSplitCharts.Dock = DockStyle.Fill;
+
+                    //rbtnChina.Visible = rbtnNorthAmerica.Visible = false;
+                    //rbtnCustomerFilter.Visible = rbtnProgramFilter.Visible = rbtnVehicleFilter.Visible = false;
+                    //cbxReportCustomer.Visible = cbxReportProgram.Visible = cbxReportVehicle.Visible = false;
+                    //lblSelectSop.Visible = cbxSOP.Visible = mesBtnGo.Visible = false;
 
                     mesBtnExportChart.Visible = false;
                     lblInstructions.Text = "";
@@ -431,7 +527,11 @@ namespace FASTT.Views
                     grdActivity.Visible = true;
                     grdActivity.Dock = DockStyle.Fill;
 
-                    flpRadioButtons.Visible = lblSelectCustomer.Visible = cbxReportCustomer.Visible = lblSelectSop.Visible = cbxSOP.Visible = mesBtnGo.Visible = false;
+                    rbtnChina.Visible = rbtnNorthAmerica.Visible = false;
+                    rbtnCustomerFilter.Visible = rbtnProgramFilter.Visible = rbtnVehicleFilter.Visible = false;
+                    cbxReportCustomer.Visible = cbxReportProgram.Visible = cbxReportVehicle.Visible = false;
+                    lblSelectSop.Visible = cbxSOP.Visible = mesBtnGo.Visible = false;
+
                     mesBtnExportChart.Visible = mesClearGridSettings.Visible = true;
                     lblInstructions.Text = "Double-click a row to see all activity history for a sales lead.";
                     break;
@@ -441,11 +541,17 @@ namespace FASTT.Views
 
                     mesBtnExportChart.Visible = mesClearGridSettings.Visible = false;
                     wbDashboard.Visible = tlpDashboard.Visible = tlpSplitCharts.Visible = grdGeneral.Visible = grdActivity.Visible = ccGeneral.Visible = false;
-                    flpRadioButtons.Visible = lblSelectCustomer.Visible = cbxReportCustomer.Visible = lblSelectSop.Visible = cbxSOP.Visible = mesBtnGo.Visible = true;
 
-                    rbtnNorthAmerica.Checked = true;
+                    rbtnChina.Visible = rbtnNorthAmerica.Visible = true;
+                    rbtnCustomerFilter.Visible = rbtnProgramFilter.Visible = rbtnVehicleFilter.Visible = true;
+                    cbxReportCustomer.Visible = true;
+                    cbxReportProgram.Visible = cbxReportVehicle.Visible = false;
+                    lblSelectSop.Visible = cbxSOP.Visible = mesBtnGo.Visible = true;
+
+                    rbtnNorthAmerica.Checked = rbtnCustomerFilter.Checked = true;
                     cbxReportCustomer.Text = "";
                     cbxSOP.DataSource = null;
+                    if (cbxSOP.Items.Count > 0) cbxSOP.Items.Clear();
 
                     lblInstructions.Text = "";
                     break;
@@ -454,7 +560,6 @@ namespace FASTT.Views
                     grdActivity.Dock = DockStyle.Fill;
 
                     mesBtnExportChart.Visible = mesClearGridSettings.Visible = true;
-                    //lblInstructions.Text = "Double-click a row to see all activity history for a sales lead.";
                     break;
                 case FormStateEnum.QuoteGrid:
                     IsDashboardIntro = false;
@@ -464,7 +569,11 @@ namespace FASTT.Views
                     grdGeneral.Visible = true;
                     grdGeneral.Dock = DockStyle.Fill;
 
-                    flpRadioButtons.Visible = lblSelectCustomer.Visible = cbxReportCustomer.Visible = lblSelectSop.Visible = cbxSOP.Visible = mesBtnGo.Visible = false;
+                    rbtnChina.Visible = rbtnNorthAmerica.Visible = false;
+                    rbtnCustomerFilter.Visible = rbtnProgramFilter.Visible = rbtnVehicleFilter.Visible = false;
+                    cbxReportCustomer.Visible = cbxReportProgram.Visible = cbxReportVehicle.Visible = false;
+                    lblSelectSop.Visible = cbxSOP.Visible = mesBtnGo.Visible = false;
+
                     mesBtnExportChart.Visible = mesClearGridSettings.Visible = true;
                     lblInstructions.Text = "";
                     break;
@@ -487,6 +596,8 @@ namespace FASTT.Views
             {
                 grdActivity.DataSource = null; 
                 GetHitlistCustomers();
+                GetHitlistPrograms();
+                GetHitlistVehicles();
             }
             else
             {
@@ -712,6 +823,48 @@ namespace FASTT.Views
         //    doc.Save(fileName);
         //}
 
+        private void GetHitlistVehicles()
+        {
+            Cursor.Current = Cursors.WaitCursor;
+
+            string region = (rbtnNorthAmerica.Checked) ? "North America" : "China";
+
+            int result = _controller.GetHitListVehicles(region);
+            if (result == 0) return;
+
+            _isDatabinding = true;
+            cbxReportVehicle.DataSource = null;
+            cbxReportVehicle.DataSource = _controller.HitlistVehiclesList;
+            cbxReportVehicle.DisplayMember = "vehicle";
+            cbxReportVehicle.Text = "";
+            _isDatabinding = false;
+
+            //ControlScreenState(FormStateEnum.LaunchingClosingLinkClicked);
+
+            Cursor.Current = Cursors.Default;
+        }
+
+        private void GetHitlistPrograms()
+        {
+            Cursor.Current = Cursors.WaitCursor;
+
+            string region = (rbtnNorthAmerica.Checked) ? "North America" : "China";
+
+            int result = _controller.GetHitListPrograms(region);
+            if (result == 0) return;
+
+            _isDatabinding = true;
+            cbxReportProgram.DataSource = null;
+            cbxReportProgram.DataSource = _controller.HitlistProgramsList;
+            cbxReportProgram.DisplayMember = "Program";
+            cbxReportProgram.Text = "";
+            _isDatabinding = false;
+
+            //ControlScreenState(FormStateEnum.LaunchingClosingLinkClicked);
+
+            Cursor.Current = Cursors.Default;
+        }
+
         private void GetHitlistCustomers()
         {
             Cursor.Current = Cursors.WaitCursor;
@@ -799,6 +952,8 @@ namespace FASTT.Views
                     ControlScreenState(FormStateEnum.HitlistLinkClicked);
 
                     _restoreGridSettings = true;
+                    GetHitlistVehicles();
+                    GetHitlistPrograms();
                     GetHitlistCustomers();
 
                     _currentActivityHistoryReport = "HitList";
@@ -1297,12 +1452,27 @@ namespace FASTT.Views
 
             string region = (rbtnNorthAmerica.Checked) ? "North America" : "China";
             string customer = cbxReportCustomer.Text.Trim();
+            string program = cbxReportProgram.Text.Trim();
+            string vehicle = cbxReportVehicle.Text.Trim();
             string sop = cbxSOP.Text.Trim();
             int? iSop = null;
             if (sop != "All") iSop = Convert.ToInt16(sop);
             
-            _controller.GetHitlist(region, customer, iSop);
-            if (!_controller.ListHitlistMsf.Any()) return;
+            if (rbtnCustomerFilter.Checked)
+            {
+                _controller.GetHitlist(region, customer, iSop);
+                if (!_controller.ListHitlistMsf.Any()) return;
+            }
+            else if (rbtnProgramFilter.Checked)
+            {
+                _controller.GetHitlistByProgram(program, iSop);
+                if (!_controller.ListHitlistMsf.Any()) return;
+            }
+            else
+            {
+                _controller.GetHitlistByVehicle(vehicle, iSop);
+                if (!_controller.ListHitlistMsf.Any()) return;
+            }
 
             grdActivity.DataSource = _controller.ListHitlistMsf;
 
@@ -2216,8 +2386,10 @@ namespace FASTT.Views
             grdViewDashboard4.Columns["SalesPerson"].Width = 120;
         }
 
-        #endregion
 
+
+
+        #endregion
 
 
     }

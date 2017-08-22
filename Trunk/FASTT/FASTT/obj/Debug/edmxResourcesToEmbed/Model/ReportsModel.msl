@@ -1,0 +1,754 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="MONITORModel1StoreContainer" CdmEntityContainer="MONITOREntities">
+    <FunctionImportMapping FunctionImportName="usp_ST_Metrics_ProgramsLaunchingByCustomer" FunctionName="MONITORModel1.Store.usp_ST_Metrics_ProgramsLaunchingByCustomer">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="MONITORModel1.ProgramsLaunchingByCustomer">
+          <ScalarProperty Name="Customer" ColumnName="Customer" />
+          <ScalarProperty Name="HeadLampCount" ColumnName="HeadLampCount" />
+          <ScalarProperty Name="TailLampCount" ColumnName="TailLampCount" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="usp_ST_Metrics_PeakVolumeOfProgramsLaunching" FunctionName="MONITORModel1.Store.usp_ST_Metrics_PeakVolumeOfProgramsLaunching">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="MONITORModel1.PeakVolumeOfProgramsLaunching">
+          <ScalarProperty Name="Customer" ColumnName="Customer" />
+          <ScalarProperty Name="HalogenHeadLampPeakVolume" ColumnName="HalogenHeadLampPeakVolume" />
+          <ScalarProperty Name="LedHeadLampPeakVolume" ColumnName="LedHeadLampPeakVolume" />
+          <ScalarProperty Name="ConventionalTailLampPeakVolume" ColumnName="ConventionalTailLampPeakVolume" />
+          <ScalarProperty Name="LedTailLampPeakVolume" ColumnName="LedTailLampPeakVolume" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <EntitySetMapping Name="vw_ST_LightingStudy_2016">
+      <EntityTypeMapping TypeName="MONITORModel1.vw_ST_LightingStudy_2016">
+        <MappingFragment StoreEntitySet="vw_ST_LightingStudy_2016">
+          <ScalarProperty Name="AwardedVolume" ColumnName="AwardedVolume" />
+          <ScalarProperty Name="SalesPerson" ColumnName="SalesPerson" />
+          <ScalarProperty Name="EOPYear" ColumnName="EOPYear" />
+          <ScalarProperty Name="EOP" ColumnName="EOP" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="PeakVolume" ColumnName="PeakVolume" />
+          <ScalarProperty Name="Volume2019" ColumnName="Volume2019" />
+          <ScalarProperty Name="Volume2018" ColumnName="Volume2018" />
+          <ScalarProperty Name="Volume2017" ColumnName="Volume2017" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="Region" ColumnName="Region" />
+          <ScalarProperty Name="Label" ColumnName="Label" />
+          <ScalarProperty Name="NamePlate" ColumnName="NamePlate" />
+          <ScalarProperty Name="OEM" ColumnName="OEM" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="Application" ColumnName="Application" />
+          <ScalarProperty Name="BulbType" ColumnName="BulbType" />
+          <ScalarProperty Name="SOPYear" ColumnName="SOPYear" />
+          <ScalarProperty Name="SOP" ColumnName="SOP" />
+          <ScalarProperty Name="Program" ColumnName="Program" />
+          <ScalarProperty Name="Customer" ColumnName="Customer" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="usp_ST_Metrics_TotalSalesActivityOneMonth" FunctionName="MONITORModel1.Store.usp_ST_Metrics_TotalSalesActivityOneMonth">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="MONITORModel1.usp_ST_Metrics_TotalSalesActivityOneMonth_Result">
+          <ScalarProperty Name="Opened" ColumnName="Opened" />
+          <ScalarProperty Name="Quoted" ColumnName="Quoted" />
+          <ScalarProperty Name="Awarded" ColumnName="Awarded" />
+          <ScalarProperty Name="Closed" ColumnName="Closed" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="usp_ST_Metrics_PeakVolumeOfProgramsClosing2017" FunctionName="MONITORModel1.Store.usp_ST_Metrics_PeakVolumeOfProgramsClosing2017">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="MONITORModel1.PeakVolumeOfProgramsClosing2017_Result">
+          <ScalarProperty Name="Program" ColumnName="Program" />
+          <ScalarProperty Name="HalogenHeadlampPeakVolume2017" ColumnName="HalogenHeadlampPeakVolume2017" />
+          <ScalarProperty Name="LedHeadlampPeakVolume2017" ColumnName="LedHeadlampPeakVolume2017" />
+          <ScalarProperty Name="XenonHeadlampPeakVolume2017" ColumnName="XenonHeadlampPeakVolume2017" />
+          <ScalarProperty Name="ConventionalTaillampPeakVolume2017" ColumnName="ConventionalTaillampPeakVolume2017" />
+          <ScalarProperty Name="LedTaillampPeakVolume2017" ColumnName="LedTaillampPeakVolume2017" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="usp_ST_Metrics_PeakVolumeOfProgramsClosing2018" FunctionName="MONITORModel1.Store.usp_ST_Metrics_PeakVolumeOfProgramsClosing2018">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="MONITORModel1.PeakVolumeOfProgramsClosing2018_Result">
+          <ScalarProperty Name="Program" ColumnName="Program" />
+          <ScalarProperty Name="HalogenHeadlampPeakVolume2018" ColumnName="HalogenHeadlampPeakVolume2018" />
+          <ScalarProperty Name="LedHeadlampPeakVolume2018" ColumnName="LedHeadlampPeakVolume2018" />
+          <ScalarProperty Name="XenonHeadlampPeakVolume2018" ColumnName="XenonHeadlampPeakVolume2018" />
+          <ScalarProperty Name="ConventionalTaillampPeakVolume2018" ColumnName="ConventionalTaillampPeakVolume2018" />
+          <ScalarProperty Name="LedTaillampPeakVolume2018" ColumnName="LedTaillampPeakVolume2018" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="usp_ST_Metrics_PeakVolumeOfProgramsClosing2019" FunctionName="MONITORModel1.Store.usp_ST_Metrics_PeakVolumeOfProgramsClosing2019">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="MONITORModel1.PeakVolumeOfProgramsClosing2019_Result">
+          <ScalarProperty Name="Program" ColumnName="Program" />
+          <ScalarProperty Name="HalogenHeadlampPeakVolume2019" ColumnName="HalogenHeadlampPeakVolume2019" />
+          <ScalarProperty Name="LedHeadlampPeakVolume2019" ColumnName="LedHeadlampPeakVolume2019" />
+          <ScalarProperty Name="XenonHeadlampPeakVolume2019" ColumnName="XenonHeadlampPeakVolume2019" />
+          <ScalarProperty Name="ConventionalTaillampPeakVolume2019" ColumnName="ConventionalTaillampPeakVolume2019" />
+          <ScalarProperty Name="LedTaillampPeakVolume2019" ColumnName="LedTaillampPeakVolume2019" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="usp_ST_Metrics_PeakVolumeOfProgramsLaunching2018" FunctionName="MONITORModel1.Store.usp_ST_Metrics_PeakVolumeOfProgramsLaunching2018">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="MONITORModel1.PeakVolumeOfProgramsLaunching2018_Result">
+          <ScalarProperty Name="Program" ColumnName="Program" />
+          <ScalarProperty Name="HalogenHeadlampPeakVolume2018" ColumnName="HalogenHeadlampPeakVolume2018" />
+          <ScalarProperty Name="LedHeadlampPeakVolume2018" ColumnName="LedHeadlampPeakVolume2018" />
+          <ScalarProperty Name="XenonHeadlampPeakVolume2018" ColumnName="XenonHeadlampPeakVolume2018" />
+          <ScalarProperty Name="ConventionalTaillampPeakVolume2018" ColumnName="ConventionalTaillampPeakVolume2018" />
+          <ScalarProperty Name="LedTaillampPeakVolume2018" ColumnName="LedTaillampPeakVolume2018" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="usp_ST_Metrics_PeakVolumeOfProgramsLaunching2019" FunctionName="MONITORModel1.Store.usp_ST_Metrics_PeakVolumeOfProgramsLaunching2019">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="MONITORModel1.PeakVolumeOfProgramsLaunching2019_Result">
+          <ScalarProperty Name="Program" ColumnName="Program" />
+          <ScalarProperty Name="HalogenHeadlampPeakVolume2019" ColumnName="HalogenHeadlampPeakVolume2019" />
+          <ScalarProperty Name="LedHeadlampPeakVolume2019" ColumnName="LedHeadlampPeakVolume2019" />
+          <ScalarProperty Name="XenonHeadlampPeakVolume2019" ColumnName="XenonHeadlampPeakVolume2019" />
+          <ScalarProperty Name="ConventionalTaillampPeakVolume2019" ColumnName="ConventionalTaillampPeakVolume2019" />
+          <ScalarProperty Name="LedTaillampPeakVolume2019" ColumnName="LedTaillampPeakVolume2019" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <EntitySetMapping Name="ST_CustomersWithProgramsLaunchingClosing2017">
+      <EntityTypeMapping TypeName="MONITORModel1.ST_CustomersWithProgramsLaunchingClosing2017">
+        <MappingFragment StoreEntitySet="ST_CustomersWithProgramsLaunchingClosing2017">
+          <ScalarProperty Name="Region" ColumnName="Region" />
+          <ScalarProperty Name="Customer" ColumnName="Customer" />
+          <ScalarProperty Name="RowNumber" ColumnName="RowNumber" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ST_CustomersWithProgramsLaunchingClosing2018">
+      <EntityTypeMapping TypeName="MONITORModel1.ST_CustomersWithProgramsLaunchingClosing2018">
+        <MappingFragment StoreEntitySet="ST_CustomersWithProgramsLaunchingClosing2018">
+          <ScalarProperty Name="Region" ColumnName="Region" />
+          <ScalarProperty Name="Customer" ColumnName="Customer" />
+          <ScalarProperty Name="RowNumber" ColumnName="RowNumber" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ST_CustomersWithProgramsLaunchingClosing2019">
+      <EntityTypeMapping TypeName="MONITORModel1.ST_CustomersWithProgramsLaunchingClosing2019">
+        <MappingFragment StoreEntitySet="ST_CustomersWithProgramsLaunchingClosing2019">
+          <ScalarProperty Name="Region" ColumnName="Region" />
+          <ScalarProperty Name="Customer" ColumnName="Customer" />
+          <ScalarProperty Name="RowNumber" ColumnName="RowNumber" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="usp_ST_Metrics_PeakVolumeOfProgramsLaunching2017" FunctionName="MONITORModel1.Store.usp_ST_Metrics_PeakVolumeOfProgramsLaunching2017">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="MONITORModel1.PeakVolumeOfProgramsLaunching2017_Result">
+          <ScalarProperty Name="Program" ColumnName="Program" />
+          <ScalarProperty Name="HalogenHeadlampPeakVolume2017" ColumnName="HalogenHeadlampPeakVolume2017" />
+          <ScalarProperty Name="LedHeadlampPeakVolume2017" ColumnName="LedHeadlampPeakVolume2017" />
+          <ScalarProperty Name="XenonHeadlampPeakVolume2017" ColumnName="XenonHeadlampPeakVolume2017" />
+          <ScalarProperty Name="ConventionalTaillampPeakVolume2017" ColumnName="ConventionalTaillampPeakVolume2017" />
+          <ScalarProperty Name="LedTaillampPeakVolume2017" ColumnName="LedTaillampPeakVolume2017" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="usp_ST_Reports_GetSalesForecastData" FunctionName="MONITORModel1.Store.usp_ST_Reports_GetSalesForecastData">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="MONITORModel1.usp_ST_Reports_GetSalesForecastData_Result">
+          <ScalarProperty Name="Customer" ColumnName="Customer" />
+          <ScalarProperty Name="Sales_2016" ColumnName="Sales_2016" />
+          <ScalarProperty Name="Sales_2017" ColumnName="Sales_2017" />
+          <ScalarProperty Name="Sales_2018" ColumnName="Sales_2018" />
+          <ScalarProperty Name="Sales_2019" ColumnName="Sales_2019" />
+          <ScalarProperty Name="Sales_2020" ColumnName="Sales_2020" />
+          <ScalarProperty Name="Sales_2021" ColumnName="Sales_2021" />
+          <ScalarProperty Name="Sales_2022" ColumnName="Sales_2022" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <EntitySetMapping Name="ST_CustomersAll">
+      <EntityTypeMapping TypeName="MONITORModel1.ST_CustomersAll">
+        <MappingFragment StoreEntitySet="ST_CustomersAll">
+          <ScalarProperty Name="Region" ColumnName="Region" />
+          <ScalarProperty Name="Customer" ColumnName="Customer" />
+          <ScalarProperty Name="RowNumber" ColumnName="RowNumber" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="usp_ST_Report_SalesActivityByCustomer" FunctionName="MONITORModel1.Store.usp_ST_Report_SalesActivityByCustomer">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="MONITORModel1.usp_ST_Report_SalesActivityByCustomer_Result">
+          <ScalarProperty Name="RowID" ColumnName="RowID" />
+          <ScalarProperty Name="CombinedLightingId" ColumnName="CombinedLightingId" />
+          <ScalarProperty Name="SalesPerson" ColumnName="SalesPerson" />
+          <ScalarProperty Name="Customer" ColumnName="Customer" />
+          <ScalarProperty Name="Program" ColumnName="Program" />
+          <ScalarProperty Name="Application" ColumnName="Application" />
+          <ScalarProperty Name="BulbType" ColumnName="BulbType" />
+          <ScalarProperty Name="Region" ColumnName="Region" />
+          <ScalarProperty Name="SOP" ColumnName="SOP" />
+          <ScalarProperty Name="EOP" ColumnName="EOP" />
+          <ScalarProperty Name="PeakVolume" ColumnName="PeakVolume" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="ActivityDate" ColumnName="ActivityDate" />
+          <ScalarProperty Name="Activity" ColumnName="Activity" />
+          <ScalarProperty Name="MeetingLocation" ColumnName="MeetingLocation" />
+          <ScalarProperty Name="ContactName" ColumnName="ContactName" />
+          <ScalarProperty Name="ContactPhoneNumber" ColumnName="ContactPhoneNumber" />
+          <ScalarProperty Name="ContactEmailAddress" ColumnName="ContactEmailAddress" />
+          <ScalarProperty Name="Duration" ColumnName="Duration" />
+          <ScalarProperty Name="Notes" ColumnName="Notes" />
+          <ScalarProperty Name="AwardedVolume" ColumnName="AwardedVolume" />
+          <ScalarProperty Name="OEM" ColumnName="OEM" />
+          <ScalarProperty Name="NamePlate" ColumnName="NamePlate" />
+          <ScalarProperty Name="SalesPersonCode" ColumnName="SalesPersonCode" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="usp_ST_SalesLeadLog_Report_NewQuotes" FunctionName="MONITORModel1.Store.usp_ST_SalesLeadLog_Report_NewQuotes">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="MONITORModel1.usp_ST_SalesLeadLog_Report_NewQuotes_Result">
+          <ScalarProperty Name="QuoteStatus" ColumnName="QuoteStatus" />
+          <ScalarProperty Name="Customer" ColumnName="Customer" />
+          <ScalarProperty Name="Program" ColumnName="Program" />
+          <ScalarProperty Name="ApplicationName" ColumnName="ApplicationName" />
+          <ScalarProperty Name="SalesInitials" ColumnName="SalesInitials" />
+          <ScalarProperty Name="SOP" ColumnName="SOP" />
+          <ScalarProperty Name="EOP" ColumnName="EOP" />
+          <ScalarProperty Name="EEIPartNumber" ColumnName="EEIPartNumber" />
+          <ScalarProperty Name="TotalQuotedSales" ColumnName="TotalQuotedSales" />
+          <ScalarProperty Name="Notes" ColumnName="Notes" />
+          <ScalarProperty Name="EAU" ColumnName="EAU" />
+          <ScalarProperty Name="QuotePrice" ColumnName="QuotePrice" />
+          <ScalarProperty Name="QuotePricingDate" ColumnName="QuotePricingDate" />
+          <ScalarProperty Name="Awarded" ColumnName="Awarded" />
+          <ScalarProperty Name="MaterialPercentage" ColumnName="MaterialPercentage" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="usp_ST_SalesLeadLog_Report_NewQuotesByCustomer" FunctionName="MONITORModel1.Store.usp_ST_SalesLeadLog_Report_NewQuotesByCustomer">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="MONITORModel1.usp_ST_SalesLeadLog_Report_NewQuotesByCustomer_Result">
+          <ScalarProperty Name="QuoteStatus" ColumnName="QuoteStatus" />
+          <ScalarProperty Name="Customer" ColumnName="Customer" />
+          <ScalarProperty Name="Program" ColumnName="Program" />
+          <ScalarProperty Name="ApplicationName" ColumnName="ApplicationName" />
+          <ScalarProperty Name="SalesInitials" ColumnName="SalesInitials" />
+          <ScalarProperty Name="SOP" ColumnName="SOP" />
+          <ScalarProperty Name="EOP" ColumnName="EOP" />
+          <ScalarProperty Name="EEIPartNumber" ColumnName="EEIPartNumber" />
+          <ScalarProperty Name="TotalQuotedSales" ColumnName="TotalQuotedSales" />
+          <ScalarProperty Name="Notes" ColumnName="Notes" />
+          <ScalarProperty Name="EAU" ColumnName="EAU" />
+          <ScalarProperty Name="QuotePrice" ColumnName="QuotePrice" />
+          <ScalarProperty Name="QuotePricingDate" ColumnName="QuotePricingDate" />
+          <ScalarProperty Name="Awarded" ColumnName="Awarded" />
+          <ScalarProperty Name="MaterialPercentage" ColumnName="MaterialPercentage" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="usp_ST_SalesLeadLog_Report_OpenQuotes" FunctionName="MONITORModel1.Store.usp_ST_SalesLeadLog_Report_OpenQuotes">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="MONITORModel1.usp_ST_SalesLeadLog_Report_OpenQuotes_Result">
+          <ScalarProperty Name="QuoteStatus" ColumnName="QuoteStatus" />
+          <ScalarProperty Name="Customer" ColumnName="Customer" />
+          <ScalarProperty Name="Program" ColumnName="Program" />
+          <ScalarProperty Name="ApplicationName" ColumnName="ApplicationName" />
+          <ScalarProperty Name="SalesInitials" ColumnName="SalesInitials" />
+          <ScalarProperty Name="SOP" ColumnName="SOP" />
+          <ScalarProperty Name="EOP" ColumnName="EOP" />
+          <ScalarProperty Name="EEIPartNumber" ColumnName="EEIPartNumber" />
+          <ScalarProperty Name="TotalQuotedSales" ColumnName="TotalQuotedSales" />
+          <ScalarProperty Name="Notes" ColumnName="Notes" />
+          <ScalarProperty Name="EAU" ColumnName="EAU" />
+          <ScalarProperty Name="QuotePrice" ColumnName="QuotePrice" />
+          <ScalarProperty Name="QuotePricingDate" ColumnName="QuotePricingDate" />
+          <ScalarProperty Name="Awarded" ColumnName="Awarded" />
+          <ScalarProperty Name="MaterialPercentage" ColumnName="MaterialPercentage" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="usp_ST_Report_Hitlist_GetCustomerList" FunctionName="MONITORModel1.Store.usp_ST_Report_Hitlist_GetCustomerList">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="MONITORModel1.usp_ST_Report_Hitlist_GetCustomerList_Result">
+          <ScalarProperty Name="Customer" ColumnName="Customer" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="usp_ST_Report_Hitlist_GetSopList" FunctionName="MONITORModel1.Store.usp_ST_Report_Hitlist_GetSopList">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="MONITORModel1.usp_ST_Report_Hitlist_GetSopList_Result">
+          <ScalarProperty Name="SOPYear" ColumnName="SOPYear" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="usp_ST_Report_Hitlist" FunctionName="MONITORModel1.Store.usp_ST_Report_Hitlist" />
+    <FunctionImportMapping FunctionImportName="usp_ST_Report_Hitlist_MSF" FunctionName="MONITORModel1.Store.usp_ST_Report_Hitlist_MSF">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="MONITORModel1.usp_ST_Report_Hitlist_MSF_Result">
+          <ScalarProperty Name="Customer" ColumnName="Customer" />
+          <ScalarProperty Name="Program" ColumnName="Program" />
+          <ScalarProperty Name="EstYearlySales" ColumnName="EstYearlySales" />
+          <ScalarProperty Name="PeakYearlyVolume" ColumnName="PeakYearlyVolume" />
+          <ScalarProperty Name="SOPYear" ColumnName="SOPYear" />
+          <ScalarProperty Name="LED_Harness" ColumnName="LED/Harness" />
+          <ScalarProperty Name="Application" ColumnName="Application" />
+          <ScalarProperty Name="Region" ColumnName="Region" />
+          <ScalarProperty Name="OEM" ColumnName="OEM" />
+          <ScalarProperty Name="NamePlate" ColumnName="NamePlate" />
+          <ScalarProperty Name="Component" ColumnName="Component" />
+          <ScalarProperty Name="SOP" ColumnName="SOP" />
+          <ScalarProperty Name="EOP" ColumnName="EOP" />
+          <ScalarProperty Name="Type" ColumnName="Type" />
+          <ScalarProperty Name="Price" ColumnName="Price" />
+          <ScalarProperty Name="Volume2017" ColumnName="Volume2017" />
+          <ScalarProperty Name="Volume2018" ColumnName="Volume2018" />
+          <ScalarProperty Name="Volume2019" ColumnName="Volume2019" />
+          <ScalarProperty Name="Volume2020" ColumnName="Volume2020" />
+          <ScalarProperty Name="Volume2021" ColumnName="Volume2021" />
+          <ScalarProperty Name="Volume2022" ColumnName="Volume2022" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="SalesLeadId" ColumnName="SalesLeadId" />
+          <ScalarProperty Name="SalesPerson" ColumnName="SalesPerson" />
+          <ScalarProperty Name="QuoteNumber" ColumnName="QuoteNumber" />
+          <ScalarProperty Name="EEIPartNumber" ColumnName="EEIPartNumber" />
+          <ScalarProperty Name="EAU" ColumnName="EAU" />
+          <ScalarProperty Name="ApplicationName" ColumnName="ApplicationName" />
+          <ScalarProperty Name="SalesInitials" ColumnName="SalesInitials" />
+          <ScalarProperty Name="QuotePrice" ColumnName="QuotePrice" />
+          <ScalarProperty Name="Awarded" ColumnName="Awarded" />
+          <ScalarProperty Name="QuoteStatus" ColumnName="QuoteStatus" />
+          <ScalarProperty Name="StraightMaterialCost" ColumnName="StraightMaterialCost" />
+          <ScalarProperty Name="TotalQuotedSales" ColumnName="TotalQuotedSales" />
+          <ScalarProperty Name="SalesForecastEEIBasePart" ColumnName="SalesForecastEEIBasePart" />
+          <ScalarProperty Name="SalesForecastPeakYearlyVolume" ColumnName="SalesForecastPeakYearlyVolume" />
+          <ScalarProperty Name="SalesForecastApplication" ColumnName="SalesForecastApplication" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="usp_ST_Report_Hitlist_MSF_Dashboard" FunctionName="MONITORModel1.Store.usp_ST_Report_Hitlist_MSF_Dashboard">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="MONITORModel1.usp_ST_Report_Hitlist_MSF_Dashboard_Result">
+          <ScalarProperty Name="Customer" ColumnName="Customer" />
+          <ScalarProperty Name="Program" ColumnName="Program" />
+          <ScalarProperty Name="EstYearlySales" ColumnName="EstYearlySales" />
+          <ScalarProperty Name="PeakYearlyVolume" ColumnName="PeakYearlyVolume" />
+          <ScalarProperty Name="SOPYear" ColumnName="SOPYear" />
+          <ScalarProperty Name="LED_Harness" ColumnName="LED/Harness" />
+          <ScalarProperty Name="Application" ColumnName="Application" />
+          <ScalarProperty Name="Region" ColumnName="Region" />
+          <ScalarProperty Name="OEM" ColumnName="OEM" />
+          <ScalarProperty Name="NamePlate" ColumnName="NamePlate" />
+          <ScalarProperty Name="Component" ColumnName="Component" />
+          <ScalarProperty Name="SOP" ColumnName="SOP" />
+          <ScalarProperty Name="EOP" ColumnName="EOP" />
+          <ScalarProperty Name="Type" ColumnName="Type" />
+          <ScalarProperty Name="Price" ColumnName="Price" />
+          <ScalarProperty Name="Volume2017" ColumnName="Volume2017" />
+          <ScalarProperty Name="Volume2018" ColumnName="Volume2018" />
+          <ScalarProperty Name="Volume2019" ColumnName="Volume2019" />
+          <ScalarProperty Name="Volume2020" ColumnName="Volume2020" />
+          <ScalarProperty Name="Volume2021" ColumnName="Volume2021" />
+          <ScalarProperty Name="Volume2022" ColumnName="Volume2022" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="SalesLeadId" ColumnName="SalesLeadId" />
+          <ScalarProperty Name="SalesPerson" ColumnName="SalesPerson" />
+          <ScalarProperty Name="QuoteNumber" ColumnName="QuoteNumber" />
+          <ScalarProperty Name="EEIPartNumber" ColumnName="EEIPartNumber" />
+          <ScalarProperty Name="EAU" ColumnName="EAU" />
+          <ScalarProperty Name="ApplicationName" ColumnName="ApplicationName" />
+          <ScalarProperty Name="SalesInitials" ColumnName="SalesInitials" />
+          <ScalarProperty Name="QuotePrice" ColumnName="QuotePrice" />
+          <ScalarProperty Name="Awarded" ColumnName="Awarded" />
+          <ScalarProperty Name="QuoteStatus" ColumnName="QuoteStatus" />
+          <ScalarProperty Name="StraightMaterialCost" ColumnName="StraightMaterialCost" />
+          <ScalarProperty Name="TotalQuotedSales" ColumnName="TotalQuotedSales" />
+          <ScalarProperty Name="SalesForecastEEIBasePart" ColumnName="SalesForecastEEIBasePart" />
+          <ScalarProperty Name="SalesForecastPeakYearlyVolume" ColumnName="SalesForecastPeakYearlyVolume" />
+          <ScalarProperty Name="SalesForecastApplication" ColumnName="SalesForecastApplication" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="usp_ST_Report_Hitlist_SalesActivityByCustomer" FunctionName="MONITORModel1.Store.usp_ST_Report_Hitlist_SalesActivityByCustomer">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="MONITORModel1.usp_ST_Report_Hitlist_SalesActivityByCustomer_Result">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="RowID" ColumnName="RowID" />
+          <ScalarProperty Name="SalesPerson" ColumnName="SalesPerson" />
+          <ScalarProperty Name="Customer" ColumnName="Customer" />
+          <ScalarProperty Name="Program" ColumnName="Program" />
+          <ScalarProperty Name="EstYearlySales" ColumnName="EstYearlySales" />
+          <ScalarProperty Name="PeakYearlyVolume" ColumnName="PeakYearlyVolume" />
+          <ScalarProperty Name="SOPYear" ColumnName="SOPYear" />
+          <ScalarProperty Name="LED_Harness" ColumnName="LED/Harness" />
+          <ScalarProperty Name="Application" ColumnName="Application" />
+          <ScalarProperty Name="Region" ColumnName="Region" />
+          <ScalarProperty Name="OEM" ColumnName="OEM" />
+          <ScalarProperty Name="Nameplate" ColumnName="Nameplate" />
+          <ScalarProperty Name="Component" ColumnName="Component" />
+          <ScalarProperty Name="SOP" ColumnName="SOP" />
+          <ScalarProperty Name="EOP" ColumnName="EOP" />
+          <ScalarProperty Name="Type" ColumnName="Type" />
+          <ScalarProperty Name="Price" ColumnName="Price" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="ActivityDate" ColumnName="ActivityDate" />
+          <ScalarProperty Name="Activity" ColumnName="Activity" />
+          <ScalarProperty Name="MeetingLocation" ColumnName="MeetingLocation" />
+          <ScalarProperty Name="ContactName" ColumnName="ContactName" />
+          <ScalarProperty Name="ContactPhoneNumber" ColumnName="ContactPhoneNumber" />
+          <ScalarProperty Name="ContactEmailAddress" ColumnName="ContactEmailAddress" />
+          <ScalarProperty Name="Duration" ColumnName="Duration" />
+          <ScalarProperty Name="Notes" ColumnName="Notes" />
+          <ScalarProperty Name="AwardedVolume" ColumnName="AwardedVolume" />
+          <ScalarProperty Name="SalesPersonCode" ColumnName="SalesPersonCode" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="usp_ST_SalesLeadLog_Hitlist_GetActivity" FunctionName="MONITORModel1.Store.usp_ST_SalesLeadLog_Hitlist_GetActivity">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="MONITORModel1.usp_ST_SalesLeadLog_Hitlist_GetActivity_Result">
+          <ScalarProperty Name="Customer" ColumnName="Customer" />
+          <ScalarProperty Name="Program" ColumnName="Program" />
+          <ScalarProperty Name="Application" ColumnName="Application" />
+          <ScalarProperty Name="SOP" ColumnName="SOP" />
+          <ScalarProperty Name="EOP" ColumnName="EOP" />
+          <ScalarProperty Name="PeakYearlyVolume" ColumnName="PeakYearlyVolume" />
+          <ScalarProperty Name="LastSalesActivity" ColumnName="LastSalesActivity" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="SalesLeadID" ColumnName="SalesLeadID" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="usp_ST_Report_Hitlist_SalesActivity" FunctionName="MONITORModel1.Store.usp_ST_Report_Hitlist_SalesActivity">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="MONITORModel1.usp_ST_Report_Hitlist_SalesActivity_Result">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="RowID" ColumnName="RowID" />
+          <ScalarProperty Name="SalesPerson" ColumnName="SalesPerson" />
+          <ScalarProperty Name="Customer" ColumnName="Customer" />
+          <ScalarProperty Name="Program" ColumnName="Program" />
+          <ScalarProperty Name="EstYearlySales" ColumnName="EstYearlySales" />
+          <ScalarProperty Name="PeakYearlyVolume" ColumnName="PeakYearlyVolume" />
+          <ScalarProperty Name="SOPYear" ColumnName="SOPYear" />
+          <ScalarProperty Name="LED_Harness" ColumnName="LED/Harness" />
+          <ScalarProperty Name="Application" ColumnName="Application" />
+          <ScalarProperty Name="Region" ColumnName="Region" />
+          <ScalarProperty Name="OEM" ColumnName="OEM" />
+          <ScalarProperty Name="Nameplate" ColumnName="Nameplate" />
+          <ScalarProperty Name="Component" ColumnName="Component" />
+          <ScalarProperty Name="SOP" ColumnName="SOP" />
+          <ScalarProperty Name="EOP" ColumnName="EOP" />
+          <ScalarProperty Name="Type" ColumnName="Type" />
+          <ScalarProperty Name="Price" ColumnName="Price" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="ActivityDate" ColumnName="ActivityDate" />
+          <ScalarProperty Name="Activity" ColumnName="Activity" />
+          <ScalarProperty Name="MeetingLocation" ColumnName="MeetingLocation" />
+          <ScalarProperty Name="ContactName" ColumnName="ContactName" />
+          <ScalarProperty Name="ContactPhoneNumber" ColumnName="ContactPhoneNumber" />
+          <ScalarProperty Name="ContactEmailAddress" ColumnName="ContactEmailAddress" />
+          <ScalarProperty Name="Duration" ColumnName="Duration" />
+          <ScalarProperty Name="Notes" ColumnName="Notes" />
+          <ScalarProperty Name="AwardedVolume" ColumnName="AwardedVolume" />
+          <ScalarProperty Name="SalesPersonCode" ColumnName="SalesPersonCode" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="usp_ST_Report_Hitlist_MSF_New3" FunctionName="MONITORModel1.Store.usp_ST_Report_Hitlist_MSF_New3">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="MONITORModel1.usp_ST_Report_Hitlist_MSF_New3_Result">
+          <ScalarProperty Name="Customer" ColumnName="Customer" />
+          <ScalarProperty Name="Program" ColumnName="Program" />
+          <ScalarProperty Name="EstYearlySales" ColumnName="EstYearlySales" />
+          <ScalarProperty Name="PeakYearlyVolume" ColumnName="PeakYearlyVolume" />
+          <ScalarProperty Name="SOPYear" ColumnName="SOPYear" />
+          <ScalarProperty Name="LED_Harness" ColumnName="LED/Harness" />
+          <ScalarProperty Name="Application" ColumnName="Application" />
+          <ScalarProperty Name="Region" ColumnName="Region" />
+          <ScalarProperty Name="OEM" ColumnName="OEM" />
+          <ScalarProperty Name="NamePlate" ColumnName="NamePlate" />
+          <ScalarProperty Name="Component" ColumnName="Component" />
+          <ScalarProperty Name="SOP" ColumnName="SOP" />
+          <ScalarProperty Name="EOP" ColumnName="EOP" />
+          <ScalarProperty Name="Type" ColumnName="Type" />
+          <ScalarProperty Name="Price" ColumnName="Price" />
+          <ScalarProperty Name="Volume2017" ColumnName="Volume2017" />
+          <ScalarProperty Name="Volume2018" ColumnName="Volume2018" />
+          <ScalarProperty Name="Volume2019" ColumnName="Volume2019" />
+          <ScalarProperty Name="Volume2020" ColumnName="Volume2020" />
+          <ScalarProperty Name="Volume2021" ColumnName="Volume2021" />
+          <ScalarProperty Name="Volume2022" ColumnName="Volume2022" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="SalesLeadId" ColumnName="SalesLeadId" />
+          <ScalarProperty Name="SalesPerson" ColumnName="SalesPerson" />
+          <ScalarProperty Name="QuoteNumber" ColumnName="QuoteNumber" />
+          <ScalarProperty Name="EEIPartNumber" ColumnName="EEIPartNumber" />
+          <ScalarProperty Name="EAU" ColumnName="EAU" />
+          <ScalarProperty Name="ApplicationName" ColumnName="ApplicationName" />
+          <ScalarProperty Name="SalesInitials" ColumnName="SalesInitials" />
+          <ScalarProperty Name="QuotePrice" ColumnName="QuotePrice" />
+          <ScalarProperty Name="Awarded" ColumnName="Awarded" />
+          <ScalarProperty Name="QuoteStatus" ColumnName="QuoteStatus" />
+          <ScalarProperty Name="StraightMaterialCost" ColumnName="StraightMaterialCost" />
+          <ScalarProperty Name="TotalQuotedSales" ColumnName="TotalQuotedSales" />
+          <ScalarProperty Name="SalesForecastVehicle" ColumnName="SalesForecastVehicle" />
+          <ScalarProperty Name="SalesForecastEEIBasePart" ColumnName="SalesForecastEEIBasePart" />
+          <ScalarProperty Name="SalesForecastTotalPeakYearlySales" ColumnName="SalesForecastTotalPeakYearlySales" />
+          <ScalarProperty Name="SalesForecastApplication" ColumnName="SalesForecastApplication" />
+          <ScalarProperty Name="SalesForecastSopYear" ColumnName="SalesForecastSopYear" />
+          <ScalarProperty Name="SalesForecastEopYear" ColumnName="SalesForecastEopYear" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="usp_ST_Report_Hitlist_MSF_Dashboard_New3" FunctionName="MONITORModel1.Store.usp_ST_Report_Hitlist_MSF_Dashboard_New3">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="MONITORModel1.usp_ST_Report_Hitlist_MSF_Dashboard_New3_Result">
+          <ScalarProperty Name="Customer" ColumnName="Customer" />
+          <ScalarProperty Name="Program" ColumnName="Program" />
+          <ScalarProperty Name="EstYearlySales" ColumnName="EstYearlySales" />
+          <ScalarProperty Name="PeakYearlyVolume" ColumnName="PeakYearlyVolume" />
+          <ScalarProperty Name="SOPYear" ColumnName="SOPYear" />
+          <ScalarProperty Name="LED_Harness" ColumnName="LED/Harness" />
+          <ScalarProperty Name="Application" ColumnName="Application" />
+          <ScalarProperty Name="Region" ColumnName="Region" />
+          <ScalarProperty Name="OEM" ColumnName="OEM" />
+          <ScalarProperty Name="NamePlate" ColumnName="NamePlate" />
+          <ScalarProperty Name="Component" ColumnName="Component" />
+          <ScalarProperty Name="SOP" ColumnName="SOP" />
+          <ScalarProperty Name="EOP" ColumnName="EOP" />
+          <ScalarProperty Name="Type" ColumnName="Type" />
+          <ScalarProperty Name="Price" ColumnName="Price" />
+          <ScalarProperty Name="Volume2017" ColumnName="Volume2017" />
+          <ScalarProperty Name="Volume2018" ColumnName="Volume2018" />
+          <ScalarProperty Name="Volume2019" ColumnName="Volume2019" />
+          <ScalarProperty Name="Volume2020" ColumnName="Volume2020" />
+          <ScalarProperty Name="Volume2021" ColumnName="Volume2021" />
+          <ScalarProperty Name="Volume2022" ColumnName="Volume2022" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="SalesLeadId" ColumnName="SalesLeadId" />
+          <ScalarProperty Name="SalesPerson" ColumnName="SalesPerson" />
+          <ScalarProperty Name="QuoteNumber" ColumnName="QuoteNumber" />
+          <ScalarProperty Name="EEIPartNumber" ColumnName="EEIPartNumber" />
+          <ScalarProperty Name="EAU" ColumnName="EAU" />
+          <ScalarProperty Name="ApplicationName" ColumnName="ApplicationName" />
+          <ScalarProperty Name="SalesInitials" ColumnName="SalesInitials" />
+          <ScalarProperty Name="QuotePrice" ColumnName="QuotePrice" />
+          <ScalarProperty Name="Awarded" ColumnName="Awarded" />
+          <ScalarProperty Name="QuoteStatus" ColumnName="QuoteStatus" />
+          <ScalarProperty Name="StraightMaterialCost" ColumnName="StraightMaterialCost" />
+          <ScalarProperty Name="TotalQuotedSales" ColumnName="TotalQuotedSales" />
+          <ScalarProperty Name="SalesForecastVehicle" ColumnName="SalesForecastVehicle" />
+          <ScalarProperty Name="SalesForecastEEIBasePart" ColumnName="SalesForecastEEIBasePart" />
+          <ScalarProperty Name="SalesForecastTotalPeakYearlySales" ColumnName="SalesForecastTotalPeakYearlySales" />
+          <ScalarProperty Name="SalesForecastApplication" ColumnName="SalesForecastApplication" />
+          <ScalarProperty Name="SalesForecastSopYear" ColumnName="SalesForecastSopYear" />
+          <ScalarProperty Name="SalesForecastEopYear" ColumnName="SalesForecastEopYear" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="usp_ST_Report_Hitlist_GetProgramList" FunctionName="MONITORModel1.Store.usp_ST_Report_Hitlist_GetProgramList">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="MONITORModel1.usp_ST_Report_Hitlist_GetProgramList_Result">
+          <ScalarProperty Name="Program" ColumnName="Program" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="usp_ST_Report_Hitlist_MSF_Dashboard_ProgramParam" FunctionName="MONITORModel1.Store.usp_ST_Report_Hitlist_MSF_Dashboard_ProgramParam">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="MONITORModel1.usp_ST_Report_Hitlist_MSF_Dashboard_ProgramParam_Result">
+          <ScalarProperty Name="Customer" ColumnName="Customer" />
+          <ScalarProperty Name="Program" ColumnName="Program" />
+          <ScalarProperty Name="EstYearlySales" ColumnName="EstYearlySales" />
+          <ScalarProperty Name="PeakYearlyVolume" ColumnName="PeakYearlyVolume" />
+          <ScalarProperty Name="SOPYear" ColumnName="SOPYear" />
+          <ScalarProperty Name="LED_Harness" ColumnName="LED/Harness" />
+          <ScalarProperty Name="Application" ColumnName="Application" />
+          <ScalarProperty Name="Region" ColumnName="Region" />
+          <ScalarProperty Name="OEM" ColumnName="OEM" />
+          <ScalarProperty Name="NamePlate" ColumnName="NamePlate" />
+          <ScalarProperty Name="Component" ColumnName="Component" />
+          <ScalarProperty Name="SOP" ColumnName="SOP" />
+          <ScalarProperty Name="EOP" ColumnName="EOP" />
+          <ScalarProperty Name="Type" ColumnName="Type" />
+          <ScalarProperty Name="Price" ColumnName="Price" />
+          <ScalarProperty Name="Volume2017" ColumnName="Volume2017" />
+          <ScalarProperty Name="Volume2018" ColumnName="Volume2018" />
+          <ScalarProperty Name="Volume2019" ColumnName="Volume2019" />
+          <ScalarProperty Name="Volume2020" ColumnName="Volume2020" />
+          <ScalarProperty Name="Volume2021" ColumnName="Volume2021" />
+          <ScalarProperty Name="Volume2022" ColumnName="Volume2022" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="SalesLeadId" ColumnName="SalesLeadId" />
+          <ScalarProperty Name="SalesPerson" ColumnName="SalesPerson" />
+          <ScalarProperty Name="QuoteNumber" ColumnName="QuoteNumber" />
+          <ScalarProperty Name="EEIPartNumber" ColumnName="EEIPartNumber" />
+          <ScalarProperty Name="EAU" ColumnName="EAU" />
+          <ScalarProperty Name="ApplicationName" ColumnName="ApplicationName" />
+          <ScalarProperty Name="SalesInitials" ColumnName="SalesInitials" />
+          <ScalarProperty Name="QuotePrice" ColumnName="QuotePrice" />
+          <ScalarProperty Name="Awarded" ColumnName="Awarded" />
+          <ScalarProperty Name="QuoteStatus" ColumnName="QuoteStatus" />
+          <ScalarProperty Name="StraightMaterialCost" ColumnName="StraightMaterialCost" />
+          <ScalarProperty Name="TotalQuotedSales" ColumnName="TotalQuotedSales" />
+          <ScalarProperty Name="SalesForecastVehicle" ColumnName="SalesForecastVehicle" />
+          <ScalarProperty Name="SalesForecastEEIBasePart" ColumnName="SalesForecastEEIBasePart" />
+          <ScalarProperty Name="SalesForecastTotalPeakYearlySales" ColumnName="SalesForecastTotalPeakYearlySales" />
+          <ScalarProperty Name="SalesForecastApplication" ColumnName="SalesForecastApplication" />
+          <ScalarProperty Name="SalesForecastSopYear" ColumnName="SalesForecastSopYear" />
+          <ScalarProperty Name="SalesForecastEopYear" ColumnName="SalesForecastEopYear" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="usp_ST_Report_Hitlist_MSF_Dashboard_VehicleParam" FunctionName="MONITORModel1.Store.usp_ST_Report_Hitlist_MSF_Dashboard_VehicleParam">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="MONITORModel1.usp_ST_Report_Hitlist_MSF_Dashboard_VehicleParam_Result">
+          <ScalarProperty Name="Customer" ColumnName="Customer" />
+          <ScalarProperty Name="Program" ColumnName="Program" />
+          <ScalarProperty Name="EstYearlySales" ColumnName="EstYearlySales" />
+          <ScalarProperty Name="PeakYearlyVolume" ColumnName="PeakYearlyVolume" />
+          <ScalarProperty Name="SOPYear" ColumnName="SOPYear" />
+          <ScalarProperty Name="LED_Harness" ColumnName="LED/Harness" />
+          <ScalarProperty Name="Application" ColumnName="Application" />
+          <ScalarProperty Name="Region" ColumnName="Region" />
+          <ScalarProperty Name="OEM" ColumnName="OEM" />
+          <ScalarProperty Name="NamePlate" ColumnName="NamePlate" />
+          <ScalarProperty Name="Component" ColumnName="Component" />
+          <ScalarProperty Name="SOP" ColumnName="SOP" />
+          <ScalarProperty Name="EOP" ColumnName="EOP" />
+          <ScalarProperty Name="Type" ColumnName="Type" />
+          <ScalarProperty Name="Price" ColumnName="Price" />
+          <ScalarProperty Name="Volume2017" ColumnName="Volume2017" />
+          <ScalarProperty Name="Volume2018" ColumnName="Volume2018" />
+          <ScalarProperty Name="Volume2019" ColumnName="Volume2019" />
+          <ScalarProperty Name="Volume2020" ColumnName="Volume2020" />
+          <ScalarProperty Name="Volume2021" ColumnName="Volume2021" />
+          <ScalarProperty Name="Volume2022" ColumnName="Volume2022" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="SalesLeadId" ColumnName="SalesLeadId" />
+          <ScalarProperty Name="SalesPerson" ColumnName="SalesPerson" />
+          <ScalarProperty Name="QuoteNumber" ColumnName="QuoteNumber" />
+          <ScalarProperty Name="EEIPartNumber" ColumnName="EEIPartNumber" />
+          <ScalarProperty Name="EAU" ColumnName="EAU" />
+          <ScalarProperty Name="ApplicationName" ColumnName="ApplicationName" />
+          <ScalarProperty Name="SalesInitials" ColumnName="SalesInitials" />
+          <ScalarProperty Name="QuotePrice" ColumnName="QuotePrice" />
+          <ScalarProperty Name="Awarded" ColumnName="Awarded" />
+          <ScalarProperty Name="QuoteStatus" ColumnName="QuoteStatus" />
+          <ScalarProperty Name="StraightMaterialCost" ColumnName="StraightMaterialCost" />
+          <ScalarProperty Name="TotalQuotedSales" ColumnName="TotalQuotedSales" />
+          <ScalarProperty Name="SalesForecastVehicle" ColumnName="SalesForecastVehicle" />
+          <ScalarProperty Name="SalesForecastEEIBasePart" ColumnName="SalesForecastEEIBasePart" />
+          <ScalarProperty Name="SalesForecastTotalPeakYearlySales" ColumnName="SalesForecastTotalPeakYearlySales" />
+          <ScalarProperty Name="SalesForecastApplication" ColumnName="SalesForecastApplication" />
+          <ScalarProperty Name="SalesForecastSopYear" ColumnName="SalesForecastSopYear" />
+          <ScalarProperty Name="SalesForecastEopYear" ColumnName="SalesForecastEopYear" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="usp_ST_Report_Hitlist_MSF_ProgramParam" FunctionName="MONITORModel1.Store.usp_ST_Report_Hitlist_MSF_ProgramParam">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="MONITORModel1.usp_ST_Report_Hitlist_MSF_ProgramParam_Result">
+          <ScalarProperty Name="Customer" ColumnName="Customer" />
+          <ScalarProperty Name="Program" ColumnName="Program" />
+          <ScalarProperty Name="EstYearlySales" ColumnName="EstYearlySales" />
+          <ScalarProperty Name="PeakYearlyVolume" ColumnName="PeakYearlyVolume" />
+          <ScalarProperty Name="SOPYear" ColumnName="SOPYear" />
+          <ScalarProperty Name="LED_Harness" ColumnName="LED/Harness" />
+          <ScalarProperty Name="Application" ColumnName="Application" />
+          <ScalarProperty Name="Region" ColumnName="Region" />
+          <ScalarProperty Name="OEM" ColumnName="OEM" />
+          <ScalarProperty Name="NamePlate" ColumnName="NamePlate" />
+          <ScalarProperty Name="Component" ColumnName="Component" />
+          <ScalarProperty Name="SOP" ColumnName="SOP" />
+          <ScalarProperty Name="EOP" ColumnName="EOP" />
+          <ScalarProperty Name="Type" ColumnName="Type" />
+          <ScalarProperty Name="Price" ColumnName="Price" />
+          <ScalarProperty Name="Volume2017" ColumnName="Volume2017" />
+          <ScalarProperty Name="Volume2018" ColumnName="Volume2018" />
+          <ScalarProperty Name="Volume2019" ColumnName="Volume2019" />
+          <ScalarProperty Name="Volume2020" ColumnName="Volume2020" />
+          <ScalarProperty Name="Volume2021" ColumnName="Volume2021" />
+          <ScalarProperty Name="Volume2022" ColumnName="Volume2022" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="SalesLeadId" ColumnName="SalesLeadId" />
+          <ScalarProperty Name="SalesPerson" ColumnName="SalesPerson" />
+          <ScalarProperty Name="QuoteNumber" ColumnName="QuoteNumber" />
+          <ScalarProperty Name="EEIPartNumber" ColumnName="EEIPartNumber" />
+          <ScalarProperty Name="EAU" ColumnName="EAU" />
+          <ScalarProperty Name="ApplicationName" ColumnName="ApplicationName" />
+          <ScalarProperty Name="SalesInitials" ColumnName="SalesInitials" />
+          <ScalarProperty Name="QuotePrice" ColumnName="QuotePrice" />
+          <ScalarProperty Name="Awarded" ColumnName="Awarded" />
+          <ScalarProperty Name="QuoteStatus" ColumnName="QuoteStatus" />
+          <ScalarProperty Name="StraightMaterialCost" ColumnName="StraightMaterialCost" />
+          <ScalarProperty Name="TotalQuotedSales" ColumnName="TotalQuotedSales" />
+          <ScalarProperty Name="SalesForecastVehicle" ColumnName="SalesForecastVehicle" />
+          <ScalarProperty Name="SalesForecastEEIBasePart" ColumnName="SalesForecastEEIBasePart" />
+          <ScalarProperty Name="SalesForecastTotalPeakYearlySales" ColumnName="SalesForecastTotalPeakYearlySales" />
+          <ScalarProperty Name="SalesForecastApplication" ColumnName="SalesForecastApplication" />
+          <ScalarProperty Name="SalesForecastSopYear" ColumnName="SalesForecastSopYear" />
+          <ScalarProperty Name="SalesForecastEopYear" ColumnName="SalesForecastEopYear" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="usp_ST_Report_Hitlist_MSF_VehicleParam" FunctionName="MONITORModel1.Store.usp_ST_Report_Hitlist_MSF_VehicleParam">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="MONITORModel1.usp_ST_Report_Hitlist_MSF_VehicleParam_Result">
+          <ScalarProperty Name="Customer" ColumnName="Customer" />
+          <ScalarProperty Name="Program" ColumnName="Program" />
+          <ScalarProperty Name="EstYearlySales" ColumnName="EstYearlySales" />
+          <ScalarProperty Name="PeakYearlyVolume" ColumnName="PeakYearlyVolume" />
+          <ScalarProperty Name="SOPYear" ColumnName="SOPYear" />
+          <ScalarProperty Name="LED_Harness" ColumnName="LED/Harness" />
+          <ScalarProperty Name="Application" ColumnName="Application" />
+          <ScalarProperty Name="Region" ColumnName="Region" />
+          <ScalarProperty Name="OEM" ColumnName="OEM" />
+          <ScalarProperty Name="NamePlate" ColumnName="NamePlate" />
+          <ScalarProperty Name="Component" ColumnName="Component" />
+          <ScalarProperty Name="SOP" ColumnName="SOP" />
+          <ScalarProperty Name="EOP" ColumnName="EOP" />
+          <ScalarProperty Name="Type" ColumnName="Type" />
+          <ScalarProperty Name="Price" ColumnName="Price" />
+          <ScalarProperty Name="Volume2017" ColumnName="Volume2017" />
+          <ScalarProperty Name="Volume2018" ColumnName="Volume2018" />
+          <ScalarProperty Name="Volume2019" ColumnName="Volume2019" />
+          <ScalarProperty Name="Volume2020" ColumnName="Volume2020" />
+          <ScalarProperty Name="Volume2021" ColumnName="Volume2021" />
+          <ScalarProperty Name="Volume2022" ColumnName="Volume2022" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="SalesLeadId" ColumnName="SalesLeadId" />
+          <ScalarProperty Name="SalesPerson" ColumnName="SalesPerson" />
+          <ScalarProperty Name="QuoteNumber" ColumnName="QuoteNumber" />
+          <ScalarProperty Name="EEIPartNumber" ColumnName="EEIPartNumber" />
+          <ScalarProperty Name="EAU" ColumnName="EAU" />
+          <ScalarProperty Name="ApplicationName" ColumnName="ApplicationName" />
+          <ScalarProperty Name="SalesInitials" ColumnName="SalesInitials" />
+          <ScalarProperty Name="QuotePrice" ColumnName="QuotePrice" />
+          <ScalarProperty Name="Awarded" ColumnName="Awarded" />
+          <ScalarProperty Name="QuoteStatus" ColumnName="QuoteStatus" />
+          <ScalarProperty Name="StraightMaterialCost" ColumnName="StraightMaterialCost" />
+          <ScalarProperty Name="TotalQuotedSales" ColumnName="TotalQuotedSales" />
+          <ScalarProperty Name="SalesForecastVehicle" ColumnName="SalesForecastVehicle" />
+          <ScalarProperty Name="SalesForecastEEIBasePart" ColumnName="SalesForecastEEIBasePart" />
+          <ScalarProperty Name="SalesForecastTotalPeakYearlySales" ColumnName="SalesForecastTotalPeakYearlySales" />
+          <ScalarProperty Name="SalesForecastApplication" ColumnName="SalesForecastApplication" />
+          <ScalarProperty Name="SalesForecastSopYear" ColumnName="SalesForecastSopYear" />
+          <ScalarProperty Name="SalesForecastEopYear" ColumnName="SalesForecastEopYear" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="usp_ST_Report_Hitlist_GetVehicleList" FunctionName="MONITORModel1.Store.usp_ST_Report_Hitlist_GetVehicleList">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="MONITORModel1.usp_ST_Report_Hitlist_GetVehicleList_Result">
+          <ScalarProperty Name="vehicle" ColumnName="vehicle" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+  </EntityContainerMapping>
+</Mapping>

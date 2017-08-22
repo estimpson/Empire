@@ -1,0 +1,200 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="MONITORModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+  <EntityContainer Name="MONITOREntities1" annotation:LazyLoadingEnabled="true">
+    <FunctionImport Name="usp_ST_Csm_SalesForecast" ReturnType="Collection(MONITORModel.usp_ST_Csm_SalesForecast_Result1)">
+      <Parameter Name="ParentCustomer" Mode="In" Type="String" />
+      <Parameter Name="TranDT" Mode="InOut" Type="DateTime" />
+      <Parameter Name="Result" Mode="InOut" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="usp_ST_SalesLeadLog_GetContactInfo" ReturnType="Collection(MONITORModel.usp_ST_SalesLeadLog_GetContactInfo_Result)">
+      <Parameter Name="Id" Mode="In" Type="Int32" />
+      <Parameter Name="TranDT" Mode="InOut" Type="DateTime" />
+      <Parameter Name="Result" Mode="InOut" Type="Int32" />
+    </FunctionImport>
+    <EntitySet Name="employees" EntityType="MONITORModel.employee" />
+    <EntitySet Name="ST_SalesLeadLog_StatusDefinition" EntityType="MONITORModel.ST_SalesLeadLog_StatusDefinition" />
+    <FunctionImport Name="usp_ST_SalesLeadLog_GetActivityHistory" ReturnType="Collection(MONITORModel.usp_ST_SalesLeadLog_GetActivityHistory_Result)">
+      <Parameter Name="SalesLeadId" Mode="In" Type="Int32" />
+      <Parameter Name="TranDT" Mode="InOut" Type="DateTime" />
+      <Parameter Name="Result" Mode="InOut" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="usp_ST_SalesLeadLog_Hitlist_SearchForSalesLeads">
+      <Parameter Name="HitlistId" Mode="In" Type="Int32" />
+      <Parameter Name="TranDT" Mode="InOut" Type="DateTime" />
+      <Parameter Name="Result" Mode="InOut" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="usp_ST_SalesLeadLog_Hitlist_Update">
+      <Parameter Name="OperatorCode" Mode="In" Type="String" />
+      <Parameter Name="CombinedLightingId" Mode="In" Type="Int32" />
+      <Parameter Name="SalesLeadId" Mode="In" Type="Int32" />
+      <Parameter Name="SalesLeadStatus" Mode="In" Type="Int32" />
+      <Parameter Name="ActivityRowId" Mode="In" Type="Int32" />
+      <Parameter Name="Activity" Mode="In" Type="String" />
+      <Parameter Name="ActivityDate" Mode="In" Type="DateTime" />
+      <Parameter Name="MeetingLocation" Mode="In" Type="String" />
+      <Parameter Name="ContactName" Mode="In" Type="String" />
+      <Parameter Name="ContactPhoneNumber" Mode="In" Type="String" />
+      <Parameter Name="ContactEmailAddress" Mode="In" Type="String" />
+      <Parameter Name="Duration" Mode="In" Type="Decimal" />
+      <Parameter Name="Notes" Mode="In" Type="String" />
+      <Parameter Name="QuoteNumber" Mode="In" Type="String" />
+      <Parameter Name="AwardedVolume" Mode="In" Type="Int32" />
+      <Parameter Name="TranDT" Mode="InOut" Type="DateTime" />
+      <Parameter Name="Result" Mode="InOut" Type="Int32" />
+    </FunctionImport>
+    <EntitySet Name="vw_ST_LightingStudy_Hitlist_2016" EntityType="MONITORModel.vw_ST_LightingStudy_Hitlist_2016" />
+    <FunctionImport Name="usp_ST_SalesLeadLog_Hitlist_GetActivity" ReturnType="Collection(MONITORModel.usp_ST_SalesLeadLog_Hitlist_GetActivity_Result)">
+      <Parameter Name="SalesPersonCode" Mode="In" Type="String" />
+      <Parameter Name="TranDT" Mode="InOut" Type="DateTime" />
+      <Parameter Name="Result" Mode="InOut" Type="Int32" />
+    </FunctionImport>
+  </EntityContainer>
+  <ComplexType Name="usp_ST_Csm_SalesForecast_Result">
+    <Property Type="String" Name="Release_ID" Nullable="false" MaxLength="7" />
+    <Property Type="String" Name="Version" Nullable="false" MaxLength="30" />
+    <Property Type="String" Name="MnemonicVehicle" Nullable="true" MaxLength="30" />
+    <Property Type="String" Name="MnemonicVehiclePlant" Nullable="false" MaxLength="30" />
+    <Property Type="String" Name="BasePart" Nullable="true" MaxLength="30" />
+    <Property Type="String" Name="Platform" Nullable="true" MaxLength="255" />
+    <Property Type="String" Name="Application" Nullable="true" MaxLength="500" />
+    <Property Type="String" Name="Program" Nullable="true" MaxLength="255" />
+    <Property Type="String" Name="Vehicle" Nullable="true" MaxLength="511" />
+    <Property Type="String" Name="ParentCustomer" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="MarketSubSegment" Nullable="true" MaxLength="200" />
+    <Property Type="String" Name="Status" Nullable="false" MaxLength="10" />
+    <Property Type="DateTime" Name="SOP" Nullable="true" Precision="23" />
+    <Property Type="DateTime" Name="EOP" Nullable="true" Precision="23" />
+  </ComplexType>
+  <ComplexType Name="usp_ST_Csm_SalesForecast_Result1">
+    <Property Type="String" Name="Release_ID" Nullable="false" MaxLength="7" />
+    <Property Type="String" Name="Version" Nullable="false" MaxLength="30" />
+    <Property Type="String" Name="MnemonicVehicle" Nullable="true" MaxLength="30" />
+    <Property Type="String" Name="MnemonicVehiclePlant" Nullable="false" MaxLength="30" />
+    <Property Type="String" Name="BasePart" Nullable="true" MaxLength="30" />
+    <Property Type="String" Name="Platform" Nullable="true" MaxLength="255" />
+    <Property Type="String" Name="Application" Nullable="true" MaxLength="500" />
+    <Property Type="String" Name="Program" Nullable="true" MaxLength="255" />
+    <Property Type="String" Name="Vehicle" Nullable="true" MaxLength="511" />
+    <Property Type="String" Name="ParentCustomer" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="MarketSubSegment" Nullable="true" MaxLength="200" />
+    <Property Type="String" Name="Status" Nullable="false" MaxLength="10" />
+    <Property Type="String" Name="SOP" Nullable="true" MaxLength="10" />
+    <Property Type="String" Name="EOP" Nullable="true" MaxLength="10" />
+  </ComplexType>
+  <ComplexType Name="usp_ST_GetSalesLeadHeader_Result">
+    <Property Type="String" Name="ReleaseId" Nullable="false" MaxLength="7" />
+    <Property Type="String" Name="MnemonicVehiclePlant" Nullable="false" MaxLength="30" />
+    <Property Type="String" Name="ParentCustomer" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="BasePart" Nullable="true" MaxLength="30" />
+    <Property Type="String" Name="EmpireMarketSubSegment" Nullable="true" MaxLength="200" />
+    <Property Type="String" Name="SalesStatus" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="EmpireApplication" Nullable="true" MaxLength="500" />
+    <Property Type="String" Name="Program" Nullable="true" MaxLength="255" />
+    <Property Type="String" Name="Vehicle" Nullable="true" MaxLength="511" />
+    <Property Type="String" Name="Platform" Nullable="true" MaxLength="255" />
+    <Property Type="String" Name="SOP" Nullable="true" MaxLength="20" />
+    <Property Type="String" Name="EOP" Nullable="true" MaxLength="20" />
+  </ComplexType>
+  <ComplexType Name="usp_ST_GetSalesLeadHeader_Result1">
+    <Property Type="String" Name="ReleaseId" Nullable="false" MaxLength="7" />
+    <Property Type="String" Name="MnemonicVehiclePlant" Nullable="false" MaxLength="30" />
+    <Property Type="String" Name="ParentCustomer" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="BasePart" Nullable="true" MaxLength="30" />
+    <Property Type="String" Name="EmpireMarketSubSegment" Nullable="true" MaxLength="200" />
+    <Property Type="String" Name="SalesStatus" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="EmpireApplication" Nullable="true" MaxLength="500" />
+    <Property Type="String" Name="Program" Nullable="true" MaxLength="255" />
+    <Property Type="String" Name="Vehicle" Nullable="true" MaxLength="255" />
+    <Property Type="String" Name="Platform" Nullable="true" MaxLength="255" />
+    <Property Type="String" Name="SOP" Nullable="true" MaxLength="20" />
+    <Property Type="String" Name="EOP" Nullable="true" MaxLength="20" />
+    <Property Type="Int32" Name="RowID" Nullable="false" />
+  </ComplexType>
+  <ComplexType Name="usp_ST_GetSalesLeadContactInfo_Result">
+    <Property Type="String" Name="ContactName" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="ContactPhoneNumber" Nullable="true" MaxLength="25" />
+    <Property Type="String" Name="ContactEmailAddress" Nullable="true" MaxLength="320" />
+  </ComplexType>
+  <ComplexType Name="usp_ST_SalesLeadLog_GetContactInfo_Result">
+    <Property Type="String" Name="ContactName" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="ContactPhoneNumber" Nullable="true" MaxLength="25" />
+    <Property Type="String" Name="ContactEmailAddress" Nullable="true" MaxLength="320" />
+  </ComplexType>
+  <EntityType Name="employee">
+    <Key>
+      <PropertyRef Name="operator_code" />
+    </Key>
+    <Property Type="String" Name="name" Nullable="false" MaxLength="40" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="operator_code" Nullable="false" MaxLength="5" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="password" Nullable="false" MaxLength="5" FixedLength="false" Unicode="false" />
+    <Property Type="Int32" Name="serial_number" />
+    <Property Type="String" Name="epassword" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Type="Int32" Name="operatorlevel" />
+    <Property Type="String" Name="employee1" MaxLength="15" FixedLength="false" Unicode="false" />
+    <Property Type="Binary" Name="npassword" MaxLength="255" FixedLength="false" />
+    <Property Type="String" Name="EmployeeID" MaxLength="15" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="ST_SalesLeadLog_StatusDefinition">
+    <Key>
+      <PropertyRef Name="StatusType" />
+    </Key>
+    <Property Type="String" Name="StatusType" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Type="Int32" Name="StatusValue" Nullable="false" />
+  </EntityType>
+  <ComplexType Name="usp_ST_SalesLeadLog_GetActivityHistory_Result">
+    <Property Type="String" Name="SalesPerson" Nullable="true" MaxLength="40" />
+    <Property Type="String" Name="StatusType" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="Activity" Nullable="true" MaxLength="50" />
+    <Property Type="DateTime" Name="ActivityDate" Nullable="true" Precision="23" />
+    <Property Type="String" Name="ContactName" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="ContactPhoneNumber" Nullable="true" MaxLength="25" />
+    <Property Type="String" Name="ContactEmailAddress" Nullable="true" MaxLength="320" />
+    <Property Type="Decimal" Name="Duration" Nullable="true" Precision="20" Scale="6" />
+    <Property Type="String" Name="Notes" Nullable="true" />
+    <Property Type="String" Name="QuoteNumber" Nullable="true" MaxLength="50" />
+    <Property Type="Int32" Name="AwardedVolume" Nullable="true" />
+    <Property Type="Int32" Name="RowID" Nullable="false" />
+  </ComplexType>
+  <EntityType Name="vw_ST_LightingStudy_Hitlist_2016">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Type="String" Name="Customer" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="Program" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Type="Int32" Name="EstYearlySales" />
+    <Property Type="Int32" Name="PeakYearlyVolume" />
+    <Property Type="Int32" Name="SOPYear" />
+    <Property Type="String" Name="LED_Harness" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="Application" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="Region" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="OEM" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="NamePlate" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="Component" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="SOP" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="EOP" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="Type" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Type="Decimal" Name="Price" Precision="10" Scale="2" />
+    <Property Type="Int32" Name="Volume2017" />
+    <Property Type="Int32" Name="Volume2018" />
+    <Property Type="Int32" Name="Volume2019" />
+    <Property Type="Int32" Name="Volume2020" />
+    <Property Type="Int32" Name="Volume2021" />
+    <Property Type="Int32" Name="Volume2022" />
+    <Property Type="String" Name="Status" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Type="Int32" Name="AwardedVolume" />
+    <Property Type="Int32" Name="ID" Nullable="false" />
+    <Property Type="String" Name="SalesPerson" MaxLength="40" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <ComplexType Name="usp_ST_SalesLeadLog_Hitlist_GetActivity_Result">
+    <Property Type="String" Name="Customer" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="Program" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="Application" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="SOP" Nullable="true" MaxLength="30" />
+    <Property Type="String" Name="EOP" Nullable="true" MaxLength="30" />
+    <Property Type="Int32" Name="PeakYearlyVolume" Nullable="true" />
+    <Property Type="String" Name="LastSalesActivity" Nullable="true" MaxLength="30" />
+    <Property Type="String" Name="Status" Nullable="false" MaxLength="50" />
+    <Property Type="Int32" Name="ID" Nullable="false" />
+    <Property Type="Int32" Name="SalesLeadID" Nullable="false" />
+  </ComplexType>
+</Schema>

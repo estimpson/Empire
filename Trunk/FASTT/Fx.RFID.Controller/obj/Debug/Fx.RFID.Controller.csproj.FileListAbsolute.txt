@@ -1,0 +1,6 @@
+C:\Dev\GitHub\FX\Trunk\CustomerFiles\Empire\Trunk\FASTT\Fx.RFID.Controller\bin\Debug\Fx.MES.TSM.RFID.Controller.dll
+C:\Dev\GitHub\FX\Trunk\CustomerFiles\Empire\Trunk\FASTT\Fx.RFID.Controller\bin\Debug\Fx.MES.TSM.RFID.Controller.pdb
+C:\Dev\GitHub\FX\Trunk\CustomerFiles\Empire\Trunk\FASTT\Fx.RFID.Controller\obj\Debug\Fx.RFID.Controller.csprojResolveAssemblyReference.cache
+C:\Dev\GitHub\FX\Trunk\CustomerFiles\Empire\Trunk\FASTT\Fx.RFID.Controller\obj\Debug\Fx.RFID.Controller.csproj.CoreCompileInputs.cache
+C:\Dev\GitHub\FX\Trunk\CustomerFiles\Empire\Trunk\FASTT\Fx.RFID.Controller\obj\Debug\Fx.MES.TSM.RFID.Controller.dll
+C:\Dev\GitHub\FX\Trunk\CustomerFiles\Empire\Trunk\FASTT\Fx.RFID.Controller\obj\Debug\Fx.MES.TSM.RFID.Controller.pdb

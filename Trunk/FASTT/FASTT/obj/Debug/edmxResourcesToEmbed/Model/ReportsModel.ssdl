@@ -1,0 +1,236 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="MONITORModel1.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'MONITOR.EEIUser.ST_CustomersAll' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="ST_CustomersAll">
+    <Key>
+      <PropertyRef Name="RowNumber" />
+    </Key>
+    <Property Name="RowNumber" Type="bigint" Nullable="false" />
+    <Property Name="Customer" Type="varchar" MaxLength="50" />
+    <Property Name="Region" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'MONITOR.EEIUser.ST_CustomersWithProgramsLaunchingClosing2017' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="ST_CustomersWithProgramsLaunchingClosing2017">
+    <Key>
+      <PropertyRef Name="RowNumber" />
+    </Key>
+    <Property Name="RowNumber" Type="bigint" Nullable="false" />
+    <Property Name="Customer" Type="varchar" MaxLength="50" />
+    <Property Name="Region" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'MONITOR.EEIUser.ST_CustomersWithProgramsLaunchingClosing2018' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="ST_CustomersWithProgramsLaunchingClosing2018">
+    <Key>
+      <PropertyRef Name="RowNumber" />
+    </Key>
+    <Property Name="RowNumber" Type="bigint" Nullable="false" />
+    <Property Name="Customer" Type="varchar" MaxLength="50" />
+    <Property Name="Region" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'MONITOR.EEIUser.ST_CustomersWithProgramsLaunchingClosing2019' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="ST_CustomersWithProgramsLaunchingClosing2019">
+    <Key>
+      <PropertyRef Name="RowNumber" />
+    </Key>
+    <Property Name="RowNumber" Type="bigint" Nullable="false" />
+    <Property Name="Customer" Type="varchar" MaxLength="50" />
+    <Property Name="Region" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'MONITOR.EEIUser.vw_ST_LightingStudy_2016' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="vw_ST_LightingStudy_2016">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="Customer" Type="varchar" MaxLength="50" />
+    <Property Name="Program" Type="varchar" MaxLength="50" />
+    <Property Name="SOP" Type="varchar" MaxLength="30" />
+    <Property Name="SOPYear" Type="int" />
+    <Property Name="EOP" Type="varchar" MaxLength="30" />
+    <Property Name="EOPYear" Type="int" />
+    <Property Name="BulbType" Type="varchar" MaxLength="50" />
+    <Property Name="Application" Type="varchar" MaxLength="50" />
+    <Property Name="Description" Type="varchar" MaxLength="50" />
+    <Property Name="OEM" Type="varchar" MaxLength="50" />
+    <Property Name="NamePlate" Type="varchar" MaxLength="50" />
+    <Property Name="Label" Type="varchar" MaxLength="100" />
+    <Property Name="Region" Type="varchar" MaxLength="50" />
+    <Property Name="Status" Type="varchar" MaxLength="50" />
+    <Property Name="Volume2017" Type="int" />
+    <Property Name="Volume2018" Type="int" />
+    <Property Name="Volume2019" Type="int" />
+    <Property Name="PeakVolume" Type="int" />
+    <Property Name="AwardedVolume" Type="int" />
+    <Property Name="ID" Type="int" Nullable="false" />
+    <Property Name="SalesPerson" Type="varchar" MaxLength="40" />
+  </EntityType>
+  <Function Name="usp_ST_Metrics_PeakVolumeOfProgramsClosing2017" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="EEIUser">
+    <Parameter Name="Customer" Type="varchar" Mode="In" />
+    <Parameter Name="Region" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="usp_ST_Metrics_PeakVolumeOfProgramsClosing2018" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="EEIUser">
+    <Parameter Name="Customer" Type="varchar" Mode="In" />
+    <Parameter Name="Region" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="usp_ST_Metrics_PeakVolumeOfProgramsClosing2019" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="EEIUser">
+    <Parameter Name="Customer" Type="varchar" Mode="In" />
+    <Parameter Name="Region" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="usp_ST_Metrics_PeakVolumeOfProgramsLaunching" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="EEIUser" />
+  <Function Name="usp_ST_Metrics_PeakVolumeOfProgramsLaunching2017" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="EEIUser">
+    <Parameter Name="Customer" Type="varchar" Mode="In" />
+    <Parameter Name="Region" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="usp_ST_Metrics_PeakVolumeOfProgramsLaunching2018" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="EEIUser">
+    <Parameter Name="Customer" Type="varchar" Mode="In" />
+    <Parameter Name="Region" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="usp_ST_Metrics_PeakVolumeOfProgramsLaunching2019" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="EEIUser">
+    <Parameter Name="Customer" Type="varchar" Mode="In" />
+    <Parameter Name="Region" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="usp_ST_Metrics_ProgramsLaunchingByCustomer" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="EEIUser" />
+  <Function Name="usp_ST_Metrics_TotalSalesActivityOneMonth" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="EEIUser" />
+  <Function Name="usp_ST_Report_Hitlist" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="EEIUser">
+    <Parameter Name="Customer" Type="varchar" Mode="In" />
+    <Parameter Name="SOPYear" Type="int" Mode="In" />
+  </Function>
+  <Function Name="usp_ST_Report_Hitlist_GetCustomerList" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="EEIUser">
+    <Parameter Name="Region" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="usp_ST_Report_Hitlist_GetProgramList" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="EEIUser">
+    <Parameter Name="Region" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="usp_ST_Report_Hitlist_GetSopList" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="EEIUser">
+    <Parameter Name="Customer" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="usp_ST_Report_Hitlist_GetVehicleList" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="EEIUser">
+    <Parameter Name="Region" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="usp_ST_Report_Hitlist_MSF" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="EEIUser">
+    <Parameter Name="Customer" Type="varchar" Mode="In" />
+    <Parameter Name="Region" Type="varchar" Mode="In" />
+    <Parameter Name="SOPYear" Type="int" Mode="In" />
+  </Function>
+  <Function Name="usp_ST_Report_Hitlist_MSF_Dashboard" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="EEIUser">
+    <Parameter Name="Customer" Type="varchar" Mode="In" />
+    <Parameter Name="SOPYear" Type="int" Mode="In" />
+  </Function>
+  <Function Name="usp_ST_Report_Hitlist_MSF_Dashboard_New3" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="EEIUser">
+    <Parameter Name="Customer" Type="varchar" Mode="In" />
+    <Parameter Name="SOPYear" Type="int" Mode="In" />
+  </Function>
+  <Function Name="usp_ST_Report_Hitlist_MSF_Dashboard_ProgramParam" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="EEIUser">
+    <Parameter Name="Program" Type="varchar" Mode="In" />
+    <Parameter Name="SOPYear" Type="int" Mode="In" />
+  </Function>
+  <Function Name="usp_ST_Report_Hitlist_MSF_Dashboard_VehicleParam" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="EEIUser">
+    <Parameter Name="Vehicle" Type="varchar" Mode="In" />
+    <Parameter Name="SOPYear" Type="int" Mode="In" />
+  </Function>
+  <Function Name="usp_ST_Report_Hitlist_MSF_New3" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="EEIUser">
+    <Parameter Name="Customer" Type="varchar" Mode="In" />
+    <Parameter Name="Region" Type="varchar" Mode="In" />
+    <Parameter Name="SOPYear" Type="int" Mode="In" />
+  </Function>
+  <Function Name="usp_ST_Report_Hitlist_MSF_ProgramParam" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="EEIUser">
+    <Parameter Name="Program" Type="varchar" Mode="In" />
+    <Parameter Name="SOPYear" Type="int" Mode="In" />
+  </Function>
+  <Function Name="usp_ST_Report_Hitlist_MSF_VehicleParam" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="EEIUser">
+    <Parameter Name="Vehicle" Type="varchar" Mode="In" />
+    <Parameter Name="SOPYear" Type="int" Mode="In" />
+  </Function>
+  <Function Name="usp_ST_Report_Hitlist_SalesActivity" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="EEIUser">
+    <Parameter Name="ReportingDays" Type="int" Mode="In" />
+  </Function>
+  <Function Name="usp_ST_Report_Hitlist_SalesActivityByCustomer" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="EEIUser">
+    <Parameter Name="Customer" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="usp_ST_Report_SalesActivityByCustomer" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="EEIUser">
+    <Parameter Name="Customer" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="usp_ST_Reports_GetSalesForecastData" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="EEIUser">
+    <Parameter Name="LightingStudyCustomer" Type="varchar" Mode="In" />
+    <Parameter Name="TranDT" Type="datetime" Mode="InOut" />
+    <Parameter Name="Result" Type="int" Mode="InOut" />
+  </Function>
+  <Function Name="usp_ST_SalesLeadLog_Hitlist_GetActivity" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="EEIUser">
+    <Parameter Name="SalesPersonCode" Type="varchar" Mode="In" />
+    <Parameter Name="TranDT" Type="datetime" Mode="InOut" />
+    <Parameter Name="Result" Type="int" Mode="InOut" />
+  </Function>
+  <Function Name="usp_ST_SalesLeadLog_Report_NewQuotes" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="EEIUser">
+    <Parameter Name="NumberOfDays" Type="int" Mode="In" />
+    <Parameter Name="TranDT" Type="datetime" Mode="InOut" />
+    <Parameter Name="Result" Type="int" Mode="InOut" />
+  </Function>
+  <Function Name="usp_ST_SalesLeadLog_Report_NewQuotesByCustomer" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="EEIUser">
+    <Parameter Name="Customer" Type="varchar" Mode="In" />
+    <Parameter Name="TranDT" Type="datetime" Mode="InOut" />
+    <Parameter Name="Result" Type="int" Mode="InOut" />
+  </Function>
+  <Function Name="usp_ST_SalesLeadLog_Report_OpenQuotes" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="EEIUser">
+    <Parameter Name="TranDT" Type="datetime" Mode="InOut" />
+    <Parameter Name="Result" Type="int" Mode="InOut" />
+  </Function>
+  <EntityContainer Name="MONITORModel1StoreContainer">
+    <EntitySet Name="ST_CustomersAll" EntityType="Self.ST_CustomersAll" store:Type="Views" store:Schema="EEIUser">
+      <DefiningQuery>SELECT 
+[ST_CustomersAll].[RowNumber] AS [RowNumber], 
+[ST_CustomersAll].[Customer] AS [Customer], 
+[ST_CustomersAll].[Region] AS [Region]
+FROM [EEIUser].[ST_CustomersAll] AS [ST_CustomersAll]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="ST_CustomersWithProgramsLaunchingClosing2017" EntityType="Self.ST_CustomersWithProgramsLaunchingClosing2017" store:Type="Views" store:Schema="EEIUser">
+      <DefiningQuery>SELECT 
+[ST_CustomersWithProgramsLaunchingClosing2017].[RowNumber] AS [RowNumber], 
+[ST_CustomersWithProgramsLaunchingClosing2017].[Customer] AS [Customer], 
+[ST_CustomersWithProgramsLaunchingClosing2017].[Region] AS [Region]
+FROM [EEIUser].[ST_CustomersWithProgramsLaunchingClosing2017] AS [ST_CustomersWithProgramsLaunchingClosing2017]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="ST_CustomersWithProgramsLaunchingClosing2018" EntityType="Self.ST_CustomersWithProgramsLaunchingClosing2018" store:Type="Views" store:Schema="EEIUser">
+      <DefiningQuery>SELECT 
+[ST_CustomersWithProgramsLaunchingClosing2018].[RowNumber] AS [RowNumber], 
+[ST_CustomersWithProgramsLaunchingClosing2018].[Customer] AS [Customer], 
+[ST_CustomersWithProgramsLaunchingClosing2018].[Region] AS [Region]
+FROM [EEIUser].[ST_CustomersWithProgramsLaunchingClosing2018] AS [ST_CustomersWithProgramsLaunchingClosing2018]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="ST_CustomersWithProgramsLaunchingClosing2019" EntityType="Self.ST_CustomersWithProgramsLaunchingClosing2019" store:Type="Views" store:Schema="EEIUser">
+      <DefiningQuery>SELECT 
+[ST_CustomersWithProgramsLaunchingClosing2019].[RowNumber] AS [RowNumber], 
+[ST_CustomersWithProgramsLaunchingClosing2019].[Customer] AS [Customer], 
+[ST_CustomersWithProgramsLaunchingClosing2019].[Region] AS [Region]
+FROM [EEIUser].[ST_CustomersWithProgramsLaunchingClosing2019] AS [ST_CustomersWithProgramsLaunchingClosing2019]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="vw_ST_LightingStudy_2016" EntityType="Self.vw_ST_LightingStudy_2016" store:Type="Views" store:Schema="EEIUser">
+      <DefiningQuery>SELECT 
+[vw_ST_LightingStudy_2016].[Customer] AS [Customer], 
+[vw_ST_LightingStudy_2016].[Program] AS [Program], 
+[vw_ST_LightingStudy_2016].[SOP] AS [SOP], 
+[vw_ST_LightingStudy_2016].[SOPYear] AS [SOPYear], 
+[vw_ST_LightingStudy_2016].[EOP] AS [EOP], 
+[vw_ST_LightingStudy_2016].[EOPYear] AS [EOPYear], 
+[vw_ST_LightingStudy_2016].[BulbType] AS [BulbType], 
+[vw_ST_LightingStudy_2016].[Application] AS [Application], 
+[vw_ST_LightingStudy_2016].[Description] AS [Description], 
+[vw_ST_LightingStudy_2016].[OEM] AS [OEM], 
+[vw_ST_LightingStudy_2016].[NamePlate] AS [NamePlate], 
+[vw_ST_LightingStudy_2016].[Label] AS [Label], 
+[vw_ST_LightingStudy_2016].[Region] AS [Region], 
+[vw_ST_LightingStudy_2016].[Status] AS [Status], 
+[vw_ST_LightingStudy_2016].[Volume2017] AS [Volume2017], 
+[vw_ST_LightingStudy_2016].[Volume2018] AS [Volume2018], 
+[vw_ST_LightingStudy_2016].[Volume2019] AS [Volume2019], 
+[vw_ST_LightingStudy_2016].[PeakVolume] AS [PeakVolume], 
+[vw_ST_LightingStudy_2016].[AwardedVolume] AS [AwardedVolume], 
+[vw_ST_LightingStudy_2016].[ID] AS [ID], 
+[vw_ST_LightingStudy_2016].[SalesPerson] AS [SalesPerson]
+FROM [EEIUser].[vw_ST_LightingStudy_2016] AS [vw_ST_LightingStudy_2016]</DefiningQuery>
+    </EntitySet>
+  </EntityContainer>
+</Schema>

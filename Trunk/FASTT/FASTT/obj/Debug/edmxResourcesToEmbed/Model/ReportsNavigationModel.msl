@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="MONITORModel2StoreContainer" CdmEntityContainer="MONITOREntities2">
+    <FunctionImportMapping FunctionImportName="usp_ST_Metrics_GetNavigationGroups" FunctionName="MONITORModel2.Store.usp_ST_Metrics_GetNavigationGroups">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="MONITORModel2.NavigationGroups">
+          <ScalarProperty Name="NavigationGroup" ColumnName="NavigationGroup" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="usp_ST_Metrics_GetNavigationGroupItems" FunctionName="MONITORModel2.Store.usp_ST_Metrics_GetNavigationGroupItems">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="MONITORModel2.NavigationItems">
+          <ScalarProperty Name="NavigationItem" ColumnName="NavigationItem" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+  </EntityContainerMapping>
+</Mapping>

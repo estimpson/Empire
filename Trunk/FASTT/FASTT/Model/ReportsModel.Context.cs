@@ -285,5 +285,75 @@ namespace FASTT.Model
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_ST_Report_Hitlist_MSF_Dashboard_New3_Result>("usp_ST_Report_Hitlist_MSF_Dashboard_New3", customerParameter, sOPYearParameter);
         }
+    
+        public virtual ObjectResult<usp_ST_Report_Hitlist_GetProgramList_Result> usp_ST_Report_Hitlist_GetProgramList(string region)
+        {
+            var regionParameter = region != null ?
+                new ObjectParameter("Region", region) :
+                new ObjectParameter("Region", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_ST_Report_Hitlist_GetProgramList_Result>("usp_ST_Report_Hitlist_GetProgramList", regionParameter);
+        }
+    
+        public virtual ObjectResult<usp_ST_Report_Hitlist_MSF_Dashboard_ProgramParam_Result> usp_ST_Report_Hitlist_MSF_Dashboard_ProgramParam(string program, Nullable<int> sOPYear)
+        {
+            var programParameter = program != null ?
+                new ObjectParameter("Program", program) :
+                new ObjectParameter("Program", typeof(string));
+    
+            var sOPYearParameter = sOPYear.HasValue ?
+                new ObjectParameter("SOPYear", sOPYear) :
+                new ObjectParameter("SOPYear", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_ST_Report_Hitlist_MSF_Dashboard_ProgramParam_Result>("usp_ST_Report_Hitlist_MSF_Dashboard_ProgramParam", programParameter, sOPYearParameter);
+        }
+    
+        public virtual ObjectResult<usp_ST_Report_Hitlist_MSF_Dashboard_VehicleParam_Result> usp_ST_Report_Hitlist_MSF_Dashboard_VehicleParam(string vehicle, Nullable<int> sOPYear)
+        {
+            var vehicleParameter = vehicle != null ?
+                new ObjectParameter("Vehicle", vehicle) :
+                new ObjectParameter("Vehicle", typeof(string));
+    
+            var sOPYearParameter = sOPYear.HasValue ?
+                new ObjectParameter("SOPYear", sOPYear) :
+                new ObjectParameter("SOPYear", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_ST_Report_Hitlist_MSF_Dashboard_VehicleParam_Result>("usp_ST_Report_Hitlist_MSF_Dashboard_VehicleParam", vehicleParameter, sOPYearParameter);
+        }
+    
+        public virtual ObjectResult<usp_ST_Report_Hitlist_MSF_ProgramParam_Result> usp_ST_Report_Hitlist_MSF_ProgramParam(string program, Nullable<int> sOPYear)
+        {
+            var programParameter = program != null ?
+                new ObjectParameter("Program", program) :
+                new ObjectParameter("Program", typeof(string));
+    
+            var sOPYearParameter = sOPYear.HasValue ?
+                new ObjectParameter("SOPYear", sOPYear) :
+                new ObjectParameter("SOPYear", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_ST_Report_Hitlist_MSF_ProgramParam_Result>("usp_ST_Report_Hitlist_MSF_ProgramParam", programParameter, sOPYearParameter);
+        }
+    
+        public virtual ObjectResult<usp_ST_Report_Hitlist_MSF_VehicleParam_Result> usp_ST_Report_Hitlist_MSF_VehicleParam(string vehicle, Nullable<int> sOPYear)
+        {
+            var vehicleParameter = vehicle != null ?
+                new ObjectParameter("Vehicle", vehicle) :
+                new ObjectParameter("Vehicle", typeof(string));
+    
+            var sOPYearParameter = sOPYear.HasValue ?
+                new ObjectParameter("SOPYear", sOPYear) :
+                new ObjectParameter("SOPYear", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_ST_Report_Hitlist_MSF_VehicleParam_Result>("usp_ST_Report_Hitlist_MSF_VehicleParam", vehicleParameter, sOPYearParameter);
+        }
+    
+        public virtual ObjectResult<usp_ST_Report_Hitlist_GetVehicleList_Result> usp_ST_Report_Hitlist_GetVehicleList(string region)
+        {
+            var regionParameter = region != null ?
+                new ObjectParameter("Region", region) :
+                new ObjectParameter("Region", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_ST_Report_Hitlist_GetVehicleList_Result>("usp_ST_Report_Hitlist_GetVehicleList", regionParameter);
+        }
     }
 }

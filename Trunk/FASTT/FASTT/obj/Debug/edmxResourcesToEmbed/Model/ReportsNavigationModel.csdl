@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="MONITORModel2" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+  <EntityContainer Name="MONITOREntities2" annotation:LazyLoadingEnabled="true">
+    <FunctionImport Name="usp_ST_Metrics_GetNavigationGroups" ReturnType="Collection(MONITORModel2.NavigationGroups)" />
+    <FunctionImport Name="usp_ST_Metrics_GetNavigationGroupItems" ReturnType="Collection(MONITORModel2.NavigationItems)">
+      <Parameter Name="NavigationGroup" Mode="In" Type="String" />
+    </FunctionImport>
+  </EntityContainer>
+  <ComplexType Name="NavigationGroups">
+    <Property Type="String" Name="NavigationGroup" Nullable="false" MaxLength="100" />
+  </ComplexType>
+  <ComplexType Name="NavigationItems">
+    <Property Type="String" Name="NavigationItem" Nullable="false" MaxLength="100" />
+  </ComplexType>
+</Schema>

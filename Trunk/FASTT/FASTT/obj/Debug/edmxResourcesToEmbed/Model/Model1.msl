@@ -1,0 +1,124 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="MONITORModelStoreContainer" CdmEntityContainer="MONITOREntities1">
+    <FunctionImportMapping FunctionImportName="usp_ST_Csm_SalesForecast" FunctionName="MONITORModel.Store.usp_ST_Csm_SalesForecast">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="MONITORModel.usp_ST_Csm_SalesForecast_Result1">
+          <ScalarProperty Name="Release_ID" ColumnName="Release_ID" />
+          <ScalarProperty Name="Version" ColumnName="Version" />
+          <ScalarProperty Name="MnemonicVehicle" ColumnName="MnemonicVehicle" />
+          <ScalarProperty Name="MnemonicVehiclePlant" ColumnName="MnemonicVehiclePlant" />
+          <ScalarProperty Name="BasePart" ColumnName="BasePart" />
+          <ScalarProperty Name="Platform" ColumnName="Platform" />
+          <ScalarProperty Name="Application" ColumnName="Application" />
+          <ScalarProperty Name="Program" ColumnName="Program" />
+          <ScalarProperty Name="Vehicle" ColumnName="Vehicle" />
+          <ScalarProperty Name="ParentCustomer" ColumnName="ParentCustomer" />
+          <ScalarProperty Name="MarketSubSegment" ColumnName="MarketSubSegment" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="SOP" ColumnName="SOP" />
+          <ScalarProperty Name="EOP" ColumnName="EOP" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="usp_ST_SalesLeadLog_GetContactInfo" FunctionName="MONITORModel.Store.usp_ST_SalesLeadLog_GetContactInfo">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="MONITORModel.usp_ST_SalesLeadLog_GetContactInfo_Result">
+          <ScalarProperty Name="ContactName" ColumnName="ContactName" />
+          <ScalarProperty Name="ContactPhoneNumber" ColumnName="ContactPhoneNumber" />
+          <ScalarProperty Name="ContactEmailAddress" ColumnName="ContactEmailAddress" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <EntitySetMapping Name="employees">
+      <EntityTypeMapping TypeName="MONITORModel.employee">
+        <MappingFragment StoreEntitySet="employee">
+          <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
+          <ScalarProperty Name="npassword" ColumnName="npassword" />
+          <ScalarProperty Name="employee1" ColumnName="employee" />
+          <ScalarProperty Name="operatorlevel" ColumnName="operatorlevel" />
+          <ScalarProperty Name="epassword" ColumnName="epassword" />
+          <ScalarProperty Name="serial_number" ColumnName="serial_number" />
+          <ScalarProperty Name="password" ColumnName="password" />
+          <ScalarProperty Name="operator_code" ColumnName="operator_code" />
+          <ScalarProperty Name="name" ColumnName="name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ST_SalesLeadLog_StatusDefinition">
+      <EntityTypeMapping TypeName="MONITORModel.ST_SalesLeadLog_StatusDefinition">
+        <MappingFragment StoreEntitySet="ST_SalesLeadLog_StatusDefinition">
+          <ScalarProperty Name="StatusValue" ColumnName="StatusValue" />
+          <ScalarProperty Name="StatusType" ColumnName="StatusType" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="usp_ST_SalesLeadLog_GetActivityHistory" FunctionName="MONITORModel.Store.usp_ST_SalesLeadLog_GetActivityHistory">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="MONITORModel.usp_ST_SalesLeadLog_GetActivityHistory_Result">
+          <ScalarProperty Name="SalesPerson" ColumnName="SalesPerson" />
+          <ScalarProperty Name="StatusType" ColumnName="StatusType" />
+          <ScalarProperty Name="Activity" ColumnName="Activity" />
+          <ScalarProperty Name="ActivityDate" ColumnName="ActivityDate" />
+          <ScalarProperty Name="ContactName" ColumnName="ContactName" />
+          <ScalarProperty Name="ContactPhoneNumber" ColumnName="ContactPhoneNumber" />
+          <ScalarProperty Name="ContactEmailAddress" ColumnName="ContactEmailAddress" />
+          <ScalarProperty Name="Duration" ColumnName="Duration" />
+          <ScalarProperty Name="Notes" ColumnName="Notes" />
+          <ScalarProperty Name="QuoteNumber" ColumnName="QuoteNumber" />
+          <ScalarProperty Name="AwardedVolume" ColumnName="AwardedVolume" />
+          <ScalarProperty Name="RowID" ColumnName="RowID" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="usp_ST_SalesLeadLog_Hitlist_SearchForSalesLeads" FunctionName="MONITORModel.Store.usp_ST_SalesLeadLog_Hitlist_SearchForSalesLeads" />
+    <FunctionImportMapping FunctionImportName="usp_ST_SalesLeadLog_Hitlist_Update" FunctionName="MONITORModel.Store.usp_ST_SalesLeadLog_Hitlist_Update" />
+    <EntitySetMapping Name="vw_ST_LightingStudy_Hitlist_2016">
+      <EntityTypeMapping TypeName="MONITORModel.vw_ST_LightingStudy_Hitlist_2016">
+        <MappingFragment StoreEntitySet="vw_ST_LightingStudy_Hitlist_2016">
+          <ScalarProperty Name="SalesPerson" ColumnName="SalesPerson" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="AwardedVolume" ColumnName="AwardedVolume" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="Volume2022" ColumnName="Volume2022" />
+          <ScalarProperty Name="Volume2021" ColumnName="Volume2021" />
+          <ScalarProperty Name="Volume2020" ColumnName="Volume2020" />
+          <ScalarProperty Name="Volume2019" ColumnName="Volume2019" />
+          <ScalarProperty Name="Volume2018" ColumnName="Volume2018" />
+          <ScalarProperty Name="Volume2017" ColumnName="Volume2017" />
+          <ScalarProperty Name="Price" ColumnName="Price" />
+          <ScalarProperty Name="Type" ColumnName="Type" />
+          <ScalarProperty Name="EOP" ColumnName="EOP" />
+          <ScalarProperty Name="SOP" ColumnName="SOP" />
+          <ScalarProperty Name="Component" ColumnName="Component" />
+          <ScalarProperty Name="NamePlate" ColumnName="NamePlate" />
+          <ScalarProperty Name="OEM" ColumnName="OEM" />
+          <ScalarProperty Name="Region" ColumnName="Region" />
+          <ScalarProperty Name="Application" ColumnName="Application" />
+          <ScalarProperty Name="LED_Harness" ColumnName="LED/Harness" />
+          <ScalarProperty Name="SOPYear" ColumnName="SOPYear" />
+          <ScalarProperty Name="PeakYearlyVolume" ColumnName="PeakYearlyVolume" />
+          <ScalarProperty Name="EstYearlySales" ColumnName="EstYearlySales" />
+          <ScalarProperty Name="Program" ColumnName="Program" />
+          <ScalarProperty Name="Customer" ColumnName="Customer" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="usp_ST_SalesLeadLog_Hitlist_GetActivity" FunctionName="MONITORModel.Store.usp_ST_SalesLeadLog_Hitlist_GetActivity">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="MONITORModel.usp_ST_SalesLeadLog_Hitlist_GetActivity_Result">
+          <ScalarProperty Name="Customer" ColumnName="Customer" />
+          <ScalarProperty Name="Program" ColumnName="Program" />
+          <ScalarProperty Name="Application" ColumnName="Application" />
+          <ScalarProperty Name="SOP" ColumnName="SOP" />
+          <ScalarProperty Name="EOP" ColumnName="EOP" />
+          <ScalarProperty Name="PeakYearlyVolume" ColumnName="PeakYearlyVolume" />
+          <ScalarProperty Name="LastSalesActivity" ColumnName="LastSalesActivity" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="SalesLeadID" ColumnName="SalesLeadID" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+  </EntityContainerMapping>
+</Mapping>

@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2008/10/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="ace5a80ecf4b4accba8b2459c018724c" Name="Diagram1" >
+      <Diagram DiagramId="ace5a80ecf4b4accba8b2459c018724c" Name="Diagram1" ZoomLevel="92" >
         <EntityTypeShape EntityType="MONITORModel1.vw_ST_LightingStudy_2016" Width="2.25" PointX="0.625" PointY="0.5" />
         <EntityTypeShape EntityType="MONITORModel1.ST_CustomersWithProgramsLaunchingClosing2017" Width="3.5" PointX="3.25" PointY="2.375" />
         <EntityTypeShape EntityType="MONITORModel1.ST_CustomersWithProgramsLaunchingClosing2018" Width="3.5" PointX="3.25" PointY="4.25" />
