@@ -17,7 +17,7 @@ create procedure FTP.usp_UpdateReceiveFileLogForReplacedBadFile
 ,	@Result integer = null out
 as
 set nocount on
-set ansi_warnings off
+set ansi_warnings on
 set	@Result = 999999
 
 --- <Error Handling>
