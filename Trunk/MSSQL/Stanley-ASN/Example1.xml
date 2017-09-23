@@ -1,0 +1,195 @@
+﻿<TRN>
+  <TRN-856>
+    <TRN-INFO name="SHIP NOTICE/MANIFEST" trading_partner="STANLEY" ICN="13504" version="004010" type="856" doc_number="107447" folder="3" />
+    <SEG-BSN>
+      <SEG-INFO code="BSN" name="BEGINNING SEGMENT FOR SHIP NOTICE" />
+      <DE code="0353" name="TRANSACTION SET PURPOSE CODE" type="ID" desc="Original">00</DE>
+      <DE code="0396" name="SHIPMENT IDENTIFICATION" type="AN">107447</DE>
+      <DE code="0373" name="DATE" type="DT">20170410</DE>
+      <DE code="0337" name="TIME" type="TM">1138</DE>
+    </SEG-BSN>
+    <SEG-DTM>
+      <SEG-INFO code="DTM" name="DATE/TIME REFERENCE" />
+      <DE code="0374" name="DATE/TIME QUALIFIER" type="ID" desc="Shipped">011</DE>
+      <DE code="0373" name="DATE" type="DT">20170410</DE>
+      <DE code="0337" name="TIME" type="TM">1138</DE>
+      <DE code="0623" name="TIME CODE" type="ID" desc="Eastern Daylight Time">ED</DE>
+    </SEG-DTM>
+    <LOOP-HL>
+      <LOOP-INFO name="HL Loop" />
+      <SEG-HL>
+        <SEG-INFO code="HL" name="HIERARCHICAL LEVEL" />
+        <DE code="0628" name="HIERARCHICAL ID NUMBER" type="AN">1</DE>
+        <DE code="0734" name="HIERARCHICAL PARENT ID NUMBER" type="AN" />
+        <DE code="0735" name="HIERARCHICAL LEVEL CODE" type="ID" desc="Shipment">S</DE>
+        <DE code="0736" name="HIERARCHICAL CHILD CODE" type="AN" />
+      </SEG-HL>
+      <SEG-MEA>
+        <SEG-INFO code="MEA" name="MEASUREMENTS" />
+        <DE code="0737" name="MEASUREMENT REFERENCE ID CODE" type="ID" desc="Physical Dimensions">PD</DE>
+        <DE code="0738" name="MEASUREMENT QUALIFIER" type="ID" desc="Gross Weight">G</DE>
+        <DE code="0739" name="MEASUREMENT VALUE" type="R">1</DE>
+        <CE code="C001" name="COMPOSITE UNIT OF MEASURE">
+          <DE code="0355" name="UNIT OR BASIS FOR MEASUREMENT CODE" type="ID" desc="Pound">LB</DE>
+        </CE>
+      </SEG-MEA>
+      <SEG-MEA>
+        <SEG-INFO code="MEA" name="MEASUREMENTS" />
+        <DE code="0737" name="MEASUREMENT REFERENCE ID CODE" type="ID" desc="Physical Dimensions">PD</DE>
+        <DE code="0738" name="MEASUREMENT QUALIFIER" type="ID" desc="Actual Net Weight">N</DE>
+        <DE code="0739" name="MEASUREMENT VALUE" type="R">1</DE>
+        <CE code="C001" name="COMPOSITE UNIT OF MEASURE">
+          <DE code="0355" name="UNIT OR BASIS FOR MEASUREMENT CODE" type="ID" desc="Pound">LB</DE>
+        </CE>
+      </SEG-MEA>
+      <SEG-TD1>
+        <SEG-INFO code="TD1" name="CARRIER DETAILS (QUANTITY AND WEIGHT)" />
+        <DE code="0103" name="PACKAGING CODE" type="ID" desc="Carton / Standard">CTN90</DE>
+        <DE code="0080" name="LADING QUANTITY" type="N0">7</DE>
+      </SEG-TD1>
+      <SEG-TD5>
+        <SEG-INFO code="TD5" name="CARRIER DETAILS (ROUTING SEQUENCE/TRANS" />
+        <DE code="0133" name="ROUTING SEQUENCE CODE" type="ID" desc="Origin/Delivery Carrier (Any Mode)">B</DE>
+        <DE code="0066" name="IDENTIFICATION CODE QUALIFIER" type="ID" desc="Standard Carrier Alpha Code (SCAC)">2</DE>
+        <DE code="0067" name="IDENTIFICATION CODE" type="AN">FEDE</DE>
+        <DE code="0091" name="TRANSPORTATION METHOD/TYPE CODE" type="ID" desc="Private Parcel Service">U</DE>
+      </SEG-TD5>
+      <SEG-TD3>
+        <SEG-INFO code="TD3" name="CARRIER DETAILS (EQUIPMENT)" />
+        <DE code="0040" name="EQUIPMENT DESCRIPTION CODE" type="ID" desc="Trailer (not otherwise specified)">TL</DE>
+        <DE code="0206" name="EQUIPMENT INITIAL" type="AN">FEDE</DE>
+        <DE code="0207" name="EQUIPMENT NUMBER" type="AN">107447</DE>
+      </SEG-TD3>
+      <SEG-REF>
+        <SEG-INFO code="REF" name="REFERENCE IDENTIFICATION" />
+        <DE code="0128" name="REFERENCE IDENTIFICATION QUALIFIER" type="ID" desc="Bill of Lading Number">BM</DE>
+        <DE code="0127" name="REFERENCE IDENTIFICATION" type="AN">107447</DE>
+      </SEG-REF>
+      <SEG-REF>
+        <SEG-INFO code="REF" name="REFERENCE IDENTIFICATION" />
+        <DE code="0128" name="REFERENCE IDENTIFICATION QUALIFIER" type="ID" desc="Packing List Number">PK</DE>
+        <DE code="0127" name="REFERENCE IDENTIFICATION" type="AN">107447</DE>
+      </SEG-REF>
+      <LOOP-N1>
+        <LOOP-INFO name="N1 Loop" />
+        <SEG-N1>
+          <SEG-INFO code="N1" name="NAME" />
+          <DE code="0098" name="ENTITY IDENTIFIER CODE" type="ID" desc="Ship To">ST</DE>
+          <DE code="0093" name="NAME" type="AN">II Stanley Co., Inc</DE>
+          <DE code="0066" name="IDENTIFICATION CODE QUALIFIER" type="ID" desc="Assigned by Buyer or Buyer's Agent">92</DE>
+          <DE code="0067" name="IDENTIFICATION CODE" type="AN">034909358ALP</DE>
+        </SEG-N1>
+      </LOOP-N1>
+      <LOOP-N1>
+        <LOOP-INFO name="N1 Loop" />
+        <SEG-N1>
+          <SEG-INFO code="N1" name="NAME" />
+          <DE code="0098" name="ENTITY IDENTIFIER CODE" type="ID" desc="Supplier/Manufacturer">SU</DE>
+          <DE code="0093" name="NAME" type="AN">Empire Electronics, Inc.</DE>
+          <DE code="0066" name="IDENTIFICATION CODE QUALIFIER" type="ID" desc="Assigned by Buyer or Buyer's Agent">92</DE>
+          <DE code="0067" name="IDENTIFICATION CODE" type="AN">047380894</DE>
+        </SEG-N1>
+      </LOOP-N1>
+    </LOOP-HL>
+    <LOOP-HL>
+      <LOOP-INFO name="HL Loop" />
+      <SEG-HL>
+        <SEG-INFO code="HL" name="HIERARCHICAL LEVEL" />
+        <DE code="0628" name="HIERARCHICAL ID NUMBER" type="AN">2</DE>
+        <DE code="0734" name="HIERARCHICAL PARENT ID NUMBER" type="AN">1</DE>
+        <DE code="0735" name="HIERARCHICAL LEVEL CODE" type="ID" desc="Item">I</DE>
+        <DE code="0736" name="HIERARCHICAL CHILD CODE" type="AN" />
+      </SEG-HL>
+      <SEG-LIN>
+        <SEG-INFO code="LIN" name="ITEM IDENTIFICATION" />
+        <DE code="0350" name="ASSIGNED IDENTIFICATION" type="AN" />
+        <DE code="0235" name="PRODUCT/SERVICE ID QUALIFIER" type="ID" desc="Buyer's Part Number">BP</DE>
+        <DE code="0234" name="PRODUCT/SERVICE ID" type="AN">5583495400</DE>
+        <DE code="0235" name="PRODUCT/SERVICE ID QUALIFIER" type="ID" desc="Purchase Order Number">PO</DE>
+        <DE code="0234" name="PRODUCT/SERVICE ID" type="AN">534422</DE>
+      </SEG-LIN>
+      <SEG-SN1>
+        <SEG-INFO code="SN1" name="ITEM DETAIL (SHIPMENT)" />
+        <DE code="0350" name="ASSIGNED IDENTIFICATION" type="AN" />
+        <DE code="0382" name="NUMBER OF UNITS SHIPPED" type="R">150</DE>
+        <DE code="0355" name="UNIT OR BASIS FOR MEASUREMENT CODE" type="ID" desc="Each">EA</DE>
+      </SEG-SN1>
+      <SEG-CLD>
+        <SEG-INFO code="CLD" name="LOAD DETAIL" />
+        <DE code="0622" name="NUMBER OF LOADS" type="N0">3</DE>
+        <DE code="0382" name="NUMBER OF UNITS SHIPPED" type="R">50</DE>
+        <DE code="0103" name="PACKAGING CODE" type="ID" desc="Carton / Standard">CTN90</DE>
+      </SEG-CLD>
+      <SEG-REF>
+        <SEG-INFO code="REF" name="REFERENCE IDENTIFICATION" />
+        <DE code="0128" name="REFERENCE IDENTIFICATION QUALIFIER" type="ID" desc="Bar-Coded Serial Number">LS</DE>
+        <DE code="0127" name="REFERENCE IDENTIFICATION" type="AN">37562656</DE>
+      </SEG-REF>
+      <SEG-REF>
+        <SEG-INFO code="REF" name="REFERENCE IDENTIFICATION" />
+        <DE code="0128" name="REFERENCE IDENTIFICATION QUALIFIER" type="ID" desc="Bar-Coded Serial Number">LS</DE>
+        <DE code="0127" name="REFERENCE IDENTIFICATION" type="AN">37562657</DE>
+      </SEG-REF>
+      <SEG-REF>
+        <SEG-INFO code="REF" name="REFERENCE IDENTIFICATION" />
+        <DE code="0128" name="REFERENCE IDENTIFICATION QUALIFIER" type="ID" desc="Bar-Coded Serial Number">LS</DE>
+        <DE code="0127" name="REFERENCE IDENTIFICATION" type="AN">37551097</DE>
+      </SEG-REF>
+    </LOOP-HL>
+    <LOOP-HL>
+      <LOOP-INFO name="HL Loop" />
+      <SEG-HL>
+        <SEG-INFO code="HL" name="HIERARCHICAL LEVEL" />
+        <DE code="0628" name="HIERARCHICAL ID NUMBER" type="AN">3</DE>
+        <DE code="0734" name="HIERARCHICAL PARENT ID NUMBER" type="AN">1</DE>
+        <DE code="0735" name="HIERARCHICAL LEVEL CODE" type="ID" desc="Item">I</DE>
+        <DE code="0736" name="HIERARCHICAL CHILD CODE" type="AN" />
+      </SEG-HL>
+      <SEG-LIN>
+        <SEG-INFO code="LIN" name="ITEM IDENTIFICATION" />
+        <DE code="0350" name="ASSIGNED IDENTIFICATION" type="AN" />
+        <DE code="0235" name="PRODUCT/SERVICE ID QUALIFIER" type="ID" desc="Buyer's Part Number">BP</DE>
+        <DE code="0234" name="PRODUCT/SERVICE ID" type="AN">8350565600</DE>
+        <DE code="0235" name="PRODUCT/SERVICE ID QUALIFIER" type="ID" desc="Purchase Order Number">PO</DE>
+        <DE code="0234" name="PRODUCT/SERVICE ID" type="AN">534420</DE>
+      </SEG-LIN>
+      <SEG-SN1>
+        <SEG-INFO code="SN1" name="ITEM DETAIL (SHIPMENT)" />
+        <DE code="0350" name="ASSIGNED IDENTIFICATION" type="AN" />
+        <DE code="0382" name="NUMBER OF UNITS SHIPPED" type="R">200</DE>
+        <DE code="0355" name="UNIT OR BASIS FOR MEASUREMENT CODE" type="ID" desc="Each">EA</DE>
+      </SEG-SN1>
+      <SEG-CLD>
+        <SEG-INFO code="CLD" name="LOAD DETAIL" />
+        <DE code="0622" name="NUMBER OF LOADS" type="N0">4</DE>
+        <DE code="0382" name="NUMBER OF UNITS SHIPPED" type="R">50</DE>
+        <DE code="0103" name="PACKAGING CODE" type="ID" desc="Carton / Standard">CTN90</DE>
+      </SEG-CLD>
+      <SEG-REF>
+        <SEG-INFO code="REF" name="REFERENCE IDENTIFICATION" />
+        <DE code="0128" name="REFERENCE IDENTIFICATION QUALIFIER" type="ID" desc="Bar-Coded Serial Number">LS</DE>
+        <DE code="0127" name="REFERENCE IDENTIFICATION" type="AN">37564738</DE>
+      </SEG-REF>
+      <SEG-REF>
+        <SEG-INFO code="REF" name="REFERENCE IDENTIFICATION" />
+        <DE code="0128" name="REFERENCE IDENTIFICATION QUALIFIER" type="ID" desc="Bar-Coded Serial Number">LS</DE>
+        <DE code="0127" name="REFERENCE IDENTIFICATION" type="AN">37564739</DE>
+      </SEG-REF>
+      <SEG-REF>
+        <SEG-INFO code="REF" name="REFERENCE IDENTIFICATION" />
+        <DE code="0128" name="REFERENCE IDENTIFICATION QUALIFIER" type="ID" desc="Bar-Coded Serial Number">LS</DE>
+        <DE code="0127" name="REFERENCE IDENTIFICATION" type="AN">37564737</DE>
+      </SEG-REF>
+      <SEG-REF>
+        <SEG-INFO code="REF" name="REFERENCE IDENTIFICATION" />
+        <DE code="0128" name="REFERENCE IDENTIFICATION QUALIFIER" type="ID" desc="Bar-Coded Serial Number">LS</DE>
+        <DE code="0127" name="REFERENCE IDENTIFICATION" type="AN">37538551</DE>
+      </SEG-REF>
+    </LOOP-HL>
+    <SEG-CTT>
+      <SEG-INFO code="CTT" name="TRANSACTION TOTALS" />
+      <DE code="0354" name="NUMBER OF LINE ITEMS" type="N0">3</DE>
+      <DE code="0347" name="HASH TOTAL" type="R">350</DE>
+    </SEG-CTT>
+  </TRN-856>
+</TRN>

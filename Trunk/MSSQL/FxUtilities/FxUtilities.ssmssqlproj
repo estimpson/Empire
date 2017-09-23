@@ -1,0 +1,58 @@
+<?xml version="1.0"?>
+<SqlWorkbenchSqlProject xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" Name="FxUtilities">
+  <Items>
+    <LogicalFolder Name="Connections" Type="2" Sorted="true">
+      <Items>
+        <ConnectionNode Name="eeisql2:estimpson">
+          <Created>2017-06-27T17:26:25.1917189-04:00</Created>
+          <Type>SQL</Type>
+          <Server>eeisql2</Server>
+          <UserName>estimpson</UserName>
+          <Authentication>SQL</Authentication>
+          <InitialDB>FxUtilities</InitialDB>
+          <LoginTimeout>15</LoginTimeout>
+          <ExecutionTimeout>0</ExecutionTimeout>
+          <ConnectionProtocol>NotSpecified</ConnectionProtocol>
+          <ApplicationName>Microsoft SQL Server Management Studio - Query</ApplicationName>
+        </ConnectionNode>
+        <ConnectionNode Name="srvsql2.empireelect.local\fx:estimpson">
+          <Created>2016-05-06T11:33:10.3752521-04:00</Created>
+          <Type>SQL</Type>
+          <Server>srvsql2.empireelect.local\fx</Server>
+          <UserName>estimpson</UserName>
+          <Authentication>SQL</Authentication>
+          <InitialDB>FxUtilities</InitialDB>
+          <LoginTimeout>15</LoginTimeout>
+          <ExecutionTimeout>0</ExecutionTimeout>
+          <ConnectionProtocol>NotSpecified</ConnectionProtocol>
+          <ApplicationName>Microsoft SQL Server Management Studio - Query</ApplicationName>
+        </ConnectionNode>
+      </Items>
+    </LogicalFolder>
+    <LogicalFolder Name="Queries" Type="0" Sorted="true">
+      <Items>
+        <FileNode Name="Procedure.FxUtilities.dbo.usp_CommandShell_Execute.sql">
+          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:srvsql2.empireelect.local\fx:False:estimpson</AssociatedConnectionMoniker>
+          <AssociatedConnSrvName>srvsql2.empireelect.local\fx</AssociatedConnSrvName>
+          <AssociatedConnUserName>estimpson</AssociatedConnUserName>
+          <FullPath>Procedure.FxUtilities.dbo.usp_CommandShell_Execute.sql</FullPath>
+        </FileNode>
+        <FileNode Name="Query.CalcCRC32.sql">
+          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:eeisql2:False:estimpson</AssociatedConnectionMoniker>
+          <AssociatedConnSrvName>eeisql2</AssociatedConnSrvName>
+          <AssociatedConnUserName>estimpson</AssociatedConnUserName>
+          <FullPath>Query.CalcCRC32.sql</FullPath>
+        </FileNode>
+        <FileNode Name="ScalarFunction.FxUtilities.dbo.udf_Today.sql">
+          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:eeisql2:False:estimpson</AssociatedConnectionMoniker>
+          <AssociatedConnSrvName>eeisql2</AssociatedConnSrvName>
+          <AssociatedConnUserName>estimpson</AssociatedConnUserName>
+          <FullPath>ScalarFunction.FxUtilities.dbo.udf_Today.sql</FullPath>
+        </FileNode>
+      </Items>
+    </LogicalFolder>
+    <LogicalFolder Name="Miscellaneous" Type="3" Sorted="true">
+      <Items />
+    </LogicalFolder>
+  </Items>
+</SqlWorkbenchSqlProject>
