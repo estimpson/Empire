@@ -1,0 +1,6 @@
+IF NOT EXISTS (SELECT * FROM master.dbo.syslogins WHERE loginname = N'EMPIRE\lmelgar')
+CREATE LOGIN [EMPIRE\lmelgar] FROM WINDOWS
+GO
+CREATE USER [EMPIRE\lmelgar] FOR LOGIN [EMPIRE\lmelgar] WITH DEFAULT_SCHEMA=[EMPIRE\lmelgar]
+GO
+REVOKE CONNECT TO [EMPIRE\lmelgar]

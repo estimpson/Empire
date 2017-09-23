@@ -1,0 +1,7 @@
+CREATE TABLE [dbo].[SerialsToAutoRMA_RTV]
+(
+[Serial] [int] NOT NULL
+) ON [PRIMARY]
+GO
+ALTER TABLE [dbo].[SerialsToAutoRMA_RTV] ADD CONSTRAINT [PK_SerialsToAutoRMA_RTV] PRIMARY KEY CLUSTERED  ([Serial]) ON [PRIMARY]
+GO

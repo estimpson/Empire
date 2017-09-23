@@ -1,0 +1,9 @@
+CREATE TABLE [EDI].[EDIExceptionsLog]
+(
+[ID] [int] NOT NULL IDENTITY(1, 1),
+[RowCreateDT] [datetime] NULL CONSTRAINT [DF__EDIExcept__RowCr__1EAC7FEE] DEFAULT (getdate()),
+[Message] [nvarchar] (250) COLLATE SQL_Latin1_General_CP1_CI_AS NULL
+) ON [PRIMARY]
+GO
+ALTER TABLE [EDI].[EDIExceptionsLog] ADD CONSTRAINT [PK__EDIExcep__3214EC27115284D0] PRIMARY KEY CLUSTERED  ([ID]) ON [PRIMARY]
+GO

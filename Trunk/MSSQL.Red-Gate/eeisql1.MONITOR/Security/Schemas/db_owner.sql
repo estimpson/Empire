@@ -1,0 +1,2 @@
+ALTER AUTHORIZATION ON SCHEMA::[db_owner] TO [EMPIRE\Domain Users]
+GO

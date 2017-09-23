@@ -1,0 +1,3 @@
+CREATE SCHEMA [CarPlasticsEDI]
+AUTHORIZATION [dbo]
+GO

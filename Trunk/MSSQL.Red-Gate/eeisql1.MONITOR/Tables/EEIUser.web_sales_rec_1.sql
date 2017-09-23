@@ -1,0 +1,41 @@
+CREATE TABLE [EEIUser].[web_sales_rec_1]
+(
+[gl_fiscal_year] [varchar] (5) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
+[gl_period] [smallint] NULL,
+[gl_transaction_date] [datetime] NULL,
+[sd_date_shipped] [datetime] NULL,
+[document_type] [varchar] (25) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL,
+[document_id1] [varchar] (25) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL,
+[document_reference1] [varchar] (50) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL,
+[document_line] [smallint] NOT NULL,
+[sd_customer] [varchar] (25) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
+[part_original] [varchar] (25) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
+[sd_customer_part] [varchar] (3) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
+[document_remarks] [text] COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
+[gl_db_ledger_account] [varchar] (50) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
+[gl_db_quantity] [decimal] (18, 6) NULL,
+[gl_db_selling_price] [decimal] (18, 6) NULL,
+[gl_db_amount] [decimal] (18, 6) NULL,
+[gl_cr_ledger_account] [varchar] (50) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
+[gl_cr_quantity] [decimal] (18, 6) NULL,
+[gl_cr_selling_price] [decimal] (18, 6) NULL,
+[gl_cr_amount] [decimal] (18, 6) NULL,
+[gl_update_balances] [char] (1) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
+[sd_account_code] [varchar] (75) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
+[sd_qty_packed] [decimal] (18, 6) NULL,
+[sd_alternate_price] [decimal] (18, 6) NULL,
+[sd_total_amount] [decimal] (18, 6) NULL,
+[sd_plant] [varchar] (50) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
+[sd_type] [varchar] (1) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
+[sd_invoice_printed] [varchar] (1) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
+[document_reference2] [varchar] (50) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
+[unit_of_measure] [varchar] (25) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
+[document_id2] [varchar] (25) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
+[document_id3] [varchar] (25) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
+[destination] [varchar] (20) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
+[printed] [varchar] (1) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
+[total_cost2] [decimal] (18, 6) NULL
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+GO
+ALTER TABLE [EEIUser].[web_sales_rec_1] ADD CONSTRAINT [PK_web_sales_rec_1_1] PRIMARY KEY CLUSTERED  ([document_type], [document_id1], [document_reference1], [document_line]) ON [PRIMARY]
+GO
