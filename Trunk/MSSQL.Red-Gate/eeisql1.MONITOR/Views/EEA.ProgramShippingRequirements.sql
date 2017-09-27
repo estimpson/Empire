@@ -7,6 +7,7 @@ create view [EEA].[ProgramShippingRequirements]
 as
 select
 	ProgramCode
+,	CustomerPart
 ,	BillTo
 ,	ShipTo
 ,	InHouseFG

@@ -8,6 +8,7 @@ as
 select
 	ProgramCode
 ,	PartCode
+,	CustomerPart
 ,	BillTo
 ,	ShipTo
 ,	StandardPack = max(StandardPack)
@@ -136,6 +137,7 @@ from
 group by
 	ProgramCode
 ,	PartCode
+,	CustomerPart
 ,	BillTo
 ,	ShipTo
 GO
