@@ -17,6 +17,7 @@ GO
 
 
 
+
 CREATE PROCEDURE [dbo].[ftsp_ASN_Alert]
 
 AS 
@@ -178,7 +179,7 @@ SELECT
 		nullif(sedi.OverlayGroup,'') IS NOT NULL AND
         (ISNULL(sedi.FileStatus,0) < 0 or (ISNULL(sedi.FileStatus,0) = 0 and datediff(minute, s.date_shipped, getdate())>30)) AND
 		legacyGenerator = 0
-		and s.id not in (106957, 107137, 107209) 
+		and s.id not in (106957, 107137, 107209,112000, 111924 ) 
 		and not exists ( select 1 from shipper_detail sd2 where sd2.shipper = s.id and sd2.part_original like '%-PT%') -- Ignore any shipments that have -PT (prototype parts ) asb FT, LLC 03/27/2017
 
 	GROUP BY
@@ -238,6 +239,7 @@ EXEC msdb.dbo.sp_send_dbmail @profile_name = 'DBMail', -- sysname
  END
  
  END
+
 
 
 

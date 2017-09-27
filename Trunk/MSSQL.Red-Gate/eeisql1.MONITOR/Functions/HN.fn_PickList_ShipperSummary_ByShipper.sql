@@ -67,16 +67,16 @@ begin
 			   
 		Comments = case 
 					when (Qty_Required /( Part_Inventory.Standard_Pack*1.0)) - (convert(int,Qty_Required) / convert(int,Part_Inventory.Standard_Pack)) >0 
-						then 'It is necessary to break the standard pack of one box or please confirm if the Qty Required is OK ' 
+						then 'It is necessary to break the standard pack of one box or please confirm if the Qty Required is OK. ' 
 					else '' end +  
 				   case 
-					when convert(int, Qty_Required / (Part_Inventory.Standard_Pack *1.0)) > convert(int, isnull(QtyAvailable,0) / (Part_Inventory.Standard_Pack *1.0))
-						and isnull(BoxOnShipper,0) <> ceiling( Qty_Required / (Part_Inventory.Standard_Pack *1.0))
+					when (convert(int, Qty_Required / (Part_Inventory.Standard_Pack *1.0)) > convert(int, isnull(QtyAvailable,0) / (Part_Inventory.Standard_Pack *1.0))
+						and isnull(BoxOnShipper,0) <> ceiling( Qty_Required / (Part_Inventory.Standard_Pack *1.0))) or (convert(int, isnull(QtyAvailable,0) / (Part_Inventory.Standard_Pack *1.0)))=0
 					  then 'Not enough boxes in stock to complete the requirement. '
 					  else '' end + 
 					case when isnull(BoxOnShipper,0) <> ceiling(Qty_Required / (Part_Inventory.Standard_Pack *1.0)) and
 						isnull(QtyOnShipper,0) >=convert(int, Qty_Required)
-						then 'Fix standard pack issue to display more serials.' else '' end,
+						then 'Fix standard pack issue to display more serials. ' else '' end,
 		QtyOnShipper = isnull(QtyOnShipper,0)
 from	shipper_detail Detail
 	inner join Part
