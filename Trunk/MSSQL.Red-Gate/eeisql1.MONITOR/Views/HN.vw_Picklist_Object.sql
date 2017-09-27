@@ -12,6 +12,7 @@ GO
 
 
 
+
 /*
 Select	*
 from	[HN].[vw_Picklist_Object]
@@ -29,7 +30,7 @@ SELECT
 	o.parent_serial,
 	locationvalid.group_no, 
 	Shipper = case when location like 'ran-%' then o.ShipperToRAN else o.Shipper end,
-	weeks_on_stock=case when datediff(week,o.ObjectBirthday,getdate())>12 then 13 else datediff(week,o.ObjectBirthday,getdate()) end,
+	weeks_on_stock=case when datediff(week,o.ObjectBirthday,getdate())>12 or location like 'E%-dom-%' then 13 else datediff(week,o.ObjectBirthday,getdate()) end,
 	weeks_on_stock_original=datediff(week,o.ObjectBirthday,getdate()),
 	plant= locationValid.plant, -- isnull(case when l.group_no like '%warehouse%' then ltrim(rtrim(replace(l.group_no,'warehouse',''))) else  l.plant end,l.plant),
 	CrossRef = Part.Cross_ref,
@@ -66,6 +67,7 @@ WHERE	o.status='a'
 		and o.location not like '%FIS'
 		and o.location not like '%-%F'
 		--and o.location not like '%ran%'
+
 
 
 
