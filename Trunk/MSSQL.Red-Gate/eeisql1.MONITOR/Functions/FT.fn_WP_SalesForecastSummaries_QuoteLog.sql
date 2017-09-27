@@ -16,6 +16,7 @@ returns @QuoteData table
 ,	Program varchar(100)
 ,	EEIPartNumber varchar(100)
 ,	Nameplate varchar(100)
+,	ReceiptDate varchar(20)
 ,	SOP varchar(20)
 ,	EOP varchar(20)
 ,	QuoteStatus varchar(50)
@@ -42,6 +43,7 @@ if (@Filter = 'Customer') begin
 	,	Program
 	,	EEIPartNumber
 	,	Nameplate
+	,	ReceiptDate
 	,	SOP
 	,	EOP
 	,	QuoteStatus
@@ -61,6 +63,7 @@ if (@Filter = 'Customer') begin
 	,	ql.Program
 	,	ql.EEIPartNumber
 	,	ql.Nameplate
+	,	convert(varchar, convert(date, ql.ReceiptDate)) as ReceiptDate
 	,	convert(varchar, convert(date, ql.SOP)) as SOP
 	,	convert(varchar, convert(date, ql.EOP)) as EOP
 	,	ql.QuoteStatus
@@ -108,6 +111,7 @@ else if (@Filter = 'Parent Customer') begin
 	,	Program
 	,	EEIPartNumber
 	,	Nameplate
+	,	ReceiptDate
 	,	SOP
 	,	EOP
 	,	QuoteStatus
@@ -127,6 +131,7 @@ else if (@Filter = 'Parent Customer') begin
 	,	ql.Program
 	,	ql.EEIPartNumber
 	,	ql.Nameplate
+	,	convert(varchar, convert(date, ql.ReceiptDate)) as ReceiptDate
 	,	convert(varchar, convert(date, ql.SOP)) as SOP
 	,	convert(varchar, convert(date, ql.EOP)) as EOP
 	,	ql.QuoteStatus
@@ -178,6 +183,7 @@ else if (@Filter = 'Salesperson') begin
 	,	Program
 	,	EEIPartNumber
 	,	Nameplate
+	,	ReceiptDate
 	,	SOP
 	,	EOP
 	,	QuoteStatus
@@ -197,6 +203,7 @@ else if (@Filter = 'Salesperson') begin
 	,	ql.Program
 	,	ql.EEIPartNumber
 	,	ql.Nameplate
+	,	convert(varchar, convert(date, ql.ReceiptDate)) as ReceiptDate
 	,	convert(varchar, convert(date, ql.SOP)) as SOP
 	,	convert(varchar, convert(date, ql.EOP)) as EOP
 	,	ql.QuoteStatus
@@ -233,6 +240,7 @@ else if (@Filter = 'Segment') begin
 	,	Program
 	,	EEIPartNumber
 	,	Nameplate
+	,	ReceiptDate
 	,	SOP
 	,	EOP
 	,	QuoteStatus
@@ -252,6 +260,7 @@ else if (@Filter = 'Segment') begin
 	,	ql.Program
 	,	ql.EEIPartNumber
 	,	ql.Nameplate
+	,	convert(varchar, convert(date, ql.ReceiptDate)) as ReceiptDate
 	,	convert(varchar, convert(date, ql.SOP)) as SOP
 	,	convert(varchar, convert(date, ql.EOP)) as EOP
 	,	ql.QuoteStatus
@@ -297,6 +306,7 @@ else if (@Filter = 'Vehicle') begin
 	,	Program
 	,	EEIPartNumber
 	,	Nameplate
+	,	ReceiptDate
 	,	SOP
 	,	EOP
 	,	QuoteStatus
@@ -316,6 +326,7 @@ else if (@Filter = 'Vehicle') begin
 	,	ql.Program
 	,	ql.EEIPartNumber
 	,	ql.Nameplate
+	,	convert(varchar, convert(date, ql.ReceiptDate)) as ReceiptDate
 	,	convert(varchar, convert(date, ql.SOP)) as SOP
 	,	convert(varchar, convert(date, ql.EOP)) as EOP
 	,	ql.QuoteStatus
@@ -352,6 +363,7 @@ else if (@Filter = 'Program') begin
 	,	Program
 	,	EEIPartNumber
 	,	Nameplate
+	,	ReceiptDate
 	,	SOP
 	,	EOP
 	,	QuoteStatus
@@ -371,6 +383,7 @@ else if (@Filter = 'Program') begin
 	,	ql.Program
 	,	ql.EEIPartNumber
 	,	ql.Nameplate
+	,	convert(varchar, convert(date, ql.ReceiptDate)) as ReceiptDate
 	,	convert(varchar, convert(date, ql.SOP)) as SOP
 	,	convert(varchar, convert(date, ql.EOP)) as EOP
 	,	ql.QuoteStatus

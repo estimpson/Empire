@@ -18,6 +18,7 @@ select
 ,	Program
 ,	EEIPartNumber
 ,	Nameplate
+,	ReceiptDate
 ,	SOP
 ,	EOP
 ,	QuoteStatus
