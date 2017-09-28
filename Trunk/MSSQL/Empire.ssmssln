@@ -67,7 +67,9 @@ Project("{4F2E2C19-372F-40D8-9FA7-9D2138C6997A}") = "Stanley-ASN", "Stanley-ASN\
 EndProject
 Project("{4F2E2C19-372F-40D8-9FA7-9D2138C6997A}") = "FxEDI.JobTermination", "FxEDI.JobTermination\FxEDI.JobTermination.ssmssqlproj", "{AE1BF84C-900A-443B-8749-66B9ED5E3440}"
 EndProject
-Project("{4F2E2C19-372F-40D8-9FA7-9D2138C6997A}") = "FxPLM", "..\..\..\..\GitHub\FxPLM\MSSQL\FxPLM\FxPLM.ssmssqlproj", "{8EEA13BD-F24A-4439-B692-632CBF59BC66}"
+Project("{4F2E2C19-372F-40D8-9FA7-9D2138C6997A}") = "FxPLM", "..\..\..\FxPLM\MSSQL\FxPLM\FxPLM.ssmssqlproj", "{8EEA13BD-F24A-4439-B692-632CBF59BC66}"
+EndProject
+Project("{4F2E2C19-372F-40D8-9FA7-9D2138C6997A}") = "Monitor.EDI", "Monitor.EDI\Monitor.EDI.ssmssqlproj", "{B9D1EF9C-1D93-4839-B5FF-8A80FE6C0080}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -107,8 +109,9 @@ Global
 		{869B7B3A-1DF3-482F-8BD3-4783BAD554CA}.Default|Default.ActiveCfg = Default
 		{D1552D36-C8E9-434B-82B5-0FA2984D20D0}.Default|Default.ActiveCfg = Default
 		{AE1BF84C-900A-443B-8749-66B9ED5E3440}.Default|Default.ActiveCfg = Default
-		{8E34EF7D-5150-47F6-96B5-297E1FAA7851}.Default|Default.ActiveCfg = Default
 		{8EEA13BD-F24A-4439-B692-632CBF59BC66}.Default|Default.ActiveCfg = Default
+		{B9D1EF9C-1D93-4839-B5FF-8A80FE6C0080}.Default|Default.ActiveCfg = Default
+		{4E950112-586D-4B49-B9F5-9FDD83A8F12F}.Default|Default.ActiveCfg = Default
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

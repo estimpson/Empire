@@ -541,12 +541,6 @@
           <AssociatedConnUserName>estimpson</AssociatedConnUserName>
           <FullPath>Script.Insert.MenuItem.EEAPIBSRF-Scrap.sql</FullPath>
         </FileNode>
-        <FileNode Name="SQLQuery1.sql">
-          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:eeisql1:False:estimpson</AssociatedConnectionMoniker>
-          <AssociatedConnSrvName>eeisql1</AssociatedConnSrvName>
-          <AssociatedConnUserName>estimpson</AssociatedConnUserName>
-          <FullPath>SQLQuery1.sql</FullPath>
-        </FileNode>
         <FileNode Name="TableFunction.MONITOR.EEA.fn_GetPartFIFO.sql">
           <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:eeisql1:False:estimpson</AssociatedConnectionMoniker>
           <AssociatedConnSrvName>eeisql1</AssociatedConnSrvName>
@@ -564,6 +558,12 @@
           <AssociatedConnSrvName>eeisql1</AssociatedConnSrvName>
           <AssociatedConnUserName>estimpson</AssociatedConnUserName>
           <FullPath>View.Fx.EEA.EEAPIBSRF_UserFunctionAccess.sql</FullPath>
+        </FileNode>
+        <FileNode Name="View.MONITOR.EEA.IntransitLocations.sql">
+          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:eeisql1:False:estimpson</AssociatedConnectionMoniker>
+          <AssociatedConnSrvName>eeisql1</AssociatedConnSrvName>
+          <AssociatedConnUserName>estimpson</AssociatedConnUserName>
+          <FullPath>View.MONITOR.EEA.IntransitLocations.sql</FullPath>
         </FileNode>
         <FileNode Name="View.MONITOR.EEA.PickList.sql">
           <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:eeisql1:False:estimpson</AssociatedConnectionMoniker>
