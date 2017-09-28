@@ -14,33 +14,26 @@ go
 
 create view EEA.IntransitLocations
 as
-select distinct
+select
 	InTranLocation = o.location
-,	ArrivalDate =
-	case
-		when o.location like 'TRANA[1-9]-' + InTranCalendar.IntransitWeekNumberDueFridayOfNextWeek + '[A-Z]'
-			then InTranCalendar.FridayOfNextWeek
-		else
-			InTranCalendar.FridayOfCurrentWeek
-	end
+,	ArrivalDate = max
+	(	case
+			when o.location like 'TRANA[1-9]-' + convert(varchar, ic.IntransitWeekNumberDueFridayOfNextWeek) + '[A-Z]'
+				then ic.FridayOfNextWeek
+			else
+				ic.FridayOfCurrentWeek
+		end
+	)
 from
 	dbo.object o
-	cross apply
-		(	select
-				CurrentWeekNo = datepart(week, getdate())
-			,	IntransitWeekNumberDueFridayOfCurrentWeek = datepart(week, getdate()) - 1
-			,	IntransitWeekNumberDueFridayOfNextWeek = datepart(week, getdate())
-			,	FirstDayOfCurrentWeek =
-				dateadd(day, datediff(day, '2001-01-01', getdate()), '2001-01-01')
-				- datepart(weekday, getdate()) + 1
-			,	FridayOfCurrentWeek = 
-				dateadd(day, datediff(day, '2001-01-01', getdate()), '2001-01-01')
-				- datepart(weekday, getdate()) + 6
-			,	FridayOfNextWeek =
-				dateadd(day, datediff(day, '2001-01-01', getdate()), '2001-01-01')
-				- datepart(weekday, getdate()) + 13
-		) InTranCalendar
+	cross join EEA.IntransitCalendar ic
 where
 	o.location like 'TRANA[1-9]-%'
+group by
+	o.location
 go
 
+select
+	*
+from
+	EEA.IntransitLocations il

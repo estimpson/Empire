@@ -1,17 +1,17 @@
 
 /*
-Create function TableFunction.MONITOR.EEA.fn_GetNetout.sql
+Create function TableFunction.MONITOR.EEA.fn_GetNetout_NewIntransit.sql
 */
 
 use MONITOR
 go
 
-if	objectproperty(object_id('EEA.fn_GetNetout'), 'IsTableFunction') = 1 begin
-	drop function EEA.fn_GetNetout
+if	objectproperty(object_id('EEA.fn_GetNetout_NewIntransit'), 'IsTableFunction') = 1 begin
+	drop function EEA.fn_GetNetout_NewIntransit
 end
 go
 
-create function EEA.fn_GetNetout
+create function EEA.fn_GetNetout_NewIntransit
 ()
 returns @NetMPS table
 (	ID int identity primary key
@@ -22,7 +22,8 @@ returns @NetMPS table
 ,	GrossDemand numeric(30,12) not null
 ,	Balance numeric(30,12) not null
 ,	OnHandQty numeric(30,12) default (0) not null
-,	InTransitQty numeric(30,12) default (0) not null
+,	InTransitQty1 numeric(30,12) default (0) not null
+,	InTransitQty2 numeric(30,12) default (0) not null
 ,	WIPQty numeric(30,12) default (0) not null
 ,	LowLevel int not null
 ,	Sequence int not null
@@ -99,7 +100,10 @@ begin
 	declare @Inventory table
 	(	Part varchar(25)
 	,	OnHand numeric(30,12)
-	,	InTransit numeric(30,12)
+	,	InTransitQty1 numeric(30,12)
+	,	InTransitQty2 numeric(30,12)
+	,	InTransitDT1 datetime
+	,	InTransitDT2 datetime
 	,	LowLevel int
 	)
 
@@ -109,13 +113,19 @@ begin
 		@Inventory
 	(	Part
 	,	OnHand
-	,	InTransit
+	,	InTransitQty1
+	,	InTransitQty2
+	,	InTransitDT1
+	,	InTransitDT2
 	,	LowLevel
 	)
 	select
 		Part = part
-	,	OnHand = sum(case when location not like '%TRAN%' then o.std_quantity else 0 end)
-	,	InTransit = sum(case when location like '%TRAN%' then o.std_quantity else 0 end)
+	,	OnHand = sum(case when lEEA.plant = 'EEA' then o.std_quantity else 0 end)
+	,	InTransitQty1 = sum(case when il.ArrivalDate = ic.FridayOfCurrentWeek then o.std_quantity else 0 end)
+	,	InTransitQty2 = sum(case when il.ArrivalDate = ic.FridayOfNextWeek then o.std_quantity else 0 end)
+	,	InTransitDT1 = min(ic.FridayOfCurrentWeek)
+	,	InTransitDT2 = min(ic.FridayOfNextWeek)
 	,	LowLevel =
 		(	select
 				max(LowLevel)
@@ -126,12 +136,13 @@ begin
 		)
 	from
 		dbo.object o
-		join dbo.location lEEA
+		left join dbo.location lEEA
 			on o.location = lEEA.code
-			and (	lEEA.code in ('INTRANSAL', 'TRAN-EEA')
-				or lEEA.plant = 'EEA'
-			)
+			and lEEA.plant = 'EEA'
 			and coalesce (lEEA.secured_location, 'N') != 'Y'
+		left join EEA.IntransitLocations il
+			on o.location = il.InTranLocation
+		cross join EEA.IntransitCalendar ic
 	where
 		o.status in ('A', 'H')
 		and o.type is null
@@ -147,7 +158,10 @@ begin
 	declare @X table
 	(	Part varchar(25)
 	,	OnhandQty numeric(20,6)
-	,	InTransitQty numeric(20,6)
+	,	InTransitQty1 numeric(30,12)
+	,	InTransitQty2 numeric(30,12)
+	,	InTransitDT1 datetime
+	,	InTransitDT2 datetime
 	,	OrderNo int
 	,	LineID int
 	,	Sequence int
@@ -175,11 +189,14 @@ begin
 		select
 			Part
 		,	OnHand
-		,	InTransit
+		,	InTransitQty1
+		,	InTransitQty2
+		,	InTransitDT1
+		,	InTransitDT2
 		from
 			@Inventory
 		where
-			OnHand + InTransit > 0
+			OnHand + InTransitQty1 + InTransitQty2 > 0
 			and LowLevel = @LowLevel
 		order by
 			Part
@@ -190,7 +207,10 @@ begin
 		declare
 			@Part varchar(25)
 		,	@OnHandQty numeric(30,12)
-		,	@InTransitQty numeric(30,12)
+		,	@InTransitQty1 numeric(30,12)
+		,	@InTransitQty2 numeric(30,12)
+		,	@InTransitDT1 datetime
+		,	@InTransitDT2 datetime
 		
 		while
 			1 = 1 begin
@@ -200,7 +220,10 @@ begin
 			into
 				@Part
 			,	@OnHandQty
-			,	@InTransitQty
+			,	@InTransitQty1
+			,	@InTransitQty2
+			,	@InTransitDT1
+			,	@InTransitDT2
 			
 			if	@@FETCH_STATUS != 0 begin
 				break
@@ -213,6 +236,7 @@ begin
 			,	OrderNo
 			,	LineID
 			,	Sequence
+			,	RequiredDT
 			from
 				@NetMPS
 			where
@@ -230,10 +254,11 @@ begin
 			,   @OrderNo integer
 			,   @LineID integer
 			,   @Sequence integer
+			,	@RequireDT datetime
 			
 			while
 				1 = 1
-				and @OnHandQty + @InTransitQty > 0 begin
+				and @OnHandQty + @InTransitQty1 + @InTransitQty2 > 0 begin
 				
 				fetch
 					Requirements
@@ -243,6 +268,7 @@ begin
 				,	@OrderNo
 				,	@LineID
 				,	@Sequence
+				,	@RequireDT
 				
 				if	@@FETCH_STATUS != 0 begin
 					break
@@ -317,19 +343,23 @@ begin
 					set @Balance = 0
 				end
 				
-				if	@Balance > @InTransitQty and @Balance > 0 and @InTransitQty > 0 begin
+				/*	Netout First In Transit Qty*/
+				if	@Balance > @InTransitQty1
+					and @Balance > 0
+					and @InTransitQty1 > 0
+					and @RequireDT >= @InTransitDT1 begin
 					update
 						@NetMPS
 					set
-						Balance = @Balance - @InTransitQty
-					,	InTransitQty = InTransitQty + @InTransitQty
+						Balance = @Balance - @InTransitQty1
+					,	InTransitQty1 = InTransitQty1 + @InTransitQty1
 					where
 						ID = @ReqID
 					
 					insert
 						@X
 					(	Part
-					,	InTransitQty
+					,	InTransitQty1
 					,	OrderNo
 					,	LineID
 					,	Sequence
@@ -337,32 +367,35 @@ begin
 					)
 					select
 						Part = @Part
-					,	InTransitQty = @InTransitQty
+					,	InTransitQty = @InTransitQty1
 					,	OrderNo = @OrderNo
 					,	LineID = @LineID
 					,	Sequence = @Sequence + Sequence
-					,	WIPQty = @InTransitQty * XQty
+					,	WIPQty = @InTransitQty1 * XQty
 					from
 						FT.XRt xr
 					where
 						TopPart = @Part
 						and Sequence > 0
 					
-					set	@InTransitQty = 0
+					set	@InTransitQty1 = 0
 				end
-				else if @Balance > 0 and @InTransitQty > 0 begin
+				else if
+					@Balance > 0
+					and @InTransitQty1 > 0
+					and @RequireDT >= @InTransitDT1 begin
 					update
 						@NetMPS
 					set
 						Balance = 0
-					,	InTransitQty = InTransitQty + @Balance
+					,	InTransitQty1 = InTransitQty1 + @Balance
 					where
 						ID = @ReqID
 					
 					insert
 						@X
 					(	Part
-					,	InTransitQty
+					,	InTransitQty1
 					,	OrderNo
 					,	LineID
 					,	Sequence
@@ -381,7 +414,81 @@ begin
 						TopPart = @Part
 						and Sequence > 0
 					
-					set	@InTransitQty = @InTransitQty - @Balance
+					set	@InTransitQty1 = @InTransitQty1 - @Balance
+				end
+				
+				/*	Netout Second In Transit Qty*/
+				if	@Balance > @InTransitQty2
+					and @Balance > 0
+					and @InTransitQty2 > 0
+					and @RequireDT >= @InTransitDT2 begin
+					update
+						@NetMPS
+					set
+						Balance = @Balance - @InTransitQty2
+					,	InTransitQty1 = InTransitQty1 + @InTransitQty2
+					where
+						ID = @ReqID
+					
+					insert
+						@X
+					(	Part
+					,	InTransitQty2
+					,	OrderNo
+					,	LineID
+					,	Sequence
+					,	WIPQty
+					)
+					select
+						Part = @Part
+					,	InTransitQty = @InTransitQty2
+					,	OrderNo = @OrderNo
+					,	LineID = @LineID
+					,	Sequence = @Sequence + Sequence
+					,	WIPQty = @InTransitQty2 * XQty
+					from
+						FT.XRt xr
+					where
+						TopPart = @Part
+						and Sequence > 0
+					
+					set	@InTransitQty2 = 0
+				end
+				else if
+					@Balance > 0
+					and @InTransitQty2 > 0
+					and @RequireDT >= @InTransitDT2 begin
+					update
+						@NetMPS
+					set
+						Balance = 0
+					,	InTransitQty2 = InTransitQty2 + @Balance
+					where
+						ID = @ReqID
+					
+					insert
+						@X
+					(	Part
+					,	InTransitQty2
+					,	OrderNo
+					,	LineID
+					,	Sequence
+					,	WIPQty
+					)
+					select
+						Part = @Part
+					,	InTransitQty = @Balance
+					,	OrderNo = @OrderNo
+					,	LineID = @LineID
+					,	Sequence = @Sequence + Sequence
+					,	WIPQty = @Balance * XQty
+					from
+						FT.XRt xr
+					where
+						TopPart = @Part
+						and Sequence > 0
+					
+					set	@InTransitQty2 = @InTransitQty2 - @Balance
 				end
 			end
 			close
@@ -429,11 +536,16 @@ end
 go
 
 select
-	*
+	sum(GrossDemand)
+,	sum(Balance)
+,	sum(OnHandQty)
+,	sum(InTransitQty1)
+,	sum(InTransitQty2)
+,	sum(WIPQty)
 from
-	EEA.fn_GetNetout()
-order by
-	Part
-,	RequiredDT
+	EEA.fn_GetNetout_NewIntransit()
+--order by
+--	Part
+--,	RequiredDT
 go
 
