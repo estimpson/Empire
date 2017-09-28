@@ -77,7 +77,7 @@ update
 	rfl
 set	rfl.Status = 2
 ,	ReceiveFileName = red.name
-,	ReceiveCRC32 = convert(varbinary, FxUtilities.dbo.CRC32(convert(varchar(max), red.file_stream)))
+,	ReceiveCRC32 = convert(varbinary(8), FxUtilities.Fx.FileStreamCRC(red.file_stream))
 ,	ReceiveFilelength = len(convert(varchar(max), red.file_stream))
 from
 	FTP.ReceiveFileLog rfl
@@ -120,6 +120,47 @@ where
 	@sourceFileDT > rdp.PollWindowBeginDT
 	and @sourceFileDT <= rdp.PollWindowEndDT
 
+/*	Generate an email to notify scheduler. */
+declare @html nvarchar(max)
+
+select
+	EDI_File_Name = rfl.SourceFileName
+,	Original_File_Length = rfl.SourceFileLength
+,	File_Date = rfl.SourceFileDT
+,	Received_File_Length = rfl.ReceiveFileLength
+into
+	#BadFileReplaced
+from
+	FTP.ReceiveFileLog rfl
+	join dbo.RawEDIData red
+		on red.stream_id = rfl.ReceiveFileGUID
+where
+	rfl.RowID = @ReplacedBadFileRowID
+
+exec
+	FxEDI.FT.usp_TableToHTML
+	@tableName = '#BadFileReplaced'
+,   @html = @html out
+
+declare
+	@EmailBody nvarchar(max)
+,   @EmailHeader nvarchar(max) = '(' +
+		(	select
+				rfl.SourceFileName
+			from
+				FTP.ReceiveFileLog rfl
+			where
+				rfl.RowID = @ReplacedBadFileRowID
+		) + ') File replaced' 
+
+exec msdb.dbo.sp_send_dbmail
+	@profile_name = 'SRVSQL2dBMail'
+,   @recipients = 'SQLServeralert@empireelect.com'
+,	@copy_recipients = 'spetrovski@empireelect.com;estimpson@fore-thought.com;aboulanger@fore-thought.com;dwest@empireelect.com' -- varchar(max)
+,   @subject = @EmailHeader
+,   @body = @EmailBody
+,   @body_format = 'HTML'
+,   @importance = 'High'  -- varchar(6)	
 --- </Body>
 
 ---	<CloseTran AutoCommit=Yes>
@@ -189,5 +230,3 @@ Results {
 */
 go
 
-exec FTP.usp_UpdateReceiveFileLogForReplacedBadFile
-	@ReplacedBadFileRowID = 23

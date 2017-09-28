@@ -77,7 +77,7 @@ update
 	rfl
 set	rfl.Status = 2
 ,	ReceiveFileName = red.name
-,	ReceiveCRC32 = convert(varbinary, FxUtilities.dbo.CRC32(convert(varchar(max), red.file_stream)))
+,	ReceiveCRC32 = convert(varbinary(8), FxUtilities.Fx.FileStreamCRC(red.file_stream))
 ,	ReceiveFilelength = len(convert(varchar(max), red.file_stream))
 from
 	FTP.ReceiveFileLog rfl
@@ -189,5 +189,3 @@ Results {
 */
 go
 
-exec FTP.usp_UpdateReceiveFileLogForMissingFile
-	@MissingFileRowID = 23
