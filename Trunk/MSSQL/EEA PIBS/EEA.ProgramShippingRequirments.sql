@@ -8,6 +8,7 @@ create view EEA.ProgramShippingRequirements
 as
 select
 	ProgramCode
+,	CustomerPart
 ,	BillTo
 ,	ShipTo
 ,	InHouseFG
@@ -36,6 +37,7 @@ go
 
 select
 	psr.ProgramCode
+,	psr.CustomerPart
 ,   psr.BillTo
 ,   psr.ShipTo
 ,   psr.InHouseFG

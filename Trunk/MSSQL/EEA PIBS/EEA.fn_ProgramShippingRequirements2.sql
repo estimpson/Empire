@@ -8,6 +8,7 @@ create function EEA.fn_ProgramShippingRequirements2
 ()
 returns @ProgramShippingRequirements table
 (	ProgramCode char(7)
+,	CustomerPart varchar(35)
 ,	BillTo varchar(10)
 ,	ShipTo varchar(20)
 ,	InHouseFG numeric(20,6)
@@ -46,23 +47,23 @@ begin
 	,	Inventory
 	)
 	select
-		Part = part
-	,	Inventory = sum(std_quantity)
+		Part = o.part
+	,	Inventory = sum(o.std_quantity)
 	from
-		dbo.object
+		dbo.object o
 	where
-		location != 'INTRANSAL'
-		and location in
+		o.location != 'INTRANSAL'
+		and o.location in
 			(	select
-					code
+					l.code
 				from
-					dbo.location
+					dbo.location l
 				where
-					plant = 'EEA'
+					l.plant = 'EEA'
 					and coalesce(secured_location, 'N') != 'Y'
 			)
 	group by
-		part
+		o.part
 
 	declare
 		@TransInventory table
@@ -76,14 +77,14 @@ begin
 	,	Inventory
 	)
 	select
-		Part = part
-	,	Inventory = sum(std_quantity)
+		Part = o.part
+	,	Inventory = sum(o.std_quantity)
 	from
-		dbo.object
+		dbo.object o
 	where
-		location = 'INTRANSAL'
+		o.location = 'INTRANSAL'
 	group by
-		part
+		o.part
 	
 	declare
 		@NetMPS table
@@ -157,6 +158,7 @@ begin
 	declare
 		@Releases table
 	(	ProgramCode char(7)
+	,	CustomerPart varchar(35)
 	,	BlanketPart varchar(25)
 	,	BillTo varchar(10)
 	,	ShipTo varchar(20)
@@ -181,6 +183,7 @@ begin
 		@Releases
 	select
 		ProgramCode = left(oh.blanket_part, 7)
+	,	CustomerPart = oh.customer_part
 	,	BlanketPart = oh.blanket_part
 	,	BillTo = oh.customer
 	,	ShipTo = oh.destination
@@ -301,6 +304,7 @@ begin
 		@ProgramShippingRequirements
 	select
 		r.ProgramCode
+	,	r.CustomerPart
 	,	r.BillTo
 	,	r.ShipTo
 	,	r.InHouseFG
