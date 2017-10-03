@@ -10,7 +10,8 @@ select
 ,	Description = max(p.name)
 ,	QtyRequired = sum(fgn.GrossDemand)
 ,	QtyFinished = sum(fgn.WIPQty)
-,	QtyAvailable = sum(fgn.OnHandQty)
+,	QtyAllocated = coalesce(max(alloc.QtyAllocated), 0)
+,	QtyAvailable = sum(fgn.OnHandQty) - coalesce(max(alloc.QtyAllocated), 0)
 ,	Balance = sum(Balance)
 ,	RunoutDT = min(case when fgn.Balance > 0 then fgn.RequiredDT end)
 ,	DaysOnHand = datediff(day, getdate(), min(case when fgn.Balance > 0 then fgn.RequiredDT end))
@@ -22,6 +23,13 @@ select
 				+	datediff(day, case datepart(dw, getdate()) when 1 then getdate() + 1 when 7 then getdate() + 2 else getdate() end, case datepart(dw, fgn.RequiredDT) when 1 then fgn.RequiredDT -2 when 7 then fgn.RequiredDT - 1 else fgn.RequiredDT end) % 7
 				+	case when datepart(dw, case datepart(dw, getdate()) when 1 then getdate() + 1 when 7 then getdate() + 2 else getdate() end) > datepart(dw, case datepart(dw, fgn.RequiredDT) when 1 then fgn.RequiredDT -2 when 7 then fgn.RequiredDT - 1 else fgn.RequiredDT end) then - 2 else 0 end
 	end)
+,	ShipDaysOnHand =
+	case
+		when sum(fgn.Balance) > 0
+			then count(distinct case when fgn.Balance = 0 then fgn.RequiredDT end)
+		else 9999
+	end
+,	FinishedPartList = FX.ToList(distinct od.part_number)
 from
 	EEA.fn_GetNetout() fgn
 	join dbo.part p
@@ -34,6 +42,23 @@ from
 			on l.code = pm.machine
 			and l.plant = 'EEA'
 		on pm.part = od.part_number
+	outer apply
+		(	select
+				QtyAllocated = sum(o.std_quantity)
+			from
+				dbo.object o
+			where
+				o.part = p.Part
+				and o.location in
+					(	select
+							EEA_M.code
+						from
+							dbo.location EEA_M
+						where
+							EEA_M.plant = 'EEA'
+							and EEA_M.type = 'MC'
+					)
+		) alloc
 where
 	p.commodity = 'COMPONENTS'
 group by

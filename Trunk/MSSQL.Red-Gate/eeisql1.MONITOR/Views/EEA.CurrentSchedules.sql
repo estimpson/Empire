@@ -7,6 +7,7 @@ create view [EEA].[CurrentSchedules]
 as
 select
 	fgh.ProgramCode
+,	fgh.CustomerPart
 ,	fgh.BillTo
 ,	fgh.ShipTo
 ,	woh.Machine
