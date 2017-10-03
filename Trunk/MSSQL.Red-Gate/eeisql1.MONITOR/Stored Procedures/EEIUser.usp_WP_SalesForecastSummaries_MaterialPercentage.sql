@@ -4,7 +4,7 @@ SET ANSI_NULLS ON
 GO
 
 
-CREATE procedure [EEIUser].[usp_WP_SalesForecastSummaries]
+CREATE procedure [EEIUser].[usp_WP_SalesForecastSummaries_MaterialPercentage]
 	@Filter varchar(50)
 ,	@FilterValue varchar(250) = null
 as
@@ -17,6 +17,83 @@ set ansi_warnings on
 if (@Filter = 'Customer') begin
 
 	if (@FilterValue is null) begin
+
+		declare @forecastDataCustomer table
+		(	
+			Customer varchar(50)
+		,	MC_Dec_18 decimal (38,6)
+		,	SP_Dec_18 decimal (38,6)
+		,	Cal_16_Sales decimal (38,6)
+		,	Cal_17_Sales decimal (38,6)
+		,	Cal_18_Sales decimal (38,6)
+		,	Cal_19_Sales decimal (38,6)
+		,	Cal_20_Sales decimal (38,6)
+		,	Cal_21_Sales decimal (38,6)
+		,	Cal_22_Sales decimal (38,6)
+		)
+
+		insert
+			@forecastDataCustomer
+		select 
+			sf.customer
+		,	coalesce(sf.mc_Dec_18, 0)
+		,	coalesce(sf.sp_Dec_18, 0)
+		,	coalesce(sf.Cal_16_Sales, 0)
+		,	coalesce(sf.Cal_17_Sales, 0)
+		,	coalesce(sf.Cal_18_Sales, 0)
+		,	coalesce(sf.Cal_19_Sales, 0)
+		,	coalesce(sf.Cal_20_Sales, 0)
+		,	coalesce(sf.Cal_21_Sales, 0)
+		,	coalesce(sf.Cal_22_Sales, 0)
+		from 
+			eeiuser.acctg_csm_vw_select_sales_forecast sf
+		;
+
+		with cte_MP (Customer, MaterialPercentage)
+		as
+		(
+			select
+				fdc.Customer as Customer
+			,	convert(varchar, convert(decimal(10,2), (avg(fdc.MC_Dec_18) / avg(fdc.SP_Dec_18) * 100))) as MaterialPercentage
+			from
+				@forecastDataCustomer fdc
+			where
+				fdc.MC_Dec_18 > 0
+				and fdc.SP_Dec_18 > 0
+			group by 
+				fdc.Customer
+		)
+		select 
+			fdc.Customer as Filter
+		,	cte.MaterialPercentage
+		,	sum(Cal_16_Sales) as Sales_2016
+		,	sum(Cal_17_Sales) as Sales_2017
+		,	sum(Cal_18_Sales) as Sales_2018
+		,	sum(Cal_19_Sales) as Sales_2019
+		,	sum(Cal_20_Sales) as Sales_2020
+		,	sum(Cal_21_Sales) as Sales_2021
+		,	sum(Cal_22_Sales) as Sales_2022
+		,	(sum(Cal_17_Sales) - sum(Cal_16_Sales)) as Change_2017
+		,	(sum(Cal_18_Sales) - sum(Cal_17_Sales)) as Change_2018
+		,	(sum(Cal_19_Sales) - sum(Cal_18_Sales)) as Change_2019
+		,	(sum(Cal_20_Sales) - sum(Cal_19_Sales)) as Change_2020
+		,	(sum(Cal_21_Sales) - sum(Cal_20_Sales)) as Change_2021
+		,	(sum(Cal_22_Sales) - sum(Cal_21_Sales)) as Change_2022
+		from 
+			@forecastDataCustomer fdc
+			join cte_MP cte
+				on cte.Customer = fdc.Customer
+		--where 
+		--	customer in ('NAL','TRW','VAL','ALI','SLA','FNG','ADC','NOR','ALC','KSI','HEL','VAR','IIS','MAG')
+		group by 
+			fdc.Customer
+		,	cte.MaterialPercentage	
+		order by
+			fdc.Customer
+	
+
+	end
+	else begin
 
 		select 
 			customer as Filter
@@ -35,37 +112,10 @@ if (@Filter = 'Customer') begin
 		,	(sum(Cal_22_Sales) - sum(Cal_21_Sales)) as Change_2022
 		from 
 			eeiuser.acctg_csm_vw_select_sales_forecast sf
-		--where 
-		--	customer in ('NAL','TRW','VAL','ALI','SLA','FNG','ADC','NOR','ALC','KSI','HEL','VAR','IIS','MAG')
+		where
+			customer = @FilterValue
 		group by 
 			customer
-		order by
-			customer
-
-	end
-	else begin
-
-			select 
-				customer as Filter
-			,	sum(Cal_16_Sales) as Sales_2016
-			,	sum(Cal_17_Sales) as Sales_2017
-			,	sum(Cal_18_Sales) as Sales_2018
-			,	sum(Cal_19_Sales) as Sales_2019
-			,	sum(Cal_20_Sales) as Sales_2020
-			,	sum(Cal_21_Sales) as Sales_2021
-			,	sum(Cal_22_Sales) as Sales_2022
-			,	(sum(Cal_17_Sales) - sum(Cal_16_Sales)) as Change_2017
-			,	(sum(Cal_18_Sales) - sum(Cal_17_Sales)) as Change_2018
-			,	(sum(Cal_19_Sales) - sum(Cal_18_Sales)) as Change_2019
-			,	(sum(Cal_20_Sales) - sum(Cal_19_Sales)) as Change_2020
-			,	(sum(Cal_21_Sales) - sum(Cal_20_Sales)) as Change_2021
-			,	(sum(Cal_22_Sales) - sum(Cal_21_Sales)) as Change_2022
-			from 
-				eeiuser.acctg_csm_vw_select_sales_forecast sf
-			where 
-				customer = @FilterValue
-			group by 
-				customer
 
 	end
 
@@ -74,8 +124,54 @@ else if (@Filter = 'Parent Customer') begin
 
 	if (@FilterValue is null) begin
 
+		declare @forecastDataParentCustomer table
+		(	
+			ParentCustomer varchar(50)
+		,	MC_Dec_18 decimal (38,6)
+		,	SP_Dec_18 decimal (38,6)
+		,	Cal_16_Sales decimal (38,6)
+		,	Cal_17_Sales decimal (38,6)
+		,	Cal_18_Sales decimal (38,6)
+		,	Cal_19_Sales decimal (38,6)
+		,	Cal_20_Sales decimal (38,6)
+		,	Cal_21_Sales decimal (38,6)
+		,	Cal_22_Sales decimal (38,6)
+		)
+
+		insert
+			@forecastDataParentCustomer
 		select 
-			parent_customer as Filter
+			sf.parent_customer
+		,	coalesce(sf.mc_Dec_18, 0)
+		,	coalesce(sf.sp_Dec_18, 0)
+		,	coalesce(sf.Cal_16_Sales, 0)
+		,	coalesce(sf.Cal_17_Sales, 0)
+		,	coalesce(sf.Cal_18_Sales, 0)
+		,	coalesce(sf.Cal_19_Sales, 0)
+		,	coalesce(sf.Cal_20_Sales, 0)
+		,	coalesce(sf.Cal_21_Sales, 0)
+		,	coalesce(sf.Cal_22_Sales, 0)
+		from 
+			eeiuser.acctg_csm_vw_select_sales_forecast sf
+		;
+
+		with cte_MP (ParentCustomer, MaterialPercentage)
+		as
+		(
+			select
+				fdpc.ParentCustomer as Customer
+			,	convert(varchar, convert(decimal(10,2), (avg(fdpc.MC_Dec_18) / avg(fdpc.SP_Dec_18) * 100))) as MaterialPercentage
+			from
+				@forecastDataParentCustomer fdpc
+			where
+				fdpc.mc_Dec_18 > 0
+				and fdpc.sp_Dec_18 > 0
+			group by 
+				fdpc.ParentCustomer
+		)
+		select 
+			fdpc.ParentCustomer as Filter
+		,	cte.MaterialPercentage	
 		,	sum(Cal_16_Sales) as Sales_2016
 		,	sum(Cal_17_Sales) as Sales_2017
 		,	sum(Cal_18_Sales) as Sales_2018
@@ -90,11 +186,14 @@ else if (@Filter = 'Parent Customer') begin
 		,	(sum(Cal_21_Sales) - sum(Cal_20_Sales)) as Change_2021
 		,	(sum(Cal_22_Sales) - sum(Cal_21_Sales)) as Change_2022
 		from 
-			eeiuser.acctg_csm_vw_select_sales_forecast sf
+			@forecastDataParentCustomer fdpc
+			join cte_MP cte
+				on cte.ParentCustomer = fdpc.ParentCustomer
 		group by 
-			parent_customer
+			fdpc.ParentCustomer
+		,	cte.MaterialPercentage	
 		order by
-			parent_customer
+			fdpc.ParentCustomer
 
 	end
 	else begin
@@ -130,6 +229,7 @@ else if (@Filter = 'Salesperson') begin
 	
 		select 
 			salesperson as Filter
+		,	'' as MaterialPercentage	
 		,	sum(Cal_16_Sales) as Sales_2016
 		,	sum(Cal_17_Sales) as Sales_2017
 		,	sum(Cal_18_Sales) as Sales_2018
@@ -154,6 +254,7 @@ else if (@Filter = 'Salesperson') begin
 
 		select 
 			'Jeff Michaels' as Filter
+		,	'' as MaterialPercentage	
 		,	sum(Cal_16_Sales) as Sales_2016
 		,	sum(Cal_17_Sales) as Sales_2017
 		,	sum(Cal_18_Sales) as Sales_2018
@@ -235,6 +336,7 @@ else if (@Filter = 'Segment') begin
 
 		select 
 			empire_market_segment as Filter
+		,	'' as MaterialPercentage	
 		,	sum(Cal_16_Sales) as Sales_2016
 		,	sum(Cal_17_Sales) as Sales_2017
 		,	sum(Cal_18_Sales) as Sales_2018
@@ -289,6 +391,184 @@ else if (@Filter = 'Vehicle') begin
 
 	if (@FilterValue is null) begin
 
+		-- Get customer totals
+		declare @customerTotalsOne table
+		(	
+			Sales16 decimal (38,6)
+		,	Sales17 decimal (38,6)
+		,	Sales18 decimal (38,6)
+		,	Sales19 decimal (38,6)
+		,	Sales20 decimal (38,6)
+		,	Sales21 decimal (38,6)
+		,	Sales22 decimal (38,6)
+		)
+
+		insert into @customerTotalsOne
+		(
+			Sales16
+		,	Sales17
+		,	Sales18
+		,	Sales19
+		,	Sales20
+		,	Sales21
+		,	Sales22
+		)
+		select 
+			sum(Cal_16_Sales)
+		,	sum(Cal_17_Sales)
+		,	sum(Cal_18_Sales)
+		,	sum(Cal_19_Sales)
+		,	sum(Cal_20_Sales)
+		,	sum(Cal_21_Sales)
+		,	sum(Cal_22_Sales)
+		from 
+			eeiuser.acctg_csm_vw_select_sales_forecast sf
+		group by 
+			customer
+
+
+		declare @customerTotalsTwo table
+		(
+			ID int identity(1,1)
+		,	Sales16 decimal (38,6)
+		,	Sales17 decimal (38,6)
+		,	Sales18 decimal (38,6)
+		,	Sales19 decimal (38,6)
+		,	Sales20 decimal (38,6)
+		,	Sales21 decimal (38,6)
+		,	Sales22 decimal (38,6)
+		,	Change17 decimal (38,6)
+		,	Change18 decimal (38,6)
+		,	Change19 decimal (38,6)
+		,	Change20 decimal (38,6)
+		,	Change21 decimal (38,6)
+		,	Change22 decimal (38,6)
+		)
+
+		insert into @customerTotalsTwo
+		(
+			Sales16
+		,	Sales17
+		,	Sales18
+		,	Sales19
+		,	Sales20
+		,	Sales21
+		,	Sales22
+		,	Change17
+		,	Change18
+		,	Change19
+		,	Change20
+		,	Change21
+		,	Change22
+		)
+		select
+			sum(Sales16)
+		,	sum(Sales17)
+		,	sum(Sales18)
+		,	sum(Sales19)
+		,	sum(Sales20)
+		,	sum(Sales21)
+		,	sum(Sales22)
+		,	(sum(Sales17) - sum(Sales16))
+		,	(sum(Sales17) - sum(Sales16))
+		,	(sum(Sales17) - sum(Sales16))
+		,	(sum(Sales17) - sum(Sales16))
+		,	(sum(Sales17) - sum(Sales16))
+		,	(sum(Sales17) - sum(Sales16))
+		from
+			@customerTotalsOne
+
+
+		-- Get vehicle totals
+		declare @vehicleTotalsOne table
+		(
+			Sales16 decimal (38,6)
+		,	Sales17 decimal (38,6)
+		,	Sales18 decimal (38,6)
+		,	Sales19 decimal (38,6)
+		,	Sales20 decimal (38,6)
+		,	Sales21 decimal (38,6)
+		,	Sales22 decimal (38,6)
+		)
+
+		insert into @vehicleTotalsOne
+		(
+			Sales16
+		,	Sales17
+		,	Sales18
+		,	Sales19
+		,	Sales20
+		,	Sales21
+		,	Sales22
+		)
+		select 
+			sum(Cal_16_Sales)
+		,	sum(Cal_17_Sales)
+		,	sum(Cal_18_Sales)
+		,	sum(Cal_19_Sales)
+		,	sum(Cal_20_Sales)
+		,	sum(Cal_21_Sales)
+		,	sum(Cal_22_Sales)
+		from 
+			eeiuser.acctg_csm_vw_select_sales_forecast sf
+		group by 
+			vehicle
+
+
+		declare @vehicleTotalsTwo table
+		(
+			ID int identity(1,1)
+		,	Sales16 decimal (38,6)
+		,	Sales17 decimal (38,6)
+		,	Sales18 decimal (38,6)
+		,	Sales19 decimal (38,6)
+		,	Sales20 decimal (38,6)
+		,	Sales21 decimal (38,6)
+		,	Sales22 decimal (38,6)
+		,	Change17 decimal (38,6)
+		,	Change18 decimal (38,6)
+		,	Change19 decimal (38,6)
+		,	Change20 decimal (38,6)
+		,	Change21 decimal (38,6)
+		,	Change22 decimal (38,6)
+		)
+
+		insert into @vehicleTotalsTwo
+		(
+			Sales16
+		,	Sales17
+		,	Sales18
+		,	Sales19
+		,	Sales20
+		,	Sales21
+		,	Sales22
+		,	Change17
+		,	Change18
+		,	Change19
+		,	Change20
+		,	Change21
+		,	Change22
+		)
+		select
+			sum(Sales16)
+		,	sum(Sales17)
+		,	sum(Sales18)
+		,	sum(Sales19)
+		,	sum(Sales20)
+		,	sum(Sales21)
+		,	sum(Sales22)
+		,	(sum(Sales17) - sum(Sales16))
+		,	(sum(Sales17) - sum(Sales16))
+		,	(sum(Sales17) - sum(Sales16))
+		,	(sum(Sales17) - sum(Sales16))
+		,	(sum(Sales17) - sum(Sales16))
+		,	(sum(Sales17) - sum(Sales16))
+		from
+			@vehicleTotalsOne
+
+
+
+		-- Get all vehicle totals, plus a row to make up the difference between customer and vehicle totals (add in non-CSM, non-US vehicles) 
 		select 
 			vehicle as Filter 
 		,	sum(Cal_16_Sales) as Sales_2016
@@ -310,8 +590,58 @@ else if (@Filter = 'Vehicle') begin
 			vehicle is not null
 		group by 
 			vehicle
+		
+		union all
+
+		select
+			'Other' as Filter
+		,	sum(ct.Sales16) - sum(vt.Sales16) as Sales_2016
+		,	sum(ct.Sales17) - sum(vt.Sales17) as Sales_2017
+		,	sum(ct.Sales18) - sum(vt.Sales18) as Sales_2018
+		,	sum(ct.Sales19) - sum(vt.Sales19) as Sales_2019
+		,	sum(ct.Sales20) - sum(vt.Sales20) as Sales_2020
+		,	sum(ct.Sales21) - sum(vt.Sales21) as Sales_2021
+		,	sum(ct.Sales22) - sum(vt.Sales22) as Sales_2022
+		,	sum(ct.Change17) - sum(vt.Change17) as Change_2017
+		,	sum(ct.Change18) - sum(vt.Change18) as Change_2018
+		,	sum(ct.Change19) - sum(vt.Change19) as Change_2019
+		,	sum(ct.Change20) - sum(vt.Change20) as Change_2020
+		,	sum(ct.Change21) - sum(vt.Change21) as Change_2021
+		,	sum(ct.Change22) - sum(vt.Change22) as Change_2022
+		from
+			@customerTotalsTwo ct
+			join @vehicleTotalsTwo vt
+				on vt.ID = ct.ID
+			
 		order by
 			vehicle
+
+	/*
+		select 
+			vehicle as Filter 
+		,	'' as MaterialPercentage	
+		,	sum(Cal_16_Sales) as Sales_2016
+		,	sum(Cal_17_Sales) as Sales_2017
+		,	sum(Cal_18_Sales) as Sales_2018
+		,	sum(Cal_19_Sales) as Sales_2019
+		,	sum(Cal_20_Sales) as Sales_2020
+		,	sum(Cal_21_Sales) as Sales_2021
+		,	sum(Cal_22_Sales) as Sales_2022
+		,	(sum(Cal_17_Sales) - sum(Cal_16_Sales)) as Change_2017
+		,	(sum(Cal_18_Sales) - sum(Cal_17_Sales)) as Change_2018
+		,	(sum(Cal_19_Sales) - sum(Cal_18_Sales)) as Change_2019
+		,	(sum(Cal_20_Sales) - sum(Cal_19_Sales)) as Change_2020
+		,	(sum(Cal_21_Sales) - sum(Cal_20_Sales)) as Change_2021
+		,	(sum(Cal_22_Sales) - sum(Cal_21_Sales)) as Change_2022
+		from 
+			eeiuser.acctg_csm_vw_select_sales_forecast sf
+		where
+			vehicle is not null
+		group by 
+			vehicle
+		order by
+			vehicle
+	*/
 
 	end
 	else begin
@@ -347,6 +677,7 @@ else if (@Filter = 'Program') begin
 
 		select 
 			program as Filter 
+		,	'' as MaterialPercentage	
 		,	sum(Cal_16_Sales) as Sales_2016
 		,	sum(Cal_17_Sales) as Sales_2017
 		,	sum(Cal_18_Sales) as Sales_2018
@@ -403,6 +734,7 @@ else if (@Filter = 'Product Line') begin
 
 		select 
 			product_line as Filter 
+		,	'' as MaterialPercentage	
 		,	sum(Cal_16_Sales) as Sales_2016
 		,	sum(Cal_17_Sales) as Sales_2017
 		,	sum(Cal_18_Sales) as Sales_2018
@@ -453,278 +785,4 @@ else if (@Filter = 'Product Line') begin
 	end
 
 end
-
-
-
-
-/*
--- Combine STE and STK
-declare @tempSteSales table
-(
-	Customer varchar(50)
-,	Sales_2016 decimal(20,6)
-,	Sales_2017 decimal(20,6)
-,	Sales_2018 decimal(20,6)
-,	Sales_2019 decimal(20,6)
-,	Sales_2020 decimal(20,6)
-)
-
-insert into @tempSteSales
-(
-	Customer
-,	Sales_2016
-,	Sales_2017
-,	Sales_2018
-,	Sales_2019
-,	Sales_2020
-)
-select 
-	customer
-,	sum(Cal_16_Sales)
-,	sum(Cal_17_Sales)
-,	sum(Cal_18_Sales)
-,	sum(Cal_19_Sales)
-,	sum(Cal_20_Sales)
-from 
-	eeiuser.acctg_csm_vw_select_sales_forecast 
-where 
-	customer = ('STE') 
-group by 
-	customer 
-
-
-declare
-	@StkSales2016 decimal(20,6)
-,	@StkSales2017 decimal(20,6)
-,	@StkSales2018 decimal(20,6)
-,	@StkSales2019 decimal(20,6)
-,	@StkSales2020 decimal(20,6)	
-
-select 
-	@StkSales2016 = sum(Cal_16_Sales)
-,	@StkSales2017 = sum(Cal_17_Sales)
-,	@StkSales2018 = sum(Cal_18_Sales)
-,	@StkSales2019 = sum(Cal_19_Sales)
-,	@StkSales2020 = sum(Cal_20_Sales)
-from 
-	eeiuser.acctg_csm_vw_select_sales_forecast 
-where 
-	customer = ('STK') 
-group by 
-	customer 
-	
-
-update
-	@tempSteSales	
-set
-	Sales_2016 = Sales_2016 + @StkSales2016
-,	Sales_2017 = Sales_2017 + @StkSales2017
-,	Sales_2018 = Sales_2018 + @StkSales2018
-,	Sales_2019 = Sales_2019 + @StkSales2019
-,	Sales_2020 = Sales_2020 + @StkSales2020
-	
-
-
--- Combine AUT and DFN
-declare @tempAutSales table
-(
-	Customer varchar(50)
-,	Sales_2016 decimal(20,6)
-,	Sales_2017 decimal(20,6)
-,	Sales_2018 decimal(20,6)
-,	Sales_2019 decimal(20,6)
-,	Sales_2020 decimal(20,6)
-)
-
-insert into @tempAutSales
-(
-	Customer
-,	Sales_2016
-,	Sales_2017
-,	Sales_2018
-,	Sales_2019
-,	Sales_2020
-)
-select 
-	customer
-,	sum(Cal_16_Sales)
-,	sum(Cal_17_Sales)
-,	sum(Cal_18_Sales)
-,	sum(Cal_19_Sales)
-,	sum(Cal_20_Sales)
-from 
-	eeiuser.acctg_csm_vw_select_sales_forecast 
-where 
-	customer = ('AUT') 
-group by 
-	customer 
-
-
-declare
-	@DfnSales2016 decimal(20,6)
-,	@DfnSales2017 decimal(20,6)
-,	@DfnSales2018 decimal(20,6)
-,	@DfnSales2019 decimal(20,6)
-,	@DfnSales2020 decimal(20,6)	
-
-select 
-	@DfnSales2016 = sum(Cal_16_Sales)
-,	@DfnSales2017 = sum(Cal_17_Sales)
-,	@DfnSales2018 = sum(Cal_18_Sales)
-,	@DfnSales2019 = sum(Cal_19_Sales)
-,	@DfnSales2020 = sum(Cal_20_Sales)
-from 
-	eeiuser.acctg_csm_vw_select_sales_forecast 
-where 
-	customer = ('DFN') 
-group by 
-	customer 
-	
-
-update
-	@tempAutSales	
-set
-	Sales_2016 = Sales_2016 + @DfnSales2016
-,	Sales_2017 = Sales_2017 + @DfnSales2017
-,	Sales_2018 = Sales_2018 + @DfnSales2018
-,	Sales_2019 = Sales_2019 + @DfnSales2019
-,	Sales_2020 = Sales_2020 + @DfnSales2020
-
-
-
-
--- Combine VNA and MER
-declare @tempVnaSales table
-(
-	Customer varchar(50)
-,	Sales_2016 decimal(20,6)
-,	Sales_2017 decimal(20,6)
-,	Sales_2018 decimal(20,6)
-,	Sales_2019 decimal(20,6)
-,	Sales_2020 decimal(20,6)
-)
-
-insert into @tempVnaSales
-(
-	Customer
-,	Sales_2016
-,	Sales_2017
-,	Sales_2018
-,	Sales_2019
-,	Sales_2020
-)
-select 
-	customer
-,	sum(Cal_16_Sales)
-,	sum(Cal_17_Sales)
-,	sum(Cal_18_Sales)
-,	sum(Cal_19_Sales)
-,	sum(Cal_20_Sales)
-from 
-	eeiuser.acctg_csm_vw_select_sales_forecast 
-where 
-	customer = ('VNA') 
-group by 
-	customer 
-
-
-declare
-	@MerSales2016 decimal(20,6)
-,	@MerSales2017 decimal(20,6)
-,	@MerSales2018 decimal(20,6)
-,	@MerSales2019 decimal(20,6)
-,	@MerSales2020 decimal(20,6)	
-
-select 
-	@MerSales2016 = sum(Cal_16_Sales)
-,	@MerSales2017 = sum(Cal_17_Sales)
-,	@MerSales2018 = sum(Cal_18_Sales)
-,	@MerSales2019 = sum(Cal_19_Sales)
-,	@MerSales2020 = sum(Cal_20_Sales)
-from 
-	eeiuser.acctg_csm_vw_select_sales_forecast 
-where 
-	customer = ('MER') 
-group by 
-	customer 
-	
-
-update
-	@tempVnaSales	
-set
-	Sales_2016 = Sales_2016 + @MerSales2016
-,	Sales_2017 = Sales_2017 + @MerSales2017
-,	Sales_2018 = Sales_2018 + @MerSales2018
-,	Sales_2019 = Sales_2019 + @MerSales2019
-,	Sales_2020 = Sales_2020 + @MerSales2020
-
-
-
-
-
-
-	
-	
-select 
-	customer, 
-	sum(Cal_16_Sales) as Sales_2016,
-	sum(Cal_17_Sales) as Sales_2017,
-	(sum(Cal_17_Sales) - sum(Cal_16_Sales)) as Change_2017,
-	sum(Cal_18_Sales) as Sales_2018,
-	(sum(Cal_18_Sales) - sum(Cal_17_Sales)) as Change_2018,
-	sum(Cal_19_Sales) as Sales_2019,
-	(sum(Cal_19_Sales) - sum(Cal_18_Sales)) as Change_2019,
-	sum(Cal_20_Sales) as Sales_2020,
-	(sum(Cal_20_Sales) - sum(Cal_19_Sales)) as Change_2020
-from 
-	eeiuser.acctg_csm_vw_select_sales_forecast 
-where customer in ('NAL','TRW','VAL','ALI','SLA','FNG','ADC','NOR','ALC','KSI','HEL','VAR','IIS','MAG')
-group by customer
-union all	
-select
-	customer = 'STE/STK'
-,	Sales_2016
-,	Sales_2017
-,	(Sales_2017 - Sales_2016) as Change_2017
-,	Sales_2018
-,	(Sales_2018 - Sales_2017) as Change_2018
-,	Sales_2019
-,	(Sales_2019 - Sales_2018) as Change_2019
-,	Sales_2020
-,	(Sales_2020 - Sales_2019) as Change_2020
-from
-	@tempSteSales t
-union all	
-select
-	customer = 'AUT/DFN'
-,	Sales_2016
-,	Sales_2017
-,	(Sales_2017 - Sales_2016) as Change_2017
-,	Sales_2018
-,	(Sales_2018 - Sales_2017) as Change_2018
-,	Sales_2019
-,	(Sales_2019 - Sales_2018) as Change_2019
-,	Sales_2020
-,	(Sales_2020 - Sales_2019) as Change_2020
-from
-	@tempAutSales t
-union all	
-select
-	customer = 'VNA/MER'
-,	Sales_2016
-,	Sales_2017
-,	(Sales_2017 - Sales_2016) as Change_2017
-,	Sales_2018
-,	(Sales_2018 - Sales_2017) as Change_2018
-,	Sales_2019
-,	(Sales_2019 - Sales_2018) as Change_2019
-,	Sales_2020
-,	(Sales_2020 - Sales_2019) as Change_2020
-from
-	@tempVnaSales t
-order by
-	customer
-*/
-
---- </Body>
 GO

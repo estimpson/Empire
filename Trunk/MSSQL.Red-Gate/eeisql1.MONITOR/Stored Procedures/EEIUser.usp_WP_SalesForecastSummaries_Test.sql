@@ -4,7 +4,7 @@ SET ANSI_NULLS ON
 GO
 
 
-CREATE procedure [EEIUser].[usp_WP_SalesForecastSummaries]
+create procedure [EEIUser].[usp_WP_SalesForecastSummaries_Test]
 	@Filter varchar(50)
 ,	@FilterValue varchar(250) = null
 as
@@ -289,6 +289,118 @@ else if (@Filter = 'Vehicle') begin
 
 	if (@FilterValue is null) begin
 
+		-- Get customer totals
+		declare @customerTotals table
+		(	
+			ID int identity(1,1)
+		,	Sales16 decimal (38,6)
+		,	Sales17 decimal (38,6)
+		,	Sales18 decimal (38,6)
+		,	Sales19 decimal (38,6)
+		,	Sales20 decimal (38,6)
+		,	Sales21 decimal (38,6)
+		,	Sales22 decimal (38,6)
+		,	Change17 decimal (38,6)
+		,	Change18 decimal (38,6)
+		,	Change19 decimal (38,6)
+		,	Change20 decimal (38,6)
+		,	Change21 decimal (38,6)
+		,	Change22 decimal (38,6)
+		)
+
+		insert into @customerTotals
+		(
+			Sales16
+		,	Sales17
+		,	Sales18
+		,	Sales19
+		,	Sales20
+		,	Sales21
+		,	Sales22
+		,	Change17
+		,	Change18
+		,	Change19
+		,	Change20
+		,	Change21
+		,	Change22
+		)
+		select 
+			sum(Cal_16_Sales)
+		,	sum(Cal_17_Sales)
+		,	sum(Cal_18_Sales)
+		,	sum(Cal_19_Sales)
+		,	sum(Cal_20_Sales)
+		,	sum(Cal_21_Sales)
+		,	sum(Cal_22_Sales)
+		,	(sum(Cal_17_Sales) - sum(Cal_16_Sales))
+		,	(sum(Cal_18_Sales) - sum(Cal_17_Sales))
+		,	(sum(Cal_19_Sales) - sum(Cal_18_Sales))
+		,	(sum(Cal_20_Sales) - sum(Cal_19_Sales))
+		,	(sum(Cal_21_Sales) - sum(Cal_20_Sales))
+		,	(sum(Cal_22_Sales) - sum(Cal_21_Sales))
+		from 
+			eeiuser.acctg_csm_vw_select_sales_forecast sf
+		group by 
+			customer
+
+
+		declare @vehicleTotals table
+		(	
+			ID int identity(1,1)
+		,	Sales16 decimal (38,6)
+		,	Sales17 decimal (38,6)
+		,	Sales18 decimal (38,6)
+		,	Sales19 decimal (38,6)
+		,	Sales20 decimal (38,6)
+		,	Sales21 decimal (38,6)
+		,	Sales22 decimal (38,6)
+		,	Change17 decimal (38,6)
+		,	Change18 decimal (38,6)
+		,	Change19 decimal (38,6)
+		,	Change20 decimal (38,6)
+		,	Change21 decimal (38,6)
+		,	Change22 decimal (38,6)
+		)
+
+		insert into @vehicleTotals
+		(
+			Sales16
+		,	Sales17
+		,	Sales18
+		,	Sales19
+		,	Sales20
+		,	Sales21
+		,	Sales22
+		,	Change17
+		,	Change18
+		,	Change19
+		,	Change20
+		,	Change21
+		,	Change22
+		)
+		select 
+			sum(Cal_16_Sales)
+		,	sum(Cal_17_Sales)
+		,	sum(Cal_18_Sales)
+		,	sum(Cal_19_Sales)
+		,	sum(Cal_20_Sales)
+		,	sum(Cal_21_Sales)
+		,	sum(Cal_22_Sales)
+		,	(sum(Cal_17_Sales) - sum(Cal_16_Sales))
+		,	(sum(Cal_18_Sales) - sum(Cal_17_Sales))
+		,	(sum(Cal_19_Sales) - sum(Cal_18_Sales))
+		,	(sum(Cal_20_Sales) - sum(Cal_19_Sales))
+		,	(sum(Cal_21_Sales) - sum(Cal_20_Sales))
+		,	(sum(Cal_22_Sales) - sum(Cal_21_Sales))
+		from 
+			eeiuser.acctg_csm_vw_select_sales_forecast sf
+		where
+			vehicle is not null
+		group by 
+			vehicle
+
+		
+
 		select 
 			vehicle as Filter 
 		,	sum(Cal_16_Sales) as Sales_2016
@@ -310,6 +422,29 @@ else if (@Filter = 'Vehicle') begin
 			vehicle is not null
 		group by 
 			vehicle
+		
+		union all
+
+		select
+			'Other' as Filter
+		,	sum(ct.Sales16) - sum(vt.Sales16) as Sales_2016
+		,	sum(ct.Sales17) - sum(vt.Sales17) as Sales_2017
+		,	sum(ct.Sales18) - sum(vt.Sales18) as Sales_2018
+		,	sum(ct.Sales19) - sum(vt.Sales19) as Sales_2019
+		,	sum(ct.Sales20) - sum(vt.Sales20) as Sales_2020
+		,	sum(ct.Sales21) - sum(vt.Sales21) as Sales_2021
+		,	sum(ct.Sales22) - sum(vt.Sales22) as Sales_2022
+		,	sum(ct.Change17) - sum(vt.Change17) as Change_2017
+		,	sum(ct.Change18) - sum(vt.Change18) as Change_2018
+		,	sum(ct.Change19) - sum(vt.Change19) as Change_2019
+		,	sum(ct.Change20) - sum(vt.Change20) as Change_2020
+		,	sum(ct.Change21) - sum(vt.Change21) as Change_2021
+		,	sum(ct.Change22) - sum(vt.Change22) as Change_2022
+		from
+			@customerTotals ct
+			join @vehicleTotals vt
+				on vt.ID = ct.ID
+			
 		order by
 			vehicle
 
