@@ -391,186 +391,10 @@ else if (@Filter = 'Vehicle') begin
 
 	if (@FilterValue is null) begin
 
-		-- Get customer totals
-		declare @customerTotalsOne table
-		(	
-			Sales16 decimal (38,6)
-		,	Sales17 decimal (38,6)
-		,	Sales18 decimal (38,6)
-		,	Sales19 decimal (38,6)
-		,	Sales20 decimal (38,6)
-		,	Sales21 decimal (38,6)
-		,	Sales22 decimal (38,6)
-		)
-
-		insert into @customerTotalsOne
-		(
-			Sales16
-		,	Sales17
-		,	Sales18
-		,	Sales19
-		,	Sales20
-		,	Sales21
-		,	Sales22
-		)
-		select 
-			sum(Cal_16_Sales)
-		,	sum(Cal_17_Sales)
-		,	sum(Cal_18_Sales)
-		,	sum(Cal_19_Sales)
-		,	sum(Cal_20_Sales)
-		,	sum(Cal_21_Sales)
-		,	sum(Cal_22_Sales)
-		from 
-			eeiuser.acctg_csm_vw_select_sales_forecast sf
-		group by 
-			customer
-
-
-		declare @customerTotalsTwo table
-		(
-			ID int identity(1,1)
-		,	Sales16 decimal (38,6)
-		,	Sales17 decimal (38,6)
-		,	Sales18 decimal (38,6)
-		,	Sales19 decimal (38,6)
-		,	Sales20 decimal (38,6)
-		,	Sales21 decimal (38,6)
-		,	Sales22 decimal (38,6)
-		,	Change17 decimal (38,6)
-		,	Change18 decimal (38,6)
-		,	Change19 decimal (38,6)
-		,	Change20 decimal (38,6)
-		,	Change21 decimal (38,6)
-		,	Change22 decimal (38,6)
-		)
-
-		insert into @customerTotalsTwo
-		(
-			Sales16
-		,	Sales17
-		,	Sales18
-		,	Sales19
-		,	Sales20
-		,	Sales21
-		,	Sales22
-		,	Change17
-		,	Change18
-		,	Change19
-		,	Change20
-		,	Change21
-		,	Change22
-		)
-		select
-			sum(Sales16)
-		,	sum(Sales17)
-		,	sum(Sales18)
-		,	sum(Sales19)
-		,	sum(Sales20)
-		,	sum(Sales21)
-		,	sum(Sales22)
-		,	(sum(Sales17) - sum(Sales16))
-		,	(sum(Sales17) - sum(Sales16))
-		,	(sum(Sales17) - sum(Sales16))
-		,	(sum(Sales17) - sum(Sales16))
-		,	(sum(Sales17) - sum(Sales16))
-		,	(sum(Sales17) - sum(Sales16))
-		from
-			@customerTotalsOne
-
-
-		-- Get vehicle totals
-		declare @vehicleTotalsOne table
-		(
-			Sales16 decimal (38,6)
-		,	Sales17 decimal (38,6)
-		,	Sales18 decimal (38,6)
-		,	Sales19 decimal (38,6)
-		,	Sales20 decimal (38,6)
-		,	Sales21 decimal (38,6)
-		,	Sales22 decimal (38,6)
-		)
-
-		insert into @vehicleTotalsOne
-		(
-			Sales16
-		,	Sales17
-		,	Sales18
-		,	Sales19
-		,	Sales20
-		,	Sales21
-		,	Sales22
-		)
-		select 
-			sum(Cal_16_Sales)
-		,	sum(Cal_17_Sales)
-		,	sum(Cal_18_Sales)
-		,	sum(Cal_19_Sales)
-		,	sum(Cal_20_Sales)
-		,	sum(Cal_21_Sales)
-		,	sum(Cal_22_Sales)
-		from 
-			eeiuser.acctg_csm_vw_select_sales_forecast sf
-		group by 
-			vehicle
-
-
-		declare @vehicleTotalsTwo table
-		(
-			ID int identity(1,1)
-		,	Sales16 decimal (38,6)
-		,	Sales17 decimal (38,6)
-		,	Sales18 decimal (38,6)
-		,	Sales19 decimal (38,6)
-		,	Sales20 decimal (38,6)
-		,	Sales21 decimal (38,6)
-		,	Sales22 decimal (38,6)
-		,	Change17 decimal (38,6)
-		,	Change18 decimal (38,6)
-		,	Change19 decimal (38,6)
-		,	Change20 decimal (38,6)
-		,	Change21 decimal (38,6)
-		,	Change22 decimal (38,6)
-		)
-
-		insert into @vehicleTotalsTwo
-		(
-			Sales16
-		,	Sales17
-		,	Sales18
-		,	Sales19
-		,	Sales20
-		,	Sales21
-		,	Sales22
-		,	Change17
-		,	Change18
-		,	Change19
-		,	Change20
-		,	Change21
-		,	Change22
-		)
-		select
-			sum(Sales16)
-		,	sum(Sales17)
-		,	sum(Sales18)
-		,	sum(Sales19)
-		,	sum(Sales20)
-		,	sum(Sales21)
-		,	sum(Sales22)
-		,	(sum(Sales17) - sum(Sales16))
-		,	(sum(Sales17) - sum(Sales16))
-		,	(sum(Sales17) - sum(Sales16))
-		,	(sum(Sales17) - sum(Sales16))
-		,	(sum(Sales17) - sum(Sales16))
-		,	(sum(Sales17) - sum(Sales16))
-		from
-			@vehicleTotalsOne
-
-
-
 		-- Get all vehicle totals, plus a row to make up the difference between customer and vehicle totals (add in non-CSM, non-US vehicles) 
 		select 
 			vehicle as Filter 
+		,	'' as MaterialPercentage
 		,	sum(Cal_16_Sales) as Sales_2016
 		,	sum(Cal_17_Sales) as Sales_2017
 		,	sum(Cal_18_Sales) as Sales_2018
@@ -595,31 +419,7 @@ else if (@Filter = 'Vehicle') begin
 
 		select
 			'Other' as Filter
-		,	sum(ct.Sales16) - sum(vt.Sales16) as Sales_2016
-		,	sum(ct.Sales17) - sum(vt.Sales17) as Sales_2017
-		,	sum(ct.Sales18) - sum(vt.Sales18) as Sales_2018
-		,	sum(ct.Sales19) - sum(vt.Sales19) as Sales_2019
-		,	sum(ct.Sales20) - sum(vt.Sales20) as Sales_2020
-		,	sum(ct.Sales21) - sum(vt.Sales21) as Sales_2021
-		,	sum(ct.Sales22) - sum(vt.Sales22) as Sales_2022
-		,	sum(ct.Change17) - sum(vt.Change17) as Change_2017
-		,	sum(ct.Change18) - sum(vt.Change18) as Change_2018
-		,	sum(ct.Change19) - sum(vt.Change19) as Change_2019
-		,	sum(ct.Change20) - sum(vt.Change20) as Change_2020
-		,	sum(ct.Change21) - sum(vt.Change21) as Change_2021
-		,	sum(ct.Change22) - sum(vt.Change22) as Change_2022
-		from
-			@customerTotalsTwo ct
-			join @vehicleTotalsTwo vt
-				on vt.ID = ct.ID
-			
-		order by
-			vehicle
-
-	/*
-		select 
-			vehicle as Filter 
-		,	'' as MaterialPercentage	
+		,	'' as MaterialPercentage
 		,	sum(Cal_16_Sales) as Sales_2016
 		,	sum(Cal_17_Sales) as Sales_2017
 		,	sum(Cal_18_Sales) as Sales_2018
@@ -636,12 +436,10 @@ else if (@Filter = 'Vehicle') begin
 		from 
 			eeiuser.acctg_csm_vw_select_sales_forecast sf
 		where
-			vehicle is not null
-		group by 
-			vehicle
+			vehicle is null
+
 		order by
 			vehicle
-	*/
 
 	end
 	else begin
@@ -697,6 +495,30 @@ else if (@Filter = 'Program') begin
 			program is not null
 		group by 
 			program
+
+		union all
+
+		select 
+			'Other' as Filter 
+		,	'' as MaterialPercentage	
+		,	sum(Cal_16_Sales) as Sales_2016
+		,	sum(Cal_17_Sales) as Sales_2017
+		,	sum(Cal_18_Sales) as Sales_2018
+		,	sum(Cal_19_Sales) as Sales_2019
+		,	sum(Cal_20_Sales) as Sales_2020
+		,	sum(Cal_21_Sales) as Sales_2021
+		,	sum(Cal_22_Sales) as Sales_2022
+		,	(sum(Cal_17_Sales) - sum(Cal_16_Sales)) as Change_2017
+		,	(sum(Cal_18_Sales) - sum(Cal_17_Sales)) as Change_2018
+		,	(sum(Cal_19_Sales) - sum(Cal_18_Sales)) as Change_2019
+		,	(sum(Cal_20_Sales) - sum(Cal_19_Sales)) as Change_2020
+		,	(sum(Cal_21_Sales) - sum(Cal_20_Sales)) as Change_2021
+		,	(sum(Cal_22_Sales) - sum(Cal_21_Sales)) as Change_2022
+		from 
+			eeiuser.acctg_csm_vw_select_sales_forecast sf
+		where
+			program is null
+
 		order by
 			program
 

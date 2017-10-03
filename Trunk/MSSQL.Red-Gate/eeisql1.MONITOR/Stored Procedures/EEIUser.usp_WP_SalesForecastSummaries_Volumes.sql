@@ -309,6 +309,29 @@ else if (@Filter = 'Vehicle') begin
 			vehicle is not null
 		group by 
 			vehicle
+
+		union all
+
+		select 
+			'Other' as Filter 
+		,	sum(Total_2016_TotalDemand) as TotalDemand_2016
+		,	sum(Total_2017_TotalDemand) as TotalDemand_2017
+		,	sum(Total_2018_TotalDemand) as TotalDemand_2018
+		,	sum(Total_2019_TotalDemand) as TotalDemand_2019
+		,	sum(Cal20_TotalDemand) as TotalDemand_2020
+		,	sum(Cal21_TotalDemand) as TotalDemand_2021
+		,	sum(Cal22_TotalDemand) as TotalDemand_2022
+		,	(sum(Total_2017_TotalDemand) - sum(Total_2016_TotalDemand)) as Change_2017
+		,	(sum(Total_2018_TotalDemand) - sum(Total_2017_TotalDemand)) as Change_2018
+		,	(sum(Total_2019_TotalDemand) - sum(Total_2018_TotalDemand)) as Change_2019
+		,	(sum(Cal20_TotalDemand) - sum(Total_2019_TotalDemand)) as Change_2020
+		,	(sum(Cal21_TotalDemand) - sum(Cal20_TotalDemand)) as Change_2021
+		,	(sum(Cal22_TotalDemand) - sum(Cal21_TotalDemand)) as Change_2022
+		from 
+			eeiuser.acctg_csm_vw_select_sales_forecast sf
+		where
+			vehicle is null
+
 		order by
 			vehicle
 
@@ -365,6 +388,29 @@ else if (@Filter = 'Program') begin
 			program is not null
 		group by 
 			program
+
+		union all
+
+		select 
+			'Other' as Filter 
+		,	sum(Total_2016_TotalDemand) as TotalDemand_2016
+		,	sum(Total_2017_TotalDemand) as TotalDemand_2017
+		,	sum(Total_2018_TotalDemand) as TotalDemand_2018
+		,	sum(Total_2019_TotalDemand) as TotalDemand_2019
+		,	sum(Cal20_TotalDemand) as TotalDemand_2020
+		,	sum(Cal21_TotalDemand) as TotalDemand_2021
+		,	sum(Cal22_TotalDemand) as TotalDemand_2022
+		,	(sum(Total_2017_TotalDemand) - sum(Total_2016_TotalDemand)) as Change_2017
+		,	(sum(Total_2018_TotalDemand) - sum(Total_2017_TotalDemand)) as Change_2018
+		,	(sum(Total_2019_TotalDemand) - sum(Total_2018_TotalDemand)) as Change_2019
+		,	(sum(Cal20_TotalDemand) - sum(Total_2019_TotalDemand)) as Change_2020
+		,	(sum(Cal21_TotalDemand) - sum(Cal20_TotalDemand)) as Change_2021
+		,	(sum(Cal22_TotalDemand) - sum(Cal21_TotalDemand)) as Change_2022
+		from 
+			eeiuser.acctg_csm_vw_select_sales_forecast sf
+		where
+			program is null
+
 		order by
 			program
 
