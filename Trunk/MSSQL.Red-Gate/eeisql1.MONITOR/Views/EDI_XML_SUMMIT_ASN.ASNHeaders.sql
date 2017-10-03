@@ -5,6 +5,7 @@ GO
 
 
 
+
 CREATE view [EDI_XML_SUMMIT_ASN].[ASNHeaders]
 as
 
@@ -21,7 +22,7 @@ select
 ,	NetWeightLbs = convert(int,s.net_weight)
 ,	ReferenceN = coalesce(s.bill_of_lading_number, s.id)
 ,	MaterialIssuerID = coalesce(es.material_issuer,'')
-,	SupplierCode = coalesce(es.supplier_code, '047380894')
+,	SupplierCode = coalesce(es.supplier_code, '00005981')
 ,	ShipToID = coalesce(nullif(es.parent_destination,''),es.destination)
 ,	TransMode = s.trans_mode
 ,	SCAC = s.ship_via
@@ -33,5 +34,6 @@ from
 		on es.destination = s.destination
 	outer apply ( select top 1 name from  carrier where scac = s.ship_via ) Carriers --using outer apply becuase SCACs can be duplicated in Carrier Table
 		
+
 
 GO

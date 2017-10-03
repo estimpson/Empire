@@ -5,6 +5,7 @@ GO
 
 
 
+
 CREATE view [EDIADAC].[BlanketOrders]
 as
 select
@@ -36,8 +37,8 @@ select
 ,	PlanningFlag= coalesce(es.PlanningReleasesFlag,'P')
 ,	TransitDays =  coalesce(es.TransitDays,0)
 ,	ReleaseDueDTOffsetDays =  coalesce(es.EDIOffsetDays,0)
-,	ReferenceAccum = coalesce('O',ReferenceAccum,'O')
-,	AdjustmentAccum = coalesce('O',AdjustmentAccum,'C')
+,	ReferenceAccum = coalesce('N',ReferenceAccum,'O')
+,	AdjustmentAccum = coalesce('N',AdjustmentAccum,'C')
 ,   ProcessPlanningRelease = 1
 ,	PlanningReleaseHorizonDaysBack = -30
 from
@@ -54,6 +55,7 @@ where
  and coalesce(oh.status,'X') = 'A' 
  and oh.blanket_part like  'ADC%'
 --	es.InboundProcessGroup in ( 'EDI2001' )
+
 
 
 
