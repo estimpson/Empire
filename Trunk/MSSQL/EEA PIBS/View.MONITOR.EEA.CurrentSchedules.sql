@@ -1,4 +1,12 @@
 
+/*
+Create View.MONITOR.EEA.CurrentSchedules.sql
+*/
+
+use MONITOR
+go
+
+--drop table EEA.CurrentSchedules
 if	objectproperty(object_id('EEA.CurrentSchedules'), 'IsView') = 1 begin
 	drop view EEA.CurrentSchedules
 end
@@ -8,6 +16,7 @@ create view EEA.CurrentSchedules
 as
 select
 	fgh.ProgramCode
+,	fgh.CustomerPart
 ,	fgh.BillTo
 ,	fgh.ShipTo
 ,	woh.Machine
@@ -39,29 +48,30 @@ where
 go
 
 select
-	ProgramCode
-,	BillTo
-,	ShipTo
-,	Machine
-,	CurrentBuild
-,	NextBuild
-,	StandardPack
-,	Totes
-,	LabelledTotes
-,	CompletedTotes
-,	WODID
-,	JobStatus
-,	TopPart
-,	Part
-,	QtyRequired
-,	QtyLabelled
-,	QtyCompleted
-,	QtyDefect
-,	LabelFormat
+	cs.ProgramCode
+,	cs.CustomerPart
+,	cs.BillTo
+,	cs.ShipTo
+,	cs.Machine
+,	cs.CurrentBuild
+,	cs.NextBuild
+,	cs.StandardPack
+,	cs.Totes
+,	cs.LabelledTotes
+,	cs.CompletedTotes
+,	cs.WODID
+,	cs.JobStatus
+,	cs.TopPart
+,	cs.Part
+,	cs.QtyRequired
+,	cs.QtyLabelled
+,	cs.QtyCompleted
+,	cs.QtyDefect
+,	cs.LabelFormat
 from
 	EEA.CurrentSchedules cs
 order by
-	JobStatus
-,	BillTo
-,	ProgramCode
+	cs.JobStatus
+,	cs.BillTo
+,	cs.ProgramCode
 go
