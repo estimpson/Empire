@@ -5,6 +5,7 @@ GO
 
 
 
+
 CREATE procedure [EDIADAC].[usp_Process]
 	@TranDT datetime = null out
 ,	@Result integer = null out
@@ -437,14 +438,14 @@ select
 	ReleaseType = 1
 ,	OrderNo = bo.BlanketOrderNo
 ,	Type = 1
-,	ReleaseDT = dateadd(dd, ReleaseDueDTOffsetDays, (DATEADD(MILLISECOND, convert(numeric(20,8),substring( fr.UserDefined5,4,10))/100, fr.ReleaseDT)) )
+,	ReleaseDT = dateadd(dd, ReleaseDueDTOffsetDays*-1, (DATEADD(MILLISECOND, convert(numeric(20,8),substring( fr.UserDefined5,4,10))/100, fr.ReleaseDT)) )
 ,	BlanketPart = bo.PartCode
 ,	CustomerPart = bo.CustomerPart
 ,	ShipToID = bo.ShipToCode
 ,	CustomerPO = bo.CustomerPO
 ,	ModelYear = bo.ModelYear
 ,	OrderUnit = bo.OrderUnit
-,	ReleaseNo = fr.UserDefined5+'~'+COALESCE(fr.UserDefined4,'')
+,	ReleaseNo = fr.UserDefined5
 ,	QtyRelease = c.OpenReleaseQty
 --,	QtyRelease = fr.ReleaseQty
 ,	StdQtyRelease = c.OpenReleaseQty
@@ -525,7 +526,7 @@ select
 					else 1
 					end
 			  )
-,	ReleaseDT = dateadd(dd, ReleaseDueDTOffsetDays, fr.ReleaseDT)
+,	ReleaseDT = dateadd(dd, ReleaseDueDTOffsetDays*-1, fr.ReleaseDT)
 ,	BlanketPart = bo.PartCode
 ,	CustomerPart = bo.CustomerPart
 ,	ShipToID = bo.ShipToCode
@@ -1649,9 +1650,6 @@ select
 	@Error, @ProcReturn, @TranDT, @ProcResult
 go
 
-
-go
-
 --commit transaction
 rollback transaction
 
@@ -1666,6 +1664,7 @@ go
 Results {
 }
 */
+
 
 
 
