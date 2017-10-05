@@ -121,12 +121,6 @@
           <AssociatedConnUserName>estimpson</AssociatedConnUserName>
           <FullPath>EEA.ComponentSoftAllocation.sql</FullPath>
         </FileNode>
-        <FileNode Name="EEA.CurrentSchedules.sql">
-          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:eeisql1:False:estimpson</AssociatedConnectionMoniker>
-          <AssociatedConnSrvName>eeisql1</AssociatedConnSrvName>
-          <AssociatedConnUserName>estimpson</AssociatedConnUserName>
-          <FullPath>EEA.CurrentSchedules.sql</FullPath>
-        </FileNode>
         <FileNode Name="EEA.EEAPIBSRF_UserAccess.sql">
           <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:eeisql1:False:estimpson</AssociatedConnectionMoniker>
           <AssociatedConnSrvName>eeisql1</AssociatedConnSrvName>
@@ -558,6 +552,12 @@
           <AssociatedConnSrvName>eeisql1</AssociatedConnSrvName>
           <AssociatedConnUserName>estimpson</AssociatedConnUserName>
           <FullPath>View.Fx.EEA.EEAPIBSRF_UserFunctionAccess.sql</FullPath>
+        </FileNode>
+        <FileNode Name="View.MONITOR.EEA.CurrentSchedules.sql">
+          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:eeisql1:False:estimpson</AssociatedConnectionMoniker>
+          <AssociatedConnSrvName>eeisql1</AssociatedConnSrvName>
+          <AssociatedConnUserName>estimpson</AssociatedConnUserName>
+          <FullPath>View.MONITOR.EEA.CurrentSchedules.sql</FullPath>
         </FileNode>
         <FileNode Name="View.MONITOR.EEA.IntransitLocations.sql">
           <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:eeisql1:False:estimpson</AssociatedConnectionMoniker>

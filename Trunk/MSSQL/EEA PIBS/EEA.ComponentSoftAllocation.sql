@@ -90,9 +90,9 @@ select
 from
 	EEA.ComponentSoftAllocation csa
 where
-	'NALB124-ASA03' in
+	'NAL1022-ASA04' in
 		(	select
-				sstr.Value
+				rtrim(sstr.Value)
 			from
 				dbo.fn_SplitStringToRows(csa.FinishedPartList, ',') sstr
 		)

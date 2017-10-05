@@ -45,13 +45,13 @@ begin
 	select distinct
 		ChildPart
 	from
-		FT.XRt xr
+		FT.XRt xr with (readuncommitted)
 	where
 		(	TopPart like '[A-Z][A-Z][A-Z][0-9,A-Z][0-9][0-9][0-9]-A%'
 			or TopPart like '[A-Z][A-Z][A-Z][0-9,A-Z][0-9][0-9][0-9]-RA%'
 			or TopPart like '[A-Z][A-Z][A-Z][0-9,A-Z][0-9][0-9][0-9]-RWA%'
 		)
-		and TopPart in (select part_number from dbo.order_detail od)
+		and TopPart in (select part_number from dbo.order_detail od with (readuncommitted))
 
 	--create index idx_#NetMPS_1 on #NetMPS (LowLevel, Part)
 	--create index idx_#NetMPS_2 on #NetMPS (Part, RequiredDT, Balance)
@@ -77,14 +77,14 @@ begin
 		(	select
 				max(XRT1.BOMLevel)
 			from
-				FT.XRt XRT1
+				FT.XRt XRT1 with (readuncommitted)
 			where
 				XRT1.ChildPart = XRt.ChildPart
 		)
 	,	Sequence
 	from
-		EEA.vwSOD SOD
-		join FT.XRt XRt
+		EEA.vwSOD SOD with (readuncommitted)
+		join FT.XRt XRt with (readuncommitted)
 			on SOD.Part = XRt.TopPart
 	where
 		SOD.Part like '[A-Z][A-Z][A-Z][0-9,A-Z][0-9][0-9][0-9]-A%'
@@ -125,11 +125,11 @@ begin
 				Part = o.part
 		)
 	from
-		dbo.object o
-		join dbo.location lEEA
+		dbo.object o with (readuncommitted)
+		join dbo.location lEEA with (readuncommitted)
 			on o.location = lEEA.code
 			and (	lEEA.code in ('INTRANSAL', 'TRAN-EEA')
-				or lEEA.plant = 'EEA'
+					or lEEA.plant = 'EEA'
 			)
 			and coalesce (lEEA.secured_location, 'N') != 'Y'
 	where
