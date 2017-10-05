@@ -3,7 +3,8 @@ GO
 SET ANSI_NULLS ON
 GO
 
-CREATE procedure [EEIUser].[usp_WP_SalesForecastSummaries_Selected_Volumes_ProgramSalesperson]
+
+create procedure [EEIUser].[usp_WP_SalesForecastSummaries_Selected_Volumes_ProgramSalesperson]
 	@Filter varchar(50)
 ,	@FilterValue varchar(250)
 as
@@ -37,7 +38,6 @@ declare @recursiveForecastData table
 ,	customer varchar(50)
 ,	empire_market_subsegment varchar(200)
 ,	empire_application varchar(500)
-,	base_part varchar(50)
 ,	TotalDemand_2016 decimal (38,6)
 ,	TotalDemand_2017 decimal (38,6)
 ,	TotalDemand_2018 decimal (38,6)
@@ -100,7 +100,6 @@ insert into @recursiveForecastData
 	customer
 ,	empire_market_subsegment
 ,	empire_application
-,	base_part
 ,	TotalDemand_2016
 ,	TotalDemand_2017
 ,	TotalDemand_2018
@@ -120,7 +119,6 @@ select
 	sf.customer
 ,	'' as empire_market_subsegment
 ,	'' as empire_application
-,	'' as base_part
 ,	sum(Cal_16_Volume) as TotalDemand_2016
 ,	sum(Cal_17_Volume) as TotalDemand_2017
 ,	sum(Cal_18_Volume) as TotalDemand_2018
@@ -147,7 +145,6 @@ insert into @recursiveForecastData
 	customer
 ,	empire_market_subsegment
 ,	empire_application
-,	base_part
 ,	TotalDemand_2016
 ,	TotalDemand_2017
 ,	TotalDemand_2018
@@ -167,7 +164,6 @@ select
 	sf.customer
 ,	sf.empire_market_subsegment
 ,	'' as empire_application
-,	'' as base_part
 ,	sum(Cal_16_Volume) as TotalDemand_2016
 ,	sum(Cal_17_Volume) as TotalDemand_2017
 ,	sum(Cal_18_Volume) as TotalDemand_2018
@@ -207,7 +203,6 @@ insert into @recursiveForecastData
 	customer
 ,	empire_market_subsegment
 ,	empire_application
-,	base_part
 ,	TotalDemand_2016
 ,	TotalDemand_2017
 ,	TotalDemand_2018
@@ -226,8 +221,7 @@ insert into @recursiveForecastData
 select 
 	sf.customer
 ,	sf.empire_market_subsegment
-,	sf.empire_application
-,	'' as base_part
+,	sf.empire_application + ' : ' + FX.ToList(distinct sf.base_part)
 ,	sum(Cal_16_Volume) as TotalDemand_2016
 ,	sum(Cal_17_Volume) as TotalDemand_2017
 ,	sum(Cal_18_Volume) as TotalDemand_2018
@@ -263,70 +257,6 @@ where
 	rfd.empire_application <> ''
 
 
----
-insert into @recursiveForecastData
-(
-	customer
-,	empire_market_subsegment
-,	empire_application
-,	base_part
-,	TotalDemand_2016
-,	TotalDemand_2017
-,	TotalDemand_2018
-,	TotalDemand_2019
-,	TotalDemand_2020
-,	TotalDemand_2021
-,	TotalDemand_2022
-,	Change_2017 
-,	Change_2018
-,	Change_2019 
-,	Change_2020 
-,	Change_2021 
-,	Change_2022
-,	ParentID
-)
-select 
-	sf.customer
-,	sf.empire_market_subsegment
-,	sf.empire_application
-,	sf.base_part
-,	sum(Cal_16_Volume) as TotalDemand_2016
-,	sum(Cal_17_Volume) as TotalDemand_2017
-,	sum(Cal_18_Volume) as TotalDemand_2018
-,	sum(Cal_19_Volume) as TotalDemand_2019
-,	sum(Cal_20_Volume) as TotalDemand_2020
-,	sum(Cal_21_Volume) as TotalDemand_2021
-,	sum(Cal_22_Volume) as TotalDemand_2022
-,	(sum(Cal_17_Volume) - sum(Cal_16_Volume)) as Change_2017
-,	(sum(Cal_18_Volume) - sum(Cal_17_Volume)) as Change_2018
-,	(sum(Cal_19_Volume) - sum(Cal_18_Volume)) as Change_2019
-,	(sum(Cal_20_Volume) - sum(Cal_19_Volume)) as Change_2020
-,	(sum(Cal_21_Volume) - sum(Cal_20_Volume)) as Change_2021
-,	(sum(Cal_22_Volume) - sum(Cal_21_Volume)) as Change_2022
-,	ParentID = 0
-from 
-	@forecastData sf
-group by 
-	sf.customer
-,	sf.empire_market_subsegment
-,	sf.empire_application
-,	sf.base_part
-
-
-update
-	rfd
-set
-	rfd.ParentID = rfd2.ID
-from
-	@recursiveForecastData rfd
-	join @recursiveForecastData rfd2
-		on rfd2.customer = rfd.customer
-		and rfd2.empire_market_subsegment = rfd.empire_market_subsegment
-		and rfd2.empire_application = rfd.empire_application
-where
-	rfd.base_part <> ''
-
-
 
 ---
 select 
@@ -334,7 +264,6 @@ select
 ,	customer
 ,	empire_market_subsegment
 ,	empire_application
-,	base_part
 ,	TotalDemand_2016
 ,	TotalDemand_2017
 ,	TotalDemand_2018

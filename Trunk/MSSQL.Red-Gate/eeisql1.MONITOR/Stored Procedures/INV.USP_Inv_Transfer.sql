@@ -68,6 +68,7 @@ Declare @TranDT datetime
 
 
 set	@TranDT = getdate()
+set @Toloc = nullif(@Toloc,'')
 
 --	Argument Validation:
 --		Operator required:

@@ -80,10 +80,18 @@ if (@Filter = 'Customer') begin
 		eeiuser.QT_QuoteLog ql
 	where
 		Customer = @FilterValue
-		and year(SOP) > 2015
-		and year(EOP) > 2016
+		--and year(SOP) > 2015
+		--and year(EOP) > 2016
 		and coalesce(TotalQuotedSales, 0) > 0
-		and datediff(month, SOP, EOP) > 0
+		--and datediff(month, SOP, EOP) > 0
+		and 
+		((	year(SOP) > 2015
+			and year(EOP) > 2016
+			and datediff(month, SOP, EOP) > 0 )
+		or
+		(
+			year(SOP) is null or year(EOP) is null
+		))
 	order by	
 		ql.Program
 	,	ql.Nameplate
@@ -149,10 +157,15 @@ else if (@Filter = 'Parent Customer') begin
 		join customers_cte cte
 			on cte.Customer = ql.Customer
 	where
-		year(SOP) > 2015
-		and year(EOP) > 2016
-		and coalesce(TotalQuotedSales, 0) > 0
-		and datediff(month, SOP, EOP) > 0
+		coalesce(TotalQuotedSales, 0) > 0
+		and 
+		((	year(SOP) > 2015
+			and year(EOP) > 2016
+			and datediff(month, SOP, EOP) > 0 )
+		or
+		(
+			year(SOP) is null or year(EOP) is null
+		))
 	order by
 		ql.Customer
 	,	ql.Program
@@ -220,10 +233,15 @@ else if (@Filter = 'Salesperson') begin
 		eeiuser.QT_QuoteLog ql
 	where
 		SalesInitials = @salesInitials
-		and year(SOP) > 2015
-		and year(EOP) > 2016
 		and coalesce(TotalQuotedSales, 0) > 0
-		and datediff(month, SOP, EOP) > 0
+		and 
+		((	year(SOP) > 2015
+			and year(EOP) > 2016
+			and datediff(month, SOP, EOP) > 0 )
+		or
+		(
+			year(SOP) is null or year(EOP) is null
+		))
 	order by
 		ql.Customer
 	,	ql.Program
@@ -277,10 +295,15 @@ else if (@Filter = 'Segment') begin
 		eeiuser.QT_QuoteLog ql
 	where
 		Nameplate like '%' + @FilterValue + '%'
-		and year(SOP) > 2015
-		and year(EOP) > 2016
 		and coalesce(TotalQuotedSales, 0) > 0
-		and datediff(month, SOP, EOP) > 0
+		and 
+		((	year(SOP) > 2015
+			and year(EOP) > 2016
+			and datediff(month, SOP, EOP) > 0 )
+		or
+		(
+			year(SOP) is null or year(EOP) is null
+		))
 	order by
 		ql.Customer
 	,	ql.Program
@@ -343,10 +366,15 @@ else if (@Filter = 'Vehicle') begin
 		eeiuser.QT_QuoteLog ql
 	where
 		Nameplate like '%' + @FilterValSecondHalf + '%'
-		and year(SOP) > 2015
-		and year(EOP) > 2016
 		and coalesce(TotalQuotedSales, 0) > 0
-		and datediff(month, SOP, EOP) > 0
+		and 
+		((	year(SOP) > 2015
+			and year(EOP) > 2016
+			and datediff(month, SOP, EOP) > 0 )
+		or
+		(
+			year(SOP) is null or year(EOP) is null
+		))
 	order by
 		ql.Customer
 	,	ql.Program
@@ -400,10 +428,15 @@ else if (@Filter = 'Program') begin
 		eeiuser.QT_QuoteLog ql
 	where
 		Program like '%' + @FilterValue + '%'
-		and year(SOP) > 2015
-		and year(EOP) > 2016
 		and coalesce(TotalQuotedSales, 0) > 0
-		and datediff(month, SOP, EOP) > 0
+		and 
+		((	year(SOP) > 2015
+			and year(EOP) > 2016
+			and datediff(month, SOP, EOP) > 0 )
+		or
+		(
+			year(SOP) is null or year(EOP) is null
+		))
 	order by
 		ql.Customer
 	,	ql.Program
