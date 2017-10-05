@@ -167,95 +167,95 @@ select
 ,	a.empire_application
 ,	@TranDT
 
-,	ISNULL((case when b.version in ('Empire Factor','Empire Adjustment') then ISNULL(b.[Jan 2015],0) else a.qty_per*a.take_rate*a.family_allocation*b.[Jan 2015] end),0) as [jan 2015]
-,	ISNULL((case when b.version in ('Empire Factor','Empire Adjustment') then ISNULL(b.[Feb 2015],0) else a.qty_per*a.take_rate*a.family_allocation*b.[Feb 2015] end),0) as [feb 2015] 
-,	ISNULL((case when b.version in ('Empire Factor','Empire Adjustment') then ISNULL(b.[Mar 2015],0) else a.qty_per*a.take_rate*a.family_allocation*b.[Mar 2015] end),0) as [mar 2015] 
-,	ISNULL((case when b.version in ('Empire Factor','Empire Adjustment') then ISNULL(b.[Apr 2015],0) else a.qty_per*a.take_rate*a.family_allocation*b.[Apr 2015] end),0) as [apr 2015] 
-,	ISNULL((case when b.version in ('Empire Factor','Empire Adjustment') then ISNULL(b.[May 2015],0) else a.qty_per*a.take_rate*a.family_allocation*b.[May 2015] end),0) as [may 2015] 
-,	ISNULL((case when b.version in ('Empire Factor','Empire Adjustment') then ISNULL(b.[Jun 2015],0) else a.qty_per*a.take_rate*a.family_allocation*b.[Jun 2015] end),0) as [jun 2015] 
-,	ISNULL((case when b.version in ('Empire Factor','Empire Adjustment') then ISNULL(b.[Jul 2015],0) else a.qty_per*a.take_rate*a.family_allocation*b.[Jul 2015] end),0) as [jul 2015] 
-,	ISNULL((case when b.version in ('Empire Factor','Empire Adjustment') then ISNULL(b.[Aug 2015],0) else a.qty_per*a.take_rate*a.family_allocation*b.[Aug 2015] end),0) as [aug 2015] 
-,	ISNULL((case when b.version in ('Empire Factor','Empire Adjustment') then ISNULL(b.[Sep 2015],0) else a.qty_per*a.take_rate*a.family_allocation*b.[Sep 2015] end),0) as [sep 2015] 
-,	ISNULL((case when b.version in ('Empire Factor','Empire Adjustment') then ISNULL(b.[Oct 2015],0) else a.qty_per*a.take_rate*a.family_allocation*b.[Oct 2015] end),0) as [oct 2015] 
-,	ISNULL((case when b.version in ('Empire Factor','Empire Adjustment') then ISNULL(b.[Nov 2015],0) else a.qty_per*a.take_rate*a.family_allocation*b.[Nov 2015] end),0) as [nov 2015] 
-,	ISNULL((case when b.version in ('Empire Factor','Empire Adjustment') then ISNULL(b.[Dec 2015],0) else a.qty_per*a.take_rate*a.family_allocation*b.[Dec 2015] end),0) as [dec 2015] 
-,	ISNULL((case when b.version in ('Empire Factor','Empire Adjustment') then (ISNULL(b.[Jan 2015],0)+ISNULL(b.[Feb 2015],0)+ISNULL(b.[Mar 2015],0)+ISNULL(b.[Apr 2015],0)+ISNULL(b.[May 2015],0)+ISNULL(b.[Jun 2015],0)+ISNULL(b.[Jul 2015],0)+ISNULL(b.[Aug 2015],0)+ISNULL(b.[Sep 2015],0)+ISNULL(b.[Oct 2015],0)+ISNULL(b.[Nov 2015],0)+ISNULL(b.[Dec 2015],0)) else a.qty_per*a.take_rate*a.family_allocation*(b.[Jan 2015]+b.[Feb 2015]+b.[Mar 2015]+b.[Apr 2015]+b.[May 2015]+b.[Jun 2015]+b.[Jul 2015]+b.[Aug 2015]+b.[Sep 2015]+b.[Oct 2015]+b.[Nov 2015]+b.[Dec 2015]) end),0) as [total_2015]
+,	ISNULL((case when b.version in ('Empire Factor','Empire Adjustment') then ISNULL(b.[Jan 2015],0) else a.qty_per*a.take_rate*a.family_allocation*b.[Jan 2015] end),0)
+,	ISNULL((case when b.version in ('Empire Factor','Empire Adjustment') then ISNULL(b.[Feb 2015],0) else a.qty_per*a.take_rate*a.family_allocation*b.[Feb 2015] end),0) 
+,	ISNULL((case when b.version in ('Empire Factor','Empire Adjustment') then ISNULL(b.[Mar 2015],0) else a.qty_per*a.take_rate*a.family_allocation*b.[Mar 2015] end),0) 
+,	ISNULL((case when b.version in ('Empire Factor','Empire Adjustment') then ISNULL(b.[Apr 2015],0) else a.qty_per*a.take_rate*a.family_allocation*b.[Apr 2015] end),0) 
+,	ISNULL((case when b.version in ('Empire Factor','Empire Adjustment') then ISNULL(b.[May 2015],0) else a.qty_per*a.take_rate*a.family_allocation*b.[May 2015] end),0) 
+,	ISNULL((case when b.version in ('Empire Factor','Empire Adjustment') then ISNULL(b.[Jun 2015],0) else a.qty_per*a.take_rate*a.family_allocation*b.[Jun 2015] end),0) 
+,	ISNULL((case when b.version in ('Empire Factor','Empire Adjustment') then ISNULL(b.[Jul 2015],0) else a.qty_per*a.take_rate*a.family_allocation*b.[Jul 2015] end),0) 
+,	ISNULL((case when b.version in ('Empire Factor','Empire Adjustment') then ISNULL(b.[Aug 2015],0) else a.qty_per*a.take_rate*a.family_allocation*b.[Aug 2015] end),0) 
+,	ISNULL((case when b.version in ('Empire Factor','Empire Adjustment') then ISNULL(b.[Sep 2015],0) else a.qty_per*a.take_rate*a.family_allocation*b.[Sep 2015] end),0) 
+,	ISNULL((case when b.version in ('Empire Factor','Empire Adjustment') then ISNULL(b.[Oct 2015],0) else a.qty_per*a.take_rate*a.family_allocation*b.[Oct 2015] end),0) 
+,	ISNULL((case when b.version in ('Empire Factor','Empire Adjustment') then ISNULL(b.[Nov 2015],0) else a.qty_per*a.take_rate*a.family_allocation*b.[Nov 2015] end),0) 
+,	ISNULL((case when b.version in ('Empire Factor','Empire Adjustment') then ISNULL(b.[Dec 2015],0) else a.qty_per*a.take_rate*a.family_allocation*b.[Dec 2015] end),0) 
+,	ISNULL((case when b.version in ('Empire Factor','Empire Adjustment') then (ISNULL(b.[Jan 2015],0)+ISNULL(b.[Feb 2015],0)+ISNULL(b.[Mar 2015],0)+ISNULL(b.[Apr 2015],0)+ISNULL(b.[May 2015],0)+ISNULL(b.[Jun 2015],0)+ISNULL(b.[Jul 2015],0)+ISNULL(b.[Aug 2015],0)+ISNULL(b.[Sep 2015],0)+ISNULL(b.[Oct 2015],0)+ISNULL(b.[Nov 2015],0)+ISNULL(b.[Dec 2015],0)) else a.qty_per*a.take_rate*a.family_allocation*(b.[Jan 2015]+b.[Feb 2015]+b.[Mar 2015]+b.[Apr 2015]+b.[May 2015]+b.[Jun 2015]+b.[Jul 2015]+b.[Aug 2015]+b.[Sep 2015]+b.[Oct 2015]+b.[Nov 2015]+b.[Dec 2015]) end),0)
 		
-,	ISNULL((case when b.version in ('Empire Factor','Empire Adjustment') then ISNULL(b.[Jan 2016],0) else a.qty_per*a.take_rate*a.family_allocation*b.[Jan 2016] end),0) as [jan 2016]
-,	ISNULL((case when b.version in ('Empire Factor','Empire Adjustment') then ISNULL(b.[Feb 2016],0) else a.qty_per*a.take_rate*a.family_allocation*b.[Feb 2016] end),0) as [feb 2016] 
-,	ISNULL((case when b.version in ('Empire Factor','Empire Adjustment') then ISNULL(b.[Mar 2016],0) else a.qty_per*a.take_rate*a.family_allocation*b.[Mar 2016] end),0) as [mar 2016] 
-,	ISNULL((case when b.version in ('Empire Factor','Empire Adjustment') then ISNULL(b.[Apr 2016],0) else a.qty_per*a.take_rate*a.family_allocation*b.[Apr 2016] end),0) as [apr 2016] 
-,	ISNULL((case when b.version in ('Empire Factor','Empire Adjustment') then ISNULL(b.[May 2016],0) else a.qty_per*a.take_rate*a.family_allocation*b.[May 2016] end),0) as [may 2016] 
-,	ISNULL((case when b.version in ('Empire Factor','Empire Adjustment') then ISNULL(b.[Jun 2016],0) else a.qty_per*a.take_rate*a.family_allocation*b.[Jun 2016] end),0) as [jun 2016] 
-,	ISNULL((case when b.version in ('Empire Factor','Empire Adjustment') then ISNULL(b.[Jul 2016],0) else a.qty_per*a.take_rate*a.family_allocation*b.[Jul 2016] end),0) as [jul 2016] 
-,	ISNULL((case when b.version in ('Empire Factor','Empire Adjustment') then ISNULL(b.[Aug 2016],0) else a.qty_per*a.take_rate*a.family_allocation*b.[Aug 2016] end),0) as [aug 2016] 
-,	ISNULL((case when b.version in ('Empire Factor','Empire Adjustment') then ISNULL(b.[Sep 2016],0) else a.qty_per*a.take_rate*a.family_allocation*b.[Sep 2016] end),0) as [sep 2016] 
-,	ISNULL((case when b.version in ('Empire Factor','Empire Adjustment') then ISNULL(b.[Oct 2016],0) else a.qty_per*a.take_rate*a.family_allocation*b.[Oct 2016] end),0) as [oct 2016] 
-,	ISNULL((case when b.version in ('Empire Factor','Empire Adjustment') then ISNULL(b.[Nov 2016],0) else a.qty_per*a.take_rate*a.family_allocation*b.[Nov 2016] end),0) as [nov 2016] 
-,	ISNULL((case when b.version in ('Empire Factor','Empire Adjustment') then ISNULL(b.[Dec 2016],0) else a.qty_per*a.take_rate*a.family_allocation*b.[Dec 2016] end),0) as [dec 2016] 
-,	ISNULL((case when b.version in ('Empire Factor','Empire Adjustment') then (ISNULL(b.[Jan 2016],0)+ISNULL(b.[Feb 2016],0)+ISNULL(b.[Mar 2016],0)+ISNULL(b.[Apr 2016],0)+ISNULL(b.[May 2016],0)+ISNULL(b.[Jun 2016],0)+ISNULL(b.[Jul 2016],0)+ISNULL(b.[Aug 2016],0)+ISNULL(b.[Sep 2016],0)+ISNULL(b.[Oct 2016],0)+ISNULL(b.[Nov 2016],0)+ISNULL(b.[Dec 2016],0)) else a.qty_per*a.take_rate*a.family_allocation*(b.[Jan 2016]+b.[Feb 2016]+b.[Mar 2016]+b.[Apr 2016]+b.[May 2016]+b.[Jun 2016]+b.[Jul 2016]+b.[Aug 2016]+b.[Sep 2016]+b.[Oct 2016]+b.[Nov 2016]+b.[Dec 2016]) end),0) as [total_2016]
+,	ISNULL((case when b.version in ('Empire Factor','Empire Adjustment') then ISNULL(b.[Jan 2016],0) else a.qty_per*a.take_rate*a.family_allocation*b.[Jan 2016] end),0)
+,	ISNULL((case when b.version in ('Empire Factor','Empire Adjustment') then ISNULL(b.[Feb 2016],0) else a.qty_per*a.take_rate*a.family_allocation*b.[Feb 2016] end),0) 
+,	ISNULL((case when b.version in ('Empire Factor','Empire Adjustment') then ISNULL(b.[Mar 2016],0) else a.qty_per*a.take_rate*a.family_allocation*b.[Mar 2016] end),0) 
+,	ISNULL((case when b.version in ('Empire Factor','Empire Adjustment') then ISNULL(b.[Apr 2016],0) else a.qty_per*a.take_rate*a.family_allocation*b.[Apr 2016] end),0) 
+,	ISNULL((case when b.version in ('Empire Factor','Empire Adjustment') then ISNULL(b.[May 2016],0) else a.qty_per*a.take_rate*a.family_allocation*b.[May 2016] end),0) 
+,	ISNULL((case when b.version in ('Empire Factor','Empire Adjustment') then ISNULL(b.[Jun 2016],0) else a.qty_per*a.take_rate*a.family_allocation*b.[Jun 2016] end),0) 
+,	ISNULL((case when b.version in ('Empire Factor','Empire Adjustment') then ISNULL(b.[Jul 2016],0) else a.qty_per*a.take_rate*a.family_allocation*b.[Jul 2016] end),0) 
+,	ISNULL((case when b.version in ('Empire Factor','Empire Adjustment') then ISNULL(b.[Aug 2016],0) else a.qty_per*a.take_rate*a.family_allocation*b.[Aug 2016] end),0) 
+,	ISNULL((case when b.version in ('Empire Factor','Empire Adjustment') then ISNULL(b.[Sep 2016],0) else a.qty_per*a.take_rate*a.family_allocation*b.[Sep 2016] end),0) 
+,	ISNULL((case when b.version in ('Empire Factor','Empire Adjustment') then ISNULL(b.[Oct 2016],0) else a.qty_per*a.take_rate*a.family_allocation*b.[Oct 2016] end),0) 
+,	ISNULL((case when b.version in ('Empire Factor','Empire Adjustment') then ISNULL(b.[Nov 2016],0) else a.qty_per*a.take_rate*a.family_allocation*b.[Nov 2016] end),0) 
+,	ISNULL((case when b.version in ('Empire Factor','Empire Adjustment') then ISNULL(b.[Dec 2016],0) else a.qty_per*a.take_rate*a.family_allocation*b.[Dec 2016] end),0) 
+,	ISNULL((case when b.version in ('Empire Factor','Empire Adjustment') then (ISNULL(b.[Jan 2016],0)+ISNULL(b.[Feb 2016],0)+ISNULL(b.[Mar 2016],0)+ISNULL(b.[Apr 2016],0)+ISNULL(b.[May 2016],0)+ISNULL(b.[Jun 2016],0)+ISNULL(b.[Jul 2016],0)+ISNULL(b.[Aug 2016],0)+ISNULL(b.[Sep 2016],0)+ISNULL(b.[Oct 2016],0)+ISNULL(b.[Nov 2016],0)+ISNULL(b.[Dec 2016],0)) else a.qty_per*a.take_rate*a.family_allocation*(b.[Jan 2016]+b.[Feb 2016]+b.[Mar 2016]+b.[Apr 2016]+b.[May 2016]+b.[Jun 2016]+b.[Jul 2016]+b.[Aug 2016]+b.[Sep 2016]+b.[Oct 2016]+b.[Nov 2016]+b.[Dec 2016]) end),0)
 
-,	ISNULL((case when b.version in ('Empire Factor','Empire Adjustment') then ISNULL(b.[Jan 2017],0) else a.qty_per*a.take_rate*a.family_allocation*b.[Jan 2017] end),0) as [jan 2017]
-,	ISNULL((case when b.version in ('Empire Factor','Empire Adjustment') then ISNULL(b.[Feb 2017],0) else a.qty_per*a.take_rate*a.family_allocation*b.[Feb 2017] end),0) as [feb 2017] 
-,	ISNULL((case when b.version in ('Empire Factor','Empire Adjustment') then ISNULL(b.[Mar 2017],0) else a.qty_per*a.take_rate*a.family_allocation*b.[Mar 2017] end),0) as [mar 2017] 
-,	ISNULL((case when b.version in ('Empire Factor','Empire Adjustment') then ISNULL(b.[Apr 2017],0) else a.qty_per*a.take_rate*a.family_allocation*b.[Apr 2017] end),0) as [apr 2017] 
-,	ISNULL((case when b.version in ('Empire Factor','Empire Adjustment') then ISNULL(b.[May 2017],0) else a.qty_per*a.take_rate*a.family_allocation*b.[May 2017] end),0) as [may 2017] 
-,	ISNULL((case when b.version in ('Empire Factor','Empire Adjustment') then ISNULL(b.[Jun 2017],0) else a.qty_per*a.take_rate*a.family_allocation*b.[Jun 2017] end),0) as [jun 2017]
-,	ISNULL((case when b.version in ('Empire Factor','Empire Adjustment') then ISNULL(b.[Jul 2017],0) else a.qty_per*a.take_rate*a.family_allocation*b.[Jul 2017] end),0) as [jul 2017] 
-,	ISNULL((case when b.version in ('Empire Factor','Empire Adjustment') then ISNULL(b.[Aug 2017],0) else a.qty_per*a.take_rate*a.family_allocation*b.[Aug 2017] end),0) as [aug 2017] 
-,	ISNULL((case when b.version in ('Empire Factor','Empire Adjustment') then ISNULL(b.[Sep 2017],0) else a.qty_per*a.take_rate*a.family_allocation*b.[Sep 2017] end),0) as [sep 2017] 
-,	ISNULL((case when b.version in ('Empire Factor','Empire Adjustment') then ISNULL(b.[Oct 2017],0) else a.qty_per*a.take_rate*a.family_allocation*b.[Oct 2017] end),0) as [oct 2017] 
-,	ISNULL((case when b.version in ('Empire Factor','Empire Adjustment') then ISNULL(b.[Nov 2017],0) else a.qty_per*a.take_rate*a.family_allocation*b.[Nov 2017] end),0) as [nov 2017] 
-,	ISNULL((case when b.version in ('Empire Factor','Empire Adjustment') then ISNULL(b.[Dec 2017],0) else a.qty_per*a.take_rate*a.family_allocation*b.[Dec 2017] end),0) as [dec 2017] 
-,	ISNULL((case when b.version in ('Empire Factor','Empire Adjustment') then (ISNULL(b.[Jan 2017],0)+ISNULL(b.[Feb 2017],0)+ISNULL(b.[Mar 2017],0)+ISNULL(b.[Apr 2017],0)+ISNULL(b.[May 2017],0)+ISNULL(b.[Jun 2017],0)+ISNULL(b.[Jul 2017],0)+ISNULL(b.[Aug 2017],0)+ISNULL(b.[Sep 2017],0)+ISNULL(b.[Oct 2017],0)+ISNULL(b.[Nov 2017],0)+ISNULL(b.[Dec 2017],0)) else a.qty_per*a.take_rate*a.family_allocation*(b.[Jan 2017]+b.[Feb 2017]+b.[Mar 2017]+b.[Apr 2017]+b.[May 2017]+b.[Jun 2017]+b.[Jul 2017]+b.[Aug 2017]+b.[Sep 2017]+b.[Oct 2017]+b.[Nov 2017]+b.[Dec 2017]) end),0) as [total_2017]
+,	ISNULL((case when b.version in ('Empire Factor','Empire Adjustment') then ISNULL(b.[Jan 2017],0) else a.qty_per*a.take_rate*a.family_allocation*b.[Jan 2017] end),0)
+,	ISNULL((case when b.version in ('Empire Factor','Empire Adjustment') then ISNULL(b.[Feb 2017],0) else a.qty_per*a.take_rate*a.family_allocation*b.[Feb 2017] end),0)
+,	ISNULL((case when b.version in ('Empire Factor','Empire Adjustment') then ISNULL(b.[Mar 2017],0) else a.qty_per*a.take_rate*a.family_allocation*b.[Mar 2017] end),0) 
+,	ISNULL((case when b.version in ('Empire Factor','Empire Adjustment') then ISNULL(b.[Apr 2017],0) else a.qty_per*a.take_rate*a.family_allocation*b.[Apr 2017] end),0)
+,	ISNULL((case when b.version in ('Empire Factor','Empire Adjustment') then ISNULL(b.[May 2017],0) else a.qty_per*a.take_rate*a.family_allocation*b.[May 2017] end),0)
+,	ISNULL((case when b.version in ('Empire Factor','Empire Adjustment') then ISNULL(b.[Jun 2017],0) else a.qty_per*a.take_rate*a.family_allocation*b.[Jun 2017] end),0)
+,	ISNULL((case when b.version in ('Empire Factor','Empire Adjustment') then ISNULL(b.[Jul 2017],0) else a.qty_per*a.take_rate*a.family_allocation*b.[Jul 2017] end),0)
+,	ISNULL((case when b.version in ('Empire Factor','Empire Adjustment') then ISNULL(b.[Aug 2017],0) else a.qty_per*a.take_rate*a.family_allocation*b.[Aug 2017] end),0)
+,	ISNULL((case when b.version in ('Empire Factor','Empire Adjustment') then ISNULL(b.[Sep 2017],0) else a.qty_per*a.take_rate*a.family_allocation*b.[Sep 2017] end),0) 
+,	ISNULL((case when b.version in ('Empire Factor','Empire Adjustment') then ISNULL(b.[Oct 2017],0) else a.qty_per*a.take_rate*a.family_allocation*b.[Oct 2017] end),0)
+,	ISNULL((case when b.version in ('Empire Factor','Empire Adjustment') then ISNULL(b.[Nov 2017],0) else a.qty_per*a.take_rate*a.family_allocation*b.[Nov 2017] end),0)
+,	ISNULL((case when b.version in ('Empire Factor','Empire Adjustment') then ISNULL(b.[Dec 2017],0) else a.qty_per*a.take_rate*a.family_allocation*b.[Dec 2017] end),0)
+,	ISNULL((case when b.version in ('Empire Factor','Empire Adjustment') then (ISNULL(b.[Jan 2017],0)+ISNULL(b.[Feb 2017],0)+ISNULL(b.[Mar 2017],0)+ISNULL(b.[Apr 2017],0)+ISNULL(b.[May 2017],0)+ISNULL(b.[Jun 2017],0)+ISNULL(b.[Jul 2017],0)+ISNULL(b.[Aug 2017],0)+ISNULL(b.[Sep 2017],0)+ISNULL(b.[Oct 2017],0)+ISNULL(b.[Nov 2017],0)+ISNULL(b.[Dec 2017],0)) else a.qty_per*a.take_rate*a.family_allocation*(b.[Jan 2017]+b.[Feb 2017]+b.[Mar 2017]+b.[Apr 2017]+b.[May 2017]+b.[Jun 2017]+b.[Jul 2017]+b.[Aug 2017]+b.[Sep 2017]+b.[Oct 2017]+b.[Nov 2017]+b.[Dec 2017]) end),0)
 
-,	ISNULL((case when b.version in ('Empire Factor','Empire Adjustment') then ISNULL(b.[Jan 2018],0) else a.qty_per*a.take_rate*a.family_allocation*b.[Jan 2018] end),0) as [jan 2018]
-,	ISNULL((case when b.version in ('Empire Factor','Empire Adjustment') then ISNULL(b.[Feb 2018],0) else a.qty_per*a.take_rate*a.family_allocation*b.[Feb 2018] end),0) as [feb 2018] 
-,	ISNULL((case when b.version in ('Empire Factor','Empire Adjustment') then ISNULL(b.[Mar 2018],0) else a.qty_per*a.take_rate*a.family_allocation*b.[Mar 2018] end),0) as [mar 2018] 
-,	ISNULL((case when b.version in ('Empire Factor','Empire Adjustment') then ISNULL(b.[Apr 2018],0) else a.qty_per*a.take_rate*a.family_allocation*b.[Apr 2018] end),0) as [apr 2018] 
-,	ISNULL((case when b.version in ('Empire Factor','Empire Adjustment') then ISNULL(b.[May 2018],0) else a.qty_per*a.take_rate*a.family_allocation*b.[May 2018] end),0) as [may 2018] 
-,	ISNULL((case when b.version in ('Empire Factor','Empire Adjustment') then ISNULL(b.[Jun 2018],0) else a.qty_per*a.take_rate*a.family_allocation*b.[Jun 2018] end),0) as [jun 2018] 
-,	ISNULL((case when b.version in ('Empire Factor','Empire Adjustment') then ISNULL(b.[Jul 2018],0) else a.qty_per*a.take_rate*a.family_allocation*b.[Jul 2018] end),0) as [jul 2018] 
-,	ISNULL((case when b.version in ('Empire Factor','Empire Adjustment') then ISNULL(b.[Aug 2018],0) else a.qty_per*a.take_rate*a.family_allocation*b.[Aug 2018] end),0) as [aug 2018] 
-,	ISNULL((case when b.version in ('Empire Factor','Empire Adjustment') then ISNULL(b.[Sep 2018],0) else a.qty_per*a.take_rate*a.family_allocation*b.[Sep 2018] end),0) as [sep 2018] 
-,	ISNULL((case when b.version in ('Empire Factor','Empire Adjustment') then ISNULL(b.[Oct 2018],0) else a.qty_per*a.take_rate*a.family_allocation*b.[Oct 2018] end),0) as [oct 2018] 
-,	ISNULL((case when b.version in ('Empire Factor','Empire Adjustment') then ISNULL(b.[Nov 2018],0) else a.qty_per*a.take_rate*a.family_allocation*b.[Nov 2018] end),0) as [nov 2018] 
-,	ISNULL((case when b.version in ('Empire Factor','Empire Adjustment') then ISNULL(b.[Dec 2018],0) else a.qty_per*a.take_rate*a.family_allocation*b.[Dec 2018] end),0) as [dec 2018] 
-,	ISNULL((case when b.version in ('Empire Factor','Empire Adjustment') then (ISNULL(b.[Jan 2018],0)+ISNULL(b.[Feb 2018],0)+ISNULL(b.[Mar 2018],0)+ISNULL(b.[Apr 2018],0)+ISNULL(b.[May 2018],0)+ISNULL(b.[Jun 2018],0)+ISNULL(b.[Jul 2018],0)+ISNULL(b.[Aug 2018],0)+ISNULL(b.[Sep 2018],0)+ISNULL(b.[Oct 2018],0)+ISNULL(b.[Nov 2018],0)+ISNULL(b.[Dec 2018],0)) else a.qty_per*a.take_rate*a.family_allocation*(b.[Jan 2018]+b.[Feb 2018]+b.[Mar 2018]+b.[Apr 2018]+b.[May 2018]+b.[Jun 2018]+b.[Jul 2018]+b.[Aug 2018]+b.[Sep 2018]+b.[Oct 2018]+b.[Nov 2018]+b.[Dec 2018]) end),0) as [total_2018]
+,	ISNULL((case when b.version in ('Empire Factor','Empire Adjustment') then ISNULL(b.[Jan 2018],0) else a.qty_per*a.take_rate*a.family_allocation*b.[Jan 2018] end),0)
+,	ISNULL((case when b.version in ('Empire Factor','Empire Adjustment') then ISNULL(b.[Feb 2018],0) else a.qty_per*a.take_rate*a.family_allocation*b.[Feb 2018] end),0)
+,	ISNULL((case when b.version in ('Empire Factor','Empire Adjustment') then ISNULL(b.[Mar 2018],0) else a.qty_per*a.take_rate*a.family_allocation*b.[Mar 2018] end),0)
+,	ISNULL((case when b.version in ('Empire Factor','Empire Adjustment') then ISNULL(b.[Apr 2018],0) else a.qty_per*a.take_rate*a.family_allocation*b.[Apr 2018] end),0)
+,	ISNULL((case when b.version in ('Empire Factor','Empire Adjustment') then ISNULL(b.[May 2018],0) else a.qty_per*a.take_rate*a.family_allocation*b.[May 2018] end),0)
+,	ISNULL((case when b.version in ('Empire Factor','Empire Adjustment') then ISNULL(b.[Jun 2018],0) else a.qty_per*a.take_rate*a.family_allocation*b.[Jun 2018] end),0)
+,	ISNULL((case when b.version in ('Empire Factor','Empire Adjustment') then ISNULL(b.[Jul 2018],0) else a.qty_per*a.take_rate*a.family_allocation*b.[Jul 2018] end),0)
+,	ISNULL((case when b.version in ('Empire Factor','Empire Adjustment') then ISNULL(b.[Aug 2018],0) else a.qty_per*a.take_rate*a.family_allocation*b.[Aug 2018] end),0) 
+,	ISNULL((case when b.version in ('Empire Factor','Empire Adjustment') then ISNULL(b.[Sep 2018],0) else a.qty_per*a.take_rate*a.family_allocation*b.[Sep 2018] end),0)
+,	ISNULL((case when b.version in ('Empire Factor','Empire Adjustment') then ISNULL(b.[Oct 2018],0) else a.qty_per*a.take_rate*a.family_allocation*b.[Oct 2018] end),0) 
+,	ISNULL((case when b.version in ('Empire Factor','Empire Adjustment') then ISNULL(b.[Nov 2018],0) else a.qty_per*a.take_rate*a.family_allocation*b.[Nov 2018] end),0) 
+,	ISNULL((case when b.version in ('Empire Factor','Empire Adjustment') then ISNULL(b.[Dec 2018],0) else a.qty_per*a.take_rate*a.family_allocation*b.[Dec 2018] end),0) 
+,	ISNULL((case when b.version in ('Empire Factor','Empire Adjustment') then (ISNULL(b.[Jan 2018],0)+ISNULL(b.[Feb 2018],0)+ISNULL(b.[Mar 2018],0)+ISNULL(b.[Apr 2018],0)+ISNULL(b.[May 2018],0)+ISNULL(b.[Jun 2018],0)+ISNULL(b.[Jul 2018],0)+ISNULL(b.[Aug 2018],0)+ISNULL(b.[Sep 2018],0)+ISNULL(b.[Oct 2018],0)+ISNULL(b.[Nov 2018],0)+ISNULL(b.[Dec 2018],0)) else a.qty_per*a.take_rate*a.family_allocation*(b.[Jan 2018]+b.[Feb 2018]+b.[Mar 2018]+b.[Apr 2018]+b.[May 2018]+b.[Jun 2018]+b.[Jul 2018]+b.[Aug 2018]+b.[Sep 2018]+b.[Oct 2018]+b.[Nov 2018]+b.[Dec 2018]) end),0)
 
-,	ISNULL((case when b.version in ('Empire Factor','Empire Adjustment') then ISNULL(b.[Jan 2019],0) else a.qty_per*a.take_rate*a.family_allocation*b.[Jan 2019] end),0) as [jan 2019]
-,	ISNULL((case when b.version in ('Empire Factor','Empire Adjustment') then ISNULL(b.[Feb 2019],0) else a.qty_per*a.take_rate*a.family_allocation*b.[Feb 2019] end),0) as [feb 2019] 
-,	ISNULL((case when b.version in ('Empire Factor','Empire Adjustment') then ISNULL(b.[Mar 2019],0) else a.qty_per*a.take_rate*a.family_allocation*b.[Mar 2019] end),0) as [mar 2019] 
-,	ISNULL((case when b.version in ('Empire Factor','Empire Adjustment') then ISNULL(b.[Apr 2019],0) else a.qty_per*a.take_rate*a.family_allocation*b.[Apr 2019] end),0) as [apr 2019] 
-,	ISNULL((case when b.version in ('Empire Factor','Empire Adjustment') then ISNULL(b.[May 2019],0) else a.qty_per*a.take_rate*a.family_allocation*b.[May 2019] end),0) as [may 2019] 
-,	ISNULL((case when b.version in ('Empire Factor','Empire Adjustment') then ISNULL(b.[Jun 2019],0) else a.qty_per*a.take_rate*a.family_allocation*b.[Jun 2019] end),0) as [jun 2019] 
-,	ISNULL((case when b.version in ('Empire Factor','Empire Adjustment') then ISNULL(b.[Jul 2019],0) else a.qty_per*a.take_rate*a.family_allocation*b.[Jul 2019] end),0) as [jul 2019] 
-,	ISNULL((case when b.version in ('Empire Factor','Empire Adjustment') then ISNULL(b.[Aug 2019],0) else a.qty_per*a.take_rate*a.family_allocation*b.[Aug 2019] end),0) as [aug 2019] 
-,	ISNULL((case when b.version in ('Empire Factor','Empire Adjustment') then ISNULL(b.[Sep 2019],0) else a.qty_per*a.take_rate*a.family_allocation*b.[Sep 2019] end),0) as [sep 2019]
-,	ISNULL((case when b.version in ('Empire Factor','Empire Adjustment') then ISNULL(b.[Oct 2019],0) else a.qty_per*a.take_rate*a.family_allocation*b.[Oct 2019] end),0) as [oct 2019] 
-,	ISNULL((case when b.version in ('Empire Factor','Empire Adjustment') then ISNULL(b.[Nov 2019],0) else a.qty_per*a.take_rate*a.family_allocation*b.[Nov 2019] end),0) as [nov 2019] 
-,	ISNULL((case when b.version in ('Empire Factor','Empire Adjustment') then ISNULL(b.[Dec 2019],0) else a.qty_per*a.take_rate*a.family_allocation*b.[Dec 2019] end),0) as [dec 2019] 
-,	ISNULL((case when b.version in ('Empire Factor','Empire Adjustment') then (ISNULL(b.[Jan 2019],0)+ISNULL(b.[Feb 2019],0)+ISNULL(b.[Mar 2019],0)+ISNULL(b.[Apr 2019],0)+ISNULL(b.[May 2019],0)+ISNULL(b.[Jun 2019],0)+ISNULL(b.[Jul 2019],0)+ISNULL(b.[Aug 2019],0)+ISNULL(b.[Sep 2019],0)+ISNULL(b.[Oct 2019],0)+ISNULL(b.[Nov 2019],0)+ISNULL(b.[Dec 2019],0)) else a.qty_per*a.take_rate*a.family_allocation*(b.[Jan 2019]+b.[Feb 2019]+b.[Mar 2019]+b.[Apr 2019]+b.[May 2019]+b.[Jun 2019]+b.[Jul 2019]+b.[Aug 2019]+b.[Sep 2019]+b.[Oct 2019]+b.[Nov 2019]+b.[Dec 2019]) end),0) as [total_2019]
+,	ISNULL((case when b.version in ('Empire Factor','Empire Adjustment') then ISNULL(b.[Jan 2019],0) else a.qty_per*a.take_rate*a.family_allocation*b.[Jan 2019] end),0)
+,	ISNULL((case when b.version in ('Empire Factor','Empire Adjustment') then ISNULL(b.[Feb 2019],0) else a.qty_per*a.take_rate*a.family_allocation*b.[Feb 2019] end),0) 
+,	ISNULL((case when b.version in ('Empire Factor','Empire Adjustment') then ISNULL(b.[Mar 2019],0) else a.qty_per*a.take_rate*a.family_allocation*b.[Mar 2019] end),0)
+,	ISNULL((case when b.version in ('Empire Factor','Empire Adjustment') then ISNULL(b.[Apr 2019],0) else a.qty_per*a.take_rate*a.family_allocation*b.[Apr 2019] end),0)
+,	ISNULL((case when b.version in ('Empire Factor','Empire Adjustment') then ISNULL(b.[May 2019],0) else a.qty_per*a.take_rate*a.family_allocation*b.[May 2019] end),0)
+,	ISNULL((case when b.version in ('Empire Factor','Empire Adjustment') then ISNULL(b.[Jun 2019],0) else a.qty_per*a.take_rate*a.family_allocation*b.[Jun 2019] end),0) 
+,	ISNULL((case when b.version in ('Empire Factor','Empire Adjustment') then ISNULL(b.[Jul 2019],0) else a.qty_per*a.take_rate*a.family_allocation*b.[Jul 2019] end),0) 
+,	ISNULL((case when b.version in ('Empire Factor','Empire Adjustment') then ISNULL(b.[Aug 2019],0) else a.qty_per*a.take_rate*a.family_allocation*b.[Aug 2019] end),0)
+,	ISNULL((case when b.version in ('Empire Factor','Empire Adjustment') then ISNULL(b.[Sep 2019],0) else a.qty_per*a.take_rate*a.family_allocation*b.[Sep 2019] end),0)
+,	ISNULL((case when b.version in ('Empire Factor','Empire Adjustment') then ISNULL(b.[Oct 2019],0) else a.qty_per*a.take_rate*a.family_allocation*b.[Oct 2019] end),0)
+,	ISNULL((case when b.version in ('Empire Factor','Empire Adjustment') then ISNULL(b.[Nov 2019],0) else a.qty_per*a.take_rate*a.family_allocation*b.[Nov 2019] end),0)
+,	ISNULL((case when b.version in ('Empire Factor','Empire Adjustment') then ISNULL(b.[Dec 2019],0) else a.qty_per*a.take_rate*a.family_allocation*b.[Dec 2019] end),0)
+,	ISNULL((case when b.version in ('Empire Factor','Empire Adjustment') then (ISNULL(b.[Jan 2019],0)+ISNULL(b.[Feb 2019],0)+ISNULL(b.[Mar 2019],0)+ISNULL(b.[Apr 2019],0)+ISNULL(b.[May 2019],0)+ISNULL(b.[Jun 2019],0)+ISNULL(b.[Jul 2019],0)+ISNULL(b.[Aug 2019],0)+ISNULL(b.[Sep 2019],0)+ISNULL(b.[Oct 2019],0)+ISNULL(b.[Nov 2019],0)+ISNULL(b.[Dec 2019],0)) else a.qty_per*a.take_rate*a.family_allocation*(b.[Jan 2019]+b.[Feb 2019]+b.[Mar 2019]+b.[Apr 2019]+b.[May 2019]+b.[Jun 2019]+b.[Jul 2019]+b.[Aug 2019]+b.[Sep 2019]+b.[Oct 2019]+b.[Nov 2019]+b.[Dec 2019]) end),0)
 		
 	/*
-,	ISNULL((case when b.version in ('Empire Factor','Empire Adjustment') then ISNULL(b.[Jan 2020],0) else a.qty_per*a.take_rate*a.family_allocation*b.[Jan 2020] end),0) as [jan 2020] 
-,	ISNULL((case when b.version in ('Empire Factor','Empire Adjustment') then ISNULL(b.[Feb 2020],0) else a.qty_per*a.take_rate*a.family_allocation*b.[Feb 2020] end),0) as [feb 2020] 
-,	ISNULL((case when b.version in ('Empire Factor','Empire Adjustment') then ISNULL(b.[Mar 2020],0) else a.qty_per*a.take_rate*a.family_allocation*b.[Mar 2020] end),0) as [mar 2020] 
-,	ISNULL((case when b.version in ('Empire Factor','Empire Adjustment') then ISNULL(b.[Apr 2020],0) else a.qty_per*a.take_rate*a.family_allocation*b.[Apr 2020] end),0) as [apr 2020] 
-,	ISNULL((case when b.version in ('Empire Factor','Empire Adjustment') then ISNULL(b.[May 2020],0) else a.qty_per*a.take_rate*a.family_allocation*b.[May 2020] end),0) as [may 2020] 
-,	ISNULL((case when b.version in ('Empire Factor','Empire Adjustment') then ISNULL(b.[Jun 2020],0) else a.qty_per*a.take_rate*a.family_allocation*b.[Jun 2020] end),0) as [jun 2020] 
-,	ISNULL((case when b.version in ('Empire Factor','Empire Adjustment') then ISNULL(b.[Jul 2020],0) else a.qty_per*a.take_rate*a.family_allocation*b.[Jul 2020] end),0) as [jul 2020] 
-,	ISNULL((case when b.version in ('Empire Factor','Empire Adjustment') then ISNULL(b.[Aug 2020],0) else a.qty_per*a.take_rate*a.family_allocation*b.[Aug 2020] end),0) as [aug 2020] 
-,	ISNULL((case when b.version in ('Empire Factor','Empire Adjustment') then ISNULL(b.[Sep 2020],0) else a.qty_per*a.take_rate*a.family_allocation*b.[Sep 2020] end),0) as [sep 2020] 
-,	ISNULL((case when b.version in ('Empire Factor','Empire Adjustment') then ISNULL(b.[Oct 2020],0) else a.qty_per*a.take_rate*a.family_allocation*b.[Oct 2020] end),0) as [oct 2020] 
-,	ISNULL((case when b.version in ('Empire Factor','Empire Adjustment') then ISNULL(b.[Nov 2020],0) else a.qty_per*a.take_rate*a.family_allocation*b.[Nov 2020] end),0) as [nov 2020] 
-,	ISNULL((case when b.version in ('Empire Factor','Empire Adjustment') then ISNULL(b.[Dec 2020],0) else a.qty_per*a.take_rate*a.family_allocation*b.[Dec 2020] end),0) as [dec 2020]
-,	ISNULL((case when b.version in ('Empire Factor','Empire Adjustment') then (ISNULL(b.[Jan 2020],0)+ISNULL(b.[Feb 2020],0)+ISNULL(b.[Mar 2020],0)+ISNULL(b.[Apr 2020],0)+ISNULL(b.[May 2020],0)+ISNULL(b.[Jun 2020],0)+ISNULL(b.[Jul 2020],0)+ISNULL(b.[Aug 2020],0)+ISNULL(b.[Sep 2020],0)+ISNULL(b.[Oct 2020],0)+ISNULL(b.[Nov 2020],0)+ISNULL(b.[Dec 2020],0)) else a.qty_per*a.take_rate*a.family_allocation*(b.[Jan 2020]+b.[Feb 2020]+b.[Mar 2020]+b.[Apr 2020]+b.[May 2020]+b.[Jun 2020]+b.[Jul 2020]+b.[Aug 2020]+b.[Sep 2020]+b.[Oct 2020]+b.[Nov 2020]+b.[Dec 2020]) end),0) as [total_2020]
+,	ISNULL((case when b.version in ('Empire Factor','Empire Adjustment') then ISNULL(b.[Jan 2020],0) else a.qty_per*a.take_rate*a.family_allocation*b.[Jan 2020] end),0)
+,	ISNULL((case when b.version in ('Empire Factor','Empire Adjustment') then ISNULL(b.[Feb 2020],0) else a.qty_per*a.take_rate*a.family_allocation*b.[Feb 2020] end),0)
+,	ISNULL((case when b.version in ('Empire Factor','Empire Adjustment') then ISNULL(b.[Mar 2020],0) else a.qty_per*a.take_rate*a.family_allocation*b.[Mar 2020] end),0)
+,	ISNULL((case when b.version in ('Empire Factor','Empire Adjustment') then ISNULL(b.[Apr 2020],0) else a.qty_per*a.take_rate*a.family_allocation*b.[Apr 2020] end),0)
+,	ISNULL((case when b.version in ('Empire Factor','Empire Adjustment') then ISNULL(b.[May 2020],0) else a.qty_per*a.take_rate*a.family_allocation*b.[May 2020] end),0)
+,	ISNULL((case when b.version in ('Empire Factor','Empire Adjustment') then ISNULL(b.[Jun 2020],0) else a.qty_per*a.take_rate*a.family_allocation*b.[Jun 2020] end),0)
+,	ISNULL((case when b.version in ('Empire Factor','Empire Adjustment') then ISNULL(b.[Jul 2020],0) else a.qty_per*a.take_rate*a.family_allocation*b.[Jul 2020] end),0)
+,	ISNULL((case when b.version in ('Empire Factor','Empire Adjustment') then ISNULL(b.[Aug 2020],0) else a.qty_per*a.take_rate*a.family_allocation*b.[Aug 2020] end),0) 
+,	ISNULL((case when b.version in ('Empire Factor','Empire Adjustment') then ISNULL(b.[Sep 2020],0) else a.qty_per*a.take_rate*a.family_allocation*b.[Sep 2020] end),0)
+,	ISNULL((case when b.version in ('Empire Factor','Empire Adjustment') then ISNULL(b.[Oct 2020],0) else a.qty_per*a.take_rate*a.family_allocation*b.[Oct 2020] end),0)
+,	ISNULL((case when b.version in ('Empire Factor','Empire Adjustment') then ISNULL(b.[Nov 2020],0) else a.qty_per*a.take_rate*a.family_allocation*b.[Nov 2020] end),0)
+,	ISNULL((case when b.version in ('Empire Factor','Empire Adjustment') then ISNULL(b.[Dec 2020],0) else a.qty_per*a.take_rate*a.family_allocation*b.[Dec 2020] end),0)
+,	ISNULL((case when b.version in ('Empire Factor','Empire Adjustment') then (ISNULL(b.[Jan 2020],0)+ISNULL(b.[Feb 2020],0)+ISNULL(b.[Mar 2020],0)+ISNULL(b.[Apr 2020],0)+ISNULL(b.[May 2020],0)+ISNULL(b.[Jun 2020],0)+ISNULL(b.[Jul 2020],0)+ISNULL(b.[Aug 2020],0)+ISNULL(b.[Sep 2020],0)+ISNULL(b.[Oct 2020],0)+ISNULL(b.[Nov 2020],0)+ISNULL(b.[Dec 2020],0)) else a.qty_per*a.take_rate*a.family_allocation*(b.[Jan 2020]+b.[Feb 2020]+b.[Mar 2020]+b.[Apr 2020]+b.[May 2020]+b.[Jun 2020]+b.[Jul 2020]+b.[Aug 2020]+b.[Sep 2020]+b.[Oct 2020]+b.[Nov 2020]+b.[Dec 2020]) end),0)
 	*/
 		
-,	ISNULL((case when b.version in ('Empire Factor','Empire Adjustment') then ISNULL(b.[CY 2020],0) else a.qty_per*a.take_rate*a.family_allocation*b.[CY 2020] end),0) as [total_2020]
-,	ISNULL((case when b.version in ('Empire Factor','Empire Adjustment') then ISNULL(b.[CY 2021],0) else a.qty_per*a.take_rate*a.family_allocation*b.[CY 2021] end),0) as [total_2021]
-,	ISNULL((case when b.version in ('Empire Factor','Empire Adjustment') then ISNULL(b.[CY 2022],0) else a.qty_per*a.take_rate*a.family_allocation*b.[CY 2022] end),0) as [total_2022]
+,	ISNULL((case when b.version in ('Empire Factor','Empire Adjustment') then ISNULL(b.[CY 2020],0) else a.qty_per*a.take_rate*a.family_allocation*b.[CY 2020] end),0)
+,	ISNULL((case when b.version in ('Empire Factor','Empire Adjustment') then ISNULL(b.[CY 2021],0) else a.qty_per*a.take_rate*a.family_allocation*b.[CY 2021] end),0)
+,	ISNULL((case when b.version in ('Empire Factor','Empire Adjustment') then ISNULL(b.[CY 2022],0) else a.qty_per*a.take_rate*a.family_allocation*b.[CY 2022] end),0)
 from 
 	(	select	* 
 		from	eeiuser.acctg_csm_base_part_mnemonic
