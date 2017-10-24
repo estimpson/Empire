@@ -1,0 +1,75 @@
+SET QUOTED_IDENTIFIER ON
+GO
+SET ANSI_NULLS ON
+GO
+
+
+CREATE view [dbo].[vw_eeiMaterialCostBasePart_tabular]
+as
+Select	BasePart,
+		PartUsedforCost, 
+		material_cum, 
+		material_cum as Material_cum2,
+		material_cum as Material_cum3,
+		material_cum as Material_cum4,
+		material_cum as Material_cum5,
+		material_cum as Material_cum6,
+		material_cum as Material_cum7,
+		material_cum as Material_cum8,
+		material_cum as Material_cum9,
+		material_cum as Material_cum10,
+		material_cum as Material_cum11,
+		material_cum as Material_cum12,
+		material_cum as Material_cum13,
+		material_cum as Material_cum14,
+		material_cum as Material_cum15,
+		material_cum as Material_cum16,
+		material_cum as Material_cum17,
+		material_cum as Material_cum18,
+		material_cum as Material_cum19,
+		material_cum as Material_cum20,
+		material_cum as Material_cum21,
+		material_cum as Material_cum22,
+		material_cum as Material_cum23,
+		material_cum as Material_cum24,
+		material_cum as Material_cum25,
+		material_cum as Material_cum26,
+		material_cum as Material_cum27,
+		material_cum as Material_cum28,
+		material_cum as Material_cum29,
+		material_cum as Material_cum30,
+		material_cum as Material_cum31,
+		material_cum as Material_cum32,
+		material_cum as Material_cum33,
+		material_cum as Material_cum34,
+		material_cum as Material_cum35,
+		material_cum as Material_cum36,
+		material_cum as Material_cum37,
+		material_cum as Material_cum38,
+		material_cum as Material_cum39,
+		material_cum as Material_cum40,
+		material_cum as Material_cum41,
+		material_cum as Material_cum42,
+		material_cum as Material_cum43,
+		material_cum as Material_cum44,
+		material_cum as Material_cum45,
+		material_cum as Material_cum46,
+		material_cum as Material_cum47,
+		material_cum as Material_cum48,
+		material_cum as Material_cum49,
+		material_cum as Material_cum50,
+		material_cum as Material_cum51,
+		material_cum as Material_cum52,
+		material_cum as Material_cum53,
+		material_cum as Material_cum54,
+		material_cum as Material_cum55,
+		material_cum as Material_cum56,
+		material_cum as Material_cum57,
+		material_cum as Material_cum58,
+		material_cum as Material_cum59,
+		material_cum as Material_cum60
+
+from		[EEHSQL1].[EEH].dbo.vw_eei_baseFinishedPart BFP
+left outer join		[EEHSQL1].[EEH].dbo.part_standard PS on BFP.PartUsedforCost=PS.part
+
+GO

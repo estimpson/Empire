@@ -1,0 +1,220 @@
+<?xml version="1.0"?>
+<SqlWorkbenchSqlProject xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" Name="FxEDI.FTP">
+  <Items>
+    <LogicalFolder Name="Connections" Type="2" Sorted="true">
+      <Items>
+        <ConnectionNode Name="(local)\SQL2012:FORE-THOUGHT\estimpson">
+          <Created>2017-09-26T10:26:02.3780985-04:00</Created>
+          <Type>SQL</Type>
+          <Server>(local)\SQL2012</Server>
+          <UserName />
+          <Authentication>Windows Authentication</Authentication>
+          <InitialDB />
+          <LoginTimeout>15</LoginTimeout>
+          <ExecutionTimeout>0</ExecutionTimeout>
+          <ConnectionProtocol>NotSpecified</ConnectionProtocol>
+          <ApplicationName>Microsoft SQL Server Management Studio - Query</ApplicationName>
+        </ConnectionNode>
+        <ConnectionNode Name="eeisql1:estimpson">
+          <Created>2016-07-15T15:19:19.4003951-04:00</Created>
+          <Type>SQL</Type>
+          <Server>eeisql1</Server>
+          <UserName>estimpson</UserName>
+          <Authentication>SQL</Authentication>
+          <InitialDB />
+          <LoginTimeout>15</LoginTimeout>
+          <ExecutionTimeout>0</ExecutionTimeout>
+          <ConnectionProtocol>NotSpecified</ConnectionProtocol>
+          <ApplicationName>Microsoft SQL Server Management Studio - Query</ApplicationName>
+        </ConnectionNode>
+        <ConnectionNode Name="eeisql2:estimpson">
+          <Created>2016-06-21T09:10:36.039442-04:00</Created>
+          <Type>SQL</Type>
+          <Server>eeisql2</Server>
+          <UserName>estimpson</UserName>
+          <Authentication>SQL</Authentication>
+          <InitialDB>FxEDI</InitialDB>
+          <LoginTimeout>15</LoginTimeout>
+          <ExecutionTimeout>0</ExecutionTimeout>
+          <ConnectionProtocol>NotSpecified</ConnectionProtocol>
+          <ApplicationName>Microsoft SQL Server Management Studio - Query</ApplicationName>
+        </ConnectionNode>
+        <ConnectionNode Name="srvsql2.empireelect.local\fx:estimpson">
+          <Created>2016-05-06T11:58:08.6480644-04:00</Created>
+          <Type>SQL</Type>
+          <Server>srvsql2.empireelect.local\fx</Server>
+          <UserName>estimpson</UserName>
+          <Authentication>SQL</Authentication>
+          <InitialDB>FxEDI</InitialDB>
+          <LoginTimeout>15</LoginTimeout>
+          <ExecutionTimeout>0</ExecutionTimeout>
+          <ConnectionProtocol>NotSpecified</ConnectionProtocol>
+          <ApplicationName>Microsoft SQL Server Management Studio - Query</ApplicationName>
+        </ConnectionNode>
+        <ConnectionNode Name="srvsql2\fx:estimpson">
+          <Created>2017-09-26T10:53:50.6050235-04:00</Created>
+          <Type>SQL</Type>
+          <Server>srvsql2\fx</Server>
+          <UserName>estimpson</UserName>
+          <Authentication>SQL</Authentication>
+          <InitialDB />
+          <LoginTimeout>15</LoginTimeout>
+          <ExecutionTimeout>0</ExecutionTimeout>
+          <ConnectionProtocol>NotSpecified</ConnectionProtocol>
+          <ApplicationName>Microsoft SQL Server Management Studio - Query</ApplicationName>
+        </ConnectionNode>
+      </Items>
+    </LogicalFolder>
+    <LogicalFolder Name="Queries" Type="0" Sorted="true">
+      <Items>
+        <FileNode Name="Procedure.FxEDI.FTP.usp_ReceiveCustomerEDI.sql">
+          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:eeisql2:False:estimpson</AssociatedConnectionMoniker>
+          <AssociatedConnSrvName>eeisql2</AssociatedConnSrvName>
+          <AssociatedConnUserName>estimpson</AssociatedConnUserName>
+          <FullPath>Procedure.FxEDI.FTP.usp_ReceiveCustomerEDI.sql</FullPath>
+        </FileNode>
+        <FileNode Name="Procedure.FxEDI.FTP.usp_ReceiveCustomerEDI_TestMailBox.sql">
+          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:eeisql2:False:estimpson</AssociatedConnectionMoniker>
+          <AssociatedConnSrvName>eeisql2</AssociatedConnSrvName>
+          <AssociatedConnUserName>estimpson</AssociatedConnUserName>
+          <FullPath>Procedure.FxEDI.FTP.usp_ReceiveCustomerEDI_TestMailBox.sql</FullPath>
+        </FileNode>
+        <FileNode Name="Procedure.FxEDI.FTP.usp_RecordReceiveFileLog.sql">
+          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:srvsql2\fx:False:estimpson</AssociatedConnectionMoniker>
+          <AssociatedConnSrvName>srvsql2\fx</AssociatedConnSrvName>
+          <AssociatedConnUserName>estimpson</AssociatedConnUserName>
+          <FullPath>Procedure.FxEDI.FTP.usp_RecordReceiveFileLog.sql</FullPath>
+        </FileNode>
+        <FileNode Name="Procedure.FxEDI.FTP.usp_RemoveBadFile.sql">
+          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:eeisql2:False:estimpson</AssociatedConnectionMoniker>
+          <AssociatedConnSrvName>eeisql2</AssociatedConnSrvName>
+          <AssociatedConnUserName>estimpson</AssociatedConnUserName>
+          <FullPath>Procedure.FxEDI.FTP.usp_RemoveBadFile.sql</FullPath>
+        </FileNode>
+        <FileNode Name="Procedure.FxEDI.FTP.usp_SendCustomerEDI.sql">
+          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:eeisql1:False:estimpson</AssociatedConnectionMoniker>
+          <AssociatedConnSrvName>eeisql1</AssociatedConnSrvName>
+          <AssociatedConnUserName>estimpson</AssociatedConnUserName>
+          <FullPath>Procedure.FxEDI.FTP.usp_SendCustomerEDI.sql</FullPath>
+        </FileNode>
+        <FileNode Name="Procedure.FxEDI.FTP.usp_SendCustomerEDI_TestMailBox.sql">
+          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:eeisql2:False:estimpson</AssociatedConnectionMoniker>
+          <AssociatedConnSrvName>eeisql2</AssociatedConnSrvName>
+          <AssociatedConnUserName>estimpson</AssociatedConnUserName>
+          <FullPath>Procedure.FxEDI.FTP.usp_SendCustomerEDI_TestMailBox.sql</FullPath>
+        </FileNode>
+        <FileNode Name="Procedure.FxEDI.FTP.usp_UpdateReceivedDirectoryPoll.sql">
+          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:eeisql2:False:estimpson</AssociatedConnectionMoniker>
+          <AssociatedConnSrvName>eeisql2</AssociatedConnSrvName>
+          <AssociatedConnUserName>estimpson</AssociatedConnUserName>
+          <FullPath>Procedure.FxEDI.FTP.usp_UpdateReceivedDirectoryPoll.sql</FullPath>
+        </FileNode>
+        <FileNode Name="Procedure.FxEDI.FTP.usp_UpdateReceiveFileLogForMissingFile.sql">
+          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:srvsql2\fx:False:estimpson</AssociatedConnectionMoniker>
+          <AssociatedConnSrvName>srvsql2\fx</AssociatedConnSrvName>
+          <AssociatedConnUserName>estimpson</AssociatedConnUserName>
+          <FullPath>Procedure.FxEDI.FTP.usp_UpdateReceiveFileLogForMissingFile.sql</FullPath>
+        </FileNode>
+        <FileNode Name="Procedure.FxEDI.FTP.usp_UpdateReceiveFileLogForReplacedBadFile.sql">
+          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:srvsql2\fx:False:estimpson</AssociatedConnectionMoniker>
+          <AssociatedConnSrvName>srvsql2\fx</AssociatedConnSrvName>
+          <AssociatedConnUserName>estimpson</AssociatedConnUserName>
+          <FullPath>Procedure.FxEDI.FTP.usp_UpdateReceiveFileLogForReplacedBadFile.sql</FullPath>
+        </FileNode>
+        <FileNode Name="Procedure.FxEDI.FTP.usp_UpdateReceiveFileLogForUnavailableFile.sql">
+          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:srvsql2\fx:False:estimpson</AssociatedConnectionMoniker>
+          <AssociatedConnSrvName>srvsql2\fx</AssociatedConnSrvName>
+          <AssociatedConnUserName>estimpson</AssociatedConnUserName>
+          <FullPath>Procedure.FxEDI.FTP.usp_UpdateReceiveFileLogForUnavailableFile.sql</FullPath>
+        </FileNode>
+        <FileNode Name="Query.CRC32.sql">
+          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:srvsql2\fx:False:estimpson</AssociatedConnectionMoniker>
+          <AssociatedConnSrvName>srvsql2\fx</AssociatedConnSrvName>
+          <AssociatedConnUserName>estimpson</AssociatedConnUserName>
+          <FullPath>Query.CRC32.sql</FullPath>
+        </FileNode>
+        <FileNode Name="ScalarFunction.FxEDI.dbo.udf_Today(SYNONYM).sql">
+          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:eeisql2:False:estimpson</AssociatedConnectionMoniker>
+          <AssociatedConnSrvName>eeisql2</AssociatedConnSrvName>
+          <AssociatedConnUserName>estimpson</AssociatedConnUserName>
+          <FullPath>ScalarFunction.FxEDI.dbo.udf_Today(SYNONYM).sql</FullPath>
+        </FileNode>
+        <FileNode Name="Schema.FxEDI.FTP.sql">
+          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:srvsql2.empireelect.local\fx:False:estimpson</AssociatedConnectionMoniker>
+          <AssociatedConnSrvName>srvsql2.empireelect.local\fx</AssociatedConnSrvName>
+          <AssociatedConnUserName>estimpson</AssociatedConnUserName>
+          <FullPath>Schema.FxEDI.FTP.sql</FullPath>
+        </FileNode>
+        <FileNode Name="SQLQuery1.sql">
+          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:eeisql2:False:estimpson</AssociatedConnectionMoniker>
+          <AssociatedConnSrvName>eeisql2</AssociatedConnSrvName>
+          <AssociatedConnUserName>estimpson</AssociatedConnUserName>
+          <FullPath>SQLQuery1.sql</FullPath>
+        </FileNode>
+        <FileNode Name="SQLQuery2.sql">
+          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:eeisql2:False:estimpson</AssociatedConnectionMoniker>
+          <AssociatedConnSrvName>eeisql2</AssociatedConnSrvName>
+          <AssociatedConnUserName>estimpson</AssociatedConnUserName>
+          <FullPath>SQLQuery2.sql</FullPath>
+        </FileNode>
+        <FileNode Name="Table.FxEDI.FTP.LogDetails.sql">
+          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:srvsql2.empireelect.local\fx:False:estimpson</AssociatedConnectionMoniker>
+          <AssociatedConnSrvName>srvsql2.empireelect.local\fx</AssociatedConnSrvName>
+          <AssociatedConnUserName>estimpson</AssociatedConnUserName>
+          <FullPath>Table.FxEDI.FTP.LogDetails.sql</FullPath>
+        </FileNode>
+        <FileNode Name="Table.FxEDI.FTP.LogHeaders.sql">
+          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:srvsql2.empireelect.local\fx:False:estimpson</AssociatedConnectionMoniker>
+          <AssociatedConnSrvName>srvsql2.empireelect.local\fx</AssociatedConnSrvName>
+          <AssociatedConnUserName>estimpson</AssociatedConnUserName>
+          <FullPath>Table.FxEDI.FTP.LogHeaders.sql</FullPath>
+        </FileNode>
+        <FileNode Name="Table.FxEDI.FTP.ReceivedDirectoryPoll.sql">
+          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:eeisql2:False:estimpson</AssociatedConnectionMoniker>
+          <AssociatedConnSrvName>eeisql2</AssociatedConnSrvName>
+          <AssociatedConnUserName>estimpson</AssociatedConnUserName>
+          <FullPath>Table.FxEDI.FTP.ReceivedDirectoryPoll.sql</FullPath>
+        </FileNode>
+        <FileNode Name="Table.FxEDI.FTP.ReceiveFileLog.sql">
+          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:eeisql2:False:estimpson</AssociatedConnectionMoniker>
+          <AssociatedConnSrvName>eeisql2</AssociatedConnSrvName>
+          <AssociatedConnUserName>estimpson</AssociatedConnUserName>
+          <FullPath>Table.FxEDI.FTP.ReceiveFileLog.sql</FullPath>
+        </FileNode>
+        <FileNode Name="View.FxEDI.FTP.BadFileList.sql">
+          <AssociatedConnectionMoniker />
+          <AssociatedConnSrvName />
+          <AssociatedConnUserName />
+          <FullPath>View.FxEDI.FTP.BadFileList.sql</FullPath>
+        </FileNode>
+        <FileNode Name="View.FxEDI.FTP.MissingFileList.sql">
+          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:eeisql2:False:estimpson</AssociatedConnectionMoniker>
+          <AssociatedConnSrvName>eeisql2</AssociatedConnSrvName>
+          <AssociatedConnUserName>estimpson</AssociatedConnUserName>
+          <FullPath>View.FxEDI.FTP.MissingFileList.sql</FullPath>
+        </FileNode>
+        <FileNode Name="View.FxEDI.FTP.OverallStatus.sql">
+          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:eeisql2:False:estimpson</AssociatedConnectionMoniker>
+          <AssociatedConnSrvName>eeisql2</AssociatedConnSrvName>
+          <AssociatedConnUserName>estimpson</AssociatedConnUserName>
+          <FullPath>View.FxEDI.FTP.OverallStatus.sql</FullPath>
+        </FileNode>
+        <FileNode Name="View.FxEDi.FTP.PendingRDPDateRange.sql">
+          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:eeisql2:False:estimpson</AssociatedConnectionMoniker>
+          <AssociatedConnSrvName>eeisql2</AssociatedConnSrvName>
+          <AssociatedConnUserName>estimpson</AssociatedConnUserName>
+          <FullPath>View.FxEDi.FTP.PendingRDPDateRange.sql</FullPath>
+        </FileNode>
+        <FileNode Name="View.FxEDI.FTP.TaskActivityMonitor.sql">
+          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:eeisql2:False:estimpson</AssociatedConnectionMoniker>
+          <AssociatedConnSrvName>eeisql2</AssociatedConnSrvName>
+          <AssociatedConnUserName>estimpson</AssociatedConnUserName>
+          <FullPath>View.FxEDI.FTP.TaskActivityMonitor.sql</FullPath>
+        </FileNode>
+      </Items>
+    </LogicalFolder>
+    <LogicalFolder Name="Miscellaneous" Type="3" Sorted="true">
+      <Items />
+    </LogicalFolder>
+  </Items>
+</SqlWorkbenchSqlProject>

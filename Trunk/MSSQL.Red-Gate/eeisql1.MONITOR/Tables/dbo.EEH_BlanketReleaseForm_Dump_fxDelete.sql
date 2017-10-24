@@ -1,0 +1,32 @@
+CREATE TABLE [dbo].[EEH_BlanketReleaseForm_Dump_fxDelete]
+(
+[PONumber] [int] NULL,
+[Part] [varchar] (50) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
+[VendorPart] [varchar] (50) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
+[Quantity] [int] NULL,
+[DueDate] [datetime] NULL,
+[FirmorPlanning] [varchar] (8) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
+[AccumReceived] [numeric] (20, 6) NULL,
+[AccumAdjustment] [numeric] (20, 6) NULL,
+[AdjustedCUMReceived] [numeric] (21, 6) NULL,
+[code] [varchar] (10) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
+[VendorName] [varchar] (35) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
+[Vendoraddress_1] [varchar] (50) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
+[Vendoraddress_2] [varchar] (50) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
+[Vendoraddress_3] [varchar] (50) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
+[Vendoraddress_6] [varchar] (40) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
+[Contact] [varchar] (35) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
+[Phone] [varchar] (20) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
+[destinationaddress_1] [varchar] (50) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
+[destinationaddress_2] [varchar] (50) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
+[destinationaddress_3] [varchar] (50) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
+[last_rec_id] [varchar] (20) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
+[LastReceivedDT] [datetime] NULL,
+[terms] [varchar] (20) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
+[scac] [varchar] (50) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
+[fob] [varchar] (30) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
+[PODetailDueDate] [datetime] NULL,
+[Last_Received_qty] [decimal] (18, 2) NULL,
+[Price] [numeric] (20, 6) NULL
+) ON [PRIMARY]
+GO

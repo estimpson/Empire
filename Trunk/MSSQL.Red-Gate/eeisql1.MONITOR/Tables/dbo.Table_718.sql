@@ -1,0 +1,7 @@
+CREATE TABLE [dbo].[Table_718]
+(
+[Serial] [int] NOT NULL
+) ON [PRIMARY]
+GO
+ALTER TABLE [dbo].[Table_718] ADD CONSTRAINT [PK_Table_718] PRIMARY KEY CLUSTERED  ([Serial]) ON [PRIMARY]
+GO

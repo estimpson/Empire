@@ -23,6 +23,46 @@ namespace RmaMaintenance.Controllers
 
         #region Methods
 
+        public List<string> GetShipperSerials(int shipper, out string error)
+        {
+            List<string> serialsList = new List<string>();
+            error = "";
+            try
+            {
+                using (var context = new MONITOREntities())
+                {
+                    var query = context.usp_GetLabelCode_RmaMaintenance_Serials(shipper);
+                    foreach (var item in query)
+                    {
+                        serialsList.Add(item.Serial.ToString());
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                error = (ex.InnerException == null) ? ex.Message : ex.InnerException.Message;
+            }
+            return serialsList;
+        }
+
+        public string GetLabelCode(int serial, out string error)
+        {
+            var labelCode = new ObjectParameter("LabelCode", typeof(string));
+            error = "";
+            try
+            {
+                using (var context = new MONITOREntities())
+                {
+                    context.usp_GetLabelCode_RmaMaintenance(serial, labelCode);
+                }
+            }
+            catch (Exception ex)
+            {
+                error = (ex.InnerException == null) ? ex.Message : ex.InnerException.Message;
+            }
+            return labelCode.Value.ToString();
+        }
+
         public void ShipRtvHondurasRma(string operatorCode, int rtvShipper, string location, out bool previouslyShipped, out string error)
         {
             var dt = new ObjectParameter("TranDT", typeof(DateTime));

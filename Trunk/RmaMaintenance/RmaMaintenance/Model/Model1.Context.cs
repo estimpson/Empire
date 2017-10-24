@@ -233,23 +233,6 @@ namespace RmaMaintenance.Model
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("usp_CreateRma_ImportSerialsQuantitiesByOperator", operatorCodeParameter, serialParameter, quantityParameter, tranDT, result);
         }
     
-        public virtual ObjectResult<usp_CreateRma_ProcessByDestGl2_Result> usp_CreateRma_ProcessByDestGl2(string operatorCode, ObjectParameter rmaRtvNumber, Nullable<int> transactionType, string notes, ObjectParameter tranDT, ObjectParameter result)
-        {
-            var operatorCodeParameter = operatorCode != null ?
-                new ObjectParameter("OperatorCode", operatorCode) :
-                new ObjectParameter("OperatorCode", typeof(string));
-    
-            var transactionTypeParameter = transactionType.HasValue ?
-                new ObjectParameter("TransactionType", transactionType) :
-                new ObjectParameter("TransactionType", typeof(int));
-    
-            var notesParameter = notes != null ?
-                new ObjectParameter("Notes", notes) :
-                new ObjectParameter("Notes", typeof(string));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_CreateRma_ProcessByDestGl2_Result>("usp_CreateRma_ProcessByDestGl2", operatorCodeParameter, rmaRtvNumber, transactionTypeParameter, notesParameter, tranDT, result);
-        }
-    
         public virtual int usp_CreateRma_Honduras_RecordException(string operatorCode, string exception, ObjectParameter tranDT, ObjectParameter result)
         {
             var operatorCodeParameter = operatorCode != null ?
@@ -387,6 +370,54 @@ namespace RmaMaintenance.Model
                 new ObjectParameter("RmaShipper", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("usp_CreatedRmaValidateShipperForCreditMemo", rmaShipperParameter, tranDT, result);
+        }
+    
+        public virtual int usp_CreateRma_GenerateRmaNumber(string operatorCode, ObjectParameter rmaNumber, ObjectParameter tranDT, ObjectParameter result)
+        {
+            var operatorCodeParameter = operatorCode != null ?
+                new ObjectParameter("OperatorCode", operatorCode) :
+                new ObjectParameter("OperatorCode", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("usp_CreateRma_GenerateRmaNumber", operatorCodeParameter, rmaNumber, tranDT, result);
+        }
+    
+        public virtual int usp_GetLabelCode_RmaMaintenance(Nullable<int> serial, ObjectParameter labelCode)
+        {
+            var serialParameter = serial.HasValue ?
+                new ObjectParameter("Serial", serial) :
+                new ObjectParameter("Serial", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("usp_GetLabelCode_RmaMaintenance", serialParameter, labelCode);
+        }
+    
+        public virtual ObjectResult<usp_GetLabelCode_RmaMaintenance_Serials_Result> usp_GetLabelCode_RmaMaintenance_Serials(Nullable<int> shipper)
+        {
+            var shipperParameter = shipper.HasValue ?
+                new ObjectParameter("Shipper", shipper) :
+                new ObjectParameter("Shipper", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_GetLabelCode_RmaMaintenance_Serials_Result>("usp_GetLabelCode_RmaMaintenance_Serials", shipperParameter);
+        }
+    
+        public virtual ObjectResult<usp_CreateRma_ProcessByDestGl2_Result1> usp_CreateRma_ProcessByDestGl2(string operatorCode, ObjectParameter rmaRtvNumber, Nullable<int> transactionType, string location, string notes, ObjectParameter tranDT, ObjectParameter result)
+        {
+            var operatorCodeParameter = operatorCode != null ?
+                new ObjectParameter("OperatorCode", operatorCode) :
+                new ObjectParameter("OperatorCode", typeof(string));
+    
+            var transactionTypeParameter = transactionType.HasValue ?
+                new ObjectParameter("TransactionType", transactionType) :
+                new ObjectParameter("TransactionType", typeof(int));
+    
+            var locationParameter = location != null ?
+                new ObjectParameter("Location", location) :
+                new ObjectParameter("Location", typeof(string));
+    
+            var notesParameter = notes != null ?
+                new ObjectParameter("Notes", notes) :
+                new ObjectParameter("Notes", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_CreateRma_ProcessByDestGl2_Result1>("usp_CreateRma_ProcessByDestGl2", operatorCodeParameter, rmaRtvNumber, transactionTypeParameter, locationParameter, notesParameter, tranDT, result);
         }
     }
 }

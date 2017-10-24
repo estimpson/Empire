@@ -1,0 +1,568 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="FxEDIModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="ReceivedDirectoryPoll">
+          <Key>
+            <PropertyRef Name="RowID" />
+          </Key>
+          <Property Name="Status" Type="int" Nullable="false" />
+          <Property Name="Type" Type="int" Nullable="false" />
+          <Property Name="ScheduledPollDT" Type="datetime" />
+          <Property Name="PollWindowBeginDT" Type="datetime" />
+          <Property Name="PollWindowEndDT" Type="datetime" />
+          <Property Name="SourceFileCount" Type="int" />
+          <Property Name="SourceCRC32Hash" Type="int" />
+          <Property Name="ReceivedFileCount" Type="int" />
+          <Property Name="ReceivedCRC32Hash" Type="int" />
+          <Property Name="RowID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RowCreateDT" Type="datetime" />
+          <Property Name="RowCreateUser" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="RowModifiedDT" Type="datetime" />
+          <Property Name="RowModifiedUser" Type="nvarchar" MaxLength="128" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ReceiveFileLog">
+          <Key>
+            <PropertyRef Name="RowID" />
+          </Key>
+          <Property Name="SourceFileName" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="Status" Type="int" Nullable="false" />
+          <Property Name="Type" Type="int" Nullable="false" />
+          <Property Name="SourceFileLength" Type="int" Nullable="false" />
+          <Property Name="SourceCRC32" Type="varbinary" MaxLength="8" />
+          <Property Name="SourceFileDT" Type="datetime" Nullable="false" />
+          <Property Name="SourceFileAvailable" Type="int" Nullable="false" />
+          <Property Name="ReceiveFileGUID" Type="uniqueidentifier" />
+          <Property Name="ReceiveFileName" Type="nvarchar" MaxLength="128" />
+          <Property Name="ReceiveCRC32" Type="varbinary" MaxLength="8" />
+          <Property Name="ReceiveFileLength" Type="int" />
+          <Property Name="RowID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RowCreateDT" Type="datetime" />
+          <Property Name="RowCreateUser" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="RowModifiedDT" Type="datetime" />
+          <Property Name="RowModifiedUser" Type="nvarchar" MaxLength="128" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'FxEDI.FTP.BadFileList' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="BadFileList">
+          <Key>
+            <PropertyRef Name="SourceFileName" />
+            <PropertyRef Name="Status" />
+            <PropertyRef Name="Type" />
+            <PropertyRef Name="SourceFileLength" />
+            <PropertyRef Name="SourceFileDT" />
+            <PropertyRef Name="SourceFileAvailable" />
+            <PropertyRef Name="RowID" />
+            <PropertyRef Name="RowCreateUser" />
+            <PropertyRef Name="RowModifiedUser" />
+          </Key>
+          <Property Name="SourceFileName" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="Status" Type="int" Nullable="false" />
+          <Property Name="Type" Type="int" Nullable="false" />
+          <Property Name="SourceFileLength" Type="int" Nullable="false" />
+          <Property Name="SourceCRC32" Type="varbinary" MaxLength="8" />
+          <Property Name="SourceFileDT" Type="datetime" Nullable="false" />
+          <Property Name="SourceFileAvailable" Type="int" Nullable="false" />
+          <Property Name="ReceiveFileGUID" Type="uniqueidentifier" />
+          <Property Name="ReceiveFileName" Type="nvarchar" MaxLength="128" />
+          <Property Name="ReceiveCRC32" Type="varbinary" MaxLength="8" />
+          <Property Name="ReceiveFileLength" Type="int" />
+          <Property Name="RowID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RowCreateDT" Type="datetime" />
+          <Property Name="RowCreateUser" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="RowModifiedDT" Type="datetime" />
+          <Property Name="RowModifiedUser" Type="nvarchar" MaxLength="128" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'FxEDI.FTP.MissingFileList' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="MissingFileList">
+          <Key>
+            <PropertyRef Name="SourceFileName" />
+            <PropertyRef Name="Status" />
+            <PropertyRef Name="Type" />
+            <PropertyRef Name="SourceFileLength" />
+            <PropertyRef Name="SourceFileDT" />
+            <PropertyRef Name="SourceFileAvailable" />
+            <PropertyRef Name="RowID" />
+            <PropertyRef Name="RowCreateUser" />
+            <PropertyRef Name="RowModifiedUser" />
+          </Key>
+          <Property Name="SourceFileName" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="Status" Type="int" Nullable="false" />
+          <Property Name="Type" Type="int" Nullable="false" />
+          <Property Name="SourceFileLength" Type="int" Nullable="false" />
+          <Property Name="SourceCRC32" Type="varbinary" MaxLength="8" />
+          <Property Name="SourceFileDT" Type="datetime" Nullable="false" />
+          <Property Name="SourceFileAvailable" Type="int" Nullable="false" />
+          <Property Name="ReceiveFileGUID" Type="uniqueidentifier" />
+          <Property Name="ReceiveFileName" Type="nvarchar" MaxLength="128" />
+          <Property Name="ReceiveCRC32" Type="varbinary" MaxLength="8" />
+          <Property Name="ReceiveFileLength" Type="int" />
+          <Property Name="RowID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RowCreateDT" Type="datetime" />
+          <Property Name="RowCreateUser" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="RowModifiedDT" Type="datetime" />
+          <Property Name="RowModifiedUser" Type="nvarchar" MaxLength="128" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'FxEDI.FTP.OverallStatus' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="OverallStatus">
+          <Key>
+            <PropertyRef Name="CurrentDatetime" />
+            <PropertyRef Name="RowID" />
+          </Key>
+          <Property Name="CurrentDatetime" Type="datetime" Nullable="false" />
+          <Property Name="FilesMissing" Type="int" />
+          <Property Name="CorruptFiles" Type="int" />
+          <Property Name="RowID" Type="int" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'FxEDI.FTP.PendingRDPDateRange' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="PendingRDPDateRange">
+          <Key>
+            <PropertyRef Name="FromDT" />
+            <PropertyRef Name="ToDT" />
+            <PropertyRef Name="RowID" />
+          </Key>
+          <Property Name="FromDT" Type="datetime" Nullable="false" />
+          <Property Name="ToDT" Type="datetime" Nullable="false" />
+          <Property Name="RowID" Type="bigint" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'FxEDI.FTP.TaskActivityMonitor' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="TaskActivityMonitor">
+          <Key>
+            <PropertyRef Name="TaskName" />
+            <PropertyRef Name="LastRunOutcome" />
+            <PropertyRef Name="RowID" />
+          </Key>
+          <Property Name="TaskName" Type="varchar" MaxLength="47" Nullable="false" />
+          <Property Name="LastRunOutcome" Type="varchar" MaxLength="11" Nullable="false" />
+          <Property Name="LastRun" Type="datetime" />
+          <Property Name="NextRun" Type="datetime" />
+          <Property Name="RowID" Type="int" Nullable="false" />
+        </EntityType>
+        <Function Name="usp_RecordReceiveFileLog" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="FTP">
+          <Parameter Name="RDPFiles" Type="xml" Mode="In" />
+          <Parameter Name="TranDT" Type="datetime" Mode="InOut" />
+          <Parameter Name="Result" Type="int" Mode="InOut" />
+        </Function>
+        <Function Name="usp_RemoveBadFile" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="FTP">
+          <Parameter Name="BadFileRowID" Type="int" Mode="In" />
+          <Parameter Name="TranDT" Type="datetime" Mode="InOut" />
+          <Parameter Name="Result" Type="int" Mode="InOut" />
+        </Function>
+        <Function Name="usp_UpdateReceivedDirectoryPoll" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="FTP">
+          <Parameter Name="TranDT" Type="datetime" Mode="InOut" />
+          <Parameter Name="Result" Type="int" Mode="InOut" />
+        </Function>
+        <Function Name="usp_UpdateReceiveFileLogForMissingFile" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="FTP">
+          <Parameter Name="MissingFileRowID" Type="int" Mode="In" />
+          <Parameter Name="TranDT" Type="datetime" Mode="InOut" />
+          <Parameter Name="Result" Type="int" Mode="InOut" />
+        </Function>
+        <Function Name="usp_UpdateReceiveFileLogForReplacedBadFile" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="FTP">
+          <Parameter Name="ReplacedBadFileRowID" Type="int" Mode="In" />
+          <Parameter Name="TranDT" Type="datetime" Mode="InOut" />
+          <Parameter Name="Result" Type="int" Mode="InOut" />
+        </Function>
+        <Function Name="usp_UpdateReceiveFileLogForUnavailableFile" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="FTP">
+          <Parameter Name="UnavailableFileRowID" Type="int" Mode="In" />
+          <Parameter Name="TranDT" Type="datetime" Mode="InOut" />
+          <Parameter Name="Result" Type="int" Mode="InOut" />
+        </Function>
+        <EntityContainer Name="FxEDIModelStoreContainer">
+          <EntitySet Name="ReceivedDirectoryPoll" EntityType="Self.ReceivedDirectoryPoll" Schema="FTP" store:Type="Tables" />
+          <EntitySet Name="ReceiveFileLog" EntityType="Self.ReceiveFileLog" Schema="FTP" store:Type="Tables" />
+          <EntitySet Name="BadFileList" EntityType="Self.BadFileList" store:Type="Views" store:Schema="FTP">
+            <DefiningQuery>SELECT 
+    [BadFileList].[SourceFileName] AS [SourceFileName], 
+    [BadFileList].[Status] AS [Status], 
+    [BadFileList].[Type] AS [Type], 
+    [BadFileList].[SourceFileLength] AS [SourceFileLength], 
+    [BadFileList].[SourceCRC32] AS [SourceCRC32], 
+    [BadFileList].[SourceFileDT] AS [SourceFileDT], 
+    [BadFileList].[SourceFileAvailable] AS [SourceFileAvailable], 
+    [BadFileList].[ReceiveFileGUID] AS [ReceiveFileGUID], 
+    [BadFileList].[ReceiveFileName] AS [ReceiveFileName], 
+    [BadFileList].[ReceiveCRC32] AS [ReceiveCRC32], 
+    [BadFileList].[ReceiveFileLength] AS [ReceiveFileLength], 
+    [BadFileList].[RowID] AS [RowID], 
+    [BadFileList].[RowCreateDT] AS [RowCreateDT], 
+    [BadFileList].[RowCreateUser] AS [RowCreateUser], 
+    [BadFileList].[RowModifiedDT] AS [RowModifiedDT], 
+    [BadFileList].[RowModifiedUser] AS [RowModifiedUser]
+    FROM [FTP].[BadFileList] AS [BadFileList]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="MissingFileList" EntityType="Self.MissingFileList" store:Type="Views" store:Schema="FTP">
+            <DefiningQuery>SELECT 
+    [MissingFileList].[SourceFileName] AS [SourceFileName], 
+    [MissingFileList].[Status] AS [Status], 
+    [MissingFileList].[Type] AS [Type], 
+    [MissingFileList].[SourceFileLength] AS [SourceFileLength], 
+    [MissingFileList].[SourceCRC32] AS [SourceCRC32], 
+    [MissingFileList].[SourceFileDT] AS [SourceFileDT], 
+    [MissingFileList].[SourceFileAvailable] AS [SourceFileAvailable], 
+    [MissingFileList].[ReceiveFileGUID] AS [ReceiveFileGUID], 
+    [MissingFileList].[ReceiveFileName] AS [ReceiveFileName], 
+    [MissingFileList].[ReceiveCRC32] AS [ReceiveCRC32], 
+    [MissingFileList].[ReceiveFileLength] AS [ReceiveFileLength], 
+    [MissingFileList].[RowID] AS [RowID], 
+    [MissingFileList].[RowCreateDT] AS [RowCreateDT], 
+    [MissingFileList].[RowCreateUser] AS [RowCreateUser], 
+    [MissingFileList].[RowModifiedDT] AS [RowModifiedDT], 
+    [MissingFileList].[RowModifiedUser] AS [RowModifiedUser]
+    FROM [FTP].[MissingFileList] AS [MissingFileList]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="OverallStatus" EntityType="Self.OverallStatus" store:Type="Views" store:Schema="FTP">
+            <DefiningQuery>SELECT 
+    [OverallStatus].[CurrentDatetime] AS [CurrentDatetime], 
+    [OverallStatus].[FilesMissing] AS [FilesMissing], 
+    [OverallStatus].[CorruptFiles] AS [CorruptFiles], 
+    [OverallStatus].[RowID] AS [RowID]
+    FROM [FTP].[OverallStatus] AS [OverallStatus]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="PendingRDPDateRange" EntityType="Self.PendingRDPDateRange" store:Type="Views" store:Schema="FTP">
+            <DefiningQuery>SELECT 
+    [PendingRDPDateRange].[FromDT] AS [FromDT], 
+    [PendingRDPDateRange].[ToDT] AS [ToDT], 
+    [PendingRDPDateRange].[RowID] AS [RowID]
+    FROM [FTP].[PendingRDPDateRange] AS [PendingRDPDateRange]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="TaskActivityMonitor" EntityType="Self.TaskActivityMonitor" store:Type="Views" store:Schema="FTP">
+            <DefiningQuery>SELECT 
+    [TaskActivityMonitor].[TaskName] AS [TaskName], 
+    [TaskActivityMonitor].[LastRunOutcome] AS [LastRunOutcome], 
+    [TaskActivityMonitor].[LastRun] AS [LastRun], 
+    [TaskActivityMonitor].[NextRun] AS [NextRun], 
+    [TaskActivityMonitor].[RowID] AS [RowID]
+    FROM [FTP].[TaskActivityMonitor] AS [TaskActivityMonitor]</DefiningQuery>
+          </EntitySet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="FxEDIModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="ReceivedDirectoryPoll">
+          <Key>
+            <PropertyRef Name="RowID" />
+          </Key>
+          <Property Name="Status" Type="Int32" Nullable="false" />
+          <Property Name="Type" Type="Int32" Nullable="false" />
+          <Property Name="ScheduledPollDT" Type="DateTime" Precision="3" />
+          <Property Name="PollWindowBeginDT" Type="DateTime" Precision="3" />
+          <Property Name="PollWindowEndDT" Type="DateTime" Precision="3" />
+          <Property Name="SourceFileCount" Type="Int32" />
+          <Property Name="SourceCRC32Hash" Type="Int32" />
+          <Property Name="ReceivedFileCount" Type="Int32" />
+          <Property Name="ReceivedCRC32Hash" Type="Int32" />
+          <Property Name="RowID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RowCreateDT" Type="DateTime" Precision="3" />
+          <Property Name="RowCreateUser" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="RowModifiedDT" Type="DateTime" Precision="3" />
+          <Property Name="RowModifiedUser" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ReceiveFileLog">
+          <Key>
+            <PropertyRef Name="RowID" />
+          </Key>
+          <Property Name="SourceFileName" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Status" Type="Int32" Nullable="false" />
+          <Property Name="Type" Type="Int32" Nullable="false" />
+          <Property Name="SourceFileLength" Type="Int32" Nullable="false" />
+          <Property Name="SourceCRC32" Type="Binary" MaxLength="8" FixedLength="false" />
+          <Property Name="SourceFileDT" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="SourceFileAvailable" Type="Int32" Nullable="false" />
+          <Property Name="ReceiveFileGUID" Type="Guid" />
+          <Property Name="ReceiveFileName" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="ReceiveCRC32" Type="Binary" MaxLength="8" FixedLength="false" />
+          <Property Name="ReceiveFileLength" Type="Int32" />
+          <Property Name="RowID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RowCreateDT" Type="DateTime" Precision="3" />
+          <Property Name="RowCreateUser" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="RowModifiedDT" Type="DateTime" Precision="3" />
+          <Property Name="RowModifiedUser" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+        </EntityType>
+        <EntityType Name="BadFile">
+          <Key>
+            <PropertyRef Name="SourceFileName" />
+            <PropertyRef Name="Status" />
+            <PropertyRef Name="Type" />
+            <PropertyRef Name="SourceFileLength" />
+            <PropertyRef Name="SourceFileDT" />
+            <PropertyRef Name="SourceFileAvailable" />
+            <PropertyRef Name="RowID" />
+            <PropertyRef Name="RowCreateUser" />
+            <PropertyRef Name="RowModifiedUser" />
+          </Key>
+          <Property Name="SourceFileName" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Status" Type="Int32" Nullable="false" />
+          <Property Name="Type" Type="Int32" Nullable="false" />
+          <Property Name="SourceFileLength" Type="Int32" Nullable="false" />
+          <Property Name="SourceCRC32" Type="Binary" MaxLength="8" FixedLength="false" />
+          <Property Name="SourceFileDT" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="SourceFileAvailable" Type="Int32" Nullable="false" />
+          <Property Name="ReceiveFileGUID" Type="Guid" />
+          <Property Name="ReceiveFileName" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="ReceiveCRC32" Type="Binary" MaxLength="8" FixedLength="false" />
+          <Property Name="ReceiveFileLength" Type="Int32" />
+          <Property Name="RowID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RowCreateDT" Type="DateTime" Precision="3" />
+          <Property Name="RowCreateUser" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="RowModifiedDT" Type="DateTime" Precision="3" />
+          <Property Name="RowModifiedUser" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+        </EntityType>
+        <EntityType Name="MissingFile">
+          <Key>
+            <PropertyRef Name="SourceFileName" />
+            <PropertyRef Name="Status" />
+            <PropertyRef Name="Type" />
+            <PropertyRef Name="SourceFileLength" />
+            <PropertyRef Name="SourceFileDT" />
+            <PropertyRef Name="SourceFileAvailable" />
+            <PropertyRef Name="RowID" />
+            <PropertyRef Name="RowCreateUser" />
+            <PropertyRef Name="RowModifiedUser" />
+          </Key>
+          <Property Name="SourceFileName" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Status" Type="Int32" Nullable="false" />
+          <Property Name="Type" Type="Int32" Nullable="false" />
+          <Property Name="SourceFileLength" Type="Int32" Nullable="false" />
+          <Property Name="SourceCRC32" Type="Binary" MaxLength="8" FixedLength="false" />
+          <Property Name="SourceFileDT" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="SourceFileAvailable" Type="Int32" Nullable="false" />
+          <Property Name="ReceiveFileGUID" Type="Guid" />
+          <Property Name="ReceiveFileName" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="ReceiveCRC32" Type="Binary" MaxLength="8" FixedLength="false" />
+          <Property Name="ReceiveFileLength" Type="Int32" />
+          <Property Name="RowID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RowCreateDT" Type="DateTime" Precision="3" />
+          <Property Name="RowCreateUser" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="RowModifiedDT" Type="DateTime" Precision="3" />
+          <Property Name="RowModifiedUser" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+        </EntityType>
+        <EntityType Name="OverallStatu">
+          <Key>
+            <PropertyRef Name="CurrentDatetime" />
+            <PropertyRef Name="RowID" />
+          </Key>
+          <Property Name="CurrentDatetime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="FilesMissing" Type="Int32" />
+          <Property Name="CorruptFiles" Type="Int32" />
+          <Property Name="RowID" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="PendingRDPDateRange">
+          <Key>
+            <PropertyRef Name="FromDT" />
+            <PropertyRef Name="ToDT" />
+            <PropertyRef Name="RowID" />
+          </Key>
+          <Property Name="FromDT" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ToDT" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="RowID" Type="Int64" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TaskActivity">
+          <Key>
+            <PropertyRef Name="TaskName" />
+            <PropertyRef Name="LastRunOutcome" />
+            <PropertyRef Name="RowID" />
+          </Key>
+          <Property Name="TaskName" Type="String" MaxLength="47" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="LastRunOutcome" Type="String" MaxLength="11" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="LastRun" Type="DateTime" Precision="3" />
+          <Property Name="NextRun" Type="DateTime" Precision="3" />
+          <Property Name="RowID" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityContainer Name="FxEDIEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="ReceivedDirectoryPolls" EntityType="Self.ReceivedDirectoryPoll" />
+          <EntitySet Name="ReceiveFileLogs" EntityType="Self.ReceiveFileLog" />
+          <EntitySet Name="BadFiles" EntityType="FxEDIModel.BadFile" />
+          <EntitySet Name="MissingFiles" EntityType="FxEDIModel.MissingFile" />
+          <EntitySet Name="OverallStatus" EntityType="Self.OverallStatu" />
+          <EntitySet Name="PendingRDPDateRanges" EntityType="Self.PendingRDPDateRange" />
+          <EntitySet Name="TaskActivities" EntityType="FxEDIModel.TaskActivity" />
+          <FunctionImport Name="usp_RecordReceiveFileLog">
+            <Parameter Name="RDPFiles" Mode="In" Type="String" />
+            <Parameter Name="TranDT" Mode="InOut" Type="DateTime" />
+            <Parameter Name="Result" Mode="InOut" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="usp_RemoveBadFile">
+            <Parameter Name="BadFileRowID" Mode="In" Type="Int32" />
+            <Parameter Name="TranDT" Mode="InOut" Type="DateTime" />
+            <Parameter Name="Result" Mode="InOut" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="usp_UpdateReceivedDirectoryPoll">
+            <Parameter Name="TranDT" Mode="InOut" Type="DateTime" />
+            <Parameter Name="Result" Mode="InOut" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="usp_UpdateReceiveFileLogForMissingFile">
+            <Parameter Name="MissingFileRowID" Mode="In" Type="Int32" />
+            <Parameter Name="TranDT" Mode="InOut" Type="DateTime" />
+            <Parameter Name="Result" Mode="InOut" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="usp_UpdateReceiveFileLogForReplacedBadFile">
+            <Parameter Name="ReplacedBadFileRowID" Mode="In" Type="Int32" />
+            <Parameter Name="TranDT" Mode="InOut" Type="DateTime" />
+            <Parameter Name="Result" Mode="InOut" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="usp_UpdateReceiveFileLogForUnavailableFile">
+            <Parameter Name="UnavailableFileRowID" Mode="In" Type="Int32" />
+            <Parameter Name="TranDT" Mode="InOut" Type="DateTime" />
+            <Parameter Name="Result" Mode="InOut" Type="Int32" />
+          </FunctionImport>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="FxEDIModelStoreContainer" CdmEntityContainer="FxEDIEntities">
+          <EntitySetMapping Name="ReceivedDirectoryPolls">
+            <EntityTypeMapping TypeName="FxEDIModel.ReceivedDirectoryPoll">
+              <MappingFragment StoreEntitySet="ReceivedDirectoryPoll">
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="ScheduledPollDT" ColumnName="ScheduledPollDT" />
+                <ScalarProperty Name="PollWindowBeginDT" ColumnName="PollWindowBeginDT" />
+                <ScalarProperty Name="PollWindowEndDT" ColumnName="PollWindowEndDT" />
+                <ScalarProperty Name="SourceFileCount" ColumnName="SourceFileCount" />
+                <ScalarProperty Name="SourceCRC32Hash" ColumnName="SourceCRC32Hash" />
+                <ScalarProperty Name="ReceivedFileCount" ColumnName="ReceivedFileCount" />
+                <ScalarProperty Name="ReceivedCRC32Hash" ColumnName="ReceivedCRC32Hash" />
+                <ScalarProperty Name="RowID" ColumnName="RowID" />
+                <ScalarProperty Name="RowCreateDT" ColumnName="RowCreateDT" />
+                <ScalarProperty Name="RowCreateUser" ColumnName="RowCreateUser" />
+                <ScalarProperty Name="RowModifiedDT" ColumnName="RowModifiedDT" />
+                <ScalarProperty Name="RowModifiedUser" ColumnName="RowModifiedUser" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ReceiveFileLogs">
+            <EntityTypeMapping TypeName="FxEDIModel.ReceiveFileLog">
+              <MappingFragment StoreEntitySet="ReceiveFileLog">
+                <ScalarProperty Name="SourceFileName" ColumnName="SourceFileName" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="SourceFileLength" ColumnName="SourceFileLength" />
+                <ScalarProperty Name="SourceCRC32" ColumnName="SourceCRC32" />
+                <ScalarProperty Name="SourceFileDT" ColumnName="SourceFileDT" />
+                <ScalarProperty Name="SourceFileAvailable" ColumnName="SourceFileAvailable" />
+                <ScalarProperty Name="ReceiveFileGUID" ColumnName="ReceiveFileGUID" />
+                <ScalarProperty Name="ReceiveFileName" ColumnName="ReceiveFileName" />
+                <ScalarProperty Name="ReceiveCRC32" ColumnName="ReceiveCRC32" />
+                <ScalarProperty Name="ReceiveFileLength" ColumnName="ReceiveFileLength" />
+                <ScalarProperty Name="RowID" ColumnName="RowID" />
+                <ScalarProperty Name="RowCreateDT" ColumnName="RowCreateDT" />
+                <ScalarProperty Name="RowCreateUser" ColumnName="RowCreateUser" />
+                <ScalarProperty Name="RowModifiedDT" ColumnName="RowModifiedDT" />
+                <ScalarProperty Name="RowModifiedUser" ColumnName="RowModifiedUser" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="BadFiles">
+            <EntityTypeMapping TypeName="FxEDIModel.BadFile">
+              <MappingFragment StoreEntitySet="BadFileList">
+                <ScalarProperty Name="SourceFileName" ColumnName="SourceFileName" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="SourceFileLength" ColumnName="SourceFileLength" />
+                <ScalarProperty Name="SourceCRC32" ColumnName="SourceCRC32" />
+                <ScalarProperty Name="SourceFileDT" ColumnName="SourceFileDT" />
+                <ScalarProperty Name="SourceFileAvailable" ColumnName="SourceFileAvailable" />
+                <ScalarProperty Name="ReceiveFileGUID" ColumnName="ReceiveFileGUID" />
+                <ScalarProperty Name="ReceiveFileName" ColumnName="ReceiveFileName" />
+                <ScalarProperty Name="ReceiveCRC32" ColumnName="ReceiveCRC32" />
+                <ScalarProperty Name="ReceiveFileLength" ColumnName="ReceiveFileLength" />
+                <ScalarProperty Name="RowID" ColumnName="RowID" />
+                <ScalarProperty Name="RowCreateDT" ColumnName="RowCreateDT" />
+                <ScalarProperty Name="RowCreateUser" ColumnName="RowCreateUser" />
+                <ScalarProperty Name="RowModifiedDT" ColumnName="RowModifiedDT" />
+                <ScalarProperty Name="RowModifiedUser" ColumnName="RowModifiedUser" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MissingFiles">
+            <EntityTypeMapping TypeName="FxEDIModel.MissingFile">
+              <MappingFragment StoreEntitySet="MissingFileList">
+                <ScalarProperty Name="SourceFileName" ColumnName="SourceFileName" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="SourceFileLength" ColumnName="SourceFileLength" />
+                <ScalarProperty Name="SourceCRC32" ColumnName="SourceCRC32" />
+                <ScalarProperty Name="SourceFileDT" ColumnName="SourceFileDT" />
+                <ScalarProperty Name="SourceFileAvailable" ColumnName="SourceFileAvailable" />
+                <ScalarProperty Name="ReceiveFileGUID" ColumnName="ReceiveFileGUID" />
+                <ScalarProperty Name="ReceiveFileName" ColumnName="ReceiveFileName" />
+                <ScalarProperty Name="ReceiveCRC32" ColumnName="ReceiveCRC32" />
+                <ScalarProperty Name="ReceiveFileLength" ColumnName="ReceiveFileLength" />
+                <ScalarProperty Name="RowID" ColumnName="RowID" />
+                <ScalarProperty Name="RowCreateDT" ColumnName="RowCreateDT" />
+                <ScalarProperty Name="RowCreateUser" ColumnName="RowCreateUser" />
+                <ScalarProperty Name="RowModifiedDT" ColumnName="RowModifiedDT" />
+                <ScalarProperty Name="RowModifiedUser" ColumnName="RowModifiedUser" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="OverallStatus">
+            <EntityTypeMapping TypeName="FxEDIModel.OverallStatu">
+              <MappingFragment StoreEntitySet="OverallStatus">
+                <ScalarProperty Name="CurrentDatetime" ColumnName="CurrentDatetime" />
+                <ScalarProperty Name="FilesMissing" ColumnName="FilesMissing" />
+                <ScalarProperty Name="CorruptFiles" ColumnName="CorruptFiles" />
+                <ScalarProperty Name="RowID" ColumnName="RowID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PendingRDPDateRanges">
+            <EntityTypeMapping TypeName="FxEDIModel.PendingRDPDateRange">
+              <MappingFragment StoreEntitySet="PendingRDPDateRange">
+                <ScalarProperty Name="FromDT" ColumnName="FromDT" />
+                <ScalarProperty Name="ToDT" ColumnName="ToDT" />
+                <ScalarProperty Name="RowID" ColumnName="RowID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TaskActivities">
+            <EntityTypeMapping TypeName="FxEDIModel.TaskActivity">
+              <MappingFragment StoreEntitySet="TaskActivityMonitor">
+                <ScalarProperty Name="TaskName" ColumnName="TaskName" />
+                <ScalarProperty Name="LastRunOutcome" ColumnName="LastRunOutcome" />
+                <ScalarProperty Name="LastRun" ColumnName="LastRun" />
+                <ScalarProperty Name="NextRun" ColumnName="NextRun" />
+                <ScalarProperty Name="RowID" ColumnName="RowID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="usp_RecordReceiveFileLog" FunctionName="FxEDIModel.Store.usp_RecordReceiveFileLog" />
+          <FunctionImportMapping FunctionImportName="usp_RemoveBadFile" FunctionName="FxEDIModel.Store.usp_RemoveBadFile" />
+          <FunctionImportMapping FunctionImportName="usp_UpdateReceivedDirectoryPoll" FunctionName="FxEDIModel.Store.usp_UpdateReceivedDirectoryPoll" />
+          <FunctionImportMapping FunctionImportName="usp_UpdateReceiveFileLogForMissingFile" FunctionName="FxEDIModel.Store.usp_UpdateReceiveFileLogForMissingFile" />
+          <FunctionImportMapping FunctionImportName="usp_UpdateReceiveFileLogForReplacedBadFile" FunctionName="FxEDIModel.Store.usp_UpdateReceiveFileLogForReplacedBadFile" />
+          <FunctionImportMapping FunctionImportName="usp_UpdateReceiveFileLogForUnavailableFile" FunctionName="FxEDIModel.Store.usp_UpdateReceiveFileLogForUnavailableFile" />
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

@@ -5,6 +5,7 @@ using System.Windows.Forms;
 using RmaMaintenance.Controllers;
 using RmaMaintenance.Controls;
 using RmaMaintenance.DataModels;
+using RmaMaintenance.LabelPrinting;
 
 namespace RmaMaintenance.Views
 {
@@ -58,6 +59,7 @@ namespace RmaMaintenance.Views
 
             linkLblClose.LinkBehavior = LinkBehavior.NeverUnderline;
             linkLblCloseAll.LinkBehavior = LinkBehavior.NeverUnderline;
+            panel2.Dock = DockStyle.None;
         }
 
         #endregion
@@ -133,6 +135,17 @@ namespace RmaMaintenance.Views
 
         #region Button Events
 
+        private void mesBtnRtvLabels_Click(object sender, EventArgs e)
+        {
+            panel2.Dock = DockStyle.Fill;
+            Cursor.Current = Cursors.WaitCursor;
+
+            PrintLabels();
+
+            panel2.Dock = DockStyle.None;
+            Cursor.Current = Cursors.Default;
+        }
+
         private void mesBtnRtvPackingSlip_Click(object sender, EventArgs e)
         {
             PrintPackingSlip();
@@ -140,22 +153,25 @@ namespace RmaMaintenance.Views
 
         private void mesBtnShipout_MouseDown(object sender, MouseEventArgs e)
         {
-            Cursor.Current = Cursors.WaitCursor;
         }
 
         private void mesBtnShipout_Click(object sender, EventArgs e)
         {
-            string rtvShipper = mesTbxRtvShipper.Text.Trim();
-            string location = mesTbxHonLoc.Text.Trim();
+            panel2.Dock = DockStyle.Fill;
+            Cursor.Current = Cursors.WaitCursor;
 
+            string rtvShipper = mesTbxRtvShipper.Text.Trim();
             if (rtvShipper == "")
             {
+                panel2.Dock = DockStyle.None;
                 Cursor.Current = Cursors.Default;
                 return;
             }
 
+            string location = mesTbxHonLoc.Text.Trim();
             if (location == "")
             {
+                panel2.Dock = DockStyle.None;
                 Cursor.Current = Cursors.Default;
                 _messages.Message = "Please enter a Honduras RMA location.";
                 _messages.ShowDialog();
@@ -169,6 +185,7 @@ namespace RmaMaintenance.Views
             }
             catch (Exception)
             {
+                panel2.Dock = DockStyle.None;
                 Cursor.Current = Cursors.Default;
                 _messages.Message = "The RTV shipper number is not valid.";
                 _messages.ShowDialog();
@@ -182,6 +199,8 @@ namespace RmaMaintenance.Views
                 ResetNewShippersList();
                 DeleteSerialsQuantities();
             }
+            panel2.Dock = DockStyle.None;
+            Cursor.Current = Cursors.Default;
         }
 
         #endregion
@@ -194,6 +213,53 @@ namespace RmaMaintenance.Views
             _isDataBinding = true;
             dgvNewShippers.DataSource = _newShippersList;
             _isDataBinding = false;
+        }
+
+        private void PrintLabels()
+        {
+            string rtvShipper = mesTbxRtvShipper.Text.Trim();
+            if (rtvShipper == "")
+            {
+                panel2.Dock = DockStyle.None;
+                Cursor.Current = Cursors.Default;
+
+                _messages.Message = "RTV shipper is required.";
+                _messages.ShowDialog();
+                return;
+            }
+            int iShipper = Convert.ToInt32(rtvShipper);
+
+            // Get a list of serial numbers tied to this shipper
+            string error;
+            List<string> serials = new List<string>();
+            serials = _controller.GetShipperSerials(iShipper, out error);
+            if (error != "")
+            {
+                panel2.Dock = DockStyle.None;
+                Cursor.Current = Cursors.Default;
+
+                _messages.Message = error;
+                _messages.ShowDialog();
+                return;
+            }
+
+            foreach (var item in serials)
+            {
+                // Get label code with label data
+                int serial = Convert.ToInt32(item);
+                string labelCode = _controller.GetLabelCode(serial, out error);
+
+                // Print the label
+                bool result = DocumentPrinter.Print(labelCode);
+                if (result == false)
+                {
+                    panel2.Dock = DockStyle.None;
+                    Cursor.Current = Cursors.Default;
+
+                    _messages.Message = string.Format("Failed to print a label for serial {0}.", serial.ToString());
+                    _messages.ShowDialog();
+                }
+            }
         }
 
         private void PrintPackingSlip()
@@ -326,6 +392,7 @@ namespace RmaMaintenance.Views
 
             Cursor.Current = Cursors.Default;
         }
+
 
         #endregion
 

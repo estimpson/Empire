@@ -1,0 +1,3 @@
+CREATE SCHEMA [EDI_XML_Autosystems_ASN]
+AUTHORIZATION [dbo]
+GO

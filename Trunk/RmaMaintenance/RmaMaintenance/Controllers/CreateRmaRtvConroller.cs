@@ -19,14 +19,40 @@ namespace RmaMaintenance.Controllers
 
         #region Properties
 
-        public string ReturnedRmaRtvNumber { get; private set; } 
+        public string ReturnedRmaNumber { get; private set; }
+        public string ReturnedRmaRtvNumber { get; private set; }
 
         #endregion
 
 
         #region Methods
 
-        public void ProcessSerials(string operatorCode, string rmaNumber, int transactionType, string notes, out string error)
+        public void GenerateRmaNumber(string operatorCode, out string error)
+        {
+            var dt = new ObjectParameter("TranDT", typeof(DateTime));
+            var result = new ObjectParameter("Result", typeof(int));
+            var rmaNumber = new ObjectParameter("RmaNumber", typeof(int)) { Value = null };
+
+            ReturnedRmaNumber = "";
+
+            error = "";
+            try
+            {
+                using (var context = new MONITOREntities())
+                {
+                    context.usp_CreateRma_GenerateRmaNumber(operatorCode, rmaNumber, dt, result);
+
+                    ReturnedRmaNumber = rmaNumber.Value.ToString();
+                }
+            }
+            catch (Exception ex)
+            {
+                string errorMsg = (ex.InnerException == null) ? ex.Message : ex.InnerException.Message;
+                error = String.Format("Failed to create a new RMA number.  Error: {0}", errorMsg);
+            }
+        }
+
+        public void ProcessSerials(string operatorCode, string rmaNumber, int transactionType, string location, string notes, out string error)
         {
             var dt = new ObjectParameter("TranDT", typeof(DateTime));
             var result = new ObjectParameter("Result", typeof(int));
@@ -40,7 +66,7 @@ namespace RmaMaintenance.Controllers
             {
                 using (var context = new MONITOREntities())
                 {
-                    var query = context.usp_CreateRma_ProcessByDestGl2(operatorCode, rmaRtv, transactionType, notes, dt, result);
+                    var query = context.usp_CreateRma_ProcessByDestGl2(operatorCode, rmaRtv, transactionType, location, notes, dt, result);
 
                     foreach (var item in query)
                     {

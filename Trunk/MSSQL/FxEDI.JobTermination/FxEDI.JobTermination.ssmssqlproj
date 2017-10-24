@@ -1,0 +1,58 @@
+<?xml version="1.0"?>
+<SqlWorkbenchSqlProject xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" Name="FxEDI.JobTermination">
+  <Items>
+    <LogicalFolder Name="Connections" Type="2" Sorted="true">
+      <Items>
+        <ConnectionNode Name="eeisql2:estimpson">
+          <Created>2017-06-27T13:05:15.2321897-04:00</Created>
+          <Type>SQL</Type>
+          <Server>eeisql2</Server>
+          <UserName>estimpson</UserName>
+          <Authentication>SQL</Authentication>
+          <InitialDB>msdb</InitialDB>
+          <LoginTimeout>15</LoginTimeout>
+          <ExecutionTimeout>0</ExecutionTimeout>
+          <ConnectionProtocol>NotSpecified</ConnectionProtocol>
+          <ApplicationName>Microsoft SQL Server Management Studio - Query</ApplicationName>
+        </ConnectionNode>
+      </Items>
+    </LogicalFolder>
+    <LogicalFolder Name="Queries" Type="0" Sorted="true">
+      <Items>
+        <FileNode Name="Procedure.msdb.dbo.usp_NotifyLongRunningJobs.sql">
+          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:eeisql2:False:estimpson</AssociatedConnectionMoniker>
+          <AssociatedConnSrvName>eeisql2</AssociatedConnSrvName>
+          <AssociatedConnUserName>estimpson</AssociatedConnUserName>
+          <FullPath>Procedure.msdb.dbo.usp_NotifyLongRunningJobs.sql</FullPath>
+        </FileNode>
+        <FileNode Name="Procedure.msdb.dbo.usp_TerminateLongRunningJobs.sql">
+          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:eeisql2:False:estimpson</AssociatedConnectionMoniker>
+          <AssociatedConnSrvName>eeisql2</AssociatedConnSrvName>
+          <AssociatedConnUserName>estimpson</AssociatedConnUserName>
+          <FullPath>Procedure.msdb.dbo.usp_TerminateLongRunningJobs.sql</FullPath>
+        </FileNode>
+        <FileNode Name="Query.4DaysReceivedFiles.sql">
+          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:eeisql2:False:estimpson</AssociatedConnectionMoniker>
+          <AssociatedConnSrvName>eeisql2</AssociatedConnSrvName>
+          <AssociatedConnUserName>estimpson</AssociatedConnUserName>
+          <FullPath>Query.4DaysReceivedFiles.sql</FullPath>
+        </FileNode>
+        <FileNode Name="Table.msdb.dbo.LongRunningJobAutoTermJobList.sql">
+          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:eeisql2:False:estimpson</AssociatedConnectionMoniker>
+          <AssociatedConnSrvName>eeisql2</AssociatedConnSrvName>
+          <AssociatedConnUserName>estimpson</AssociatedConnUserName>
+          <FullPath>Table.msdb.dbo.LongRunningJobAutoTermJobList.sql</FullPath>
+        </FileNode>
+        <FileNode Name="Table.msdb.dbo.LongRunningJobHistory.sql">
+          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:eeisql2:False:estimpson</AssociatedConnectionMoniker>
+          <AssociatedConnSrvName>eeisql2</AssociatedConnSrvName>
+          <AssociatedConnUserName>estimpson</AssociatedConnUserName>
+          <FullPath>Table.msdb.dbo.LongRunningJobHistory.sql</FullPath>
+        </FileNode>
+      </Items>
+    </LogicalFolder>
+    <LogicalFolder Name="Miscellaneous" Type="3" Sorted="true">
+      <Items />
+    </LogicalFolder>
+  </Items>
+</SqlWorkbenchSqlProject>

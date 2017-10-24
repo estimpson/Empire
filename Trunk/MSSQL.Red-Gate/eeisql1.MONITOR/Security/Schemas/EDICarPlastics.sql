@@ -1,0 +1,3 @@
+CREATE SCHEMA [EDICarPlastics]
+AUTHORIZATION [dbo]
+GO

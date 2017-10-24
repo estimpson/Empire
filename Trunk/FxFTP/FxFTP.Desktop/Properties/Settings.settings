@@ -1,0 +1,24 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="FxFTP.Desktop.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="DownloadTempFolder" Type="System.String" Scope="User">
+      <Value Profile="(Default)">F:\Data\EDI_FTP_Staging\FxFTP.Temp\</Value>
+    </Setting>
+    <Setting Name="CustomerEDIFileTablePath" Type="System.String" Scope="User">
+      <Value Profile="(Default)">\\srvsql2\fx\FxEDI\RawEDIData\CustomerEDI\Inbound</Value>
+    </Setting>
+    <Setting Name="iExchangeWebArchiveFolder" Type="System.String" Scope="User">
+      <Value Profile="(Default)">/recv/rcvd</Value>
+    </Setting>
+    <Setting Name="HostName" Type="System.String" Scope="User">
+      <Value Profile="(Default)">ftp.iexchangeweb.com</Value>
+    </Setting>
+    <Setting Name="UserName" Type="System.String" Scope="User">
+      <Value Profile="(Default)">EMP13707</Value>
+    </Setting>
+    <Setting Name="Password" Type="System.String" Scope="User">
+      <Value Profile="(Default)">EM13707</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>

@@ -1,0 +1,3 @@
+CREATE SCHEMA [EDIAutoSystems]
+AUTHORIZATION [dbo]
+GO
