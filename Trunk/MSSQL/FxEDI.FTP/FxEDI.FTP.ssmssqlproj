@@ -151,12 +151,6 @@
           <AssociatedConnUserName>estimpson</AssociatedConnUserName>
           <FullPath>SQLQuery1.sql</FullPath>
         </FileNode>
-        <FileNode Name="SQLQuery2.sql">
-          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:eeisql2:False:estimpson</AssociatedConnectionMoniker>
-          <AssociatedConnSrvName>eeisql2</AssociatedConnSrvName>
-          <AssociatedConnUserName>estimpson</AssociatedConnUserName>
-          <FullPath>SQLQuery2.sql</FullPath>
-        </FileNode>
         <FileNode Name="Table.FxEDI.FTP.LogDetails.sql">
           <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:srvsql2.empireelect.local\fx:False:estimpson</AssociatedConnectionMoniker>
           <AssociatedConnSrvName>srvsql2.empireelect.local\fx</AssociatedConnSrvName>
@@ -180,6 +174,12 @@
           <AssociatedConnSrvName>eeisql2</AssociatedConnSrvName>
           <AssociatedConnUserName>estimpson</AssociatedConnUserName>
           <FullPath>Table.FxEDI.FTP.ReceiveFileLog.sql</FullPath>
+        </FileNode>
+        <FileNode Name="TableFunction.FxEDI.dbo.udf_StringStack_Pop(SYNONYM).sql">
+          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:eeisql2:False:estimpson</AssociatedConnectionMoniker>
+          <AssociatedConnSrvName>eeisql2</AssociatedConnSrvName>
+          <AssociatedConnUserName>estimpson</AssociatedConnUserName>
+          <FullPath>TableFunction.FxEDI.dbo.udf_StringStack_Pop(SYNONYM).sql</FullPath>
         </FileNode>
         <FileNode Name="View.FxEDI.FTP.BadFileList.sql">
           <AssociatedConnectionMoniker />

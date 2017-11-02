@@ -71,6 +71,8 @@ Project("{4F2E2C19-372F-40D8-9FA7-9D2138C6997A}") = "FxPLM", "..\..\..\FxPLM\MSS
 EndProject
 Project("{4F2E2C19-372F-40D8-9FA7-9D2138C6997A}") = "Monitor.EDI", "Monitor.EDI\Monitor.EDI.ssmssqlproj", "{B9D1EF9C-1D93-4839-B5FF-8A80FE6C0080}"
 EndProject
+Project("{4F2E2C19-372F-40D8-9FA7-9D2138C6997A}") = "FxEDI.FS", "FxEDI.FS\FxEDI.FS.ssmssqlproj", "{E4074FAE-7785-4085-8F47-9478BE769AE2}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Default|Default = Default|Default
@@ -111,7 +113,8 @@ Global
 		{AE1BF84C-900A-443B-8749-66B9ED5E3440}.Default|Default.ActiveCfg = Default
 		{8EEA13BD-F24A-4439-B692-632CBF59BC66}.Default|Default.ActiveCfg = Default
 		{B9D1EF9C-1D93-4839-B5FF-8A80FE6C0080}.Default|Default.ActiveCfg = Default
-		{4E950112-586D-4B49-B9F5-9FDD83A8F12F}.Default|Default.ActiveCfg = Default
+		{470F58A5-4F43-461A-8B71-B4AAC6E5A3C7}.Default|Default.ActiveCfg = Default
+		{E4074FAE-7785-4085-8F47-9478BE769AE2}.Default|Default.ActiveCfg = Default
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

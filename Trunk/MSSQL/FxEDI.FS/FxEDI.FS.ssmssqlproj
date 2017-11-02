@@ -44,9 +44,9 @@
     <LogicalFolder Name="Queries" Type="0" Sorted="true">
       <Items>
         <FileNode Name="Procedure.FxEDI.FS.usp_FileTable_FileMove.sql">
-          <AssociatedConnectionMoniker />
-          <AssociatedConnSrvName />
-          <AssociatedConnUserName />
+          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:eeisql2:False:estimpson</AssociatedConnectionMoniker>
+          <AssociatedConnSrvName>eeisql2</AssociatedConnSrvName>
+          <AssociatedConnUserName>estimpson</AssociatedConnUserName>
           <FullPath>Procedure.FxEDI.FS.usp_FileTable_FileMove.sql</FullPath>
         </FileNode>
         <FileNode Name="Procedure.FxEDI.FS.usp_XMLShipNotice_CreateOutboundFile.sql">
