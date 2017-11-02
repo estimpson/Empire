@@ -3,7 +3,7 @@ GO
 SET ANSI_NULLS ON
 GO
 
-create procedure [FS].[usp_FileTable_FileMove]
+create procedure FS.usp_FileTable_FileMove
 	@FromFolder sysname = '%'
 ,	@ToFolder sysname
 ,	@FileNamePattern sysname
@@ -50,7 +50,7 @@ set	@TranDT = coalesce(@TranDT, GetDate())
 --- <Body>
 declare
 	@toFolderName sysname
-,	@newFolderPathLocator hierarchyid
+,	@newPathLocator hierarchyid
 
 select
 	@toFolderName = sp.Value
@@ -58,7 +58,7 @@ from
 	dbo.udf_StringStack_Pop(@ToFolder, '\') sp
 
 select top 1
-	@newFolderPathLocator = path_locator
+	@newPathLocator = path_locator
 from
 	FxEDI.dbo.RawEDIData re
 where
@@ -66,7 +66,7 @@ where
 	and re.is_directory = 1
 	and re.file_stream.GetFileNamespacePath() = @ToFolder
 
-if	@newFolderPathLocator is null begin
+if	@newPathLocator is null begin
 	set	@Result = 999998
 	RAISERROR ('Error encountered in %s.  Failure: Invalid "ToFolder" specified.  Folder "%s" not found.', 16, 1, @ProcName, @ToFolder)
 	rollback tran @ProcName
@@ -84,45 +84,43 @@ from
 
 declare
 	@fromPathLocator hierarchyid
-,	@newPathLocator hierarchyid
 
 select top 1
 	@fromPathLocator = re.path_locator
-,	@newPathLocator = re.path_locator.GetReparentedValue(re.path_locator, @newFolderPathLocator)
 from
 	FxEDI.dbo.RawEDIData re
 where
 	re.name = @fromFolderName
 	and re.is_directory = 1
-	and re.file_stream.GetFileNamespacePath() like @FromFolder
-
---update
---	re
---set
---	path_locator = @newPathLocator
---,	name = coalesce(@FileAppendPrefix, '') + re.name + coalesce(@FileAppendSuffix, '')
---from
---	FxEDI.dbo.RawEDIData re
---where
---	re.parent_path_locator = @fromPathLocator
---	and re.is_directory = 0
---	and re.name like @FileNamePattern
+	and re.file_stream.GetFileNamespacePath() = @FromFolder
 
 update
-	redOutboundFiles
+	re
 set
-	path_locator = redOutboundFiles.path_locator.GetReparentedValue(redOutboundFolder.path_locator, @newFolderPathLocator)
-,	name = coalesce(@FileAppendPrefix, '') + redOutboundFiles.name + coalesce(@FileAppendSuffix, '')
+	path_locator = re.path_locator.GetReparentedValue(@fromPathLocator, @newPathLocator)
+,	name = coalesce(@FileAppendPrefix, '') + re.name + coalesce(@FileAppendSuffix, '')
 from
-	FxEDI.dbo.RawEDIData redOutboundFolder
-	join FxEDI.dbo.RawEDIData redOutboundFiles
-		on redOutboundFiles.parent_path_locator = redOutboundFolder.path_locator
-		and redOutboundFiles.is_directory = 0
-		and redOutboundFiles.name like @FileNamePattern
+	FxEDI.dbo.RawEDIData re
 where
-	redOutboundFolder.name = @fromFolderName
-	and redOutboundFolder.is_directory = 1
-	and redOutboundFolder.file_stream.GetFileNamespacePath() like @FromFolder
+	re.parent_path_locator = @fromPathLocator
+	and re.is_directory = 0
+	and re.name like @FileNamePattern
+
+--update
+--	redOutboundFiles
+--set
+--	path_locator = redOutboundFiles.path_locator.GetReparentedValue(redOutboundFolder.path_locator, @newFolderPathLocator)
+--,	name = coalesce(@FileAppendPrefix, '') + redOutboundFiles.name + coalesce(@FileAppendSuffix, '')
+--from
+--	FxEDI.dbo.RawEDIData redOutboundFolder
+--	join FxEDI.dbo.RawEDIData redOutboundFiles
+--		on redOutboundFiles.parent_path_locator = redOutboundFolder.path_locator
+--		and redOutboundFiles.is_directory = 0
+--		and redOutboundFiles.name like @FileNamePattern
+--where
+--	redOutboundFolder.name = @fromFolderName
+--	and redOutboundFolder.is_directory = 1
+--	and redOutboundFolder.file_stream.GetFileNamespacePath() like @FromFolder
 --- </Body>
 
 ---	<CloseTran AutoCommit=Yes>
