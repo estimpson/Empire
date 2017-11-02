@@ -50,6 +50,7 @@ namespace RmaMaintenance.Views
             _controller = new CreateRmaRtvConroller();
             _messages = new Messages();
 
+            PopulateLocationList();
             ShowSerialsList();
             SetControlAppearance();
 
@@ -101,6 +102,11 @@ namespace RmaMaintenance.Views
 
 
         #region Button Events
+
+        private void mesBtnAutoGenerateRma_Click(object sender, EventArgs e)
+        {
+            GenerateRmaNumber();
+        }
 
         private void mesBtnCreateRma_MouseDown(object sender, MouseEventArgs e)
         {
@@ -162,6 +168,18 @@ namespace RmaMaintenance.Views
 
         #region Methods
 
+        private void PopulateLocationList()
+        {
+            List<string> locationList = new List<string>();
+            locationList.Add("");
+            locationList.Add("EEA RMA");
+            locationList.Add("EEI RMA");
+            locationList.Add("EEP RMA");
+            locationList.Add("EEHRMA");
+
+            cbxRmaToLocation.DataSource = locationList;
+        }
+
         private void ShowSerialsList()
         {
             foreach (var item in _serialQuantityList)
@@ -176,38 +194,52 @@ namespace RmaMaintenance.Views
             switch (_transactionType)
             {
                 case 0:
-                    lblInstructionOne.Visible = lblInstructionTwo.Visible = true;
-                    mesTxtRmaNumber.Visible = mesTbxRmaNote.Visible = true;
+                    lblInstructionOne.Visible = lblInstructionTwo.Visible = lblInstructionThree.Visible = true;
+                    mesTxtRmaNumber.Visible = mesBtnAutoGenerateRma.Visible = cbxRmaToLocation.Visible = mesTbxRmaNote.Visible = true;
 
                     mesBtnCreateRma.Text = "Create RMA / RTV";
                     break;
                 case 1:
-                    lblInstructionOne.Visible = lblInstructionTwo.Visible = true;
-                    mesTxtRmaNumber.Visible = mesTbxRmaNote.Visible = true;
+                    lblInstructionOne.Visible = lblInstructionTwo.Visible = lblInstructionThree.Visible = true;
+                    mesTxtRmaNumber.Visible = mesBtnAutoGenerateRma.Visible = cbxRmaToLocation.Visible = mesTbxRmaNote.Visible = true;
 
                     mesBtnCreateRma.Text = "Create RMA";
                     break;
                 case 2:
-                    lblInstructionOne.Visible = lblInstructionTwo.Visible = true;
-                    mesTxtRmaNumber.Visible = mesTbxRmaNote.Visible = true;
+                    lblInstructionOne.Visible = lblInstructionTwo.Visible = lblInstructionThree.Visible = true;
+                    mesTxtRmaNumber.Visible = mesBtnAutoGenerateRma.Visible = cbxRmaToLocation.Visible = mesTbxRmaNote.Visible = true;
 
                     mesBtnCreateRma.Text = "RMA Serials On Hold";
                     break;
                 case 3:
-                    lblInstructionOne.Visible = lblInstructionTwo.Visible = false;
-                    mesTxtRmaNumber.Visible = mesTbxRmaNote.Visible = false;
+                    lblInstructionOne.Visible = lblInstructionTwo.Visible = lblInstructionThree.Visible = false;
+                    mesTxtRmaNumber.Visible = mesBtnAutoGenerateRma.Visible = cbxRmaToLocation.Visible = mesTbxRmaNote.Visible = false;
 
                     mesBtnCreateRma.Text = "Create RTV";
                     break;
             }
         }
 
+        private void GenerateRmaNumber()
+        {
+            string error;
+            _controller.GenerateRmaNumber(_operatorCode, out error);
+            if (error != "")
+            {
+                _messages.Message = error;
+                _messages.ShowDialog();
+            }
+            mesTxtRmaNumber.Text = _controller.ReturnedRmaNumber;
+        }
+
         private int ProcessSerials(string rmaRtvNumber)
         {
             string notes = mesTbxRmaNote.Text.Trim();
+            string location = cbxRmaToLocation.Text.Trim();
+            if (location == "") location = null;
 
             string error;
-            _controller.ProcessSerials(_operatorCode, rmaRtvNumber, _transactionType, notes, out error);
+            _controller.ProcessSerials(_operatorCode, rmaRtvNumber, _transactionType, location, notes, out error);
             if (error != "")
             {
                 Cursor.Current = Cursors.Default;
@@ -233,6 +265,7 @@ namespace RmaMaintenance.Views
             Cursor.Current = Cursors.Default;
             return 1;
         }
+
 
         #endregion
 

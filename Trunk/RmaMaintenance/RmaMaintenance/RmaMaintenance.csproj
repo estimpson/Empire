@@ -152,6 +152,9 @@
     <Compile Include="Model\usp_CreateRma_ProcessByDestGl2_Result.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Model\usp_CreateRma_ProcessByDestGl2_Result1.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="Model\usp_CreateRma_ProcessByDestGl_Result.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -159,6 +162,9 @@
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Model\usp_EEHLivelyTest_Result.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\usp_GetLabelCode_RmaMaintenance_Serials_Result.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Model\vw_CreateRma_Destinations.cs">

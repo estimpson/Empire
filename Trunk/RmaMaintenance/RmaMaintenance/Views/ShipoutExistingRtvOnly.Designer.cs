@@ -29,7 +29,8 @@
         private void InitializeComponent()
         {
             this.panel1 = new System.Windows.Forms.Panel();
-            this.label1 = new System.Windows.Forms.Label();
+            this.panel2 = new System.Windows.Forms.Panel();
+            this.mesBtnRtvLabels = new Fx.WinForms.Flat.MESButton();
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
@@ -43,7 +44,8 @@
             // 
             // panel1
             // 
-            this.panel1.Controls.Add(this.label1);
+            this.panel1.Controls.Add(this.panel2);
+            this.panel1.Controls.Add(this.mesBtnRtvLabels);
             this.panel1.Controls.Add(this.label4);
             this.panel1.Controls.Add(this.label3);
             this.panel1.Controls.Add(this.label2);
@@ -54,33 +56,49 @@
             this.panel1.Controls.Add(this.linkLblClose);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel1.Location = new System.Drawing.Point(0, 0);
+            this.panel1.Margin = new System.Windows.Forms.Padding(4);
             this.panel1.Name = "panel1";
             this.panel1.Padding = new System.Windows.Forms.Padding(1);
-            this.panel1.Size = new System.Drawing.Size(1038, 582);
+            this.panel1.Size = new System.Drawing.Size(1384, 716);
             this.panel1.TabIndex = 0;
             this.panel1.Paint += new System.Windows.Forms.PaintEventHandler(this.panel1_Paint);
             // 
-            // label1
+            // panel2
             // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.ForeColor = System.Drawing.Color.White;
-            this.label1.Location = new System.Drawing.Point(622, 303);
-            this.label1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 0);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(278, 16);
-            this.label1.TabIndex = 97;
-            this.label1.Text = "* LABELS - make sure labels are printed also.";
+            this.panel2.BackColor = System.Drawing.Color.Black;
+            this.panel2.Location = new System.Drawing.Point(430, 333);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(153, 98);
+            this.panel2.TabIndex = 99;
+            // 
+            // mesBtnRtvLabels
+            // 
+            this.mesBtnRtvLabels.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(31)))), ((int)(((byte)(31)))), ((int)(((byte)(32)))));
+            this.mesBtnRtvLabels.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(67)))), ((int)(((byte)(67)))), ((int)(((byte)(70)))));
+            this.mesBtnRtvLabels.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(122)))), ((int)(((byte)(204)))));
+            this.mesBtnRtvLabels.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(84)))), ((int)(((byte)(84)))), ((int)(((byte)(92)))));
+            this.mesBtnRtvLabels.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.mesBtnRtvLabels.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.mesBtnRtvLabels.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
+            this.mesBtnRtvLabels.Location = new System.Drawing.Point(621, 393);
+            this.mesBtnRtvLabels.Margin = new System.Windows.Forms.Padding(4);
+            this.mesBtnRtvLabels.Name = "mesBtnRtvLabels";
+            this.mesBtnRtvLabels.Size = new System.Drawing.Size(200, 38);
+            this.mesBtnRtvLabels.TabIndex = 98;
+            this.mesBtnRtvLabels.Text = "Print Labels";
+            this.mesBtnRtvLabels.UseVisualStyleBackColor = false;
+            this.mesBtnRtvLabels.Click += new System.EventHandler(this.mesBtnRtvLabels_Click);
+            this.mesBtnRtvLabels.MouseDown += new System.Windows.Forms.MouseEventHandler(this.mesBtnRtvLabels_MouseDown);
             // 
             // label4
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label4.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(122)))), ((int)(((byte)(204)))));
-            this.label4.Location = new System.Drawing.Point(463, 182);
-            this.label4.Margin = new System.Windows.Forms.Padding(3, 2, 3, 0);
+            this.label4.Location = new System.Drawing.Point(617, 194);
+            this.label4.Margin = new System.Windows.Forms.Padding(4, 2, 4, 0);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(285, 18);
+            this.label4.Size = new System.Drawing.Size(366, 24);
             this.label4.TabIndex = 96;
             this.label4.Text = "Enter RTV shipper and Honduras location:";
             // 
@@ -90,9 +108,10 @@
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label3.ForeColor = System.Drawing.Color.White;
-            this.label3.Location = new System.Drawing.Point(332, 247);
+            this.label3.Location = new System.Drawing.Point(443, 274);
+            this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(128, 16);
+            this.label3.Size = new System.Drawing.Size(162, 20);
             this.label3.TabIndex = 92;
             this.label3.Text = "Honduras RMA Loc:";
             // 
@@ -102,9 +121,10 @@
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label2.ForeColor = System.Drawing.Color.White;
-            this.label2.Location = new System.Drawing.Point(371, 210);
+            this.label2.Location = new System.Drawing.Point(495, 228);
+            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(89, 16);
+            this.label2.Size = new System.Drawing.Size(109, 20);
             this.label2.TabIndex = 95;
             this.label2.Text = "RTV Shipper:";
             // 
@@ -114,9 +134,10 @@
             this.mesTbxRtvShipper.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.mesTbxRtvShipper.Font = new System.Drawing.Font("Tahoma", 12F);
             this.mesTbxRtvShipper.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
-            this.mesTbxRtvShipper.Location = new System.Drawing.Point(466, 212);
+            this.mesTbxRtvShipper.Location = new System.Drawing.Point(621, 231);
+            this.mesTbxRtvShipper.Margin = new System.Windows.Forms.Padding(4);
             this.mesTbxRtvShipper.Name = "mesTbxRtvShipper";
-            this.mesTbxRtvShipper.Size = new System.Drawing.Size(150, 27);
+            this.mesTbxRtvShipper.Size = new System.Drawing.Size(199, 32);
             this.mesTbxRtvShipper.TabIndex = 0;
             // 
             // mesTbxHonLoc
@@ -125,10 +146,11 @@
             this.mesTbxHonLoc.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.mesTbxHonLoc.Font = new System.Drawing.Font("Tahoma", 12F);
             this.mesTbxHonLoc.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
-            this.mesTbxHonLoc.Location = new System.Drawing.Point(466, 249);
+            this.mesTbxHonLoc.Location = new System.Drawing.Point(621, 276);
+            this.mesTbxHonLoc.Margin = new System.Windows.Forms.Padding(4);
             this.mesTbxHonLoc.MaxLength = 20;
             this.mesTbxHonLoc.Name = "mesTbxHonLoc";
-            this.mesTbxHonLoc.Size = new System.Drawing.Size(150, 27);
+            this.mesTbxHonLoc.Size = new System.Drawing.Size(199, 32);
             this.mesTbxHonLoc.TabIndex = 1;
             // 
             // mesBtnShipout
@@ -140,9 +162,10 @@
             this.mesBtnShipout.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.mesBtnShipout.Font = new System.Drawing.Font("Tahoma", 14F);
             this.mesBtnShipout.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
-            this.mesBtnShipout.Location = new System.Drawing.Point(466, 349);
+            this.mesBtnShipout.Location = new System.Drawing.Point(621, 462);
+            this.mesBtnShipout.Margin = new System.Windows.Forms.Padding(4);
             this.mesBtnShipout.Name = "mesBtnShipout";
-            this.mesBtnShipout.Size = new System.Drawing.Size(150, 35);
+            this.mesBtnShipout.Size = new System.Drawing.Size(200, 50);
             this.mesBtnShipout.TabIndex = 3;
             this.mesBtnShipout.Text = "Shipout RTV";
             this.mesBtnShipout.UseVisualStyleBackColor = false;
@@ -158,9 +181,10 @@
             this.mesBtnRtvPackingSlip.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.mesBtnRtvPackingSlip.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.mesBtnRtvPackingSlip.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
-            this.mesBtnRtvPackingSlip.Location = new System.Drawing.Point(466, 295);
+            this.mesBtnRtvPackingSlip.Location = new System.Drawing.Point(621, 333);
+            this.mesBtnRtvPackingSlip.Margin = new System.Windows.Forms.Padding(4);
             this.mesBtnRtvPackingSlip.Name = "mesBtnRtvPackingSlip";
-            this.mesBtnRtvPackingSlip.Size = new System.Drawing.Size(150, 31);
+            this.mesBtnRtvPackingSlip.Size = new System.Drawing.Size(200, 38);
             this.mesBtnRtvPackingSlip.TabIndex = 2;
             this.mesBtnRtvPackingSlip.Text = "Print Packing Slip";
             this.mesBtnRtvPackingSlip.UseVisualStyleBackColor = false;
@@ -172,9 +196,10 @@
             this.linkLblClose.AutoSize = true;
             this.linkLblClose.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.linkLblClose.LinkColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(122)))), ((int)(((byte)(204)))));
-            this.linkLblClose.Location = new System.Drawing.Point(968, 9);
+            this.linkLblClose.Location = new System.Drawing.Point(1291, 11);
+            this.linkLblClose.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.linkLblClose.Name = "linkLblClose";
-            this.linkLblClose.Size = new System.Drawing.Size(49, 20);
+            this.linkLblClose.Size = new System.Drawing.Size(63, 25);
             this.linkLblClose.TabIndex = 4;
             this.linkLblClose.TabStop = true;
             this.linkLblClose.Text = "Close";
@@ -184,13 +209,14 @@
             // 
             // ShipoutExistingRtvOnly
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Black;
-            this.ClientSize = new System.Drawing.Size(1038, 582);
+            this.ClientSize = new System.Drawing.Size(1384, 716);
             this.ControlBox = false;
             this.Controls.Add(this.panel1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "ShipoutExistingRtvOnly";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "ShipoutExistingRtvOnly";
@@ -211,6 +237,7 @@
         private Fx.WinForms.Flat.MESButton mesBtnShipout;
         private Fx.WinForms.Flat.MESButton mesBtnRtvPackingSlip;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.Label label1;
+        private Fx.WinForms.Flat.MESButton mesBtnRtvLabels;
+        private System.Windows.Forms.Panel panel2;
     }
 }
