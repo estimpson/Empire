@@ -5,6 +5,7 @@ GO
 
 
 
+
 --select * from [EDIADAC].[CurrentShipSchedules]()
 
 CREATE FUNCTION [EDIADAC].[CurrentShipSchedules]
@@ -95,7 +96,7 @@ SELECT
 		UserDefined5,
 		CustomerPart,
 		ShipToCode,
-		MIN(RowCreateDT) FirstReleaseDT
+		MAX(RowCreateDT) LastReleaseDT
 FROM
 		EDIADAC.ShipSchedules
 WHERE
@@ -109,7 +110,7 @@ JOIN
 		EDIADAC.ShipSchedules Alss ON ALss.CustomerPart = CheckFirst.CustomerPart
 		AND Alss.ShipToCode = CheckFirst.ShipToCode
 		AND Alss.UserDefined5 = CheckFirst.UserDefined5
-		AND Alss.RowCreateDT = CheckFirst.FirstReleaseDT
+		AND Alss.RowCreateDT = CheckFirst.LastReleaseDT
 		AND Alss.rowCreateDT>= DATEADD(DAY, -60, GETDATE())
 WHERE
 		alss.Status != -1 
@@ -206,6 +207,7 @@ LEFT JOIN
 ---	<Return>
 	RETURN
 END
+
 
 
 

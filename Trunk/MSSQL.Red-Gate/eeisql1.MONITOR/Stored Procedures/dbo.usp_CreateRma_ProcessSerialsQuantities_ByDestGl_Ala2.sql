@@ -12,6 +12,7 @@ CREATE procedure [dbo].[usp_CreateRma_ProcessSerialsQuantities_ByDestGl_Ala2]
 ,	@TransactionType int = 0 -- 0 = RMA + RTV, 1 = RMA Only, 2 = RMA Only Hold Serials
 ,	@NextShipper integer = null out
 ,	@NextShipperRTV integer = null out
+,	@ToLocation varchar(10) = null
 ,	@Notes varchar(200)
 ,	@TranDT datetime = null out
 ,	@Result integer = null  out
@@ -515,7 +516,7 @@ select
 	,po_number
 	,@OperatorCode
 	,fromLoc
-	,'QC-1'
+	,coalesce(@ToLocation, 'QC-1')
 	,onHand
 	,''
 	,0
@@ -993,7 +994,7 @@ while ((select count(1) from @tempPartsList where Processed = 0) > 0) begin
 				,po_number
 				,@OperatorCode
 				,fromLoc
-				,'QC-1'
+				,coalesce(@ToLocation, 'QC-1')
 				,on_hand = (select SUM(quantity) from object where part = @HarnessPartNumber and status = 'A')
 				,''
 				,0

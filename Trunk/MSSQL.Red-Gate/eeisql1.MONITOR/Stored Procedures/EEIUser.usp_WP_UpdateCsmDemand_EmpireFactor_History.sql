@@ -4,14 +4,9 @@ SET ANSI_NULLS ON
 GO
 
 
-create procedure [EEIUser].[usp_WP_UpdateCsmDemand_EmpireFactor_History] 
+CREATE procedure [EEIUser].[usp_WP_UpdateCsmDemand_EmpireFactor_History] 
 	@BasePart varchar(30),
-	@Version varchar(30),
 	@ReleaseID varchar(10),
-	@MnemonicVehiclePlant varchar(30),  
-	@TakeRate decimal(10,2),
-	@QtyPer decimal(10,2),
-	@FamilyAllocation decimal(10,2),
 
 	@Jan2015 decimal(15,2), 
 	@Feb2015 decimal(15,2), 
@@ -520,13 +515,13 @@ select
 
 if	@Error != 0 begin
 	set	@Result = 999998
-	RAISERROR ('Error inserting into table %s in procedure %s.  Error: %d', 16, 1, @TableName, @ProcName, @Error)
+	--RAISERROR ('Error inserting into table %s in procedure %s.  Error: %d', 16, 1, @TableName, @ProcName, @Error)
 	rollback tran @ProcName
 	return
 end
 if	@RowCount < 1 begin
 	set	@Result = 999999
-	RAISERROR ('Error inserting into table %s in procedure %s.  Rows inserted: %d.  Expected rows: 1+.', 16, 1, @TableName, @ProcName, @RowCount)
+	--RAISERROR ('Error inserting into table %s in procedure %s.  Rows inserted: %d.  Expected rows: 1+.', 16, 1, @TableName, @ProcName, @RowCount)
 	rollback tran @ProcName
 	return
 end

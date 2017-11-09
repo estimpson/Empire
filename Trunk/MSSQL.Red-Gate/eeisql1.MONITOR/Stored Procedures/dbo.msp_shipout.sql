@@ -2,16 +2,7 @@ SET QUOTED_IDENTIFIER ON
 GO
 SET ANSI_NULLS ON
 GO
-
-
-
-
-
-
-
-
-
-CREATE PROCEDURE [dbo].[msp_shipout]
+CREATE procedure [dbo].[msp_shipout]
 	@shipper INTEGER,
 	@invdate DATETIME = NULL
 AS
@@ -68,8 +59,7 @@ DECLARE	@returnvalue INTEGER,
 				@Result	INTEGER,
 	@invoicenumber	INTEGER,
 	@cnt		INTEGER,
-	@bol		INTEGER,
-	@MinNALShipper INTEGER
+	@bol		INTEGER
 	
 	--<Error Handling>
 DECLARE	@ProcReturn INTEGER,
@@ -98,7 +88,7 @@ and exists
 
 
 
--- 1(aa) Begin . Determine if this is a NAL shipment out of scheduled order. If true, return -1 [Andre S. Boulanger Fore-Thought, LLC 2011-08-27]
+-- 1(aa) Begin . Prevent shipouts where shipout date time preceeds object create date time.
 declare
 	@OrderNos 
 table 
@@ -126,67 +116,6 @@ if	exists(	select	1
            )
           return -1
 end
-
-if exists 
-(	select 1 
-	from 
-		shipper_detail sd
-	join	
-		shipper  s on sd.shipper = s.id
-	where 
-		order_no in (select OrderNo from @OrderNos) and 
-		part_original like 'NAL%' and
-		status in ('O', 'A', 'S')
-	group  by order_no
-	having count(1) >1
-)
-begin
-Declare  
-	@ShipperDetail table 
-( 
-	id int not null Identity (1,1) primary key,
-	ShipperID int
-)
-	
-insert 
-	@ShipperDetail
-( 
-ShipperID
- )
-	
-select
-	s.id
-from	
-	dbo.shipper s
-join
-	shipper_detail sd on s.id = sd.shipper
-where
-	sd.order_no in  (select OrderNo from @OrderNos) and
-	s.status in ('O', 'A', 'S') and
-	s.type is NULL
-order by 
-	ft.fn_DatePart('Year',date_stamp),ft.fn_DatePart('DayofYear',date_stamp), ft.fn_DatePart('Hour',scheduled_ship_time), ft.fn_DatePart('Minute',scheduled_ship_time), ft.fn_DatePart('Second',scheduled_ship_time) , s.id
-	
-	select	
-		@MinNALShipper = ShipperID 
-	from		
-		@ShipperDetail SD
-	where	
-		SD.id = 1 
-		
-		declare	@MinNALShipperString varchar(10)
-		select		@MinNALShipperString = convert(varchar(10), @MinNALShipper)
-	
-	if @MinNALShipper!=@shipper begin
-		RAISERROR (N'This NAL Shipper is shipped out of order. Please ship Shipper ID %s.', -- Message text.
-           16, -- Severity,
-           1, -- State,
-           @MinNALShipperString
-           )
-          return -1
-		end
-end
-
 --1(a) End
 
 -- 1(b) Begin . Determine if any objects exist that are not 'Approved' or in a 'PREOBJECT' Location. If So, return -1

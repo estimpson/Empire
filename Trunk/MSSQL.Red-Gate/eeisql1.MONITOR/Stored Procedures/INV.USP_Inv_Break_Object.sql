@@ -190,14 +190,14 @@ ELSE
 				status, plant, name, last_time,	start_date,
 				user_defined_status, cost,
 				std_cost, Custom1, Custom2, Custom3,
-				Custom4, Custom5, field1,	note,po_number, ShipperToRAN)
+				Custom4, Custom5, field1,	note,po_number, ShipperToRAN,ObjectBirthday)
 			SELECT	@NewObjectSerial + @Counter,
 				part, quantity = @QtyPerObject,
 				std_quantity = @QtyPerObject,
 				lot, location= @Location, last_date = @TransDT, unit_measure,
 				@Operator, status, plant, name, @TransDT, start_date,
 				user_defined_status, cost, std_cost, Custom1, Custom2,
-				Custom3, Custom4, Custom5, field1, note, po_number, ShipperToRAN
+				Custom3, Custom4, Custom5, field1, note, po_number, ShipperToRAN, ObjectBirthday
 			FROM Object
 			WHERE	Serial = @Serial
 

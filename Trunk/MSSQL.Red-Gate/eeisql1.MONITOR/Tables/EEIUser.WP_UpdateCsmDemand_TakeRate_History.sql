@@ -20,7 +20,6 @@ CREATE TABLE [EEIUser].[WP_UpdateCsmDemand_TakeRate_History]
 [EmpireMarketSegment] [varchar] (250) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
 [EmpireApplication] [varchar] (500) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
 [DateStamp] [datetime] NULL,
-[Notes] [varchar] (1000) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
 [Jan2015] [decimal] (20, 6) NULL,
 [Feb2015] [decimal] (20, 6) NULL,
 [Mar2015] [decimal] (20, 6) NULL,

@@ -90,7 +90,8 @@ if (@Filter = 'Customer') begin
 			and datediff(month, SOP, EOP) > 0 )
 		or
 		(
-			year(SOP) is null or year(EOP) is null
+			( year(SOP) is null or year(EOP) is null )
+			and year(ql.ReceiptDate) > 2015
 		))
 	order by	
 		ql.Program
@@ -164,7 +165,8 @@ else if (@Filter = 'Parent Customer') begin
 			and datediff(month, SOP, EOP) > 0 )
 		or
 		(
-			year(SOP) is null or year(EOP) is null
+			( year(SOP) is null or year(EOP) is null )
+			and year(ql.ReceiptDate) > 2015
 		))
 	order by
 		ql.Customer
@@ -179,14 +181,16 @@ else if (@Filter = 'Salesperson') begin
 		@salesInitials varchar(3)
 	
 	if (@FilterValue like 'Jeff M%') begin
-		
 		set @salesInitials = 'JM'
-	
 	end
 	else if (@FilterValue = 'Pat Traynor') begin
-		
 		set @salesInitials = 'PT'
-	
+	end
+	else if (@FilterValue = 'John F. Doman') begin
+		set @salesInitials = 'JFD'
+	end
+	else if (@FilterValue = 'Brad Carson') begin
+		set @salesInitials = 'BC'
 	end
 
 	insert into @QuoteData
@@ -240,7 +244,8 @@ else if (@Filter = 'Salesperson') begin
 			and datediff(month, SOP, EOP) > 0 )
 		or
 		(
-			year(SOP) is null or year(EOP) is null
+			( year(SOP) is null or year(EOP) is null ) 
+			and year(ql.ReceiptDate) > 2015
 		))
 	order by
 		ql.Customer
@@ -249,6 +254,8 @@ else if (@Filter = 'Salesperson') begin
 	,	ql.EEIPartNumber
 
 end
+-- There is no link between sales forecast segment and quote log.  Nothing will be returned. 
+/*
 else if (@Filter = 'Segment') begin
 
 	insert into @QuoteData
@@ -302,7 +309,8 @@ else if (@Filter = 'Segment') begin
 			and datediff(month, SOP, EOP) > 0 )
 		or
 		(
-			year(SOP) is null or year(EOP) is null
+			( year(SOP) is null or year(EOP) is null )
+			and year(ql.ReceiptDate) > 2015
 		))
 	order by
 		ql.Customer
@@ -311,6 +319,7 @@ else if (@Filter = 'Segment') begin
 	,	ql.EEIPartNumber
 
 end
+*/
 else if (@Filter = 'Vehicle') begin
 
 	declare
@@ -373,7 +382,8 @@ else if (@Filter = 'Vehicle') begin
 			and datediff(month, SOP, EOP) > 0 )
 		or
 		(
-			year(SOP) is null or year(EOP) is null
+			( year(SOP) is null or year(EOP) is null )
+			and year(ql.ReceiptDate) > 2015
 		))
 	order by
 		ql.Customer
@@ -435,7 +445,8 @@ else if (@Filter = 'Program') begin
 			and datediff(month, SOP, EOP) > 0 )
 		or
 		(
-			year(SOP) is null or year(EOP) is null
+			( year(SOP) is null or year(EOP) is null )
+			and year(ql.ReceiptDate) > 2015
 		))
 	order by
 		ql.Customer
@@ -444,6 +455,70 @@ else if (@Filter = 'Program') begin
 	,	ql.EEIPartNumber
 
 end
+else if (@Filter = 'Product Line') begin
+
+	insert into @QuoteData
+	(
+		QuoteNumber
+	,	Customer
+	,	Program
+	,	EEIPartNumber
+	,	Nameplate
+	,	ReceiptDate
+	,	SOP
+	,	EOP
+	,	QuoteStatus
+	,	Awarded
+	,	SalesPerMonth_2016
+	,	SalesPerMonth_2017
+	,	SalesPerMonth_2018
+	,	SalesPerMonth_2019
+	,	SalesPerMonth_2020
+	,	SalesPerMonth_2021
+	,	SalesPerMonth_2022
+	,	Processed
+	)
+	select
+		ql.QuoteNumber
+	,	ql.Customer
+	,	ql.Program
+	,	ql.EEIPartNumber
+	,	ql.Nameplate
+	,	convert(varchar, convert(date, ql.ReceiptDate)) as ReceiptDate
+	,	convert(varchar, convert(date, ql.SOP)) as SOP
+	,	convert(varchar, convert(date, ql.EOP)) as EOP
+	,	ql.QuoteStatus
+	,	ql.Awarded
+	,	null
+	,	null
+	,	null
+	,	null
+	,	null
+	,	null
+	,	null
+	,	0
+	from
+		eeiuser.QT_QuoteLog ql
+	where
+		ql.ApplicationName like '%' + @FilterValue + '%'
+		and coalesce(TotalQuotedSales, 0) > 0
+		and 
+		((	year(SOP) > 2015
+			and year(EOP) > 2016
+			and datediff(month, SOP, EOP) > 0 )
+		or
+		(
+			( year(SOP) is null or year(EOP) is null )
+			and year(ql.ReceiptDate) > 2015
+		))
+	order by
+		ql.Customer
+	,	ql.Program
+	,	ql.Nameplate
+	,	ql.EEIPartNumber
+
+end
+
 
 
 

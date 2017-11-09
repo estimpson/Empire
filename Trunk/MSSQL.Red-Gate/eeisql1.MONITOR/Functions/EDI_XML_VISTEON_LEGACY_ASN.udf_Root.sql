@@ -9,6 +9,7 @@ GO
 
 
 
+
 CREATE function [EDI_XML_VISTEON_LEGACY_ASN].[udf_Root]
 (	@ShipperID int
 ,	@Purpose char(2)
@@ -49,8 +50,9 @@ begin
 								,	EDI_XML_VISTEON_LEGACY_ASN.SEG_TD5('B', '02', ah.SCAC, ah.TransMode, ah.LocationQualifier, ah.PoolCode)
 								,	EDI_XML_VISTEON_LEGACY_ASN.SEG_TD3('TL', ah.SCACPickUp, ah.TruckNumber)
 								,	EDI_XML_VISTEON_LEGACY_ASN.SEG_REF('BM', ah.BOLNumber)
+								,	EDI_XML_VISTEON_LEGACY_ASN.SEG_REF('PK', ah.ShipperID)
 								,	CASE WHEN isNULL(ah.FreightBill,'') !='' THEN EDI_XML_VISTEON_LEGACY_ASN.SEG_REF(ah.FreightBillQual, ah.FreightBill) END
-								,	CASE WHEN isNULL(ah.FreightBill,'') !='' THEN EDI_XML_VISTEON_LEGACY_ASN.SEG_REF('CN', ah.FreightBill ) ELSE EDI_XML_VISTEON_LEGACY_ASN.SEG_REF('CN', ah.ShipperID) END 
+								,	CASE WHEN isNULL(ah.FreightBill,'') !='' THEN EDI_XML_VISTEON_LEGACY_ASN.SEG_REF(ah.AirBillQual, ah.AirBill) END 
 								,	(	select
 						 					EDI_XML.LOOP_INFO('N1')
 										,	EDI_XML_VISTEON_LEGACY_ASN.SEG_N1('ST', 92, ah.ShipTo)
@@ -115,6 +117,7 @@ begin
 	return
 		@xmlOutput
 end
+
 
 
 

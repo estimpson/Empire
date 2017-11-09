@@ -3,7 +3,8 @@ GO
 SET ANSI_NULLS ON
 GO
 
-create function [EDI_XML_DELPHI_ASN].[udf_Root]
+
+CREATE function [EDI_XML_DELPHI_ASN].[udf_Root]
 (	@ShipperID int
 ,	@Purpose char(2)
 ,	@partialComplete int
@@ -78,7 +79,7 @@ begin
 						,	EDI_XML_VD97A.SEG_DTM('132', ah.ArrivalDate, '203')
 						,	EDI_XML_VD97A.SEG_MEA('AAX', 'G', 'LBR', ah.GrossWeightLbs)
 						,	EDI_XML_VD97A.SEG_MEA('AAX', 'N', 'LBR', ah.NetWeightLbs)
-						,	EDI_XML_VD97A.SEG_MEA('AAX', 'SQ', 'LBR', ah.LadingQty)
+						,	EDI_XML_VD97A.SEG_MEA('AAX', 'SQ', 'C62', ah.LadingQty)
 						,	(	select
 						 			EDI_XML.LOOP_INFO('RFF')
 								,	EDI_XML_VD97A.SEG_RFF('CN', ah.REFCNValue)
@@ -174,4 +175,5 @@ begin
 	return
 		@xmlOutput
 end
+
 GO

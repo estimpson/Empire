@@ -8,6 +8,7 @@ CREATE procedure [dbo].[usp_CreateRma_ProcessByDestGl2]
 	@OperatorCode varchar(5)
 ,	@RmaRtvNumber varchar(50) out
 ,	@TransactionType int -- 0 = RMA + RTV, 1 = RMA Only, 2 = RMA Only Hold Serials
+,	@Location varchar(10) = null
 ,	@Notes varchar(200)
 ,	@TranDT datetime = null out
 ,	@Result integer = null  out
@@ -403,6 +404,7 @@ while ((select count(1) from @tempDestinations where Processed = 0) > 0) begin
 					@TransactionType = @TransactionType,
 					@NextShipper = @NextShipper out,
 					@NextShipperRTV = @NextShipperRTV out,
+					@ToLocation = @Location,
 					@Notes = @Notes,
 					@TranDT = @TranDT out,
 					@Result = @ProcResult out

@@ -7,17 +7,19 @@ GO
 
 
 
+
+
 CREATE view [EDI_XML_VISTEON_LEGACY_ASN].[ASNHeaders]
 as
 select
 	ShipperID = s.id 
 ,	TradingPartnerID = es.trading_partner_code
-,	ShipTo = es.material_issuer
+,	ShipTo = coalesce(nullif(es.EDIShipToID,''), nullif(es.parent_destination,''), es.destination)
 ,	IConnectID = es.IConnectID
 ,	ASNDate = getdate()
 ,	ASNTime = getdate()
-,	GrossWeightLbs= convert(int, s.gross_weight)
-,	NetWeightLbs = convert(int, s.net_weight)
+,	GrossWeightLbs= convert(int, s.gross_weight+2)
+,	NetWeightLbs = convert(int, s.net_weight+1)
 ,	SCAC = coalesce(bol.scac_transfer, s.ship_via) 
 ,	SCACPickUp = bol.scac_pickup
 ,	TransMode = s.trans_mode
@@ -124,6 +126,8 @@ from
 		on s.bill_of_lading_number = bol.bol_number
 	left join dbo.trans_mode tm 
 		on tm.code = s.trans_mode
+
+
 
 
 

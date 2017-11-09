@@ -14,6 +14,7 @@ GO
 
 
 
+
 CREATE 	PROCEDURE [FT].[sp_report_POSchedulingWeekOverWeekDemandAnalysis_BasePart]
 (	@AnalysisDate DATETIME = NULL ,
 	@VarianceAllowance INT = NULL)
@@ -170,9 +171,9 @@ cross join
 Where 
 	crp.GeneratedWeekNo in ( @PriorWeekSnapWeekNo, @CurrentWeekSnapWeekNo) 
 
-	CREATE UNIQUE CLUSTERED INDEX IX_RSS on  #ReleaseSnapShots (ReleasePlanID, OrderNumber, Basepart, Destination)
+	CREATE UNIQUE CLUSTERED INDEX IX_RSS on  #ReleaseSnapShots (ReleasePlanID, OrderNumber, Basepart, PartNumber, Destination)
 
-	--select * from #ReleaseSnapShots
+	--select * from #ReleaseSnapShots where BasePart = 'VPP0397' order by ReleasePlanID, OrderNumber
 
 Declare @ReleaseSnapShotList table
 
@@ -255,7 +256,7 @@ create  Table #ReleasePlanRaw
 	ShipDT datetime
 )
 
-CREATE UNIQUE CLUSTERED INDEX IX_1 on #ReleasePlanRaw (ReleasePlanID, OrderNumber, Basepart, ShipDT)
+CREATE UNIQUE CLUSTERED INDEX IX_1 on #ReleasePlanRaw (ReleasePlanID, OrderNumber, Basepart, Part, ShipDT)
 
 Insert #ReleasePlanRaw
 Select	ReleasePlanID,
@@ -296,7 +297,7 @@ create table #DemandSnapShot
 	AfterWeek12Qty int
 )
 
-CREATE UNIQUE CLUSTERED INDEX IX_2 on #DemandSnapShot (ReleasePlanID, GeneratedweekNo, Basepart, SalesOrderno)
+CREATE UNIQUE CLUSTERED INDEX IX_2 on #DemandSnapShot (ReleasePlanID, GeneratedweekNo, Basepart, part, SalesOrderno)
 
 Insert #DemandSnapShot
 Select @AnalysisDate,
@@ -375,8 +376,8 @@ group by
 		SalesOrderNo
 
 update f
-Set f.PriorWeekReleasePlanID = coalesce(( Select dss.releasePlanID From #DemandSnapShot dss where dss.SalesOrderNo =  f.salesorderno and dss.basepart = f.basePart and dss.Destination = f.destination and dss.GeneratedweekNo = @PriorWeekSnapWeekNo ),0),
-    f.AnalysisWeekReleasePlanID = coalesce(( Select dss.releaseplanID From #DemandSnapShot dss where dss.SalesOrderNo =  f.salesorderno and dss.basepart = f.basePart and dss.Destination = f.destination and dss.GeneratedweekNo = @CurrentWeekSnapWeekNo ),0)
+Set f.PriorWeekReleasePlanID = coalesce(( Select dss.releasePlanID From #DemandSnapShot dss where dss.SalesOrderNo =  f.salesorderno and dss.basepart = f.basePart and dss.part =  f.part and dss.Destination = f.destination and dss.GeneratedweekNo = @PriorWeekSnapWeekNo ),0),
+    f.AnalysisWeekReleasePlanID = coalesce(( Select dss.releaseplanID From #DemandSnapShot dss where dss.SalesOrderNo =  f.salesorderno and dss.basepart = f.basePart and dss.part =  f.part and dss.Destination = f.destination and dss.GeneratedweekNo = @CurrentWeekSnapWeekNo ),0)
 From	#DemandSnapShotFlat f
 
 
@@ -641,6 +642,7 @@ From
   
 
   
+
 
 
 
