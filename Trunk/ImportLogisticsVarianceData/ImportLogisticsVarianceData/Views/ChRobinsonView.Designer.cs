@@ -1,6 +1,6 @@
 ﻿namespace ImportLogisticsVarianceData.Views
 {
-    partial class FedExVarianceView
+    partial class ChRobinsonView
     {
         /// <summary>
         /// Required designer variable.
@@ -29,10 +29,9 @@
         private void InitializeComponent()
         {
             this.linkLblClose = new System.Windows.Forms.LinkLabel();
-            this.mesBtnImport = new Fx.WinForms.Flat.MESButton();
             this.label1 = new System.Windows.Forms.Label();
+            this.mesBtnImport = new Fx.WinForms.Flat.MESButton();
             this.lblProcessing = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // linkLblClose
@@ -40,16 +39,29 @@
             this.linkLblClose.AutoSize = true;
             this.linkLblClose.Font = new System.Drawing.Font("Constantia", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.linkLblClose.LinkColor = System.Drawing.Color.RoyalBlue;
-            this.linkLblClose.Location = new System.Drawing.Point(1228, 34);
+            this.linkLblClose.Location = new System.Drawing.Point(1229, 34);
             this.linkLblClose.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.linkLblClose.Name = "linkLblClose";
             this.linkLblClose.Size = new System.Drawing.Size(80, 33);
-            this.linkLblClose.TabIndex = 1;
+            this.linkLblClose.TabIndex = 2;
             this.linkLblClose.TabStop = true;
             this.linkLblClose.Text = "Close";
             this.linkLblClose.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLblClose_LinkClicked);
             this.linkLblClose.MouseEnter += new System.EventHandler(this.linkLblClose_MouseEnter);
             this.linkLblClose.MouseLeave += new System.EventHandler(this.linkLblClose_MouseLeave);
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.ForeColor = System.Drawing.Color.RoyalBlue;
+            this.label1.Location = new System.Drawing.Point(279, 293);
+            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(770, 24);
+            this.label1.TabIndex = 58;
+            this.label1.Text = "1.  Save the spreadsheet as CHRobinson.CSV in the LogisticsVariance\\CHRobinson fo" +
+    "lder.";
             // 
             // mesBtnImport
             // 
@@ -60,71 +72,42 @@
             this.mesBtnImport.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.mesBtnImport.Font = new System.Drawing.Font("Tahoma", 14F);
             this.mesBtnImport.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
-            this.mesBtnImport.Location = new System.Drawing.Point(303, 350);
+            this.mesBtnImport.Location = new System.Drawing.Point(283, 343);
             this.mesBtnImport.Margin = new System.Windows.Forms.Padding(4);
             this.mesBtnImport.Name = "mesBtnImport";
             this.mesBtnImport.Size = new System.Drawing.Size(237, 43);
-            this.mesBtnImport.TabIndex = 0;
-            this.mesBtnImport.Text = "Import Fed Ex";
+            this.mesBtnImport.TabIndex = 59;
+            this.mesBtnImport.Text = "Import CHR";
             this.mesBtnImport.UseVisualStyleBackColor = false;
             this.mesBtnImport.Click += new System.EventHandler(this.mesBtnImport_Click);
             this.mesBtnImport.MouseDown += new System.Windows.Forms.MouseEventHandler(this.mesBtnImport_MouseDown);
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.ForeColor = System.Drawing.Color.RoyalBlue;
-            this.label1.Location = new System.Drawing.Point(299, 300);
-            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(743, 24);
-            this.label1.TabIndex = 57;
-            this.label1.Text = "2.  Save the spreadsheet as FedExVariance.CSV in the LogisticsVariance\\FedEx fold" +
-    "er.";
             // 
             // lblProcessing
             // 
             this.lblProcessing.AutoSize = true;
             this.lblProcessing.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblProcessing.ForeColor = System.Drawing.Color.White;
-            this.lblProcessing.Location = new System.Drawing.Point(299, 408);
+            this.lblProcessing.Location = new System.Drawing.Point(279, 401);
             this.lblProcessing.Name = "lblProcessing";
             this.lblProcessing.Size = new System.Drawing.Size(110, 20);
-            this.lblProcessing.TabIndex = 1;
+            this.lblProcessing.TabIndex = 0;
             this.lblProcessing.Text = "Processing ...";
             // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.ForeColor = System.Drawing.Color.RoyalBlue;
-            this.label2.Location = new System.Drawing.Point(299, 263);
-            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(820, 24);
-            this.label2.TabIndex = 58;
-            this.label2.Text = "1.  ExpressOrGroundTrackingID column - format cells, change to Accounting, no dec" +
-    "imal places.";
-            // 
-            // FedExVarianceView
+            // ChRobinsonView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Black;
             this.ClientSize = new System.Drawing.Size(1331, 714);
             this.ControlBox = false;
-            this.Controls.Add(this.label2);
             this.Controls.Add(this.lblProcessing);
-            this.Controls.Add(this.label1);
             this.Controls.Add(this.mesBtnImport);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.linkLblClose);
-            this.ForeColor = System.Drawing.Color.White;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
-            this.Margin = new System.Windows.Forms.Padding(4);
-            this.Name = "FedExVarianceView";
+            this.Name = "ChRobinsonView";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "FedExVarianceView";
+            this.Text = "ChRobinsonView";
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -133,9 +116,8 @@
         #endregion
 
         private System.Windows.Forms.LinkLabel linkLblClose;
-        private Fx.WinForms.Flat.MESButton mesBtnImport;
         private System.Windows.Forms.Label label1;
+        private Fx.WinForms.Flat.MESButton mesBtnImport;
         private System.Windows.Forms.Label lblProcessing;
-        private System.Windows.Forms.Label label2;
     }
 }

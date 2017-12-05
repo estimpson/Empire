@@ -37,5 +37,36 @@ namespace ImportLogisticsVarianceData.Model
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("usp_Variance_InsertFromRaw", operatorCodeParameter, tranDT, result);
         }
+    
+        public virtual int usp_Variance_InsertChrFromRaw(string operatorCode, ObjectParameter tranDT, ObjectParameter result)
+        {
+            var operatorCodeParameter = operatorCode != null ?
+                new ObjectParameter("OperatorCode", operatorCode) :
+                new ObjectParameter("OperatorCode", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("usp_Variance_InsertChrFromRaw", operatorCodeParameter, tranDT, result);
+        }
+    
+        public virtual int usp_Variance_InsertPfsFromRaw(string operatorCode, ObjectParameter tranDT, ObjectParameter result)
+        {
+            var operatorCodeParameter = operatorCode != null ?
+                new ObjectParameter("OperatorCode", operatorCode) :
+                new ObjectParameter("OperatorCode", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("usp_Variance_InsertPfsFromRaw", operatorCodeParameter, tranDT, result);
+        }
+    
+        public virtual int usp_Variance_ValidateOperator(string operatorCode, string password, ObjectParameter tranDT, ObjectParameter result)
+        {
+            var operatorCodeParameter = operatorCode != null ?
+                new ObjectParameter("OperatorCode", operatorCode) :
+                new ObjectParameter("OperatorCode", typeof(string));
+    
+            var passwordParameter = password != null ?
+                new ObjectParameter("Password", password) :
+                new ObjectParameter("Password", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("usp_Variance_ValidateOperator", operatorCodeParameter, passwordParameter, tranDT, result);
+        }
     }
 }

@@ -4,21 +4,52 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="MONITORModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
-        <EntityContainer Name="MONITORModelStoreContainer" />
+    <Schema Namespace="MONITORModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+        <Function Name="usp_Variance_InsertChrFromRaw" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="CHR">
+          <Parameter Name="OperatorCode" Type="varchar" Mode="In" />
+          <Parameter Name="TranDT" Type="datetime" Mode="InOut" />
+          <Parameter Name="Result" Type="int" Mode="InOut" />
+        </Function>
         <Function Name="usp_Variance_InsertFromRaw" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="FedEx">
           <Parameter Name="OperatorCode" Type="varchar" Mode="In" />
           <Parameter Name="TranDT" Type="datetime" Mode="InOut" />
           <Parameter Name="Result" Type="int" Mode="InOut" />
         </Function>
-      </Schema>
-    </edmx:StorageModels>
+        <Function Name="usp_Variance_ValidateOperator" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="FedEx">
+          <Parameter Name="OperatorCode" Type="varchar" Mode="In" />
+          <Parameter Name="Password" Type="varchar" Mode="In" />
+          <Parameter Name="TranDT" Type="datetime" Mode="InOut" />
+          <Parameter Name="Result" Type="int" Mode="InOut" />
+        </Function>
+        <Function Name="usp_Variance_InsertPfsFromRaw" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="PFS">
+          <Parameter Name="OperatorCode" Type="varchar" Mode="In" />
+          <Parameter Name="TranDT" Type="datetime" Mode="InOut" />
+          <Parameter Name="Result" Type="int" Mode="InOut" />
+        </Function>
+        <EntityContainer Name="MONITORModelStoreContainer" />
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="MONITORModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
         <EntityContainer Name="MONITOREntities" annotation:LazyLoadingEnabled="true" >
           <FunctionImport Name="usp_Variance_InsertFromRaw">
             <Parameter Name="OperatorCode" Mode="In" Type="String" />
+            <Parameter Name="TranDT" Mode="InOut" Type="DateTime" />
+            <Parameter Name="Result" Mode="InOut" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="usp_Variance_InsertChrFromRaw">
+            <Parameter Name="OperatorCode" Mode="In" Type="String" />
+            <Parameter Name="TranDT" Mode="InOut" Type="DateTime" />
+            <Parameter Name="Result" Mode="InOut" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="usp_Variance_InsertPfsFromRaw">
+            <Parameter Name="OperatorCode" Mode="In" Type="String" />
+            <Parameter Name="TranDT" Mode="InOut" Type="DateTime" />
+            <Parameter Name="Result" Mode="InOut" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="usp_Variance_ValidateOperator">
+            <Parameter Name="OperatorCode" Mode="In" Type="String" />
+            <Parameter Name="Password" Mode="In" Type="String" />
             <Parameter Name="TranDT" Mode="InOut" Type="DateTime" />
             <Parameter Name="Result" Mode="InOut" Type="Int32" />
           </FunctionImport>
@@ -30,6 +61,9 @@
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="MONITORModelStoreContainer" CdmEntityContainer="MONITOREntities" >
           <FunctionImportMapping FunctionImportName="usp_Variance_InsertFromRaw" FunctionName="MONITORModel.Store.usp_Variance_InsertFromRaw" />
+          <FunctionImportMapping FunctionImportName="usp_Variance_InsertChrFromRaw" FunctionName="MONITORModel.Store.usp_Variance_InsertChrFromRaw" />
+          <FunctionImportMapping FunctionImportName="usp_Variance_InsertPfsFromRaw" FunctionName="MONITORModel.Store.usp_Variance_InsertPfsFromRaw" />
+          <FunctionImportMapping FunctionImportName="usp_Variance_ValidateOperator" FunctionName="MONITORModel.Store.usp_Variance_ValidateOperator" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
@@ -47,6 +81,7 @@
         <DesignerProperty Name="EnablePluralization" Value="True" />
         <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
         <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+        <DesignerProperty Name="UseLegacyProvider" Value="True" />
       </DesignerInfoPropertySet>
     </Options>
     <!-- Diagram content (shape and connector positions) -->
