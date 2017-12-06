@@ -3,7 +3,11 @@ GO
 SET ANSI_NULLS ON
 GO
 
-CREATE PROCEDURE [EDIADAC].[usp_Process]
+
+
+
+
+CREATE PROCEDURE [EDINAL].[usp_Process_backup]
 	@TranDT DATETIME = NULL OUT
 ,	@Result INTEGER = NULL OUT
 ,	@Testing INT = 1
@@ -11,45 +15,47 @@ CREATE PROCEDURE [EDIADAC].[usp_Process]
 ,	@Debug INTEGER = 0
 --</Debug>
 AS
-SET NOCOUNT ON
-SET ANSI_WARNINGS ON
-SET	@Result = 999999
+set nocount on
+set ansi_warnings on
+set	@Result = 999999
+
+--2017 AUG 21 asb FT, LLC : Commented out old NAL CODE
 
 --<Debug>
-DECLARE	@ProcStartDT DATETIME
-DECLARE	@StartDT DATETIME
-IF @Debug & 1 = 1 BEGIN
-	SET	@StartDT = GETDATE ()
-	PRINT	'START.   ' + CONVERT (VARCHAR (50), @StartDT)
+declare	@ProcStartDT datetime
+declare	@StartDT datetime
+if @Debug & 1 = 1 begin
+	set	@StartDT = GetDate ()
+	print	'START.   ' + Convert (varchar (50), @StartDT)
 	SET	@ProcStartDT = GETDATE ()
 END
 --</Debug>
 
 --- <Error Handling>
-DECLARE
+declare
 	@CallProcName sysname,
 	@TableName sysname,
 	@ProcName sysname,
-	@ProcReturn INTEGER,
-	@ProcResult INTEGER,
-	@Error INTEGER,
-	@RowCount INTEGER
+	@ProcReturn integer,
+	@ProcResult integer,
+	@Error integer,
+	@RowCount integer
 
-SET	@ProcName = USER_NAME(OBJECTPROPERTY(@@procid, 'OwnerId')) + '.' + OBJECT_NAME(@@procid)  -- e.g. EDIADAC.usp_Test
+set	@ProcName = user_name(objectproperty(@@procid, 'OwnerId')) + '.' + object_name(@@procid)  -- e.g. EDINAL.usp_Test
 --- </Error Handling>
 
 --- <Tran Required=Yes AutoCreate=Yes TranDTParm=Yes>
-DECLARE
-	@TranCount SMALLINT
+declare
+	@TranCount smallint
 
-SET	@TranCount = @@TranCount
-IF	@TranCount = 0 BEGIN
-	BEGIN TRAN @ProcName
-END
+set	@TranCount = @@TranCount
+if	@TranCount = 0 begin
+	begin tran @ProcName
+end
 ELSE BEGIN
 	SAVE TRAN @ProcName
 END
-SET	@TranDT = COALESCE(@TranDT, GETDATE())
+set	@TranDT = coalesce(@TranDT, GetDate())
 --- </Tran>
 
 ---	<ArgumentValidation>
@@ -58,72 +64,30 @@ SET	@TranDT = COALESCE(@TranDT, GETDATE())
 
 --- <Body>
 --<Debug>
-IF @Debug & 1 = 1 BEGIN
-	PRINT	'Determine the current 830s and 862s.'
-	PRINT	'	Active are all 862s for a Ship To / Ship From / last Document DT / last Imported Version (for Document Number / Control Number).'
+if @Debug & 1 = 1 begin
+	print	'Determine the current 830s and 862s.'
+	print	'	Active are all 862s for a Ship To / Ship From / last Document DT / last Imported Version (for Document Number / Control Number).'
 	SET	@StartDT = GETDATE ()
 END
 --</Debug>
 /*	Determine the current 830s and 862s. */
 /*		Active are all 862s for a Ship To / Ship From / last Document DT / last Imported Version (for Document Number / Control Number).*/
-DECLARE
-	@Current862s TABLE
-(	RawDocumentGUID UNIQUEIDENTIFIER
-,	ReleaseNo VARCHAR(50)
-,	ShipToCode VARCHAR(15)
-,	ShipFromCode VARCHAR(15)
-,	ConsigneeCode VARCHAR(15)
-,	CustomerPart VARCHAR(35)
-,	CustomerPO VARCHAR(35)
-,	CustomerModelYear VARCHAR(35)
-,	OpenReleaseQty NUMERIC(20,6)
-,	ReleaseDueDate DATETIME
-,	RowCreateDT DATETIME
-,	NewDocument INT
+declare
+	@Current862s table
+(	RawDocumentGUID uniqueidentifier
+,	ReleaseNo varchar(50)
+,	ShipToCode varchar(15)
+,	ShipFromCode varchar(15)
+,	ConsigneeCode varchar(15)
+,	CustomerPart varchar(35)
+,	CustomerPO varchar(35)
+,	CustomerModelYear varchar(35)
+,	NewDocument int
 )
 
-INSERT
+insert
 	@Current862s
-SELECT DISTINCT
-	 RawDocumentGUID
-,	  ReleaseNo
-,   ShipToCode
-,   ShipFromCode
-,   ConsigneeCode
-,   CustomerPart
-,   CustomerPO
-,		CustomerModelYear
-,   OpenReleaseQty
-,   ReleaseDate
-,	RowCreateDT
-,   NewDocument
-FROM
-	EDIADAC.CurrentShipSchedules ()
-
---<Debug>
-IF @Debug & 1 = 1 BEGIN
-	PRINT	'	Active are last Imported version of last Doc Number of last Document DT for every combination
-		of ShipTo, ShipFrom, InterCompany, and CustomerPart.'
-END
---</Debug>
-/*		Active are last Imported version of last Doc Number of last Document DT for every combination
-		of ShipTo, ShipFrom, InterCompany, and CustomerPart.  */
-DECLARE
-	@Current830s TABLE
-(	RawDocumentGUID UNIQUEIDENTIFIER
-,	ReleaseNo VARCHAR(50)
-,	ShipToCode VARCHAR(15)
-,	ShipFromCode VARCHAR(15)
-,	ConsigneeCode VARCHAR(15)
-,	CustomerPart VARCHAR(35)
-,	CustomerPO VARCHAR(35)
-,	CustomerModelYear VARCHAR(35)
-,	NewDocument INT
-)
-
-INSERT
-	@Current830s
-SELECT DISTINCT
+select distinct
 	RawDocumentGUID
 ,	ReleaseNo
 ,   ShipToCode
@@ -134,7 +98,43 @@ SELECT DISTINCT
 ,	CustomerModelYear
 ,   NewDocument
 from
-	EDIADAC.CurrentPlanningReleases ()
+	EDINAL.CurrentShipSchedules ()
+
+--<Debug>
+if @Debug & 1 = 1 begin
+	print	'	Active are last Imported version of last Doc Number of last Document DT for every combination
+		of ShipTo, ShipFrom, InterCompany, and CustomerPart.'
+end
+--</Debug>
+/*		Active are last Imported version of last Doc Number of last Document DT for every combination
+		of ShipTo, ShipFrom, InterCompany, and CustomerPart.  */
+declare
+	@Current830s table
+(	RawDocumentGUID uniqueidentifier
+,	ReleaseNo varchar(50)
+,	ShipToCode varchar(15)
+,	ShipFromCode varchar(15)
+,	ConsigneeCode varchar(15)
+,	CustomerPart varchar(35)
+,	CustomerPO varchar(35)
+,	CustomerModelYear varchar(35)
+,	NewDocument int
+)
+
+insert
+	@Current830s
+select distinct
+	RawDocumentGUID
+,	ReleaseNo
+,   ShipToCode
+,   ShipFromCode
+,   ConsigneeCode
+,   CustomerPart
+,   CustomerPO
+,	CustomerModelYear
+,   NewDocument
+from
+	EDINAL.CurrentPlanningReleases ()
 
 --<Debug>
 if @Debug & 1 = 1 begin
@@ -148,8 +148,8 @@ if	not exists
 			*
 		from
 			@Current862s cd
-		--where
-		--	cd.NewDocument = 1 --@Current862s contain all Open RANs; NewDocument is meaningless in this context  [ Andre S. Boulanger , 2014-02-21]
+		where
+			cd.NewDocument = 1
 	)
 	and not exists
 	(	select
@@ -162,16 +162,16 @@ if	not exists
 	and @Testing = 0 begin
 	set @Result = 100
 	rollback transaction @ProcName
-	return
-end
+	RETURN
+END
 
 --<Debug>
 if @Debug & 1 = 1 begin
 	print	'Mark "Active" 862s and 830s.'
-	set	@StartDT = GetDate ()
-end
+	SET	@StartDT = GETDATE ()
+END
 --- <Update rows="*">
-set	@TableName = 'EDIADAC.SchipSchedules'
+set	@TableName = 'EDINAL.SchipSchedules'
 
 update
 	ss
@@ -179,22 +179,21 @@ set
 	Status =
 		case
 			when c.RawDocumentGUID is not null
-				then 1 --(select dbo.udf_StatusValue('EDIADAC.ShipSchedules', 'Status', 'Active'))
-			else 2 --(select dbo.udf_StatusValue('EDIADAC.ShipSchedules', 'Status', 'Replaced'))
+				then 1 --(select dbo.udf_StatusValue('EDINAL.ShipSchedules', 'Status', 'Active'))
+			else 2 --(select dbo.udf_StatusValue('EDINAL.ShipSchedules', 'Status', 'Replaced'))
 		end
 from
-	EDIADAC.ShipSchedules ss
+	EDINAL.ShipSchedules ss
 	left join @Current862s c
-		on ss.RawDocumentGUID = c.RawDocumentGUID
-		and coalesce(ss.ReleaseNo,'') = coalesce(c.ReleaseNo,'') 
+		on ss.RawDocumentGUID = c.RawDocumentGUID 
 		and ss.ShipToCode = c.ShipToCode
 		and ss.CustomerPart = c.CustomerPart
 		and coalesce(ss.CustomerPO, '') = coalesce(c.CustomerPO, '')
 		and coalesce(ss.CustomerModelYear, '') = coalesce(c.CustomerModelYear, '')
 where
 	ss.Status in
-	(	0 --(select dbo.udf_StatusValue('EDIADAC.PlanningReleases', 'Status', 'New'))
-	,	1 --(select dbo.udf_StatusValue('EDIADAC.PlanningReleases', 'Status', 'Active'))
+	(	0 --(select dbo.udf_StatusValue('EDINAL.PlanningReleases', 'Status', 'New'))
+	,	1 --(select dbo.udf_StatusValue('EDINAL.PlanningReleases', 'Status', 'Active'))
 	)
 
 select
@@ -205,12 +204,12 @@ if	@Error != 0 begin
 	set	@Result = 999999
 	RAISERROR ('Error updating table %s in procedure %s.  Error: %d', 16, 1, @TableName, @ProcName, @Error)
 	rollback tran @ProcName
-	return
-end
+	RETURN
+END
 --- </Update>
 
 --- <Update rows="*">
-set	@TableName = 'EDIADAC.ShipScheduleHeaders'
+set	@TableName = 'EDINAL.ShipScheduleHeaders'
 
 update
 	ssh
@@ -221,19 +220,19 @@ set
 			(	select
 					*
 				from
-					EDIADAC.ShipSchedules ss
+					EDINAL.ShipSchedules ss
 				where
 					ss.RawDocumentGUID = ssh.RawDocumentGUID
-					and ss.Status = 1 --(select dbo.udf_StatusValue('EDIADAC.PlanningReleases', 'Status', 'Active')
-			) then 1 --(select dbo.udf_StatusValue('EDIADAC.PlanningHeaders', 'Status', 'Active'))
-		else 2 --(select dbo.udf_StatusValue('EDIADAC.PlanningHeaders', 'Status', 'Replaced'))
+					and ss.Status = 1 --(select dbo.udf_StatusValue('EDINAL.PlanningReleases', 'Status', 'Active')
+			) then 1 --(select dbo.udf_StatusValue('EDINAL.PlanningHeaders', 'Status', 'Active'))
+		else 2 --(select dbo.udf_StatusValue('EDINAL.PlanningHeaders', 'Status', 'Replaced'))
 	end
 from
-	EDIADAC.ShipScheduleHeaders ssh
+	EDINAL.ShipScheduleHeaders ssh
 where
 	ssh.Status in
-	(	0 --(select dbo.udf_StatusValue('EDIADAC.PlanningHeaders', 'Status', 'New'))
-	,	1 --(select dbo.udf_StatusValue('EDIADAC.PlanningHeaders', 'Status', 'Active'))
+	(	0 --(select dbo.udf_StatusValue('EDINAL.PlanningHeaders', 'Status', 'New'))
+	,	1 --(select dbo.udf_StatusValue('EDINAL.PlanningHeaders', 'Status', 'Active'))
 	)
 
 select
@@ -244,8 +243,8 @@ if	@Error != 0 begin
 	set	@Result = 999999
 	RAISERROR ('Error updating table %s in procedure %s.  Error: %d', 16, 1, @TableName, @ProcName, @Error)
 	rollback tran @ProcName
-	return
-end
+	RETURN
+END
 --- </Update>
 --<Debug>
 if @Debug & 1 = 1 begin
@@ -254,7 +253,7 @@ end
 --</Debug>
 
 --- <Update rows="*">
-set	@TableName = 'EDIADAC.PlanningReleases'
+set	@TableName = 'EDINAL.PlanningReleases'
 
 update
 	PR
@@ -262,14 +261,13 @@ set
 	Status =
 		case
 			when c.RawDocumentGUID is not null
-				then 1 --(select dbo.udf_StatusValue('EDIADAC.PlanningReleases', 'Status', 'Active'))
-			else 2 --(select dbo.udf_StatusValue('EDIADAC.PlanningReleases', 'Status', 'Replaced'))
+				then 1 --(select dbo.udf_StatusValue('EDINAL.PlanningReleases', 'Status', 'Active'))
+			else 2 --(select dbo.udf_StatusValue('EDINAL.PlanningReleases', 'Status', 'Replaced'))
 		end
 from
-	EDIADAC.PlanningReleases PR
+	EDINAL.PlanningReleases PR
 	left join @Current830s c
 		on PR.RawDocumentGUID = c.RawDocumentGUID
-		and coalesce(PR.ReleaseNo,'') = coalesce(c.ReleaseNo,'') 
 		and PR.ShipToCode = c.ShipToCode
 		and PR.CustomerPart = c.CustomerPart
 		and coalesce(PR.CustomerPO, '') = coalesce(c.CustomerPO, '')
@@ -277,8 +275,8 @@ from
 
 where
 	PR.Status in
-	(	0 --(select dbo.udf_StatusValue('EDIADAC.PlanningReleases', 'Status', 'New'))
-	,	1 --(select dbo.udf_StatusValue('EDIADAC.PlanningReleases', 'Status', 'Active'))
+	(	0 --(select dbo.udf_StatusValue('EDINAL.PlanningReleases', 'Status', 'New'))
+	,	1 --(select dbo.udf_StatusValue('EDINAL.PlanningReleases', 'Status', 'Active'))
 	)
 
 select
@@ -289,12 +287,12 @@ if	@Error != 0 begin
 	set	@Result = 999999
 	RAISERROR ('Error updating table %s in procedure %s.  Error: %d', 16, 1, @TableName, @ProcName, @Error)
 	rollback tran @ProcName
-	return
-end
+	RETURN
+END
 --- </Update>
 
 --- <Update rows="*">
-set	@TableName = 'EDIADAC.PlanningHeaders'
+set	@TableName = 'EDINAL.PlanningHeaders'
 
 update
 	fh
@@ -305,19 +303,19 @@ set
 			(	select
 					*
 				from
-					EDIADAC.PlanningReleases fr
+					EDINAL.PlanningReleases fr
 				where
 					fr.RawDocumentGUID = fh.RawDocumentGUID
-					and fr.Status = 1 --(select dbo.udf_StatusValue('EDIADAC.PlanningReleases', 'Status', 'Active')
-			) then 1 --(select dbo.udf_StatusValue('EDIADAC.PlanningHeaders', 'Status', 'Active'))
-		else 2 --(select dbo.udf_StatusValue('EDIADAC.PlanningHeaders', 'Status', 'Replaced'))
+					and fr.Status = 1 --(select dbo.udf_StatusValue('EDINAL.PlanningReleases', 'Status', 'Active')
+			) then 1 --(select dbo.udf_StatusValue('EDINAL.PlanningHeaders', 'Status', 'Active'))
+		else 2 --(select dbo.udf_StatusValue('EDINAL.PlanningHeaders', 'Status', 'Replaced'))
 	end
 from
-	EDIADAC.PlanningHeaders fh
+	EDINAL.PlanningHeaders fh
 where
 	fh.Status in
-	(	0 --(select dbo.udf_StatusValue('EDIADAC.PlanningHeaders', 'Status', 'New'))
-	,	1 --(select dbo.udf_StatusValue('EDIADAC.PlanningHeaders', 'Status', 'Active'))
+	(	0 --(select dbo.udf_StatusValue('EDINAL.PlanningHeaders', 'Status', 'New'))
+	,	1 --(select dbo.udf_StatusValue('EDINAL.PlanningHeaders', 'Status', 'Active'))
 	)
 
 select
@@ -328,8 +326,8 @@ if	@Error != 0 begin
 	set	@Result = 999999
 	RAISERROR ('Error updating table %s in procedure %s.  Error: %d', 16, 1, @TableName, @ProcName, @Error)
 	rollback tran @ProcName
-	return
-end
+	RETURN
+END
 --- </Update>
 --<Debug>
 if @Debug & 1 = 1 begin
@@ -344,23 +342,113 @@ if	@Testing > 1 begin
 	select
 		*
 	from
-		EDIADAC.ShipScheduleHeaders fh
+		EDINAL.ShipScheduleHeaders fh
 
 	select
 		'PlanningHeaders'
 		
-	select
+	SELECT
 		*
-	from
-		EDIADAC.PlanningHeaders fh
-end
+	FROM
+		EDINAL.PlanningHeaders fh
+END
 
 --<Debug>
 if @Debug & 1 = 1 begin
 	print	'Write new releases.'
 	print	'	Calculate raw releases from active 862s and 830s.'
-	set	@StartDT = GetDate ()
-end
+	SET	@StartDT = GETDATE ()
+END
+
+--Get LastAccums for NAL 830s 862s to use for 830s. NAL sends 830s where 862s end causing blending to eliminate 830 demand. We will use the last accum per customer part / ship to
+
+declare
+	@LastAccum table
+(	CustomerPart varchar(35)
+,	ShipToID varchar(20)
+,	CustomerPO varchar(20)
+,	ssGUID uniqueidentifier
+,	ssDate datetime
+,	ssAccum numeric(20,6)
+,	prGUID uniqueidentifier
+,	prDate datetime
+,	prAccum numeric(20,6)
+)
+
+Insert @LastAccum
+Select 
+	c862.CustomerPart,
+	c862.ShipToCode,
+	c862.CustomerPO,
+	NULL,
+	NULL,
+	NULL,
+	NULL,
+	NULL,
+	NULL
+From
+	@Current862s c862
+join EDINAL.BlanketOrders bo
+		on bo.EDIShipToCode = c862.ShipToCode
+		and bo.CustomerPart = c862.CustomerPart
+where
+	bo.UselastAccum = 1
+		
+UNION
+Select 
+	c830.CustomerPart,
+	c830.ShipToCode,
+	c830.CustomerPO,
+	NULL,
+	NULL,
+	NULL,
+	NULL,
+	NULL,
+	NULL
+From
+	@Current830s c830
+join EDINAL.BlanketOrders bo
+		on bo.EDIShipToCode = c830.ShipToCode
+		and bo.CustomerPart = c830.CustomerPart
+where
+	bo.UselastAccum = 1
+
+Update la
+Set		la.prGUID = ( select top 1 RawDocumentGUID from @Current830s c830 where c830.ShipToCode = la.ShipToID and c830.CustomerPart = la.CustomerPart )
+	,	la.ssGUID = ( select top 1 RawDocumentGUID from @Current862s c862 where c862.ShipToCode = la.ShipToID and c862.CustomerPart = la.CustomerPart )
+	From @LastAccum la
+
+
+Update la
+Set		la.prDate = ( select top 1 DocumentImportDT from EDINAL.PlanningHeaders ph where ph.RawDocumentGUID = la.prGUID )
+	,	la.ssDate = ( select top 1 DocumentImportDT from EDINAL.ShipScheduleHeaders ss where ss.RawDocumentGUID = la.ssGUID )
+	From @LastAccum la
+
+Update la
+Set		la.prAccum = ( select top 1 LastAccumQty from EDINAL.Planningaccums pa where pa.RawDocumentGUID = la.prGUID and pa.CustomerPart = la.CustomerPart and pa.ShipToCode = la.ShipToID and pa.CustomerPO = la.CustomerPO )
+	,	la.ssAccum = ( select top 1 LastAccumQty from EDINAL.ShipScheduleaccums sa where sa.RawDocumentGUID = la.ssGUID and sa.CustomerPart = sa.CustomerPart and sa.ShipToCode = la.ShipToID and sa.CustomerPO = la.CustomerPO)
+	From @LastAccum la
+
+Update la
+Set		la.prAccum = NULL
+	
+	From @LastAccum la
+Where
+	la.prDate < la.ssDate
+
+Update la
+Set		la.ssAccum = NULL
+	
+	From @LastAccum la
+Where
+	la.ssDate < la.prDate
+
+ 
+ 
+
+
+
+
 --</Debug>
 /*	Write new releases. */
 /*		Calculate raw releases from active 862s and 830s. */
@@ -429,39 +517,37 @@ insert
 ,	CustomerAccum
 ,	NewDocument
 )
+/*		Add releases due today when behind and no release for today exists. */
 
-
-select
+Select
 	ReleaseType = 1
 ,	OrderNo = bo.BlanketOrderNo
 ,	Type = 1
-,	ReleaseDT = dateadd(dd, ReleaseDueDTOffsetDays*-1, (DATEADD(MILLISECOND, convert(numeric(20,8),substring( fr.UserDefined5,4,10))/100, fr.ReleaseDT)) )
-,	BlanketPart = bo.PartCode
-,	CustomerPart = bo.CustomerPart
-,	ShipToID = bo.ShipToCode
-,	CustomerPO = bo.CustomerPO
-,	ModelYear = bo.ModelYear
-,	OrderUnit = bo.OrderUnit
-,	ReleaseNo = fr.UserDefined5
-,	QtyRelease = c.OpenReleaseQty
---,	QtyRelease = fr.ReleaseQty
-,	StdQtyRelease = c.OpenReleaseQty
+,	ReleaseDT = ft.fn_TruncDate('dd', getdate())
+,	BlanketPart = min(bo.PartCode)
+,	CustomerPart = min(bo.CustomerPart)
+,	ShipToID = min(bo.ShipToCode)
+,	CustomerPO = min(bo.CustomerPO)
+,	ModelYear = min(bo.ModelYear)
+,	OrderUnit = min(bo.OrderUnit)
+,	ReleaseNo = 'Accum Demand'
+,	QtyRelease = 0
+,	StdQtyRelease = 0
 ,	ReferenceAccum = case bo.ReferenceAccum 
 												When 'N' 
-												then coalesce(convert(int,bo.AccumShipped),0)
+												then min(coalesce(convert(int,bo.AccumShipped),0))
 												When 'C' 
-												then coalesce(convert(int,bo.AccumShipped),0)
-												else coalesce(convert(int,bo.AccumShipped),0)
+												then min(coalesce(convert(int,fa.LastAccumQty),0))
+												else min(coalesce(convert(int,bo.AccumShipped),0))
 												end
 ,	CustomerAccum = case bo.AdjustmentAccum 
 												When 'N' 
-												then coalesce(convert(int,bo.AccumShipped),0)
+												then min(coalesce(convert(int,bo.AccumShipped),0))
 												When 'P' 
-												then coalesce(convert(int,bo.AccumShipped),0)
-												else coalesce(convert(int,bo.AccumShipped),0)
+												then min(coalesce(convert(int,faa.PriorCUM),0))
+												else min(coalesce(convert(int,fa.LastAccumQty),0))
 												end
-,	NewDocument =
-		(	select
+	,	(	select
 				min(c.NewDocument)
 			from
 				@Current862s c
@@ -469,22 +555,22 @@ select
 				c.RawDocumentGUID = fh.RawDocumentGUID
 		)
 from
-	EDIADAC.ShipScheduleHeaders fh
-	join EDIADAC.ShipSchedules fr
+	EDINAL.ShipScheduleHeaders fh
+	join EDINAL.ShipSchedules fr
 		on fr.RawDocumentGUID = fh.RawDocumentGUID
-	left join EDIADAC.ShipScheduleAccums fa
+	left join EDINAL.ShipScheduleAccums fa
 		on fa.RawDocumentGUID = fh.RawDocumentGUID
 		and fa.CustomerPart = fr.CustomerPart
 		and	fa.ShipToCode = fr.ShipToCode
 		and	coalesce(fa.CustomerPO,'') = coalesce(fr.CustomerPO,'')
 		and	coalesce(fa.CustomerModelYear,'') = coalesce(fr.CustomerModelYear,'')
-	left join EDIADAC.ShipScheduleAuthAccums faa
+	left join EDINAL.ShipScheduleAuthAccums faa
 		on faa.RawDocumentGUID = fh.RawDocumentGUID
 		and faa.CustomerPart = fr.CustomerPart
 		and	faa.ShipToCode = fr.ShipToCode
 		and	coalesce(faa.CustomerPO,'') = coalesce(fr.CustomerPO,'')
 		and	coalesce(faa.CustomerModelYear,'') = coalesce(fr.CustomerModelYear,'')
-	join EDIADAC.BlanketOrders bo
+	join EDINAL.BlanketOrders bo
 		on bo.EDIShipToCode = fr.ShipToCode
 		and bo.CustomerPart = fr.CustomerPart
 		and
@@ -496,7 +582,7 @@ from
 			or bo.ModelYear862 = fr.CustomerModelYear
 		)
 		join
-				(Select * From @Current862s ) c 
+				(Select * From @Current862s) c 
 			on
 				c.CustomerPart = bo.customerpart and
 				c.ShipToCode = bo.EDIShipToCode and
@@ -506,24 +592,50 @@ from
 					and	(	bo.CheckModelYearShipSchedule = 0
 							or bo.ModelYear862 = c.CustomerModelYear
 				)
-where		c.RawDocumentGUID = fr.RawDocumentGUID
-and				c.ReleaseNo =  fr.UserDefined5
---and			fh.Status = 1 --(select dbo.udf_StatusValue('EDIADAC.ShipScheduleHeaders', 'Status', 'Active'))
-		
+where
+		not exists
+		(	select
+				*
+			from
+				EDINAL.ShipSchedules ss
+			where
+				ss.status = 1 and
+				ss.RawDocumentGUID = c.RawDocumentGUID and
+				ss.RawDocumentGUID = fr.RawDocumentGUID
+				and ss.CustomerPart = fr.CustomerPart
+				and ss.ShipToCode = fr.ShipToCode
+				and	ss.ReleaseDT = ft.fn_TruncDate('dd', getdate())
+		)
+	and fh.Status = 1 --(select dbo.udf_StatusValue('EDINAL.ShipScheduleHeaders', 'Status', 'Active'))
+	and		c.RawDocumentGUID = fr.RawDocumentGUID
+group by
+	bo.BlanketOrderNo
+,	fh.RawDocumentGUID
+,	bo.ReferenceAccum
+,	bo.AdjustmentAccum 
+having
+					case bo.AdjustmentAccum 
+												When 'N' 
+												then  min(coalesce(convert(int,bo.AccumShipped),0))
+												When 'P' 
+												then min(coalesce(convert(int,faa.PriorCUM),0))
+												else min(coalesce(convert(int,fa.LastAccumQty),0))
+												end > 
+												case bo.ReferenceAccum 
+												When 'N' 
+												then min(coalesce(convert(int,bo.AccumShipped),0))
+												When 'C' 
+												then min(coalesce(convert(int,fa.LastAccumQty),0))
+												else min(coalesce(convert(int,bo.AccumShipped),0))
+												end
 
-/*		830s. */
-Union all
+/*		862s. */
+union all
 select
-	ReleaseType = 2
+	ReleaseType = 1
 ,	OrderNo = bo.BlanketOrderNo
-,	Type = (	case 
-					when bo.PlanningFlag = 'P' then 2
-					when bo.PlanningFlag = 'F' then 1
-					when bo.planningFlag = 'A' and fr.ScheduleType not in ('C', 'A', 'Z') then 2
-					else 1
-					end
-			  )
-,	ReleaseDT = dateadd(dd, ReleaseDueDTOffsetDays*-1, fr.ReleaseDT)
+,	Type = 1
+,	ReleaseDT = dateadd(dd, ReleaseDueDTOffsetDays, fr.ReleaseDT)
 ,	BlanketPart = bo.PartCode
 ,	CustomerPart = bo.CustomerPart
 ,	ShipToID = bo.ShipToCode
@@ -537,15 +649,199 @@ select
 												When 'N' 
 												then coalesce(convert(int,bo.AccumShipped),0)
 												When 'C' 
-												then coalesce(convert(int,bo.AccumShipped),0)
+												then coalesce(convert(int,fa.LastAccumQty),0)
 												else coalesce(convert(int,bo.AccumShipped),0)
 												end
 ,	CustomerAccum = case bo.AdjustmentAccum 
 												When 'N' 
 												then coalesce(convert(int,bo.AccumShipped),0)
 												When 'P' 
+												then coalesce(convert(int,faa.PriorCUM),0)
+												else coalesce(convert(int,fa.LastAccumQty),0)
+												end
+,	NewDocument =
+		(	select
+				min(c.NewDocument)
+			from
+				@Current862s c
+			where
+				c.RawDocumentGUID = fh.RawDocumentGUID
+		)
+from
+	EDINAL.ShipScheduleHeaders fh
+	join EDINAL.ShipSchedules fr
+		on fr.RawDocumentGUID = fh.RawDocumentGUID
+	left join EDINAL.ShipScheduleAccums fa
+		on fa.RawDocumentGUID = fh.RawDocumentGUID
+		and fa.CustomerPart = fr.CustomerPart
+		and	fa.ShipToCode = fr.ShipToCode
+		and	coalesce(fa.CustomerPO,'') = coalesce(fr.CustomerPO,'')
+		and	coalesce(fa.CustomerModelYear,'') = coalesce(fr.CustomerModelYear,'')
+	left join EDINAL.ShipScheduleAuthAccums faa
+		on faa.RawDocumentGUID = fh.RawDocumentGUID
+		and faa.CustomerPart = fr.CustomerPart
+		and	faa.ShipToCode = fr.ShipToCode
+		and	coalesce(faa.CustomerPO,'') = coalesce(fr.CustomerPO,'')
+		and	coalesce(faa.CustomerModelYear,'') = coalesce(fr.CustomerModelYear,'')
+	join EDINAL.BlanketOrders bo
+		on bo.EDIShipToCode = fr.ShipToCode
+		and bo.CustomerPart = fr.CustomerPart
+		and
+		(	bo.CheckCustomerPOShipSchedule = 0
+			or bo.CustomerPO = fr.CustomerPO
+		)
+		and
+		(	bo.CheckModelYearShipSchedule = 0
+			or bo.ModelYear862 = fr.CustomerModelYear
+		)
+		join
+				(Select * From @Current862s) c 
+			on
+				c.CustomerPart = bo.customerpart and
+				c.ShipToCode = bo.EDIShipToCode and
+				(	bo.CheckCustomerPOShipSchedule = 0
+							or bo.CustomerPO = c.CustomerPO
+				)
+					and	(	bo.CheckModelYearShipSchedule = 0
+							or bo.ModelYear862 = c.CustomerModelYear
+				)
+where		c.RawDocumentGUID = fr.RawDocumentGUID
+and			fh.Status = 1 --(select dbo.udf_StatusValue('EDINAL.ShipScheduleHeaders', 'Status', 'Active'))
+		
+
+/*		830s. */
+--Get 830s where Prior Accum is defined as Adjustnment accum and customer prior accum > fx accum shipped
+UNION ALL
+Select
+	ReleaseType = 2
+,	OrderNo = bo.BlanketOrderNo
+,	Type = 1
+,	ReleaseDT = dateadd(dd, -1, min(dateadd(dd, ReleaseDueDTOffsetDays, fr.ReleaseDT)))
+,	BlanketPart = min(bo.PartCode)
+,	CustomerPart = min(bo.CustomerPart)
+,	ShipToID = min(bo.ShipToCode)
+,	CustomerPO = min(bo.CustomerPO)
+,	ModelYear = min(bo.ModelYear)
+,	OrderUnit = min(bo.OrderUnit)
+,	ReleaseNo = 'CustDemandPriorAccum'
+,	QtyRelease = 0
+,	StdQtyRelease = 0
+,	ReferenceAccum = case bo.ReferenceAccum 
+												When 'N' 
+												then min(coalesce(convert(int,bo.AccumShipped),0))
+												When 'C' 
+												then min(coalesce(convert(int,fa.LastAccumQty),0))
+												else min(coalesce(convert(int,bo.AccumShipped),0))
+												end
+,	CustomerAccum = case bo.AdjustmentAccum 
+												When 'N' 
+												then min(coalesce(convert(int,bo.AccumShipped),0))
+												When 'P' 
+												then min(coalesce(convert(int,faa.PriorCUM),0))
+												else min(coalesce(convert(int,fa.LastAccumQty),0))
+												end
+	,	(	select
+				min(c.NewDocument)
+			from
+				@current830s c
+			where
+				c.RawDocumentGUID = fh.RawDocumentGUID
+		)
+from
+	EDINAL.PlanningHeaders fh
+	join EDINAL.PlanningReleases fr
+		on fr.RawDocumentGUID = fh.RawDocumentGUID
+	left join EDINAL.PlanningAccums fa
+		on fa.RawDocumentGUID = fh.RawDocumentGUID
+		and fa.CustomerPart = fr.CustomerPart
+		and	fa.ShipToCode = fr.ShipToCode
+		and	coalesce(fa.CustomerPO,'') = coalesce(fr.CustomerPO,'')
+		and	coalesce(fa.CustomerModelYear,'') = coalesce(fr.CustomerModelYear,'')
+	left join EDINAL.PlanningAuthAccums faa
+		on faa.RawDocumentGUID = fh.RawDocumentGUID
+		and faa.CustomerPart = fr.CustomerPart
+		and	faa.ShipToCode = fr.ShipToCode
+		and	coalesce(faa.CustomerPO,'') = coalesce(fr.CustomerPO,'')
+		and	coalesce(faa.CustomerModelYear,'') = coalesce(fr.CustomerModelYear,'')
+	join EDINAL.BlanketOrders bo
+		on bo.EDIShipToCode = fr.ShipToCode
+		and bo.CustomerPart = fr.CustomerPart
+		and
+		(	bo.CheckCustomerPOPlanning = 0
+			or bo.CustomerPO = fr.CustomerPO
+		)
+		and
+		(	bo.CheckModelYearPlanning = 0
+			or bo.ModelYear862 = fr.CustomerModelYear
+		)
+		join
+				(Select * From @Current830s) c 
+			on
+				c.CustomerPart = bo.customerpart and
+				c.ShipToCode = bo.EDIShipToCode and
+				(	bo.CheckCustomerPOPlanning = 0
+							or bo.CustomerPO = c.CustomerPO
+				)
+					and	(	bo.CheckModelYearPlanning = 0
+							or bo.ModelYear862 = c.CustomerModelYear
+				)
+	Where   fh.Status = 1 
+	and		c.RawDocumentGUID = fr.RawDocumentGUID
+	and		bo.AdjustmentAccum = 'P'
+group by
+	bo.BlanketOrderNo
+,	fh.RawDocumentGUID
+,	bo.ReferenceAccum
+,	bo.AdjustmentAccum 
+having
+					case bo.AdjustmentAccum 
+												When 'N' 
+												then  min(coalesce(convert(int,bo.AccumShipped),0))
+												When 'P' 
+												then min(coalesce(convert(int,faa.PriorCUM),0))
+												else min(coalesce(convert(int,fa.LastAccumQty),0))
+												end > 
+												case bo.ReferenceAccum 
+												When 'N' 
+												then min(coalesce(convert(int,bo.AccumShipped),0))
+												When 'C' 
+												then min(coalesce(convert(int,fa.LastAccumQty),0))
+												else min(coalesce(convert(int,bo.AccumShipped),0))
+												end
+Union all
+select
+	ReleaseType = 2
+,	OrderNo = bo.BlanketOrderNo
+,	Type = (	case 
+					when bo.PlanningFlag = 'P' then 2
+					when bo.PlanningFlag = 'F' then 1
+					when bo.planningFlag = 'A' and fr.ScheduleType not in ('C', 'A', 'Z') then 2
+					else 1
+					end
+			  )
+,	ReleaseDT = dateadd(dd, ReleaseDueDTOffsetDays, fr.ReleaseDT)
+,	BlanketPart = bo.PartCode
+,	CustomerPart = bo.CustomerPart
+,	ShipToID = bo.ShipToCode
+,	CustomerPO = bo.CustomerPO
+,	ModelYear = bo.ModelYear
+,	OrderUnit = bo.OrderUnit
+,	ReleaseNo = case  WHEN fr.suppliercode =  'A0144' then fr.Userdefined5 WHEN fr.suppliercode IN ( 'ARM701', 'ARM101' ) AND fr.Userdefined5 IS NOT NULL THEN fr.UserDefined5 ELSE fr.ReleaseNo end
+,	QtyRelease = fr.ReleaseQty
+,	StdQtyRelease = fr.ReleaseQty
+,	ReferenceAccum = case bo.ReferenceAccum 
+												When 'N' 
 												then coalesce(convert(int,bo.AccumShipped),0)
+												When 'C' 
+												then coalesce(convert(int,fa.LastAccumQty),0)
 												else coalesce(convert(int,bo.AccumShipped),0)
+												end
+,	CustomerAccum = case bo.AdjustmentAccum 
+												When 'N' 
+												then coalesce(convert(int,bo.AccumShipped),0)
+												When 'P' 
+												then coalesce(convert(int,faa.PriorCUM),0)
+												else coalesce(convert(int, la.ssAccum) , convert(int, la.prAccum), convert(int,fa.LastAccumQty),0) -- get last Accum from shipSchedule 1st
 												end
 ,	NewDocument =
 		(	select
@@ -556,22 +852,22 @@ select
 				c.RawDocumentGUID = fh.RawDocumentGUID
 		)
 from
-	EDIADAC.PlanningHeaders fh
-	join EDIADAC.PlanningReleases fr
+	EDINAL.PlanningHeaders fh
+	join EDINAL.PlanningReleases fr
 		on fr.RawDocumentGUID = fh.RawDocumentGUID
-	left join EDIADAC.PlanningAccums fa
+	left join EDINAL.PlanningAccums fa
 		on fa.RawDocumentGUID = fh.RawDocumentGUID
 		and fa.CustomerPart = fr.CustomerPart
 		and	fa.ShipToCode = fr.ShipToCode
 		and	coalesce(fa.CustomerPO,'') = coalesce(fr.CustomerPO,'')
 		and	coalesce(fa.CustomerModelYear,'') = coalesce(fr.CustomerModelYear,'')
-	left join EDIADAC.PlanningAuthAccums faa
+	left join EDINAL.PlanningAuthAccums faa
 		on faa.RawDocumentGUID = fh.RawDocumentGUID
 		and faa.CustomerPart = fr.CustomerPart
 		and	faa.ShipToCode = fr.ShipToCode
 		and	coalesce(faa.CustomerPO,'') = coalesce(fr.CustomerPO,'')
 		and	coalesce(faa.CustomerModelYear,'') = coalesce(fr.CustomerModelYear,'')
-	join EDIADAC.BlanketOrders bo
+	join EDINAL.BlanketOrders bo
 		on bo.EDIShipToCode = fr.ShipToCode
 		and bo.CustomerPart = fr.CustomerPart
 		and
@@ -593,13 +889,17 @@ from
 					and	(	bo.CheckModelYearShipSchedule = 0
 							or bo.ModelYear862 = c.CustomerModelYear
 				)
+		left join	@LastAccum la
+			on la.CustomerPart = bo.CustomerPart and
+				la.CustomerPO = bo.CustomerPO and
+				la.ShipToID = bo.EDIShipToCode
 where		c.RawDocumentGUID = fr.RawDocumentGUID
-	and		fh.Status = 1 --(select dbo.udf_StatusValue('EDIADAC.PlanningHeaders', 'Status', 'Active'))
-	and		fr.Status = 1 --(select dbo.udf_StatusValue('EDIADAC.PlanningReleases', 'Status', 'Active'))
+	and		fh.Status = 1 --(select dbo.udf_StatusValue('EDINAL.PlanningHeaders', 'Status', 'Active'))
+	and		fr.Status = 1 --(select dbo.udf_StatusValue('EDINAL.PlanningReleases', 'Status', 'Active'))
 	--and coalesce(nullif(fr.Scheduletype,''),'4') in ('4')
 	
 order by
-	1, 2, 3,4
+	2,1,4
 
 /*		Calculate orders to update. */
 update
@@ -626,6 +926,142 @@ if	@Testing = 0 begin
 end
 
 /*		Update accums for Orders where Accum Difference has been inserted for immediate delivery */
+--update
+--	@RawReleases
+--set
+--	RelPost = CustomerAccum + coalesce (
+--	(	select
+--			sum (StdQtyRelease)
+--		from
+--			@RawReleases
+--		where
+--			OrderNo = rr.OrderNo
+--			and Type = rr.Type
+--			and	RowID <= rr.RowID), 0)
+--from
+--	@RawReleases rr
+
+	
+--/*		Calculate orders to update. */
+--update
+--	rr
+--set
+--	NewDocument =
+--	(	select
+--			max(NewDocument)
+--		from
+--			@RawReleases rr2
+--		where
+--			rr2.OrderNo = rr.OrderNo
+--	)
+--from
+--	@RawReleases rr
+
+--if	@Testing = 0 begin
+--	delete
+--		rr
+--	from
+--		@RawReleases rr
+--	where
+--		rr.NewDocument = 0
+--end
+
+--ASB FT, LLC 08-09-2016 Write NAL Releases to @Releases2
+
+--declare
+--	@RawReleases2 table
+--(	RowID int not null IDENTITY(1, 1) primary key
+--,	Status int default(0)
+--,	ReleaseType int
+--,	OrderNo int
+--,	Type tinyint
+--,	ReleaseDT datetime
+--,	BlanketPart varchar(25)
+--,	CustomerPart varchar(35)
+--,	ShipToID varchar(20)
+--,	CustomerPO varchar(20)
+--,	ModelYear varchar(4)
+--,	OrderUnit char(2)
+--,	QtyShipper numeric(20,6)
+--,	Line int
+--,	ReleaseNo varchar(30)
+--,	DockCode varchar(30) null
+--,	LineFeedCode varchar(30) null
+--,	ReserveLineFeedCode varchar(30) null
+--,	QtyRelease numeric(20,6)
+--,	StdQtyRelease numeric(20,6)
+--,	ReferenceAccum numeric(20,6)
+--,	CustomerAccum numeric(20,6)
+--,	RelPrior numeric(20,6)
+--,	RelPost numeric(20,6)
+--,	NewDocument int
+--,	unique
+--	(	OrderNo
+--	,	NewDocument
+--	,	RowID
+--	)
+--,	unique
+--	(	OrderNo
+--	,	RowID
+--	,	RelPost
+--	,	QtyRelease
+--	,	StdQtyRelease
+--	)
+--,	unique
+--	(	OrderNo
+--	,	Type
+--	,	RowID
+--	)
+--)
+
+
+--Insert @RawReleases2
+--(	ReleaseType
+--,	OrderNo
+--,	Type
+--,	ReleaseDT
+--,	BlanketPart
+--,	CustomerPart
+--,	ShipToID
+--,	CustomerPO
+--,	ModelYear
+--,	OrderUnit
+--,	ReleaseNo
+--,	QtyRelease
+--,	StdQtyRelease
+--,	ReferenceAccum
+--,	CustomerAccum
+--,	NewDocument
+--)
+--Select 
+--	ReleaseType
+--,	OrderNo
+--,	Type
+--,	ReleaseDT
+--,	BlanketPart
+--,	CustomerPart
+--,	ShipToID
+--,	CustomerPO
+--,	ModelYear
+--,	OrderUnit
+--,	ReleaseNo
+--,	QtyRelease
+--,	StdQtyRelease
+--,	ReferenceAccum
+--,	CustomerAccum
+--,	NewDocument
+--from 
+--@RawReleases where BlanketPart like 'NAL%'
+
+
+--Delete @RawReleases where BlanketPart like 'NAL%'
+
+--delete		rr2
+--from		@RawReleases2 rr2
+-- OUTER APPLY ( Select max(rr3.ReleaseDT) as LastSSDT from @RawReleases2 rr3 where rr3.CustomerPart = rr2.customerPart and rr3.ShipToID =  rr2.ShipToID and rr3.type = 1 group by rr3.CustomerPart, rr3.ShipToID ) ShipSched
+--where rr2.Type =  2 and
+--rr2.ReleaseDT <= LastSSDT
+
 update
 	@RawReleases
 set
@@ -636,33 +1072,33 @@ set
 			@RawReleases
 		where
 			OrderNo = rr.OrderNo
-			and ReleaseType = rr.ReleaseType
+			--and ReleaseType = rr.ReleaseType
 			and	RowID <= rr.RowID), 0)
 from
 	@RawReleases rr
 
 	
-/*		Calculate orders to update. */
-update
-	rr
-set
-	NewDocument =
-	(	select
-			max(NewDocument)
-		from
-			@RawReleases rr2
-		where
-			rr2.OrderNo = rr.OrderNo
-	)
-from
-	@RawReleases rr
+--/*		Calculate orders to update. */
+--update
+--	rr
+--set
+--	NewDocument =
+--	(	select
+--			max(NewDocument)
+--		from
+--			@RawReleases rr2
+--		where
+--			rr2.OrderNo = rr.OrderNo
+--	)
+--from
+--	@RawReleases rr
 
-delete
-	rr
-from
-	@RawReleases rr
-where
-	rr.NewDocument = 0
+--delete
+--	rr
+--from
+--	@RawReleases rr
+--where
+--	rr.NewDocument = 0
 
 
 /*		Calculate running cumulatives. */
@@ -690,17 +1126,17 @@ set
 from
 	@RawReleases rr
 
-
-
-update
+	--For Armada Only..Update Release Number with Accum Increase if customer's accum causes the qty to be increased
+	update
 	rr
 set
-	ReleaseDT = (select max(ReleaseDT) from @RawReleases where OrderNo = rr.OrderNo and ReleaseType = 1)+1
+		releaseNo = 'Accum Increase'
 from
 	@RawReleases rr
 where
-	rr.ReleaseType = 2
-	and rr.ReleaseDT < (select max(ReleaseDT) from @RawReleases where OrderNo = rr.OrderNo and ReleaseType = 1)
+		RelPost-RelPrior > QtyRelease
+		and releaseNo != 'CustDemandPriorAccum'
+
 
 update
 	rr
@@ -719,6 +1155,17 @@ from
 where
 	QtyRelease <= 0
 
+
+/* Move Planning Release dates beyond last Ship Schedule Date that has a quantity due*/
+update
+	rr
+set
+	ReleaseDT = dateadd(dd,1,(select max(ReleaseDT) from @RawReleases where OrderNo = rr.OrderNo and ReleaseType = 1and Status>-1))
+from
+	@RawReleases rr
+where
+	rr.ReleaseType = 2
+	and rr.ReleaseDT <= (select max(ReleaseDT) from @RawReleases where OrderNo = rr.OrderNo and ReleaseType = 1 and Status>-1)
 /*	Calculate order line numbers and committed quantity. */
 update
 	rr
@@ -762,19 +1209,19 @@ end
 --<Debug>
 if @Debug & 1 = 1 begin
 	print	'	Replace order detail.'
-	set	@StartDT = GetDate ()
-end
+	SET	@StartDT = GETDATE ()
+END
 --</Debug>
 
 if	@Testing = 2 begin
 	select
 		'@RawReleases'
 	
-	select
+	SELECT
 		*
-	from
+	FROM
 		@RawReleases rr
-end
+END
 
 /*		Replace order detail. */
 if	@Testing = 0 begin
@@ -813,11 +1260,10 @@ if	@Testing = 0 begin
 		set	@Result = 999999
 		RAISERROR ('Error deleting from table %s in procedure %s.  Error: %d', 16, 1, @TableName, @ProcName, @Error)
 		rollback tran @ProcName
-		return
-	end
+		RETURN
+	END
 	--- </Delete>
 	
-	--- <Insert rows="*">
 	--- <Insert rows="*">
 	set	@TableName = 'dbo.order_detail'
 	
@@ -865,21 +1311,39 @@ select
 		bor.OrderNo
 ,		bor.ReleaseNo
 ,		bor.ReleaseDT
-,		bor.ReleaseType
+,		bor.Type
 ,		sum(bor.QtyRelease)
 from
 	@RawReleases bor
-WHERE bor.Status != -1
 group by
 		bor.OrderNo
 ,		bor.ReleaseNo
 ,		bor.ReleaseDT
-,		bor.ReleaseType
+,		bor.Type
+
+
+--UNION
+
+--select
+--		bor.OrderNo
+--,		bor.ReleaseNo
+--,		bor.ReleaseDT
+--,		bor.Type
+--,		sum(bor.QtyRelease)
+--from
+--	@RawReleases2 bor
+--group by
+--		bor.OrderNo
+--,		bor.ReleaseNo
+--,		bor.ReleaseDT
+--,		bor.Type
 
 order by
-	bor.orderNo
-,	bor.ReleaseDT
-,	bor.ReleaseNo
+1,
+3,
+2
+
+
 
 --select	* from ##BlanketOrderReleases_Edit
 --select	* from	@Rawreleases
@@ -904,23 +1368,7 @@ EXECUTE @RC3 = [MONITOR].[dbo].[usp_SaveBlanketOrderDistributedReleases]
    @TranDT3 OUTPUT
   ,@Result3 output
 
-
---Update Order Detail to capture Ship Window Time to Custom01 for label pinting purposes.
-
-UPDATE dbo.order_detail
-SET custom01 = SUBSTRING(release_no,PATINDEX('%~%',release_no)+1, 10)
-WHERE 
-	customer_part IN (SELECT CustomerPart from @RawReleases) AND
-	release_no LIKE '%~%'
-
-UPDATE dbo.order_detail
-SET release_no = SUBSTRING(release_no,1,PATINDEX('%~%',release_no)-1)
-WHERE
-	customer_part IN (SELECT CustomerPart from @RawReleases) AND 
-	release_no LIKE '%~%'
-
-
-
+--select * Into TempBOReleases from ##BlanketOrderReleases_Edit
 delete
 	##BlanketOrderReleases_Edit
 where
@@ -934,9 +1382,8 @@ where
 		set	@Result = 999999
 		RAISERROR ('Error inserting into table %s in procedure %s.  Error: %d', 16, 1, @TableName, @ProcName, @Error)
 		rollback tran @ProcName
-		return
-	end
-	
+		RETURN
+	END
 	--- </Insert>
 	
 	/*	Set dock code, line feed code, and reserve line feed code. */
@@ -945,10 +1392,10 @@ where
 				*
 			from
 				dbo.order_header oh
-				join EDIADAC.PlanningHeaders fh
-					join EDIADAC.PlanningSupplemental ps
+				join EDINAL.PlanningHeaders fh
+					join EDINAL.PlanningSupplemental ps
 						on ps.RawDocumentGUID = fh.RawDocumentGUID
-					join EDIADAC.BlanketOrders bo
+					join EDINAL.BlanketOrders bo
 						on bo.EDIShipToCode = coalesce (ps.ConsigneeCode, ps.ShipToCode)
 						and bo.CustomerPart = ps.CustomerPart
 					on bo.BlanketOrderNo = oh.order_no
@@ -968,10 +1415,10 @@ where
 				*
 			from
 				dbo.order_header oh
-				join EDIADAC.ShipScheduleHeaders fh
-					join EDIADAC.ShipScheduleSupplemental sss
+				join EDINAL.ShipScheduleHeaders fh
+					join EDINAL.ShipScheduleSupplemental sss
 						on sss.RawDocumentGUID = fh.RawDocumentGUID
-					join EDIADAC.BlanketOrders bo
+					join EDINAL.BlanketOrders bo
 						on bo.EDIShipToCode = sss.ShipToCode
 						and bo.CustomerPart = sss.CustomerPart
 					on bo.BlanketOrderNo = oh.order_no
@@ -987,14 +1434,14 @@ where
 		*/
 		/*
 		insert
-			EDIADAC.LabelInfoHeader
+			EDINAL.LabelInfoHeader
 		(	SystemDT
 		)
 		select
 			@TranDT
 		
 		insert 	
-			EDIADAC.LabelInfoHeader
+			EDINAL.LabelInfoHeader
 		(	HeaderTimeStamp
 		,	OrderNo
 		,	NewDockCode
@@ -1051,7 +1498,7 @@ where
 		from
 			dbo.order_header oh
 		join
-				EDIADAC.blanketOrders bo
+				EDINAL.blanketOrders bo
 		on
 				bo.BlanketOrderNo = oh.order_no
 		join
@@ -1066,7 +1513,7 @@ where
 							or bo.ModelYear830 = cpr.CustomerModelYear
 				)
 		  join
-				EDIADAC.PlanningSupplemental prs
+				EDINAL.PlanningSupplemental prs
 		on
 				prs.RawDocumentGUID = cpr.RawDocumentGUID and
 				prs.CustomerPart = cpr.CustomerPart and
@@ -1082,8 +1529,8 @@ where
 			set	@Result = 999999
 			RAISERROR ('Error updating table %s in procedure %s.  Error: %d', 16, 1, @TableName, @ProcName, @Error)
 			rollback tran @ProcName
-			return
-		end
+			RETURN
+		END
 		
 		--- <Update rows="*">
 		set	@TableName = 'dbo.order_header'
@@ -1105,7 +1552,7 @@ where
 		from
 			dbo.order_header oh
 		join
-				EDIADAC.blanketOrders bo
+				EDINAL.blanketOrders bo
 		on
 				bo.BlanketOrderNo = oh.order_no
 		join
@@ -1120,7 +1567,7 @@ where
 							or bo.ModelYear862 = css.CustomerModelYear
 				)
 		  join
-				EDIADAC.ShipScheduleSupplemental sss
+				EDINAL.ShipScheduleSupplemental sss
 		on
 				sss.RawDocumentGUID = css.RawDocumentGUID and
 				sss.CustomerPart = css.CustomerPart and
@@ -1132,16 +1579,16 @@ where
 			@Error = @@Error,
 			@RowCount = @@Rowcount
 		
-		if	@Error != 0 begin
+		IF	@Error != 0 BEGIN
 			set	@Result = 999999
 			RAISERROR ('Error updating table %s in procedure %s.  Error: %d', 16, 1, @TableName, @ProcName, @Error)
 			rollback tran @ProcName
-			return
-		end
-	end
+			RETURN
+		END
+	END
 	--- </Update>
 --end
-else begin
+ELSE BEGIN
 	if	@Testing > 1 begin
 		select 'raw releases'
 		
@@ -1183,19 +1630,19 @@ else begin
 		
 		/*	to be inserted*/
 		
-		select 'to be inserted'
-	end
+		SELECT 'to be inserted'
+	END
 		
-	select
+	SELECT
 		order_no = rr.OrderNo
 	,	sequence = rr.Line
 	,	part_number = rr.BlanketPart
-	,	product_name = (select name from dbo.part where part = rr.BlanketPart)
-	,	type = case rr.Type when 1 then 'F' when 2 then 'P' end
+	,	product_name = (SELECT name FROM dbo.part WHERE part = rr.BlanketPart)
+	,	type = CASE rr.Type WHEN 1 THEN 'F' WHEN 2 THEN 'P' END
 	,	quantity = rr.RelPost - rr.relPrior
 	,	status = ''
-	,	notes = 'Processed Date : '+ convert(varchar, getdate(), 120) + ' ~ ' + case rr.Type when 1 then 'EDI Processed Release' when 2 then 'EDI Processed Release' end
-	,	unit = (select unit from order_header where order_no = rr.OrderNo)
+	,	notes = 'Processed Date : '+ CONVERT(VARCHAR, GETDATE(), 120) + ' ~ ' + CASE rr.Type WHEN 1 THEN 'EDI Processed Release' WHEN 2 THEN 'EDI Processed Release' END
+	,	unit = (SELECT unit FROM order_header WHERE order_no = rr.OrderNo)
 	,	due_date = rr.ReleaseDT
 	,	release_no = rr.ReleaseNo
 	,	destination = rr.ShipToID
@@ -1206,27 +1653,27 @@ else begin
 	,	packline_qty = 0
 	,	packaging_type = bo.PackageType
 	,	weight = (rr.RelPost - rr.relPrior) * bo.UnitWeight
-	,	plant = (select plant from order_header where order_no = rr.OrderNo)
-	,	week_no = datediff(wk, (select fiscal_year_begin from parameters), rr.ReleaseDT) + 1
+	,	plant = (SELECT plant FROM order_header WHERE order_no = rr.OrderNo)
+	,	week_no = DATEDIFF(wk, (SELECT fiscal_year_begin FROM parameters), rr.ReleaseDT) + 1
 	,	std_qty = rr.RelPost - rr.relPrior
 	,	our_cum = rr.RelPrior
 	,	the_cum = rr.RelPost
-	,	price = (select price from order_header where order_no = rr.OrderNo)
-	,	alternate_price = (select alternate_price from order_header where order_no = rr.OrderNo)
-	,	committed_qty = coalesce
-		(	case
-				when rr.QtyShipper > rr.RelPost - bo.AccumShipped then rr.RelPost - rr.relPrior
-				when rr.QtyShipper > rr.RelPrior - bo.AccumShipped then rr.QtyShipper - (rr.RelPrior - bo.AccumShipped)
-			end
+	,	price = (SELECT price FROM order_header WHERE order_no = rr.OrderNo)
+	,	alternate_price = (SELECT alternate_price FROM order_header WHERE order_no = rr.OrderNo)
+	,	committed_qty = COALESCE
+		(	CASE
+				WHEN rr.QtyShipper > rr.RelPost - bo.AccumShipped THEN rr.RelPost - rr.relPrior
+				WHEN rr.QtyShipper > rr.RelPrior - bo.AccumShipped THEN rr.QtyShipper - (rr.RelPrior - bo.AccumShipped)
+			END
 		,	0
 		)
-	from
+	FROM
 		@RawReleases rr
-		join EDIADAC.BlanketOrders bo
-			on bo.BlanketOrderNo = rr.OrderNo
-	order by
+		JOIN EDINAL.BlanketOrders bo
+			ON bo.BlanketOrderNo = rr.OrderNo
+	ORDER BY
 		1, 2
-end
+END
 --<Debug>
 if @Debug & 1 = 1 begin
 	print	'	...replaced.   ' + Convert (varchar, DateDiff (ms, @StartDT, GetDate ())) + ' ms'
@@ -1297,13 +1744,12 @@ Select
 from
 	@Current862s a
 Where
-		coalesce(a.newDocument,0) in (0, 1) AND
-		a.RowCreateDT >=  dateadd(MINUTE, -60, GETDATE())
+		coalesce(a.newDocument,0) = 1
 and not exists
 ( Select 1 from 
-		EDIADAC.ShipSchedules b
+		EDINAL.ShipSchedules b
  Join 
-	EDIADAC.BlanketOrders bo on b.CustomerPart = bo.CustomerPart
+	EDINAL.BlanketOrders bo on b.CustomerPart = bo.CustomerPart
 and
 	b.ShipToCode = bo.EDIShipToCode
 and
@@ -1338,9 +1784,9 @@ Where
 		coalesce(a.newDocument,0) = 1
 and not exists
 ( Select 1 from 
-		EDIADAC.PlanningReleases b
+		EDINAL.PlanningReleases b
  Join 
-	EDIADAC.BlanketOrders bo on b.CustomerPart = bo.CustomerPart
+	EDINAL.BlanketOrders bo on b.CustomerPart = bo.CustomerPart
 and
 	b.ShipToCode = bo.EDIShipToCode
 and
@@ -1364,7 +1810,7 @@ Select
 ,	DocumentType = 'SS'
 ,	AlertType =  ' OrderProcessed'
 ,	ReleaseNo =  Coalesce(a.ReleaseNo,'')
-,	ShipToCode = a.ShipToCode
+,	ShipToCode = bo.ShipToCode
 ,	ConsigneeCode =  coalesce(a.ConsigneeCode,'')
 ,	ShipFromCode = coalesce(a.ShipFromCode,'')
 ,	CustomerPart = Coalesce(a.CustomerPart,'')
@@ -1374,7 +1820,7 @@ Select
 from
 	@Current862s a
 	 Join 
-	EDIADAC.BlanketOrders bo on a.CustomerPart = bo.CustomerPart
+	EDINAL.BlanketOrders bo on a.CustomerPart = bo.CustomerPart
 and
 	a.ShipToCode = bo.EDIShipToCode
 and
@@ -1384,8 +1830,7 @@ and
 (	bo.CheckModelYearShipSchedule = 0
 	or bo.ModelYear862 = a.CustomerModelYear)
 	Where
-		coalesce(a.newDocument,0) in (0, 1) AND
-		a.RowCreateDT >=  dateadd(MINUTE, -60, GETDATE())
+		coalesce(a.newDocument,0) = 1
 
 union
 Select 
@@ -1393,7 +1838,7 @@ Select
 ,	DocumentType = 'PR'
 ,	AlertType =  ' OrderProcessed'
 ,	ReleaseNo =  Coalesce(a.ReleaseNo,'')
-,	ShipToCode = a.ShipToCode
+,	ShipToCode = bo.ShipToCode
 ,	ConsigneeCode =  coalesce(a.ConsigneeCode,'')
 ,	ShipFromCode = coalesce(a.ShipFromCode,'')
 ,	CustomerPart = Coalesce(a.CustomerPart,'')
@@ -1403,7 +1848,7 @@ Select
 from
 	@Current830s a
 	 Join 
-	EDIADAC.BlanketOrders bo on a.CustomerPart = bo.CustomerPart
+	EDINAL.BlanketOrders bo on a.CustomerPart = bo.CustomerPart
 and
 	a.ShipToCode = bo.EDIShipToCode
 and
@@ -1422,7 +1867,7 @@ Select
 ,	DocumentType = 'SS'
 ,	AlertType =  ' Accum Notice'
 ,	ReleaseNo =  Coalesce(a.ReleaseNo,'')
-,	ShipToCode = a.ShipToCode
+,	ShipToCode = bo.ShipToCode
 ,	ConsigneeCode =  coalesce(a.ConsigneeCode,'')
 ,	ShipFromCode = coalesce(a.ShipFromCode,'')
 ,	CustomerPart = Coalesce(a.CustomerPart,'')
@@ -1443,7 +1888,7 @@ Select
 from
 	@Current862s a
 	 Join 
-	EDIADAC.BlanketOrders bo on a.CustomerPart = bo.CustomerPart
+	EDINAL.BlanketOrders bo on a.CustomerPart = bo.CustomerPart
 and
 	a.ShipToCode = bo.EDIShipToCode
 and
@@ -1453,90 +1898,159 @@ and
 (	bo.CheckModelYearShipSchedule = 0
 	or bo.ModelYear862 = a.CustomerModelYear)
 	left join
-		EDIADAC.ShipScheduleAccums ssa on 
+		EDINAL.ShipScheduleAccums ssa on 
 		ssa.RawDocumentGUID = a.RawDocumentGUID and
 		ssa.ShipToCode = a.ShipToCode and
 		ssa.CustomerPart = a.CustomerPart and
 		coalesce(ssa.CustomerPO,'') = coalesce(a.customerPO,'') and
-		COALESCE(ssa.CustomerModelYear,'') = COALESCE(a.customerModelYear,'')
- 	LEFT JOIN
-		EDIADAC.ShipScheduleAuthAccums ssaa ON 
-		ssaa.RawDocumentGUID = a.RawDocumentGUID AND
-		ssaa.ShipToCode = a.ShipToCode AND
-		ssaa.CustomerPart = a.CustomerPart AND
-		COALESCE(ssaa.CustomerPO,'') = COALESCE(a.customerPO,'') AND
-		COALESCE(ssaa.CustomerModelYear,'') = COALESCE(a.customerModelYear,'')
+		coalesce(ssa.CustomerModelYear,'') = coalesce(a.customerModelYear,'')
+ 	left join
+		EDINAL.ShipScheduleAuthAccums ssaa on 
+		ssaa.RawDocumentGUID = a.RawDocumentGUID and
+		ssaa.ShipToCode = a.ShipToCode and
+		ssaa.CustomerPart = a.CustomerPart and
+		coalesce(ssaa.CustomerPO,'') = coalesce(a.customerPO,'') and
+		coalesce(ssaa.CustomerModelYear,'') = coalesce(a.customerModelYear,'')
 										
-	WHERE
-		COALESCE(a.newDocument,0) IN (0, 1) AND
-		COALESCE(bo.AccumShipped,0) != COALESCE(ssa.LastAccumQty,0) AND
-		a.RowCreateDT >=  DATEADD(MINUTE, -60, GETDATE())
+	Where
+		coalesce(a.newDocument,0) = 1 and
+		coalesce(bo.AccumShipped,0) != coalesce(ssa.LastAccumQty,0)
 
 
-UNION
-SELECT 
-	TradingPartner = COALESCE((SELECT MAX(TradingPartner) FROM fxEDI.EDI.EDIDocuments WHERE GUID = a.RawDocumentGUID) ,'')
+union
+Select 
+	TradingPartner = Coalesce((Select max(TradingPartner) from fxEDI.EDI.EDIDocuments where GUID = a.RawDocumentGUID) ,'')
 ,	DocumentType = 'PR'
 ,	AlertType =  ' Accum Notice'
-,	ReleaseNo =  COALESCE(a.ReleaseNo,'')
-,	ShipToCode = a.ShipToCode
-,	ConsigneeCode =  COALESCE(a.ConsigneeCode,'')
-,	ShipFromCode = COALESCE(a.ShipFromCode,'')
-,	CustomerPart = COALESCE(a.CustomerPart,'')
-,	CustomerPO = COALESCE(a.CustomerPO,'')
-,	CustomerModelYear = COALESCE(a.CustomerModelYear,'')
+,	ReleaseNo =  Coalesce(a.ReleaseNo,'')
+,	ShipToCode = bo.ShipToCode
+,	ConsigneeCode =  coalesce(a.ConsigneeCode,'')
+,	ShipFromCode = coalesce(a.ShipFromCode,'')
+,	CustomerPart = Coalesce(a.CustomerPart,'')
+,	CustomerPO = Coalesce(a.CustomerPO,'')
+,	CustomerModelYear = Coalesce(a.CustomerModelYear,'')
 ,   Description = 'Customer Accum Received != Fx Accum Shipped for BlanketOrder No ' 
-					+ CONVERT(VARCHAR(15), bo.BlanketOrderNo) 
+					+ convert(varchar(15), bo.BlanketOrderNo) 
 					+ '  Customer Accum: ' 
-					+ CONVERT(VARCHAR(15), COALESCE(pra.LastAccumQty,0))
+					+ convert(varchar(15), coalesce(pra.LastAccumQty,0))
 					+ '  Our Accum Shipped: '
-					+ CONVERT(VARCHAR(15), COALESCE(bo.AccumShipped,0))
+					+ convert(varchar(15), coalesce(bo.AccumShipped,0))
 					+ '  Customer Last Recvd Qty: ' 
-					+ CONVERT(VARCHAR(15), COALESCE(pra.LastQtyReceived,0))
+					+ convert(varchar(15), coalesce(pra.LastQtyReceived,0))
 					+ '  Our Last Shipped Qty: '
-					+ CONVERT(VARCHAR(15), COALESCE(bo.LastShipQty,0))
+					+ convert(varchar(15), coalesce(bo.LastShipQty,0))
 					+ '  Customer Prior Auth Accum: ' 
-					+ CONVERT(VARCHAR(15), COALESCE(praa.PriorCUM,0))
-FROM
+					+ convert(varchar(15), coalesce(praa.PriorCUM,0))
+from
 	@Current830s  a
-	 JOIN 
-	EDIADAC.BlanketOrders bo ON a.CustomerPart = bo.CustomerPart
-AND
+	 Join 
+	EDINAL.BlanketOrders bo on a.CustomerPart = bo.CustomerPart
+and
 	a.ShipToCode = bo.EDIShipToCode
-AND
+and
 (	bo.CheckCustomerPOPlanning = 0
-	OR bo.CustomerPO = a.CustomerPO)
-AND
+	or bo.CustomerPO = a.CustomerPO)
+and
 (	bo.CheckModelYearPlanning = 0
-	OR bo.ModelYear830 = a.CustomerModelYear)
-	LEFT JOIN
-		EDIADAC.PlanningAccums pra ON 
-		pra.RawDocumentGUID = a.RawDocumentGUID AND
-		pra.ShipToCode = a.ShipToCode AND
-		pra.CustomerPart = a.CustomerPart AND
-		COALESCE(pra.CustomerPO,'') = COALESCE(a.customerPO,'') AND
-		COALESCE(pra.CustomerModelYear,'') = COALESCE(a.customerModelYear,'')
- 	LEFT JOIN
-		EDIADAC.PlanningAuthAccums praa ON 
-		praa.RawDocumentGUID = a.RawDocumentGUID AND
-		praa.ShipToCode = a.ShipToCode AND
-		praa.CustomerPart = a.CustomerPart AND
-		COALESCE(praa.CustomerPO,'') = COALESCE(a.customerPO,'') AND
-		COALESCE(praa.CustomerModelYear,'') = COALESCE(a.customerModelYear,'')
+	or bo.ModelYear830 = a.CustomerModelYear)
+	left join
+		EDINAL.PlanningAccums pra on 
+		pra.RawDocumentGUID = a.RawDocumentGUID and
+		pra.ShipToCode = a.ShipToCode and
+		pra.CustomerPart = a.CustomerPart and
+		coalesce(pra.CustomerPO,'') = coalesce(a.customerPO,'') and
+		coalesce(pra.CustomerModelYear,'') = coalesce(a.customerModelYear,'')
+ 	left join
+		EDINAL.PlanningAuthAccums praa on 
+		praa.RawDocumentGUID = a.RawDocumentGUID and
+		praa.ShipToCode = a.ShipToCode and
+		praa.CustomerPart = a.CustomerPart and
+		coalesce(praa.CustomerPO,'') = coalesce(a.customerPO,'') and
+		coalesce(praa.CustomerModelYear,'') = coalesce(a.customerModelYear,'')
 										
-	WHERE
-		COALESCE(a.newDocument,0) = 1 AND
-		COALESCE(bo.AccumShipped,0) != COALESCE(pra.LastAccumQty,0)
+	Where
+		coalesce(a.newDocument,0) = 1 and
+		coalesce(bo.AccumShipped,0) != coalesce(pra.LastAccumQty,0)
 
 
-ORDER BY 1,2,5,4,7
-		
+order by 1,2,5,4,7
+--Update Order Header with Customer's Accum Received ---Armada Only
 
-SELECT	*
-INTO	#EDIAlerts
-FROM	@EDIOrdersAlert
+Update oh
+		set oh.raw_cum = coalesce(ssa.LastAccumQty,0)
+from
+	@Current862s a
+	 Join 
+	EDINAL.BlanketOrders bo on a.CustomerPart = bo.CustomerPart
+and
+	a.ShipToCode = bo.EDIShipToCode
+and
+(	bo.CheckCustomerPOShipSchedule = 0
+	or bo.CustomerPO = a.CustomerPO)
+and
+(	bo.CheckModelYearShipSchedule = 0
+	or bo.ModelYear862 = a.CustomerModelYear)
+	left join
+		EDINAL.ShipScheduleAccums ssa on 
+		ssa.RawDocumentGUID = a.RawDocumentGUID and
+		ssa.ShipToCode = a.ShipToCode and
+		ssa.CustomerPart = a.CustomerPart and
+		coalesce(ssa.CustomerPO,'') = coalesce(a.customerPO,'') and
+		coalesce(ssa.CustomerModelYear,'') = coalesce(a.customerModelYear,'')
+ 	left join
+		EDINAL.ShipScheduleAuthAccums ssaa on 
+		ssaa.RawDocumentGUID = a.RawDocumentGUID and
+		ssaa.ShipToCode = a.ShipToCode and
+		ssaa.CustomerPart = a.CustomerPart and
+		coalesce(ssaa.CustomerPO,'') = coalesce(a.customerPO,'') and
+		coalesce(ssaa.CustomerModelYear,'') = coalesce(a.customerModelYear,'')
+join
+		order_header oh on oh.order_no = bo.BlanketOrderNo
+										
+	Where
+		coalesce(a.newDocument,0) = 1
 
-SELECT	TradingPartner ,
+Update oh
+		set oh.fab_cum = coalesce(pra.LastAccumQty,0)
+from
+	@Current830s  a
+	 Join 
+	EDINAL.BlanketOrders bo on a.CustomerPart = bo.CustomerPart
+and
+	a.ShipToCode = bo.EDIShipToCode
+and
+(	bo.CheckCustomerPOPlanning = 0
+	or bo.CustomerPO = a.CustomerPO)
+and
+(	bo.CheckModelYearPlanning = 0
+	or bo.ModelYear830 = a.CustomerModelYear)
+	left join
+		EDINAL.PlanningAccums pra on 
+		pra.RawDocumentGUID = a.RawDocumentGUID and
+		pra.ShipToCode = a.ShipToCode and
+		pra.CustomerPart = a.CustomerPart and
+		coalesce(pra.CustomerPO,'') = coalesce(a.customerPO,'') and
+		coalesce(pra.CustomerModelYear,'') = coalesce(a.customerModelYear,'')
+ 	left join
+		EDINAL.PlanningAuthAccums praa on 
+		praa.RawDocumentGUID = a.RawDocumentGUID and
+		praa.ShipToCode = a.ShipToCode and
+		praa.CustomerPart = a.CustomerPart and
+		coalesce(praa.CustomerPO,'') = coalesce(a.customerPO,'') and
+		coalesce(praa.CustomerModelYear,'') = coalesce(a.customerModelYear,'')
+join
+		order_header oh on oh.order_no = bo.BlanketOrderNo
+										
+	Where
+		coalesce(a.newDocument,0) = 1
+
+
+
+Select	*
+into	#EDIAlerts
+From	@EDIOrdersAlert
+
+Select	TradingPartner ,
 				DocumentType , --'PR - Planning Release; SS - ShipSchedule'
 				AlertType ,
 				ReleaseNo ,
@@ -1546,8 +2060,8 @@ SELECT	TradingPartner ,
 				CustomerPO ,
 				Description 
 				
-INTO	#EDIAlertsEmail
-FROM	@EDIOrdersAlert
+into	#EDIAlertsEmail
+From	@EDIOrdersAlert
 
 
 IF EXISTS (SELECT 1 FROM #EDIAlerts)
@@ -1568,6 +2082,7 @@ SELECT
 SELECT 
 		@EmailAddress = [FT].[fn_ReturnSchedulerEMailAddress] (@scheduler)
 		
+		
 
 		DECLARE
 			@html NVARCHAR(MAX),
@@ -1575,12 +2090,12 @@ SELECT
 		
 		EXEC [FT].[usp_TableToHTML]
 				@tableName = @Emailtablename
-			,	@OrderBy = '[AlertType], [TradingPartner],  [DocumentType], [ShipToCode], [CustomerPart]'
+			, @OrderBy = '[AlertType], [TradingPartner],  [DocumentType], [ShipToCode], [CustomerPart]'
 			,	@html = @html OUT
 		
 		DECLARE
 			@EmailBody NVARCHAR(MAX)
-		,	@EmailHeader NVARCHAR(MAX) = 'EDI Processing for EDIADAC' 
+		,	@EmailHeader NVARCHAR(MAX) = 'EDI Processing for EDINAL' 
 
 		SELECT
 			@EmailBody =
@@ -1589,9 +2104,9 @@ SELECT
 
 	--print @emailBody
 
-	EXEC msdb.dbo.sp_send_dbmail
+EXEC msdb.dbo.sp_send_dbmail
 			@profile_name = 'DBMail'-- sysname
-	,		@recipients = 'jjflores@empireelect.hn;vgarcia@empireelect.com;IAragon@empireelect.com'-- varchar(max)
+	,		@recipients = @EmailAddress -- varchar(max)
 	,		@copy_recipients = 'aboulanger@fore-thought.com;dwest@empireelect.com' -- varchar(max)
 	, 		@subject = @EmailHeader
 	,  		@body = @EmailBody
@@ -1599,9 +2114,34 @@ SELECT
 	,		@importance = 'High' 
 					
 
+/*Insert [EDIAlerts].[ProcessedReleases]
 
+(	 EDIGroup
+	,TradingPartner
+	,DocumentType --'PR - Planning Release; SS - ShipSchedule'
+	,AlertType 
+	,ReleaseNo
+	,ShipToCode
+	,ConsigneeCode 
+	,ShipFromCode 
+	,CustomerPart
+	,CustomerPO
+	,CustomerModelYear
+	,Description
+)
+
+
+Select 
+	'EDI3060'
+	,*
+From
+	#EDIAlerts
+	*/
 
 END
+
+
+
 
 /* End E-Mail and Exceptions */
 
@@ -1636,7 +2176,7 @@ declare
 ,	@Error integer
 
 execute
-	@ProcReturn = EDIADAC.usp_Process
+	@ProcReturn = EDINAL.usp_Process
 	@TranDT = @TranDT out
 ,	@Result = @ProcResult out
 ,	@Testing = 0
@@ -1648,8 +2188,11 @@ select
 	@Error, @ProcReturn, @TranDT, @ProcResult
 go
 
---commit transaction
-rollback transaction
+
+go
+
+commit transaction
+--rollback transaction
 
 go
 
@@ -1662,6 +2205,58 @@ go
 Results {
 }
 */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

@@ -4,6 +4,7 @@ SET ANSI_NULLS ON
 GO
 
 
+
 -- select * from GetPOReceiverItemsRNI ('2015-09-30') order by gl_date
 
 CREATE FUNCTION [dbo].[GetPOReceiverItemsRNI]
@@ -91,10 +92,12 @@ WHERE
        AND gl_cost_transactions.gl_line_type = 'H' 
        AND gl_cost_transactions.document_amount * -1 <> applied_amounts.applied_document_amount
        AND purchase_orders.po_type = 'MONITOR'
-       AND purchase_orders.buy_vendor not in ('EEH','EEM')
+       AND purchase_orders.buy_vendor not in ('EEH','EEM','EMPHOND')
+	   AND ISNULL(po_receivers.exclude_rni_report,0) <> 1
 	   AND po_receiver_items.completed <> 1 -- These vendors are never paid due because they are intercompany (maybe we can attribute the PO as intercompany?)
        -- AND ISNULL(v.outside_processor,'') = '' -- Not sure why the exclusion other than we didn't pay the vendor off of receipt (we don't use any outside_processors in Troy)
 
 )
+
 
 GO

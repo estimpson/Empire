@@ -68,7 +68,7 @@ if not exists (
 			and e.password = @Password) begin
 	
 	set	@Result = 999990
-	RAISERROR ('Invalid password for operator code %s', 16, 1, @OperatorCode)
+	RAISERROR ('Invalid password for operator code %s.', 16, 1, @OperatorCode)
 	rollback tran @ProcName
 	return
 end		

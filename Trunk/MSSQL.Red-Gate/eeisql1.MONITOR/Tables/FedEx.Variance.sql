@@ -1,5 +1,6 @@
 CREATE TABLE [FedEx].[Variance]
 (
+[ID] [int] NOT NULL IDENTITY(1, 1),
 [BillToAccountNumber] [bigint] NULL,
 [InvoiceDate] [datetime] NULL,
 [InvoiceNumber] [bigint] NULL,
@@ -74,9 +75,9 @@ CREATE TABLE [FedEx].[Variance]
 [CrossRefTrackingId] [bigint] NULL,
 [EntryDate] [datetime] NULL,
 [EntryNumber] [varchar] (50) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
-[CustomsValue] [int] NULL,
+[CustomsValue] [decimal] (12, 6) NULL,
 [CustomsValueCurrencyCode] [varchar] (20) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
-[DeclaredValue] [int] NULL,
+[DeclaredValue] [decimal] (12, 6) NULL,
 [DeclaredValueCurrencyCode] [varchar] (20) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
 [CommodityDescription1] [varchar] (100) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
 [CommodityCountryCode1] [varchar] (10) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
@@ -98,7 +99,7 @@ CREATE TABLE [FedEx].[Variance]
 [RatedMethod] [varchar] (50) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
 [SortHub] [varchar] (50) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
 [EstimatedWeight] [int] NULL,
-[EstimatedWeightUnit] [int] NULL,
+[EstimatedWeightUnit] [varchar] (10) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
 [PostalClass] [varchar] (10) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
 [ProcessCategory] [varchar] (10) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
 [PackageSize] [varchar] (10) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
@@ -155,9 +156,10 @@ CREATE TABLE [FedEx].[Variance]
 [TrackingIdChargeDescription25] [varchar] (500) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
 [TrackingIdChargeAmount25] [varchar] (50) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
 [ShipmentNotes] [varchar] (500) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
+[NormalizedWeightRounded] [decimal] (27, 0) NULL,
 [OperatorCode] [varchar] (5) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
 [RowCreateDT] [datetime] NULL
 ) ON [PRIMARY]
 GO
-ALTER TABLE [FedEx].[Variance] ADD CONSTRAINT [PK_Variance] PRIMARY KEY CLUSTERED  ([ExpressOrGroundTrackingId]) ON [PRIMARY]
+ALTER TABLE [FedEx].[Variance] ADD CONSTRAINT [PK_Variance] PRIMARY KEY CLUSTERED  ([ID]) ON [PRIMARY]
 GO

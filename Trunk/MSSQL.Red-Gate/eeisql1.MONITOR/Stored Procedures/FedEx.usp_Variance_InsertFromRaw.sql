@@ -4,7 +4,7 @@ SET ANSI_NULLS ON
 GO
 
 
-create procedure [FedEx].[usp_Variance_InsertFromRaw]
+CREATE procedure [FedEx].[usp_Variance_InsertFromRaw]
 	@OperatorCode varchar(5)
 ,	@TranDT datetime = null out
 ,	@Result integer = null  out
@@ -56,20 +56,21 @@ if not exists (
 	return
 end
 
-/*  No primary key exceptions  */
+/*  No duplicate data  */
 if exists (
 		select
-			fev.ExpressOrGroundTrackingId
+			v.ID
 		from
-			FedEx.Variance fev
+			FedEx.Variance v
 			join FedEx.VarianceRawDataTemp t
-				on convert(bigint, t.ExpressOrGroundTrackingId) = fev.ExpressOrGroundTrackingId	) begin
+				on convert(datetime, t.InvoiceDate) = v.InvoiceDate
+				and convert(bigint, t.InvoiceNumber) = v.InvoiceNumber ) begin
 
 	set	@Result = 999991
-	RAISERROR ('One or more of these records have already been imported into the database.  Procedure: %s.', 16, 1, @ProcName)
+	RAISERROR ('One or more records exist in the database with the same invoice number and invoice date.  Procedure: %s.', 16, 1, @ProcName)
 	rollback tran @ProcName
 	return
-end				
+end		
 ---	</ArgumentValidation>
 
 
@@ -165,8 +166,6 @@ insert into FedEx.Variance
 ,	CommodityCountryCode3
 ,	CommodityDescription4
 ,	CommodityCountryCode4
-,	CommodityDescription5
-,	CommodityCountryCode5
 ,	CurrencyConversionDate
 ,	CurrencyConversionRate
 ,	MultiweightNumber
@@ -236,30 +235,31 @@ insert into FedEx.Variance
 ,	TrackingIdChargeDescription25
 ,	TrackingIdChargeAmount25
 ,	ShipmentNotes
+,	NormalizedWeightRounded
 ,	OperatorCode
 ,	RowCreateDT
 )
 select
 	BillToAccountNumber = convert(bigint, t.BillToAccountNumber)
-,	InvoiceDate = convert(datetime, t.InvoiceDate)
+,	InvoiceDate = convert(datetime, nullif(t.InvoiceDate, '')) 
 ,	InvoiceNumber = convert(bigint, t.InvoiceNumber)
 ,	StoreId = convert(int, t.StoreId)
-,	OriginalAmountDue = convert(decimal(12,6), t.OriginalAmountDue)
-,	CurrentBalance = convert(decimal(12,6), t.CurrentBalance)
+,	OriginalAmountDue = convert(decimal(20,6), nullif(t.OriginalAmountDue, ''))
+,	CurrentBalance = convert(decimal(12,6), nullif(t.CurrentBalance, ''))
 ,	Payor = t.Payor
 ,	GroundTrackingIdPrefix = convert(int, t.GroundTrackingIdPrefix) 
-,	ExpressOrGroundTrackingId = convert(bigint, t.ExpressOrGroundTrackingId)
-,	TransportationChargeAmount = convert(decimal(12,6), t.TransportationChargeAmount)
-,	NetChargeAmount = convert(decimal(12,6), t.NetChargeAmount)
+,	ExpressOrGroundTrackingId = convert(bigint, replace(t.ExpressOrGroundTrackingId, ',', ''))
+,	TransportationChargeAmount = convert(decimal(12,6), nullif(substring(t.TransportationChargeAmount, 2, 20), '')) 
+,	NetChargeAmount = convert(decimal(12,6), nullif(substring(t.NetChargeAmount, 2, 20), '')) 
 ,	ServiceType = t.ServiceType
 ,	GroundService = t.GroundService
-,	ShipmentDate = convert(datetime, t.ShipmentDate)
-,	PodDeliveryDate = convert(datetime, t.PodDeliveryDate) + convert(datetime, t.PodDeliveryTime)
+,	ShipmentDate = convert(datetime, nullif(t.ShipmentDate, '')) 
+,	PodDeliveryDate = convert(datetime, nullif(t.PodDeliveryDate, '')) 
 ,	PodServiceAreaCode = t.PodServiceAreaCode
 ,	PodSignatureDescription = t.PodSignatureDescription
-,	ActualWeightAmount = convert(decimal(12,6), t.ActualWeightAmount)
+,	ActualWeightAmount = convert(decimal(12,6), nullif(t.ActualWeightAmount, '')) 
 ,	ActualWeightUnits = t.ActualWeightUnits
-,	RatedWeightAmount = convert(decimal(12,6), t.RatedWeightAmount)
+,	RatedWeightAmount = convert(decimal(12,6), nullif(t.RatedWeightAmount, '')) 
 ,	RatedWeightUnits = t.RatedWeightUnits
 ,	NumberOfPieces = convert(int, t.NumberOfPieces)
 ,	BundleNumber = convert(int, t.BundleNumber)
@@ -312,11 +312,11 @@ select
 ,	AlternateCountryCode = t.AlternateCountryCode
 ,	CrossRefTrackingIdPrefix = convert(int, t.CrossRefTrackingIdPrefix)
 ,	CrossRefTrackingId = convert(bigint, t.CrossRefTrackingId)
-,	EntryDate = convert(datetime, t.EntryDate)
+,	EntryDate = convert(datetime, nullif(t.EntryDate, '')) 
 ,	EntryNumber = t.EntryNumber
-,	CustomsValue = convert(int, t.CustomsValue)
+,	CustomsValue = convert(decimal(12,6), nullif(t.CustomsValue, ''))
 ,	CustomsValueCurrencyCode = t.CustomsValueCurrencyCode
-,	DeclaredValue = convert(int, t.DeclaredValue)
+,	DeclaredValue = convert(decimal(12,6), nullif(t.DeclaredValue, ''))
 ,	DeclaredValueCurrencyCode = t.DeclaredValueCurrencyCode
 ,	CommodityDescription1 = t.CommodityDescription1
 ,	CommodityCountryCode1 = t.CommodityCountryCode1
@@ -326,26 +326,24 @@ select
 ,	CommodityCountryCode3 = t.CommodityCountryCode3
 ,	CommodityDescription4 = t.CommodityDescription4
 ,	CommodityCountryCode4 = t.CommodityCountryCode4
-,	CommodityDescription5 = t.CommodityDescription5
-,	CommodityCountryCode5 = t.CommodityCountryCode5
-,	CurrencyConversionDate = convert(datetime, t.CurrencyConversionDate)
-,	CurrencyConversionRate = convert(decimal(12,6), t.CurrencyConversionRate)
+,	CurrencyConversionDate = convert(datetime, nullif(t.CurrencyConversionDate, '')) 
+,	CurrencyConversionRate = convert(decimal(12,6), nullif(t.CurrencyConversionRate, ''))
 ,	MultiweightNumber = convert(int, t.MultiweightNumber)
 ,	MultiweightTotalUnits = convert(int, t.MultiweightNumber)
 ,	MultiweightTotalWeight = convert(int, t.MultiweightNumber)
-,	MultiweightTotalShipmentChargeAmount = convert(decimal(12,6), t.MultiweightTotalShipmentChargeAmount)
+,	MultiweightTotalShipmentChargeAmount = convert(decimal(12,6), nullif(t.MultiweightTotalShipmentChargeAmount, ''))
 ,	MultiweightTotalShipmentWeight = convert(int, t.MultiweightTotalShipmentWeight)
-,	GroundTrackingIdAddressCorrectionDiscountChargeAmount = convert(decimal(12,6), t.GroundTrackingIdAddressCorrectionDiscountChargeAmount)
-,	GroundTrackingIdAddressCorrectionGrossChargeAmount = convert(decimal(12,6), t.GroundTrackingIdAddressCorrectionGrossChargeAmount)
+,	GroundTrackingIdAddressCorrectionDiscountChargeAmount = convert(decimal(12,6), nullif(t.GroundTrackingIdAddressCorrectionDiscountChargeAmount, ''))
+,	GroundTrackingIdAddressCorrectionGrossChargeAmount = convert(decimal(12,6), nullif(t.GroundTrackingIdAddressCorrectionGrossChargeAmount, ''))
 ,	RatedMethod = t.RatedMethod
 ,	SortHub = t.SortHub
 ,	EstimatedWeight = convert(int, t.EstimatedWeight)
-,	EstimatedWeightUnit = convert(int, t.EstimatedWeightUnit)
+,	EstimatedWeightUnit = t.EstimatedWeightUnit
 ,	PostalClass = t.PostalClass
 ,	ProcessCategory = t.ProcessCategory
 ,	PackageSize = t.PackageSize
 ,	DeliveryConfirmation = t.DeliveryConfirmation
-,	TenderedDate = convert(datetime, t.TenderedDate)
+,	TenderedDate = convert(datetime, nullif(t.TenderedDate, '')) 
 ,	TrackingIdChargeDescription1 = t.TrackingIdChargeDescription1
 ,	TrackingIdChargeAmount1 = t.TrackingIdChargeAmount1
 ,	TrackingIdChargeDescription2 = t.TrackingIdChargeDescription2
@@ -397,6 +395,7 @@ select
 ,	TrackingIdChargeDescription25 = t.TrackingIdChargeDescription25
 ,	TrackingIdChargeAmount25 = t.TrackingIdChargeAmount25
 ,	ShipmentNotes = t.ShipmentNotes
+,	NormalizedWeightRounded = t.NormalizedWeightRounded
 ,	OperatorCode = @OperatorCode
 ,	RowCreateDT = @TranDT
 from
@@ -434,4 +433,7 @@ set	@Result = 0
 return
 	@Result
 --- </Return>
+
+
+
 GO

@@ -2,8 +2,7 @@ SET QUOTED_IDENTIFIER ON
 GO
 SET ANSI_NULLS ON
 GO
-
-create function [EDI_XML_Autosystems_ASN].[udf_Root]
+CREATE function [EDI_XML_Autosystems_ASN].[udf_Root]
 (	@ShipperID int
 ,	@Purpose char(2)
 ,	@PartialComplete int
@@ -34,6 +33,7 @@ begin
 							EDI_XML.TRN_INFO('004010', '856', ah.TradingPartnerID, ah.iConnectID, ah.ShipperID, @PartialComplete)
 						,	EDI_XML_V4010.SEG_BSN(@Purpose, ah.ShipperID, ah.ShipDate, ah.ShipTime)
 						,	EDI_XML_V4010.SEG_DTM('011', ah.ShipDateTime, null)
+						,	EDI_XML_V4010.SEG_DTM('017', ah.ShipDateTime, null)
 						,	(	select
 				 					EDI_XML.LOOP_INFO('HL')
 								,	EDI_XML_V4010.SEG_HL(1, null, 'S', 1)

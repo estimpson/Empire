@@ -109,10 +109,15 @@ GO
 SET ANSI_NULLS ON
 GO
 
+
 CREATE trigger [dbo].[mtr_order_detail_i] on [dbo].[order_detail] for insert
 as
 begin
 	-- declarations
+
+	--2017/12/04 asb FT, LLC - Added customer part update on order detail; some cases whare an application is not writing customer_part on insert to order_detail
+
+
 	declare	@order_no	numeric(8,0),
 		@sequence	numeric(5,0),
 		@part		varchar(25),
@@ -126,8 +131,9 @@ begin
 		@customer	varchar(10),
 		@price_type	char(1),
 		@quantity numeric(20,6),
-		@customertype VARCHAR(25)
-		
+		@customertype VARCHAR(25),
+		@customerpart VARCHAR(50)
+	
 	-- get first updated/inserted row
 	select	@order_no = min(order_no)
 	from	inserted
@@ -156,7 +162,8 @@ begin
 				@box_label = box_label,
 				@pallet_label = pallet_label,
 				@customer = order_header.customer,
-				@customertype = ISNULL(region_code, 'EXTERNAL')
+				@customertype = ISNULL(region_code, 'EXTERNAL'),
+				@customerpart = order_header.customer_part
 			from	order_header
 			JOIN	customer ON order_header.customer = dbo.customer.customer
 			where	order_no = @order_no
@@ -242,6 +249,13 @@ begin
 						pallet_label = @pallet_label
 				where	order_no = @order_no and
 						sequence = @sequence
+
+				update	order_detail
+						
+				set		customer_part = @customerpart
+				where	order_no = @order_no and
+						sequence = @sequence and
+						nullif(customer_part,'') is NULL
 						
 				update	
 					Order_Detail
@@ -274,6 +288,7 @@ begin
 	end
 
 end
+
 
 
 

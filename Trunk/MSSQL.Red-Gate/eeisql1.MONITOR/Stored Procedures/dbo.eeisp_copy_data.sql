@@ -4,6 +4,7 @@ SET ANSI_NULLS ON
 GO
 
 
+
 CREATE procedure
 [dbo].[eeisp_copy_data]
 /*(	@Argument1 datetime,*/
@@ -315,63 +316,64 @@ insert [HistoricalData].dbo.object_historical
 	  ,ObjectBirthday
 	from object
 
-insert into [HistoricalData].dbo.po_receiver_items_historical
-(		[time_stamp]
-	  ,[fiscal_year]
-	  ,[period]
-	  ,[reason]
-	  ,[purchase_order]
-      ,[bill_of_lading]
-      ,[bol_line]
-      ,[receiver]
-      ,[invoice]
-      ,[inv_line]
-      ,[item]
-      ,[approved]
-      ,[receiver_comments]
-      ,[ledger_account_code]
-      ,[quantity_received]
-      ,[unit_cost]
-      ,[changed_date]
-      ,[changed_user_id]
-      ,[total_cost]
-      ,[item_description]
-      ,[container_id]
-      ,[package]
-      ,[country_of_origin]
-      ,[freight_cost]
-      ,[other_cost]  
-      ,[MonthEnd]
-)
-	select 		
-	   @rundate
-      ,convert(varchar(5),datepart(YYYY, @rundate))
-	  ,convert(smallint,datepart(MM, @rundate))
-      ,@reason
-      ,[purchase_order]
-      ,[bill_of_lading]
-      ,[bol_line]
-      ,[receiver]
-      ,[invoice]
-      ,[inv_line]
-      ,[item]
-      ,[approved]
-      ,[receiver_comments]
-      ,[ledger_account_code]
-      ,[quantity_received]
-      ,[unit_cost]
-      ,[changed_date]
-      ,[changed_user_id]
-      ,[total_cost]
-      ,[item_description]
-      ,[container_id]
-      ,[package]
-      ,[country_of_origin]
-      ,[freight_cost]
-      ,[other_cost]
-      ,@Isendofmonth
-	from po_receiver_items
+--insert into [HistoricalData].dbo.po_receiver_items_historical
+--(		[time_stamp]
+--	  ,[fiscal_year]
+--	  ,[period]
+--	  ,[reason]
+--	  ,[purchase_order]
+--      ,[bill_of_lading]
+--      ,[bol_line]
+--      ,[receiver]
+--      ,[invoice]
+--      ,[inv_line]
+--      ,[item]
+--      ,[approved]
+--      ,[receiver_comments]
+--      ,[ledger_account_code]
+--      ,[quantity_received]
+--      ,[unit_cost]
+--      ,[changed_date]
+--      ,[changed_user_id]
+--      ,[total_cost]
+--      ,[item_description]
+--      ,[container_id]
+--      ,[package]
+--      ,[country_of_origin]
+--      ,[freight_cost]
+--      ,[other_cost]  
+--      ,[MonthEnd]
+--)
+--	select 		
+--	   --@rundate
+--      --,convert(varchar(5),datepart(YYYY, @rundate))
+--	  --,convert(smallint,datepart(MM, @rundate))
+--      --,@reason
+--      [purchase_order]
+--      ,[bill_of_lading]
+--      ,[bol_line]
+--      ,[receiver]
+--      ,[invoice]
+--      ,[inv_line]
+--      ,[item]
+--      ,[approved]
+--      ,[receiver_comments]
+--      ,[ledger_account_code]
+--      ,[quantity_received]
+--      ,[unit_cost]
+--      ,[changed_date]
+--      ,[changed_user_id]
+--      ,[total_cost]
+--      ,[item_description]
+--      ,[container_id]
+--      ,[package]
+--      ,[country_of_origin]
+--      ,[freight_cost]
+--      ,[other_cost]
+--      --,@Isendofmonth
+--	from empower..po_receiver_items
 
 end
+
 
 GO
