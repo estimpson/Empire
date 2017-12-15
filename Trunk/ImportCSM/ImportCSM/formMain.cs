@@ -32,11 +32,14 @@ namespace ImportCSM
             _messageBox = new CustomMessageBox();
 
             linkLblClose.LinkBehavior = LinkBehavior.NeverUnderline;
+
+            lblTitle.Text = "North America CSM";
+            btnImportGreaterChina.Visible = false;
+            tbxPriorReleaseId.Focus();
         }
 
         private void formMain_Activated(object sender, EventArgs e)
         {
-            tbxPriorReleaseId.Focus();
         }
 
         #endregion
@@ -113,6 +116,11 @@ namespace ImportCSM
             Cursor.Current = Cursors.WaitCursor;
         }
 
+        private void btnImportGreaterChina_MouseDown(object sender, MouseEventArgs e)
+        {
+            Cursor.Current = Cursors.WaitCursor;
+        }
+
         private void btnDeltaImport_MouseDown(object sender, MouseEventArgs e)
         {
             Cursor.Current = Cursors.WaitCursor;
@@ -137,9 +145,20 @@ namespace ImportCSM
         {
             if (ProcessCsm() == 1)
             {
-                _messageBox.Message = "Success.";
+                _messageBox.Message = "Success.  Ready for Greater China CSM import.";
                 _messageBox.ShowDialog();
                 ControlScreenState(ClearTabs.ImportCsmClear);
+            }
+            Cursor.Current = Cursors.Default;
+        }
+
+        private void btnImportGreaterChina_Click(object sender, EventArgs e)
+        {
+            if (ProcessCsmGreaterChina() == 1)
+            {
+                _messageBox.Message = "Success.";
+                _messageBox.ShowDialog();
+                ControlScreenState(ClearTabs.ImportCsmGreaterChinaClear);
             }
             Cursor.Current = Cursors.Default;
         }
@@ -192,13 +211,13 @@ namespace ImportCSM
             string currentRelease = tbxCurrentReleaseId.Text.Trim();
             if (priorRelease == "")
             {
-                _messageBox.Message = "Enter a prior release.";
+                _messageBox.Message = "Please enter a prior release.";
                 _messageBox.ShowDialog();
                 return 0;
             }
             if (currentRelease == "")
             {
-                _messageBox.Message = "Enter a current release.";
+                _messageBox.Message = "Please enter a current release.";
                 _messageBox.ShowDialog();
                 return 0;
             }
@@ -217,13 +236,34 @@ namespace ImportCSM
             return 1;
         }
 
+        private int ProcessCsmGreaterChina()
+        {
+            string currentRelease = tbxCurrentReleaseId.Text.Trim();
+            if (currentRelease == "")
+            {
+                _messageBox.Message = "Please enter a current release.";
+                _messageBox.ShowDialog();
+                return 0;
+            }
+
+            // Create a temp table and insert the raw data into it
+            if (ImportRawData() == 0) return 0;
+
+            // Import new Greater China CSM data
+            if (ImportCsm(currentRelease) == 0) return 0;
+
+            // Clean up the database
+            RemoveTempTable();
+            return 1;
+        }
+
         private int ImportRawData()
         {
             try
             {
                 var format = DataFormats.CommaSeparatedValue;
 
-                // Read the CSV
+                // Read the clipboard
                 var dataObject = Clipboard.GetDataObject();
                 var stream = (System.IO.Stream)dataObject.GetData(format);
                 if (stream == null)
@@ -269,26 +309,48 @@ namespace ImportCSM
                     }
                     else
                     {
-                        foreach (var item in arry)
+                        //foreach (var item in arry)
+                        //{
+                        //    //if (item == "37942")
+                        //    //{
+                        //    //    string i = item;
+                        //    //}
+                        //    rowData += (item + ",");
+                        //}
+
+                        //// Place quotes around each field
+                        //string rowDataFormatted = "'" + rowData.Replace(",", "','") + "'";
+
+
+
+                        string newRow = "";
+                        foreach (var field in arry)
                         {
-                            //if (item == "37942")
-                            //{
-                            //    string i = item;
-                            //}
-                            rowData += (item + ",");
+                            //fieldCount++;
+                            //if (fieldCount > 13) break;
+
+                            // Handle any single quotes
+                            string editedField = field.Replace("'", "''");
+                                
+                            // Wrap each field in single quotes
+                            string newField = "'" + editedField + "',";
+                            newRow += newField;
                         }
-
-                        // Place quotes around each field
-                        string rowDataFormatted = "'" + rowData.Replace(",", "','") + "'";
-
+         
                         // End of string correction
-                        int stringLength = rowDataFormatted.Length;
-                        rowDataFormatted = rowDataFormatted.Remove(stringLength - 3, 3);
+                        int stringLength = newRow.Length;
+                        newRow = newRow.Remove(stringLength - 1, 1);
 
-                        if (rowDataFormatted.Trim() == "'") break;
+                        //// End of string correction
+                        //int stringLength = rowDataFormatted.Length;
+                        //rowDataFormatted = rowDataFormatted.Remove(stringLength - 3, 3);
+
+                        //if (rowDataFormatted.Trim() == "'") break;
+
 
                         // Insert a row of data into the table
-                        int result = InsertDataRow(rowDataFormatted);
+                        int result = InsertDataRow(newRow);
+                        //int result = InsertDataRow(rowDataFormatted);
                         if (result == 0) return 0;
                     }
                 }
@@ -831,7 +893,20 @@ namespace ImportCSM
             switch (clearTab)
             {
                 case ClearTabs.ImportCsmClear:
+                    tbxPriorReleaseId.Text = "";
+                    tbxPriorReleaseId.Enabled = tbxCurrentReleaseId.Enabled = false;
+                    lblTitle.Text = "Greater China CSM";
+                    lblTitle.ForeColor = ColorTranslator.FromHtml("#CC0014");
+                    btnImport.Visible = false;
+                    btnImportGreaterChina.Visible = true;
+                    break;
+                case ClearTabs.ImportCsmGreaterChinaClear:
                     tbxPriorReleaseId.Text = tbxCurrentReleaseId.Text = "";
+                    tbxPriorReleaseId.Enabled = tbxCurrentReleaseId.Enabled = true;
+                    lblTitle.Text = "North America CSM";
+                    lblTitle.ForeColor = ColorTranslator.FromHtml("#007ACC");
+                    btnImportGreaterChina.Visible = false;
+                    btnImport.Visible = true;
                     tbxPriorReleaseId.Focus();
                     break;
                 case ClearTabs.ImportDeltaCsmClear:
@@ -850,6 +925,8 @@ namespace ImportCSM
                     break;
             }
         }
+
+
 
         #endregion
 
