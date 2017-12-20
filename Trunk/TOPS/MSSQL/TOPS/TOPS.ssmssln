@@ -1,7 +1,19 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 11.00
 # SQL Server Management Studio Solution File, Format Version 11.00
+Project("{4F2E2C19-372F-40D8-9FA7-9D2138C6997A}") = "TOPS.Current MPS Queries", "TOPS.Current MPS Queries\TOPS.Current MPS Queries.ssmssqlproj", "{1B577AF9-0660-41F4-8AA3-A3CE01A06C41}"
+EndProject
+Project("{4F2E2C19-372F-40D8-9FA7-9D2138C6997A}") = "TOPS.Replecate Current MPS", "TOPS.Replecate Current MPS\TOPS.Replecate Current MPS.ssmssqlproj", "{00E4513E-B329-4061-9460-EAAF50C632A8}"
+EndProject
 Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Default|Default = Default|Default
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{1B577AF9-0660-41F4-8AA3-A3CE01A06C41}.Default|Default.ActiveCfg = Default
+		{1361353A-5F47-4461-8CFF-FB2FA3398E5C}.Default|Default.ActiveCfg = Default
+		{00E4513E-B329-4061-9460-EAAF50C632A8}.Default|Default.ActiveCfg = Default
+	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection

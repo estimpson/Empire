@@ -1,9 +1,172 @@
-<?xml version="1.0" encoding="utf-8"?>
-<SqlWorkbenchSqlProject xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" Name="SqlWorkbenchSqlProject">
+<?xml version="1.0"?>
+<SqlWorkbenchSqlProject xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" Name="TOPS.Replecate Current MPS">
   <Items>
-    <LogicalFolder Name="Connections" Type="2" />
-    <LogicalFolder Name="Queries" Type="0" />
-    <LogicalFolder Name="Miscellaneous" Type="3" />
-
+    <LogicalFolder Name="Connections" Type="2" Sorted="true">
+      <Items>
+        <ConnectionNode Name="eehsql1:estimpson">
+          <Created>2017-12-15T15:48:52.2250306-05:00</Created>
+          <Type>SQL</Type>
+          <Server>eehsql1</Server>
+          <UserName>estimpson</UserName>
+          <Authentication>SQL</Authentication>
+          <InitialDB />
+          <LoginTimeout>15</LoginTimeout>
+          <ExecutionTimeout>0</ExecutionTimeout>
+          <ConnectionProtocol>NotSpecified</ConnectionProtocol>
+          <ApplicationName>Microsoft SQL Server Management Studio - Query</ApplicationName>
+        </ConnectionNode>
+        <ConnectionNode Name="eeisql1:estimpson">
+          <Created>2017-12-15T13:50:06.0924321-05:00</Created>
+          <Type>SQL</Type>
+          <Server>eeisql1</Server>
+          <UserName>estimpson</UserName>
+          <Authentication>SQL</Authentication>
+          <InitialDB>MONITOR</InitialDB>
+          <LoginTimeout>15</LoginTimeout>
+          <ExecutionTimeout>0</ExecutionTimeout>
+          <ConnectionProtocol>NotSpecified</ConnectionProtocol>
+          <ApplicationName>Microsoft SQL Server Management Studio - Query</ApplicationName>
+        </ConnectionNode>
+      </Items>
+    </LogicalFolder>
+    <LogicalFolder Name="Queries" Type="0" Sorted="true">
+      <Items>
+        <FileNode Name="(EEH) Procedure.Monitor.TOPS.Leg_Get_EEH_Capacity.sql">
+          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:eehsql1:False:estimpson</AssociatedConnectionMoniker>
+          <AssociatedConnSrvName>eehsql1</AssociatedConnSrvName>
+          <AssociatedConnUserName>estimpson</AssociatedConnUserName>
+          <FullPath>(EEH) Procedure.Monitor.TOPS.Leg_Get_EEH_Capacity.sql</FullPath>
+        </FileNode>
+        <FileNode Name="(EEH) Procedure.Monitor.TOPS.Leg_GetHNLeadTime.sql">
+          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:eehsql1:False:estimpson</AssociatedConnectionMoniker>
+          <AssociatedConnSrvName>eehsql1</AssociatedConnSrvName>
+          <AssociatedConnUserName>estimpson</AssociatedConnUserName>
+          <FullPath>(EEH) Procedure.Monitor.TOPS.Leg_GetHNLeadTime.sql</FullPath>
+        </FileNode>
+        <FileNode Name="(EEH) Schema.MONITOR.TOPS.sql">
+          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:eehsql1:False:estimpson</AssociatedConnectionMoniker>
+          <AssociatedConnSrvName>eehsql1</AssociatedConnSrvName>
+          <AssociatedConnUserName>estimpson</AssociatedConnUserName>
+          <FullPath>(EEH) Schema.MONITOR.TOPS.sql</FullPath>
+        </FileNode>
+        <FileNode Name="(EEH) TableFunction.MONITOR.TOPS.fn_Leg_GetHNLeadTime.sql">
+          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:eehsql1:False:estimpson</AssociatedConnectionMoniker>
+          <AssociatedConnSrvName>eehsql1</AssociatedConnSrvName>
+          <AssociatedConnUserName>estimpson</AssociatedConnUserName>
+          <FullPath>(EEH) TableFunction.MONITOR.TOPS.fn_Leg_GetHNLeadTime.sql</FullPath>
+        </FileNode>
+        <FileNode Name="(EEH) View.Monitor.TOPS.EEH_Capacity.sql">
+          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:eehsql1:False:estimpson</AssociatedConnectionMoniker>
+          <AssociatedConnSrvName>eehsql1</AssociatedConnSrvName>
+          <AssociatedConnUserName>estimpson</AssociatedConnUserName>
+          <FullPath>(EEH) View.Monitor.TOPS.EEH_Capacity.sql</FullPath>
+        </FileNode>
+        <FileNode Name="MPS Header.sql">
+          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:eeisql1:False:estimpson</AssociatedConnectionMoniker>
+          <AssociatedConnSrvName>eeisql1</AssociatedConnSrvName>
+          <AssociatedConnUserName>estimpson</AssociatedConnUserName>
+          <FullPath>MPS Header.sql</FullPath>
+        </FileNode>
+        <FileNode Name="Procedure.MONITOR.TOPS.usp_PlanningSnapshot_GetCustomerRequirementsXML.sql">
+          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:eeisql1:False:estimpson</AssociatedConnectionMoniker>
+          <AssociatedConnSrvName>eeisql1</AssociatedConnSrvName>
+          <AssociatedConnUserName>estimpson</AssociatedConnUserName>
+          <FullPath>Procedure.MONITOR.TOPS.usp_PlanningSnapshot_GetCustomerRequirementsXML.sql</FullPath>
+        </FileNode>
+        <FileNode Name="Procedure.MONITOR.TOPS.usp_PlanningSnapshot_GetHeaderXML.sql">
+          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:eeisql1:False:estimpson</AssociatedConnectionMoniker>
+          <AssociatedConnSrvName>eeisql1</AssociatedConnSrvName>
+          <AssociatedConnUserName>estimpson</AssociatedConnUserName>
+          <FullPath>Procedure.MONITOR.TOPS.usp_PlanningSnapshot_GetHeaderXML.sql</FullPath>
+        </FileNode>
+        <FileNode Name="Procedure.MONITOR.TOPS.usp_PlanningSnapshot_GetInTransInventoryXML.sql">
+          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:eeisql1:False:estimpson</AssociatedConnectionMoniker>
+          <AssociatedConnSrvName>eeisql1</AssociatedConnSrvName>
+          <AssociatedConnUserName>estimpson</AssociatedConnUserName>
+          <FullPath>Procedure.MONITOR.TOPS.usp_PlanningSnapshot_GetInTransInventoryXML.sql</FullPath>
+        </FileNode>
+        <FileNode Name="Procedure.MONITOR.TOPS.usp_PlanningSnapshot_GetNewPlanningCalendarXML.sql">
+          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:eeisql1:False:estimpson</AssociatedConnectionMoniker>
+          <AssociatedConnSrvName>eeisql1</AssociatedConnSrvName>
+          <AssociatedConnUserName>estimpson</AssociatedConnUserName>
+          <FullPath>Procedure.MONITOR.TOPS.usp_PlanningSnapshot_GetNewPlanningCalendarXML.sql</FullPath>
+        </FileNode>
+        <FileNode Name="Procedure.MONITOR.TOPS.usp_PlanningSnapshot_GetOnOrderXML.sql">
+          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:eeisql1:False:estimpson</AssociatedConnectionMoniker>
+          <AssociatedConnSrvName>eeisql1</AssociatedConnSrvName>
+          <AssociatedConnUserName>estimpson</AssociatedConnUserName>
+          <FullPath>Procedure.MONITOR.TOPS.usp_PlanningSnapshot_GetOnOrderXML.sql</FullPath>
+        </FileNode>
+        <FileNode Name="Procedure.MONITOR.TOPS.usp_PlanningSnapshot_NewPlanningForFinishedPart.sql">
+          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:eeisql1:False:estimpson</AssociatedConnectionMoniker>
+          <AssociatedConnSrvName>eeisql1</AssociatedConnSrvName>
+          <AssociatedConnUserName>estimpson</AssociatedConnUserName>
+          <FullPath>Procedure.MONITOR.TOPS.usp_PlanningSnapshot_NewPlanningForFinishedPart.sql</FullPath>
+        </FileNode>
+        <FileNode Name="Schema.MONITOR.TOPS.sql">
+          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:eeisql1:False:estimpson</AssociatedConnectionMoniker>
+          <AssociatedConnSrvName>eeisql1</AssociatedConnSrvName>
+          <AssociatedConnUserName>estimpson</AssociatedConnUserName>
+          <FullPath>Schema.MONITOR.TOPS.sql</FullPath>
+        </FileNode>
+        <FileNode Name="Table.MONITOR.TOPS.HolidaySchedule.sql">
+          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:eeisql1:False:estimpson</AssociatedConnectionMoniker>
+          <AssociatedConnSrvName>eeisql1</AssociatedConnSrvName>
+          <AssociatedConnUserName>estimpson</AssociatedConnUserName>
+          <FullPath>Table.MONITOR.TOPS.HolidaySchedule.sql</FullPath>
+        </FileNode>
+        <FileNode Name="Table.MONITOR.TOPS.PlanningSnopshotHeaders.sql">
+          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:eeisql1:False:estimpson</AssociatedConnectionMoniker>
+          <AssociatedConnSrvName>eeisql1</AssociatedConnSrvName>
+          <AssociatedConnUserName>estimpson</AssociatedConnUserName>
+          <FullPath>Table.MONITOR.TOPS.PlanningSnopshotHeaders.sql</FullPath>
+        </FileNode>
+        <FileNode Name="View.MONITOR.TOPS.Leg_DefaultPOs.sql">
+          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:eeisql1:False:estimpson</AssociatedConnectionMoniker>
+          <AssociatedConnSrvName>eeisql1</AssociatedConnSrvName>
+          <AssociatedConnUserName>estimpson</AssociatedConnUserName>
+          <FullPath>View.MONITOR.TOPS.Leg_DefaultPOs.sql</FullPath>
+        </FileNode>
+        <FileNode Name="View.MONITOR.TOPS.Leg_EOP.sql">
+          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:eeisql1:False:estimpson</AssociatedConnectionMoniker>
+          <AssociatedConnSrvName>eeisql1</AssociatedConnSrvName>
+          <AssociatedConnUserName>estimpson</AssociatedConnUserName>
+          <FullPath>View.MONITOR.TOPS.Leg_EOP.sql</FullPath>
+        </FileNode>
+        <FileNode Name="View.MONITOR.TOPS.Leg_OnOrder.sql">
+          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:eeisql1:False:estimpson</AssociatedConnectionMoniker>
+          <AssociatedConnSrvName>eeisql1</AssociatedConnSrvName>
+          <AssociatedConnUserName>estimpson</AssociatedConnUserName>
+          <FullPath>View.MONITOR.TOPS.Leg_OnOrder.sql</FullPath>
+        </FileNode>
+        <FileNode Name="View.MONITOR.TOPS.Leg_OpenOrders.sql">
+          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:eeisql1:False:estimpson</AssociatedConnectionMoniker>
+          <AssociatedConnSrvName>eeisql1</AssociatedConnSrvName>
+          <AssociatedConnUserName>estimpson</AssociatedConnUserName>
+          <FullPath>View.MONITOR.TOPS.Leg_OpenOrders.sql</FullPath>
+        </FileNode>
+        <FileNode Name="View.MONITOR.TOPS.Leg_PartMiscData.sql">
+          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:eeisql1:False:estimpson</AssociatedConnectionMoniker>
+          <AssociatedConnSrvName>eeisql1</AssociatedConnSrvName>
+          <AssociatedConnUserName>estimpson</AssociatedConnUserName>
+          <FullPath>View.MONITOR.TOPS.Leg_PartMiscData.sql</FullPath>
+        </FileNode>
+        <FileNode Name="View.MONITOR.TOPS.Leg_TransInventory.sql">
+          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:eeisql1:False:estimpson</AssociatedConnectionMoniker>
+          <AssociatedConnSrvName>eeisql1</AssociatedConnSrvName>
+          <AssociatedConnUserName>estimpson</AssociatedConnUserName>
+          <FullPath>View.MONITOR.TOPS.Leg_TransInventory.sql</FullPath>
+        </FileNode>
+        <FileNode Name="View.MONITOR.TOPS.Leg_TroyOnHand.sql">
+          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:eeisql1:False:estimpson</AssociatedConnectionMoniker>
+          <AssociatedConnSrvName>eeisql1</AssociatedConnSrvName>
+          <AssociatedConnUserName>estimpson</AssociatedConnUserName>
+          <FullPath>View.MONITOR.TOPS.Leg_TroyOnHand.sql</FullPath>
+        </FileNode>
+      </Items>
+    </LogicalFolder>
+    <LogicalFolder Name="Miscellaneous" Type="3" Sorted="true">
+      <Items />
+    </LogicalFolder>
   </Items>
 </SqlWorkbenchSqlProject>
