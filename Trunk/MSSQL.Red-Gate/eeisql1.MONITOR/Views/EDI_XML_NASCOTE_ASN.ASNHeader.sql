@@ -5,6 +5,7 @@ GO
 
 
 
+
 CREATE VIEW [EDI_XML_NASCOTE_ASN].[ASNHeader]
 AS
 SELECT
@@ -19,7 +20,7 @@ SELECT
 ,	PackCount = s.staged_objs
 ,	SCAC = s.ship_via
 ,	TransMode = s.trans_mode
-,	TrailerNumber = COALESCE(NULLIF(s.truck_number,''), CONVERT(VARCHAR(25), s.id))
+,	TrailerNumber = LEFT(COALESCE(NULLIF(s.truck_number,''), CONVERT(VARCHAR(25), s.id)),8)
 ,	SupplierCode = COALESCE(es.supplier_code, '047380894')
 ,	ShipToName =  d.name
 ,	ShipToID = COALESCE(NULLIF(es.parent_destination,''),es.destination)
@@ -30,6 +31,7 @@ FROM
 		ON s.destination = es.destination
 	JOIN dbo.destination d
 		ON d.destination = s.destination	
+
 
 
 GO

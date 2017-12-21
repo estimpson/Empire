@@ -44,13 +44,42 @@ set	@TranDT = coalesce(@TranDT, GetDate())
 --- </Tran>
 
 ---	<ArgumentValidation>
+/*  Temp table must exist.  (The new import method uses an application to create a temp table and insert raw data into it.)  */  
+if not exists (
+		select
+			1
+		from
+			sys.tables
+		where
+			name = 'tempCSM' ) begin
+	
+	set	@Result = 999500
+	RAISERROR ('Data import failed.  The tempCSM table does not exist.', 16, 1)
+	rollback tran @ProcName
+	return	
+end
 
+/*  Imported data cannot be duplicated.  */
+if exists (
+		select
+			*
+		from
+			EEIUser.acctg_csm_NAIHS n
+			join tempCSM t
+				on n.Release_ID = @Release_ID
+				and n.[Version] = @Version
+				and n.[Mnemonic-Vehicle/Plant] = t.[Mnemonic-Vehicle/Plant] ) begin
+
+	set	@Result = 999501
+	RAISERROR ('Data import failed.  One or more records have already been imported.  (At least one match on Release ID, Version and Mnemonic-Vehicle/Plant was found in the database.)', 16, 1)
+	rollback tran @ProcName
+	return	
+end
 ---	</ArgumentValidation>
 
 
 --- <Body>  
 /*
-
 -- ***** This import method is obsolete *****
 
 if	objectproperty(object_id('tempdb..CSMTEMP'), 'IsTable') is null begin
@@ -70,20 +99,6 @@ from
 */
 
 
--- The new import method uses an application to create a temp table and insert the raw data into it 
-if not exists (
-		select
-			1
-		from
-			sys.tables
-		where
-			name = 'tempCSM' ) begin
-	
-	--set	@Result = 99
-	RAISERROR ('The tempCSM table does not exist.  Cannot complete the data import.', 16, 1)
-	--rollback tran @ProcName
-	return	
-end
 
 --- <Insert rows="1+">
 set	@TableName = 'MONITOR.eeiuser.acctg_csm_NAIHS'

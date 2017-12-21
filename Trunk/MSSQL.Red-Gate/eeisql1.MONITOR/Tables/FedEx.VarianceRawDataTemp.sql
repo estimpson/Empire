@@ -155,7 +155,6 @@ CREATE TABLE [FedEx].[VarianceRawDataTemp]
 [TrackingIdChargeAmount24] [varchar] (50) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
 [TrackingIdChargeDescription25] [varchar] (500) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
 [TrackingIdChargeAmount25] [varchar] (50) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
-[ShipmentNotes] [varchar] (500) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
-[NormalizedWeightRounded] AS (case  when [RatedWeightUnits]='K' then ceiling(CONVERT([decimal](20,6),[RatedWeightAmount],(0))*(2.20462)) else ceiling(CONVERT([decimal](20,6),[RatedWeightAmount],(0))) end)
+[ShipmentNotes] [varchar] (500) COLLATE SQL_Latin1_General_CP1_CI_AS NULL
 ) ON [PRIMARY]
 GO
