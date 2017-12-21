@@ -1,6 +1,6 @@
 ﻿namespace ImportLogisticsVarianceData.Views
 {
-    partial class FedExVarianceView
+    partial class UpsVarianceView
     {
         /// <summary>
         /// Required designer variable.
@@ -28,27 +28,34 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.linkLblClose = new System.Windows.Forms.LinkLabel();
-            this.mesBtnImport = new Fx.WinForms.Flat.MESButton();
-            this.label1 = new System.Windows.Forms.Label();
             this.lblProcessing = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
+            this.mesBtnImport = new Fx.WinForms.Flat.MESButton();
+            this.linkLblClose = new System.Windows.Forms.LinkLabel();
             this.SuspendLayout();
             // 
-            // linkLblClose
+            // lblProcessing
             // 
-            this.linkLblClose.AutoSize = true;
-            this.linkLblClose.Font = new System.Drawing.Font("Constantia", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.linkLblClose.LinkColor = System.Drawing.Color.RoyalBlue;
-            this.linkLblClose.Location = new System.Drawing.Point(1228, 34);
-            this.linkLblClose.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.linkLblClose.Name = "linkLblClose";
-            this.linkLblClose.Size = new System.Drawing.Size(80, 33);
-            this.linkLblClose.TabIndex = 1;
-            this.linkLblClose.TabStop = true;
-            this.linkLblClose.Text = "Close";
-            this.linkLblClose.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLblClose_LinkClicked);
-            this.linkLblClose.MouseEnter += new System.EventHandler(this.linkLblClose_MouseEnter);
-            this.linkLblClose.MouseLeave += new System.EventHandler(this.linkLblClose_MouseLeave);
+            this.lblProcessing.AutoSize = true;
+            this.lblProcessing.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblProcessing.ForeColor = System.Drawing.Color.White;
+            this.lblProcessing.Location = new System.Drawing.Point(312, 401);
+            this.lblProcessing.Name = "lblProcessing";
+            this.lblProcessing.Size = new System.Drawing.Size(110, 20);
+            this.lblProcessing.TabIndex = 59;
+            this.lblProcessing.Text = "Processing ...";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.ForeColor = System.Drawing.Color.RoyalBlue;
+            this.label1.Location = new System.Drawing.Point(312, 293);
+            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(703, 24);
+            this.label1.TabIndex = 61;
+            this.label1.Text = "1.  Save the spreadsheet as UPSVariance.CSV in the LogisticsVariance\\UPS folder.";
             // 
             // mesBtnImport
             // 
@@ -59,41 +66,33 @@
             this.mesBtnImport.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.mesBtnImport.Font = new System.Drawing.Font("Tahoma", 14F);
             this.mesBtnImport.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
-            this.mesBtnImport.Location = new System.Drawing.Point(303, 343);
+            this.mesBtnImport.Location = new System.Drawing.Point(316, 343);
             this.mesBtnImport.Margin = new System.Windows.Forms.Padding(4);
             this.mesBtnImport.Name = "mesBtnImport";
             this.mesBtnImport.Size = new System.Drawing.Size(237, 43);
-            this.mesBtnImport.TabIndex = 0;
-            this.mesBtnImport.Text = "Import Fed Ex";
+            this.mesBtnImport.TabIndex = 58;
+            this.mesBtnImport.Text = "Import UPS";
             this.mesBtnImport.UseVisualStyleBackColor = false;
             this.mesBtnImport.Click += new System.EventHandler(this.mesBtnImport_Click);
             this.mesBtnImport.MouseDown += new System.Windows.Forms.MouseEventHandler(this.mesBtnImport_MouseDown);
             // 
-            // label1
+            // linkLblClose
             // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.ForeColor = System.Drawing.Color.RoyalBlue;
-            this.label1.Location = new System.Drawing.Point(299, 293);
-            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(743, 24);
-            this.label1.TabIndex = 57;
-            this.label1.Text = "1.  Save the spreadsheet as FedExVariance.CSV in the LogisticsVariance\\FedEx fold" +
-    "er.";
+            this.linkLblClose.AutoSize = true;
+            this.linkLblClose.Font = new System.Drawing.Font("Constantia", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.linkLblClose.LinkColor = System.Drawing.Color.RoyalBlue;
+            this.linkLblClose.Location = new System.Drawing.Point(1228, 34);
+            this.linkLblClose.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.linkLblClose.Name = "linkLblClose";
+            this.linkLblClose.Size = new System.Drawing.Size(80, 33);
+            this.linkLblClose.TabIndex = 60;
+            this.linkLblClose.TabStop = true;
+            this.linkLblClose.Text = "Close";
+            this.linkLblClose.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLblClose_LinkClicked);
+            this.linkLblClose.MouseEnter += new System.EventHandler(this.linkLblClose_MouseEnter);
+            this.linkLblClose.MouseLeave += new System.EventHandler(this.linkLblClose_MouseLeave);
             // 
-            // lblProcessing
-            // 
-            this.lblProcessing.AutoSize = true;
-            this.lblProcessing.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblProcessing.ForeColor = System.Drawing.Color.White;
-            this.lblProcessing.Location = new System.Drawing.Point(299, 401);
-            this.lblProcessing.Name = "lblProcessing";
-            this.lblProcessing.Size = new System.Drawing.Size(110, 20);
-            this.lblProcessing.TabIndex = 1;
-            this.lblProcessing.Text = "Processing ...";
-            // 
-            // FedExVarianceView
+            // UpsVarianceView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -104,12 +103,10 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.mesBtnImport);
             this.Controls.Add(this.linkLblClose);
-            this.ForeColor = System.Drawing.Color.White;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
-            this.Margin = new System.Windows.Forms.Padding(4);
-            this.Name = "FedExVarianceView";
+            this.Name = "UpsVarianceView";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "FedExVarianceView";
+            this.Text = "UpsView";
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -117,9 +114,9 @@
 
         #endregion
 
-        private System.Windows.Forms.LinkLabel linkLblClose;
-        private Fx.WinForms.Flat.MESButton mesBtnImport;
-        private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label lblProcessing;
+        private System.Windows.Forms.Label label1;
+        private Fx.WinForms.Flat.MESButton mesBtnImport;
+        private System.Windows.Forms.LinkLabel linkLblClose;
     }
 }

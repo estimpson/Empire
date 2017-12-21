@@ -15,7 +15,7 @@ using ImportLogisticsVarianceData.Model;
 
 namespace ImportLogisticsVarianceData.Views
 {
-    public partial class PfSolutionsView : Form
+    public partial class ChRobinsonVarianceView : Form
     {
         #region Class Objects
 
@@ -49,7 +49,7 @@ namespace ImportLogisticsVarianceData.Views
 
         #region Constructor
 
-        public PfSolutionsView(string operatorCode)
+        public ChRobinsonVarianceView(string operatorCode)
         {
             InitializeComponent();
 
@@ -81,6 +81,7 @@ namespace ImportLogisticsVarianceData.Views
         }
 
         #endregion
+
 
         #region Button Events
 
@@ -129,8 +130,8 @@ namespace ImportLogisticsVarianceData.Views
 
         private int LocateFile()
         {
-            string folderPathImport = @"S:\LogisticsVariance\PFSolutions";
-            string filePath = @"S:\LogisticsVariance\PFSolutions\PFSolutions.csv";
+            string folderPathImport = @"S:\LogisticsVariance\CHRobinson";
+            string filePath = @"S:\LogisticsVariance\CHRobinson\CHRobinsonVariance.csv";
 
             if (!Directory.Exists(folderPathImport))
             {
@@ -140,7 +141,7 @@ namespace ImportLogisticsVarianceData.Views
             }
             if (!File.Exists(filePath))
             {
-                _messageBox.Message = string.Format("A file named PFSolutions.csv was not found in {0}.  Cannot import data.", folderPathImport);
+                _messageBox.Message = string.Format("A file named CHRobinsonVariance.csv was not found in {0}.  Cannot import data.", folderPathImport);
                 _messageBox.ShowDialog();
                 return 0;
             }
@@ -155,7 +156,7 @@ namespace ImportLogisticsVarianceData.Views
 
             try
             {
-                var command = new SqlCommand("DELETE FROM PFS.VarianceRawDataTemp",
+                var command = new SqlCommand("DELETE FROM CHR.VarianceRawDataTemp",
                                              con);
 
                 con.Open();
@@ -182,8 +183,8 @@ namespace ImportLogisticsVarianceData.Views
             int methodResult = 1;
             bool isHeader = false;
 
-            var parser = new TextFieldParser(@"S:\LogisticsVariance\PFSolutions\PFSolutions.csv") { HasFieldsEnclosedInQuotes = true };
-            //var parser = new TextFieldParser(@"C:\test\PFSolutions.csv") { HasFieldsEnclosedInQuotes = true };
+            var parser = new TextFieldParser(@"S:\LogisticsVariance\CHRobinson\CHRobinsonVariance.csv") {HasFieldsEnclosedInQuotes = true};
+            //var parser = new TextFieldParser(@"C:\test\CHRobinson.csv") { HasFieldsEnclosedInQuotes = true };
             parser.SetDelimiters(",");
 
             try
@@ -195,7 +196,7 @@ namespace ImportLogisticsVarianceData.Views
                     string[] fields = parser.ReadFields();
                     foreach (var field in fields)
                     {
-                        if (field == "Load")
+                        if (field == "Origin Pickup City")
                         {
                             isHeader = true;
                             break;
@@ -247,7 +248,7 @@ namespace ImportLogisticsVarianceData.Views
 
             try
             {
-                var command = new SqlCommand("INSERT INTO PFS.VarianceRawDataTemp " +
+                var command = new SqlCommand("INSERT INTO CHR.VarianceRawDataTemp " +
                                              "VALUES (" +
                                              values + ");",
                                              con);
@@ -280,7 +281,7 @@ namespace ImportLogisticsVarianceData.Views
             {
                 using (var context = new MONITOREntities())
                 {
-                    context.usp_Variance_InsertPfsFromRaw(_operatorCode, dt, result);
+                    context.usp_Variance_InsertChrFromRaw(_operatorCode, dt, result);
                 }
             }
             catch (Exception ex)
@@ -298,11 +299,11 @@ namespace ImportLogisticsVarianceData.Views
         {
             try
             {
-                string fileName = "PFSolutions.csv";
-                string fileNameNew = "PFSolutions_" + DateTime.Now.ToString("yyyy-MM-dd HHmmss") + ".csv";
+                string fileName = "CHRobinsonVariance.csv";
+                string fileNameNew = "CHRobinsonVariance_" + DateTime.Now.ToString("yyyy-MM-dd HHmmss") + ".csv";
 
-                string sourcePath = @"S:\LogisticsVariance\PFSolutions";
-                string targetPath = @"S:\LogisticsVariance\PFSolutions\History";
+                string sourcePath = @"S:\LogisticsVariance\CHRobinson";
+                string targetPath = @"S:\LogisticsVariance\CHRobinson\History";
 
                 string sourceFile = Path.Combine(sourcePath, fileName);
                 string destFile = Path.Combine(targetPath, fileNameNew);

@@ -1,17 +1,21 @@
 ﻿using System;
-using System.Data.Objects;
-using System.Data.SqlClient;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
 using System.Drawing;
-using System.IO;
 using System.Linq;
+using System.Text;
 using System.Windows.Forms;
 using ImportLogisticsVarianceData.Controls;
+using System.IO;
+using System.Data.SqlClient;
 using Microsoft.VisualBasic.FileIO;
+using System.Data.Objects;
 using ImportLogisticsVarianceData.Model;
 
 namespace ImportLogisticsVarianceData.Views
 {
-    public partial class FedExVarianceView : Form
+    public partial class PfSolutionsVarianceView : Form
     {
         #region Class Objects
 
@@ -45,7 +49,7 @@ namespace ImportLogisticsVarianceData.Views
 
         #region Constructor
 
-        public FedExVarianceView(string operatorCode)
+        public PfSolutionsVarianceView(string operatorCode)
         {
             InitializeComponent();
 
@@ -77,7 +81,6 @@ namespace ImportLogisticsVarianceData.Views
         }
 
         #endregion
-
 
         #region Button Events
 
@@ -126,8 +129,8 @@ namespace ImportLogisticsVarianceData.Views
 
         private int LocateFile()
         {
-            string folderPathImport = @"S:\LogisticsVariance\FedEx";
-            string filePath = @"S:\LogisticsVariance\FedEx\FedExVariance.csv";
+            string folderPathImport = @"S:\LogisticsVariance\PFSolutions";
+            string filePath = @"S:\LogisticsVariance\PFSolutions\PFSolutionsVariance.csv";
 
             if (!Directory.Exists(folderPathImport))
             {
@@ -137,7 +140,7 @@ namespace ImportLogisticsVarianceData.Views
             }
             if (!File.Exists(filePath))
             {
-                _messageBox.Message = string.Format("A file named FedExVariance.csv was not found in {0}.  Cannot import data.", folderPathImport);
+                _messageBox.Message = string.Format("A file named PFSolutionsVariance.csv was not found in {0}.  Cannot import data.", folderPathImport);
                 _messageBox.ShowDialog();
                 return 0;
             }
@@ -152,7 +155,7 @@ namespace ImportLogisticsVarianceData.Views
 
             try
             {
-                var command = new SqlCommand("DELETE FROM FedEx.VarianceRawDataTemp",
+                var command = new SqlCommand("DELETE FROM PFS.VarianceRawDataTemp",
                                              con);
 
                 con.Open();
@@ -179,8 +182,8 @@ namespace ImportLogisticsVarianceData.Views
             int methodResult = 1;
             bool isHeader = false;
 
-            var parser = new TextFieldParser(@"S:\LogisticsVariance\FedEx\FedExVariance.csv") {HasFieldsEnclosedInQuotes = true};
-            //var parser = new TextFieldParser(@"C:\temp\TEST_FedEx.csv") { HasFieldsEnclosedInQuotes = true };
+            var parser = new TextFieldParser(@"S:\LogisticsVariance\PFSolutions\PFSolutionsVariance.csv") { HasFieldsEnclosedInQuotes = true };
+            //var parser = new TextFieldParser(@"C:\test\PFSolutions.csv") { HasFieldsEnclosedInQuotes = true };
             parser.SetDelimiters(",");
 
             try
@@ -192,7 +195,7 @@ namespace ImportLogisticsVarianceData.Views
                     string[] fields = parser.ReadFields();
                     foreach (var field in fields)
                     {
-                        if (field == "Bill to Account Number")
+                        if (field == "Load")
                         {
                             isHeader = true;
                             break;
@@ -244,7 +247,7 @@ namespace ImportLogisticsVarianceData.Views
 
             try
             {
-                var command = new SqlCommand("INSERT INTO FedEx.VarianceRawDataTemp " +
+                var command = new SqlCommand("INSERT INTO PFS.VarianceRawDataTemp " +
                                              "VALUES (" +
                                              values + ");",
                                              con);
@@ -277,7 +280,7 @@ namespace ImportLogisticsVarianceData.Views
             {
                 using (var context = new MONITOREntities())
                 {
-                    context.usp_Variance_InsertFromRaw(_operatorCode, dt, result);
+                    context.usp_Variance_InsertPfsFromRaw(_operatorCode, dt, result);
                 }
             }
             catch (Exception ex)
@@ -295,11 +298,11 @@ namespace ImportLogisticsVarianceData.Views
         {
             try
             {
-                string fileName = "FedExVariance.csv";
-                string fileNameNew = "FedExVariance_" + DateTime.Now.ToString("yyyy-MM-dd HHmmss") + ".csv";
+                string fileName = "PFSolutionsVariance.csv";
+                string fileNameNew = "PFSolutionsVariance_" + DateTime.Now.ToString("yyyy-MM-dd HHmmss") + ".csv";
 
-                string sourcePath = @"S:\LogisticsVariance\FedEx";
-                string targetPath = @"S:\LogisticsVariance\FedEx\History";
+                string sourcePath = @"S:\LogisticsVariance\PFSolutions";
+                string targetPath = @"S:\LogisticsVariance\PFSolutions\History";
 
                 string sourceFile = Path.Combine(sourcePath, fileName);
                 string destFile = Path.Combine(targetPath, fileNameNew);
@@ -335,103 +338,6 @@ namespace ImportLogisticsVarianceData.Views
                     break;
             }
         }
-
-
-
-
-
-        //private int ImportRates()
-        //{
-        //    int methodResult = 1;
-        //    bool isHeader = false;
-
-        //    var parser = new TextFieldParser(@"C:\test\FedExRates.csv") { HasFieldsEnclosedInQuotes = true };
-        //    parser.SetDelimiters(",");
-
-        //    try
-        //    {
-        //        while (!parser.EndOfData)
-        //        {
-        //            string newRow = "";
-        //            //bool firstCell = true;
-
-        //            string[] fields = parser.ReadFields();
-        //            foreach (var field in fields)
-        //            {
-        //                if (field == "International Export Priority Freight - Door to Door" || field == "Weight (in Lbs)" || field == "151 - 299" ||
-        //                    field == "300 - 499" || field == "500 - 999" || field == "1000 - 1999" ||
-        //                    field == "2000 - 2999" || field == "Exceed")
-        //                {
-        //                    isHeader = true;
-        //                    break;
-        //                }
-
-        //                string newField = "'" + field + "',";
-        //                newRow += newField;
-        //            }
-
-        //            if (isHeader)
-        //            {
-        //                isHeader = false;
-        //                continue;
-        //            }
-
-        //            // Remove the last comma
-        //            int stringLength = newRow.Length;
-        //            newRow = newRow.Remove(stringLength - 1, 1);
-
-        //            // Insert row into the raw data table
-        //            int result = InsertRates(newRow);
-        //            if (result == 0) return 0;
-        //        }
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        methodResult = 0;
-
-        //        string error = (ex.InnerException != null) ? ex.InnerException.Message : ex.Message;
-        //        _messageBox.Message = string.Format("Failed to import raw data.  {0}", error);
-        //        _messageBox.ShowDialog();
-        //    }
-        //    finally
-        //    {
-        //        parser.Close();
-        //    }
-
-        //    return methodResult;
-        //}
-
-        //private int InsertRates(string values)
-        //{
-        //    var con =
-        //       new SqlConnection(
-        //           "data source=eeisql1.empireelect.local;initial catalog=MONITOR;persist security info=True;user id=Andre");
-
-        //    try
-        //    {
-        //        var command = new SqlCommand("INSERT INTO FedEx.IP_Rates (Weight, ZoneA, ZoneB, ZoneC, ZoneD, ZoneE, ZoneF, ZoneG, ZoneH, ZoneI, ZoneJ, ZoneK, ZoneL, ZoneM, ZoneN, ZoneO) " +
-        //                                     "VALUES (" +
-        //                                     values + ");",
-        //                                     con);
-
-        //        con.Open();
-        //        command.ExecuteNonQuery();
-        //        command.Dispose();
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        string error = (ex.InnerException != null) ? ex.InnerException.Message : ex.Message;
-        //        _messageBox.Message = "Import failed.  Exception thrown at InsertRates().  " + error;
-        //        _messageBox.ShowDialog();
-        //        return 0;
-        //    }
-        //    finally
-        //    {
-        //        con.Close();
-        //        con.Dispose();
-        //    }
-        //    return 1;
-        //}
 
         #endregion
 

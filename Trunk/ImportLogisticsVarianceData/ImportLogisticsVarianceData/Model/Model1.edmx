@@ -26,6 +26,11 @@
           <Parameter Name="TranDT" Type="datetime" Mode="InOut" />
           <Parameter Name="Result" Type="int" Mode="InOut" />
         </Function>
+        <Function Name="usp_Variance_InsertUpsFromRaw" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="UPS">
+          <Parameter Name="OperatorCode" Type="varchar" Mode="In" />
+          <Parameter Name="TranDT" Type="datetime" Mode="InOut" />
+          <Parameter Name="Result" Type="int" Mode="InOut" />
+        </Function>
         <EntityContainer Name="MONITORModelStoreContainer" />
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
@@ -53,6 +58,11 @@
             <Parameter Name="TranDT" Mode="InOut" Type="DateTime" />
             <Parameter Name="Result" Mode="InOut" Type="Int32" />
           </FunctionImport>
+          <FunctionImport Name="usp_Variance_InsertUpsFromRaw">
+            <Parameter Name="OperatorCode" Mode="In" Type="String" />
+            <Parameter Name="TranDT" Mode="InOut" Type="DateTime" />
+            <Parameter Name="Result" Mode="InOut" Type="Int32" />
+          </FunctionImport>
         </EntityContainer>
       </Schema>
     </edmx:ConceptualModels>
@@ -64,6 +74,7 @@
           <FunctionImportMapping FunctionImportName="usp_Variance_InsertChrFromRaw" FunctionName="MONITORModel.Store.usp_Variance_InsertChrFromRaw" />
           <FunctionImportMapping FunctionImportName="usp_Variance_InsertPfsFromRaw" FunctionName="MONITORModel.Store.usp_Variance_InsertPfsFromRaw" />
           <FunctionImportMapping FunctionImportName="usp_Variance_ValidateOperator" FunctionName="MONITORModel.Store.usp_Variance_ValidateOperator" />
+          <FunctionImportMapping FunctionImportName="usp_Variance_InsertUpsFromRaw" FunctionName="MONITORModel.Store.usp_Variance_InsertUpsFromRaw" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

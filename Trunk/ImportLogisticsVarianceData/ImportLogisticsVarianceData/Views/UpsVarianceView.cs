@@ -1,21 +1,16 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
 using System.Windows.Forms;
 using ImportLogisticsVarianceData.Controls;
+using Microsoft.VisualBasic.FileIO;
+using ImportLogisticsVarianceData.Model;
 using System.IO;
 using System.Data.SqlClient;
-using Microsoft.VisualBasic.FileIO;
 using System.Data.Objects;
-using ImportLogisticsVarianceData.Model;
 
 namespace ImportLogisticsVarianceData.Views
 {
-    public partial class ChRobinsonView : Form
+    public partial class UpsVarianceView : Form
     {
         #region Class Objects
 
@@ -49,7 +44,7 @@ namespace ImportLogisticsVarianceData.Views
 
         #region Constructor
 
-        public ChRobinsonView(string operatorCode)
+        public UpsVarianceView(string operatorCode)
         {
             InitializeComponent();
 
@@ -97,7 +92,6 @@ namespace ImportLogisticsVarianceData.Views
 
         #endregion
 
-
         #region Methods
 
         private void Import()
@@ -130,8 +124,8 @@ namespace ImportLogisticsVarianceData.Views
 
         private int LocateFile()
         {
-            string folderPathImport = @"S:\LogisticsVariance\CHRobinson";
-            string filePath = @"S:\LogisticsVariance\CHRobinson\CHRobinson.csv";
+            string folderPathImport = @"S:\LogisticsVariance\UPS";
+            string filePath = @"S:\LogisticsVariance\UPS\UPSVariance.csv";
 
             if (!Directory.Exists(folderPathImport))
             {
@@ -141,7 +135,7 @@ namespace ImportLogisticsVarianceData.Views
             }
             if (!File.Exists(filePath))
             {
-                _messageBox.Message = string.Format("A file named CHRobinson.csv was not found in {0}.  Cannot import data.", folderPathImport);
+                _messageBox.Message = string.Format("A file named UPSVariance.csv was not found in {0}.  Cannot import data.", folderPathImport);
                 _messageBox.ShowDialog();
                 return 0;
             }
@@ -156,7 +150,7 @@ namespace ImportLogisticsVarianceData.Views
 
             try
             {
-                var command = new SqlCommand("DELETE FROM CHR.VarianceRawDataTemp",
+                var command = new SqlCommand("DELETE FROM UPS.VarianceRawDataTemp",
                                              con);
 
                 con.Open();
@@ -183,8 +177,8 @@ namespace ImportLogisticsVarianceData.Views
             int methodResult = 1;
             bool isHeader = false;
 
-            var parser = new TextFieldParser(@"S:\LogisticsVariance\CHRobinson\CHRobinson.csv") {HasFieldsEnclosedInQuotes = true};
-            //var parser = new TextFieldParser(@"C:\test\CHRobinson.csv") { HasFieldsEnclosedInQuotes = true };
+            var parser = new TextFieldParser(@"S:\LogisticsVariance\UPS\UPSVariance.csv") { HasFieldsEnclosedInQuotes = true };
+            //var parser = new TextFieldParser(@"C:\temp\TEST_FedEx.csv") { HasFieldsEnclosedInQuotes = true };
             parser.SetDelimiters(",");
 
             try
@@ -196,7 +190,7 @@ namespace ImportLogisticsVarianceData.Views
                     string[] fields = parser.ReadFields();
                     foreach (var field in fields)
                     {
-                        if (field == "Origin Pickup City")
+                        if (field == "Bill to Account Number")
                         {
                             isHeader = true;
                             break;
@@ -248,7 +242,7 @@ namespace ImportLogisticsVarianceData.Views
 
             try
             {
-                var command = new SqlCommand("INSERT INTO CHR.VarianceRawDataTemp " +
+                var command = new SqlCommand("INSERT INTO UPS.VarianceRawDataTemp " +
                                              "VALUES (" +
                                              values + ");",
                                              con);
@@ -281,7 +275,7 @@ namespace ImportLogisticsVarianceData.Views
             {
                 using (var context = new MONITOREntities())
                 {
-                    context.usp_Variance_InsertChrFromRaw(_operatorCode, dt, result);
+                    context.usp_Variance_InsertUpsFromRaw(_operatorCode, dt, result);
                 }
             }
             catch (Exception ex)
@@ -299,11 +293,11 @@ namespace ImportLogisticsVarianceData.Views
         {
             try
             {
-                string fileName = "CHRobinson.csv";
-                string fileNameNew = "CHRobinson_" + DateTime.Now.ToString("yyyy-MM-dd HHmmss") + ".csv";
+                string fileName = "UPSVariance.csv";
+                string fileNameNew = "UPSVariance_" + DateTime.Now.ToString("yyyy-MM-dd HHmmss") + ".csv";
 
-                string sourcePath = @"S:\LogisticsVariance\CHRobinson";
-                string targetPath = @"S:\LogisticsVariance\CHRobinson\History";
+                string sourcePath = @"S:\LogisticsVariance\UPS";
+                string targetPath = @"S:\LogisticsVariance\UPS\History";
 
                 string sourceFile = Path.Combine(sourcePath, fileName);
                 string destFile = Path.Combine(targetPath, fileNameNew);
