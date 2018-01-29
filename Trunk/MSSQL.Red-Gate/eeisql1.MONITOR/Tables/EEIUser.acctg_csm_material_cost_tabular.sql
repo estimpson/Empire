@@ -151,11 +151,23 @@ CREATE TABLE [EEIUser].[acctg_csm_material_cost_tabular]
 [OCT_19] [decimal] (18, 6) NULL,
 [NOV_19] [decimal] (18, 6) NULL,
 [DEC_19] [decimal] (18, 6) NULL,
+[JAN_20] [decimal] (18, 6) NULL,
+[FEB_20] [decimal] (18, 6) NULL,
+[MAR_20] [decimal] (18, 6) NULL,
+[APR_20] [decimal] (18, 6) NULL,
+[MAY_20] [decimal] (18, 6) NULL,
+[JUN_20] [decimal] (18, 6) NULL,
+[JUL_20] [decimal] (18, 6) NULL,
+[AUG_20] [decimal] (18, 6) NULL,
+[SEP_20] [decimal] (18, 6) NULL,
+[OCT_20] [decimal] (18, 6) NULL,
+[NOV_20] [decimal] (18, 6) NULL,
 [DEC_20] [decimal] (18, 6) NULL,
 [DEC_21] [decimal] (18, 6) NULL,
 [DEC_22] [decimal] (18, 6) NULL,
 [DEC_23] [decimal] (18, 6) NULL,
-[DEC_24] [decimal] (18, 6) NULL
+[DEC_24] [decimal] (18, 6) NULL,
+[DEC_25] [decimal] (18, 6) NULL
 ) ON [PRIMARY]
 GO
 ALTER TABLE [EEIUser].[acctg_csm_material_cost_tabular] ADD CONSTRAINT [PK_acctg_csm_material_cost_tabular_pk] PRIMARY KEY CLUSTERED  ([RELEASE_ID], [ROW_ID], [BASE_PART]) ON [PRIMARY]

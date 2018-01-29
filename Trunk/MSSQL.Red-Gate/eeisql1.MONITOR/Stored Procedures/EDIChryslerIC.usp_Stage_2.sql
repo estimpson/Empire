@@ -3,10 +3,16 @@ GO
 SET ANSI_NULLS ON
 GO
 
+
+
 CREATE procedure [EDIChryslerIC].[usp_Stage_2]
 	@TranDT datetime = null out
 ,	@Result integer = null  out
 as
+
+
+--Andre S. Boulanger FT, LLC 01/09/2018 : Updates ShipTocode with primary ship to code for Forcecast releases 
+ 
 set nocount on
 set ansi_warnings on
 set	@Result = 999999
@@ -668,7 +674,7 @@ set	@TableName = 'EDIChryslerIC.PlanningSupplemental'
 
 insert
 	EDIChryslerIC.PlanningSupplemental
-(	[RawDocumentGUID]
+(	   [RawDocumentGUID]
       ,[ReleaseNo]
       ,[ShipToCode]
       ,[ConsigneeCode]
@@ -702,9 +708,9 @@ insert
       ,[UserDefined20]
 )
 select
-	[RawDocumentGUID]
+	   [RawDocumentGUID]
       ,[ReleaseNo]
-      ,[ShipToCode]
+      ,coalesce(FirmDest.ShipToCode,FirmDest2.ShipToCode, '')
       ,[ConsigneeCode]
       ,[ShipFromCode]
       ,[SupplierCode]
@@ -736,7 +742,9 @@ select
       ,[UserDefined20]
 
 from
-	EDIChryslerIC.StagingPlanningSupplementalT 
+	EDIChryslerIC.StagingPlanningSupplementalT pr
+outer apply ( Select Top 1 ShipToCode from EDIChryslerIC.StagingPlanningSupplementalT prFirm where PrFirm.RawDocumentGUID = pr.RawDocumentGUID and prFirm.ShipToCode != 'Chrysler' and Pr.CustomerPart = Prfirm.CustomerPart  and prfirm.RowID<=pr.RowID) FirmDest
+outer apply ( Select Top 1 ShipToCode from EDIChryslerIC.StagingPlanningSupplementalT prFirm where PrFirm.RawDocumentGUID = pr.RawDocumentGUID and prFirm.ShipToCode != 'Chrysler'  and prfirm.RowID<pr.RowID) FirmDest2
 
 select
 	@Error = @@Error,
@@ -780,9 +788,9 @@ insert
       ,[LastAccumDT]
 )
 select
-	[RawDocumentGUID]
+	   [RawDocumentGUID]
       ,[ReleaseNo]
-      ,[ShipToCode]
+      ,coalesce(FirmDest.ShipToCode,FirmDest2.ShipToCode, '')
       ,[ConsigneeCode]
       ,[ShipFromCode]
       ,[SupplierCode]
@@ -804,7 +812,10 @@ select
       ,[LastAccumDT]
 
 from
-	EDIChryslerIC.StagingPlanningAccumsT sfr
+	EDIChryslerIC.StagingPlanningAccumsT pr
+	outer apply ( Select Top 1 ShipToCode from EDIChryslerIC.StagingPlanningAccumsT prFirm where PrFirm.RawDocumentGUID = pr.RawDocumentGUID and prFirm.ShipToCode != 'Chrysler' and Pr.CustomerPart = Prfirm.CustomerPart  and prfirm.RowID<=pr.RowID) FirmDest
+outer apply ( Select Top 1 ShipToCode from EDIChryslerIC.StagingPlanningAccumsT prFirm where PrFirm.RawDocumentGUID = pr.RawDocumentGUID and prFirm.ShipToCode != 'Chrysler'  and prfirm.RowID<pr.RowID) FirmDest2
+
 
 select
 	@Error = @@Error,
@@ -852,9 +863,9 @@ insert
       ,[RAWCUM]
 )
 select
-	[RawDocumentGUID]
+	   [RawDocumentGUID]
       ,[ReleaseNo]
-      ,[ShipToCode]
+      ,coalesce(FirmDest.ShipToCode,FirmDest2.ShipToCode, '')
       ,[ConsigneeCode]
       ,[ShipFromCode]
       ,[SupplierCode]
@@ -880,7 +891,10 @@ select
       ,[RAWCUM]
 
 from
-	EDIChryslerIC.StagingPlanningAuthAccumsT 
+	EDIChryslerIC.StagingPlanningAuthAccumsT pr
+		outer apply ( Select Top 1 ShipToCode from EDIChryslerIC.StagingPlanningAuthAccumsT prFirm where PrFirm.RawDocumentGUID = pr.RawDocumentGUID and prFirm.ShipToCode != 'Chrysler' and Pr.CustomerPart = Prfirm.CustomerPart  and prfirm.RowID<=pr.RowID) FirmDest
+outer apply ( Select Top 1 ShipToCode from EDIChryslerIC.StagingPlanningAuthAccumsT prFirm where PrFirm.RawDocumentGUID = pr.RawDocumentGUID and prFirm.ShipToCode != 'Chrysler'  and prfirm.RowID<pr.RowID) FirmDest2
+
 
 select
 	@Error = @@Error,
@@ -923,8 +937,8 @@ insert
 )
 select
 		[RawDocumentGUID]
-      ,[ReleaseNo]
-      ,[ShipToCode]
+      , [ReleaseNo]
+      , coalesce(FirmDest.ShipToCode,FirmDest2.ShipToCode, '')
       ,[ConsigneeCode]
       ,[ShipFromCode]
       ,[SupplierCode]
@@ -943,7 +957,9 @@ select
       ,[Quantity]
       ,[DateDT]
 from
-	EDIChryslerIC.StagingPlanningReleasesT sfr
+	EDIChryslerIC.StagingPlanningReleasesT pr
+			outer apply ( Select Top 1 ShipToCode from EDIChryslerIC.StagingPlanningReleasesT prFirm where PrFirm.RawDocumentGUID = pr.RawDocumentGUID and prFirm.ShipToCode != 'Chrysler' and Pr.CustomerPart = Prfirm.CustomerPart  and prfirm.RowID<=pr.RowID) FirmDest
+outer apply ( Select Top 1 ShipToCode from EDIChryslerIC.StagingPlanningReleasesT prFirm where PrFirm.RawDocumentGUID = pr.RawDocumentGUID and prFirm.ShipToCode != 'Chrysler'  and prfirm.RowID<pr.RowID) FirmDest2
 
 select
 	@Error = @@Error,
@@ -1330,6 +1346,8 @@ go
 Results {
 }
 */
+
+
 
 
 

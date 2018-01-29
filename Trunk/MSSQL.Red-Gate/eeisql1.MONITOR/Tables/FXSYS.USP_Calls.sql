@@ -1,17 +1,18 @@
 CREATE TABLE [FXSYS].[USP_Calls]
 (
-[Status] [int] NOT NULL CONSTRAINT [DF__USP_Calls__Statu__47DA1368] DEFAULT ((0)),
-[Type] [int] NOT NULL CONSTRAINT [DF__USP_Calls__Type__48CE37A1] DEFAULT ((0)),
+[Status] [int] NOT NULL CONSTRAINT [DF__USP_Calls__Statu__082F5FA3] DEFAULT ((0)),
+[Type] [int] NOT NULL CONSTRAINT [DF__USP_Calls__Type__092383DC] DEFAULT ((0)),
 [USP_Name] [sys].[sysname] NOT NULL,
-[BeginDT] [datetime] NULL,
+[BeginDT] [datetime] NOT NULL,
 [EndDT] [datetime] NULL,
+[RunTime] AS (case  when datediff(day,[EndDT]-[BeginDT],CONVERT([datetime],'1900-01-01',(0)))>(1) then (CONVERT([varchar],datediff(day,[EndDT]-[BeginDT],CONVERT([datetime],'1900-01-01',(0))),(0))+' day(s) ')+CONVERT([char](12),[EndDT]-[BeginDT],(114)) else CONVERT([varchar](12),[EndDT]-[BeginDT],(114)) end),
 [InArguments] [varchar] (max) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
 [OutArguments] [varchar] (max) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
 [RowID] [int] NOT NULL IDENTITY(1, 1),
-[RowCreateDT] [datetime] NULL CONSTRAINT [DF__USP_Calls__RowCr__49C25BDA] DEFAULT (getdate()),
-[RowCreateUser] [sys].[sysname] NOT NULL CONSTRAINT [DF__USP_Calls__RowCr__4AB68013] DEFAULT (suser_name()),
-[RowModifiedDT] [datetime] NULL CONSTRAINT [DF__USP_Calls__RowMo__4BAAA44C] DEFAULT (getdate()),
-[RowModifiedUser] [sys].[sysname] NOT NULL CONSTRAINT [DF__USP_Calls__RowMo__4C9EC885] DEFAULT (suser_name())
+[RowCreateDT] [datetime] NULL CONSTRAINT [DF__USP_Calls__RowCr__0A17A815] DEFAULT (getdate()),
+[RowCreateUser] [sys].[sysname] NOT NULL CONSTRAINT [DF__USP_Calls__RowCr__0B0BCC4E] DEFAULT (suser_name()),
+[RowModifiedDT] [datetime] NULL CONSTRAINT [DF__USP_Calls__RowMo__0BFFF087] DEFAULT (getdate()),
+[RowModifiedUser] [sys].[sysname] NOT NULL CONSTRAINT [DF__USP_Calls__RowMo__0CF414C0] DEFAULT (suser_name())
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 GO
 SET QUOTED_IDENTIFIER ON
@@ -40,7 +41,7 @@ declare
 	@Error integer,
 	@RowCount integer
 
-set	@ProcName = user_name(objectproperty(@@procid, 'OwnerId')) + '.' + object_name(@@procid)  -- e.g. FxSYS.usp_Test
+set	@ProcName = user_name(objectproperty(@@procid, 'OwnerId')) + '.' + object_name(@@procid)  -- e.g. FXSYS.usp_Test
 --- </Error Handling>
 
 begin try
@@ -60,14 +61,14 @@ begin try
 	--- <Body>
 	if	not update(RowModifiedDT) begin
 		--- <Update rows="*">
-		set	@TableName = 'FxSYS.USP_Calls'
+		set	@TableName = 'FXSYS.USP_Calls'
 		
 		update
 			uc
 		set	RowModifiedDT = getdate()
 		,	RowModifiedUser = suser_name()
 		from
-			FxSYS.USP_Calls uc
+			FXSYS.USP_Calls uc
 			join inserted i
 				on i.RowID = uc.RowID
 		
@@ -144,19 +145,19 @@ begin transaction Test
 go
 
 insert
-	FxSYS.USP_Calls
+	FXSYS.USP_Calls
 ...
 
 update
 	...
 from
-	FxSYS.USP_Calls
+	FXSYS.USP_Calls
 ...
 
 delete
 	...
 from
-	FxSYS.USP_Calls
+	FXSYS.USP_Calls
 ...
 go
 
@@ -175,5 +176,5 @@ Results {
 }
 */
 GO
-ALTER TABLE [FXSYS].[USP_Calls] ADD CONSTRAINT [PK__USP_Call__FFEE745145F1CAF6] PRIMARY KEY CLUSTERED  ([RowID]) ON [PRIMARY]
+ALTER TABLE [FXSYS].[USP_Calls] ADD CONSTRAINT [PK__USP_Call__FFEE745106471731] PRIMARY KEY CLUSTERED  ([RowID]) ON [PRIMARY]
 GO

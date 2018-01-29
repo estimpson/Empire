@@ -605,7 +605,7 @@ select
 ,	last_date = min(ShipLogInProcess.ShipDT)
 ,	operator = min(ShipLogInProcess.Origin)
 ,	status = 'A'
-,	type = 'S'
+,	type = 'S'	
 from
 	FT.vwCommonSerial_ShipLogInProcess ShipLogInProcess
 	join @ShipperContainers Container
@@ -716,6 +716,7 @@ insert
 ,	Custom1
 ,	Custom2
 ,	lot
+,	note
 )
 select
     serial = ShipLogInProcess.Serial
@@ -739,6 +740,7 @@ select
 ,	custom1 = ShipLogInProcess.AETCNumber
 ,	custom2 = ShipLogInProcess.BOL
 ,	lot = ShipLogInProcess.lot
+,	note=case when ShipLogInProcess.Status='H' then 'Certified to release' else '' end
 from
     FT.vwCommonSerial_ShipLogInProcess ShipLogInProcess
     join @ShipperContainers Container
@@ -800,6 +802,7 @@ insert
 ,	Custom1
 ,	Custom2
 ,	lot
+,	notes 
 )
 select
 	serial = ShipLogInProcess.Serial
@@ -840,6 +843,7 @@ select
 ,	custom1 = ShipLogInProcess.AETCNumber
 ,	custom2 = ShipLogInProcess.BOL
 ,	ShipLogInProcess.lot
+,	note=case when ShipLogInProcess.Status='H' then 'Certified to release' else '' end
 from
 	FT.vwCommonSerial_ShipLogInProcess ShipLogInProcess
 	join @ShipperContainers Container

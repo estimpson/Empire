@@ -4,11 +4,7 @@ SET ANSI_NULLS ON
 GO
 
 
-
-
-
 --select * from [EEIUser].[acctg_csm_vw_select_sales_forecast] where base_part = 'AUT0221' order by base_part
-
 
 
 CREATE VIEW  [EEIUser].[acctg_csm_vw_select_sales_forecast]
@@ -187,8 +183,8 @@ SELECT	 cc.[base_part]
 		--,[Aug_18_CSMdemand]
 		--,[Sep_18_CSMdemand]
 		--,[Oct_18_CSMdemand]
-		,[Nov_18_CSMdemand]
-		,[Dec_18_CSMdemand]
+		--,[Nov_18_CSMdemand]
+		--,[Dec_18_CSMdemand]
 		--,[Total_18_CSMdemand]
 
 		--,[Jan_19_CSMdemand]
@@ -204,11 +200,25 @@ SELECT	 cc.[base_part]
 		--,[Nov_19_CSMdemand]
 		--,[Dec_19_CSMdemand]
 		--,[Total_19_CSMdemand]
-		
-		--,[Cal20_CSMdemand]
+
+		--,[Jan_20_CSMdemand]
+		--,[Feb_20_CSMdemand]
+		--,[Mar_20_CSMdemand]
+		--,[Apr_20_CSMdemand]
+		--,[May_20_CSMdemand]
+		--,[Jun_20_CSMdemand]
+		--,[Jul_20_CSMdemand]
+		--,[Aug_20_CSMdemand]
+		--,[Sep_20_CSMdemand]
+		--,[Oct_20_CSMdemand]
+		--,[Nov_20_CSMdemand]
+		--,[Dec_20_CSMdemand]
+		--,[Total_20_CSMdemand]
+	
 		--,[Cal21_CSMdemand]
 		--,[Cal22_CSMdemand]
 		--,[Cal23_CSMdemand]	
+		--,[Cal24_CSMdemand]
 			
 		--,[Jan_10_factor]
 		--,[Feb_10_factor]
@@ -324,9 +334,8 @@ SELECT	 cc.[base_part]
 		--,[Aug_18_factor]
 		--,[Sep_18_factor]
 		--,[Oct_18_factor]
-		,[Nov_18_factor]
-		,[Dec_18_factor]
-
+		--,[Nov_18_factor]
+		--,[Dec_18_factor]
 
 		--,[Jan_19_factor]
 		--,[Feb_19_factor]
@@ -341,13 +350,24 @@ SELECT	 cc.[base_part]
 		--,[Nov_19_factor]
 		--,[Dec_19_factor]
 
-		--,[Cal20_factor]
+		--,[Jan_20_factor]
+		--,[Feb_20_factor]
+		--,[Mar_20_factor]
+		--,[Apr_20_factor]
+		--,[May_20_factor]
+		--,[Jun_20_factor]
+		--,[Jul_20_factor]
+		--,[Aug_20_factor]
+		--,[Sep_20_factor]
+		--,[Oct_20_factor]
+		--,[Nov_20_factor]
+		--,[Dec_20_factor]
+		
 		--,[Cal21_factor]
 		--,[Cal22_factor]
 		--,[Cal23_factor]
-
-
-		
+		--,[Cal24_factor]
+				
 		--,[Jan_10_Empire_Adj]
 		--,[Feb_10_Empire_Adj]
 		--,[Mar_10_Empire_Adj]
@@ -470,8 +490,8 @@ SELECT	 cc.[base_part]
 		--,[Aug_18_Empire_Adj]
 		--,[Sep_18_Empire_Adj]
 		--,[Oct_18_Empire_Adj]
-		,[Nov_18_Empire_Adj]
-		,[Dec_18_Empire_Adj]
+		--,[Nov_18_Empire_Adj]
+		--,[Dec_18_Empire_Adj]
 		--,[Total_18_Empire_Adj]
 		
 		--,[Jan_19_Empire_Adj]
@@ -487,12 +507,25 @@ SELECT	 cc.[base_part]
 		--,[Nov_19_Empire_Adj]
 		--,[Dec_19_Empire_Adj]
 		--,[Total_19_Empire_Adj]
+		
+		--,[Jan_20_Empire_Adj]
+		--,[Feb_20_Empire_Adj]
+		--,[Mar_20_Empire_Adj]
+		--,[Apr_20_Empire_Adj]
+		--,[May_20_Empire_Adj]
+		--,[Jun_20_Empire_Adj]
+		--,[Jul_20_Empire_Adj]
+		--,[Aug_20_Empire_Adj]
+		--,[Sep_20_Empire_Adj]
+		--,[Oct_20_Empire_Adj]
+		--,[Nov_20_Empire_Adj]
+		--,[Dec_20_Empire_Adj]
+		--,[Total_20_Empire_Adj]
 
-		--,[Cal20_Empire_adj]
 		--,[Cal21_Empire_Adj]
 		--,[Cal22_Empire_Adj]
 		--,[Cal23_Empire_adj]
-
+		--,[Cal24_Empire_adj]
 		
 		--,[Jan_10_Allocated_Empire_Adj]
 		--,[Feb_10_Allocated_Empire_Adj]
@@ -616,8 +649,8 @@ SELECT	 cc.[base_part]
 		--,[Aug_18_Allocated_Empire_Adj]
 		--,[Sep_18_Allocated_Empire_Adj]
 		--,[Oct_18_Allocated_Empire_Adj]
-		,[Nov_18_Allocated_Empire_Adj]
-		,[Dec_18_Allocated_Empire_Adj]
+		--,[Nov_18_Allocated_Empire_Adj]
+		--,[Dec_18_Allocated_Empire_Adj]
 		--,[Total_18_Allocated_Empire_Adj]
 
 		--,[Jan_19_Allocated_Empire_Adj]
@@ -634,11 +667,25 @@ SELECT	 cc.[base_part]
 		--,[Dec_19_Allocated_Empire_Adj]
 		--,[Total_19_Allocated_Empire_Adj]
 
-		--,[Cal20_Allocated_Empire_Adj]
+		--,[Jan_20_Allocated_Empire_Adj]
+		--,[Feb_20_Allocated_Empire_Adj]
+		--,[Mar_20_Allocated_Empire_Adj]
+		--,[Apr_20_Allocated_Empire_Adj]
+		--,[May_20_Allocated_Empire_Adj]
+		--,[Jun_20_Allocated_Empire_Adj]
+		--,[Jul_20_Allocated_Empire_Adj]
+		--,[Aug_20_Allocated_Empire_Adj]
+		--,[Sep_20_Allocated_Empire_Adj]
+		--,[Oct_20_Allocated_Empire_Adj]
+		--,[Nov_20_Allocated_Empire_Adj]
+		--,[Dec_20_Allocated_Empire_Adj]
+		--,[Total_20_Allocated_Empire_Adj]
+
 		--,[Cal21_Allocated_Empire_Adj]
 		--,[Cal22_Allocated_Empire_Adj]
 		--,[Cal23_Allocated_Empire_Adj]
-		
+		--,[Cal24_Allocated_Empire_Adj]
+				
 		--,[Jan_10_TOTALdemand]
 		--,[Feb_10_TOTALdemand]
 		--,[Mar_10_TOTALdemand]
@@ -695,33 +742,33 @@ SELECT	 cc.[base_part]
 		--,[Dec_13_TOTALdemand]
 		--,[Total_2013_TOTALdemand]
 		
-		,[Jan_14_TOTALdemand]
-		,[Feb_14_TOTALdemand]
-		,[Mar_14_TOTALdemand]
-		,[Apr_14_TOTALdemand]
-		,[May_14_TOTALdemand]
-		,[Jun_14_TOTALdemand]
-		,[Jul_14_TOTALdemand]
-		,[Aug_14_TOTALdemand]
-		,[Sep_14_TOTALdemand]
-		,[Oct_14_TOTALdemand]
-		,[Nov_14_TOTALdemand]
-		,[Dec_14_TOTALdemand]
-		,[Total_2014_TOTALdemand]
+		--,[Jan_14_TOTALdemand]
+		--,[Feb_14_TOTALdemand]
+		--,[Mar_14_TOTALdemand]
+		--,[Apr_14_TOTALdemand]
+		--,[May_14_TOTALdemand]
+		--,[Jun_14_TOTALdemand]
+		--,[Jul_14_TOTALdemand]
+		--,[Aug_14_TOTALdemand]
+		--,[Sep_14_TOTALdemand]
+		--,[Oct_14_TOTALdemand]
+		--,[Nov_14_TOTALdemand]
+		--,[Dec_14_TOTALdemand]
+		--,[Total_2014_TOTALdemand]
 
-		,[Jan_15_TOTALdemand]
-		,[Feb_15_TOTALdemand]
-		,[Mar_15_TOTALdemand]
-		,[Apr_15_TOTALdemand]
-		,[May_15_TOTALdemand]
-		,[Jun_15_TOTALdemand]
-		,[Jul_15_TOTALdemand]
-		,[Aug_15_TOTALdemand]
-		,[Sep_15_TOTALdemand]
-		,[Oct_15_TOTALdemand]
-		,[Nov_15_TOTALdemand]
-		,[Dec_15_TOTALdemand]
-		,[Total_2015_TOTALdemand]
+		--,[Jan_15_TOTALdemand]
+		--,[Feb_15_TOTALdemand]
+		--,[Mar_15_TOTALdemand]
+		--,[Apr_15_TOTALdemand]
+		--,[May_15_TOTALdemand]
+		--,[Jun_15_TOTALdemand]
+		--,[Jul_15_TOTALdemand]
+		--,[Aug_15_TOTALdemand]
+		--,[Sep_15_TOTALdemand]
+		--,[Oct_15_TOTALdemand]
+		--,[Nov_15_TOTALdemand]
+		--,[Dec_15_TOTALdemand]
+		--,[Total_2015_TOTALdemand]
 
 		,[Jan_16_TOTALdemand]
 		,[Feb_16_TOTALdemand]
@@ -779,7 +826,20 @@ SELECT	 cc.[base_part]
 		,[Dec_19_TOTALdemand]
 		,[Total_2019_TOTALdemand]
 
-		,[Cal20_TOTALdemand]
+		,[Jan_20_TOTALdemand]
+		,[Feb_20_TOTALdemand]
+		,[Mar_20_TOTALdemand]
+		,[Apr_20_TOTALdemand]
+		,[May_20_TOTALdemand]
+		,[Jun_20_TOTALdemand]
+		,[Jul_20_TOTALdemand]
+		,[Aug_20_TOTALdemand]
+		,[Sep_20_TOTALdemand]
+		,[Oct_20_TOTALdemand]
+		,[Nov_20_TOTALdemand]
+		,[Dec_20_TOTALdemand]
+		,[Total_2020_TOTALdemand]
+
 		,[Cal21_TOTALdemand]
 		,[Cal22_TOTALdemand]
 		,[Cal23_TOTALdemand]		
@@ -790,13 +850,12 @@ SELECT	 cc.[base_part]
 		--,[sp_Dec_12]
 		--,[sp_Dec_13]
 		--,[sp_Dec_14]
+		--,[sp_Dec_15]
 
-		,[sp_Dec_15]
 		,[sp_Dec_16]
 		,[sp_Dec_17]
 		,[sp_Dec_18]
 		,[sp_Dec_19]
-
 		,[sp_Dec_20]
 		,[sp_Dec_21]
 		,[sp_Dec_22]
@@ -809,8 +868,8 @@ SELECT	 cc.[base_part]
 		--,[mc_Dec_13]
 		--,[mc_Dec_14]
 
-		,[mc_Dec_15]
-		,(case isnull(sp_dec_15,0) when 0 then 0 else mc_dec_15/sp_dec_15 end) as mcp_dec_15
+		--,[mc_Dec_15]
+		--,(case isnull(sp_dec_15,0) when 0 then 0 else mc_dec_15/sp_dec_15 end) as mcp_dec_15
 		
 		,[mc_Dec_16]
 		,(case isnull(sp_dec_16,0) when 0 then 0 else mc_dec_16/sp_dec_16 end) as mcp_dec_16
@@ -833,10 +892,10 @@ SELECT	 cc.[base_part]
 		,[mc_Dec_22]
 		,(case isnull(sp_dec_22,0) when 0 then 0 else mc_dec_22/sp_dec_22 end) as mcp_dec_22
 
-			,[mc_Dec_23]
+		,[mc_Dec_23]
 		,(case isnull(sp_dec_23,0) when 0 then 0 else mc_dec_23/sp_dec_23 end) as mcp_dec_23
 
-			,[mc_Dec_24]
+		,[mc_Dec_24]
 		,(case isnull(sp_dec_24,0) when 0 then 0 else mc_dec_24/sp_dec_24 end) as mcp_dec_24
 		
 		--,[Jan_10_TOTALdemand]*[sp_Jan_10] as 'Jan_10_Sales'
@@ -903,37 +962,37 @@ SELECT	 cc.[base_part]
 		--+([May_13_TOTALdemand]*[sp_May_13])+([Jun_13_TOTALdemand]*[sp_Jun_13])+([Jul_13_TOTALdemand]*[sp_Jul_13])+([Aug_13_TOTALdemand]*[sp_Aug_13])
 		--+([Sep_13_TOTALdemand]*[sp_Sep_13])+([Oct_13_TOTALdemand]*[sp_Oct_13])+([Nov_13_TOTALdemand]*[sp_Nov_13])+([Dec_13_TOTALdemand]*[sp_Dec_13]) as 'Cal_13_Sales' 
 		
-		,[Jan_14_TOTALdemand]*[sp_Jan_14] as 'Jan_14_Sales'
-		,[Feb_14_TOTALdemand]*[sp_Feb_14] as 'Feb_14_Sales'
-		,[Mar_14_TOTALdemand]*[sp_Mar_14] as 'Mar_14_Sales'
-		,[Apr_14_TOTALdemand]*[sp_Apr_14] as 'Apr_14_Sales'
-		,[May_14_TOTALdemand]*[sp_May_14] as 'May_14_Sales'
-		,[Jun_14_TOTALdemand]*[sp_Jun_14] as 'Jun_14_Sales'
-		,[Jul_14_TOTALdemand]*[sp_Jul_14] as 'Jul_14_Sales'
-		,[Aug_14_TOTALdemand]*[sp_Aug_14] as 'Aug_14_Sales'
-		,[Sep_14_TOTALdemand]*[sp_Sep_14] as 'Sep_14_Sales'
-		,[Oct_14_TOTALdemand]*[sp_Oct_14] as 'Oct_14_Sales'
-		,[Nov_14_TOTALdemand]*[sp_Nov_14] as 'Nov_14_Sales'
-		,[Dec_14_TOTALdemand]*[sp_Dec_14] as 'Dec_14_Sales'
-		,([Jan_14_TOTALdemand]*[sp_Jan_14])+([Feb_14_TOTALdemand]*[sp_Feb_14])+([Mar_14_TOTALdemand]*[sp_Mar_14])+([Apr_14_TOTALdemand]*[sp_Apr_14])
-		+([May_14_TOTALdemand]*[sp_May_14])+([Jun_14_TOTALdemand]*[sp_Jun_14])+([Jul_14_TOTALdemand]*[sp_Jul_14])+([Aug_14_TOTALdemand]*[sp_Aug_14])
-		+([Sep_14_TOTALdemand]*[sp_Sep_14])+([Oct_14_TOTALdemand]*[sp_Oct_14])+([Nov_14_TOTALdemand]*[sp_Nov_14])+([Dec_14_TOTALdemand]*[sp_Dec_14]) as 'Cal_14_Sales' 
+		--,[Jan_14_TOTALdemand]*[sp_Jan_14] as 'Jan_14_Sales'
+		--,[Feb_14_TOTALdemand]*[sp_Feb_14] as 'Feb_14_Sales'
+		--,[Mar_14_TOTALdemand]*[sp_Mar_14] as 'Mar_14_Sales'
+		--,[Apr_14_TOTALdemand]*[sp_Apr_14] as 'Apr_14_Sales'
+		--,[May_14_TOTALdemand]*[sp_May_14] as 'May_14_Sales'
+		--,[Jun_14_TOTALdemand]*[sp_Jun_14] as 'Jun_14_Sales'
+		--,[Jul_14_TOTALdemand]*[sp_Jul_14] as 'Jul_14_Sales'
+		--,[Aug_14_TOTALdemand]*[sp_Aug_14] as 'Aug_14_Sales'
+		--,[Sep_14_TOTALdemand]*[sp_Sep_14] as 'Sep_14_Sales'
+		--,[Oct_14_TOTALdemand]*[sp_Oct_14] as 'Oct_14_Sales'
+		--,[Nov_14_TOTALdemand]*[sp_Nov_14] as 'Nov_14_Sales'
+		--,[Dec_14_TOTALdemand]*[sp_Dec_14] as 'Dec_14_Sales'
+		--,([Jan_14_TOTALdemand]*[sp_Jan_14])+([Feb_14_TOTALdemand]*[sp_Feb_14])+([Mar_14_TOTALdemand]*[sp_Mar_14])+([Apr_14_TOTALdemand]*[sp_Apr_14])
+		--+([May_14_TOTALdemand]*[sp_May_14])+([Jun_14_TOTALdemand]*[sp_Jun_14])+([Jul_14_TOTALdemand]*[sp_Jul_14])+([Aug_14_TOTALdemand]*[sp_Aug_14])
+		--+([Sep_14_TOTALdemand]*[sp_Sep_14])+([Oct_14_TOTALdemand]*[sp_Oct_14])+([Nov_14_TOTALdemand]*[sp_Nov_14])+([Dec_14_TOTALdemand]*[sp_Dec_14]) as 'Cal_14_Sales' 
 
-		,[Jan_15_TOTALdemand]*[sp_Jan_15] as 'Jan_15_Sales'
-		,[Feb_15_TOTALdemand]*[sp_Feb_15] as 'Feb_15_Sales'
-		,[Mar_15_TOTALdemand]*[sp_Mar_15] as 'Mar_15_Sales'
-		,[Apr_15_TOTALdemand]*[sp_Apr_15] as 'Apr_15_Sales'
-		,[May_15_TOTALdemand]*[sp_May_15] as 'May_15_Sales'
-		,[Jun_15_TOTALdemand]*[sp_Jun_15] as 'Jun_15_Sales'
-		,[Jul_15_TOTALdemand]*[sp_Jul_15] as 'Jul_15_Sales'
-		,[Aug_15_TOTALdemand]*[sp_Aug_15] as 'Aug_15_Sales'
-		,[Sep_15_TOTALdemand]*[sp_Sep_15] as 'Sep_15_Sales'
-		,[Oct_15_TOTALdemand]*[sp_Oct_15] as 'Oct_15_Sales'
-		,[Nov_15_TOTALdemand]*[sp_Nov_15] as 'Nov_15_Sales'
-		,[Dec_15_TOTALdemand]*[sp_Dec_15] as 'Dec_15_Sales'
-		,([Jan_15_TOTALdemand]*[sp_Jan_15])+([Feb_15_TOTALdemand]*[sp_Feb_15])+([Mar_15_TOTALdemand]*[sp_Mar_15])+([Apr_15_TOTALdemand]*[sp_Apr_15])
-		+([May_15_TOTALdemand]*[sp_May_15])+([Jun_15_TOTALdemand]*[sp_Jun_15])+([Jul_15_TOTALdemand]*[sp_Jul_15])+([Aug_15_TOTALdemand]*[sp_Aug_15])
-		+([Sep_15_TOTALdemand]*[sp_Sep_15])+([Oct_15_TOTALdemand]*[sp_Oct_15])+([Nov_15_TOTALdemand]*[sp_Nov_15])+([Dec_15_TOTALdemand]*[sp_Dec_15]) as 'Cal_15_Sales' 
+		--,[Jan_15_TOTALdemand]*[sp_Jan_15] as 'Jan_15_Sales'
+		--,[Feb_15_TOTALdemand]*[sp_Feb_15] as 'Feb_15_Sales'
+		--,[Mar_15_TOTALdemand]*[sp_Mar_15] as 'Mar_15_Sales'
+		--,[Apr_15_TOTALdemand]*[sp_Apr_15] as 'Apr_15_Sales'
+		--,[May_15_TOTALdemand]*[sp_May_15] as 'May_15_Sales'
+		--,[Jun_15_TOTALdemand]*[sp_Jun_15] as 'Jun_15_Sales'
+		--,[Jul_15_TOTALdemand]*[sp_Jul_15] as 'Jul_15_Sales'
+		--,[Aug_15_TOTALdemand]*[sp_Aug_15] as 'Aug_15_Sales'
+		--,[Sep_15_TOTALdemand]*[sp_Sep_15] as 'Sep_15_Sales'
+		--,[Oct_15_TOTALdemand]*[sp_Oct_15] as 'Oct_15_Sales'
+		--,[Nov_15_TOTALdemand]*[sp_Nov_15] as 'Nov_15_Sales'
+		--,[Dec_15_TOTALdemand]*[sp_Dec_15] as 'Dec_15_Sales'
+		--,([Jan_15_TOTALdemand]*[sp_Jan_15])+([Feb_15_TOTALdemand]*[sp_Feb_15])+([Mar_15_TOTALdemand]*[sp_Mar_15])+([Apr_15_TOTALdemand]*[sp_Apr_15])
+		--+([May_15_TOTALdemand]*[sp_May_15])+([Jun_15_TOTALdemand]*[sp_Jun_15])+([Jul_15_TOTALdemand]*[sp_Jul_15])+([Aug_15_TOTALdemand]*[sp_Aug_15])
+		--+([Sep_15_TOTALdemand]*[sp_Sep_15])+([Oct_15_TOTALdemand]*[sp_Oct_15])+([Nov_15_TOTALdemand]*[sp_Nov_15])+([Dec_15_TOTALdemand]*[sp_Dec_15]) as 'Cal_15_Sales' 
 		
 		,[Jan_16_TOTALdemand]*[sp_Jan_16] as 'Jan_16_Sales'
 		,[Feb_16_TOTALdemand]*[sp_Feb_16] as 'Feb_16_Sales'
@@ -999,19 +1058,31 @@ SELECT	 cc.[base_part]
 		+([May_19_TOTALdemand]*[sp_May_19])+([Jun_19_TOTALdemand]*[sp_Jun_19])+([Jul_19_TOTALdemand]*[sp_Jul_19])+([Aug_19_TOTALdemand]*[sp_Aug_19])
 		+([Sep_19_TOTALdemand]*[sp_Sep_19])+([Oct_19_TOTALdemand]*[sp_Oct_19])+([Nov_19_TOTALdemand]*[sp_Nov_19])+([Dec_19_TOTALdemand]*[sp_Dec_19]) as 'Cal_19_Sales' 
 		
-		,[Cal20_TOTALdemand]*[sp_Dec_20] as 'Cal_20_Sales'
+		,[Jan_20_TOTALdemand]*[sp_Jan_20] as 'Jan_20_Sales'
+		,[Feb_20_TOTALdemand]*[sp_Feb_20] as 'Feb_20_Sales'
+		,[Mar_20_TOTALdemand]*[sp_Mar_20] as 'Mar_20_Sales'
+		,[Apr_20_TOTALdemand]*[sp_Apr_20] as 'Apr_20_Sales'
+		,[May_20_TOTALdemand]*[sp_May_20] as 'May_20_Sales'
+		,[Jun_20_TOTALdemand]*[sp_Jun_20] as 'Jun_20_Sales'
+		,[Jul_20_TOTALdemand]*[sp_Jul_20] as 'Jul_20_Sales'
+		,[Aug_20_TOTALdemand]*[sp_Aug_20] as 'Aug_20_Sales'
+		,[Sep_20_TOTALdemand]*[sp_Sep_20] as 'Sep_20_Sales'
+		,[Oct_20_TOTALdemand]*[sp_Oct_20] as 'Oct_20_Sales'
+		,[Nov_20_TOTALdemand]*[sp_Nov_20] as 'Nov_20_Sales'
+		,[Dec_20_TOTALdemand]*[sp_Dec_20] as 'Dec_20_Sales'
+		,([Jan_20_TOTALdemand]*[sp_Jan_20])+([Feb_20_TOTALdemand]*[sp_Feb_20])+([Mar_20_TOTALdemand]*[sp_Mar_20])+([Apr_20_TOTALdemand]*[sp_Apr_20])
+		+([May_20_TOTALdemand]*[sp_May_20])+([Jun_20_TOTALdemand]*[sp_Jun_20])+([Jul_20_TOTALdemand]*[sp_Jul_20])+([Aug_20_TOTALdemand]*[sp_Aug_20])
+		+([Sep_20_TOTALdemand]*[sp_Sep_20])+([Oct_20_TOTALdemand]*[sp_Oct_20])+([Nov_20_TOTALdemand]*[sp_Nov_20])+([Dec_20_TOTALdemand]*[sp_Dec_20]) as 'Cal_20_Sales' 
+			
 		,[Cal21_TOTALdemand]*[sp_Dec_21] as 'Cal_21_Sales'
 		,[Cal22_TOTALdemand]*[sp_Dec_22] as 'Cal_22_Sales'
 		,[Cal23_TOTALdemand]*[sp_Dec_23] as 'Cal_23_Sales'
 		,[Cal24_TOTALdemand]*[sp_Dec_24] as 'Cal_24_Sales'
 				
-		,([Jan_14_TOTALdemand]*[sp_Jan_14])+([Feb_14_TOTALdemand]*[sp_Feb_14])+([Mar_14_TOTALdemand]*[sp_Mar_14])+([Apr_14_TOTALdemand]*[sp_Apr_14])
-		+([May_14_TOTALdemand]*[sp_May_14])+([Jun_14_TOTALdemand]*[sp_Jun_14])+([Jul_14_TOTALdemand]*[sp_Jul_14])+([Aug_14_TOTALdemand]*[sp_Aug_14])
-		+([Sep_14_TOTALdemand]*[sp_Sep_14])+([Oct_14_TOTALdemand]*[sp_Oct_14])+([Nov_14_TOTALdemand]*[sp_Nov_14])+([Dec_14_TOTALdemand]*[sp_Dec_14]) 
-		+([Jan_15_TOTALdemand]*[sp_Jan_15])+([Feb_15_TOTALdemand]*[sp_Feb_15])+([Mar_15_TOTALdemand]*[sp_Mar_15])+([Apr_15_TOTALdemand]*[sp_Apr_15])
-		+([May_15_TOTALdemand]*[sp_May_15])+([Jun_15_TOTALdemand]*[sp_Jun_15])+([Jul_15_TOTALdemand]*[sp_Jul_15])+([Aug_15_TOTALdemand]*[sp_Aug_15])
-		+([Sep_15_TOTALdemand]*[sp_Sep_15])+([Oct_15_TOTALdemand]*[sp_Oct_15])+([Nov_15_TOTALdemand]*[sp_Nov_15])+([Dec_15_TOTALdemand]*[sp_Dec_15]) 
-		+([Jan_16_TOTALdemand]*[sp_Jan_16])+([Feb_16_TOTALdemand]*[sp_Feb_16])+([Mar_16_TOTALdemand]*[sp_Mar_16])+([Apr_16_TOTALdemand]*[sp_Apr_16])
+		--,([Jan_15_TOTALdemand]*[sp_Jan_15])+([Feb_15_TOTALdemand]*[sp_Feb_15])+([Mar_15_TOTALdemand]*[sp_Mar_15])+([Apr_15_TOTALdemand]*[sp_Apr_15])
+		--+([May_15_TOTALdemand]*[sp_May_15])+([Jun_15_TOTALdemand]*[sp_Jun_15])+([Jul_15_TOTALdemand]*[sp_Jul_15])+([Aug_15_TOTALdemand]*[sp_Aug_15])
+		--+([Sep_15_TOTALdemand]*[sp_Sep_15])+([Oct_15_TOTALdemand]*[sp_Oct_15])+([Nov_15_TOTALdemand]*[sp_Nov_15])+([Dec_15_TOTALdemand]*[sp_Dec_15]) 
+		,([Jan_16_TOTALdemand]*[sp_Jan_16])+([Feb_16_TOTALdemand]*[sp_Feb_16])+([Mar_16_TOTALdemand]*[sp_Mar_16])+([Apr_16_TOTALdemand]*[sp_Apr_16])
 		+([May_16_TOTALdemand]*[sp_May_16])+([Jun_16_TOTALdemand]*[sp_Jun_16])+([Jul_16_TOTALdemand]*[sp_Jul_16])+([Aug_16_TOTALdemand]*[sp_Aug_16])
 		+([Sep_16_TOTALdemand]*[sp_Sep_16])+([Oct_16_TOTALdemand]*[sp_Oct_16])+([Nov_16_TOTALdemand]*[sp_Nov_16])+([Dec_16_TOTALdemand]*[sp_Dec_16]) 
 		+([Jan_17_TOTALdemand]*[sp_Jan_17])+([Feb_17_TOTALdemand]*[sp_Feb_17])+([Mar_17_TOTALdemand]*[sp_Mar_17])+([Apr_17_TOTALdemand]*[sp_Apr_17])
@@ -1023,43 +1094,45 @@ SELECT	 cc.[base_part]
 		+([Jan_19_TOTALdemand]*[sp_Jan_19])+([Feb_19_TOTALdemand]*[sp_Feb_19])+([Mar_19_TOTALdemand]*[sp_Mar_19])+([Apr_19_TOTALdemand]*[sp_Apr_19])
 		+([May_19_TOTALdemand]*[sp_May_19])+([Jun_19_TOTALdemand]*[sp_Jun_19])+([Jul_19_TOTALdemand]*[sp_Jul_19])+([Aug_19_TOTALdemand]*[sp_Aug_19])
 		+([Sep_19_TOTALdemand]*[sp_Sep_19])+([Oct_19_TOTALdemand]*[sp_Oct_19])+([Nov_19_TOTALdemand]*[sp_Nov_19])+([Dec_19_TOTALdemand]*[sp_Dec_19])
-		+([Cal20_TOTALdemand]*[sp_Dec_20])
+		+([Jan_20_TOTALdemand]*[sp_Jan_20])+([Feb_20_TOTALdemand]*[sp_Feb_20])+([Mar_20_TOTALdemand]*[sp_Mar_20])+([Apr_20_TOTALdemand]*[sp_Apr_20])
+		+([May_20_TOTALdemand]*[sp_May_20])+([Jun_20_TOTALdemand]*[sp_Jun_20])+([Jul_20_TOTALdemand]*[sp_Jul_20])+([Aug_20_TOTALdemand]*[sp_Aug_20])
+		+([Sep_20_TOTALdemand]*[sp_Sep_20])+([Oct_20_TOTALdemand]*[sp_Oct_20])+([Nov_20_TOTALdemand]*[sp_Nov_20])+([Dec_20_TOTALdemand]*[sp_Dec_20])
 		+([Cal21_TOTALdemand]*[sp_Dec_21])
 		+([Cal22_TOTALdemand]*[sp_Dec_22])
 		+([Cal23_TOTALdemand]*[sp_Dec_23])
-		+([Cal24_TOTALdemand]*[sp_Dec_24]) as '2014-2024 Sales'
+		+([Cal24_TOTALdemand]*[sp_Dec_24]) as '2015-2024 Sales'
 		
-		,[Jan_14_TOTALdemand]*[mc_Jan_14] as 'Jan_14_MC'
-		,[Feb_14_TOTALdemand]*[mc_Feb_14] as 'Feb_14_MC'
-		,[Mar_14_TOTALdemand]*[mc_Mar_14] as 'Mar_14_MC'
-		,[Apr_14_TOTALdemand]*[mc_Apr_14] as 'Apr_14_MC'
-		,[May_14_TOTALdemand]*[mc_May_14] as 'May_14_MC'
-		,[Jun_14_TOTALdemand]*[mc_Jun_14] as 'Jun_14_MC'
-		,[Jul_14_TOTALdemand]*[mc_Jul_14] as 'Jul_14_MC'
-		,[Aug_14_TOTALdemand]*[mc_Aug_14] as 'Aug_14_MC'
-		,[Sep_14_TOTALdemand]*[mc_Sep_14] as 'Sep_14_MC'
-		,[Oct_14_TOTALdemand]*[mc_Oct_14] as 'Oct_14_MC'
-		,[Nov_14_TOTALdemand]*[mc_Nov_14] as 'Nov_14_MC'
-		,[Dec_14_TOTALdemand]*[mc_Dec_14] as 'Dec_14_MC'
-		,([Jan_14_TOTALdemand]*[mc_Jan_14])+([Feb_14_TOTALdemand]*[mc_Feb_14])+([Mar_14_TOTALdemand]*[mc_Mar_14])+([Apr_14_TOTALdemand]*[mc_Apr_14])
-		+([May_14_TOTALdemand]*[mc_May_14])+([Jun_14_TOTALdemand]*[mc_Jun_14])+([Jul_14_TOTALdemand]*[mc_Jul_14])+([Aug_14_TOTALdemand]*[mc_Aug_14])
-		+([Sep_14_TOTALdemand]*[mc_Sep_14])+([Oct_14_TOTALdemand]*[mc_Oct_14])+([Nov_14_TOTALdemand]*[mc_Nov_14])+([Dec_14_TOTALdemand]*[mc_Dec_14]) as 'Cal_14_MC' 
+		--,[Jan_14_TOTALdemand]*[mc_Jan_14] as 'Jan_14_MC'
+		--,[Feb_14_TOTALdemand]*[mc_Feb_14] as 'Feb_14_MC'
+		--,[Mar_14_TOTALdemand]*[mc_Mar_14] as 'Mar_14_MC'
+		--,[Apr_14_TOTALdemand]*[mc_Apr_14] as 'Apr_14_MC'
+		--,[May_14_TOTALdemand]*[mc_May_14] as 'May_14_MC'
+		--,[Jun_14_TOTALdemand]*[mc_Jun_14] as 'Jun_14_MC'
+		--,[Jul_14_TOTALdemand]*[mc_Jul_14] as 'Jul_14_MC'
+		--,[Aug_14_TOTALdemand]*[mc_Aug_14] as 'Aug_14_MC'
+		--,[Sep_14_TOTALdemand]*[mc_Sep_14] as 'Sep_14_MC'
+		--,[Oct_14_TOTALdemand]*[mc_Oct_14] as 'Oct_14_MC'
+		--,[Nov_14_TOTALdemand]*[mc_Nov_14] as 'Nov_14_MC'
+		--,[Dec_14_TOTALdemand]*[mc_Dec_14] as 'Dec_14_MC'
+		--,([Jan_14_TOTALdemand]*[mc_Jan_14])+([Feb_14_TOTALdemand]*[mc_Feb_14])+([Mar_14_TOTALdemand]*[mc_Mar_14])+([Apr_14_TOTALdemand]*[mc_Apr_14])
+		--+([May_14_TOTALdemand]*[mc_May_14])+([Jun_14_TOTALdemand]*[mc_Jun_14])+([Jul_14_TOTALdemand]*[mc_Jul_14])+([Aug_14_TOTALdemand]*[mc_Aug_14])
+		--+([Sep_14_TOTALdemand]*[mc_Sep_14])+([Oct_14_TOTALdemand]*[mc_Oct_14])+([Nov_14_TOTALdemand]*[mc_Nov_14])+([Dec_14_TOTALdemand]*[mc_Dec_14]) as 'Cal_14_MC' 
 
-		,[Jan_15_TOTALdemand]*[mc_Jan_15] as 'Jan_15_MC'
-		,[Feb_15_TOTALdemand]*[mc_Feb_15] as 'Feb_15_MC'
-		,[Mar_15_TOTALdemand]*[mc_Mar_15] as 'Mar_15_MC'
-		,[Apr_15_TOTALdemand]*[mc_Apr_15] as 'Apr_15_MC'
-		,[May_15_TOTALdemand]*[mc_May_15] as 'May_15_MC'
-		,[Jun_15_TOTALdemand]*[mc_Jun_15] as 'Jun_15_MC'
-		,[Jul_15_TOTALdemand]*[mc_Jul_15] as 'Jul_15_MC'
-		,[Aug_15_TOTALdemand]*[mc_Aug_15] as 'Aug_15_MC'
-		,[Sep_15_TOTALdemand]*[mc_Sep_15] as 'Sep_15_MC'
-		,[Oct_15_TOTALdemand]*[mc_Oct_15] as 'Oct_15_MC'
-		,[Nov_15_TOTALdemand]*[mc_Nov_15] as 'Nov_15_MC'
-		,[Dec_15_TOTALdemand]*[mc_Dec_15] as 'Dec_15_MC'
-		,([Jan_15_TOTALdemand]*[mc_Jan_15])+([Feb_15_TOTALdemand]*[mc_Feb_15])+([Mar_15_TOTALdemand]*[mc_Mar_15])+([Apr_15_TOTALdemand]*[mc_Apr_15])
-		+([May_15_TOTALdemand]*[mc_May_15])+([Jun_15_TOTALdemand]*[mc_Jun_15])+([Jul_15_TOTALdemand]*[mc_Jul_15])+([Aug_15_TOTALdemand]*[mc_Aug_15])
-		+([Sep_15_TOTALdemand]*[mc_Sep_15])+([Oct_15_TOTALdemand]*[mc_Oct_15])+([Nov_15_TOTALdemand]*[mc_Nov_15])+([Dec_15_TOTALdemand]*[mc_Dec_15]) as 'Cal_15_MC' 
+		--,[Jan_15_TOTALdemand]*[mc_Jan_15] as 'Jan_15_MC'
+		--,[Feb_15_TOTALdemand]*[mc_Feb_15] as 'Feb_15_MC'
+		--,[Mar_15_TOTALdemand]*[mc_Mar_15] as 'Mar_15_MC'
+		--,[Apr_15_TOTALdemand]*[mc_Apr_15] as 'Apr_15_MC'
+		--,[May_15_TOTALdemand]*[mc_May_15] as 'May_15_MC'
+		--,[Jun_15_TOTALdemand]*[mc_Jun_15] as 'Jun_15_MC'
+		--,[Jul_15_TOTALdemand]*[mc_Jul_15] as 'Jul_15_MC'
+		--,[Aug_15_TOTALdemand]*[mc_Aug_15] as 'Aug_15_MC'
+		--,[Sep_15_TOTALdemand]*[mc_Sep_15] as 'Sep_15_MC'
+		--,[Oct_15_TOTALdemand]*[mc_Oct_15] as 'Oct_15_MC'
+		--,[Nov_15_TOTALdemand]*[mc_Nov_15] as 'Nov_15_MC'
+		--,[Dec_15_TOTALdemand]*[mc_Dec_15] as 'Dec_15_MC'
+		--,([Jan_15_TOTALdemand]*[mc_Jan_15])+([Feb_15_TOTALdemand]*[mc_Feb_15])+([Mar_15_TOTALdemand]*[mc_Mar_15])+([Apr_15_TOTALdemand]*[mc_Apr_15])
+		--+([May_15_TOTALdemand]*[mc_May_15])+([Jun_15_TOTALdemand]*[mc_Jun_15])+([Jul_15_TOTALdemand]*[mc_Jul_15])+([Aug_15_TOTALdemand]*[mc_Aug_15])
+		--+([Sep_15_TOTALdemand]*[mc_Sep_15])+([Oct_15_TOTALdemand]*[mc_Oct_15])+([Nov_15_TOTALdemand]*[mc_Nov_15])+([Dec_15_TOTALdemand]*[mc_Dec_15]) as 'Cal_15_MC' 
 		
 		,[Jan_16_TOTALdemand]*[mc_Jan_16] as 'Jan_16_MC'
 		,[Feb_16_TOTALdemand]*[mc_Feb_16] as 'Feb_16_MC'
@@ -1125,7 +1198,22 @@ SELECT	 cc.[base_part]
 		+([May_19_TOTALdemand]*[mc_May_19])+([Jun_19_TOTALdemand]*[mc_Jun_19])+([Jul_19_TOTALdemand]*[mc_Jul_19])+([Aug_19_TOTALdemand]*[mc_Aug_19])
 		+([Sep_19_TOTALdemand]*[mc_Sep_19])+([Oct_19_TOTALdemand]*[mc_Oct_19])+([Nov_19_TOTALdemand]*[mc_Nov_19])+([Dec_19_TOTALdemand]*[mc_Dec_19]) as 'Cal_19_MC' 
 
-		,[Cal20_TOTALdemand]*[mc_Dec_19] as 'Cal_20_MC'
+		,[Jan_20_TOTALdemand]*[mc_Jan_20] as 'Jan_20_MC'
+		,[Feb_20_TOTALdemand]*[mc_Feb_20] as 'Feb_20_MC'
+		,[Mar_20_TOTALdemand]*[mc_Mar_20] as 'Mar_20_MC'
+		,[Apr_20_TOTALdemand]*[mc_Apr_20] as 'Apr_20_MC'
+		,[May_20_TOTALdemand]*[mc_May_20] as 'May_20_MC'
+		,[Jun_20_TOTALdemand]*[mc_Jun_20] as 'Jun_20_MC'
+		,[Jul_20_TOTALdemand]*[mc_Jul_20] as 'Jul_20_MC'
+		,[Aug_20_TOTALdemand]*[mc_Aug_20] as 'Aug_20_MC'
+		,[Sep_20_TOTALdemand]*[mc_Sep_20] as 'Sep_20_MC'
+		,[Oct_20_TOTALdemand]*[mc_Oct_20] as 'Oct_20_MC'
+		,[Nov_20_TOTALdemand]*[mc_Nov_20] as 'Nov_20_MC'
+		,[Dec_20_TOTALdemand]*[mc_Dec_20] as 'Dec_20_MC'
+		,([Jan_20_TOTALdemand]*[mc_Jan_20])+([Feb_20_TOTALdemand]*[mc_Feb_20])+([Mar_20_TOTALdemand]*[mc_Mar_20])+([Apr_20_TOTALdemand]*[mc_Apr_20])
+		+([May_20_TOTALdemand]*[mc_May_20])+([Jun_20_TOTALdemand]*[mc_Jun_20])+([Jul_20_TOTALdemand]*[mc_Jul_20])+([Aug_20_TOTALdemand]*[mc_Aug_20])
+		+([Sep_20_TOTALdemand]*[mc_Sep_20])+([Oct_20_TOTALdemand]*[mc_Oct_20])+([Nov_20_TOTALdemand]*[mc_Nov_20])+([Dec_20_TOTALdemand]*[mc_Dec_20]) as 'Cal_20_MC' 
+
 		,[Cal21_TOTALdemand]*[mc_Dec_19] as 'Cal_21_MC'
 		,[Cal22_TOTALdemand]*[mc_Dec_19] as 'Cal_22_MC'
 		,[Cal23_TOTALdemand]*[mc_Dec_19] as 'Cal_23_MC'
@@ -1246,27 +1334,53 @@ SELECT	 cc.[base_part]
 		--,Coalesce(XX.CurrentRevMaterialAccum,MC.mc_dec_17)*[Dec_17_TOTALdemand] as Dec_17_TOTALMaterialCUM
 		--,(Coalesce(XX.CurrentRevMaterialAccum,MC.mc_jan_17)*[Jan_17_TOTALdemand])+(Coalesce(XX.CurrentRevMaterialAccum,MC.mc_feb_17)*[Feb_17_TOTALdemand])+(Coalesce(XX.CurrentRevMaterialAccum,MC.mc_mar_17)*[Mar_17_TOTALdemand])+(Coalesce(XX.CurrentRevMaterialAccum,MC.mc_apr_17)*[Apr_17_TOTALdemand])+(Coalesce(XX.CurrentRevMaterialAccum,MC.mc_may_17)*[May_17_TOTALdemand])+(Coalesce(XX.CurrentRevMaterialAccum,MC.mc_jun_17)*[Jun_17_TOTALdemand])+(Coalesce(XX.CurrentRevMaterialAccum,MC.mc_jul_17)*[Jul_17_TOTALdemand])+(Coalesce(XX.CurrentRevMaterialAccum,MC.mc_aug_17)*[Aug_17_TOTALdemand])+(Coalesce(XX.CurrentRevMaterialAccum,MC.mc_sep_17)*[Sep_17_TOTALdemand])+(Coalesce(XX.CurrentRevMaterialAccum,MC.mc_oct_17)*[Oct_17_TOTALdemand])+(Coalesce(XX.CurrentRevMaterialAccum,MC.mc_nov_17)*[Nov_17_TOTALdemand])+(Coalesce(XX.CurrentRevMaterialAccum,MC.mc_dec_17)*[Dec_17_TOTALdemand]) as Cal17_TOTALMaterialCUM
 		
-		----,Coalesce(XX.CurrentRevMaterialAccum,MC.mc_jan_18)*[Jan_18_TOTALdemand] as Jan_18_TOTALMaterialCUM
-		----,Coalesce(XX.CurrentRevMaterialAccum,MC.mc_feb_18)*[Feb_18_TOTALdemand] as Feb_18_TOTALMaterialCUM
-		----,Coalesce(XX.CurrentRevMaterialAccum,MC.mc_mar_18)*[Mar_18_TOTALdemand] as Mar_18_TOTALMaterialCUM
-		----,Coalesce(XX.CurrentRevMaterialAccum,MC.mc_apr_18)*[Apr_18_TOTALdemand] as Apr_18_TOTALMaterialCUM
-		----,Coalesce(XX.CurrentRevMaterialAccum,MC.mc_may_18)*[May_18_TOTALdemand] as May_18_TOTALMaterialCUM
-		----,Coalesce(XX.CurrentRevMaterialAccum,MC.mc_jun_18)*[Jun_18_TOTALdemand] as Jun_18_TOTALMaterialCUM
-		----,Coalesce(XX.CurrentRevMaterialAccum,MC.mc_jul_18)*[Jul_18_TOTALdemand] as Jul_18_TOTALMaterialCUM
-		----,Coalesce(XX.CurrentRevMaterialAccum,MC.mc_aug_18)*[Aug_18_TOTALdemand] as Aug_18_TOTALMaterialCUM
-		----,Coalesce(XX.CurrentRevMaterialAccum,MC.mc_sep_18)*[Sep_18_TOTALdemand] as Sep_18_TOTALMaterialCUM
-		----,Coalesce(XX.CurrentRevMaterialAccum,MC.mc_oct_18)*[Oct_18_TOTALdemand] as Oct_18_TOTALMaterialCUM
-		----,Coalesce(XX.CurrentRevMaterialAccum,MC.mc_nov_18)*[Nov_18_TOTALdemand] as Nov_18_TOTALMaterialCUM
-		----,Coalesce(XX.CurrentRevMaterialAccum,MC.mc_dec_18)*[Dec_18_TOTALdemand] as Dec_18_TOTALMaterialCUM
-		----,(Coalesce(XX.CurrentRevMaterialAccum,MC.mc_jan_18)*[Jan_18_TOTALdemand])+(Coalesce(XX.CurrentRevMaterialAccum,MC.mc_feb_18)*[Feb_18_TOTALdemand])+(Coalesce(XX.CurrentRevMaterialAccum,MC.mc_mar_18)*[Mar_18_TOTALdemand])+(Coalesce(XX.CurrentRevMaterialAccum,MC.mc_apr_18)*[Apr_18_TOTALdemand])+(Coalesce(XX.CurrentRevMaterialAccum,MC.mc_may_18)*[May_18_TOTALdemand])+(Coalesce(XX.CurrentRevMaterialAccum,MC.mc_jun_18)*[Jun_18_TOTALdemand])+(Coalesce(XX.CurrentRevMaterialAccum,MC.mc_jul_18)*[Jul_18_TOTALdemand])+(Coalesce(XX.CurrentRevMaterialAccum,MC.mc_aug_18)*[Aug_18_TOTALdemand])+(Coalesce(XX.CurrentRevMaterialAccum,MC.mc_sep_18)*[Sep_18_TOTALdemand])+(Coalesce(XX.CurrentRevMaterialAccum,MC.mc_oct_18)*[Oct_18_TOTALdemand])+(Coalesce(XX.CurrentRevMaterialAccum,MC.mc_nov_18)*[Nov_18_TOTALdemand])+(Coalesce(XX.CurrentRevMaterialAccum,MC.mc_dec_18)*[Dec_18_TOTALdemand]) as Cal18_TOTALMaterialCUM
+		--,Coalesce(XX.CurrentRevMaterialAccum,MC.mc_jan_18)*[Jan_18_TOTALdemand] as Jan_18_TOTALMaterialCUM
+		--,Coalesce(XX.CurrentRevMaterialAccum,MC.mc_feb_18)*[Feb_18_TOTALdemand] as Feb_18_TOTALMaterialCUM
+		--,Coalesce(XX.CurrentRevMaterialAccum,MC.mc_mar_18)*[Mar_18_TOTALdemand] as Mar_18_TOTALMaterialCUM
+		--,Coalesce(XX.CurrentRevMaterialAccum,MC.mc_apr_18)*[Apr_18_TOTALdemand] as Apr_18_TOTALMaterialCUM
+		--,Coalesce(XX.CurrentRevMaterialAccum,MC.mc_may_18)*[May_18_TOTALdemand] as May_18_TOTALMaterialCUM
+		--,Coalesce(XX.CurrentRevMaterialAccum,MC.mc_jun_18)*[Jun_18_TOTALdemand] as Jun_18_TOTALMaterialCUM
+		--,Coalesce(XX.CurrentRevMaterialAccum,MC.mc_jul_18)*[Jul_18_TOTALdemand] as Jul_18_TOTALMaterialCUM
+		--,Coalesce(XX.CurrentRevMaterialAccum,MC.mc_aug_18)*[Aug_18_TOTALdemand] as Aug_18_TOTALMaterialCUM
+		--,Coalesce(XX.CurrentRevMaterialAccum,MC.mc_sep_18)*[Sep_18_TOTALdemand] as Sep_18_TOTALMaterialCUM
+		--,Coalesce(XX.CurrentRevMaterialAccum,MC.mc_oct_18)*[Oct_18_TOTALdemand] as Oct_18_TOTALMaterialCUM
+		--,Coalesce(XX.CurrentRevMaterialAccum,MC.mc_nov_18)*[Nov_18_TOTALdemand] as Nov_18_TOTALMaterialCUM
+		--,Coalesce(XX.CurrentRevMaterialAccum,MC.mc_dec_18)*[Dec_18_TOTALdemand] as Dec_18_TOTALMaterialCUM
+		--,(Coalesce(XX.CurrentRevMaterialAccum,MC.mc_jan_18)*[Jan_18_TOTALdemand])+(Coalesce(XX.CurrentRevMaterialAccum,MC.mc_feb_18)*[Feb_18_TOTALdemand])+(Coalesce(XX.CurrentRevMaterialAccum,MC.mc_mar_18)*[Mar_18_TOTALdemand])+(Coalesce(XX.CurrentRevMaterialAccum,MC.mc_apr_18)*[Apr_18_TOTALdemand])+(Coalesce(XX.CurrentRevMaterialAccum,MC.mc_may_18)*[May_18_TOTALdemand])+(Coalesce(XX.CurrentRevMaterialAccum,MC.mc_jun_18)*[Jun_18_TOTALdemand])+(Coalesce(XX.CurrentRevMaterialAccum,MC.mc_jul_18)*[Jul_18_TOTALdemand])+(Coalesce(XX.CurrentRevMaterialAccum,MC.mc_aug_18)*[Aug_18_TOTALdemand])+(Coalesce(XX.CurrentRevMaterialAccum,MC.mc_sep_18)*[Sep_18_TOTALdemand])+(Coalesce(XX.CurrentRevMaterialAccum,MC.mc_oct_18)*[Oct_18_TOTALdemand])+(Coalesce(XX.CurrentRevMaterialAccum,MC.mc_nov_18)*[Nov_18_TOTALdemand])+(Coalesce(XX.CurrentRevMaterialAccum,MC.mc_dec_18)*[Dec_18_TOTALdemand]) as Cal18_TOTALMaterialCUM
+				
+		--,Coalesce(XX.CurrentRevMaterialAccum,MC.mc_jan_19)*[Jan_19_TOTALdemand] as Jan_19_TOTALMaterialCUM
+		--,Coalesce(XX.CurrentRevMaterialAccum,MC.mc_feb_19)*[Feb_19_TOTALdemand] as Feb_19_TOTALMaterialCUM
+		--,Coalesce(XX.CurrentRevMaterialAccum,MC.mc_mar_19)*[Mar_19_TOTALdemand] as Mar_19_TOTALMaterialCUM
+		--,Coalesce(XX.CurrentRevMaterialAccum,MC.mc_apr_19)*[Apr_19_TOTALdemand] as Apr_19_TOTALMaterialCUM
+		--,Coalesce(XX.CurrentRevMaterialAccum,MC.mc_may_19)*[May_19_TOTALdemand] as May_19_TOTALMaterialCUM
+		--,Coalesce(XX.CurrentRevMaterialAccum,MC.mc_jun_19)*[Jun_19_TOTALdemand] as Jun_19_TOTALMaterialCUM
+		--,Coalesce(XX.CurrentRevMaterialAccum,MC.mc_jul_19)*[Jul_19_TOTALdemand] as Jul_19_TOTALMaterialCUM
+		--,Coalesce(XX.CurrentRevMaterialAccum,MC.mc_aug_19)*[Aug_19_TOTALdemand] as Aug_19_TOTALMaterialCUM
+		--,Coalesce(XX.CurrentRevMaterialAccum,MC.mc_sep_19)*[Sep_19_TOTALdemand] as Sep_19_TOTALMaterialCUM
+		--,Coalesce(XX.CurrentRevMaterialAccum,MC.mc_oct_19)*[Oct_19_TOTALdemand] as Oct_19_TOTALMaterialCUM
+		--,Coalesce(XX.CurrentRevMaterialAccum,MC.mc_nov_19)*[Nov_19_TOTALdemand] as Nov_19_TOTALMaterialCUM
+		--,Coalesce(XX.CurrentRevMaterialAccum,MC.mc_dec_19)*[Dec_19_TOTALdemand] as Dec_19_TOTALMaterialCUM
+		--,(Coalesce(XX.CurrentRevMaterialAccum,MC.mc_jan_19)*[Jan_19_TOTALdemand])+(Coalesce(XX.CurrentRevMaterialAccum,MC.mc_feb_19)*[Feb_19_TOTALdemand])+(Coalesce(XX.CurrentRevMaterialAccum,MC.mc_mar_19)*[Mar_19_TOTALdemand])+(Coalesce(XX.CurrentRevMaterialAccum,MC.mc_apr_19)*[Apr_19_TOTALdemand])+(Coalesce(XX.CurrentRevMaterialAccum,MC.mc_may_19)*[May_19_TOTALdemand])+(Coalesce(XX.CurrentRevMaterialAccum,MC.mc_jun_19)*[Jun_19_TOTALdemand])+(Coalesce(XX.CurrentRevMaterialAccum,MC.mc_jul_19)*[Jul_19_TOTALdemand])+(Coalesce(XX.CurrentRevMaterialAccum,MC.mc_aug_19)*[Aug_19_TOTALdemand])+(Coalesce(XX.CurrentRevMaterialAccum,MC.mc_sep_19)*[Sep_19_TOTALdemand])+(Coalesce(XX.CurrentRevMaterialAccum,MC.mc_oct_19)*[Oct_19_TOTALdemand])+(Coalesce(XX.CurrentRevMaterialAccum,MC.mc_nov_19)*[Nov_19_TOTALdemand])+(Coalesce(XX.CurrentRevMaterialAccum,MC.mc_dec_19)*[Dec_19_TOTALdemand]) as Cal19_TOTALMaterialCUM
 		
-		--,Coalesce(XX.CurrentRevMaterialAccum,0)*[Cal18_TOTALdemand] as Cal18_TOTALMaterialCUM,
-		--Coalesce(XX.CurrentRevMaterialAccum,0)*[Cal19_TOTALdemand] as Cal19_TOTALMaterialCUM,
-		--Coalesce(XX.CurrentRevMaterialAccum,0)*[Cal20_TOTALdemand] as Cal20_TOTALMaterialCUM,
-		--Coalesce(XX.CurrentRevMaterialAccum,0)*[Cal21_TOTALdemand] as Cal21_TOTALMaterialCUM,
-		--Coalesce(XX.CurrentRevMaterialAccum,0)*[Cal22_TOTALdemand] as Cal22_TOTALMaterialCUM,
-		--Coalesce(XX.CurrentRevMaterialAccum,0)*[Cal23_TOTALdemand] as Cal23_TOTALMaterialCUM
-		
+		--,Coalesce(XX.CurrentRevMaterialAccum,MC.mc_jan_20)*[Jan_20_TOTALdemand] as Jan_20_TOTALMaterialCUM
+		--,Coalesce(XX.CurrentRevMaterialAccum,MC.mc_feb_20)*[Feb_20_TOTALdemand] as Feb_20_TOTALMaterialCUM
+		--,Coalesce(XX.CurrentRevMaterialAccum,MC.mc_mar_20)*[Mar_20_TOTALdemand] as Mar_20_TOTALMaterialCUM
+		--,Coalesce(XX.CurrentRevMaterialAccum,MC.mc_apr_20)*[Apr_20_TOTALdemand] as Apr_20_TOTALMaterialCUM
+		--,Coalesce(XX.CurrentRevMaterialAccum,MC.mc_may_20)*[May_20_TOTALdemand] as May_20_TOTALMaterialCUM
+		--,Coalesce(XX.CurrentRevMaterialAccum,MC.mc_jun_20)*[Jun_20_TOTALdemand] as Jun_20_TOTALMaterialCUM
+		--,Coalesce(XX.CurrentRevMaterialAccum,MC.mc_jul_20)*[Jul_20_TOTALdemand] as Jul_20_TOTALMaterialCUM
+		--,Coalesce(XX.CurrentRevMaterialAccum,MC.mc_aug_20)*[Aug_20_TOTALdemand] as Aug_20_TOTALMaterialCUM
+		--,Coalesce(XX.CurrentRevMaterialAccum,MC.mc_sep_20)*[Sep_20_TOTALdemand] as Sep_20_TOTALMaterialCUM
+		--,Coalesce(XX.CurrentRevMaterialAccum,MC.mc_oct_20)*[Oct_20_TOTALdemand] as Oct_20_TOTALMaterialCUM
+		--,Coalesce(XX.CurrentRevMaterialAccum,MC.mc_nov_20)*[Nov_20_TOTALdemand] as Nov_20_TOTALMaterialCUM
+		--,Coalesce(XX.CurrentRevMaterialAccum,MC.mc_dec_20)*[Dec_20_TOTALdemand] as Dec_20_TOTALMaterialCUM
+		--,(Coalesce(XX.CurrentRevMaterialAccum,MC.mc_jan_20)*[Jan_20_TOTALdemand])+(Coalesce(XX.CurrentRevMaterialAccum,MC.mc_feb_20)*[Feb_20_TOTALdemand])+(Coalesce(XX.CurrentRevMaterialAccum,MC.mc_mar_20)*[Mar_20_TOTALdemand])+(Coalesce(XX.CurrentRevMaterialAccum,MC.mc_apr_20)*[Apr_20_TOTALdemand])+(Coalesce(XX.CurrentRevMaterialAccum,MC.mc_may_20)*[May_20_TOTALdemand])+(Coalesce(XX.CurrentRevMaterialAccum,MC.mc_jun_20)*[Jun_20_TOTALdemand])+(Coalesce(XX.CurrentRevMaterialAccum,MC.mc_jul_20)*[Jul_20_TOTALdemand])+(Coalesce(XX.CurrentRevMaterialAccum,MC.mc_aug_20)*[Aug_20_TOTALdemand])+(Coalesce(XX.CurrentRevMaterialAccum,MC.mc_sep_20)*[Sep_20_TOTALdemand])+(Coalesce(XX.CurrentRevMaterialAccum,MC.mc_oct_20)*[Oct_20_TOTALdemand])+(Coalesce(XX.CurrentRevMaterialAccum,MC.mc_nov_20)*[Nov_20_TOTALdemand])+(Coalesce(XX.CurrentRevMaterialAccum,MC.mc_dec_20)*[Dec_20_TOTALdemand]) as Cal20_TOTALMaterialCUM
+
+		--,Coalesce(XX.CurrentRevMaterialAccum,0)*[Cal21_TOTALdemand] as Cal21_TOTALMaterialCUM
+		--,Coalesce(XX.CurrentRevMaterialAccum,0)*[Cal22_TOTALdemand] as Cal22_TOTALMaterialCUM
+		--,Coalesce(XX.CurrentRevMaterialAccum,0)*[Cal23_TOTALdemand] as Cal23_TOTALMaterialCUM
+		--,Coalesce(XX.CurrentRevMaterialAccum,0)*[Cal24_TOTALdemand] as Cal24_TOTALMaterialCUM
+				
 		from
 
 		/* LEVEL 2 */
@@ -1346,33 +1460,33 @@ SELECT	 cc.[base_part]
 				--isnull(aa.Dec_13_CSMdemand,0) as Dec_13_CSMdemand,
 				--isnull(aa.Total_13_CSMdemand,0) as Total_13_CSMdemand,
 		
-				isnull(aa.Jan_14_CSMdemand,0) as Jan_14_CSMdemand,
-				isnull(aa.Feb_14_CSMdemand,0) as Feb_14_CSMdemand,
-				isnull(aa.Mar_14_CSMdemand,0) as Mar_14_CSMdemand,
-				isnull(aa.Apr_14_CSMdemand,0) as Apr_14_CSMdemand,
-				isnull(aa.May_14_CSMdemand,0) as May_14_CSMdemand,
-				isnull(aa.Jun_14_CSMdemand,0) as Jun_14_CSMdemand,
-				isnull(aa.Jul_14_CSMdemand,0) as Jul_14_CSMdemand,
-				isnull(aa.Aug_14_CSMdemand,0) as Aug_14_CSMdemand,
-				isnull(aa.Sep_14_CSMdemand,0) as Sep_14_CSMdemand,
-				isnull(aa.Oct_14_CSMdemand,0) as Oct_14_CSMdemand,
-				isnull(aa.Nov_14_CSMdemand,0) as Nov_14_CSMdemand,
-				isnull(aa.Dec_14_CSMdemand,0) as Dec_14_CSMdemand,
-				isnull(aa.Total_14_CSMdemand,0) as Total_14_CSMdemand,
+				--isnull(aa.Jan_14_CSMdemand,0) as Jan_14_CSMdemand,
+				--isnull(aa.Feb_14_CSMdemand,0) as Feb_14_CSMdemand,
+				--isnull(aa.Mar_14_CSMdemand,0) as Mar_14_CSMdemand,
+				--isnull(aa.Apr_14_CSMdemand,0) as Apr_14_CSMdemand,
+				--isnull(aa.May_14_CSMdemand,0) as May_14_CSMdemand,
+				--isnull(aa.Jun_14_CSMdemand,0) as Jun_14_CSMdemand,
+				--isnull(aa.Jul_14_CSMdemand,0) as Jul_14_CSMdemand,
+				--isnull(aa.Aug_14_CSMdemand,0) as Aug_14_CSMdemand,
+				--isnull(aa.Sep_14_CSMdemand,0) as Sep_14_CSMdemand,
+				--isnull(aa.Oct_14_CSMdemand,0) as Oct_14_CSMdemand,
+				--isnull(aa.Nov_14_CSMdemand,0) as Nov_14_CSMdemand,
+				--isnull(aa.Dec_14_CSMdemand,0) as Dec_14_CSMdemand,
+				--isnull(aa.Total_14_CSMdemand,0) as Total_14_CSMdemand,
 
-				isnull(aa.Jan_15_CSMdemand,0) as Jan_15_CSMdemand,
-				isnull(aa.Feb_15_CSMdemand,0) as Feb_15_CSMdemand,
-				isnull(aa.Mar_15_CSMdemand,0) as Mar_15_CSMdemand,
-				isnull(aa.Apr_15_CSMdemand,0) as Apr_15_CSMdemand,
-				isnull(aa.May_15_CSMdemand,0) as May_15_CSMdemand,
-				isnull(aa.Jun_15_CSMdemand,0) as Jun_15_CSMdemand,
-				isnull(aa.Jul_15_CSMdemand,0) as Jul_15_CSMdemand,
-				isnull(aa.Aug_15_CSMdemand,0) as Aug_15_CSMdemand,
-				isnull(aa.Sep_15_CSMdemand,0) as Sep_15_CSMdemand,
-				isnull(aa.Oct_15_CSMdemand,0) as Oct_15_CSMdemand,
-				isnull(aa.Nov_15_CSMdemand,0) as Nov_15_CSMdemand,
-				isnull(aa.Dec_15_CSMdemand,0) as Dec_15_CSMdemand,
-				isnull(aa.Total_15_CSMdemand,0) as Total_15_CSMdemand,
+				--isnull(aa.Jan_15_CSMdemand,0) as Jan_15_CSMdemand,
+				--isnull(aa.Feb_15_CSMdemand,0) as Feb_15_CSMdemand,
+				--isnull(aa.Mar_15_CSMdemand,0) as Mar_15_CSMdemand,
+				--isnull(aa.Apr_15_CSMdemand,0) as Apr_15_CSMdemand,
+				--isnull(aa.May_15_CSMdemand,0) as May_15_CSMdemand,
+				--isnull(aa.Jun_15_CSMdemand,0) as Jun_15_CSMdemand,
+				--isnull(aa.Jul_15_CSMdemand,0) as Jul_15_CSMdemand,
+				--isnull(aa.Aug_15_CSMdemand,0) as Aug_15_CSMdemand,
+				--isnull(aa.Sep_15_CSMdemand,0) as Sep_15_CSMdemand,
+				--isnull(aa.Oct_15_CSMdemand,0) as Oct_15_CSMdemand,
+				--isnull(aa.Nov_15_CSMdemand,0) as Nov_15_CSMdemand,
+				--isnull(aa.Dec_15_CSMdemand,0) as Dec_15_CSMdemand,
+				--isnull(aa.Total_15_CSMdemand,0) as Total_15_CSMdemand,
 				
 				isnull(aa.Jan_16_CSMdemand,0) as Jan_16_CSMdemand,
 				isnull(aa.Feb_16_CSMdemand,0) as Feb_16_CSMdemand,
@@ -1430,7 +1544,20 @@ SELECT	 cc.[base_part]
 				isnull(aa.Dec_19_CSMdemand,0) as Dec_19_CSMdemand,
 				isnull(aa.Total_19_CSMdemand,0) as Total_19_CSMdemand,
 
-				isnull(aa.Cal20_CSMdemand,0) as Cal20_CSMdemand,
+				isnull(aa.Jan_20_CSMdemand,0) as Jan_20_CSMdemand,
+				isnull(aa.Feb_20_CSMdemand,0) as Feb_20_CSMdemand,
+				isnull(aa.Mar_20_CSMdemand,0) as Mar_20_CSMdemand,
+				isnull(aa.Apr_20_CSMdemand,0) as Apr_20_CSMdemand,
+				isnull(aa.May_20_CSMdemand,0) as May_20_CSMdemand,
+				isnull(aa.Jun_20_CSMdemand,0) as Jun_20_CSMdemand,
+				isnull(aa.Jul_20_CSMdemand,0) as Jul_20_CSMdemand,
+				isnull(aa.Aug_20_CSMdemand,0) as Aug_20_CSMdemand,
+				isnull(aa.Sep_20_CSMdemand,0) as Sep_20_CSMdemand,
+				isnull(aa.Oct_20_CSMdemand,0) as Oct_20_CSMdemand,
+				isnull(aa.Nov_20_CSMdemand,0) as Nov_20_CSMdemand,
+				isnull(aa.Dec_20_CSMdemand,0) as Dec_20_CSMdemand,
+				isnull(aa.Total_20_CSMdemand,0) as Total_20_CSMdemand,
+				
 				isnull(aa.Cal21_CSMdemand,0) as Cal21_CSMdemand,
 				isnull(aa.Cal22_CSMdemand,0) as Cal22_CSMdemand,
 				isnull(aa.Cal23_CSMdemand,0) as Cal23_CSMdemand,
@@ -1488,31 +1615,31 @@ SELECT	 cc.[base_part]
 				--isnull(aa.Nov_13_factor,1) as Nov_13_factor,
 				--isnull(aa.Dec_13_factor,1) as Dec_13_factor,			
 				
-				isnull(aa.Jan_14_factor,1) as Jan_14_factor,
-				isnull(aa.Feb_14_factor,1) as Feb_14_factor,
-				isnull(aa.Mar_14_factor,1) as Mar_14_factor,
-				isnull(aa.Apr_14_factor,1) as Apr_14_factor,
-				isnull(aa.May_14_factor,1) as May_14_factor,
-				isnull(aa.Jun_14_factor,1) as Jun_14_factor,
-				isnull(aa.Jul_14_factor,1) as Jul_14_factor,
-				isnull(aa.Aug_14_factor,1) as Aug_14_factor,
-				isnull(aa.Sep_14_factor,1) as Sep_14_factor,
-				isnull(aa.Oct_14_factor,1) as Oct_14_factor,
-				isnull(aa.Nov_14_factor,1) as Nov_14_factor,
-				isnull(aa.Dec_14_factor,1) as Dec_14_factor,
+				--isnull(aa.Jan_14_factor,1) as Jan_14_factor,
+				--isnull(aa.Feb_14_factor,1) as Feb_14_factor,
+				--isnull(aa.Mar_14_factor,1) as Mar_14_factor,
+				--isnull(aa.Apr_14_factor,1) as Apr_14_factor,
+				--isnull(aa.May_14_factor,1) as May_14_factor,
+				--isnull(aa.Jun_14_factor,1) as Jun_14_factor,
+				--isnull(aa.Jul_14_factor,1) as Jul_14_factor,
+				--isnull(aa.Aug_14_factor,1) as Aug_14_factor,
+				--isnull(aa.Sep_14_factor,1) as Sep_14_factor,
+				--isnull(aa.Oct_14_factor,1) as Oct_14_factor,
+				--isnull(aa.Nov_14_factor,1) as Nov_14_factor,
+				--isnull(aa.Dec_14_factor,1) as Dec_14_factor,
 				
-				isnull(aa.Jan_15_factor,1) as Jan_15_factor,
-				isnull(aa.Feb_15_factor,1) as Feb_15_factor,
-				isnull(aa.Mar_15_factor,1) as Mar_15_factor,
-				isnull(aa.Apr_15_factor,1) as Apr_15_factor,
-				isnull(aa.May_15_factor,1) as May_15_factor,
-				isnull(aa.Jun_15_factor,1) as Jun_15_factor,
-				isnull(aa.Jul_15_factor,1) as Jul_15_factor,
-				isnull(aa.Aug_15_factor,1) as Aug_15_factor,
-				isnull(aa.Sep_15_factor,1) as Sep_15_factor,
-				isnull(aa.Oct_15_factor,1) as Oct_15_factor,
-				isnull(aa.Nov_15_factor,1) as Nov_15_factor,
-				isnull(aa.Dec_15_factor,1) as Dec_15_factor,			
+				--isnull(aa.Jan_15_factor,1) as Jan_15_factor,
+				--isnull(aa.Feb_15_factor,1) as Feb_15_factor,
+				--isnull(aa.Mar_15_factor,1) as Mar_15_factor,
+				--isnull(aa.Apr_15_factor,1) as Apr_15_factor,
+				--isnull(aa.May_15_factor,1) as May_15_factor,
+				--isnull(aa.Jun_15_factor,1) as Jun_15_factor,
+				--isnull(aa.Jul_15_factor,1) as Jul_15_factor,
+				--isnull(aa.Aug_15_factor,1) as Aug_15_factor,
+				--isnull(aa.Sep_15_factor,1) as Sep_15_factor,
+				--isnull(aa.Oct_15_factor,1) as Oct_15_factor,
+				--isnull(aa.Nov_15_factor,1) as Nov_15_factor,
+				--isnull(aa.Dec_15_factor,1) as Dec_15_factor,			
 			
 				isnull(aa.Jan_16_factor,1) as Jan_16_factor,
 				isnull(aa.Feb_16_factor,1) as Feb_16_factor,
@@ -1566,8 +1693,19 @@ SELECT	 cc.[base_part]
 				isnull(aa.Nov_19_factor,1) as Nov_19_factor,
 				isnull(aa.Dec_19_factor,1) as Dec_19_factor,
 					
-	
-				isnull(aa.Cal20_factor,1) as Cal20_factor,
+				isnull(aa.Jan_20_factor,1) as Jan_20_factor,
+				isnull(aa.Feb_20_factor,1) as Feb_20_factor,
+				isnull(aa.Mar_20_factor,1) as Mar_20_factor,
+				isnull(aa.Apr_20_factor,1) as Apr_20_factor,
+				isnull(aa.May_20_factor,1) as May_20_factor,
+				isnull(aa.Jun_20_factor,1) as Jun_20_factor,
+				isnull(aa.Jul_20_factor,1) as Jul_20_factor,
+				isnull(aa.Aug_20_factor,1) as Aug_20_factor,
+				isnull(aa.Sep_20_factor,1) as Sep_20_factor,
+				isnull(aa.Oct_20_factor,1) as Oct_20_factor,
+				isnull(aa.Nov_20_factor,1) as Nov_20_factor,
+				isnull(aa.Dec_20_factor,1) as Dec_20_factor,
+						
 				isnull(aa.Cal21_factor,1) as Cal21_factor,
 				isnull(aa.Cal22_factor,1) as Cal22_factor,
 				isnull(aa.CAL23_factor,1) as Cal23_factor,	
@@ -1629,33 +1767,33 @@ SELECT	 cc.[base_part]
 				--isnull(bb.Dec_13,0) as Dec_13_Empire_Adj,
 				--isnull(bb.Total_2013,0) as Total_13_Empire_Adj,
 	
-				isnull(bb.Jan_14,0) as Jan_14_Empire_Adj,
-				isnull(bb.Feb_14,0) as Feb_14_Empire_Adj,
-				isnull(bb.Mar_14,0) as Mar_14_Empire_Adj,
-				isnull(bb.Apr_14,0) as Apr_14_Empire_Adj,
-				isnull(bb.May_14,0) as May_14_Empire_Adj,
-				isnull(bb.Jun_14,0) as Jun_14_Empire_Adj,		
-				isnull(bb.Jul_14,0) as Jul_14_Empire_Adj,
-				isnull(bb.Aug_14,0) as Aug_14_Empire_Adj,
-				isnull(bb.Sep_14,0) as Sep_14_Empire_Adj,		
-				isnull(bb.Oct_14,0) as Oct_14_Empire_Adj,
-				isnull(bb.Nov_14,0) as Nov_14_Empire_Adj,
-				isnull(bb.Dec_14,0) as Dec_14_Empire_Adj,
-				isnull(bb.Total_2014,0) as Total_14_Empire_Adj,
+				--isnull(bb.Jan_14,0) as Jan_14_Empire_Adj,
+				--isnull(bb.Feb_14,0) as Feb_14_Empire_Adj,
+				--isnull(bb.Mar_14,0) as Mar_14_Empire_Adj,
+				--isnull(bb.Apr_14,0) as Apr_14_Empire_Adj,
+				--isnull(bb.May_14,0) as May_14_Empire_Adj,
+				--isnull(bb.Jun_14,0) as Jun_14_Empire_Adj,		
+				--isnull(bb.Jul_14,0) as Jul_14_Empire_Adj,
+				--isnull(bb.Aug_14,0) as Aug_14_Empire_Adj,
+				--isnull(bb.Sep_14,0) as Sep_14_Empire_Adj,		
+				--isnull(bb.Oct_14,0) as Oct_14_Empire_Adj,
+				--isnull(bb.Nov_14,0) as Nov_14_Empire_Adj,
+				--isnull(bb.Dec_14,0) as Dec_14_Empire_Adj,
+				--isnull(bb.Total_2014,0) as Total_14_Empire_Adj,
 				
-				isnull(bb.Jan_15,0) as Jan_15_Empire_Adj,
-				isnull(bb.Feb_15,0) as Feb_15_Empire_Adj,
-				isnull(bb.Mar_15,0) as Mar_15_Empire_Adj,
-				isnull(bb.Apr_15,0) as Apr_15_Empire_Adj,
-				isnull(bb.May_15,0) as May_15_Empire_Adj,
-				isnull(bb.Jun_15,0) as Jun_15_Empire_Adj,		
-				isnull(bb.Jul_15,0) as Jul_15_Empire_Adj,
-				isnull(bb.Aug_15,0) as Aug_15_Empire_Adj,
-				isnull(bb.Sep_15,0) as Sep_15_Empire_Adj,		
-				isnull(bb.Oct_15,0) as Oct_15_Empire_Adj,
-				isnull(bb.Nov_15,0) as Nov_15_Empire_Adj,
-				isnull(bb.Dec_15,0) as Dec_15_Empire_Adj,
-				isnull(bb.Total_2015,0) as Total_15_Empire_Adj,
+				--isnull(bb.Jan_15,0) as Jan_15_Empire_Adj,
+				--isnull(bb.Feb_15,0) as Feb_15_Empire_Adj,
+				--isnull(bb.Mar_15,0) as Mar_15_Empire_Adj,
+				--isnull(bb.Apr_15,0) as Apr_15_Empire_Adj,
+				--isnull(bb.May_15,0) as May_15_Empire_Adj,
+				--isnull(bb.Jun_15,0) as Jun_15_Empire_Adj,		
+				--isnull(bb.Jul_15,0) as Jul_15_Empire_Adj,
+				--isnull(bb.Aug_15,0) as Aug_15_Empire_Adj,
+				--isnull(bb.Sep_15,0) as Sep_15_Empire_Adj,		
+				--isnull(bb.Oct_15,0) as Oct_15_Empire_Adj,
+				--isnull(bb.Nov_15,0) as Nov_15_Empire_Adj,
+				--isnull(bb.Dec_15,0) as Dec_15_Empire_Adj,
+				--isnull(bb.Total_2015,0) as Total_15_Empire_Adj,
 				
 				isnull(bb.Jan_16,0) as Jan_16_Empire_Adj,
 				isnull(bb.Feb_16,0) as Feb_16_Empire_Adj,
@@ -1699,7 +1837,6 @@ SELECT	 cc.[base_part]
 				isnull(bb.Dec_18,0) as Dec_18_Empire_Adj,
 				isnull(bb.Total_2018,0) as Total_18_Empire_Adj,
 
-						
 				isnull(bb.Jan_19,0) as Jan_19_Empire_Adj,
 				isnull(bb.Feb_19,0) as Feb_19_Empire_Adj,
 				isnull(bb.Mar_19,0) as Mar_19_Empire_Adj,
@@ -1714,7 +1851,20 @@ SELECT	 cc.[base_part]
 				isnull(bb.Dec_19,0) as Dec_19_Empire_Adj,
 				isnull(bb.Total_2019,0) as Total_19_Empire_Adj,
 		
-				isnull(bb.Cal20,0) as Cal20_Empire_Adj,
+				isnull(bb.Jan_20,0) as Jan_20_Empire_Adj,
+				isnull(bb.Feb_20,0) as Feb_20_Empire_Adj,
+				isnull(bb.Mar_20,0) as Mar_20_Empire_Adj,
+				isnull(bb.Apr_20,0) as Apr_20_Empire_Adj,
+				isnull(bb.May_20,0) as May_20_Empire_Adj,
+				isnull(bb.Jun_20,0) as Jun_20_Empire_Adj,		
+				isnull(bb.Jul_20,0) as Jul_20_Empire_Adj,
+				isnull(bb.Aug_20,0) as Aug_20_Empire_Adj,
+				isnull(bb.Sep_20,0) as Sep_20_Empire_Adj,		
+				isnull(bb.Oct_20,0) as Oct_20_Empire_Adj,
+				isnull(bb.Nov_20,0) as Nov_20_Empire_Adj,
+				isnull(bb.Dec_20,0) as Dec_20_Empire_Adj,
+				isnull(bb.Total_2020,0) as Total_20_Empire_Adj,
+				
 				isnull(bb.Cal21,0) as Cal21_Empire_Adj,
 				isnull(bb.Cal22,0) as Cal22_Empire_Adj,
 				isnull(bb.Cal23,0) as Cal23_Empire_Adj,	
@@ -1776,33 +1926,33 @@ SELECT	 cc.[base_part]
 				--isnull(aa.Dec_13_factor,1)*bb.Dec_13 as Dec_13_Allocated_Empire_Adj,
 				--((isnull(aa.Jan_13_factor,1)*bb.Jan_13) + (isnull(aa.Feb_13_factor,1)*bb.Feb_13) + (isnull(aa.Mar_13_factor,1)*bb.Mar_13) + (isnull(aa.Apr_13_factor,1)*bb.Apr_13) + (isnull(aa.May_13_factor,1)*bb.May_13) + (isnull(aa.Jun_13_factor,1)*bb.Jun_13) + (isnull(aa.Jul_13_factor,1)*bb.Jul_13) + (isnull(aa.Aug_13_factor,1)*bb.Aug_13) + (isnull(aa.Sep_13_factor,1)*bb.Sep_13) +  (isnull(aa.Oct_13_factor,1)*bb.Oct_13) + (isnull(aa.Nov_13_factor,1)*bb.Nov_13) +  (isnull(aa.Dec_13_factor,1)*bb.Dec_13)) as Total_13_Allocated_Empire_Adj,
 				
-				isnull(aa.Jan_14_factor,1)*bb.Jan_14 as Jan_14_Allocated_Empire_Adj,
-				isnull(aa.Feb_14_factor,1)*bb.Feb_14 as Feb_14_Allocated_Empire_Adj,
-				isnull(aa.Mar_14_factor,1)*bb.Mar_14 as Mar_14_Allocated_Empire_Adj,
-				isnull(aa.Apr_14_factor,1)*bb.Apr_14 as Apr_14_Allocated_Empire_Adj,
-				isnull(aa.May_14_factor,1)*bb.May_14 as May_14_Allocated_Empire_Adj,
-				isnull(aa.Jun_14_factor,1)*bb.Jun_14 as Jun_14_Allocated_Empire_Adj,
-				isnull(aa.Jul_14_factor,1)*bb.Jul_14 as Jul_14_Allocated_Empire_Adj,
-				isnull(aa.Aug_14_factor,1)*bb.Aug_14 as Aug_14_Allocated_Empire_Adj,
-				isnull(aa.Sep_14_factor,1)*bb.Sep_14 as Sep_14_Allocated_Empire_Adj,
-				isnull(aa.Oct_14_factor,1)*bb.Oct_14 as Oct_14_Allocated_Empire_Adj,
-				isnull(aa.Nov_14_factor,1)*bb.Nov_14 as Nov_14_Allocated_Empire_Adj,
-				isnull(aa.Dec_14_factor,1)*bb.Dec_14 as Dec_14_Allocated_Empire_Adj,
-				((isnull(aa.Jan_14_factor,1)*bb.Jan_14) + (isnull(aa.Feb_14_factor,1)*bb.Feb_14) + (isnull(aa.Mar_14_factor,1)*bb.Mar_14) + (isnull(aa.Apr_14_factor,1)*bb.Apr_14) + (isnull(aa.May_14_factor,1)*bb.May_14) + (isnull(aa.Jun_14_factor,1)*bb.Jun_14) + (isnull(aa.Jul_14_factor,1)*bb.Jul_14) + (isnull(aa.Aug_14_factor,1)*bb.Aug_14) + (isnull(aa.Sep_14_factor,1)*bb.Sep_14) +  (isnull(aa.Oct_14_factor,1)*bb.Oct_14) + (isnull(aa.Nov_14_factor,1)*bb.Nov_14) +  (isnull(aa.Dec_14_factor,1)*bb.Dec_14)) as Total_14_Allocated_Empire_Adj,
+				--isnull(aa.Jan_14_factor,1)*bb.Jan_14 as Jan_14_Allocated_Empire_Adj,
+				--isnull(aa.Feb_14_factor,1)*bb.Feb_14 as Feb_14_Allocated_Empire_Adj,
+				--isnull(aa.Mar_14_factor,1)*bb.Mar_14 as Mar_14_Allocated_Empire_Adj,
+				--isnull(aa.Apr_14_factor,1)*bb.Apr_14 as Apr_14_Allocated_Empire_Adj,
+				--isnull(aa.May_14_factor,1)*bb.May_14 as May_14_Allocated_Empire_Adj,
+				--isnull(aa.Jun_14_factor,1)*bb.Jun_14 as Jun_14_Allocated_Empire_Adj,
+				--isnull(aa.Jul_14_factor,1)*bb.Jul_14 as Jul_14_Allocated_Empire_Adj,
+				--isnull(aa.Aug_14_factor,1)*bb.Aug_14 as Aug_14_Allocated_Empire_Adj,
+				--isnull(aa.Sep_14_factor,1)*bb.Sep_14 as Sep_14_Allocated_Empire_Adj,
+				--isnull(aa.Oct_14_factor,1)*bb.Oct_14 as Oct_14_Allocated_Empire_Adj,
+				--isnull(aa.Nov_14_factor,1)*bb.Nov_14 as Nov_14_Allocated_Empire_Adj,
+				--isnull(aa.Dec_14_factor,1)*bb.Dec_14 as Dec_14_Allocated_Empire_Adj,
+				--((isnull(aa.Jan_14_factor,1)*bb.Jan_14) + (isnull(aa.Feb_14_factor,1)*bb.Feb_14) + (isnull(aa.Mar_14_factor,1)*bb.Mar_14) + (isnull(aa.Apr_14_factor,1)*bb.Apr_14) + (isnull(aa.May_14_factor,1)*bb.May_14) + (isnull(aa.Jun_14_factor,1)*bb.Jun_14) + (isnull(aa.Jul_14_factor,1)*bb.Jul_14) + (isnull(aa.Aug_14_factor,1)*bb.Aug_14) + (isnull(aa.Sep_14_factor,1)*bb.Sep_14) +  (isnull(aa.Oct_14_factor,1)*bb.Oct_14) + (isnull(aa.Nov_14_factor,1)*bb.Nov_14) +  (isnull(aa.Dec_14_factor,1)*bb.Dec_14)) as Total_14_Allocated_Empire_Adj,
 				
-				isnull(aa.Jan_15_factor,1)*bb.Jan_15 as Jan_15_Allocated_Empire_Adj,
-				isnull(aa.Feb_15_factor,1)*bb.Feb_15 as Feb_15_Allocated_Empire_Adj,
-				isnull(aa.Mar_15_factor,1)*bb.Mar_15 as Mar_15_Allocated_Empire_Adj,
-				isnull(aa.Apr_15_factor,1)*bb.Apr_15 as Apr_15_Allocated_Empire_Adj,
-				isnull(aa.May_15_factor,1)*bb.May_15 as May_15_Allocated_Empire_Adj,
-				isnull(aa.Jun_15_factor,1)*bb.Jun_15 as Jun_15_Allocated_Empire_Adj,
-				isnull(aa.Jul_15_factor,1)*bb.Jul_15 as Jul_15_Allocated_Empire_Adj,
-				isnull(aa.Aug_15_factor,1)*bb.Aug_15 as Aug_15_Allocated_Empire_Adj,
-				isnull(aa.Sep_15_factor,1)*bb.Sep_15 as Sep_15_Allocated_Empire_Adj,
-				isnull(aa.Oct_15_factor,1)*bb.Oct_15 as Oct_15_Allocated_Empire_Adj,
-				isnull(aa.Nov_15_factor,1)*bb.Nov_15 as Nov_15_Allocated_Empire_Adj,
-				isnull(aa.Dec_15_factor,1)*bb.Dec_15 as Dec_15_Allocated_Empire_Adj,
-				((isnull(aa.Jan_15_factor,1)*bb.Jan_15) + (isnull(aa.Feb_15_factor,1)*bb.Feb_15) + (isnull(aa.Mar_15_factor,1)*bb.Mar_15) + (isnull(aa.Apr_15_factor,1)*bb.Apr_15) + (isnull(aa.May_15_factor,1)*bb.May_15) + (isnull(aa.Jun_15_factor,1)*bb.Jun_15) + (isnull(aa.Jul_15_factor,1)*bb.Jul_15) + (isnull(aa.Aug_15_factor,1)*bb.Aug_15) + (isnull(aa.Sep_15_factor,1)*bb.Sep_15) +  (isnull(aa.Oct_15_factor,1)*bb.Oct_15) + (isnull(aa.Nov_15_factor,1)*bb.Nov_15) +  (isnull(aa.Dec_15_factor,1)*bb.Dec_15)) as Total_15_Allocated_Empire_Adj,
+				--isnull(aa.Jan_15_factor,1)*bb.Jan_15 as Jan_15_Allocated_Empire_Adj,
+				--isnull(aa.Feb_15_factor,1)*bb.Feb_15 as Feb_15_Allocated_Empire_Adj,
+				--isnull(aa.Mar_15_factor,1)*bb.Mar_15 as Mar_15_Allocated_Empire_Adj,
+				--isnull(aa.Apr_15_factor,1)*bb.Apr_15 as Apr_15_Allocated_Empire_Adj,
+				--isnull(aa.May_15_factor,1)*bb.May_15 as May_15_Allocated_Empire_Adj,
+				--isnull(aa.Jun_15_factor,1)*bb.Jun_15 as Jun_15_Allocated_Empire_Adj,
+				--isnull(aa.Jul_15_factor,1)*bb.Jul_15 as Jul_15_Allocated_Empire_Adj,
+				--isnull(aa.Aug_15_factor,1)*bb.Aug_15 as Aug_15_Allocated_Empire_Adj,
+				--isnull(aa.Sep_15_factor,1)*bb.Sep_15 as Sep_15_Allocated_Empire_Adj,
+				--isnull(aa.Oct_15_factor,1)*bb.Oct_15 as Oct_15_Allocated_Empire_Adj,
+				--isnull(aa.Nov_15_factor,1)*bb.Nov_15 as Nov_15_Allocated_Empire_Adj,
+				--isnull(aa.Dec_15_factor,1)*bb.Dec_15 as Dec_15_Allocated_Empire_Adj,
+				--((isnull(aa.Jan_15_factor,1)*bb.Jan_15) + (isnull(aa.Feb_15_factor,1)*bb.Feb_15) + (isnull(aa.Mar_15_factor,1)*bb.Mar_15) + (isnull(aa.Apr_15_factor,1)*bb.Apr_15) + (isnull(aa.May_15_factor,1)*bb.May_15) + (isnull(aa.Jun_15_factor,1)*bb.Jun_15) + (isnull(aa.Jul_15_factor,1)*bb.Jul_15) + (isnull(aa.Aug_15_factor,1)*bb.Aug_15) + (isnull(aa.Sep_15_factor,1)*bb.Sep_15) +  (isnull(aa.Oct_15_factor,1)*bb.Oct_15) + (isnull(aa.Nov_15_factor,1)*bb.Nov_15) +  (isnull(aa.Dec_15_factor,1)*bb.Dec_15)) as Total_15_Allocated_Empire_Adj,
 				
 				isnull(aa.Jan_16_factor,1)*bb.Jan_16 as Jan_16_Allocated_Empire_Adj,
 				isnull(aa.Feb_16_factor,1)*bb.Feb_16 as Feb_16_Allocated_Empire_Adj,
@@ -1860,7 +2010,20 @@ SELECT	 cc.[base_part]
 				isnull(aa.Dec_19_factor,1)*bb.Dec_19 as Dec_19_Allocated_Empire_Adj,
 				((isnull(aa.Jan_19_factor,1)*bb.Jan_19) + (isnull(aa.Feb_19_factor,1)*bb.Feb_19) + (isnull(aa.Mar_19_factor,1)*bb.Mar_19) + (isnull(aa.Apr_19_factor,1)*bb.Apr_19) + (isnull(aa.May_19_factor,1)*bb.May_19) + (isnull(aa.Jun_19_factor,1)*bb.Jun_19) + (isnull(aa.Jul_19_factor,1)*bb.Jul_19) + (isnull(aa.Aug_19_factor,1)*bb.Aug_19) + (isnull(aa.Sep_19_factor,1)*bb.Sep_19) +  (isnull(aa.Oct_19_factor,1)*bb.Oct_19) + (isnull(aa.Nov_19_factor,1)*bb.Nov_19) +  (isnull(aa.Dec_19_factor,1)*bb.Dec_19)) as Total_19_Allocated_Empire_Adj,
 
-				isnull(aa.Cal20_factor,1)*bb.Cal20 as Cal20_Allocated_Empire_Adj,
+				isnull(aa.Jan_20_factor,1)*bb.Jan_20 as Jan_20_Allocated_Empire_Adj,
+				isnull(aa.Feb_20_factor,1)*bb.Feb_20 as Feb_20_Allocated_Empire_Adj,
+				isnull(aa.Mar_20_factor,1)*bb.Mar_20 as Mar_20_Allocated_Empire_Adj,
+				isnull(aa.Apr_20_factor,1)*bb.Apr_20 as Apr_20_Allocated_Empire_Adj,
+				isnull(aa.May_20_factor,1)*bb.May_20 as May_20_Allocated_Empire_Adj,
+				isnull(aa.Jun_20_factor,1)*bb.Jun_20 as Jun_20_Allocated_Empire_Adj,
+				isnull(aa.Jul_20_factor,1)*bb.Jul_20 as Jul_20_Allocated_Empire_Adj,
+				isnull(aa.Aug_20_factor,1)*bb.Aug_20 as Aug_20_Allocated_Empire_Adj,
+				isnull(aa.Sep_20_factor,1)*bb.Sep_20 as Sep_20_Allocated_Empire_Adj,
+				isnull(aa.Oct_20_factor,1)*bb.Oct_20 as Oct_20_Allocated_Empire_Adj,
+				isnull(aa.Nov_20_factor,1)*bb.Nov_20 as Nov_20_Allocated_Empire_Adj,
+				isnull(aa.Dec_20_factor,1)*bb.Dec_20 as Dec_20_Allocated_Empire_Adj,
+				((isnull(aa.Jan_20_factor,1)*bb.Jan_20) + (isnull(aa.Feb_20_factor,1)*bb.Feb_20) + (isnull(aa.Mar_20_factor,1)*bb.Mar_20) + (isnull(aa.Apr_20_factor,1)*bb.Apr_20) + (isnull(aa.May_20_factor,1)*bb.May_20) + (isnull(aa.Jun_20_factor,1)*bb.Jun_20) + (isnull(aa.Jul_20_factor,1)*bb.Jul_20) + (isnull(aa.Aug_20_factor,1)*bb.Aug_20) + (isnull(aa.Sep_20_factor,1)*bb.Sep_20) +  (isnull(aa.Oct_20_factor,1)*bb.Oct_20) + (isnull(aa.Nov_20_factor,1)*bb.Nov_20) +  (isnull(aa.Dec_20_factor,1)*bb.Dec_20)) as Total_20_Allocated_Empire_Adj,
+
 				isnull(aa.Cal21_factor,1)*bb.Cal21 as Cal21_Allocated_Empire_Adj,
 				isnull(aa.Cal22_factor,1)*bb.Cal22 as Cal22_Allocated_Empire_Adj,
 				isnull(aa.CAL23_factor,1)*bb.CAL23 as CAL23_Allocated_Empire_Adj,
@@ -1923,33 +2086,33 @@ SELECT	 cc.[base_part]
 				--isnull(aa.Dec_13_CSMdemand,0) + (isnull(aa.Dec_13_factor,1)*isnull(bb.Dec_13,0)) as Dec_13_TOTALdemand,		
 				--isnull(aa.Total_13_CSMdemand,0) + ((isnull(aa.Jan_13_factor,1)*isnull(bb.Jan_13,0)) + (isnull(aa.Feb_13_factor,1)*isnull(bb.Feb_13,0)) + (isnull(aa.Mar_13_factor,1)*isnull(bb.Mar_13,0)) + (isnull(aa.Apr_13_factor,1)*isnull(bb.Apr_13,0)) + (isnull(aa.May_13_factor,1)*isnull(bb.May_13,0)) + (isnull(aa.Jun_13_factor,1)*isnull(bb.Jun_13,0)) + (isnull(aa.Jul_13_factor,1)*isnull(bb.Jul_13,0)) + (isnull(aa.Aug_13_factor,1)*isnull(bb.Aug_13,0)) + (isnull(aa.Sep_13_factor,1)*isnull(bb.Sep_13,0)) +  (isnull(aa.Oct_13_factor,1)*isnull(bb.Oct_13,0)) + (isnull(aa.Nov_13_factor,1)*isnull(bb.Nov_13,0)) +  (isnull(aa.Dec_13_factor,1)*isnull(bb.Dec_13,0))) as Total_2013_TOTALdemand,
 				
-				isnull(aa.Jan_14_CSMdemand,0) + (isnull(aa.Jan_14_factor,1)*isnull(bb.Jan_14,0)) as Jan_14_TOTALdemand,
-				isnull(aa.Feb_14_CSMdemand,0) + (isnull(aa.Feb_14_factor,1)*isnull(bb.Feb_14,0)) as Feb_14_TOTALdemand,
-				isnull(aa.Mar_14_CSMdemand,0) + (isnull(aa.Mar_14_factor,1)*isnull(bb.Mar_14,0)) as Mar_14_TOTALdemand,
-				isnull(aa.Apr_14_CSMdemand,0) + (isnull(aa.Apr_14_factor,1)*isnull(bb.Apr_14,0)) as Apr_14_TOTALdemand,
-				isnull(aa.May_14_CSMdemand,0) + (isnull(aa.May_14_factor,1)*isnull(bb.May_14,0)) as May_14_TOTALdemand,
-				isnull(aa.Jun_14_CSMdemand,0) + (isnull(aa.Jun_14_factor,1)*isnull(bb.Jun_14,0)) as Jun_14_TOTALdemand,
-				isnull(aa.Jul_14_CSMdemand,0) + (isnull(aa.Jul_14_factor,1)*isnull(bb.Jul_14,0)) as Jul_14_TOTALdemand,
-				isnull(aa.Aug_14_CSMdemand,0) + (isnull(aa.Aug_14_factor,1)*isnull(bb.Aug_14,0)) as Aug_14_TOTALdemand,
-				isnull(aa.Sep_14_CSMdemand,0) + (isnull(aa.Sep_14_factor,1)*isnull(bb.Sep_14,0)) as Sep_14_TOTALdemand,
-				isnull(aa.Oct_14_CSMdemand,0) + (isnull(aa.Oct_14_factor,1)*isnull(bb.Oct_14,0)) as Oct_14_TOTALdemand,
-				isnull(aa.Nov_14_CSMdemand,0) + (isnull(aa.Nov_14_factor,1)*isnull(bb.Nov_14,0)) as Nov_14_TOTALdemand,
-				isnull(aa.Dec_14_CSMdemand,0) + (isnull(aa.Dec_14_factor,1)*isnull(bb.Dec_14,0)) as Dec_14_TOTALdemand,		
-				isnull(aa.Total_14_CSMdemand,0) + ((isnull(aa.Jan_14_factor,1)*isnull(bb.Jan_14,0)) + (isnull(aa.Feb_14_factor,1)*isnull(bb.Feb_14,0)) + (isnull(aa.Mar_14_factor,1)*isnull(bb.Mar_14,0)) + (isnull(aa.Apr_14_factor,1)*isnull(bb.Apr_14,0)) + (isnull(aa.May_14_factor,1)*isnull(bb.May_14,0)) + (isnull(aa.Jun_14_factor,1)*isnull(bb.Jun_14,0)) + (isnull(aa.Jul_14_factor,1)*isnull(bb.Jul_14,0)) + (isnull(aa.Aug_14_factor,1)*isnull(bb.Aug_14,0)) + (isnull(aa.Sep_14_factor,1)*isnull(bb.Sep_14,0)) +  (isnull(aa.Oct_14_factor,1)*isnull(bb.Oct_14,0)) + (isnull(aa.Nov_14_factor,1)*isnull(bb.Nov_14,0)) +  (isnull(aa.Dec_14_factor,1)*isnull(bb.Dec_14,0))) as Total_2014_TOTALdemand,
+				--isnull(aa.Jan_14_CSMdemand,0) + (isnull(aa.Jan_14_factor,1)*isnull(bb.Jan_14,0)) as Jan_14_TOTALdemand,
+				--isnull(aa.Feb_14_CSMdemand,0) + (isnull(aa.Feb_14_factor,1)*isnull(bb.Feb_14,0)) as Feb_14_TOTALdemand,
+				--isnull(aa.Mar_14_CSMdemand,0) + (isnull(aa.Mar_14_factor,1)*isnull(bb.Mar_14,0)) as Mar_14_TOTALdemand,
+				--isnull(aa.Apr_14_CSMdemand,0) + (isnull(aa.Apr_14_factor,1)*isnull(bb.Apr_14,0)) as Apr_14_TOTALdemand,
+				--isnull(aa.May_14_CSMdemand,0) + (isnull(aa.May_14_factor,1)*isnull(bb.May_14,0)) as May_14_TOTALdemand,
+				--isnull(aa.Jun_14_CSMdemand,0) + (isnull(aa.Jun_14_factor,1)*isnull(bb.Jun_14,0)) as Jun_14_TOTALdemand,
+				--isnull(aa.Jul_14_CSMdemand,0) + (isnull(aa.Jul_14_factor,1)*isnull(bb.Jul_14,0)) as Jul_14_TOTALdemand,
+				--isnull(aa.Aug_14_CSMdemand,0) + (isnull(aa.Aug_14_factor,1)*isnull(bb.Aug_14,0)) as Aug_14_TOTALdemand,
+				--isnull(aa.Sep_14_CSMdemand,0) + (isnull(aa.Sep_14_factor,1)*isnull(bb.Sep_14,0)) as Sep_14_TOTALdemand,
+				--isnull(aa.Oct_14_CSMdemand,0) + (isnull(aa.Oct_14_factor,1)*isnull(bb.Oct_14,0)) as Oct_14_TOTALdemand,
+				--isnull(aa.Nov_14_CSMdemand,0) + (isnull(aa.Nov_14_factor,1)*isnull(bb.Nov_14,0)) as Nov_14_TOTALdemand,
+				--isnull(aa.Dec_14_CSMdemand,0) + (isnull(aa.Dec_14_factor,1)*isnull(bb.Dec_14,0)) as Dec_14_TOTALdemand,		
+				--isnull(aa.Total_14_CSMdemand,0) + ((isnull(aa.Jan_14_factor,1)*isnull(bb.Jan_14,0)) + (isnull(aa.Feb_14_factor,1)*isnull(bb.Feb_14,0)) + (isnull(aa.Mar_14_factor,1)*isnull(bb.Mar_14,0)) + (isnull(aa.Apr_14_factor,1)*isnull(bb.Apr_14,0)) + (isnull(aa.May_14_factor,1)*isnull(bb.May_14,0)) + (isnull(aa.Jun_14_factor,1)*isnull(bb.Jun_14,0)) + (isnull(aa.Jul_14_factor,1)*isnull(bb.Jul_14,0)) + (isnull(aa.Aug_14_factor,1)*isnull(bb.Aug_14,0)) + (isnull(aa.Sep_14_factor,1)*isnull(bb.Sep_14,0)) +  (isnull(aa.Oct_14_factor,1)*isnull(bb.Oct_14,0)) + (isnull(aa.Nov_14_factor,1)*isnull(bb.Nov_14,0)) +  (isnull(aa.Dec_14_factor,1)*isnull(bb.Dec_14,0))) as Total_2014_TOTALdemand,
 
-				isnull(aa.Jan_15_CSMdemand,0) + (isnull(aa.Jan_15_factor,1)*isnull(bb.Jan_15,0)) as Jan_15_TOTALdemand,
-				isnull(aa.Feb_15_CSMdemand,0) + (isnull(aa.Feb_15_factor,1)*isnull(bb.Feb_15,0)) as Feb_15_TOTALdemand,
-				isnull(aa.Mar_15_CSMdemand,0) + (isnull(aa.Mar_15_factor,1)*isnull(bb.Mar_15,0)) as Mar_15_TOTALdemand,
-				isnull(aa.Apr_15_CSMdemand,0) + (isnull(aa.Apr_15_factor,1)*isnull(bb.Apr_15,0)) as Apr_15_TOTALdemand,
-				isnull(aa.May_15_CSMdemand,0) + (isnull(aa.May_15_factor,1)*isnull(bb.May_15,0)) as May_15_TOTALdemand,
-				isnull(aa.Jun_15_CSMdemand,0) + (isnull(aa.Jun_15_factor,1)*isnull(bb.Jun_15,0)) as Jun_15_TOTALdemand,
-				isnull(aa.Jul_15_CSMdemand,0) + (isnull(aa.Jul_15_factor,1)*isnull(bb.Jul_15,0)) as Jul_15_TOTALdemand,
-				isnull(aa.Aug_15_CSMdemand,0) + (isnull(aa.Aug_15_factor,1)*isnull(bb.Aug_15,0)) as Aug_15_TOTALdemand,
-				isnull(aa.Sep_15_CSMdemand,0) + (isnull(aa.Sep_15_factor,1)*isnull(bb.Sep_15,0)) as Sep_15_TOTALdemand,
-				isnull(aa.Oct_15_CSMdemand,0) + (isnull(aa.Oct_15_factor,1)*isnull(bb.Oct_15,0)) as Oct_15_TOTALdemand,
-				isnull(aa.Nov_15_CSMdemand,0) + (isnull(aa.Nov_15_factor,1)*isnull(bb.Nov_15,0)) as Nov_15_TOTALdemand,
-				isnull(aa.Dec_15_CSMdemand,0) + (isnull(aa.Dec_15_factor,1)*isnull(bb.Dec_15,0)) as Dec_15_TOTALdemand,		
-				isnull(aa.Total_15_CSMdemand,0) + ((isnull(aa.Jan_15_factor,1)*isnull(bb.Jan_15,0)) + (isnull(aa.Feb_15_factor,1)*isnull(bb.Feb_15,0)) + (isnull(aa.Mar_15_factor,1)*isnull(bb.Mar_15,0)) + (isnull(aa.Apr_15_factor,1)*isnull(bb.Apr_15,0)) + (isnull(aa.May_15_factor,1)*isnull(bb.May_15,0)) + (isnull(aa.Jun_15_factor,1)*isnull(bb.Jun_15,0)) + (isnull(aa.Jul_15_factor,1)*isnull(bb.Jul_15,0)) + (isnull(aa.Aug_15_factor,1)*isnull(bb.Aug_15,0)) + (isnull(aa.Sep_15_factor,1)*isnull(bb.Sep_15,0)) +  (isnull(aa.Oct_15_factor,1)*isnull(bb.Oct_15,0)) + (isnull(aa.Nov_15_factor,1)*isnull(bb.Nov_15,0)) +  (isnull(aa.Dec_15_factor,1)*isnull(bb.Dec_15,0))) as Total_2015_TOTALdemand,
+				--isnull(aa.Jan_15_CSMdemand,0) + (isnull(aa.Jan_15_factor,1)*isnull(bb.Jan_15,0)) as Jan_15_TOTALdemand,
+				--isnull(aa.Feb_15_CSMdemand,0) + (isnull(aa.Feb_15_factor,1)*isnull(bb.Feb_15,0)) as Feb_15_TOTALdemand,
+				--isnull(aa.Mar_15_CSMdemand,0) + (isnull(aa.Mar_15_factor,1)*isnull(bb.Mar_15,0)) as Mar_15_TOTALdemand,
+				--isnull(aa.Apr_15_CSMdemand,0) + (isnull(aa.Apr_15_factor,1)*isnull(bb.Apr_15,0)) as Apr_15_TOTALdemand,
+				--isnull(aa.May_15_CSMdemand,0) + (isnull(aa.May_15_factor,1)*isnull(bb.May_15,0)) as May_15_TOTALdemand,
+				--isnull(aa.Jun_15_CSMdemand,0) + (isnull(aa.Jun_15_factor,1)*isnull(bb.Jun_15,0)) as Jun_15_TOTALdemand,
+				--isnull(aa.Jul_15_CSMdemand,0) + (isnull(aa.Jul_15_factor,1)*isnull(bb.Jul_15,0)) as Jul_15_TOTALdemand,
+				--isnull(aa.Aug_15_CSMdemand,0) + (isnull(aa.Aug_15_factor,1)*isnull(bb.Aug_15,0)) as Aug_15_TOTALdemand,
+				--isnull(aa.Sep_15_CSMdemand,0) + (isnull(aa.Sep_15_factor,1)*isnull(bb.Sep_15,0)) as Sep_15_TOTALdemand,
+				--isnull(aa.Oct_15_CSMdemand,0) + (isnull(aa.Oct_15_factor,1)*isnull(bb.Oct_15,0)) as Oct_15_TOTALdemand,
+				--isnull(aa.Nov_15_CSMdemand,0) + (isnull(aa.Nov_15_factor,1)*isnull(bb.Nov_15,0)) as Nov_15_TOTALdemand,
+				--isnull(aa.Dec_15_CSMdemand,0) + (isnull(aa.Dec_15_factor,1)*isnull(bb.Dec_15,0)) as Dec_15_TOTALdemand,		
+				--isnull(aa.Total_15_CSMdemand,0) + ((isnull(aa.Jan_15_factor,1)*isnull(bb.Jan_15,0)) + (isnull(aa.Feb_15_factor,1)*isnull(bb.Feb_15,0)) + (isnull(aa.Mar_15_factor,1)*isnull(bb.Mar_15,0)) + (isnull(aa.Apr_15_factor,1)*isnull(bb.Apr_15,0)) + (isnull(aa.May_15_factor,1)*isnull(bb.May_15,0)) + (isnull(aa.Jun_15_factor,1)*isnull(bb.Jun_15,0)) + (isnull(aa.Jul_15_factor,1)*isnull(bb.Jul_15,0)) + (isnull(aa.Aug_15_factor,1)*isnull(bb.Aug_15,0)) + (isnull(aa.Sep_15_factor,1)*isnull(bb.Sep_15,0)) +  (isnull(aa.Oct_15_factor,1)*isnull(bb.Oct_15,0)) + (isnull(aa.Nov_15_factor,1)*isnull(bb.Nov_15,0)) +  (isnull(aa.Dec_15_factor,1)*isnull(bb.Dec_15,0))) as Total_2015_TOTALdemand,
 
 				isnull(aa.Jan_16_CSMdemand,0) + (isnull(aa.Jan_16_factor,1)*isnull(bb.Jan_16,0)) as Jan_16_TOTALdemand,
 				isnull(aa.Feb_16_CSMdemand,0) + (isnull(aa.Feb_16_factor,1)*isnull(bb.Feb_16,0)) as Feb_16_TOTALdemand,
@@ -1993,7 +2156,6 @@ SELECT	 cc.[base_part]
 				isnull(aa.Dec_18_CSMdemand,0) + (isnull(aa.Dec_18_factor,1)*isnull(bb.Dec_18,0)) as Dec_18_TOTALdemand,		
 				isnull(aa.Total_18_CSMdemand,0) + ((isnull(aa.Jan_18_factor,1)*isnull(bb.Jan_18,0)) + (isnull(aa.Feb_18_factor,1)*isnull(bb.Feb_18,0)) + (isnull(aa.Mar_18_factor,1)*isnull(bb.Mar_18,0)) + (isnull(aa.Apr_18_factor,1)*isnull(bb.Apr_18,0)) + (isnull(aa.May_18_factor,1)*isnull(bb.May_18,0)) + (isnull(aa.Jun_18_factor,1)*isnull(bb.Jun_18,0)) + (isnull(aa.Jul_18_factor,1)*isnull(bb.Jul_18,0)) + (isnull(aa.Aug_18_factor,1)*isnull(bb.Aug_18,0)) + (isnull(aa.Sep_18_factor,1)*isnull(bb.Sep_18,0)) +  (isnull(aa.Oct_18_factor,1)*isnull(bb.Oct_18,0)) + (isnull(aa.Nov_18_factor,1)*isnull(bb.Nov_18,0)) +  (isnull(aa.Dec_18_factor,1)*isnull(bb.Dec_18,0))) as Total_2018_TOTALdemand,						
 				
-				-- THIS STATEMENT WILL ASSUME A 1 WHEN THE FACTOR IS NULL, THE FACTOR WILL BE NULL WHEN THERE IS NO DEMAND IN THE YEAR; THE RESULT WILL BE MULTIPLIED bY THE NUMBER OF ROWS RETURNED FOR THE PART -- 
 				isnull(aa.Jan_19_CSMdemand,0) + (isnull(aa.Jan_19_factor,1)*isnull(bb.Jan_19,0)) as Jan_19_TOTALdemand,
 				isnull(aa.Feb_19_CSMdemand,0) + (isnull(aa.Feb_19_factor,1)*isnull(bb.Feb_19,0)) as Feb_19_TOTALdemand,
 				isnull(aa.Mar_19_CSMdemand,0) + (isnull(aa.Mar_19_factor,1)*isnull(bb.Mar_19,0)) as Mar_19_TOTALdemand,
@@ -2008,11 +2170,29 @@ SELECT	 cc.[base_part]
 				isnull(aa.Dec_19_CSMdemand,0) + (isnull(aa.Dec_19_factor,1)*isnull(bb.Dec_19,0)) as Dec_19_TOTALdemand,		
 				isnull(aa.Total_19_CSMdemand,0) + ((isnull(aa.Jan_19_factor,1)*isnull(bb.Jan_19,0)) + (isnull(aa.Feb_19_factor,1)*isnull(bb.Feb_19,0)) + (isnull(aa.Mar_19_factor,1)*isnull(bb.Mar_19,0)) + (isnull(aa.Apr_19_factor,1)*isnull(bb.Apr_19,0)) + (isnull(aa.May_19_factor,1)*isnull(bb.May_19,0)) + (isnull(aa.Jun_19_factor,1)*isnull(bb.Jun_19,0)) + (isnull(aa.Jul_19_factor,1)*isnull(bb.Jul_19,0)) + (isnull(aa.Aug_19_factor,1)*isnull(bb.Aug_19,0)) + (isnull(aa.Sep_19_factor,1)*isnull(bb.Sep_19,0)) +  (isnull(aa.Oct_19_factor,1)*isnull(bb.Oct_19,0)) + (isnull(aa.Nov_19_factor,1)*isnull(bb.Nov_19,0)) +  (isnull(aa.Dec_19_factor,1)*isnull(bb.Dec_19,0))) as Total_2019_TOTALdemand,						
 	
-				isnull(aa.Cal20_CSMdemand,0) + (isnull(aa.Cal20_factor,1)*isnull(bb.Cal20,0)) as Cal20_TOTALdemand,
+					
+				isnull(aa.Jan_20_CSMdemand,0) + (isnull(aa.Jan_20_factor,1)*isnull(bb.Jan_20,0)) as Jan_20_TOTALdemand,
+				isnull(aa.Feb_20_CSMdemand,0) + (isnull(aa.Feb_20_factor,1)*isnull(bb.Feb_20,0)) as Feb_20_TOTALdemand,
+				isnull(aa.Mar_20_CSMdemand,0) + (isnull(aa.Mar_20_factor,1)*isnull(bb.Mar_20,0)) as Mar_20_TOTALdemand,
+				isnull(aa.Apr_20_CSMdemand,0) + (isnull(aa.Apr_20_factor,1)*isnull(bb.Apr_20,0)) as Apr_20_TOTALdemand,
+				isnull(aa.May_20_CSMdemand,0) + (isnull(aa.May_20_factor,1)*isnull(bb.May_20,0)) as May_20_TOTALdemand,
+				isnull(aa.Jun_20_CSMdemand,0) + (isnull(aa.Jun_20_factor,1)*isnull(bb.Jun_20,0)) as Jun_20_TOTALdemand,
+				isnull(aa.Jul_20_CSMdemand,0) + (isnull(aa.Jul_20_factor,1)*isnull(bb.Jul_20,0)) as Jul_20_TOTALdemand,
+				isnull(aa.Aug_20_CSMdemand,0) + (isnull(aa.Aug_20_factor,1)*isnull(bb.Aug_20,0)) as Aug_20_TOTALdemand,
+				isnull(aa.Sep_20_CSMdemand,0) + (isnull(aa.Sep_20_factor,1)*isnull(bb.Sep_20,0)) as Sep_20_TOTALdemand,
+				isnull(aa.Oct_20_CSMdemand,0) + (isnull(aa.Oct_20_factor,1)*isnull(bb.Oct_20,0)) as Oct_20_TOTALdemand,
+				isnull(aa.Nov_20_CSMdemand,0) + (isnull(aa.Nov_20_factor,1)*isnull(bb.Nov_20,0)) as Nov_20_TOTALdemand,
+				isnull(aa.Dec_20_CSMdemand,0) + (isnull(aa.Dec_20_factor,1)*isnull(bb.Dec_20,0)) as Dec_20_TOTALdemand,		
+				isnull(aa.Total_20_CSMdemand,0) + ((isnull(aa.Jan_20_factor,1)*isnull(bb.Jan_20,0)) + (isnull(aa.Feb_20_factor,1)*isnull(bb.Feb_20,0)) + (isnull(aa.Mar_20_factor,1)*isnull(bb.Mar_20,0)) + (isnull(aa.Apr_20_factor,1)*isnull(bb.Apr_20,0)) + (isnull(aa.May_20_factor,1)*isnull(bb.May_20,0)) + (isnull(aa.Jun_20_factor,1)*isnull(bb.Jun_20,0)) + (isnull(aa.Jul_20_factor,1)*isnull(bb.Jul_20,0)) + (isnull(aa.Aug_20_factor,1)*isnull(bb.Aug_20,0)) + (isnull(aa.Sep_20_factor,1)*isnull(bb.Sep_20,0)) +  (isnull(aa.Oct_20_factor,1)*isnull(bb.Oct_20,0)) + (isnull(aa.Nov_20_factor,1)*isnull(bb.Nov_20,0)) +  (isnull(aa.Dec_20_factor,1)*isnull(bb.Dec_20,0))) as Total_2020_TOTALdemand,						
+	
 				isnull(aa.Cal21_CSMdemand,0) + (isnull(aa.cal21_factor,1)*isnull(bb.Cal21,0)) as Cal21_TOTALdemand,	
 				isnull(aa.Cal22_CSMdemand,0) + (isnull(aa.Cal22_factor,1)*isnull(bb.Cal22,0)) as Cal22_TOTALdemand,	
 				isnull(aa.Cal23_CSMdemand,0) + (isnull(aa.Cal23_factor,1)*isnull(bb.Cal23,0)) as Cal23_TOTALdemand,
 				isnull(aa.Cal24_CSMdemand,0) + (isnull(aa.Cal24_factor,1)*isnull(bb.Cal24,0)) as Cal24_TOTALdemand	
+	
+	-- THE ABOVE STATEMENT WILL ASSUME A 1 WHEN THE FACTOR IS NULL, THE FACTOR WILL BE NULL WHEN THERE IS NO DEMAND IN THE YEAR; THE RESULT WILL BE MULTIPLIED bY THE NUMBER OF ROWS RETURNED FOR THE PART -- 
+
+	
 		from
 
 				/* LEVEL 3 */
@@ -2092,33 +2272,33 @@ SELECT	 cc.[base_part]
 						--a.dec_13 as Dec_13_CSMdemand, 
 						--a.total_2013 as Total_13_CSMdemand,
 						
-						a.jan_14 as Jan_14_CSMdemand,
-						a.feb_14 as Feb_14_CSMdemand,
-						a.mar_14 as Mar_14_CSMdemand,
-						a.apr_14 as Apr_14_CSMdemand,
-						a.may_14 as May_14_CSMdemand,
-						a.jun_14 as Jun_14_CSMdemand,
-						a.jul_14 as Jul_14_CSMdemand,
-						a.aug_14 as Aug_14_CSMdemand,
-						a.sep_14 as Sep_14_CSMdemand,
-						a.oct_14 as Oct_14_CSMdemand,
-						a.nov_14 as Nov_14_CSMdemand,
-						a.dec_14 as Dec_14_CSMdemand, 
-						a.total_2014 as Total_14_CSMdemand,	
+						--a.jan_14 as Jan_14_CSMdemand,
+						--a.feb_14 as Feb_14_CSMdemand,
+						--a.mar_14 as Mar_14_CSMdemand,
+						--a.apr_14 as Apr_14_CSMdemand,
+						--a.may_14 as May_14_CSMdemand,
+						--a.jun_14 as Jun_14_CSMdemand,
+						--a.jul_14 as Jul_14_CSMdemand,
+						--a.aug_14 as Aug_14_CSMdemand,
+						--a.sep_14 as Sep_14_CSMdemand,
+						--a.oct_14 as Oct_14_CSMdemand,
+						--a.nov_14 as Nov_14_CSMdemand,
+						--a.dec_14 as Dec_14_CSMdemand, 
+						--a.total_2014 as Total_14_CSMdemand,	
 						
-						a.jan_15 as Jan_15_CSMdemand,
-						a.feb_15 as Feb_15_CSMdemand,
-						a.mar_15 as Mar_15_CSMdemand,
-						a.apr_15 as Apr_15_CSMdemand,
-						a.may_15 as May_15_CSMdemand,
-						a.jun_15 as Jun_15_CSMdemand,
-						a.jul_15 as Jul_15_CSMdemand,
-						a.aug_15 as Aug_15_CSMdemand,
-						a.sep_15 as Sep_15_CSMdemand,
-						a.oct_15 as Oct_15_CSMdemand,
-						a.nov_15 as Nov_15_CSMdemand,
-						a.dec_15 as Dec_15_CSMdemand, 
-						a.total_2015 as Total_15_CSMdemand,		
+						--a.jan_15 as Jan_15_CSMdemand,
+						--a.feb_15 as Feb_15_CSMdemand,
+						--a.mar_15 as Mar_15_CSMdemand,
+						--a.apr_15 as Apr_15_CSMdemand,
+						--a.may_15 as May_15_CSMdemand,
+						--a.jun_15 as Jun_15_CSMdemand,
+						--a.jul_15 as Jul_15_CSMdemand,
+						--a.aug_15 as Aug_15_CSMdemand,
+						--a.sep_15 as Sep_15_CSMdemand,
+						--a.oct_15 as Oct_15_CSMdemand,
+						--a.nov_15 as Nov_15_CSMdemand,
+						--a.dec_15 as Dec_15_CSMdemand, 
+						--a.total_2015 as Total_15_CSMdemand,		
 						
 						a.jan_16 as Jan_16_CSMdemand,
 						a.feb_16 as Feb_16_CSMdemand,
@@ -2176,7 +2356,20 @@ SELECT	 cc.[base_part]
 						a.dec_19 as Dec_19_CSMdemand, 
 						a.total_2019 as Total_19_CSMdemand,	
 
-						a.cal20 as CAL20_CSMdemand,
+						a.jan_20 as Jan_20_CSMdemand,
+						a.feb_20 as Feb_20_CSMdemand,
+						a.mar_20 as Mar_20_CSMdemand,
+						a.apr_20 as Apr_20_CSMdemand,
+						a.may_20 as May_20_CSMdemand,
+						a.jun_20 as Jun_20_CSMdemand,
+						a.jul_20 as Jul_20_CSMdemand,
+						a.aug_20 as Aug_20_CSMdemand,
+						a.sep_20 as Sep_20_CSMdemand,
+						a.oct_20 as Oct_20_CSMdemand,
+						a.nov_20 as Nov_20_CSMdemand,
+						a.dec_20 as Dec_20_CSMdemand, 
+						a.total_2020 as Total_20_CSMdemand,	
+						
 						a.cal21 as CAL21_CSMdemand,
 						a.cal22 as CAL22_CSMdemand,
 						a.cal23 as CAL23_CSMdemand,
@@ -2234,31 +2427,31 @@ SELECT	 cc.[base_part]
 						--(case when isnull(b.nov_13,0)=0 then a.total_2013/NULLIF(b.total_2013,0) else a.nov_13/NULLIF(b.nov_13,0) end) as nov_13_factor,
 						--(case when isnull(b.dec_13,0)=0 then a.total_2013/NULLIF(b.total_2013,0) else a.dec_13/NULLIF(b.dec_13,0) end) as dec_13_factor,
 								
-						(case when isnull(b.jan_14,0)=0 then a.total_2014/NULLIF(b.total_2014,0) else a.jan_14/NULLIF(b.jan_14,0) end) as jan_14_factor, 
-						(case when isnull(b.feb_14,0)=0 then a.total_2014/NULLIF(b.total_2014,0) else a.feb_14/NULLIF(b.feb_14,0) end) as feb_14_factor,
-						(case when isnull(b.mar_14,0)=0 then a.total_2014/NULLIF(b.total_2014,0) else a.mar_14/NULLIF(b.mar_14,0) end) as mar_14_factor,
-						(case when isnull(b.apr_14,0)=0 then a.total_2014/NULLIF(b.total_2014,0) else a.apr_14/NULLIF(b.apr_14,0) end) as apr_14_factor,
-						(case when isnull(b.may_14,0)=0 then a.total_2014/NULLIF(b.total_2014,0) else a.may_14/NULLIF(b.may_14,0) end) as may_14_factor,
-						(case when isnull(b.jun_14,0)=0 then a.total_2014/NULLIF(b.total_2014,0) else a.jun_14/NULLIF(b.jun_14,0) end) as jun_14_factor,
-						(case when isnull(b.jul_14,0)=0 then a.total_2014/NULLIF(b.total_2014,0) else a.jul_14/NULLIF(b.jul_14,0) end) as jul_14_factor, 
-						(case when isnull(b.aug_14,0)=0 then a.total_2014/NULLIF(b.total_2014,0) else a.aug_14/NULLIF(b.aug_14,0) end) as aug_14_factor,
-						(case when isnull(b.sep_14,0)=0 then a.total_2014/NULLIF(b.total_2014,0) else a.sep_14/NULLIF(b.sep_14,0) end) as sep_14_factor,
-						(case when isnull(b.oct_14,0)=0 then a.total_2014/NULLIF(b.total_2014,0) else a.oct_14/NULLIF(b.oct_14,0) end) as oct_14_factor,
-						(case when isnull(b.nov_14,0)=0 then a.total_2014/NULLIF(b.total_2014,0) else a.nov_14/NULLIF(b.nov_14,0) end) as nov_14_factor,
-						(case when isnull(b.dec_14,0)=0 then a.total_2014/NULLIF(b.total_2014,0) else a.dec_14/NULLIF(b.dec_14,0) end) as dec_14_factor,
+						--(case when isnull(b.jan_14,0)=0 then a.total_2014/NULLIF(b.total_2014,0) else a.jan_14/NULLIF(b.jan_14,0) end) as jan_14_factor, 
+						--(case when isnull(b.feb_14,0)=0 then a.total_2014/NULLIF(b.total_2014,0) else a.feb_14/NULLIF(b.feb_14,0) end) as feb_14_factor,
+						--(case when isnull(b.mar_14,0)=0 then a.total_2014/NULLIF(b.total_2014,0) else a.mar_14/NULLIF(b.mar_14,0) end) as mar_14_factor,
+						--(case when isnull(b.apr_14,0)=0 then a.total_2014/NULLIF(b.total_2014,0) else a.apr_14/NULLIF(b.apr_14,0) end) as apr_14_factor,
+						--(case when isnull(b.may_14,0)=0 then a.total_2014/NULLIF(b.total_2014,0) else a.may_14/NULLIF(b.may_14,0) end) as may_14_factor,
+						--(case when isnull(b.jun_14,0)=0 then a.total_2014/NULLIF(b.total_2014,0) else a.jun_14/NULLIF(b.jun_14,0) end) as jun_14_factor,
+						--(case when isnull(b.jul_14,0)=0 then a.total_2014/NULLIF(b.total_2014,0) else a.jul_14/NULLIF(b.jul_14,0) end) as jul_14_factor, 
+						--(case when isnull(b.aug_14,0)=0 then a.total_2014/NULLIF(b.total_2014,0) else a.aug_14/NULLIF(b.aug_14,0) end) as aug_14_factor,
+						--(case when isnull(b.sep_14,0)=0 then a.total_2014/NULLIF(b.total_2014,0) else a.sep_14/NULLIF(b.sep_14,0) end) as sep_14_factor,
+						--(case when isnull(b.oct_14,0)=0 then a.total_2014/NULLIF(b.total_2014,0) else a.oct_14/NULLIF(b.oct_14,0) end) as oct_14_factor,
+						--(case when isnull(b.nov_14,0)=0 then a.total_2014/NULLIF(b.total_2014,0) else a.nov_14/NULLIF(b.nov_14,0) end) as nov_14_factor,
+						--(case when isnull(b.dec_14,0)=0 then a.total_2014/NULLIF(b.total_2014,0) else a.dec_14/NULLIF(b.dec_14,0) end) as dec_14_factor,
 
-						(case when isnull(b.jan_15,0)=0 then a.total_2015/NULLIF(b.total_2015,0) else a.jan_15/NULLIF(b.jan_15,0) end) as jan_15_factor, 
-						(case when isnull(b.feb_15,0)=0 then a.total_2015/NULLIF(b.total_2015,0) else a.feb_15/NULLIF(b.feb_15,0) end) as feb_15_factor,
-						(case when isnull(b.mar_15,0)=0 then a.total_2015/NULLIF(b.total_2015,0) else a.mar_15/NULLIF(b.mar_15,0) end) as mar_15_factor,
-						(case when isnull(b.apr_15,0)=0 then a.total_2015/NULLIF(b.total_2015,0) else a.apr_15/NULLIF(b.apr_15,0) end) as apr_15_factor,
-						(case when isnull(b.may_15,0)=0 then a.total_2015/NULLIF(b.total_2015,0) else a.may_15/NULLIF(b.may_15,0) end) as may_15_factor,
-						(case when isnull(b.jun_15,0)=0 then a.total_2015/NULLIF(b.total_2015,0) else a.jun_15/NULLIF(b.jun_15,0) end) as jun_15_factor,
-						(case when isnull(b.jul_15,0)=0 then a.total_2015/NULLIF(b.total_2015,0) else a.jul_15/NULLIF(b.jul_15,0) end) as jul_15_factor, 
-						(case when isnull(b.aug_15,0)=0 then a.total_2015/NULLIF(b.total_2015,0) else a.aug_15/NULLIF(b.aug_15,0) end) as aug_15_factor,
-						(case when isnull(b.sep_15,0)=0 then a.total_2015/NULLIF(b.total_2015,0) else a.sep_15/NULLIF(b.sep_15,0) end) as sep_15_factor,
-						(case when isnull(b.oct_15,0)=0 then a.total_2015/NULLIF(b.total_2015,0) else a.oct_15/NULLIF(b.oct_15,0) end) as oct_15_factor,
-						(case when isnull(b.nov_15,0)=0 then a.total_2015/NULLIF(b.total_2015,0) else a.nov_15/NULLIF(b.nov_15,0) end) as nov_15_factor,
-						(case when isnull(b.dec_15,0)=0 then a.total_2015/NULLIF(b.total_2015,0) else a.dec_15/NULLIF(b.dec_15,0) end) as dec_15_factor,
+						--(case when isnull(b.jan_15,0)=0 then a.total_2015/NULLIF(b.total_2015,0) else a.jan_15/NULLIF(b.jan_15,0) end) as jan_15_factor, 
+						--(case when isnull(b.feb_15,0)=0 then a.total_2015/NULLIF(b.total_2015,0) else a.feb_15/NULLIF(b.feb_15,0) end) as feb_15_factor,
+						--(case when isnull(b.mar_15,0)=0 then a.total_2015/NULLIF(b.total_2015,0) else a.mar_15/NULLIF(b.mar_15,0) end) as mar_15_factor,
+						--(case when isnull(b.apr_15,0)=0 then a.total_2015/NULLIF(b.total_2015,0) else a.apr_15/NULLIF(b.apr_15,0) end) as apr_15_factor,
+						--(case when isnull(b.may_15,0)=0 then a.total_2015/NULLIF(b.total_2015,0) else a.may_15/NULLIF(b.may_15,0) end) as may_15_factor,
+						--(case when isnull(b.jun_15,0)=0 then a.total_2015/NULLIF(b.total_2015,0) else a.jun_15/NULLIF(b.jun_15,0) end) as jun_15_factor,
+						--(case when isnull(b.jul_15,0)=0 then a.total_2015/NULLIF(b.total_2015,0) else a.jul_15/NULLIF(b.jul_15,0) end) as jul_15_factor, 
+						--(case when isnull(b.aug_15,0)=0 then a.total_2015/NULLIF(b.total_2015,0) else a.aug_15/NULLIF(b.aug_15,0) end) as aug_15_factor,
+						--(case when isnull(b.sep_15,0)=0 then a.total_2015/NULLIF(b.total_2015,0) else a.sep_15/NULLIF(b.sep_15,0) end) as sep_15_factor,
+						--(case when isnull(b.oct_15,0)=0 then a.total_2015/NULLIF(b.total_2015,0) else a.oct_15/NULLIF(b.oct_15,0) end) as oct_15_factor,
+						--(case when isnull(b.nov_15,0)=0 then a.total_2015/NULLIF(b.total_2015,0) else a.nov_15/NULLIF(b.nov_15,0) end) as nov_15_factor,
+						--(case when isnull(b.dec_15,0)=0 then a.total_2015/NULLIF(b.total_2015,0) else a.dec_15/NULLIF(b.dec_15,0) end) as dec_15_factor,
 						
 						(case when isnull(b.jan_16,0)=0 then a.total_2016/NULLIF(b.total_2016,0) else a.jan_16/NULLIF(b.jan_16,0) end) as jan_16_factor, 
 						(case when isnull(b.feb_16,0)=0 then a.total_2016/NULLIF(b.total_2016,0) else a.feb_16/NULLIF(b.feb_16,0) end) as feb_16_factor,
@@ -2299,8 +2492,6 @@ SELECT	 cc.[base_part]
 						(case when isnull(b.nov_18,0)=0 then a.total_2018/NULLIF(b.total_2018,0) else a.nov_18/NULLIF(b.nov_18,0) end) as nov_18_factor,
 						(case when isnull(b.dec_18,0)=0 then a.total_2018/NULLIF(b.total_2018,0) else a.dec_18/NULLIF(b.dec_18,0) end) as dec_18_factor,
 						
-
-						-- THIS STATEMENT WILL NOT RETURN RESULTS WHEN THE ENTIRE YEAR IS 0 --
 						(case when isnull(b.jan_19,0)=0 then a.total_2019/NULLIF(b.total_2019,0) else a.jan_19/NULLIF(b.jan_19,0) end) as jan_19_factor, 
 						(case when isnull(b.feb_19,0)=0 then a.total_2019/NULLIF(b.total_2019,0) else a.feb_19/NULLIF(b.feb_19,0) end) as feb_19_factor,
 						(case when isnull(b.mar_19,0)=0 then a.total_2019/NULLIF(b.total_2019,0) else a.mar_19/NULLIF(b.mar_19,0) end) as mar_19_factor,
@@ -2313,12 +2504,27 @@ SELECT	 cc.[base_part]
 						(case when isnull(b.oct_19,0)=0 then a.total_2019/NULLIF(b.total_2019,0) else a.oct_19/NULLIF(b.oct_19,0) end) as oct_19_factor,
 						(case when isnull(b.nov_19,0)=0 then a.total_2019/NULLIF(b.total_2019,0) else a.nov_19/NULLIF(b.nov_19,0) end) as nov_19_factor,
 						(case when isnull(b.dec_19,0)=0 then a.total_2019/NULLIF(b.total_2019,0) else a.dec_19/NULLIF(b.dec_19,0) end) as dec_19_factor,
-						
-						(case when isnull(b.cal20,0)=0 then 1 else a.cal20/NULLIF(b.cal20,0) end) as cal20_factor,
+
+						(case when isnull(b.jan_20,0)=0 then a.total_2020/NULLIF(b.total_2020,0) else a.jan_20/NULLIF(b.jan_20,0) end) as jan_20_factor, 
+						(case when isnull(b.feb_20,0)=0 then a.total_2020/NULLIF(b.total_2020,0) else a.feb_20/NULLIF(b.feb_20,0) end) as feb_20_factor,
+						(case when isnull(b.mar_20,0)=0 then a.total_2020/NULLIF(b.total_2020,0) else a.mar_20/NULLIF(b.mar_20,0) end) as mar_20_factor,
+						(case when isnull(b.apr_20,0)=0 then a.total_2020/NULLIF(b.total_2020,0) else a.apr_20/NULLIF(b.apr_20,0) end) as apr_20_factor,
+						(case when isnull(b.may_20,0)=0 then a.total_2020/NULLIF(b.total_2020,0) else a.may_20/NULLIF(b.may_20,0) end) as may_20_factor,
+						(case when isnull(b.jun_20,0)=0 then a.total_2020/NULLIF(b.total_2020,0) else a.jun_20/NULLIF(b.jun_20,0) end) as jun_20_factor,
+						(case when isnull(b.jul_20,0)=0 then a.total_2020/NULLIF(b.total_2020,0) else a.jul_20/NULLIF(b.jul_20,0) end) as jul_20_factor, 
+						(case when isnull(b.aug_20,0)=0 then a.total_2020/NULLIF(b.total_2020,0) else a.aug_20/NULLIF(b.aug_20,0) end) as aug_20_factor,
+						(case when isnull(b.sep_20,0)=0 then a.total_2020/NULLIF(b.total_2020,0) else a.sep_20/NULLIF(b.sep_20,0) end) as sep_20_factor,
+						(case when isnull(b.oct_20,0)=0 then a.total_2020/NULLIF(b.total_2020,0) else a.oct_20/NULLIF(b.oct_20,0) end) as oct_20_factor,
+						(case when isnull(b.nov_20,0)=0 then a.total_2020/NULLIF(b.total_2020,0) else a.nov_20/NULLIF(b.nov_20,0) end) as nov_20_factor,
+						(case when isnull(b.dec_20,0)=0 then a.total_2020/NULLIF(b.total_2020,0) else a.dec_20/NULLIF(b.dec_20,0) end) as dec_20_factor,
+									
 						(case when isnull(b.cal21,0)=0 then 1 else a.cal21/NULLIF(b.cal21,0) end) as cal21_factor,
 						(case when isnull(b.cal22,0)=0 then 1 else a.cal22/NULLIF(b.cal22,0) end) as cal22_factor,
 						(case when isnull(b.cal23,0)=0 then 1 else a.cal23/NULLIF(b.cal23,0) end) as cal23_factor,
 						(case when isnull(b.cal24,0)=0 then 1 else a.cal24/NULLIF(b.cal24,0) end) as cal24_factor
+				
+						-- THE ABOVE STATEMENT WILL NOT RETURN RESULTS WHEN THE ENTIRE YEAR IS 0 --
+
 				from
 					
 						/* LEVEL 4 */
@@ -2398,33 +2604,33 @@ SELECT	 cc.[base_part]
 								--ISNULL(a.qty_per*a.take_rate*a.family_allocation*b.dec_13*c.dec_13,0) as dec_13,  
 								--(a.qty_per*a.take_rate*a.family_allocation)*(ISNULL(b.jan_13*c.jan_13,0)+ISNULL(b.feb_13*c.feb_13,0)+ISNULL(b.mar_13*c.mar_13,0)+ISNULL(b.apr_13*c.apr_13,0)+ISNULL(b.may_13*c.may_13,0)+ISNULL(b.jun_13*c.jun_13,0)+ISNULL(b.jul_13*c.jul_13,0)+ISNULL(b.aug_13*c.aug_13,0)+ISNULL(b.sep_13*c.sep_13,0)+ISNULL(b.oct_13*c.oct_13,0)+ISNULL(b.nov_13*c.nov_13,0)+ISNULL(b.dec_13*c.dec_13,0)) as total_2013,
 								
-								ISNULL(a.qty_per*a.take_rate*a.family_allocation*b.jan_14*c.jan_14,0) as jan_14, 
-								ISNULL(a.qty_per*a.take_rate*a.family_allocation*b.feb_14*c.feb_14,0) as feb_14,
-								ISNULL(a.qty_per*a.take_rate*a.family_allocation*b.mar_14*c.mar_14,0) as mar_14, 
-								ISNULL(a.qty_per*a.take_rate*a.family_allocation*b.apr_14*c.apr_14,0) as apr_14, 
-								ISNULL(a.qty_per*a.take_rate*a.family_allocation*b.may_14*c.may_14,0) as may_14,
-								ISNULL(a.qty_per*a.take_rate*a.family_allocation*b.jun_14*c.jun_14,0) as jun_14, 
-								ISNULL(a.qty_per*a.take_rate*a.family_allocation*b.jul_14*c.jul_14,0) as jul_14, 
-								ISNULL(a.qty_per*a.take_rate*a.family_allocation*b.aug_14*c.aug_14,0) as aug_14, 
-								ISNULL(a.qty_per*a.take_rate*a.family_allocation*b.sep_14*c.sep_14,0) as sep_14,  
-								ISNULL(a.qty_per*a.take_rate*a.family_allocation*b.oct_14*c.oct_14,0) as oct_14, 
-								ISNULL(a.qty_per*a.take_rate*a.family_allocation*b.nov_14*c.nov_14,0) as nov_14, 
-								ISNULL(a.qty_per*a.take_rate*a.family_allocation*b.dec_14*c.dec_14,0) as dec_14,  
-								(a.qty_per*a.take_rate*a.family_allocation)*(ISNULL(b.jan_14*c.jan_14,0)+ISNULL(b.feb_14*c.feb_14,0)+ISNULL(b.mar_14*c.mar_14,0)+ISNULL(b.apr_14*c.apr_14,0)+ISNULL(b.may_14*c.may_14,0)+ISNULL(b.jun_14*c.jun_14,0)+ISNULL(b.jul_14*c.jul_14,0)+ISNULL(b.aug_14*c.aug_14,0)+ISNULL(b.sep_14*c.sep_14,0)+ISNULL(b.oct_14*c.oct_14,0)+ISNULL(b.nov_14*c.nov_14,0)+ISNULL(b.dec_14*c.dec_14,0)) as total_2014,
+								--ISNULL(a.qty_per*a.take_rate*a.family_allocation*b.jan_14*c.jan_14,0) as jan_14, 
+								--ISNULL(a.qty_per*a.take_rate*a.family_allocation*b.feb_14*c.feb_14,0) as feb_14,
+								--ISNULL(a.qty_per*a.take_rate*a.family_allocation*b.mar_14*c.mar_14,0) as mar_14, 
+								--ISNULL(a.qty_per*a.take_rate*a.family_allocation*b.apr_14*c.apr_14,0) as apr_14, 
+								--ISNULL(a.qty_per*a.take_rate*a.family_allocation*b.may_14*c.may_14,0) as may_14,
+								--ISNULL(a.qty_per*a.take_rate*a.family_allocation*b.jun_14*c.jun_14,0) as jun_14, 
+								--ISNULL(a.qty_per*a.take_rate*a.family_allocation*b.jul_14*c.jul_14,0) as jul_14, 
+								--ISNULL(a.qty_per*a.take_rate*a.family_allocation*b.aug_14*c.aug_14,0) as aug_14, 
+								--ISNULL(a.qty_per*a.take_rate*a.family_allocation*b.sep_14*c.sep_14,0) as sep_14,  
+								--ISNULL(a.qty_per*a.take_rate*a.family_allocation*b.oct_14*c.oct_14,0) as oct_14, 
+								--ISNULL(a.qty_per*a.take_rate*a.family_allocation*b.nov_14*c.nov_14,0) as nov_14, 
+								--ISNULL(a.qty_per*a.take_rate*a.family_allocation*b.dec_14*c.dec_14,0) as dec_14,  
+								--(a.qty_per*a.take_rate*a.family_allocation)*(ISNULL(b.jan_14*c.jan_14,0)+ISNULL(b.feb_14*c.feb_14,0)+ISNULL(b.mar_14*c.mar_14,0)+ISNULL(b.apr_14*c.apr_14,0)+ISNULL(b.may_14*c.may_14,0)+ISNULL(b.jun_14*c.jun_14,0)+ISNULL(b.jul_14*c.jul_14,0)+ISNULL(b.aug_14*c.aug_14,0)+ISNULL(b.sep_14*c.sep_14,0)+ISNULL(b.oct_14*c.oct_14,0)+ISNULL(b.nov_14*c.nov_14,0)+ISNULL(b.dec_14*c.dec_14,0)) as total_2014,
 
-								ISNULL(a.qty_per*a.take_rate*a.family_allocation*b.jan_15*c.jan_15,0) as jan_15, 
-								ISNULL(a.qty_per*a.take_rate*a.family_allocation*b.feb_15*c.feb_15,0) as feb_15,
-								ISNULL(a.qty_per*a.take_rate*a.family_allocation*b.mar_15*c.mar_15,0) as mar_15, 
-								ISNULL(a.qty_per*a.take_rate*a.family_allocation*b.apr_15*c.apr_15,0) as apr_15, 
-								ISNULL(a.qty_per*a.take_rate*a.family_allocation*b.may_15*c.may_15,0) as may_15,
-								ISNULL(a.qty_per*a.take_rate*a.family_allocation*b.jun_15*c.jun_15,0) as jun_15, 
-								ISNULL(a.qty_per*a.take_rate*a.family_allocation*b.jul_15*c.jul_15,0) as jul_15, 
-								ISNULL(a.qty_per*a.take_rate*a.family_allocation*b.aug_15*c.aug_15,0) as aug_15, 
-								ISNULL(a.qty_per*a.take_rate*a.family_allocation*b.sep_15*c.sep_15,0) as sep_15,  
-								ISNULL(a.qty_per*a.take_rate*a.family_allocation*b.oct_15*c.oct_15,0) as oct_15, 
-								ISNULL(a.qty_per*a.take_rate*a.family_allocation*b.nov_15*c.nov_15,0) as nov_15, 
-								ISNULL(a.qty_per*a.take_rate*a.family_allocation*b.dec_15*c.dec_15,0) as dec_15,  
-								(a.qty_per*a.take_rate*a.family_allocation)*(ISNULL(b.jan_15*c.jan_15,0)+ISNULL(b.feb_15*c.feb_15,0)+ISNULL(b.mar_15*c.mar_15,0)+ISNULL(b.apr_15*c.apr_15,0)+ISNULL(b.may_15*c.may_15,0)+ISNULL(b.jun_15*c.jun_15,0)+ISNULL(b.jul_15*c.jul_15,0)+ISNULL(b.aug_15*c.aug_15,0)+ISNULL(b.sep_15*c.sep_15,0)+ISNULL(b.oct_15*c.oct_15,0)+ISNULL(b.nov_15*c.nov_15,0)+ISNULL(b.dec_15*c.dec_15,0)) as total_2015,
+								--ISNULL(a.qty_per*a.take_rate*a.family_allocation*b.jan_15*c.jan_15,0) as jan_15, 
+								--ISNULL(a.qty_per*a.take_rate*a.family_allocation*b.feb_15*c.feb_15,0) as feb_15,
+								--ISNULL(a.qty_per*a.take_rate*a.family_allocation*b.mar_15*c.mar_15,0) as mar_15, 
+								--ISNULL(a.qty_per*a.take_rate*a.family_allocation*b.apr_15*c.apr_15,0) as apr_15, 
+								--ISNULL(a.qty_per*a.take_rate*a.family_allocation*b.may_15*c.may_15,0) as may_15,
+								--ISNULL(a.qty_per*a.take_rate*a.family_allocation*b.jun_15*c.jun_15,0) as jun_15, 
+								--ISNULL(a.qty_per*a.take_rate*a.family_allocation*b.jul_15*c.jul_15,0) as jul_15, 
+								--ISNULL(a.qty_per*a.take_rate*a.family_allocation*b.aug_15*c.aug_15,0) as aug_15, 
+								--ISNULL(a.qty_per*a.take_rate*a.family_allocation*b.sep_15*c.sep_15,0) as sep_15,  
+								--ISNULL(a.qty_per*a.take_rate*a.family_allocation*b.oct_15*c.oct_15,0) as oct_15, 
+								--ISNULL(a.qty_per*a.take_rate*a.family_allocation*b.nov_15*c.nov_15,0) as nov_15, 
+								--ISNULL(a.qty_per*a.take_rate*a.family_allocation*b.dec_15*c.dec_15,0) as dec_15,  
+								--(a.qty_per*a.take_rate*a.family_allocation)*(ISNULL(b.jan_15*c.jan_15,0)+ISNULL(b.feb_15*c.feb_15,0)+ISNULL(b.mar_15*c.mar_15,0)+ISNULL(b.apr_15*c.apr_15,0)+ISNULL(b.may_15*c.may_15,0)+ISNULL(b.jun_15*c.jun_15,0)+ISNULL(b.jul_15*c.jul_15,0)+ISNULL(b.aug_15*c.aug_15,0)+ISNULL(b.sep_15*c.sep_15,0)+ISNULL(b.oct_15*c.oct_15,0)+ISNULL(b.nov_15*c.nov_15,0)+ISNULL(b.dec_15*c.dec_15,0)) as total_2015,
 
 								ISNULL(a.qty_per*a.take_rate*a.family_allocation*b.jan_16*c.jan_16,0) as jan_16, 
 								ISNULL(a.qty_per*a.take_rate*a.family_allocation*b.feb_16*c.feb_16,0) as feb_16,
@@ -2467,8 +2673,7 @@ SELECT	 cc.[base_part]
 								ISNULL(a.qty_per*a.take_rate*a.family_allocation*b.nov_18*c.nov_18,0) as nov_18, 
 								ISNULL(a.qty_per*a.take_rate*a.family_allocation*b.dec_18*c.dec_18,0) as dec_18,  
 								(a.qty_per*a.take_rate*a.family_allocation)*(ISNULL(b.jan_18*c.jan_18,0)+ISNULL(b.feb_18*c.feb_18,0)+ISNULL(b.mar_18*c.mar_18,0)+ISNULL(b.apr_18*c.apr_18,0)+ISNULL(b.may_18*c.may_18,0)+ISNULL(b.jun_18*c.jun_18,0)+ISNULL(b.jul_18*c.jul_18,0)+ISNULL(b.aug_18*c.aug_18,0)+ISNULL(b.sep_18*c.sep_18,0)+ISNULL(b.oct_18*c.oct_18,0)+ISNULL(b.nov_18*c.nov_18,0)+ISNULL(b.dec_18*c.dec_18,0)) as total_2018,
-								
-								
+																
 								ISNULL(a.qty_per*a.take_rate*a.family_allocation*b.jan_19*c.jan_19,0) as jan_19, 
 								ISNULL(a.qty_per*a.take_rate*a.family_allocation*b.feb_19*c.feb_19,0) as feb_19,
 								ISNULL(a.qty_per*a.take_rate*a.family_allocation*b.mar_19*c.mar_19,0) as mar_19, 
@@ -2482,8 +2687,21 @@ SELECT	 cc.[base_part]
 								ISNULL(a.qty_per*a.take_rate*a.family_allocation*b.nov_19*c.nov_19,0) as nov_19, 
 								ISNULL(a.qty_per*a.take_rate*a.family_allocation*b.dec_19*c.dec_19,0) as dec_19,  
 								(a.qty_per*a.take_rate*a.family_allocation)*(ISNULL(b.jan_19*c.jan_19,0)+ISNULL(b.feb_19*c.feb_19,0)+ISNULL(b.mar_19*c.mar_19,0)+ISNULL(b.apr_19*c.apr_19,0)+ISNULL(b.may_19*c.may_19,0)+ISNULL(b.jun_19*c.jun_19,0)+ISNULL(b.jul_19*c.jul_19,0)+ISNULL(b.aug_19*c.aug_19,0)+ISNULL(b.sep_19*c.sep_19,0)+ISNULL(b.oct_19*c.oct_19,0)+ISNULL(b.nov_19*c.nov_19,0)+ISNULL(b.dec_19*c.dec_19,0)) as total_2019,
-		
-								ISNULL(a.qty_per*a.take_rate*a.family_allocation*b.CAL20*c.cal20,0) as cal20, 
+
+								ISNULL(a.qty_per*a.take_rate*a.family_allocation*b.jan_20*c.jan_20,0) as jan_20, 
+								ISNULL(a.qty_per*a.take_rate*a.family_allocation*b.feb_20*c.feb_20,0) as feb_20,
+								ISNULL(a.qty_per*a.take_rate*a.family_allocation*b.mar_20*c.mar_20,0) as mar_20, 
+								ISNULL(a.qty_per*a.take_rate*a.family_allocation*b.apr_20*c.apr_20,0) as apr_20, 
+								ISNULL(a.qty_per*a.take_rate*a.family_allocation*b.may_20*c.may_20,0) as may_20,
+								ISNULL(a.qty_per*a.take_rate*a.family_allocation*b.jun_20*c.jun_20,0) as jun_20, 
+								ISNULL(a.qty_per*a.take_rate*a.family_allocation*b.jul_20*c.jul_20,0) as jul_20, 
+								ISNULL(a.qty_per*a.take_rate*a.family_allocation*b.aug_20*c.aug_20,0) as aug_20, 
+								ISNULL(a.qty_per*a.take_rate*a.family_allocation*b.sep_20*c.sep_20,0) as sep_20,  
+								ISNULL(a.qty_per*a.take_rate*a.family_allocation*b.oct_20*c.oct_20,0) as oct_20, 
+								ISNULL(a.qty_per*a.take_rate*a.family_allocation*b.nov_20*c.nov_20,0) as nov_20, 
+								ISNULL(a.qty_per*a.take_rate*a.family_allocation*b.dec_20*c.dec_20,0) as dec_20,  
+								(a.qty_per*a.take_rate*a.family_allocation)*(ISNULL(b.jan_20*c.jan_20,0)+ISNULL(b.feb_20*c.feb_20,0)+ISNULL(b.mar_20*c.mar_20,0)+ISNULL(b.apr_20*c.apr_20,0)+ISNULL(b.may_20*c.may_20,0)+ISNULL(b.jun_20*c.jun_20,0)+ISNULL(b.jul_20*c.jul_20,0)+ISNULL(b.aug_20*c.aug_20,0)+ISNULL(b.sep_20*c.sep_20,0)+ISNULL(b.oct_20*c.oct_20,0)+ISNULL(b.nov_20*c.nov_20,0)+ISNULL(b.dec_20*c.dec_20,0)) as total_2020,
+				
 								ISNULL(a.qty_per*a.take_rate*a.family_allocation*b.CAL21*c.cal21,0) as cal21, 
 								ISNULL(a.qty_per*a.take_rate*a.family_allocation*b.CAL22*c.cal22,0) as cal22,
 								ISNULL(a.QTY_PER*a.take_rate*a.family_allocation*b.CAL23*c.cal23,0) as cal23,
@@ -2491,14 +2709,17 @@ SELECT	 cc.[base_part]
 						from	
 					
 								/* LEVEL 5 */
-								(select * from eeiuser.acctg_csm_base_part_mnemonic
+								(select * 
+								 from	eeiuser.acctg_csm_base_part_mnemonic
+								 where	release_id = --'2018-01'
+											(SELECT [dbo].[fn_ReturnLatestCSMRelease] ('CSM') )
 								) a 
 								left outer join 
 									(	select	* 
 										from	eeiuser.acctg_csm_NACSM 
 										where	version = 'CSM' 
-												and release_id = --'2013-10'
-													(SELECT [dbo].[fn_ReturnLatestCSMRelease] ('CSM') )  
+											and release_id = --'2018-01'
+												(SELECT [dbo].[fn_ReturnLatestCSMRelease] ('CSM') )  
 								) b
 								on a.mnemonic = b.mnemonic 
 						 		left outer join
@@ -2576,33 +2797,33 @@ SELECT	 cc.[base_part]
 										--ISNULL(b.dec_13,0) as dec_13,  
 										--(ISNULL(b.jan_13,0)+ISNULL(b.feb_13,0)+ISNULL(b.mar_13,0)+ISNULL(b.apr_13,0)+ISNULL(b.may_13,0)+ISNULL(b.jun_13,0)+ISNULL(b.jul_13,0)+ISNULL(b.aug_13,0)+ISNULL(b.sep_13,0)+ISNULL(b.oct_13,0)+ISNULL(b.nov_13,0)+ISNULL(b.dec_13,0)) as total_2013,
 					
-										ISNULL(b.jan_14,0) as jan_14, 
-										ISNULL(b.feb_14,0) as feb_14,
-										ISNULL(b.mar_14,0) as mar_14, 
-										ISNULL(b.apr_14,0) as apr_14, 
-										ISNULL(b.may_14,0) as may_14,
-										ISNULL(b.jun_14,0) as jun_14, 
-										ISNULL(b.jul_14,0) as jul_14, 
-										ISNULL(b.aug_14,0) as aug_14, 
-										ISNULL(b.sep_14,0) as sep_14,  
-										ISNULL(b.oct_14,0) as oct_14, 
-										ISNULL(b.nov_14,0) as nov_14, 
-										ISNULL(b.dec_14,0) as dec_14,  
-										(ISNULL(b.jan_14,0)+ISNULL(b.feb_14,0)+ISNULL(b.mar_14,0)+ISNULL(b.apr_14,0)+ISNULL(b.may_14,0)+ISNULL(b.jun_14,0)+ISNULL(b.jul_14,0)+ISNULL(b.aug_14,0)+ISNULL(b.sep_14,0)+ISNULL(b.oct_14,0)+ISNULL(b.nov_14,0)+ISNULL(b.dec_14,0)) as total_2014,
+										--ISNULL(b.jan_14,0) as jan_14, 
+										--ISNULL(b.feb_14,0) as feb_14,
+										--ISNULL(b.mar_14,0) as mar_14, 
+										--ISNULL(b.apr_14,0) as apr_14, 
+										--ISNULL(b.may_14,0) as may_14,
+										--ISNULL(b.jun_14,0) as jun_14, 
+										--ISNULL(b.jul_14,0) as jul_14, 
+										--ISNULL(b.aug_14,0) as aug_14, 
+										--ISNULL(b.sep_14,0) as sep_14,  
+										--ISNULL(b.oct_14,0) as oct_14, 
+										--ISNULL(b.nov_14,0) as nov_14, 
+										--ISNULL(b.dec_14,0) as dec_14,  
+										--(ISNULL(b.jan_14,0)+ISNULL(b.feb_14,0)+ISNULL(b.mar_14,0)+ISNULL(b.apr_14,0)+ISNULL(b.may_14,0)+ISNULL(b.jun_14,0)+ISNULL(b.jul_14,0)+ISNULL(b.aug_14,0)+ISNULL(b.sep_14,0)+ISNULL(b.oct_14,0)+ISNULL(b.nov_14,0)+ISNULL(b.dec_14,0)) as total_2014,
 
-										ISNULL(b.jan_15,0) as jan_15, 
-										ISNULL(b.feb_15,0) as feb_15,
-										ISNULL(b.mar_15,0) as mar_15, 
-										ISNULL(b.apr_15,0) as apr_15, 
-										ISNULL(b.may_15,0) as may_15,
-										ISNULL(b.jun_15,0) as jun_15, 
-										ISNULL(b.jul_15,0) as jul_15, 
-										ISNULL(b.aug_15,0) as aug_15, 
-										ISNULL(b.sep_15,0) as sep_15,  
-										ISNULL(b.oct_15,0) as oct_15, 
-										ISNULL(b.nov_15,0) as nov_15, 
-										ISNULL(b.dec_15,0) as dec_15,  
-										(ISNULL(b.jan_15,0)+ISNULL(b.feb_15,0)+ISNULL(b.mar_15,0)+ISNULL(b.apr_15,0)+ISNULL(b.may_15,0)+ISNULL(b.jun_15,0)+ISNULL(b.jul_15,0)+ISNULL(b.aug_15,0)+ISNULL(b.sep_15,0)+ISNULL(b.oct_15,0)+ISNULL(b.nov_15,0)+ISNULL(b.dec_15,0)) as total_2015,
+										--ISNULL(b.jan_15,0) as jan_15, 
+										--ISNULL(b.feb_15,0) as feb_15,
+										--ISNULL(b.mar_15,0) as mar_15, 
+										--ISNULL(b.apr_15,0) as apr_15, 
+										--ISNULL(b.may_15,0) as may_15,
+										--ISNULL(b.jun_15,0) as jun_15, 
+										--ISNULL(b.jul_15,0) as jul_15, 
+										--ISNULL(b.aug_15,0) as aug_15, 
+										--ISNULL(b.sep_15,0) as sep_15,  
+										--ISNULL(b.oct_15,0) as oct_15, 
+										--ISNULL(b.nov_15,0) as nov_15, 
+										--ISNULL(b.dec_15,0) as dec_15,  
+										--(ISNULL(b.jan_15,0)+ISNULL(b.feb_15,0)+ISNULL(b.mar_15,0)+ISNULL(b.apr_15,0)+ISNULL(b.may_15,0)+ISNULL(b.jun_15,0)+ISNULL(b.jul_15,0)+ISNULL(b.aug_15,0)+ISNULL(b.sep_15,0)+ISNULL(b.oct_15,0)+ISNULL(b.nov_15,0)+ISNULL(b.dec_15,0)) as total_2015,
 
 										ISNULL(b.jan_16,0) as jan_16, 
 										ISNULL(b.feb_16,0) as feb_16,
@@ -2660,7 +2881,20 @@ SELECT	 cc.[base_part]
 										ISNULL(b.dec_19,0) as dec_19,  
 										(ISNULL(b.jan_19,0)+ISNULL(b.feb_19,0)+ISNULL(b.mar_19,0)+ISNULL(b.apr_19,0)+ISNULL(b.may_19,0)+ISNULL(b.jun_19,0)+ISNULL(b.jul_19,0)+ISNULL(b.aug_19,0)+ISNULL(b.sep_19,0)+ISNULL(b.oct_19,0)+ISNULL(b.nov_19,0)+ISNULL(b.dec_19,0)) as total_2019,
 					
-										ISNULL(b.CAL20,0) as cal20,
+										ISNULL(b.jan_20,0) as jan_20, 
+										ISNULL(b.feb_20,0) as feb_20,
+										ISNULL(b.mar_20,0) as mar_20, 
+										ISNULL(b.apr_20,0) as apr_20, 
+										ISNULL(b.may_20,0) as may_20,
+										ISNULL(b.jun_20,0) as jun_20, 
+										ISNULL(b.jul_20,0) as jul_20, 
+										ISNULL(b.aug_20,0) as aug_20, 
+										ISNULL(b.sep_20,0) as sep_20,  
+										ISNULL(b.oct_20,0) as oct_20, 
+										ISNULL(b.nov_20,0) as nov_20, 
+										ISNULL(b.dec_20,0) as dec_20,  
+										(ISNULL(b.jan_20,0)+ISNULL(b.feb_20,0)+ISNULL(b.mar_20,0)+ISNULL(b.apr_20,0)+ISNULL(b.may_20,0)+ISNULL(b.jun_20,0)+ISNULL(b.jul_20,0)+ISNULL(b.aug_20,0)+ISNULL(b.sep_20,0)+ISNULL(b.oct_20,0)+ISNULL(b.nov_20,0)+ISNULL(b.dec_20,0)) as total_2020,
+					
 										ISNULL(b.CAL21,0) as cal21,
 										ISNULL(b.CAL22,0) as cal22,
 										ISNULL(b.CAL23,0) as cal23, 
@@ -2668,21 +2902,25 @@ SELECT	 cc.[base_part]
 								from 
 								
 										/* LEVEL 6 */
-										(select * from eeiuser.acctg_csm_base_part_mnemonic
+										(select * 
+										 from	eeiuser.acctg_csm_base_part_mnemonic
+										 where	release_id = --'2018-01'
+													(Select [dbo].[fn_ReturnLatestCSMRelease] ('CSM') ) 
 										) a
 										left outer join
 										(	select * 
 											from	eeiuser.acctg_csm_NACSM 
 											where	version = 'Empire Factor' 
-													and release_id = --'2013-10'
-														(Select [dbo].[fn_ReturnLatestCSMRelease] ('CSM') )  
+												and release_id = --'2018-01'
+													(Select [dbo].[fn_ReturnLatestCSMRelease] ('CSM') )  
 										) b
 										on a.mnemonic = b.mnemonic
 										where b.mnemonic is not null 
 								) c
 								on a.base_part = c.base_part
 								
-							 	where b.mnemonic is not null and (ISNULL(b.cal10,0)+ISNULL(b.cal11,0)+ISNULL(b.cal12,0)+ISNULL(b.cal13,0)+ISNULL(b.cal14,0)+ISNULL(b.cal15,0)+ISNULL(b.cal16,0)+ISNULL(b.cal17,0)+ISNULL(b.cal18,0)+ISNULL(b.cal19,0)+ISNULL(b.cal20,0)+ISNULL(b.cal21,0)+ISNULL(b.cal22,0)+ISNULL(b.cal23,0)) <>  0 
+							 	where b.mnemonic is not null 
+									and (ISNULL(b.cal16,0)+ISNULL(b.cal17,0)+ISNULL(b.cal18,0)+ISNULL(b.cal19,0)+ISNULL(b.cal20,0)+ISNULL(b.cal21,0)+ISNULL(b.cal22,0)+ISNULL(b.cal23,0)+ISNULL(b.cal24,0)) <>  0 
 												
 						)a
 
@@ -2745,34 +2983,34 @@ SELECT	 cc.[base_part]
 								--sum(a.dec_13*b.dec_13) as dec_13,
 								--(sum(a.jan_13*b.jan_13)+sum(a.feb_13*b.feb_13)+sum(a.mar_13*b.mar_13)+sum(a.apr_13*b.apr_13)+sum(a.may_13*b.may_13)+sum(a.jun_13*b.jun_13)+sum(a.jul_13*b.jul_13)+sum(a.aug_13*b.aug_13)+sum(a.sep_13*b.sep_13)+sum(a.oct_13*b.oct_13)+sum(a.nov_13*b.nov_13)+sum(a.dec_13*b.dec_13)) as total_2013,
 								
-								sum(a.jan_14*b.jan_14) as jan_14, 
-								sum(a.feb_14*b.feb_14) as feb_14, 
-								sum(a.mar_14*b.mar_14) as mar_14, 
-								sum(a.apr_14*b.apr_14) as apr_14, 
-								sum(a.may_14*b.may_14) as may_14, 
-								sum(a.jun_14*b.jun_14) as jun_14, 
-								sum(a.jul_14*b.jul_14) as jul_14, 
-								sum(a.aug_14*b.aug_14) as aug_14,
-								sum(a.sep_14*b.sep_14) as sep_14, 
-								sum(a.oct_14*b.oct_14) as oct_14, 
-								sum(a.nov_14*b.nov_14) as nov_14, 
-								sum(a.dec_14*b.dec_14) as dec_14,
-								(sum(a.jan_14*b.jan_14)+sum(a.feb_14*b.feb_14)+sum(a.mar_14*b.mar_14)+sum(a.apr_14*b.apr_14)+sum(a.may_14*b.may_14)+sum(a.jun_14*b.jun_14)+sum(a.jul_14*b.jul_14)+sum(a.aug_14*b.aug_14)+sum(a.sep_14*b.sep_14)+sum(a.oct_14*b.oct_14)+sum(a.nov_14*b.nov_14)+sum(a.dec_14*b.dec_14)) as total_2014,
+								--sum(a.jan_14*b.jan_14) as jan_14, 
+								--sum(a.feb_14*b.feb_14) as feb_14, 
+								--sum(a.mar_14*b.mar_14) as mar_14, 
+								--sum(a.apr_14*b.apr_14) as apr_14, 
+								--sum(a.may_14*b.may_14) as may_14, 
+								--sum(a.jun_14*b.jun_14) as jun_14, 
+								--sum(a.jul_14*b.jul_14) as jul_14, 
+								--sum(a.aug_14*b.aug_14) as aug_14,
+								--sum(a.sep_14*b.sep_14) as sep_14, 
+								--sum(a.oct_14*b.oct_14) as oct_14, 
+								--sum(a.nov_14*b.nov_14) as nov_14, 
+								--sum(a.dec_14*b.dec_14) as dec_14,
+								--(sum(a.jan_14*b.jan_14)+sum(a.feb_14*b.feb_14)+sum(a.mar_14*b.mar_14)+sum(a.apr_14*b.apr_14)+sum(a.may_14*b.may_14)+sum(a.jun_14*b.jun_14)+sum(a.jul_14*b.jul_14)+sum(a.aug_14*b.aug_14)+sum(a.sep_14*b.sep_14)+sum(a.oct_14*b.oct_14)+sum(a.nov_14*b.nov_14)+sum(a.dec_14*b.dec_14)) as total_2014,
 								
 								
-								sum(a.jan_15*b.jan_15) as jan_15, 
-								sum(a.feb_15*b.feb_15) as feb_15, 
-								sum(a.mar_15*b.mar_15) as mar_15, 
-								sum(a.apr_15*b.apr_15) as apr_15, 
-								sum(a.may_15*b.may_15) as may_15, 
-								sum(a.jun_15*b.jun_15) as jun_15, 
-								sum(a.jul_15*b.jul_15) as jul_15, 
-								sum(a.aug_15*b.aug_15) as aug_15,
-								sum(a.sep_15*b.sep_15) as sep_15, 
-								sum(a.oct_15*b.oct_15) as oct_15, 
-								sum(a.nov_15*b.nov_15) as nov_15, 
-								sum(a.dec_15*b.dec_15) as dec_15,
-								(sum(a.jan_15*b.jan_15)+sum(a.feb_15*b.feb_15)+sum(a.mar_15*b.mar_15)+sum(a.apr_15*b.apr_15)+sum(a.may_15*b.may_15)+sum(a.jun_15*b.jun_15)+sum(a.jul_15*b.jul_15)+sum(a.aug_15*b.aug_15)+sum(a.sep_15*b.sep_15)+sum(a.oct_15*b.oct_15)+sum(a.nov_15*b.nov_15)+sum(a.dec_15*b.dec_15)) as total_2015,
+								--sum(a.jan_15*b.jan_15) as jan_15, 
+								--sum(a.feb_15*b.feb_15) as feb_15, 
+								--sum(a.mar_15*b.mar_15) as mar_15, 
+								--sum(a.apr_15*b.apr_15) as apr_15, 
+								--sum(a.may_15*b.may_15) as may_15, 
+								--sum(a.jun_15*b.jun_15) as jun_15, 
+								--sum(a.jul_15*b.jul_15) as jul_15, 
+								--sum(a.aug_15*b.aug_15) as aug_15,
+								--sum(a.sep_15*b.sep_15) as sep_15, 
+								--sum(a.oct_15*b.oct_15) as oct_15, 
+								--sum(a.nov_15*b.nov_15) as nov_15, 
+								--sum(a.dec_15*b.dec_15) as dec_15,
+								--(sum(a.jan_15*b.jan_15)+sum(a.feb_15*b.feb_15)+sum(a.mar_15*b.mar_15)+sum(a.apr_15*b.apr_15)+sum(a.may_15*b.may_15)+sum(a.jun_15*b.jun_15)+sum(a.jul_15*b.jul_15)+sum(a.aug_15*b.aug_15)+sum(a.sep_15*b.sep_15)+sum(a.oct_15*b.oct_15)+sum(a.nov_15*b.nov_15)+sum(a.dec_15*b.dec_15)) as total_2015,
 														
 								sum(a.jan_16*b.jan_16) as jan_16, 
 								sum(a.feb_16*b.feb_16) as feb_16, 
@@ -2829,8 +3067,21 @@ SELECT	 cc.[base_part]
 								sum(a.nov_19*b.nov_19) as nov_19, 
 								sum(a.dec_19*b.dec_19) as dec_19,
 								(sum(a.jan_19*b.jan_19)+sum(a.feb_19*b.feb_19)+sum(a.mar_19*b.mar_19)+sum(a.apr_19*b.apr_19)+sum(a.may_19*b.may_19)+sum(a.jun_19*b.jun_19)+sum(a.jul_19*b.jul_19)+sum(a.aug_19*b.aug_19)+sum(a.sep_19*b.sep_19)+sum(a.oct_19*b.oct_19)+sum(a.nov_19*b.nov_19)+sum(a.dec_19*b.dec_19)) as total_2019,
+								
+								sum(a.jan_20*b.jan_20) as jan_20, 
+								sum(a.feb_20*b.feb_20) as feb_20, 
+								sum(a.mar_20*b.mar_20) as mar_20, 
+								sum(a.apr_20*b.apr_20) as apr_20, 
+								sum(a.may_20*b.may_20) as may_20, 
+								sum(a.jun_20*b.jun_20) as jun_20, 
+								sum(a.jul_20*b.jul_20) as jul_20, 
+								sum(a.aug_20*b.aug_20) as aug_20,
+								sum(a.sep_20*b.sep_20) as sep_20, 
+								sum(a.oct_20*b.oct_20) as oct_20, 
+								sum(a.nov_20*b.nov_20) as nov_20, 
+								sum(a.dec_20*b.dec_20) as dec_20,
+								(sum(a.jan_20*b.jan_20)+sum(a.feb_20*b.feb_20)+sum(a.mar_20*b.mar_20)+sum(a.apr_20*b.apr_20)+sum(a.may_20*b.may_20)+sum(a.jun_20*b.jun_20)+sum(a.jul_20*b.jul_20)+sum(a.aug_20*b.aug_20)+sum(a.sep_20*b.sep_20)+sum(a.oct_20*b.oct_20)+sum(a.nov_20*b.nov_20)+sum(a.dec_20*b.dec_20)) as total_2020,
 							
-								sum(a.cal20*b.cal20) as cal20,
 								sum(a.cal21*b.cal21) as cal21,
 								sum(a.cal22*b.cal22) as cal22,
 								sum(a.cal23*b.cal23) as cal23,
@@ -2912,34 +3163,34 @@ SELECT	 cc.[base_part]
 										--ISNULL(a.qty_per*a.take_rate*a.family_allocation*b.dec_13,0) as dec_13,  
 										--(a.qty_per*a.take_rate*a.family_allocation)*(ISNULL(b.jan_13,0)+ISNULL(b.feb_13,0)+ISNULL(b.mar_13,0)+ISNULL(b.apr_13,0)+ISNULL(b.may_13,0)+ISNULL(b.jun_13,0)+ISNULL(b.jul_13,0)+ISNULL(b.aug_13,0)+ISNULL(b.sep_13,0)+ISNULL(b.oct_13,0)+ISNULL(b.nov_13,0)+ISNULL(b.dec_13,0)) as total_2013,
 										
-										ISNULL(a.qty_per*a.take_rate*a.family_allocation*b.jan_14,0) as jan_14, 
-										ISNULL(a.qty_per*a.take_rate*a.family_allocation*b.feb_14,0) as feb_14,
-										ISNULL(a.qty_per*a.take_rate*a.family_allocation*b.mar_14,0) as mar_14, 
-										ISNULL(a.qty_per*a.take_rate*a.family_allocation*b.apr_14,0) as apr_14, 
-										ISNULL(a.qty_per*a.take_rate*a.family_allocation*b.may_14,0) as may_14,
-										ISNULL(a.qty_per*a.take_rate*a.family_allocation*b.jun_14,0) as jun_14, 
-										ISNULL(a.qty_per*a.take_rate*a.family_allocation*b.jul_14,0) as jul_14, 
-										ISNULL(a.qty_per*a.take_rate*a.family_allocation*b.aug_14,0) as aug_14, 
-										ISNULL(a.qty_per*a.take_rate*a.family_allocation*b.sep_14,0) as sep_14,  
-										ISNULL(a.qty_per*a.take_rate*a.family_allocation*b.oct_14,0) as oct_14, 
-										ISNULL(a.qty_per*a.take_rate*a.family_allocation*b.nov_14,0) as nov_14, 
-										ISNULL(a.qty_per*a.take_rate*a.family_allocation*b.dec_14,0) as dec_14,  
-										(a.qty_per*a.take_rate*a.family_allocation)*(ISNULL(b.jan_14,0)+ISNULL(b.feb_14,0)+ISNULL(b.mar_14,0)+ISNULL(b.apr_14,0)+ISNULL(b.may_14,0)+ISNULL(b.jun_14,0)+ISNULL(b.jul_14,0)+ISNULL(b.aug_14,0)+ISNULL(b.sep_14,0)+ISNULL(b.oct_14,0)+ISNULL(b.nov_14,0)+ISNULL(b.dec_14,0)) as total_2014,							
+										--ISNULL(a.qty_per*a.take_rate*a.family_allocation*b.jan_14,0) as jan_14, 
+										--ISNULL(a.qty_per*a.take_rate*a.family_allocation*b.feb_14,0) as feb_14,
+										--ISNULL(a.qty_per*a.take_rate*a.family_allocation*b.mar_14,0) as mar_14, 
+										--ISNULL(a.qty_per*a.take_rate*a.family_allocation*b.apr_14,0) as apr_14, 
+										--ISNULL(a.qty_per*a.take_rate*a.family_allocation*b.may_14,0) as may_14,
+										--ISNULL(a.qty_per*a.take_rate*a.family_allocation*b.jun_14,0) as jun_14, 
+										--ISNULL(a.qty_per*a.take_rate*a.family_allocation*b.jul_14,0) as jul_14, 
+										--ISNULL(a.qty_per*a.take_rate*a.family_allocation*b.aug_14,0) as aug_14, 
+										--ISNULL(a.qty_per*a.take_rate*a.family_allocation*b.sep_14,0) as sep_14,  
+										--ISNULL(a.qty_per*a.take_rate*a.family_allocation*b.oct_14,0) as oct_14, 
+										--ISNULL(a.qty_per*a.take_rate*a.family_allocation*b.nov_14,0) as nov_14, 
+										--ISNULL(a.qty_per*a.take_rate*a.family_allocation*b.dec_14,0) as dec_14,  
+										--(a.qty_per*a.take_rate*a.family_allocation)*(ISNULL(b.jan_14,0)+ISNULL(b.feb_14,0)+ISNULL(b.mar_14,0)+ISNULL(b.apr_14,0)+ISNULL(b.may_14,0)+ISNULL(b.jun_14,0)+ISNULL(b.jul_14,0)+ISNULL(b.aug_14,0)+ISNULL(b.sep_14,0)+ISNULL(b.oct_14,0)+ISNULL(b.nov_14,0)+ISNULL(b.dec_14,0)) as total_2014,							
 										
 																		
-										ISNULL(a.qty_per*a.take_rate*a.family_allocation*b.jan_15,0) as jan_15, 
-										ISNULL(a.qty_per*a.take_rate*a.family_allocation*b.feb_15,0) as feb_15,
-										ISNULL(a.qty_per*a.take_rate*a.family_allocation*b.mar_15,0) as mar_15, 
-										ISNULL(a.qty_per*a.take_rate*a.family_allocation*b.apr_15,0) as apr_15, 
-										ISNULL(a.qty_per*a.take_rate*a.family_allocation*b.may_15,0) as may_15,
-										ISNULL(a.qty_per*a.take_rate*a.family_allocation*b.jun_15,0) as jun_15, 
-										ISNULL(a.qty_per*a.take_rate*a.family_allocation*b.jul_15,0) as jul_15, 
-										ISNULL(a.qty_per*a.take_rate*a.family_allocation*b.aug_15,0) as aug_15, 
-										ISNULL(a.qty_per*a.take_rate*a.family_allocation*b.sep_15,0) as sep_15,  
-										ISNULL(a.qty_per*a.take_rate*a.family_allocation*b.oct_15,0) as oct_15, 
-										ISNULL(a.qty_per*a.take_rate*a.family_allocation*b.nov_15,0) as nov_15, 
-										ISNULL(a.qty_per*a.take_rate*a.family_allocation*b.dec_15,0) as dec_15,  
-										(a.qty_per*a.take_rate*a.family_allocation)*(ISNULL(b.jan_15,0)+ISNULL(b.feb_15,0)+ISNULL(b.mar_15,0)+ISNULL(b.apr_15,0)+ISNULL(b.may_15,0)+ISNULL(b.jun_15,0)+ISNULL(b.jul_15,0)+ISNULL(b.aug_15,0)+ISNULL(b.sep_15,0)+ISNULL(b.oct_15,0)+ISNULL(b.nov_15,0)+ISNULL(b.dec_15,0)) as total_2015,	
+										--ISNULL(a.qty_per*a.take_rate*a.family_allocation*b.jan_15,0) as jan_15, 
+										--ISNULL(a.qty_per*a.take_rate*a.family_allocation*b.feb_15,0) as feb_15,
+										--ISNULL(a.qty_per*a.take_rate*a.family_allocation*b.mar_15,0) as mar_15, 
+										--ISNULL(a.qty_per*a.take_rate*a.family_allocation*b.apr_15,0) as apr_15, 
+										--ISNULL(a.qty_per*a.take_rate*a.family_allocation*b.may_15,0) as may_15,
+										--ISNULL(a.qty_per*a.take_rate*a.family_allocation*b.jun_15,0) as jun_15, 
+										--ISNULL(a.qty_per*a.take_rate*a.family_allocation*b.jul_15,0) as jul_15, 
+										--ISNULL(a.qty_per*a.take_rate*a.family_allocation*b.aug_15,0) as aug_15, 
+										--ISNULL(a.qty_per*a.take_rate*a.family_allocation*b.sep_15,0) as sep_15,  
+										--ISNULL(a.qty_per*a.take_rate*a.family_allocation*b.oct_15,0) as oct_15, 
+										--ISNULL(a.qty_per*a.take_rate*a.family_allocation*b.nov_15,0) as nov_15, 
+										--ISNULL(a.qty_per*a.take_rate*a.family_allocation*b.dec_15,0) as dec_15,  
+										--(a.qty_per*a.take_rate*a.family_allocation)*(ISNULL(b.jan_15,0)+ISNULL(b.feb_15,0)+ISNULL(b.mar_15,0)+ISNULL(b.apr_15,0)+ISNULL(b.may_15,0)+ISNULL(b.jun_15,0)+ISNULL(b.jul_15,0)+ISNULL(b.aug_15,0)+ISNULL(b.sep_15,0)+ISNULL(b.oct_15,0)+ISNULL(b.nov_15,0)+ISNULL(b.dec_15,0)) as total_2015,	
 
 										ISNULL(a.qty_per*a.take_rate*a.family_allocation*b.jan_16,0) as jan_16, 
 										ISNULL(a.qty_per*a.take_rate*a.family_allocation*b.feb_16,0) as feb_16,
@@ -2997,7 +3248,20 @@ SELECT	 cc.[base_part]
 										ISNULL(a.qty_per*a.take_rate*a.family_allocation*b.dec_19,0) as dec_19,  
 										(a.qty_per*a.take_rate*a.family_allocation)*(ISNULL(b.jan_19,0)+ISNULL(b.feb_19,0)+ISNULL(b.mar_19,0)+ISNULL(b.apr_19,0)+ISNULL(b.may_19,0)+ISNULL(b.jun_19,0)+ISNULL(b.jul_19,0)+ISNULL(b.aug_19,0)+ISNULL(b.sep_19,0)+ISNULL(b.oct_19,0)+ISNULL(b.nov_19,0)+ISNULL(b.dec_19,0)) as total_2019,	
 
-										ISNULL(a.qty_per*a.take_rate*a.family_allocation*b.CAL20,0) as cal20,
+										ISNULL(a.qty_per*a.take_rate*a.family_allocation*b.jan_20,0) as jan_20, 
+										ISNULL(a.qty_per*a.take_rate*a.family_allocation*b.feb_20,0) as feb_20,
+										ISNULL(a.qty_per*a.take_rate*a.family_allocation*b.mar_20,0) as mar_20, 
+										ISNULL(a.qty_per*a.take_rate*a.family_allocation*b.apr_20,0) as apr_20, 
+										ISNULL(a.qty_per*a.take_rate*a.family_allocation*b.may_20,0) as may_20,
+										ISNULL(a.qty_per*a.take_rate*a.family_allocation*b.jun_20,0) as jun_20, 
+										ISNULL(a.qty_per*a.take_rate*a.family_allocation*b.jul_20,0) as jul_20, 
+										ISNULL(a.qty_per*a.take_rate*a.family_allocation*b.aug_20,0) as aug_20, 
+										ISNULL(a.qty_per*a.take_rate*a.family_allocation*b.sep_20,0) as sep_20,  
+										ISNULL(a.qty_per*a.take_rate*a.family_allocation*b.oct_20,0) as oct_20, 
+										ISNULL(a.qty_per*a.take_rate*a.family_allocation*b.nov_20,0) as nov_20, 
+										ISNULL(a.qty_per*a.take_rate*a.family_allocation*b.dec_20,0) as dec_20,  
+										(a.qty_per*a.take_rate*a.family_allocation)*(ISNULL(b.jan_20,0)+ISNULL(b.feb_20,0)+ISNULL(b.mar_20,0)+ISNULL(b.apr_20,0)+ISNULL(b.may_20,0)+ISNULL(b.jun_20,0)+ISNULL(b.jul_20,0)+ISNULL(b.aug_20,0)+ISNULL(b.sep_20,0)+ISNULL(b.oct_20,0)+ISNULL(b.nov_20,0)+ISNULL(b.dec_20,0)) as total_2020,	
+
 										ISNULL(a.qty_per*a.take_rate*a.family_allocation*b.CAL21,0) as cal21, 
 										ISNULL(a.qty_per*a.take_rate*a.family_allocation*b.CAL22,0) as cal22,
 										ISNULL(a.qty_per*a.take_rate*a.family_allocation*b.cal23,0) as cal23,  								
@@ -3005,7 +3269,10 @@ SELECT	 cc.[base_part]
 
 										from	
 							
-										(select * from eeiuser.acctg_csm_base_part_mnemonic
+										(select * 
+										 from	eeiuser.acctg_csm_base_part_mnemonic
+										 where	release_id = --'2018-01'
+													(Select [dbo].[fn_ReturnLatestCSMRelease] ('CSM') ) 
 										) a 
 								
 										left outer join 
@@ -3013,13 +3280,13 @@ SELECT	 cc.[base_part]
 										(	select * 
 											from	eeiuser.acctg_csm_NACSM 
 											where	version = 'CSM' 
-													and release_id = --'2013-10'
-														(Select	[dbo].[fn_ReturnLatestCSMRelease] ('CSM') )  
+												and release_id = --'2018-01'
+													(Select	[dbo].[fn_ReturnLatestCSMRelease] ('CSM') )  
 										) b
 										on a.mnemonic = b.mnemonic 
 								 
 								 		where b.mnemonic is not null 
-										and (ISNULL(b.cal10,0)+ISNULL(b.cal11,0)+ISNULL(b.cal12,0)+ISNULL(b.cal13,0)+ISNULL(b.cal14,0)+ISNULL(b.cal15,0)+ISNULL(b.cal16,0)+ISNULL(b.cal17,0)+ISNULL(b.CAL18,0)+ISNULL(b.CAL19,0)+ISNULL(b.cal20,0)+ISNULL(b.CAL21,0)+ISNULL(b.CAL22,0)+ISNULL(b.CAL23,0)) <>  0 
+										and (ISNULL(b.cal16,0)+ISNULL(b.cal17,0)+ISNULL(b.CAL18,0)+ISNULL(b.CAL19,0)+ISNULL(b.cal20,0)+ISNULL(b.CAL21,0)+ISNULL(b.CAL22,0)+ISNULL(b.CAL23,0)+ISNULL(b.CAL24,0)) <>  0 
 								) a
 						
 								left join
@@ -3098,33 +3365,33 @@ SELECT	 cc.[base_part]
 										--ISNULL(b.dec_13,0) as dec_13,  
 										--(ISNULL(b.jan_13,0)+ISNULL(b.feb_13,0)+ISNULL(b.mar_13,0)+ISNULL(b.apr_13,0)+ISNULL(b.may_13,0)+ISNULL(b.jun_13,0)+ISNULL(b.jul_13,0)+ISNULL(b.aug_13,0)+ISNULL(b.sep_13,0)+ISNULL(b.oct_13,0)+ISNULL(b.nov_13,0)+ISNULL(b.dec_13,0)) as total_2013,
 												
-										ISNULL(b.jan_14,0) as jan_14, 
-										ISNULL(b.feb_14,0) as feb_14,
-										ISNULL(b.mar_14,0) as mar_14, 
-										ISNULL(b.apr_14,0) as apr_14, 
-										ISNULL(b.may_14,0) as may_14,
-										ISNULL(b.jun_14,0) as jun_14, 
-										ISNULL(b.jul_14,0) as jul_14, 
-										ISNULL(b.aug_14,0) as aug_14, 
-										ISNULL(b.sep_14,0) as sep_14,  
-										ISNULL(b.oct_14,0) as oct_14, 
-										ISNULL(b.nov_14,0) as nov_14, 
-										ISNULL(b.dec_14,0) as dec_14,  
-										(ISNULL(b.jan_14,0)+ISNULL(b.feb_14,0)+ISNULL(b.mar_14,0)+ISNULL(b.apr_14,0)+ISNULL(b.may_14,0)+ISNULL(b.jun_14,0)+ISNULL(b.jul_14,0)+ISNULL(b.aug_14,0)+ISNULL(b.sep_14,0)+ISNULL(b.oct_14,0)+ISNULL(b.nov_14,0)+ISNULL(b.dec_14,0)) as total_2014,
+										--ISNULL(b.jan_14,0) as jan_14, 
+										--ISNULL(b.feb_14,0) as feb_14,
+										--ISNULL(b.mar_14,0) as mar_14, 
+										--ISNULL(b.apr_14,0) as apr_14, 
+										--ISNULL(b.may_14,0) as may_14,
+										--ISNULL(b.jun_14,0) as jun_14, 
+										--ISNULL(b.jul_14,0) as jul_14, 
+										--ISNULL(b.aug_14,0) as aug_14, 
+										--ISNULL(b.sep_14,0) as sep_14,  
+										--ISNULL(b.oct_14,0) as oct_14, 
+										--ISNULL(b.nov_14,0) as nov_14, 
+										--ISNULL(b.dec_14,0) as dec_14,  
+										--(ISNULL(b.jan_14,0)+ISNULL(b.feb_14,0)+ISNULL(b.mar_14,0)+ISNULL(b.apr_14,0)+ISNULL(b.may_14,0)+ISNULL(b.jun_14,0)+ISNULL(b.jul_14,0)+ISNULL(b.aug_14,0)+ISNULL(b.sep_14,0)+ISNULL(b.oct_14,0)+ISNULL(b.nov_14,0)+ISNULL(b.dec_14,0)) as total_2014,
 
-										ISNULL(b.jan_15,0) as jan_15, 
-										ISNULL(b.feb_15,0) as feb_15,
-										ISNULL(b.mar_15,0) as mar_15, 
-										ISNULL(b.apr_15,0) as apr_15, 
-										ISNULL(b.may_15,0) as may_15,
-										ISNULL(b.jun_15,0) as jun_15, 
-										ISNULL(b.jul_15,0) as jul_15, 
-										ISNULL(b.aug_15,0) as aug_15, 
-										ISNULL(b.sep_15,0) as sep_15,  
-										ISNULL(b.oct_15,0) as oct_15, 
-										ISNULL(b.nov_15,0) as nov_15, 
-										ISNULL(b.dec_15,0) as dec_15,  
-										(ISNULL(b.jan_15,0)+ISNULL(b.feb_15,0)+ISNULL(b.mar_15,0)+ISNULL(b.apr_15,0)+ISNULL(b.may_15,0)+ISNULL(b.jun_15,0)+ISNULL(b.jul_15,0)+ISNULL(b.aug_15,0)+ISNULL(b.sep_15,0)+ISNULL(b.oct_15,0)+ISNULL(b.nov_15,0)+ISNULL(b.dec_15,0)) as total_2015,
+										--ISNULL(b.jan_15,0) as jan_15, 
+										--ISNULL(b.feb_15,0) as feb_15,
+										--ISNULL(b.mar_15,0) as mar_15, 
+										--ISNULL(b.apr_15,0) as apr_15, 
+										--ISNULL(b.may_15,0) as may_15,
+										--ISNULL(b.jun_15,0) as jun_15, 
+										--ISNULL(b.jul_15,0) as jul_15, 
+										--ISNULL(b.aug_15,0) as aug_15, 
+										--ISNULL(b.sep_15,0) as sep_15,  
+										--ISNULL(b.oct_15,0) as oct_15, 
+										--ISNULL(b.nov_15,0) as nov_15, 
+										--ISNULL(b.dec_15,0) as dec_15,  
+										--(ISNULL(b.jan_15,0)+ISNULL(b.feb_15,0)+ISNULL(b.mar_15,0)+ISNULL(b.apr_15,0)+ISNULL(b.may_15,0)+ISNULL(b.jun_15,0)+ISNULL(b.jul_15,0)+ISNULL(b.aug_15,0)+ISNULL(b.sep_15,0)+ISNULL(b.oct_15,0)+ISNULL(b.nov_15,0)+ISNULL(b.dec_15,0)) as total_2015,
 										
 										ISNULL(b.jan_16,0) as jan_16, 
 										ISNULL(b.feb_16,0) as feb_16,
@@ -3182,21 +3449,37 @@ SELECT	 cc.[base_part]
 										ISNULL(b.dec_19,0) as dec_19,  
 										(ISNULL(b.jan_19,0)+ISNULL(b.feb_19,0)+ISNULL(b.mar_19,0)+ISNULL(b.apr_19,0)+ISNULL(b.may_19,0)+ISNULL(b.jun_19,0)+ISNULL(b.jul_19,0)+ISNULL(b.aug_19,0)+ISNULL(b.sep_19,0)+ISNULL(b.oct_19,0)+ISNULL(b.nov_19,0)+ISNULL(b.dec_19,0)) as total_2019,
 						
-										ISNULL(b.cal20,0) as cal20,
+										ISNULL(b.jan_20,0) as jan_20, 
+										ISNULL(b.feb_20,0) as feb_20,
+										ISNULL(b.mar_20,0) as mar_20, 
+										ISNULL(b.apr_20,0) as apr_20, 
+										ISNULL(b.may_20,0) as may_20,
+										ISNULL(b.jun_20,0) as jun_20, 
+										ISNULL(b.jul_20,0) as jul_20, 
+										ISNULL(b.aug_20,0) as aug_20, 
+										ISNULL(b.sep_20,0) as sep_20,  
+										ISNULL(b.oct_20,0) as oct_20, 
+										ISNULL(b.nov_20,0) as nov_20, 
+										ISNULL(b.dec_20,0) as dec_20,  
+										(ISNULL(b.jan_20,0)+ISNULL(b.feb_20,0)+ISNULL(b.mar_20,0)+ISNULL(b.apr_20,0)+ISNULL(b.may_20,0)+ISNULL(b.jun_20,0)+ISNULL(b.jul_20,0)+ISNULL(b.aug_20,0)+ISNULL(b.sep_20,0)+ISNULL(b.oct_20,0)+ISNULL(b.nov_20,0)+ISNULL(b.dec_20,0)) as total_2020,
+						
 										ISNULL(b.cal21,0) as cal21, 
 										ISNULL(b.cal22,0) as cal22,
 										ISNULL(b.cal23,0) as cal23,
 										ISNULL(b.cal24,0) as cal24
 								from 
 							
-										(select * from eeiuser.acctg_csm_base_part_mnemonic
+										(select * 
+										 from	eeiuser.acctg_csm_base_part_mnemonic
+										 where  release_id = --'2018-01'
+													(Select [dbo].[fn_ReturnLatestCSMRelease] ('CSM') ) 
 										) a							
 										left outer join									
 										(	select * 
 											from	eeiuser.acctg_csm_NACSM 
 											where	version = 'Empire Factor' 
-													and release_id = --'2017-04'
-														(Select	[dbo].[fn_ReturnLatestCSMRelease] ('CSM') )
+												and release_id = --'2018-01'
+													(Select	[dbo].[fn_ReturnLatestCSMRelease] ('CSM') )
 										) b								
 										on a.mnemonic = b.mnemonic
 										where b.mnemonic is not null 
@@ -3287,33 +3570,33 @@ SELECT	 cc.[base_part]
 						--ISNULL(b.dec_13,0) as dec_13, 
 						--(ISNULL(b.jan_13,0)+ISNULL(b.feb_13,0)+ISNULL(b.mar_13,0)+ISNULL(b.apr_13,0)+ISNULL(b.may_13,0)+ISNULL(b.jun_13,0)+ISNULL(b.jul_13,0)+ISNULL(b.aug_13,0)+ISNULL(b.sep_13,0)+ISNULL(b.oct_13,0)+ISNULL(b.nov_13,0)+ISNULL(b.dec_13,0))  as total_2013,
 		
-						ISNULL(b.jan_14,0) as jan_14, 
-						ISNULL(b.feb_14,0) as feb_14, 
-						ISNULL(b.mar_14,0) as mar_14, 
-						ISNULL(b.apr_14,0) as apr_14, 
-						ISNULL(b.may_14,0) as may_14, 
-						ISNULL(b.jun_14,0) as jun_14, 
-						ISNULL(b.jul_14,0) as jul_14, 
-						ISNULL(b.aug_14,0) as aug_14, 
-						ISNULL(b.sep_14,0) as sep_14, 
-						ISNULL(b.oct_14,0) as oct_14, 
-						ISNULL(b.nov_14,0) as nov_14, 
-						ISNULL(b.dec_14,0) as dec_14, 
-						(ISNULL(b.jan_14,0)+ISNULL(b.feb_14,0)+ISNULL(b.mar_14,0)+ISNULL(b.apr_14,0)+ISNULL(b.may_14,0)+ISNULL(b.jun_14,0)+ISNULL(b.jul_14,0)+ISNULL(b.aug_14,0)+ISNULL(b.sep_14,0)+ISNULL(b.oct_14,0)+ISNULL(b.nov_14,0)+ISNULL(b.dec_14,0))  as total_2014,
+						--ISNULL(b.jan_14,0) as jan_14, 
+						--ISNULL(b.feb_14,0) as feb_14, 
+						--ISNULL(b.mar_14,0) as mar_14, 
+						--ISNULL(b.apr_14,0) as apr_14, 
+						--ISNULL(b.may_14,0) as may_14, 
+						--ISNULL(b.jun_14,0) as jun_14, 
+						--ISNULL(b.jul_14,0) as jul_14, 
+						--ISNULL(b.aug_14,0) as aug_14, 
+						--ISNULL(b.sep_14,0) as sep_14, 
+						--ISNULL(b.oct_14,0) as oct_14, 
+						--ISNULL(b.nov_14,0) as nov_14, 
+						--ISNULL(b.dec_14,0) as dec_14, 
+						--(ISNULL(b.jan_14,0)+ISNULL(b.feb_14,0)+ISNULL(b.mar_14,0)+ISNULL(b.apr_14,0)+ISNULL(b.may_14,0)+ISNULL(b.jun_14,0)+ISNULL(b.jul_14,0)+ISNULL(b.aug_14,0)+ISNULL(b.sep_14,0)+ISNULL(b.oct_14,0)+ISNULL(b.nov_14,0)+ISNULL(b.dec_14,0))  as total_2014,
 						
-						ISNULL(b.jan_15,0) as jan_15, 
-						ISNULL(b.feb_15,0) as feb_15, 
-						ISNULL(b.mar_15,0) as mar_15, 
-						ISNULL(b.apr_15,0) as apr_15, 
-						ISNULL(b.may_15,0) as may_15, 
-						ISNULL(b.jun_15,0) as jun_15, 
-						ISNULL(b.jul_15,0) as jul_15, 
-						ISNULL(b.aug_15,0) as aug_15, 
-						ISNULL(b.sep_15,0) as sep_15, 
-						ISNULL(b.oct_15,0) as oct_15, 
-						ISNULL(b.nov_15,0) as nov_15, 
-						ISNULL(b.dec_15,0) as dec_15, 
-						(ISNULL(b.jan_15,0)+ISNULL(b.feb_15,0)+ISNULL(b.mar_15,0)+ISNULL(b.apr_15,0)+ISNULL(b.may_15,0)+ISNULL(b.jun_15,0)+ISNULL(b.jul_15,0)+ISNULL(b.aug_15,0)+ISNULL(b.sep_15,0)+ISNULL(b.oct_15,0)+ISNULL(b.nov_15,0)+ISNULL(b.dec_15,0))  as total_2015,
+						--ISNULL(b.jan_15,0) as jan_15, 
+						--ISNULL(b.feb_15,0) as feb_15, 
+						--ISNULL(b.mar_15,0) as mar_15, 
+						--ISNULL(b.apr_15,0) as apr_15, 
+						--ISNULL(b.may_15,0) as may_15, 
+						--ISNULL(b.jun_15,0) as jun_15, 
+						--ISNULL(b.jul_15,0) as jul_15, 
+						--ISNULL(b.aug_15,0) as aug_15, 
+						--ISNULL(b.sep_15,0) as sep_15, 
+						--ISNULL(b.oct_15,0) as oct_15, 
+						--ISNULL(b.nov_15,0) as nov_15, 
+						--ISNULL(b.dec_15,0) as dec_15, 
+						--(ISNULL(b.jan_15,0)+ISNULL(b.feb_15,0)+ISNULL(b.mar_15,0)+ISNULL(b.apr_15,0)+ISNULL(b.may_15,0)+ISNULL(b.jun_15,0)+ISNULL(b.jul_15,0)+ISNULL(b.aug_15,0)+ISNULL(b.sep_15,0)+ISNULL(b.oct_15,0)+ISNULL(b.nov_15,0)+ISNULL(b.dec_15,0))  as total_2015,
 
 						ISNULL(b.jan_16,0) as jan_16, 
 						ISNULL(b.feb_16,0) as feb_16, 
@@ -3371,24 +3654,40 @@ SELECT	 cc.[base_part]
 						ISNULL(b.dec_19,0) as dec_19, 
 						(ISNULL(b.jan_19,0)+ISNULL(b.feb_19,0)+ISNULL(b.mar_19,0)+ISNULL(b.apr_19,0)+ISNULL(b.may_19,0)+ISNULL(b.jun_19,0)+ISNULL(b.jul_19,0)+ISNULL(b.aug_19,0)+ISNULL(b.sep_19,0)+ISNULL(b.oct_19,0)+ISNULL(b.nov_19,0)+ISNULL(b.dec_19,0))  as total_2019,
 						
-						ISNULL(b.cal20,0) as cal20,
+						ISNULL(b.jan_20,0) as jan_20, 
+						ISNULL(b.feb_20,0) as feb_20, 
+						ISNULL(b.mar_20,0) as mar_20, 
+						ISNULL(b.apr_20,0) as apr_20, 
+						ISNULL(b.may_20,0) as may_20, 
+						ISNULL(b.jun_20,0) as jun_20, 
+						ISNULL(b.jul_20,0) as jul_20, 
+						ISNULL(b.aug_20,0) as aug_20, 
+						ISNULL(b.sep_20,0) as sep_20, 
+						ISNULL(b.oct_20,0) as oct_20, 
+						ISNULL(b.nov_20,0) as nov_20, 
+						ISNULL(b.dec_20,0) as dec_20, 
+						(ISNULL(b.jan_20,0)+ISNULL(b.feb_20,0)+ISNULL(b.mar_20,0)+ISNULL(b.apr_20,0)+ISNULL(b.may_20,0)+ISNULL(b.jun_20,0)+ISNULL(b.jul_20,0)+ISNULL(b.aug_20,0)+ISNULL(b.sep_20,0)+ISNULL(b.oct_20,0)+ISNULL(b.nov_20,0)+ISNULL(b.dec_20,0))  as total_2020,
+				
 						ISNULL(b.cal21,0) as cal21,
 						ISNULL(b.cal22,0) as cal22,
 						ISNULL(b.cal23,0) as cal23,
 						ISNULL(b.cal24,0) as cal24
 				from    
-						(select * from eeiuser.acctg_csm_base_part_mnemonic
+						(select * 
+						 from	eeiuser.acctg_csm_base_part_mnemonic
+						 where	release_id = --'2018-01'
+									(Select [dbo].[fn_ReturnLatestCSMRelease] ('CSM') ) 
 						) a 
 						left outer join 
 						(	select	* 
 							from	eeiuser.acctg_csm_NACSM  
-									where release_id = --'2013-10'
-										(Select	[dbo].[fn_ReturnLatestCSMRelease] ('CSM') ) 
+							where	release_id = --'2018-01'
+									(Select	[dbo].[fn_ReturnLatestCSMRelease] ('CSM') ) 
 						) b
 						on a.mnemonic = b.mnemonic 
 						where	version = 'Empire Adjustment'
 								and b.mnemonic is not null
-								and (ISNULL(b.cal10,0)+ISNULL(b.cal11,0)+ISNULL(b.cal12,0)+ISNULL(b.cal13,0)+ISNULL(b.cal14,0)+ISNULL(b.cal15,0)+ISNULL(b.cal16,0)+ISNULL(b.CAL17,0)+ISNULL(b.CAL18,0)+ISNULL(b.CAL19,0)+ISNULL(b.CAL20,0)+ISNULL(b.CAL21,0)+ISNULL(b.CAL22,0)+ISNULL(b.CAL23,0)) <>  0
+								and (ISNULL(b.cal15,0)+ISNULL(b.cal16,0)+ISNULL(b.CAL17,0)+ISNULL(b.CAL18,0)+ISNULL(b.CAL19,0)+ISNULL(b.CAL20,0)+ISNULL(b.CAL21,0)+ISNULL(b.CAL22,0)+ISNULL(b.CAL23,0)+ISNULL(b.CAL24,0)) <>  0
 				) bb
 				/* STATEMENT 3bb ENDS */
 				
@@ -3426,8 +3725,10 @@ SELECT	 cc.[base_part]
 									
 			on cc.base_part = XX.MCBasePart
 
-		left join	(	Select * 
-						from	eeiuser.acctg_csm_base_part_attributes where release_id = (SELECT [dbo].[fn_ReturnLatestCSMRelease] ('CSM'))
+		left join	(	Select	* 
+						from	eeiuser.acctg_csm_base_part_attributes 
+						where	release_id = -- '2018-01'
+								(SELECT [dbo].[fn_ReturnLatestCSMRelease] ('CSM'))
 					) ZZ
 
 			on cc.base_part = ZZ.base_part
@@ -3441,9 +3742,11 @@ SELECT	 cc.[base_part]
 where cc.base_part in	(	select	base_part 
 							from	eeiuser.acctg_csm_base_part_attributes 
 							where	include_in_forecast = 1
-									and release_id = -- '2013-10'
+									and release_id = -- '2018-01'
 										(SELECT [dbo].[fn_ReturnLatestCSMRelease] ('CSM') )
 							)
+
+
 
 
 

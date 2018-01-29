@@ -2,7 +2,7 @@ SET QUOTED_IDENTIFIER ON
 GO
 SET ANSI_NULLS ON
 GO
-create PROCEDURE [dbo].[PutOnHold_Pigtails_HND] (
+CREATE PROCEDURE [dbo].[PutOnHold_Pigtails_HND] (
 		@Result integer = 0 output) 
 As
 
@@ -165,6 +165,41 @@ if exists (	select	1
 	END
 
 end
+
+
+DECLARE @tableHTML  NVARCHAR(MAX) ;
+
+SET @tableHTML =
+    N'<H1>Serial onHold</H1>' +
+    N'<table border="1">' +
+    N'<tr><th>Serial</th>' +
+    N'<th>Part</th><th>Location</th><th>Status</th>' +
+    N'<th>DateStamp</th></tr>' +
+    CAST ( ( SELECT td = object.serial, '',
+                    td = object.part, '',
+                    td = object.location, '',
+					td = object.status, '',
+                    td = object.last_date
+             FROM	object 
+			WHERE	object.Note = @Note 
+				and object.status=@strNewStatus
+				and object.Last_date =@TranDT
+				and object.Last_Time = @TranDT
+				and object.Operator='MON'
+              ORDER BY Last_date
+              FOR XML PATH('tr'), TYPE 
+    ) AS NVARCHAR(MAX) ) +
+    N'</table>' +
+	N'.';
+
+EXEC msdb.dbo.sp_send_dbmail @profile_name = 'DBMail', -- sysname
+    @recipients = 'acantor@empire.hn;sarmijo@empire.hn;kmartinez@empire.hn;rzavala@empire.hn;imoreira@empire.hn', -- varchar(max)
+    @copy_recipients = '', -- varchar(max)
+    --@blind_copy_recipients = 'aboulanger@fore-thought.com;estimpson@fore-thought.com', -- varchar(max)
+    @subject = N'Serial OnHold by master list of pigtails in HND, by 2 months in warehouse', -- nvarchar(255)
+    @body = @TableHTML, -- nvarchar(max)
+    @body_format = 'HTML', -- varchar(20)
+    @importance = 'High' -- varchar(6)
 
 	----Envio de correo de partes que se colocaron con RI Anual.
 	--declare @subject varchar(500)

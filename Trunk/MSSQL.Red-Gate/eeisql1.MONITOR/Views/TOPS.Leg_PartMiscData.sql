@@ -6,29 +6,38 @@ GO
 create view [TOPS].[Leg_PartMiscData]
 as
 select
-	Part = part.part
-,	Description = part.name
-,	CrossRef = part.cross_ref
-,	Type = part.type
-,	UserDefined1 = part.user_defined_1
-,	StandardPack = part_inventory.standard_pack
-,	Price = part_customer_price_matrix.price
-,	LongestLT = part_inventory.longest_lt
-,	MinProdRun = part_inventory.min_prod_run
-,	ProdEnd = part_eecustom.prod_end
-,	EAU = part_eecustom.eau
-,	ProdStart = part_online.prod_start
-,	ProdEnd2 = part_online.prod_end
+	Part = p.part
+,	Description = p.name
+,	CrossRef = p.cross_ref
+,	Type = p.type
+,	UserDefined1 = p.user_defined_1
+,	StandardPack = pInv.standard_pack
+,	Price = pcpm.price
+,	LongestLT = pInv.longest_lt
+,	MinProdRun = pInv.min_prod_run
+,	ProdEnd = pe.prod_end
+,	EAU = pe.eau
+,	ProdStart = po.prod_start
+,	ProdEnd2 = po.prod_end
 from
-	MONITOR.dbo.part part
-,	MONITOR.dbo.part_customer_price_matrix part_customer_price_matrix
-,	MONITOR.dbo.part_eecustom part_eecustom
-,	MONITOR.dbo.part_inventory part_inventory
-,	MONITOR.dbo.part_online part_online
+	dbo.part p
+	cross apply
+		(	select top 1
+				pcpm.price
+			from
+				dbo.part_customer_price_matrix pcpm
+			where
+				pcpm.part = p.part
+			order by
+				pcpm.part
+			,	pcpm.qty_break
+		) pcpm
+	join dbo.part_eecustom pe
+		on pe.part = p.part
+	join dbo.part_inventory pInv
+		on pinv.part = p.part
+	join dbo.part_online po
+		on po.part = p.part
 where
-	part.part = part_inventory.part
-	and part_customer_price_matrix.part = part_inventory.part
-	and part_inventory.part = part_online.part
-	and part_online.part = part_eecustom.part
-	and ((part.type = 'f'))
+	p.type = 'F'
 GO

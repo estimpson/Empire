@@ -7,6 +7,7 @@ GO
 
 
 
+
 -- eeiuser.acctg_csm_sp_insert_new_base_part '2013-10', 'ALC0571','ALC0571','ALC','ALC','WIRE HARN - EEH', 'Lighting', 'Tail Lamp', '2013 CD391 Tail Lamp Harness', NULL, NULL, 1.23, .47, 'ALC0571-HB00', 1
 
 CREATE procedure [EEIUser].[acctg_csm_sp_insert_new_base_part] 
@@ -76,14 +77,16 @@ VALUES	(	 @release_id
 
 INSERT INTO eeiuser.acctg_csm_base_part_mnemonic
 
-        ( FORECAST_ID ,
+        ( release_id,
+		  FORECAST_ID ,
 		  MNEMONIC , 
 		  BASE_PART ,
           QTY_PER ,
           TAKE_RATE ,
           FAMILY_ALLOCATION 
         )
-VALUES  ( 'M' , -- FORECAST_ID - varchar(15)
+VALUES  ( @release_id,
+		  'M' , -- FORECAST_ID - varchar(15)
           'y'+@base_part , -- MNEMONIC - varchar(50)
           @base_part , -- BASE_PART - varchar(30)
           1 , -- QTY_PER - decimal
@@ -96,14 +99,16 @@ VALUES  ( 'M' , -- FORECAST_ID - varchar(15)
 
 INSERT INTO eeiuser.acctg_csm_base_part_mnemonic
 
-        ( FORECAST_ID ,
+        ( release_id,
+		  FORECAST_ID ,
           MNEMONIC ,
           BASE_PART ,
           QTY_PER ,
           TAKE_RATE ,
           FAMILY_ALLOCATION
         )
-VALUES  ( 'M' ,				-- FORECAST_ID - varchar(15)
+VALUES  ( @release_id,
+		  'M' ,				-- FORECAST_ID - varchar(15)
           'z'+@base_part ,	-- MNEMONIC - varchar(50)
           @base_part ,		-- BASE_PART - varchar(30)
           1 ,				-- QTY_PER - decimal
@@ -411,6 +416,18 @@ INSERT INTO eeiuser.acctg_csm_NAIHS
           [OCT 2019] ,
           [NOV 2019] ,
           [DEC 2019] ,
+		[JAN 2020] ,
+          [FEB 2020] ,
+          [MAR 2020] ,
+          [APR 2020] ,
+          [MAY 2020] ,
+          [JUN 2020] ,
+          [JUL 2020] ,
+          [AUG 2020] ,
+          [SEP 2020] ,
+          [OCT 2020] ,
+          [NOV 2020] ,
+          [DEC 2020] ,
 		[Q1 2008],
           [Q2 2008],
           [Q3 2008],
@@ -479,6 +496,10 @@ INSERT INTO eeiuser.acctg_csm_NAIHS
           [Q2 2024],
           [Q3 2024],
           [Q4 2024],
+		[Q1 2025],
+          [Q2 2025],
+          [Q3 2025],
+          [Q4 2025],
 		[CY 2000],
           [CY 2001],
           [CY 2002],
@@ -503,7 +524,8 @@ INSERT INTO eeiuser.acctg_csm_NAIHS
 		  [CY 2021],
 		  [CY 2022],
 		  [CY 2023],
-		  [CY 2024]
+		  [CY 2024],
+		  [CY 2025]
         )
 VALUES  ( @release_id , -- [RELEASE_ID] ,
           'Empire Factor' , -- [VERSION] ,
@@ -774,30 +796,42 @@ VALUES  ( @release_id , -- [RELEASE_ID] ,
           0 , -- [OCT 2017] ,
           0 , -- [NOV 2017] ,
           0 , -- [DEC 2017] ,		 
-		  0 , --  [JAN 2018] ,
-          0 , -- [FEB 2018] ,
-          0 , -- [MAR 2018] ,
-          0 , -- [APR 2018] ,
-          0 , -- [MAY 2018] ,
-          0 , -- [JUN 2018] ,
-          0 , -- [JUL 2018] ,
-          0 , -- [AUG 2018] , 
-          0 , -- [SEP 2018] ,
-          0 , -- [OCT 2018] ,
-          0 , -- [NOV 2018] ,
-          0 , -- [DEC 2018] ,
-		  0 , --  [JAN 2019] ,
-          0 , -- [FEB 2019] ,
-          0 , -- [MAR 2019] ,
-          0 , -- [APR 2019] ,
-          0 , -- [MAY 2019] ,
-          0 , -- [JUN 2019] ,
-          0 , -- [JUL 2019] ,
-          0 , -- [AUG 2019] , 
-          0 , -- [SEP 2019] ,
-          0 , -- [OCT 2019] ,
-          0 , -- [NOV 2019] ,
-          0 , -- [DEC 2019] ,
+		  1 , --  [JAN 2018] ,
+          1 , -- [FEB 2018] ,
+          1 , -- [MAR 2018] ,
+          1 , -- [APR 2018] ,
+          1 , -- [MAY 2018] ,
+          1 , -- [JUN 2018] ,
+          1 , -- [JUL 2018] ,
+          1 , -- [AUG 2018] , 
+          1 , -- [SEP 2018] ,
+          1 , -- [OCT 2018] ,
+          1 , -- [NOV 2018] ,
+          1 , -- [DEC 2018] ,
+		  1 , --  [JAN 2019] ,
+          1 , -- [FEB 2019] ,
+          1 , -- [MAR 2019] ,
+          1 , -- [APR 2019] ,
+          1 , -- [MAY 2019] ,
+          1 , -- [JUN 2019] ,
+          1 , -- [JUL 2019] ,
+          1 , -- [AUG 2019] , 
+          1 , -- [SEP 2019] ,
+          1 , -- [OCT 2019] ,
+          1 , -- [NOV 2019] ,
+          1 , -- [DEC 2019] ,
+          1 , -- [JAN 2020] ,
+		  1 , -- [FEB 2020] ,
+          1 , -- [MAR 2020] ,
+          1 , -- [APR 2020] ,
+          1 , -- [MAY 2020] ,
+          1 , -- [JUN 2020] ,
+          1 , -- [JUL 2020] ,
+          1 , -- [AUG 2020] , 
+          1 , -- [SEP 2020] ,
+          1 , -- [OCT 2020] ,
+          1 , -- [NOV 2020] ,
+          1 , -- [DEC 2020] ,
 		  0 , --  [Q1 2008],
           0 , -- [Q2 2008],
           0 , -- [Q3 2008],
@@ -838,34 +872,38 @@ VALUES  ( @release_id , -- [RELEASE_ID] ,
           0 , -- [Q2 2017],
           0 , -- [Q3 2017],
           0 , -- [Q4 2017],         
-          0 , --  [Q1 2018],
-          0 , -- [Q2 2018],
-          0 , -- [Q3 2018],
-          0 , -- [Q4 2018],
-          0 , --  [Q1 2019],
-          0 , -- [Q2 2019],
-          0 , -- [Q3 2019],
-          0 , -- [Q4 2019],        
-          0 , --  [Q1 2020],
-          0 , -- [Q2 2020],
-          0 , -- [Q3 2020],
-          0 , -- [Q4 2020], 
-          0 , --  [Q1 2021],
-          0 , -- [Q2 2021],
-          0 , -- [Q3 2021],
-          0 , -- [Q4 2021],         
-          0 , --  [Q1 2022],
-          0 , -- [Q2 2022],
-          0 , -- [Q3 2022],
-          0 , -- [Q4 2022],
-          0 , --  [Q1 2023],
-          0 , -- [Q2 2023],
-          0 , -- [Q3 2023],
-          0 , -- [Q4 2023],
-          0 , --  [Q1 2024], 
-          0 , -- [Q2 2024],
-          0 , -- [Q3 2024],
-          0 , -- [Q4 2024],       
+          1 , --  [Q1 2018],
+          1 , -- [Q2 2018],
+          1 , -- [Q3 2018],
+          1 , -- [Q4 2018],
+          1 , --  [Q1 2019],
+          1 , -- [Q2 2019],
+          1 , -- [Q3 2019],
+          1 , -- [Q4 2019],        
+          1 , --  [Q1 2020],
+          1 , -- [Q2 2020],
+          1 , -- [Q3 2020],
+          1 , -- [Q4 2020], 
+          1 , --  [Q1 2021],
+          1 , -- [Q2 2021],
+          1 , -- [Q3 2021],
+          1 , -- [Q4 2021],         
+          1 , --  [Q1 2022],
+          1 , -- [Q2 2022],
+          1 , -- [Q3 2022],
+          1 , -- [Q4 2022],
+          1 , --  [Q1 2023],
+          1 , -- [Q2 2023],
+          1 , -- [Q3 2023],
+          1 , -- [Q4 2023],
+          1 , --  [Q1 2024], 
+          1 , -- [Q2 2024],
+          1 , -- [Q3 2024],
+          1 , -- [Q4 2024],       
+          1 , --  [Q1 2025], 
+          1 , -- [Q2 2025],
+          1 , -- [Q3 2025],
+          1 , -- [Q4 2025], 
 		  0 , --  [CY 2000],
           0 , -- [CY 2001],
           0 , -- [CY 2002],
@@ -884,13 +922,14 @@ VALUES  ( @release_id , -- [RELEASE_ID] ,
           0 , -- [CY 2015],
           0 , -- [CY 2016],
           0 , -- [CY 2017],
-          0 , -- [CY 2018],
-          0 , -- [CY 2019],
-		  0 , -- [CY 2020],
-		  0 , -- [CY 2021],
-		  0 , -- [CY 2022],
-		  0 , -- [CY 2023],
-		  0   -- [CY 2024]
+          1 , -- [CY 2018],
+          1 , -- [CY 2019],
+		  1 , -- [CY 2020],
+		  1 , -- [CY 2021],
+		  1 , -- [CY 2022],
+		  1 , -- [CY 2023],
+		  1 , -- [CY 2024],
+		  1   -- [CY 2025]
 	    )
 
 
@@ -1195,6 +1234,19 @@ INSERT INTO eeiuser.acctg_csm_NAIHS
           [OCT 2019] ,
           [NOV 2019] ,
           [DEC 2019] ,
+		[JAN 2020] ,
+          [FEB 2020] ,
+          [MAR 2020] ,
+          [APR 2020] ,
+          [MAY 2020] ,
+          [JUN 2020] ,
+          [JUL 2020] ,
+          [AUG 2020] ,
+          [SEP 2020] ,
+          [OCT 2020] ,
+          [NOV 2020] ,
+          [DEC 2020] ,
+
 		[Q1 2008],
           [Q2 2008],
           [Q3 2008],
@@ -1263,6 +1315,10 @@ INSERT INTO eeiuser.acctg_csm_NAIHS
           [Q2 2024],
           [Q3 2024],
           [Q4 2024],
+		[Q1 2025],
+          [Q2 2025],
+          [Q3 2025],
+          [Q4 2025],
 		[CY 2000],
           [CY 2001],
           [CY 2002],
@@ -1287,7 +1343,8 @@ INSERT INTO eeiuser.acctg_csm_NAIHS
 		  [CY 2021],
 		  [CY 2022],
 		  [CY 2023],
-		  [CY 2024]
+		  [CY 2024],
+		  [CY 2025]
         )
 VALUES  ( @release_id , -- [RELEASE_ID] ,
           'Empire Adjustment' , -- [VERSION] ,
@@ -1582,6 +1639,18 @@ VALUES  ( @release_id , -- [RELEASE_ID] ,
           0 , -- [OCT 2019] ,
           0 , -- [NOV 2019] ,
           0 , -- [DEC 2019] ,
+		  0 , --  [JAN 2020] ,
+          0 , -- [FEB 2020] ,
+          0 , -- [MAR 2020] ,
+          0 , -- [APR 2020] ,
+          0 , -- [MAY 2020] ,
+          0 , -- [JUN 2020] ,
+          0 , -- [JUL 2020] ,
+          0 , -- [AUG 2020] , 
+          0 , -- [SEP 2020] ,
+          0 , -- [OCT 2020] ,
+          0 , -- [NOV 2020] ,
+          0 , -- [DEC 2020] ,
 		  0 , --  [Q1 2008],
           0 , -- [Q2 2008],
           0 , -- [Q3 2008],
@@ -1650,6 +1719,10 @@ VALUES  ( @release_id , -- [RELEASE_ID] ,
           0 , -- [Q2 2024],
           0 , -- [Q3 2024],
           0 , -- [Q4 2024],       
+          0 , --  [Q1 2025], 
+          0 , -- [Q2 2025],
+          0 , -- [Q3 2025],
+          0 , -- [Q4 2025], 
 		  0 , --  [CY 2000],
           0 , -- [CY 2001],
           0 , -- [CY 2002],
@@ -1674,7 +1747,8 @@ VALUES  ( @release_id , -- [RELEASE_ID] ,
 		  0 , -- [CY 2021],
 		  0 , -- [CY 2022],
 		  0 , -- [CY 2023],
-		  0   -- [CY 2024]
+		  0 , -- [CY 2024],
+		  0   -- [CY 2025]
 	    )
 
 
@@ -1698,11 +1772,12 @@ jan_16, feb_16, mar_16, apr_16, may_16, jun_16, jul_16, aug_16, sep_16, oct_16, 
 jan_17, feb_17, mar_17, apr_17, may_17, jun_17, jul_17, aug_17, sep_17, oct_17, nov_17, Dec_17, 
 jan_18, feb_18, mar_18, apr_18, may_18, jun_18, jul_18, aug_18, sep_18, oct_18, nov_18, Dec_18, 
 jan_19, feb_19, mar_19, apr_19, may_19, jun_19, jul_19, aug_19, sep_19, oct_19, nov_19, Dec_19,
-Dec_20, 
+jan_20, feb_20, mar_20, apr_20, may_20, jun_20, jul_20, aug_20, sep_20, oct_20, nov_20, Dec_20, 
 Dec_21, 
 Dec_22, 
 Dec_23,
-Dec_24)
+Dec_24,
+Dec_25)
 
 select @release_id,'1',@base_part,'Current Price', 
 @sp,@sp,@sp,@sp,@sp,@sp,@sp,@sp,@sp,@sp,@sp,@sp, -- 2008
@@ -1717,11 +1792,12 @@ select @release_id,'1',@base_part,'Current Price',
 @sp,@sp,@sp,@sp,@sp,@sp,@sp,@sp,@sp,@sp,@sp,@sp, -- 2017
 @sp,@sp,@sp,@sp,@sp,@sp,@sp,@sp,@sp,@sp,@sp,@sp, -- 2018
 @sp,@sp,@sp,@sp,@sp,@sp,@sp,@sp,@sp,@sp,@sp,@sp, -- 2019
-@sp, --2020
+@sp,@sp,@sp,@sp,@sp,@sp,@sp,@sp,@sp,@sp,@sp,@sp, -- 2020
 @sp, --2021
 @sp, --2022
 @sp, --2023
-@sp  --2024
+@sp, --2024
+@sp  --2025
 
 -- 5. Insert Material Cost
 -- FOR TESTING:
@@ -1745,11 +1821,12 @@ Jan_16, Feb_16, Mar_16, Apr_16, May_16, Jun_16, Jul_16, Aug_16, Sep_16, Oct_16, 
 Jan_17, Feb_17, Mar_17, Apr_17, May_17, Jun_17, Jul_17, Aug_17, Sep_17, Oct_17, Nov_17, Dec_17,
 Jan_18, Feb_18, Mar_18, Apr_18, May_18, Jun_18, Jul_18, Aug_18, Sep_18, Oct_18, Nov_18, Dec_18,
 Jan_19, Feb_19, Mar_19, Apr_19, May_19, Jun_19, Jul_19, Aug_19, Sep_19, Oct_19, Nov_19, Dec_19,
-Dec_20, 
+Jan_20, Feb_20, Mar_20, Apr_20, May_20, Jun_20, Jul_20, Aug_20, Sep_20, Oct_20, Nov_20, Dec_20, 
 Dec_21, 
 Dec_22, 
 Dec_23, 
-Dec_24)
+Dec_24,
+Dec_25)
 
 select @release_id,'1',@base_part, 'Current Cost', @part_used_for_mc, 
 @mc,@mc,@mc,@mc,@mc,@mc,@mc,@mc,@mc,@mc,@mc,@mc, --2008
@@ -1763,12 +1840,14 @@ select @release_id,'1',@base_part, 'Current Cost', @part_used_for_mc,
 @mc,@mc,@mc,@mc,@mc,@mc,@mc,@mc,@mc,@mc,@mc,@mc, --2016
 @mc,@mc,@mc,@mc,@mc,@mc,@mc,@mc,@mc,@mc,@mc,@mc, --2017
 @mc,@mc,@mc,@mc,@mc,@mc,@mc,@mc,@mc,@mc,@mc,@mc, --2018
-@mc,@mc,@mc,@mc,@mc,@mc,@mc,@mc,@mc,@mc,@mc,@mc,  --2019
-@mc, --2020
+@mc,@mc,@mc,@mc,@mc,@mc,@mc,@mc,@mc,@mc,@mc,@mc, --2019
+@mc,@mc,@mc,@mc,@mc,@mc,@mc,@mc,@mc,@mc,@mc,@mc, --2020
 @mc, --2021
 @mc, --2022
 @mc, --2023
-@mc  --2024
+@mc, --2024
+@mc  --2025
+
 
 
 

@@ -1,0 +1,6 @@
+IF NOT EXISTS (SELECT * FROM master.dbo.syslogins WHERE loginname = N'EMPIRE\lramirez')
+CREATE LOGIN [EMPIRE\lramirez] FROM WINDOWS
+GO
+CREATE USER [EMPIRE\lramirez] FOR LOGIN [EMPIRE\lramirez] WITH DEFAULT_SCHEMA=[EMPIRE\lramirez]
+GO
+REVOKE CONNECT TO [EMPIRE\lramirez]

@@ -6,6 +6,7 @@ GO
 
 
 
+
 CREATE VIEW [EDIChryslerIC].[BlanketOrders]
 AS
 SELECT
@@ -17,11 +18,11 @@ SELECT
 ,	SupplierCode = es.supplier_code
 ,	CustomerPart = oh.customer_part
 ,	CustomerPO = oh.customer_po
-,	CheckCustomerPOPlanning = CONVERT(BIT, CASE COALESCE(check_po, 'N') WHEN 'Y' THEN 1 ELSE 0 END)
-,	CheckCustomerPOShipSchedule = COALESCE(CheckCustomerPOFirm, 0)
+,	CheckCustomerPOPlanning = 0 --CONVERT(BIT, CASE COALESCE(check_po, 'N') WHEN 'Y' THEN 1 ELSE 0 END)
+,	CheckCustomerPOShipSchedule = 0 --COALESCE(CheckCustomerPOFirm, 0)
 ,	ModelYear862 = COALESCE(RIGHT(oh.model_year,1),'')
 ,	ModelYear830 = COALESCE(LEFT(oh.model_year,1),'')
-,	CheckModelYearPlanning = CONVERT(BIT, CASE COALESCE(check_model_year, 'N') WHEN 'Y' THEN 1 ELSE 0 END)
+,	CheckModelYearPlanning = 0 --CONVERT(BIT, CASE COALESCE(check_model_year, 'N') WHEN 'Y' THEN 1 ELSE 0 END)
 ,	CheckModelYearShipSchedule = 0
 ,	PartCode = oh.blanket_part
 ,	OrderUnit = oh.shipping_unit
@@ -55,6 +56,7 @@ WHERE
 	oh.order_type = 'B' 
  AND COALESCE(ProcessEDI,1) = 1
  AND COALESCE(oh.status,'') = 'A'
+
 
 
 

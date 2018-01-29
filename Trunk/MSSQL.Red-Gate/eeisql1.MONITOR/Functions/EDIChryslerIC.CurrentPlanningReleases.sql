@@ -5,6 +5,8 @@ GO
 
 
 
+
+
 CREATE FUNCTION [EDIChryslerIC].[CurrentPlanningReleases]
 ()
 RETURNS @CurrentPlanningReleases TABLE
@@ -81,12 +83,12 @@ BEGIN
 			EDIChryslerIC.BlanketOrders bo ON bo.EDIShipToCode = pr.ShipToCode
 			WHERE ph.RowCreateDT>= DATEADD(dd, COALESCE(bo.PlanningReleaseHorizonDaysBack,-30), GETDATE())
 			AND COALESCE(bo.ProcessPlanningRelease,1) = 1
+			--AND pr.CustomerPO != 'NA'
 --- </Body>
 
 ---	<Return>
 	RETURN
 END
-
 
 
 

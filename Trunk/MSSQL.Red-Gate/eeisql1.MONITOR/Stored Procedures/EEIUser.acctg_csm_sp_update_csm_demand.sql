@@ -5,6 +5,7 @@ GO
 
 
 
+
 CREATE procedure [EEIUser].[acctg_csm_sp_update_csm_demand] 
  ( @base_part varchar(30)
   ,@release_id char(7)
@@ -22,4 +23,6 @@ set		qty_per = @qty_per,
 		family_allocation = @family_allocation
 where	mnemonic = @MnemonicVehiclePlant
 	and BASE_PART = @base_part
+	and release_id = @release_id
+
 GO

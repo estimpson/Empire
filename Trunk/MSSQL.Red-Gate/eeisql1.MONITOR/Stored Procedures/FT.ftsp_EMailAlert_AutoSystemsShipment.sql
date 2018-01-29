@@ -4,10 +4,6 @@ SET ANSI_NULLS ON
 GO
 
 
-
-
-
-
 CREATE PROCEDURE [FT].[ftsp_EMailAlert_AutoSystemsShipment]
 
 --Returns shipper_detail data in an EMail alert sent to EEI Schedulers for AutoLiv Shippers
@@ -65,6 +61,7 @@ SET	@TranDT = COALESCE(@TranDT, GETDATE())
 		,s.destination AS Destination
 		,sd.part_original AS PartNumber
 		,sd.customer_part AS CustomerPart
+		,sd.customer_po AS CustomerPO
 		,sd.qty_packed as QtyShipped
 		,s.truck_number AS TruckNumber
 		,d.scheduler AS Scheduler
@@ -187,6 +184,7 @@ go
 Results {
 }
 */
+
 
 
 

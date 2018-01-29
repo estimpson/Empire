@@ -1,27 +1,23 @@
-CREATE TABLE [TOPS].[PlanningSnopshotHeaders]
+CREATE TABLE [TOPS].[PlanningCalendars]
 (
-[FinishedPart] [varchar] (25) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL,
-[Revision] [char] (9) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL,
-[Status] [int] NOT NULL CONSTRAINT [DF__PlanningS__Statu__05473AA9] DEFAULT ((0)),
-[Type] [int] NOT NULL CONSTRAINT [DF__PlanningSn__Type__063B5EE2] DEFAULT ((0)),
-[Year] AS (CONVERT([int],substring([Revision],(1),(2)),(0))),
-[Week] AS (CONVERT([int],substring([Revision],(3),(2)),(0))),
-[Number] AS (CONVERT([int],substring([Revision],(5),(3)),(0))),
-[HierarchyID] [sys].[hierarchyid] NULL,
-[RowGUID] [uniqueidentifier] NOT NULL CONSTRAINT [DF__PlanningS__RowGU__072F831B] DEFAULT (newid()),
+[MondayDT] [datetime] NOT NULL,
+[Status] [int] NOT NULL CONSTRAINT [DF__PlanningC__Statu__3DED1D2D] DEFAULT ((0)),
+[Type] [int] NOT NULL CONSTRAINT [DF__PlanningCa__Type__3EE14166] DEFAULT ((0)),
+[CalendarXML] [xml] NOT NULL,
+[RowGUID] [uniqueidentifier] NOT NULL CONSTRAINT [DF__PlanningC__RowGU__3FD5659F] DEFAULT (newid()),
 [RowID] [int] NOT NULL IDENTITY(1, 1),
-[RowCreateDT] [datetime] NULL CONSTRAINT [DF__PlanningS__RowCr__0823A754] DEFAULT (getdate()),
-[RowCreateUser] [sys].[sysname] NOT NULL CONSTRAINT [DF__PlanningS__RowCr__0917CB8D] DEFAULT (suser_name()),
-[RowModifiedDT] [datetime] NULL CONSTRAINT [DF__PlanningS__RowMo__0A0BEFC6] DEFAULT (getdate()),
-[RowModifiedUser] [sys].[sysname] NOT NULL CONSTRAINT [DF__PlanningS__RowMo__0B0013FF] DEFAULT (suser_name())
-) ON [PRIMARY]
+[RowCreateDT] [datetime] NULL CONSTRAINT [DF__PlanningC__RowCr__40C989D8] DEFAULT (getdate()),
+[RowCreateUser] [sys].[sysname] NOT NULL CONSTRAINT [DF__PlanningC__RowCr__41BDAE11] DEFAULT (suser_name()),
+[RowModifiedDT] [datetime] NULL CONSTRAINT [DF__PlanningC__RowMo__42B1D24A] DEFAULT (getdate()),
+[RowModifiedUser] [sys].[sysname] NOT NULL CONSTRAINT [DF__PlanningC__RowMo__43A5F683] DEFAULT (suser_name())
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 GO
 SET QUOTED_IDENTIFIER ON
 GO
 SET ANSI_NULLS ON
 GO
 
-create trigger [TOPS].[tr_PlanningSnopshotHeaders_uRowModified] on [TOPS].[PlanningSnopshotHeaders] after update
+create trigger [TOPS].[tr_PlanningCalendars_uRowModified] on [TOPS].[PlanningCalendars] after update
 as
 declare
 	@TranDT datetime
@@ -62,16 +58,16 @@ begin try
 	--- <Body>
 	if	not update(RowModifiedDT) begin
 		--- <Update rows="*">
-		set	@TableName = 'TOPS.PlanningSnopshotHeaders'
+		set	@TableName = 'TOPS.PlanningCalendars'
 		
 		update
-			psh
+			pc
 		set	RowModifiedDT = getdate()
 		,	RowModifiedUser = suser_name()
 		from
-			TOPS.PlanningSnopshotHeaders psh
+			TOPS.PlanningCalendars pc
 			join inserted i
-				on i.RowID = psh.RowID
+				on i.RowID = pc.RowID
 		
 		select
 			@Error = @@Error,
@@ -146,19 +142,19 @@ begin transaction Test
 go
 
 insert
-	TOPS.PlanningSnopshotHeaders
+	TOPS.PlanningCalendars
 ...
 
 update
 	...
 from
-	TOPS.PlanningSnopshotHeaders
+	TOPS.PlanningCalendars
 ...
 
 delete
 	...
 from
-	TOPS.PlanningSnopshotHeaders
+	TOPS.PlanningCalendars
 ...
 go
 
@@ -177,11 +173,9 @@ Results {
 }
 */
 GO
-ALTER TABLE [TOPS].[PlanningSnopshotHeaders] ADD CONSTRAINT [CK__PlanningS__Revis__04531670] CHECK (([Revision] like '[0-9][0-9].[0-9][0-9].[0-9][0-9][0-9]'))
+ALTER TABLE [TOPS].[PlanningCalendars] ADD CONSTRAINT [PK__Planning__FFEE7451364BFB65] PRIMARY KEY CLUSTERED  ([RowID]) ON [PRIMARY]
 GO
-ALTER TABLE [TOPS].[PlanningSnopshotHeaders] ADD CONSTRAINT [PK__Planning__FFEE74517CB1F4A8] PRIMARY KEY CLUSTERED  ([RowID]) ON [PRIMARY]
+ALTER TABLE [TOPS].[PlanningCalendars] ADD CONSTRAINT [UQ__Planning__F3053A8B39286810] UNIQUE NONCLUSTERED  ([MondayDT]) ON [PRIMARY]
 GO
-ALTER TABLE [TOPS].[PlanningSnopshotHeaders] ADD CONSTRAINT [UQ__Planning__77638A8D7F8E6153] UNIQUE NONCLUSTERED  ([FinishedPart], [Revision]) ON [PRIMARY]
-GO
-ALTER TABLE [TOPS].[PlanningSnopshotHeaders] ADD CONSTRAINT [UQ__Planning__B174D9DD026ACDFE] UNIQUE NONCLUSTERED  ([RowGUID]) ON [PRIMARY]
+ALTER TABLE [TOPS].[PlanningCalendars] ADD CONSTRAINT [UQ__Planning__B174D9DD3C04D4BB] UNIQUE NONCLUSTERED  ([RowGUID]) ON [PRIMARY]
 GO

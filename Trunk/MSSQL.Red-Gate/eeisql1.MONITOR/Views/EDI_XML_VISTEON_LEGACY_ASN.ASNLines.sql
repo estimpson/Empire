@@ -4,29 +4,32 @@ SET ANSI_NULLS ON
 GO
 
 
-CREATE view [EDI_XML_VISTEON_LEGACY_ASN].[ASNLines]
-as
-select
+
+CREATE VIEW [EDI_XML_VISTEON_LEGACY_ASN].[ASNLines]
+AS
+SELECT
 	ShipperID = s.id
 ,	CustomerPart = sd.customer_part
-,	CustomerPO = max(sd.customer_po)
-,	ShipQty = sum(convert(int, sd.alternative_qty))
-,	AccumQty = sum(convert(int, sd.accum_shipped))
-,	CustomerECL = max(oh.engineering_level)
-,	RowNumber = row_number() over (partition by s.id order by sd.customer_part)
-from
+,	CustomerPO = MAX(sd.customer_po)
+,	ShipQty = SUM(CONVERT(INT, sd.alternative_qty))
+,	AccumQty = SUM(CONVERT(INT, sd.accum_shipped))
+,	CustomerECL = MAX(oh.engineering_level)
+,	RowNumber = ROW_NUMBER() OVER (PARTITION BY s.id ORDER BY sd.customer_part)
+FROM
 	dbo.shipper s
-	join dbo.shipper_detail sd
-		on sd.shipper = s.id
-	join dbo.order_header oh
-		on oh.order_no = sd.order_no
-	join dbo.edi_setups es
-		on es.destination = s.destination
-where
-	coalesce(s.type, 'N') in ('N', 'M')
-	and sd.part NOT LIKE 'CUM%' and s.date_shipped > getdate() - 60
-group by
+	JOIN dbo.shipper_detail sd
+		ON sd.shipper = s.id
+	JOIN dbo.order_header oh
+		ON oh.order_no = sd.order_no AND
+				oh.blanket_part = sd.part_original
+	JOIN dbo.edi_setups es
+		ON es.destination = s.destination
+WHERE
+	COALESCE(s.type, 'N') IN ('N', 'M')
+	AND sd.part NOT LIKE 'CUM%' AND s.date_shipped > GETDATE() - 60
+GROUP BY
 	s.id
 ,	sd.customer_part
+
 
 GO

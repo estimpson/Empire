@@ -9,6 +9,7 @@ GO
 
 
 
+
 CREATE view [EEIUser].[acctg_csm_NACSM]
 as
 select
@@ -282,6 +283,18 @@ select
 ,	OCT_19 = acn.[Oct 2019]
 ,	NOV_19 = acn.[Nov 2019]
 ,	DEC_19 = acn.[Dec 2019]
+,	JAN_20 = acn.[Jan 2020]
+,	FEB_20 = acn.[Feb 2020]
+,	MAR_20 = acn.[Mar 2020]
+,	APR_20 = acn.[Apr 2020]
+,	MAY_20 = acn.[May 2020]
+,	JUN_20 = acn.[Jun 2020]
+,	JUL_20 = acn.[Jul 2020]
+,	AUG_20 = acn.[Aug 2020]
+,	SEP_20 = acn.[Sep 2020]
+,	OCT_20 = acn.[Oct 2020]
+,	NOV_20 = acn.[Nov 2020]
+,	DEC_20 = acn.[Dec 2020]
 ,	ONE08 = acn.[Q1 2008]
 ,	TWO08 = acn.[Q2 2008]
 ,	THREE08 = acn.[Q3 2008]
@@ -377,6 +390,7 @@ select
 ,	CAL24 = acn.[CY 2024]
 FROM
 	MONITOR.eeiuser.acctg_csm_NAIHS acn
+
 
 
 

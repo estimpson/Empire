@@ -6,6 +6,8 @@ GO
 
 
 
+
+
 CREATE procedure [EEIUser].[acctg_csm_sp_insert_selling_prices] 
 @release_id varchar(25),
 @base_part varchar(25),
@@ -28,20 +30,36 @@ jan_14, feb_14, mar_14, apr_14, may_14, jun_14, jul_14, aug_14, sep_14, oct_14, 
 jan_15, feb_15, mar_15, apr_15, may_15, jun_15, jul_15, aug_15, sep_15, oct_15, nov_15, dec_15, 
 jan_16, feb_16, mar_16, apr_16, may_16, jun_16, jul_16, aug_16, sep_16, oct_16, nov_16, dec_16, 
 jan_17, feb_17, mar_17, apr_17, may_17, jun_17, jul_17, aug_17, sep_17, oct_17, nov_17, Dec_17, 
-Dec_18, Dec_19)
+jan_18, feb_18, mar_18, apr_18, may_18, jun_18, jul_18, aug_18, sep_18, oct_18, nov_18, Dec_18,
+jan_19, feb_19, mar_19, apr_19, may_19, jun_19, jul_19, aug_19, sep_19, oct_19, nov_19, Dec_19,
+jan_20, feb_20, mar_20, apr_20, may_20, jun_20, jul_20, aug_20, sep_20, oct_20, nov_20, Dec_20,
+Dec_21, 
+Dec_22,
+Dec_23,
+Dec_24,
+Dec_25)
 
 select @release_id,'1',@base_part,'Current Selling Price', 
-@sp,@sp,@sp,@sp,@sp,@sp,@sp,@sp,@sp,@sp,@sp,@sp,
-@sp,@sp,@sp,@sp,@sp,@sp,@sp,@sp,@sp,@sp,@sp,@sp,
-@sp,@sp,@sp,@sp,@sp,@sp,@sp,@sp,@sp,@sp,@sp,@sp,
-@sp,@sp,@sp,@sp,@sp,@sp,@sp,@sp,@sp,@sp,@sp,@sp,
-@sp,@sp,@sp,@sp,@sp,@sp,@sp,@sp,@sp,@sp,@sp,@sp,
-@sp,@sp,@sp,@sp,@sp,@sp,@sp,@sp,@sp,@sp,@sp,@sp,
-@sp,@sp,@sp,@sp,@sp,@sp,@sp,@sp,@sp,@sp,@sp,@sp,
-@sp,@sp,@sp,@sp,@sp,@sp,@sp,@sp,@sp,@sp,@sp,@sp,
-@sp,@sp,@sp,@sp,@sp,@sp,@sp,@sp,@sp,@sp,@sp,@sp,
-@sp,@sp,@sp,@sp,@sp,@sp,@sp,@sp,@sp,@sp,@sp,@sp,
-@sp,@sp
+@sp,@sp,@sp,@sp,@sp,@sp,@sp,@sp,@sp,@sp,@sp,@sp, --2008
+@sp,@sp,@sp,@sp,@sp,@sp,@sp,@sp,@sp,@sp,@sp,@sp, --2009
+@sp,@sp,@sp,@sp,@sp,@sp,@sp,@sp,@sp,@sp,@sp,@sp, --2010
+@sp,@sp,@sp,@sp,@sp,@sp,@sp,@sp,@sp,@sp,@sp,@sp, --2011
+@sp,@sp,@sp,@sp,@sp,@sp,@sp,@sp,@sp,@sp,@sp,@sp, --2012
+@sp,@sp,@sp,@sp,@sp,@sp,@sp,@sp,@sp,@sp,@sp,@sp, --2013
+@sp,@sp,@sp,@sp,@sp,@sp,@sp,@sp,@sp,@sp,@sp,@sp, --2014
+@sp,@sp,@sp,@sp,@sp,@sp,@sp,@sp,@sp,@sp,@sp,@sp, --2015
+@sp,@sp,@sp,@sp,@sp,@sp,@sp,@sp,@sp,@sp,@sp,@sp, --2016
+@sp,@sp,@sp,@sp,@sp,@sp,@sp,@sp,@sp,@sp,@sp,@sp, --2017
+@sp,@sp,@sp,@sp,@sp,@sp,@sp,@sp,@sp,@sp,@sp,@sp, --2018
+@sp,@sp,@sp,@sp,@sp,@sp,@sp,@sp,@sp,@sp,@sp,@sp, --2019
+@sp,@sp,@sp,@sp,@sp,@sp,@sp,@sp,@sp,@sp,@sp,@sp, --2020
+@sp, --2021
+@sp, --2022
+@sp, --2023
+@sp, --2024
+@sp  --2025
 
   
+
+
 GO

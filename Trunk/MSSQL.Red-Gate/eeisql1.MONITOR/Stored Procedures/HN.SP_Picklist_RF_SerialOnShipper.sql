@@ -509,7 +509,7 @@ IF @Action='U'
 		parent_serial = @PalletSerial,
 		Destination = NULL,
 		Note= @Notes
-	where	serial = @Serial 
+	where	serial = @Serial or parent_serial = @Serial 
 
 		set	@Error = @@Error
 		if	@Error != 0 begin
@@ -570,7 +570,7 @@ IF @Action='U'
 		object.custom4,
 		object.custom5
 	from	object object
-	where object.Serial = @Serial
+	where object.Serial = @Serial or parent_serial = @Serial 
 	
 		set	@Error = @@Error
 		if	@Error != 0 begin

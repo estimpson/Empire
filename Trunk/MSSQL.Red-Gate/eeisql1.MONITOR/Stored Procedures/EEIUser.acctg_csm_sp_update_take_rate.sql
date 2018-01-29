@@ -6,6 +6,7 @@ GO
 
 
 
+
 -- exec eeiuser.acctg_csm_sp_update_take_rate 'NOR0014', '2014-06'
 
 
@@ -327,13 +328,15 @@ select	@base_part as [base_part],
 from 
 		(	select	* 
 			from	eeiuser.acctg_csm_base_part_mnemonic
+			where	release_id = @release_id
 		) a 
 		left outer join 
 		(	select	* 
 			from	eeiuser.acctg_csm_NAIHS 
 			where	release_id = @release_id
 		) b
-		on b.[Mnemonic-Vehicle/Plant] = a.mnemonic 
+		on b.[Mnemonic-Vehicle/Plant] = a.mnemonic
+		and a.release_id = b.release_id 
 		where	a.base_part = @base_part 
 			and b.[Mnemonic-Vehicle/Plant] is not null
 			and b.Version = 'CSM')a
@@ -342,6 +345,7 @@ declare @suggested_take_rate decimal(18,2)
 select @suggested_take_rate = (select round(a.total_2016/b.total_2016,2) from @actual a join @forecast b on a.base_part = b.base_part)
 
 update eeiuser.acctg_csm_base_part_mnemonic set take_rate = take_rate*@suggested_take_rate where base_part = @base_part and forecast_id = 'C'
+
 
 
 GO

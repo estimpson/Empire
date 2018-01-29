@@ -1,0 +1,3 @@
+CREATE SCHEMA [EMPIRE\lramirez]
+AUTHORIZATION [EMPIRE\lramirez]
+GO

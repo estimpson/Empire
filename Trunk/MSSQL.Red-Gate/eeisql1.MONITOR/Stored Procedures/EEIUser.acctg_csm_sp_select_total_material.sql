@@ -9,6 +9,7 @@ GO
 
 
 
+
 CREATE procedure [EEIUser].[acctg_csm_sp_select_total_material]
   @base_part varchar(30),
   @release_id varchar(30)
@@ -200,6 +201,7 @@ from
 			from 
 					(	select	* 
 						from	eeiuser.acctg_csm_base_part_mnemonic
+						where	release_id = @release_id
 					) a 
 					left outer join 
 					(	select	* 
@@ -208,6 +210,7 @@ from
 							and VERSION = 'CSM'
 					) b
 					on a.mnemonic = b.[Mnemonic-Vehicle/Plant] 
+					and a.release_id = b.release_id
 					where	a.base_part = @base_part 
 					group by base_part
 						
@@ -276,6 +279,7 @@ from
 			from 
 					(	select	* 
 						from	eeiuser.acctg_csm_base_part_mnemonic
+						where	release_id = @release_id
 					) a 
 					join 
 					(	select	* 
@@ -284,6 +288,7 @@ from
 							and VERSION = 'Empire Factor'
 					) b
 					on a.mnemonic = b.[Mnemonic-Vehicle/Plant]
+					and a.release_id = b.release_id
 					where	a.base_part = @base_part
 		) BB
 on AA.base_part = BB.base_part) YY
@@ -354,6 +359,7 @@ left outer join
 		ISNULL(dec_19,0) as [Total_2020]
 from eeiuser.acctg_csm_material_cost_tabular where BASE_PART = @base_part and release_id = @release_id) ZZ
 on YY.base_part = ZZ.base_part
+
 
 
 

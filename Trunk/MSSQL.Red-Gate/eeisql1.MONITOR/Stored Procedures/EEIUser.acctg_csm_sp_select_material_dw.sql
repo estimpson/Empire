@@ -5,6 +5,7 @@ GO
 
 
 
+
 CREATE procedure [EEIUser].[acctg_csm_sp_select_material_dw]
   @checkbox1 bit,
   @base_part varchar(30),
@@ -199,7 +200,7 @@ a.family_allocation,
 (case when b.version='Empire' then (ISNULL(b.[jan 2017],0)+ISNULL(b.[feb 2017],0)+ISNULL(b.[mar 2017],0)+ISNULL(b.[apr 2017],0)+ISNULL(b.[may 2017],0)+ISNULL(b.[jun 2017],0)+ISNULL(b.[jul 2017],0)+ISNULL(b.[aug 2017],0)+ISNULL(b.[sep 2017],0)+ISNULL(b.[oct 2017],0)+ISNULL(b.[nov 2017],0)+ISNULL(b.[dec 2017],0)) else a.qty_per*a.take_rate*a.family_allocation*(b.[jan 2017]+b.[feb 2017]+b.[mar 2017]+b.[apr 2017]+b.[may 2017]+b.[jun 2017]+b.[jul 2017]+b.[aug 2017]+b.[sep 2017]+b.[oct 2017]+b.[nov 2017]+b.[dec 2017]) end) as total_2017
 
 from 
-(select * from eeiuser.acctg_csm_base_part_mnemonic) a 
+(select * from eeiuser.acctg_csm_base_part_mnemonic where release_id = @release_id) a 
 left outer join 
 -- 7/16/2008 DW CHANGE BEGIN
 -- REPLACED
@@ -216,6 +217,7 @@ left outer join
 (select base_part, row_id, version, inclusion, partusedforcost, effective_date, isnull([jan_16],0) as [jan 2016], isnull([feb_16],0) as [feb 2016], isnull([mar_16],0) as [mar 2016], isnull([apr_16],0) as [apr 2016], isnull([may_16],0) as [may 2016], isnull([jun_16],0) as [jun 2016], isnull([jul_16],0) as [jul 2016], isnull([aug_16],0) as [aug 2016], isnull([sep_16],0) as [sep 2016], isnull([oct_16],0) as [oct 2016], isnull([nov_16],0) as [nov 2016], isnull([dec_16],0) as [dec 2016], isnull([jan_15],0) as [jan 2015], isnull([feb_15],0) as [feb 2015], isnull([mar_15],0) as [mar 2015], isnull([apr_15],0) as [apr 2015], isnull([may_15],0) as [may 2015], isnull([jun_15],0) as [jun 2015], isnull([jul_15],0) as [jul 2015], isnull([aug_15],0) as [aug 2015], isnull([sep_15],0) as [sep 2015], isnull([oct_15],0) as [oct 2015], isnull([nov_15],0) as [nov 2015], isnull([dec_15],0) as [dec 2015],  isnull([jan_17],0) as [jan 2017], isnull([feb_17],0) as [feb 2017], isnull([mar_17],0) as [mar 2017], isnull([apr_17],0) as [apr 2017], isnull([may_17],0) as [may 2017], isnull([jun_17],0) as [jun 2017], isnull([jul_17],0) as [jul 2017], isnull([aug_17],0) as [aug 2017], isnull([sep_17],0) as [sep 2017], isnull([oct_17],0) as [oct 2017], isnull([nov_17],0) as [nov 2017], isnull([dec_17],0) as [dec 2017] from eeiuser.acctg_csm_material_cost_tabular where release_id = @release_id) e
 on d.base_part = e.base_part
 order by e.effective_date, e.row_id
+
 
 
 GO

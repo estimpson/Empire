@@ -293,6 +293,18 @@ CREATE TABLE [EEIUser].[acctg_csm_NAIHS]
 [Oct 2019] [decimal] (10, 2) NULL,
 [Nov 2019] [decimal] (10, 2) NULL,
 [Dec 2019] [decimal] (10, 2) NULL,
+[Jan 2020] [decimal] (10, 2) NULL,
+[Feb 2020] [decimal] (10, 2) NULL,
+[Mar 2020] [decimal] (10, 2) NULL,
+[Apr 2020] [decimal] (10, 2) NULL,
+[May 2020] [decimal] (10, 2) NULL,
+[Jun 2020] [decimal] (10, 2) NULL,
+[Jul 2020] [decimal] (10, 2) NULL,
+[Aug 2020] [decimal] (10, 2) NULL,
+[Sep 2020] [decimal] (10, 2) NULL,
+[Oct 2020] [decimal] (10, 2) NULL,
+[Nov 2020] [decimal] (10, 2) NULL,
+[Dec 2020] [decimal] (10, 2) NULL,
 [Q1 2008] [decimal] (10, 2) NULL,
 [Q2 2008] [decimal] (10, 2) NULL,
 [Q3 2008] [decimal] (10, 2) NULL,
@@ -361,6 +373,10 @@ CREATE TABLE [EEIUser].[acctg_csm_NAIHS]
 [Q2 2024] [decimal] (10, 2) NULL,
 [Q3 2024] [decimal] (10, 2) NULL,
 [Q4 2024] [decimal] (10, 2) NULL,
+[Q1 2025] [decimal] (10, 2) NULL,
+[Q2 2025] [decimal] (10, 2) NULL,
+[Q3 2025] [decimal] (10, 2) NULL,
+[Q4 2025] [decimal] (10, 2) NULL,
 [CY 2000] [decimal] (10, 2) NULL,
 [CY 2001] [decimal] (10, 2) NULL,
 [CY 2002] [decimal] (10, 2) NULL,
@@ -385,7 +401,8 @@ CREATE TABLE [EEIUser].[acctg_csm_NAIHS]
 [CY 2021] [decimal] (10, 2) NULL,
 [CY 2022] [decimal] (10, 2) NULL,
 [CY 2023] [decimal] (10, 2) NULL,
-[CY 2024] [decimal] (10, 2) NULL
+[CY 2024] [decimal] (10, 2) NULL,
+[CY 2025] [decimal] (10, 2) NULL
 ) ON [PRIMARY]
 GO
 ALTER TABLE [EEIUser].[acctg_csm_NAIHS] ADD CONSTRAINT [ACCTG_CSM_NAIHS_2_PK] PRIMARY KEY CLUSTERED  ([Release_ID], [Version], [Mnemonic-Vehicle/Plant]) ON [PRIMARY]

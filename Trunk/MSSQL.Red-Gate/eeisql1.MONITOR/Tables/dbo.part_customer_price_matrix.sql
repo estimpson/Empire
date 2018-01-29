@@ -156,3 +156,5 @@ end
 GO
 ALTER TABLE [dbo].[part_customer_price_matrix] ADD CONSTRAINT [PK__part_customer_pr__520F23F5] PRIMARY KEY CLUSTERED  ([part], [customer], [qty_break]) ON [PRIMARY]
 GO
+CREATE NONCLUSTERED INDEX [ix_part_customer_price_matrix_1] ON [dbo].[part_customer_price_matrix] ([part], [qty_break]) ON [PRIMARY]
+GO

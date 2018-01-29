@@ -20,6 +20,13 @@ CREATE TABLE [HN].[Picklist_RF_DataExcel]
 [BestOption] [int] NULL,
 [boxtype] [varchar] (25) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
 [location] [varchar] (25) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
-[CreateDT] [datetime] NULL CONSTRAINT [DF__Picklist___Creat__602469DB] DEFAULT (getdate())
+[CreateDT] [datetime] NULL CONSTRAINT [DF__Picklist___Creat__602469DB] DEFAULT (getdate()),
+[ID] [int] NOT NULL IDENTITY(1, 1)
 ) ON [PRIMARY]
+GO
+ALTER TABLE [HN].[Picklist_RF_DataExcel] ADD CONSTRAINT [PK_Picklist_RF_DataExcel] PRIMARY KEY CLUSTERED  ([ID]) ON [PRIMARY]
+GO
+CREATE NONCLUSTERED INDEX [IX_Picklist_RF_DataExcel_1] ON [HN].[Picklist_RF_DataExcel] ([Operator]) ON [PRIMARY]
+GO
+CREATE NONCLUSTERED INDEX [IX_Picklist_RF_DataExcel] ON [HN].[Picklist_RF_DataExcel] ([Operator], [ShipperID]) ON [PRIMARY]
 GO
