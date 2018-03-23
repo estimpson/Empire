@@ -1,0 +1,203 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="MONITORModel1.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <Function Name="usp_Web_SalesForecastUpdated_GetEopYears" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="FT" />
+        <Function Name="usp_Web_SalesForecastUpdated_GetSalesForecastUpdated" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="FT">
+          <Parameter Name="EopYear" Type="int" Mode="In" />
+        </Function>
+        <Function Name="usp_Web_SalesForecastUpdated_UpdateBasePartCloseouts" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="FT">
+          <Parameter Name="UserCode" Type="varchar" Mode="In" />
+          <Parameter Name="BasePart" Type="varchar" Mode="In" />
+          <Parameter Name="VerifiedEop" Type="varchar" Mode="In" />
+          <Parameter Name="VerifiedEopDate" Type="datetime" Mode="In" />
+          <Parameter Name="SchedulerResponsible" Type="varchar" Mode="In" />
+          <Parameter Name="RfMpsLink" Type="varchar" Mode="In" />
+          <Parameter Name="SchedulingTeamComments" Type="varchar" Mode="In" />
+          <Parameter Name="MaterialsComments" Type="varchar" Mode="In" />
+          <Parameter Name="ShipToLocation" Type="varchar" Mode="In" />
+          <Parameter Name="FgInventoryAfterBuildout" Type="decimal" Mode="In" />
+          <Parameter Name="CostEach" Type="decimal" Mode="In" />
+          <Parameter Name="ExcessFgAfterBuildout" Type="decimal" Mode="In" />
+          <Parameter Name="ExcessRmAfterBuildout" Type="decimal" Mode="In" />
+          <Parameter Name="ProgramExposure" Type="decimal" Mode="In" />
+          <Parameter Name="DateToSendCoLetter" Type="datetime" Mode="In" />
+          <Parameter Name="TranDT" Type="datetime" Mode="InOut" />
+          <Parameter Name="Result" Type="int" Mode="InOut" />
+        </Function>
+        <Function Name="usp_PlanningSnapshot_Q_GetSchedulers" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="TOPS">
+          <Parameter Name="TranDT" Type="datetime" Mode="InOut" />
+          <Parameter Name="Result" Type="int" Mode="InOut" />
+          <Parameter Name="Debug" Type="int" Mode="In" />
+          <Parameter Name="DebugMsg" Type="varchar(max)" Mode="InOut" />
+        </Function>
+        <EntityContainer Name="MONITORModel1StoreContainer" />
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="MONITORModel1" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="MONITOREntities1" annotation:LazyLoadingEnabled="true" >
+          <FunctionImport Name="usp_Web_SalesForecastUpdated_GetEopYears" ReturnType="Collection(MONITORModel1.GetEopYears_Result)" />
+          <FunctionImport Name="usp_Web_SalesForecastUpdated_UpdateBasePartCloseouts">
+            <Parameter Name="UserCode" Mode="In" Type="String" />
+            <Parameter Name="BasePart" Mode="In" Type="String" />
+            <Parameter Name="VerifiedEop" Mode="In" Type="String" />
+            <Parameter Name="VerifiedEopDate" Mode="In" Type="DateTime" />
+            <Parameter Name="SchedulerResponsible" Mode="In" Type="String" />
+            <Parameter Name="RfMpsLink" Mode="In" Type="String" />
+            <Parameter Name="SchedulingTeamComments" Mode="In" Type="String" />
+            <Parameter Name="MaterialsComments" Mode="In" Type="String" />
+            <Parameter Name="ShipToLocation" Mode="In" Type="String" />
+            <Parameter Name="FgInventoryAfterBuildout" Mode="In" Type="Decimal" />
+            <Parameter Name="CostEach" Mode="In" Type="Decimal" />
+            <Parameter Name="ExcessFgAfterBuildout" Mode="In" Type="Decimal" />
+            <Parameter Name="ExcessRmAfterBuildout" Mode="In" Type="Decimal" />
+            <Parameter Name="ProgramExposure" Mode="In" Type="Decimal" />
+            <Parameter Name="DateToSendCoLetter" Mode="In" Type="DateTime" />
+            <Parameter Name="TranDT" Mode="InOut" Type="DateTime" />
+            <Parameter Name="Result" Mode="InOut" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="usp_PlanningSnapshot_Q_GetSchedulers" ReturnType="Collection(MONITORModel1.GetSchedulers_Result)">
+            <Parameter Name="TranDT" Mode="InOut" Type="DateTime" />
+            <Parameter Name="Result" Mode="InOut" Type="Int32" />
+            <Parameter Name="Debug" Mode="In" Type="Int32" />
+            <Parameter Name="DebugMsg" Mode="InOut" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="usp_Web_SalesForecastUpdated_GetSalesForecastUpdated" ReturnType="Collection(MONITORModel1.GetSalesForecastUpdated_Result)">
+            <Parameter Name="EopYear" Mode="In" Type="Int32" />
+          </FunctionImport>
+        </EntityContainer>
+        <ComplexType Name="GetSchedulers_Result">
+          <Property Type="String" Name="SchedulerID" Nullable="true" MaxLength="10" />
+          <Property Type="String" Name="SchedulerName" Nullable="true" MaxLength="50" />
+        </ComplexType>
+        <ComplexType Name="GetEopYears_Result">
+          <Property Type="Int32" Name="EopYear" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="GetSalesForecastUpdated_Result">
+          <Property Type="Int64" Name="RowId" Nullable="true" />
+          <Property Type="String" Name="Status" Nullable="false" MaxLength="10" />
+          <Property Type="String" Name="ParentCustomer" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Program" Nullable="true" MaxLength="255" />
+          <Property Type="String" Name="Vehicle" Nullable="true" MaxLength="511" />
+          <Property Type="String" Name="BasePart" Nullable="true" MaxLength="30" />
+          <Property Type="DateTime" Name="EmpireSop" Nullable="true" Precision="16" />
+          <Property Type="DateTime" Name="MidModelYear" Nullable="true" Precision="23" />
+          <Property Type="DateTime" Name="EmpireEop" Nullable="true" Precision="16" />
+          <Property Type="String" Name="EmpireEopNote" Nullable="true" MaxLength="250" />
+          <Property Type="String" Name="VerifiedEop" Nullable="true" MaxLength="30" />
+          <Property Type="DateTime" Name="VerifiedEopDate" Nullable="true" Precision="23" />
+          <Property Type="DateTime" Name="CsmSop" Nullable="true" Precision="23" />
+          <Property Type="DateTime" Name="CsmEop" Nullable="true" Precision="23" />
+          <Property Type="Decimal" Name="Sales2016" Nullable="true" Precision="38" Scale="6" />
+          <Property Type="Decimal" Name="Sales2017" Nullable="true" Precision="38" Scale="6" />
+          <Property Type="Decimal" Name="Sales2018" Nullable="true" Precision="38" Scale="6" />
+          <Property Type="Decimal" Name="Sales2019" Nullable="true" Precision="38" Scale="6" />
+          <Property Type="Decimal" Name="Sales2020" Nullable="true" Precision="38" Scale="6" />
+          <Property Type="Decimal" Name="Sales2021" Nullable="true" Precision="38" Scale="6" />
+          <Property Type="Decimal" Name="Sales2022" Nullable="true" Precision="38" Scale="6" />
+          <Property Type="Decimal" Name="Sales2023" Nullable="true" Precision="38" Scale="6" />
+          <Property Type="Decimal" Name="Sales2024" Nullable="true" Precision="38" Scale="6" />
+          <Property Type="Decimal" Name="Sales2025" Nullable="true" Precision="38" Scale="6" />
+          <Property Type="String" Name="SchedulerResponsible" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="RfMpsLink" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="SchedulingTeamComments" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="MaterialsComments" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="ShipToLocation" Nullable="true" MaxLength="50" />
+          <Property Type="Decimal" Name="FgInventoryAfterBuildout" Nullable="true" Precision="20" Scale="6" />
+          <Property Type="Decimal" Name="CostEach" Nullable="true" Precision="20" Scale="6" />
+          <Property Type="Decimal" Name="ExcessFgAfterBuildout" Nullable="true" Precision="20" Scale="6" />
+          <Property Type="Decimal" Name="ExcessRmAfterBuildout" Nullable="true" Precision="20" Scale="6" />
+          <Property Type="Decimal" Name="ProgramExposure" Nullable="true" Precision="20" Scale="6" />
+          <Property Type="DateTime" Name="DateToSendCoLetter" Nullable="true" Precision="23" />
+        </ComplexType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="MONITORModel1StoreContainer" CdmEntityContainer="MONITOREntities1" >
+          <FunctionImportMapping FunctionImportName="usp_Web_SalesForecastUpdated_GetEopYears" FunctionName="MONITORModel1.Store.usp_Web_SalesForecastUpdated_GetEopYears" >
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="MONITORModel1.GetEopYears_Result">
+                <ScalarProperty Name="EopYear" ColumnName="EopYear" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="usp_Web_SalesForecastUpdated_UpdateBasePartCloseouts" FunctionName="MONITORModel1.Store.usp_Web_SalesForecastUpdated_UpdateBasePartCloseouts" />
+          <FunctionImportMapping FunctionImportName="usp_PlanningSnapshot_Q_GetSchedulers" FunctionName="MONITORModel1.Store.usp_PlanningSnapshot_Q_GetSchedulers">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="MONITORModel1.GetSchedulers_Result">
+                <ScalarProperty Name="SchedulerID" ColumnName="SchedulerID" />
+                <ScalarProperty Name="SchedulerName" ColumnName="SchedulerName" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="usp_Web_SalesForecastUpdated_GetSalesForecastUpdated" FunctionName="MONITORModel1.Store.usp_Web_SalesForecastUpdated_GetSalesForecastUpdated">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="MONITORModel1.GetSalesForecastUpdated_Result">
+                <ScalarProperty Name="RowId" ColumnName="RowId" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="ParentCustomer" ColumnName="ParentCustomer" />
+                <ScalarProperty Name="Program" ColumnName="Program" />
+                <ScalarProperty Name="Vehicle" ColumnName="Vehicle" />
+                <ScalarProperty Name="BasePart" ColumnName="BasePart" />
+                <ScalarProperty Name="EmpireSop" ColumnName="EmpireSop" />
+                <ScalarProperty Name="MidModelYear" ColumnName="MidModelYear" />
+                <ScalarProperty Name="EmpireEop" ColumnName="EmpireEop" />
+                <ScalarProperty Name="EmpireEopNote" ColumnName="EmpireEopNote" />
+                <ScalarProperty Name="VerifiedEop" ColumnName="VerifiedEop" />
+                <ScalarProperty Name="VerifiedEopDate" ColumnName="VerifiedEopDate" />
+                <ScalarProperty Name="CsmSop" ColumnName="CsmSop" />
+                <ScalarProperty Name="CsmEop" ColumnName="CsmEop" />
+                <ScalarProperty Name="Sales2016" ColumnName="Sales2016" />
+                <ScalarProperty Name="Sales2017" ColumnName="Sales2017" />
+                <ScalarProperty Name="Sales2018" ColumnName="Sales2018" />
+                <ScalarProperty Name="Sales2019" ColumnName="Sales2019" />
+                <ScalarProperty Name="Sales2020" ColumnName="Sales2020" />
+                <ScalarProperty Name="Sales2021" ColumnName="Sales2021" />
+                <ScalarProperty Name="Sales2022" ColumnName="Sales2022" />
+                <ScalarProperty Name="Sales2023" ColumnName="Sales2023" />
+                <ScalarProperty Name="Sales2024" ColumnName="Sales2024" />
+                <ScalarProperty Name="Sales2025" ColumnName="Sales2025" />
+                <ScalarProperty Name="SchedulerResponsible" ColumnName="SchedulerResponsible" />
+                <ScalarProperty Name="RfMpsLink" ColumnName="RfMpsLink" />
+                <ScalarProperty Name="SchedulingTeamComments" ColumnName="SchedulingTeamComments" />
+                <ScalarProperty Name="MaterialsComments" ColumnName="MaterialsComments" />
+                <ScalarProperty Name="ShipToLocation" ColumnName="ShipToLocation" />
+                <ScalarProperty Name="FgInventoryAfterBuildout" ColumnName="FgInventoryAfterBuildout" />
+                <ScalarProperty Name="CostEach" ColumnName="CostEach" />
+                <ScalarProperty Name="ExcessFgAfterBuildout" ColumnName="ExcessFgAfterBuildout" />
+                <ScalarProperty Name="ExcessRmAfterBuildout" ColumnName="ExcessRmAfterBuildout" />
+                <ScalarProperty Name="ProgramExposure" ColumnName="ProgramExposure" />
+                <ScalarProperty Name="DateToSendCoLetter" ColumnName="DateToSendCoLetter" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

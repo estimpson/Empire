@@ -35,6 +35,7 @@
             this.tbxPriorReleaseId = new System.Windows.Forms.TextBox();
             this.tbxCurrentReleaseId = new System.Windows.Forms.TextBox();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.label18 = new System.Windows.Forms.Label();
             this.linkLblClose = new System.Windows.Forms.LinkLabel();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tpCsm = new System.Windows.Forms.TabPage();
@@ -42,6 +43,7 @@
             this.label17 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.pnlImport = new System.Windows.Forms.Panel();
+            this.btnImportGreaterChina = new System.Windows.Forms.Button();
             this.tpCsmDelta = new System.Windows.Forms.TabPage();
             this.label19 = new System.Windows.Forms.Label();
             this.label16 = new System.Windows.Forms.Label();
@@ -72,8 +74,10 @@
             this.label10 = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
             this.tbxHistoricalForecastName = new System.Windows.Forms.TextBox();
-            this.btnImportGreaterChina = new System.Windows.Forms.Button();
-            this.label18 = new System.Windows.Forms.Label();
+            this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.btnMidModel = new System.Windows.Forms.Button();
+            this.label20 = new System.Windows.Forms.Label();
+            this.label22 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tpCsm.SuspendLayout();
@@ -84,6 +88,7 @@
             this.panel2.SuspendLayout();
             this.tpHistoricalSales.SuspendLayout();
             this.panel3.SuspendLayout();
+            this.tabPage1.SuspendLayout();
             this.SuspendLayout();
             // 
             // btnImport
@@ -173,6 +178,19 @@
             this.panel1.TabIndex = 11;
             this.panel1.Paint += new System.Windows.Forms.PaintEventHandler(this.panel1_Paint);
             // 
+            // label18
+            // 
+            this.label18.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.label18.AutoSize = true;
+            this.label18.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label18.ForeColor = System.Drawing.Color.White;
+            this.label18.Location = new System.Drawing.Point(270, 15);
+            this.label18.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label18.Name = "label18";
+            this.label18.Size = new System.Drawing.Size(151, 20);
+            this.label18.TabIndex = 20;
+            this.label18.Text = "Empire Electronics";
+            // 
             // linkLblClose
             // 
             this.linkLblClose.AutoSize = true;
@@ -197,6 +215,7 @@
             this.tabControl1.Controls.Add(this.tpCsmDelta);
             this.tabControl1.Controls.Add(this.tpOfficialForecast);
             this.tabControl1.Controls.Add(this.tpHistoricalSales);
+            this.tabControl1.Controls.Add(this.tabPage1);
             this.tabControl1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tabControl1.Location = new System.Drawing.Point(4, 120);
             this.tabControl1.Margin = new System.Windows.Forms.Padding(4);
@@ -270,6 +289,19 @@
             this.pnlImport.Name = "pnlImport";
             this.pnlImport.Size = new System.Drawing.Size(669, 221);
             this.pnlImport.TabIndex = 17;
+            // 
+            // btnImportGreaterChina
+            // 
+            this.btnImportGreaterChina.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnImportGreaterChina.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(204)))), ((int)(((byte)(0)))), ((int)(((byte)(20)))));
+            this.btnImportGreaterChina.Location = new System.Drawing.Point(240, 117);
+            this.btnImportGreaterChina.Name = "btnImportGreaterChina";
+            this.btnImportGreaterChina.Size = new System.Drawing.Size(170, 50);
+            this.btnImportGreaterChina.TabIndex = 6;
+            this.btnImportGreaterChina.Text = "Import GC";
+            this.btnImportGreaterChina.UseVisualStyleBackColor = true;
+            this.btnImportGreaterChina.Click += new System.EventHandler(this.btnImportGreaterChina_Click);
+            this.btnImportGreaterChina.MouseDown += new System.Windows.Forms.MouseEventHandler(this.btnImportGreaterChina_MouseDown);
             // 
             // tpCsmDelta
             // 
@@ -622,31 +654,54 @@
             this.tbxHistoricalForecastName.Size = new System.Drawing.Size(291, 29);
             this.tbxHistoricalForecastName.TabIndex = 0;
             // 
-            // btnImportGreaterChina
+            // tabPage1
             // 
-            this.btnImportGreaterChina.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnImportGreaterChina.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(204)))), ((int)(((byte)(0)))), ((int)(((byte)(20)))));
-            this.btnImportGreaterChina.Location = new System.Drawing.Point(240, 117);
-            this.btnImportGreaterChina.Name = "btnImportGreaterChina";
-            this.btnImportGreaterChina.Size = new System.Drawing.Size(170, 50);
-            this.btnImportGreaterChina.TabIndex = 6;
-            this.btnImportGreaterChina.Text = "Import GC";
-            this.btnImportGreaterChina.UseVisualStyleBackColor = true;
-            this.btnImportGreaterChina.Click += new System.EventHandler(this.btnImportGreaterChina_Click);
-            this.btnImportGreaterChina.MouseDown += new System.Windows.Forms.MouseEventHandler(this.btnImportGreaterChina_MouseDown);
+            this.tabPage1.BackColor = System.Drawing.Color.Black;
+            this.tabPage1.Controls.Add(this.btnMidModel);
+            this.tabPage1.Controls.Add(this.label20);
+            this.tabPage1.Controls.Add(this.label22);
+            this.tabPage1.Location = new System.Drawing.Point(4, 32);
+            this.tabPage1.Name = "tabPage1";
+            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage1.Size = new System.Drawing.Size(1175, 547);
+            this.tabPage1.TabIndex = 4;
+            this.tabPage1.Text = "Mid-model year";
             // 
-            // label18
+            // btnMidModel
             // 
-            this.label18.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.label18.AutoSize = true;
-            this.label18.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label18.ForeColor = System.Drawing.Color.White;
-            this.label18.Location = new System.Drawing.Point(270, 15);
-            this.label18.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label18.Name = "label18";
-            this.label18.Size = new System.Drawing.Size(151, 20);
-            this.label18.TabIndex = 20;
-            this.label18.Text = "Empire Electronics";
+            this.btnMidModel.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnMidModel.Location = new System.Drawing.Point(276, 106);
+            this.btnMidModel.Margin = new System.Windows.Forms.Padding(4);
+            this.btnMidModel.Name = "btnMidModel";
+            this.btnMidModel.Size = new System.Drawing.Size(243, 50);
+            this.btnMidModel.TabIndex = 2;
+            this.btnMidModel.Text = "Import Mid-model";
+            this.btnMidModel.UseVisualStyleBackColor = true;
+            this.btnMidModel.Click += new System.EventHandler(this.btnMidModel_Click);
+            // 
+            // label20
+            // 
+            this.label20.AutoSize = true;
+            this.label20.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label20.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(122)))), ((int)(((byte)(204)))));
+            this.label20.Location = new System.Drawing.Point(108, 55);
+            this.label20.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label20.Name = "label20";
+            this.label20.Size = new System.Drawing.Size(150, 25);
+            this.label20.TabIndex = 26;
+            this.label20.Text = "Mid-model Year";
+            // 
+            // label22
+            // 
+            this.label22.AutoSize = true;
+            this.label22.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label22.ForeColor = System.Drawing.Color.White;
+            this.label22.Location = new System.Drawing.Point(272, 55);
+            this.label22.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label22.Name = "label22";
+            this.label22.Size = new System.Drawing.Size(575, 24);
+            this.label22.TabIndex = 24;
+            this.label22.Text = "Copy all column names and data from the spreadsheet, then import.";
             // 
             // formMain
             // 
@@ -682,6 +737,8 @@
             this.tpHistoricalSales.PerformLayout();
             this.panel3.ResumeLayout(false);
             this.panel3.PerformLayout();
+            this.tabPage1.ResumeLayout(false);
+            this.tabPage1.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -734,6 +791,10 @@
         private System.Windows.Forms.Label label16;
         private System.Windows.Forms.Button btnImportGreaterChina;
         private System.Windows.Forms.Label label18;
+        private System.Windows.Forms.TabPage tabPage1;
+        private System.Windows.Forms.Label label20;
+        private System.Windows.Forms.Label label22;
+        private System.Windows.Forms.Button btnMidModel;
     }
 }
 

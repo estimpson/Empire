@@ -8,7 +8,7 @@ using System.Windows.Forms;
 using ImportCSM.Controls;
 using ImportCSM.DataAccess;
 using Microsoft.VisualBasic.FileIO;
-
+using System.Collections.Generic;
 
 namespace ImportCSM
 {
@@ -927,6 +927,173 @@ namespace ImportCSM
         }
 
 
+        #endregion
+
+
+        #region Mid-model Year
+
+        private void btnMidModel_Click(object sender, EventArgs e)
+        {
+            Cursor.Current = Cursors.WaitCursor;
+            if (ImportMidModelYear() == 0) return;
+            Cursor.Current = Cursors.Default;
+
+            _messageBox.Message = "Success.";
+            _messageBox.ShowDialog();            
+        }
+
+        private int ImportMidModelYear()
+        {
+            try
+            {
+                var format = DataFormats.CommaSeparatedValue;
+
+                // Read the clipboard
+                var dataObject = Clipboard.GetDataObject();
+                var stream = (System.IO.Stream)dataObject.GetData(format);
+                if (stream == null)
+                {
+                    _messageBox.Message = "Please copy spreadsheet data.";
+                    _messageBox.ShowDialog();
+                    return 0;
+                }
+                var encoding = new System.Text.UTF8Encoding();
+                var reader = new System.IO.StreamReader(stream, encoding);
+                string data = reader.ReadToEnd();
+
+                var rows = data.Split('\r');
+
+                // Loop through spreadsheet rows
+                foreach (var rowRaw in rows)
+                {
+                    var row = rowRaw.Replace("\n", "");
+                    if (row.Contains("\0")) break;
+                    if (row == "") break;
+
+                    int fieldCount = 0;
+                    string basePart = "";
+                    string newTiming = "";
+                    string priorTiming = "";
+                    string reason = "";
+                    string midModel = "";
+                    List<String> basePartNewTimingList = new List<string>();
+
+                    string[] arry = row.Split(',');
+                    foreach (var item in arry)
+                    {
+                        if (item == "status")
+                        {
+                            break;
+                        } 
+                        else
+                        {
+                            fieldCount++;
+
+                            if (fieldCount == 5) { basePart = item.ToString(); }
+                            if (fieldCount == 12) { newTiming = item.ToString(); }
+                            if (fieldCount == 13) { priorTiming = item.ToString(); }
+                            if (fieldCount == 14) { reason = item.ToString(); }
+                            if (fieldCount == 15) { midModel = item.ToString(); }
+
+                            if (fieldCount > 14 && newTiming != "")
+                            {
+                                string year = newTiming.Remove(0, 11);
+                                int len = year.Length;
+                                year = year.Remove(4, len - 4);
+                                int iYear = Convert.ToInt32(year);
+
+                                // If the EOP year of the new timing is the current year, send an email alert
+                                if (iYear == DateTime.Now.Year)
+                                {
+                                    if (!basePartNewTimingList.Contains(basePart))
+                                    {
+                                        // First instance of a new timing change for this base part, so send email alert
+                                        SendNewTimingAlert(basePart, newTiming, priorTiming, reason);
+
+                                        basePartNewTimingList.Add(basePart);
+                                    }
+                                }
+                            }
+
+                            if (basePart != "" && midModel != "")
+                            {
+                                if (UpdateMidModelYear(basePart, midModel) == 0) return 0;
+
+                                basePart = midModel = "";
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                string error = (ex.InnerException == null) ? ex.Message : ex.InnerException.Message;
+                _messageBox.Message = "Import failed.  Exception thwrown at ImportMidModelYear().  " + error;
+                _messageBox.ShowDialog();
+                return 0;
+            }
+            return 1;
+        }
+
+        private void SendNewTimingAlert(string basePart, string newTiming, string priorTiming, string reason)
+        {
+            var con =
+                new SqlConnection(
+                    "data source=eeisql1.empireelect.local;initial catalog=MONITOR;persist security info=True;user id=Andre");
+
+            try
+            {
+                var command = new SqlCommand("exec FT.ftsp_EMailAlert_NewEopTiming '" + basePart + "', '" + newTiming + "', '" + priorTiming + "', '" + reason + "'", con);
+
+                con.Open();
+                command.ExecuteNonQuery();
+                command.Dispose();
+            }
+            catch (Exception ex)
+            {
+            }
+            finally
+            {
+                con.Close();
+                con.Dispose();
+            }
+        }
+
+        private int UpdateMidModelYear(string basePart, string midModel)
+        {
+            DateTime midModelYear = Convert.ToDateTime(midModel);
+
+            var con =
+                new SqlConnection(
+                    "data source=eeisql1.empireelect.local;initial catalog=MONITOR;persist security info=True;user id=Andre");
+
+            try
+            {
+                var command = new SqlCommand("UPDATE EEIUser.acctg_csm_base_part_attributes " +
+                                             "SET mid_model_year = '" + midModelYear + "' " +
+                                             "WHERE base_part = '" + basePart + "' " +
+                                             "AND release_id = ( select max(release_id) from EEIUser.acctg_csm_base_part_attributes " +
+                                                "where base_part = '" + basePart + "' );",
+                                             con);
+
+                con.Open();
+                command.ExecuteNonQuery();
+                command.Dispose();
+            }
+            catch (Exception ex)
+            {
+                string error = (ex.InnerException != null) ? ex.InnerException.Message : ex.Message;
+                _messageBox.Message = "Import failed.  Exception thrown at UpdateMidModelYear().  " + error;
+                _messageBox.ShowDialog();
+                return 0;
+            }
+            finally
+            {
+                con.Close();
+                con.Dispose();
+            }
+            return 1;
+        }
 
         #endregion
 

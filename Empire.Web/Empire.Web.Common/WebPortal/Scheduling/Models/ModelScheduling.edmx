@@ -1,0 +1,257 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="MONITORModel2.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <Function Name="usp_PlanningSnapshot_CRUD_NewOnOrderEEH" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="TOPS">
+          <Parameter Name="User" Type="varchar" Mode="In" />
+          <Parameter Name="FinishedPart" Type="varchar" Mode="In" />
+          <Parameter Name="Revision" Type="char" Mode="In" />
+          <Parameter Name="CalendarDT" Type="datetime" Mode="In" />
+          <Parameter Name="NewOnOrderEEH" Type="numeric" Mode="In" />
+          <Parameter Name="TranDT" Type="datetime" Mode="InOut" />
+          <Parameter Name="Result" Type="int" Mode="InOut" />
+          <Parameter Name="Debug" Type="int" Mode="In" />
+          <Parameter Name="DebugMsg" Type="varchar(max)" Mode="InOut" />
+        </Function>
+        <Function Name="usp_PlanningSnapshot_CRUD_OverrideCustomerRequirement" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="TOPS">
+          <Parameter Name="User" Type="varchar" Mode="In" />
+          <Parameter Name="FinishedPart" Type="varchar" Mode="In" />
+          <Parameter Name="Revision" Type="char" Mode="In" />
+          <Parameter Name="CalendarDT" Type="datetime" Mode="In" />
+          <Parameter Name="NewRequirement" Type="numeric" Mode="In" />
+          <Parameter Name="TranDT" Type="datetime" Mode="InOut" />
+          <Parameter Name="Result" Type="int" Mode="InOut" />
+          <Parameter Name="Debug" Type="int" Mode="In" />
+          <Parameter Name="DebugMsg" Type="varchar(max)" Mode="InOut" />
+        </Function>
+        <Function Name="usp_PlanningSnapshot_Q_CurrentPartList" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="TOPS">
+          <Parameter Name="SchedulerID" Type="varchar" Mode="In" />
+          <Parameter Name="TranDT" Type="datetime" Mode="InOut" />
+          <Parameter Name="Result" Type="int" Mode="InOut" />
+          <Parameter Name="Debug" Type="int" Mode="In" />
+          <Parameter Name="DebugMsg" Type="varchar(max)" Mode="InOut" />
+        </Function>
+        <Function Name="usp_PlanningSnapshot_Q_GetHeaderInfo" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="TOPS">
+          <Parameter Name="FinishedPart" Type="varchar" Mode="In" />
+          <Parameter Name="Revision" Type="char" Mode="In" />
+          <Parameter Name="TranDT" Type="datetime" Mode="InOut" />
+          <Parameter Name="Result" Type="int" Mode="InOut" />
+          <Parameter Name="Debug" Type="int" Mode="In" />
+          <Parameter Name="DebugMsg" Type="varchar(max)" Mode="InOut" />
+        </Function>
+        <Function Name="usp_PlanningSnapshot_Q_GetSchedulers" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="TOPS">
+          <Parameter Name="TranDT" Type="datetime" Mode="InOut" />
+          <Parameter Name="Result" Type="int" Mode="InOut" />
+          <Parameter Name="Debug" Type="int" Mode="In" />
+          <Parameter Name="DebugMsg" Type="varchar(max)" Mode="InOut" />
+        </Function>
+        <Function Name="usp_PlanningSnapshot_Q_GetSnapshotCalendar" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="TOPS">
+          <Parameter Name="FinishedPart" Type="varchar" Mode="In" />
+          <Parameter Name="Revision" Type="char" Mode="In" />
+          <Parameter Name="TranDT" Type="datetime" Mode="InOut" />
+          <Parameter Name="Result" Type="int" Mode="InOut" />
+          <Parameter Name="Debug" Type="int" Mode="In" />
+          <Parameter Name="DebugMsg" Type="varchar(max)" Mode="InOut" />
+        </Function>
+        <EntityContainer Name="MONITORModel2StoreContainer" />
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="MONITORModel2" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="MONITOREntities3" annotation:LazyLoadingEnabled="true" >
+          <FunctionImport Name="usp_PlanningSnapshot_CRUD_NewOnOrderEEH">
+            <Parameter Name="User" Mode="In" Type="String" />
+            <Parameter Name="FinishedPart" Mode="In" Type="String" />
+            <Parameter Name="Revision" Mode="In" Type="String" />
+            <Parameter Name="CalendarDT" Mode="In" Type="DateTime" />
+            <Parameter Name="NewOnOrderEEH" Mode="In" Type="Decimal" />
+            <Parameter Name="TranDT" Mode="InOut" Type="DateTime" />
+            <Parameter Name="Result" Mode="InOut" Type="Int32" />
+            <Parameter Name="Debug" Mode="In" Type="Int32" />
+            <Parameter Name="DebugMsg" Mode="InOut" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="usp_PlanningSnapshot_CRUD_OverrideCustomerRequirement">
+            <Parameter Name="User" Mode="In" Type="String" />
+            <Parameter Name="FinishedPart" Mode="In" Type="String" />
+            <Parameter Name="Revision" Mode="In" Type="String" />
+            <Parameter Name="CalendarDT" Mode="In" Type="DateTime" />
+            <Parameter Name="NewRequirement" Mode="In" Type="Decimal" />
+            <Parameter Name="TranDT" Mode="InOut" Type="DateTime" />
+            <Parameter Name="Result" Mode="InOut" Type="Int32" />
+            <Parameter Name="Debug" Mode="In" Type="Int32" />
+            <Parameter Name="DebugMsg" Mode="InOut" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="usp_PlanningSnapshot_Q_CurrentPartList" ReturnType="Collection(MONITORModel2.usp_PlanningSnapshot_Q_CurrentPartList_Result)">
+            <Parameter Name="SchedulerID" Mode="In" Type="String" />
+            <Parameter Name="TranDT" Mode="InOut" Type="DateTime" />
+            <Parameter Name="Result" Mode="InOut" Type="Int32" />
+            <Parameter Name="Debug" Mode="In" Type="Int32" />
+            <Parameter Name="DebugMsg" Mode="InOut" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="usp_PlanningSnapshot_Q_GetHeaderInfo" ReturnType="Collection(MONITORModel2.usp_PlanningSnapshot_Q_GetHeaderInfo_Result)">
+            <Parameter Name="FinishedPart" Mode="In" Type="String" />
+            <Parameter Name="Revision" Mode="In" Type="String" />
+            <Parameter Name="TranDT" Mode="InOut" Type="DateTime" />
+            <Parameter Name="Result" Mode="InOut" Type="Int32" />
+            <Parameter Name="Debug" Mode="In" Type="Int32" />
+            <Parameter Name="DebugMsg" Mode="InOut" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="usp_PlanningSnapshot_Q_GetSchedulers" ReturnType="Collection(MONITORModel2.usp_PlanningSnapshot_Q_GetSchedulers_Result)">
+            <Parameter Name="TranDT" Mode="InOut" Type="DateTime" />
+            <Parameter Name="Result" Mode="InOut" Type="Int32" />
+            <Parameter Name="Debug" Mode="In" Type="Int32" />
+            <Parameter Name="DebugMsg" Mode="InOut" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="usp_PlanningSnapshot_Q_GetSnapshotCalendar" ReturnType="Collection(MONITORModel2.usp_PlanningSnapshot_Q_GetSnapshotCalendar_Result)">
+            <Parameter Name="FinishedPart" Mode="In" Type="String" />
+            <Parameter Name="Revision" Mode="In" Type="String" />
+            <Parameter Name="TranDT" Mode="InOut" Type="DateTime" />
+            <Parameter Name="Result" Mode="InOut" Type="Int32" />
+            <Parameter Name="Debug" Mode="In" Type="Int32" />
+            <Parameter Name="DebugMsg" Mode="InOut" Type="String" />
+          </FunctionImport>
+        </EntityContainer>
+        <ComplexType Name="usp_PlanningSnapshot_Q_CurrentPartList_Result">
+          <Property Type="String" Name="FinishedPart" Nullable="false" MaxLength="25" />
+          <Property Type="String" Name="Revision" Nullable="false" MaxLength="9" />
+          <Property Type="String" Name="SchedulerID" Nullable="true" MaxLength="30" />
+          <Property Type="String" Name="SchedulerName" Nullable="false" MaxLength="40" />
+        </ComplexType>
+        <ComplexType Name="usp_PlanningSnapshot_Q_GetHeaderInfo_Result">
+          <Property Type="String" Name="FinishedPart" Nullable="true" MaxLength="25" />
+          <Property Type="String" Name="Revision" Nullable="true" MaxLength="9" />
+          <Property Type="DateTime" Name="GenerationDT" Nullable="true" Precision="23" />
+          <Property Type="DateTime" Name="ThisMonday" Nullable="true" Precision="23" />
+          <Property Type="Decimal" Name="StandardPack" Nullable="true" Precision="20" Scale="6" />
+          <Property Type="Int32" Name="DefaultPO" Nullable="true" />
+          <Property Type="Decimal" Name="SalesPrice" Nullable="true" Precision="20" Scale="6" />
+          <Property Type="String" Name="ABC_Class_1" Nullable="true" MaxLength="1" />
+          <Property Type="Int32" Name="ABC_Class_2" Nullable="true" />
+          <Property Type="Decimal" Name="EAU_EEI" Nullable="true" Precision="20" Scale="6" />
+          <Property Type="Decimal" Name="EEH_Capacity" Nullable="true" Precision="20" Scale="6" />
+          <Property Type="DateTime" Name="SOP" Nullable="true" Precision="23" />
+          <Property Type="DateTime" Name="EOP" Nullable="true" Precision="23" />
+          <Property Type="String" Name="CustomerPart" Nullable="true" MaxLength="30" />
+          <Property Type="String" Name="Description" Nullable="true" MaxLength="100" />
+        </ComplexType>
+        <ComplexType Name="usp_PlanningSnapshot_Q_GetSchedulers_Result">
+          <Property Type="String" Name="SchedulerID" Nullable="true" MaxLength="10" />
+          <Property Type="String" Name="SchedulerName" Nullable="true" MaxLength="50" />
+        </ComplexType>
+        <ComplexType Name="usp_PlanningSnapshot_Q_GetSnapshotCalendar_Result">
+          <Property Type="DateTime" Name="CalendarDT" Nullable="true" Precision="23" />
+          <Property Type="String" Name="DailyWeekly" Nullable="true" MaxLength="1" />
+          <Property Type="Int32" Name="WeekNo" Nullable="true" />
+          <Property Type="String" Name="Holiday" Nullable="true" MaxLength="50" />
+          <Property Type="DateTime" Name="EEIContainerDT" Nullable="true" Precision="23" />
+          <Property Type="DateTime" Name="SchedulingDT" Nullable="true" Precision="23" />
+          <Property Type="Int32" Name="PlanningDays" Nullable="true" />
+          <Property Type="Decimal" Name="CustomerRequirement" Nullable="true" Precision="20" Scale="6" />
+          <Property Type="Decimal" Name="OverrideCustomerRequirement" Nullable="true" Precision="20" Scale="6" />
+          <Property Type="Decimal" Name="InTransQty" Nullable="true" Precision="20" Scale="6" />
+          <Property Type="Decimal" Name="OnOrderEEH" Nullable="true" Precision="20" Scale="6" />
+          <Property Type="Decimal" Name="NewOnOrderEEH" Nullable="true" Precision="20" Scale="6" />
+          <Property Type="Decimal" Name="TotalInventory" Nullable="true" Precision="20" Scale="6" />
+          <Property Type="Decimal" Name="Balance" Nullable="true" Precision="20" Scale="6" />
+          <Property Type="Decimal" Name="WeeksOnHand" Nullable="true" Precision="20" Scale="6" />
+          <Property Type="Byte" Name="WeeksOnHandWarnFlag" Nullable="true" />
+          <Property Type="Int32" Name="RowID" Nullable="true" />
+        </ComplexType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="MONITORModel2StoreContainer" CdmEntityContainer="MONITOREntities3" >
+          <FunctionImportMapping FunctionImportName="usp_PlanningSnapshot_CRUD_NewOnOrderEEH" FunctionName="MONITORModel2.Store.usp_PlanningSnapshot_CRUD_NewOnOrderEEH" />
+          <FunctionImportMapping FunctionImportName="usp_PlanningSnapshot_CRUD_OverrideCustomerRequirement" FunctionName="MONITORModel2.Store.usp_PlanningSnapshot_CRUD_OverrideCustomerRequirement" />
+          <FunctionImportMapping FunctionImportName="usp_PlanningSnapshot_Q_CurrentPartList" FunctionName="MONITORModel2.Store.usp_PlanningSnapshot_Q_CurrentPartList">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="MONITORModel2.usp_PlanningSnapshot_Q_CurrentPartList_Result">
+                <ScalarProperty Name="FinishedPart" ColumnName="FinishedPart" />
+                <ScalarProperty Name="Revision" ColumnName="Revision" />
+                <ScalarProperty Name="SchedulerID" ColumnName="SchedulerID" />
+                <ScalarProperty Name="SchedulerName" ColumnName="SchedulerName" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="usp_PlanningSnapshot_Q_GetHeaderInfo" FunctionName="MONITORModel2.Store.usp_PlanningSnapshot_Q_GetHeaderInfo">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="MONITORModel2.usp_PlanningSnapshot_Q_GetHeaderInfo_Result">
+                <ScalarProperty Name="FinishedPart" ColumnName="FinishedPart" />
+                <ScalarProperty Name="Revision" ColumnName="Revision" />
+                <ScalarProperty Name="GenerationDT" ColumnName="GenerationDT" />
+                <ScalarProperty Name="ThisMonday" ColumnName="ThisMonday" />
+                <ScalarProperty Name="StandardPack" ColumnName="StandardPack" />
+                <ScalarProperty Name="DefaultPO" ColumnName="DefaultPO" />
+                <ScalarProperty Name="SalesPrice" ColumnName="SalesPrice" />
+                <ScalarProperty Name="ABC_Class_1" ColumnName="ABC_Class_1" />
+                <ScalarProperty Name="ABC_Class_2" ColumnName="ABC_Class_2" />
+                <ScalarProperty Name="EAU_EEI" ColumnName="EAU_EEI" />
+                <ScalarProperty Name="EEH_Capacity" ColumnName="EEH_Capacity" />
+                <ScalarProperty Name="SOP" ColumnName="SOP" />
+                <ScalarProperty Name="EOP" ColumnName="EOP" />
+                <ScalarProperty Name="CustomerPart" ColumnName="CustomerPart" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="usp_PlanningSnapshot_Q_GetSchedulers" FunctionName="MONITORModel2.Store.usp_PlanningSnapshot_Q_GetSchedulers">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="MONITORModel2.usp_PlanningSnapshot_Q_GetSchedulers_Result">
+                <ScalarProperty Name="SchedulerID" ColumnName="SchedulerID" />
+                <ScalarProperty Name="SchedulerName" ColumnName="SchedulerName" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="usp_PlanningSnapshot_Q_GetSnapshotCalendar" FunctionName="MONITORModel2.Store.usp_PlanningSnapshot_Q_GetSnapshotCalendar">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="MONITORModel2.usp_PlanningSnapshot_Q_GetSnapshotCalendar_Result">
+                <ScalarProperty Name="CalendarDT" ColumnName="CalendarDT" />
+                <ScalarProperty Name="DailyWeekly" ColumnName="DailyWeekly" />
+                <ScalarProperty Name="WeekNo" ColumnName="WeekNo" />
+                <ScalarProperty Name="Holiday" ColumnName="Holiday" />
+                <ScalarProperty Name="EEIContainerDT" ColumnName="EEIContainerDT" />
+                <ScalarProperty Name="SchedulingDT" ColumnName="SchedulingDT" />
+                <ScalarProperty Name="PlanningDays" ColumnName="PlanningDays" />
+                <ScalarProperty Name="CustomerRequirement" ColumnName="CustomerRequirement" />
+                <ScalarProperty Name="OverrideCustomerRequirement" ColumnName="OverrideCustomerRequirement" />
+                <ScalarProperty Name="InTransQty" ColumnName="InTransQty" />
+                <ScalarProperty Name="OnOrderEEH" ColumnName="OnOrderEEH" />
+                <ScalarProperty Name="NewOnOrderEEH" ColumnName="NewOnOrderEEH" />
+                <ScalarProperty Name="TotalInventory" ColumnName="TotalInventory" />
+                <ScalarProperty Name="Balance" ColumnName="Balance" />
+                <ScalarProperty Name="WeeksOnHand" ColumnName="WeeksOnHand" />
+                <ScalarProperty Name="WeeksOnHandWarnFlag" ColumnName="WeeksOnHandWarnFlag" />
+                <ScalarProperty Name="RowID" ColumnName="RowID" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
