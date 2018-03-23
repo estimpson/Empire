@@ -15,5 +15,6 @@ namespace QuoteLogData.Models
     {
         public Nullable<int> OnTime { get; set; }
         public Nullable<int> Late { get; set; }
+        public string X { get { return DateTime.Today.Year.ToString(); } }
     }
 }

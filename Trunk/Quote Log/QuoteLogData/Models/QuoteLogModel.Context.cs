@@ -615,5 +615,10 @@ namespace QuoteLogData.Models
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_QT_LightingStudy_QuoteNumbers_GetQuoteData_Result>("usp_QT_LightingStudy_QuoteNumbers_GetQuoteData", quoteNumberParameter, tranDT, result);
         }
+    
+        public virtual ObjectResult<OnTimeDaysLateBreakdown> usp_QT_Metrics_OnTimeDaysLateBreakdown()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<OnTimeDaysLateBreakdown>("usp_QT_Metrics_OnTimeDaysLateBreakdown");
+        }
     }
 }

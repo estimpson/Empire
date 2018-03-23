@@ -573,6 +573,7 @@
         <Function Name="usp_QT_Metrics_GetNavigationGroups" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="EEIUser" />
         <Function Name="usp_QT_Metrics_GetQuoteEngineersNames" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="EEIUser" />
         <Function Name="usp_QT_Metrics_OnTimeByQuoteEngineer" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="EEIUser" />
+        <Function Name="usp_QT_Metrics_OnTimeDaysLateBreakdown" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="EEIUser" />
         <Function Name="usp_QT_Metrics_OnTimeDelivery" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="EEIUser" />
         <Function Name="usp_QT_Metrics_QuoteRequestsPerMonth" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="EEIUser" />
         <Function Name="usp_QT_Metrics_QuoteRequestsPerMonthSalesperson" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="EEIUser" />
@@ -828,6 +829,7 @@
             <Parameter Name="TranDT" Mode="InOut" Type="DateTime" />
             <Parameter Name="Result" Mode="InOut" Type="Int32" />
           </FunctionImport>
+          <FunctionImport Name="usp_QT_Metrics_OnTimeDaysLateBreakdown" ReturnType="Collection(QuoteLogModel.OnTimeDaysLateBreakdown)" />
         </EntityContainer>
         <EntityType Name="QuoteEntry">
           <Key>
@@ -1242,6 +1244,10 @@
           <Property Type="String" Name="LEDHarness" Nullable="true" MaxLength="50" />
           <Property Type="DateTime" Name="Sop" Nullable="true" Precision="23" />
           <Property Type="Int32" Name="RowID" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="OnTimeDaysLateBreakdown">
+          <Property Type="String" Name="Category" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="NumberOfDaysLate" Nullable="true" />
         </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
@@ -1770,6 +1776,14 @@
                 <ScalarProperty Name="LEDHarness" ColumnName="LEDHarness" />
                 <ScalarProperty Name="Sop" ColumnName="Sop" />
                 <ScalarProperty Name="RowID" ColumnName="RowID" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="usp_QT_Metrics_OnTimeDaysLateBreakdown" FunctionName="QuoteLogModel.Store.usp_QT_Metrics_OnTimeDaysLateBreakdown">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="QuoteLogModel.OnTimeDaysLateBreakdown">
+                <ScalarProperty Name="Category" ColumnName="Category" />
+                <ScalarProperty Name="NumberOfDaysLate" ColumnName="NumberOfDaysLate" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>

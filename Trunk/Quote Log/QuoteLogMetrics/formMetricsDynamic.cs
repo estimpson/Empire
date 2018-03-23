@@ -161,6 +161,9 @@ namespace QuoteLogMetrics
                 case "On Time By Engineer (Current Year)":
                     ShowOnTimeDeliveryByQuoteEngineer();
                     break;
+                case "Days Late (Current Year)":
+                    ShowDaysLate();
+                    break;
                 case "Quotes Rcvd By Month (Current Year By Eng)":
                     ShowQuoteRequestsPerMonth();
                     break;
@@ -288,14 +291,14 @@ namespace QuoteLogMetrics
 
             Series series1 = new Series();
             series1.LegendText = "On Time";
-            series1.ArgumentDataMember = "OnTime";
+            series1.ArgumentDataMember = "X";
             series1.ValueDataMembers[0] = "OnTime";
             //series1.Name = "Total Quotes";
             series1.ChangeView(DevExpress.XtraCharts.ViewType.Bar);
 
             Series series2 = new Series();
             series2.LegendText = "Late";
-            series2.ArgumentDataMember = "Late";
+            series2.ArgumentDataMember = "X";
             series2.ValueDataMembers[0] = "Late";
             series2.ChangeView(DevExpress.XtraCharts.ViewType.Bar);
 
@@ -370,7 +373,31 @@ namespace QuoteLogMetrics
             chartTitle.Text = "On Time Delivery " + DateTime.Now.Year.ToString();
             _chartControl.Titles.Add(chartTitle);
 
-            _chartControl.Legend.Visible = false;
+            _chartControl.Legend.Visibility = DevExpress.Utils.DefaultBoolean.True;
+        }
+
+        private void ShowDaysLate()
+        {
+            string result = _metrics.GetDaysLate();
+            if (result != "")
+            {
+                MessageBox.Show(result);
+                return;
+            }
+            _chartControl.DataSource = _metrics.onTimeDaysLateBreakdown;
+
+            Series series1 = new Series();
+            series1.ArgumentDataMember = "Category";
+            series1.ValueDataMembers[0] = "NumberOfDaysLate";
+            //series1.Name = "Category1";
+            series1.ChangeView(DevExpress.XtraCharts.ViewType.Bar);
+
+            // Add series to chart
+            _chartControl.Series.Add(series1);
+
+            ChartTitle chartTitle = new ChartTitle();
+            chartTitle.Text = "Number of Days Late " + DateTime.Now.Year.ToString();
+            _chartControl.Titles.Add(chartTitle);
         }
 
         private void ShowOnTimeDeliveryByQuoteEngineer()
@@ -388,7 +415,7 @@ namespace QuoteLogMetrics
             foreach (var name in _metrics.quoteEngineerNames)
             {
                 // Create pie series.
-                Series series = new Series(name.FirstName, ViewType.Pie);
+                Series series = new Series(name.FirstName, ViewType.Pie) { Name = name.FirstName };
 
                 // Populate the series with points.
                 series.Points.Add(new SeriesPoint(_metrics.onTimeByEngineer[i].OnTime, _metrics.onTimeByEngineer[i].OnTime));
@@ -400,6 +427,8 @@ namespace QuoteLogMetrics
                 // Show a title for the series.
                 seriesView.Titles.Add(new SeriesTitle());
                 seriesView.Titles[0].Text = series.Name;
+                seriesView.Titles[0].Visibility = DevExpress.Utils.DefaultBoolean.True;
+
 
                 // Adjust the point options of the series.
                 series.Label.PointOptions.PointView = PointView.ArgumentAndValues;
@@ -417,7 +446,7 @@ namespace QuoteLogMetrics
             chartTitle.Text = "On Time Delivery";
             _chartControl.Titles.Add(chartTitle);
 
-            _chartControl.Legend.Visible = false;
+            _chartControl.Legend.Visibility = DevExpress.Utils.DefaultBoolean.False;
         }
 
         private void ShowQuoteRequestsPerMonth()

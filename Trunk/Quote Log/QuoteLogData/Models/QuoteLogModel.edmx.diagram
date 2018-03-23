@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="e35b436107704efb9f64eb723fdb71bd" Name="QuoteLogDiagram" ZoomLevel="53">
+      <Diagram DiagramId="e35b436107704efb9f64eb723fdb71bd" Name="QuoteLogDiagram" ZoomLevel="52">
         <EntityTypeShape EntityType="QuoteLogModel.QuoteEntry" PointX="0.75" PointY="0.75" Width="2.125" IsExpanded="true" />
         <AssociationConnector ManuallyRouted="false" Association="QuoteLogModel.FK__QT_QuoteL__Paren__33D44DD5" />
         <EntityTypeShape EntityType="QuoteLogModel.Application" Width="1.5" PointX="5.125" PointY="0.75" />

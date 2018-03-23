@@ -18,7 +18,7 @@ using DevExpress.XtraEditors.Controls;
 using DevExpress.XtraGrid.Views.Grid;
 using DevExpress.XtraGrid.Views.Base;
 using QuoteLogGrid.SupportClasses;
-
+using DevExpress.XtraReports.UI;
 
 namespace QuoteLogGrid.Forms
 {
