@@ -1072,8 +1072,7 @@ namespace ImportCSM
                 var command = new SqlCommand("UPDATE EEIUser.acctg_csm_base_part_attributes " +
                                              "SET mid_model_year = '" + midModelYear + "' " +
                                              "WHERE base_part = '" + basePart + "' " +
-                                             "AND release_id = ( select max(release_id) from EEIUser.acctg_csm_base_part_attributes " +
-                                                "where base_part = '" + basePart + "' );",
+                                             "AND release_id = ( select [dbo].[fn_ReturnLatestCSMRelease]('CSM') )",
                                              con);
 
                 con.Open();
