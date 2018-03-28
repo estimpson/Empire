@@ -962,6 +962,7 @@ namespace ImportCSM
                 string data = reader.ReadToEnd();
 
                 var rows = data.Split('\r');
+                bool header = true;
 
                 // Loop through spreadsheet rows
                 foreach (var rowRaw in rows)
@@ -981,7 +982,16 @@ namespace ImportCSM
                     string[] arry = row.Split(',');
                     foreach (var item in arry)
                     {
-                        if (item == "status")
+                        if (header)
+                        {
+                            if (item == "")
+                            {
+                                header = false;
+                                break;
+                            }
+                        }
+
+                        if (item == "parent_customer")
                         {
                             break;
                         } 
@@ -989,13 +999,13 @@ namespace ImportCSM
                         {
                             fieldCount++;
 
-                            if (fieldCount == 5) { basePart = item.ToString(); }
-                            if (fieldCount == 12) { newTiming = item.ToString(); }
-                            if (fieldCount == 13) { priorTiming = item.ToString(); }
-                            if (fieldCount == 14) { reason = item.ToString(); }
-                            if (fieldCount == 15) { midModel = item.ToString(); }
+                            if (fieldCount == 4) { basePart = item.ToString(); }
+                            if (fieldCount == 11) { newTiming = item.ToString(); }
+                            if (fieldCount == 12) { priorTiming = item.ToString(); }
+                            if (fieldCount == 13) { reason = item.ToString(); }
+                            if (fieldCount == 14) { midModel = item.ToString(); }
 
-                            if (fieldCount > 14 && newTiming != "")
+                            if (fieldCount > 13 && newTiming != "")
                             {
                                 string year = newTiming.Remove(0, 11);
                                 int len = year.Length;

@@ -699,9 +699,9 @@
             this.label22.Location = new System.Drawing.Point(272, 55);
             this.label22.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label22.Name = "label22";
-            this.label22.Size = new System.Drawing.Size(575, 24);
+            this.label22.Size = new System.Drawing.Size(713, 24);
             this.label22.TabIndex = 24;
-            this.label22.Text = "Copy all column names and data from the spreadsheet, then import.";
+            this.label22.Text = "Copy column names and data (no summary data) from the spreadsheet, then import.";
             // 
             // formMain
             // 
