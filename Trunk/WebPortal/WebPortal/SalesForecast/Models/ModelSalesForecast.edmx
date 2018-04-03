@@ -8,6 +8,7 @@
         <Function Name="usp_Web_SalesForecastUpdated_GetEopYears" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="FT" />
         <Function Name="usp_Web_SalesForecastUpdated_GetSalesForecastUpdated" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="FT">
           <Parameter Name="EopYear" Type="int" Mode="In" />
+          <Parameter Name="Filter" Type="int" Mode="In" />
         </Function>
         <Function Name="usp_Web_SalesForecastUpdated_UpdateBasePartCloseouts" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="FT">
           <Parameter Name="UserCode" Type="varchar" Mode="In" />
@@ -68,6 +69,7 @@
           </FunctionImport>
           <FunctionImport Name="usp_Web_SalesForecastUpdated_GetSalesForecastUpdated" ReturnType="Collection(MONITORModel1.GetSalesForecastUpdated_Result)">
             <Parameter Name="EopYear" Mode="In" Type="Int32" />
+            <Parameter Name="Filter" Mode="In" Type="Int32" />
           </FunctionImport>
         </EntityContainer>
         <ComplexType Name="GetSchedulers_Result">

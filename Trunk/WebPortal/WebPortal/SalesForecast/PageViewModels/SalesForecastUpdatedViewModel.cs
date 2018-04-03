@@ -28,12 +28,12 @@ namespace WebPortal.SalesForecast.PageViewModels
 
 
         #region Grid Methods
-        public List<GetSalesForecastUpdated_Result> GetSf(int eop)
+        public List<GetSalesForecastUpdated_Result> GetSf(int eop, int filter)
         {
             List<GetSalesForecastUpdated_Result> sfList;
             using (var context = new MONITOREntities1())
             {
-                sfList = context.usp_Web_SalesForecastUpdated_GetSalesForecastUpdated(eop).ToList();
+                sfList = context.usp_Web_SalesForecastUpdated_GetSalesForecastUpdated(eop, filter).ToList();
             }
             return sfList;
         }

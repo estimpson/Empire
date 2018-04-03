@@ -107,13 +107,17 @@ namespace WebPortal.SalesForecast.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetSchedulers_Result>("usp_PlanningSnapshot_Q_GetSchedulers", tranDT, result, debugParameter, debugMsg);
         }
     
-        public virtual ObjectResult<GetSalesForecastUpdated_Result> usp_Web_SalesForecastUpdated_GetSalesForecastUpdated(Nullable<int> eopYear)
+        public virtual ObjectResult<GetSalesForecastUpdated_Result> usp_Web_SalesForecastUpdated_GetSalesForecastUpdated(Nullable<int> eopYear, Nullable<int> filter)
         {
             var eopYearParameter = eopYear.HasValue ?
                 new ObjectParameter("EopYear", eopYear) :
                 new ObjectParameter("EopYear", typeof(int));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetSalesForecastUpdated_Result>("usp_Web_SalesForecastUpdated_GetSalesForecastUpdated", eopYearParameter);
+            var filterParameter = filter.HasValue ?
+                new ObjectParameter("Filter", filter) :
+                new ObjectParameter("Filter", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetSalesForecastUpdated_Result>("usp_Web_SalesForecastUpdated_GetSalesForecastUpdated", eopYearParameter, filterParameter);
         }
     }
 }

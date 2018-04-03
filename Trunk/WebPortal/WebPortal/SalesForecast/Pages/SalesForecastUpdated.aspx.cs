@@ -10,6 +10,7 @@ using DevExpress.Web;
 using System.Data;
 using WebPortal.SalesForecast.Models;
 
+
 namespace WebPortal.SalesForecast.Pages
 {
     public partial class SalesForecastUpdated : System.Web.UI.Page
@@ -27,6 +28,15 @@ namespace WebPortal.SalesForecast.Pages
             }
         }
 
+        private enum LoadingPanelTrigger
+        {
+            EopYear,
+            ShowAll,
+            VerifiedOnly,
+            NonVerifiedOnly
+        }
+
+
         protected void Page_Init(object sender, EventArgs e)
         {
             Session["op"] = Request.QueryString["op"];
@@ -38,16 +48,48 @@ namespace WebPortal.SalesForecast.Pages
             {
                 AuthenticateUser();
 
-                if (GetEopYears() == 1) GetSalesForecastUpdated(); // Populate grid
+                btnShowAll.Checked = true;
+
+                if (GetEopYears() == 1) GetSalesForecastUpdatedPageLoad(); // Populate grid
             }
         }
 
 
+
         #region Control Events
+
         protected void cbxYear_SelectedIndexChanged(object sender, EventArgs e)
         {
-            ObjectDataSource1.SelectParameters["eop"].DefaultValue = cbxEopYears.Text;
-            gvSalesForecastUpdated.DataBind();
+            if (gvSalesForecastUpdated.IsEditing) gvSalesForecastUpdated.CancelEdit();
+
+            GetSalesForecastUpdated(LoadingPanelTrigger.EopYear);
+        }
+
+        protected void btnShowAll_CheckedChanged(object sender, EventArgs e)
+        {
+            if (!btnShowAll.Checked) return;
+
+            if (gvSalesForecastUpdated.IsEditing) gvSalesForecastUpdated.CancelEdit();
+
+            GetSalesForecastUpdated(LoadingPanelTrigger.ShowAll);
+        }
+
+        protected void btnVerifiedOnly_CheckedChanged(object sender, EventArgs e)
+        {
+            if (!btnVerifiedOnly.Checked) return;
+
+            if (gvSalesForecastUpdated.IsEditing) gvSalesForecastUpdated.CancelEdit();
+
+            GetSalesForecastUpdated(LoadingPanelTrigger.VerifiedOnly);
+        }
+
+        protected void btnNonVerifiedOnly_CheckedChanged(object sender, EventArgs e)
+        {
+            if (!btnNonVerifiedOnly.Checked) return;
+
+            if (gvSalesForecastUpdated.IsEditing) gvSalesForecastUpdated.CancelEdit();
+
+            GetSalesForecastUpdated(LoadingPanelTrigger.NonVerifiedOnly);
         }
 
         protected void gvSalesForecastUpdated_CellEditorInitialize(object sender, ASPxGridViewEditorEventArgs e)
@@ -108,10 +150,42 @@ namespace WebPortal.SalesForecast.Pages
             return 1;
         }
 
-        private void GetSalesForecastUpdated()
+        private void GetSalesForecastUpdatedPageLoad()
         {
             ObjectDataSource1.SelectParameters["eop"].DefaultValue = cbxEopYears.Text;
+            ObjectDataSource1.SelectParameters["filter"].DefaultValue = "1"; // Show all
             gvSalesForecastUpdated.DataBind();
+        }
+
+        private void GetSalesForecastUpdated(LoadingPanelTrigger trigger)
+        {
+            // Get filter parameter
+            string filter = "";
+            if (btnShowAll.Checked) filter = "1";
+            if (btnVerifiedOnly.Checked) filter = "2";
+            if (btnNonVerifiedOnly.Checked) filter = "3";
+
+            // Refresh data
+            ObjectDataSource1.SelectParameters["eop"].DefaultValue = cbxEopYears.Text;
+            ObjectDataSource1.SelectParameters["filter"].DefaultValue = filter;
+            gvSalesForecastUpdated.DataBind();
+
+            // Hide loading panel
+            switch (trigger)
+            {
+                case LoadingPanelTrigger.EopYear:
+                    ScriptManager.RegisterClientScriptBlock(cbxEopYears, cbxEopYears.GetType(), "HideLoadingPanel", "lp.Hide();", true);
+                    break;
+                case LoadingPanelTrigger.ShowAll:
+                    ScriptManager.RegisterClientScriptBlock(btnShowAll, btnShowAll.GetType(), "HideLoadingPanel", "lp.Hide();", true);
+                    break;
+                case LoadingPanelTrigger.VerifiedOnly:
+                    ScriptManager.RegisterClientScriptBlock(btnVerifiedOnly, btnVerifiedOnly.GetType(), "HideLoadingPanel", "lp.Hide();", true);
+                    break;
+                case LoadingPanelTrigger.NonVerifiedOnly:
+                    ScriptManager.RegisterClientScriptBlock(btnNonVerifiedOnly, btnNonVerifiedOnly.GetType(), "HideLoadingPanel", "lp.Hide();", true);
+                    break;
+            }
         }
 
         private void EditModeDisableColumns(string column, ASPxEditBase e)

@@ -16,6 +16,17 @@
             });
         }
 
+        function updateCheckBoxState(s, e) {
+            //var checkState = s.GetCheckState();
+            //var checked = s.GetChecked();
+            //var checkBoxIDParts = s.name.split("_");
+            //var checkBoxID = checkBoxIDParts[checkBoxIDParts.length - 1];
+            //var checkedStateSpan = document.getElementById(checkBoxID + "CheckState");
+            //var checkedSpan = document.getElementById(checkBoxID + "Checked");
+            //checkedStateSpan.innerHTML = "CheckState = " + checkState;
+            //checkedSpan.innerHTML = "Checked = " + checked;
+        }
+
         function updateGridHeight() {
             gvSalesForecastUpdated.SetHeight(0);
 
@@ -57,32 +68,66 @@
 
 <asp:Content ID="contentBody" ContentPlaceHolderID="MainContent" runat="server">
 
-    <dx:ASPxCallbackPanel ID="cbp1" runat="server" EnableCallbackAnimation="false" ClientInstanceName="CallbackPanel">
+    <dx:ASPxLoadingPanel ID="ASPxLoadingPanel1" runat="server" ClientInstanceName="lp" Modal="true">
+        </dx:ASPxLoadingPanel>
+
+    <dx:ASPxCallbackPanel ID="cbp1" runat="server" EnableCallbackAnimation="false" ClientInstanceName="CallbackPanel" SettingsLoadingPanel-Enabled="true">
     <ClientSideEvents EndCallback="OnEndCallback"></ClientSideEvents>
     <PanelCollection>
         <dx:PanelContent ID="pc1" runat="server">
 
 
-        <asp:UpdatePanel ID="updatePnl" runat="server">
+            <asp:UpdatePanel ID="updatePnl" runat="server">
             <ContentTemplate>
+
               
+
             <div style="margin-bottom: 0px; border: 0px solid red; height: 40px;">
 
                 <div style="float: left; padding-top: 8px;">
                     <dx:ASPxLabel ID="lblEopYears" runat="server" Text="EOP:"></dx:ASPxLabel>
                 </div>
+
                 <div style="float: left; margin-left: 7px;">
                     <dx:ASPxComboBox ID="cbxEopYears" runat="server" ValueType="System.String" Width="90"
                         OnSelectedIndexChanged="cbxYear_SelectedIndexChanged" AutoPostBack="true">
+                        <ClientSideEvents SelectedIndexChanged="function(s, e) {
+                        lp.Show();
+                                 }" />
                     </dx:ASPxComboBox>
                 </div>
 
-                <div style="float: left; margin-left: 23px;">
+                <div style="float: left; margin-left: 20px;">  
+                    <div style="float: left;">
+                        <dx:ASPxButton ID="btnShowAll" runat="server" AutoPostBack="true" 
+                            GroupName="G" Text="Show All" Width="100%" OnCheckedChanged="btnShowAll_CheckedChanged">
+                            <ClientSideEvents Click="function(s, e) {
+                                lp.Show();  }" />
+                        </dx:ASPxButton>
+                    </div>
+                    <div style="float: left;">
+                        <dx:ASPxButton ID="btnVerifiedOnly" runat="server" AutoPostBack="true" GroupName="G"
+                            Text="Verified Only" Width="100%" OnCheckedChanged="btnVerifiedOnly_CheckedChanged">
+                            <ClientSideEvents Click="function(s, e) {
+                                lp.Show();  }" />
+                        </dx:ASPxButton>
+                    </div>
+                    <div style="float: left;">
+                        <dx:ASPxButton ID="btnNonVerifiedOnly" runat="server" AutoPostBack="true" GroupName="G"
+                            Text="Non-verified Only" Width="100%" OnCheckedChanged="btnNonVerifiedOnly_CheckedChanged">
+                            <ClientSideEvents Click="function(s, e) {
+                                lp.Show();  }" />
+                        </dx:ASPxButton>
+                    </div>
+                </div>
+        
+                <div style="float: left; margin-left: 25px;">
                     <dx:ASPxButton ID="btnRefresh" runat="server" RenderMode="Link" AutoPostBack="false" ClientSideEvents-Click="function(s,e){RefreshGrid()}">
                         <Image IconID="actions_refresh_32x32gray" ToolTip="Clear sorting and grouping"></Image>
                     </dx:ASPxButton>
                 </div>
-                <div style="float: left; margin-left: 15px;">
+
+                <div style="float: left; margin-left: 25px;">
                     <dx:ASPxButton ID="btnEx" runat="server" OnClick="btnEx_Click" RenderMode="Link">
                         <Image IconID="export_exporttoxlsx_32x32gray" ToolTip="Export to Excel"></Image>
                     </dx:ASPxButton>
@@ -94,6 +139,7 @@
 
 
             <div>
+
                 <dx:ASPxGridView ID="gvSalesForecastUpdated" runat="server" ClientInstanceName="gvSalesForecastUpdated" AutoGenerateColumns="False" SettingsBehavior-AllowGroup="true"
                     KeyFieldName="RowId" SettingsBehavior-AllowSort="true" Settings-ShowGroupPanel="true"
                     SettingsEditing-Mode="Inline" EnableRowsCache="False" OnCellEditorInitialize="gvSalesForecastUpdated_CellEditorInitialize"
@@ -130,6 +176,7 @@
                         <dx:GridViewDataComboBoxColumn Caption="VerifiedEop" FieldName="VerifiedEop" Name="VerifiedEop" VisibleIndex="11" Width="180" />
                         <dx:GridViewDataDateColumn Caption="VerifiedEopDate" FieldName="VerifiedEopDate" Name="VerifiedEopDate" VisibleIndex="12" Width="130">
                             <PropertiesDateEdit DisplayFormatString="yyyy-MM-dd" EditFormatString="yyyy-MM-dd"></PropertiesDateEdit>
+                            
                         </dx:GridViewDataDateColumn>
                         <dx:GridViewDataDateColumn Caption="CsmSop" FieldName="CsmSop" Name="CsmSop" VisibleIndex="13" Width="110">
                             <PropertiesDateEdit DisplayFormatString="yyyy-MM-dd" EditFormatString="yyyy-MM-dd"></PropertiesDateEdit>
@@ -201,37 +248,38 @@
                     UpdateMethod="UpdateSf" DataObjectTypeName="WebPortal.SalesForecast.Models.GetSalesForecastUpdated_Result">   
                     <SelectParameters>
                         <asp:Parameter Name="eop" Type="Int32" />
+                        <asp:Parameter Name="filter" Type="Int32" />
                     </SelectParameters>
                 </asp:ObjectDataSource>
-               
-            </div>
 
 
-            <div>
-                <dx:ASPxPopupControl ID="pcError" runat="server" Width="320" CloseAction="CloseButton" CloseOnEscape="true" Modal="True"
-                    PopupHorizontalAlign="WindowCenter" PopupVerticalAlign="WindowCenter" ClientInstanceName="pcError"
-                    HeaderText="Error Message" AllowDragging="True" PopupAnimationType="Fade" ForeColor="Red" EnableViewState="False" AutoUpdatePosition="true">
-                    <ContentCollection>
-                        <dx:PopupControlContentControl runat="server">
-                            <div style="padding: 10px 20px 20px 20px;">
-                                <dx:ASPxLabel ID="lblError" runat="server" Text=""></dx:ASPxLabel>
-                            </div>
-                        </dx:PopupControlContentControl>
-                    </ContentCollection>
-                </dx:ASPxPopupControl>
-            </div>
-
-
-            </ContentTemplate>
-            <Triggers>
-                <asp:PostBackTrigger ControlID="btnEx" />
-            </Triggers>
-        </asp:UpdatePanel>
+                
+                </ContentTemplate>
+                <Triggers>
+                    <asp:PostBackTrigger ControlID="btnEx" />
+                </Triggers>
+            </asp:UpdatePanel>
 
 
         </dx:PanelContent>
     </PanelCollection>
 </dx:ASPxCallbackPanel>
+
+
+
+        <div>
+            <dx:ASPxPopupControl ID="pcError" runat="server" Width="320" CloseAction="CloseButton" CloseOnEscape="true" Modal="True"
+                PopupHorizontalAlign="WindowCenter" PopupVerticalAlign="WindowCenter" ClientInstanceName="pcError"
+                HeaderText="Error Message" AllowDragging="True" PopupAnimationType="Fade" ForeColor="Red" EnableViewState="False" AutoUpdatePosition="true">
+                <ContentCollection>
+                    <dx:PopupControlContentControl runat="server">
+                        <div style="padding: 10px 20px 20px 20px;">
+                            <dx:ASPxLabel ID="lblError" runat="server" Text=""></dx:ASPxLabel>
+                        </div>
+                    </dx:PopupControlContentControl>
+                </ContentCollection>
+            </dx:ASPxPopupControl>
+        </div>
 
 
 </asp:Content>

@@ -22,6 +22,15 @@ namespace WebPortal.SalesForecast.Pages {
         protected global::System.Web.UI.WebControls.Label lblTitle;
         
         /// <summary>
+        /// ASPxLoadingPanel1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::DevExpress.Web.ASPxLoadingPanel ASPxLoadingPanel1;
+        
+        /// <summary>
         /// cbp1 control.
         /// </summary>
         /// <remarks>
@@ -65,6 +74,33 @@ namespace WebPortal.SalesForecast.Pages {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::DevExpress.Web.ASPxComboBox cbxEopYears;
+        
+        /// <summary>
+        /// btnShowAll control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::DevExpress.Web.ASPxButton btnShowAll;
+        
+        /// <summary>
+        /// btnVerifiedOnly control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::DevExpress.Web.ASPxButton btnVerifiedOnly;
+        
+        /// <summary>
+        /// btnNonVerifiedOnly control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::DevExpress.Web.ASPxButton btnNonVerifiedOnly;
         
         /// <summary>
         /// btnRefresh control.
