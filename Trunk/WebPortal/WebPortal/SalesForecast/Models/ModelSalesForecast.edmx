@@ -21,7 +21,7 @@
           <Parameter Name="MaterialsComments" Type="varchar" Mode="In" />
           <Parameter Name="ShipToLocation" Type="varchar" Mode="In" />
           <Parameter Name="FgInventoryAfterBuildout" Type="decimal" Mode="In" />
-          <Parameter Name="CostEach" Type="decimal" Mode="In" />
+          <Parameter Name="CostEach" Type="varchar" Mode="In" />
           <Parameter Name="ExcessFgAfterBuildout" Type="decimal" Mode="In" />
           <Parameter Name="ExcessRmAfterBuildout" Type="decimal" Mode="In" />
           <Parameter Name="ProgramExposure" Type="decimal" Mode="In" />
@@ -42,6 +42,16 @@
       <Schema Namespace="MONITORModel1" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityContainer Name="MONITOREntities1" annotation:LazyLoadingEnabled="true" >
           <FunctionImport Name="usp_Web_SalesForecastUpdated_GetEopYears" ReturnType="Collection(MONITORModel1.GetEopYears_Result)" />
+          <FunctionImport Name="usp_PlanningSnapshot_Q_GetSchedulers" ReturnType="Collection(MONITORModel1.GetSchedulers_Result)">
+            <Parameter Name="TranDT" Mode="InOut" Type="DateTime" />
+            <Parameter Name="Result" Mode="InOut" Type="Int32" />
+            <Parameter Name="Debug" Mode="In" Type="Int32" />
+            <Parameter Name="DebugMsg" Mode="InOut" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="usp_Web_SalesForecastUpdated_GetSalesForecastUpdated" ReturnType="Collection(MONITORModel1.GetSalesForecastUpdated_Result)">
+            <Parameter Name="EopYear" Mode="In" Type="Int32" />
+            <Parameter Name="Filter" Mode="In" Type="Int32" />
+          </FunctionImport>
           <FunctionImport Name="usp_Web_SalesForecastUpdated_UpdateBasePartCloseouts">
             <Parameter Name="UserCode" Mode="In" Type="String" />
             <Parameter Name="BasePart" Mode="In" Type="String" />
@@ -53,23 +63,13 @@
             <Parameter Name="MaterialsComments" Mode="In" Type="String" />
             <Parameter Name="ShipToLocation" Mode="In" Type="String" />
             <Parameter Name="FgInventoryAfterBuildout" Mode="In" Type="Decimal" />
-            <Parameter Name="CostEach" Mode="In" Type="Decimal" />
+            <Parameter Name="CostEach" Mode="In" Type="String" />
             <Parameter Name="ExcessFgAfterBuildout" Mode="In" Type="Decimal" />
             <Parameter Name="ExcessRmAfterBuildout" Mode="In" Type="Decimal" />
             <Parameter Name="ProgramExposure" Mode="In" Type="Decimal" />
             <Parameter Name="DateToSendCoLetter" Mode="In" Type="DateTime" />
             <Parameter Name="TranDT" Mode="InOut" Type="DateTime" />
             <Parameter Name="Result" Mode="InOut" Type="Int32" />
-          </FunctionImport>
-          <FunctionImport Name="usp_PlanningSnapshot_Q_GetSchedulers" ReturnType="Collection(MONITORModel1.GetSchedulers_Result)">
-            <Parameter Name="TranDT" Mode="InOut" Type="DateTime" />
-            <Parameter Name="Result" Mode="InOut" Type="Int32" />
-            <Parameter Name="Debug" Mode="In" Type="Int32" />
-            <Parameter Name="DebugMsg" Mode="InOut" Type="String" />
-          </FunctionImport>
-          <FunctionImport Name="usp_Web_SalesForecastUpdated_GetSalesForecastUpdated" ReturnType="Collection(MONITORModel1.GetSalesForecastUpdated_Result)">
-            <Parameter Name="EopYear" Mode="In" Type="Int32" />
-            <Parameter Name="Filter" Mode="In" Type="Int32" />
           </FunctionImport>
         </EntityContainer>
         <ComplexType Name="GetSchedulers_Result">
@@ -104,13 +104,13 @@
           <Property Type="Decimal" Name="Sales2023" Nullable="true" Precision="38" Scale="6" />
           <Property Type="Decimal" Name="Sales2024" Nullable="true" Precision="38" Scale="6" />
           <Property Type="Decimal" Name="Sales2025" Nullable="true" Precision="38" Scale="6" />
-          <Property Type="String" Name="SchedulerResponsible" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="SchedulerResponsible" Nullable="true" />
           <Property Type="String" Name="RfMpsLink" Nullable="true" MaxLength="100" />
           <Property Type="String" Name="SchedulingTeamComments" Nullable="true" MaxLength="500" />
           <Property Type="String" Name="MaterialsComments" Nullable="true" MaxLength="500" />
-          <Property Type="String" Name="ShipToLocation" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="ShipToLocation" Nullable="true" />
           <Property Type="Decimal" Name="FgInventoryAfterBuildout" Nullable="true" Precision="20" Scale="6" />
-          <Property Type="Decimal" Name="CostEach" Nullable="true" Precision="20" Scale="6" />
+          <Property Type="String" Name="CostEach" Nullable="true" />
           <Property Type="Decimal" Name="ExcessFgAfterBuildout" Nullable="true" Precision="20" Scale="6" />
           <Property Type="Decimal" Name="ExcessRmAfterBuildout" Nullable="true" Precision="20" Scale="6" />
           <Property Type="Decimal" Name="ProgramExposure" Nullable="true" Precision="20" Scale="6" />
@@ -129,7 +129,6 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="usp_Web_SalesForecastUpdated_UpdateBasePartCloseouts" FunctionName="MONITORModel1.Store.usp_Web_SalesForecastUpdated_UpdateBasePartCloseouts" />
           <FunctionImportMapping FunctionImportName="usp_PlanningSnapshot_Q_GetSchedulers" FunctionName="MONITORModel1.Store.usp_PlanningSnapshot_Q_GetSchedulers">
             <ResultMapping>
               <ComplexTypeMapping TypeName="MONITORModel1.GetSchedulers_Result">
@@ -179,6 +178,7 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="usp_Web_SalesForecastUpdated_UpdateBasePartCloseouts" FunctionName="MONITORModel1.Store.usp_Web_SalesForecastUpdated_UpdateBasePartCloseouts" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

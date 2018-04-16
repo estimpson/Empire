@@ -171,6 +171,17 @@
       <DependentUpon>Model1.edmx</DependentUpon>
       <LastGenOutput>Model1.cs</LastGenOutput>
     </Content>
+    <Content Include="QuoteLogIntegration\Models\ModelMarketSegmentSubsegment.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>ModelMarketSegmentSubsegment.edmx</DependentUpon>
+      <LastGenOutput>ModelMarketSegmentSubsegment.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="QuoteLogIntegration\Models\ModelMarketSegmentSubsegment.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>ModelMarketSegmentSubsegment.edmx</DependentUpon>
+      <LastGenOutput>ModelMarketSegmentSubsegment.cs</LastGenOutput>
+    </Content>
+    <Content Include="QuoteLogIntegration\Pages\MarketSegmentSubsegment.aspx" />
     <Content Include="SalesForecast\Models\ModelSalesForecast.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>ModelSalesForecast.edmx</DependentUpon>
@@ -203,6 +214,13 @@
     </EntityDeploy>
     <Content Include="Scheduling\Models\ModelScheduling.edmx.diagram">
       <DependentUpon>ModelScheduling.edmx</DependentUpon>
+    </Content>
+    <EntityDeploy Include="QuoteLogIntegration\Models\ModelMarketSegmentSubsegment.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>ModelMarketSegmentSubsegment.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="QuoteLogIntegration\Models\ModelMarketSegmentSubsegment.edmx.diagram">
+      <DependentUpon>ModelMarketSegmentSubsegment.edmx</DependentUpon>
     </Content>
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Images\logo2.png" />
@@ -333,6 +351,35 @@
     </Compile>
     <Compile Include="PageViewModels\LoginViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="QuoteLogIntegration\Models\ModelMarketSegmentSubsegment.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ModelMarketSegmentSubsegment.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="QuoteLogIntegration\Models\ModelMarketSegmentSubsegment.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ModelMarketSegmentSubsegment.tt</DependentUpon>
+    </Compile>
+    <Compile Include="QuoteLogIntegration\Models\ModelMarketSegmentSubsegment.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ModelMarketSegmentSubsegment.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="QuoteLogIntegration\Models\usp_Web_EmpireMarketSegment_Result.cs">
+      <DependentUpon>ModelMarketSegmentSubsegment.tt</DependentUpon>
+    </Compile>
+    <Compile Include="QuoteLogIntegration\Models\usp_Web_EmpireMarketSubsegment_Result.cs">
+      <DependentUpon>ModelMarketSegmentSubsegment.tt</DependentUpon>
+    </Compile>
+    <Compile Include="QuoteLogIntegration\Pages\MarketSegmentSubsegment.aspx.cs">
+      <DependentUpon>MarketSegmentSubsegment.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="QuoteLogIntegration\Pages\MarketSegmentSubsegment.aspx.designer.cs">
+      <DependentUpon>MarketSegmentSubsegment.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="QuoteLogIntegration\PageViewModels\MarketSegmentSubsegmentViewModel.cs" />
     <Compile Include="SalesForecast\DataModels\EopYearDataModel.cs" />
     <Compile Include="SalesForecast\DataModels\SalesForecastUpdatedDataModel.cs" />
     <Compile Include="SalesForecast\DataModels\SchedulersDataModel.cs" />
@@ -432,6 +479,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="QuoteLogIntegration\DataModels\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

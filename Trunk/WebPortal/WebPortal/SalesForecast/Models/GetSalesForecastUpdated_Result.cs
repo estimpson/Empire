@@ -43,7 +43,7 @@ namespace WebPortal.SalesForecast.Models
         public string MaterialsComments { get; set; }
         public string ShipToLocation { get; set; }
         public Nullable<decimal> FgInventoryAfterBuildout { get; set; }
-        public Nullable<decimal> CostEach { get; set; }
+        public string CostEach { get; set; }
         public Nullable<decimal> ExcessFgAfterBuildout { get; set; }
         public Nullable<decimal> ExcessRmAfterBuildout { get; set; }
         public Nullable<decimal> ProgramExposure { get; set; }

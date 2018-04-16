@@ -19,6 +19,7 @@ namespace QuoteLogGrid.Controllers
 
         private formQuoteMaintenance _theView;
         private DataLayerNewQuoteNumber _nqn;
+        private DataLayerEmpireMarket _empireMarketDataLayer;
         private LTAController _ltaController;
         private FileController _fileController;
 
@@ -37,6 +38,7 @@ namespace QuoteLogGrid.Controllers
 
             _context = new QuoteLogContext();
             _nqn = new DataLayerNewQuoteNumber();
+            _empireMarketDataLayer = new DataLayerEmpireMarket();
 
             // Get quote header data, get a new quote number and reset the _quoteNumber variable if necessary
             GetQuoteHeaderData(out errorMessage, out errorMethod);
@@ -186,6 +188,8 @@ namespace QuoteLogGrid.Controllers
                 _context.CustomerQuoteInitials.Load();
                 _context.Functions.Load();
                 _context.Applications.Load();
+                _context.vw_QT_QuoteReasons.Load();
+                _context.vw_QT_ProductLines.Load();
             }
             catch (Exception)
             {
@@ -206,6 +210,8 @@ namespace QuoteLogGrid.Controllers
             _theView.CustomerQuoteInitialsBindingList = _context.CustomerQuoteInitials.Local.ToBindingList();
             _theView.FunctionsBindingList = _context.Functions.Local.ToBindingList();
             _theView.ApplicationsBindingList = _context.Applications.Local.ToBindingList();
+            _theView.QuoteReasonsBindingList = _context.vw_QT_QuoteReasons.Local.ToBindingList();
+            _theView.ProductLinesBindingList = _context.vw_QT_ProductLines.Local.ToBindingList();
         }
 
         #endregion

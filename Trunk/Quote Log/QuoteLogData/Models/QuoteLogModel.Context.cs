@@ -49,6 +49,8 @@ namespace QuoteLogData.Models
         public DbSet<QuoteTreeList> QuoteTreeLists { get; set; }
         public DbSet<QT_Test> QT_Test { get; set; }
         public DbSet<ST_LightingStudy_2016> ST_LightingStudy_2016 { get; set; }
+        public DbSet<vw_QT_ProductLines> vw_QT_ProductLines { get; set; }
+        public DbSet<vw_QT_QuoteReasons> vw_QT_QuoteReasons { get; set; }
     
         public virtual ObjectResult<Application> GetApplicationCodes()
         {
@@ -619,6 +621,149 @@ namespace QuoteLogData.Models
         public virtual ObjectResult<OnTimeDaysLateBreakdown> usp_QT_Metrics_OnTimeDaysLateBreakdown()
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<OnTimeDaysLateBreakdown>("usp_QT_Metrics_OnTimeDaysLateBreakdown");
+        }
+    
+        public virtual int usp_QT_EmpireMarketSegment_Request(string operatorCode, string empireMarketSegment, string note, ObjectParameter tranDT, ObjectParameter result)
+        {
+            var operatorCodeParameter = operatorCode != null ?
+                new ObjectParameter("OperatorCode", operatorCode) :
+                new ObjectParameter("OperatorCode", typeof(string));
+    
+            var empireMarketSegmentParameter = empireMarketSegment != null ?
+                new ObjectParameter("EmpireMarketSegment", empireMarketSegment) :
+                new ObjectParameter("EmpireMarketSegment", typeof(string));
+    
+            var noteParameter = note != null ?
+                new ObjectParameter("Note", note) :
+                new ObjectParameter("Note", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("usp_QT_EmpireMarketSegment_Request", operatorCodeParameter, empireMarketSegmentParameter, noteParameter, tranDT, result);
+        }
+    
+        public virtual int usp_QT_EmpireMarketSubsegment_Request(string operatorCode, string empireMarketSubsegment, string note, ObjectParameter tranDT, ObjectParameter result)
+        {
+            var operatorCodeParameter = operatorCode != null ?
+                new ObjectParameter("OperatorCode", operatorCode) :
+                new ObjectParameter("OperatorCode", typeof(string));
+    
+            var empireMarketSubsegmentParameter = empireMarketSubsegment != null ?
+                new ObjectParameter("EmpireMarketSubsegment", empireMarketSubsegment) :
+                new ObjectParameter("EmpireMarketSubsegment", typeof(string));
+    
+            var noteParameter = note != null ?
+                new ObjectParameter("Note", note) :
+                new ObjectParameter("Note", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("usp_QT_EmpireMarketSubsegment_Request", operatorCodeParameter, empireMarketSubsegmentParameter, noteParameter, tranDT, result);
+        }
+    
+        public virtual int usp_QT_EmpireMarketSegment_Request_SendEmail(string empireMarketSegment, ObjectParameter tranDT, ObjectParameter result)
+        {
+            var empireMarketSegmentParameter = empireMarketSegment != null ?
+                new ObjectParameter("EmpireMarketSegment", empireMarketSegment) :
+                new ObjectParameter("EmpireMarketSegment", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("usp_QT_EmpireMarketSegment_Request_SendEmail", empireMarketSegmentParameter, tranDT, result);
+        }
+    
+        public virtual int usp_QT_EmpireMarketSubsegment_Request_SendEmail(string empireMarketSubsegment, ObjectParameter tranDT, ObjectParameter result)
+        {
+            var empireMarketSubsegmentParameter = empireMarketSubsegment != null ?
+                new ObjectParameter("EmpireMarketSubsegment", empireMarketSubsegment) :
+                new ObjectParameter("EmpireMarketSubsegment", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("usp_QT_EmpireMarketSubsegment_Request_SendEmail", empireMarketSubsegmentParameter, tranDT, result);
+        }
+    
+        public virtual int usp_QT_FileManagement_Delete(string quoteNumber, string attachmentCategory, ObjectParameter tranDT, ObjectParameter result)
+        {
+            var quoteNumberParameter = quoteNumber != null ?
+                new ObjectParameter("QuoteNumber", quoteNumber) :
+                new ObjectParameter("QuoteNumber", typeof(string));
+    
+            var attachmentCategoryParameter = attachmentCategory != null ?
+                new ObjectParameter("AttachmentCategory", attachmentCategory) :
+                new ObjectParameter("AttachmentCategory", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("usp_QT_FileManagement_Delete", quoteNumberParameter, attachmentCategoryParameter, tranDT, result);
+        }
+    
+        public virtual int usp_QT_FileManagement_Save(string quoteNumber, string attachmentCategory, string fileName, byte[] fileContents, ObjectParameter tranDT, ObjectParameter result)
+        {
+            var quoteNumberParameter = quoteNumber != null ?
+                new ObjectParameter("QuoteNumber", quoteNumber) :
+                new ObjectParameter("QuoteNumber", typeof(string));
+    
+            var attachmentCategoryParameter = attachmentCategory != null ?
+                new ObjectParameter("AttachmentCategory", attachmentCategory) :
+                new ObjectParameter("AttachmentCategory", typeof(string));
+    
+            var fileNameParameter = fileName != null ?
+                new ObjectParameter("FileName", fileName) :
+                new ObjectParameter("FileName", typeof(string));
+    
+            var fileContentsParameter = fileContents != null ?
+                new ObjectParameter("FileContents", fileContents) :
+                new ObjectParameter("FileContents", typeof(byte[]));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("usp_QT_FileManagement_Save", quoteNumberParameter, attachmentCategoryParameter, fileNameParameter, fileContentsParameter, tranDT, result);
+        }
+    
+        public virtual int usp_Quoting_GetAttachment(string quoteNumber, string attachmentCategory, string fileName, ObjectParameter tranDT, ObjectParameter result, Nullable<int> debug, ObjectParameter debugMsg)
+        {
+            var quoteNumberParameter = quoteNumber != null ?
+                new ObjectParameter("QuoteNumber", quoteNumber) :
+                new ObjectParameter("QuoteNumber", typeof(string));
+    
+            var attachmentCategoryParameter = attachmentCategory != null ?
+                new ObjectParameter("AttachmentCategory", attachmentCategory) :
+                new ObjectParameter("AttachmentCategory", typeof(string));
+    
+            var fileNameParameter = fileName != null ?
+                new ObjectParameter("FileName", fileName) :
+                new ObjectParameter("FileName", typeof(string));
+    
+            var debugParameter = debug.HasValue ?
+                new ObjectParameter("Debug", debug) :
+                new ObjectParameter("Debug", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("usp_Quoting_GetAttachment", quoteNumberParameter, attachmentCategoryParameter, fileNameParameter, tranDT, result, debugParameter, debugMsg);
+        }
+    
+        public virtual ObjectResult<usp_QT_FileManagement_Get_Result> usp_QT_FileManagement_Get(string quoteNumber, string attachmentCategory, ObjectParameter tranDT, ObjectParameter result)
+        {
+            var quoteNumberParameter = quoteNumber != null ?
+                new ObjectParameter("QuoteNumber", quoteNumber) :
+                new ObjectParameter("QuoteNumber", typeof(string));
+    
+            var attachmentCategoryParameter = attachmentCategory != null ?
+                new ObjectParameter("AttachmentCategory", attachmentCategory) :
+                new ObjectParameter("AttachmentCategory", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_QT_FileManagement_Get_Result>("usp_QT_FileManagement_Get", quoteNumberParameter, attachmentCategoryParameter, tranDT, result);
+        }
+    
+        public virtual ObjectResult<usp_QT_FileManagement_Get_Result> usp_test()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_QT_FileManagement_Get_Result>("usp_test");
+        }
+    
+        public virtual ObjectResult<usp_QT_NewPartCheck_Result> usp_QT_NewPartCheck(string eEIPartNumber, ObjectParameter tranDT, ObjectParameter result)
+        {
+            var eEIPartNumberParameter = eEIPartNumber != null ?
+                new ObjectParameter("EEIPartNumber", eEIPartNumber) :
+                new ObjectParameter("EEIPartNumber", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_QT_NewPartCheck_Result>("usp_QT_NewPartCheck", eEIPartNumberParameter, tranDT, result);
+        }
+    
+        public virtual int usp_QT_NewPartCountPerQuoteCheck(string eEIPartNumber, ObjectParameter tranDT, ObjectParameter result)
+        {
+            var eEIPartNumberParameter = eEIPartNumber != null ?
+                new ObjectParameter("EEIPartNumber", eEIPartNumber) :
+                new ObjectParameter("EEIPartNumber", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("usp_QT_NewPartCountPerQuoteCheck", eEIPartNumberParameter, tranDT, result);
         }
     }
 }

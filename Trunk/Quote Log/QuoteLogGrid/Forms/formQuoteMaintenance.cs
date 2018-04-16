@@ -19,6 +19,7 @@ using DevExpress.XtraGrid.Views.Grid;
 using DevExpress.XtraGrid.Views.Base;
 using QuoteLogGrid.SupportClasses;
 using DevExpress.XtraReports.UI;
+using System.IO;
 
 namespace QuoteLogGrid.Forms
 {
@@ -37,15 +38,20 @@ namespace QuoteLogGrid.Forms
         private string _customer, _customerRfqNumber, _customerPartNumber, _eeiPartNumber,
             _notes, _oem, _applicationCode, _applicationName, _functionName, _eau, _program, _nameplate,
             _programManagerInitials, _engineeringInitials, _salesInitials, _engineeringMaterialsInitials,
-            _quoteReviewInitials, _quotePricingInitials, _customerQuoteInitials, _modelYear, _packageNumber;
+            _quoteReviewInitials, _quotePricingInitials, _customerQuoteInitials, _modelYear, _packageNumber,
+            _quoteReason, _productLine;
 
         public bool IsSaved;
+
+        private String filePathQuotePrint;
+        private String filePathCustomerQuote;
 
         #endregion
 
         #region Properties
 
         //private bool _isCopyQuote { get; set; }
+
 
         private string _quoteNumber;
         public string QuoteNumber
@@ -73,7 +79,10 @@ namespace QuoteLogGrid.Forms
         public BindingList<QuotePricingInitials> QuotePricingInitialsBindingList { set { quotePricingInitialsItemGridLookUpEdit.DataSource = value; } }
         public BindingList<CustomerQuoteInitials> CustomerQuoteInitialsBindingList { set { customerQuoteInitialsItemGridLookUpEdit.DataSource = value; } }
         public BindingList<Functions> FunctionsBindingList { set { functionsItemGridLookUpEdit.DataSource = value; } }
-        public BindingList<QuoteLogData.Models.Application> ApplicationsBindingList { set { applicationCodeItemGridLookUpEdit.DataSource = value; } } 
+        public BindingList<QuoteLogData.Models.Application> ApplicationsBindingList { set { applicationCodeItemGridLookUpEdit.DataSource = value; } }
+        public BindingList<vw_QT_QuoteReasons> QuoteReasonsBindingList { set { quoteReasonsItemGridLookUpEdit.DataSource = value; } }
+        public BindingList<vw_QT_ProductLines> ProductLinesBindingList { set { productLinesItemGridLookUpEdit.DataSource = value; } }
+
 
         public BindingList<QuoteLTA> LtaDataSource
         {
@@ -214,7 +223,8 @@ namespace QuoteLogGrid.Forms
             string customerRfqNumber, string customerPartNumber, string eeiPartNumber, string notes, string oem, string applicationCode, 
             string applicationName, string functionName, string eau, string program, string nameplate, string programManagerInitials, 
             string engineeringInitials, string salesInitials, string engineeringMaterialsInitials, string quoteReviewInitials, 
-            string quotePricingInitials, string customerQuoteInitials, string modelYear, string packageNumber)
+            string quotePricingInitials, string customerQuoteInitials, string modelYear, string packageNumber, string quoteReason,
+            string productLine)
         {
             InitializeComponent();
 
@@ -244,6 +254,8 @@ namespace QuoteLogGrid.Forms
             _customerQuoteInitials = customerQuoteInitials;
             _modelYear = modelYear;
             _packageNumber = packageNumber;
+            _quoteReason = quoteReason;
+            _productLine = productLine;
             _rowID = rowId;
 
             _quoteMaintenanceController = new QuoteMaintenanceController(quoteNumber, quoteType, this);
@@ -260,6 +272,10 @@ namespace QuoteLogGrid.Forms
 
             printDocStatus = PrintDocStatus.NoActionTaken;
             cbxRepeat.Visible = false;
+
+            // File Management
+            ShowQuotePrintFileInfo();
+            ShowCustomerQuoteFileInfo();
         }
 
 
@@ -303,7 +319,7 @@ namespace QuoteLogGrid.Forms
         {
             layoutView1.SetRowCellValue(0, "ModelYear", _modelYear);
             layoutView1.SetRowCellValue(0, "Customer", _customer);
-            layoutView1.SetRowCellValue(0, "CustomerRfqNumber", _customerRfqNumber);
+            layoutView1.SetRowCellValue(0, "CustomerRFQNumber", _customerRfqNumber);
             layoutView1.SetRowCellValue(0, "CustomerPartNumber", _customerPartNumber);
             layoutView1.SetRowCellValue(0, "EEIPartNumber", _eeiPartNumber);
             layoutView1.SetRowCellValue(0, "Notes", _notes);
@@ -322,6 +338,8 @@ namespace QuoteLogGrid.Forms
             layoutView1.SetRowCellValue(0, "QuotePricingInitials", _quotePricingInitials);
             layoutView1.SetRowCellValue(0, "CustomerQuoteInitials", _customerQuoteInitials);
             layoutView1.SetRowCellValue(0, "PackageNumber", _packageNumber);
+            layoutView1.SetRowCellValue(0, "QuoteReason", _quoteReason);
+            layoutView1.SetRowCellValue(0, "ProductLine", _productLine);
         }
 
         private void SetFormStateModifyQuote()
@@ -340,6 +358,7 @@ namespace QuoteLogGrid.Forms
             layoutView1.SetRowCellValue(0, "ReceiptDate", DateTime.Now.ToShortDateString());
             layoutView1.SetRowCellValue(0, "EEIPromisedDueDate", DateTime.Now.AddDays(14).ToShortDateString());
             layoutView1.SetRowCellValue(0, "Requote", "N");
+            layoutView1.SetRowCellValue(0, "QuoteReason", "New Part");
         }
 
         private void SetFormStateCopyQuote()
@@ -381,6 +400,7 @@ namespace QuoteLogGrid.Forms
             layoutView1.SetRowCellValue(0, "ParentQuoteID", _rowID);
             layoutView1.SetRowCellValue(0, "Requote", "Y");
             layoutView1.SetRowCellValue(0, "Notes", "");
+            layoutView1.SetRowCellValue(0, "QuoteReason", "Price Change");
         }
 
         #endregion
@@ -405,6 +425,39 @@ namespace QuoteLogGrid.Forms
             //// Show the Lighting Study form to allow the user to link this quote number to a lighting program
             //var form = new formLightingData();
             //form.ShowDialog();
+
+            // If new quote, make sure a customer RFQ number and a quote reason have been entered 
+            if (_quoteType != QuoteTypes.ModifyExisting)
+            {
+                string rfq = (layoutView1.GetRowCellValue(0, "CustomerRFQNumber") != null)
+                  ? layoutView1.GetRowCellValue(0, "CustomerRFQNumber").ToString() : "";
+                if (rfq == "")
+                {
+                    MessageBox.Show("Customer RFQ Number is required.", "Message");
+                    return;
+                }
+
+                string reason = (layoutView1.GetRowCellValue(0, "QuoteReason") != null)
+                  ? layoutView1.GetRowCellValue(0, "QuoteReason").ToString() : "";
+                if (reason == "")
+                {
+                    MessageBox.Show("Quote Reason is required.", "Message");
+                    return;
+                }
+            }
+
+            // If the quote reason field is set to New Part, make sure there is no other quote for this part with the same designation
+            string quoteReason = layoutView1.GetRowCellValue(0, "QuoteReason").ToString();
+            if (quoteReason == "New Part")
+            {
+                string eeiPartNumber = layoutView1.GetRowCellValue(0, "EEIPartNumber").ToString();
+                if (eeiPartNumber == "")
+                {
+                    MessageBox.Show("Failed to save. EEIPartNumber cannot be empty for a new part.", "Error");
+                    return;
+                }
+                if (GetQuoteCountForNewPart(eeiPartNumber) == 0) return;
+            }
 
             // End any editing in grids
             gridControl2.FocusedView.CloseEditor();  // Quote grid
@@ -490,11 +543,323 @@ namespace QuoteLogGrid.Forms
             lblMessage.Text = "";
         }
 
+        private int GetQuoteCountForNewPart(string part)
+        {
+            var tranDT = new ObjectParameter("TranDT", typeof(DateTime?));
+            var result = new ObjectParameter("Result", typeof(Int32?));
+
+            try
+            {
+                _context.usp_QT_NewPartCountPerQuoteCheck(part, tranDT, result);
+            }
+            catch (Exception ex)
+            {
+                string error = (ex.InnerException != null)
+                    ? "Failed to save: " + ex.InnerException.Message
+                    : "Failed to save: " + ex.Message;
+                MessageBox.Show(error, "Error at GetQuoteCountForNewPart()");
+                return 0;
+            }
+            return 1;
+        }
+
+        #endregion
+
+
+        #region Quote Print File
+
+        private void lnkGetQuotePrint_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            GetQuotePrint();
+        }
+
+        private void lnkSaveQuotePrint_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            SaveQuotePrint();
+        }
+
+        private void lnkDeleteQuotePrint_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            DeleteQuotePrint();
+        }
+
+        private void ShowQuotePrintFileInfo()
+        {
+            ObjectParameter tranDT = new ObjectParameter("TranDT", typeof(DateTime?));
+            ObjectParameter result = new ObjectParameter("Result", typeof(Int32?));
+
+            string attachmentCategory = "QuotePrint";
+            string fileName = "";
+            try
+            {
+                var collection = _context.usp_QT_FileManagement_Get(QuoteNumber, attachmentCategory, tranDT, result);
+                foreach (var item in collection) fileName = item.FileName;
+
+                if (fileName == "")
+                {
+                    lnkGetQuotePrint.Enabled = lnkDeleteQuotePrint.Enabled = false;
+                    lblQuotePrint.Text = "";
+                }
+                else
+                {
+                    lnkGetQuotePrint.Enabled = lnkDeleteQuotePrint.Enabled = true;
+                    lblQuotePrint.Text = fileName;
+                }
+            }
+            catch (Exception ex)
+            {
+                string err = (ex.InnerException != null) ? ex.InnerException.Message : ex.Message;
+                MessageBox.Show("Failed to return Quote Print information from the database.  " + err, "Error at ShowQuotePrintFileInfo()");
+
+                lnkGetQuotePrint.Enabled = lnkSaveQuotePrint.Enabled = lnkDeleteQuotePrint.Enabled = false;
+                lblQuotePrint.Text = "";
+            }
+        }
+
+        private void GetQuotePrint()
+        {
+            ObjectParameter tranDT = new ObjectParameter("TranDT", typeof(DateTime?));
+            ObjectParameter result = new ObjectParameter("Result", typeof(Int32?));
+
+            string path = Path.GetTempPath();
+            path = path + @"QuotePrints\";
+
+            if (Directory.Exists(path)) System.IO.Directory.Delete(path, true);
+            System.IO.Directory.CreateDirectory(path);
+
+            string attachmentCategory = "QuotePrint";
+            string fileName = "";
+            byte[] fileContents;
+            try
+            {
+                var collection = _context.usp_QT_FileManagement_Get(QuoteNumber, attachmentCategory, tranDT, result);
+                var item = collection.First();
+                fileName = item.FileName;
+                fileContents = item.FileContents;
+
+                //fileName = fileName.Remove(fileName.Length - 4);
+                //filePathQuotePrint = path + fileName + "_" + DateTime.Now.ToString("yyyyMMdd") + ".pdf";
+
+                filePathQuotePrint = path + fileName;
+
+                var fs = new System.IO.FileStream(filePathQuotePrint, FileMode.OpenOrCreate);
+                fs.Write(fileContents, 0, fileContents.Length);
+                fs.Flush();
+                fs.Close();
+
+                System.Diagnostics.Process.Start(filePathQuotePrint);
+            }
+            catch (Exception ex)
+            {
+                string err = (ex.InnerException != null) ? ex.InnerException.Message : ex.Message;
+                MessageBox.Show(err, "Error at GetQuotePrint()");
+            }
+        }
+
+        private void SaveQuotePrint()
+        {
+            ObjectParameter tranDT = new ObjectParameter("TranDT", typeof(DateTime?));
+            ObjectParameter result = new ObjectParameter("Result", typeof(Int32?));
+            var openFileDialog = new OpenFileDialog();
+
+            if (openFileDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                if (openFileDialog.FileName.Length > 0)
+                {
+                    string filePath = openFileDialog.FileName;
+                    string fileName = openFileDialog.SafeFileName;
+
+                    // Read the file (as one string) and convert it to Byte Array
+                    byte[] fileContents = System.IO.File.ReadAllBytes(filePath);
+
+                    string attachmentCategory = "QuotePrint";
+                    try
+                    {
+                        _context.usp_QT_FileManagement_Save(QuoteNumber, attachmentCategory, fileName, fileContents, tranDT, result);
+
+                        lnkGetQuotePrint.Enabled = lnkDeleteQuotePrint.Enabled = true;
+                        lblQuotePrint.Text = fileName;
+                    }
+                    catch (Exception ex)
+                    {
+                        string err = (ex.InnerException != null) ? ex.InnerException.Message : ex.Message;
+                        MessageBox.Show(err, "Error at SaveQuotePrint()");
+                    }
+                }
+            }
+        }
+
+        private void DeleteQuotePrint()
+        {
+            ObjectParameter tranDT = new ObjectParameter("TranDT", typeof(DateTime?));
+            ObjectParameter result = new ObjectParameter("Result", typeof(Int32?));
+
+            string attachmentCategory = "QuotePrint";
+            try
+            {
+                _context.usp_QT_FileManagement_Delete(QuoteNumber, attachmentCategory, tranDT, result);
+
+                lnkGetQuotePrint.Enabled = lnkDeleteQuotePrint.Enabled = false;
+                lblQuotePrint.Text = "";
+            }
+            catch (Exception ex)
+            {
+                string err = (ex.InnerException != null) ? ex.InnerException.Message : ex.Message;
+                MessageBox.Show(err, "Error at DeleteQuotePrint()");
+            }
+        }
+
+
+        #region Customer Quote File
+
+        private void lnkGetCustomerQuote_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            GetCustomerQuote();
+        }
+
+        private void lnkSaveCustomerQuote_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            SaveCustomerQuote();
+        }
+
+        private void lnkDeleteCustomerQuote_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            DeleteCustomerQuote();
+        }
+
+        private void ShowCustomerQuoteFileInfo()
+        {
+            ObjectParameter tranDT = new ObjectParameter("TranDT", typeof(DateTime?));
+            ObjectParameter result = new ObjectParameter("Result", typeof(Int32?));
+
+            string attachmentCategory = "CustomerQuote";
+            string fileName = "";
+            try
+            {
+                var collection = _context.usp_QT_FileManagement_Get(QuoteNumber, attachmentCategory, tranDT, result);
+                foreach (var item in collection) fileName = item.FileName;
+
+                if (fileName == "")
+                {
+                    lnkGetCustomerQuote.Enabled = lnkDeleteCustomerQuote.Enabled = false;
+                    lblCustomerQuote.Text = "";
+                }
+                else
+                {
+                    lnkGetCustomerQuote.Enabled = lnkDeleteCustomerQuote.Enabled = true;
+                    lblCustomerQuote.Text = fileName;
+                }
+            }
+            catch (Exception ex)
+            {
+                string err = (ex.InnerException != null) ? ex.InnerException.Message : ex.Message;
+                MessageBox.Show("Failed to return Customer Quote information from the database.  " + err, "Error at ShowCustomerQuoteFileInfo()");
+
+                lnkGetCustomerQuote.Enabled = lnkSaveCustomerQuote.Enabled = lnkDeleteCustomerQuote.Enabled = false;
+                lblCustomerQuote.Text = "";
+            }
+        }
+
+        private void GetCustomerQuote()
+        {
+            ObjectParameter tranDT = new ObjectParameter("TranDT", typeof(DateTime?));
+            ObjectParameter result = new ObjectParameter("Result", typeof(Int32?));
+
+            string path = Path.GetTempPath();
+            path = path + @"CustomerQuotes\";
+
+            if (Directory.Exists(path)) System.IO.Directory.Delete(path, true);
+            System.IO.Directory.CreateDirectory(path);
+
+            string attachmentCategory = "CustomerQuote";
+            string fileName = "";
+            byte[] fileContents;
+            try
+            {
+                var collection = _context.usp_QT_FileManagement_Get(QuoteNumber, attachmentCategory, tranDT, result);
+                var item = collection.First();
+                fileName = item.FileName;
+                fileContents = item.FileContents;
+
+                //fileName = fileName.Remove(fileName.Length - 4);
+                //filePathQuotePrint = path + fileName + "_" + DateTime.Now.ToString("yyyyMMdd") + ".pdf";
+
+                filePathCustomerQuote = path + fileName;
+
+                var fs = new System.IO.FileStream(filePathCustomerQuote, FileMode.OpenOrCreate);
+                fs.Write(fileContents, 0, fileContents.Length);
+                fs.Flush();
+                fs.Close();
+
+                System.Diagnostics.Process.Start(filePathCustomerQuote);
+            }
+            catch (Exception ex)
+            {
+                string err = (ex.InnerException != null) ? ex.InnerException.Message : ex.Message;
+                MessageBox.Show(err, "Error at GetCustomerQuote()");
+            }
+        }
+
+        private void SaveCustomerQuote()
+        {
+            ObjectParameter tranDT = new ObjectParameter("TranDT", typeof(DateTime?));
+            ObjectParameter result = new ObjectParameter("Result", typeof(Int32?));
+            var openFileDialog = new OpenFileDialog();
+
+            if (openFileDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                if (openFileDialog.FileName.Length > 0)
+                {
+                    string filePath = openFileDialog.FileName;
+                    string fileName = openFileDialog.SafeFileName;
+
+                    // Read the file (as one string) and convert it to Byte Array
+                    byte[] fileContents = System.IO.File.ReadAllBytes(filePath);
+
+                    string attachmentCategory = "CustomerQuote";
+                    try
+                    {
+                        _context.usp_QT_FileManagement_Save(QuoteNumber, attachmentCategory, fileName, fileContents, tranDT, result);
+
+                        lnkGetCustomerQuote.Enabled = lnkDeleteCustomerQuote.Enabled = true;
+                        lblCustomerQuote.Text = fileName;
+                    }
+                    catch (Exception ex)
+                    {
+                        string err = (ex.InnerException != null) ? ex.InnerException.Message : ex.Message;
+                        MessageBox.Show(err, "Error at SaveCustomerQuote()");
+                    }
+                }
+            }
+        }
+
+        private void DeleteCustomerQuote()
+        {
+            ObjectParameter tranDT = new ObjectParameter("TranDT", typeof(DateTime?));
+            ObjectParameter result = new ObjectParameter("Result", typeof(Int32?));
+
+            string attachmentCategory = "CustomerQuote";
+            try
+            {
+                _context.usp_QT_FileManagement_Delete(QuoteNumber, attachmentCategory, tranDT, result);
+
+                lnkGetCustomerQuote.Enabled = lnkDeleteCustomerQuote.Enabled = false;
+                lblCustomerQuote.Text = "";
+            }
+            catch (Exception ex)
+            {
+                string err = (ex.InnerException != null) ? ex.InnerException.Message : ex.Message;
+                MessageBox.Show(err, "Error at DeleteCustomerQuote()");
+            }
+        }
+
         #endregion
 
 
 
-        #region Quote Print File
+
+
+
 
         private void linkAddViewPrint_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {

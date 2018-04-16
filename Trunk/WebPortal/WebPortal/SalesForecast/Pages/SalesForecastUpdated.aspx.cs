@@ -102,7 +102,7 @@ namespace WebPortal.SalesForecast.Pages
 
             if (column == "VerifiedEop") EditModePopulateVerifiedEop(editor); // Populate the VerifiedEOP combobox
 
-            if (column == "SchedulerResponsible") EditModePopulateSchedulerResponsible(editor); // Populate the SchedulerResponsible combobox 
+            //if (column == "SchedulerResponsible") EditModePopulateSchedulerResponsible(editor); // Populate the SchedulerResponsible combobox 
         }
 
         protected void gvSalesForecastUpdated_CustomCallback(object sender, ASPxGridViewCustomCallbackEventArgs e)
@@ -193,7 +193,8 @@ namespace WebPortal.SalesForecast.Pages
             if (column == "Status" || column == "BasePart" || column == "ParentCustomer" || column == "Program" || column == "Vehicle" || column == "EmpireSop" ||
                 column == "MidModelYear" || column == "EmpireEop" || column == "EmpireEopNote" || column == "VerifiedEopDate" || column == "CsmSop" || 
                 column == "CsmEop" || column == "Sales2016" || column == "Sales2017" || column == "Sales2018" || column == "Sales2019" || column == "Sales2020" ||
-                column == "Sales2021" || column == "Sales2022" || column == "Sales2023" || column == "Sales2024" || column == "Sales2025")
+                column == "Sales2021" || column == "Sales2022" || column == "Sales2023" || column == "Sales2024" || column == "Sales2025" || column == "CostEach" ||
+                column == "SchedulerResponsible" || column == "ShipToLocation")
             {
                 e.ReadOnly = true;
                 e.ClientEnabled = false;
@@ -209,28 +210,28 @@ namespace WebPortal.SalesForecast.Pages
             cmb.DataBind();
         }
 
-        private void EditModePopulateSchedulerResponsible(ASPxEditBase e)
-        {
-            if (GetSchedulers() == 0) return;
+        //private void EditModePopulateSchedulerResponsible(ASPxEditBase e)
+        //{
+        //    if (GetSchedulers() == 0) return;
 
-            var cmb = e as ASPxComboBox;
-            cmb.DataSource = ViewModel.SchedulersList;
-            cmb.ValueField = "Scheduler";
-            cmb.TextField = "Scheduler";
-            cmb.DataBind();
-        }
+        //    var cmb = e as ASPxComboBox;
+        //    cmb.DataSource = ViewModel.SchedulersList;
+        //    cmb.ValueField = "Scheduler";
+        //    cmb.TextField = "Scheduler";
+        //    cmb.DataBind();
+        //}
 
-        private int GetSchedulers()
-        {
-            ViewModel.GetSchedulers();
-            if (ViewModel.Error != "")
-            {
-                lblError.Text = "Failed to return schedulers list. " + ViewModel.Error + " GetSchedulers().";
-                pcError.ShowOnPageLoad = true;
-                return 0;
-            }
-            return 1;
-        }
+        //private int GetSchedulers()
+        //{
+        //    ViewModel.GetSchedulers();
+        //    if (ViewModel.Error != "")
+        //    {
+        //        lblError.Text = "Failed to return schedulers list. " + ViewModel.Error + " GetSchedulers().";
+        //        pcError.ShowOnPageLoad = true;
+        //        return 0;
+        //    }
+        //    return 1;
+        //}
 
         private void RefreshDataSource()
         {

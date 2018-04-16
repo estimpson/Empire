@@ -116,6 +116,12 @@
     <Compile Include="Forms\formNewQuote.Designer.cs">
       <DependentUpon>formNewQuote.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\formNewSegmentRequest.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\formNewSegmentRequest.Designer.cs">
+      <DependentUpon>formNewSegmentRequest.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\formQuoteMaintenance.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -151,6 +157,7 @@
     <Compile Include="Controllers\CSMController.cs" />
     <Compile Include="Controllers\QuoteMaintenanceController.cs" />
     <Compile Include="Controllers\LTAController.cs" />
+    <Compile Include="SupportClasses\DataLayerEmpireMarket.cs" />
     <Compile Include="SupportClasses\DataLayerNewQuoteNumber.cs" />
     <Compile Include="SupportClasses\QuoteTypes.cs" />
     <Compile Include="SupportClasses\SetupTypes.cs" />
@@ -258,6 +265,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\formNewQuote.resx">
       <DependentUpon>formNewQuote.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\formNewSegmentRequest.resx">
+      <DependentUpon>formNewSegmentRequest.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\formQuoteMaintenance.resx">
       <DependentUpon>formQuoteMaintenance.cs</DependentUpon>

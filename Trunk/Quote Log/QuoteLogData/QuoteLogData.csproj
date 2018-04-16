@@ -178,6 +178,12 @@
     <Compile Include="Models\TypeOfRequestsPerCustomer.cs">
       <DependentUpon>QuoteLogModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\usp_QT_FileManagement_Delete_Result.cs">
+      <DependentUpon>QuoteLogModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\usp_QT_FileManagement_Get_Result.cs">
+      <DependentUpon>QuoteLogModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\usp_QT_LightingStudy_GetApplications_Result.cs">
       <DependentUpon>QuoteLogModel.tt</DependentUpon>
     </Compile>
@@ -194,6 +200,15 @@
       <DependentUpon>QuoteLogModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\usp_QT_LightingStudy_QuoteNumbers_Validate_Result.cs">
+      <DependentUpon>QuoteLogModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\usp_QT_NewPartCheck_Result.cs">
+      <DependentUpon>QuoteLogModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\vw_QT_ProductLines.cs">
+      <DependentUpon>QuoteLogModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\vw_QT_QuoteReasons.cs">
       <DependentUpon>QuoteLogModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />

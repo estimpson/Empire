@@ -31,7 +31,8 @@ namespace QuoteLogGrid.Views
         private string _quoteNumber, _customer, _customerRfqNumber, _customerPartNumber, _eeiPartNumber,
             _notes, _oem, _applicationCode, _applicationName, _functionName, _eau, _program, _nameplate,
             _programManagerInitials, _engineeringInitials, _salesInitials, _engineeringMaterialsInitials,
-            _quoteReviewInitials, _quotePricingInitials, _customerQuoteInitials, _modelYear, _packageNumber;
+            _quoteReviewInitials, _quotePricingInitials, _customerQuoteInitials, _modelYear, _packageNumber,
+            _quoteReason, _productLine;
        
         public SimpleQuoteLogView()
         {
@@ -52,7 +53,6 @@ namespace QuoteLogGrid.Views
 
         private void gridControl_EmbeddedNavigator_Click(object sender, EventArgs e)
         {
-
         }
 
         #endregion
@@ -62,6 +62,23 @@ namespace QuoteLogGrid.Views
 
         private void btnSave_Click(object sender, EventArgs e)
         {
+            // Check to see if a new part has been entered and if so, set the quote reason before saving
+            //LookUpBasePart();
+
+            // If the quote reason field is set to New Part, make sure there is no other quote for this part with the same designation
+            int r = gridView1.GetSelectedRows()[0];
+            string quoteReason = (gridView1.GetRowCellValue(r, "QuoteReason") != null) ? gridView1.GetRowCellValue(r, "QuoteReason").ToString() : "";
+            if (quoteReason == "New Part")
+            {
+                string eeiPartNumber = (gridView1.GetRowCellValue(r, "EEIPartNumber") != null) ? gridView1.GetRowCellValue(r, "EEIPartNumber").ToString() : "";
+                if (eeiPartNumber == "")
+                {
+                    MessageBox.Show("Failed to save. EEIPartNumber cannot be empty for a new part.", "Error");
+                    return;
+                }
+                if (GetQuoteCountForNewPart(eeiPartNumber) == 0) return;
+            }
+
             SaveData();
         }
 
@@ -97,8 +114,8 @@ namespace QuoteLogGrid.Views
 
 
                 // Load some quotes from the database into the DbContext
-                //_context.QuoteLog.Where(q => q.QuoteNumber.StartsWith("52")).Load();
-                _context.QuoteLog.Load();
+                _context.QuoteLog.Where(q => q.QuoteNumber.StartsWith("52")).Load();
+                //_context.QuoteLog.Load();
       
                 // Bind grid
                 //gridControl.DataSource = null;
@@ -108,6 +125,7 @@ namespace QuoteLogGrid.Views
 
                 // Modify grid fields
                 gridView1.Columns["QuoteNumber"].OptionsColumn.ReadOnly = true;
+                gridView1.Columns["CustomerRFQNumber"].OptionsColumn.ReadOnly = true;
                 gridView1.Columns["LTA"].OptionsColumn.ReadOnly = true;
                 gridView1.Columns["NameplateComputed"].OptionsColumn.ReadOnly = true;
                 gridView1.Columns["OEMComputed"].OptionsColumn.ReadOnly = true;
@@ -115,6 +133,7 @@ namespace QuoteLogGrid.Views
                 gridView1.Columns["TotalQuotedSales"].OptionsColumn.ReadOnly = true;
                 gridView1.Columns["PrintFilePath"].OptionsColumn.ReadOnly = true;
                 gridView1.Columns["CustomerQuoteFilePath"].OptionsColumn.ReadOnly = true;
+                //gridView1.Columns["QuoteReason"].OptionsColumn.ReadOnly = true;
 
                 gridView1.Columns["SOP"].DisplayFormat.FormatType = FormatType.DateTime;
                 gridView1.Columns["SOP"].DisplayFormat.FormatString = "MMM yyyy";
@@ -148,6 +167,8 @@ namespace QuoteLogGrid.Views
                 _context.CustomerQuoteInitials.Load();
                 _context.Applications.Load();
                 _context.Functions.Load();
+                _context.vw_QT_QuoteReasons.Load();
+                _context.vw_QT_ProductLines.Load();
 
                 // Clear grids
                 //requoteItemGridLookUpEdit.DataSource = customerItemGridLookUpEdit.DataSource =
@@ -169,11 +190,58 @@ namespace QuoteLogGrid.Views
                 customerQuoteInitialsItemGridLookUpEdit.DataSource = _context.CustomerQuoteInitials.Local.ToBindingList();
                 applicationCodeItemGridLookUpEdit.DataSource = _context.Applications.Local.ToBindingList();
                 functionsItemGridLookUpEdit.DataSource = _context.Functions.Local.ToBindingList();
+                quoteReasonItemGridLookUpEdit.DataSource = _context.vw_QT_QuoteReasons.Local.ToBindingList();
+                productLineItemGridLookUpEdit.DataSource = _context.vw_QT_ProductLines.Local.ToBindingList();
             }
             catch (Exception)
             {
                 MessageBox.Show("Error occured while retrieving data for header grid dropdown lists.");
             }
+        }
+
+        //private void LookUpBasePart()
+        //{
+        //var tranDT = new ObjectParameter("TranDT", typeof(DateTime?));
+        //var result = new ObjectParameter("Result", typeof(Int32?));
+        //    string basePart = "";
+
+        //    int r = gridView1.GetSelectedRows()[0];
+        //    string eeiPartNumber = (gridView1.GetRowCellValue(r, "EEIPartNumber") != null) ? gridView1.GetRowCellValue(r, "EEIPartNumber").ToString() : "";
+        //    if (eeiPartNumber == "") return;
+
+        //    try
+        //    {
+        //        var collection = _context.usp_QT_NewPartCheck(eeiPartNumber, tranDT, result);
+        //        foreach (var item in collection) basePart = item.BasePart;
+
+        //        // If the entered part is not found, assume this is a new base part and set the quote reason field accordingly
+        //        if (basePart == "") gridView1.SetRowCellValue(r, "QuoteReason", basePart);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        string error = (ex.InnerException != null) ? ex.InnerException.Message : ex.Message;
+        //        MessageBox.Show(error, "Error at LookUpBasePart");
+        //    }
+        //}
+
+        private int GetQuoteCountForNewPart(string part)
+        {
+            var tranDT = new ObjectParameter("TranDT", typeof(DateTime?));
+            var result = new ObjectParameter("Result", typeof(Int32?));
+
+            try
+            {
+                _context.usp_QT_NewPartCountPerQuoteCheck(part, tranDT, result);
+            }
+            catch (Exception ex)
+            {
+                string error = (ex.InnerException != null) 
+                    ? "Failed to save: " + ex.InnerException.Message 
+                    : "Failed to save: " + ex.Message;
+                MessageBox.Show(error, "Error at GetQuoteCountForNewPart()");
+                return 0;
+            }
+            return 1;
         }
 
         public void SaveData()
@@ -303,6 +371,8 @@ namespace QuoteLogGrid.Views
             if (gridView1.GetRowCellValue(r, "CustomerQuoteInitials") != null) _customerQuoteInitials = gridView1.GetRowCellValue(r, "CustomerQuoteInitials").ToString();
             if (gridView1.GetRowCellValue(r, "ModelYear") != null) _modelYear = gridView1.GetRowCellValue(r, "ModelYear").ToString();
             if (gridView1.GetRowCellValue(r, "PackageNumber") != null) _packageNumber = gridView1.GetRowCellValue(r, "PackageNumber").ToString();
+            if (gridView1.GetRowCellValue(r, "QuoteReason") != null) _quoteReason = gridView1.GetRowCellValue(r, "QuoteReason").ToString();
+            if (gridView1.GetRowCellValue(r, "ProductLine") != null) _productLine= gridView1.GetRowCellValue(r, "ProductLine").ToString();
 
             int? rowID = (int)gridView1.GetRowCellValue(r, "RowID");
 
@@ -319,7 +389,8 @@ namespace QuoteLogGrid.Views
                 formQuoteMaintenance quoteMaintenance = new formQuoteMaintenance(_quoteNumber, sop, eop, rowID, chooseQuote.QuoteType, _customer,
                     _customerRfqNumber, _customerPartNumber, _eeiPartNumber, _notes, _oem, _applicationCode, _applicationName, _functionName,
                     _eau, _program, _nameplate, _programManagerInitials, _engineeringInitials, _salesInitials, _engineeringMaterialsInitials,
-                    _quoteReviewInitials, _quotePricingInitials, _customerQuoteInitials, _modelYear, _packageNumber);
+                    _quoteReviewInitials, _quotePricingInitials, _customerQuoteInitials, _modelYear, _packageNumber, _quoteReason,
+                    _productLine);
 
                 if (quoteMaintenance.ShowDialog() == DialogResult.OK)
                 {

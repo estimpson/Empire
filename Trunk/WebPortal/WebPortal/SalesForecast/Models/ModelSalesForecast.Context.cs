@@ -33,7 +33,29 @@ namespace WebPortal.SalesForecast.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetEopYears_Result>("usp_Web_SalesForecastUpdated_GetEopYears");
         }
     
-        public virtual int usp_Web_SalesForecastUpdated_UpdateBasePartCloseouts(string userCode, string basePart, string verifiedEop, Nullable<System.DateTime> verifiedEopDate, string schedulerResponsible, string rfMpsLink, string schedulingTeamComments, string materialsComments, string shipToLocation, Nullable<decimal> fgInventoryAfterBuildout, Nullable<decimal> costEach, Nullable<decimal> excessFgAfterBuildout, Nullable<decimal> excessRmAfterBuildout, Nullable<decimal> programExposure, Nullable<System.DateTime> dateToSendCoLetter, ObjectParameter tranDT, ObjectParameter result)
+        public virtual ObjectResult<GetSchedulers_Result> usp_PlanningSnapshot_Q_GetSchedulers(ObjectParameter tranDT, ObjectParameter result, Nullable<int> debug, ObjectParameter debugMsg)
+        {
+            var debugParameter = debug.HasValue ?
+                new ObjectParameter("Debug", debug) :
+                new ObjectParameter("Debug", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetSchedulers_Result>("usp_PlanningSnapshot_Q_GetSchedulers", tranDT, result, debugParameter, debugMsg);
+        }
+    
+        public virtual ObjectResult<GetSalesForecastUpdated_Result> usp_Web_SalesForecastUpdated_GetSalesForecastUpdated(Nullable<int> eopYear, Nullable<int> filter)
+        {
+            var eopYearParameter = eopYear.HasValue ?
+                new ObjectParameter("EopYear", eopYear) :
+                new ObjectParameter("EopYear", typeof(int));
+    
+            var filterParameter = filter.HasValue ?
+                new ObjectParameter("Filter", filter) :
+                new ObjectParameter("Filter", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetSalesForecastUpdated_Result>("usp_Web_SalesForecastUpdated_GetSalesForecastUpdated", eopYearParameter, filterParameter);
+        }
+    
+        public virtual int usp_Web_SalesForecastUpdated_UpdateBasePartCloseouts(string userCode, string basePart, string verifiedEop, Nullable<System.DateTime> verifiedEopDate, string schedulerResponsible, string rfMpsLink, string schedulingTeamComments, string materialsComments, string shipToLocation, Nullable<decimal> fgInventoryAfterBuildout, string costEach, Nullable<decimal> excessFgAfterBuildout, Nullable<decimal> excessRmAfterBuildout, Nullable<decimal> programExposure, Nullable<System.DateTime> dateToSendCoLetter, ObjectParameter tranDT, ObjectParameter result)
         {
             var userCodeParameter = userCode != null ?
                 new ObjectParameter("UserCode", userCode) :
@@ -75,9 +97,9 @@ namespace WebPortal.SalesForecast.Models
                 new ObjectParameter("FgInventoryAfterBuildout", fgInventoryAfterBuildout) :
                 new ObjectParameter("FgInventoryAfterBuildout", typeof(decimal));
     
-            var costEachParameter = costEach.HasValue ?
+            var costEachParameter = costEach != null ?
                 new ObjectParameter("CostEach", costEach) :
-                new ObjectParameter("CostEach", typeof(decimal));
+                new ObjectParameter("CostEach", typeof(string));
     
             var excessFgAfterBuildoutParameter = excessFgAfterBuildout.HasValue ?
                 new ObjectParameter("ExcessFgAfterBuildout", excessFgAfterBuildout) :
@@ -96,28 +118,6 @@ namespace WebPortal.SalesForecast.Models
                 new ObjectParameter("DateToSendCoLetter", typeof(System.DateTime));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("usp_Web_SalesForecastUpdated_UpdateBasePartCloseouts", userCodeParameter, basePartParameter, verifiedEopParameter, verifiedEopDateParameter, schedulerResponsibleParameter, rfMpsLinkParameter, schedulingTeamCommentsParameter, materialsCommentsParameter, shipToLocationParameter, fgInventoryAfterBuildoutParameter, costEachParameter, excessFgAfterBuildoutParameter, excessRmAfterBuildoutParameter, programExposureParameter, dateToSendCoLetterParameter, tranDT, result);
-        }
-    
-        public virtual ObjectResult<GetSchedulers_Result> usp_PlanningSnapshot_Q_GetSchedulers(ObjectParameter tranDT, ObjectParameter result, Nullable<int> debug, ObjectParameter debugMsg)
-        {
-            var debugParameter = debug.HasValue ?
-                new ObjectParameter("Debug", debug) :
-                new ObjectParameter("Debug", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetSchedulers_Result>("usp_PlanningSnapshot_Q_GetSchedulers", tranDT, result, debugParameter, debugMsg);
-        }
-    
-        public virtual ObjectResult<GetSalesForecastUpdated_Result> usp_Web_SalesForecastUpdated_GetSalesForecastUpdated(Nullable<int> eopYear, Nullable<int> filter)
-        {
-            var eopYearParameter = eopYear.HasValue ?
-                new ObjectParameter("EopYear", eopYear) :
-                new ObjectParameter("EopYear", typeof(int));
-    
-            var filterParameter = filter.HasValue ?
-                new ObjectParameter("Filter", filter) :
-                new ObjectParameter("Filter", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetSalesForecastUpdated_Result>("usp_Web_SalesForecastUpdated_GetSalesForecastUpdated", eopYearParameter, filterParameter);
         }
     }
 }

@@ -81,6 +81,8 @@ namespace QuoteLogData.Models
         public Nullable<decimal> StdHours { get; set; }
         public string PackageNumber { get; set; }
         public Nullable<int> NumberOfDaysLate { get; set; }
+        public string QuoteReason { get; set; }
+        public string ProductLine { get; set; }
     
         public virtual ICollection<QuoteEntry> QT_QuoteLog1 { get; set; }
         public virtual QuoteEntry QT_QuoteLog2 { get; set; }

@@ -86,6 +86,11 @@ namespace QuoteLog
             treeView.ShowDialog();
         }
 
+        private void iRequestNewSegment_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
+        {
+            QuoteLogGrid.Forms.formNewSegmentRequest newSegment = new QuoteLogGrid.Forms.formNewSegmentRequest();
+            newSegment.ShowDialog();
+        }
 
 
     }

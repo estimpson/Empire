@@ -32,7 +32,7 @@
 
             var containerHeight = ASPxClientUtils.GetDocumentClientHeight();
 
-            gvSalesForecastUpdated.SetHeight(containerHeight - 130);
+            gvSalesForecastUpdated.SetHeight(containerHeight - 50);
         }
 
         var postponedCallbackRequired = false;
@@ -172,12 +172,13 @@
                         <dx:GridViewDataDateColumn Caption="EmpireEop" FieldName="EmpireEop" Name="EmpireEop" VisibleIndex="9" Width="110">
                             <PropertiesDateEdit DisplayFormatString="yyyy-MM-dd" EditFormatString="yyyy-MM-dd"></PropertiesDateEdit>
                         </dx:GridViewDataDateColumn>
-                        <dx:GridViewDataTextColumn Caption="EmpireEopNote" FieldName="EmpireEopNote" Name="EmpireEopNote" VisibleIndex="10" Width="150" />
-                        <dx:GridViewDataComboBoxColumn Caption="VerifiedEop" FieldName="VerifiedEop" Name="VerifiedEop" VisibleIndex="11" Width="180" />
-                        <dx:GridViewDataDateColumn Caption="VerifiedEopDate" FieldName="VerifiedEopDate" Name="VerifiedEopDate" VisibleIndex="12" Width="130">
+                        <dx:GridViewDataComboBoxColumn Caption="VerifiedEop" FieldName="VerifiedEop" Name="VerifiedEop" VisibleIndex="10" Width="180">
+                            <HeaderStyle BackColor="#efefef" />
+                        </dx:GridViewDataComboBoxColumn>
+                        <dx:GridViewDataDateColumn Caption="VerifiedEopDate" FieldName="VerifiedEopDate" Name="VerifiedEopDate" VisibleIndex="11" Width="130">
                             <PropertiesDateEdit DisplayFormatString="yyyy-MM-dd" EditFormatString="yyyy-MM-dd"></PropertiesDateEdit>
-                            
                         </dx:GridViewDataDateColumn>
+                        <dx:GridViewDataTextColumn Caption="EmpireEopNote" FieldName="EmpireEopNote" Name="EmpireEopNote" VisibleIndex="12" Width="350" />
                         <dx:GridViewDataDateColumn Caption="CsmSop" FieldName="CsmSop" Name="CsmSop" VisibleIndex="13" Width="110">
                             <PropertiesDateEdit DisplayFormatString="yyyy-MM-dd" EditFormatString="yyyy-MM-dd"></PropertiesDateEdit>
                         </dx:GridViewDataDateColumn>
@@ -196,8 +197,7 @@
                         <dx:GridViewDataTextColumn Caption="Sales2024" FieldName="Sales2024" Name="Sales2024" VisibleIndex="23" Width="110" PropertiesTextEdit-DisplayFormatString ="{0:C}" />
                         <dx:GridViewDataTextColumn Caption="Sales2025" FieldName="Sales2025" Name="Sales2025" VisibleIndex="24" Width="110" PropertiesTextEdit-DisplayFormatString ="{0:C}" />
 
-                        <dx:GridViewDataComboBoxColumn Caption="SchedulerResponsible" FieldName="SchedulerResponsible" Name="SchedulerResponsible" VisibleIndex="25" Width="200">
-                            <HeaderStyle BackColor="#efefef" />
+                        <dx:GridViewDataComboBoxColumn Caption="SchedulerResponsible" FieldName="SchedulerResponsible" Name="SchedulerResponsible" VisibleIndex="25" Width="210">
                         </dx:GridViewDataComboBoxColumn>
                         <dx:GridViewDataTextColumn Caption="RfMpsLink" FieldName="RfMpsLink" Name="RfMpsLink" VisibleIndex="26" Width="110">
                             <HeaderStyle BackColor="#efefef" />
@@ -208,14 +208,12 @@
                         <dx:GridViewDataTextColumn Caption="MaterialsComments" FieldName="MaterialsComments" Name="MaterialsComments" VisibleIndex="28" Width="200">
                             <HeaderStyle BackColor="#efefef" />
                         </dx:GridViewDataTextColumn>
-                        <dx:GridViewDataTextColumn Caption="ShipToLocation" FieldName="ShipToLocation" Name="ShipToLocation" VisibleIndex="29" Width="130">
-                            <HeaderStyle BackColor="#efefef" />
+                        <dx:GridViewDataTextColumn Caption="ShipToLocation" FieldName="ShipToLocation" Name="ShipToLocation" VisibleIndex="29" Width="150">
                         </dx:GridViewDataTextColumn>
                         <dx:GridViewDataTextColumn Caption="FgInventoryAfterBuildout" FieldName="FgInventoryAfterBuildout" Name="FgInventoryAfterBuildout" VisibleIndex="30" Width="180">
                             <HeaderStyle BackColor="#efefef" />
                         </dx:GridViewDataTextColumn>
-                        <dx:GridViewDataTextColumn Caption="CostEach" FieldName="CostEach" Name="CostEach" VisibleIndex="31" Width="110">
-                            <HeaderStyle BackColor="#efefef" />
+                        <dx:GridViewDataTextColumn Caption="CostEach" FieldName="CostEach" Name="CostEach" VisibleIndex="31" Width="120">
                         </dx:GridViewDataTextColumn>
                         <dx:GridViewDataTextColumn Caption="ExcessFgAfterBuildout" FieldName="ExcessFgAfterBuildout" Name="ExcessFgAfterBuildout" VisibleIndex="32" Width="180">
                             <HeaderStyle BackColor="#efefef" />
