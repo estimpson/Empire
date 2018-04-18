@@ -88,5 +88,18 @@ namespace ImportCSM.Model
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("acctg_sales_sp_insert_official_forecast", forecast_nameParameter, time_stampParameter);
         }
+    
+        public virtual int acctg_csm_sp_roll_forward_EmpireForecast_data_one_year_fall_off(string prior_release_id, string current_release_id, ObjectParameter tranDT, ObjectParameter result)
+        {
+            var prior_release_idParameter = prior_release_id != null ?
+                new ObjectParameter("prior_release_id", prior_release_id) :
+                new ObjectParameter("prior_release_id", typeof(string));
+    
+            var current_release_idParameter = current_release_id != null ?
+                new ObjectParameter("current_release_id", current_release_id) :
+                new ObjectParameter("current_release_id", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("acctg_csm_sp_roll_forward_EmpireForecast_data_one_year_fall_off", prior_release_idParameter, current_release_idParameter, tranDT, result);
+        }
     }
 }

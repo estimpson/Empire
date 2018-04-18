@@ -230,7 +230,10 @@ namespace ImportCSM
        
             // Import new CSM data
             if (ImportCsm(currentRelease) == 0) return 0;
-          
+
+            // Roll Empire Forecast data forward (to account for CSM one-year fall off)
+            RollForwardEmpireForecast(priorRelease, currentRelease);
+
             // Clean up the database
             RemoveTempTable();
             return 1;
@@ -489,6 +492,17 @@ namespace ImportCSM
             {
                 con.Close();
                 con.Dispose();
+            }
+        }
+
+        private void RollForwardEmpireForecast(string priorRelease, string currentRelease)
+        {
+            string error;
+            _processData.RollEmpireForecast(priorRelease, currentRelease, out error);
+            if (error != "")
+            {
+                _messageBox.Message = "Error thrown at RollForwardEmpireForecast().  " + error;
+                _messageBox.ShowDialog();
             }
         }
 
