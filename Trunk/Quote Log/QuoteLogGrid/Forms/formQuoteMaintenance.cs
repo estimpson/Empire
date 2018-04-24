@@ -39,7 +39,7 @@ namespace QuoteLogGrid.Forms
             _notes, _oem, _applicationCode, _applicationName, _functionName, _eau, _program, _nameplate,
             _programManagerInitials, _engineeringInitials, _salesInitials, _engineeringMaterialsInitials,
             _quoteReviewInitials, _quotePricingInitials, _customerQuoteInitials, _modelYear, _packageNumber,
-            _quoteReason, _productLine;
+            _quoteReason, _productLine, _printFilePath, _customerQuoteFilePath;
 
         public bool IsSaved;
 
@@ -120,13 +120,13 @@ namespace QuoteLogGrid.Forms
                 if (value)
                 {
                     linkAddViewCustomerQuote.Text = "View Quote";
-                    linkRemoveCustomerQuote.Visible = true;
+                    //linkRemoveCustomerQuote.Visible = true;
                 }
                 else
                 {
                     linkAddViewCustomerQuote.Text = "Add Quote";
-                    linkAddViewCustomerQuote.Visible = true;
-                    linkRemoveCustomerQuote.Visible = false;
+                    //linkAddViewCustomerQuote.Visible = true;
+                    //linkRemoveCustomerQuote.Visible = false;
                     tbxCustQuoteFilePath.Text = "";
                 }
                 _existsCustomerQuote = value;
@@ -182,13 +182,13 @@ namespace QuoteLogGrid.Forms
                 if (value)
                 {
                     linkAddViewPrint.Text = "View Print";
-                    linkRemovePrint.Visible = panelPrint.Visible = true;
+                    //linkRemovePrint.Visible = panelPrint.Visible = true;
                 }
                 else
                 {
                     linkAddViewPrint.Text = "Add Print";
-                    linkAddViewPrint.Visible = true;
-                    linkRemovePrint.Visible = panelPrint.Visible = false;
+                    //linkAddViewPrint.Visible = true;
+                    //linkRemovePrint.Visible = panelPrint.Visible = false;
                     tbxPrintFilePath.Text = "";
                 }
                 _existsQuotePrint = value;
@@ -224,7 +224,7 @@ namespace QuoteLogGrid.Forms
             string applicationName, string functionName, string eau, string program, string nameplate, string programManagerInitials, 
             string engineeringInitials, string salesInitials, string engineeringMaterialsInitials, string quoteReviewInitials, 
             string quotePricingInitials, string customerQuoteInitials, string modelYear, string packageNumber, string quoteReason,
-            string productLine)
+            string productLine, string printFilePath, string customerQuoteFilePath)
         {
             InitializeComponent();
 
@@ -256,13 +256,15 @@ namespace QuoteLogGrid.Forms
             _packageNumber = packageNumber;
             _quoteReason = quoteReason;
             _productLine = productLine;
+            _printFilePath = printFilePath;
+            _customerQuoteFilePath = customerQuoteFilePath;
             _rowID = rowId;
 
             _quoteMaintenanceController = new QuoteMaintenanceController(quoteNumber, quoteType, this);
 
             if (_quoteType != QuoteTypes.ModifyExisting)
             {
-                gbxLTA.Visible = btnCSM.Visible = false;
+                gridControl3.Enabled = btnCSM.Visible = false;
                 lblMessage.Text = "CSM and LTA sections will become available after saving.";
             }
             else
@@ -340,11 +342,15 @@ namespace QuoteLogGrid.Forms
             layoutView1.SetRowCellValue(0, "PackageNumber", _packageNumber);
             layoutView1.SetRowCellValue(0, "QuoteReason", _quoteReason);
             layoutView1.SetRowCellValue(0, "ProductLine", _productLine);
+            layoutView1.SetRowCellValue(0, "PrintFilePath", _printFilePath);
+            layoutView1.SetRowCellValue(0, "CustomerQuoteFilePath", _customerQuoteFilePath);
         }
 
         private void SetFormStateModifyQuote()
         {
             layoutView1.Columns["QuoteNumber"].OptionsColumn.ReadOnly = true;
+            layoutView1.Columns["PrintFilePath"].OptionsColumn.ReadOnly = true;
+            layoutView1.Columns["CustomerQuoteFilePath"].OptionsColumn.ReadOnly = true;
             layoutView1.Columns["SOP"].DisplayFormat.FormatType = FormatType.DateTime;
             layoutView1.Columns["SOP"].DisplayFormat.FormatString = "MMM yyyy";
             layoutView1.Columns["EOP"].DisplayFormat.FormatType = FormatType.DateTime;
@@ -355,6 +361,8 @@ namespace QuoteLogGrid.Forms
         {
             layoutView1.SetRowCellValue(0, "QuoteNumber", _quoteNumber);
             layoutView1.Columns["QuoteNumber"].OptionsColumn.ReadOnly = true;
+            layoutView1.Columns["PrintFilePath"].OptionsColumn.ReadOnly = true;
+            layoutView1.Columns["CustomerQuoteFilePath"].OptionsColumn.ReadOnly = true;
             layoutView1.SetRowCellValue(0, "ReceiptDate", DateTime.Now.ToShortDateString());
             layoutView1.SetRowCellValue(0, "EEIPromisedDueDate", DateTime.Now.AddDays(14).ToShortDateString());
             layoutView1.SetRowCellValue(0, "Requote", "N");
@@ -365,6 +373,8 @@ namespace QuoteLogGrid.Forms
         {
             layoutView1.SetRowCellValue(0, "QuoteNumber", _quoteNumber);
             layoutView1.Columns["QuoteNumber"].OptionsColumn.ReadOnly = true;
+            layoutView1.Columns["PrintFilePath"].OptionsColumn.ReadOnly = true;
+            layoutView1.Columns["CustomerQuoteFilePath"].OptionsColumn.ReadOnly = true;
             layoutView1.SetRowCellValue(0, "ReceiptDate", DateTime.Now.ToShortDateString());
             layoutView1.SetRowCellValue(0, "EEIPromisedDueDate", DateTime.Now.AddDays(14).ToShortDateString());
             layoutView1.SetRowCellValue(0, "RequestedDueDate", "");
@@ -387,6 +397,8 @@ namespace QuoteLogGrid.Forms
             layoutView1.SetRowCellValue(0, "ReceiptDate", DateTime.Now.ToShortDateString());
             layoutView1.SetRowCellValue(0, "EEIPromisedDueDate", DateTime.Now.AddDays(14).ToShortDateString());
             layoutView1.Columns["QuoteNumber"].OptionsColumn.ReadOnly = true;
+            layoutView1.Columns["PrintFilePath"].OptionsColumn.ReadOnly = true;
+            layoutView1.Columns["CustomerQuoteFilePath"].OptionsColumn.ReadOnly = true;
             layoutView1.SetRowCellValue(0, "ParentQuoteID", _rowID);
             layoutView1.SetRowCellValue(0, "Notes", "");
         }
@@ -397,6 +409,8 @@ namespace QuoteLogGrid.Forms
             layoutView1.SetRowCellValue(0, "ReceiptDate", DateTime.Now.ToShortDateString());
             layoutView1.SetRowCellValue(0, "EEIPromisedDueDate", DateTime.Now.AddDays(14).ToShortDateString());
             layoutView1.Columns["QuoteNumber"].OptionsColumn.ReadOnly = true;
+            layoutView1.Columns["PrintFilePath"].OptionsColumn.ReadOnly = true;
+            layoutView1.Columns["CustomerQuoteFilePath"].OptionsColumn.ReadOnly = true;
             layoutView1.SetRowCellValue(0, "ParentQuoteID", _rowID);
             layoutView1.SetRowCellValue(0, "Requote", "Y");
             layoutView1.SetRowCellValue(0, "Notes", "");
@@ -447,7 +461,7 @@ namespace QuoteLogGrid.Forms
             }
 
             // If the quote reason field is set to New Part, make sure there is no other quote for this part with the same designation
-            string quoteReason = layoutView1.GetRowCellValue(0, "QuoteReason").ToString();
+            string quoteReason = (layoutView1.GetRowCellValue(0, "QuoteReason") != null) ? layoutView1.GetRowCellValue(0, "QuoteReason").ToString() : "";
             if (quoteReason == "New Part")
             {
                 string eeiPartNumber = layoutView1.GetRowCellValue(0, "EEIPartNumber").ToString();
@@ -498,14 +512,40 @@ namespace QuoteLogGrid.Forms
                 MessageBox.Show(result, "SaveExistingQuote()");
                 return;
             }
- 
-            _quoteMaintenanceController.SaveLTAs();  // Save LTA context (save LTA percentages)
-            _quoteMaintenanceController.UpdateLtas();  // Exec procedure to update LTA effective dates based on the saved model year
+
+            //_quoteMaintenanceController.SaveLTAs();  // Save LTA context (save LTA percentages)
+
+            string sYear1 = (gridView4.GetRowCellValue(0, "Percentage") != null) ? gridView4.GetRowCellValue(0, "Percentage").ToString() : "0";
+            string sYear2 = (gridView4.GetRowCellValue(1, "Percentage") != null) ? gridView4.GetRowCellValue(1, "Percentage").ToString() : "0"; 
+            string sYear3 = (gridView4.GetRowCellValue(2, "Percentage") != null) ? gridView4.GetRowCellValue(2, "Percentage").ToString() : "0"; 
+            string sYear4 = (gridView4.GetRowCellValue(3, "Percentage") != null) ? gridView4.GetRowCellValue(3, "Percentage").ToString() : "0";
+
+            decimal? year1 = ValidateLtaPercentage(sYear1);
+            decimal? year2 = ValidateLtaPercentage(sYear2);
+            decimal? year3 = ValidateLtaPercentage(sYear3);
+            decimal? year4 = ValidateLtaPercentage(sYear4);
+
+            _quoteMaintenanceController.UpdateLtas(QuoteNumber, year1, year2, year3, year4);  // Exec procedure to update LTA effective dates based on the saved model year
+
             _quoteMaintenanceController.GetLTAs();  // Refresh LTA grid
 
             // Exec procedures to update quote documents
             UpdatePrintDocument();
             UpdateCustomerQuoteDocument();
+        }
+
+        private decimal? ValidateLtaPercentage(string value)
+        {
+            decimal? decVal;
+            try
+            {
+                decVal = Convert.ToDecimal(value);
+            }
+            catch (Exception)
+            {
+                decVal = null;
+            }
+            return decVal;
         }
 
         private void SaveNewQuote()
@@ -527,8 +567,8 @@ namespace QuoteLogGrid.Forms
             }
 
             // LTAs
-            _quoteMaintenanceController.UpdateLtas();  // Exec procedure to update LTA effective dates based on the saved model year
-            _quoteMaintenanceController.SaveLTAs();  // Save LTA context (save LTA percentages)
+            //_quoteMaintenanceController.UpdateLtas();  // Exec procedure to update LTA effective dates based on the saved model year
+            _quoteMaintenanceController.SaveLTAs(QuoteNumber);  // Create LTA records based off the quote's model year with default percentages of zero
             _quoteMaintenanceController.GetLTAs();  // Refresh LTA grid
 
             // Tie Print to Quote
@@ -538,7 +578,7 @@ namespace QuoteLogGrid.Forms
             if (customerQuoteDocStatus == CustomerQuoteDocStatus.QuoteAdded) SaveCustomerQuoteDocument();
 
             // Allow changes to this newly saved quote
-            gbxLTA.Visible = btnCSM.Visible = true;
+            gridControl3.Enabled = btnCSM.Visible = true;
             _quoteType = QuoteTypes.ModifyExisting;
             lblMessage.Text = "";
         }
@@ -709,6 +749,8 @@ namespace QuoteLogGrid.Forms
             }
         }
 
+        #endregion
+
 
         #region Customer Quote File
 
@@ -833,6 +875,20 @@ namespace QuoteLogGrid.Forms
             }
         }
 
+        private void gridView4_CustomColumnDisplayText(object sender, CustomColumnDisplayTextEventArgs e)
+        {
+            //var view = sender as ColumnView;
+            int row = e.ListSourceRowIndex;
+            if (e.Column.FieldName == "Percentage" && e.ListSourceRowIndex != DevExpress.XtraGrid.GridControl.InvalidRowHandle)
+            {
+                string percentage = (gridView4.GetRowCellValue(row, "Percentage") != null) ? gridView4.GetRowCellValue(row, "Percentage").ToString() : "";
+                if (percentage == "0")
+                {
+                    e.DisplayText = "Flat Rate";
+                }
+            }
+        }
+
         private void DeleteCustomerQuote()
         {
             ObjectParameter tranDT = new ObjectParameter("TranDT", typeof(DateTime?));
@@ -858,8 +914,7 @@ namespace QuoteLogGrid.Forms
 
 
 
-
-
+        #region Quote Print File - OLD
 
         private void linkAddViewPrint_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
@@ -941,7 +996,7 @@ namespace QuoteLogGrid.Forms
         #endregion
 
 
-        #region Customer Quote File
+        #region Customer Quote File - OLD
 
         //private void GetCustomerQuote()
         //{
@@ -1059,7 +1114,7 @@ namespace QuoteLogGrid.Forms
         private void btnCSM_Click(object sender, EventArgs e)
         {
             formCSM csm = new formCSM(_quoteNumber, _quoteType);
-            csm.ShowDialog();
+            if (!csm.IsDisposed) csm.ShowDialog();
         }
 
         private void btnPrint_Click(object sender, EventArgs e)

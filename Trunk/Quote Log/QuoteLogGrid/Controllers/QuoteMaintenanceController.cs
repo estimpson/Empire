@@ -52,6 +52,7 @@ namespace QuoteLogGrid.Controllers
             LoadLookupColumns();
             BindDataSources();
 
+
             // Quote LTA data
             if (_quoteType == QuoteTypes.ModifyExisting)
             {
@@ -69,6 +70,7 @@ namespace QuoteLogGrid.Controllers
                 // New quote, so bypass LTA functions until the quote is saved
                 _ltaController = new LTAController(_quoteNumber, true);
             }
+
 
             // Quote Print document and Customer Quote document
             _fileController = new FileController(_quoteNumber);
@@ -219,10 +221,10 @@ namespace QuoteLogGrid.Controllers
 
         #region LTAs
   
-        public void UpdateLtas()
+        public void UpdateLtas(string quoteNumber, decimal? year1, decimal? year2, decimal? year3, decimal? year4)
         {
             string errorMessage;
-            _ltaController.UpdateLtas(out errorMessage);
+            _ltaController.UpdateLtas(quoteNumber, year1, year2, year3, year4, out errorMessage);
             if (errorMessage != "") ShowError(errorMessage, "UpdateLtas()");
         }
 
@@ -233,10 +235,10 @@ namespace QuoteLogGrid.Controllers
             if (errorMessage != "") ShowError(errorMessage, "GetLtaData()");
         }
 
-        public void SaveLTAs()
+        public void SaveLTAs(string quoteNumber)
         {
             string errorMessage;
-            _ltaController.SaveLtaData(out errorMessage);
+            _ltaController.SaveLtaData(quoteNumber, out errorMessage);
             if (errorMessage != "") ShowError(errorMessage, "GetLtaData()");
         }
 

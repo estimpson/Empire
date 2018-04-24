@@ -28,8 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.gridControl3 = new DevExpress.XtraGrid.GridControl();
-            this.gridView4 = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.btnClose = new System.Windows.Forms.Button();
@@ -155,6 +153,12 @@
             this.applicationNamesItemGridLookUpEdit = new DevExpress.XtraEditors.Repository.RepositoryItemGridLookUpEdit();
             this.gridView11 = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.lblCustomerQuote = new System.Windows.Forms.Label();
+            this.lblQuotePrint = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.labelControl3 = new DevExpress.XtraEditors.LabelControl();
+            this.label2 = new System.Windows.Forms.Label();
             this.lnkDeleteCustomerQuote = new System.Windows.Forms.LinkLabel();
             this.lnkDeleteQuotePrint = new System.Windows.Forms.LinkLabel();
             this.lnkGetCustomerQuote = new System.Windows.Forms.LinkLabel();
@@ -175,15 +179,15 @@
             this.tbxPrintFilePath = new System.Windows.Forms.TextBox();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.btnCSM = new System.Windows.Forms.Button();
-            this.gbxLTA = new System.Windows.Forms.GroupBox();
-            this.label2 = new System.Windows.Forms.Label();
-            this.labelControl3 = new DevExpress.XtraEditors.LabelControl();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
-            this.lblQuotePrint = new System.Windows.Forms.Label();
-            this.lblCustomerQuote = new System.Windows.Forms.Label();
-            ((System.ComponentModel.ISupportInitialize)(this.gridControl3)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.gridView4)).BeginInit();
+            this.tableLayoutPanel4 = new System.Windows.Forms.TableLayoutPanel();
+            this.gridControl3 = new DevExpress.XtraGrid.GridControl();
+            this.gridView4 = new DevExpress.XtraGrid.Views.Grid.GridView();
+            this.label5 = new System.Windows.Forms.Label();
+            this.colPrintFilePath = new DevExpress.XtraGrid.Columns.LayoutViewColumn();
+            this.layoutViewField_layoutViewColumn1_41 = new DevExpress.XtraGrid.Views.Layout.LayoutViewField();
+            this.colCustomerQuoteFilePath = new DevExpress.XtraGrid.Columns.LayoutViewColumn();
+            this.layoutViewField_layoutViewColumn1_42 = new DevExpress.XtraGrid.Views.Layout.LayoutViewField();
+            this.panel2 = new System.Windows.Forms.Panel();
             this.tableLayoutPanel1.SuspendLayout();
             this.flowLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gridControl2)).BeginInit();
@@ -267,26 +271,13 @@
             ((System.ComponentModel.ISupportInitialize)(this.dateEditPrint.Properties.CalendarTimeProperties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dateEditPrint.Properties)).BeginInit();
             this.tableLayoutPanel2.SuspendLayout();
-            this.gbxLTA.SuspendLayout();
+            this.tableLayoutPanel4.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.gridControl3)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gridView4)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutViewField_layoutViewColumn1_41)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutViewField_layoutViewColumn1_42)).BeginInit();
+            this.panel2.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // gridControl3
-            // 
-            this.gridControl3.EmbeddedNavigator.Margin = new System.Windows.Forms.Padding(4);
-            this.gridControl3.Location = new System.Drawing.Point(13, 23);
-            this.gridControl3.MainView = this.gridView4;
-            this.gridControl3.Margin = new System.Windows.Forms.Padding(4);
-            this.gridControl3.Name = "gridControl3";
-            this.gridControl3.Size = new System.Drawing.Size(399, 172);
-            this.gridControl3.TabIndex = 12;
-            this.gridControl3.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
-            this.gridView4});
-            // 
-            // gridView4
-            // 
-            this.gridView4.GridControl = this.gridControl3;
-            this.gridView4.Name = "gridView4";
-            this.gridView4.OptionsCustomization.AllowGroup = false;
             // 
             // tableLayoutPanel1
             // 
@@ -302,9 +293,9 @@
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 4;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 65F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 128F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 100F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 35F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 43F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 55F));
             this.tableLayoutPanel1.Size = new System.Drawing.Size(1800, 973);
             this.tableLayoutPanel1.TabIndex = 1;
             // 
@@ -317,10 +308,10 @@
             this.flowLayoutPanel1.Controls.Add(this.lblMessage);
             this.flowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.flowLayoutPanel1.FlowDirection = System.Windows.Forms.FlowDirection.RightToLeft;
-            this.flowLayoutPanel1.Location = new System.Drawing.Point(4, 933);
+            this.flowLayoutPanel1.Location = new System.Drawing.Point(4, 921);
             this.flowLayoutPanel1.Margin = new System.Windows.Forms.Padding(4);
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
-            this.flowLayoutPanel1.Size = new System.Drawing.Size(1792, 36);
+            this.flowLayoutPanel1.Size = new System.Drawing.Size(1792, 48);
             this.flowLayoutPanel1.TabIndex = 1;
             // 
             // btnClose
@@ -330,7 +321,7 @@
             this.btnClose.Location = new System.Drawing.Point(1635, 4);
             this.btnClose.Margin = new System.Windows.Forms.Padding(4);
             this.btnClose.Name = "btnClose";
-            this.btnClose.Size = new System.Drawing.Size(153, 28);
+            this.btnClose.Size = new System.Drawing.Size(153, 35);
             this.btnClose.TabIndex = 2;
             this.btnClose.Text = "Close";
             this.btnClose.UseVisualStyleBackColor = true;
@@ -342,7 +333,7 @@
             this.btnPrint.Location = new System.Drawing.Point(1474, 4);
             this.btnPrint.Margin = new System.Windows.Forms.Padding(4);
             this.btnPrint.Name = "btnPrint";
-            this.btnPrint.Size = new System.Drawing.Size(153, 28);
+            this.btnPrint.Size = new System.Drawing.Size(153, 35);
             this.btnPrint.TabIndex = 1;
             this.btnPrint.Text = "Print";
             this.btnPrint.UseVisualStyleBackColor = true;
@@ -354,7 +345,7 @@
             this.btnSave.Location = new System.Drawing.Point(1313, 4);
             this.btnSave.Margin = new System.Windows.Forms.Padding(4);
             this.btnSave.Name = "btnSave";
-            this.btnSave.Size = new System.Drawing.Size(153, 28);
+            this.btnSave.Size = new System.Drawing.Size(153, 35);
             this.btnSave.TabIndex = 0;
             this.btnSave.Text = "Save";
             this.btnSave.UseVisualStyleBackColor = true;
@@ -406,7 +397,7 @@
             this.applicationCodeItemGridLookUpEdit,
             this.quoteReasonsItemGridLookUpEdit,
             this.productLinesItemGridLookUpEdit});
-            this.gridControl2.Size = new System.Drawing.Size(1792, 513);
+            this.gridControl2.Size = new System.Drawing.Size(1792, 523);
             this.gridControl2.TabIndex = 2;
             this.gridControl2.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.layoutView1});
@@ -465,7 +456,9 @@
             this.colStdHours,
             this.colPackageNuber,
             this.colProductLine,
-            this.colQuoteReason});
+            this.colQuoteReason,
+            this.colPrintFilePath,
+            this.colCustomerQuoteFilePath});
             this.layoutView1.GridControl = this.gridControl2;
             this.layoutView1.HiddenItems.AddRange(new DevExpress.XtraLayout.BaseLayoutItem[] {
             this.layoutViewField_layoutViewColumn1_33});
@@ -486,8 +479,8 @@
             this.layoutViewField_layoutViewColumn1.EditorPreferredWidth = 122;
             this.layoutViewField_layoutViewColumn1.Location = new System.Drawing.Point(0, 0);
             this.layoutViewField_layoutViewColumn1.Name = "layoutViewField_layoutViewColumn1";
-            this.layoutViewField_layoutViewColumn1.Size = new System.Drawing.Size(302, 28);
-            this.layoutViewField_layoutViewColumn1.TextSize = new System.Drawing.Size(169, 16);
+            this.layoutViewField_layoutViewColumn1.Size = new System.Drawing.Size(313, 28);
+            this.layoutViewField_layoutViewColumn1.TextSize = new System.Drawing.Size(180, 16);
             // 
             // colCustomer
             // 
@@ -519,8 +512,8 @@
             this.layoutViewField_layoutViewColumn1_1.EditorPreferredWidth = 122;
             this.layoutViewField_layoutViewColumn1_1.Location = new System.Drawing.Point(0, 28);
             this.layoutViewField_layoutViewColumn1_1.Name = "layoutViewField_layoutViewColumn1_1";
-            this.layoutViewField_layoutViewColumn1_1.Size = new System.Drawing.Size(302, 28);
-            this.layoutViewField_layoutViewColumn1_1.TextSize = new System.Drawing.Size(169, 16);
+            this.layoutViewField_layoutViewColumn1_1.Size = new System.Drawing.Size(313, 28);
+            this.layoutViewField_layoutViewColumn1_1.TextSize = new System.Drawing.Size(180, 16);
             // 
             // colCustomerRFQNumber
             // 
@@ -533,8 +526,8 @@
             this.layoutViewField_layoutViewColumn1_2.EditorPreferredWidth = 122;
             this.layoutViewField_layoutViewColumn1_2.Location = new System.Drawing.Point(0, 56);
             this.layoutViewField_layoutViewColumn1_2.Name = "layoutViewField_layoutViewColumn1_2";
-            this.layoutViewField_layoutViewColumn1_2.Size = new System.Drawing.Size(302, 28);
-            this.layoutViewField_layoutViewColumn1_2.TextSize = new System.Drawing.Size(169, 16);
+            this.layoutViewField_layoutViewColumn1_2.Size = new System.Drawing.Size(313, 28);
+            this.layoutViewField_layoutViewColumn1_2.TextSize = new System.Drawing.Size(180, 16);
             // 
             // colRequestedDueDate
             // 
@@ -545,10 +538,10 @@
             // layoutViewField_layoutViewColumn1_3
             // 
             this.layoutViewField_layoutViewColumn1_3.EditorPreferredWidth = 121;
-            this.layoutViewField_layoutViewColumn1_3.Location = new System.Drawing.Point(305, 28);
+            this.layoutViewField_layoutViewColumn1_3.Location = new System.Drawing.Point(316, 28);
             this.layoutViewField_layoutViewColumn1_3.Name = "layoutViewField_layoutViewColumn1_3";
-            this.layoutViewField_layoutViewColumn1_3.Size = new System.Drawing.Size(301, 28);
-            this.layoutViewField_layoutViewColumn1_3.TextSize = new System.Drawing.Size(169, 16);
+            this.layoutViewField_layoutViewColumn1_3.Size = new System.Drawing.Size(312, 28);
+            this.layoutViewField_layoutViewColumn1_3.TextSize = new System.Drawing.Size(180, 16);
             // 
             // colEEIPromisedDueDate
             // 
@@ -559,10 +552,10 @@
             // layoutViewField_layoutViewColumn1_4
             // 
             this.layoutViewField_layoutViewColumn1_4.EditorPreferredWidth = 121;
-            this.layoutViewField_layoutViewColumn1_4.Location = new System.Drawing.Point(305, 56);
+            this.layoutViewField_layoutViewColumn1_4.Location = new System.Drawing.Point(316, 56);
             this.layoutViewField_layoutViewColumn1_4.Name = "layoutViewField_layoutViewColumn1_4";
-            this.layoutViewField_layoutViewColumn1_4.Size = new System.Drawing.Size(301, 28);
-            this.layoutViewField_layoutViewColumn1_4.TextSize = new System.Drawing.Size(169, 16);
+            this.layoutViewField_layoutViewColumn1_4.Size = new System.Drawing.Size(312, 28);
+            this.layoutViewField_layoutViewColumn1_4.TextSize = new System.Drawing.Size(180, 16);
             // 
             // colCustomerPartNumber
             // 
@@ -575,8 +568,8 @@
             this.layoutViewField_layoutViewColumn1_5.EditorPreferredWidth = 122;
             this.layoutViewField_layoutViewColumn1_5.Location = new System.Drawing.Point(0, 84);
             this.layoutViewField_layoutViewColumn1_5.Name = "layoutViewField_layoutViewColumn1_5";
-            this.layoutViewField_layoutViewColumn1_5.Size = new System.Drawing.Size(302, 28);
-            this.layoutViewField_layoutViewColumn1_5.TextSize = new System.Drawing.Size(169, 16);
+            this.layoutViewField_layoutViewColumn1_5.Size = new System.Drawing.Size(313, 28);
+            this.layoutViewField_layoutViewColumn1_5.TextSize = new System.Drawing.Size(180, 16);
             // 
             // colEEIPartNumber
             // 
@@ -589,8 +582,8 @@
             this.layoutViewField_layoutViewColumn1_6.EditorPreferredWidth = 122;
             this.layoutViewField_layoutViewColumn1_6.Location = new System.Drawing.Point(0, 112);
             this.layoutViewField_layoutViewColumn1_6.Name = "layoutViewField_layoutViewColumn1_6";
-            this.layoutViewField_layoutViewColumn1_6.Size = new System.Drawing.Size(302, 28);
-            this.layoutViewField_layoutViewColumn1_6.TextSize = new System.Drawing.Size(169, 16);
+            this.layoutViewField_layoutViewColumn1_6.Size = new System.Drawing.Size(313, 28);
+            this.layoutViewField_layoutViewColumn1_6.TextSize = new System.Drawing.Size(180, 16);
             // 
             // colNotes
             // 
@@ -605,9 +598,9 @@
             this.layoutViewField_layoutViewColumn1_8.EditorPreferredWidth = 1313;
             this.layoutViewField_layoutViewColumn1_8.Location = new System.Drawing.Point(0, 367);
             this.layoutViewField_layoutViewColumn1_8.Name = "layoutViewField_layoutViewColumn1_8";
-            this.layoutViewField_layoutViewColumn1_8.Size = new System.Drawing.Size(1319, 115);
+            this.layoutViewField_layoutViewColumn1_8.Size = new System.Drawing.Size(1363, 49);
             this.layoutViewField_layoutViewColumn1_8.TextLocation = DevExpress.Utils.Locations.Top;
-            this.layoutViewField_layoutViewColumn1_8.TextSize = new System.Drawing.Size(169, 16);
+            this.layoutViewField_layoutViewColumn1_8.TextSize = new System.Drawing.Size(180, 16);
             // 
             // colEAU
             // 
@@ -618,10 +611,10 @@
             // layoutViewField_layoutViewColumn1_9
             // 
             this.layoutViewField_layoutViewColumn1_9.EditorPreferredWidth = 121;
-            this.layoutViewField_layoutViewColumn1_9.Location = new System.Drawing.Point(305, 196);
+            this.layoutViewField_layoutViewColumn1_9.Location = new System.Drawing.Point(316, 196);
             this.layoutViewField_layoutViewColumn1_9.Name = "layoutViewField_layoutViewColumn1_9";
-            this.layoutViewField_layoutViewColumn1_9.Size = new System.Drawing.Size(301, 28);
-            this.layoutViewField_layoutViewColumn1_9.TextSize = new System.Drawing.Size(169, 16);
+            this.layoutViewField_layoutViewColumn1_9.Size = new System.Drawing.Size(312, 28);
+            this.layoutViewField_layoutViewColumn1_9.TextSize = new System.Drawing.Size(180, 16);
             // 
             // colApplicationName
             // 
@@ -632,10 +625,10 @@
             // layoutViewField_layoutViewColumn1_10
             // 
             this.layoutViewField_layoutViewColumn1_10.EditorPreferredWidth = 121;
-            this.layoutViewField_layoutViewColumn1_10.Location = new System.Drawing.Point(305, 140);
+            this.layoutViewField_layoutViewColumn1_10.Location = new System.Drawing.Point(316, 140);
             this.layoutViewField_layoutViewColumn1_10.Name = "layoutViewField_layoutViewColumn1_10";
-            this.layoutViewField_layoutViewColumn1_10.Size = new System.Drawing.Size(301, 28);
-            this.layoutViewField_layoutViewColumn1_10.TextSize = new System.Drawing.Size(169, 16);
+            this.layoutViewField_layoutViewColumn1_10.Size = new System.Drawing.Size(312, 28);
+            this.layoutViewField_layoutViewColumn1_10.TextSize = new System.Drawing.Size(180, 16);
             // 
             // colFunctionName
             // 
@@ -665,10 +658,10 @@
             // layoutViewField_layoutViewColumn1_11
             // 
             this.layoutViewField_layoutViewColumn1_11.EditorPreferredWidth = 121;
-            this.layoutViewField_layoutViewColumn1_11.Location = new System.Drawing.Point(305, 168);
+            this.layoutViewField_layoutViewColumn1_11.Location = new System.Drawing.Point(316, 168);
             this.layoutViewField_layoutViewColumn1_11.Name = "layoutViewField_layoutViewColumn1_11";
-            this.layoutViewField_layoutViewColumn1_11.Size = new System.Drawing.Size(301, 28);
-            this.layoutViewField_layoutViewColumn1_11.TextSize = new System.Drawing.Size(169, 16);
+            this.layoutViewField_layoutViewColumn1_11.Size = new System.Drawing.Size(312, 28);
+            this.layoutViewField_layoutViewColumn1_11.TextSize = new System.Drawing.Size(180, 16);
             // 
             // colOEM
             // 
@@ -679,10 +672,10 @@
             // layoutViewField_layoutViewColumn1_13
             // 
             this.layoutViewField_layoutViewColumn1_13.EditorPreferredWidth = 121;
-            this.layoutViewField_layoutViewColumn1_13.Location = new System.Drawing.Point(305, 84);
+            this.layoutViewField_layoutViewColumn1_13.Location = new System.Drawing.Point(316, 84);
             this.layoutViewField_layoutViewColumn1_13.Name = "layoutViewField_layoutViewColumn1_13";
-            this.layoutViewField_layoutViewColumn1_13.Size = new System.Drawing.Size(301, 28);
-            this.layoutViewField_layoutViewColumn1_13.TextSize = new System.Drawing.Size(169, 16);
+            this.layoutViewField_layoutViewColumn1_13.Size = new System.Drawing.Size(312, 28);
+            this.layoutViewField_layoutViewColumn1_13.TextSize = new System.Drawing.Size(180, 16);
             // 
             // colQuotePrice
             // 
@@ -695,8 +688,8 @@
             this.layoutViewField_layoutViewColumn1_15.EditorPreferredWidth = 122;
             this.layoutViewField_layoutViewColumn1_15.Location = new System.Drawing.Point(0, 280);
             this.layoutViewField_layoutViewColumn1_15.Name = "layoutViewField_layoutViewColumn1_15";
-            this.layoutViewField_layoutViewColumn1_15.Size = new System.Drawing.Size(302, 28);
-            this.layoutViewField_layoutViewColumn1_15.TextSize = new System.Drawing.Size(169, 16);
+            this.layoutViewField_layoutViewColumn1_15.Size = new System.Drawing.Size(313, 28);
+            this.layoutViewField_layoutViewColumn1_15.TextSize = new System.Drawing.Size(180, 16);
             // 
             // colAwarded
             // 
@@ -707,10 +700,10 @@
             // layoutViewField_layoutViewColumn1_16
             // 
             this.layoutViewField_layoutViewColumn1_16.EditorPreferredWidth = 121;
-            this.layoutViewField_layoutViewColumn1_16.Location = new System.Drawing.Point(305, 224);
+            this.layoutViewField_layoutViewColumn1_16.Location = new System.Drawing.Point(316, 224);
             this.layoutViewField_layoutViewColumn1_16.Name = "layoutViewField_layoutViewColumn1_16";
-            this.layoutViewField_layoutViewColumn1_16.Size = new System.Drawing.Size(301, 28);
-            this.layoutViewField_layoutViewColumn1_16.TextSize = new System.Drawing.Size(169, 16);
+            this.layoutViewField_layoutViewColumn1_16.Size = new System.Drawing.Size(312, 28);
+            this.layoutViewField_layoutViewColumn1_16.TextSize = new System.Drawing.Size(180, 16);
             // 
             // colCustomerQuoteDate
             // 
@@ -721,10 +714,10 @@
             // layoutViewField_layoutViewColumn1_17
             // 
             this.layoutViewField_layoutViewColumn1_17.EditorPreferredWidth = 227;
-            this.layoutViewField_layoutViewColumn1_17.Location = new System.Drawing.Point(912, 196);
+            this.layoutViewField_layoutViewColumn1_17.Location = new System.Drawing.Point(945, 196);
             this.layoutViewField_layoutViewColumn1_17.Name = "layoutViewField_layoutViewColumn1_17";
-            this.layoutViewField_layoutViewColumn1_17.Size = new System.Drawing.Size(407, 28);
-            this.layoutViewField_layoutViewColumn1_17.TextSize = new System.Drawing.Size(169, 16);
+            this.layoutViewField_layoutViewColumn1_17.Size = new System.Drawing.Size(418, 28);
+            this.layoutViewField_layoutViewColumn1_17.TextSize = new System.Drawing.Size(180, 16);
             // 
             // colApplicationCode
             // 
@@ -754,10 +747,10 @@
             // layoutViewField_layoutViewColumn1_18
             // 
             this.layoutViewField_layoutViewColumn1_18.EditorPreferredWidth = 121;
-            this.layoutViewField_layoutViewColumn1_18.Location = new System.Drawing.Point(305, 112);
+            this.layoutViewField_layoutViewColumn1_18.Location = new System.Drawing.Point(316, 112);
             this.layoutViewField_layoutViewColumn1_18.Name = "layoutViewField_layoutViewColumn1_18";
-            this.layoutViewField_layoutViewColumn1_18.Size = new System.Drawing.Size(301, 28);
-            this.layoutViewField_layoutViewColumn1_18.TextSize = new System.Drawing.Size(169, 16);
+            this.layoutViewField_layoutViewColumn1_18.Size = new System.Drawing.Size(312, 28);
+            this.layoutViewField_layoutViewColumn1_18.TextSize = new System.Drawing.Size(180, 16);
             // 
             // colCustomerQuoteInitials
             // 
@@ -787,10 +780,10 @@
             // layoutViewField_layoutViewColumn1_19
             // 
             this.layoutViewField_layoutViewColumn1_19.EditorPreferredWidth = 227;
-            this.layoutViewField_layoutViewColumn1_19.Location = new System.Drawing.Point(912, 168);
+            this.layoutViewField_layoutViewColumn1_19.Location = new System.Drawing.Point(945, 168);
             this.layoutViewField_layoutViewColumn1_19.Name = "layoutViewField_layoutViewColumn1_19";
-            this.layoutViewField_layoutViewColumn1_19.Size = new System.Drawing.Size(407, 28);
-            this.layoutViewField_layoutViewColumn1_19.TextSize = new System.Drawing.Size(169, 16);
+            this.layoutViewField_layoutViewColumn1_19.Size = new System.Drawing.Size(418, 28);
+            this.layoutViewField_layoutViewColumn1_19.TextSize = new System.Drawing.Size(180, 16);
             // 
             // colModelYear
             // 
@@ -803,8 +796,8 @@
             this.layoutViewField_layoutViewColumn1_20.EditorPreferredWidth = 122;
             this.layoutViewField_layoutViewColumn1_20.Location = new System.Drawing.Point(0, 140);
             this.layoutViewField_layoutViewColumn1_20.Name = "layoutViewField_layoutViewColumn1_20";
-            this.layoutViewField_layoutViewColumn1_20.Size = new System.Drawing.Size(302, 28);
-            this.layoutViewField_layoutViewColumn1_20.TextSize = new System.Drawing.Size(169, 16);
+            this.layoutViewField_layoutViewColumn1_20.Size = new System.Drawing.Size(313, 28);
+            this.layoutViewField_layoutViewColumn1_20.TextSize = new System.Drawing.Size(180, 16);
             // 
             // colReceiptDate
             // 
@@ -815,10 +808,10 @@
             // layoutViewField_layoutViewColumn1_21
             // 
             this.layoutViewField_layoutViewColumn1_21.EditorPreferredWidth = 121;
-            this.layoutViewField_layoutViewColumn1_21.Location = new System.Drawing.Point(305, 0);
+            this.layoutViewField_layoutViewColumn1_21.Location = new System.Drawing.Point(316, 0);
             this.layoutViewField_layoutViewColumn1_21.Name = "layoutViewField_layoutViewColumn1_21";
-            this.layoutViewField_layoutViewColumn1_21.Size = new System.Drawing.Size(301, 28);
-            this.layoutViewField_layoutViewColumn1_21.TextSize = new System.Drawing.Size(169, 16);
+            this.layoutViewField_layoutViewColumn1_21.Size = new System.Drawing.Size(312, 28);
+            this.layoutViewField_layoutViewColumn1_21.TextSize = new System.Drawing.Size(180, 16);
             // 
             // colProgramManagerInitials
             // 
@@ -848,10 +841,10 @@
             // layoutViewField_layoutViewColumn1_22
             // 
             this.layoutViewField_layoutViewColumn1_22.EditorPreferredWidth = 120;
-            this.layoutViewField_layoutViewColumn1_22.Location = new System.Drawing.Point(609, 0);
+            this.layoutViewField_layoutViewColumn1_22.Location = new System.Drawing.Point(631, 0);
             this.layoutViewField_layoutViewColumn1_22.Name = "layoutViewField_layoutViewColumn1_22";
-            this.layoutViewField_layoutViewColumn1_22.Size = new System.Drawing.Size(300, 28);
-            this.layoutViewField_layoutViewColumn1_22.TextSize = new System.Drawing.Size(169, 16);
+            this.layoutViewField_layoutViewColumn1_22.Size = new System.Drawing.Size(311, 28);
+            this.layoutViewField_layoutViewColumn1_22.TextSize = new System.Drawing.Size(180, 16);
             // 
             // colEngineeringInitials
             // 
@@ -881,10 +874,10 @@
             // layoutViewField_layoutViewColumn1_23
             // 
             this.layoutViewField_layoutViewColumn1_23.EditorPreferredWidth = 120;
-            this.layoutViewField_layoutViewColumn1_23.Location = new System.Drawing.Point(609, 28);
+            this.layoutViewField_layoutViewColumn1_23.Location = new System.Drawing.Point(631, 28);
             this.layoutViewField_layoutViewColumn1_23.Name = "layoutViewField_layoutViewColumn1_23";
-            this.layoutViewField_layoutViewColumn1_23.Size = new System.Drawing.Size(300, 28);
-            this.layoutViewField_layoutViewColumn1_23.TextSize = new System.Drawing.Size(169, 16);
+            this.layoutViewField_layoutViewColumn1_23.Size = new System.Drawing.Size(311, 28);
+            this.layoutViewField_layoutViewColumn1_23.TextSize = new System.Drawing.Size(180, 16);
             // 
             // colSalesInitials
             // 
@@ -914,10 +907,10 @@
             // layoutViewField_layoutViewColumn1_24
             // 
             this.layoutViewField_layoutViewColumn1_24.EditorPreferredWidth = 120;
-            this.layoutViewField_layoutViewColumn1_24.Location = new System.Drawing.Point(609, 56);
+            this.layoutViewField_layoutViewColumn1_24.Location = new System.Drawing.Point(631, 56);
             this.layoutViewField_layoutViewColumn1_24.Name = "layoutViewField_layoutViewColumn1_24";
-            this.layoutViewField_layoutViewColumn1_24.Size = new System.Drawing.Size(300, 308);
-            this.layoutViewField_layoutViewColumn1_24.TextSize = new System.Drawing.Size(169, 16);
+            this.layoutViewField_layoutViewColumn1_24.Size = new System.Drawing.Size(311, 308);
+            this.layoutViewField_layoutViewColumn1_24.TextSize = new System.Drawing.Size(180, 16);
             // 
             // colStraightMaterialCost
             // 
@@ -930,8 +923,8 @@
             this.layoutViewField_layoutViewColumn1_26.EditorPreferredWidth = 122;
             this.layoutViewField_layoutViewColumn1_26.Location = new System.Drawing.Point(0, 196);
             this.layoutViewField_layoutViewColumn1_26.Name = "layoutViewField_layoutViewColumn1_26";
-            this.layoutViewField_layoutViewColumn1_26.Size = new System.Drawing.Size(302, 28);
-            this.layoutViewField_layoutViewColumn1_26.TextSize = new System.Drawing.Size(169, 16);
+            this.layoutViewField_layoutViewColumn1_26.Size = new System.Drawing.Size(313, 28);
+            this.layoutViewField_layoutViewColumn1_26.TextSize = new System.Drawing.Size(180, 16);
             // 
             // colQuoteReviewInitials
             // 
@@ -961,10 +954,10 @@
             // layoutViewField_layoutViewColumn1_12
             // 
             this.layoutViewField_layoutViewColumn1_12.EditorPreferredWidth = 227;
-            this.layoutViewField_layoutViewColumn1_12.Location = new System.Drawing.Point(912, 56);
+            this.layoutViewField_layoutViewColumn1_12.Location = new System.Drawing.Point(945, 56);
             this.layoutViewField_layoutViewColumn1_12.Name = "layoutViewField_layoutViewColumn1_12";
-            this.layoutViewField_layoutViewColumn1_12.Size = new System.Drawing.Size(407, 28);
-            this.layoutViewField_layoutViewColumn1_12.TextSize = new System.Drawing.Size(169, 16);
+            this.layoutViewField_layoutViewColumn1_12.Size = new System.Drawing.Size(418, 28);
+            this.layoutViewField_layoutViewColumn1_12.TextSize = new System.Drawing.Size(180, 16);
             // 
             // colQuoteReviewDate
             // 
@@ -975,10 +968,10 @@
             // layoutViewField_layoutViewColumn1_14
             // 
             this.layoutViewField_layoutViewColumn1_14.EditorPreferredWidth = 227;
-            this.layoutViewField_layoutViewColumn1_14.Location = new System.Drawing.Point(912, 84);
+            this.layoutViewField_layoutViewColumn1_14.Location = new System.Drawing.Point(945, 84);
             this.layoutViewField_layoutViewColumn1_14.Name = "layoutViewField_layoutViewColumn1_14";
-            this.layoutViewField_layoutViewColumn1_14.Size = new System.Drawing.Size(407, 28);
-            this.layoutViewField_layoutViewColumn1_14.TextSize = new System.Drawing.Size(169, 16);
+            this.layoutViewField_layoutViewColumn1_14.Size = new System.Drawing.Size(418, 28);
+            this.layoutViewField_layoutViewColumn1_14.TextSize = new System.Drawing.Size(180, 16);
             // 
             // colQuotePricingInitials
             // 
@@ -1008,10 +1001,10 @@
             // layoutViewField_layoutViewColumn1_27
             // 
             this.layoutViewField_layoutViewColumn1_27.EditorPreferredWidth = 227;
-            this.layoutViewField_layoutViewColumn1_27.Location = new System.Drawing.Point(912, 112);
+            this.layoutViewField_layoutViewColumn1_27.Location = new System.Drawing.Point(945, 112);
             this.layoutViewField_layoutViewColumn1_27.Name = "layoutViewField_layoutViewColumn1_27";
-            this.layoutViewField_layoutViewColumn1_27.Size = new System.Drawing.Size(407, 28);
-            this.layoutViewField_layoutViewColumn1_27.TextSize = new System.Drawing.Size(169, 16);
+            this.layoutViewField_layoutViewColumn1_27.Size = new System.Drawing.Size(418, 28);
+            this.layoutViewField_layoutViewColumn1_27.TextSize = new System.Drawing.Size(180, 16);
             // 
             // colQuotePricingDate
             // 
@@ -1022,10 +1015,10 @@
             // layoutViewField_layoutViewColumn1_28
             // 
             this.layoutViewField_layoutViewColumn1_28.EditorPreferredWidth = 227;
-            this.layoutViewField_layoutViewColumn1_28.Location = new System.Drawing.Point(912, 140);
+            this.layoutViewField_layoutViewColumn1_28.Location = new System.Drawing.Point(945, 140);
             this.layoutViewField_layoutViewColumn1_28.Name = "layoutViewField_layoutViewColumn1_28";
-            this.layoutViewField_layoutViewColumn1_28.Size = new System.Drawing.Size(407, 28);
-            this.layoutViewField_layoutViewColumn1_28.TextSize = new System.Drawing.Size(169, 16);
+            this.layoutViewField_layoutViewColumn1_28.Size = new System.Drawing.Size(418, 28);
+            this.layoutViewField_layoutViewColumn1_28.TextSize = new System.Drawing.Size(180, 16);
             // 
             // colEngineeringMaterialsInitials
             // 
@@ -1055,10 +1048,10 @@
             // layoutViewField_layoutViewColumn1_25
             // 
             this.layoutViewField_layoutViewColumn1_25.EditorPreferredWidth = 227;
-            this.layoutViewField_layoutViewColumn1_25.Location = new System.Drawing.Point(912, 0);
+            this.layoutViewField_layoutViewColumn1_25.Location = new System.Drawing.Point(945, 0);
             this.layoutViewField_layoutViewColumn1_25.Name = "layoutViewField_layoutViewColumn1_25";
-            this.layoutViewField_layoutViewColumn1_25.Size = new System.Drawing.Size(407, 28);
-            this.layoutViewField_layoutViewColumn1_25.TextSize = new System.Drawing.Size(169, 16);
+            this.layoutViewField_layoutViewColumn1_25.Size = new System.Drawing.Size(418, 28);
+            this.layoutViewField_layoutViewColumn1_25.TextSize = new System.Drawing.Size(180, 16);
             // 
             // colEngineeringMaterialsDate
             // 
@@ -1069,10 +1062,10 @@
             // layoutViewField_layoutViewColumn1_29
             // 
             this.layoutViewField_layoutViewColumn1_29.EditorPreferredWidth = 227;
-            this.layoutViewField_layoutViewColumn1_29.Location = new System.Drawing.Point(912, 28);
+            this.layoutViewField_layoutViewColumn1_29.Location = new System.Drawing.Point(945, 28);
             this.layoutViewField_layoutViewColumn1_29.Name = "layoutViewField_layoutViewColumn1_29";
-            this.layoutViewField_layoutViewColumn1_29.Size = new System.Drawing.Size(407, 28);
-            this.layoutViewField_layoutViewColumn1_29.TextSize = new System.Drawing.Size(169, 16);
+            this.layoutViewField_layoutViewColumn1_29.Size = new System.Drawing.Size(418, 28);
+            this.layoutViewField_layoutViewColumn1_29.TextSize = new System.Drawing.Size(180, 16);
             // 
             // colTooling
             // 
@@ -1086,8 +1079,8 @@
             this.layoutViewField_layoutViewColumn1_30.EditorPreferredWidth = 122;
             this.layoutViewField_layoutViewColumn1_30.Location = new System.Drawing.Point(0, 252);
             this.layoutViewField_layoutViewColumn1_30.Name = "layoutViewField_layoutViewColumn1_30";
-            this.layoutViewField_layoutViewColumn1_30.Size = new System.Drawing.Size(302, 28);
-            this.layoutViewField_layoutViewColumn1_30.TextSize = new System.Drawing.Size(169, 16);
+            this.layoutViewField_layoutViewColumn1_30.Size = new System.Drawing.Size(313, 28);
+            this.layoutViewField_layoutViewColumn1_30.TextSize = new System.Drawing.Size(180, 16);
             // 
             // colProgram
             // 
@@ -1098,10 +1091,10 @@
             // layoutViewField_layoutViewColumn1_31
             // 
             this.layoutViewField_layoutViewColumn1_31.EditorPreferredWidth = 121;
-            this.layoutViewField_layoutViewColumn1_31.Location = new System.Drawing.Point(305, 252);
+            this.layoutViewField_layoutViewColumn1_31.Location = new System.Drawing.Point(316, 252);
             this.layoutViewField_layoutViewColumn1_31.Name = "layoutViewField_layoutViewColumn1_31";
-            this.layoutViewField_layoutViewColumn1_31.Size = new System.Drawing.Size(301, 28);
-            this.layoutViewField_layoutViewColumn1_31.TextSize = new System.Drawing.Size(169, 16);
+            this.layoutViewField_layoutViewColumn1_31.Size = new System.Drawing.Size(312, 28);
+            this.layoutViewField_layoutViewColumn1_31.TextSize = new System.Drawing.Size(180, 16);
             // 
             // colPrototypePrice
             // 
@@ -1114,8 +1107,8 @@
             this.layoutViewField_layoutViewColumn1_32.EditorPreferredWidth = 122;
             this.layoutViewField_layoutViewColumn1_32.Location = new System.Drawing.Point(0, 308);
             this.layoutViewField_layoutViewColumn1_32.Name = "layoutViewField_layoutViewColumn1_32";
-            this.layoutViewField_layoutViewColumn1_32.Size = new System.Drawing.Size(302, 28);
-            this.layoutViewField_layoutViewColumn1_32.TextSize = new System.Drawing.Size(169, 16);
+            this.layoutViewField_layoutViewColumn1_32.Size = new System.Drawing.Size(313, 28);
+            this.layoutViewField_layoutViewColumn1_32.TextSize = new System.Drawing.Size(180, 16);
             // 
             // colParentQuoteID
             // 
@@ -1140,10 +1133,10 @@
             // layoutViewField_layoutViewColumn1_34
             // 
             this.layoutViewField_layoutViewColumn1_34.EditorPreferredWidth = 124;
-            this.layoutViewField_layoutViewColumn1_34.Location = new System.Drawing.Point(302, 280);
+            this.layoutViewField_layoutViewColumn1_34.Location = new System.Drawing.Point(313, 280);
             this.layoutViewField_layoutViewColumn1_34.Name = "layoutViewField_layoutViewColumn1_34";
-            this.layoutViewField_layoutViewColumn1_34.Size = new System.Drawing.Size(304, 28);
-            this.layoutViewField_layoutViewColumn1_34.TextSize = new System.Drawing.Size(169, 16);
+            this.layoutViewField_layoutViewColumn1_34.Size = new System.Drawing.Size(315, 28);
+            this.layoutViewField_layoutViewColumn1_34.TextSize = new System.Drawing.Size(180, 16);
             // 
             // colSOP
             // 
@@ -1156,8 +1149,8 @@
             this.layoutViewField_layoutViewColumn1_35.EditorPreferredWidth = 122;
             this.layoutViewField_layoutViewColumn1_35.Location = new System.Drawing.Point(0, 336);
             this.layoutViewField_layoutViewColumn1_35.Name = "layoutViewField_layoutViewColumn1_35";
-            this.layoutViewField_layoutViewColumn1_35.Size = new System.Drawing.Size(302, 28);
-            this.layoutViewField_layoutViewColumn1_35.TextSize = new System.Drawing.Size(169, 16);
+            this.layoutViewField_layoutViewColumn1_35.Size = new System.Drawing.Size(313, 28);
+            this.layoutViewField_layoutViewColumn1_35.TextSize = new System.Drawing.Size(180, 16);
             // 
             // colEOP
             // 
@@ -1168,10 +1161,10 @@
             // layoutViewField_layoutViewColumn1_36
             // 
             this.layoutViewField_layoutViewColumn1_36.EditorPreferredWidth = 124;
-            this.layoutViewField_layoutViewColumn1_36.Location = new System.Drawing.Point(302, 336);
+            this.layoutViewField_layoutViewColumn1_36.Location = new System.Drawing.Point(313, 336);
             this.layoutViewField_layoutViewColumn1_36.Name = "layoutViewField_layoutViewColumn1_36";
-            this.layoutViewField_layoutViewColumn1_36.Size = new System.Drawing.Size(304, 28);
-            this.layoutViewField_layoutViewColumn1_36.TextSize = new System.Drawing.Size(169, 16);
+            this.layoutViewField_layoutViewColumn1_36.Size = new System.Drawing.Size(315, 28);
+            this.layoutViewField_layoutViewColumn1_36.TextSize = new System.Drawing.Size(180, 16);
             // 
             // colRequote
             // 
@@ -1203,8 +1196,8 @@
             this.layoutViewField_layoutViewColumn1_7.EditorPreferredWidth = 122;
             this.layoutViewField_layoutViewColumn1_7.Location = new System.Drawing.Point(0, 168);
             this.layoutViewField_layoutViewColumn1_7.Name = "layoutViewField_layoutViewColumn1_7";
-            this.layoutViewField_layoutViewColumn1_7.Size = new System.Drawing.Size(302, 28);
-            this.layoutViewField_layoutViewColumn1_7.TextSize = new System.Drawing.Size(169, 16);
+            this.layoutViewField_layoutViewColumn1_7.Size = new System.Drawing.Size(313, 28);
+            this.layoutViewField_layoutViewColumn1_7.TextSize = new System.Drawing.Size(180, 16);
             // 
             // colStdHours
             // 
@@ -1218,8 +1211,8 @@
             this.layoutViewField_layoutViewColumn1_37.EditorPreferredWidth = 122;
             this.layoutViewField_layoutViewColumn1_37.Location = new System.Drawing.Point(0, 224);
             this.layoutViewField_layoutViewColumn1_37.Name = "layoutViewField_layoutViewColumn1_37";
-            this.layoutViewField_layoutViewColumn1_37.Size = new System.Drawing.Size(302, 28);
-            this.layoutViewField_layoutViewColumn1_37.TextSize = new System.Drawing.Size(169, 16);
+            this.layoutViewField_layoutViewColumn1_37.Size = new System.Drawing.Size(313, 28);
+            this.layoutViewField_layoutViewColumn1_37.TextSize = new System.Drawing.Size(180, 16);
             // 
             // colPackageNuber
             // 
@@ -1231,10 +1224,10 @@
             // layoutViewField_layoutViewColumn1_38
             // 
             this.layoutViewField_layoutViewColumn1_38.EditorPreferredWidth = 124;
-            this.layoutViewField_layoutViewColumn1_38.Location = new System.Drawing.Point(302, 308);
+            this.layoutViewField_layoutViewColumn1_38.Location = new System.Drawing.Point(313, 308);
             this.layoutViewField_layoutViewColumn1_38.Name = "layoutViewField_layoutViewColumn1_38";
-            this.layoutViewField_layoutViewColumn1_38.Size = new System.Drawing.Size(304, 28);
-            this.layoutViewField_layoutViewColumn1_38.TextSize = new System.Drawing.Size(169, 16);
+            this.layoutViewField_layoutViewColumn1_38.Size = new System.Drawing.Size(315, 28);
+            this.layoutViewField_layoutViewColumn1_38.TextSize = new System.Drawing.Size(180, 16);
             // 
             // colProductLine
             // 
@@ -1265,10 +1258,10 @@
             // layoutViewField_layoutViewColumn1_40
             // 
             this.layoutViewField_layoutViewColumn1_40.EditorPreferredWidth = 227;
-            this.layoutViewField_layoutViewColumn1_40.Location = new System.Drawing.Point(912, 252);
+            this.layoutViewField_layoutViewColumn1_40.Location = new System.Drawing.Point(945, 252);
             this.layoutViewField_layoutViewColumn1_40.Name = "layoutViewField_layoutViewColumn1_40";
-            this.layoutViewField_layoutViewColumn1_40.Size = new System.Drawing.Size(407, 112);
-            this.layoutViewField_layoutViewColumn1_40.TextSize = new System.Drawing.Size(169, 16);
+            this.layoutViewField_layoutViewColumn1_40.Size = new System.Drawing.Size(418, 112);
+            this.layoutViewField_layoutViewColumn1_40.TextSize = new System.Drawing.Size(180, 16);
             // 
             // colQuoteReason
             // 
@@ -1300,10 +1293,10 @@
             // layoutViewField_layoutViewColumn1_39
             // 
             this.layoutViewField_layoutViewColumn1_39.EditorPreferredWidth = 227;
-            this.layoutViewField_layoutViewColumn1_39.Location = new System.Drawing.Point(912, 224);
+            this.layoutViewField_layoutViewColumn1_39.Location = new System.Drawing.Point(945, 224);
             this.layoutViewField_layoutViewColumn1_39.Name = "layoutViewField_layoutViewColumn1_39";
-            this.layoutViewField_layoutViewColumn1_39.Size = new System.Drawing.Size(407, 28);
-            this.layoutViewField_layoutViewColumn1_39.TextSize = new System.Drawing.Size(169, 16);
+            this.layoutViewField_layoutViewColumn1_39.Size = new System.Drawing.Size(418, 28);
+            this.layoutViewField_layoutViewColumn1_39.TextSize = new System.Drawing.Size(180, 16);
             // 
             // layoutViewCard1
             // 
@@ -1353,8 +1346,10 @@
             this.layoutViewField_layoutViewColumn1_15,
             this.layoutViewField_layoutViewColumn1_38,
             this.layoutViewField_layoutViewColumn1_39,
-            this.layoutViewField_layoutViewColumn1_40});
-            this.layoutViewCard1.Name = "layoutViewCard1";
+            this.layoutViewField_layoutViewColumn1_40,
+            this.layoutViewField_layoutViewColumn1_41,
+            this.layoutViewField_layoutViewColumn1_42});
+            this.layoutViewCard1.Name = "layoutViewTemplateCard";
             this.layoutViewCard1.OptionsItemText.TextToControlDistance = 5;
             this.layoutViewCard1.Text = "TemplateCard";
             // 
@@ -1364,13 +1359,13 @@
             this.item1.CustomizationFormText = "item1";
             this.item1.Location = new System.Drawing.Point(0, 364);
             this.item1.Name = "item1";
-            this.item1.Size = new System.Drawing.Size(1319, 3);
+            this.item1.Size = new System.Drawing.Size(1363, 3);
             // 
             // item2
             // 
             this.item2.AllowHotTrack = false;
             this.item2.CustomizationFormText = "item2";
-            this.item2.Location = new System.Drawing.Point(302, 0);
+            this.item2.Location = new System.Drawing.Point(313, 0);
             this.item2.Name = "item2";
             this.item2.Size = new System.Drawing.Size(3, 280);
             // 
@@ -1378,7 +1373,7 @@
             // 
             this.item3.AllowHotTrack = false;
             this.item3.CustomizationFormText = "item3";
-            this.item3.Location = new System.Drawing.Point(606, 0);
+            this.item3.Location = new System.Drawing.Point(628, 0);
             this.item3.Name = "item3";
             this.item3.Size = new System.Drawing.Size(3, 364);
             // 
@@ -1386,7 +1381,7 @@
             // 
             this.item4.AllowHotTrack = false;
             this.item4.CustomizationFormText = "item4";
-            this.item4.Location = new System.Drawing.Point(909, 0);
+            this.item4.Location = new System.Drawing.Point(942, 0);
             this.item4.Name = "item4";
             this.item4.Size = new System.Drawing.Size(3, 364);
             // 
@@ -1412,18 +1407,7 @@
             // 
             this.panel1.BackColor = System.Drawing.Color.LightSteelBlue;
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel1.Controls.Add(this.lblCustomerQuote);
-            this.panel1.Controls.Add(this.lblQuotePrint);
-            this.panel1.Controls.Add(this.label4);
-            this.panel1.Controls.Add(this.label3);
-            this.panel1.Controls.Add(this.labelControl3);
-            this.panel1.Controls.Add(this.label2);
-            this.panel1.Controls.Add(this.lnkDeleteCustomerQuote);
-            this.panel1.Controls.Add(this.lnkDeleteQuotePrint);
-            this.panel1.Controls.Add(this.lnkGetCustomerQuote);
-            this.panel1.Controls.Add(this.lnkGetQuotePrint);
-            this.panel1.Controls.Add(this.lnkSaveCustomerQuote);
-            this.panel1.Controls.Add(this.lnkSaveQuotePrint);
+            this.panel1.Controls.Add(this.panel2);
             this.panel1.Controls.Add(this.panelPrint);
             this.panel1.Controls.Add(this.linkRemoveCustomerQuote);
             this.panel1.Controls.Add(this.linkAddViewCustomerQuote);
@@ -1434,17 +1418,85 @@
             this.panel1.Controls.Add(this.linkAddViewPrint);
             this.panel1.Controls.Add(this.tbxPrintFilePath);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel1.Location = new System.Drawing.Point(4, 525);
+            this.panel1.Location = new System.Drawing.Point(4, 535);
             this.panel1.Margin = new System.Windows.Forms.Padding(4);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1792, 120);
+            this.panel1.Size = new System.Drawing.Size(1792, 92);
             this.panel1.TabIndex = 3;
+            // 
+            // lblCustomerQuote
+            // 
+            this.lblCustomerQuote.AutoSize = true;
+            this.lblCustomerQuote.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblCustomerQuote.Location = new System.Drawing.Point(502, 42);
+            this.lblCustomerQuote.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblCustomerQuote.Name = "lblCustomerQuote";
+            this.lblCustomerQuote.Size = new System.Drawing.Size(115, 18);
+            this.lblCustomerQuote.TabIndex = 25;
+            this.lblCustomerQuote.Text = "CustomerQuote";
+            // 
+            // lblQuotePrint
+            // 
+            this.lblQuotePrint.AutoSize = true;
+            this.lblQuotePrint.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblQuotePrint.Location = new System.Drawing.Point(502, 16);
+            this.lblQuotePrint.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblQuotePrint.Name = "lblQuotePrint";
+            this.lblQuotePrint.Size = new System.Drawing.Size(79, 18);
+            this.lblQuotePrint.TabIndex = 24;
+            this.lblQuotePrint.Text = "QuotePrint";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.ForeColor = System.Drawing.Color.Gray;
+            this.label4.Location = new System.Drawing.Point(12, 37);
+            this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(127, 25);
+            this.label4.TabIndex = 23;
+            this.label4.Text = "Management";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.ForeColor = System.Drawing.Color.Gray;
+            this.label3.Location = new System.Drawing.Point(12, 14);
+            this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(87, 25);
+            this.label3.TabIndex = 22;
+            this.label3.Text = "PDF File";
+            // 
+            // labelControl3
+            // 
+            this.labelControl3.Appearance.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelControl3.Appearance.Options.UseFont = true;
+            this.labelControl3.Location = new System.Drawing.Point(185, 43);
+            this.labelControl3.Margin = new System.Windows.Forms.Padding(4);
+            this.labelControl3.Name = "labelControl3";
+            this.labelControl3.Size = new System.Drawing.Size(113, 18);
+            this.labelControl3.TabIndex = 21;
+            this.labelControl3.Text = "Customer Quote:";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.Location = new System.Drawing.Point(182, 15);
+            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(87, 18);
+            this.label2.TabIndex = 20;
+            this.label2.Text = "Quote Print:";
             // 
             // lnkDeleteCustomerQuote
             // 
             this.lnkDeleteCustomerQuote.AutoSize = true;
             this.lnkDeleteCustomerQuote.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lnkDeleteCustomerQuote.Location = new System.Drawing.Point(452, 89);
+            this.lnkDeleteCustomerQuote.Location = new System.Drawing.Point(384, 42);
             this.lnkDeleteCustomerQuote.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lnkDeleteCustomerQuote.Name = "lnkDeleteCustomerQuote";
             this.lnkDeleteCustomerQuote.Size = new System.Drawing.Size(50, 18);
@@ -1457,7 +1509,7 @@
             // 
             this.lnkDeleteQuotePrint.AutoSize = true;
             this.lnkDeleteQuotePrint.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lnkDeleteQuotePrint.Location = new System.Drawing.Point(452, 62);
+            this.lnkDeleteQuotePrint.Location = new System.Drawing.Point(384, 14);
             this.lnkDeleteQuotePrint.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lnkDeleteQuotePrint.Name = "lnkDeleteQuotePrint";
             this.lnkDeleteQuotePrint.Size = new System.Drawing.Size(50, 18);
@@ -1470,7 +1522,7 @@
             // 
             this.lnkGetCustomerQuote.AutoSize = true;
             this.lnkGetCustomerQuote.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lnkGetCustomerQuote.Location = new System.Drawing.Point(513, 89);
+            this.lnkGetCustomerQuote.Location = new System.Drawing.Point(451, 42);
             this.lnkGetCustomerQuote.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lnkGetCustomerQuote.Name = "lnkGetCustomerQuote";
             this.lnkGetCustomerQuote.Size = new System.Drawing.Size(32, 18);
@@ -1483,7 +1535,7 @@
             // 
             this.lnkGetQuotePrint.AutoSize = true;
             this.lnkGetQuotePrint.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lnkGetQuotePrint.Location = new System.Drawing.Point(513, 63);
+            this.lnkGetQuotePrint.Location = new System.Drawing.Point(451, 15);
             this.lnkGetQuotePrint.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lnkGetQuotePrint.Name = "lnkGetQuotePrint";
             this.lnkGetQuotePrint.Size = new System.Drawing.Size(32, 18);
@@ -1496,7 +1548,7 @@
             // 
             this.lnkSaveCustomerQuote.AutoSize = true;
             this.lnkSaveCustomerQuote.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lnkSaveCustomerQuote.Location = new System.Drawing.Point(403, 89);
+            this.lnkSaveCustomerQuote.Location = new System.Drawing.Point(329, 42);
             this.lnkSaveCustomerQuote.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lnkSaveCustomerQuote.Name = "lnkSaveCustomerQuote";
             this.lnkSaveCustomerQuote.Size = new System.Drawing.Size(41, 18);
@@ -1509,7 +1561,7 @@
             // 
             this.lnkSaveQuotePrint.AutoSize = true;
             this.lnkSaveQuotePrint.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lnkSaveQuotePrint.Location = new System.Drawing.Point(403, 62);
+            this.lnkSaveQuotePrint.Location = new System.Drawing.Point(329, 14);
             this.lnkSaveQuotePrint.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lnkSaveQuotePrint.Name = "lnkSaveQuotePrint";
             this.lnkSaveQuotePrint.Size = new System.Drawing.Size(41, 18);
@@ -1528,6 +1580,7 @@
             this.panelPrint.Name = "panelPrint";
             this.panelPrint.Size = new System.Drawing.Size(292, 43);
             this.panelPrint.TabIndex = 11;
+            this.panelPrint.Visible = false;
             // 
             // tbxPrintNo
             // 
@@ -1569,6 +1622,7 @@
             this.linkRemoveCustomerQuote.TabIndex = 7;
             this.linkRemoveCustomerQuote.TabStop = true;
             this.linkRemoveCustomerQuote.Text = "Remove Quote";
+            this.linkRemoveCustomerQuote.Visible = false;
             this.linkRemoveCustomerQuote.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkRemoveCustomerQuote_LinkClicked);
             // 
             // linkAddViewCustomerQuote
@@ -1581,6 +1635,7 @@
             this.linkAddViewCustomerQuote.TabIndex = 6;
             this.linkAddViewCustomerQuote.TabStop = true;
             this.linkAddViewCustomerQuote.Text = "Add Quote";
+            this.linkAddViewCustomerQuote.Visible = false;
             this.linkAddViewCustomerQuote.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkAddViewCustomerQuote_LinkClicked);
             // 
             // tbxCustQuoteFilePath
@@ -1591,6 +1646,7 @@
             this.tbxCustQuoteFilePath.ReadOnly = true;
             this.tbxCustQuoteFilePath.Size = new System.Drawing.Size(1203, 22);
             this.tbxCustQuoteFilePath.TabIndex = 5;
+            this.tbxCustQuoteFilePath.Visible = false;
             // 
             // labelControl1
             // 
@@ -1600,6 +1656,7 @@
             this.labelControl1.Size = new System.Drawing.Size(68, 16);
             this.labelControl1.TabIndex = 4;
             this.labelControl1.Text = "Cust Quote:";
+            this.labelControl1.Visible = false;
             // 
             // label1
             // 
@@ -1610,6 +1667,7 @@
             this.label1.Size = new System.Drawing.Size(84, 17);
             this.label1.TabIndex = 3;
             this.label1.Text = "Quote Print:";
+            this.label1.Visible = false;
             // 
             // linkRemovePrint
             // 
@@ -1621,6 +1679,7 @@
             this.linkRemovePrint.TabIndex = 2;
             this.linkRemovePrint.TabStop = true;
             this.linkRemovePrint.Text = "Remove Print";
+            this.linkRemovePrint.Visible = false;
             this.linkRemovePrint.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkRemovePrint_LinkClicked);
             // 
             // linkAddViewPrint
@@ -1633,6 +1692,7 @@
             this.linkAddViewPrint.TabIndex = 1;
             this.linkAddViewPrint.TabStop = true;
             this.linkAddViewPrint.Text = "Add Print";
+            this.linkAddViewPrint.Visible = false;
             this.linkAddViewPrint.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkAddViewPrint_LinkClicked);
             // 
             // tbxPrintFilePath
@@ -1643,114 +1703,131 @@
             this.tbxPrintFilePath.ReadOnly = true;
             this.tbxPrintFilePath.Size = new System.Drawing.Size(1203, 22);
             this.tbxPrintFilePath.TabIndex = 0;
+            this.tbxPrintFilePath.Visible = false;
             // 
             // tableLayoutPanel2
             // 
-            this.tableLayoutPanel2.ColumnCount = 1;
+            this.tableLayoutPanel2.ColumnCount = 2;
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 440F));
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel2.Controls.Add(this.btnCSM, 0, 1);
-            this.tableLayoutPanel2.Controls.Add(this.gbxLTA, 0, 0);
+            this.tableLayoutPanel2.Controls.Add(this.tableLayoutPanel4, 0, 0);
+            this.tableLayoutPanel2.Controls.Add(this.btnCSM, 1, 0);
             this.tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel2.Location = new System.Drawing.Point(4, 653);
+            this.tableLayoutPanel2.Location = new System.Drawing.Point(4, 635);
             this.tableLayoutPanel2.Margin = new System.Windows.Forms.Padding(4);
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
             this.tableLayoutPanel2.RowCount = 2;
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 37F));
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(1792, 272);
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(1792, 278);
             this.tableLayoutPanel2.TabIndex = 4;
             // 
             // btnCSM
             // 
             this.btnCSM.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnCSM.Location = new System.Drawing.Point(4, 239);
-            this.btnCSM.Margin = new System.Windows.Forms.Padding(4);
+            this.btnCSM.Location = new System.Drawing.Point(475, 4);
+            this.btnCSM.Margin = new System.Windows.Forms.Padding(35, 4, 4, 4);
             this.btnCSM.Name = "btnCSM";
-            this.btnCSM.Size = new System.Drawing.Size(420, 29);
+            this.btnCSM.Size = new System.Drawing.Size(201, 34);
             this.btnCSM.TabIndex = 4;
             this.btnCSM.Text = "CSM";
             this.btnCSM.UseVisualStyleBackColor = true;
             this.btnCSM.Click += new System.EventHandler(this.btnCSM_Click);
             // 
-            // gbxLTA
+            // tableLayoutPanel4
             // 
-            this.gbxLTA.Controls.Add(this.gridControl3);
-            this.gbxLTA.Location = new System.Drawing.Point(4, 4);
-            this.gbxLTA.Margin = new System.Windows.Forms.Padding(4);
-            this.gbxLTA.Name = "gbxLTA";
-            this.gbxLTA.Padding = new System.Windows.Forms.Padding(4);
-            this.gbxLTA.Size = new System.Drawing.Size(420, 195);
-            this.gbxLTA.TabIndex = 5;
-            this.gbxLTA.TabStop = false;
-            this.gbxLTA.Text = "LTA";
+            this.tableLayoutPanel4.ColumnCount = 2;
+            this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 65F));
+            this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel4.Controls.Add(this.gridControl3, 1, 0);
+            this.tableLayoutPanel4.Controls.Add(this.label5, 0, 0);
+            this.tableLayoutPanel4.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanel4.Location = new System.Drawing.Point(3, 3);
+            this.tableLayoutPanel4.Name = "tableLayoutPanel4";
+            this.tableLayoutPanel4.RowCount = 1;
+            this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel4.Size = new System.Drawing.Size(434, 252);
+            this.tableLayoutPanel4.TabIndex = 7;
             // 
-            // label2
+            // gridControl3
             // 
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(267, 63);
-            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(87, 18);
-            this.label2.TabIndex = 20;
-            this.label2.Text = "Quote Print:";
+            this.gridControl3.EmbeddedNavigator.Margin = new System.Windows.Forms.Padding(4);
+            this.gridControl3.Location = new System.Drawing.Point(69, 4);
+            this.gridControl3.MainView = this.gridView4;
+            this.gridControl3.Margin = new System.Windows.Forms.Padding(4);
+            this.gridControl3.Name = "gridControl3";
+            this.gridControl3.Size = new System.Drawing.Size(361, 221);
+            this.gridControl3.TabIndex = 13;
+            this.gridControl3.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
+            this.gridView4});
             // 
-            // labelControl3
+            // gridView4
             // 
-            this.labelControl3.Appearance.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelControl3.Appearance.Options.UseFont = true;
-            this.labelControl3.Location = new System.Drawing.Point(270, 89);
-            this.labelControl3.Margin = new System.Windows.Forms.Padding(4);
-            this.labelControl3.Name = "labelControl3";
-            this.labelControl3.Size = new System.Drawing.Size(113, 18);
-            this.labelControl3.TabIndex = 21;
-            this.labelControl3.Text = "Customer Quote:";
+            this.gridView4.GridControl = this.gridControl3;
+            this.gridView4.Name = "gridView4";
+            this.gridView4.OptionsCustomization.AllowGroup = false;
+            this.gridView4.OptionsView.ShowGroupPanel = false;
+            this.gridView4.CustomColumnDisplayText += new DevExpress.XtraGrid.Views.Base.CustomColumnDisplayTextEventHandler(this.gridView4_CustomColumnDisplayText);
             // 
-            // label3
+            // label5
             // 
-            this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.ForeColor = System.Drawing.Color.Gray;
-            this.label3.Location = new System.Drawing.Point(95, 62);
-            this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(87, 25);
-            this.label3.TabIndex = 22;
-            this.label3.Text = "PDF File";
+            this.label5.AutoSize = true;
+            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label5.Location = new System.Drawing.Point(3, 3);
+            this.label5.Margin = new System.Windows.Forms.Padding(3, 3, 3, 0);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(54, 20);
+            this.label5.TabIndex = 14;
+            this.label5.Text = "LTAs:";
             // 
-            // label4
+            // colPrintFilePath
             // 
-            this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.ForeColor = System.Drawing.Color.Gray;
-            this.label4.Location = new System.Drawing.Point(95, 84);
-            this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(127, 25);
-            this.label4.TabIndex = 23;
-            this.label4.Text = "Management";
+            this.colPrintFilePath.Caption = "Print FilePath (Old)";
+            this.colPrintFilePath.FieldName = "PrintFilePath";
+            this.colPrintFilePath.LayoutViewField = this.layoutViewField_layoutViewColumn1_41;
+            this.colPrintFilePath.Name = "colPrintFilePath";
             // 
-            // lblQuotePrint
+            // layoutViewField_layoutViewColumn1_41
             // 
-            this.lblQuotePrint.AutoSize = true;
-            this.lblQuotePrint.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblQuotePrint.Location = new System.Drawing.Point(560, 65);
-            this.lblQuotePrint.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.lblQuotePrint.Name = "lblQuotePrint";
-            this.lblQuotePrint.Size = new System.Drawing.Size(79, 18);
-            this.lblQuotePrint.TabIndex = 24;
-            this.lblQuotePrint.Text = "QuotePrint";
+            this.layoutViewField_layoutViewColumn1_41.EditorPreferredWidth = 10;
+            this.layoutViewField_layoutViewColumn1_41.Location = new System.Drawing.Point(0, 416);
+            this.layoutViewField_layoutViewColumn1_41.Name = "layoutViewField_layoutViewColumn1_41";
+            this.layoutViewField_layoutViewColumn1_41.Size = new System.Drawing.Size(1363, 26);
+            this.layoutViewField_layoutViewColumn1_41.TextSize = new System.Drawing.Size(180, 16);
             // 
-            // lblCustomerQuote
+            // colCustomerQuoteFilePath
             // 
-            this.lblCustomerQuote.AutoSize = true;
-            this.lblCustomerQuote.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblCustomerQuote.Location = new System.Drawing.Point(560, 89);
-            this.lblCustomerQuote.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.lblCustomerQuote.Name = "lblCustomerQuote";
-            this.lblCustomerQuote.Size = new System.Drawing.Size(115, 18);
-            this.lblCustomerQuote.TabIndex = 25;
-            this.lblCustomerQuote.Text = "CustomerQuote";
+            this.colCustomerQuoteFilePath.Caption = "Customer Quote FilePath (Old)";
+            this.colCustomerQuoteFilePath.FieldName = "CustomerQuoteFilePath";
+            this.colCustomerQuoteFilePath.LayoutViewField = this.layoutViewField_layoutViewColumn1_42;
+            this.colCustomerQuoteFilePath.Name = "colCustomerQuoteFilePath";
+            // 
+            // layoutViewField_layoutViewColumn1_42
+            // 
+            this.layoutViewField_layoutViewColumn1_42.EditorPreferredWidth = 10;
+            this.layoutViewField_layoutViewColumn1_42.Location = new System.Drawing.Point(0, 442);
+            this.layoutViewField_layoutViewColumn1_42.Name = "layoutViewField_layoutViewColumn1_42";
+            this.layoutViewField_layoutViewColumn1_42.Size = new System.Drawing.Size(1363, 26);
+            this.layoutViewField_layoutViewColumn1_42.TextSize = new System.Drawing.Size(180, 16);
+            // 
+            // panel2
+            // 
+            this.panel2.Controls.Add(this.lblCustomerQuote);
+            this.panel2.Controls.Add(this.lnkSaveQuotePrint);
+            this.panel2.Controls.Add(this.lblQuotePrint);
+            this.panel2.Controls.Add(this.lnkSaveCustomerQuote);
+            this.panel2.Controls.Add(this.label4);
+            this.panel2.Controls.Add(this.lnkGetQuotePrint);
+            this.panel2.Controls.Add(this.label3);
+            this.panel2.Controls.Add(this.lnkGetCustomerQuote);
+            this.panel2.Controls.Add(this.labelControl3);
+            this.panel2.Controls.Add(this.lnkDeleteQuotePrint);
+            this.panel2.Controls.Add(this.label2);
+            this.panel2.Controls.Add(this.lnkDeleteCustomerQuote);
+            this.panel2.Location = new System.Drawing.Point(8, 6);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(944, 78);
+            this.panel2.TabIndex = 26;
             // 
             // formQuoteMaintenance
             // 
@@ -1760,9 +1837,8 @@
             this.Controls.Add(this.tableLayoutPanel1);
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "formQuoteMaintenance";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Quote Maintenance";
-            ((System.ComponentModel.ISupportInitialize)(this.gridControl3)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.gridView4)).EndInit();
             this.tableLayoutPanel1.ResumeLayout(false);
             this.flowLayoutPanel1.ResumeLayout(false);
             this.flowLayoutPanel1.PerformLayout();
@@ -1849,7 +1925,14 @@
             ((System.ComponentModel.ISupportInitialize)(this.dateEditPrint.Properties.CalendarTimeProperties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dateEditPrint.Properties)).EndInit();
             this.tableLayoutPanel2.ResumeLayout(false);
-            this.gbxLTA.ResumeLayout(false);
+            this.tableLayoutPanel4.ResumeLayout(false);
+            this.tableLayoutPanel4.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.gridControl3)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gridView4)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutViewField_layoutViewColumn1_41)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutViewField_layoutViewColumn1_42)).EndInit();
+            this.panel2.ResumeLayout(false);
+            this.panel2.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -1926,8 +2009,6 @@
         private DevExpress.XtraEditors.LabelControl labelControl1;
         public DevExpress.XtraGrid.GridControl gridControl2;
         public DevExpress.XtraGrid.Views.Layout.LayoutView layoutView1;
-        public DevExpress.XtraGrid.GridControl gridControl3;
-        public DevExpress.XtraGrid.Views.Grid.GridView gridView4;
         public System.Windows.Forms.LinkLabel linkRemovePrint;
         public System.Windows.Forms.LinkLabel linkAddViewPrint;
         public System.Windows.Forms.TextBox tbxPrintFilePath;
@@ -1938,7 +2019,6 @@
         public System.Windows.Forms.CheckBox cbxRepeat;
         private System.Windows.Forms.Button btnCSM;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
-        private System.Windows.Forms.GroupBox gbxLTA;
         private DevExpress.XtraGrid.Columns.LayoutViewColumn colRequote;
         private DevExpress.XtraEditors.LabelControl labelControl2;
         private DevExpress.XtraEditors.DateEdit dateEditPrint;
@@ -2010,5 +2090,14 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label lblCustomerQuote;
         private System.Windows.Forms.Label lblQuotePrint;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel4;
+        public DevExpress.XtraGrid.GridControl gridControl3;
+        public DevExpress.XtraGrid.Views.Grid.GridView gridView4;
+        private System.Windows.Forms.Label label5;
+        private DevExpress.XtraGrid.Columns.LayoutViewColumn colPrintFilePath;
+        private DevExpress.XtraGrid.Views.Layout.LayoutViewField layoutViewField_layoutViewColumn1_41;
+        private DevExpress.XtraGrid.Columns.LayoutViewColumn colCustomerQuoteFilePath;
+        private DevExpress.XtraGrid.Views.Layout.LayoutViewField layoutViewField_layoutViewColumn1_42;
+        private System.Windows.Forms.Panel panel2;
     }
 }

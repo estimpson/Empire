@@ -178,6 +178,21 @@
     <Compile Include="Models\TypeOfRequestsPerCustomer.cs">
       <DependentUpon>QuoteLogModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\usp_QT_Customer_Codes_Get_Result.cs">
+      <DependentUpon>QuoteLogModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\usp_QT_Customer_Get_Result.cs">
+      <DependentUpon>QuoteLogModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\usp_QT_Customer_LtaTypes_Get_Result.cs">
+      <DependentUpon>QuoteLogModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\usp_QT_Customer_States_Get_Result.cs">
+      <DependentUpon>QuoteLogModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\usp_QT_Customer_Terms_Get_Result.cs">
+      <DependentUpon>QuoteLogModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\usp_QT_FileManagement_Delete_Result.cs">
       <DependentUpon>QuoteLogModel.tt</DependentUpon>
     </Compile>

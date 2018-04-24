@@ -32,7 +32,7 @@ namespace QuoteLogGrid.Views
             _notes, _oem, _applicationCode, _applicationName, _functionName, _eau, _program, _nameplate,
             _programManagerInitials, _engineeringInitials, _salesInitials, _engineeringMaterialsInitials,
             _quoteReviewInitials, _quotePricingInitials, _customerQuoteInitials, _modelYear, _packageNumber,
-            _quoteReason, _productLine;
+            _quoteReason, _productLine, _printFilePath, _customerQuoteFilePath;
        
         public SimpleQuoteLogView()
         {
@@ -373,6 +373,8 @@ namespace QuoteLogGrid.Views
             if (gridView1.GetRowCellValue(r, "PackageNumber") != null) _packageNumber = gridView1.GetRowCellValue(r, "PackageNumber").ToString();
             if (gridView1.GetRowCellValue(r, "QuoteReason") != null) _quoteReason = gridView1.GetRowCellValue(r, "QuoteReason").ToString();
             if (gridView1.GetRowCellValue(r, "ProductLine") != null) _productLine= gridView1.GetRowCellValue(r, "ProductLine").ToString();
+            if (gridView1.GetRowCellValue(r, "PrintFilePath") != null) _printFilePath = gridView1.GetRowCellValue(r, "PrintFilePath").ToString();
+            if (gridView1.GetRowCellValue(r, "CustomerQuoteFilePath") != null) _customerQuoteFilePath = gridView1.GetRowCellValue(r, "CustomerQuoteFilePath").ToString();
 
             int? rowID = (int)gridView1.GetRowCellValue(r, "RowID");
 
@@ -390,7 +392,7 @@ namespace QuoteLogGrid.Views
                     _customerRfqNumber, _customerPartNumber, _eeiPartNumber, _notes, _oem, _applicationCode, _applicationName, _functionName,
                     _eau, _program, _nameplate, _programManagerInitials, _engineeringInitials, _salesInitials, _engineeringMaterialsInitials,
                     _quoteReviewInitials, _quotePricingInitials, _customerQuoteInitials, _modelYear, _packageNumber, _quoteReason,
-                    _productLine);
+                    _productLine, _printFilePath, _customerQuoteFilePath);
 
                 if (quoteMaintenance.ShowDialog() == DialogResult.OK)
                 {

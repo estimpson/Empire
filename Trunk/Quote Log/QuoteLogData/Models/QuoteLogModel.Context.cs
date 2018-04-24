@@ -765,5 +765,174 @@ namespace QuoteLogData.Models
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("usp_QT_NewPartCountPerQuoteCheck", eEIPartNumberParameter, tranDT, result);
         }
+    
+        public virtual int usp_QT_UpdateQuoteLTA_New2(string quoteNumber, Nullable<decimal> yearOnePercentage, Nullable<decimal> yearTwoPercentage, Nullable<decimal> yearThreePercentage, Nullable<decimal> yearFourPercentage, ObjectParameter tranDT, ObjectParameter result)
+        {
+            var quoteNumberParameter = quoteNumber != null ?
+                new ObjectParameter("QuoteNumber", quoteNumber) :
+                new ObjectParameter("QuoteNumber", typeof(string));
+    
+            var yearOnePercentageParameter = yearOnePercentage.HasValue ?
+                new ObjectParameter("YearOnePercentage", yearOnePercentage) :
+                new ObjectParameter("YearOnePercentage", typeof(decimal));
+    
+            var yearTwoPercentageParameter = yearTwoPercentage.HasValue ?
+                new ObjectParameter("YearTwoPercentage", yearTwoPercentage) :
+                new ObjectParameter("YearTwoPercentage", typeof(decimal));
+    
+            var yearThreePercentageParameter = yearThreePercentage.HasValue ?
+                new ObjectParameter("YearThreePercentage", yearThreePercentage) :
+                new ObjectParameter("YearThreePercentage", typeof(decimal));
+    
+            var yearFourPercentageParameter = yearFourPercentage.HasValue ?
+                new ObjectParameter("YearFourPercentage", yearFourPercentage) :
+                new ObjectParameter("YearFourPercentage", typeof(decimal));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("usp_QT_UpdateQuoteLTA_New2", quoteNumberParameter, yearOnePercentageParameter, yearTwoPercentageParameter, yearThreePercentageParameter, yearFourPercentageParameter, tranDT, result);
+        }
+    
+        public virtual int usp_QT_InsertQuoteLTA(string quoteNumber, ObjectParameter tranDT, ObjectParameter result)
+        {
+            var quoteNumberParameter = quoteNumber != null ?
+                new ObjectParameter("QuoteNumber", quoteNumber) :
+                new ObjectParameter("QuoteNumber", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("usp_QT_InsertQuoteLTA", quoteNumberParameter, tranDT, result);
+        }
+    
+        public virtual ObjectResult<usp_QT_Customer_Codes_Get_Result> usp_QT_Customer_Codes_Get()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_QT_Customer_Codes_Get_Result>("usp_QT_Customer_Codes_Get");
+        }
+    
+        public virtual ObjectResult<usp_QT_Customer_LtaTypes_Get_Result> usp_QT_Customer_LtaTypes_Get()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_QT_Customer_LtaTypes_Get_Result>("usp_QT_Customer_LtaTypes_Get");
+        }
+    
+        public virtual ObjectResult<usp_QT_Customer_Terms_Get_Result> usp_QT_Customer_Terms_Get()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_QT_Customer_Terms_Get_Result>("usp_QT_Customer_Terms_Get");
+        }
+    
+        public virtual ObjectResult<usp_QT_Customer_States_Get_Result> usp_QT_Customer_States_Get()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_QT_Customer_States_Get_Result>("usp_QT_Customer_States_Get");
+        }
+    
+        public virtual ObjectResult<usp_QT_Customer_Get_Result> usp_QT_Customer_Get(string customerCode)
+        {
+            var customerCodeParameter = customerCode != null ?
+                new ObjectParameter("CustomerCode", customerCode) :
+                new ObjectParameter("CustomerCode", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_QT_Customer_Get_Result>("usp_QT_Customer_Get", customerCodeParameter);
+        }
+    
+        public virtual int usp_QT_Customer_Insert(string operatorCode, string customerCode, string customerName, string address1, string address2, string address3, string city, string state, string country, string postalCode, string terms, string ltaType, ObjectParameter tranDT, ObjectParameter result)
+        {
+            var operatorCodeParameter = operatorCode != null ?
+                new ObjectParameter("OperatorCode", operatorCode) :
+                new ObjectParameter("OperatorCode", typeof(string));
+    
+            var customerCodeParameter = customerCode != null ?
+                new ObjectParameter("CustomerCode", customerCode) :
+                new ObjectParameter("CustomerCode", typeof(string));
+    
+            var customerNameParameter = customerName != null ?
+                new ObjectParameter("CustomerName", customerName) :
+                new ObjectParameter("CustomerName", typeof(string));
+    
+            var address1Parameter = address1 != null ?
+                new ObjectParameter("Address1", address1) :
+                new ObjectParameter("Address1", typeof(string));
+    
+            var address2Parameter = address2 != null ?
+                new ObjectParameter("Address2", address2) :
+                new ObjectParameter("Address2", typeof(string));
+    
+            var address3Parameter = address3 != null ?
+                new ObjectParameter("Address3", address3) :
+                new ObjectParameter("Address3", typeof(string));
+    
+            var cityParameter = city != null ?
+                new ObjectParameter("City", city) :
+                new ObjectParameter("City", typeof(string));
+    
+            var stateParameter = state != null ?
+                new ObjectParameter("State", state) :
+                new ObjectParameter("State", typeof(string));
+    
+            var countryParameter = country != null ?
+                new ObjectParameter("Country", country) :
+                new ObjectParameter("Country", typeof(string));
+    
+            var postalCodeParameter = postalCode != null ?
+                new ObjectParameter("PostalCode", postalCode) :
+                new ObjectParameter("PostalCode", typeof(string));
+    
+            var termsParameter = terms != null ?
+                new ObjectParameter("Terms", terms) :
+                new ObjectParameter("Terms", typeof(string));
+    
+            var ltaTypeParameter = ltaType != null ?
+                new ObjectParameter("LtaType", ltaType) :
+                new ObjectParameter("LtaType", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("usp_QT_Customer_Insert", operatorCodeParameter, customerCodeParameter, customerNameParameter, address1Parameter, address2Parameter, address3Parameter, cityParameter, stateParameter, countryParameter, postalCodeParameter, termsParameter, ltaTypeParameter, tranDT, result);
+        }
+    
+        public virtual int usp_QT_Customer_Update(string operatorCode, string customerCode, string customerName, string address1, string address2, string address3, string city, string state, string country, string postalCode, string terms, string ltaType, ObjectParameter tranDT, ObjectParameter result)
+        {
+            var operatorCodeParameter = operatorCode != null ?
+                new ObjectParameter("OperatorCode", operatorCode) :
+                new ObjectParameter("OperatorCode", typeof(string));
+    
+            var customerCodeParameter = customerCode != null ?
+                new ObjectParameter("CustomerCode", customerCode) :
+                new ObjectParameter("CustomerCode", typeof(string));
+    
+            var customerNameParameter = customerName != null ?
+                new ObjectParameter("CustomerName", customerName) :
+                new ObjectParameter("CustomerName", typeof(string));
+    
+            var address1Parameter = address1 != null ?
+                new ObjectParameter("Address1", address1) :
+                new ObjectParameter("Address1", typeof(string));
+    
+            var address2Parameter = address2 != null ?
+                new ObjectParameter("Address2", address2) :
+                new ObjectParameter("Address2", typeof(string));
+    
+            var address3Parameter = address3 != null ?
+                new ObjectParameter("Address3", address3) :
+                new ObjectParameter("Address3", typeof(string));
+    
+            var cityParameter = city != null ?
+                new ObjectParameter("City", city) :
+                new ObjectParameter("City", typeof(string));
+    
+            var stateParameter = state != null ?
+                new ObjectParameter("State", state) :
+                new ObjectParameter("State", typeof(string));
+    
+            var countryParameter = country != null ?
+                new ObjectParameter("Country", country) :
+                new ObjectParameter("Country", typeof(string));
+    
+            var postalCodeParameter = postalCode != null ?
+                new ObjectParameter("PostalCode", postalCode) :
+                new ObjectParameter("PostalCode", typeof(string));
+    
+            var termsParameter = terms != null ?
+                new ObjectParameter("Terms", terms) :
+                new ObjectParameter("Terms", typeof(string));
+    
+            var ltaTypeParameter = ltaType != null ?
+                new ObjectParameter("LtaType", ltaType) :
+                new ObjectParameter("LtaType", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("usp_QT_Customer_Update", operatorCodeParameter, customerCodeParameter, customerNameParameter, address1Parameter, address2Parameter, address3Parameter, cityParameter, stateParameter, countryParameter, postalCodeParameter, termsParameter, ltaTypeParameter, tranDT, result);
+        }
     }
 }

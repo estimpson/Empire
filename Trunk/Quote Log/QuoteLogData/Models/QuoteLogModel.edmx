@@ -357,6 +357,45 @@ warning 6002: The table/view 'MONITOR.EEIUser.vw_QT_QuoteReasons' does not have 
           <Parameter Name="TranDT" Type="datetime" Mode="InOut" />
           <Parameter Name="Result" Type="int" Mode="InOut" />
         </Function>
+        <Function Name="usp_QT_Customer_Codes_Get" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="EEIUser" />
+        <Function Name="usp_QT_Customer_Get" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="EEIUser">
+          <Parameter Name="CustomerCode" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="usp_QT_Customer_Insert" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="EEIUser">
+          <Parameter Name="OperatorCode" Type="varchar" Mode="In" />
+          <Parameter Name="CustomerCode" Type="varchar" Mode="In" />
+          <Parameter Name="CustomerName" Type="varchar" Mode="In" />
+          <Parameter Name="Address1" Type="varchar" Mode="In" />
+          <Parameter Name="Address2" Type="varchar" Mode="In" />
+          <Parameter Name="Address3" Type="varchar" Mode="In" />
+          <Parameter Name="City" Type="varchar" Mode="In" />
+          <Parameter Name="State" Type="varchar" Mode="In" />
+          <Parameter Name="Country" Type="varchar" Mode="In" />
+          <Parameter Name="PostalCode" Type="varchar" Mode="In" />
+          <Parameter Name="Terms" Type="varchar" Mode="In" />
+          <Parameter Name="LtaType" Type="varchar" Mode="In" />
+          <Parameter Name="TranDT" Type="datetime" Mode="InOut" />
+          <Parameter Name="Result" Type="int" Mode="InOut" />
+        </Function>
+        <Function Name="usp_QT_Customer_LtaTypes_Get" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="EEIUser" />
+        <Function Name="usp_QT_Customer_States_Get" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="EEIUser" />
+        <Function Name="usp_QT_Customer_Terms_Get" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="EEIUser" />
+        <Function Name="usp_QT_Customer_Update" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="EEIUser">
+          <Parameter Name="OperatorCode" Type="varchar" Mode="In" />
+          <Parameter Name="CustomerCode" Type="varchar" Mode="In" />
+          <Parameter Name="CustomerName" Type="varchar" Mode="In" />
+          <Parameter Name="Address1" Type="varchar" Mode="In" />
+          <Parameter Name="Address2" Type="varchar" Mode="In" />
+          <Parameter Name="Address3" Type="varchar" Mode="In" />
+          <Parameter Name="City" Type="varchar" Mode="In" />
+          <Parameter Name="State" Type="varchar" Mode="In" />
+          <Parameter Name="Country" Type="varchar" Mode="In" />
+          <Parameter Name="PostalCode" Type="varchar" Mode="In" />
+          <Parameter Name="Terms" Type="varchar" Mode="In" />
+          <Parameter Name="LtaType" Type="varchar" Mode="In" />
+          <Parameter Name="TranDT" Type="datetime" Mode="InOut" />
+          <Parameter Name="Result" Type="int" Mode="InOut" />
+        </Function>
         <Function Name="usp_QT_DeleteCustomerQuoteDoc" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="EEIUser">
           <Parameter Name="QuoteNumber" Type="varchar" Mode="In" />
           <Parameter Name="TranDT" Type="datetime" Mode="InOut" />
@@ -488,6 +527,11 @@ warning 6002: The table/view 'MONITOR.EEIUser.vw_QT_QuoteReasons' does not have 
           <Parameter Name="TranDT" Type="datetime" Mode="InOut" />
           <Parameter Name="Result" Type="int" Mode="InOut" />
         </Function>
+        <Function Name="usp_QT_InsertQuoteLTA" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="EEIUser">
+          <Parameter Name="QuoteNumber" Type="varchar" Mode="In" />
+          <Parameter Name="TranDT" Type="datetime" Mode="InOut" />
+          <Parameter Name="Result" Type="int" Mode="InOut" />
+        </Function>
         <Function Name="usp_QT_InsertQuoteManualProgramData" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="EEIUser">
           <Parameter Name="QuoteNumber" Type="varchar" Mode="In" />
           <Parameter Name="Manufacturer" Type="varchar" Mode="In" />
@@ -593,6 +637,15 @@ warning 6002: The table/view 'MONITOR.EEIUser.vw_QT_QuoteReasons' does not have 
         </Function>
         <Function Name="usp_QT_UpdateQuoteLTA_New" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="EEIUser">
           <Parameter Name="QuoteNumber" Type="varchar" Mode="In" />
+          <Parameter Name="TranDT" Type="datetime" Mode="InOut" />
+          <Parameter Name="Result" Type="int" Mode="InOut" />
+        </Function>
+        <Function Name="usp_QT_UpdateQuoteLTA_New2" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="EEIUser">
+          <Parameter Name="QuoteNumber" Type="varchar" Mode="In" />
+          <Parameter Name="YearOnePercentage" Type="decimal" Mode="In" />
+          <Parameter Name="YearTwoPercentage" Type="decimal" Mode="In" />
+          <Parameter Name="YearThreePercentage" Type="decimal" Mode="In" />
+          <Parameter Name="YearFourPercentage" Type="decimal" Mode="In" />
           <Parameter Name="TranDT" Type="datetime" Mode="InOut" />
           <Parameter Name="Result" Type="int" Mode="InOut" />
         </Function>
@@ -986,6 +1039,59 @@ FROM [EEIUser].[vw_QT_QuoteReasons] AS [vw_QT_QuoteReasons]</DefiningQuery>
           </FunctionImport>
           <FunctionImport Name="usp_QT_NewPartCountPerQuoteCheck">
             <Parameter Name="EEIPartNumber" Mode="In" Type="String" />
+            <Parameter Name="TranDT" Mode="InOut" Type="DateTime" />
+            <Parameter Name="Result" Mode="InOut" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="usp_QT_UpdateQuoteLTA_New2">
+            <Parameter Name="QuoteNumber" Mode="In" Type="String" />
+            <Parameter Name="YearOnePercentage" Mode="In" Type="Decimal" />
+            <Parameter Name="YearTwoPercentage" Mode="In" Type="Decimal" />
+            <Parameter Name="YearThreePercentage" Mode="In" Type="Decimal" />
+            <Parameter Name="YearFourPercentage" Mode="In" Type="Decimal" />
+            <Parameter Name="TranDT" Mode="InOut" Type="DateTime" />
+            <Parameter Name="Result" Mode="InOut" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="usp_QT_InsertQuoteLTA">
+            <Parameter Name="QuoteNumber" Mode="In" Type="String" />
+            <Parameter Name="TranDT" Mode="InOut" Type="DateTime" />
+            <Parameter Name="Result" Mode="InOut" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="usp_QT_Customer_Codes_Get" ReturnType="Collection(QuoteLogModel.usp_QT_Customer_Codes_Get_Result)" />
+          <FunctionImport Name="usp_QT_Customer_LtaTypes_Get" ReturnType="Collection(QuoteLogModel.usp_QT_Customer_LtaTypes_Get_Result)" />
+          <FunctionImport Name="usp_QT_Customer_Terms_Get" ReturnType="Collection(QuoteLogModel.usp_QT_Customer_Terms_Get_Result)" />
+          <FunctionImport Name="usp_QT_Customer_States_Get" ReturnType="Collection(QuoteLogModel.usp_QT_Customer_States_Get_Result)" />
+          <FunctionImport Name="usp_QT_Customer_Get" ReturnType="Collection(QuoteLogModel.usp_QT_Customer_Get_Result)">
+            <Parameter Name="CustomerCode" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="usp_QT_Customer_Insert">
+            <Parameter Name="OperatorCode" Mode="In" Type="String" />
+            <Parameter Name="CustomerCode" Mode="In" Type="String" />
+            <Parameter Name="CustomerName" Mode="In" Type="String" />
+            <Parameter Name="Address1" Mode="In" Type="String" />
+            <Parameter Name="Address2" Mode="In" Type="String" />
+            <Parameter Name="Address3" Mode="In" Type="String" />
+            <Parameter Name="City" Mode="In" Type="String" />
+            <Parameter Name="State" Mode="In" Type="String" />
+            <Parameter Name="Country" Mode="In" Type="String" />
+            <Parameter Name="PostalCode" Mode="In" Type="String" />
+            <Parameter Name="Terms" Mode="In" Type="String" />
+            <Parameter Name="LtaType" Mode="In" Type="String" />
+            <Parameter Name="TranDT" Mode="InOut" Type="DateTime" />
+            <Parameter Name="Result" Mode="InOut" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="usp_QT_Customer_Update">
+            <Parameter Name="OperatorCode" Mode="In" Type="String" />
+            <Parameter Name="CustomerCode" Mode="In" Type="String" />
+            <Parameter Name="CustomerName" Mode="In" Type="String" />
+            <Parameter Name="Address1" Mode="In" Type="String" />
+            <Parameter Name="Address2" Mode="In" Type="String" />
+            <Parameter Name="Address3" Mode="In" Type="String" />
+            <Parameter Name="City" Mode="In" Type="String" />
+            <Parameter Name="State" Mode="In" Type="String" />
+            <Parameter Name="Country" Mode="In" Type="String" />
+            <Parameter Name="PostalCode" Mode="In" Type="String" />
+            <Parameter Name="Terms" Mode="In" Type="String" />
+            <Parameter Name="LtaType" Mode="In" Type="String" />
             <Parameter Name="TranDT" Mode="InOut" Type="DateTime" />
             <Parameter Name="Result" Mode="InOut" Type="Int32" />
           </FunctionImport>
@@ -1439,6 +1545,31 @@ FROM [EEIUser].[vw_QT_QuoteReasons] AS [vw_QT_QuoteReasons]</DefiningQuery>
         </ComplexType>
         <ComplexType Name="usp_QT_NewPartCheck_Result">
           <Property Type="String" Name="BasePart" Nullable="false" MaxLength="30" />
+        </ComplexType>
+        <ComplexType Name="usp_QT_Customer_States_Get_Result">
+          <Property Type="String" Name="Abbreviation" Nullable="true" MaxLength="2" />
+          <Property Type="String" Name="Name" Nullable="true" MaxLength="50" />
+        </ComplexType>
+        <ComplexType Name="usp_QT_Customer_Get_Result">
+          <Property Type="String" Name="CustomerName" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="Address1" Nullable="true" MaxLength="250" />
+          <Property Type="String" Name="Address2" Nullable="true" MaxLength="250" />
+          <Property Type="String" Name="Address3" Nullable="true" MaxLength="250" />
+          <Property Type="String" Name="City" Nullable="true" MaxLength="250" />
+          <Property Type="String" Name="State" Nullable="true" MaxLength="250" />
+          <Property Type="String" Name="Country" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="PostalCode" Nullable="true" MaxLength="250" />
+          <Property Type="String" Name="Terms" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="LtaType" Nullable="true" MaxLength="50" />
+        </ComplexType>
+        <ComplexType Name="usp_QT_Customer_Codes_Get_Result">
+          <Property Type="String" Name="CustomerCode" Nullable="false" MaxLength="20" />
+        </ComplexType>
+        <ComplexType Name="usp_QT_Customer_Terms_Get_Result">
+          <Property Type="String" Name="Term" Nullable="false" MaxLength="20" />
+        </ComplexType>
+        <ComplexType Name="usp_QT_Customer_LtaTypes_Get_Result">
+          <Property Type="String" Name="LtaType" Nullable="false" MaxLength="50" />
         </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
@@ -2022,6 +2153,55 @@ FROM [EEIUser].[vw_QT_QuoteReasons] AS [vw_QT_QuoteReasons]</DefiningQuery>
             </ResultMapping>
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="usp_QT_NewPartCountPerQuoteCheck" FunctionName="QuoteLogModel.Store.usp_QT_NewPartCountPerQuoteCheck" />
+          <FunctionImportMapping FunctionImportName="usp_QT_UpdateQuoteLTA_New2" FunctionName="QuoteLogModel.Store.usp_QT_UpdateQuoteLTA_New2" />
+          <FunctionImportMapping FunctionImportName="usp_QT_InsertQuoteLTA" FunctionName="QuoteLogModel.Store.usp_QT_InsertQuoteLTA" />
+          <FunctionImportMapping FunctionImportName="usp_QT_Customer_Codes_Get" FunctionName="QuoteLogModel.Store.usp_QT_Customer_Codes_Get" >
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="QuoteLogModel.usp_QT_Customer_Codes_Get_Result">
+                <ScalarProperty Name="CustomerCode" ColumnName="CustomerCode" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="usp_QT_Customer_LtaTypes_Get" FunctionName="QuoteLogModel.Store.usp_QT_Customer_LtaTypes_Get" >
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="QuoteLogModel.usp_QT_Customer_LtaTypes_Get_Result">
+                <ScalarProperty Name="LtaType" ColumnName="LtaType" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="usp_QT_Customer_Terms_Get" FunctionName="QuoteLogModel.Store.usp_QT_Customer_Terms_Get" >
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="QuoteLogModel.usp_QT_Customer_Terms_Get_Result">
+                <ScalarProperty Name="Term" ColumnName="Term" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="usp_QT_Customer_States_Get" FunctionName="QuoteLogModel.Store.usp_QT_Customer_States_Get">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="QuoteLogModel.usp_QT_Customer_States_Get_Result">
+                <ScalarProperty Name="Abbreviation" ColumnName="Abbreviation" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="usp_QT_Customer_Get" FunctionName="QuoteLogModel.Store.usp_QT_Customer_Get">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="QuoteLogModel.usp_QT_Customer_Get_Result">
+                <ScalarProperty Name="CustomerName" ColumnName="CustomerName" />
+                <ScalarProperty Name="Address1" ColumnName="Address1" />
+                <ScalarProperty Name="Address2" ColumnName="Address2" />
+                <ScalarProperty Name="Address3" ColumnName="Address3" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="State" ColumnName="State" />
+                <ScalarProperty Name="Country" ColumnName="Country" />
+                <ScalarProperty Name="PostalCode" ColumnName="PostalCode" />
+                <ScalarProperty Name="Terms" ColumnName="Terms" />
+                <ScalarProperty Name="LtaType" ColumnName="LtaType" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="usp_QT_Customer_Insert" FunctionName="QuoteLogModel.Store.usp_QT_Customer_Insert" />
+          <FunctionImportMapping FunctionImportName="usp_QT_Customer_Update" FunctionName="QuoteLogModel.Store.usp_QT_Customer_Update" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
