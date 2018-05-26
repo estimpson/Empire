@@ -150,7 +150,7 @@
                         </Cell>
                     </Styles>
                     <Columns>
-                        <dx:GridViewCommandColumn ShowNewButtonInHeader="false" ShowEditButton="true" VisibleIndex="0" Width="130" FixedStyle="Left">
+                        <dx:GridViewCommandColumn Caption=" " ShowNewButtonInHeader="false" ShowEditButton="true" VisibleIndex="0" Width="130" FixedStyle="Left">
                             <HeaderStyle BackColor="#efefef" />
                         </dx:GridViewCommandColumn>
                         <dx:GridViewDataTextColumn Caption="Status" FieldName="Status" Name="Status" VisibleIndex="1" Width="110" FixedStyle="Left">
@@ -228,6 +228,9 @@
                             <HeaderStyle BackColor="#efefef" />
                             <PropertiesDateEdit DisplayFormatString="yyyy-MM-dd" EditFormatString="yyyy-MM-dd"></PropertiesDateEdit>
                         </dx:GridViewDataDateColumn>
+                        <dx:GridViewDataTextColumn Caption="ObsolescenceCost" FieldName="ObsolescenceCost" Name="ObsolescenceCost" VisibleIndex="36" Width="180" PropertiesTextEdit-DisplayFormatString ="{0:C}">
+                            <HeaderStyle BackColor="#efefef" />
+                        </dx:GridViewDataTextColumn>
                     </Columns>
                    
                     <Settings VerticalScrollBarMode="Visible" VerticalScrollBarStyle="VirtualSmooth" />

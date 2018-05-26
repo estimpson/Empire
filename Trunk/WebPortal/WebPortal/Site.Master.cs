@@ -52,12 +52,13 @@ namespace WebPortal
             string operatorCode = HttpContext.Current.Session["OpCode"].ToString();
             string operatorName = HttpContext.Current.Session["Name"].ToString();
 
-            foreach (ListEditItem li in lbxWebPages.SelectedItems)
-            {
-                string page = li.Text;
-                string path = li.Value.ToString();
-                Response.Redirect("~/" + path + page + ".aspx?op=" + operatorCode + "&name=" + operatorName);
-            }
+            string page = lbxWebPages.SelectedItem.Text;
+            string path = "";
+
+            var query = ViewModel.UserWebPagesList.Where(p => p.WebPage == page);
+            foreach (var item in query) path = item.FilePath;
+
+            Response.Redirect("~/" + path + page + ".aspx?op=" + operatorCode + "&name=" + operatorName);
         }
 
         #endregion
@@ -76,7 +77,7 @@ namespace WebPortal
             
             lbxWebPages.DataSource = ViewModel.UserWebPagesList;
             lbxWebPages.TextField = "WebPage";
-            lbxWebPages.ValueField = "FilePath";
+            lbxWebPages.ValueField = "WebPage";
             lbxWebPages.DataBind();
         }
 

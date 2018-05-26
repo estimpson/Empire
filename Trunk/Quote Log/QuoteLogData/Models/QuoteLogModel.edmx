@@ -53,20 +53,6 @@
           <Property Name="FirstName" Type="varchar" MaxLength="25" />
           <Property Name="LastName" Type="varchar" MaxLength="25" />
         </EntityType>
-        <EntityType Name="QT_Functions">
-          <Key>
-            <PropertyRef Name="RowID" />
-          </Key>
-          <Property Name="FunctionCode" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="Status" Type="int" Nullable="false" />
-          <Property Name="Type" Type="int" Nullable="false" />
-          <Property Name="Description" Type="varchar" MaxLength="255" />
-          <Property Name="RowID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="RowCreateDT" Type="datetime" />
-          <Property Name="RowCreateUser" Type="nvarchar" MaxLength="128" Nullable="false" />
-          <Property Name="RowModifiedDT" Type="datetime" />
-          <Property Name="RowModifiedUser" Type="nvarchar" MaxLength="128" Nullable="false" />
-        </EntityType>
         <EntityType Name="QT_ProgramManagerInitials">
           <Key>
             <PropertyRef Name="ID" />
@@ -135,11 +121,14 @@
           <Property Name="TotalQuotedSales" Type="numeric" Precision="38" Scale="4" StoreGeneratedPattern="Computed" />
           <Property Name="QuoteStatus" Type="varchar" MaxLength="10" />
           <Property Name="Awarded" Type="char" MaxLength="3" />
+          <Property Name="AwardedDate" Type="datetime" />
           <Property Name="ProductionLevel" Type="varchar" MaxLength="25" />
           <Property Name="RevLevel" Type="varchar" MaxLength="50" />
           <Property Name="ProductionMaterialRollup" Type="numeric" Precision="20" Scale="6" />
+          <Property Name="EmpireMarketSegment" Type="varchar" MaxLength="200" />
+          <Property Name="EmpireMarketSubsegment" Type="varchar" MaxLength="200" />
           <Property Name="RowID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="RowCreateDT" Type="datetime" StoreGeneratedPattern="Computed" />
+          <Property Name="RowCreateDT" Type="datetime" />
           <Property Name="RowCreateUser" Type="nvarchar" MaxLength="128" Nullable="false" />
           <Property Name="RowModifiedDT" Type="datetime" />
           <Property Name="RowModifiedUser" Type="nvarchar" MaxLength="128" Nullable="false" />
@@ -158,6 +147,9 @@
           <Property Name="NumberOfDaysLate" Type="int" StoreGeneratedPattern="Computed" />
           <Property Name="ProductLine" Type="varchar" MaxLength="25" />
           <Property Name="QuoteReason" Type="varchar" MaxLength="100" />
+          <Property Name="FileServerQuotePrint" Type="varchar" MaxLength="50" />
+          <Property Name="FileServerCustomerQuote" Type="varchar" MaxLength="50" />
+          <Property Name="MinimumOrderQuantity" Type="int" />
         </EntityType>
         <EntityType Name="QT_QuoteLTA">
           <Key>
@@ -321,6 +313,33 @@ warning 6002: The table/view 'MONITOR.EEIUser.QT_QuoteTreeList' does not have a 
           <Property Name="Notes" Type="varchar(max)" />
         </EntityType>
         <!--Errors Found During Generation:
+warning 6002: The table/view 'MONITOR.EEIUser.vw_QT_EmpireMarketSegment' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="vw_QT_EmpireMarketSegment">
+          <Key>
+            <PropertyRef Name="EmpireMarketSegment" />
+          </Key>
+          <Property Name="EmpireMarketSegment" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="RowId" Type="bigint" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'MONITOR.EEIUser.vw_QT_EmpireMarketSubsegment' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="vw_QT_EmpireMarketSubsegment">
+          <Key>
+            <PropertyRef Name="EmpireMarketSubsegment" />
+          </Key>
+          <Property Name="EmpireMarketSubsegment" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="RowId" Type="bigint" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'MONITOR.EEIUser.vw_QT_Functions' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="vw_QT_Functions">
+          <Key>
+            <PropertyRef Name="FunctionCode" />
+          </Key>
+          <Property Name="FunctionCode" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="RowId" Type="bigint" />
+        </EntityType>
+        <!--Errors Found During Generation:
 warning 6002: The table/view 'MONITOR.EEIUser.vw_QT_ProductLines' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="vw_QT_ProductLines">
           <Key>
@@ -378,6 +397,11 @@ warning 6002: The table/view 'MONITOR.EEIUser.vw_QT_QuoteReasons' does not have 
           <Parameter Name="Result" Type="int" Mode="InOut" />
         </Function>
         <Function Name="usp_QT_Customer_LtaTypes_Get" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="EEIUser" />
+        <Function Name="usp_QT_Customer_Request_SendEmail" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="EEIUser">
+          <Parameter Name="CustomerCode" Type="varchar" Mode="In" />
+          <Parameter Name="TranDT" Type="datetime" Mode="InOut" />
+          <Parameter Name="Result" Type="int" Mode="InOut" />
+        </Function>
         <Function Name="usp_QT_Customer_States_Get" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="EEIUser" />
         <Function Name="usp_QT_Customer_Terms_Get" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="EEIUser" />
         <Function Name="usp_QT_Customer_Update" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="EEIUser">
@@ -665,7 +689,6 @@ warning 6002: The table/view 'MONITOR.EEIUser.vw_QT_QuoteReasons' does not have 
           <EntitySet Name="QT_Customers" EntityType="Self.QT_Customers" Schema="EEIUser" store:Type="Tables" />
           <EntitySet Name="QT_EngineeringInitials" EntityType="Self.QT_EngineeringInitials" Schema="EEIUser" store:Type="Tables" />
           <EntitySet Name="QT_EngineeringMaterialsInitials" EntityType="Self.QT_EngineeringMaterialsInitials" Schema="EEIUser" store:Type="Tables" />
-          <EntitySet Name="QT_Functions" EntityType="Self.QT_Functions" Schema="EEIUser" store:Type="Tables" />
           <EntitySet Name="QT_ProgramManagerInitials" EntityType="Self.QT_ProgramManagerInitials" Schema="EEIUser" store:Type="Tables" />
           <EntitySet Name="QT_QuoteCSM" EntityType="Self.QT_QuoteCSM" Schema="EEIUser" store:Type="Tables" />
           <EntitySet Name="QT_QuoteLog" EntityType="Self.QT_QuoteLog" Schema="EEIUser" store:Type="Tables" />
@@ -737,6 +760,24 @@ FROM [EEIUser].[QT_CSM_Mnemonics] AS [QT_CSM_Mnemonics]</DefiningQuery>
 [QT_QuoteTreeList].[Notes] AS [Notes]
 FROM [EEIUser].[QT_QuoteTreeList] AS [QT_QuoteTreeList]</DefiningQuery>
           </EntitySet>
+          <EntitySet Name="vw_QT_EmpireMarketSegment" EntityType="Self.vw_QT_EmpireMarketSegment" store:Type="Views" store:Schema="EEIUser">
+            <DefiningQuery>SELECT 
+[vw_QT_EmpireMarketSegment].[EmpireMarketSegment] AS [EmpireMarketSegment], 
+[vw_QT_EmpireMarketSegment].[RowId] AS [RowId]
+FROM [EEIUser].[vw_QT_EmpireMarketSegment] AS [vw_QT_EmpireMarketSegment]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="vw_QT_EmpireMarketSubsegment" EntityType="Self.vw_QT_EmpireMarketSubsegment" store:Type="Views" store:Schema="EEIUser">
+            <DefiningQuery>SELECT 
+[vw_QT_EmpireMarketSubsegment].[EmpireMarketSubsegment] AS [EmpireMarketSubsegment], 
+[vw_QT_EmpireMarketSubsegment].[RowId] AS [RowId]
+FROM [EEIUser].[vw_QT_EmpireMarketSubsegment] AS [vw_QT_EmpireMarketSubsegment]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="vw_QT_Functions" EntityType="Self.vw_QT_Functions" store:Type="Views" store:Schema="EEIUser">
+            <DefiningQuery>SELECT 
+[vw_QT_Functions].[FunctionCode] AS [FunctionCode], 
+[vw_QT_Functions].[RowId] AS [RowId]
+FROM [EEIUser].[vw_QT_Functions] AS [vw_QT_Functions]</DefiningQuery>
+          </EntitySet>
           <EntitySet Name="vw_QT_ProductLines" EntityType="Self.vw_QT_ProductLines" store:Type="Views" store:Schema="EEIUser">
             <DefiningQuery>SELECT 
 [vw_QT_ProductLines].[ProductLine] AS [ProductLine], 
@@ -759,11 +800,6 @@ FROM [EEIUser].[vw_QT_QuoteReasons] AS [vw_QT_QuoteReasons]</DefiningQuery>
     <edmx:ConceptualModels>
       <Schema Namespace="QuoteLogModel" Alias="Self" p1:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:p1="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityContainer Name="QuoteLogContext" p1:LazyLoadingEnabled="true">
-          <EntitySet Name="QuoteLog" EntityType="QuoteLogModel.QuoteEntry" />
-          <AssociationSet Name="FK__QT_QuoteL__Paren__33D44DD5" Association="QuoteLogModel.FK__QT_QuoteL__Paren__33D44DD5">
-            <End EntitySet="QuoteLog" Role="QT_QuoteLog" />
-            <End EntitySet="QuoteLog" Role="QT_QuoteLog1" />
-          </AssociationSet>
           <FunctionImport Name="GetApplicationCodes" EntitySet="Applications" ReturnType="Collection(QuoteLogModel.Application)" />
           <EntitySet Name="Applications" EntityType="QuoteLogModel.Application" />
           <EntitySet Name="CSM_Mnemonic" EntityType="QuoteLogModel.CSM_Mnemonic" />
@@ -878,7 +914,6 @@ FROM [EEIUser].[vw_QT_QuoteReasons] AS [vw_QT_QuoteReasons]</DefiningQuery>
             <Parameter Name="Result" Mode="InOut" Type="Int32" />
           </FunctionImport>
           <EntitySet Name="ApplicationNames" EntityType="QuoteLogModel.ApplicationNames" />
-          <EntitySet Name="Functions" EntityType="QuoteLogModel.Functions" />
           <EntitySet Name="QuotePrints" EntityType="QuoteLogModel.QuotePrints" />
           <FunctionImport Name="usp_QT_DeleteQuotePrints">
             <Parameter Name="QuoteNumber" Mode="In" Type="String" />
@@ -1061,7 +1096,7 @@ FROM [EEIUser].[vw_QT_QuoteReasons] AS [vw_QT_QuoteReasons]</DefiningQuery>
           <FunctionImport Name="usp_QT_Customer_Terms_Get" ReturnType="Collection(QuoteLogModel.usp_QT_Customer_Terms_Get_Result)" />
           <FunctionImport Name="usp_QT_Customer_States_Get" ReturnType="Collection(QuoteLogModel.usp_QT_Customer_States_Get_Result)" />
           <FunctionImport Name="usp_QT_Customer_Get" ReturnType="Collection(QuoteLogModel.usp_QT_Customer_Get_Result)">
-            <Parameter Name="CustomerCode" Mode="In" Type="String" />
+          <Parameter Name="CustomerCode" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="usp_QT_Customer_Insert">
             <Parameter Name="OperatorCode" Mode="In" Type="String" />
@@ -1095,90 +1130,20 @@ FROM [EEIUser].[vw_QT_QuoteReasons] AS [vw_QT_QuoteReasons]</DefiningQuery>
             <Parameter Name="TranDT" Mode="InOut" Type="DateTime" />
             <Parameter Name="Result" Mode="InOut" Type="Int32" />
           </FunctionImport>
+          <FunctionImport Name="usp_QT_Customer_Request_SendEmail">
+            <Parameter Name="CustomerCode" Mode="In" Type="String" />
+            <Parameter Name="TranDT" Mode="InOut" Type="DateTime" />
+            <Parameter Name="Result" Mode="InOut" Type="Int32" />
+          </FunctionImport>
+          <EntitySet Name="vw_QT_EmpireMarketSegment" EntityType="QuoteLogModel.vw_QT_EmpireMarketSegment" />
+          <EntitySet Name="vw_QT_EmpireMarketSubsegment" EntityType="QuoteLogModel.vw_QT_EmpireMarketSubsegment" />
+          <EntitySet Name="vw_QT_Functions" EntityType="QuoteLogModel.vw_QT_Functions" />
+          <EntitySet Name="QuoteLog" EntityType="QuoteLogModel.QuoteEntry" />
+          <AssociationSet Name="FK__QT_QuoteL__Paren__33D44DD5" Association="QuoteLogModel.FK__QT_QuoteL__Paren__33D44DD5">
+            <End Role="QT_QuoteLog" EntitySet="QuoteLog" />
+            <End Role="QT_QuoteLog1" EntitySet="QuoteLog" />
+          </AssociationSet>
         </EntityContainer>
-        <EntityType Name="QuoteEntry">
-          <Key>
-            <PropertyRef Name="RowID" />
-          </Key>
-          <Property Name="QuoteNumber" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" Type="String" />
-          <Property Name="Status" Nullable="false" Type="Int32" />
-          <Property Name="Type" Nullable="false" Type="Int32" />
-          <Property Name="ParentQuoteID" Type="Int32" />
-          <Property Name="CustomerRFQNumber" MaxLength="50" FixedLength="false" Unicode="false" Type="String" />
-          <Property Name="ReceiptDate" Precision="3" Type="DateTime" />
-          <Property Name="Customer" MaxLength="50" FixedLength="false" Unicode="false" Type="String" />
-          <Property Name="RequestedDueDate" Precision="3" Type="DateTime" />
-          <Property Name="EEIPromisedDueDate" Precision="3" Type="DateTime" />
-          <Property Name="CustomerPartNumber" MaxLength="50" FixedLength="false" Unicode="false" Type="String" />
-          <Property Name="EEIPartNumber" MaxLength="50" FixedLength="false" Unicode="false" Type="String" />
-          <Property Name="Requote" MaxLength="2" FixedLength="false" Unicode="false" Type="String" />
-          <Property Name="Notes" MaxLength="Max" FixedLength="false" Unicode="false" Type="String" />
-          <Property Name="EAU" Precision="20" Scale="0" Type="Decimal" />
-          <Property Name="ApplicationName" MaxLength="255" FixedLength="false" Unicode="false" Type="String" />
-          <Property Name="ApplicationCode" MaxLength="10" FixedLength="false" Unicode="false" Type="String" />
-          <Property Name="FunctionName" MaxLength="50" FixedLength="false" Unicode="false" Type="String" />
-          <Property Name="Program" MaxLength="50" FixedLength="false" Unicode="false" Type="String" />
-          <Property Name="OEM" MaxLength="50" FixedLength="false" Unicode="false" Type="String" />
-          <Property Name="Nameplate" MaxLength="50" FixedLength="false" Unicode="false" Type="String" />
-          <Property Name="ModelYear" MaxLength="10" FixedLength="false" Unicode="false" Type="String" />
-          <Property Name="SOP" Type="DateTime" Precision="3" />
-          <Property Name="EOP" Type="DateTime" Precision="3" />
-          <Property Name="SalesInitials" MaxLength="10" FixedLength="false" Unicode="false" Type="String" />
-          <Property Name="ProgramManagerInitials" MaxLength="10" FixedLength="false" Unicode="false" Type="String" />
-          <Property Name="EngineeringInitials" MaxLength="10" FixedLength="false" Unicode="false" Type="String" />
-          <Property Name="LTAPercentage" MaxLength="10" FixedLength="false" Unicode="false" Type="String" />
-          <Property Name="LTAYears" MaxLength="10" FixedLength="false" Unicode="false" Type="String" />
-          <Property Name="EngineeringMaterialsInitials" MaxLength="10" FixedLength="false" Unicode="false" Type="String" />
-          <Property Name="EngineeringMaterialsDate" Precision="3" Type="DateTime" />
-          <Property Name="QuoteReviewInitials" MaxLength="10" FixedLength="false" Unicode="false" Type="String" />
-          <Property Name="QuoteReviewDate" Precision="3" Type="DateTime" />
-          <Property Name="QuotePricingInitials" MaxLength="10" FixedLength="false" Unicode="false" Type="String" />
-          <Property Name="QuotePricingDate" Precision="3" Type="DateTime" />
-          <Property Name="CustomerQuoteInitials" MaxLength="10" FixedLength="false" Unicode="false" Type="String" />
-          <Property Name="CustomerQuoteDate" Precision="3" Type="DateTime" />
-          <Property Name="StraightMaterialCost" Precision="20" Scale="6" Type="Decimal" />
-          <Property Name="QuotePrice" Precision="20" Scale="4" Type="Decimal" />
-          <Property Name="TotalQuotedSales" Precision="38" Scale="4" annotation:StoreGeneratedPattern="Computed" Type="Decimal" />
-          <Property Name="QuoteStatus" MaxLength="10" FixedLength="false" Unicode="false" Type="String" />
-          <Property Name="Awarded" MaxLength="3" FixedLength="true" Unicode="false" Type="String" />
-          <Property Name="ProductionLevel" MaxLength="25" FixedLength="false" Unicode="false" Type="String" />
-          <Property Name="RevLevel" MaxLength="50" FixedLength="false" Unicode="false" Type="String" />
-          <Property Name="ProductionMaterialRollup" Precision="20" Scale="6" Type="Decimal" />
-          <Property Name="RowID" Nullable="false" annotation:StoreGeneratedPattern="Identity" Type="Int32" />
-          <Property Name="RowCreateDT" Precision="3" Type="DateTime" annotation:StoreGeneratedPattern="Computed" />
-          <Property Name="RowCreateUser" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" Type="String" />
-          <Property Name="RowModifiedDT" Precision="3" Type="DateTime" />
-          <Property Name="RowModifiedUser" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" Type="String" />
-          <NavigationProperty Name="QT_QuoteLog1" Relationship="QuoteLogModel.FK__QT_QuoteL__Paren__33D44DD5" FromRole="QT_QuoteLog" ToRole="QT_QuoteLog1" />
-          <NavigationProperty Name="QT_QuoteLog2" Relationship="QuoteLogModel.FK__QT_QuoteL__Paren__33D44DD5" FromRole="QT_QuoteLog1" ToRole="QT_QuoteLog" />
-          <Property Type="String" Name="ProgramComputed" MaxLength="Max" FixedLength="false" Unicode="false" annotation:StoreGeneratedPattern="Computed" />
-          <Property Type="String" Name="OEMComputed" MaxLength="Max" FixedLength="false" Unicode="false" annotation:StoreGeneratedPattern="Computed" />
-          <Property Type="String" Name="NameplateComputed" MaxLength="Max" FixedLength="false" Unicode="false" annotation:StoreGeneratedPattern="Computed" />
-          <Property Type="Decimal" Name="Tooling" Precision="20" Scale="0" />
-          <Property Type="Decimal" Name="PrototypePrice" Precision="20" Scale="2" />
-          <Property Type="String" Name="LTA" MaxLength="100" FixedLength="false" Unicode="false" annotation:StoreGeneratedPattern="Computed" />
-          <Property Type="String" Name="PrintFilePath" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Type="String" Name="CustomerQuoteFilePath" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Type="String" Name="PrintNo" MaxLength="25" FixedLength="false" Unicode="false" />
-          <Property Type="DateTime" Name="PrintDate" Precision="3" />
-          <Property Type="Decimal" Name="StdHours" Precision="20" Scale="4" />
-          <Property Type="String" Name="PackageNumber" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Type="Int32" Name="NumberOfDaysLate" annotation:StoreGeneratedPattern="Computed" />
-          <Property Name="QuoteReason" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="ProductLine" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
-        </EntityType>
-        <Association Name="FK__QT_QuoteL__Paren__33D44DD5">
-          <End Type="QuoteLogModel.QuoteEntry" Multiplicity="0..1" Role="QT_QuoteLog" />
-          <End Type="QuoteLogModel.QuoteEntry" Multiplicity="*" Role="QT_QuoteLog1" />
-          <ReferentialConstraint>
-            <Principal Role="QT_QuoteLog">
-              <PropertyRef Name="RowID" />
-            </Principal>
-            <Dependent Role="QT_QuoteLog1">
-              <PropertyRef Name="ParentQuoteID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityType Name="Application">
           <Key>
             <PropertyRef Name="ApplicationID" />
@@ -1353,20 +1318,6 @@ FROM [EEIUser].[vw_QT_QuoteReasons] AS [vw_QT_QuoteReasons]</DefiningQuery>
           </Key>
           <Property Type="Int32" Name="ID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Type="String" Name="ApplicationName" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
-        </EntityType>
-        <EntityType Name="Functions">
-          <Key>
-            <PropertyRef Name="RowID" />
-          </Key>
-          <Property Type="String" Name="FunctionCode" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Type="Int32" Name="Status" Nullable="false" />
-          <Property Type="Int32" Name="Type" Nullable="false" />
-          <Property Type="String" Name="Description" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Type="Int32" Name="RowID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Type="DateTime" Name="RowCreateDT" Precision="3" />
-          <Property Type="String" Name="RowCreateUser" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
-          <Property Type="DateTime" Name="RowModifiedDT" Precision="3" />
-          <Property Type="String" Name="RowModifiedUser" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="QuotePrints">
           <Key>
@@ -1571,82 +1522,122 @@ FROM [EEIUser].[vw_QT_QuoteReasons] AS [vw_QT_QuoteReasons]</DefiningQuery>
         <ComplexType Name="usp_QT_Customer_LtaTypes_Get_Result">
           <Property Type="String" Name="LtaType" Nullable="false" MaxLength="50" />
         </ComplexType>
+        <EntityType Name="vw_QT_EmpireMarketSegment">
+          <Key>
+            <PropertyRef Name="EmpireMarketSegment" />
+          </Key>
+          <Property Name="EmpireMarketSegment" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="RowId" Type="Int64" />
+        </EntityType>
+        <EntityType Name="vw_QT_EmpireMarketSubsegment">
+          <Key>
+            <PropertyRef Name="EmpireMarketSubsegment" />
+          </Key>
+          <Property Name="EmpireMarketSubsegment" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="RowId" Type="Int64" />
+        </EntityType>
+        <EntityType Name="vw_QT_Functions">
+          <Key>
+            <PropertyRef Name="FunctionCode" />
+          </Key>
+          <Property Name="FunctionCode" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="RowId" Type="Int64" />
+        </EntityType>
+        <EntityType Name="QuoteEntry">
+          <Key>
+            <PropertyRef Name="RowID" />
+          </Key>
+          <Property Name="QuoteNumber" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Status" Type="Int32" Nullable="false" />
+          <Property Name="Type" Type="Int32" Nullable="false" />
+          <Property Name="ParentQuoteID" Type="Int32" />
+          <Property Name="CustomerRFQNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ReceiptDate" Type="DateTime" Precision="3" />
+          <Property Name="Customer" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="RequestedDueDate" Type="DateTime" Precision="3" />
+          <Property Name="EEIPromisedDueDate" Type="DateTime" Precision="3" />
+          <Property Name="CustomerPartNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="EEIPartNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Requote" Type="String" MaxLength="2" FixedLength="false" Unicode="false" />
+          <Property Name="Notes" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="EAU" Type="Decimal" Precision="20" Scale="0" />
+          <Property Name="ApplicationName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="ApplicationCode" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="FunctionName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Program" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="OEM" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Nameplate" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ModelYear" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="SOP" Type="DateTime" Precision="3" />
+          <Property Name="EOP" Type="DateTime" Precision="3" />
+          <Property Name="SalesInitials" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="ProgramManagerInitials" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="EngineeringInitials" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="LTAPercentage" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="LTAYears" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="EngineeringMaterialsInitials" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="EngineeringMaterialsDate" Type="DateTime" Precision="3" />
+          <Property Name="QuoteReviewInitials" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="QuoteReviewDate" Type="DateTime" Precision="3" />
+          <Property Name="QuotePricingInitials" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="QuotePricingDate" Type="DateTime" Precision="3" />
+          <Property Name="CustomerQuoteInitials" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="CustomerQuoteDate" Type="DateTime" Precision="3" />
+          <Property Name="StraightMaterialCost" Type="Decimal" Precision="20" Scale="6" />
+          <Property Name="QuotePrice" Type="Decimal" Precision="20" Scale="4" />
+          <Property Name="TotalQuotedSales" Type="Decimal" Precision="38" Scale="4" annotation:StoreGeneratedPattern="Computed" />
+          <Property Name="QuoteStatus" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="Awarded" Type="String" MaxLength="3" FixedLength="true" Unicode="false" />
+          <Property Name="AwardedDate" Type="DateTime" Precision="3" />
+          <Property Name="ProductionLevel" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+          <Property Name="RevLevel" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ProductionMaterialRollup" Type="Decimal" Precision="20" Scale="6" />
+          <Property Name="EmpireMarketSegment" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="EmpireMarketSubsegment" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="RowID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RowCreateDT" Type="DateTime" Precision="3" />
+          <Property Name="RowCreateUser" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="RowModifiedDT" Type="DateTime" Precision="3" />
+          <Property Name="RowModifiedUser" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="Tooling" Type="Decimal" Precision="20" Scale="0" />
+          <Property Name="ProgramComputed" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" annotation:StoreGeneratedPattern="Computed" />
+          <Property Name="OEMComputed" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" annotation:StoreGeneratedPattern="Computed" />
+          <Property Name="NameplateComputed" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" annotation:StoreGeneratedPattern="Computed" />
+          <Property Name="PrototypePrice" Type="Decimal" Precision="20" Scale="2" />
+          <Property Name="LTA" Type="String" MaxLength="100" FixedLength="false" Unicode="false" annotation:StoreGeneratedPattern="Computed" />
+          <Property Name="PrintFilePath" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="PrintNo" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+          <Property Name="PrintDate" Type="DateTime" Precision="3" />
+          <Property Name="CustomerQuoteFilePath" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="StdHours" Type="Decimal" Precision="20" Scale="4" />
+          <Property Name="PackageNumber" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="NumberOfDaysLate" Type="Int32" annotation:StoreGeneratedPattern="Computed" />
+          <Property Name="ProductLine" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+          <Property Name="QuoteReason" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="FileServerQuotePrint" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="FileServerCustomerQuote" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="MinimumOrderQuantity" Type="Int32" />
+          <NavigationProperty Name="QT_QuoteLog1" Relationship="QuoteLogModel.FK__QT_QuoteL__Paren__33D44DD5" FromRole="QT_QuoteLog" ToRole="QT_QuoteLog1" />
+          <NavigationProperty Name="QT_QuoteLog2" Relationship="QuoteLogModel.FK__QT_QuoteL__Paren__33D44DD5" FromRole="QT_QuoteLog1" ToRole="QT_QuoteLog" />
+        </EntityType>
+        <Association Name="FK__QT_QuoteL__Paren__33D44DD5">
+          <End Type="QuoteLogModel.QuoteEntry" Role="QT_QuoteLog" Multiplicity="0..1" />
+          <End Type="QuoteLogModel.QuoteEntry" Role="QT_QuoteLog1" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="QT_QuoteLog">
+              <PropertyRef Name="RowID" />
+            </Principal>
+            <Dependent Role="QT_QuoteLog1">
+              <PropertyRef Name="ParentQuoteID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="QuoteLogModelStoreContainer" CdmEntityContainer="QuoteLogContext">
-          <EntitySetMapping Name="QuoteLog">
-            <EntityTypeMapping TypeName="QuoteLogModel.QuoteEntry">
-              <MappingFragment StoreEntitySet="QT_QuoteLog">
-                <ScalarProperty Name="ProductLine" ColumnName="ProductLine" />
-                <ScalarProperty Name="QuoteReason" ColumnName="QuoteReason" />
-                <ScalarProperty Name="NumberOfDaysLate" ColumnName="NumberOfDaysLate" />
-                <ScalarProperty Name="PackageNumber" ColumnName="PackageNumber" />
-                <ScalarProperty Name="StdHours" ColumnName="StdHours" />
-                <ScalarProperty Name="PrintDate" ColumnName="PrintDate" />
-                <ScalarProperty Name="PrintNo" ColumnName="PrintNo" />
-                <ScalarProperty Name="CustomerQuoteFilePath" ColumnName="CustomerQuoteFilePath" />
-                <ScalarProperty Name="PrintFilePath" ColumnName="PrintFilePath" />
-                <ScalarProperty Name="LTA" ColumnName="LTA" />
-                <ScalarProperty Name="PrototypePrice" ColumnName="PrototypePrice" />
-                <ScalarProperty Name="Tooling" ColumnName="Tooling" />
-                <ScalarProperty Name="NameplateComputed" ColumnName="NameplateComputed" />
-                <ScalarProperty Name="OEMComputed" ColumnName="OEMComputed" />
-                <ScalarProperty Name="ProgramComputed" ColumnName="ProgramComputed" />
-                <ScalarProperty Name="QuoteNumber" ColumnName="QuoteNumber" />
-                <ScalarProperty Name="Status" ColumnName="Status" />
-                <ScalarProperty Name="Type" ColumnName="Type" />
-                <ScalarProperty Name="ParentQuoteID" ColumnName="ParentQuoteID" />
-                <ScalarProperty Name="CustomerRFQNumber" ColumnName="CustomerRFQNumber" />
-                <ScalarProperty Name="ReceiptDate" ColumnName="ReceiptDate" />
-                <ScalarProperty Name="Customer" ColumnName="Customer" />
-                <ScalarProperty Name="RequestedDueDate" ColumnName="RequestedDueDate" />
-                <ScalarProperty Name="EEIPromisedDueDate" ColumnName="EEIPromisedDueDate" />
-                <ScalarProperty Name="CustomerPartNumber" ColumnName="CustomerPartNumber" />
-                <ScalarProperty Name="EEIPartNumber" ColumnName="EEIPartNumber" />
-                <ScalarProperty Name="Requote" ColumnName="Requote" />
-                <ScalarProperty Name="Notes" ColumnName="Notes" />
-                <ScalarProperty Name="EAU" ColumnName="EAU" />
-                <ScalarProperty Name="ApplicationName" ColumnName="ApplicationName" />
-                <ScalarProperty Name="ApplicationCode" ColumnName="ApplicationCode" />
-                <ScalarProperty Name="FunctionName" ColumnName="FunctionName" />
-                <ScalarProperty Name="Program" ColumnName="Program" />
-                <ScalarProperty Name="OEM" ColumnName="OEM" />
-                <ScalarProperty Name="Nameplate" ColumnName="Nameplate" />
-                <ScalarProperty Name="ModelYear" ColumnName="ModelYear" />
-                <ScalarProperty Name="SOP" ColumnName="SOP" />
-                <ScalarProperty Name="EOP" ColumnName="EOP" />
-                <ScalarProperty Name="SalesInitials" ColumnName="SalesInitials" />
-                <ScalarProperty Name="ProgramManagerInitials" ColumnName="ProgramManagerInitials" />
-                <ScalarProperty Name="EngineeringInitials" ColumnName="EngineeringInitials" />
-                <ScalarProperty Name="LTAPercentage" ColumnName="LTAPercentage" />
-                <ScalarProperty Name="LTAYears" ColumnName="LTAYears" />
-                <ScalarProperty Name="EngineeringMaterialsInitials" ColumnName="EngineeringMaterialsInitials" />
-                <ScalarProperty Name="EngineeringMaterialsDate" ColumnName="EngineeringMaterialsDate" />
-                <ScalarProperty Name="QuoteReviewInitials" ColumnName="QuoteReviewInitials" />
-                <ScalarProperty Name="QuoteReviewDate" ColumnName="QuoteReviewDate" />
-                <ScalarProperty Name="QuotePricingInitials" ColumnName="QuotePricingInitials" />
-                <ScalarProperty Name="QuotePricingDate" ColumnName="QuotePricingDate" />
-                <ScalarProperty Name="CustomerQuoteInitials" ColumnName="CustomerQuoteInitials" />
-                <ScalarProperty Name="CustomerQuoteDate" ColumnName="CustomerQuoteDate" />
-                <ScalarProperty Name="StraightMaterialCost" ColumnName="StraightMaterialCost" />
-                <ScalarProperty Name="QuotePrice" ColumnName="QuotePrice" />
-                <ScalarProperty Name="TotalQuotedSales" ColumnName="TotalQuotedSales" />
-                <ScalarProperty Name="QuoteStatus" ColumnName="QuoteStatus" />
-                <ScalarProperty Name="Awarded" ColumnName="Awarded" />
-                <ScalarProperty Name="ProductionLevel" ColumnName="ProductionLevel" />
-                <ScalarProperty Name="RevLevel" ColumnName="RevLevel" />
-                <ScalarProperty Name="ProductionMaterialRollup" ColumnName="ProductionMaterialRollup" />
-                <ScalarProperty Name="RowID" ColumnName="RowID" />
-                <ScalarProperty Name="RowCreateDT" ColumnName="RowCreateDT" />
-                <ScalarProperty Name="RowCreateUser" ColumnName="RowCreateUser" />
-                <ScalarProperty Name="RowModifiedDT" ColumnName="RowModifiedDT" />
-                <ScalarProperty Name="RowModifiedUser" ColumnName="RowModifiedUser" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <FunctionImportMapping FunctionImportName="GetApplicationCodes" FunctionName="QuoteLogModel.Store.usp_QT_GetApplicationCodes">
           </FunctionImportMapping>
           <EntitySetMapping Name="Applications">
@@ -1843,21 +1834,6 @@ FROM [EEIUser].[vw_QT_QuoteReasons] AS [vw_QT_QuoteReasons]</DefiningQuery>
               <MappingFragment StoreEntitySet="QT_ApplicationNames">
                 <ScalarProperty Name="ApplicationName" ColumnName="ApplicationName" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Functions">
-            <EntityTypeMapping TypeName="QuoteLogModel.Functions">
-              <MappingFragment StoreEntitySet="QT_Functions">
-                <ScalarProperty Name="RowModifiedUser" ColumnName="RowModifiedUser" />
-                <ScalarProperty Name="RowModifiedDT" ColumnName="RowModifiedDT" />
-                <ScalarProperty Name="RowCreateUser" ColumnName="RowCreateUser" />
-                <ScalarProperty Name="RowCreateDT" ColumnName="RowCreateDT" />
-                <ScalarProperty Name="RowID" ColumnName="RowID" />
-                <ScalarProperty Name="Description" ColumnName="Description" />
-                <ScalarProperty Name="Type" ColumnName="Type" />
-                <ScalarProperty Name="Status" ColumnName="Status" />
-                <ScalarProperty Name="FunctionCode" ColumnName="FunctionCode" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -2202,6 +2178,107 @@ FROM [EEIUser].[vw_QT_QuoteReasons] AS [vw_QT_QuoteReasons]</DefiningQuery>
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="usp_QT_Customer_Insert" FunctionName="QuoteLogModel.Store.usp_QT_Customer_Insert" />
           <FunctionImportMapping FunctionImportName="usp_QT_Customer_Update" FunctionName="QuoteLogModel.Store.usp_QT_Customer_Update" />
+          <FunctionImportMapping FunctionImportName="usp_QT_Customer_Request_SendEmail" FunctionName="QuoteLogModel.Store.usp_QT_Customer_Request_SendEmail" />
+          <EntitySetMapping Name="vw_QT_EmpireMarketSegment">
+            <EntityTypeMapping TypeName="QuoteLogModel.vw_QT_EmpireMarketSegment">
+              <MappingFragment StoreEntitySet="vw_QT_EmpireMarketSegment">
+                <ScalarProperty Name="RowId" ColumnName="RowId" />
+                <ScalarProperty Name="EmpireMarketSegment" ColumnName="EmpireMarketSegment" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="vw_QT_EmpireMarketSubsegment">
+            <EntityTypeMapping TypeName="QuoteLogModel.vw_QT_EmpireMarketSubsegment">
+              <MappingFragment StoreEntitySet="vw_QT_EmpireMarketSubsegment">
+                <ScalarProperty Name="RowId" ColumnName="RowId" />
+                <ScalarProperty Name="EmpireMarketSubsegment" ColumnName="EmpireMarketSubsegment" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="vw_QT_Functions">
+            <EntityTypeMapping TypeName="QuoteLogModel.vw_QT_Functions">
+              <MappingFragment StoreEntitySet="vw_QT_Functions">
+                <ScalarProperty Name="RowId" ColumnName="RowId" />
+                <ScalarProperty Name="FunctionCode" ColumnName="FunctionCode" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="QuoteLog">
+            <EntityTypeMapping TypeName="QuoteLogModel.QuoteEntry">
+              <MappingFragment StoreEntitySet="QT_QuoteLog">
+                <ScalarProperty Name="MinimumOrderQuantity" ColumnName="MinimumOrderQuantity" />
+                <ScalarProperty Name="FileServerCustomerQuote" ColumnName="FileServerCustomerQuote" />
+                <ScalarProperty Name="FileServerQuotePrint" ColumnName="FileServerQuotePrint" />
+                <ScalarProperty Name="QuoteReason" ColumnName="QuoteReason" />
+                <ScalarProperty Name="ProductLine" ColumnName="ProductLine" />
+                <ScalarProperty Name="NumberOfDaysLate" ColumnName="NumberOfDaysLate" />
+                <ScalarProperty Name="PackageNumber" ColumnName="PackageNumber" />
+                <ScalarProperty Name="StdHours" ColumnName="StdHours" />
+                <ScalarProperty Name="CustomerQuoteFilePath" ColumnName="CustomerQuoteFilePath" />
+                <ScalarProperty Name="PrintDate" ColumnName="PrintDate" />
+                <ScalarProperty Name="PrintNo" ColumnName="PrintNo" />
+                <ScalarProperty Name="PrintFilePath" ColumnName="PrintFilePath" />
+                <ScalarProperty Name="LTA" ColumnName="LTA" />
+                <ScalarProperty Name="PrototypePrice" ColumnName="PrototypePrice" />
+                <ScalarProperty Name="NameplateComputed" ColumnName="NameplateComputed" />
+                <ScalarProperty Name="OEMComputed" ColumnName="OEMComputed" />
+                <ScalarProperty Name="ProgramComputed" ColumnName="ProgramComputed" />
+                <ScalarProperty Name="Tooling" ColumnName="Tooling" />
+                <ScalarProperty Name="RowModifiedUser" ColumnName="RowModifiedUser" />
+                <ScalarProperty Name="RowModifiedDT" ColumnName="RowModifiedDT" />
+                <ScalarProperty Name="RowCreateUser" ColumnName="RowCreateUser" />
+                <ScalarProperty Name="RowCreateDT" ColumnName="RowCreateDT" />
+                <ScalarProperty Name="RowID" ColumnName="RowID" />
+                <ScalarProperty Name="EmpireMarketSubsegment" ColumnName="EmpireMarketSubsegment" />
+                <ScalarProperty Name="EmpireMarketSegment" ColumnName="EmpireMarketSegment" />
+                <ScalarProperty Name="ProductionMaterialRollup" ColumnName="ProductionMaterialRollup" />
+                <ScalarProperty Name="RevLevel" ColumnName="RevLevel" />
+                <ScalarProperty Name="ProductionLevel" ColumnName="ProductionLevel" />
+                <ScalarProperty Name="AwardedDate" ColumnName="AwardedDate" />
+                <ScalarProperty Name="Awarded" ColumnName="Awarded" />
+                <ScalarProperty Name="QuoteStatus" ColumnName="QuoteStatus" />
+                <ScalarProperty Name="TotalQuotedSales" ColumnName="TotalQuotedSales" />
+                <ScalarProperty Name="QuotePrice" ColumnName="QuotePrice" />
+                <ScalarProperty Name="StraightMaterialCost" ColumnName="StraightMaterialCost" />
+                <ScalarProperty Name="CustomerQuoteDate" ColumnName="CustomerQuoteDate" />
+                <ScalarProperty Name="CustomerQuoteInitials" ColumnName="CustomerQuoteInitials" />
+                <ScalarProperty Name="QuotePricingDate" ColumnName="QuotePricingDate" />
+                <ScalarProperty Name="QuotePricingInitials" ColumnName="QuotePricingInitials" />
+                <ScalarProperty Name="QuoteReviewDate" ColumnName="QuoteReviewDate" />
+                <ScalarProperty Name="QuoteReviewInitials" ColumnName="QuoteReviewInitials" />
+                <ScalarProperty Name="EngineeringMaterialsDate" ColumnName="EngineeringMaterialsDate" />
+                <ScalarProperty Name="EngineeringMaterialsInitials" ColumnName="EngineeringMaterialsInitials" />
+                <ScalarProperty Name="LTAYears" ColumnName="LTAYears" />
+                <ScalarProperty Name="LTAPercentage" ColumnName="LTAPercentage" />
+                <ScalarProperty Name="EngineeringInitials" ColumnName="EngineeringInitials" />
+                <ScalarProperty Name="ProgramManagerInitials" ColumnName="ProgramManagerInitials" />
+                <ScalarProperty Name="SalesInitials" ColumnName="SalesInitials" />
+                <ScalarProperty Name="EOP" ColumnName="EOP" />
+                <ScalarProperty Name="SOP" ColumnName="SOP" />
+                <ScalarProperty Name="ModelYear" ColumnName="ModelYear" />
+                <ScalarProperty Name="Nameplate" ColumnName="Nameplate" />
+                <ScalarProperty Name="OEM" ColumnName="OEM" />
+                <ScalarProperty Name="Program" ColumnName="Program" />
+                <ScalarProperty Name="FunctionName" ColumnName="FunctionName" />
+                <ScalarProperty Name="ApplicationCode" ColumnName="ApplicationCode" />
+                <ScalarProperty Name="ApplicationName" ColumnName="ApplicationName" />
+                <ScalarProperty Name="EAU" ColumnName="EAU" />
+                <ScalarProperty Name="Notes" ColumnName="Notes" />
+                <ScalarProperty Name="Requote" ColumnName="Requote" />
+                <ScalarProperty Name="EEIPartNumber" ColumnName="EEIPartNumber" />
+                <ScalarProperty Name="CustomerPartNumber" ColumnName="CustomerPartNumber" />
+                <ScalarProperty Name="EEIPromisedDueDate" ColumnName="EEIPromisedDueDate" />
+                <ScalarProperty Name="RequestedDueDate" ColumnName="RequestedDueDate" />
+                <ScalarProperty Name="Customer" ColumnName="Customer" />
+                <ScalarProperty Name="ReceiptDate" ColumnName="ReceiptDate" />
+                <ScalarProperty Name="CustomerRFQNumber" ColumnName="CustomerRFQNumber" />
+                <ScalarProperty Name="ParentQuoteID" ColumnName="ParentQuoteID" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="QuoteNumber" ColumnName="QuoteNumber" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

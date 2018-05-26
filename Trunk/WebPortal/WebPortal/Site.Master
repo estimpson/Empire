@@ -10,6 +10,7 @@
     <link href="~/Styles/Master.css" rel="stylesheet" type="text/css" />
     <link href="~/Styles/GridView.css" rel="stylesheet" type="text/css" />
     <link href="~/Styles/Scheduling.css" rel="stylesheet" type="text/css" />
+    <link href="~/Styles/QuoteTransfer.css" rel="stylesheet" type="text/css" />
 
     <asp:PlaceHolder runat="server">
         <%: Scripts.Render("~/bundles/modernizr") %>
@@ -68,7 +69,11 @@
             </div>
 
 
+
             <div style="float: left;">
+                <asp:UpdatePanel ID="up2" runat="server">
+                <ContentTemplate>
+
                 <dx:ASPxPopupControl Width="270px"
                     MaxWidth="350px" MaxHeight="350px" MinHeight="150px" MinWidth="150px" ID="pcMain"
                     ShowFooter="false" PopupElementID="imgButton" HeaderText="My Pages" ShowCloseButton="false"
@@ -77,12 +82,16 @@
                     <ContentCollection>
                         <dx:PopupControlContentControl runat="server">
                             <asp:Panel ID="Panel1" runat="server">
-                                <dx:ASPxListBox ID="lbxWebPages" runat="server" AutoPostBack="true" Border-BorderStyle="None" ViewStateMode="Enabled" OnSelectedIndexChanged="lbxWebPages_SelectedIndexChanged">
+                                <dx:ASPxListBox ID="lbxWebPages" runat="server" AutoPostBack="true" Border-BorderStyle="None" ViewStateMode="Enabled" 
+                                    OnSelectedIndexChanged="lbxWebPages_SelectedIndexChanged" Height="200">
                                 </dx:ASPxListBox>
                             </asp:Panel>
                         </dx:PopupControlContentControl>
                     </ContentCollection>
                 </dx:ASPxPopupControl>
+
+                </ContentTemplate>
+                </asp:UpdatePanel>
             </div>
 
             <div style="float: left; margin-left: 45px; margin-top: 7px;">

@@ -188,10 +188,12 @@ namespace QuoteLogGrid.Controllers
                 _context.QuoteReviewInitials.Load();
                 _context.QuotePricingInitials.Load();
                 _context.CustomerQuoteInitials.Load();
-                _context.Functions.Load();
                 _context.Applications.Load();
+                _context.vw_QT_Functions.Load();
                 _context.vw_QT_QuoteReasons.Load();
                 _context.vw_QT_ProductLines.Load();
+                _context.vw_QT_EmpireMarketSegment.Load();
+                _context.vw_QT_EmpireMarketSubsegment.Load();
             }
             catch (Exception)
             {
@@ -210,10 +212,12 @@ namespace QuoteLogGrid.Controllers
             _theView.QuoteReviewInitialsBindingList = _context.QuoteReviewInitials.Local.ToBindingList();
             _theView.QuotePricingInitialsBindingList = _context.QuotePricingInitials.Local.ToBindingList();
             _theView.CustomerQuoteInitialsBindingList = _context.CustomerQuoteInitials.Local.ToBindingList();
-            _theView.FunctionsBindingList = _context.Functions.Local.ToBindingList();
             _theView.ApplicationsBindingList = _context.Applications.Local.ToBindingList();
+            _theView.FunctionsBindingList = _context.vw_QT_Functions.Local.ToBindingList();
             _theView.QuoteReasonsBindingList = _context.vw_QT_QuoteReasons.Local.ToBindingList();
             _theView.ProductLinesBindingList = _context.vw_QT_ProductLines.Local.ToBindingList();
+            _theView.EmpireMarketSegmentBindingList = _context.vw_QT_EmpireMarketSegment.Local.ToBindingList();
+            _theView.EmpireMarketSubsegmentBindingList = _context.vw_QT_EmpireMarketSubsegment.Local.ToBindingList();
         }
 
         #endregion

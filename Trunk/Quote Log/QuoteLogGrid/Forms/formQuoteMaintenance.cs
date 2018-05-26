@@ -39,9 +39,12 @@ namespace QuoteLogGrid.Forms
             _notes, _oem, _applicationCode, _applicationName, _functionName, _eau, _program, _nameplate,
             _programManagerInitials, _engineeringInitials, _salesInitials, _engineeringMaterialsInitials,
             _quoteReviewInitials, _quotePricingInitials, _customerQuoteInitials, _modelYear, _packageNumber,
-            _quoteReason, _productLine, _printFilePath, _customerQuoteFilePath;
+            _quoteReason, _productLine, _printFilePath, _customerQuoteFilePath, _marketSegment, _marketSubsegment,
+            _awarded, _awardedDate, _straightMaterialCost, _stdHours, _tooling, _quotePrice, _prototypePrice,
+            _minimumOrderQuantity;
 
         public bool IsSaved;
+        public bool PrintSaved;
 
         private String filePathQuotePrint;
         private String filePathCustomerQuote;
@@ -78,11 +81,12 @@ namespace QuoteLogGrid.Forms
         public BindingList<QuoteReviewInitials> QuoteReviewInitialsBindingList { set { quoteReviewInitialsItemGridLookUpEdit.DataSource = value; } }
         public BindingList<QuotePricingInitials> QuotePricingInitialsBindingList { set { quotePricingInitialsItemGridLookUpEdit.DataSource = value; } }
         public BindingList<CustomerQuoteInitials> CustomerQuoteInitialsBindingList { set { customerQuoteInitialsItemGridLookUpEdit.DataSource = value; } }
-        public BindingList<Functions> FunctionsBindingList { set { functionsItemGridLookUpEdit.DataSource = value; } }
+        public BindingList<vw_QT_Functions> FunctionsBindingList { set { functionsItemGridLookUpEdit.DataSource = value; } }
         public BindingList<QuoteLogData.Models.Application> ApplicationsBindingList { set { applicationCodeItemGridLookUpEdit.DataSource = value; } }
         public BindingList<vw_QT_QuoteReasons> QuoteReasonsBindingList { set { quoteReasonsItemGridLookUpEdit.DataSource = value; } }
         public BindingList<vw_QT_ProductLines> ProductLinesBindingList { set { productLinesItemGridLookUpEdit.DataSource = value; } }
-
+        public BindingList<vw_QT_EmpireMarketSegment> EmpireMarketSegmentBindingList { set { marketSegmentItemGridLookUpEdit.DataSource = value; } }
+        public BindingList<vw_QT_EmpireMarketSubsegment> EmpireMarketSubsegmentBindingList { set { marketSubsegmentItemGridLookUpEdit.DataSource = value; } }
 
         public BindingList<QuoteLTA> LtaDataSource
         {
@@ -224,7 +228,9 @@ namespace QuoteLogGrid.Forms
             string applicationName, string functionName, string eau, string program, string nameplate, string programManagerInitials, 
             string engineeringInitials, string salesInitials, string engineeringMaterialsInitials, string quoteReviewInitials, 
             string quotePricingInitials, string customerQuoteInitials, string modelYear, string packageNumber, string quoteReason,
-            string productLine, string printFilePath, string customerQuoteFilePath)
+            string productLine, string printFilePath, string customerQuoteFilePath, string marketSegment, string marketSubsegment,
+            string minimumOrderQuantity, string awarded, string awardedDate, string straightMaterialCost, string stdHours, 
+            string tooling, string quotePrice, string prototypePrice)
         {
             InitializeComponent();
 
@@ -258,6 +264,16 @@ namespace QuoteLogGrid.Forms
             _productLine = productLine;
             _printFilePath = printFilePath;
             _customerQuoteFilePath = customerQuoteFilePath;
+            _marketSegment = marketSegment;
+            _marketSubsegment = marketSubsegment;
+            _awarded = awarded;
+            _awardedDate = awardedDate;
+            _straightMaterialCost = straightMaterialCost;
+            _stdHours = stdHours;
+            _tooling = tooling;
+            _quotePrice = quotePrice;
+            _prototypePrice = prototypePrice;
+            _minimumOrderQuantity = minimumOrderQuantity;
             _rowID = rowId;
 
             _quoteMaintenanceController = new QuoteMaintenanceController(quoteNumber, quoteType, this);
@@ -344,6 +360,16 @@ namespace QuoteLogGrid.Forms
             layoutView1.SetRowCellValue(0, "ProductLine", _productLine);
             layoutView1.SetRowCellValue(0, "PrintFilePath", _printFilePath);
             layoutView1.SetRowCellValue(0, "CustomerQuoteFilePath", _customerQuoteFilePath);
+            layoutView1.SetRowCellValue(0, "EmpireMarketSegment", _marketSegment);
+            layoutView1.SetRowCellValue(0, "EmpireMarketSubsegment", _marketSubsegment);
+            layoutView1.SetRowCellValue(0, "Awarded", _marketSubsegment);
+            layoutView1.SetRowCellValue(0, "AwardedDate", _marketSubsegment);
+            layoutView1.SetRowCellValue(0, "StraightMaterialCost", _marketSubsegment);
+            layoutView1.SetRowCellValue(0, "StdHours", _marketSubsegment);
+            layoutView1.SetRowCellValue(0, "Tooling", _marketSubsegment);
+            layoutView1.SetRowCellValue(0, "QuotePrice", _marketSubsegment);
+            layoutView1.SetRowCellValue(0, "PrototypePrice", _marketSubsegment);
+            layoutView1.SetRowCellValue(0, "MinimumOrderQuantity", _minimumOrderQuantity);
         }
 
         private void SetFormStateModifyQuote()
@@ -719,6 +745,7 @@ namespace QuoteLogGrid.Forms
 
                         lnkGetQuotePrint.Enabled = lnkDeleteQuotePrint.Enabled = true;
                         lblQuotePrint.Text = fileName;
+                        PrintSaved = true;
                     }
                     catch (Exception ex)
                     {
@@ -865,6 +892,7 @@ namespace QuoteLogGrid.Forms
 
                         lnkGetCustomerQuote.Enabled = lnkDeleteCustomerQuote.Enabled = true;
                         lblCustomerQuote.Text = fileName;
+                        PrintSaved = true;
                     }
                     catch (Exception ex)
                     {

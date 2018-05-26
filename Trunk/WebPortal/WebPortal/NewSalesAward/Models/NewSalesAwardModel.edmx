@@ -1,0 +1,698 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="FxPLMModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'FxPLM.NSA.ActiveBaseParts' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="ActiveBaseParts">
+          <Key>
+            <PropertyRef Name="RowID" />
+          </Key>
+          <Property Name="BasePart" Type="varchar" MaxLength="7" />
+          <Property Name="RowID" Type="bigint" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'FxPLM.NSA.CustomerCommitmentForms' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="CustomerCommitmentForms">
+          <Key>
+            <PropertyRef Name="FormOfCommitment" />
+            <PropertyRef Name="RowID" />
+          </Key>
+          <Property Name="FormOfCommitment" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="RowID" Type="bigint" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'FxPLM.NSA.ProgramManagers' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="ProgramManagers">
+          <Key>
+            <PropertyRef Name="RowID" />
+          </Key>
+          <Property Name="UserName" Type="varchar" MaxLength="40" />
+          <Property Name="UserCode" Type="varchar" MaxLength="5" />
+          <Property Name="UserInitials" Type="varchar" MaxLength="3" />
+          <Property Name="EmailAddress" Type="varchar" MaxLength="8000" />
+          <Property Name="RowID" Type="bigint" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'FxPLM.NSA.QuoteLog' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="QuoteLog">
+          <Key>
+            <PropertyRef Name="QuoteNumber" />
+            <PropertyRef Name="Status" />
+            <PropertyRef Name="Type" />
+            <PropertyRef Name="RowID" />
+            <PropertyRef Name="RowCreateUser" />
+            <PropertyRef Name="RowModifiedUser" />
+          </Key>
+          <Property Name="QuoteNumber" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Status" Type="int" Nullable="false" />
+          <Property Name="Type" Type="int" Nullable="false" />
+          <Property Name="ParentQuoteID" Type="int" />
+          <Property Name="CustomerRFQNumber" Type="varchar" MaxLength="50" />
+          <Property Name="ReceiptDate" Type="datetime" />
+          <Property Name="Customer" Type="varchar" MaxLength="50" />
+          <Property Name="RequestedDueDate" Type="datetime" />
+          <Property Name="EEIPromisedDueDate" Type="datetime" />
+          <Property Name="CustomerPartNumber" Type="varchar" MaxLength="50" />
+          <Property Name="EEIPartNumber" Type="varchar" MaxLength="50" />
+          <Property Name="Requote" Type="varchar" MaxLength="2" />
+          <Property Name="Notes" Type="varchar(max)" />
+          <Property Name="EAU" Type="numeric" Precision="20" Scale="0" />
+          <Property Name="ApplicationName" Type="varchar" MaxLength="255" />
+          <Property Name="ApplicationCode" Type="varchar" MaxLength="10" />
+          <Property Name="FunctionName" Type="varchar" MaxLength="50" />
+          <Property Name="Program" Type="varchar" MaxLength="50" />
+          <Property Name="OEM" Type="varchar" MaxLength="50" />
+          <Property Name="Nameplate" Type="varchar" MaxLength="50" />
+          <Property Name="ModelYear" Type="varchar" MaxLength="10" />
+          <Property Name="SOP" Type="datetime" />
+          <Property Name="EOP" Type="datetime" />
+          <Property Name="SalesInitials" Type="varchar" MaxLength="10" />
+          <Property Name="ProgramManagerInitials" Type="varchar" MaxLength="10" />
+          <Property Name="EngineeringInitials" Type="varchar" MaxLength="10" />
+          <Property Name="LTAPercentage" Type="varchar" MaxLength="10" />
+          <Property Name="LTAYears" Type="varchar" MaxLength="10" />
+          <Property Name="EngineeringMaterialsInitials" Type="varchar" MaxLength="10" />
+          <Property Name="EngineeringMaterialsDate" Type="datetime" />
+          <Property Name="QuoteReviewInitials" Type="varchar" MaxLength="10" />
+          <Property Name="QuoteReviewDate" Type="datetime" />
+          <Property Name="QuotePricingInitials" Type="varchar" MaxLength="10" />
+          <Property Name="QuotePricingDate" Type="datetime" />
+          <Property Name="CustomerQuoteInitials" Type="varchar" MaxLength="10" />
+          <Property Name="CustomerQuoteDate" Type="datetime" />
+          <Property Name="StraightMaterialCost" Type="numeric" Precision="20" Scale="6" />
+          <Property Name="QuotePrice" Type="numeric" Precision="20" Scale="4" />
+          <Property Name="TotalQuotedSales" Type="numeric" Precision="38" Scale="4" />
+          <Property Name="QuoteStatus" Type="varchar" MaxLength="10" />
+          <Property Name="Awarded" Type="char" MaxLength="3" />
+          <Property Name="AwardedDate" Type="datetime" />
+          <Property Name="ProductionLevel" Type="varchar" MaxLength="25" />
+          <Property Name="RevLevel" Type="varchar" MaxLength="50" />
+          <Property Name="ProductionMaterialRollup" Type="numeric" Precision="20" Scale="6" />
+          <Property Name="EmpireMarketSegment" Type="varchar" MaxLength="200" />
+          <Property Name="EmpireMarketSubsegment" Type="varchar" MaxLength="200" />
+          <Property Name="RowID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RowCreateDT" Type="datetime" />
+          <Property Name="RowCreateUser" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="RowModifiedDT" Type="datetime" />
+          <Property Name="RowModifiedUser" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="Tooling" Type="numeric" Precision="20" Scale="0" />
+          <Property Name="ProgramComputed" Type="varchar(max)" />
+          <Property Name="OEMComputed" Type="varchar(max)" />
+          <Property Name="NameplateComputed" Type="varchar(max)" />
+          <Property Name="PrototypePrice" Type="numeric" Precision="20" Scale="2" />
+          <Property Name="LTA" Type="varchar" MaxLength="100" />
+          <Property Name="PrintFilePath" Type="varchar" MaxLength="255" />
+          <Property Name="PrintNo" Type="varchar" MaxLength="25" />
+          <Property Name="PrintDate" Type="datetime" />
+          <Property Name="CustomerQuoteFilePath" Type="varchar" MaxLength="255" />
+          <Property Name="StdHours" Type="numeric" Precision="20" Scale="4" />
+          <Property Name="PackageNumber" Type="varchar" MaxLength="20" />
+          <Property Name="NumberOfDaysLate" Type="int" />
+          <Property Name="ProductLine" Type="varchar" MaxLength="25" />
+          <Property Name="QuoteReason" Type="varchar" MaxLength="100" />
+          <Property Name="FileServerQuotePrint" Type="varchar" MaxLength="50" />
+          <Property Name="FileServerCustomerQuote" Type="varchar" MaxLength="50" />
+          <Property Name="MinimumOrderQuantity" Type="int" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'FxPLM.NSA.QuoteReasons' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="QuoteReasons">
+          <Key>
+            <PropertyRef Name="QuoteReasonID" />
+            <PropertyRef Name="QuoteReason" />
+            <PropertyRef Name="RowID" />
+          </Key>
+          <Property Name="QuoteReasonID" Type="int" Nullable="false" />
+          <Property Name="QuoteReason" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="RowID" Type="int" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'FxPLM.NSA.Salespeople' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="Salespeople">
+          <Key>
+            <PropertyRef Name="RowID" />
+          </Key>
+          <Property Name="UserName" Type="varchar" MaxLength="40" />
+          <Property Name="UserCode" Type="varchar" MaxLength="5" />
+          <Property Name="UserInitials" Type="varchar" MaxLength="3" />
+          <Property Name="EmailAddress" Type="varchar" MaxLength="8000" />
+          <Property Name="RowID" Type="bigint" Nullable="false" />
+        </EntityType>
+        <Function Name="usp_CreateAwardedQuote" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="NSA">
+          <Parameter Name="User" Type="varchar" Mode="In" />
+          <Parameter Name="QuoteNumber" Type="varchar" Mode="In" />
+          <Parameter Name="AwardDate" Type="datetime" Mode="In" />
+          <Parameter Name="FormOfCommitment" Type="varchar" Mode="In" />
+          <Parameter Name="AwardType" Type="tinyint" Mode="In" />
+          <Parameter Name="ReplacingBasePart" Type="char" Mode="In" />
+          <Parameter Name="Salesperson" Type="varchar" Mode="In" />
+          <Parameter Name="ProgramManager" Type="varchar" Mode="In" />
+          <Parameter Name="Comments" Type="varchar(max)" Mode="In" />
+          <Parameter Name="TranDT" Type="datetime" Mode="InOut" />
+          <Parameter Name="Result" Type="int" Mode="InOut" />
+          <Parameter Name="Debug" Type="int" Mode="In" />
+          <Parameter Name="DebugMsg" Type="varchar(max)" Mode="InOut" />
+        </Function>
+        <Function Name="usp_GetAwardedQuoteDetails" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="NSA">
+          <Parameter Name="QuoteNumber" Type="varchar" Mode="In" />
+          <Parameter Name="AwardDate" Type="datetime" Mode="InOut" />
+          <Parameter Name="FormOfCommitment" Type="varchar" Mode="InOut" />
+          <Parameter Name="AwardType" Type="tinyint" Mode="InOut" />
+          <Parameter Name="ReplacingBasePart" Type="char" Mode="InOut" />
+          <Parameter Name="Salesperson" Type="varchar" Mode="InOut" />
+          <Parameter Name="ProgramManager" Type="varchar" Mode="InOut" />
+          <Parameter Name="Comments" Type="varchar(max)" Mode="InOut" />
+          <Parameter Name="TranDT" Type="datetime" Mode="InOut" />
+          <Parameter Name="Result" Type="int" Mode="InOut" />
+          <Parameter Name="Debug" Type="int" Mode="In" />
+          <Parameter Name="DebugMsg" Type="varchar(max)" Mode="InOut" />
+        </Function>
+        <Function Name="usp_LookupProgramManagerByInit" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="NSA">
+          <Parameter Name="Initials" Type="varchar" Mode="In" />
+          <Parameter Name="TranDT" Type="datetime" Mode="InOut" />
+          <Parameter Name="Result" Type="int" Mode="InOut" />
+        </Function>
+        <Function Name="usp_LookupSalespersonByInit" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="NSA">
+          <Parameter Name="Initials" Type="varchar" Mode="In" />
+          <Parameter Name="TranDT" Type="datetime" Mode="InOut" />
+          <Parameter Name="Result" Type="int" Mode="InOut" />
+        </Function>
+        <Function Name="usp_SetBasePartAttributes" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="NSA">
+          <Parameter Name="User" Type="varchar" Mode="In" />
+          <Parameter Name="QuoteNumber" Type="varchar" Mode="In" />
+          <Parameter Name="BasePartFamilyList" Type="varchar" Mode="In" />
+          <Parameter Name="ProductLine" Type="varchar" Mode="In" />
+          <Parameter Name="EmpireMarketSegment" Type="varchar" Mode="In" />
+          <Parameter Name="EmpireMarketSubsegment" Type="varchar" Mode="In" />
+          <Parameter Name="EmpireApplication" Type="varchar" Mode="In" />
+          <Parameter Name="EmpireSOP" Type="datetime" Mode="In" />
+          <Parameter Name="EmpireEOP" Type="datetime" Mode="In" />
+          <Parameter Name="EmpireEOPNote" Type="varchar" Mode="In" />
+          <Parameter Name="Comments" Type="varchar(max)" Mode="In" />
+          <Parameter Name="TranDT" Type="datetime" Mode="InOut" />
+          <Parameter Name="Result" Type="int" Mode="InOut" />
+          <Parameter Name="Debug" Type="int" Mode="In" />
+          <Parameter Name="DebugMsg" Type="varchar(max)" Mode="InOut" />
+        </Function>
+        <EntityContainer Name="FxPLMModelStoreContainer">
+          <EntitySet Name="ActiveBaseParts" EntityType="Self.ActiveBaseParts" store:Type="Views" store:Schema="NSA">
+            <DefiningQuery>SELECT 
+    [ActiveBaseParts].[BasePart] AS [BasePart], 
+    [ActiveBaseParts].[RowID] AS [RowID]
+    FROM [NSA].[ActiveBaseParts] AS [ActiveBaseParts]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="CustomerCommitmentForms" EntityType="Self.CustomerCommitmentForms" store:Type="Views" store:Schema="NSA">
+            <DefiningQuery>SELECT 
+    [CustomerCommitmentForms].[FormOfCommitment] AS [FormOfCommitment], 
+    [CustomerCommitmentForms].[RowID] AS [RowID]
+    FROM [NSA].[CustomerCommitmentForms] AS [CustomerCommitmentForms]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="ProgramManagers" EntityType="Self.ProgramManagers" store:Type="Views" store:Schema="NSA">
+            <DefiningQuery>SELECT 
+    [ProgramManagers].[UserName] AS [UserName], 
+    [ProgramManagers].[UserCode] AS [UserCode], 
+    [ProgramManagers].[UserInitials] AS [UserInitials], 
+    [ProgramManagers].[EmailAddress] AS [EmailAddress], 
+    [ProgramManagers].[RowID] AS [RowID]
+    FROM [NSA].[ProgramManagers] AS [ProgramManagers]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="QuoteLog" EntityType="Self.QuoteLog" store:Type="Views" store:Schema="NSA">
+            <DefiningQuery>SELECT 
+    [QuoteLog].[QuoteNumber] AS [QuoteNumber], 
+    [QuoteLog].[Status] AS [Status], 
+    [QuoteLog].[Type] AS [Type], 
+    [QuoteLog].[ParentQuoteID] AS [ParentQuoteID], 
+    [QuoteLog].[CustomerRFQNumber] AS [CustomerRFQNumber], 
+    [QuoteLog].[ReceiptDate] AS [ReceiptDate], 
+    [QuoteLog].[Customer] AS [Customer], 
+    [QuoteLog].[RequestedDueDate] AS [RequestedDueDate], 
+    [QuoteLog].[EEIPromisedDueDate] AS [EEIPromisedDueDate], 
+    [QuoteLog].[CustomerPartNumber] AS [CustomerPartNumber], 
+    [QuoteLog].[EEIPartNumber] AS [EEIPartNumber], 
+    [QuoteLog].[Requote] AS [Requote], 
+    [QuoteLog].[Notes] AS [Notes], 
+    [QuoteLog].[EAU] AS [EAU], 
+    [QuoteLog].[ApplicationName] AS [ApplicationName], 
+    [QuoteLog].[ApplicationCode] AS [ApplicationCode], 
+    [QuoteLog].[FunctionName] AS [FunctionName], 
+    [QuoteLog].[Program] AS [Program], 
+    [QuoteLog].[OEM] AS [OEM], 
+    [QuoteLog].[Nameplate] AS [Nameplate], 
+    [QuoteLog].[ModelYear] AS [ModelYear], 
+    [QuoteLog].[SOP] AS [SOP], 
+    [QuoteLog].[EOP] AS [EOP], 
+    [QuoteLog].[SalesInitials] AS [SalesInitials], 
+    [QuoteLog].[ProgramManagerInitials] AS [ProgramManagerInitials], 
+    [QuoteLog].[EngineeringInitials] AS [EngineeringInitials], 
+    [QuoteLog].[LTAPercentage] AS [LTAPercentage], 
+    [QuoteLog].[LTAYears] AS [LTAYears], 
+    [QuoteLog].[EngineeringMaterialsInitials] AS [EngineeringMaterialsInitials], 
+    [QuoteLog].[EngineeringMaterialsDate] AS [EngineeringMaterialsDate], 
+    [QuoteLog].[QuoteReviewInitials] AS [QuoteReviewInitials], 
+    [QuoteLog].[QuoteReviewDate] AS [QuoteReviewDate], 
+    [QuoteLog].[QuotePricingInitials] AS [QuotePricingInitials], 
+    [QuoteLog].[QuotePricingDate] AS [QuotePricingDate], 
+    [QuoteLog].[CustomerQuoteInitials] AS [CustomerQuoteInitials], 
+    [QuoteLog].[CustomerQuoteDate] AS [CustomerQuoteDate], 
+    [QuoteLog].[StraightMaterialCost] AS [StraightMaterialCost], 
+    [QuoteLog].[QuotePrice] AS [QuotePrice], 
+    [QuoteLog].[TotalQuotedSales] AS [TotalQuotedSales], 
+    [QuoteLog].[QuoteStatus] AS [QuoteStatus], 
+    [QuoteLog].[Awarded] AS [Awarded], 
+    [QuoteLog].[AwardedDate] AS [AwardedDate], 
+    [QuoteLog].[ProductionLevel] AS [ProductionLevel], 
+    [QuoteLog].[RevLevel] AS [RevLevel], 
+    [QuoteLog].[ProductionMaterialRollup] AS [ProductionMaterialRollup], 
+    [QuoteLog].[EmpireMarketSegment] AS [EmpireMarketSegment], 
+    [QuoteLog].[EmpireMarketSubsegment] AS [EmpireMarketSubsegment], 
+    [QuoteLog].[RowID] AS [RowID], 
+    [QuoteLog].[RowCreateDT] AS [RowCreateDT], 
+    [QuoteLog].[RowCreateUser] AS [RowCreateUser], 
+    [QuoteLog].[RowModifiedDT] AS [RowModifiedDT], 
+    [QuoteLog].[RowModifiedUser] AS [RowModifiedUser], 
+    [QuoteLog].[Tooling] AS [Tooling], 
+    [QuoteLog].[ProgramComputed] AS [ProgramComputed], 
+    [QuoteLog].[OEMComputed] AS [OEMComputed], 
+    [QuoteLog].[NameplateComputed] AS [NameplateComputed], 
+    [QuoteLog].[PrototypePrice] AS [PrototypePrice], 
+    [QuoteLog].[LTA] AS [LTA], 
+    [QuoteLog].[PrintFilePath] AS [PrintFilePath], 
+    [QuoteLog].[PrintNo] AS [PrintNo], 
+    [QuoteLog].[PrintDate] AS [PrintDate], 
+    [QuoteLog].[CustomerQuoteFilePath] AS [CustomerQuoteFilePath], 
+    [QuoteLog].[StdHours] AS [StdHours], 
+    [QuoteLog].[PackageNumber] AS [PackageNumber], 
+    [QuoteLog].[NumberOfDaysLate] AS [NumberOfDaysLate], 
+    [QuoteLog].[ProductLine] AS [ProductLine], 
+    [QuoteLog].[QuoteReason] AS [QuoteReason], 
+    [QuoteLog].[FileServerQuotePrint] AS [FileServerQuotePrint], 
+    [QuoteLog].[FileServerCustomerQuote] AS [FileServerCustomerQuote], 
+    [QuoteLog].[MinimumOrderQuantity] AS [MinimumOrderQuantity]
+    FROM [NSA].[QuoteLog] AS [QuoteLog]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="QuoteReasons" EntityType="Self.QuoteReasons" store:Type="Views" store:Schema="NSA">
+            <DefiningQuery>SELECT 
+    [QuoteReasons].[QuoteReasonID] AS [QuoteReasonID], 
+    [QuoteReasons].[QuoteReason] AS [QuoteReason], 
+    [QuoteReasons].[RowID] AS [RowID]
+    FROM [NSA].[QuoteReasons] AS [QuoteReasons]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="Salespeople" EntityType="Self.Salespeople" store:Type="Views" store:Schema="NSA">
+            <DefiningQuery>SELECT 
+    [Salespeople].[UserName] AS [UserName], 
+    [Salespeople].[UserCode] AS [UserCode], 
+    [Salespeople].[UserInitials] AS [UserInitials], 
+    [Salespeople].[EmailAddress] AS [EmailAddress], 
+    [Salespeople].[RowID] AS [RowID]
+    FROM [NSA].[Salespeople] AS [Salespeople]</DefiningQuery>
+          </EntitySet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="FxPLMModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="FxPLMEntities" annotation:LazyLoadingEnabled="true" >
+          <FunctionImport Name="usp_CreateAwardedQuote">
+            <Parameter Name="User" Mode="In" Type="String" />
+            <Parameter Name="QuoteNumber" Mode="In" Type="String" />
+            <Parameter Name="AwardDate" Mode="In" Type="DateTime" />
+            <Parameter Name="FormOfCommitment" Mode="In" Type="String" />
+            <Parameter Name="AwardType" Mode="In" Type="Byte" />
+            <Parameter Name="ReplacingBasePart" Mode="In" Type="String" />
+            <Parameter Name="Salesperson" Mode="In" Type="String" />
+            <Parameter Name="ProgramManager" Mode="In" Type="String" />
+            <Parameter Name="Comments" Mode="In" Type="String" />
+            <Parameter Name="TranDT" Mode="InOut" Type="DateTime" />
+            <Parameter Name="Result" Mode="InOut" Type="Int32" />
+            <Parameter Name="Debug" Mode="In" Type="Int32" />
+            <Parameter Name="DebugMsg" Mode="InOut" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="usp_SetBasePartAttributes">
+            <Parameter Name="User" Mode="In" Type="String" />
+            <Parameter Name="QuoteNumber" Mode="In" Type="String" />
+            <Parameter Name="BasePartFamilyList" Mode="In" Type="String" />
+            <Parameter Name="ProductLine" Mode="In" Type="String" />
+            <Parameter Name="EmpireMarketSegment" Mode="In" Type="String" />
+            <Parameter Name="EmpireMarketSubsegment" Mode="In" Type="String" />
+            <Parameter Name="EmpireApplication" Mode="In" Type="String" />
+            <Parameter Name="EmpireSOP" Mode="In" Type="DateTime" />
+            <Parameter Name="EmpireEOP" Mode="In" Type="DateTime" />
+            <Parameter Name="EmpireEOPNote" Mode="In" Type="String" />
+            <Parameter Name="Comments" Mode="In" Type="String" />
+            <Parameter Name="TranDT" Mode="InOut" Type="DateTime" />
+            <Parameter Name="Result" Mode="InOut" Type="Int32" />
+            <Parameter Name="Debug" Mode="In" Type="Int32" />
+            <Parameter Name="DebugMsg" Mode="InOut" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="usp_LookupProgramManagerByInit" ReturnType="Collection(FxPLMModel.usp_LookupProgramManagerByInit_Result)">
+            <Parameter Name="Initials" Mode="In" Type="String" />
+            <Parameter Name="TranDT" Mode="InOut" Type="DateTime" />
+            <Parameter Name="Result" Mode="InOut" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="usp_LookupSalespersonByInit" ReturnType="Collection(FxPLMModel.usp_LookupSalespersonByInit_Result)">
+            <Parameter Name="Initials" Mode="In" Type="String" />
+            <Parameter Name="TranDT" Mode="InOut" Type="DateTime" />
+            <Parameter Name="Result" Mode="InOut" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="usp_SignOffBasePartAttributes">
+            <Parameter Name="User" Mode="In" Type="String" />
+            <Parameter Name="QuoteNumber" Mode="In" Type="String" />
+            <Parameter Name="TranDT" Mode="InOut" Type="DateTime" />
+            <Parameter Name="Result" Mode="InOut" Type="Int32" />
+            <Parameter Name="Debug" Mode="In" Type="Int32" />
+            <Parameter Name="DebugMsg" Mode="InOut" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="usp_GetAwardedQuoteDetails">
+            <Parameter Name="QuoteNumber" Mode="In" Type="String" />
+            <Parameter Name="AwardDate" Mode="InOut" Type="DateTime" />
+            <Parameter Name="FormOfCommitment" Mode="InOut" Type="String" />
+            <Parameter Name="AwardType" Mode="InOut" Type="Byte" />
+            <Parameter Name="ReplacingBasePart" Mode="InOut" Type="String" />
+            <Parameter Name="Salesperson" Mode="InOut" Type="String" />
+            <Parameter Name="ProgramManager" Mode="InOut" Type="String" />
+            <Parameter Name="Comments" Mode="InOut" Type="String" />
+            <Parameter Name="TranDT" Mode="InOut" Type="DateTime" />
+            <Parameter Name="Result" Mode="InOut" Type="Int32" />
+            <Parameter Name="Debug" Mode="In" Type="Int32" />
+            <Parameter Name="DebugMsg" Mode="InOut" Type="String" />
+          </FunctionImport>
+          <EntitySet Name="QuoteLogs" EntityType="FxPLMModel.QuoteLog" />
+          <EntitySet Name="Salespeoples" EntityType="FxPLMModel.Salespeople" />
+          <EntitySet Name="CustomerCommitmentForms" EntityType="FxPLMModel.CustomerCommitmentForm" />
+          <EntitySet Name="ProgramManagers" EntityType="FxPLMModel.ProgramManager" />
+          <EntitySet Name="QuoteReasons" EntityType="FxPLMModel.QuoteReason" />
+          <EntitySet Name="ActiveBaseParts" EntityType="FxPLMModel.ActiveBasePart" />
+          </EntityContainer>
+        <ComplexType Name="usp_LookupProgramManagerByInit_Result">
+          <Property Type="String" Name="UserName" Nullable="false" MaxLength="40" />
+          <Property Type="String" Name="UserCode" Nullable="false" MaxLength="5" />
+          <Property Type="String" Name="Initials" Nullable="true" MaxLength="3" />
+        </ComplexType>
+        <ComplexType Name="usp_LookupSalespersonByInit_Result">
+          <Property Type="String" Name="UserName" Nullable="false" MaxLength="40" />
+          <Property Type="String" Name="UserCode" Nullable="false" MaxLength="5" />
+          <Property Type="String" Name="Initials" Nullable="true" MaxLength="3" />
+        </ComplexType>
+        <EntityType Name="QuoteLog">
+          <Key>
+            <PropertyRef Name="QuoteNumber" />
+            <PropertyRef Name="Status" />
+            <PropertyRef Name="Type" />
+            <PropertyRef Name="RowID" />
+            <PropertyRef Name="RowCreateUser" />
+            <PropertyRef Name="RowModifiedUser" />
+          </Key>
+          <Property Name="QuoteNumber" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Status" Type="Int32" Nullable="false" />
+          <Property Name="Type" Type="Int32" Nullable="false" />
+          <Property Name="ParentQuoteID" Type="Int32" />
+          <Property Name="CustomerRFQNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ReceiptDate" Type="DateTime" Precision="3" />
+          <Property Name="Customer" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="RequestedDueDate" Type="DateTime" Precision="3" />
+          <Property Name="EEIPromisedDueDate" Type="DateTime" Precision="3" />
+          <Property Name="CustomerPartNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="EEIPartNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Requote" Type="String" MaxLength="2" FixedLength="false" Unicode="false" />
+          <Property Name="Notes" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="EAU" Type="Decimal" Precision="20" Scale="0" />
+          <Property Name="ApplicationName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="ApplicationCode" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="FunctionName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Program" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="OEM" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Nameplate" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ModelYear" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="SOP" Type="DateTime" Precision="3" />
+          <Property Name="EOP" Type="DateTime" Precision="3" />
+          <Property Name="SalesInitials" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="ProgramManagerInitials" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="EngineeringInitials" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="LTAPercentage" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="LTAYears" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="EngineeringMaterialsInitials" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="EngineeringMaterialsDate" Type="DateTime" Precision="3" />
+          <Property Name="QuoteReviewInitials" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="QuoteReviewDate" Type="DateTime" Precision="3" />
+          <Property Name="QuotePricingInitials" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="QuotePricingDate" Type="DateTime" Precision="3" />
+          <Property Name="CustomerQuoteInitials" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="CustomerQuoteDate" Type="DateTime" Precision="3" />
+          <Property Name="StraightMaterialCost" Type="Decimal" Precision="20" Scale="6" />
+          <Property Name="QuotePrice" Type="Decimal" Precision="20" Scale="4" />
+          <Property Name="TotalQuotedSales" Type="Decimal" Precision="38" Scale="4" />
+          <Property Name="QuoteStatus" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="Awarded" Type="String" MaxLength="3" FixedLength="true" Unicode="false" />
+          <Property Name="AwardedDate" Type="DateTime" Precision="3" />
+          <Property Name="ProductionLevel" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+          <Property Name="RevLevel" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ProductionMaterialRollup" Type="Decimal" Precision="20" Scale="6" />
+          <Property Name="EmpireMarketSegment" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="EmpireMarketSubsegment" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="RowID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RowCreateDT" Type="DateTime" Precision="3" />
+          <Property Name="RowCreateUser" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="RowModifiedDT" Type="DateTime" Precision="3" />
+          <Property Name="RowModifiedUser" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="Tooling" Type="Decimal" Precision="20" Scale="0" />
+          <Property Name="ProgramComputed" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="OEMComputed" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="NameplateComputed" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="PrototypePrice" Type="Decimal" Precision="20" Scale="2" />
+          <Property Name="LTA" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="PrintFilePath" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="PrintNo" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+          <Property Name="PrintDate" Type="DateTime" Precision="3" />
+          <Property Name="CustomerQuoteFilePath" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="StdHours" Type="Decimal" Precision="20" Scale="4" />
+          <Property Name="PackageNumber" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="NumberOfDaysLate" Type="Int32" />
+          <Property Name="ProductLine" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+          <Property Name="QuoteReason" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="FileServerQuotePrint" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="FileServerCustomerQuote" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="MinimumOrderQuantity" Type="Int32" />
+        </EntityType>
+        <EntityType Name="Salespeople">
+          <Key>
+            <PropertyRef Name="RowID" />
+          </Key>
+          <Property Name="UserName" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
+          <Property Name="UserCode" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
+          <Property Name="UserInitials" Type="String" MaxLength="3" FixedLength="false" Unicode="false" />
+          <Property Name="EmailAddress" Type="String" MaxLength="8000" FixedLength="false" Unicode="false" />
+          <Property Name="RowID" Type="Int64" Nullable="false" />
+        </EntityType>
+        <EntityType Name="CustomerCommitmentForm">
+          <Key>
+            <PropertyRef Name="FormOfCommitment" />
+            <PropertyRef Name="RowID" />
+          </Key>
+          <Property Name="FormOfCommitment" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="RowID" Type="Int64" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ProgramManager">
+          <Key>
+            <PropertyRef Name="RowID" />
+          </Key>
+          <Property Name="UserName" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
+          <Property Name="UserCode" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
+          <Property Name="UserInitials" Type="String" MaxLength="3" FixedLength="false" Unicode="false" />
+          <Property Name="EmailAddress" Type="String" MaxLength="8000" FixedLength="false" Unicode="false" />
+          <Property Name="RowID" Type="Int64" Nullable="false" />
+        </EntityType>
+        <EntityType Name="QuoteReason">
+          <Key>
+            <PropertyRef Name="QuoteReasonID" />
+            <PropertyRef Name="QuoteReason1" />
+            <PropertyRef Name="RowID" />
+          </Key>
+          <Property Name="QuoteReasonID" Type="Int32" Nullable="false" />
+          <Property Name="QuoteReason1" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="RowID" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ActiveBasePart">
+          <Key>
+            <PropertyRef Name="RowID" />
+          </Key>
+          <Property Name="BasePart" Type="String" MaxLength="7" FixedLength="false" Unicode="false" />
+          <Property Name="RowID" Type="Int64" Nullable="false" />
+        </EntityType>
+        </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="FxPLMModelStoreContainer" CdmEntityContainer="FxPLMEntities" >
+          <FunctionImportMapping FunctionImportName="usp_CreateAwardedQuote" FunctionName="FxPLMModel.Store.usp_CreateAwardedQuote" />
+          <FunctionImportMapping FunctionImportName="usp_SetBasePartAttributes" FunctionName="FxPLMModel.Store.usp_SetBasePartAttributes" />
+          <FunctionImportMapping FunctionImportName="usp_LookupProgramManagerByInit" FunctionName="FxPLMModel.Store.usp_LookupProgramManagerByInit">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="FxPLMModel.usp_LookupProgramManagerByInit_Result">
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="UserCode" ColumnName="UserCode" />
+                <ScalarProperty Name="Initials" ColumnName="Initials" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="usp_LookupSalespersonByInit" FunctionName="FxPLMModel.Store.usp_LookupSalespersonByInit">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="FxPLMModel.usp_LookupSalespersonByInit_Result">
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="UserCode" ColumnName="UserCode" />
+                <ScalarProperty Name="Initials" ColumnName="Initials" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="usp_GetAwardedQuoteDetails" FunctionName="FxPLMModel.Store.usp_GetAwardedQuoteDetails" />
+          <EntitySetMapping Name="QuoteLogs">
+            <EntityTypeMapping TypeName="FxPLMModel.QuoteLog">
+              <MappingFragment StoreEntitySet="QuoteLog">
+                <ScalarProperty Name="MinimumOrderQuantity" ColumnName="MinimumOrderQuantity" />
+                <ScalarProperty Name="FileServerCustomerQuote" ColumnName="FileServerCustomerQuote" />
+                <ScalarProperty Name="FileServerQuotePrint" ColumnName="FileServerQuotePrint" />
+                <ScalarProperty Name="QuoteReason" ColumnName="QuoteReason" />
+                <ScalarProperty Name="ProductLine" ColumnName="ProductLine" />
+                <ScalarProperty Name="NumberOfDaysLate" ColumnName="NumberOfDaysLate" />
+                <ScalarProperty Name="PackageNumber" ColumnName="PackageNumber" />
+                <ScalarProperty Name="StdHours" ColumnName="StdHours" />
+                <ScalarProperty Name="CustomerQuoteFilePath" ColumnName="CustomerQuoteFilePath" />
+                <ScalarProperty Name="PrintDate" ColumnName="PrintDate" />
+                <ScalarProperty Name="PrintNo" ColumnName="PrintNo" />
+                <ScalarProperty Name="PrintFilePath" ColumnName="PrintFilePath" />
+                <ScalarProperty Name="LTA" ColumnName="LTA" />
+                <ScalarProperty Name="PrototypePrice" ColumnName="PrototypePrice" />
+                <ScalarProperty Name="NameplateComputed" ColumnName="NameplateComputed" />
+                <ScalarProperty Name="OEMComputed" ColumnName="OEMComputed" />
+                <ScalarProperty Name="ProgramComputed" ColumnName="ProgramComputed" />
+                <ScalarProperty Name="Tooling" ColumnName="Tooling" />
+                <ScalarProperty Name="RowModifiedUser" ColumnName="RowModifiedUser" />
+                <ScalarProperty Name="RowModifiedDT" ColumnName="RowModifiedDT" />
+                <ScalarProperty Name="RowCreateUser" ColumnName="RowCreateUser" />
+                <ScalarProperty Name="RowCreateDT" ColumnName="RowCreateDT" />
+                <ScalarProperty Name="RowID" ColumnName="RowID" />
+                <ScalarProperty Name="EmpireMarketSubsegment" ColumnName="EmpireMarketSubsegment" />
+                <ScalarProperty Name="EmpireMarketSegment" ColumnName="EmpireMarketSegment" />
+                <ScalarProperty Name="ProductionMaterialRollup" ColumnName="ProductionMaterialRollup" />
+                <ScalarProperty Name="RevLevel" ColumnName="RevLevel" />
+                <ScalarProperty Name="ProductionLevel" ColumnName="ProductionLevel" />
+                <ScalarProperty Name="AwardedDate" ColumnName="AwardedDate" />
+                <ScalarProperty Name="Awarded" ColumnName="Awarded" />
+                <ScalarProperty Name="QuoteStatus" ColumnName="QuoteStatus" />
+                <ScalarProperty Name="TotalQuotedSales" ColumnName="TotalQuotedSales" />
+                <ScalarProperty Name="QuotePrice" ColumnName="QuotePrice" />
+                <ScalarProperty Name="StraightMaterialCost" ColumnName="StraightMaterialCost" />
+                <ScalarProperty Name="CustomerQuoteDate" ColumnName="CustomerQuoteDate" />
+                <ScalarProperty Name="CustomerQuoteInitials" ColumnName="CustomerQuoteInitials" />
+                <ScalarProperty Name="QuotePricingDate" ColumnName="QuotePricingDate" />
+                <ScalarProperty Name="QuotePricingInitials" ColumnName="QuotePricingInitials" />
+                <ScalarProperty Name="QuoteReviewDate" ColumnName="QuoteReviewDate" />
+                <ScalarProperty Name="QuoteReviewInitials" ColumnName="QuoteReviewInitials" />
+                <ScalarProperty Name="EngineeringMaterialsDate" ColumnName="EngineeringMaterialsDate" />
+                <ScalarProperty Name="EngineeringMaterialsInitials" ColumnName="EngineeringMaterialsInitials" />
+                <ScalarProperty Name="LTAYears" ColumnName="LTAYears" />
+                <ScalarProperty Name="LTAPercentage" ColumnName="LTAPercentage" />
+                <ScalarProperty Name="EngineeringInitials" ColumnName="EngineeringInitials" />
+                <ScalarProperty Name="ProgramManagerInitials" ColumnName="ProgramManagerInitials" />
+                <ScalarProperty Name="SalesInitials" ColumnName="SalesInitials" />
+                <ScalarProperty Name="EOP" ColumnName="EOP" />
+                <ScalarProperty Name="SOP" ColumnName="SOP" />
+                <ScalarProperty Name="ModelYear" ColumnName="ModelYear" />
+                <ScalarProperty Name="Nameplate" ColumnName="Nameplate" />
+                <ScalarProperty Name="OEM" ColumnName="OEM" />
+                <ScalarProperty Name="Program" ColumnName="Program" />
+                <ScalarProperty Name="FunctionName" ColumnName="FunctionName" />
+                <ScalarProperty Name="ApplicationCode" ColumnName="ApplicationCode" />
+                <ScalarProperty Name="ApplicationName" ColumnName="ApplicationName" />
+                <ScalarProperty Name="EAU" ColumnName="EAU" />
+                <ScalarProperty Name="Notes" ColumnName="Notes" />
+                <ScalarProperty Name="Requote" ColumnName="Requote" />
+                <ScalarProperty Name="EEIPartNumber" ColumnName="EEIPartNumber" />
+                <ScalarProperty Name="CustomerPartNumber" ColumnName="CustomerPartNumber" />
+                <ScalarProperty Name="EEIPromisedDueDate" ColumnName="EEIPromisedDueDate" />
+                <ScalarProperty Name="RequestedDueDate" ColumnName="RequestedDueDate" />
+                <ScalarProperty Name="Customer" ColumnName="Customer" />
+                <ScalarProperty Name="ReceiptDate" ColumnName="ReceiptDate" />
+                <ScalarProperty Name="CustomerRFQNumber" ColumnName="CustomerRFQNumber" />
+                <ScalarProperty Name="ParentQuoteID" ColumnName="ParentQuoteID" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="QuoteNumber" ColumnName="QuoteNumber" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Salespeoples">
+            <EntityTypeMapping TypeName="FxPLMModel.Salespeople">
+              <MappingFragment StoreEntitySet="Salespeople">
+                <ScalarProperty Name="RowID" ColumnName="RowID" />
+                <ScalarProperty Name="EmailAddress" ColumnName="EmailAddress" />
+                <ScalarProperty Name="UserInitials" ColumnName="UserInitials" />
+                <ScalarProperty Name="UserCode" ColumnName="UserCode" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CustomerCommitmentForms">
+            <EntityTypeMapping TypeName="FxPLMModel.CustomerCommitmentForm">
+              <MappingFragment StoreEntitySet="CustomerCommitmentForms">
+                <ScalarProperty Name="RowID" ColumnName="RowID" />
+                <ScalarProperty Name="FormOfCommitment" ColumnName="FormOfCommitment" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ProgramManagers">
+            <EntityTypeMapping TypeName="FxPLMModel.ProgramManager">
+              <MappingFragment StoreEntitySet="ProgramManagers">
+                <ScalarProperty Name="RowID" ColumnName="RowID" />
+                <ScalarProperty Name="EmailAddress" ColumnName="EmailAddress" />
+                <ScalarProperty Name="UserInitials" ColumnName="UserInitials" />
+                <ScalarProperty Name="UserCode" ColumnName="UserCode" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="QuoteReasons">
+            <EntityTypeMapping TypeName="FxPLMModel.QuoteReason">
+              <MappingFragment StoreEntitySet="QuoteReasons">
+                <ScalarProperty Name="RowID" ColumnName="RowID" />
+                <ScalarProperty Name="QuoteReason1" ColumnName="QuoteReason" />
+                <ScalarProperty Name="QuoteReasonID" ColumnName="QuoteReasonID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ActiveBaseParts">
+            <EntityTypeMapping TypeName="FxPLMModel.ActiveBasePart">
+              <MappingFragment StoreEntitySet="ActiveBaseParts">
+                <ScalarProperty Name="RowID" ColumnName="RowID" />
+                <ScalarProperty Name="BasePart" ColumnName="BasePart" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

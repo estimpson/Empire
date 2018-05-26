@@ -55,7 +55,7 @@ namespace WebPortal.SalesForecast.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetSalesForecastUpdated_Result>("usp_Web_SalesForecastUpdated_GetSalesForecastUpdated", eopYearParameter, filterParameter);
         }
     
-        public virtual int usp_Web_SalesForecastUpdated_UpdateBasePartCloseouts(string userCode, string basePart, string verifiedEop, Nullable<System.DateTime> verifiedEopDate, string schedulerResponsible, string rfMpsLink, string schedulingTeamComments, string materialsComments, string shipToLocation, Nullable<decimal> fgInventoryAfterBuildout, string costEach, Nullable<decimal> excessFgAfterBuildout, Nullable<decimal> excessRmAfterBuildout, Nullable<decimal> programExposure, Nullable<System.DateTime> dateToSendCoLetter, ObjectParameter tranDT, ObjectParameter result)
+        public virtual int usp_Web_SalesForecastUpdated_UpdateBasePartCloseouts(string userCode, string basePart, string verifiedEop, Nullable<System.DateTime> verifiedEopDate, string schedulerResponsible, string rfMpsLink, string schedulingTeamComments, string materialsComments, string shipToLocation, Nullable<decimal> fgInventoryAfterBuildout, string costEach, Nullable<decimal> excessFgAfterBuildout, Nullable<decimal> excessRmAfterBuildout, Nullable<decimal> programExposure, Nullable<System.DateTime> dateToSendCoLetter, Nullable<decimal> obsolescenceCost, ObjectParameter tranDT, ObjectParameter result)
         {
             var userCodeParameter = userCode != null ?
                 new ObjectParameter("UserCode", userCode) :
@@ -117,7 +117,11 @@ namespace WebPortal.SalesForecast.Models
                 new ObjectParameter("DateToSendCoLetter", dateToSendCoLetter) :
                 new ObjectParameter("DateToSendCoLetter", typeof(System.DateTime));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("usp_Web_SalesForecastUpdated_UpdateBasePartCloseouts", userCodeParameter, basePartParameter, verifiedEopParameter, verifiedEopDateParameter, schedulerResponsibleParameter, rfMpsLinkParameter, schedulingTeamCommentsParameter, materialsCommentsParameter, shipToLocationParameter, fgInventoryAfterBuildoutParameter, costEachParameter, excessFgAfterBuildoutParameter, excessRmAfterBuildoutParameter, programExposureParameter, dateToSendCoLetterParameter, tranDT, result);
+            var obsolescenceCostParameter = obsolescenceCost.HasValue ?
+                new ObjectParameter("ObsolescenceCost", obsolescenceCost) :
+                new ObjectParameter("ObsolescenceCost", typeof(decimal));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("usp_Web_SalesForecastUpdated_UpdateBasePartCloseouts", userCodeParameter, basePartParameter, verifiedEopParameter, verifiedEopDateParameter, schedulerResponsibleParameter, rfMpsLinkParameter, schedulingTeamCommentsParameter, materialsCommentsParameter, shipToLocationParameter, fgInventoryAfterBuildoutParameter, costEachParameter, excessFgAfterBuildoutParameter, excessRmAfterBuildoutParameter, programExposureParameter, dateToSendCoLetterParameter, obsolescenceCostParameter, tranDT, result);
         }
     }
 }

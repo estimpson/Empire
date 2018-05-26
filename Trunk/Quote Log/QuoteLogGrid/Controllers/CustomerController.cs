@@ -301,13 +301,6 @@ namespace QuoteLogGrid.Controllers
             return 1;
         }
 
-        public void ClearForm()
-        {
-            CustomerCode = CustomerName = Address1 = Address2 = Address3 = City = State = Country = PostalCode = Terms = LtaType = "";
-
-            _view.lblCodeReq.Visible = _view.lblNameReq.Visible = _view.lblAddress1Req.Visible = _view.lblTermsReq.Visible = _view.lblLtaTypeReq.Visible = false;
-        }
-
         public void InsertCustomer()
         {
             Error = "";
@@ -350,6 +343,30 @@ namespace QuoteLogGrid.Controllers
                     ? "Failed to update the customer. " + ex.InnerException.Message 
                     : "Failed to update the customer. " + ex.Message;
             }
+        }
+
+        public void SendEmail()
+        {
+            var result = new ObjectParameter("Result", typeof(Int32));
+            var tranDt = new ObjectParameter("TranDT", typeof(DateTime));
+
+            try
+            {
+                using (var context = new QuoteLogContext())
+                {
+                    context.usp_QT_Customer_Request_SendEmail(CustomerCode, tranDt, result);
+                }
+            }
+            catch (Exception)
+            {
+            }
+        }
+
+        public void ClearForm()
+        {
+            CustomerCode = CustomerName = Address1 = Address2 = Address3 = City = State = Country = PostalCode = Terms = LtaType = "";
+
+            _view.lblCodeReq.Visible = _view.lblNameReq.Visible = _view.lblAddress1Req.Visible = _view.lblTermsReq.Visible = _view.lblLtaTypeReq.Visible = false;
         }
 
 

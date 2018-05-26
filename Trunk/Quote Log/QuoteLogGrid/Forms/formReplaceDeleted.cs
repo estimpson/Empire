@@ -79,7 +79,7 @@ namespace QuoteLogGrid.Forms
         {
             // Query the entity model to retrieve the customer list 
             //  excluding the one that is to be deleted
-            var query = (from f in Context.Functions
+            var query = (from f in Context.vw_QT_Functions
                          where f.FunctionCode != deletedFunction
                          select f);
             if (query.Count() == 0) return;
@@ -88,7 +88,7 @@ namespace QuoteLogGrid.Forms
             var x = query.ToArray()[0].FunctionCode;
 
             // Bind the listbox to a local view of the entity
-            lbxControl.DataSource = Context.Functions.Local.ToBindingList();
+            lbxControl.DataSource = Context.vw_QT_Functions.Local.ToBindingList();
             lbxControl.DisplayMember = "FunctionCode";
             lbxControl.ValueMember = "FunctionCode";
         }

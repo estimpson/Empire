@@ -28,7 +28,6 @@ namespace QuoteLogData.Models
             throw new UnintentionalCodeFirstException();
         }
     
-        public DbSet<QuoteEntry> QuoteLog { get; set; }
         public DbSet<Application> Applications { get; set; }
         public DbSet<CSM_Mnemonic> CSM_Mnemonic { get; set; }
         public DbSet<Customer> Customers { get; set; }
@@ -44,13 +43,16 @@ namespace QuoteLogData.Models
         public DbSet<QuotePricingInitials> QuotePricingInitials { get; set; }
         public DbSet<QuoteReviewInitials> QuoteReviewInitials { get; set; }
         public DbSet<ApplicationNames> ApplicationNames { get; set; }
-        public DbSet<Functions> Functions { get; set; }
         public DbSet<QuotePrints> QuotePrints { get; set; }
         public DbSet<QuoteTreeList> QuoteTreeLists { get; set; }
         public DbSet<QT_Test> QT_Test { get; set; }
         public DbSet<ST_LightingStudy_2016> ST_LightingStudy_2016 { get; set; }
         public DbSet<vw_QT_ProductLines> vw_QT_ProductLines { get; set; }
         public DbSet<vw_QT_QuoteReasons> vw_QT_QuoteReasons { get; set; }
+        public DbSet<vw_QT_EmpireMarketSegment> vw_QT_EmpireMarketSegment { get; set; }
+        public DbSet<vw_QT_EmpireMarketSubsegment> vw_QT_EmpireMarketSubsegment { get; set; }
+        public DbSet<vw_QT_Functions> vw_QT_Functions { get; set; }
+        public DbSet<QuoteEntry> QuoteLog { get; set; }
     
         public virtual ObjectResult<Application> GetApplicationCodes()
         {
@@ -933,6 +935,15 @@ namespace QuoteLogData.Models
                 new ObjectParameter("LtaType", typeof(string));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("usp_QT_Customer_Update", operatorCodeParameter, customerCodeParameter, customerNameParameter, address1Parameter, address2Parameter, address3Parameter, cityParameter, stateParameter, countryParameter, postalCodeParameter, termsParameter, ltaTypeParameter, tranDT, result);
+        }
+    
+        public virtual int usp_QT_Customer_Request_SendEmail(string customerCode, ObjectParameter tranDT, ObjectParameter result)
+        {
+            var customerCodeParameter = customerCode != null ?
+                new ObjectParameter("CustomerCode", customerCode) :
+                new ObjectParameter("CustomerCode", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("usp_QT_Customer_Request_SendEmail", customerCodeParameter, tranDT, result);
         }
     }
 }

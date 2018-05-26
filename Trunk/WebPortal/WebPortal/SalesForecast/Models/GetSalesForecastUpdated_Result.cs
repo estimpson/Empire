@@ -48,5 +48,6 @@ namespace WebPortal.SalesForecast.Models
         public Nullable<decimal> ExcessRmAfterBuildout { get; set; }
         public Nullable<decimal> ProgramExposure { get; set; }
         public Nullable<System.DateTime> DateToSendCoLetter { get; set; }
+        public Nullable<decimal> ObsolescenceCost { get; set; }
     }
 }

@@ -1,0 +1,119 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="MONITORModel4.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <Function Name="usp_Web_QuoteLog_NewCustomer_Approve_SendEmail" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="FT">
+          <Parameter Name="CustomerCode" Type="varchar" Mode="In" />
+          <Parameter Name="TranDT" Type="datetime" Mode="InOut" />
+          <Parameter Name="Result" Type="int" Mode="InOut" />
+        </Function>
+        <Function Name="usp_Web_QuoteLog_NewCustomer_ApproveRequest" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="FT">
+          <Parameter Name="OperatorCode" Type="varchar" Mode="In" />
+          <Parameter Name="CustomerCode" Type="varchar" Mode="In" />
+          <Parameter Name="TranDT" Type="datetime" Mode="InOut" />
+          <Parameter Name="Result" Type="int" Mode="InOut" />
+        </Function>
+        <Function Name="usp_Web_QuoteLog_NewCustomer_Deny_SendEmail" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="FT">
+          <Parameter Name="OperatorCode" Type="varchar" Mode="In" />
+          <Parameter Name="CustomerCode" Type="varchar" Mode="In" />
+          <Parameter Name="ResponseNote" Type="varchar" Mode="In" />
+          <Parameter Name="TranDT" Type="datetime" Mode="InOut" />
+          <Parameter Name="Result" Type="int" Mode="InOut" />
+        </Function>
+        <Function Name="usp_Web_QuoteLog_NewCustomer_GetRequests" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="FT" />
+        <EntityContainer Name="MONITORModel4StoreContainer" />
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="MONITORModel4" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="MONITOREntitiesQuoteLogIntegrationCustomer" annotation:LazyLoadingEnabled="true" >
+          <FunctionImport Name="usp_Web_QuoteLog_NewCustomer_Approve_SendEmail">
+            <Parameter Name="CustomerCode" Mode="In" Type="String" />
+            <Parameter Name="TranDT" Mode="InOut" Type="DateTime" />
+            <Parameter Name="Result" Mode="InOut" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="usp_Web_QuoteLog_NewCustomer_ApproveRequest">
+            <Parameter Name="OperatorCode" Mode="In" Type="String" />
+            <Parameter Name="CustomerCode" Mode="In" Type="String" />
+            <Parameter Name="TranDT" Mode="InOut" Type="DateTime" />
+            <Parameter Name="Result" Mode="InOut" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="usp_Web_QuoteLog_NewCustomer_GetRequests" ReturnType="Collection(MONITORModel4.usp_Web_QuoteLog_NewCustomer_GetRequests_Result)" />
+          <FunctionImport Name="usp_Web_QuoteLog_NewCustomer_Deny_SendEmail">
+            <Parameter Name="OperatorCode" Mode="In" Type="String" />
+            <Parameter Name="CustomerCode" Mode="In" Type="String" />
+            <Parameter Name="ResponseNote" Mode="In" Type="String" />
+            <Parameter Name="TranDT" Mode="InOut" Type="DateTime" />
+            <Parameter Name="Result" Mode="InOut" Type="Int32" />
+          </FunctionImport>
+        </EntityContainer>
+        <ComplexType Name="usp_Web_QuoteLog_NewCustomer_GetRequests_Result">
+          <Property Type="String" Name="CustomerCode" Nullable="false" MaxLength="20" />
+          <Property Type="String" Name="CustomerName" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="Address1" Nullable="true" MaxLength="250" />
+          <Property Type="String" Name="Address2" Nullable="true" MaxLength="250" />
+          <Property Type="String" Name="Address3" Nullable="true" MaxLength="250" />
+          <Property Type="String" Name="City" Nullable="true" MaxLength="250" />
+          <Property Type="String" Name="State" Nullable="true" MaxLength="250" />
+          <Property Type="String" Name="Country" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="PostalCode" Nullable="true" MaxLength="250" />
+          <Property Type="String" Name="Terms" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="LtaType" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Requestor" Nullable="true" MaxLength="40" />
+          <Property Type="String" Name="LastResponse" Nullable="true" MaxLength="250" />
+        </ComplexType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="MONITORModel4StoreContainer" CdmEntityContainer="MONITOREntitiesQuoteLogIntegrationCustomer" >
+          <FunctionImportMapping FunctionImportName="usp_Web_QuoteLog_NewCustomer_Approve_SendEmail" FunctionName="MONITORModel4.Store.usp_Web_QuoteLog_NewCustomer_Approve_SendEmail" />
+          <FunctionImportMapping FunctionImportName="usp_Web_QuoteLog_NewCustomer_ApproveRequest" FunctionName="MONITORModel4.Store.usp_Web_QuoteLog_NewCustomer_ApproveRequest" />
+          <FunctionImportMapping FunctionImportName="usp_Web_QuoteLog_NewCustomer_GetRequests" FunctionName="MONITORModel4.Store.usp_Web_QuoteLog_NewCustomer_GetRequests">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="MONITORModel4.usp_Web_QuoteLog_NewCustomer_GetRequests_Result">
+                <ScalarProperty Name="CustomerCode" ColumnName="CustomerCode" />
+                <ScalarProperty Name="CustomerName" ColumnName="CustomerName" />
+                <ScalarProperty Name="Address1" ColumnName="Address1" />
+                <ScalarProperty Name="Address2" ColumnName="Address2" />
+                <ScalarProperty Name="Address3" ColumnName="Address3" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="State" ColumnName="State" />
+                <ScalarProperty Name="Country" ColumnName="Country" />
+                <ScalarProperty Name="PostalCode" ColumnName="PostalCode" />
+                <ScalarProperty Name="Terms" ColumnName="Terms" />
+                <ScalarProperty Name="LtaType" ColumnName="LtaType" />
+                <ScalarProperty Name="Requestor" ColumnName="Requestor" />
+                <ScalarProperty Name="LastResponse" ColumnName="LastResponse" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="usp_Web_QuoteLog_NewCustomer_Deny_SendEmail" FunctionName="MONITORModel4.Store.usp_Web_QuoteLog_NewCustomer_Deny_SendEmail" />
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

@@ -34,11 +34,11 @@ namespace QuoteLogGrid.Views
             try
             {
                 // Query the database and copy records to local dbset
-                Context.Functions.Load();
+                Context.vw_QT_Functions.Load();
 
                 // Bind grid
                 gridControl.DataSource = null;
-                gridControl.DataSource = Context.Functions.Local.ToBindingList();
+                gridControl.DataSource = Context.vw_QT_Functions.Local.ToBindingList();
             }
             catch (Exception ex)
             {

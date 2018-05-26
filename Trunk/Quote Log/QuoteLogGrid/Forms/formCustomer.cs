@@ -93,7 +93,10 @@ namespace QuoteLogGrid.Forms
             }
             if (_controller.ValidateForm() == 0) return;
 
-            Save();
+            if (Save() == 0) return;
+
+            _controller.SendEmail();
+            _controller.ClearForm();
         }
 
         private void btnClose_Click(object sender, EventArgs e)
@@ -106,7 +109,7 @@ namespace QuoteLogGrid.Forms
 
         #region Methods
 
-        private void Save()
+        private int Save()
         {
             string errorHeader = "";
             if (_controller.FormState == 1)
@@ -123,12 +126,11 @@ namespace QuoteLogGrid.Forms
             if (_controller.Error != "")
             {
                 MessageBox.Show(_controller.Error, errorHeader);
+                return 0;
             }
-            else
-            {
-                MessageBox.Show("Success", "Message");
-                _controller.ClearForm();
-            }
+
+            MessageBox.Show("The customer request has been submitted.", "Message");
+            return 1;
         }
 
 

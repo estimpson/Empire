@@ -26,6 +26,7 @@
           <Parameter Name="ExcessRmAfterBuildout" Type="decimal" Mode="In" />
           <Parameter Name="ProgramExposure" Type="decimal" Mode="In" />
           <Parameter Name="DateToSendCoLetter" Type="datetime" Mode="In" />
+          <Parameter Name="ObsolescenceCost" Type="decimal" Mode="In" />
           <Parameter Name="TranDT" Type="datetime" Mode="InOut" />
           <Parameter Name="Result" Type="int" Mode="InOut" />
         </Function>
@@ -68,6 +69,7 @@
             <Parameter Name="ExcessRmAfterBuildout" Mode="In" Type="Decimal" />
             <Parameter Name="ProgramExposure" Mode="In" Type="Decimal" />
             <Parameter Name="DateToSendCoLetter" Mode="In" Type="DateTime" />
+            <Parameter Name="ObsolescenceCost" Mode="In" Type="Decimal" />
             <Parameter Name="TranDT" Mode="InOut" Type="DateTime" />
             <Parameter Name="Result" Mode="InOut" Type="Int32" />
           </FunctionImport>
@@ -115,6 +117,7 @@
           <Property Type="Decimal" Name="ExcessRmAfterBuildout" Nullable="true" Precision="20" Scale="6" />
           <Property Type="Decimal" Name="ProgramExposure" Nullable="true" Precision="20" Scale="6" />
           <Property Type="DateTime" Name="DateToSendCoLetter" Nullable="true" Precision="23" />
+          <Property Type="Decimal" Name="ObsolescenceCost" Nullable="true" Precision="20" Scale="6" />
         </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
@@ -175,6 +178,7 @@
                 <ScalarProperty Name="ExcessRmAfterBuildout" ColumnName="ExcessRmAfterBuildout" />
                 <ScalarProperty Name="ProgramExposure" ColumnName="ProgramExposure" />
                 <ScalarProperty Name="DateToSendCoLetter" ColumnName="DateToSendCoLetter" />
+                <ScalarProperty Name="ObsolescenceCost" ColumnName="ObsolescenceCost" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>

@@ -32,8 +32,11 @@ namespace QuoteLogGrid.Views
             _notes, _oem, _applicationCode, _applicationName, _functionName, _eau, _program, _nameplate,
             _programManagerInitials, _engineeringInitials, _salesInitials, _engineeringMaterialsInitials,
             _quoteReviewInitials, _quotePricingInitials, _customerQuoteInitials, _modelYear, _packageNumber,
-            _quoteReason, _productLine, _printFilePath, _customerQuoteFilePath;
-       
+            _quoteReason, _productLine, _printFilePath, _customerQuoteFilePath, _marketSegment, _marketSubsegment,
+            _minimumOrderQuantity, _awarded, _awardedDate, _tooling, _straightMaterialCost, _stdHours, _quotePrice,
+            _prototypePrice;
+
+
         public SimpleQuoteLogView()
         {
             InitializeComponent();
@@ -133,6 +136,9 @@ namespace QuoteLogGrid.Views
                 gridView1.Columns["TotalQuotedSales"].OptionsColumn.ReadOnly = true;
                 gridView1.Columns["PrintFilePath"].OptionsColumn.ReadOnly = true;
                 gridView1.Columns["CustomerQuoteFilePath"].OptionsColumn.ReadOnly = true;
+                gridView1.Columns["FileServerQuotePrint"].OptionsColumn.ReadOnly = true;
+                gridView1.Columns["FileServerCustomerQuote"].OptionsColumn.ReadOnly = true;
+
                 //gridView1.Columns["QuoteReason"].OptionsColumn.ReadOnly = true;
 
                 gridView1.Columns["SOP"].DisplayFormat.FormatType = FormatType.DateTime;
@@ -140,6 +146,9 @@ namespace QuoteLogGrid.Views
 
                 gridView1.Columns["EOP"].DisplayFormat.FormatType = FormatType.DateTime;
                 gridView1.Columns["EOP"].DisplayFormat.FormatString = "MMM yyyy";
+
+                gridView1.Columns["AwardedDate"].DisplayFormat.FormatType = FormatType.DateTime;
+                gridView1.Columns["AwardedDate"].DisplayFormat.FormatString = "MMM yyyy";
 
 
                 BindLookupColumns();
@@ -166,9 +175,11 @@ namespace QuoteLogGrid.Views
                 _context.QuotePricingInitials.Load();
                 _context.CustomerQuoteInitials.Load();
                 _context.Applications.Load();
-                _context.Functions.Load();
+                _context.vw_QT_Functions.Load();
                 _context.vw_QT_QuoteReasons.Load();
                 _context.vw_QT_ProductLines.Load();
+                _context.vw_QT_EmpireMarketSegment.Load();
+                _context.vw_QT_EmpireMarketSubsegment.Load();
 
                 // Clear grids
                 //requoteItemGridLookUpEdit.DataSource = customerItemGridLookUpEdit.DataSource =
@@ -189,9 +200,11 @@ namespace QuoteLogGrid.Views
                 quotePricingInitialsItemGridLookUpEdit.DataSource = _context.QuotePricingInitials.Local.ToBindingList();
                 customerQuoteInitialsItemGridLookUpEdit.DataSource = _context.CustomerQuoteInitials.Local.ToBindingList();
                 applicationCodeItemGridLookUpEdit.DataSource = _context.Applications.Local.ToBindingList();
-                functionsItemGridLookUpEdit.DataSource = _context.Functions.Local.ToBindingList();
+                functionsItemGridLookUpEdit.DataSource = _context.vw_QT_Functions.Local.ToBindingList();
                 quoteReasonItemGridLookUpEdit.DataSource = _context.vw_QT_QuoteReasons.Local.ToBindingList();
                 productLineItemGridLookUpEdit.DataSource = _context.vw_QT_ProductLines.Local.ToBindingList();
+                marketSegmentItemGridLookUpEdit.DataSource = _context.vw_QT_EmpireMarketSegment.Local.ToBindingList();
+                marketSubsegmentItemGridLookUpEdit.DataSource = _context.vw_QT_EmpireMarketSubsegment.Local.ToBindingList();
             }
             catch (Exception)
             {
@@ -375,6 +388,16 @@ namespace QuoteLogGrid.Views
             if (gridView1.GetRowCellValue(r, "ProductLine") != null) _productLine= gridView1.GetRowCellValue(r, "ProductLine").ToString();
             if (gridView1.GetRowCellValue(r, "PrintFilePath") != null) _printFilePath = gridView1.GetRowCellValue(r, "PrintFilePath").ToString();
             if (gridView1.GetRowCellValue(r, "CustomerQuoteFilePath") != null) _customerQuoteFilePath = gridView1.GetRowCellValue(r, "CustomerQuoteFilePath").ToString();
+            if (gridView1.GetRowCellValue(r, "EmpireMarketSegment") != null) _marketSegment = gridView1.GetRowCellValue(r, "EmpireMarketSegment").ToString();
+            if (gridView1.GetRowCellValue(r, "EmpireMarketSubsegment") != null) _marketSubsegment = gridView1.GetRowCellValue(r, "EmpireMarketSubsegment").ToString();
+            if (gridView1.GetRowCellValue(r, "MinimumOrderQuantity") != null) _minimumOrderQuantity = gridView1.GetRowCellValue(r, "MinimumOrderQuantity").ToString();
+            if (gridView1.GetRowCellValue(r, "Awarded") != null) _awarded = gridView1.GetRowCellValue(r, "Awarded").ToString();
+            if (gridView1.GetRowCellValue(r, "AwardedDate") != null) _awardedDate = gridView1.GetRowCellValue(r, "AwardedDate").ToString();
+            if (gridView1.GetRowCellValue(r, "StraightMaterialCost") != null) _straightMaterialCost = gridView1.GetRowCellValue(r, "StraightMaterialCost").ToString();
+            if (gridView1.GetRowCellValue(r, "StdHours") != null) _stdHours = gridView1.GetRowCellValue(r, "StdHours").ToString();
+            if (gridView1.GetRowCellValue(r, "Tooling") != null) _tooling = gridView1.GetRowCellValue(r, "Tooling").ToString();
+            if (gridView1.GetRowCellValue(r, "QuotePrice") != null) _quotePrice = gridView1.GetRowCellValue(r, "QuotePrice").ToString();
+            if (gridView1.GetRowCellValue(r, "PrototypePrice") != null) _prototypePrice = gridView1.GetRowCellValue(r, "PrototypePrice").ToString();
 
             int? rowID = (int)gridView1.GetRowCellValue(r, "RowID");
 
@@ -392,7 +415,8 @@ namespace QuoteLogGrid.Views
                     _customerRfqNumber, _customerPartNumber, _eeiPartNumber, _notes, _oem, _applicationCode, _applicationName, _functionName,
                     _eau, _program, _nameplate, _programManagerInitials, _engineeringInitials, _salesInitials, _engineeringMaterialsInitials,
                     _quoteReviewInitials, _quotePricingInitials, _customerQuoteInitials, _modelYear, _packageNumber, _quoteReason,
-                    _productLine, _printFilePath, _customerQuoteFilePath);
+                    _productLine, _printFilePath, _customerQuoteFilePath, _marketSegment, _marketSubsegment, _minimumOrderQuantity,
+                    _awarded, _awardedDate, _straightMaterialCost, _stdHours, _tooling, _quotePrice, _prototypePrice);
 
                 if (quoteMaintenance.ShowDialog() == DialogResult.OK)
                 {
@@ -402,7 +426,9 @@ namespace QuoteLogGrid.Views
                         var lighting = new formLightingData();
                         lighting.QuoteNumber = _quoteNumber;
                         lighting.ShowDialog();
-
+                    }
+                    if (quoteMaintenance.IsSaved || quoteMaintenance.PrintSaved)
+                    {
                         // Refresh grid
                         if (chooseQuote.QuoteType == QuoteTypes.ModifyExisting)
                         {
@@ -432,22 +458,28 @@ namespace QuoteLogGrid.Views
 
         private void quotePrintItemButtonEdit_Click(object sender, EventArgs e)
         {
-            int r = gridView1.GetSelectedRows()[0];
+            //int r = gridView1.GetSelectedRows()[0];
 
-            if (gridView1.GetRowCellValue(r, "PrintFilePath") != null)
-            {
-                ViewPrint(gridView1.GetRowCellValue(r, "PrintFilePath").ToString());
-            }
+            //if (gridView1.GetRowCellValue(r, "PrintFilePath") != null)
+            //{
+            //    ViewPrint(gridView1.GetRowCellValue(r, "PrintFilePath").ToString());
+            //}
+
+            int r = gridView1.GetSelectedRows()[0];
+            if (gridView1.GetRowCellValue(r, "PrintFilePath") != null) GetQuotePrint();
         }
 
         private void customerQuoteItemButtonEdit_Click(object sender, EventArgs e)
         {
-            int r = gridView1.GetSelectedRows()[0];
+            //int r = gridView1.GetSelectedRows()[0];
 
-            if (gridView1.GetRowCellValue(r, "CustomerQuoteFilePath") != null)
-            {
-                ViewPrint(gridView1.GetRowCellValue(r, "CustomerQuoteFilePath").ToString());
-            }
+            //if (gridView1.GetRowCellValue(r, "CustomerQuoteFilePath") != null)
+            //{
+            //    ViewPrint(gridView1.GetRowCellValue(r, "CustomerQuoteFilePath").ToString());
+            //}
+
+            int r = gridView1.GetSelectedRows()[0];
+            if (gridView1.GetRowCellValue(r, "CustomerQuoteFilePath") != null) GetCustomerQuote();
         }
 
         private void ViewPrint(string filePath)
@@ -459,6 +491,92 @@ namespace QuoteLogGrid.Views
             catch (Exception ex)
             {
                 MessageBox.Show("Error: Could not read file from disk. Original error: " + ex.Message + ".");
+            }
+        }
+
+        private void GetQuotePrint()
+        {
+            ObjectParameter tranDT = new ObjectParameter("TranDT", typeof(DateTime?));
+            ObjectParameter result = new ObjectParameter("Result", typeof(Int32?));
+
+            string path = Path.GetTempPath();
+            path = path + @"QuotePrints\";
+
+            if (Directory.Exists(path)) System.IO.Directory.Delete(path, true);
+            System.IO.Directory.CreateDirectory(path);
+
+            string attachmentCategory = "QuotePrint";
+            string fileName = "";
+            byte[] fileContents;
+            try
+            {
+                int r = gridView1.GetSelectedRows()[0];
+                string quoteNumber = gridView1.GetRowCellValue(r, "QuoteNumber").ToString();
+
+                var collection = _context.usp_QT_FileManagement_Get(quoteNumber, attachmentCategory, tranDT, result);
+                var item = collection.First();
+                fileName = item.FileName;
+                fileContents = item.FileContents;
+
+                //fileName = fileName.Remove(fileName.Length - 4);
+                //filePathQuotePrint = path + fileName + "_" + DateTime.Now.ToString("yyyyMMdd") + ".pdf";
+
+                string filePathQuotePrint = path + fileName;
+
+                var fs = new System.IO.FileStream(filePathQuotePrint, FileMode.OpenOrCreate);
+                fs.Write(fileContents, 0, fileContents.Length);
+                fs.Flush();
+                fs.Close();
+
+                System.Diagnostics.Process.Start(filePathQuotePrint);
+            }
+            catch (Exception ex)
+            {
+                string err = (ex.InnerException != null) ? ex.InnerException.Message : ex.Message;
+                MessageBox.Show(err, "Error at GetQuotePrint()");
+            }
+        }
+
+        private void GetCustomerQuote()
+        {
+            ObjectParameter tranDT = new ObjectParameter("TranDT", typeof(DateTime?));
+            ObjectParameter result = new ObjectParameter("Result", typeof(Int32?));
+
+            string path = Path.GetTempPath();
+            path = path + @"CustomerQuotes\";
+
+            if (Directory.Exists(path)) System.IO.Directory.Delete(path, true);
+            System.IO.Directory.CreateDirectory(path);
+
+            string attachmentCategory = "CustomerQuote";
+            string fileName = "";
+            byte[] fileContents;
+            try
+            {
+                int r = gridView1.GetSelectedRows()[0];
+                string quoteNumber = gridView1.GetRowCellValue(r, "QuoteNumber").ToString();
+
+                var collection = _context.usp_QT_FileManagement_Get(quoteNumber, attachmentCategory, tranDT, result);
+                var item = collection.First();
+                fileName = item.FileName;
+                fileContents = item.FileContents;
+
+                //fileName = fileName.Remove(fileName.Length - 4);
+                //filePathQuotePrint = path + fileName + "_" + DateTime.Now.ToString("yyyyMMdd") + ".pdf";
+
+                string filePathCustomerQuote = path + fileName;
+
+                var fs = new System.IO.FileStream(filePathCustomerQuote, FileMode.OpenOrCreate);
+                fs.Write(fileContents, 0, fileContents.Length);
+                fs.Flush();
+                fs.Close();
+
+                System.Diagnostics.Process.Start(filePathCustomerQuote);
+            }
+            catch (Exception ex)
+            {
+                string err = (ex.InnerException != null) ? ex.InnerException.Message : ex.Message;
+                MessageBox.Show(err, "Error at GetCustomerQuote()");
             }
         }
 

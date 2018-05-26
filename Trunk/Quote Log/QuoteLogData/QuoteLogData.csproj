@@ -76,9 +76,6 @@
     <Compile Include="Models\EngineeringMaterialsInitials.cs">
       <DependentUpon>QuoteLogModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Functions.cs">
-      <DependentUpon>QuoteLogModel.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\NavigationGroupItems.cs">
       <DependentUpon>QuoteLogModel.tt</DependentUpon>
     </Compile>
@@ -218,6 +215,15 @@
       <DependentUpon>QuoteLogModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\usp_QT_NewPartCheck_Result.cs">
+      <DependentUpon>QuoteLogModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\vw_QT_EmpireMarketSegment.cs">
+      <DependentUpon>QuoteLogModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\vw_QT_EmpireMarketSubsegment.cs">
+      <DependentUpon>QuoteLogModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\vw_QT_Functions.cs">
       <DependentUpon>QuoteLogModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\vw_QT_ProductLines.cs">

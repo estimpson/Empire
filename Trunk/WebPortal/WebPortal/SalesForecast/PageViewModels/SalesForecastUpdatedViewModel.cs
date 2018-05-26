@@ -61,7 +61,7 @@ namespace WebPortal.SalesForecast.PageViewModels
 
                 context.usp_Web_SalesForecastUpdated_UpdateBasePartCloseouts(OperatorCode, u.BasePart, u.VerifiedEop, verifiedEopDate, u.SchedulerResponsible, u.RfMpsLink, u.SchedulingTeamComments,
                     u.MaterialsComments, u.ShipToLocation, u.FgInventoryAfterBuildout, u.CostEach, u.ExcessFgAfterBuildout, u.ExcessRmAfterBuildout, u.ProgramExposure,
-                    u.DateToSendCoLetter, tranDT, result);
+                    u.DateToSendCoLetter, u.ObsolescenceCost, tranDT, result);
             }
         }
 

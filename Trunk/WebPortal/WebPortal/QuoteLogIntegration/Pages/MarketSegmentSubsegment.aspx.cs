@@ -35,7 +35,7 @@ namespace WebPortal.QuoteLogIntegration.Pages
                 AuthenticateUser();
 
                 rPnl.Collapsed = rPnl2.Collapsed = true;
-                gvSegments.FocusedRowIndex = -1;
+                gvSegments.FocusedRowIndex = gvSubsegments.FocusedRowIndex = -1;
             }
         }
 
@@ -54,6 +54,8 @@ namespace WebPortal.QuoteLogIntegration.Pages
         protected void gvSegments_FocusedRowChanged(object sender, EventArgs e)
         {
             if (gvSegments.FocusedRowIndex < 0) return;
+
+            gvSubsegments.FocusedRowIndex = -1;
 
             string status = gvSegments.GetRowValues(gvSegments.FocusedRowIndex, "ApprovalStatus").ToString();
             if (status != "Waiting Approval") return;
@@ -91,6 +93,8 @@ namespace WebPortal.QuoteLogIntegration.Pages
         protected void gvSubsegments_FocusedRowChanged(object sender, EventArgs e)
         {
             if (gvSubsegments.FocusedRowIndex < 0) return;
+
+            gvSegments.FocusedRowIndex = -1;
 
             string status = gvSubsegments.GetRowValues(gvSubsegments.FocusedRowIndex, "ApprovalStatus").ToString();
             if (status != "Waiting Approval") return;
