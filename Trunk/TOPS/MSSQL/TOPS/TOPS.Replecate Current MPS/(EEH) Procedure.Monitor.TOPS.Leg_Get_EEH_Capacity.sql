@@ -53,7 +53,13 @@ set	@TranDT = coalesce(@TranDT, GetDate())
 
 --- <Body>
 select
-	*
+	ec.BasePart
+--,	ec.CapacityPerHour
+--,	ec.ProductionCoordinator
+--,	ec.AssociatedLine
+--,	ec.IsPremium
+--,	ec.TransactionDT
+,	ec.BottleNeck
 from
 	TOPS.EEH_Capacity ec
 where

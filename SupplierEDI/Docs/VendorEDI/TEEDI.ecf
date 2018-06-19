@@ -1,0 +1,600 @@
+[General]
+Passes=4
+;total number of passes 4
+
+
+;Created for STX for Windows overlay MG3_830_D_v3060_MAGNA CUM_030929
+
+[Pass 1 General]
+WriteFile=OFF
+ReadFile=OFF
+QueryDW=ON
+MasterDW=ON
+
+[Pass 1 MasterDW]
+LibraryFile=C:\EDI\Outbound\vendor\vendor_edi.pbl
+DataObject=d_header_1
+Archive=OFF
+Retrieve=ON
+Update=OFF
+Display=ON
+Print=OFF
+
+[Pass 1 MasterDW Print]
+PrintBlank=OFF
+CancelDialogue=OFF
+
+[Pass 1 QueryDW]
+LibraryFile=C:\EDI\Outbound\vendor\vendor_edi.pbl
+DataObject=d_eei_query_header_rev1te
+EndPass=4
+
+[Pass 1 QueryDW DefineArguments]
+Argument1=1
+Item1=*vendor
+
+;[Pass 1 QueryDW Retrieve]
+;Argument1=1
+
+[Pass 1 MasterDW Retrieve]
+Argument1=1
+
+[Pass 1 WriteFile]
+WriteFile=C:\Program Files\Inovis\TrustedLink\mapdata\dx-fx-ff.080
+Mode=APPEND
+LineFeed=OFF
+LineLength=80
+LineNoLength=2
+LineNoPos=1
+
+[Pass 1 WriteFile Map]
+Item1=//STX12//
+Line1=0
+Length1=9
+Pos1=1
+
+Item2=830
+Line2=0
+Length2=3
+Pos2=10
+
+Item3=*trading_partner_code
+Line3=0
+Length3=12
+Pos3=13
+
+Item4=*doc_num
+Line4=0
+Length4=30
+Pos4=25
+
+Item5=01
+Line5=1
+Length5=2
+Pos5=1
+
+; Release Number
+Item6=*today_str
+Line6=1
+Length6=30
+Pos6=3
+
+Item7=DL
+Line7=1
+Length7=2
+Pos7=33
+
+; Release Date
+Item8=*today_str
+Line8=1
+Length8=6
+Pos8=35
+
+Item9=*horizon_start
+Line9=1
+Length9=6
+Pos9=41
+
+Item10=*horizon_end
+Line10=1
+Length10=6
+Pos10=47
+
+Item11=02
+Line11=2
+Length11=2
+Pos11=1
+
+; ID Type
+Item12=*material_issuer_id_type
+Line12=2
+Length12=2
+Pos12=6
+
+; Our DUNS
+Item13=*vendor_material_issuer
+Line13=2
+Length13=17
+Pos13=8
+
+Item14=06
+Line14=6
+Length14=2
+Pos14=1
+
+Item15=*c_vendor_id_code_type
+Line15=6
+Length15=2
+Pos15=33
+
+; Vendor
+Item16=*c_vendor_supplier_code
+Line16=6
+Length16=17
+Pos16=35
+
+[Pass 2 General]
+WriteFile=ON
+ReadFile=OFF
+QueryDW=ON
+MasterDW=ON
+
+[Pass 2 MasterDW]
+LibraryFile=C:\EDI\Outbound\vendor\vendor_edi.pbl
+DataObject=d_830_header_rev1te
+Archive=OFF
+Retrieve=ON
+Update=OFF
+Display=ON
+Print=OFF
+
+[Pass 2 MasterDW Print]
+PrintBlank=OFF
+CancelDialogue=OFF
+
+[Pass 2 QueryDW]
+LibraryFile=C:\EDI\Outbound\vendor\vendor_edi.pbl
+DataObject=d_query_po
+EndPass=4
+
+[Pass 2 QueryDW DefineArguments]
+Argument1=2
+Item1=*po_number
+Argument2=3
+Item2=*part
+
+[Pass 2 QueryDW Retrieve]
+Argument1=1
+
+[Pass 2 MasterDW Retrieve]
+Argument1=2
+Argument2=3
+
+[Pass 2 WriteFile]
+WriteFile=C:\Program Files\Inovis\TrustedLink\mapdata\dx-fx-ff.080
+Mode=APPEND
+LineFeed=OFF
+LineLength=80
+LineNoLength=2
+LineNoPos=1
+
+[Pass 2 WriteFile Map]
+Item1=//STX12//
+Line1=0
+Length1=9
+Pos1=1
+
+Item2=830
+Line2=0
+Length2=3
+Pos2=10
+
+Item3=TE
+Line3=0
+Length3=12
+Pos3=13
+
+Item4=*po_number_str
+Line4=0
+Length4=30
+Pos4=25
+
+Item5=01
+Line5=1
+Length5=2
+Pos5=1
+
+; Release Number
+Item6=*today_str
+Line6=1
+Length6=30
+Pos6=3
+
+Item7=DL
+Line7=1
+Length7=2
+Pos7=33
+
+; Release Date
+Item8=*today_str
+Line8=1
+Length8=6
+Pos8=35
+
+Item9=*horizon_start
+Line9=1
+Length9=6
+Pos9=41
+
+Item10=*horizon_end
+Line10=1
+Length10=6
+Pos10=47
+
+Item11=02
+Line11=2
+Length11=2
+Pos11=1
+
+; ID Type
+Item12=*material_issuer_id_type
+Line12=2
+Length12=2
+Pos12=6
+
+; Our DUNS
+Item13=*vendor_material_issuer
+Line13=2
+Length13=17
+Pos13=8
+
+Item14=06
+Line14=6
+Length14=2
+Pos14=1
+
+Item15=*c_vendor_id_code_type
+Line15=6
+Length15=2
+Pos15=33
+
+; Vendor
+Item16=*c_vendor_supplier_code
+Line16=6
+Length16=17
+Pos16=35
+
+
+
+Item17=19
+Line17=19
+Length17=2
+Pos17=1
+
+Item18=*part
+Line18=19
+Length18=30
+Pos18=3
+
+Item19=*engineering_level
+Line19=19
+Length19=19
+Pos19=33
+
+Item20=*po_number_str
+Line20=19
+Length20=22
+Pos20=52
+
+Item21=*unit_of_measure
+Line21=19
+Length21=2
+Pos21=74
+
+Item22=20
+Line22=20
+Length22=2
+Pos22=1
+
+Item23=*vendor_part
+Line23=20
+Length23=30
+Pos23=3
+
+Item24=21
+Line24=21
+Length24=2
+Pos24=1
+
+Item25=*description
+Line25=21
+Length25=50
+Pos25=3
+
+Item26=22
+Line26=22
+Length26=2
+Pos26=1
+
+Item27=*dock_code
+Line27=22
+Length27=24
+Pos27=3
+
+Item28=24
+Line28=24
+Length28=2
+Pos28=1
+
+Item29=*buyer_name
+Line29=24
+Length29=35
+Pos29=3
+
+; included only if buyer name is found
+Item30=*buyer_phone_cond
+Line30=24
+Length30=35
+Pos30=38
+
+Item31=26
+Line31=26
+Length31=2
+Pos31=1
+
+Item32=*buyer_email
+Line32=26
+Length32=50
+Pos32=3
+
+Item33=27
+Line33=27
+Length33=2
+Pos33=1
+
+Item34=*scheduler_name
+Line34=27
+Length34=35
+Pos34=3
+
+; included only if scheduler name is found
+Item35=*scheduler_phone_cond
+Line35=27
+Length35=35
+Pos35=38
+
+Item36=29
+Line36=29
+Length36=2
+Pos36=1
+
+Item37=*scheduler_email
+Line37=29
+Length37=50
+Pos37=3
+
+Item38=*raw_auth_qty
+Line38=29
+Length38=17
+Pos38=53
+
+; raw auth start date
+Item39=*cum_start_date
+Line39=29
+Length39=6
+Pos39=70
+
+Item40=30
+Line40=30
+Length40=2
+Pos40=1
+
+Item41=*raw_auth_end_date
+Line41=30
+Length41=6
+Pos41=3
+
+Item42=*fab_auth_qty
+Line42=30
+Length42=17
+Pos42=9
+
+; fab auth start date
+Item43=*cum_start_date
+Line43=30
+Length43=6
+Pos43=26
+
+Item44=*fab_auth_end_date
+Line44=30
+Length44=6
+Pos44=32
+
+Item45=*cum_expected
+Line45=30
+Length45=17
+Pos45=38
+
+Item46=*cum_start_date
+Line46=30
+Length46=6
+Pos46=55
+
+Item47=*cum_end_date
+Line47=30
+Length47=6
+Pos47=61
+
+; This is start of a subloop.  It is put here because we always have only one
+; iterartion of this start record (SDP).
+Item48=36
+Line48=36
+Length48=2
+Pos48=1
+
+Item49=Y
+Line49=36
+Length49=2
+Pos49=3
+
+Item50=A
+Line50=36
+Length50=1
+Pos50=5
+
+
+[Pass 3 General]
+WriteFile=ON
+ReadFile=OFF
+QueryDW=OFF
+MasterDW=ON
+
+[Pass 3 MasterDW]
+LibraryFile=C:\EDI\Outbound\vendor\vendor_edi.pbl
+DataObject=d_eei_line_1
+Archive=OFF
+Retrieve=ON
+Update=OFF
+Display=ON
+Print=OFF
+
+[Pass 3 MasterDW Print]
+PrintBlank=OFF
+CancelDialogue=OFF
+
+[Pass 3 QueryDW]
+LibraryFile=C:\EDI\Outbound\vendor\vendor_edi.pbl
+DataObject=d_query_header
+EndPass=3
+
+[Pass 3 QueryDW DefineArguments]
+Argument1=2
+Item1=*po
+
+;[Pass 3 QueryDW Retrieve]
+;Argument1=1
+
+[Pass 3 MasterDW Retrieve]
+Argument1=2
+Argument2=3
+
+[Pass 3 WriteFile]
+WriteFile=C:\Program Files\Inovis\TrustedLink\mapdata\dx-fx-ff.080
+Mode=APPEND
+LineFeed=OFF
+LineLength=80
+LineNoLength=2
+LineNoPos=1
+
+[Pass 3 WriteFile Map]
+Item1=37
+Line1=37
+Length1=2
+Pos1=1
+
+Item2=*cum_release_qty
+Line2=37
+Length2=17
+Pos2=3
+
+Item3=*sched_type
+Line3=37
+Length3=1
+Pos3=20
+
+Item4=D
+Line4=37
+Length4=1
+Pos4=21
+
+Item5=*delivery_date
+Line5=37
+Length5=6
+Pos5=22
+
+
+[Pass 4 General]
+WriteFile=ON
+ReadFile=OFF
+QueryDW=OFF
+MasterDW=ON
+
+[Pass 4 MasterDW]
+LibraryFile=C:\EDI\Outbound\vendor\vendor_edi.pbl
+DataObject=d_830_trailer_1
+Archive=OFF
+Retrieve=ON
+Update=OFF
+Display=ON
+Print=OFF
+
+[Pass 4 MasterDW Print]
+PrintBlank=OFF
+CancelDialogue=OFF
+
+[Pass 4 QueryDW]
+LibraryFile=C:\EDI\Outbound\vendor\vendor_edi.pbl
+DataObject=d_query_header
+EndPass=4
+
+
+[Pass 4 QueryDW DefineArguments]
+Argument1=1
+Item1=*id
+
+;[Pass 4 QueryDW Retrieve]
+;Argument1=1
+
+[Pass 4 MasterDW Retrieve]
+Argument1=2
+Argument2=3
+
+[Pass 4 WriteFile]
+WriteFile=C:\Program Files\Inovis\TrustedLink\mapdata\dx-fx-ff.080
+Mode=APPEND
+LineFeed=OFF
+LineLength=80
+LineNoLength=2
+LineNoPos=1
+
+[Pass 4 WriteFile Map]
+Item1=38
+Line1=38
+Length1=2
+Pos1=1
+
+Item2=*last_rcv_qty
+Line2=38
+Length2=17
+Pos2=56
+
+Item3=*last_rcv_date
+Line3=38
+Length3=6
+Pos3=73
+
+Item4=39
+Line4=39
+Length4=2
+Pos4=1
+
+Item5=*last_rcv_id
+Line5=39
+Length5=30
+Pos5=3
+
+Item6=*cum_received
+Line6=39
+Length6=17
+Pos6=33
+
+Item7=*cum_start_date
+Line7=39
+Length7=6
+Pos7=50
+
+; end date for cum received
+Item8=*last_rcv_date
+Line8=39
+Length8=6
+Pos8=56

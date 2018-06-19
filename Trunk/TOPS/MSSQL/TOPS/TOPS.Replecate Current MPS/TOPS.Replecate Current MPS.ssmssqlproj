@@ -67,6 +67,30 @@
           <AssociatedConnUserName>estimpson</AssociatedConnUserName>
           <FullPath>MPS Header.sql</FullPath>
         </FileNode>
+        <FileNode Name="Procedure.FxTOPS.TOPS.usp_PlanningCalendar_Extract.sql">
+          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:eeisql1:False:estimpson</AssociatedConnectionMoniker>
+          <AssociatedConnSrvName>eeisql1</AssociatedConnSrvName>
+          <AssociatedConnUserName>estimpson</AssociatedConnUserName>
+          <FullPath>Procedure.FxTOPS.TOPS.usp_PlanningCalendar_Extract.sql</FullPath>
+        </FileNode>
+        <FileNode Name="Procedure.MONITOR.TOPS.usp_PlanningSnapshot_CRUD_NewOnOrderEEH.sql">
+          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:eeisql1:False:estimpson</AssociatedConnectionMoniker>
+          <AssociatedConnSrvName>eeisql1</AssociatedConnSrvName>
+          <AssociatedConnUserName>estimpson</AssociatedConnUserName>
+          <FullPath>Procedure.MONITOR.TOPS.usp_PlanningSnapshot_CRUD_NewOnOrderEEH.sql</FullPath>
+        </FileNode>
+        <FileNode Name="Procedure.MONITOR.TOPS.usp_PlanningSnapshot_CRUD_OverrideCustomerRequirement.sql">
+          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:eeisql1:False:estimpson</AssociatedConnectionMoniker>
+          <AssociatedConnSrvName>eeisql1</AssociatedConnSrvName>
+          <AssociatedConnUserName>estimpson</AssociatedConnUserName>
+          <FullPath>Procedure.MONITOR.TOPS.usp_PlanningSnapshot_CRUD_OverrideCustomerRequirement.sql</FullPath>
+        </FileNode>
+        <FileNode Name="Procedure.MONITOR.TOPS.usp_PlanningSnapshot_GetCurrentPlanningCalendar.sql">
+          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:eeisql1:False:estimpson</AssociatedConnectionMoniker>
+          <AssociatedConnSrvName>eeisql1</AssociatedConnSrvName>
+          <AssociatedConnUserName>estimpson</AssociatedConnUserName>
+          <FullPath>Procedure.MONITOR.TOPS.usp_PlanningSnapshot_GetCurrentPlanningCalendar.sql</FullPath>
+        </FileNode>
         <FileNode Name="Procedure.MONITOR.TOPS.usp_PlanningSnapshot_GetCustomerRequirementsXML.sql">
           <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:eeisql1:False:estimpson</AssociatedConnectionMoniker>
           <AssociatedConnSrvName>eeisql1</AssociatedConnSrvName>
@@ -103,11 +127,65 @@
           <AssociatedConnUserName>estimpson</AssociatedConnUserName>
           <FullPath>Procedure.MONITOR.TOPS.usp_PlanningSnapshot_NewPlanningForFinishedPart.sql</FullPath>
         </FileNode>
+        <FileNode Name="Procedure.MONITOR.TOPS.usp_PlanningSnapshot_Q_CurrentPartList.sql">
+          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:eeisql1:False:estimpson</AssociatedConnectionMoniker>
+          <AssociatedConnSrvName>eeisql1</AssociatedConnSrvName>
+          <AssociatedConnUserName>estimpson</AssociatedConnUserName>
+          <FullPath>Procedure.MONITOR.TOPS.usp_PlanningSnapshot_Q_CurrentPartList.sql</FullPath>
+        </FileNode>
+        <FileNode Name="Procedure.MONITOR.TOPS.usp_PlanningSnapshot_Q_GetHeaderInfo.sql">
+          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:eeisql1:False:estimpson</AssociatedConnectionMoniker>
+          <AssociatedConnSrvName>eeisql1</AssociatedConnSrvName>
+          <AssociatedConnUserName>estimpson</AssociatedConnUserName>
+          <FullPath>Procedure.MONITOR.TOPS.usp_PlanningSnapshot_Q_GetHeaderInfo.sql</FullPath>
+        </FileNode>
+        <FileNode Name="Procedure.MONITOR.TOPS.usp_PlanningSnapshot_Q_GetSnapshotCalendar.sql">
+          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:eeisql1:False:estimpson</AssociatedConnectionMoniker>
+          <AssociatedConnSrvName>eeisql1</AssociatedConnSrvName>
+          <AssociatedConnUserName>estimpson</AssociatedConnUserName>
+          <FullPath>Procedure.MONITOR.TOPS.usp_PlanningSnapshot_Q_GetSnapshotCalendar.sql</FullPath>
+        </FileNode>
         <FileNode Name="Schema.MONITOR.TOPS.sql">
           <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:eeisql1:False:estimpson</AssociatedConnectionMoniker>
           <AssociatedConnSrvName>eeisql1</AssociatedConnSrvName>
           <AssociatedConnUserName>estimpson</AssociatedConnUserName>
           <FullPath>Schema.MONITOR.TOPS.sql</FullPath>
+        </FileNode>
+        <FileNode Name="Script.MONITOR.TOPS.CreatePlanningSnapshots.sql">
+          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:eeisql1:False:estimpson</AssociatedConnectionMoniker>
+          <AssociatedConnSrvName>eeisql1</AssociatedConnSrvName>
+          <AssociatedConnUserName>estimpson</AssociatedConnUserName>
+          <FullPath>Script.MONITOR.TOPS.CreatePlanningSnapshots.sql</FullPath>
+        </FileNode>
+        <FileNode Name="Script.MONITOR.TOPS.CreateSinglePlanningSnapshot.sql">
+          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:eeisql1:False:estimpson</AssociatedConnectionMoniker>
+          <AssociatedConnSrvName>eeisql1</AssociatedConnSrvName>
+          <AssociatedConnUserName>estimpson</AssociatedConnUserName>
+          <FullPath>Script.MONITOR.TOPS.CreateSinglePlanningSnapshot.sql</FullPath>
+        </FileNode>
+        <FileNode Name="Script.MONITOR.TOPS.QueryPlanningSnapshot.sql">
+          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:eeisql1:False:estimpson</AssociatedConnectionMoniker>
+          <AssociatedConnSrvName>eeisql1</AssociatedConnSrvName>
+          <AssociatedConnUserName>estimpson</AssociatedConnUserName>
+          <FullPath>Script.MONITOR.TOPS.QueryPlanningSnapshot.sql</FullPath>
+        </FileNode>
+        <FileNode Name="Script.TOPS.usp_PlanningSnapshot_Q_GetSchedulers.sql">
+          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:eeisql1:False:estimpson</AssociatedConnectionMoniker>
+          <AssociatedConnSrvName>eeisql1</AssociatedConnSrvName>
+          <AssociatedConnUserName>estimpson</AssociatedConnUserName>
+          <FullPath>Script.TOPS.usp_PlanningSnapshot_Q_GetSchedulers.sql</FullPath>
+        </FileNode>
+        <FileNode Name="SQLQuery1.sql">
+          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:eeisql1:False:estimpson</AssociatedConnectionMoniker>
+          <AssociatedConnSrvName>eeisql1</AssociatedConnSrvName>
+          <AssociatedConnUserName>estimpson</AssociatedConnUserName>
+          <FullPath>SQLQuery1.sql</FullPath>
+        </FileNode>
+        <FileNode Name="Table.MONITOR.TOPS.CustomerRequirementOverrides.sql">
+          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:eeisql1:False:estimpson</AssociatedConnectionMoniker>
+          <AssociatedConnSrvName>eeisql1</AssociatedConnSrvName>
+          <AssociatedConnUserName>estimpson</AssociatedConnUserName>
+          <FullPath>Table.MONITOR.TOPS.CustomerRequirementOverrides.sql</FullPath>
         </FileNode>
         <FileNode Name="Table.MONITOR.TOPS.HolidaySchedule.sql">
           <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:eeisql1:False:estimpson</AssociatedConnectionMoniker>
@@ -115,11 +193,35 @@
           <AssociatedConnUserName>estimpson</AssociatedConnUserName>
           <FullPath>Table.MONITOR.TOPS.HolidaySchedule.sql</FullPath>
         </FileNode>
-        <FileNode Name="Table.MONITOR.TOPS.PlanningSnopshotHeaders.sql">
+        <FileNode Name="Table.MONITOR.TOPS.HolidaySchedules.sql">
           <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:eeisql1:False:estimpson</AssociatedConnectionMoniker>
           <AssociatedConnSrvName>eeisql1</AssociatedConnSrvName>
           <AssociatedConnUserName>estimpson</AssociatedConnUserName>
-          <FullPath>Table.MONITOR.TOPS.PlanningSnopshotHeaders.sql</FullPath>
+          <FullPath>Table.MONITOR.TOPS.HolidaySchedules.sql</FullPath>
+        </FileNode>
+        <FileNode Name="Table.MONITOR.TOPS.NewEEHPlanning.sql">
+          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:eeisql1:False:estimpson</AssociatedConnectionMoniker>
+          <AssociatedConnSrvName>eeisql1</AssociatedConnSrvName>
+          <AssociatedConnUserName>estimpson</AssociatedConnUserName>
+          <FullPath>Table.MONITOR.TOPS.NewEEHPlanning.sql</FullPath>
+        </FileNode>
+        <FileNode Name="Table.MONITOR.TOPS.PlanningCalendars.sql">
+          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:eeisql1:False:estimpson</AssociatedConnectionMoniker>
+          <AssociatedConnSrvName>eeisql1</AssociatedConnSrvName>
+          <AssociatedConnUserName>estimpson</AssociatedConnUserName>
+          <FullPath>Table.MONITOR.TOPS.PlanningCalendars.sql</FullPath>
+        </FileNode>
+        <FileNode Name="Table.MONITOR.TOPS.PlanningSnapshotHeaders.sql">
+          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:eeisql1:False:estimpson</AssociatedConnectionMoniker>
+          <AssociatedConnSrvName>eeisql1</AssociatedConnSrvName>
+          <AssociatedConnUserName>estimpson</AssociatedConnUserName>
+          <FullPath>Table.MONITOR.TOPS.PlanningSnapshotHeaders.sql</FullPath>
+        </FileNode>
+        <FileNode Name="Table.MONITOR.TOPS.PlanningSnapshots.sql">
+          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:eeisql1:False:estimpson</AssociatedConnectionMoniker>
+          <AssociatedConnSrvName>eeisql1</AssociatedConnSrvName>
+          <AssociatedConnUserName>estimpson</AssociatedConnUserName>
+          <FullPath>Table.MONITOR.TOPS.PlanningSnapshots.sql</FullPath>
         </FileNode>
         <FileNode Name="View.MONITOR.TOPS.Leg_DefaultPOs.sql">
           <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:eeisql1:False:estimpson</AssociatedConnectionMoniker>
