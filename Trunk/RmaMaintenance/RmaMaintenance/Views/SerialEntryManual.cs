@@ -177,6 +177,23 @@ namespace RmaMaintenance.Views
                     return 0;
                 }
 
+                int ser;
+                try
+                {
+                    ser = Convert.ToInt32(serial);
+                }
+                catch (Exception)
+                {
+                    Cursor.Current = Cursors.Default;
+                    _messages.Message = string.Format("Invalid serial number found: {0}.", serial);
+                    _messages.ShowDialog();
+                    return 0;
+                }
+
+                // Check for duplicates
+                if (_serialQuantityList.Exists(x => x.Serial == ser)) continue;
+
+
                 decimal qty;
                 try
                 {
@@ -191,7 +208,7 @@ namespace RmaMaintenance.Views
                 }
 
                 // Create list to process and send forward
-                _serialQuantityDataModel = new SerialQuantityDataModel {Quantity = qty, Serial = Convert.ToInt32(serial)};
+                _serialQuantityDataModel = new SerialQuantityDataModel {Quantity = qty, Serial = ser};
                 _serialQuantityList.Add(_serialQuantityDataModel);
             }
             return 1;            

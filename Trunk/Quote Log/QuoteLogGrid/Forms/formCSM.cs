@@ -104,11 +104,12 @@ namespace QuoteLogGrid.Forms
             _csmController = new CSMController(quoteNumber);
 
             // North American CSM data
-            if (GetAllNorthAmericanCsmData() == 0) this.Close();
-            if (GetNorthAmericanCsmDataForQuote() == 0) this.Close();
+            if (GetAllNorthAmericanCsmData() == 0) Close();
+         
+            if (GetNorthAmericanCsmDataForQuote() == 0) Close();
 
             // Non-North American CSM data
-            if (GetNonNorthAmericanCsmData() == 0) this.Close();
+            if (GetNonNorthAmericanCsmData() == 0) Close();
         }
 
         #endregion

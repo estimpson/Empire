@@ -34,7 +34,7 @@ namespace ImportLogisticsVarianceData
             linkLblClose.LinkBehavior = LinkBehavior.NeverUnderline;
 
             lblErrorMessage.Text = "";
-            mesBtnFedExImport.Enabled = mesBtnImportChRobinson.Enabled = mesBtnPfSolutions.Enabled = false;
+            mesBtnFedExImport.Enabled = mesBtnImportChRobinson.Enabled = mesBtnPfSolutions.Enabled = mesBtnUpsImport.Enabled = false;
         }
 
         private void formMain_Activated(object sender, EventArgs e)
@@ -132,13 +132,19 @@ namespace ImportLogisticsVarianceData
 
         private void mesBtnImportChRobinson_Click(object sender, EventArgs e)
         {
-            var view = new ChRobinsonView(_operatorCode);
+            var view = new ChRobinsonVarianceView(_operatorCode);
             view.ShowDialog();
         }
 
         private void mesBtnPfSolutions_Click(object sender, EventArgs e)
         {
-            var view = new PfSolutionsView(_operatorCode);
+            var view = new PfSolutionsVarianceView(_operatorCode);
+            view.ShowDialog();
+        }
+
+        private void mesBtnUpsImport_Click(object sender, EventArgs e)
+        {
+            var view = new UpsVarianceView(_operatorCode);
             view.ShowDialog();
         }
 
@@ -168,8 +174,9 @@ namespace ImportLogisticsVarianceData
             _operatorCode = user;
             lblErrorMessage.Text = "";
             pnlLogin.Visible = false;
-            mesBtnFedExImport.Enabled = mesBtnImportChRobinson.Enabled = mesBtnPfSolutions.Enabled = true;
+            mesBtnFedExImport.Enabled = mesBtnImportChRobinson.Enabled = mesBtnPfSolutions.Enabled = mesBtnUpsImport.Enabled = true;
         }
+
 
         #endregion
 

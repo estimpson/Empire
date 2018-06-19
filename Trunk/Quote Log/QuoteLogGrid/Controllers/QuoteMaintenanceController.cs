@@ -19,6 +19,7 @@ namespace QuoteLogGrid.Controllers
 
         private formQuoteMaintenance _theView;
         private DataLayerNewQuoteNumber _nqn;
+        private DataLayerEmpireMarket _empireMarketDataLayer;
         private LTAController _ltaController;
         private FileController _fileController;
 
@@ -37,6 +38,7 @@ namespace QuoteLogGrid.Controllers
 
             _context = new QuoteLogContext();
             _nqn = new DataLayerNewQuoteNumber();
+            _empireMarketDataLayer = new DataLayerEmpireMarket();
 
             // Get quote header data, get a new quote number and reset the _quoteNumber variable if necessary
             GetQuoteHeaderData(out errorMessage, out errorMethod);
@@ -49,6 +51,7 @@ namespace QuoteLogGrid.Controllers
             // Bind all the LookupEdit columns in the grid
             LoadLookupColumns();
             BindDataSources();
+
 
             // Quote LTA data
             if (_quoteType == QuoteTypes.ModifyExisting)
@@ -67,6 +70,7 @@ namespace QuoteLogGrid.Controllers
                 // New quote, so bypass LTA functions until the quote is saved
                 _ltaController = new LTAController(_quoteNumber, true);
             }
+
 
             // Quote Print document and Customer Quote document
             _fileController = new FileController(_quoteNumber);
@@ -184,8 +188,12 @@ namespace QuoteLogGrid.Controllers
                 _context.QuoteReviewInitials.Load();
                 _context.QuotePricingInitials.Load();
                 _context.CustomerQuoteInitials.Load();
-                _context.Functions.Load();
                 _context.Applications.Load();
+                _context.vw_QT_Functions.Load();
+                _context.vw_QT_QuoteReasons.Load();
+                _context.vw_QT_ProductLines.Load();
+                _context.vw_QT_EmpireMarketSegment.Load();
+                _context.vw_QT_EmpireMarketSubsegment.Load();
             }
             catch (Exception)
             {
@@ -204,8 +212,12 @@ namespace QuoteLogGrid.Controllers
             _theView.QuoteReviewInitialsBindingList = _context.QuoteReviewInitials.Local.ToBindingList();
             _theView.QuotePricingInitialsBindingList = _context.QuotePricingInitials.Local.ToBindingList();
             _theView.CustomerQuoteInitialsBindingList = _context.CustomerQuoteInitials.Local.ToBindingList();
-            _theView.FunctionsBindingList = _context.Functions.Local.ToBindingList();
             _theView.ApplicationsBindingList = _context.Applications.Local.ToBindingList();
+            _theView.FunctionsBindingList = _context.vw_QT_Functions.Local.ToBindingList();
+            _theView.QuoteReasonsBindingList = _context.vw_QT_QuoteReasons.Local.ToBindingList();
+            _theView.ProductLinesBindingList = _context.vw_QT_ProductLines.Local.ToBindingList();
+            _theView.EmpireMarketSegmentBindingList = _context.vw_QT_EmpireMarketSegment.Local.ToBindingList();
+            _theView.EmpireMarketSubsegmentBindingList = _context.vw_QT_EmpireMarketSubsegment.Local.ToBindingList();
         }
 
         #endregion
@@ -213,10 +225,10 @@ namespace QuoteLogGrid.Controllers
 
         #region LTAs
   
-        public void UpdateLtas()
+        public void UpdateLtas(string quoteNumber, decimal? year1, decimal? year2, decimal? year3, decimal? year4)
         {
             string errorMessage;
-            _ltaController.UpdateLtas(out errorMessage);
+            _ltaController.UpdateLtas(quoteNumber, year1, year2, year3, year4, out errorMessage);
             if (errorMessage != "") ShowError(errorMessage, "UpdateLtas()");
         }
 
@@ -227,10 +239,10 @@ namespace QuoteLogGrid.Controllers
             if (errorMessage != "") ShowError(errorMessage, "GetLtaData()");
         }
 
-        public void SaveLTAs()
+        public void SaveLTAs(string quoteNumber)
         {
             string errorMessage;
-            _ltaController.SaveLtaData(out errorMessage);
+            _ltaController.SaveLtaData(quoteNumber, out errorMessage);
             if (errorMessage != "") ShowError(errorMessage, "GetLtaData()");
         }
 

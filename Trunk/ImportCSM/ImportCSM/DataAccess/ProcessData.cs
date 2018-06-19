@@ -91,6 +91,24 @@ namespace ImportCSM.DataAccess
             }
         }
 
+        public void RollEmpireForecast(string priorRelease, string currentRelease, out string error)
+        {
+            var dt = new ObjectParameter("TranDT", typeof(DateTime));
+            var res = new ObjectParameter("Result", typeof(Int32));
+            error = "";
+            try
+            {
+                using (var context = new MONITOREntities())
+                {
+                    context.acctg_csm_sp_roll_forward_EmpireForecast_data_one_year_fall_off(priorRelease, currentRelease, dt, res);
+                }
+            }
+            catch (Exception ex)
+            {
+                error = (ex.InnerException != null) ? ex.InnerException.Message : ex.Message;
+            }
+        }
+
         #endregion
 
 

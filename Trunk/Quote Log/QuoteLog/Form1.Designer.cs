@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
             DevExpress.XtraSplashScreen.SplashScreenManager splashScreenManager1 = new DevExpress.XtraSplashScreen.SplashScreenManager(this, typeof(global::QuoteLog.SplashScreen1), true, true);
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.splitContainerControl = new DevExpress.XtraEditors.SplitContainerControl();
@@ -53,8 +52,8 @@
             this.outboxItem = new DevExpress.XtraNavBar.NavBarItem();
             this.calendarItem = new DevExpress.XtraNavBar.NavBarItem();
             this.tasksItem = new DevExpress.XtraNavBar.NavBarItem();
-            this.navbarImageListLarge = new System.Windows.Forms.ImageList(this.components);
-            this.navbarImageList = new System.Windows.Forms.ImageList(this.components);
+            this.navbarImageListLarge = new System.Windows.Forms.ImageList();
+            this.navbarImageList = new System.Windows.Forms.ImageList();
             this.customerQuoteInitialsView1 = new QuoteLogGrid.Views.CustomerQuoteInitialsView();
             this.qutoePricingView1 = new QuoteLogGrid.Views.QuotePricingView();
             this.quoteReviewInitialsView1 = new QuoteLogGrid.Views.QuoteReviewInitialsView();
@@ -69,7 +68,7 @@
             this.layoutQuoteLogView1 = new QuoteLogGrid.Views.LayoutQuoteLogView();
             this.PanelBandedGridView = new QuoteLogGrid.Views.BandedQuoteLogView();
             this.simpleQuoteLogView1 = new QuoteLogGrid.Views.SimpleQuoteLogView();
-            this.barManager = new DevExpress.XtraBars.BarManager(this.components);
+            this.barManager = new DevExpress.XtraBars.BarManager();
             this.bar2 = new DevExpress.XtraBars.Bar();
             this.mFile = new DevExpress.XtraBars.BarSubItem();
             this.iNew = new DevExpress.XtraBars.BarButtonItem();
@@ -83,8 +82,8 @@
             this.iSaveLayout = new DevExpress.XtraBars.BarButtonItem();
             this.iRestoreLayout = new DevExpress.XtraBars.BarButtonItem();
             this.iTreeList = new DevExpress.XtraBars.BarButtonItem();
-            this.iExportToExcel = new DevExpress.XtraBars.BarButtonItem();
             this.iMetrics = new DevExpress.XtraBars.BarButtonItem();
+            this.iRequestNewSegment = new DevExpress.XtraBars.BarButtonItem();
             this.barDockControlTop = new DevExpress.XtraBars.BarDockControl();
             this.barDockControlBottom = new DevExpress.XtraBars.BarDockControl();
             this.barDockControlLeft = new DevExpress.XtraBars.BarDockControl();
@@ -97,6 +96,8 @@
             this.iCopyForm = new DevExpress.XtraBars.BarButtonItem();
             this.iBomModification = new DevExpress.XtraBars.BarButtonItem();
             this.iPriceChange = new DevExpress.XtraBars.BarButtonItem();
+            this.iExportToExcel = new DevExpress.XtraBars.BarButtonItem();
+            this.iRequestNewSubsegment = new DevExpress.XtraBars.BarButtonItem();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerControl)).BeginInit();
             this.splitContainerControl.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.navBarControl)).BeginInit();
@@ -106,9 +107,10 @@
             // splitContainerControl
             // 
             this.splitContainerControl.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.splitContainerControl.Location = new System.Drawing.Point(0, 22);
+            this.splitContainerControl.Location = new System.Drawing.Point(0, 29);
+            this.splitContainerControl.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.splitContainerControl.Name = "splitContainerControl";
-            this.splitContainerControl.Padding = new System.Windows.Forms.Padding(6);
+            this.splitContainerControl.Padding = new System.Windows.Forms.Padding(7);
             this.splitContainerControl.Panel1.Controls.Add(this.navBarControl);
             this.splitContainerControl.Panel1.Text = "Panel1";
             this.splitContainerControl.Panel2.Controls.Add(this.customerQuoteInitialsView1);
@@ -126,8 +128,8 @@
             this.splitContainerControl.Panel2.Controls.Add(this.PanelBandedGridView);
             this.splitContainerControl.Panel2.Controls.Add(this.simpleQuoteLogView1);
             this.splitContainerControl.Panel2.Text = "Panel2";
-            this.splitContainerControl.Size = new System.Drawing.Size(1157, 649);
-            this.splitContainerControl.SplitterPosition = 165;
+            this.splitContainerControl.Size = new System.Drawing.Size(1350, 797);
+            this.splitContainerControl.SplitterPosition = 192;
             this.splitContainerControl.TabIndex = 0;
             this.splitContainerControl.Text = "splitContainerControl1";
             // 
@@ -159,10 +161,11 @@
             this.EngineeringMaterialsInitialsView});
             this.navBarControl.LargeImages = this.navbarImageListLarge;
             this.navBarControl.Location = new System.Drawing.Point(0, 0);
+            this.navBarControl.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.navBarControl.Name = "navBarControl";
-            this.navBarControl.OptionsNavPane.ExpandedWidth = 165;
+            this.navBarControl.OptionsNavPane.ExpandedWidth = 192;
             this.navBarControl.PaintStyleKind = DevExpress.XtraNavBar.NavBarViewKind.ExplorerBar;
-            this.navBarControl.Size = new System.Drawing.Size(165, 637);
+            this.navBarControl.Size = new System.Drawing.Size(192, 783);
             this.navBarControl.SmallImages = this.navbarImageList;
             this.navBarControl.StoreDefaultPaintStyleName = true;
             this.navBarControl.TabIndex = 0;
@@ -283,26 +286,26 @@
             // inboxItem
             // 
             this.inboxItem.Caption = "Inbox";
+            this.inboxItem.ImageOptions.SmallImageIndex = 0;
             this.inboxItem.Name = "inboxItem";
-            this.inboxItem.SmallImageIndex = 0;
             // 
             // outboxItem
             // 
             this.outboxItem.Caption = "Outbox";
+            this.outboxItem.ImageOptions.SmallImageIndex = 1;
             this.outboxItem.Name = "outboxItem";
-            this.outboxItem.SmallImageIndex = 1;
             // 
             // calendarItem
             // 
             this.calendarItem.Caption = "Calendar";
+            this.calendarItem.ImageOptions.SmallImageIndex = 4;
             this.calendarItem.Name = "calendarItem";
-            this.calendarItem.SmallImageIndex = 4;
             // 
             // tasksItem
             // 
             this.tasksItem.Caption = "Tasks";
+            this.tasksItem.ImageOptions.SmallImageIndex = 5;
             this.tasksItem.Name = "tasksItem";
-            this.tasksItem.SmallImageIndex = 5;
             // 
             // navbarImageListLarge
             // 
@@ -324,99 +327,110 @@
             // 
             // customerQuoteInitialsView1
             // 
-            this.customerQuoteInitialsView1.Location = new System.Drawing.Point(14, 370);
+            this.customerQuoteInitialsView1.Location = new System.Drawing.Point(16, 455);
+            this.customerQuoteInitialsView1.Margin = new System.Windows.Forms.Padding(5);
             this.customerQuoteInitialsView1.Name = "customerQuoteInitialsView1";
-            this.customerQuoteInitialsView1.Size = new System.Drawing.Size(159, 132);
+            this.customerQuoteInitialsView1.Size = new System.Drawing.Size(185, 162);
             this.customerQuoteInitialsView1.TabIndex = 13;
             this.customerQuoteInitialsView1.Tag = "Cust Quote Initials";
             this.customerQuoteInitialsView1.Visible = false;
             // 
             // qutoePricingView1
             // 
-            this.qutoePricingView1.Location = new System.Drawing.Point(179, 370);
+            this.qutoePricingView1.Location = new System.Drawing.Point(209, 455);
+            this.qutoePricingView1.Margin = new System.Windows.Forms.Padding(5);
             this.qutoePricingView1.Name = "qutoePricingView1";
-            this.qutoePricingView1.Size = new System.Drawing.Size(165, 132);
+            this.qutoePricingView1.Size = new System.Drawing.Size(192, 162);
             this.qutoePricingView1.TabIndex = 12;
             this.qutoePricingView1.Tag = "Quote Price Initials";
             this.qutoePricingView1.Visible = false;
             // 
             // quoteReviewInitialsView1
             // 
-            this.quoteReviewInitialsView1.Location = new System.Drawing.Point(516, 245);
+            this.quoteReviewInitialsView1.Location = new System.Drawing.Point(602, 302);
+            this.quoteReviewInitialsView1.Margin = new System.Windows.Forms.Padding(5);
             this.quoteReviewInitialsView1.Name = "quoteReviewInitialsView1";
-            this.quoteReviewInitialsView1.Size = new System.Drawing.Size(155, 119);
+            this.quoteReviewInitialsView1.Size = new System.Drawing.Size(181, 146);
             this.quoteReviewInitialsView1.TabIndex = 11;
             this.quoteReviewInitialsView1.Tag = "Quote Review Initials";
             this.quoteReviewInitialsView1.Visible = false;
             // 
             // engineeringMaterialsInitialsView1
             // 
-            this.engineeringMaterialsInitialsView1.Location = new System.Drawing.Point(350, 245);
+            this.engineeringMaterialsInitialsView1.Location = new System.Drawing.Point(408, 302);
+            this.engineeringMaterialsInitialsView1.Margin = new System.Windows.Forms.Padding(5);
             this.engineeringMaterialsInitialsView1.Name = "engineeringMaterialsInitialsView1";
-            this.engineeringMaterialsInitialsView1.Size = new System.Drawing.Size(160, 119);
+            this.engineeringMaterialsInitialsView1.Size = new System.Drawing.Size(187, 146);
             this.engineeringMaterialsInitialsView1.TabIndex = 10;
             this.engineeringMaterialsInitialsView1.Tag = "Eng Materials Initials";
             this.engineeringMaterialsInitialsView1.Visible = false;
             // 
             // engineeringInitialsView1
             // 
-            this.engineeringInitialsView1.Location = new System.Drawing.Point(516, 130);
+            this.engineeringInitialsView1.Location = new System.Drawing.Point(602, 160);
+            this.engineeringInitialsView1.Margin = new System.Windows.Forms.Padding(5);
             this.engineeringInitialsView1.Name = "engineeringInitialsView1";
-            this.engineeringInitialsView1.Size = new System.Drawing.Size(155, 109);
+            this.engineeringInitialsView1.Size = new System.Drawing.Size(181, 134);
             this.engineeringInitialsView1.TabIndex = 9;
             this.engineeringInitialsView1.Tag = "Engineering Initials";
             this.engineeringInitialsView1.Visible = false;
             // 
             // programManagerInitialsView1
             // 
-            this.programManagerInitialsView1.Location = new System.Drawing.Point(516, 3);
+            this.programManagerInitialsView1.Location = new System.Drawing.Point(602, 4);
+            this.programManagerInitialsView1.Margin = new System.Windows.Forms.Padding(5);
             this.programManagerInitialsView1.Name = "programManagerInitialsView1";
-            this.programManagerInitialsView1.Size = new System.Drawing.Size(155, 121);
+            this.programManagerInitialsView1.Size = new System.Drawing.Size(181, 149);
             this.programManagerInitialsView1.TabIndex = 8;
             this.programManagerInitialsView1.Tag = "Program Mgr Initials";
             this.programManagerInitialsView1.Visible = false;
             // 
             // salesInitialsView1
             // 
-            this.salesInitialsView1.Location = new System.Drawing.Point(179, 245);
+            this.salesInitialsView1.Location = new System.Drawing.Point(209, 302);
+            this.salesInitialsView1.Margin = new System.Windows.Forms.Padding(5);
             this.salesInitialsView1.Name = "salesInitialsView1";
-            this.salesInitialsView1.Size = new System.Drawing.Size(165, 119);
+            this.salesInitialsView1.Size = new System.Drawing.Size(192, 146);
             this.salesInitialsView1.TabIndex = 7;
             this.salesInitialsView1.Tag = "Sales Initials";
             this.salesInitialsView1.Visible = false;
             // 
             // customersView1
             // 
-            this.customersView1.Location = new System.Drawing.Point(350, 130);
+            this.customersView1.Location = new System.Drawing.Point(408, 160);
+            this.customersView1.Margin = new System.Windows.Forms.Padding(5);
             this.customersView1.Name = "customersView1";
-            this.customersView1.Size = new System.Drawing.Size(160, 109);
+            this.customersView1.Size = new System.Drawing.Size(187, 134);
             this.customersView1.TabIndex = 6;
             this.customersView1.Tag = "Customers";
             this.customersView1.Visible = false;
             // 
             // functionsView1
             // 
-            this.functionsView1.Location = new System.Drawing.Point(14, 245);
+            this.functionsView1.Location = new System.Drawing.Point(16, 302);
+            this.functionsView1.Margin = new System.Windows.Forms.Padding(5);
             this.functionsView1.Name = "functionsView1";
-            this.functionsView1.Size = new System.Drawing.Size(159, 119);
+            this.functionsView1.Size = new System.Drawing.Size(185, 146);
             this.functionsView1.TabIndex = 5;
             this.functionsView1.Tag = "Functions";
             this.functionsView1.Visible = false;
             // 
             // applicationsView1
             // 
-            this.applicationsView1.Location = new System.Drawing.Point(179, 130);
+            this.applicationsView1.Location = new System.Drawing.Point(209, 160);
+            this.applicationsView1.Margin = new System.Windows.Forms.Padding(5);
             this.applicationsView1.Name = "applicationsView1";
-            this.applicationsView1.Size = new System.Drawing.Size(165, 109);
+            this.applicationsView1.Size = new System.Drawing.Size(192, 134);
             this.applicationsView1.TabIndex = 4;
             this.applicationsView1.Tag = "Applications";
             this.applicationsView1.Visible = false;
             // 
             // fastQuoteLogView1
             // 
-            this.fastQuoteLogView1.Location = new System.Drawing.Point(179, 3);
+            this.fastQuoteLogView1.Location = new System.Drawing.Point(209, 4);
+            this.fastQuoteLogView1.Margin = new System.Windows.Forms.Padding(5);
             this.fastQuoteLogView1.Name = "fastQuoteLogView1";
-            this.fastQuoteLogView1.Size = new System.Drawing.Size(165, 121);
+            this.fastQuoteLogView1.Size = new System.Drawing.Size(192, 149);
             this.fastQuoteLogView1.TabIndex = 3;
             this.fastQuoteLogView1.Tag = "Faster Grid View";
             this.fastQuoteLogView1.Visible = false;
@@ -432,7 +446,8 @@
             this.layoutQuoteLogView1.EEIPartNumber = null;
             this.layoutQuoteLogView1.EEIPromisedDueDate = null;
             this.layoutQuoteLogView1.EndUser = null;
-            this.layoutQuoteLogView1.Location = new System.Drawing.Point(14, 130);
+            this.layoutQuoteLogView1.Location = new System.Drawing.Point(16, 160);
+            this.layoutQuoteLogView1.Margin = new System.Windows.Forms.Padding(5);
             this.layoutQuoteLogView1.ModelYear = null;
             this.layoutQuoteLogView1.Name = "layoutQuoteLogView1";
             this.layoutQuoteLogView1.Nameplate = null;
@@ -447,7 +462,7 @@
             this.layoutQuoteLogView1.Requote = null;
             this.layoutQuoteLogView1.RowID = 0;
             this.layoutQuoteLogView1.Salesman = null;
-            this.layoutQuoteLogView1.Size = new System.Drawing.Size(159, 109);
+            this.layoutQuoteLogView1.Size = new System.Drawing.Size(185, 134);
             this.layoutQuoteLogView1.TabIndex = 2;
             this.layoutQuoteLogView1.Tag = "Form Layout View";
             this.layoutQuoteLogView1.Target = null;
@@ -455,9 +470,10 @@
             // 
             // PanelBandedGridView
             // 
-            this.PanelBandedGridView.Location = new System.Drawing.Point(350, 3);
+            this.PanelBandedGridView.Location = new System.Drawing.Point(408, 4);
+            this.PanelBandedGridView.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.PanelBandedGridView.Name = "PanelBandedGridView";
-            this.PanelBandedGridView.Size = new System.Drawing.Size(160, 121);
+            this.PanelBandedGridView.Size = new System.Drawing.Size(187, 149);
             this.PanelBandedGridView.TabIndex = 0;
             this.PanelBandedGridView.Tag = "Banded Grid View";
             this.PanelBandedGridView.UseWaitCursor = true;
@@ -465,9 +481,10 @@
             // 
             // simpleQuoteLogView1
             // 
-            this.simpleQuoteLogView1.Location = new System.Drawing.Point(14, 3);
+            this.simpleQuoteLogView1.Location = new System.Drawing.Point(16, 4);
+            this.simpleQuoteLogView1.Margin = new System.Windows.Forms.Padding(5);
             this.simpleQuoteLogView1.Name = "simpleQuoteLogView1";
-            this.simpleQuoteLogView1.Size = new System.Drawing.Size(159, 121);
+            this.simpleQuoteLogView1.Size = new System.Drawing.Size(185, 149);
             this.simpleQuoteLogView1.TabIndex = 1;
             this.simpleQuoteLogView1.Tag = "Simple Grid View";
             this.simpleQuoteLogView1.Visible = false;
@@ -503,9 +520,11 @@
             this.iPriceChange,
             this.iMetrics,
             this.iTreeList,
-            this.iExportToExcel});
+            this.iExportToExcel,
+            this.iRequestNewSegment,
+            this.iRequestNewSubsegment});
             this.barManager.MainMenu = this.bar2;
-            this.barManager.MaxItemId = 31;
+            this.barManager.MaxItemId = 34;
             // 
             // bar2
             // 
@@ -519,7 +538,8 @@
             new DevExpress.XtraBars.LinkPersistInfo(this.iSaveLayout),
             new DevExpress.XtraBars.LinkPersistInfo(this.iRestoreLayout),
             new DevExpress.XtraBars.LinkPersistInfo(this.iTreeList),
-            new DevExpress.XtraBars.LinkPersistInfo(this.iMetrics)});
+            new DevExpress.XtraBars.LinkPersistInfo(this.iMetrics),
+            new DevExpress.XtraBars.LinkPersistInfo(this.iRequestNewSegment)});
             this.bar2.OptionsBar.MultiLine = true;
             this.bar2.OptionsBar.UseWholeRow = true;
             this.bar2.Text = "Main menu";
@@ -616,33 +636,48 @@
             this.iMetrics.Name = "iMetrics";
             this.iMetrics.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.iMetrics_ItemClick);
             // 
+            // iRequestNewSegment
+            // 
+            this.iRequestNewSegment.Caption = "Request New Segment/Subsegment";
+            this.iRequestNewSegment.Id = 32;
+            this.iRequestNewSegment.Name = "iRequestNewSegment";
+            this.iRequestNewSegment.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.iRequestNewSegment_ItemClick);
+            // 
             // barDockControlTop
             // 
             this.barDockControlTop.CausesValidation = false;
             this.barDockControlTop.Dock = System.Windows.Forms.DockStyle.Top;
             this.barDockControlTop.Location = new System.Drawing.Point(0, 0);
-            this.barDockControlTop.Size = new System.Drawing.Size(1157, 22);
+            this.barDockControlTop.Manager = this.barManager;
+            this.barDockControlTop.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.barDockControlTop.Size = new System.Drawing.Size(1350, 29);
             // 
             // barDockControlBottom
             // 
             this.barDockControlBottom.CausesValidation = false;
             this.barDockControlBottom.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.barDockControlBottom.Location = new System.Drawing.Point(0, 671);
-            this.barDockControlBottom.Size = new System.Drawing.Size(1157, 0);
+            this.barDockControlBottom.Location = new System.Drawing.Point(0, 826);
+            this.barDockControlBottom.Manager = this.barManager;
+            this.barDockControlBottom.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.barDockControlBottom.Size = new System.Drawing.Size(1350, 0);
             // 
             // barDockControlLeft
             // 
             this.barDockControlLeft.CausesValidation = false;
             this.barDockControlLeft.Dock = System.Windows.Forms.DockStyle.Left;
-            this.barDockControlLeft.Location = new System.Drawing.Point(0, 22);
-            this.barDockControlLeft.Size = new System.Drawing.Size(0, 649);
+            this.barDockControlLeft.Location = new System.Drawing.Point(0, 29);
+            this.barDockControlLeft.Manager = this.barManager;
+            this.barDockControlLeft.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.barDockControlLeft.Size = new System.Drawing.Size(0, 797);
             // 
             // barDockControlRight
             // 
             this.barDockControlRight.CausesValidation = false;
             this.barDockControlRight.Dock = System.Windows.Forms.DockStyle.Right;
-            this.barDockControlRight.Location = new System.Drawing.Point(1157, 22);
-            this.barDockControlRight.Size = new System.Drawing.Size(0, 649);
+            this.barDockControlRight.Location = new System.Drawing.Point(1350, 29);
+            this.barDockControlRight.Manager = this.barManager;
+            this.barDockControlRight.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.barDockControlRight.Size = new System.Drawing.Size(0, 797);
             // 
             // barButtonItem2
             // 
@@ -689,11 +724,22 @@
             this.iPriceChange.Id = 27;
             this.iPriceChange.Name = "iPriceChange";
             // 
+            // iExportToExcel
+            // 
+            this.iExportToExcel.Id = 31;
+            this.iExportToExcel.Name = "iExportToExcel";
+            // 
+            // iRequestNewSubsegment
+            // 
+            this.iRequestNewSubsegment.Caption = "Request New Subsegment";
+            this.iRequestNewSubsegment.Id = 33;
+            this.iRequestNewSubsegment.Name = "iRequestNewSubsegment";
+            // 
             // Form1
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1157, 671);
+            this.ClientSize = new System.Drawing.Size(1350, 826);
             this.Controls.Add(this.splitContainerControl);
             this.Controls.Add(this.barDockControlLeft);
             this.Controls.Add(this.barDockControlRight);
@@ -701,13 +747,16 @@
             this.Controls.Add(this.barDockControlTop);
             this.LookAndFeel.SkinName = "Darkroom";
             this.LookAndFeel.UseDefaultLookAndFeel = false;
+            this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.Name = "Form1";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Quote Log";
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerControl)).EndInit();
             this.splitContainerControl.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.navBarControl)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.barManager)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -779,6 +828,7 @@
         private DevExpress.XtraBars.BarButtonItem iMetrics;
         private DevExpress.XtraBars.BarButtonItem iTreeList;
         private DevExpress.XtraBars.BarButtonItem iExportToExcel;
-
+        private DevExpress.XtraBars.BarButtonItem iRequestNewSegment;
+        private DevExpress.XtraBars.BarButtonItem iRequestNewSubsegment;
     }
 }

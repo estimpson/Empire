@@ -76,9 +76,6 @@
     <Compile Include="Models\EngineeringMaterialsInitials.cs">
       <DependentUpon>QuoteLogModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Functions.cs">
-      <DependentUpon>QuoteLogModel.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\NavigationGroupItems.cs">
       <DependentUpon>QuoteLogModel.tt</DependentUpon>
     </Compile>
@@ -86,6 +83,9 @@
       <DependentUpon>QuoteLogModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\OnTimeByQuoteEngineer.cs">
+      <DependentUpon>QuoteLogModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\OnTimeDaysLateBreakdown.cs">
       <DependentUpon>QuoteLogModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\OnTimeDelivery.cs">
@@ -175,6 +175,27 @@
     <Compile Include="Models\TypeOfRequestsPerCustomer.cs">
       <DependentUpon>QuoteLogModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\usp_QT_Customer_Codes_Get_Result.cs">
+      <DependentUpon>QuoteLogModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\usp_QT_Customer_Get_Result.cs">
+      <DependentUpon>QuoteLogModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\usp_QT_Customer_LtaTypes_Get_Result.cs">
+      <DependentUpon>QuoteLogModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\usp_QT_Customer_States_Get_Result.cs">
+      <DependentUpon>QuoteLogModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\usp_QT_Customer_Terms_Get_Result.cs">
+      <DependentUpon>QuoteLogModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\usp_QT_FileManagement_Delete_Result.cs">
+      <DependentUpon>QuoteLogModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\usp_QT_FileManagement_Get_Result.cs">
+      <DependentUpon>QuoteLogModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\usp_QT_LightingStudy_GetApplications_Result.cs">
       <DependentUpon>QuoteLogModel.tt</DependentUpon>
     </Compile>
@@ -191,6 +212,24 @@
       <DependentUpon>QuoteLogModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\usp_QT_LightingStudy_QuoteNumbers_Validate_Result.cs">
+      <DependentUpon>QuoteLogModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\usp_QT_NewPartCheck_Result.cs">
+      <DependentUpon>QuoteLogModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\vw_QT_EmpireMarketSegment.cs">
+      <DependentUpon>QuoteLogModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\vw_QT_EmpireMarketSubsegment.cs">
+      <DependentUpon>QuoteLogModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\vw_QT_Functions.cs">
+      <DependentUpon>QuoteLogModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\vw_QT_ProductLines.cs">
+      <DependentUpon>QuoteLogModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\vw_QT_QuoteReasons.cs">
       <DependentUpon>QuoteLogModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />

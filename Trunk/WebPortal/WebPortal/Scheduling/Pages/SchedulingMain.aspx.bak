@@ -1,0 +1,36 @@
+﻿<%@ Page Title="Scheduling" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="SchedulingMain.aspx.cs" Inherits="WebPortal.Scheduling.Main" %>
+
+<%@ Register Assembly="DevExpress.Web.v17.1, Version=17.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" Namespace="DevExpress.Web" TagPrefix="dx" %>
+
+
+<asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server">
+    <asp:UpdatePanel ID="UpdatePanel1" runat="server">
+    <Triggers>
+        <asp:AsyncPostBackTrigger ControlID="ddlSchedulers" EventName="SelectedIndexChanged" />
+        <asp:AsyncPostBackTrigger ControlID="gvwFinishedParts" EventName="SelectedIndexChanged" />
+    </Triggers>
+    <ContentTemplate>
+
+        <div>
+            <asp:Label ID="lblErrorMessage" runat="server" CssClass="message"></asp:Label>
+        </div>
+        <div>
+            <asp:DropDownList ID="ddlSchedulers" runat="server" AutoPostBack="true" CssClass="ddl" OnSelectedIndexChanged="ddlSchedulers_SelectedIndexChanged"></asp:DropDownList>
+        </div>
+        <div style="width: 180px; height: 350px; overflow: auto; border: 1px solid #5a5a5a">
+            <asp:GridView ID="gvwFinishedParts" runat="server" CssClass="mydatagrid" HeaderStyle-CssClass="header" 
+                ShowHeader="false" RowStyle-CssClass="rows" SelectedRowStyle-CssClass="selectedrow" AutoGenerateColumns="false" 
+                OnSelectedIndexChanged="gvwFinishedParts_SelectedIndexChanged" AutoGenerateSelectButton="true" 
+                OnRowDataBound="gvwFinishedParts_RowDataBound"></asp:GridView>
+        </div>
+
+        <br />
+
+        <div style="width: 180px; height: 350px; overflow: auto; border: 1px solid #5a5a5a">
+
+        </div>
+
+    </ContentTemplate>
+    </asp:UpdatePanel>
+
+</asp:Content>

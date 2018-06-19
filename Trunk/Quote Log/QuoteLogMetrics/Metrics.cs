@@ -20,6 +20,7 @@ namespace QuoteLogMetrics
         public List<CompletedQuotes> completedQuotes;
         public List<QuotesCompletedByEstimator> compQuotesByEstimator;
         public List<OnTimeDelivery> onTimeDelivery;
+        public List<OnTimeDaysLateBreakdown> onTimeDaysLateBreakdown; 
         public List<OnTimeByQuoteEngineer> onTimeByEngineer;
         public List<QuoteRequestsPerMonth> quoteRequestsPerMonth;
         public List<QuoteRequestsPerMonthSalesperson> quoteRequestsPerMonthSalesperson;
@@ -110,6 +111,23 @@ namespace QuoteLogMetrics
                 foreach (OnTimeDelivery result in context.usp_QT_Metrics_OnTimeDelivery())
                 {
                     onTimeDelivery.Add(result);
+                }
+                return "";
+            }
+            catch (Exception)
+            {
+                return errorMessage;
+            }
+        }
+
+        public string GetDaysLate()
+        {
+            onTimeDaysLateBreakdown = new List<OnTimeDaysLateBreakdown>();
+            try
+            {
+                foreach (OnTimeDaysLateBreakdown result in context.usp_QT_Metrics_OnTimeDaysLateBreakdown())
+                {
+                    onTimeDaysLateBreakdown.Add(result);
                 }
                 return "";
             }

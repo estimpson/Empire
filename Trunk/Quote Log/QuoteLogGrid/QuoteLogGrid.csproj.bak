@@ -1,0 +1,370 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{335B6C2F-552E-49A0-8373-51078D9D1160}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>QuoteLogGrid</RootNamespace>
+    <AssemblyName>QuoteLogGrid</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="DevExpress.Charts.v11.2.Core, Version=11.2.11.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Data.v11.2, Version=11.2.11.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.PivotGrid.v11.2.Core, Version=11.2.11.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Printing.v11.2.Core, Version=11.2.11.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.RichEdit.v11.2.Core, Version=11.2.11.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Utils.v11.2, Version=11.2.11.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.XtraBars.v11.2, Version=11.2.11.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.XtraCharts.v11.2, Version=11.2.11.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.XtraEditors.v11.2, Version=11.2.11.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.XtraGrid.v11.2, Version=11.2.11.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.XtraLayout.v11.2, Version=11.2.11.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.XtraPivotGrid.v11.2, Version=11.2.11.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.XtraReports.v11.2, Version=11.2.11.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.XtraRichEdit.v11.2, Version=11.2.11.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.XtraTreeList.v11.2, Version=11.2.11.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="EntityFramework, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\..\Program Files (x86)\Microsoft Visual Studio 11.0\Common7\IDE\Extensions\Microsoft\Entity Framework Tools\NuGet Packages\EntityFramework.5.0.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.Entity" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Controllers\FileController.cs" />
+    <Compile Include="dsQuoteLog.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>dsQuoteLog.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Form1.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Form1.Designer.cs">
+      <DependentUpon>Form1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\formChooseQuoteType.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\formChooseQuoteType.Designer.cs">
+      <DependentUpon>formChooseQuoteType.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\formCSM.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\formCSM.Designer.cs">
+      <DependentUpon>formCSM.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\formLightingData.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\formLightingData.Designer.cs">
+      <DependentUpon>formLightingData.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\formNewQuote.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\formNewQuote.Designer.cs">
+      <DependentUpon>formNewQuote.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\formQuoteMaintenance.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\formQuoteMaintenance.Designer.cs">
+      <DependentUpon>formQuoteMaintenance.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\formReplaceDeleted.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\formReplaceDeleted.Designer.cs">
+      <DependentUpon>formReplaceDeleted.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\formTreeView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\formTreeView.Designer.cs">
+      <DependentUpon>formTreeView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Interfaces\IQuoteMaintenanceView.cs" />
+    <Compile Include="Forms\reportNewQuote.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Forms\reportNewQuote.Designer.cs">
+      <DependentUpon>reportNewQuote.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Interfaces\IGridView.cs" />
+    <Compile Include="MONITORDataSet.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>MONITORDataSet.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Controllers\CSMController.cs" />
+    <Compile Include="Controllers\QuoteMaintenanceController.cs" />
+    <Compile Include="Controllers\LTAController.cs" />
+    <Compile Include="SupportClasses\DataLayerNewQuoteNumber.cs" />
+    <Compile Include="SupportClasses\QuoteTypes.cs" />
+    <Compile Include="SupportClasses\SetupTypes.cs" />
+    <Compile Include="Views\ApplicationsView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\ApplicationsView.Designer.cs">
+      <DependentUpon>ApplicationsView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\BandedQuoteLogView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\BandedQuoteLogView.Designer.cs">
+      <DependentUpon>BandedQuoteLogView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\CustomerQuoteInitialsView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\CustomerQuoteInitialsView.Designer.cs">
+      <DependentUpon>CustomerQuoteInitialsView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\CustomersView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\CustomersView.Designer.cs">
+      <DependentUpon>CustomersView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\EngineeringInitialsView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\EngineeringInitialsView.Designer.cs">
+      <DependentUpon>EngineeringInitialsView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\EngineeringMaterialsInitialsView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\EngineeringMaterialsInitialsView.Designer.cs">
+      <DependentUpon>EngineeringMaterialsInitialsView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\FastQuoteLogView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\FastQuoteLogView.Designer.cs">
+      <DependentUpon>FastQuoteLogView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\FunctionsView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\FunctionsView.Designer.cs">
+      <DependentUpon>FunctionsView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\LayoutQuoteLogView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\LayoutQuoteLogView.Designer.cs">
+      <DependentUpon>LayoutQuoteLogView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\LayoutQuoteNumberView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\LayoutQuoteNumberView.Designer.cs">
+      <DependentUpon>LayoutQuoteNumberView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ProgramManagerInitialsView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\ProgramManagerInitialsView.Designer.cs">
+      <DependentUpon>ProgramManagerInitialsView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\QuoteReviewInitialsView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\QuoteReviewInitialsView.Designer.cs">
+      <DependentUpon>QuoteReviewInitialsView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\QuotePricingView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\QuotePricingView.Designer.cs">
+      <DependentUpon>QuotePricingView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\SalesInitialsView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\SalesInitialsView.Designer.cs">
+      <DependentUpon>SalesInitialsView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\SimpleQuoteLogView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\SimpleQuoteLogView.Designer.cs">
+      <DependentUpon>SimpleQuoteLogView.cs</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="Forms\Form1.resx">
+      <DependentUpon>Form1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\formChooseQuoteType.resx">
+      <DependentUpon>formChooseQuoteType.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\formCSM.resx">
+      <DependentUpon>formCSM.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\formLightingData.resx">
+      <DependentUpon>formLightingData.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\formNewQuote.resx">
+      <DependentUpon>formNewQuote.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\formQuoteMaintenance.resx">
+      <DependentUpon>formQuoteMaintenance.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\formReplaceDeleted.resx">
+      <DependentUpon>formReplaceDeleted.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\formTreeView.resx">
+      <DependentUpon>formTreeView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\reportNewQuote.resx">
+      <DependentUpon>reportNewQuote.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\licenses.licx" />
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="Views\ApplicationsView.resx">
+      <DependentUpon>ApplicationsView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\BandedQuoteLogView.resx">
+      <DependentUpon>BandedQuoteLogView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\CustomerQuoteInitialsView.resx">
+      <DependentUpon>CustomerQuoteInitialsView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\CustomersView.resx">
+      <DependentUpon>CustomersView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\EngineeringInitialsView.resx">
+      <DependentUpon>EngineeringInitialsView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\EngineeringMaterialsInitialsView.resx">
+      <DependentUpon>EngineeringMaterialsInitialsView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\FastQuoteLogView.resx">
+      <DependentUpon>FastQuoteLogView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\FunctionsView.resx">
+      <DependentUpon>FunctionsView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\LayoutQuoteLogView.resx">
+      <DependentUpon>LayoutQuoteLogView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\LayoutQuoteNumberView.resx">
+      <DependentUpon>LayoutQuoteNumberView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\ProgramManagerInitialsView.resx">
+      <DependentUpon>ProgramManagerInitialsView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\QuoteReviewInitialsView.resx">
+      <DependentUpon>QuoteReviewInitialsView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\QuotePricingView.resx">
+      <DependentUpon>QuotePricingView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\SalesInitialsView.resx">
+      <DependentUpon>SalesInitialsView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\SimpleQuoteLogView.resx">
+      <DependentUpon>SimpleQuoteLogView.cs</DependentUpon>
+    </EmbeddedResource>
+    <None Include="dsQuoteLog.xsc">
+      <DependentUpon>dsQuoteLog.xsd</DependentUpon>
+    </None>
+    <None Include="dsQuoteLog.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>dsQuoteLog.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="dsQuoteLog.xss">
+      <DependentUpon>dsQuoteLog.xsd</DependentUpon>
+    </None>
+    <None Include="MONITORDataSet.xsc">
+      <DependentUpon>MONITORDataSet.xsd</DependentUpon>
+    </None>
+    <None Include="MONITORDataSet.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>MONITORDataSet.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="MONITORDataSet.xss">
+      <DependentUpon>MONITORDataSet.xsd</DependentUpon>
+    </None>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\QuoteLogData\QuoteLogData.csproj">
+      <Project>{bfb96aec-c530-462f-af2f-fb5367767807}</Project>
+      <Name>QuoteLogData</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

@@ -16,6 +16,7 @@ using System.Data.Objects;
 using QuoteLogGrid.Interfaces;
 using System.IO;
 using QuoteLogMetrics;
+using QuoteLogGrid.Forms;
 
 namespace QuoteLog
 {
@@ -35,7 +36,16 @@ namespace QuoteLog
         private void NavBarItemClicked(object sender, DevExpress.XtraNavBar.NavBarLinkEventArgs e)
         {
             String caption = e.Link.Item.Caption;
-            ShowPanel(caption);
+
+            if (caption == "Customers")
+            {
+                formCustomer form = new formCustomer();
+                form.ShowDialog();
+            }
+            else
+            {
+                ShowPanel(caption);
+            }
         }
 
         private void ShowPanel(String caption)
@@ -86,6 +96,11 @@ namespace QuoteLog
             treeView.ShowDialog();
         }
 
+        private void iRequestNewSegment_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
+        {
+            QuoteLogGrid.Forms.formNewSegmentRequest newSegment = new QuoteLogGrid.Forms.formNewSegmentRequest();
+            newSegment.ShowDialog();
+        }
 
 
     }

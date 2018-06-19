@@ -60,27 +60,35 @@ namespace QuoteLogData.Models
         public Nullable<decimal> TotalQuotedSales { get; set; }
         public string QuoteStatus { get; set; }
         public string Awarded { get; set; }
+        public Nullable<System.DateTime> AwardedDate { get; set; }
         public string ProductionLevel { get; set; }
         public string RevLevel { get; set; }
         public Nullable<decimal> ProductionMaterialRollup { get; set; }
+        public string EmpireMarketSegment { get; set; }
+        public string EmpireMarketSubsegment { get; set; }
         public int RowID { get; set; }
         public Nullable<System.DateTime> RowCreateDT { get; set; }
         public string RowCreateUser { get; set; }
         public Nullable<System.DateTime> RowModifiedDT { get; set; }
         public string RowModifiedUser { get; set; }
+        public Nullable<decimal> Tooling { get; set; }
         public string ProgramComputed { get; set; }
         public string OEMComputed { get; set; }
         public string NameplateComputed { get; set; }
-        public Nullable<decimal> Tooling { get; set; }
         public Nullable<decimal> PrototypePrice { get; set; }
         public string LTA { get; set; }
         public string PrintFilePath { get; set; }
-        public string CustomerQuoteFilePath { get; set; }
         public string PrintNo { get; set; }
         public Nullable<System.DateTime> PrintDate { get; set; }
+        public string CustomerQuoteFilePath { get; set; }
         public Nullable<decimal> StdHours { get; set; }
         public string PackageNumber { get; set; }
         public Nullable<int> NumberOfDaysLate { get; set; }
+        public string ProductLine { get; set; }
+        public string QuoteReason { get; set; }
+        public string FileServerQuotePrint { get; set; }
+        public string FileServerCustomerQuote { get; set; }
+        public Nullable<int> MinimumOrderQuantity { get; set; }
     
         public virtual ICollection<QuoteEntry> QT_QuoteLog1 { get; set; }
         public virtual QuoteEntry QT_QuoteLog2 { get; set; }

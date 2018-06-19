@@ -1,0 +1,501 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="MONITORModel5.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <Function Name="usp_QL_QuoteTransfer_CustomerContacts_Insert" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="EEIUser">
+          <Parameter Name="OperatorCode" Type="varchar" Mode="In" />
+          <Parameter Name="QuoteNumber" Type="varchar" Mode="In" />
+          <Parameter Name="TranDT" Type="datetime" Mode="InOut" />
+          <Parameter Name="Result" Type="int" Mode="InOut" />
+        </Function>
+        <Function Name="usp_QL_QuoteTransfer_CustomerContacts_Update" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="EEIUser">
+          <Parameter Name="OperatorCode" Type="varchar" Mode="In" />
+          <Parameter Name="Id" Type="int" Mode="In" />
+          <Parameter Name="FirstName" Type="varchar" Mode="In" />
+          <Parameter Name="LastName" Type="varchar" Mode="In" />
+          <Parameter Name="PhoneNumber" Type="varchar" Mode="In" />
+          <Parameter Name="FaxNumber" Type="varchar" Mode="In" />
+          <Parameter Name="EmailAddress" Type="varchar" Mode="In" />
+          <Parameter Name="TranDT" Type="datetime" Mode="InOut" />
+          <Parameter Name="Result" Type="int" Mode="InOut" />
+        </Function>
+        <Function Name="usp_QL_QuoteTransfer_Documentation_Insert" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="EEIUser">
+          <Parameter Name="OperatorCode" Type="varchar" Mode="In" />
+          <Parameter Name="QuoteNumber" Type="varchar" Mode="In" />
+          <Parameter Name="Description" Type="varchar" Mode="In" />
+          <Parameter Name="Answer" Type="varchar" Mode="In" />
+          <Parameter Name="TranDT" Type="datetime" Mode="InOut" />
+          <Parameter Name="Result" Type="int" Mode="InOut" />
+        </Function>
+        <Function Name="usp_QL_QuoteTransfer_GetCustomerContacts" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="EEIUser">
+          <Parameter Name="QuoteNumber" Type="varchar" Mode="In" />
+          <Parameter Name="TranDT" Type="datetime" Mode="InOut" />
+          <Parameter Name="Result" Type="int" Mode="InOut" />
+        </Function>
+        <Function Name="usp_QL_QuoteTransfer_GetDocumentation" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="EEIUser">
+          <Parameter Name="QuoteNumber" Type="varchar" Mode="In" />
+          <Parameter Name="TranDT" Type="datetime" Mode="InOut" />
+          <Parameter Name="Result" Type="int" Mode="InOut" />
+        </Function>
+        <Function Name="usp_QL_QuoteTransfer_GetQuote" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="EEIUser">
+          <Parameter Name="QuoteNumber" Type="varchar" Mode="In" />
+          <Parameter Name="TranDT" Type="datetime" Mode="InOut" />
+          <Parameter Name="Result" Type="int" Mode="InOut" />
+        </Function>
+        <Function Name="usp_QL_QuoteTransfer_GetSignOff" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="EEIUser">
+          <Parameter Name="QuoteNumber" Type="varchar" Mode="In" />
+          <Parameter Name="TranDT" Type="datetime" Mode="InOut" />
+          <Parameter Name="Result" Type="int" Mode="InOut" />
+        </Function>
+        <Function Name="usp_QL_QuoteTransfer_GetSignOffInitials" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="EEIUser">
+          <Parameter Name="Type" Type="varchar" Mode="In" />
+          <Parameter Name="TranDT" Type="datetime" Mode="InOut" />
+          <Parameter Name="Result" Type="int" Mode="InOut" />
+        </Function>
+        <Function Name="usp_QL_QuoteTransfer_GetSpecialReqNotes" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="EEIUser">
+          <Parameter Name="QuoteNumber" Type="varchar" Mode="In" />
+          <Parameter Name="TranDT" Type="datetime" Mode="InOut" />
+          <Parameter Name="Result" Type="int" Mode="InOut" />
+        </Function>
+        <Function Name="usp_QL_QuoteTransfer_GetToolingBreakdown" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="EEIUser">
+          <Parameter Name="QuoteNumber" Type="varchar" Mode="In" />
+          <Parameter Name="TranDT" Type="datetime" Mode="InOut" />
+          <Parameter Name="Result" Type="int" Mode="InOut" />
+        </Function>
+        <Function Name="usp_QL_QuoteTransfer_SignOff_Insert" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="EEIUser">
+          <Parameter Name="OperatorCode" Type="varchar" Mode="In" />
+          <Parameter Name="QuoteNumber" Type="varchar" Mode="In" />
+          <Parameter Name="TranDT" Type="datetime" Mode="InOut" />
+          <Parameter Name="Result" Type="int" Mode="InOut" />
+        </Function>
+        <Function Name="usp_QL_QuoteTransfer_SignOff_Update" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="EEIUser">
+          <Parameter Name="OperatorCode" Type="varchar" Mode="In" />
+          <Parameter Name="Id" Type="int" Mode="In" />
+          <Parameter Name="Initials" Type="varchar" Mode="In" />
+          <Parameter Name="SignOffDate" Type="datetime" Mode="In" />
+          <Parameter Name="TranDT" Type="datetime" Mode="InOut" />
+          <Parameter Name="Result" Type="int" Mode="InOut" />
+        </Function>
+        <Function Name="usp_QL_QuoteTransfer_SpecialReqNotes_Insert" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="EEIUser">
+          <Parameter Name="OperatorCode" Type="varchar" Mode="In" />
+          <Parameter Name="QuoteNumber" Type="varchar" Mode="In" />
+          <Parameter Name="TranDT" Type="datetime" Mode="InOut" />
+          <Parameter Name="Result" Type="int" Mode="InOut" />
+        </Function>
+        <Function Name="usp_QL_QuoteTransfer_SpecialReqNotes_Update" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="EEIUser">
+          <Parameter Name="OperatorCode" Type="varchar" Mode="In" />
+          <Parameter Name="Id" Type="int" Mode="In" />
+          <Parameter Name="Answer" Type="varchar" Mode="In" />
+          <Parameter Name="Notes" Type="varchar" Mode="In" />
+          <Parameter Name="TranDT" Type="datetime" Mode="InOut" />
+          <Parameter Name="Result" Type="int" Mode="InOut" />
+        </Function>
+        <Function Name="usp_QL_QuoteTransfer_ToolingBreakdown_Delete" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="EEIUser">
+          <Parameter Name="OperatorCode" Type="varchar" Mode="In" />
+          <Parameter Name="Id" Type="int" Mode="In" />
+          <Parameter Name="TranDT" Type="datetime" Mode="InOut" />
+          <Parameter Name="Result" Type="int" Mode="InOut" />
+        </Function>
+        <Function Name="usp_QL_QuoteTransfer_ToolingBreakdown_Insert" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="EEIUser">
+          <Parameter Name="OperatorCode" Type="varchar" Mode="In" />
+          <Parameter Name="QuoteNumber" Type="varchar" Mode="In" />
+          <Parameter Name="Description" Type="varchar" Mode="In" />
+          <Parameter Name="Quantity" Type="int" Mode="In" />
+          <Parameter Name="Value" Type="decimal" Mode="In" />
+          <Parameter Name="TranDT" Type="datetime" Mode="InOut" />
+          <Parameter Name="Result" Type="int" Mode="InOut" />
+        </Function>
+        <Function Name="usp_QL_QuoteTransfer_ToolingBreakdown_Update" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="EEIUser">
+          <Parameter Name="OperatorCode" Type="varchar" Mode="In" />
+          <Parameter Name="Id" Type="int" Mode="In" />
+          <Parameter Name="Description" Type="varchar" Mode="In" />
+          <Parameter Name="Quantity" Type="int" Mode="In" />
+          <Parameter Name="Value" Type="decimal" Mode="In" />
+          <Parameter Name="TranDT" Type="datetime" Mode="InOut" />
+          <Parameter Name="Result" Type="int" Mode="InOut" />
+        </Function>
+        <Function Name="usp_QT_FileManagement_Delete" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="EEIUser">
+          <Parameter Name="QuoteNumber" Type="varchar" Mode="In" />
+          <Parameter Name="AttachmentCategory" Type="varchar" Mode="In" />
+          <Parameter Name="TranDT" Type="datetime" Mode="InOut" />
+          <Parameter Name="Result" Type="int" Mode="InOut" />
+        </Function>
+        <Function Name="usp_QT_FileManagement_Get" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="EEIUser">
+          <Parameter Name="QuoteNumber" Type="varchar" Mode="In" />
+          <Parameter Name="AttachmentCategory" Type="varchar" Mode="In" />
+          <Parameter Name="TranDT" Type="datetime" Mode="InOut" />
+          <Parameter Name="Result" Type="int" Mode="InOut" />
+        </Function>
+        <Function Name="usp_QT_FileManagement_Save" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="EEIUser">
+          <Parameter Name="QuoteNumber" Type="varchar" Mode="In" />
+          <Parameter Name="AttachmentCategory" Type="varchar" Mode="In" />
+          <Parameter Name="FileName" Type="nvarchar" Mode="In" />
+          <Parameter Name="FileContents" Type="varbinary(max)" Mode="In" />
+          <Parameter Name="TranDT" Type="datetime" Mode="InOut" />
+          <Parameter Name="Result" Type="int" Mode="InOut" />
+        </Function>
+        <EntityContainer Name="MONITORModel5StoreContainer" />
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="MONITORModel5" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="MONITOREntitiesQuoteLogIntegrationQuoteTransfer" annotation:LazyLoadingEnabled="true" >
+          <FunctionImport Name="usp_QL_QuoteTransfer_GetDocumentation" ReturnType="Collection(MONITORModel5.usp_QL_QuoteTransfer_GetDocumentation_Result)">
+            <Parameter Name="QuoteNumber" Mode="In" Type="String" />
+            <Parameter Name="TranDT" Mode="InOut" Type="DateTime" />
+            <Parameter Name="Result" Mode="InOut" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="usp_QL_QuoteTransfer_GetQuote" ReturnType="Collection(MONITORModel5.usp_QL_QuoteTransfer_GetQuote_Result)">
+            <Parameter Name="QuoteNumber" Mode="In" Type="String" />
+            <Parameter Name="TranDT" Mode="InOut" Type="DateTime" />
+            <Parameter Name="Result" Mode="InOut" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="usp_QL_QuoteTransfer_ToolingBreakdown_Insert">
+            <Parameter Name="OperatorCode" Mode="In" Type="String" />
+            <Parameter Name="QuoteNumber" Mode="In" Type="String" />
+            <Parameter Name="Description" Mode="In" Type="String" />
+            <Parameter Name="Quantity" Mode="In" Type="Int32" />
+            <Parameter Name="Value" Mode="In" Type="Decimal" />
+            <Parameter Name="TranDT" Mode="InOut" Type="DateTime" />
+            <Parameter Name="Result" Mode="InOut" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="usp_QL_QuoteTransfer_ToolingBreakdown_Update">
+            <Parameter Name="OperatorCode" Mode="In" Type="String" />
+            <Parameter Name="Id" Mode="In" Type="Int32" />
+            <Parameter Name="Description" Mode="In" Type="String" />
+            <Parameter Name="Quantity" Mode="In" Type="Int32" />
+            <Parameter Name="Value" Mode="In" Type="Decimal" />
+            <Parameter Name="TranDT" Mode="InOut" Type="DateTime" />
+            <Parameter Name="Result" Mode="InOut" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="usp_QL_QuoteTransfer_ToolingBreakdown_Delete">
+            <Parameter Name="OperatorCode" Mode="In" Type="String" />
+            <Parameter Name="Id" Mode="In" Type="Int32" />
+            <Parameter Name="TranDT" Mode="InOut" Type="DateTime" />
+            <Parameter Name="Result" Mode="InOut" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="usp_QL_QuoteTransfer_CustomerContacts_Insert">
+            <Parameter Name="OperatorCode" Mode="In" Type="String" />
+            <Parameter Name="QuoteNumber" Mode="In" Type="String" />
+            <Parameter Name="TranDT" Mode="InOut" Type="DateTime" />
+            <Parameter Name="Result" Mode="InOut" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="usp_QL_QuoteTransfer_CustomerContacts_Update">
+            <Parameter Name="OperatorCode" Mode="In" Type="String" />
+            <Parameter Name="Id" Mode="In" Type="Int32" />
+            <Parameter Name="FirstName" Mode="In" Type="String" />
+            <Parameter Name="LastName" Mode="In" Type="String" />
+            <Parameter Name="PhoneNumber" Mode="In" Type="String" />
+            <Parameter Name="FaxNumber" Mode="In" Type="String" />
+            <Parameter Name="EmailAddress" Mode="In" Type="String" />
+            <Parameter Name="TranDT" Mode="InOut" Type="DateTime" />
+            <Parameter Name="Result" Mode="InOut" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="usp_QL_QuoteTransfer_GetCustomerContacts" ReturnType="Collection(MONITORModel5.usp_QL_QuoteTransfer_GetCustomerContacts_Result)">
+            <Parameter Name="QuoteNumber" Mode="In" Type="String" />
+            <Parameter Name="TranDT" Mode="InOut" Type="DateTime" />
+            <Parameter Name="Result" Mode="InOut" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="usp_QL_QuoteTransfer_SpecialReqNotes_Insert">
+            <Parameter Name="OperatorCode" Mode="In" Type="String" />
+            <Parameter Name="QuoteNumber" Mode="In" Type="String" />
+            <Parameter Name="TranDT" Mode="InOut" Type="DateTime" />
+            <Parameter Name="Result" Mode="InOut" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="usp_QL_QuoteTransfer_SpecialReqNotes_Update">
+            <Parameter Name="OperatorCode" Mode="In" Type="String" />
+            <Parameter Name="Id" Mode="In" Type="Int32" />
+            <Parameter Name="Answer" Mode="In" Type="String" />
+            <Parameter Name="Notes" Mode="In" Type="String" />
+            <Parameter Name="TranDT" Mode="InOut" Type="DateTime" />
+            <Parameter Name="Result" Mode="InOut" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="usp_QL_QuoteTransfer_GetSpecialReqNotes" ReturnType="Collection(MONITORModel5.usp_QL_QuoteTransfer_GetSpecialReqNotes_Result)">
+            <Parameter Name="QuoteNumber" Mode="In" Type="String" />
+            <Parameter Name="TranDT" Mode="InOut" Type="DateTime" />
+            <Parameter Name="Result" Mode="InOut" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="usp_QT_FileManagement_Delete" ReturnType="Collection(MONITORModel5.usp_QT_FileManagement_Delete_Result)">
+            <Parameter Name="QuoteNumber" Mode="In" Type="String" />
+            <Parameter Name="AttachmentCategory" Mode="In" Type="String" />
+            <Parameter Name="TranDT" Mode="InOut" Type="DateTime" />
+            <Parameter Name="Result" Mode="InOut" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="usp_QT_FileManagement_Save">
+            <Parameter Name="QuoteNumber" Mode="In" Type="String" />
+            <Parameter Name="AttachmentCategory" Mode="In" Type="String" />
+            <Parameter Name="FileName" Mode="In" Type="String" />
+            <Parameter Name="FileContents" Mode="In" Type="Binary" />
+            <Parameter Name="TranDT" Mode="InOut" Type="DateTime" />
+            <Parameter Name="Result" Mode="InOut" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="usp_QT_FileManagement_Get" ReturnType="Collection(MONITORModel5.usp_QT_FileManagement_Get_Result)">
+            <Parameter Name="QuoteNumber" Mode="In" Type="String" />
+            <Parameter Name="AttachmentCategory" Mode="In" Type="String" />
+            <Parameter Name="TranDT" Mode="InOut" Type="DateTime" />
+            <Parameter Name="Result" Mode="InOut" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="usp_QL_QuoteTransfer_GetSignOffInitials" ReturnType="Collection(MONITORModel5.usp_QL_QuoteTransfer_GetSignOffInitials_Result)">
+            <Parameter Name="Type" Mode="In" Type="String" />
+            <Parameter Name="TranDT" Mode="InOut" Type="DateTime" />
+            <Parameter Name="Result" Mode="InOut" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="usp_QL_QuoteTransfer_GetSignOff" ReturnType="Collection(MONITORModel5.usp_QL_QuoteTransfer_GetSignOff_Result)">
+            <Parameter Name="QuoteNumber" Mode="In" Type="String" />
+            <Parameter Name="TranDT" Mode="InOut" Type="DateTime" />
+            <Parameter Name="Result" Mode="InOut" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="usp_QL_QuoteTransfer_SignOff_Insert">
+            <Parameter Name="OperatorCode" Mode="In" Type="String" />
+            <Parameter Name="QuoteNumber" Mode="In" Type="String" />
+            <Parameter Name="TranDT" Mode="InOut" Type="DateTime" />
+            <Parameter Name="Result" Mode="InOut" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="usp_QL_QuoteTransfer_SignOff_Update">
+            <Parameter Name="OperatorCode" Mode="In" Type="String" />
+            <Parameter Name="Id" Mode="In" Type="Int32" />
+            <Parameter Name="Initials" Mode="In" Type="String" />
+            <Parameter Name="SignOffDate" Mode="In" Type="DateTime" />
+            <Parameter Name="TranDT" Mode="InOut" Type="DateTime" />
+            <Parameter Name="Result" Mode="InOut" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="usp_QL_QuoteTransfer_GetToolingBreakdown" ReturnType="Collection(MONITORModel5.usp_QL_QuoteTransfer_GetToolingBreakdown_Result)">
+            <Parameter Name="QuoteNumber" Mode="In" Type="String" />
+            <Parameter Name="TranDT" Mode="InOut" Type="DateTime" />
+            <Parameter Name="Result" Mode="InOut" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="usp_QL_QuoteTransfer_Documentation_Insert">
+            <Parameter Name="OperatorCode" Mode="In" Type="String" />
+            <Parameter Name="QuoteNumber" Mode="In" Type="String" />
+            <Parameter Name="Description" Mode="In" Type="String" />
+            <Parameter Name="Answer" Mode="In" Type="String" />
+            <Parameter Name="TranDT" Mode="InOut" Type="DateTime" />
+            <Parameter Name="Result" Mode="InOut" Type="Int32" />
+          </FunctionImport>
+        </EntityContainer>
+        <ComplexType Name="usp_QL_QuoteTransfer_GetDocumentation_Result">
+          <Property Type="String" Name="Description" Nullable="true" MaxLength="250" />
+          <Property Type="String" Name="FileName" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Answer" Nullable="true" MaxLength="10" />
+        </ComplexType>
+        <ComplexType Name="usp_QL_QuoteTransfer_GetQuote_Result">
+          <Property Type="String" Name="QuoteNumber" Nullable="false" MaxLength="50" />
+          <Property Type="DateTime" Name="Date" Nullable="false" Precision="23" />
+          <Property Type="String" Name="Customer" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="EmpirePartNumber" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="CustomerPartNumber" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Program" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Application" Nullable="true" MaxLength="255" />
+          <Property Type="Decimal" Name="FinancialEau" Nullable="true" Precision="20" Scale="0" />
+          <Property Type="Decimal" Name="CapacityEau" Nullable="true" Precision="23" Scale="1" />
+          <Property Type="String" Name="Salesman" Nullable="true" MaxLength="51" />
+          <Property Type="String" Name="QuoteEngineer" Nullable="true" MaxLength="51" />
+          <Property Type="Decimal" Name="SalesPrice" Nullable="true" Precision="20" Scale="4" />
+          <Property Type="Decimal" Name="LtaYear1" Nullable="true" Precision="38" Scale="4" />
+          <Property Type="Decimal" Name="LtaYear2" Nullable="true" Precision="38" Scale="4" />
+          <Property Type="Decimal" Name="LtaYear3" Nullable="true" Precision="38" Scale="4" />
+          <Property Type="Decimal" Name="LtaYear4" Nullable="true" Precision="38" Scale="4" />
+          <Property Type="Decimal" Name="PrototypePrice" Nullable="true" Precision="20" Scale="2" />
+          <Property Type="Int32" Name="MinimumOrderQuantity" Nullable="true" />
+          <Property Type="Decimal" Name="Material" Nullable="true" Precision="20" Scale="6" />
+          <Property Type="Decimal" Name="Labor" Nullable="true" Precision="20" Scale="4" />
+          <Property Type="Decimal" Name="Tooling" Nullable="true" Precision="20" Scale="0" />
+          <Property Type="DateTime" Name="SOP" Nullable="true" Precision="23" />
+          <Property Type="DateTime" Name="EOP" Nullable="true" Precision="23" />
+        </ComplexType>
+        <ComplexType Name="usp_QL_QuoteTransfer_GetCustomerContacts_Result">
+          <Property Type="Int32" Name="RowID" Nullable="false" />
+          <Property Type="String" Name="Title" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="FirstName" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="LastName" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="PhoneNumber" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="FaxNumber" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="EmailAddress" Nullable="true" MaxLength="320" />
+        </ComplexType>
+        <ComplexType Name="usp_QL_QuoteTransfer_GetSpecialReqNotes_Result">
+          <Property Type="Int32" Name="RowID" Nullable="false" />
+          <Property Type="String" Name="Description" Nullable="true" MaxLength="250" />
+          <Property Type="String" Name="Answer" Nullable="true" MaxLength="10" />
+          <Property Type="String" Name="Notes" Nullable="true" MaxLength="1000" />
+        </ComplexType>
+        <ComplexType Name="usp_QT_FileManagement_Delete_Result">
+          <Property Type="Int32" Name="C_Error" Nullable="true" />
+          <Property Type="Int32" Name="C_ProcReturn" Nullable="true" />
+          <Property Type="DateTime" Name="C_TranDT" Nullable="true" Precision="23" />
+          <Property Type="Int32" Name="C_ProcResult" Nullable="true" />
+          <Property Type="Guid" Name="C_NewStreamID" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="usp_QT_FileManagement_Get_Result">
+          <Property Type="Guid" Name="StreamID" Nullable="true" />
+          <Property Type="Binary" Name="FileContents" Nullable="true" />
+          <Property Type="String" Name="FileName" Nullable="true" MaxLength="128" />
+          <Property Type="Binary" Name="PathLocator" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="usp_QL_QuoteTransfer_GetSignOffInitials_Result">
+          <Property Type="String" Name="Initials" Nullable="true" MaxLength="10" />
+        </ComplexType>
+        <ComplexType Name="usp_QL_QuoteTransfer_GetSignOff_Result">
+          <Property Type="Int32" Name="RowID" Nullable="false" />
+          <Property Type="String" Name="Title" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Initials" Nullable="true" MaxLength="3" />
+          <Property Type="DateTime" Name="SignOffDate" Nullable="true" Precision="23" />
+        </ComplexType>
+        <ComplexType Name="usp_QL_QuoteTransfer_GetToolingBreakdown_Result">
+          <Property Type="Int32" Name="RowID" Nullable="false" />
+          <Property Type="String" Name="Description" Nullable="true" MaxLength="100" />
+          <Property Type="Int32" Name="Quantity" Nullable="true" />
+          <Property Type="Decimal" Name="Value" Nullable="true" Precision="20" Scale="2" />
+        </ComplexType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="MONITORModel5StoreContainer" CdmEntityContainer="MONITOREntitiesQuoteLogIntegrationQuoteTransfer" >
+          <FunctionImportMapping FunctionImportName="usp_QL_QuoteTransfer_GetDocumentation" FunctionName="MONITORModel5.Store.usp_QL_QuoteTransfer_GetDocumentation">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="MONITORModel5.usp_QL_QuoteTransfer_GetDocumentation_Result">
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="FileName" ColumnName="FileName" />
+                <ScalarProperty Name="Answer" ColumnName="Answer" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="usp_QL_QuoteTransfer_GetQuote" FunctionName="MONITORModel5.Store.usp_QL_QuoteTransfer_GetQuote">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="MONITORModel5.usp_QL_QuoteTransfer_GetQuote_Result">
+                <ScalarProperty Name="QuoteNumber" ColumnName="QuoteNumber" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="Customer" ColumnName="Customer" />
+                <ScalarProperty Name="EmpirePartNumber" ColumnName="EmpirePartNumber" />
+                <ScalarProperty Name="CustomerPartNumber" ColumnName="CustomerPartNumber" />
+                <ScalarProperty Name="Program" ColumnName="Program" />
+                <ScalarProperty Name="Application" ColumnName="Application" />
+                <ScalarProperty Name="FinancialEau" ColumnName="FinancialEau" />
+                <ScalarProperty Name="CapacityEau" ColumnName="CapacityEau" />
+                <ScalarProperty Name="Salesman" ColumnName="Salesman" />
+                <ScalarProperty Name="QuoteEngineer" ColumnName="QuoteEngineer" />
+                <ScalarProperty Name="SalesPrice" ColumnName="SalesPrice" />
+                <ScalarProperty Name="LtaYear1" ColumnName="LtaYear1" />
+                <ScalarProperty Name="LtaYear2" ColumnName="LtaYear2" />
+                <ScalarProperty Name="LtaYear3" ColumnName="LtaYear3" />
+                <ScalarProperty Name="LtaYear4" ColumnName="LtaYear4" />
+                <ScalarProperty Name="PrototypePrice" ColumnName="PrototypePrice" />
+                <ScalarProperty Name="MinimumOrderQuantity" ColumnName="MinimumOrderQuantity" />
+                <ScalarProperty Name="Material" ColumnName="Material" />
+                <ScalarProperty Name="Labor" ColumnName="Labor" />
+                <ScalarProperty Name="Tooling" ColumnName="Tooling" />
+                <ScalarProperty Name="SOP" ColumnName="SOP" />
+                <ScalarProperty Name="EOP" ColumnName="EOP" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="usp_QL_QuoteTransfer_ToolingBreakdown_Insert" FunctionName="MONITORModel5.Store.usp_QL_QuoteTransfer_ToolingBreakdown_Insert" />
+          <FunctionImportMapping FunctionImportName="usp_QL_QuoteTransfer_ToolingBreakdown_Update" FunctionName="MONITORModel5.Store.usp_QL_QuoteTransfer_ToolingBreakdown_Update" />
+          <FunctionImportMapping FunctionImportName="usp_QL_QuoteTransfer_ToolingBreakdown_Delete" FunctionName="MONITORModel5.Store.usp_QL_QuoteTransfer_ToolingBreakdown_Delete" />
+          <FunctionImportMapping FunctionImportName="usp_QL_QuoteTransfer_CustomerContacts_Insert" FunctionName="MONITORModel5.Store.usp_QL_QuoteTransfer_CustomerContacts_Insert" />
+          <FunctionImportMapping FunctionImportName="usp_QL_QuoteTransfer_CustomerContacts_Update" FunctionName="MONITORModel5.Store.usp_QL_QuoteTransfer_CustomerContacts_Update" />
+          <FunctionImportMapping FunctionImportName="usp_QL_QuoteTransfer_GetCustomerContacts" FunctionName="MONITORModel5.Store.usp_QL_QuoteTransfer_GetCustomerContacts">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="MONITORModel5.usp_QL_QuoteTransfer_GetCustomerContacts_Result">
+                <ScalarProperty Name="RowID" ColumnName="RowID" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+                <ScalarProperty Name="FaxNumber" ColumnName="FaxNumber" />
+                <ScalarProperty Name="EmailAddress" ColumnName="EmailAddress" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="usp_QL_QuoteTransfer_SpecialReqNotes_Insert" FunctionName="MONITORModel5.Store.usp_QL_QuoteTransfer_SpecialReqNotes_Insert" />
+          <FunctionImportMapping FunctionImportName="usp_QL_QuoteTransfer_SpecialReqNotes_Update" FunctionName="MONITORModel5.Store.usp_QL_QuoteTransfer_SpecialReqNotes_Update" />
+          <FunctionImportMapping FunctionImportName="usp_QL_QuoteTransfer_GetSpecialReqNotes" FunctionName="MONITORModel5.Store.usp_QL_QuoteTransfer_GetSpecialReqNotes">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="MONITORModel5.usp_QL_QuoteTransfer_GetSpecialReqNotes_Result">
+                <ScalarProperty Name="RowID" ColumnName="RowID" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Answer" ColumnName="Answer" />
+                <ScalarProperty Name="Notes" ColumnName="Notes" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="usp_QT_FileManagement_Delete" FunctionName="MONITORModel5.Store.usp_QT_FileManagement_Delete">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="MONITORModel5.usp_QT_FileManagement_Delete_Result">
+                <ScalarProperty Name="C_Error" ColumnName="@Error" />
+                <ScalarProperty Name="C_ProcReturn" ColumnName="@ProcReturn" />
+                <ScalarProperty Name="C_TranDT" ColumnName="@TranDT" />
+                <ScalarProperty Name="C_ProcResult" ColumnName="@ProcResult" />
+                <ScalarProperty Name="C_NewStreamID" ColumnName="@NewStreamID" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="usp_QT_FileManagement_Save" FunctionName="MONITORModel5.Store.usp_QT_FileManagement_Save" />
+          <FunctionImportMapping FunctionImportName="usp_QT_FileManagement_Get" FunctionName="MONITORModel5.Store.usp_QT_FileManagement_Get">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="MONITORModel5.usp_QT_FileManagement_Get_Result">
+                <ScalarProperty Name="StreamID" ColumnName="StreamID" />
+                <ScalarProperty Name="FileContents" ColumnName="FileContents" />
+                <ScalarProperty Name="FileName" ColumnName="FileName" />
+                <ScalarProperty Name="PathLocator" ColumnName="PathLocator" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="usp_QL_QuoteTransfer_GetSignOffInitials" FunctionName="MONITORModel5.Store.usp_QL_QuoteTransfer_GetSignOffInitials" >
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="MONITORModel5.usp_QL_QuoteTransfer_GetSignOffInitials_Result">
+                <ScalarProperty Name="Initials" ColumnName="Initials" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="usp_QL_QuoteTransfer_GetSignOff" FunctionName="MONITORModel5.Store.usp_QL_QuoteTransfer_GetSignOff">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="MONITORModel5.usp_QL_QuoteTransfer_GetSignOff_Result">
+                <ScalarProperty Name="RowID" ColumnName="RowID" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="Initials" ColumnName="Initials" />
+                <ScalarProperty Name="SignOffDate" ColumnName="SignOffDate" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="usp_QL_QuoteTransfer_SignOff_Insert" FunctionName="MONITORModel5.Store.usp_QL_QuoteTransfer_SignOff_Insert" />
+          <FunctionImportMapping FunctionImportName="usp_QL_QuoteTransfer_SignOff_Update" FunctionName="MONITORModel5.Store.usp_QL_QuoteTransfer_SignOff_Update" />
+          <FunctionImportMapping FunctionImportName="usp_QL_QuoteTransfer_GetToolingBreakdown" FunctionName="MONITORModel5.Store.usp_QL_QuoteTransfer_GetToolingBreakdown">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="MONITORModel5.usp_QL_QuoteTransfer_GetToolingBreakdown_Result">
+                <ScalarProperty Name="RowID" ColumnName="RowID" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="Value" ColumnName="Value" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="usp_QL_QuoteTransfer_Documentation_Insert" FunctionName="MONITORModel5.Store.usp_QL_QuoteTransfer_Documentation_Insert" />
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

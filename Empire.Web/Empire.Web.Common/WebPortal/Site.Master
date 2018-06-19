@@ -1,0 +1,107 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" EnableViewState="true" CodeBehind="Site.master.cs" Inherits="WebPortal.SiteMaster" %>
+
+<!DOCTYPE html>
+
+<html lang="en">
+<head runat="server">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title></title>
+    <link href="~/Styles/Master.css" rel="stylesheet" type="text/css" />
+    <link href="~/Styles/GridView.css" rel="stylesheet" type="text/css" />
+    <link href="~/Styles/Scheduling.css" rel="stylesheet" type="text/css" />
+
+    <asp:PlaceHolder runat="server">
+        <%: Scripts.Render("~/bundles/modernizr") %>
+    </asp:PlaceHolder>
+
+    <!-- <webopt:bundlereference runat="server" path="~/Content/css" /> -->
+
+
+    <asp:ContentPlaceHolder ID="CustomHeaderHolder" runat="server" />
+</head>
+<body>
+    <form runat="server">
+        <asp:ScriptManager runat="server">
+            <Scripts>
+                <%--To learn more about bundling scripts in ScriptManager see https://go.microsoft.com/fwlink/?LinkID=301884 --%>
+                <%--Framework Scripts--%>
+                <asp:ScriptReference Name="MsAjaxBundle" />
+                <asp:ScriptReference Name="jquery" />
+                <asp:ScriptReference Name="bootstrap" />
+                <asp:ScriptReference Name="respond" />
+                <asp:ScriptReference Name="WebForms.js" Assembly="System.Web" Path="~/Scripts/WebForms/WebForms.js" />
+                <asp:ScriptReference Name="WebUIValidation.js" Assembly="System.Web" Path="~/Scripts/WebForms/WebUIValidation.js" />
+                <asp:ScriptReference Name="MenuStandards.js" Assembly="System.Web" Path="~/Scripts/WebForms/MenuStandards.js" />
+                <asp:ScriptReference Name="GridView.js" Assembly="System.Web" Path="~/Scripts/WebForms/GridView.js" />
+                <asp:ScriptReference Name="DetailsView.js" Assembly="System.Web" Path="~/Scripts/WebForms/DetailsView.js" />
+                <asp:ScriptReference Name="TreeView.js" Assembly="System.Web" Path="~/Scripts/WebForms/TreeView.js" />
+                <asp:ScriptReference Name="WebParts.js" Assembly="System.Web" Path="~/Scripts/WebForms/WebParts.js" />
+                <asp:ScriptReference Name="Focus.js" Assembly="System.Web" Path="~/Scripts/WebForms/Focus.js" />
+                <asp:ScriptReference Name="WebFormsBundle" />
+                <%--Site Scripts--%>
+            </Scripts>
+        </asp:ScriptManager>
+
+
+
+        <div class="titleBar">
+
+            <div style="float: left;">
+                <div style="font-size: 10px; font-style: italic; margin-bottom: -4px; letter-spacing: 0px;">
+                    <asp:Label ID="lblEmpire" runat="server" Text="Empire Electronics"></asp:Label>
+                </div>
+                <div style="margin-left: 25px; color: #007bf7; letter-spacing: 0px;">
+                    <asp:ContentPlaceHolder ID="TitleContent" runat="server">
+                    </asp:ContentPlaceHolder>
+                </div>
+            </div>
+
+            <div style="float: left; margin-left: 18px; margin-top: 3px;">
+                <asp:UpdatePanel ID="up1" runat="server">
+                    <ContentTemplate>
+                        <dx:ASPxButton ID="imgButton" runat="server" RenderMode="Link">
+                            <Image IconID="navigation_forward_32x32gray"></Image>
+                        </dx:ASPxButton>
+                    </ContentTemplate>
+                </asp:UpdatePanel>
+            </div>
+
+
+            <div style="float: left;">
+                <dx:ASPxPopupControl Width="270px"
+                    MaxWidth="350px" MaxHeight="350px" MinHeight="150px" MinWidth="150px" ID="pcMain"
+                    ShowFooter="false" PopupElementID="imgButton" HeaderText="My Pages" ShowCloseButton="false"
+                    PopupAction="MouseOver" CloseAction="MouseOut" PopupHorizontalAlign="OutsideRight"
+                    PopupVerticalAlign="TopSides" ViewStateMode="Enabled" runat="server">
+                    <ContentCollection>
+                        <dx:PopupControlContentControl runat="server">
+                            <asp:Panel ID="Panel1" runat="server">
+                                <dx:ASPxListBox ID="lbxWebPages" runat="server" AutoPostBack="true" Border-BorderStyle="None" ViewStateMode="Enabled" OnSelectedIndexChanged="lbxWebPages_SelectedIndexChanged">
+                                </dx:ASPxListBox>
+                            </asp:Panel>
+                        </dx:PopupControlContentControl>
+                    </ContentCollection>
+                </dx:ASPxPopupControl>
+            </div>
+
+            <div style="float: left; margin-left: 45px; margin-top: 7px;">
+                <dx:ASPxLabel ID="lblOp" runat="server" ForeColor="#c5c5c5" Font-Size="10" Text="Logged In:"></dx:ASPxLabel>
+            </div>
+            <div style="float: left; margin-left: 7px; margin-top: 7px;">
+                <dx:ASPxLabel ID="lblOperator" runat="server"  Font-Size="10" ForeColor="#c5c5c5"></dx:ASPxLabel>
+            </div>
+
+        </div>
+
+    
+
+        <div class="mainContainer">
+            <asp:ContentPlaceHolder ID="MainContent" runat="server">
+            </asp:ContentPlaceHolder>
+        </div>
+
+
+    </form>
+</body>
+</html>

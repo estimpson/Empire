@@ -45,8 +45,8 @@
             this.colEEIPartNumber = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colRequote = new DevExpress.XtraGrid.Columns.GridColumn();
             this.requoteItemGridLookUpEdit = new DevExpress.XtraEditors.Repository.RepositoryItemGridLookUpEdit();
-            this.repositoryItemLookUpEdit1 = new DevExpress.XtraEditors.Repository.RepositoryItemLookUpEdit();
             this.gridView2 = new DevExpress.XtraGrid.Views.Grid.GridView();
+            this.repositoryItemLookUpEdit1 = new DevExpress.XtraEditors.Repository.RepositoryItemLookUpEdit();
             this.colNotes = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colEAU = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colApplicationName = new DevExpress.XtraGrid.Columns.GridColumn();
@@ -119,6 +119,18 @@
             this.customerQuoteItemButtonEdit = new DevExpress.XtraEditors.Repository.RepositoryItemButtonEdit();
             this.colPackageNumber = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colNumberOfDaysLate = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colProductLine = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.productLineItemGridLookUpEdit = new DevExpress.XtraEditors.Repository.RepositoryItemGridLookUpEdit();
+            this.gridView14 = new DevExpress.XtraGrid.Views.Grid.GridView();
+            this.colQuoteReason = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.quoteReasonItemGridLookUpEdit = new DevExpress.XtraEditors.Repository.RepositoryItemGridLookUpEdit();
+            this.gridView13 = new DevExpress.XtraGrid.Views.Grid.GridView();
+            this.colEmpireMarketSegment = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.marketSegmentItemGridLookUpEdit = new DevExpress.XtraEditors.Repository.RepositoryItemGridLookUpEdit();
+            this.gridView15 = new DevExpress.XtraGrid.Views.Grid.GridView();
+            this.colEmpireMarketSubsegment = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.marketSubsegmentItemGridLookUpEdit = new DevExpress.XtraEditors.Repository.RepositoryItemGridLookUpEdit();
+            this.gridView16 = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.applicationNamesItemGridLookUpEdit = new DevExpress.XtraEditors.Repository.RepositoryItemGridLookUpEdit();
             this.gridView10 = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.QuoteLogLinqServerModeSource = new DevExpress.Data.Linq.LinqServerModeSource();
@@ -128,13 +140,17 @@
             this.btnSave = new System.Windows.Forms.Button();
             this.btnExportToExcel = new System.Windows.Forms.Button();
             this.xtraGridBlending1 = new DevExpress.XtraGrid.Blending.XtraGridBlending();
+            this.colFileServerQuotePrint = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colFileServerCustomerQuote = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colMinimumOrderQuantity = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colAwardedDate = new DevExpress.XtraGrid.Columns.GridColumn();
             ((System.ComponentModel.ISupportInitialize)(this.gridControl)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.customerItemGridLookUpEdit)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemGridLookUpEdit1View)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.requoteItemGridLookUpEdit)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemLookUpEdit1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridView2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemLookUpEdit1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.applicationCodeItemGridLookUpEdit)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridView12)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.functionsItemGridLookUpEdit)).BeginInit();
@@ -155,6 +171,14 @@
             ((System.ComponentModel.ISupportInitialize)(this.gridView9)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.quotePrintItemButtonEdit)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.customerQuoteItemButtonEdit)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.productLineItemGridLookUpEdit)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gridView14)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.quoteReasonItemGridLookUpEdit)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gridView13)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.marketSegmentItemGridLookUpEdit)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gridView15)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.marketSubsegmentItemGridLookUpEdit)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gridView16)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.applicationNamesItemGridLookUpEdit)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridView10)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.QuoteLogLinqServerModeSource)).BeginInit();
@@ -166,9 +190,12 @@
             // 
             this.gridControl.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.gridControl.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.gridControl.EmbeddedNavigator.Enabled = false;
+            this.gridControl.EmbeddedNavigator.Margin = new System.Windows.Forms.Padding(4);
             this.gridControl.EmbeddedNavigator.Click += new System.EventHandler(this.gridControl_EmbeddedNavigator_Click);
-            this.gridControl.Location = new System.Drawing.Point(3, 3);
+            this.gridControl.Location = new System.Drawing.Point(4, 4);
             this.gridControl.MainView = this.gridView1;
+            this.gridControl.Margin = new System.Windows.Forms.Padding(4);
             this.gridControl.Name = "gridControl";
             this.gridControl.RepositoryItems.AddRange(new DevExpress.XtraEditors.Repository.RepositoryItem[] {
             this.customerItemGridLookUpEdit,
@@ -184,8 +211,12 @@
             this.functionsItemGridLookUpEdit,
             this.applicationCodeItemGridLookUpEdit,
             this.quotePrintItemButtonEdit,
-            this.customerQuoteItemButtonEdit});
-            this.gridControl.Size = new System.Drawing.Size(804, 387);
+            this.customerQuoteItemButtonEdit,
+            this.quoteReasonItemGridLookUpEdit,
+            this.productLineItemGridLookUpEdit,
+            this.marketSegmentItemGridLookUpEdit,
+            this.marketSubsegmentItemGridLookUpEdit});
+            this.gridControl.Size = new System.Drawing.Size(1092, 476);
             this.gridControl.TabIndex = 2;
             this.gridControl.UseEmbeddedNavigator = true;
             this.gridControl.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
@@ -264,7 +295,15 @@
             this.colPrintDate,
             this.colCustomerQuoteFilePath,
             this.colPackageNumber,
-            this.colNumberOfDaysLate});
+            this.colNumberOfDaysLate,
+            this.colProductLine,
+            this.colQuoteReason,
+            this.colEmpireMarketSegment,
+            this.colEmpireMarketSubsegment,
+            this.colFileServerQuotePrint,
+            this.colFileServerCustomerQuote,
+            this.colMinimumOrderQuantity,
+            this.colAwardedDate});
             this.gridView1.GridControl = this.gridControl;
             this.gridView1.Name = "gridView1";
             this.gridView1.OptionsBehavior.AllowAddRows = DevExpress.Utils.DefaultBoolean.True;
@@ -286,6 +325,7 @@
             this.colQuoteNumber.Name = "colQuoteNumber";
             this.colQuoteNumber.Visible = true;
             this.colQuoteNumber.VisibleIndex = 0;
+            this.colQuoteNumber.Width = 138;
             // 
             // colStatus
             // 
@@ -307,14 +347,14 @@
             this.colCustomerRFQNumber.FieldName = "CustomerRFQNumber";
             this.colCustomerRFQNumber.Name = "colCustomerRFQNumber";
             this.colCustomerRFQNumber.Visible = true;
-            this.colCustomerRFQNumber.VisibleIndex = 3;
+            this.colCustomerRFQNumber.VisibleIndex = 5;
             // 
             // colReceiptDate
             // 
             this.colReceiptDate.FieldName = "ReceiptDate";
             this.colReceiptDate.Name = "colReceiptDate";
             this.colReceiptDate.Visible = true;
-            this.colReceiptDate.VisibleIndex = 4;
+            this.colReceiptDate.VisibleIndex = 6;
             // 
             // colCustomer
             // 
@@ -322,7 +362,7 @@
             this.colCustomer.FieldName = "Customer";
             this.colCustomer.Name = "colCustomer";
             this.colCustomer.Visible = true;
-            this.colCustomer.VisibleIndex = 5;
+            this.colCustomer.VisibleIndex = 7;
             // 
             // customerItemGridLookUpEdit
             // 
@@ -332,8 +372,8 @@
             this.customerItemGridLookUpEdit.DisplayMember = "CustomerCode";
             this.customerItemGridLookUpEdit.Name = "customerItemGridLookUpEdit";
             this.customerItemGridLookUpEdit.NullText = "";
+            this.customerItemGridLookUpEdit.PopupView = this.repositoryItemGridLookUpEdit1View;
             this.customerItemGridLookUpEdit.ValueMember = "CustomerCode";
-            this.customerItemGridLookUpEdit.View = this.repositoryItemGridLookUpEdit1View;
             // 
             // repositoryItemGridLookUpEdit1View
             // 
@@ -347,28 +387,28 @@
             this.colRequestedDueDate.FieldName = "RequestedDueDate";
             this.colRequestedDueDate.Name = "colRequestedDueDate";
             this.colRequestedDueDate.Visible = true;
-            this.colRequestedDueDate.VisibleIndex = 6;
+            this.colRequestedDueDate.VisibleIndex = 8;
             // 
             // colEEIPromisedDueDate
             // 
             this.colEEIPromisedDueDate.FieldName = "EEIPromisedDueDate";
             this.colEEIPromisedDueDate.Name = "colEEIPromisedDueDate";
             this.colEEIPromisedDueDate.Visible = true;
-            this.colEEIPromisedDueDate.VisibleIndex = 7;
+            this.colEEIPromisedDueDate.VisibleIndex = 9;
             // 
             // colCustomerPartNumber
             // 
             this.colCustomerPartNumber.FieldName = "CustomerPartNumber";
             this.colCustomerPartNumber.Name = "colCustomerPartNumber";
             this.colCustomerPartNumber.Visible = true;
-            this.colCustomerPartNumber.VisibleIndex = 8;
+            this.colCustomerPartNumber.VisibleIndex = 10;
             // 
             // colEEIPartNumber
             // 
             this.colEEIPartNumber.FieldName = "EEIPartNumber";
             this.colEEIPartNumber.Name = "colEEIPartNumber";
             this.colEEIPartNumber.Visible = true;
-            this.colEEIPartNumber.VisibleIndex = 9;
+            this.colEEIPartNumber.VisibleIndex = 11;
             // 
             // colRequote
             // 
@@ -376,7 +416,7 @@
             this.colRequote.FieldName = "Requote";
             this.colRequote.Name = "colRequote";
             this.colRequote.Visible = true;
-            this.colRequote.VisibleIndex = 10;
+            this.colRequote.VisibleIndex = 12;
             // 
             // requoteItemGridLookUpEdit
             // 
@@ -386,17 +426,10 @@
             this.requoteItemGridLookUpEdit.DisplayMember = "Type";
             this.requoteItemGridLookUpEdit.Name = "requoteItemGridLookUpEdit";
             this.requoteItemGridLookUpEdit.NullText = "";
+            this.requoteItemGridLookUpEdit.PopupView = this.gridView2;
             this.requoteItemGridLookUpEdit.RepositoryItems.AddRange(new DevExpress.XtraEditors.Repository.RepositoryItem[] {
             this.repositoryItemLookUpEdit1});
             this.requoteItemGridLookUpEdit.ValueMember = "Type";
-            this.requoteItemGridLookUpEdit.View = this.gridView2;
-            // 
-            // repositoryItemLookUpEdit1
-            // 
-            this.repositoryItemLookUpEdit1.AutoHeight = false;
-            this.repositoryItemLookUpEdit1.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
-            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
-            this.repositoryItemLookUpEdit1.Name = "repositoryItemLookUpEdit1";
             // 
             // gridView2
             // 
@@ -405,26 +438,33 @@
             this.gridView2.OptionsSelection.EnableAppearanceFocusedCell = false;
             this.gridView2.OptionsView.ShowGroupPanel = false;
             // 
+            // repositoryItemLookUpEdit1
+            // 
+            this.repositoryItemLookUpEdit1.AutoHeight = false;
+            this.repositoryItemLookUpEdit1.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.repositoryItemLookUpEdit1.Name = "repositoryItemLookUpEdit1";
+            // 
             // colNotes
             // 
             this.colNotes.FieldName = "Notes";
             this.colNotes.Name = "colNotes";
             this.colNotes.Visible = true;
-            this.colNotes.VisibleIndex = 11;
+            this.colNotes.VisibleIndex = 13;
             // 
             // colEAU
             // 
             this.colEAU.FieldName = "EAU";
             this.colEAU.Name = "colEAU";
             this.colEAU.Visible = true;
-            this.colEAU.VisibleIndex = 12;
+            this.colEAU.VisibleIndex = 14;
             // 
             // colApplicationName
             // 
             this.colApplicationName.FieldName = "ApplicationName";
             this.colApplicationName.Name = "colApplicationName";
             this.colApplicationName.Visible = true;
-            this.colApplicationName.VisibleIndex = 13;
+            this.colApplicationName.VisibleIndex = 15;
             // 
             // colApplicationCode
             // 
@@ -432,7 +472,7 @@
             this.colApplicationCode.FieldName = "ApplicationCode";
             this.colApplicationCode.Name = "colApplicationCode";
             this.colApplicationCode.Visible = true;
-            this.colApplicationCode.VisibleIndex = 14;
+            this.colApplicationCode.VisibleIndex = 16;
             // 
             // applicationCodeItemGridLookUpEdit
             // 
@@ -442,8 +482,8 @@
             this.applicationCodeItemGridLookUpEdit.DisplayMember = "ApplicationCode";
             this.applicationCodeItemGridLookUpEdit.Name = "applicationCodeItemGridLookUpEdit";
             this.applicationCodeItemGridLookUpEdit.NullText = "";
+            this.applicationCodeItemGridLookUpEdit.PopupView = this.gridView12;
             this.applicationCodeItemGridLookUpEdit.ValueMember = "ApplicationCode";
-            this.applicationCodeItemGridLookUpEdit.View = this.gridView12;
             // 
             // gridView12
             // 
@@ -458,7 +498,7 @@
             this.colFunctionName.FieldName = "FunctionName";
             this.colFunctionName.Name = "colFunctionName";
             this.colFunctionName.Visible = true;
-            this.colFunctionName.VisibleIndex = 15;
+            this.colFunctionName.VisibleIndex = 17;
             // 
             // functionsItemGridLookUpEdit
             // 
@@ -468,8 +508,8 @@
             this.functionsItemGridLookUpEdit.DisplayMember = "FunctionCode";
             this.functionsItemGridLookUpEdit.Name = "functionsItemGridLookUpEdit";
             this.functionsItemGridLookUpEdit.NullText = "";
+            this.functionsItemGridLookUpEdit.PopupView = this.gridView11;
             this.functionsItemGridLookUpEdit.ValueMember = "FunctionCode";
-            this.functionsItemGridLookUpEdit.View = this.gridView11;
             // 
             // gridView11
             // 
@@ -483,42 +523,42 @@
             this.colProgram.FieldName = "Program";
             this.colProgram.Name = "colProgram";
             this.colProgram.Visible = true;
-            this.colProgram.VisibleIndex = 16;
+            this.colProgram.VisibleIndex = 18;
             // 
             // colOEM
             // 
             this.colOEM.FieldName = "OEM";
             this.colOEM.Name = "colOEM";
             this.colOEM.Visible = true;
-            this.colOEM.VisibleIndex = 17;
+            this.colOEM.VisibleIndex = 19;
             // 
             // colNameplate
             // 
             this.colNameplate.FieldName = "Nameplate";
             this.colNameplate.Name = "colNameplate";
             this.colNameplate.Visible = true;
-            this.colNameplate.VisibleIndex = 18;
+            this.colNameplate.VisibleIndex = 20;
             // 
             // colModelYear
             // 
             this.colModelYear.FieldName = "ModelYear";
             this.colModelYear.Name = "colModelYear";
             this.colModelYear.Visible = true;
-            this.colModelYear.VisibleIndex = 19;
+            this.colModelYear.VisibleIndex = 21;
             // 
             // colSOP
             // 
             this.colSOP.FieldName = "SOP";
             this.colSOP.Name = "colSOP";
             this.colSOP.Visible = true;
-            this.colSOP.VisibleIndex = 20;
+            this.colSOP.VisibleIndex = 22;
             // 
             // colEOP
             // 
             this.colEOP.FieldName = "EOP";
             this.colEOP.Name = "colEOP";
             this.colEOP.Visible = true;
-            this.colEOP.VisibleIndex = 21;
+            this.colEOP.VisibleIndex = 23;
             // 
             // colSalesInitials
             // 
@@ -526,7 +566,7 @@
             this.colSalesInitials.FieldName = "SalesInitials";
             this.colSalesInitials.Name = "colSalesInitials";
             this.colSalesInitials.Visible = true;
-            this.colSalesInitials.VisibleIndex = 22;
+            this.colSalesInitials.VisibleIndex = 24;
             // 
             // salesInitialsItemGridLookUpEdit
             // 
@@ -536,8 +576,8 @@
             this.salesInitialsItemGridLookUpEdit.DisplayMember = "Initials";
             this.salesInitialsItemGridLookUpEdit.Name = "salesInitialsItemGridLookUpEdit";
             this.salesInitialsItemGridLookUpEdit.NullText = "";
+            this.salesInitialsItemGridLookUpEdit.PopupView = this.gridView3;
             this.salesInitialsItemGridLookUpEdit.ValueMember = "Initials";
-            this.salesInitialsItemGridLookUpEdit.View = this.gridView3;
             // 
             // gridView3
             // 
@@ -552,7 +592,7 @@
             this.colProgramManagerInitials.FieldName = "ProgramManagerInitials";
             this.colProgramManagerInitials.Name = "colProgramManagerInitials";
             this.colProgramManagerInitials.Visible = true;
-            this.colProgramManagerInitials.VisibleIndex = 23;
+            this.colProgramManagerInitials.VisibleIndex = 25;
             // 
             // programManagerInitialsItemGridLookUpEdit
             // 
@@ -562,8 +602,8 @@
             this.programManagerInitialsItemGridLookUpEdit.DisplayMember = "Initials";
             this.programManagerInitialsItemGridLookUpEdit.Name = "programManagerInitialsItemGridLookUpEdit";
             this.programManagerInitialsItemGridLookUpEdit.NullText = "";
+            this.programManagerInitialsItemGridLookUpEdit.PopupView = this.gridView4;
             this.programManagerInitialsItemGridLookUpEdit.ValueMember = "Initials";
-            this.programManagerInitialsItemGridLookUpEdit.View = this.gridView4;
             // 
             // gridView4
             // 
@@ -578,7 +618,7 @@
             this.colEngineeringInitials.FieldName = "EngineeringInitials";
             this.colEngineeringInitials.Name = "colEngineeringInitials";
             this.colEngineeringInitials.Visible = true;
-            this.colEngineeringInitials.VisibleIndex = 24;
+            this.colEngineeringInitials.VisibleIndex = 26;
             // 
             // engineeringInitialsItemGridLookUpEdit
             // 
@@ -588,8 +628,8 @@
             this.engineeringInitialsItemGridLookUpEdit.DisplayMember = "Initials";
             this.engineeringInitialsItemGridLookUpEdit.Name = "engineeringInitialsItemGridLookUpEdit";
             this.engineeringInitialsItemGridLookUpEdit.NullText = "";
+            this.engineeringInitialsItemGridLookUpEdit.PopupView = this.gridView5;
             this.engineeringInitialsItemGridLookUpEdit.ValueMember = "Initials";
-            this.engineeringInitialsItemGridLookUpEdit.View = this.gridView5;
             // 
             // gridView5
             // 
@@ -614,7 +654,7 @@
             this.colEngineeringMaterialsInitials.FieldName = "EngineeringMaterialsInitials";
             this.colEngineeringMaterialsInitials.Name = "colEngineeringMaterialsInitials";
             this.colEngineeringMaterialsInitials.Visible = true;
-            this.colEngineeringMaterialsInitials.VisibleIndex = 26;
+            this.colEngineeringMaterialsInitials.VisibleIndex = 28;
             // 
             // engineeringMaterialsInitialsItemGridLookUpEdit
             // 
@@ -624,8 +664,8 @@
             this.engineeringMaterialsInitialsItemGridLookUpEdit.DisplayMember = "Initials";
             this.engineeringMaterialsInitialsItemGridLookUpEdit.Name = "engineeringMaterialsInitialsItemGridLookUpEdit";
             this.engineeringMaterialsInitialsItemGridLookUpEdit.NullText = "";
+            this.engineeringMaterialsInitialsItemGridLookUpEdit.PopupView = this.gridView6;
             this.engineeringMaterialsInitialsItemGridLookUpEdit.ValueMember = "Initials";
-            this.engineeringMaterialsInitialsItemGridLookUpEdit.View = this.gridView6;
             // 
             // gridView6
             // 
@@ -639,7 +679,7 @@
             this.colEngineeringMaterialsDate.FieldName = "EngineeringMaterialsDate";
             this.colEngineeringMaterialsDate.Name = "colEngineeringMaterialsDate";
             this.colEngineeringMaterialsDate.Visible = true;
-            this.colEngineeringMaterialsDate.VisibleIndex = 27;
+            this.colEngineeringMaterialsDate.VisibleIndex = 29;
             // 
             // colQuoteReviewInitials
             // 
@@ -647,7 +687,7 @@
             this.colQuoteReviewInitials.FieldName = "QuoteReviewInitials";
             this.colQuoteReviewInitials.Name = "colQuoteReviewInitials";
             this.colQuoteReviewInitials.Visible = true;
-            this.colQuoteReviewInitials.VisibleIndex = 28;
+            this.colQuoteReviewInitials.VisibleIndex = 30;
             // 
             // quoteReviewInitialsItemGridLookUpEdit
             // 
@@ -657,8 +697,8 @@
             this.quoteReviewInitialsItemGridLookUpEdit.DisplayMember = "Initials";
             this.quoteReviewInitialsItemGridLookUpEdit.Name = "quoteReviewInitialsItemGridLookUpEdit";
             this.quoteReviewInitialsItemGridLookUpEdit.NullText = "";
+            this.quoteReviewInitialsItemGridLookUpEdit.PopupView = this.gridView7;
             this.quoteReviewInitialsItemGridLookUpEdit.ValueMember = "Initials";
-            this.quoteReviewInitialsItemGridLookUpEdit.View = this.gridView7;
             // 
             // gridView7
             // 
@@ -672,7 +712,7 @@
             this.colQuoteReviewDate.FieldName = "QuoteReviewDate";
             this.colQuoteReviewDate.Name = "colQuoteReviewDate";
             this.colQuoteReviewDate.Visible = true;
-            this.colQuoteReviewDate.VisibleIndex = 29;
+            this.colQuoteReviewDate.VisibleIndex = 31;
             // 
             // colQuotePricingInitials
             // 
@@ -680,7 +720,7 @@
             this.colQuotePricingInitials.FieldName = "QuotePricingInitials";
             this.colQuotePricingInitials.Name = "colQuotePricingInitials";
             this.colQuotePricingInitials.Visible = true;
-            this.colQuotePricingInitials.VisibleIndex = 30;
+            this.colQuotePricingInitials.VisibleIndex = 32;
             // 
             // quotePricingInitialsItemGridLookUpEdit
             // 
@@ -690,8 +730,8 @@
             this.quotePricingInitialsItemGridLookUpEdit.DisplayMember = "Initials";
             this.quotePricingInitialsItemGridLookUpEdit.Name = "quotePricingInitialsItemGridLookUpEdit";
             this.quotePricingInitialsItemGridLookUpEdit.NullText = "";
+            this.quotePricingInitialsItemGridLookUpEdit.PopupView = this.gridView8;
             this.quotePricingInitialsItemGridLookUpEdit.ValueMember = "Initials";
-            this.quotePricingInitialsItemGridLookUpEdit.View = this.gridView8;
             // 
             // gridView8
             // 
@@ -705,7 +745,7 @@
             this.colQuotePricingDate.FieldName = "QuotePricingDate";
             this.colQuotePricingDate.Name = "colQuotePricingDate";
             this.colQuotePricingDate.Visible = true;
-            this.colQuotePricingDate.VisibleIndex = 31;
+            this.colQuotePricingDate.VisibleIndex = 33;
             // 
             // colCustomerQuoteInitials
             // 
@@ -713,7 +753,7 @@
             this.colCustomerQuoteInitials.FieldName = "CustomerQuoteInitials";
             this.colCustomerQuoteInitials.Name = "colCustomerQuoteInitials";
             this.colCustomerQuoteInitials.Visible = true;
-            this.colCustomerQuoteInitials.VisibleIndex = 32;
+            this.colCustomerQuoteInitials.VisibleIndex = 34;
             // 
             // customerQuoteInitialsItemGridLookUpEdit
             // 
@@ -723,8 +763,8 @@
             this.customerQuoteInitialsItemGridLookUpEdit.DisplayMember = "Initials";
             this.customerQuoteInitialsItemGridLookUpEdit.Name = "customerQuoteInitialsItemGridLookUpEdit";
             this.customerQuoteInitialsItemGridLookUpEdit.NullText = "";
+            this.customerQuoteInitialsItemGridLookUpEdit.PopupView = this.gridView9;
             this.customerQuoteInitialsItemGridLookUpEdit.ValueMember = "Initials";
-            this.customerQuoteInitialsItemGridLookUpEdit.View = this.gridView9;
             // 
             // gridView9
             // 
@@ -738,14 +778,14 @@
             this.colCustomerQuoteDate.FieldName = "CustomerQuoteDate";
             this.colCustomerQuoteDate.Name = "colCustomerQuoteDate";
             this.colCustomerQuoteDate.Visible = true;
-            this.colCustomerQuoteDate.VisibleIndex = 33;
+            this.colCustomerQuoteDate.VisibleIndex = 35;
             // 
             // colStraightMaterialCost
             // 
             this.colStraightMaterialCost.FieldName = "StraightMaterialCost";
             this.colStraightMaterialCost.Name = "colStraightMaterialCost";
             this.colStraightMaterialCost.Visible = true;
-            this.colStraightMaterialCost.VisibleIndex = 34;
+            this.colStraightMaterialCost.VisibleIndex = 36;
             // 
             // colStdHours
             // 
@@ -753,56 +793,56 @@
             this.colStdHours.FieldName = "StdHours";
             this.colStdHours.Name = "colStdHours";
             this.colStdHours.Visible = true;
-            this.colStdHours.VisibleIndex = 35;
+            this.colStdHours.VisibleIndex = 37;
             // 
             // colQuotePrice
             // 
             this.colQuotePrice.FieldName = "QuotePrice";
             this.colQuotePrice.Name = "colQuotePrice";
             this.colQuotePrice.Visible = true;
-            this.colQuotePrice.VisibleIndex = 36;
+            this.colQuotePrice.VisibleIndex = 38;
             // 
             // colTotalQuotedSales
             // 
             this.colTotalQuotedSales.FieldName = "TotalQuotedSales";
             this.colTotalQuotedSales.Name = "colTotalQuotedSales";
             this.colTotalQuotedSales.Visible = true;
-            this.colTotalQuotedSales.VisibleIndex = 37;
+            this.colTotalQuotedSales.VisibleIndex = 39;
             // 
             // colQuoteStatus
             // 
             this.colQuoteStatus.FieldName = "QuoteStatus";
             this.colQuoteStatus.Name = "colQuoteStatus";
             this.colQuoteStatus.Visible = true;
-            this.colQuoteStatus.VisibleIndex = 38;
+            this.colQuoteStatus.VisibleIndex = 40;
             // 
             // colAwarded
             // 
             this.colAwarded.FieldName = "Awarded";
             this.colAwarded.Name = "colAwarded";
             this.colAwarded.Visible = true;
-            this.colAwarded.VisibleIndex = 39;
+            this.colAwarded.VisibleIndex = 41;
             // 
             // colProductionLevel
             // 
             this.colProductionLevel.FieldName = "ProductionLevel";
             this.colProductionLevel.Name = "colProductionLevel";
             this.colProductionLevel.Visible = true;
-            this.colProductionLevel.VisibleIndex = 40;
+            this.colProductionLevel.VisibleIndex = 43;
             // 
             // colRevLevel
             // 
             this.colRevLevel.FieldName = "RevLevel";
             this.colRevLevel.Name = "colRevLevel";
             this.colRevLevel.Visible = true;
-            this.colRevLevel.VisibleIndex = 41;
+            this.colRevLevel.VisibleIndex = 44;
             // 
             // colProductionMaterialRollup
             // 
             this.colProductionMaterialRollup.FieldName = "ProductionMaterialRollup";
             this.colProductionMaterialRollup.Name = "colProductionMaterialRollup";
             this.colProductionMaterialRollup.Visible = true;
-            this.colProductionMaterialRollup.VisibleIndex = 42;
+            this.colProductionMaterialRollup.VisibleIndex = 45;
             // 
             // colRowID
             // 
@@ -846,7 +886,7 @@
             this.colProgramComputed.OptionsColumn.AllowEdit = false;
             this.colProgramComputed.OptionsColumn.AllowFocus = false;
             this.colProgramComputed.Visible = true;
-            this.colProgramComputed.VisibleIndex = 43;
+            this.colProgramComputed.VisibleIndex = 46;
             // 
             // colOEMComputed
             // 
@@ -855,7 +895,7 @@
             this.colOEMComputed.OptionsColumn.AllowEdit = false;
             this.colOEMComputed.OptionsColumn.AllowFocus = false;
             this.colOEMComputed.Visible = true;
-            this.colOEMComputed.VisibleIndex = 44;
+            this.colOEMComputed.VisibleIndex = 47;
             // 
             // colNameplateComputed
             // 
@@ -864,28 +904,28 @@
             this.colNameplateComputed.OptionsColumn.AllowEdit = false;
             this.colNameplateComputed.OptionsColumn.AllowFocus = false;
             this.colNameplateComputed.Visible = true;
-            this.colNameplateComputed.VisibleIndex = 45;
+            this.colNameplateComputed.VisibleIndex = 48;
             // 
             // colTooling
             // 
             this.colTooling.FieldName = "Tooling";
             this.colTooling.Name = "colTooling";
             this.colTooling.Visible = true;
-            this.colTooling.VisibleIndex = 46;
+            this.colTooling.VisibleIndex = 49;
             // 
             // colPrototypePrice
             // 
             this.colPrototypePrice.FieldName = "PrototypePrice";
             this.colPrototypePrice.Name = "colPrototypePrice";
             this.colPrototypePrice.Visible = true;
-            this.colPrototypePrice.VisibleIndex = 47;
+            this.colPrototypePrice.VisibleIndex = 50;
             // 
             // colLTA
             // 
             this.colLTA.FieldName = "LTA";
             this.colLTA.Name = "colLTA";
             this.colLTA.Visible = true;
-            this.colLTA.VisibleIndex = 25;
+            this.colLTA.VisibleIndex = 27;
             // 
             // colPrintFilePath
             // 
@@ -893,7 +933,8 @@
             this.colPrintFilePath.FieldName = "PrintFilePath";
             this.colPrintFilePath.Name = "colPrintFilePath";
             this.colPrintFilePath.Visible = true;
-            this.colPrintFilePath.VisibleIndex = 1;
+            this.colPrintFilePath.VisibleIndex = 3;
+            this.colPrintFilePath.Width = 163;
             // 
             // quotePrintItemButtonEdit
             // 
@@ -909,7 +950,7 @@
             this.colPrintNo.FieldName = "PrintNo";
             this.colPrintNo.Name = "colPrintNo";
             this.colPrintNo.Visible = true;
-            this.colPrintNo.VisibleIndex = 48;
+            this.colPrintNo.VisibleIndex = 51;
             // 
             // colPrintDate
             // 
@@ -917,7 +958,7 @@
             this.colPrintDate.FieldName = "PrintDate";
             this.colPrintDate.Name = "colPrintDate";
             this.colPrintDate.Visible = true;
-            this.colPrintDate.VisibleIndex = 49;
+            this.colPrintDate.VisibleIndex = 52;
             // 
             // colCustomerQuoteFilePath
             // 
@@ -925,7 +966,8 @@
             this.colCustomerQuoteFilePath.FieldName = "CustomerQuoteFilePath";
             this.colCustomerQuoteFilePath.Name = "colCustomerQuoteFilePath";
             this.colCustomerQuoteFilePath.Visible = true;
-            this.colCustomerQuoteFilePath.VisibleIndex = 2;
+            this.colCustomerQuoteFilePath.VisibleIndex = 4;
+            this.colCustomerQuoteFilePath.Width = 229;
             // 
             // customerQuoteItemButtonEdit
             // 
@@ -941,7 +983,7 @@
             this.colPackageNumber.FieldName = "PackageNumber";
             this.colPackageNumber.Name = "colPackageNumber";
             this.colPackageNumber.Visible = true;
-            this.colPackageNumber.VisibleIndex = 50;
+            this.colPackageNumber.VisibleIndex = 53;
             // 
             // colNumberOfDaysLate
             // 
@@ -951,7 +993,115 @@
             this.colNumberOfDaysLate.OptionsColumn.AllowEdit = false;
             this.colNumberOfDaysLate.OptionsColumn.AllowFocus = false;
             this.colNumberOfDaysLate.Visible = true;
-            this.colNumberOfDaysLate.VisibleIndex = 51;
+            this.colNumberOfDaysLate.VisibleIndex = 54;
+            // 
+            // colProductLine
+            // 
+            this.colProductLine.Caption = "ProductLine";
+            this.colProductLine.ColumnEdit = this.productLineItemGridLookUpEdit;
+            this.colProductLine.FieldName = "ProductLine";
+            this.colProductLine.Name = "colProductLine";
+            this.colProductLine.Visible = true;
+            this.colProductLine.VisibleIndex = 56;
+            // 
+            // productLineItemGridLookUpEdit
+            // 
+            this.productLineItemGridLookUpEdit.AutoHeight = false;
+            this.productLineItemGridLookUpEdit.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.productLineItemGridLookUpEdit.DisplayMember = "ProductLine";
+            this.productLineItemGridLookUpEdit.Name = "productLineItemGridLookUpEdit";
+            this.productLineItemGridLookUpEdit.NullText = "";
+            this.productLineItemGridLookUpEdit.PopupView = this.gridView14;
+            this.productLineItemGridLookUpEdit.ValueMember = "ProductLine";
+            // 
+            // gridView14
+            // 
+            this.gridView14.FocusRectStyle = DevExpress.XtraGrid.Views.Grid.DrawFocusRectStyle.RowFocus;
+            this.gridView14.Name = "gridView14";
+            this.gridView14.OptionsSelection.EnableAppearanceFocusedCell = false;
+            this.gridView14.OptionsView.ShowGroupPanel = false;
+            // 
+            // colQuoteReason
+            // 
+            this.colQuoteReason.Caption = "QuoteReason";
+            this.colQuoteReason.ColumnEdit = this.quoteReasonItemGridLookUpEdit;
+            this.colQuoteReason.FieldName = "QuoteReason";
+            this.colQuoteReason.Name = "colQuoteReason";
+            this.colQuoteReason.Visible = true;
+            this.colQuoteReason.VisibleIndex = 55;
+            // 
+            // quoteReasonItemGridLookUpEdit
+            // 
+            this.quoteReasonItemGridLookUpEdit.AutoHeight = false;
+            this.quoteReasonItemGridLookUpEdit.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.quoteReasonItemGridLookUpEdit.DisplayMember = "QuoteReason";
+            this.quoteReasonItemGridLookUpEdit.Name = "quoteReasonItemGridLookUpEdit";
+            this.quoteReasonItemGridLookUpEdit.NullText = "";
+            this.quoteReasonItemGridLookUpEdit.PopupView = this.gridView13;
+            this.quoteReasonItemGridLookUpEdit.ValueMember = "QuoteReason";
+            // 
+            // gridView13
+            // 
+            this.gridView13.FocusRectStyle = DevExpress.XtraGrid.Views.Grid.DrawFocusRectStyle.RowFocus;
+            this.gridView13.Name = "gridView13";
+            this.gridView13.OptionsSelection.EnableAppearanceFocusedCell = false;
+            this.gridView13.OptionsView.ShowGroupPanel = false;
+            // 
+            // colEmpireMarketSegment
+            // 
+            this.colEmpireMarketSegment.Caption = "EmpireMarketSegment";
+            this.colEmpireMarketSegment.ColumnEdit = this.marketSegmentItemGridLookUpEdit;
+            this.colEmpireMarketSegment.FieldName = "EmpireMarketSegment";
+            this.colEmpireMarketSegment.Name = "colEmpireMarketSegment";
+            this.colEmpireMarketSegment.Visible = true;
+            this.colEmpireMarketSegment.VisibleIndex = 57;
+            // 
+            // marketSegmentItemGridLookUpEdit
+            // 
+            this.marketSegmentItemGridLookUpEdit.AutoHeight = false;
+            this.marketSegmentItemGridLookUpEdit.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.marketSegmentItemGridLookUpEdit.DisplayMember = "EmpireMarketSegment";
+            this.marketSegmentItemGridLookUpEdit.Name = "marketSegmentItemGridLookUpEdit";
+            this.marketSegmentItemGridLookUpEdit.NullText = "";
+            this.marketSegmentItemGridLookUpEdit.PopupView = this.gridView15;
+            this.marketSegmentItemGridLookUpEdit.ValueMember = "EmpireMarketSegment";
+            // 
+            // gridView15
+            // 
+            this.gridView15.FocusRectStyle = DevExpress.XtraGrid.Views.Grid.DrawFocusRectStyle.RowFocus;
+            this.gridView15.Name = "gridView15";
+            this.gridView15.OptionsSelection.EnableAppearanceFocusedCell = false;
+            this.gridView15.OptionsView.ShowGroupPanel = false;
+            // 
+            // colEmpireMarketSubsegment
+            // 
+            this.colEmpireMarketSubsegment.Caption = "EmpireMarketSubsegment";
+            this.colEmpireMarketSubsegment.ColumnEdit = this.marketSubsegmentItemGridLookUpEdit;
+            this.colEmpireMarketSubsegment.FieldName = "EmpireMarketSubsegment";
+            this.colEmpireMarketSubsegment.Name = "colEmpireMarketSubsegment";
+            this.colEmpireMarketSubsegment.Visible = true;
+            this.colEmpireMarketSubsegment.VisibleIndex = 58;
+            // 
+            // marketSubsegmentItemGridLookUpEdit
+            // 
+            this.marketSubsegmentItemGridLookUpEdit.AutoHeight = false;
+            this.marketSubsegmentItemGridLookUpEdit.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.marketSubsegmentItemGridLookUpEdit.DisplayMember = "EmpireMarketSubsegment";
+            this.marketSubsegmentItemGridLookUpEdit.Name = "marketSubsegmentItemGridLookUpEdit";
+            this.marketSubsegmentItemGridLookUpEdit.NullText = "";
+            this.marketSubsegmentItemGridLookUpEdit.PopupView = this.gridView16;
+            this.marketSubsegmentItemGridLookUpEdit.ValueMember = "EmpireMarketSubsegment";
+            // 
+            // gridView16
+            // 
+            this.gridView16.FocusRectStyle = DevExpress.XtraGrid.Views.Grid.DrawFocusRectStyle.RowFocus;
+            this.gridView16.Name = "gridView16";
+            this.gridView16.OptionsSelection.EnableAppearanceFocusedCell = false;
+            this.gridView16.OptionsView.ShowGroupPanel = false;
             // 
             // applicationNamesItemGridLookUpEdit
             // 
@@ -961,8 +1111,8 @@
             this.applicationNamesItemGridLookUpEdit.DisplayMember = "ApplicationName";
             this.applicationNamesItemGridLookUpEdit.Name = "applicationNamesItemGridLookUpEdit";
             this.applicationNamesItemGridLookUpEdit.NullText = "";
+            this.applicationNamesItemGridLookUpEdit.PopupView = this.gridView10;
             this.applicationNamesItemGridLookUpEdit.ValueMember = "ApplicationName";
-            this.applicationNamesItemGridLookUpEdit.View = this.gridView10;
             // 
             // gridView10
             // 
@@ -984,11 +1134,12 @@
             this.tableLayoutPanel1.Controls.Add(this.flowLayoutPanel1, 0, 1);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
+            this.tableLayoutPanel1.Margin = new System.Windows.Forms.Padding(4);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 2;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(810, 428);
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 43F));
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(1100, 527);
             this.tableLayoutPanel1.TabIndex = 3;
             // 
             // flowLayoutPanel1
@@ -998,16 +1149,18 @@
             this.flowLayoutPanel1.Controls.Add(this.btnExportToExcel);
             this.flowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.flowLayoutPanel1.FlowDirection = System.Windows.Forms.FlowDirection.RightToLeft;
-            this.flowLayoutPanel1.Location = new System.Drawing.Point(3, 396);
+            this.flowLayoutPanel1.Location = new System.Drawing.Point(4, 488);
+            this.flowLayoutPanel1.Margin = new System.Windows.Forms.Padding(4);
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
-            this.flowLayoutPanel1.Size = new System.Drawing.Size(804, 29);
+            this.flowLayoutPanel1.Size = new System.Drawing.Size(1092, 35);
             this.flowLayoutPanel1.TabIndex = 3;
             // 
             // btnRefresh
             // 
-            this.btnRefresh.Location = new System.Drawing.Point(726, 3);
+            this.btnRefresh.Location = new System.Drawing.Point(988, 4);
+            this.btnRefresh.Margin = new System.Windows.Forms.Padding(4);
             this.btnRefresh.Name = "btnRefresh";
-            this.btnRefresh.Size = new System.Drawing.Size(75, 23);
+            this.btnRefresh.Size = new System.Drawing.Size(100, 28);
             this.btnRefresh.TabIndex = 0;
             this.btnRefresh.Text = "Refresh";
             this.btnRefresh.UseVisualStyleBackColor = true;
@@ -1016,9 +1169,10 @@
             // btnSave
             // 
             this.btnSave.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnSave.Location = new System.Drawing.Point(551, 3);
+            this.btnSave.Location = new System.Drawing.Point(755, 4);
+            this.btnSave.Margin = new System.Windows.Forms.Padding(4);
             this.btnSave.Name = "btnSave";
-            this.btnSave.Size = new System.Drawing.Size(169, 23);
+            this.btnSave.Size = new System.Drawing.Size(225, 28);
             this.btnSave.TabIndex = 1;
             this.btnSave.Text = "Save Changes";
             this.btnSave.UseVisualStyleBackColor = true;
@@ -1026,10 +1180,10 @@
             // 
             // btnExportToExcel
             // 
-            this.btnExportToExcel.Location = new System.Drawing.Point(422, 3);
-            this.btnExportToExcel.Margin = new System.Windows.Forms.Padding(3, 3, 20, 3);
+            this.btnExportToExcel.Location = new System.Drawing.Point(583, 4);
+            this.btnExportToExcel.Margin = new System.Windows.Forms.Padding(4, 4, 27, 4);
             this.btnExportToExcel.Name = "btnExportToExcel";
-            this.btnExportToExcel.Size = new System.Drawing.Size(106, 23);
+            this.btnExportToExcel.Size = new System.Drawing.Size(141, 28);
             this.btnExportToExcel.TabIndex = 2;
             this.btnExportToExcel.Text = "Export to Excel";
             this.btnExportToExcel.UseVisualStyleBackColor = true;
@@ -1039,20 +1193,54 @@
             // 
             this.xtraGridBlending1.GridControl = this.gridControl;
             // 
+            // colFileServerQuotePrint
+            // 
+            this.colFileServerQuotePrint.Caption = "FileServerQuotePrint";
+            this.colFileServerQuotePrint.FieldName = "FileServerQuotePrint";
+            this.colFileServerQuotePrint.Name = "colFileServerQuotePrint";
+            this.colFileServerQuotePrint.Visible = true;
+            this.colFileServerQuotePrint.VisibleIndex = 1;
+            // 
+            // colFileServerCustomerQuote
+            // 
+            this.colFileServerCustomerQuote.Caption = "FileServerCustomerQuote";
+            this.colFileServerCustomerQuote.FieldName = "FileServerCustomerQuote";
+            this.colFileServerCustomerQuote.Name = "colFileServerCustomerQuote";
+            this.colFileServerCustomerQuote.Visible = true;
+            this.colFileServerCustomerQuote.VisibleIndex = 2;
+            this.colFileServerCustomerQuote.Width = 79;
+            // 
+            // colMinimumOrderQuantity
+            // 
+            this.colMinimumOrderQuantity.Caption = "MinimumOrderQuantity";
+            this.colMinimumOrderQuantity.FieldName = "MinimumOrderQuantity";
+            this.colMinimumOrderQuantity.Name = "colMinimumOrderQuantity";
+            this.colMinimumOrderQuantity.Visible = true;
+            this.colMinimumOrderQuantity.VisibleIndex = 59;
+            // 
+            // colAwardedDate
+            // 
+            this.colAwardedDate.Caption = "AwardedDate";
+            this.colAwardedDate.FieldName = "AwardedDate";
+            this.colAwardedDate.Name = "colAwardedDate";
+            this.colAwardedDate.Visible = true;
+            this.colAwardedDate.VisibleIndex = 42;
+            // 
             // SimpleQuoteLogView
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.tableLayoutPanel1);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "SimpleQuoteLogView";
-            this.Size = new System.Drawing.Size(810, 428);
+            this.Size = new System.Drawing.Size(1100, 527);
             ((System.ComponentModel.ISupportInitialize)(this.gridControl)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridView1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.customerItemGridLookUpEdit)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemGridLookUpEdit1View)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.requoteItemGridLookUpEdit)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemLookUpEdit1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridView2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemLookUpEdit1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.applicationCodeItemGridLookUpEdit)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridView12)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.functionsItemGridLookUpEdit)).EndInit();
@@ -1073,6 +1261,14 @@
             ((System.ComponentModel.ISupportInitialize)(this.gridView9)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.quotePrintItemButtonEdit)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.customerQuoteItemButtonEdit)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.productLineItemGridLookUpEdit)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gridView14)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.quoteReasonItemGridLookUpEdit)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gridView13)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.marketSegmentItemGridLookUpEdit)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gridView15)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.marketSubsegmentItemGridLookUpEdit)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gridView16)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.applicationNamesItemGridLookUpEdit)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridView10)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.QuoteLogLinqServerModeSource)).EndInit();
@@ -1184,5 +1380,21 @@
         private DevExpress.XtraGrid.Columns.GridColumn colPackageNumber;
         private System.Windows.Forms.Button btnExportToExcel;
         private DevExpress.XtraGrid.Columns.GridColumn colNumberOfDaysLate;
+        private DevExpress.XtraEditors.Repository.RepositoryItemGridLookUpEdit quoteReasonItemGridLookUpEdit;
+        private DevExpress.XtraGrid.Views.Grid.GridView gridView13;
+        private DevExpress.XtraGrid.Columns.GridColumn colQuoteReason;
+        private DevExpress.XtraGrid.Columns.GridColumn colProductLine;
+        private DevExpress.XtraEditors.Repository.RepositoryItemGridLookUpEdit productLineItemGridLookUpEdit;
+        private DevExpress.XtraGrid.Views.Grid.GridView gridView14;
+        private DevExpress.XtraGrid.Columns.GridColumn colEmpireMarketSegment;
+        private DevExpress.XtraGrid.Columns.GridColumn colEmpireMarketSubsegment;
+        private DevExpress.XtraEditors.Repository.RepositoryItemGridLookUpEdit marketSegmentItemGridLookUpEdit;
+        private DevExpress.XtraGrid.Views.Grid.GridView gridView15;
+        private DevExpress.XtraEditors.Repository.RepositoryItemGridLookUpEdit marketSubsegmentItemGridLookUpEdit;
+        private DevExpress.XtraGrid.Views.Grid.GridView gridView16;
+        private DevExpress.XtraGrid.Columns.GridColumn colFileServerQuotePrint;
+        private DevExpress.XtraGrid.Columns.GridColumn colFileServerCustomerQuote;
+        private DevExpress.XtraGrid.Columns.GridColumn colMinimumOrderQuantity;
+        private DevExpress.XtraGrid.Columns.GridColumn colAwardedDate;
     }
 }

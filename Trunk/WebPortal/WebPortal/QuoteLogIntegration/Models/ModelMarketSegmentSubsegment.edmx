@@ -1,0 +1,166 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="MONITORModel3.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <Function Name="usp_Web_EmpireMarketSegment" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="FT" />
+        <Function Name="usp_Web_EmpireMarketSegment_Approve" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="FT">
+          <Parameter Name="OperatorCode" Type="varchar" Mode="In" />
+          <Parameter Name="EmpireMarketSegment" Type="varchar" Mode="In" />
+          <Parameter Name="Note" Type="varchar" Mode="In" />
+          <Parameter Name="TranDT" Type="datetime" Mode="InOut" />
+          <Parameter Name="Result" Type="int" Mode="InOut" />
+        </Function>
+        <Function Name="usp_Web_EmpireMarketSegment_ApproveDeny_SendEmail" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="FT">
+          <Parameter Name="EmpireMarketSegment" Type="varchar" Mode="In" />
+          <Parameter Name="TranDT" Type="datetime" Mode="InOut" />
+          <Parameter Name="Result" Type="int" Mode="InOut" />
+        </Function>
+        <Function Name="usp_Web_EmpireMarketSegment_Deny" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="FT">
+          <Parameter Name="OperatorCode" Type="varchar" Mode="In" />
+          <Parameter Name="EmpireMarketSegment" Type="varchar" Mode="In" />
+          <Parameter Name="Note" Type="varchar" Mode="In" />
+          <Parameter Name="TranDT" Type="datetime" Mode="InOut" />
+          <Parameter Name="Result" Type="int" Mode="InOut" />
+        </Function>
+        <Function Name="usp_Web_EmpireMarketSubsegment" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="FT" />
+        <Function Name="usp_Web_EmpireMarketSubsegment_Approve" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="FT">
+          <Parameter Name="OperatorCode" Type="varchar" Mode="In" />
+          <Parameter Name="EmpireMarketSubsegment" Type="varchar" Mode="In" />
+          <Parameter Name="Note" Type="varchar" Mode="In" />
+          <Parameter Name="TranDT" Type="datetime" Mode="InOut" />
+          <Parameter Name="Result" Type="int" Mode="InOut" />
+        </Function>
+        <Function Name="usp_Web_EmpireMarketSubsegment_ApproveDeny_SendEmail" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="FT">
+          <Parameter Name="EmpireMarketSubsegment" Type="varchar" Mode="In" />
+          <Parameter Name="TranDT" Type="datetime" Mode="InOut" />
+          <Parameter Name="Result" Type="int" Mode="InOut" />
+        </Function>
+        <Function Name="usp_Web_EmpireMarketSubsegment_Deny" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="FT">
+          <Parameter Name="OperatorCode" Type="varchar" Mode="In" />
+          <Parameter Name="EmpireMarketSubsegment" Type="varchar" Mode="In" />
+          <Parameter Name="Note" Type="varchar" Mode="In" />
+          <Parameter Name="TranDT" Type="datetime" Mode="InOut" />
+          <Parameter Name="Result" Type="int" Mode="InOut" />
+        </Function>
+        <EntityContainer Name="MONITORModel3StoreContainer" />
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="MONITORModel3" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="MONITOREntitiesQuteLog" annotation:LazyLoadingEnabled="true" >
+          <FunctionImport Name="usp_Web_EmpireMarketSegment" ReturnType="Collection(MONITORModel3.usp_Web_EmpireMarketSegment_Result)" />
+          <FunctionImport Name="usp_Web_EmpireMarketSegment_ApproveDeny_SendEmail">
+            <Parameter Name="EmpireMarketSegment" Mode="In" Type="String" />
+            <Parameter Name="TranDT" Mode="InOut" Type="DateTime" />
+            <Parameter Name="Result" Mode="InOut" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="usp_Web_EmpireMarketSubsegment" ReturnType="Collection(MONITORModel3.usp_Web_EmpireMarketSubsegment_Result)" />
+          <FunctionImport Name="usp_Web_EmpireMarketSubsegment_ApproveDeny_SendEmail">
+            <Parameter Name="EmpireMarketSubsegment" Mode="In" Type="String" />
+            <Parameter Name="TranDT" Mode="InOut" Type="DateTime" />
+            <Parameter Name="Result" Mode="InOut" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="usp_Web_EmpireMarketSegment_Approve">
+            <Parameter Name="OperatorCode" Mode="In" Type="String" />
+            <Parameter Name="EmpireMarketSegment" Mode="In" Type="String" />
+            <Parameter Name="Note" Mode="In" Type="String" />
+            <Parameter Name="TranDT" Mode="InOut" Type="DateTime" />
+            <Parameter Name="Result" Mode="InOut" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="usp_Web_EmpireMarketSegment_Deny">
+            <Parameter Name="OperatorCode" Mode="In" Type="String" />
+            <Parameter Name="EmpireMarketSegment" Mode="In" Type="String" />
+            <Parameter Name="Note" Mode="In" Type="String" />
+            <Parameter Name="TranDT" Mode="InOut" Type="DateTime" />
+            <Parameter Name="Result" Mode="InOut" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="usp_Web_EmpireMarketSubsegment_Approve">
+            <Parameter Name="OperatorCode" Mode="In" Type="String" />
+            <Parameter Name="EmpireMarketSubsegment" Mode="In" Type="String" />
+            <Parameter Name="Note" Mode="In" Type="String" />
+            <Parameter Name="TranDT" Mode="InOut" Type="DateTime" />
+            <Parameter Name="Result" Mode="InOut" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="usp_Web_EmpireMarketSubsegment_Deny">
+            <Parameter Name="OperatorCode" Mode="In" Type="String" />
+            <Parameter Name="EmpireMarketSubsegment" Mode="In" Type="String" />
+            <Parameter Name="Note" Mode="In" Type="String" />
+            <Parameter Name="TranDT" Mode="InOut" Type="DateTime" />
+            <Parameter Name="Result" Mode="InOut" Type="Int32" />
+          </FunctionImport>
+        </EntityContainer>
+        <ComplexType Name="usp_Web_EmpireMarketSegment_Result">
+          <Property Type="String" Name="EmpireMarketSegment" Nullable="false" MaxLength="200" />
+          <Property Type="String" Name="ApprovalStatus" Nullable="true" MaxLength="16" />
+          <Property Type="String" Name="Requestor" Nullable="false" MaxLength="40" />
+          <Property Type="String" Name="RequestorNote" Nullable="true" MaxLength="250" />
+          <Property Type="String" Name="ResponseNote" Nullable="true" MaxLength="250" />
+        </ComplexType>
+        <ComplexType Name="usp_Web_EmpireMarketSubsegment_Result">
+          <Property Type="String" Name="EmpireMarketSubsegment" Nullable="false" MaxLength="200" />
+          <Property Type="String" Name="ApprovalStatus" Nullable="true" MaxLength="16" />
+          <Property Type="String" Name="Requestor" Nullable="false" MaxLength="40" />
+          <Property Type="String" Name="RequestorNote" Nullable="true" MaxLength="250" />
+          <Property Type="String" Name="ResponseNote" Nullable="true" MaxLength="250" />
+        </ComplexType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="MONITORModel3StoreContainer" CdmEntityContainer="MONITOREntitiesQuteLog" >
+          <FunctionImportMapping FunctionImportName="usp_Web_EmpireMarketSegment" FunctionName="MONITORModel3.Store.usp_Web_EmpireMarketSegment">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="MONITORModel3.usp_Web_EmpireMarketSegment_Result">
+                <ScalarProperty Name="EmpireMarketSegment" ColumnName="EmpireMarketSegment" />
+                <ScalarProperty Name="ApprovalStatus" ColumnName="ApprovalStatus" />
+                <ScalarProperty Name="Requestor" ColumnName="Requestor" />
+                <ScalarProperty Name="RequestorNote" ColumnName="RequestorNote" />
+                <ScalarProperty Name="ResponseNote" ColumnName="ResponseNote" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="usp_Web_EmpireMarketSegment_ApproveDeny_SendEmail" FunctionName="MONITORModel3.Store.usp_Web_EmpireMarketSegment_ApproveDeny_SendEmail" />
+          <FunctionImportMapping FunctionImportName="usp_Web_EmpireMarketSubsegment" FunctionName="MONITORModel3.Store.usp_Web_EmpireMarketSubsegment">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="MONITORModel3.usp_Web_EmpireMarketSubsegment_Result">
+                <ScalarProperty Name="EmpireMarketSubsegment" ColumnName="EmpireMarketSubsegment" />
+                <ScalarProperty Name="ApprovalStatus" ColumnName="ApprovalStatus" />
+                <ScalarProperty Name="Requestor" ColumnName="Requestor" />
+                <ScalarProperty Name="RequestorNote" ColumnName="RequestorNote" />
+                <ScalarProperty Name="ResponseNote" ColumnName="ResponseNote" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="usp_Web_EmpireMarketSubsegment_ApproveDeny_SendEmail" FunctionName="MONITORModel3.Store.usp_Web_EmpireMarketSubsegment_ApproveDeny_SendEmail" />
+          <FunctionImportMapping FunctionImportName="usp_Web_EmpireMarketSegment_Approve" FunctionName="MONITORModel3.Store.usp_Web_EmpireMarketSegment_Approve" />
+          <FunctionImportMapping FunctionImportName="usp_Web_EmpireMarketSegment_Deny" FunctionName="MONITORModel3.Store.usp_Web_EmpireMarketSegment_Deny" />
+          <FunctionImportMapping FunctionImportName="usp_Web_EmpireMarketSubsegment_Approve" FunctionName="MONITORModel3.Store.usp_Web_EmpireMarketSubsegment_Approve" />
+          <FunctionImportMapping FunctionImportName="usp_Web_EmpireMarketSubsegment_Deny" FunctionName="MONITORModel3.Store.usp_Web_EmpireMarketSubsegment_Deny" />
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

@@ -68,5 +68,14 @@ namespace ImportLogisticsVarianceData.Model
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("usp_Variance_ValidateOperator", operatorCodeParameter, passwordParameter, tranDT, result);
         }
+    
+        public virtual int usp_Variance_InsertUpsFromRaw(string operatorCode, ObjectParameter tranDT, ObjectParameter result)
+        {
+            var operatorCodeParameter = operatorCode != null ?
+                new ObjectParameter("OperatorCode", operatorCode) :
+                new ObjectParameter("OperatorCode", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("usp_Variance_InsertUpsFromRaw", operatorCodeParameter, tranDT, result);
+        }
     }
 }

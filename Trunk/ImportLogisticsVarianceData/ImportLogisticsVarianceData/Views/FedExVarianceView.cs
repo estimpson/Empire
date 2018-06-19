@@ -8,6 +8,7 @@ using System.Windows.Forms;
 using ImportLogisticsVarianceData.Controls;
 using Microsoft.VisualBasic.FileIO;
 using ImportLogisticsVarianceData.Model;
+using System.Collections.Generic;
 
 namespace ImportLogisticsVarianceData.Views
 {
@@ -174,12 +175,97 @@ namespace ImportLogisticsVarianceData.Views
             return 1;
         }
 
+
         private int ImportRawData()
+        {
+            bool isHeader = true;
+
+            //using (TextFieldParser parser = new TextFieldParser(@"C:\temp\fedexvariance.csv"))
+            using (TextFieldParser parser = new TextFieldParser(@"S:\LogisticsVariance\FedEx\FedExVariance.csv"))
+            {
+                parser.SetDelimiters(",");
+                parser.HasFieldsEnclosedInQuotes = true;
+
+                while (!parser.EndOfData)
+                {
+                    string newRow = "";
+                    string[] fields = null;
+                    try
+                    {
+                        fields = parser.ReadFields();
+
+                        foreach (var field in fields)
+                        {
+                            if (field == "Bill to Account Number") break;
+
+                            // Handle any single quotes
+                            string editedField = field.Replace("'", "''");
+
+                            string newField = "'" + editedField + "',";
+                            newRow += newField;
+                        }
+
+                        if (isHeader)
+                        {
+                            isHeader = false;
+                            continue;
+                        }
+
+                        // End of string correction
+                        int stringLength = newRow.Length;
+                        newRow = newRow.Remove(stringLength - 1, 1);
+
+                        // Insert row into raw data table
+                        int result = InsertRawData(newRow);
+                        if (result == 0) return 0;
+                    }
+                    catch (MalformedLineException ex)
+                    {
+                        if (parser.ErrorLine.StartsWith("\""))
+                        {
+                            var line = parser.ErrorLine.Substring(1, parser.ErrorLine.Length - 2);
+                            fields = line.Split(new string[] { "\",\"" }, StringSplitOptions.None);
+
+                            foreach (var field in fields)
+                            {
+                                if (field == "Bill to Account Number") break;
+
+                                // Handle any single quotes
+                                string editedField = field.Replace("'", "''");
+
+                                string newField = "'" + editedField + "',";
+                                newRow += newField;
+                            }
+
+                            // End of string correction
+                            int stringLength = newRow.Length;
+                            newRow = newRow.Remove(stringLength - 1, 1);
+
+                            // Insert row into raw data table
+                            int result = InsertRawData(newRow);
+                            if (result == 0) return 0;
+                        }
+                        else
+                        {
+                            string error = (ex.InnerException != null) ? ex.InnerException.Message : ex.Message;
+                            _messageBox.Message = string.Format("Failed to import raw data.  {0}", error);
+                            _messageBox.ShowDialog();
+                            return 0;
+                        }
+                    }
+
+                } // End of data
+            }
+            return 1;
+        }
+
+        private int ImportRawDataOld()
         {
             int methodResult = 1;
             bool isHeader = false;
 
-            var parser = new TextFieldParser(@"S:\LogisticsVariance\FedEx\FedExVariance.csv") {HasFieldsEnclosedInQuotes = true};
+            //var parser = new TextFieldParser(@"S:\LogisticsVariance\FedEx\FedExVariance.csv") {HasFieldsEnclosedInQuotes = true};
+            var parser = new TextFieldParser(@"C:\temp\fedexvariance.csv") { HasFieldsEnclosedInQuotes = true };
             parser.SetDelimiters(",");
 
             try
@@ -187,7 +273,6 @@ namespace ImportLogisticsVarianceData.Views
                 while (!parser.EndOfData)
                 {
                     string newRow = "";
-
                     string[] fields = parser.ReadFields();
                     foreach (var field in fields)
                     {

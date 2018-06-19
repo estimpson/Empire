@@ -4,8 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="MONITORModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
-        <EntityContainer Name="MONITORModelStoreContainer" />
+    <Schema Namespace="MONITORModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
         <Function Name="acctg_csm_sp_import_CSM_demand" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="EEIUser">
           <Parameter Name="Release_ID" Type="char" Mode="In" />
           <Parameter Name="Version" Type="varchar" Mode="In" />
@@ -13,6 +12,12 @@
           <Parameter Name="Result" Type="int" Mode="InOut" />
         </Function>
         <Function Name="acctg_csm_sp_roll_forward_CSM_data_one_month" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="EEIUser">
+          <Parameter Name="prior_release_id" Type="varchar" Mode="In" />
+          <Parameter Name="current_release_id" Type="varchar" Mode="In" />
+          <Parameter Name="TranDT" Type="datetime" Mode="InOut" />
+          <Parameter Name="Result" Type="int" Mode="InOut" />
+        </Function>
+        <Function Name="acctg_csm_sp_roll_forward_EmpireForecast_data_one_year_fall_off" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="EEIUser">
           <Parameter Name="prior_release_id" Type="varchar" Mode="In" />
           <Parameter Name="current_release_id" Type="varchar" Mode="In" />
           <Parameter Name="TranDT" Type="datetime" Mode="InOut" />
@@ -28,6 +33,7 @@
           <Parameter Name="forecast_name" Type="varchar" Mode="In" />
           <Parameter Name="time_stamp" Type="datetime" Mode="In" />
         </Function>
+        <EntityContainer Name="MONITORModelStoreContainer" />
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
@@ -55,6 +61,12 @@
             <Parameter Name="forecast_name" Mode="In" Type="String" />
             <Parameter Name="time_stamp" Mode="In" Type="DateTime" />
           </FunctionImport>
+          <FunctionImport Name="acctg_csm_sp_roll_forward_EmpireForecast_data_one_year_fall_off">
+            <Parameter Name="prior_release_id" Mode="In" Type="String" />
+            <Parameter Name="current_release_id" Mode="In" Type="String" />
+            <Parameter Name="TranDT" Mode="InOut" Type="DateTime" />
+            <Parameter Name="Result" Mode="InOut" Type="Int32" />
+          </FunctionImport>
         </EntityContainer>
       </Schema>
     </edmx:ConceptualModels>
@@ -66,6 +78,7 @@
           <FunctionImportMapping FunctionImportName="acctg_csm_sp_import_CSM_demand" FunctionName="MONITORModel.Store.acctg_csm_sp_import_CSM_demand" />
           <FunctionImportMapping FunctionImportName="acctg_sales_sp_insert_historical_sales" FunctionName="MONITORModel.Store.acctg_sales_sp_insert_historical_sales" />
           <FunctionImportMapping FunctionImportName="acctg_sales_sp_insert_official_forecast" FunctionName="MONITORModel.Store.acctg_sales_sp_insert_official_forecast" />
+          <FunctionImportMapping FunctionImportName="acctg_csm_sp_roll_forward_EmpireForecast_data_one_year_fall_off" FunctionName="MONITORModel.Store.acctg_csm_sp_roll_forward_EmpireForecast_data_one_year_fall_off" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
@@ -83,6 +96,7 @@
         <DesignerProperty Name="EnablePluralization" Value="True" />
         <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
         <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+        <DesignerProperty Name="UseLegacyProvider" Value="True" />
       </DesignerInfoPropertySet>
     </Options>
     <!-- Diagram content (shape and connector positions) -->

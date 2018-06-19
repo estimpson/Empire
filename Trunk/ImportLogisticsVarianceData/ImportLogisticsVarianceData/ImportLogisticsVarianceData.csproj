@@ -82,11 +82,11 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="StatusEnums.cs" />
-    <Compile Include="Views\ChRobinsonView.cs">
+    <Compile Include="Views\ChRobinsonVarianceView.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Views\ChRobinsonView.Designer.cs">
-      <DependentUpon>ChRobinsonView.cs</DependentUpon>
+    <Compile Include="Views\ChRobinsonVarianceView.Designer.cs">
+      <DependentUpon>ChRobinsonVarianceView.cs</DependentUpon>
     </Compile>
     <Compile Include="Views\FedExVarianceView.cs">
       <SubType>Form</SubType>
@@ -94,11 +94,17 @@
     <Compile Include="Views\FedExVarianceView.Designer.cs">
       <DependentUpon>FedExVarianceView.cs</DependentUpon>
     </Compile>
-    <Compile Include="Views\PfSolutionsView.cs">
+    <Compile Include="Views\PfSolutionsVarianceView.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Views\PfSolutionsView.Designer.cs">
-      <DependentUpon>PfSolutionsView.cs</DependentUpon>
+    <Compile Include="Views\PfSolutionsVarianceView.Designer.cs">
+      <DependentUpon>PfSolutionsVarianceView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\UpsVarianceView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\UpsVarianceView.Designer.cs">
+      <DependentUpon>UpsVarianceView.cs</DependentUpon>
     </Compile>
     <EmbeddedResource Include="Controls\CustomMessageBox.resx">
       <DependentUpon>CustomMessageBox.cs</DependentUpon>
@@ -115,14 +121,17 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="Views\ChRobinsonView.resx">
-      <DependentUpon>ChRobinsonView.cs</DependentUpon>
+    <EmbeddedResource Include="Views\ChRobinsonVarianceView.resx">
+      <DependentUpon>ChRobinsonVarianceView.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\FedExVarianceView.resx">
       <DependentUpon>FedExVarianceView.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Views\PfSolutionsView.resx">
-      <DependentUpon>PfSolutionsView.cs</DependentUpon>
+    <EmbeddedResource Include="Views\PfSolutionsVarianceView.resx">
+      <DependentUpon>PfSolutionsVarianceView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\UpsVarianceView.resx">
+      <DependentUpon>UpsVarianceView.cs</DependentUpon>
     </EmbeddedResource>
     <EntityDeploy Include="Model\Model1.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
