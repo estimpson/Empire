@@ -264,15 +264,18 @@ namespace WebPortal.NewSalesAward.PageViewModels
 
         public void CreateAwardedQuote()
         {
+            Error = "";
+
             ObjectParameter tranDT = new ObjectParameter("TranDT", typeof(DateTime?));
             ObjectParameter result = new ObjectParameter("Result", typeof(Int32?));
-            Error = "";
+            ObjectParameter debugMsg = new ObjectParameter("DebugMsg", typeof(string));
+            int debug = 0;
 
             try
             {
                 using (var context = new FxPLMEntities())
                 {
-                    context.usp_CreateAwardedQuote(OperatorCode, QuoteNumber, AwardDate, FormOfCommitment, QuoteReason, ReplacingBasePart, Salesperson, ProgramManager, Comments, tranDT, result, 0, null);
+                    context.usp_CreateAwardedQuote(OperatorCode, QuoteNumber, AwardDate, FormOfCommitment, QuoteReason, ReplacingBasePart, Salesperson, ProgramManager, Comments, tranDT, result, debug, debugMsg);
                 }
             }
             catch (Exception ex)
