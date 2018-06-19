@@ -3,7 +3,7 @@ using System.Web.UI;
 
 namespace WebPortal.NewSalesAward.Pages
 {
-    public partial class Documents : System.Web.UI.Page
+    public partial class DocumentGet : System.Web.UI.Page
     {
         protected void Page_Load(object sender, EventArgs e)
         {

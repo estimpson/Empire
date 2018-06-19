@@ -49,6 +49,8 @@ namespace WebPortal
 
         protected void lbxWebPages_SelectedIndexChanged(object sender, EventArgs e)
         {
+            if (HttpContext.Current.Session["OpCode"] == null) Response.Redirect("~/Pages/Login.aspx");
+
             string operatorCode = HttpContext.Current.Session["OpCode"].ToString();
             string operatorName = HttpContext.Current.Session["Name"].ToString();
 

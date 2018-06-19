@@ -182,7 +182,9 @@
       <LastGenOutput>NewSalesAwardModel.cs</LastGenOutput>
     </Content>
     <Content Include="NewSalesAward\Pages\CreateAwardedQuote.aspx" />
-    <Content Include="NewSalesAward\Pages\Documents.aspx" />
+    <Content Include="NewSalesAward\Pages\CsmDemand.aspx" />
+    <Content Include="NewSalesAward\Pages\DocumentGet.aspx" />
+    <Content Include="NewSalesAward\Pages\NewSalesAwards.aspx" />
     <Content Include="QuoteLogIntegration\Models\ModelMarketSegmentSubsegment.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>ModelMarketSegmentSubsegment.edmx</DependentUpon>
@@ -387,11 +389,19 @@
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="NewSalesAward\DataModels\ActiveBasePartDataModel.cs" />
+    <Compile Include="NewSalesAward\DataModels\BasePartMnemonicDataModel.cs" />
     <Compile Include="NewSalesAward\DataModels\CustomerCommitmentFormDataModel.cs" />
+    <Compile Include="NewSalesAward\DataModels\CustomerShipTos.cs" />
     <Compile Include="NewSalesAward\DataModels\ProgramManagerDataModel.cs" />
     <Compile Include="NewSalesAward\DataModels\QuoteReasonDataModel.cs" />
     <Compile Include="NewSalesAward\DataModels\SalespersonDataModel.cs" />
     <Compile Include="NewSalesAward\Models\ActiveBasePart.cs">
+      <DependentUpon>NewSalesAwardModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="NewSalesAward\Models\BasePartMnemonic.cs">
+      <DependentUpon>NewSalesAwardModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="NewSalesAward\Models\CSMData.cs">
       <DependentUpon>NewSalesAwardModel.tt</DependentUpon>
     </Compile>
     <Compile Include="NewSalesAward\Models\CustomerCommitmentForm.cs">
@@ -424,6 +434,21 @@
     <Compile Include="NewSalesAward\Models\Salespeople.cs">
       <DependentUpon>NewSalesAwardModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="NewSalesAward\Models\usp_GetAwardedQuoteBasePartMnemonic_Result.cs">
+      <DependentUpon>NewSalesAwardModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="NewSalesAward\Models\usp_GetAwardedQuoteCSMData_Result.cs">
+      <DependentUpon>NewSalesAwardModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="NewSalesAward\Models\usp_GetAwardedQuoteProductionPOs_Result.cs">
+      <DependentUpon>NewSalesAwardModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="NewSalesAward\Models\usp_GetAwardedQuotes_Result.cs">
+      <DependentUpon>NewSalesAwardModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="NewSalesAward\Models\usp_GetCustomerShipTos_Result.cs">
+      <DependentUpon>NewSalesAwardModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="NewSalesAward\Models\usp_LookupProgramManagerByInit_Result.cs">
       <DependentUpon>NewSalesAwardModel.tt</DependentUpon>
     </Compile>
@@ -437,15 +462,31 @@
     <Compile Include="NewSalesAward\Pages\CreateAwardedQuote.aspx.designer.cs">
       <DependentUpon>CreateAwardedQuote.aspx</DependentUpon>
     </Compile>
-    <Compile Include="NewSalesAward\Pages\Documents.aspx.cs">
-      <DependentUpon>Documents.aspx</DependentUpon>
+    <Compile Include="NewSalesAward\Pages\CsmDemand.aspx.cs">
+      <DependentUpon>CsmDemand.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="NewSalesAward\Pages\Documents.aspx.designer.cs">
-      <DependentUpon>Documents.aspx</DependentUpon>
+    <Compile Include="NewSalesAward\Pages\CsmDemand.aspx.designer.cs">
+      <DependentUpon>CsmDemand.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="NewSalesAward\Pages\DocumentGet.aspx.cs">
+      <DependentUpon>DocumentGet.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="NewSalesAward\Pages\DocumentGet.aspx.designer.cs">
+      <DependentUpon>DocumentGet.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="NewSalesAward\Pages\NewSalesAwards.aspx.cs">
+      <DependentUpon>NewSalesAwards.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="NewSalesAward\Pages\NewSalesAwards.aspx.designer.cs">
+      <DependentUpon>NewSalesAwards.aspx</DependentUpon>
     </Compile>
     <Compile Include="NewSalesAward\PageViewModels\CreateAwardedQuoteViewModel.cs" />
+    <Compile Include="NewSalesAward\PageViewModels\CsmDemandViewModel.cs" />
     <Compile Include="NewSalesAward\PageViewModels\DocumentationViewModel.cs" />
+    <Compile Include="NewSalesAward\PageViewModels\NewSalesAwardsViewModel.cs" />
     <Compile Include="Pages\Login.aspx.cs">
       <DependentUpon>Login.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>

@@ -14,7 +14,7 @@
             <asp:FileUpload id="FileUploadControl" runat="server" BackColor="White" />
             <dx:ASPxButton ID="UploadButton" runat="server" Text="Upload" OnClick="UploadButton_Click"></dx:ASPxButton>
             <br /><br />
-            <dx:ASPxLabel ID="StatusLabel" runat="server" Text="Upload status:"></dx:ASPxLabel>
+            <dx:ASPxLabel ID="StatusLabel" runat="server" Text=""></dx:ASPxLabel>
         </div>
     </form>
 </body>

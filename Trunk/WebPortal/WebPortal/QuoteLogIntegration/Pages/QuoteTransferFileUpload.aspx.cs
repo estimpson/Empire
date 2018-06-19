@@ -36,11 +36,11 @@ namespace WebPortal.QuoteLogIntegration.Pages
                 QtDocumentationViewModel viewModel = new QtDocumentationViewModel();
                 viewModel.SaveQuoteFile(_quote, "QuotePrint", fileName, fileContents);
 
-                //StatusLabel.Text = "Upload status: File uploaded!";
+                StatusLabel.Text = "File uploaded!";
             }
             catch (Exception ex)
             {
-                //StatusLabel.Text = "Upload status: The file could not be uploaded. The following error occured: " + ex.Message;
+                StatusLabel.Text = "The file could not be uploaded. The following error occured: " + ex.Message;
             }
         }
 

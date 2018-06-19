@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Documents.aspx.cs" Inherits="WebPortal.NewSalesAward.Pages.Documents" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="DocumentGet.aspx.cs" Inherits="WebPortal.NewSalesAward.Pages.DocumentGet" %>
 
 <%@ Register Assembly="DevExpress.Web.v17.2, Version=17.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" Namespace="DevExpress.Web" TagPrefix="dx" %>
 

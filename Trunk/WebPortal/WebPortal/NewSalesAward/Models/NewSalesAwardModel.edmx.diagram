@@ -4,13 +4,15 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="e4b118e2c8a643ffac73d30c9cb9b219" Name="Diagram1" ZoomLevel="75" >
+      <Diagram DiagramId="e4b118e2c8a643ffac73d30c9cb9b219" Name="Diagram1" ZoomLevel="36" >
         <EntityTypeShape EntityType="FxPLMModel.QuoteLog" Width="2.125" PointX="0.75" PointY="0.75" />
         <EntityTypeShape EntityType="FxPLMModel.Salespeople" Width="1.5" PointX="5.375" PointY="0.75" />
         <EntityTypeShape EntityType="FxPLMModel.CustomerCommitmentForm" Width="1.5" PointX="3.375" PointY="3.125" />
         <EntityTypeShape EntityType="FxPLMModel.ProgramManager" Width="1.5" PointX="5.375" PointY="3.125" />
         <EntityTypeShape EntityType="FxPLMModel.QuoteReason" Width="1.5" PointX="3.375" PointY="0.75" />
         <EntityTypeShape EntityType="FxPLMModel.ActiveBasePart" Width="1.5" PointX="7.375" PointY="0.75" />
+        <EntityTypeShape EntityType="FxPLMModel.CSMData" Width="1.5" PointX="10.25" PointY="0.75" />
+        <EntityTypeShape EntityType="FxPLMModel.BasePartMnemonic" Width="1.875" PointX="12.25" PointY="0.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

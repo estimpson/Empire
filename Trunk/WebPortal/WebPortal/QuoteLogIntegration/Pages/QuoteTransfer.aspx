@@ -56,6 +56,12 @@
               
             <div id="divMain" runat="server" style="border: 0px solid black; margin-bottom: 0px;">
 
+                <div>
+                    <dx:ASPxButton ID="btnClose" runat="server" Text="" RenderMode="Link" ToolTip="Close" OnClick="btnClose_Click">
+                        <Image IconID="actions_close_32x32gray" />
+                    </dx:ASPxButton>
+                </div>
+
                 <div id="divQuote" class="Section">
                     <table class="tbl">
                         <tr>
@@ -340,7 +346,7 @@
                                         <dx:ASPxTextBox ID="tbxDocName2" runat="server" ClientEnabled="false" DisabledStyle-ForeColor="Black"></dx:ASPxTextBox>
                                     </td>
                                     <td>
-                                        <dx:ASPxButton ID="btnDocSave2" runat="server" Text="Save" OnClick="btnDocSave2_Click"></dx:ASPxButton>
+                                        <dx:ASPxButton ID="btnDocSave2" runat="server" Text="Upload" OnClick="btnDocSave2_Click"></dx:ASPxButton>
                                     </td>
                                      <td>
                                         <dx:ASPxButton ID="btnDocDelete2" runat="server" Text="Delete" OnClick="btnDocDelete2_Click"></dx:ASPxButton>
@@ -357,7 +363,7 @@
                                         <dx:ASPxTextBox ID="tbxDocName3" runat="server" ClientEnabled="false" DisabledStyle-ForeColor="Black"></dx:ASPxTextBox>
                                     </td>
                                     <td>
-                                        <dx:ASPxButton ID="btnDocSave3" runat="server" Text="Save" OnClick="btnDocSave3_Click"></dx:ASPxButton>
+                                        <dx:ASPxButton ID="btnDocSave3" runat="server" Text="Upload" OnClick="btnDocSave3_Click"></dx:ASPxButton>
                                     </td>
                                      <td>
                                         <dx:ASPxButton ID="btnDocDelete3" runat="server" Text="Delete" OnClick="btnDocDelete3_Click"></dx:ASPxButton>
@@ -374,7 +380,7 @@
                                         <dx:ASPxTextBox ID="tbxDocName4" runat="server" ClientEnabled="false" DisabledStyle-ForeColor="Black"></dx:ASPxTextBox>
                                     </td>
                                     <td>
-                                        <dx:ASPxButton ID="btnDocSave4" runat="server" Text="Save" OnClick="btnDocSave4_Click"></dx:ASPxButton>
+                                        <dx:ASPxButton ID="btnDocSave4" runat="server" Text="Upload" OnClick="btnDocSave4_Click"></dx:ASPxButton>
                                     </td>
                                     <td>
                                         <dx:ASPxButton ID="btnDocDelete4" runat="server" Text="Delete" OnClick="btnDocDelete4_Click"></dx:ASPxButton>
@@ -391,7 +397,7 @@
                                         <dx:ASPxTextBox ID="tbxDocName5" runat="server" ClientEnabled="false" DisabledStyle-ForeColor="Black"></dx:ASPxTextBox>
                                     </td>
                                     <td>
-                                        <dx:ASPxButton ID="btnDocSave5" runat="server" Text="Save" OnClick="btnDocSave5_Click"></dx:ASPxButton>
+                                        <dx:ASPxButton ID="btnDocSave5" runat="server" Text="Upload" OnClick="btnDocSave5_Click"></dx:ASPxButton>
                                     </td>
                                     <td>
                                         <dx:ASPxButton ID="btnDocDelete5" runat="server" Text="Delete" OnClick="btnDocDelete5_Click"></dx:ASPxButton>

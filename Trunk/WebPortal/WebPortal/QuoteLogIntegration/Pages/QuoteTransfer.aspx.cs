@@ -92,7 +92,22 @@ namespace WebPortal.QuoteLogIntegration.Pages
 
         protected void Page_Init(object sender, EventArgs e)
         {
-            QuoteViewModel.OperatorCode = CustViewModel.OperatorCode = Request.QueryString["op"];
+            // If arriving from another page, make sure session variables have not timed out
+            if (Session["RedirectPage"] != null && Session["op"] == null) Response.Redirect("~/Pages/Login.aspx");
+
+            // Get the operator code 
+            if (Session["op"] == null)
+            {
+                // Arrived here from the menu
+                QuoteViewModel.OperatorCode = CustViewModel.OperatorCode = Request.QueryString["op"];
+                Session["op"] = Request.QueryString["op"];
+                btnClose.Visible = false;
+            }
+            else
+            {
+                // Arrived here from another page
+                QuoteViewModel.OperatorCode = CustViewModel.OperatorCode = Session["op"].ToString();
+            }
         }
 
         protected void Page_Load(object sender, EventArgs e)
@@ -101,9 +116,18 @@ namespace WebPortal.QuoteLogIntegration.Pages
             {
                 AuthenticateUser();
 
-                //gvCustomers.FocusedRowIndex = -1;
-                rPnl.Visible = false;
-                tbxQuoteNumber.Focus();
+                if (Session["QuoteNumber"] != null)
+                {
+                    tbxQuoteNumber.Text = Session["QuoteNumber"].ToString();
+                    //PopulateForm();
+                }
+                else
+                {
+                    rPnl.Visible = false;
+                    tbxQuoteNumber.Focus();
+                }
+
+                btnClose.Visible = (Session["RedirectPage"] != null);
             }
         }
 
@@ -113,42 +137,12 @@ namespace WebPortal.QuoteLogIntegration.Pages
 
         protected void btnGetQuote_Click(object sender, EventArgs e)
         {
-            string quote = tbxQuoteNumber.Text.Trim();
-            if (quote == "") return;
+            PopulateForm();
+        }
 
-            //DeleteTempFiles();
-
-            if (GetQuote(quote) == 0) return;
-            Session["Quote"] = tbxQuoteNumber.Text;
-
-            if (InsertCustomerContacts() == 0) return;
-            if (InsertSpecialReqNotes() == 0) return;
-            if (InsertSignOff() == 0) return;
-
-            PopulateQuoteFields();
-            Session["Quote"] = quote;
-            rPnl.Visible = true;
-
-            PopulateDocumentationAnswers();
-            PopulateNotesAnswers();
-
-            GetCustomerContacts(quote);
-            GetToolingBreakdown(quote);
-            GetSpecialReqNotes();
-            GetDocumentationAnswers();
-
-            ShowQuoteFiles("QuotePrint");
-            ShowQuoteFiles("BomLabor");
-            ShowQuoteFiles("CustomerQuote");
-            ShowQuoteFiles("VendorQuote");
-            ToggleGetDocumentButtons();
-
-            if (GetSignOffInitialsQuoteEngineer() == 0) return;
-            if (GetSignOffInitialsMaterialRep() == 0) return;
-            if (GetSignOffInitialsProductEngineer() == 0) return;
-            if (GetSignOffInitialsProgramManager() == 0) return;
-
-            GetSignOff();
+        protected void btnClose_Click(object sender, EventArgs e)
+        {
+            Response.Redirect(Session["RedirectPage"].ToString());
         }
 
         protected void btnSaveNotes_Click(object sender, EventArgs e)
@@ -293,6 +287,46 @@ namespace WebPortal.QuoteLogIntegration.Pages
 
         #region Quote Methods
 
+        private void PopulateForm()
+        {
+            string quote = tbxQuoteNumber.Text.Trim();
+            if (quote == "") return;
+
+            //DeleteTempFiles();
+
+            if (GetQuote(quote) == 0) return;
+            Session["Quote"] = tbxQuoteNumber.Text;
+
+            if (InsertCustomerContacts() == 0) return;
+            if (InsertSpecialReqNotes() == 0) return;
+            if (InsertSignOff() == 0) return;
+
+            PopulateQuoteFields();
+            Session["Quote"] = quote;
+            rPnl.Visible = true;
+
+            PopulateDocumentationAnswers();
+            PopulateNotesAnswers();
+
+            GetCustomerContacts(quote);
+            GetToolingBreakdown(quote);
+            GetSpecialReqNotes();
+            GetDocumentationAnswers();
+
+            ShowQuoteFiles("QuotePrint");
+            ShowQuoteFiles("BomLabor");
+            ShowQuoteFiles("CustomerQuote");
+            ShowQuoteFiles("VendorQuote");
+            ToggleGetDocumentButtons();
+
+            if (GetSignOffInitialsQuoteEngineer() == 0) return;
+            if (GetSignOffInitialsMaterialRep() == 0) return;
+            if (GetSignOffInitialsProductEngineer() == 0) return;
+            if (GetSignOffInitialsProgramManager() == 0) return;
+
+            GetSignOff();
+        }
+
         private int GetQuote(string quote)
         {
             QuoteViewModel.GetQuote(quote);
@@ -381,10 +415,10 @@ namespace WebPortal.QuoteLogIntegration.Pages
 
         private void ToggleGetDocumentButtons()
         {
-            btnDocGet2.Enabled = (tbxDocName2.Text.Trim() != "");
-            btnDocGet3.Enabled = (tbxDocName3.Text.Trim() != "");
-            btnDocGet4.Enabled = (tbxDocName4.Text.Trim() != "");
-            btnDocGet5.Enabled = (tbxDocName5.Text.Trim() != "");
+            btnDocDelete2.Enabled = btnDocGet2.Enabled = (tbxDocName2.Text.Trim() != "");
+            btnDocDelete3.Enabled = btnDocGet3.Enabled = (tbxDocName3.Text.Trim() != "");
+            btnDocDelete4.Enabled = btnDocGet4.Enabled = (tbxDocName4.Text.Trim() != "");
+            btnDocDelete5.Enabled = btnDocGet5.Enabled = (tbxDocName5.Text.Trim() != "");
         }
 
         private void PopulateDocumentationAnswers()
@@ -980,6 +1014,7 @@ namespace WebPortal.QuoteLogIntegration.Pages
                 pcError.ShowOnPageLoad = true;
             }
         }
+
 
         #endregion
 

@@ -15,6 +15,55 @@ warning 6002: The table/view 'FxPLM.NSA.ActiveBaseParts' does not have a primary
           <Property Name="RowID" Type="bigint" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
+warning 6002: The table/view 'FxPLM.NSA.BasePartMnemonics' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="BasePartMnemonics">
+          <Key>
+            <PropertyRef Name="QuoteNumber" />
+            <PropertyRef Name="ReleaseID" />
+            <PropertyRef Name="VehiclePlantMnemonic" />
+            <PropertyRef Name="BasePart" />
+          </Key>
+          <Property Name="QuoteNumber" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="ReleaseID" Type="char" MaxLength="7" Nullable="false" />
+          <Property Name="VehiclePlantMnemonic" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="BasePart" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="QtyPer" Type="decimal" Precision="10" Scale="0" />
+          <Property Name="TakeRate" Type="decimal" Precision="10" Scale="6" />
+          <Property Name="FamilyAllocation" Type="decimal" Precision="10" Scale="6" />
+          <Property Name="Platform" Type="varchar" MaxLength="255" />
+          <Property Name="Program" Type="varchar" MaxLength="255" />
+          <Property Name="Vehicle" Type="varchar" MaxLength="255" />
+          <Property Name="Manufacturer" Type="varchar" MaxLength="255" />
+          <Property Name="Family" Type="varchar" MaxLength="255" />
+          <Property Name="SourcePlant" Type="varchar" MaxLength="255" />
+          <Property Name="SourcePlantCountry" Type="varchar" MaxLength="255" />
+          <Property Name="SourcePlantRegion" Type="varchar" MaxLength="255" />
+          <Property Name="CSM_SOP" Type="datetime" />
+          <Property Name="CSM_EOP" Type="datetime" />
+          <Property Name="EAU" Type="decimal" Precision="38" Scale="9" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'FxPLM.NSA.CSMData' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="CSMData">
+          <Key>
+            <PropertyRef Name="ReleaseID" />
+            <PropertyRef Name="VehiclePlantMnemonic" />
+            <PropertyRef Name="RowID" />
+          </Key>
+          <Property Name="ReleaseID" Type="char" MaxLength="7" Nullable="false" />
+          <Property Name="VehiclePlantMnemonic" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="Platform" Type="varchar" MaxLength="255" />
+          <Property Name="Program" Type="varchar" MaxLength="255" />
+          <Property Name="Vehicle" Type="varchar" MaxLength="255" />
+          <Property Name="Manufacturer" Type="varchar" MaxLength="255" />
+          <Property Name="SourcePlant" Type="varchar" MaxLength="255" />
+          <Property Name="SourcePlantCountry" Type="varchar" MaxLength="255" />
+          <Property Name="SourcePlantRegion" Type="varchar" MaxLength="255" />
+          <Property Name="CSM_SOP" Type="datetime" />
+          <Property Name="CSM_EOP" Type="datetime" />
+          <Property Name="RowID" Type="bigint" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
 warning 6002: The table/view 'FxPLM.NSA.CustomerCommitmentForms' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="CustomerCommitmentForms">
           <Key>
@@ -147,7 +196,7 @@ warning 6002: The table/view 'FxPLM.NSA.Salespeople' does not have a primary key
           <Parameter Name="QuoteNumber" Type="varchar" Mode="In" />
           <Parameter Name="AwardDate" Type="datetime" Mode="In" />
           <Parameter Name="FormOfCommitment" Type="varchar" Mode="In" />
-          <Parameter Name="AwardType" Type="tinyint" Mode="In" />
+          <Parameter Name="QuoteReason" Type="tinyint" Mode="In" />
           <Parameter Name="ReplacingBasePart" Type="char" Mode="In" />
           <Parameter Name="Salesperson" Type="varchar" Mode="In" />
           <Parameter Name="ProgramManager" Type="varchar" Mode="In" />
@@ -157,11 +206,18 @@ warning 6002: The table/view 'FxPLM.NSA.Salespeople' does not have a primary key
           <Parameter Name="Debug" Type="int" Mode="In" />
           <Parameter Name="DebugMsg" Type="varchar(max)" Mode="InOut" />
         </Function>
+        <Function Name="usp_GetAwardedQuoteBasePartMnemonic" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="NSA">
+          <Parameter Name="QuoteNumber" Type="varchar" Mode="In" />
+          <Parameter Name="Mnemonic" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="usp_GetAwardedQuoteCSMData" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="NSA">
+          <Parameter Name="QuoteNumber" Type="varchar" Mode="In" />
+        </Function>
         <Function Name="usp_GetAwardedQuoteDetails" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="NSA">
           <Parameter Name="QuoteNumber" Type="varchar" Mode="In" />
           <Parameter Name="AwardDate" Type="datetime" Mode="InOut" />
           <Parameter Name="FormOfCommitment" Type="varchar" Mode="InOut" />
-          <Parameter Name="AwardType" Type="tinyint" Mode="InOut" />
+          <Parameter Name="QuoteReason" Type="tinyint" Mode="InOut" />
           <Parameter Name="ReplacingBasePart" Type="char" Mode="InOut" />
           <Parameter Name="Salesperson" Type="varchar" Mode="InOut" />
           <Parameter Name="ProgramManager" Type="varchar" Mode="InOut" />
@@ -170,6 +226,11 @@ warning 6002: The table/view 'FxPLM.NSA.Salespeople' does not have a primary key
           <Parameter Name="Result" Type="int" Mode="InOut" />
           <Parameter Name="Debug" Type="int" Mode="In" />
           <Parameter Name="DebugMsg" Type="varchar(max)" Mode="InOut" />
+        </Function>
+        <Function Name="usp_GetAwardedQuoteProductionPOs" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="NSA" />
+        <Function Name="usp_GetAwardedQuotes" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="NSA" />
+        <Function Name="usp_GetCustomerShipTos" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="NSA">
+          <Parameter Name="BasePart" Type="varchar" Mode="In" />
         </Function>
         <Function Name="usp_LookupProgramManagerByInit" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="NSA">
           <Parameter Name="Initials" Type="varchar" Mode="In" />
@@ -180,6 +241,25 @@ warning 6002: The table/view 'FxPLM.NSA.Salespeople' does not have a primary key
           <Parameter Name="Initials" Type="varchar" Mode="In" />
           <Parameter Name="TranDT" Type="datetime" Mode="InOut" />
           <Parameter Name="Result" Type="int" Mode="InOut" />
+        </Function>
+        <Function Name="usp_RemoveBasePartMnemonic" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="NSA">
+          <Parameter Name="QuoteNumber" Type="varchar" Mode="In" />
+          <Parameter Name="Mnemonic" Type="varchar" Mode="In" />
+          <Parameter Name="TranDT" Type="datetime" Mode="InOut" />
+          <Parameter Name="Result" Type="int" Mode="InOut" />
+          <Parameter Name="Debug" Type="int" Mode="In" />
+          <Parameter Name="DebugMsg" Type="varchar(max)" Mode="InOut" />
+        </Function>
+        <Function Name="usp_SetAssemblyTesterTooling" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="NSA">
+          <Parameter Name="QuoteNumber" Type="varchar" Mode="In" />
+          <Parameter Name="AssemblyTesterToolingAmount" Type="numeric" Mode="In" />
+          <Parameter Name="AssemblyTesterToolingTrigger" Type="varchar(max)" Mode="In" />
+          <Parameter Name="AssemblyTesterToolingDescription" Type="varchar(max)" Mode="In" />
+          <Parameter Name="AssemblyTesterToolingCAPEXID" Type="varchar" Mode="In" />
+          <Parameter Name="TranDT" Type="datetime" Mode="InOut" />
+          <Parameter Name="Result" Type="int" Mode="InOut" />
+          <Parameter Name="Debug" Type="int" Mode="In" />
+          <Parameter Name="DebugMsg" Type="varchar(max)" Mode="InOut" />
         </Function>
         <Function Name="usp_SetBasePartAttributes" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="NSA">
           <Parameter Name="User" Type="varchar" Mode="In" />
@@ -198,12 +278,97 @@ warning 6002: The table/view 'FxPLM.NSA.Salespeople' does not have a primary key
           <Parameter Name="Debug" Type="int" Mode="In" />
           <Parameter Name="DebugMsg" Type="varchar(max)" Mode="InOut" />
         </Function>
+        <Function Name="usp_SetBasePartMnemonic" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="NSA">
+          <Parameter Name="QuoteNumber" Type="varchar" Mode="In" />
+          <Parameter Name="Mnemonic" Type="varchar" Mode="In" />
+          <Parameter Name="QtyPer" Type="numeric" Mode="In" />
+          <Parameter Name="TakeRate" Type="numeric" Mode="In" />
+          <Parameter Name="FamilyAllocation" Type="numeric" Mode="In" />
+          <Parameter Name="TranDT" Type="datetime" Mode="InOut" />
+          <Parameter Name="Result" Type="int" Mode="InOut" />
+          <Parameter Name="Debug" Type="int" Mode="In" />
+          <Parameter Name="DebugMsg" Type="varchar(max)" Mode="InOut" />
+        </Function>
+        <Function Name="usp_SetHardTooling" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="NSA">
+          <Parameter Name="QuoteNumber" Type="varchar" Mode="In" />
+          <Parameter Name="HardToolingAmount" Type="numeric" Mode="In" />
+          <Parameter Name="HardToolingTrigger" Type="varchar(max)" Mode="In" />
+          <Parameter Name="HardToolingDescription" Type="varchar(max)" Mode="In" />
+          <Parameter Name="HardToolingCAPEXID" Type="varchar" Mode="In" />
+          <Parameter Name="TranDT" Type="datetime" Mode="InOut" />
+          <Parameter Name="Result" Type="int" Mode="InOut" />
+          <Parameter Name="Debug" Type="int" Mode="In" />
+          <Parameter Name="DebugMsg" Type="varchar(max)" Mode="InOut" />
+        </Function>
+        <Function Name="usp_SetProductionPO" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="NSA">
+          <Parameter Name="QuoteNumber" Type="varchar" Mode="In" />
+          <Parameter Name="PurchaseOrderDT" Type="datetime" Mode="In" />
+          <Parameter Name="PONumber" Type="varchar" Mode="In" />
+          <Parameter Name="AlternativeCustomerCommitment" Type="varchar" Mode="In" />
+          <Parameter Name="SellingPrice" Type="numeric" Mode="In" />
+          <Parameter Name="PurchaseOrderSOP" Type="datetime" Mode="In" />
+          <Parameter Name="PurchaseOrderEOP" Type="datetime" Mode="In" />
+          <Parameter Name="Comments" Type="varchar(max)" Mode="In" />
+          <Parameter Name="TranDT" Type="datetime" Mode="InOut" />
+          <Parameter Name="Result" Type="int" Mode="InOut" />
+          <Parameter Name="Debug" Type="int" Mode="In" />
+          <Parameter Name="DebugMsg" Type="varchar(max)" Mode="InOut" />
+        </Function>
+        <Function Name="usp_SetToolingAmortization" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="NSA">
+          <Parameter Name="QuoteNumber" Type="varchar" Mode="In" />
+          <Parameter Name="AmortizationAmount" Type="numeric" Mode="In" />
+          <Parameter Name="AmortizationQuantity" Type="numeric" Mode="In" />
+          <Parameter Name="AmortizationToolingDescription" Type="varchar(max)" Mode="In" />
+          <Parameter Name="AmortizationCAPEXID" Type="varchar" Mode="In" />
+          <Parameter Name="TranDT" Type="datetime" Mode="InOut" />
+          <Parameter Name="Result" Type="int" Mode="InOut" />
+          <Parameter Name="Debug" Type="int" Mode="In" />
+          <Parameter Name="DebugMsg" Type="varchar(max)" Mode="InOut" />
+        </Function>
         <EntityContainer Name="FxPLMModelStoreContainer">
           <EntitySet Name="ActiveBaseParts" EntityType="Self.ActiveBaseParts" store:Type="Views" store:Schema="NSA">
             <DefiningQuery>SELECT 
     [ActiveBaseParts].[BasePart] AS [BasePart], 
     [ActiveBaseParts].[RowID] AS [RowID]
     FROM [NSA].[ActiveBaseParts] AS [ActiveBaseParts]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="BasePartMnemonics" EntityType="Self.BasePartMnemonics" store:Type="Views" store:Schema="NSA">
+            <DefiningQuery>SELECT 
+    [BasePartMnemonics].[QuoteNumber] AS [QuoteNumber], 
+    [BasePartMnemonics].[ReleaseID] AS [ReleaseID], 
+    [BasePartMnemonics].[VehiclePlantMnemonic] AS [VehiclePlantMnemonic], 
+    [BasePartMnemonics].[BasePart] AS [BasePart], 
+    [BasePartMnemonics].[QtyPer] AS [QtyPer], 
+    [BasePartMnemonics].[TakeRate] AS [TakeRate], 
+    [BasePartMnemonics].[FamilyAllocation] AS [FamilyAllocation], 
+    [BasePartMnemonics].[Platform] AS [Platform], 
+    [BasePartMnemonics].[Program] AS [Program], 
+    [BasePartMnemonics].[Vehicle] AS [Vehicle], 
+    [BasePartMnemonics].[Manufacturer] AS [Manufacturer], 
+    [BasePartMnemonics].[Family] AS [Family], 
+    [BasePartMnemonics].[SourcePlant] AS [SourcePlant], 
+    [BasePartMnemonics].[SourcePlantCountry] AS [SourcePlantCountry], 
+    [BasePartMnemonics].[SourcePlantRegion] AS [SourcePlantRegion], 
+    [BasePartMnemonics].[CSM_SOP] AS [CSM_SOP], 
+    [BasePartMnemonics].[CSM_EOP] AS [CSM_EOP], 
+    [BasePartMnemonics].[EAU] AS [EAU]
+    FROM [NSA].[BasePartMnemonics] AS [BasePartMnemonics]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="CSMData" EntityType="Self.CSMData" store:Type="Views" store:Schema="NSA">
+            <DefiningQuery>SELECT 
+    [CSMData].[ReleaseID] AS [ReleaseID], 
+    [CSMData].[VehiclePlantMnemonic] AS [VehiclePlantMnemonic], 
+    [CSMData].[Platform] AS [Platform], 
+    [CSMData].[Program] AS [Program], 
+    [CSMData].[Vehicle] AS [Vehicle], 
+    [CSMData].[Manufacturer] AS [Manufacturer], 
+    [CSMData].[SourcePlant] AS [SourcePlant], 
+    [CSMData].[SourcePlantCountry] AS [SourcePlantCountry], 
+    [CSMData].[SourcePlantRegion] AS [SourcePlantRegion], 
+    [CSMData].[CSM_SOP] AS [CSM_SOP], 
+    [CSMData].[CSM_EOP] AS [CSM_EOP], 
+    [CSMData].[RowID] AS [RowID]
+    FROM [NSA].[CSMData] AS [CSMData]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="CustomerCommitmentForms" EntityType="Self.CustomerCommitmentForms" store:Type="Views" store:Schema="NSA">
             <DefiningQuery>SELECT 
@@ -321,7 +486,7 @@ warning 6002: The table/view 'FxPLM.NSA.Salespeople' does not have a primary key
             <Parameter Name="QuoteNumber" Mode="In" Type="String" />
             <Parameter Name="AwardDate" Mode="In" Type="DateTime" />
             <Parameter Name="FormOfCommitment" Mode="In" Type="String" />
-            <Parameter Name="AwardType" Mode="In" Type="Byte" />
+            <Parameter Name="QuoteReason" Mode="In" Type="Byte" />
             <Parameter Name="ReplacingBasePart" Mode="In" Type="String" />
             <Parameter Name="Salesperson" Mode="In" Type="String" />
             <Parameter Name="ProgramManager" Mode="In" Type="String" />
@@ -370,7 +535,7 @@ warning 6002: The table/view 'FxPLM.NSA.Salespeople' does not have a primary key
             <Parameter Name="QuoteNumber" Mode="In" Type="String" />
             <Parameter Name="AwardDate" Mode="InOut" Type="DateTime" />
             <Parameter Name="FormOfCommitment" Mode="InOut" Type="String" />
-            <Parameter Name="AwardType" Mode="InOut" Type="Byte" />
+            <Parameter Name="QuoteReason" Mode="InOut" Type="Byte" />
             <Parameter Name="ReplacingBasePart" Mode="InOut" Type="String" />
             <Parameter Name="Salesperson" Mode="InOut" Type="String" />
             <Parameter Name="ProgramManager" Mode="InOut" Type="String" />
@@ -386,6 +551,86 @@ warning 6002: The table/view 'FxPLM.NSA.Salespeople' does not have a primary key
           <EntitySet Name="ProgramManagers" EntityType="FxPLMModel.ProgramManager" />
           <EntitySet Name="QuoteReasons" EntityType="FxPLMModel.QuoteReason" />
           <EntitySet Name="ActiveBaseParts" EntityType="FxPLMModel.ActiveBasePart" />
+          <FunctionImport Name="usp_SetProductionPO">
+            <Parameter Name="QuoteNumber" Mode="In" Type="String" />
+            <Parameter Name="PurchaseOrderDT" Mode="In" Type="DateTime" />
+            <Parameter Name="PONumber" Mode="In" Type="String" />
+            <Parameter Name="AlternativeCustomerCommitment" Mode="In" Type="String" />
+            <Parameter Name="SellingPrice" Mode="In" Type="Decimal" />
+            <Parameter Name="PurchaseOrderSOP" Mode="In" Type="DateTime" />
+            <Parameter Name="PurchaseOrderEOP" Mode="In" Type="DateTime" />
+            <Parameter Name="Comments" Mode="In" Type="String" />
+            <Parameter Name="TranDT" Mode="InOut" Type="DateTime" />
+            <Parameter Name="Result" Mode="InOut" Type="Int32" />
+            <Parameter Name="Debug" Mode="In" Type="Int32" />
+            <Parameter Name="DebugMsg" Mode="InOut" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="usp_GetAwardedQuoteProductionPOs" ReturnType="Collection(FxPLMModel.usp_GetAwardedQuoteProductionPOs_Result)" />
+          <FunctionImport Name="usp_GetAwardedQuotes" ReturnType="Collection(FxPLMModel.usp_GetAwardedQuotes_Result)" />
+          <FunctionImport Name="usp_SetAssemblyTesterTooling">
+            <Parameter Name="QuoteNumber" Mode="In" Type="String" />
+            <Parameter Name="AssemblyTesterToolingAmount" Mode="In" Type="Decimal" />
+            <Parameter Name="AssemblyTesterToolingTrigger" Mode="In" Type="String" />
+            <Parameter Name="AssemblyTesterToolingDescription" Mode="In" Type="String" />
+            <Parameter Name="AssemblyTesterToolingCAPEXID" Mode="In" Type="String" />
+            <Parameter Name="TranDT" Mode="InOut" Type="DateTime" />
+            <Parameter Name="Result" Mode="InOut" Type="Int32" />
+            <Parameter Name="Debug" Mode="In" Type="Int32" />
+            <Parameter Name="DebugMsg" Mode="InOut" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="usp_SetHardTooling">
+            <Parameter Name="QuoteNumber" Mode="In" Type="String" />
+            <Parameter Name="HardToolingAmount" Mode="In" Type="Decimal" />
+            <Parameter Name="HardToolingTrigger" Mode="In" Type="String" />
+            <Parameter Name="HardToolingDescription" Mode="In" Type="String" />
+            <Parameter Name="HardToolingCAPEXID" Mode="In" Type="String" />
+            <Parameter Name="TranDT" Mode="InOut" Type="DateTime" />
+            <Parameter Name="Result" Mode="InOut" Type="Int32" />
+            <Parameter Name="Debug" Mode="In" Type="Int32" />
+            <Parameter Name="DebugMsg" Mode="InOut" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="usp_SetToolingAmortization">
+            <Parameter Name="QuoteNumber" Mode="In" Type="String" />
+            <Parameter Name="AmortizationAmount" Mode="In" Type="Decimal" />
+            <Parameter Name="AmortizationQuantity" Mode="In" Type="Decimal" />
+            <Parameter Name="AmortizationToolingDescription" Mode="In" Type="String" />
+            <Parameter Name="AmortizationCAPEXID" Mode="In" Type="String" />
+            <Parameter Name="TranDT" Mode="InOut" Type="DateTime" />
+            <Parameter Name="Result" Mode="InOut" Type="Int32" />
+            <Parameter Name="Debug" Mode="In" Type="Int32" />
+            <Parameter Name="DebugMsg" Mode="InOut" Type="String" />
+          </FunctionImport>
+          <EntitySet Name="CSMDatas" EntityType="FxPLMModel.CSMData" />
+          <FunctionImport Name="usp_SetBasePartMnemonic">
+            <Parameter Name="QuoteNumber" Mode="In" Type="String" />
+            <Parameter Name="Mnemonic" Mode="In" Type="String" />
+            <Parameter Name="QtyPer" Mode="In" Type="Decimal" />
+            <Parameter Name="TakeRate" Mode="In" Type="Decimal" />
+            <Parameter Name="FamilyAllocation" Mode="In" Type="Decimal" />
+            <Parameter Name="TranDT" Mode="InOut" Type="DateTime" />
+            <Parameter Name="Result" Mode="InOut" Type="Int32" />
+            <Parameter Name="Debug" Mode="In" Type="Int32" />
+            <Parameter Name="DebugMsg" Mode="InOut" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="usp_RemoveBasePartMnemonic">
+            <Parameter Name="QuoteNumber" Mode="In" Type="String" />
+            <Parameter Name="Mnemonic" Mode="In" Type="String" />
+            <Parameter Name="TranDT" Mode="InOut" Type="DateTime" />
+            <Parameter Name="Result" Mode="InOut" Type="Int32" />
+            <Parameter Name="Debug" Mode="In" Type="Int32" />
+            <Parameter Name="DebugMsg" Mode="InOut" Type="String" />
+          </FunctionImport>
+          <EntitySet Name="BasePartMnemonics" EntityType="FxPLMModel.BasePartMnemonic" />
+          <FunctionImport Name="usp_GetAwardedQuoteBasePartMnemonic" ReturnType="Collection(FxPLMModel.usp_GetAwardedQuoteBasePartMnemonic_Result)">
+            <Parameter Name="QuoteNumber" Mode="In" Type="String" />
+            <Parameter Name="Mnemonic" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="usp_GetAwardedQuoteCSMData" ReturnType="Collection(FxPLMModel.usp_GetAwardedQuoteCSMData_Result)">
+          <Parameter Name="QuoteNumber" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="usp_GetCustomerShipTos" ReturnType="Collection(FxPLMModel.usp_GetCustomerShipTos_Result)">
+            <Parameter Name="BasePart" Mode="In" Type="String" />
+          </FunctionImport>
           </EntityContainer>
         <ComplexType Name="usp_LookupProgramManagerByInit_Result">
           <Property Type="String" Name="UserName" Nullable="false" MaxLength="40" />
@@ -522,6 +767,152 @@ warning 6002: The table/view 'FxPLM.NSA.Salespeople' does not have a primary key
           <Property Name="BasePart" Type="String" MaxLength="7" FixedLength="false" Unicode="false" />
           <Property Name="RowID" Type="Int64" Nullable="false" />
         </EntityType>
+        <ComplexType Name="usp_GetAwardedQuoteProductionPOs_Result">
+          <Property Type="String" Name="QuoteNumber" Nullable="false" MaxLength="100" />
+          <Property Type="String" Name="BasePart" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="PONumber" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="PurchaseOrderFileName" Nullable="true" MaxLength="128" />
+          <Property Type="DateTime" Name="PurchaseOrderDT" Nullable="true" Precision="23" />
+          <Property Type="String" Name="AlternativeCustomerCommitment" Nullable="true" MaxLength="100" />
+          <Property Type="Decimal" Name="SellingPrice" Nullable="true" Precision="20" Scale="6" />
+          <Property Type="DateTime" Name="PurchaseOrderSOP" Nullable="true" Precision="23" />
+          <Property Type="DateTime" Name="PurchaseOrderEOP" Nullable="true" Precision="23" />
+          <Property Type="String" Name="Comments" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="usp_GetAwardedQuotes_Result">
+          <Property Type="String" Name="QuoteNumber" Nullable="false" MaxLength="100" />
+          <Property Type="String" Name="BasePart" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Salesperson" Nullable="true" MaxLength="40" />
+          <Property Type="String" Name="ProgramManager" Nullable="true" MaxLength="40" />
+          <Property Type="DateTime" Name="AwardDate" Nullable="false" Precision="23" />
+          <Property Type="String" Name="FormOfCommitment" Nullable="false" MaxLength="50" />
+          <Property Type="DateTime" Name="QuoteTrasferMeetingDT" Nullable="true" Precision="23" />
+          <Property Type="DateTime" Name="SalesForecastDT" Nullable="true" Precision="23" />
+          <Property Type="String" Name="BasePartCustomer" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="QuoteReason" Nullable="false" MaxLength="25" />
+          <Property Type="String" Name="ReplacingBasePart" Nullable="true" MaxLength="7" />
+          <Property Type="String" Name="CustomerPart" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="VehiclePlantMnemonic" Nullable="true" />
+          <Property Type="String" Name="Family" Nullable="true" />
+          <Property Type="String" Name="Program" Nullable="true" />
+          <Property Type="String" Name="Vehicle" Nullable="true" />
+          <Property Type="String" Name="EmpireApplication" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="BasePartFamily" Nullable="true" MaxLength="400" />
+          <Property Type="String" Name="EmpireMarketSegment" Nullable="true" MaxLength="200" />
+          <Property Type="String" Name="EmpireMarketSubsegment" Nullable="true" MaxLength="200" />
+          <Property Type="String" Name="ProductLine" Nullable="true" MaxLength="25" />
+          <Property Type="DateTime" Name="EmpireSOP" Nullable="true" Precision="16" />
+          <Property Type="DateTime" Name="EmpireEOP" Nullable="true" Precision="16" />
+          <Property Type="String" Name="EmpireEOPNote" Nullable="true" MaxLength="250" />
+          <Property Type="String" Name="BasePart_Comments" Nullable="true" />
+          <Property Type="String" Name="SourcePlantRegion" Nullable="true" />
+          <Property Type="Decimal" Name="QtyPer" Nullable="true" Precision="10" Scale="0" />
+          <Property Type="Decimal" Name="TakeRate" Nullable="true" Precision="10" Scale="6" />
+          <Property Type="Decimal" Name="FamilyAllocation" Nullable="true" Precision="10" Scale="6" />
+          <Property Type="Decimal" Name="CSMEAU" Nullable="true" Precision="38" Scale="9" />
+          <Property Type="DateTime" Name="QuoteDate" Nullable="true" Precision="23" />
+          <Property Type="Decimal" Name="QuotedEAU" Nullable="true" Precision="20" Scale="0" />
+          <Property Type="Int32" Name="MinimumOrderQuantity" Nullable="true" />
+          <Property Type="Decimal" Name="QuotedPrice" Nullable="true" Precision="20" Scale="4" />
+          <Property Type="Decimal" Name="QuotedMaterialCost" Nullable="true" Precision="20" Scale="6" />
+          <Property Type="Decimal" Name="QuotedSales" Nullable="true" Precision="38" Scale="4" />
+          <Property Type="String" Name="QuotedLTA" Nullable="true" MaxLength="100" />
+          <Property Type="DateTime" Name="PurchaseOrderDate" Nullable="true" Precision="23" />
+          <Property Type="String" Name="CustomerProductionPurchaseOrderNumber" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="AlternativeCustomerCommitment" Nullable="true" MaxLength="100" />
+          <Property Type="Decimal" Name="PurchaseOrderSellingPrice" Nullable="true" Precision="20" Scale="6" />
+          <Property Type="DateTime" Name="PurchaseOrderSOP" Nullable="true" Precision="23" />
+          <Property Type="DateTime" Name="PurchaseOrderEOP" Nullable="true" Precision="23" />
+          <Property Type="Decimal" Name="PurchaseOrderPriceVariace" Nullable="true" Precision="23" Scale="6" />
+          <Property Type="Decimal" Name="AmortizationAmount" Nullable="true" Precision="20" Scale="6" />
+          <Property Type="Decimal" Name="AmortizationQuantity" Nullable="true" Precision="20" Scale="6" />
+          <Property Type="Decimal" Name="AmortizationPrice" Nullable="true" Precision="38" Scale="18" />
+          <Property Type="String" Name="AmortizationToolingDescription" Nullable="true" />
+          <Property Type="String" Name="AmortizationCAPEXID" Nullable="true" MaxLength="100" />
+          <Property Type="Decimal" Name="HardToolingAmount" Nullable="true" Precision="20" Scale="6" />
+          <Property Type="String" Name="HardToolingTrigger" Nullable="true" />
+          <Property Type="String" Name="HardToolingDescription" Nullable="true" />
+          <Property Type="String" Name="HardToolingCAPEXID" Nullable="true" MaxLength="100" />
+          <Property Type="Decimal" Name="AssemblyTesterToolingAmount" Nullable="true" Precision="20" Scale="6" />
+          <Property Type="String" Name="AssemblyTesterToolingTrigger" Nullable="true" />
+          <Property Type="String" Name="AssemblyTesterToolingDescription" Nullable="true" />
+          <Property Type="String" Name="AssemblyTesterToolingCAPEXID" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="EmpireFacility" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="FreightTerms" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="CustomerShipTos" Nullable="true" />
+          <Property Type="String" Name="Comments" Nullable="true" />
+        </ComplexType>
+        <EntityType Name="CSMData">
+          <Key>
+            <PropertyRef Name="ReleaseID" />
+            <PropertyRef Name="VehiclePlantMnemonic" />
+            <PropertyRef Name="RowID" />
+          </Key>
+          <Property Name="ReleaseID" Type="String" Nullable="false" MaxLength="7" FixedLength="true" Unicode="false" />
+          <Property Name="VehiclePlantMnemonic" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="Platform" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Program" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Vehicle" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Manufacturer" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="SourcePlant" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="SourcePlantCountry" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="SourcePlantRegion" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="CSM_SOP" Type="DateTime" Precision="3" />
+          <Property Name="CSM_EOP" Type="DateTime" Precision="3" />
+          <Property Name="RowID" Type="Int64" Nullable="false" />
+        </EntityType>
+        <EntityType Name="BasePartMnemonic">
+          <Key>
+            <PropertyRef Name="QuoteNumber" />
+            <PropertyRef Name="ReleaseID" />
+            <PropertyRef Name="VehiclePlantMnemonic" />
+            <PropertyRef Name="BasePart" />
+          </Key>
+          <Property Name="QuoteNumber" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="ReleaseID" Type="String" Nullable="false" MaxLength="7" FixedLength="true" Unicode="false" />
+          <Property Name="VehiclePlantMnemonic" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="BasePart" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="QtyPer" Type="Decimal" Precision="10" Scale="0" />
+          <Property Name="TakeRate" Type="Decimal" Precision="10" Scale="6" />
+          <Property Name="FamilyAllocation" Type="Decimal" Precision="10" Scale="6" />
+          <Property Name="Platform" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Program" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Vehicle" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Manufacturer" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Family" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="SourcePlant" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="SourcePlantCountry" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="SourcePlantRegion" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="CSM_SOP" Type="DateTime" Precision="3" />
+          <Property Name="CSM_EOP" Type="DateTime" Precision="3" />
+          <Property Name="EAU" Type="Decimal" Precision="38" Scale="9" />
+        </EntityType>
+        <ComplexType Name="usp_GetAwardedQuoteBasePartMnemonic_Result">
+          <Property Type="Decimal" Name="QtyPer" Nullable="true" Precision="10" Scale="0" />
+          <Property Type="Decimal" Name="TakeRate" Nullable="true" Precision="10" Scale="6" />
+          <Property Type="Decimal" Name="FamilyAllocation" Nullable="true" Precision="10" Scale="6" />
+        </ComplexType>
+        <ComplexType Name="usp_GetAwardedQuoteCSMData_Result">
+          <Property Type="String" Name="ReleaseID" Nullable="false" MaxLength="7" />
+          <Property Type="String" Name="VehiclePlantMnemonic" Nullable="false" MaxLength="30" />
+          <Property Type="String" Name="Platform" Nullable="true" MaxLength="255" />
+          <Property Type="String" Name="Program" Nullable="true" MaxLength="255" />
+          <Property Type="String" Name="Vehicle" Nullable="true" MaxLength="255" />
+          <Property Type="String" Name="Manufacturer" Nullable="true" MaxLength="255" />
+          <Property Type="String" Name="SourcePlant" Nullable="true" MaxLength="255" />
+          <Property Type="String" Name="SourcePlantCountry" Nullable="true" MaxLength="255" />
+          <Property Type="String" Name="SourcePlantRegion" Nullable="true" MaxLength="255" />
+          <Property Type="DateTime" Name="CSM_SOP" Nullable="true" Precision="23" />
+          <Property Type="DateTime" Name="CSM_EOP" Nullable="true" Precision="23" />
+          <Property Type="Int32" Name="ActiveFlag" Nullable="false" />
+          <Property Type="Int64" Name="RowID" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="usp_GetCustomerShipTos_Result">
+          <Property Type="String" Name="Destination" Nullable="false" MaxLength="20" />
+          <Property Type="String" Name="DestinationName" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Customer" Nullable="false" MaxLength="10" />
+          <Property Type="String" Name="CustomerName" Nullable="false" MaxLength="50" />
+        </ComplexType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -672,6 +1063,175 @@ warning 6002: The table/view 'FxPLM.NSA.Salespeople' does not have a primary key
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="usp_SetProductionPO" FunctionName="FxPLMModel.Store.usp_SetProductionPO" />
+          <FunctionImportMapping FunctionImportName="usp_GetAwardedQuoteProductionPOs" FunctionName="FxPLMModel.Store.usp_GetAwardedQuoteProductionPOs">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="FxPLMModel.usp_GetAwardedQuoteProductionPOs_Result">
+                <ScalarProperty Name="QuoteNumber" ColumnName="QuoteNumber" />
+                <ScalarProperty Name="BasePart" ColumnName="BasePart" />
+                <ScalarProperty Name="PONumber" ColumnName="PONumber" />
+                <ScalarProperty Name="PurchaseOrderFileName" ColumnName="PurchaseOrderFileName" />
+                <ScalarProperty Name="PurchaseOrderDT" ColumnName="PurchaseOrderDT" />
+                <ScalarProperty Name="AlternativeCustomerCommitment" ColumnName="AlternativeCustomerCommitment" />
+                <ScalarProperty Name="SellingPrice" ColumnName="SellingPrice" />
+                <ScalarProperty Name="PurchaseOrderSOP" ColumnName="PurchaseOrderSOP" />
+                <ScalarProperty Name="PurchaseOrderEOP" ColumnName="PurchaseOrderEOP" />
+                <ScalarProperty Name="Comments" ColumnName="Comments" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="usp_GetAwardedQuotes" FunctionName="FxPLMModel.Store.usp_GetAwardedQuotes">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="FxPLMModel.usp_GetAwardedQuotes_Result">
+                <ScalarProperty Name="QuoteNumber" ColumnName="QuoteNumber" />
+                <ScalarProperty Name="BasePart" ColumnName="BasePart" />
+                <ScalarProperty Name="Salesperson" ColumnName="Salesperson" />
+                <ScalarProperty Name="ProgramManager" ColumnName="ProgramManager" />
+                <ScalarProperty Name="AwardDate" ColumnName="AwardDate" />
+                <ScalarProperty Name="FormOfCommitment" ColumnName="FormOfCommitment" />
+                <ScalarProperty Name="QuoteTrasferMeetingDT" ColumnName="QuoteTrasferMeetingDT" />
+                <ScalarProperty Name="SalesForecastDT" ColumnName="SalesForecastDT" />
+                <ScalarProperty Name="BasePartCustomer" ColumnName="BasePartCustomer" />
+                <ScalarProperty Name="QuoteReason" ColumnName="QuoteReason" />
+                <ScalarProperty Name="ReplacingBasePart" ColumnName="ReplacingBasePart" />
+                <ScalarProperty Name="CustomerPart" ColumnName="CustomerPart" />
+                <ScalarProperty Name="VehiclePlantMnemonic" ColumnName="VehiclePlantMnemonic" />
+                <ScalarProperty Name="Family" ColumnName="Family" />
+                <ScalarProperty Name="Program" ColumnName="Program" />
+                <ScalarProperty Name="Vehicle" ColumnName="Vehicle" />
+                <ScalarProperty Name="EmpireApplication" ColumnName="EmpireApplication" />
+                <ScalarProperty Name="BasePartFamily" ColumnName="BasePartFamily" />
+                <ScalarProperty Name="EmpireMarketSegment" ColumnName="EmpireMarketSegment" />
+                <ScalarProperty Name="EmpireMarketSubsegment" ColumnName="EmpireMarketSubsegment" />
+                <ScalarProperty Name="ProductLine" ColumnName="ProductLine" />
+                <ScalarProperty Name="EmpireSOP" ColumnName="EmpireSOP" />
+                <ScalarProperty Name="EmpireEOP" ColumnName="EmpireEOP" />
+                <ScalarProperty Name="EmpireEOPNote" ColumnName="EmpireEOPNote" />
+                <ScalarProperty Name="BasePart_Comments" ColumnName="BasePart_Comments" />
+                <ScalarProperty Name="SourcePlantRegion" ColumnName="SourcePlantRegion" />
+                <ScalarProperty Name="QtyPer" ColumnName="QtyPer" />
+                <ScalarProperty Name="TakeRate" ColumnName="TakeRate" />
+                <ScalarProperty Name="FamilyAllocation" ColumnName="FamilyAllocation" />
+                <ScalarProperty Name="CSMEAU" ColumnName="CSMEAU" />
+                <ScalarProperty Name="QuoteDate" ColumnName="QuoteDate" />
+                <ScalarProperty Name="QuotedEAU" ColumnName="QuotedEAU" />
+                <ScalarProperty Name="MinimumOrderQuantity" ColumnName="MinimumOrderQuantity" />
+                <ScalarProperty Name="QuotedPrice" ColumnName="QuotedPrice" />
+                <ScalarProperty Name="QuotedMaterialCost" ColumnName="QuotedMaterialCost" />
+                <ScalarProperty Name="QuotedSales" ColumnName="QuotedSales" />
+                <ScalarProperty Name="QuotedLTA" ColumnName="QuotedLTA" />
+                <ScalarProperty Name="PurchaseOrderDate" ColumnName="PurchaseOrderDate" />
+                <ScalarProperty Name="CustomerProductionPurchaseOrderNumber" ColumnName="CustomerProductionPurchaseOrderNumber" />
+                <ScalarProperty Name="AlternativeCustomerCommitment" ColumnName="AlternativeCustomerCommitment" />
+                <ScalarProperty Name="PurchaseOrderSellingPrice" ColumnName="PurchaseOrderSellingPrice" />
+                <ScalarProperty Name="PurchaseOrderSOP" ColumnName="PurchaseOrderSOP" />
+                <ScalarProperty Name="PurchaseOrderEOP" ColumnName="PurchaseOrderEOP" />
+                <ScalarProperty Name="PurchaseOrderPriceVariace" ColumnName="PurchaseOrderPriceVariace" />
+                <ScalarProperty Name="AmortizationAmount" ColumnName="AmortizationAmount" />
+                <ScalarProperty Name="AmortizationQuantity" ColumnName="AmortizationQuantity" />
+                <ScalarProperty Name="AmortizationPrice" ColumnName="AmortizationPrice" />
+                <ScalarProperty Name="AmortizationToolingDescription" ColumnName="AmortizationToolingDescription" />
+                <ScalarProperty Name="AmortizationCAPEXID" ColumnName="AmortizationCAPEXID" />
+                <ScalarProperty Name="HardToolingAmount" ColumnName="HardToolingAmount" />
+                <ScalarProperty Name="HardToolingTrigger" ColumnName="HardToolingTrigger" />
+                <ScalarProperty Name="HardToolingDescription" ColumnName="HardToolingDescription" />
+                <ScalarProperty Name="HardToolingCAPEXID" ColumnName="HardToolingCAPEXID" />
+                <ScalarProperty Name="AssemblyTesterToolingAmount" ColumnName="AssemblyTesterToolingAmount" />
+                <ScalarProperty Name="AssemblyTesterToolingTrigger" ColumnName="AssemblyTesterToolingTrigger" />
+                <ScalarProperty Name="AssemblyTesterToolingDescription" ColumnName="AssemblyTesterToolingDescription" />
+                <ScalarProperty Name="AssemblyTesterToolingCAPEXID" ColumnName="AssemblyTesterToolingCAPEXID" />
+                <ScalarProperty Name="EmpireFacility" ColumnName="EmpireFacility" />
+                <ScalarProperty Name="FreightTerms" ColumnName="FreightTerms" />
+                <ScalarProperty Name="CustomerShipTos" ColumnName="CustomerShipTos" />
+                <ScalarProperty Name="Comments" ColumnName="Comments" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="usp_SetAssemblyTesterTooling" FunctionName="FxPLMModel.Store.usp_SetAssemblyTesterTooling" />
+          <FunctionImportMapping FunctionImportName="usp_SetHardTooling" FunctionName="FxPLMModel.Store.usp_SetHardTooling" />
+          <FunctionImportMapping FunctionImportName="usp_SetToolingAmortization" FunctionName="FxPLMModel.Store.usp_SetToolingAmortization" />
+          <EntitySetMapping Name="CSMDatas">
+            <EntityTypeMapping TypeName="FxPLMModel.CSMData">
+              <MappingFragment StoreEntitySet="CSMData">
+                <ScalarProperty Name="RowID" ColumnName="RowID" />
+                <ScalarProperty Name="CSM_EOP" ColumnName="CSM_EOP" />
+                <ScalarProperty Name="CSM_SOP" ColumnName="CSM_SOP" />
+                <ScalarProperty Name="SourcePlantRegion" ColumnName="SourcePlantRegion" />
+                <ScalarProperty Name="SourcePlantCountry" ColumnName="SourcePlantCountry" />
+                <ScalarProperty Name="SourcePlant" ColumnName="SourcePlant" />
+                <ScalarProperty Name="Manufacturer" ColumnName="Manufacturer" />
+                <ScalarProperty Name="Vehicle" ColumnName="Vehicle" />
+                <ScalarProperty Name="Program" ColumnName="Program" />
+                <ScalarProperty Name="Platform" ColumnName="Platform" />
+                <ScalarProperty Name="VehiclePlantMnemonic" ColumnName="VehiclePlantMnemonic" />
+                <ScalarProperty Name="ReleaseID" ColumnName="ReleaseID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="usp_SetBasePartMnemonic" FunctionName="FxPLMModel.Store.usp_SetBasePartMnemonic" />
+          <FunctionImportMapping FunctionImportName="usp_RemoveBasePartMnemonic" FunctionName="FxPLMModel.Store.usp_RemoveBasePartMnemonic" />
+          <EntitySetMapping Name="BasePartMnemonics">
+            <EntityTypeMapping TypeName="FxPLMModel.BasePartMnemonic">
+              <MappingFragment StoreEntitySet="BasePartMnemonics">
+                <ScalarProperty Name="EAU" ColumnName="EAU" />
+                <ScalarProperty Name="CSM_EOP" ColumnName="CSM_EOP" />
+                <ScalarProperty Name="CSM_SOP" ColumnName="CSM_SOP" />
+                <ScalarProperty Name="SourcePlantRegion" ColumnName="SourcePlantRegion" />
+                <ScalarProperty Name="SourcePlantCountry" ColumnName="SourcePlantCountry" />
+                <ScalarProperty Name="SourcePlant" ColumnName="SourcePlant" />
+                <ScalarProperty Name="Family" ColumnName="Family" />
+                <ScalarProperty Name="Manufacturer" ColumnName="Manufacturer" />
+                <ScalarProperty Name="Vehicle" ColumnName="Vehicle" />
+                <ScalarProperty Name="Program" ColumnName="Program" />
+                <ScalarProperty Name="Platform" ColumnName="Platform" />
+                <ScalarProperty Name="FamilyAllocation" ColumnName="FamilyAllocation" />
+                <ScalarProperty Name="TakeRate" ColumnName="TakeRate" />
+                <ScalarProperty Name="QtyPer" ColumnName="QtyPer" />
+                <ScalarProperty Name="BasePart" ColumnName="BasePart" />
+                <ScalarProperty Name="VehiclePlantMnemonic" ColumnName="VehiclePlantMnemonic" />
+                <ScalarProperty Name="ReleaseID" ColumnName="ReleaseID" />
+                <ScalarProperty Name="QuoteNumber" ColumnName="QuoteNumber" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="usp_GetAwardedQuoteBasePartMnemonic" FunctionName="FxPLMModel.Store.usp_GetAwardedQuoteBasePartMnemonic">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="FxPLMModel.usp_GetAwardedQuoteBasePartMnemonic_Result">
+                <ScalarProperty Name="QtyPer" ColumnName="QtyPer" />
+                <ScalarProperty Name="TakeRate" ColumnName="TakeRate" />
+                <ScalarProperty Name="FamilyAllocation" ColumnName="FamilyAllocation" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="usp_GetAwardedQuoteCSMData" FunctionName="FxPLMModel.Store.usp_GetAwardedQuoteCSMData">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="FxPLMModel.usp_GetAwardedQuoteCSMData_Result">
+                <ScalarProperty Name="ReleaseID" ColumnName="ReleaseID" />
+                <ScalarProperty Name="VehiclePlantMnemonic" ColumnName="VehiclePlantMnemonic" />
+                <ScalarProperty Name="Platform" ColumnName="Platform" />
+                <ScalarProperty Name="Program" ColumnName="Program" />
+                <ScalarProperty Name="Vehicle" ColumnName="Vehicle" />
+                <ScalarProperty Name="Manufacturer" ColumnName="Manufacturer" />
+                <ScalarProperty Name="SourcePlant" ColumnName="SourcePlant" />
+                <ScalarProperty Name="SourcePlantCountry" ColumnName="SourcePlantCountry" />
+                <ScalarProperty Name="SourcePlantRegion" ColumnName="SourcePlantRegion" />
+                <ScalarProperty Name="CSM_SOP" ColumnName="CSM_SOP" />
+                <ScalarProperty Name="CSM_EOP" ColumnName="CSM_EOP" />
+                <ScalarProperty Name="ActiveFlag" ColumnName="ActiveFlag" />
+                <ScalarProperty Name="RowID" ColumnName="RowID" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="usp_GetCustomerShipTos" FunctionName="FxPLMModel.Store.usp_GetCustomerShipTos">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="FxPLMModel.usp_GetCustomerShipTos_Result">
+                <ScalarProperty Name="Destination" ColumnName="Destination" />
+                <ScalarProperty Name="DestinationName" ColumnName="DestinationName" />
+                <ScalarProperty Name="Customer" ColumnName="Customer" />
+                <ScalarProperty Name="CustomerName" ColumnName="CustomerName" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
           </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

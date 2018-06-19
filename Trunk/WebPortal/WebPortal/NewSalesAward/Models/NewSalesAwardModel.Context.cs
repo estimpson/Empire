@@ -33,8 +33,10 @@ namespace WebPortal.NewSalesAward.Models
         public virtual DbSet<ProgramManager> ProgramManagers { get; set; }
         public virtual DbSet<QuoteReason> QuoteReasons { get; set; }
         public virtual DbSet<ActiveBasePart> ActiveBaseParts { get; set; }
+        public virtual DbSet<CSMData> CSMDatas { get; set; }
+        public virtual DbSet<BasePartMnemonic> BasePartMnemonics { get; set; }
     
-        public virtual int usp_CreateAwardedQuote(string user, string quoteNumber, Nullable<System.DateTime> awardDate, string formOfCommitment, Nullable<byte> awardType, string replacingBasePart, string salesperson, string programManager, string comments, ObjectParameter tranDT, ObjectParameter result, Nullable<int> debug, ObjectParameter debugMsg)
+        public virtual int usp_CreateAwardedQuote(string user, string quoteNumber, Nullable<System.DateTime> awardDate, string formOfCommitment, Nullable<byte> quoteReason, string replacingBasePart, string salesperson, string programManager, string comments, ObjectParameter tranDT, ObjectParameter result, Nullable<int> debug, ObjectParameter debugMsg)
         {
             var userParameter = user != null ?
                 new ObjectParameter("User", user) :
@@ -52,9 +54,9 @@ namespace WebPortal.NewSalesAward.Models
                 new ObjectParameter("FormOfCommitment", formOfCommitment) :
                 new ObjectParameter("FormOfCommitment", typeof(string));
     
-            var awardTypeParameter = awardType.HasValue ?
-                new ObjectParameter("AwardType", awardType) :
-                new ObjectParameter("AwardType", typeof(byte));
+            var quoteReasonParameter = quoteReason.HasValue ?
+                new ObjectParameter("QuoteReason", quoteReason) :
+                new ObjectParameter("QuoteReason", typeof(byte));
     
             var replacingBasePartParameter = replacingBasePart != null ?
                 new ObjectParameter("ReplacingBasePart", replacingBasePart) :
@@ -76,7 +78,7 @@ namespace WebPortal.NewSalesAward.Models
                 new ObjectParameter("Debug", debug) :
                 new ObjectParameter("Debug", typeof(int));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("usp_CreateAwardedQuote", userParameter, quoteNumberParameter, awardDateParameter, formOfCommitmentParameter, awardTypeParameter, replacingBasePartParameter, salespersonParameter, programManagerParameter, commentsParameter, tranDT, result, debugParameter, debugMsg);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("usp_CreateAwardedQuote", userParameter, quoteNumberParameter, awardDateParameter, formOfCommitmentParameter, quoteReasonParameter, replacingBasePartParameter, salespersonParameter, programManagerParameter, commentsParameter, tranDT, result, debugParameter, debugMsg);
         }
     
         public virtual int usp_SetBasePartAttributes(string user, string quoteNumber, string basePartFamilyList, string productLine, string empireMarketSegment, string empireMarketSubsegment, string empireApplication, Nullable<System.DateTime> empireSOP, Nullable<System.DateTime> empireEOP, string empireEOPNote, string comments, ObjectParameter tranDT, ObjectParameter result, Nullable<int> debug, ObjectParameter debugMsg)
@@ -167,7 +169,7 @@ namespace WebPortal.NewSalesAward.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("usp_SignOffBasePartAttributes", userParameter, quoteNumberParameter, tranDT, result, debugParameter, debugMsg);
         }
     
-        public virtual int usp_GetAwardedQuoteDetails(string quoteNumber, ObjectParameter awardDate, ObjectParameter formOfCommitment, ObjectParameter awardType, ObjectParameter replacingBasePart, ObjectParameter salesperson, ObjectParameter programManager, ObjectParameter comments, ObjectParameter tranDT, ObjectParameter result, Nullable<int> debug, ObjectParameter debugMsg)
+        public virtual int usp_GetAwardedQuoteDetails(string quoteNumber, ObjectParameter awardDate, ObjectParameter formOfCommitment, ObjectParameter quoteReason, ObjectParameter replacingBasePart, ObjectParameter salesperson, ObjectParameter programManager, ObjectParameter comments, ObjectParameter tranDT, ObjectParameter result, Nullable<int> debug, ObjectParameter debugMsg)
         {
             var quoteNumberParameter = quoteNumber != null ?
                 new ObjectParameter("QuoteNumber", quoteNumber) :
@@ -177,7 +179,222 @@ namespace WebPortal.NewSalesAward.Models
                 new ObjectParameter("Debug", debug) :
                 new ObjectParameter("Debug", typeof(int));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("usp_GetAwardedQuoteDetails", quoteNumberParameter, awardDate, formOfCommitment, awardType, replacingBasePart, salesperson, programManager, comments, tranDT, result, debugParameter, debugMsg);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("usp_GetAwardedQuoteDetails", quoteNumberParameter, awardDate, formOfCommitment, quoteReason, replacingBasePart, salesperson, programManager, comments, tranDT, result, debugParameter, debugMsg);
+        }
+    
+        public virtual int usp_SetProductionPO(string quoteNumber, Nullable<System.DateTime> purchaseOrderDT, string pONumber, string alternativeCustomerCommitment, Nullable<decimal> sellingPrice, Nullable<System.DateTime> purchaseOrderSOP, Nullable<System.DateTime> purchaseOrderEOP, string comments, ObjectParameter tranDT, ObjectParameter result, Nullable<int> debug, ObjectParameter debugMsg)
+        {
+            var quoteNumberParameter = quoteNumber != null ?
+                new ObjectParameter("QuoteNumber", quoteNumber) :
+                new ObjectParameter("QuoteNumber", typeof(string));
+    
+            var purchaseOrderDTParameter = purchaseOrderDT.HasValue ?
+                new ObjectParameter("PurchaseOrderDT", purchaseOrderDT) :
+                new ObjectParameter("PurchaseOrderDT", typeof(System.DateTime));
+    
+            var pONumberParameter = pONumber != null ?
+                new ObjectParameter("PONumber", pONumber) :
+                new ObjectParameter("PONumber", typeof(string));
+    
+            var alternativeCustomerCommitmentParameter = alternativeCustomerCommitment != null ?
+                new ObjectParameter("AlternativeCustomerCommitment", alternativeCustomerCommitment) :
+                new ObjectParameter("AlternativeCustomerCommitment", typeof(string));
+    
+            var sellingPriceParameter = sellingPrice.HasValue ?
+                new ObjectParameter("SellingPrice", sellingPrice) :
+                new ObjectParameter("SellingPrice", typeof(decimal));
+    
+            var purchaseOrderSOPParameter = purchaseOrderSOP.HasValue ?
+                new ObjectParameter("PurchaseOrderSOP", purchaseOrderSOP) :
+                new ObjectParameter("PurchaseOrderSOP", typeof(System.DateTime));
+    
+            var purchaseOrderEOPParameter = purchaseOrderEOP.HasValue ?
+                new ObjectParameter("PurchaseOrderEOP", purchaseOrderEOP) :
+                new ObjectParameter("PurchaseOrderEOP", typeof(System.DateTime));
+    
+            var commentsParameter = comments != null ?
+                new ObjectParameter("Comments", comments) :
+                new ObjectParameter("Comments", typeof(string));
+    
+            var debugParameter = debug.HasValue ?
+                new ObjectParameter("Debug", debug) :
+                new ObjectParameter("Debug", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("usp_SetProductionPO", quoteNumberParameter, purchaseOrderDTParameter, pONumberParameter, alternativeCustomerCommitmentParameter, sellingPriceParameter, purchaseOrderSOPParameter, purchaseOrderEOPParameter, commentsParameter, tranDT, result, debugParameter, debugMsg);
+        }
+    
+        public virtual ObjectResult<usp_GetAwardedQuoteProductionPOs_Result> usp_GetAwardedQuoteProductionPOs()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_GetAwardedQuoteProductionPOs_Result>("usp_GetAwardedQuoteProductionPOs");
+        }
+    
+        public virtual ObjectResult<usp_GetAwardedQuotes_Result> usp_GetAwardedQuotes()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_GetAwardedQuotes_Result>("usp_GetAwardedQuotes");
+        }
+    
+        public virtual int usp_SetAssemblyTesterTooling(string quoteNumber, Nullable<decimal> assemblyTesterToolingAmount, string assemblyTesterToolingTrigger, string assemblyTesterToolingDescription, string assemblyTesterToolingCAPEXID, ObjectParameter tranDT, ObjectParameter result, Nullable<int> debug, ObjectParameter debugMsg)
+        {
+            var quoteNumberParameter = quoteNumber != null ?
+                new ObjectParameter("QuoteNumber", quoteNumber) :
+                new ObjectParameter("QuoteNumber", typeof(string));
+    
+            var assemblyTesterToolingAmountParameter = assemblyTesterToolingAmount.HasValue ?
+                new ObjectParameter("AssemblyTesterToolingAmount", assemblyTesterToolingAmount) :
+                new ObjectParameter("AssemblyTesterToolingAmount", typeof(decimal));
+    
+            var assemblyTesterToolingTriggerParameter = assemblyTesterToolingTrigger != null ?
+                new ObjectParameter("AssemblyTesterToolingTrigger", assemblyTesterToolingTrigger) :
+                new ObjectParameter("AssemblyTesterToolingTrigger", typeof(string));
+    
+            var assemblyTesterToolingDescriptionParameter = assemblyTesterToolingDescription != null ?
+                new ObjectParameter("AssemblyTesterToolingDescription", assemblyTesterToolingDescription) :
+                new ObjectParameter("AssemblyTesterToolingDescription", typeof(string));
+    
+            var assemblyTesterToolingCAPEXIDParameter = assemblyTesterToolingCAPEXID != null ?
+                new ObjectParameter("AssemblyTesterToolingCAPEXID", assemblyTesterToolingCAPEXID) :
+                new ObjectParameter("AssemblyTesterToolingCAPEXID", typeof(string));
+    
+            var debugParameter = debug.HasValue ?
+                new ObjectParameter("Debug", debug) :
+                new ObjectParameter("Debug", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("usp_SetAssemblyTesterTooling", quoteNumberParameter, assemblyTesterToolingAmountParameter, assemblyTesterToolingTriggerParameter, assemblyTesterToolingDescriptionParameter, assemblyTesterToolingCAPEXIDParameter, tranDT, result, debugParameter, debugMsg);
+        }
+    
+        public virtual int usp_SetHardTooling(string quoteNumber, Nullable<decimal> hardToolingAmount, string hardToolingTrigger, string hardToolingDescription, string hardToolingCAPEXID, ObjectParameter tranDT, ObjectParameter result, Nullable<int> debug, ObjectParameter debugMsg)
+        {
+            var quoteNumberParameter = quoteNumber != null ?
+                new ObjectParameter("QuoteNumber", quoteNumber) :
+                new ObjectParameter("QuoteNumber", typeof(string));
+    
+            var hardToolingAmountParameter = hardToolingAmount.HasValue ?
+                new ObjectParameter("HardToolingAmount", hardToolingAmount) :
+                new ObjectParameter("HardToolingAmount", typeof(decimal));
+    
+            var hardToolingTriggerParameter = hardToolingTrigger != null ?
+                new ObjectParameter("HardToolingTrigger", hardToolingTrigger) :
+                new ObjectParameter("HardToolingTrigger", typeof(string));
+    
+            var hardToolingDescriptionParameter = hardToolingDescription != null ?
+                new ObjectParameter("HardToolingDescription", hardToolingDescription) :
+                new ObjectParameter("HardToolingDescription", typeof(string));
+    
+            var hardToolingCAPEXIDParameter = hardToolingCAPEXID != null ?
+                new ObjectParameter("HardToolingCAPEXID", hardToolingCAPEXID) :
+                new ObjectParameter("HardToolingCAPEXID", typeof(string));
+    
+            var debugParameter = debug.HasValue ?
+                new ObjectParameter("Debug", debug) :
+                new ObjectParameter("Debug", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("usp_SetHardTooling", quoteNumberParameter, hardToolingAmountParameter, hardToolingTriggerParameter, hardToolingDescriptionParameter, hardToolingCAPEXIDParameter, tranDT, result, debugParameter, debugMsg);
+        }
+    
+        public virtual int usp_SetToolingAmortization(string quoteNumber, Nullable<decimal> amortizationAmount, Nullable<decimal> amortizationQuantity, string amortizationToolingDescription, string amortizationCAPEXID, ObjectParameter tranDT, ObjectParameter result, Nullable<int> debug, ObjectParameter debugMsg)
+        {
+            var quoteNumberParameter = quoteNumber != null ?
+                new ObjectParameter("QuoteNumber", quoteNumber) :
+                new ObjectParameter("QuoteNumber", typeof(string));
+    
+            var amortizationAmountParameter = amortizationAmount.HasValue ?
+                new ObjectParameter("AmortizationAmount", amortizationAmount) :
+                new ObjectParameter("AmortizationAmount", typeof(decimal));
+    
+            var amortizationQuantityParameter = amortizationQuantity.HasValue ?
+                new ObjectParameter("AmortizationQuantity", amortizationQuantity) :
+                new ObjectParameter("AmortizationQuantity", typeof(decimal));
+    
+            var amortizationToolingDescriptionParameter = amortizationToolingDescription != null ?
+                new ObjectParameter("AmortizationToolingDescription", amortizationToolingDescription) :
+                new ObjectParameter("AmortizationToolingDescription", typeof(string));
+    
+            var amortizationCAPEXIDParameter = amortizationCAPEXID != null ?
+                new ObjectParameter("AmortizationCAPEXID", amortizationCAPEXID) :
+                new ObjectParameter("AmortizationCAPEXID", typeof(string));
+    
+            var debugParameter = debug.HasValue ?
+                new ObjectParameter("Debug", debug) :
+                new ObjectParameter("Debug", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("usp_SetToolingAmortization", quoteNumberParameter, amortizationAmountParameter, amortizationQuantityParameter, amortizationToolingDescriptionParameter, amortizationCAPEXIDParameter, tranDT, result, debugParameter, debugMsg);
+        }
+    
+        public virtual int usp_SetBasePartMnemonic(string quoteNumber, string mnemonic, Nullable<decimal> qtyPer, Nullable<decimal> takeRate, Nullable<decimal> familyAllocation, ObjectParameter tranDT, ObjectParameter result, Nullable<int> debug, ObjectParameter debugMsg)
+        {
+            var quoteNumberParameter = quoteNumber != null ?
+                new ObjectParameter("QuoteNumber", quoteNumber) :
+                new ObjectParameter("QuoteNumber", typeof(string));
+    
+            var mnemonicParameter = mnemonic != null ?
+                new ObjectParameter("Mnemonic", mnemonic) :
+                new ObjectParameter("Mnemonic", typeof(string));
+    
+            var qtyPerParameter = qtyPer.HasValue ?
+                new ObjectParameter("QtyPer", qtyPer) :
+                new ObjectParameter("QtyPer", typeof(decimal));
+    
+            var takeRateParameter = takeRate.HasValue ?
+                new ObjectParameter("TakeRate", takeRate) :
+                new ObjectParameter("TakeRate", typeof(decimal));
+    
+            var familyAllocationParameter = familyAllocation.HasValue ?
+                new ObjectParameter("FamilyAllocation", familyAllocation) :
+                new ObjectParameter("FamilyAllocation", typeof(decimal));
+    
+            var debugParameter = debug.HasValue ?
+                new ObjectParameter("Debug", debug) :
+                new ObjectParameter("Debug", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("usp_SetBasePartMnemonic", quoteNumberParameter, mnemonicParameter, qtyPerParameter, takeRateParameter, familyAllocationParameter, tranDT, result, debugParameter, debugMsg);
+        }
+    
+        public virtual int usp_RemoveBasePartMnemonic(string quoteNumber, string mnemonic, ObjectParameter tranDT, ObjectParameter result, Nullable<int> debug, ObjectParameter debugMsg)
+        {
+            var quoteNumberParameter = quoteNumber != null ?
+                new ObjectParameter("QuoteNumber", quoteNumber) :
+                new ObjectParameter("QuoteNumber", typeof(string));
+    
+            var mnemonicParameter = mnemonic != null ?
+                new ObjectParameter("Mnemonic", mnemonic) :
+                new ObjectParameter("Mnemonic", typeof(string));
+    
+            var debugParameter = debug.HasValue ?
+                new ObjectParameter("Debug", debug) :
+                new ObjectParameter("Debug", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("usp_RemoveBasePartMnemonic", quoteNumberParameter, mnemonicParameter, tranDT, result, debugParameter, debugMsg);
+        }
+    
+        public virtual ObjectResult<usp_GetAwardedQuoteBasePartMnemonic_Result> usp_GetAwardedQuoteBasePartMnemonic(string quoteNumber, string mnemonic)
+        {
+            var quoteNumberParameter = quoteNumber != null ?
+                new ObjectParameter("QuoteNumber", quoteNumber) :
+                new ObjectParameter("QuoteNumber", typeof(string));
+    
+            var mnemonicParameter = mnemonic != null ?
+                new ObjectParameter("Mnemonic", mnemonic) :
+                new ObjectParameter("Mnemonic", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_GetAwardedQuoteBasePartMnemonic_Result>("usp_GetAwardedQuoteBasePartMnemonic", quoteNumberParameter, mnemonicParameter);
+        }
+    
+        public virtual ObjectResult<usp_GetAwardedQuoteCSMData_Result> usp_GetAwardedQuoteCSMData(string quoteNumber)
+        {
+            var quoteNumberParameter = quoteNumber != null ?
+                new ObjectParameter("QuoteNumber", quoteNumber) :
+                new ObjectParameter("QuoteNumber", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_GetAwardedQuoteCSMData_Result>("usp_GetAwardedQuoteCSMData", quoteNumberParameter);
+        }
+    
+        public virtual ObjectResult<usp_GetCustomerShipTos_Result> usp_GetCustomerShipTos(string basePart)
+        {
+            var basePartParameter = basePart != null ?
+                new ObjectParameter("BasePart", basePart) :
+                new ObjectParameter("BasePart", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_GetCustomerShipTos_Result>("usp_GetCustomerShipTos", basePartParameter);
         }
     }
 }

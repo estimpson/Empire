@@ -1,6 +1,7 @@
 ﻿using DevExpress.Web;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Web;
@@ -54,9 +55,14 @@ namespace WebPortal.NewSalesAward.Pages
                 //if (GetQuoteLog() == 0) return;
 
                 PopulateDropdownLists();
-                
+
+
+                // ***** Will probably be moved to its own page *****
+                pnlDocument.Visible = false;
+
+
+                pnlQuoteDetails.Enabled = pnlDocument.Enabled = false;
                 cbxReplacingBasePart.Enabled = false;
-                pnlQuoteDetails.Enabled = pnlUploadDoc.Enabled = false;
                 cbxQuoteNumber.Focus(); 
             }
         }
@@ -119,32 +125,36 @@ namespace WebPortal.NewSalesAward.Pages
 
         protected void cbxQuoteNumber_SelectedIndexChanged(object sender, EventArgs e)
         {
-            Session["QuoteNumber"] = cbxQuoteNumber.Value.ToString();
-            if (GetAwardedQuoteDetails() == 1) pnlQuoteDetails.Enabled = pnlUploadDoc.Enabled = true;
-        }
+            // ***** On successful save, should return to the main page, so clearing will not be necessary (selected index should not change more than once) *****
+            //ClearForm();
 
-        protected void btnSubmit_Click(object sender, EventArgs e)
-        {
-            if (SaveAwardedQuote() == 0) return;
-            ClearForm();
+            Session["QuoteNumber"] = cbxQuoteNumber.Value.ToString();
+            //if (GetAwardedQuoteDetails() == 1) pnlQuoteDetails.Enabled = true;
+            GetAwardedQuoteDetails();
+
+            pnlQuoteDetails.Enabled = pnlDocument.Enabled = true;
+
+            ShowQuoteFiles("CustomerCommitment");
+            btnDocDelete.Enabled = btnDocGet.Enabled = (tbxDocName.Text.Trim() != "");
         }
 
         protected void cbxQuoteReason_SelectedIndexChanged(object sender, EventArgs e)
         {
             cbxReplacingBasePart.Enabled = (cbxQuoteReason.Text == "New Part");
+        }
 
-            //switch(cbxAwardType.Text)
-            //{
-            //    case "New":
-            //        _awardType = 0;
-            //        break;
-            //    case "Renewal":
-            //        _awardType = 1;
-            //        break;
-            //    case "Replacement":
-            //        _awardType = 2;
-            //        break;
-            //}
+        protected void btnSubmit_Click(object sender, EventArgs e)
+        {
+            if (cbxFormOfCommitment.SelectedIndex < 0) cbxFormOfCommitment.BackColor = Color.LightGreen;
+
+            if (SaveAwardedQuote() == 0) return;
+
+            Response.Redirect("NewSalesAwards.aspx");
+        }
+
+        protected void btnClose_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("NewSalesAwards.aspx");
         }
 
         #endregion
@@ -177,6 +187,8 @@ namespace WebPortal.NewSalesAward.Pages
 
         protected void btnUpload_Click(object sender, EventArgs e)
         {
+            if (cbxFormOfCommitment.SelectedIndex < 0) cbxFormOfCommitment.BackColor = Color.LightGreen;
+
             // (This is a button on the pop-up form)
             if (!FileUploadControl.HasFile) return;
 
@@ -341,13 +353,14 @@ namespace WebPortal.NewSalesAward.Pages
         private int SaveAwardedQuote()
         {
             DateTime? awardDt = null;
-
             if (deAwardDate.Value != null) awardDt = Convert.ToDateTime(deAwardDate.Value);
+            ViewModel.AwardDate = awardDt;
+
             ViewModel.QuoteReason = Convert.ToByte(cbxQuoteReason.Value);
             ViewModel.Comments = memoComments.Text.Trim();
             ViewModel.FormOfCommitment = cbxFormOfCommitment.Text;
             ViewModel.ProgramManager = cbxProgramManager.Value.ToString();
-            ViewModel.QuoteNumber = cbxQuoteNumber.Text;
+            ViewModel.QuoteNumber = cbxQuoteNumber.Value.ToString();
             ViewModel.ReplacingBasePart = cbxReplacingBasePart.Text;
             ViewModel.Salesperson = cbxSalesperson.Value.ToString();
 
@@ -358,22 +371,22 @@ namespace WebPortal.NewSalesAward.Pages
                 pcError.ShowOnPageLoad = true;
                 return 0;
             }
-             return 1;
+            return 1;
         }
 
         private void ClearForm()
         {
             memoComments.Text = "";
-            //cbxQuoteNumber.Text = cbxQuoteReason.Text = cbxFormOfCommitment.Text = cbxReplacingBasePart.Text = cbxProgramManager.Text = cbxSalesperson.Text = "";
+            //cbxQuoteReason.Text = cbxFormOfCommitment.Text = cbxReplacingBasePart.Text = cbxProgramManager.Text = cbxSalesperson.Text = "";
  
-            cbxQuoteNumber.SelectedIndex = cbxQuoteReason.SelectedIndex = cbxFormOfCommitment.SelectedIndex =
-                cbxReplacingBasePart.SelectedIndex = cbxProgramManager.SelectedIndex = cbxSalesperson.SelectedIndex = -1;
+            //cbxQuoteNumber.SelectedIndex = cbxQuoteReason.SelectedIndex = cbxFormOfCommitment.SelectedIndex =
+            //    cbxReplacingBasePart.SelectedIndex = cbxProgramManager.SelectedIndex = cbxSalesperson.SelectedIndex = -1;
 
             deAwardDate.Value = null;
 
             cbxReplacingBasePart.Enabled = false;
-            pnlQuoteDetails.Enabled = false;
-            cbxQuoteNumber.Focus();
+            //pnlQuoteDetails.Enabled = false;
+            //cbxQuoteNumber.Focus();
         }
 
         #endregion
@@ -484,6 +497,7 @@ namespace WebPortal.NewSalesAward.Pages
             }
             return 1;
         }
+
 
         #endregion
 
