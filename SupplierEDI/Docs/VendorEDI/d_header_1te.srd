@@ -1,0 +1,54 @@
+$PBExportHeader$d_header_1te.srd
+release 6;
+datawindow(units=0 timer_interval=0 color=65535 processing=0 print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 96 print.margin.bottom = 96 print.paper.source = 0 print.paper.size = 0 print.prompt=no print.buttons=no print.preview.buttons=no )
+summary(height=0 color="536870912" )
+footer(height=0 color="536870912" )
+detail(height=768 color="536870912" )
+table(column=(type=long updatewhereclause=yes name=ponumber dbname="ponumber" )
+ column=(type=char(6) updatewhereclause=yes name=today_str dbname="today_str" )
+ column=(type=char(6) updatewhereclause=yes name=horizon_start dbname="horizon_start" )
+ column=(type=char(6) updatewhereclause=yes name=horizon_end dbname="horizon_end" )
+ column=(type=char(10) updatewhereclause=yes name=vendor dbname="vendor" )
+ column=(type=char(12) updatewhereclause=yes name=trading_partner_code dbname="trading_partner_code" )
+ column=(type=char(20) updatewhereclause=yes name=vendor_supplier_code dbname="vendor_supplier_code" )
+ column=(type=char(10) updatewhereclause=yes name=vendor_id_code_type dbname="vendor_id_code_type" )
+ column=(type=char(25) updatewhereclause=yes name=vendor_material_issuer dbname="vendor_material_issuer" )
+ column=(type=char(2) updatewhereclause=yes name=material_issuer_id_type dbname="material_issuer_id_type" )
+ retrieve="select   distinct
+			edi_830_work.po_number as poNumber,
+			convert(varchar(6), getdate(), 12) as Today_str,
+			convert(varchar(6), dateadd(day, 1, getdate()), 12) horizon_start,
+			convert(varchar(6), horizon_end_date, 12) as horizon_end,
+			edi_830_work.vendor,
+			edi_vendor.trading_partner_code,
+			isNULL(edi_setups.supplier_code, '') as vendor_supplier_code,
+			isNULL(edi_setups.id_code_type, '') as vendor_id_code_type,
+			isNULL(edi_setups.material_issuer, '') as vendor_material_issuer,
+			(CASE WHEN edi_setups.destination = 'DIXIEHON' THEN '92' ELSE '1' END) as material_issuer_id_type
+from		edi_830_work
+			join edi_vendor on edi_vendor.vendor = edi_830_work.vendor
+			left outer join edi_setups on edi_830_work.vendor = edi_setups.destination
+where		edi_830_work.po_number = :ponumber
+order by	edi_830_work.vendor
+" arguments=(("ponumber", number)) )
+column(band=detail id=3 alignment="0" tabsequence=32766 border="1" color="0" x="622" y="132" height="76" width="370" format="[general]"  name=horizon_start edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="12632256" )
+column(band=detail id=5 alignment="0" tabsequence=32766 border="1" color="0" x="617" y="388" height="76" width="302" format="[general]"  name=vendor edit.limit=10 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="12632256" )
+compute(band=detail alignment="0" expression="vendor + ~"-~" + today_str"border="1" color="0" x="617" y="516" height="76" width="215" format="[general]"  name=doc_num  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="12632256" )
+column(band=detail id=6 alignment="0" tabsequence=32766 border="1" color="0" x="617" y="644" height="76" width="539" format=""  name=trading_partner_code edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="12632256" )
+text(band=detail alignment="1" text="Today Str:"border="0" color="16777215" x="233" y="4" height="64" width="302"  name=compute_0001_t  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=detail alignment="1" text="Horizon Start Date:"border="0" color="16777215" x="27" y="132" height="64" width="507"  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=detail alignment="1" text="Horizon End Date:"border="0" color="16777215" x="55" y="260" height="64" width="485"  name=horizon_end_date_t  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=detail alignment="1" text="Vendor:"border="0" color="16777215" x="50" y="388" height="64" width="485"  name=vendor_t  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=detail alignment="1" text="Document Number:"border="0" color="16777215" x="18" y="516" height="64" width="512"  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=detail alignment="1" text="Trading Partner:"border="0" color="16777215" x="55" y="644" height="64" width="475"  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=7 alignment="0" tabsequence=32766 border="0" color="0" x="1234" y="680" height="64" width="64" format="[general]"  name=vendor_supplier_code edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="12632256" )
+column(band=detail id=8 alignment="0" tabsequence=32766 border="0" color="0" x="1239" y="400" height="64" width="626" format="[general]"  name=vendor_id_code_type edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="12632256" )
+compute(band=detail alignment="0" expression="if(  vendor_supplier_code ='',  vendor ,  vendor_supplier_code  )"border="0" color="0" x="1467" y="156" height="76" width="256" format="[general]"  name=c_vendor_supplier_code  font.face="Arial" font.height="-12" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+compute(band=detail alignment="0" expression="if(   vendor_id_code_type  ='',  '92' ,   vendor_id_code_type   )"border="0" color="0" x="1458" y="240" height="76" width="256" format="[general]"  name=c_vendor_id_code_type  font.face="Arial" font.height="-12" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+column(band=detail id=9 alignment="0" tabsequence=32766 border="0" color="0" x="1600" y="28" height="64" width="677" format="[general]"  name=vendor_material_issuer edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="12632256" )
+column(band=detail id=10 alignment="0" tabsequence=32766 border="0" color="0" x="2574" y="0" height="64" width="896" format="[general]"  name=material_issuer_id_type edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-10" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="12632256" )
+compute(band=detail alignment="0" expression=" trading_partner_code + 'T'"border="0" color="0" x="1696" y="560" height="64" width="626" format="[general]"  name=trading_partner_w_test  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="12632256" )
+column(band=detail id=2 alignment="0" tabsequence=32766 border="0" color="0" x="599" y="20" height="64" width="165" format="[general]"  name=today_str edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="12632256" )
+column(band=detail id=4 alignment="0" tabsequence=32766 border="0" color="0" x="603" y="268" height="64" width="375" format="[general]"  name=horizon_end edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="12632256" )
+column(band=detail id=1 alignment="0" tabsequence=32766 border="0" color="0" x="3470" y="0" height="64" width="1161" format="[general]"  name=ponumber edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="12632256" )
+htmltable(border="1" cellpadding="0" cellspacing="0" generatecss="no" nowrap="yes")  
