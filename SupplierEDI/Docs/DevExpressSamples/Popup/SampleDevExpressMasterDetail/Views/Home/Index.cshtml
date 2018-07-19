@@ -1,0 +1,33 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<script type="text/javascript">
+    function ShowPopup(id) {
+        $("#hiddenID").val(id);
+        popup.Show()
+    }
+</script>
+
+<div>
+    @Html.Action("MasterPartial")
+</div>
+
+@Html.DevExpress().PopupControl(settings =>
+{
+    settings.Name = "popup";
+    settings.HeaderText = "Capitalize DetailName";
+    settings.Width = System.Web.UI.WebControls.Unit.Pixel(600);
+    settings.Height = System.Web.UI.WebControls.Unit.Pixel(300);
+    settings.PopupHorizontalAlign = PopupHorizontalAlign.WindowCenter;
+    settings.PopupVerticalAlign = PopupVerticalAlign.WindowCenter;
+    settings.AllowResize = false;
+    settings.AllowDragging = true;
+    settings.ShowCloseButton = true;
+    settings.CloseOnEscape = true;
+    settings.SetContent(() => { Html.RenderPartial("_PopUpView"); });
+    settings.PopupAnimationType = AnimationType.None;
+}).GetHtml()

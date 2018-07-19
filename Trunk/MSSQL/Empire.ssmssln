@@ -47,14 +47,6 @@ Project("{4F2E2C19-372F-40D8-9FA7-9D2138C6997A}") = "Monitor.CustomerPartTrigger
 EndProject
 Project("{4F2E2C19-372F-40D8-9FA7-9D2138C6997A}") = "Monitor.EDI_XML_AutoLiv_ASN", "Monitor.EDI_XML_AutoLiv_ASN\Monitor.EDI_XML_AutoLiv_ASN.ssmssqlproj", "{E0D47B7B-3E42-473C-80F3-42B9F0893900}"
 EndProject
-Project("{4F2E2C19-372F-40D8-9FA7-9D2138C6997A}") = "FxEDI.EDI_DICT", "..\..\..\Fx\MSSQL\FxEDI.EDI_DICT\FxEDI.EDI_DICT.ssmssqlproj", "{290E0165-E1C6-4C54-BFAA-B92B2A806869}"
-EndProject
-Project("{4F2E2C19-372F-40D8-9FA7-9D2138C6997A}") = "FxEDI.EDI_iConnect", "..\..\..\Fx\MSSQL\FxEDI.EDI_iConnect\FxEDI.EDI_iConnect.ssmssqlproj", "{B23E593F-44BD-4F49-920D-A033CD19BE06}"
-EndProject
-Project("{4F2E2C19-372F-40D8-9FA7-9D2138C6997A}") = "FxEDI.EDI_V2002FORD", "..\..\..\Fx\MSSQL\FxEDI.EDI_V2002FORD\FxEDI.EDI_V2002FORD.ssmssqlproj", "{0405C32C-9E7E-4195-BFF3-363821C003EB}"
-EndProject
-Project("{4F2E2C19-372F-40D8-9FA7-9D2138C6997A}") = "FxEDI.EDI_V4010", "..\..\..\Fx\MSSQL\FxEDI.EDI_V4010\FxEDI.EDI_V4010.ssmssqlproj", "{2496901F-FC9C-4EFC-929E-A34D02A93E38}"
-EndProject
 Project("{4F2E2C19-372F-40D8-9FA7-9D2138C6997A}") = "MONITOR.EDI_XML_Autosystems_ASN", "MONITOR.EDI_XML_Autosystems_ASN\MONITOR.EDI_XML_Autosystems_ASN.ssmssqlproj", "{CB806701-B6C8-473F-8CDE-C35F570DBDE0}"
 EndProject
 Project("{4F2E2C19-372F-40D8-9FA7-9D2138C6997A}") = "CreateRMA", "CreateRMA\CreateRMA.ssmssqlproj", "{310E80CB-8E28-4CFE-B27C-5B73859F67D0}"
@@ -101,10 +93,6 @@ Global
 		{63A51543-1766-4C8F-95F5-D9B0F27A05B9}.Default|Default.ActiveCfg = Default
 		{EE4A352B-B7B8-4796-9249-EB80A058237B}.Default|Default.ActiveCfg = Default
 		{E0D47B7B-3E42-473C-80F3-42B9F0893900}.Default|Default.ActiveCfg = Default
-		{290E0165-E1C6-4C54-BFAA-B92B2A806869}.Default|Default.ActiveCfg = Default
-		{B23E593F-44BD-4F49-920D-A033CD19BE06}.Default|Default.ActiveCfg = Default
-		{0405C32C-9E7E-4195-BFF3-363821C003EB}.Default|Default.ActiveCfg = Default
-		{2496901F-FC9C-4EFC-929E-A34D02A93E38}.Default|Default.ActiveCfg = Default
 		{CB806701-B6C8-473F-8CDE-C35F570DBDE0}.Default|Default.ActiveCfg = Default
 		{310E80CB-8E28-4CFE-B27C-5B73859F67D0}.Default|Default.ActiveCfg = Default
 		{64BE21F2-E774-423B-BE1F-ED9F89B1E668}.Default|Default.ActiveCfg = Default
@@ -113,8 +101,8 @@ Global
 		{AE1BF84C-900A-443B-8749-66B9ED5E3440}.Default|Default.ActiveCfg = Default
 		{8EEA13BD-F24A-4439-B692-632CBF59BC66}.Default|Default.ActiveCfg = Default
 		{B9D1EF9C-1D93-4839-B5FF-8A80FE6C0080}.Default|Default.ActiveCfg = Default
-		{470F58A5-4F43-461A-8B71-B4AAC6E5A3C7}.Default|Default.ActiveCfg = Default
 		{E4074FAE-7785-4085-8F47-9478BE769AE2}.Default|Default.ActiveCfg = Default
+		{18D98268-190B-4DC1-9E89-18E9C01C3820}.Default|Default.ActiveCfg = Default
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

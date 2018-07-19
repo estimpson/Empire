@@ -1,0 +1,4 @@
+TE(52382)52647 d_eei_query_header_rev1te -  TE (MG3_830_D_v3060_MAGNA CUM_030929) --eeisp_edi_vend_830_TE 	edi_vendor.trading_partner_code  in ( 'TE') 
+ARROW(32499)52864 d_eei_query_header_rev1_pioneer - Net (EE1_830_D_v3060_EE^NET_W_PRICE_071605) --eeisp_edi_vend_830_rev1_PIONEER 	upper(edi_vendor.trading_partner_code) in( 'ARROWCORP', 'TTI','MCMASTERS', '3M', 'GPOLYMER', 'PSG', 'NEXEO', 'DELFINGEN', 'ARROW', 'FUTURE', 'KOSTAL')
+AEES (30494) d_eei_query_header_dixienet DixieNet (EE1_830_D_v3060_EE^NET_W_PRICE_071605) --  eeisp_edi_vend_830_DixieNet - (edi_vendor.trading_partner_code like '%DIXIE%' OR edi_vendor.trading_partner_code like '%AEES%' OR edi_vendor.trading_partner_code LIKE '%THERMOLINK%' )
+CCC(20959) d_eei_query_header_rev1 -ACCUM (MG3_830_D_v3060_MAGNA CUM_030929) 52880	--eeisp_edi_vend_830_rev1 ---not in ( 'ARROWCORP', 'TTI','MCMASTERS', '3M', 'GPOLYMER', 'PSG', 'NEXEO', 'DELFINGEN', 'ARROW', 'FUTURE', 'KOSTAL', 'TE')

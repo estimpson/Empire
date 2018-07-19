@@ -38,15 +38,15 @@
           <FullPath>Procedure.Monitor.EDI.usp_CustomerEDI_SendShipNotices.sql</FullPath>
         </FileNode>
         <FileNode Name="Procedure.Monitor.EDI.usp_XMLShipNotice_GetShipNoticeXML.sql">
-          <AssociatedConnectionMoniker />
-          <AssociatedConnSrvName />
-          <AssociatedConnUserName />
+          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:eeisql1:False:estimpson</AssociatedConnectionMoniker>
+          <AssociatedConnSrvName>eeisql1</AssociatedConnSrvName>
+          <AssociatedConnUserName>estimpson</AssociatedConnUserName>
           <FullPath>Procedure.Monitor.EDI.usp_XMLShipNotice_GetShipNoticeXML.sql</FullPath>
         </FileNode>
         <FileNode Name="Table.Monitor.EDI.XMLShipNotice_ASNDataRootFunction.sql">
-          <AssociatedConnectionMoniker />
-          <AssociatedConnSrvName />
-          <AssociatedConnUserName />
+          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:eeisql1:False:estimpson</AssociatedConnectionMoniker>
+          <AssociatedConnSrvName>eeisql1</AssociatedConnSrvName>
+          <AssociatedConnUserName>estimpson</AssociatedConnUserName>
           <FullPath>Table.Monitor.EDI.XMLShipNotice_ASNDataRootFunction.sql</FullPath>
         </FileNode>
       </Items>

@@ -1,0 +1,253 @@
+﻿<TRN>
+  <TRN-830>
+    <TRN-INFO name="PLANNING SCHEDULE WITH RELEASE CAPABILI" trading_partner="PSG" ICN="@iConnectID" version="003060" type="830" doc_number="PSG" folder="3" />
+    <SEG-BFR>
+      <SEG-INFO code="BFR" name="BEGINNING SEGMENT FOR PLANNING SCHEDULE" />
+      <DE code="0353" name="TRANSACTION SET PURPOSE CODE" type="ID" desc="Replace">05</DE>
+      <DE code="0328" name="RELEASE NUMBER" type="AN">180710</DE>
+      <DE code="0675" name="SCHEDULE TYPE QUALIFIER" type="ID" desc="Delivery Based">DL</DE>
+      <DE code="0676" name="SCHEDULE QUANTITY QUALIFIER" type="ID" desc="Actual Discrete Quantities">A</DE>
+      <DE code="0373" name="DATE" type="DT">180711</DE>
+      <DE code="0373" name="DATE" type="DT">190708</DE>
+      <DE code="0373" name="DATE" type="DT">180710</DE>
+      <DE code="0373" name="DATE" type="DT" />
+    </SEG-BFR>
+    <LOOP-N1>
+      <LOOP-INFO name="N1 Loop" />
+      <SEG-N1>
+        <SEG-INFO code="N1" name="NAME" />
+        <DE code="0098" name="ENTITY IDENTIFIER CODE" type="ID" desc="Planning Schedule/Material Release Issue">MI</DE>
+        <DE code="0066" name="IDENTIFICATION CODE QUALIFIER" type="ID" desc="D-U-N-S Number, Dun &amp; Bradstreet">1</DE>
+        <DE code="0067" name="IDENTIFICATION CODE" type="AN">047380894</DE>
+      </SEG-N1>
+    </LOOP-N1>
+    <LOOP-N1>
+      <LOOP-INFO name="N1 Loop" />
+      <SEG-N1>
+        <SEG-INFO code="N1" name="NAME" />
+        <DE code="0098" name="ENTITY IDENTIFIER CODE" type="ID" desc="Supplier/Manufacturer">SU</DE>
+        <DE code="0066" name="IDENTIFICATION CODE QUALIFIER" type="ID" desc="D-U-N-S Number, Dun &amp; Bradstreet">1</DE>
+        <DE code="0067" name="IDENTIFICATION CODE" type="AN">PSG</DE>
+      </SEG-N1>
+    </LOOP-N1>
+    <LOOP-LIN>
+      <LOOP-INFO name="LIN Loop" />
+      <SEG-LIN>
+        <SEG-INFO code="LIN" name="ITEM IDENTIFICATION" />
+        <DE code="0235" name="PRODUCT/SERVICE ID QUALIFIER" type="ID" desc="Buyer's Part Number">BP</DE>
+        <DE code="0234" name="PRODUCT/SERVICE ID" type="AN">04687766-18</DE>
+        <DE code="0235" name="PRODUCT/SERVICE ID QUALIFIER" type="AN">  </DE>
+        <DE code="0234" name="PRODUCT/SERVICE ID" type="AN" />
+        <DE code="0235" name="PRODUCT/SERVICE ID QUALIFIER" type="ID" desc="Purchase Order Number">PO</DE>
+        <DE code="0234" name="PRODUCT/SERVICE ID" type="AN">34992</DE>
+        <DE code="0235" name="PRODUCT/SERVICE ID QUALIFIER" type="ID" desc="Vendor's (Seller's) Part Number">VP</DE>
+        <DE code="0234" name="PRODUCT/SERVICE ID" type="AN">10762775</DE>
+      </SEG-LIN>
+      <SEG-UIT>
+        <SEG-INFO code="UIT" name="UNIT DETAIL" />
+        <CE code="C001" name="COMPOSITE UNIT OF MEASURE">
+          <DE code="0355" name="UNIT OR BASIS FOR MEASUREMENT CODE" type="ID" desc="Each">EA</DE>
+        </CE>
+        <DE code="0212" name="UNIT PRICE" type="R">0.0176</DE>
+      </SEG-UIT>
+      <SEG-PID>
+        <SEG-INFO code="PID" name="PRODUCT/ITEM DESCRIPTION" />
+        <DE code="0349" name="ITEM DESCRIPTION TYPE" type="ID" desc="Free-form">F</DE>
+        <DE code="0352" name="DESCRIPTION" type="AN">TERMINAL 18-20 AWG (10762775)</DE>
+      </SEG-PID>
+      <SEG-ATH>
+        <SEG-INFO code="ATH" name="RESOURCE AUTHORIZATION" />
+        <DE code="0672" name="RESOURCE AUTHORIZATION CODE" type="ID" desc="Material/">MT</DE>
+        <DE code="0373" name="DATE" type="DT">180915</DE>
+        <DE code="0380" name="QUANTITY" type="R">11342400</DE>
+        <DE code="0373" name="DATE" type="DT">990103</DE>
+      </SEG-ATH>
+      <SEG-ATH>
+        <SEG-INFO code="ATH" name="RESOURCE AUTHORIZATION" />
+        <DE code="0672" name="RESOURCE AUTHORIZATION CODE" type="ID" desc="Finished (Labor, Material, and Overhead//">FI</DE>
+        <DE code="0373" name="DATE" type="DT">180915</DE>
+        <DE code="0380" name="QUANTITY" type="R">11342400</DE>
+        <DE code="0373" name="DATE" type="DT">990103</DE>
+      </SEG-ATH>
+      <SEG-ATH>
+        <SEG-INFO code="ATH" name="RESOURCE AUTHORIZATION" />
+        <DE code="0672" name="RESOURCE AUTHORIZATION CODE" type="ID" desc="Cumulative Quantity Required Prior/">PQ</DE>
+        <DE code="0373" name="DATE" type="DT">180710</DE>
+        <DE code="0380" name="QUANTITY" type="R">11189400</DE>
+        <DE code="0373" name="DATE" type="DT">990103</DE>
+      </SEG-ATH>
+      <LOOP-SDP>
+        <LOOP-INFO name="SDP Loop" />
+        <SEG-SDP>
+          <SEG-INFO code="SDP" name="SHIP/DELIVERY PATTERN" />
+          <DE code="0678" name="SHIP/DELIVERY OR CALENDAR PATTERN CODE" type="ID" desc="None (Also Used to Cancel or Override a">Y</DE>
+          <DE code="0679" name="SHIP/DELIVERY PATTERN TIME CODE" type="ID" desc="1st Shift (Normal Working Hours)">A</DE>
+        </SEG-SDP>
+        <SEG-FST>
+          <SEG-INFO code="FST" name="FORECAST SCHEDULE" />
+          <DE code="0380" name="QUANTITY" type="R">0</DE>
+          <DE code="0680" name="FORECAST QUALIFIER" type="ID" desc="Firm">C</DE>
+          <DE code="0681" name="FORECAST TIMING QUALIFIER" type="ID" desc="Discrete">D</DE>
+          <DE code="0373" name="DATE" type="DT">180709</DE>
+        </SEG-FST>
+        <SEG-FST>
+          <SEG-INFO code="FST" name="FORECAST SCHEDULE" />
+          <DE code="0380" name="QUANTITY" type="R">6800</DE>
+          <DE code="0680" name="FORECAST QUALIFIER" type="ID" desc="Firm">C</DE>
+          <DE code="0681" name="FORECAST TIMING QUALIFIER" type="ID" desc="Discrete">D</DE>
+          <DE code="0373" name="DATE" type="DT">180716</DE>
+        </SEG-FST>
+        <SEG-FST>
+          <SEG-INFO code="FST" name="FORECAST SCHEDULE" />
+          <DE code="0380" name="QUANTITY" type="R">17000</DE>
+          <DE code="0680" name="FORECAST QUALIFIER" type="ID" desc="Firm">C</DE>
+          <DE code="0681" name="FORECAST TIMING QUALIFIER" type="ID" desc="Discrete">D</DE>
+          <DE code="0373" name="DATE" type="DT">180723</DE>
+        </SEG-FST>
+        <SEG-FST>
+          <SEG-INFO code="FST" name="FORECAST SCHEDULE" />
+          <DE code="0380" name="QUANTITY" type="R">20400</DE>
+          <DE code="0680" name="FORECAST QUALIFIER" type="ID" desc="Firm">C</DE>
+          <DE code="0681" name="FORECAST TIMING QUALIFIER" type="ID" desc="Discrete">D</DE>
+          <DE code="0373" name="DATE" type="DT">180730</DE>
+        </SEG-FST>
+        <SEG-FST>
+          <SEG-INFO code="FST" name="FORECAST SCHEDULE" />
+          <DE code="0380" name="QUANTITY" type="R">17000</DE>
+          <DE code="0680" name="FORECAST QUALIFIER" type="ID" desc="Firm">C</DE>
+          <DE code="0681" name="FORECAST TIMING QUALIFIER" type="ID" desc="Discrete">D</DE>
+          <DE code="0373" name="DATE" type="DT">180806</DE>
+        </SEG-FST>
+        <SEG-FST>
+          <SEG-INFO code="FST" name="FORECAST SCHEDULE" />
+          <DE code="0380" name="QUANTITY" type="R">17000</DE>
+          <DE code="0680" name="FORECAST QUALIFIER" type="ID" desc="Firm">C</DE>
+          <DE code="0681" name="FORECAST TIMING QUALIFIER" type="ID" desc="Discrete">D</DE>
+          <DE code="0373" name="DATE" type="DT">180813</DE>
+        </SEG-FST>
+        <SEG-FST>
+          <SEG-INFO code="FST" name="FORECAST SCHEDULE" />
+          <DE code="0380" name="QUANTITY" type="R">17000</DE>
+          <DE code="0680" name="FORECAST QUALIFIER" type="ID" desc="Firm">C</DE>
+          <DE code="0681" name="FORECAST TIMING QUALIFIER" type="ID" desc="Discrete">D</DE>
+          <DE code="0373" name="DATE" type="DT">180820</DE>
+        </SEG-FST>
+        <SEG-FST>
+          <SEG-INFO code="FST" name="FORECAST SCHEDULE" />
+          <DE code="0380" name="QUANTITY" type="R">17000</DE>
+          <DE code="0680" name="FORECAST QUALIFIER" type="ID" desc="Firm">C</DE>
+          <DE code="0681" name="FORECAST TIMING QUALIFIER" type="ID" desc="Discrete">D</DE>
+          <DE code="0373" name="DATE" type="DT">180827</DE>
+        </SEG-FST>
+        <SEG-FST>
+          <SEG-INFO code="FST" name="FORECAST SCHEDULE" />
+          <DE code="0380" name="QUANTITY" type="R">17000</DE>
+          <DE code="0680" name="FORECAST QUALIFIER" type="ID" desc="Firm">C</DE>
+          <DE code="0681" name="FORECAST TIMING QUALIFIER" type="ID" desc="Discrete">D</DE>
+          <DE code="0373" name="DATE" type="DT">180903</DE>
+        </SEG-FST>
+        <SEG-FST>
+          <SEG-INFO code="FST" name="FORECAST SCHEDULE" />
+          <DE code="0380" name="QUANTITY" type="R">17000</DE>
+          <DE code="0680" name="FORECAST QUALIFIER" type="ID" desc="Firm">C</DE>
+          <DE code="0681" name="FORECAST TIMING QUALIFIER" type="ID" desc="Discrete">D</DE>
+          <DE code="0373" name="DATE" type="DT">180910</DE>
+        </SEG-FST>
+        <SEG-FST>
+          <SEG-INFO code="FST" name="FORECAST SCHEDULE" />
+          <DE code="0380" name="QUANTITY" type="R">3400</DE>
+          <DE code="0680" name="FORECAST QUALIFIER" type="ID" desc="Firm">C</DE>
+          <DE code="0681" name="FORECAST TIMING QUALIFIER" type="ID" desc="Discrete">D</DE>
+          <DE code="0373" name="DATE" type="DT">180917</DE>
+        </SEG-FST>
+        <SEG-FST>
+          <SEG-INFO code="FST" name="FORECAST SCHEDULE" />
+          <DE code="0380" name="QUANTITY" type="R">17000</DE>
+          <DE code="0680" name="FORECAST QUALIFIER" type="ID" desc="Planning">D</DE>
+          <DE code="0681" name="FORECAST TIMING QUALIFIER" type="ID" desc="Discrete">D</DE>
+          <DE code="0373" name="DATE" type="DT">180924</DE>
+        </SEG-FST>
+        <SEG-FST>
+          <SEG-INFO code="FST" name="FORECAST SCHEDULE" />
+          <DE code="0380" name="QUANTITY" type="R">17000</DE>
+          <DE code="0680" name="FORECAST QUALIFIER" type="ID" desc="Planning">D</DE>
+          <DE code="0681" name="FORECAST TIMING QUALIFIER" type="ID" desc="Discrete">D</DE>
+          <DE code="0373" name="DATE" type="DT">181001</DE>
+        </SEG-FST>
+        <SEG-FST>
+          <SEG-INFO code="FST" name="FORECAST SCHEDULE" />
+          <DE code="0380" name="QUANTITY" type="R">17000</DE>
+          <DE code="0680" name="FORECAST QUALIFIER" type="ID" desc="Planning">D</DE>
+          <DE code="0681" name="FORECAST TIMING QUALIFIER" type="ID" desc="Discrete">D</DE>
+          <DE code="0373" name="DATE" type="DT">181008</DE>
+        </SEG-FST>
+        <SEG-FST>
+          <SEG-INFO code="FST" name="FORECAST SCHEDULE" />
+          <DE code="0380" name="QUANTITY" type="R">17000</DE>
+          <DE code="0680" name="FORECAST QUALIFIER" type="ID" desc="Planning">D</DE>
+          <DE code="0681" name="FORECAST TIMING QUALIFIER" type="ID" desc="Discrete">D</DE>
+          <DE code="0373" name="DATE" type="DT">181015</DE>
+        </SEG-FST>
+        <SEG-FST>
+          <SEG-INFO code="FST" name="FORECAST SCHEDULE" />
+          <DE code="0380" name="QUANTITY" type="R">13600</DE>
+          <DE code="0680" name="FORECAST QUALIFIER" type="ID" desc="Planning">D</DE>
+          <DE code="0681" name="FORECAST TIMING QUALIFIER" type="ID" desc="Discrete">D</DE>
+          <DE code="0373" name="DATE" type="DT">181022</DE>
+        </SEG-FST>
+        <SEG-FST>
+          <SEG-INFO code="FST" name="FORECAST SCHEDULE" />
+          <DE code="0380" name="QUANTITY" type="R">17000</DE>
+          <DE code="0680" name="FORECAST QUALIFIER" type="ID" desc="Planning">D</DE>
+          <DE code="0681" name="FORECAST TIMING QUALIFIER" type="ID" desc="Discrete">D</DE>
+          <DE code="0373" name="DATE" type="DT">181029</DE>
+        </SEG-FST>
+        <SEG-FST>
+          <SEG-INFO code="FST" name="FORECAST SCHEDULE" />
+          <DE code="0380" name="QUANTITY" type="R">13600</DE>
+          <DE code="0680" name="FORECAST QUALIFIER" type="ID" desc="Planning">D</DE>
+          <DE code="0681" name="FORECAST TIMING QUALIFIER" type="ID" desc="Discrete">D</DE>
+          <DE code="0373" name="DATE" type="DT">181105</DE>
+        </SEG-FST>
+        <SEG-FST>
+          <SEG-INFO code="FST" name="FORECAST SCHEDULE" />
+          <DE code="0380" name="QUANTITY" type="R">13600</DE>
+          <DE code="0680" name="FORECAST QUALIFIER" type="ID" desc="Planning">D</DE>
+          <DE code="0681" name="FORECAST TIMING QUALIFIER" type="ID" desc="Discrete">D</DE>
+          <DE code="0373" name="DATE" type="DT">181112</DE>
+        </SEG-FST>
+      </LOOP-SDP>
+      <LOOP-SHP>
+        <LOOP-INFO name="SHP Loop" />
+        <SEG-SHP>
+          <SEG-INFO code="SHP" name="SHIPPED/RECEIVED INFORMATION" />
+          <DE code="0673" name="QUANTITY QUALIFIER" type="ID" desc="Discrete Quantity">01</DE>
+          <DE code="0380" name="QUANTITY" type="R">17000</DE>
+          <DE code="0374" name="DATE/TIME QUALIFIER" type="ID" desc="Received">050</DE>
+          <DE code="0373" name="DATE" type="DT">180706</DE>
+        </SEG-SHP>
+        <SEG-REF>
+          <SEG-INFO code="REF" name="REFERENCE IDENTIFICATION" />
+          <DE code="0128" name="REFERENCE IDENTIFICATION QUALIFIER" type="ID" desc="Shipper's Identifying Number for Shipmen">SI</DE>
+          <DE code="0127" name="REFERENCE IDENTIFICATION" type="AN">2181183</DE>
+        </SEG-REF>
+      </LOOP-SHP>
+      <LOOP-SHP>
+        <LOOP-INFO name="SHP Loop" />
+        <SEG-SHP>
+          <SEG-INFO code="SHP" name="SHIPPED/RECEIVED INFORMATION" />
+          <DE code="0673" name="QUANTITY QUALIFIER" type="ID" desc="Cumulative Quantity">02</DE>
+          <DE code="0380" name="QUANTITY" type="R">11189400</DE>
+          <DE code="0374" name="DATE/TIME QUALIFIER" type="ID" desc="Cumulative Quantity Start">051</DE>
+          <DE code="0373" name="DATE" type="DT">990103</DE>
+          <DE code="0373" name="DATE" type="DT">180706</DE>
+        </SEG-SHP>
+      </LOOP-SHP>
+    </LOOP-LIN>
+    <SEG-CTT>
+      <SEG-INFO code="CTT" name="TRANSACTION TOTALS" />
+      <DE code="0354" name="NUMBER OF LINE ITEMS" type="N0">1</DE>
+      <DE code="0347" name="HASH TOTAL" type="R">275400</DE>
+    </SEG-CTT>
+  </TRN-830>
+</TRN>

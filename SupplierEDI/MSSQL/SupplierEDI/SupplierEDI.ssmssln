@@ -1,7 +1,49 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 11.00
 # SQL Server Management Studio Solution File, Format Version 11.00
+Project("{4F2E2C19-372F-40D8-9FA7-9D2138C6997A}") = "EEHSQL1.EEH.SupplierEDI", "EEHSQL1.EEH.SupplierEDI\EEHSQL1.EEH.SupplierEDI.ssmssqlproj", "{07CE3BE4-40B1-4BEB-A29E-ABC5E889B495}"
+EndProject
+Project("{4F2E2C19-372F-40D8-9FA7-9D2138C6997A}") = "EEHSQL1.EEH.dbo.Legacy.ACCUM", "EEHSQL1.EEH.dbo.Legacy.ACCUM\EEHSQL1.EEH.dbo.Legacy.ACCUM.ssmssqlproj", "{C228FEA7-20D1-44D3-A767-97F41A092FD2}"
+EndProject
+Project("{4F2E2C19-372F-40D8-9FA7-9D2138C6997A}") = "EEHSQL1.EEH.dbo.Legacy.DIXIE", "EEHSQL1.EEH.dbo.Legacy.DIXIE\EEHSQL1.EEH.dbo.Legacy.DIXIE.ssmssqlproj", "{C511A4FF-4170-4F5E-8121-58B49BDD314E}"
+EndProject
+Project("{4F2E2C19-372F-40D8-9FA7-9D2138C6997A}") = "EEHSQL1.EEH.dbo.Legacy.NET", "EEHSQL1.EEH.dbo.Legacy.NET\EEHSQL1.EEH.dbo.Legacy.NET.ssmssqlproj", "{672EADB1-2745-4F98-9506-216FA3BD147B}"
+EndProject
+Project("{4F2E2C19-372F-40D8-9FA7-9D2138C6997A}") = "EEHSQL1.EEH.dbo.Legacy.TE", "EEHSQL1.EEH.dbo.Legacy.TE\EEHSQL1.EEH.dbo.Legacy.TE.ssmssqlproj", "{C5385E61-91FE-4848-82E3-858D2DD68049}"
+EndProject
+Project("{4F2E2C19-372F-40D8-9FA7-9D2138C6997A}") = "EEHSQL1.EEH.FT.WebSecurity", "EEHSQL1.EEH.FT.WebSecurity\EEHSQL1.EEH.FT.WebSecurity.ssmssqlproj", "{2F029A34-1524-4625-B99C-395B9DCB6A1D}"
+EndProject
+Project("{4F2E2C19-372F-40D8-9FA7-9D2138C6997A}") = "EEHSQL1.EEH.FXSYS", "EEHSQL1.EEH.FXSYS\EEHSQL1.EEH.FXSYS.ssmssqlproj", "{8C852AB6-16BF-451B-80CF-ED3F231EFE7D}"
+EndProject
+Project("{4F2E2C19-372F-40D8-9FA7-9D2138C6997A}") = "EEHSQL1.EEH.SupplierEDI_NET", "EEHSQL1.EEH.SupplierEDI_NET\EEHSQL1.EEH.SupplierEDI_NET.ssmssqlproj", "{8DDF6335-8A57-4382-8D45-BC879724A833}"
+EndProject
+Project("{4F2E2C19-372F-40D8-9FA7-9D2138C6997A}") = "FxEDI.EDI_DICT", "EEHSQL1.FxEDI.EDI_DICT\FxEDI.EDI_DICT.ssmssqlproj", "{06047889-3D45-4A23-9468-1EFD144D42A6}"
+EndProject
+Project("{4F2E2C19-372F-40D8-9FA7-9D2138C6997A}") = "EEHSQL1.EEH.EDI_XML", "EEHSQL1.EEH.EDI_XML\EEHSQL1.EEH.EDI_XML.ssmssqlproj", "{D5803794-B373-4322-BA50-46DF66A06FE1}"
+EndProject
+Project("{4F2E2C19-372F-40D8-9FA7-9D2138C6997A}") = "EEHSQL1.EEH.FxEDI_EDI_DICT", "EEHSQL1.EEH.FxEDI_EDI_DICT\EEHSQL1.EEH.FxEDI_EDI_DICT.ssmssqlproj", "{F747831D-0C76-4087-B982-FA01DB2B5AE6}"
+EndProject
+Project("{4F2E2C19-372F-40D8-9FA7-9D2138C6997A}") = "EEHSQL1.EEH.EDI_XML_NET_830", "EEHSQL1.EEH.EDI_XML_NET_830\EEHSQL1.EEH.EDI_XML_NET_830.ssmssqlproj", "{C1E8160F-A236-470B-8F45-A351AB047B8D}"
+EndProject
 Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Default|Default = Default|Default
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{07CE3BE4-40B1-4BEB-A29E-ABC5E889B495}.Default|Default.ActiveCfg = Default
+		{C228FEA7-20D1-44D3-A767-97F41A092FD2}.Default|Default.ActiveCfg = Default
+		{C511A4FF-4170-4F5E-8121-58B49BDD314E}.Default|Default.ActiveCfg = Default
+		{672EADB1-2745-4F98-9506-216FA3BD147B}.Default|Default.ActiveCfg = Default
+		{C5385E61-91FE-4848-82E3-858D2DD68049}.Default|Default.ActiveCfg = Default
+		{2F029A34-1524-4625-B99C-395B9DCB6A1D}.Default|Default.ActiveCfg = Default
+		{8C852AB6-16BF-451B-80CF-ED3F231EFE7D}.Default|Default.ActiveCfg = Default
+		{852CFC5A-B445-4EC0-9332-DAB07BC169F2}.Default|Default.ActiveCfg = Default
+		{8DDF6335-8A57-4382-8D45-BC879724A833}.Default|Default.ActiveCfg = Default
+		{06047889-3D45-4A23-9468-1EFD144D42A6}.Default|Default.ActiveCfg = Default
+		{D5803794-B373-4322-BA50-46DF66A06FE1}.Default|Default.ActiveCfg = Default
+		{F747831D-0C76-4087-B982-FA01DB2B5AE6}.Default|Default.ActiveCfg = Default
+		{C1E8160F-A236-470B-8F45-A351AB047B8D}.Default|Default.ActiveCfg = Default
+	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
