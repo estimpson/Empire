@@ -1,0 +1,15 @@
+﻿<h3>Sample PopUp</h3>
+
+@using (Html.BeginForm("PopUpPostAction", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+    @Html.Hidden("hiddenID");
+    <fieldset style="width:550px;">
+        <p>
+            <input style="float:left; margin-top: 0px" type="submit" value="Capitalize LastName" />
+        </p>
+    </fieldset>
+}
+
+

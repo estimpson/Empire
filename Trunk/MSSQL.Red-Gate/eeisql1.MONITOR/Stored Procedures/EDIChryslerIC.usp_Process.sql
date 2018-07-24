@@ -3,6 +3,7 @@ GO
 SET ANSI_NULLS ON
 GO
 
+
 CREATE procedure [EDIChryslerIC].[usp_Process]
 	@TranDT datetime = null out
 ,	@Result integer = null out
@@ -35,7 +36,7 @@ declare
 	@Error integer,
 	@RowCount integer
 
-set	@ProcName = user_name(objectproperty(@@procid, 'OwnerId')) + '.' + object_name(@@procid)  -- e.g. EDICHRY.usp_Test
+set	@ProcName = user_name(objectproperty(@@procid, 'OwnerId')) + '.' + object_name(@@procid)  -- e.g. EDIChryslerIC.usp_Test
 --- </Error Handling>
 
 --- <Tran Required=Yes AutoCreate=Yes TranDTParm=Yes>
@@ -92,7 +93,7 @@ select distinct
 ,	CustomerModelYear
 ,   NewDocument
 from
-	EDICHRY.CurrentShipSchedules ()
+	EDIChryslerIC.CurrentShipSchedules ()
 
 --<Debug>
 if @Debug & 1 = 1 begin
@@ -128,7 +129,7 @@ select distinct
 ,	CustomerModelYear
 ,   NewDocument
 from
-	EDICHRY.CurrentPlanningReleases ()
+	EDIChryslerIC.CurrentPlanningReleases ()
 
 --<Debug>
 if @Debug & 1 = 1 begin
@@ -165,7 +166,7 @@ if @Debug & 1 = 1 begin
 	set	@StartDT = GetDate ()
 end
 --- <Update rows="*">
-set	@TableName = 'EDICHRY.ShipSchedules'
+set	@TableName = 'EDIChryslerIC.ShipSchedules'
 
 update
 	ss
@@ -173,11 +174,11 @@ set
 	Status =
 		case
 			when c.RawDocumentGUID is not null
-				then 1 --(select dbo.udf_StatusValue('EDICHRY.ShipSchedules', 'Status', 'Active'))
-			else 2 --(select dbo.udf_StatusValue('EDICHRY.ShipSchedules', 'Status', 'Replaced'))
+				then 1 --(select dbo.udf_StatusValue('EDIChryslerIC.ShipSchedules', 'Status', 'Active'))
+			else 2 --(select dbo.udf_StatusValue('EDIChryslerIC.ShipSchedules', 'Status', 'Replaced'))
 		end
 from
-	EDICHRY.ShipSchedules ss
+	EDIChryslerIC.ShipSchedules ss
 	left join @Current862s c
 		on ss.RawDocumentGUID = c.RawDocumentGUID
 		and ss.ShipToCode = c.ShipToCode
@@ -186,8 +187,8 @@ from
 		and coalesce(ss.CustomerModelYear, '') = coalesce(c.CustomerModelYear, '')
 where
 	ss.Status in
-	(	0 --(select dbo.udf_StatusValue('EDICHRY.PlanningReleases', 'Status', 'New'))
-	,	1 --(select dbo.udf_StatusValue('EDICHRY.PlanningReleases', 'Status', 'Active'))
+	(	0 --(select dbo.udf_StatusValue('EDIChryslerIC.PlanningReleases', 'Status', 'New'))
+	,	1 --(select dbo.udf_StatusValue('EDIChryslerIC.PlanningReleases', 'Status', 'Active'))
 	)
 
 select
@@ -203,7 +204,7 @@ end
 --- </Update>
 
 --- <Update rows="*">
-set	@TableName = 'EDICHRY.ShipScheduleHeaders'
+set	@TableName = 'EDIChryslerIC.ShipScheduleHeaders'
 
 update
 	ssh
@@ -214,19 +215,19 @@ set
 			(	select
 					*
 				from
-					EDICHRY.ShipSchedules ss
+					EDIChryslerIC.ShipSchedules ss
 				where
 					ss.RawDocumentGUID = ssh.RawDocumentGUID
-					and ss.Status = 1 --(select dbo.udf_StatusValue('EDICHRY.PlanningReleases', 'Status', 'Active')
-			) then 1 --(select dbo.udf_StatusValue('EDICHRY.PlanningHeaders', 'Status', 'Active'))
-		else 2 --(select dbo.udf_StatusValue('EDICHRY.PlanningHeaders', 'Status', 'Replaced'))
+					and ss.Status = 1 --(select dbo.udf_StatusValue('EDIChryslerIC.PlanningReleases', 'Status', 'Active')
+			) then 1 --(select dbo.udf_StatusValue('EDIChryslerIC.PlanningHeaders', 'Status', 'Active'))
+		else 2 --(select dbo.udf_StatusValue('EDIChryslerIC.PlanningHeaders', 'Status', 'Replaced'))
 	end
 from
-	EDICHRY.ShipScheduleHeaders ssh
+	EDIChryslerIC.ShipScheduleHeaders ssh
 where
 	ssh.Status in
-	(	0 --(select dbo.udf_StatusValue('EDICHRY.PlanningHeaders', 'Status', 'New'))
-	,	1 --(select dbo.udf_StatusValue('EDICHRY.PlanningHeaders', 'Status', 'Active'))
+	(	0 --(select dbo.udf_StatusValue('EDIChryslerIC.PlanningHeaders', 'Status', 'New'))
+	,	1 --(select dbo.udf_StatusValue('EDIChryslerIC.PlanningHeaders', 'Status', 'Active'))
 	)
 
 select
@@ -247,7 +248,7 @@ end
 --</Debug>
 
 --- <Update rows="*">
-set	@TableName = 'EDICHRY.PlanningReleases'
+set	@TableName = 'EDIChryslerIC.PlanningReleases'
 
 update
 	PR
@@ -255,11 +256,11 @@ set
 	Status =
 		case
 			when c.RawDocumentGUID is not null
-				then 1 --(select dbo.udf_StatusValue('EDICHRY.PlanningReleases', 'Status', 'Active'))
-			else 2 --(select dbo.udf_StatusValue('EDICHRY.PlanningReleases', 'Status', 'Replaced'))
+				then 1 --(select dbo.udf_StatusValue('EDIChryslerIC.PlanningReleases', 'Status', 'Active'))
+			else 2 --(select dbo.udf_StatusValue('EDIChryslerIC.PlanningReleases', 'Status', 'Replaced'))
 		end
 from
-	EDICHRY.PlanningReleases PR
+	EDIChryslerIC.PlanningReleases PR
 	left join @Current830s c
 		on PR.RawDocumentGUID = c.RawDocumentGUID
 		and PR.ShipToCode = c.ShipToCode
@@ -269,8 +270,8 @@ from
 
 where
 	PR.Status in
-	(	0 --(select dbo.udf_StatusValue('EDICHRY.PlanningReleases', 'Status', 'New'))
-	,	1 --(select dbo.udf_StatusValue('EDICHRY.PlanningReleases', 'Status', 'Active'))
+	(	0 --(select dbo.udf_StatusValue('EDIChryslerIC.PlanningReleases', 'Status', 'New'))
+	,	1 --(select dbo.udf_StatusValue('EDIChryslerIC.PlanningReleases', 'Status', 'Active'))
 	)
 
 select
@@ -286,7 +287,7 @@ end
 --- </Update>
 
 --- <Update rows="*">
-set	@TableName = 'EDICHRY.PlanningHeaders'
+set	@TableName = 'EDIChryslerIC.PlanningHeaders'
 
 update
 	fh
@@ -297,19 +298,19 @@ set
 			(	select
 					*
 				from
-					EDICHRY.PlanningReleases fr
+					EDIChryslerIC.PlanningReleases fr
 				where
 					fr.RawDocumentGUID = fh.RawDocumentGUID
-					and fr.Status = 1 --(select dbo.udf_StatusValue('EDICHRY.PlanningReleases', 'Status', 'Active')
-			) then 1 --(select dbo.udf_StatusValue('EDICHRY.PlanningHeaders', 'Status', 'Active'))
-		else 2 --(select dbo.udf_StatusValue('EDICHRY.PlanningHeaders', 'Status', 'Replaced'))
+					and fr.Status = 1 --(select dbo.udf_StatusValue('EDIChryslerIC.PlanningReleases', 'Status', 'Active')
+			) then 1 --(select dbo.udf_StatusValue('EDIChryslerIC.PlanningHeaders', 'Status', 'Active'))
+		else 2 --(select dbo.udf_StatusValue('EDIChryslerIC.PlanningHeaders', 'Status', 'Replaced'))
 	end
 from
-	EDICHRY.PlanningHeaders fh
+	EDIChryslerIC.PlanningHeaders fh
 where
 	fh.Status in
-	(	0 --(select dbo.udf_StatusValue('EDICHRY.PlanningHeaders', 'Status', 'New'))
-	,	1 --(select dbo.udf_StatusValue('EDICHRY.PlanningHeaders', 'Status', 'Active'))
+	(	0 --(select dbo.udf_StatusValue('EDIChryslerIC.PlanningHeaders', 'Status', 'New'))
+	,	1 --(select dbo.udf_StatusValue('EDIChryslerIC.PlanningHeaders', 'Status', 'Active'))
 	)
 
 select
@@ -336,7 +337,7 @@ if	@Testing > 1 begin
 	select
 		*
 	from
-		EDICHRY.ShipScheduleHeaders fh
+		EDIChryslerIC.ShipScheduleHeaders fh
 
 	select
 		'PlanningHeaders'
@@ -344,7 +345,7 @@ if	@Testing > 1 begin
 	select
 		*
 	from
-		EDICHRY.PlanningHeaders fh
+		EDIChryslerIC.PlanningHeaders fh
 end
 
 --<Debug>
@@ -434,30 +435,9 @@ Select
 ,	ReleaseNo = 'Accum Demand'
 ,	QtyRelease = 0
 ,	StdQtyRelease = 0
-,	ReferenceAccum =      case when min(bo.ModelYear862) like '%C%'
-												then
-												(case bo.ReferenceAccum 
-												When 'N' 
-												then min(coalesce(convert(int,bo.AccumShipped),0))
-												When 'C' 
-												then min(coalesce(convert(int,fa.LastAccumQty),0))
-												else min(coalesce(convert(int,bo.AccumShipped),0))
-												end
-												)
-												else 0
-												end
-,	CustomerAccum =				case when min(bo.ModelYear862) like '%C%'
-												then
-												(case bo.AdjustmentAccum 
-												When 'N' 
-												then min(coalesce(convert(int,bo.AccumShipped),0))
-												When 'P' 
-												then min(coalesce(convert(int,faa.PriorCUM),0))
-												else min(coalesce(convert(int,fa.LastAccumQty),0))
-												end
-												)
-												else 0
-												end
+,	ReferenceAccum = min(coalesce(convert(int,bo.AccumShipped),0))																						
+,	CustomerAccum =	min(coalesce(convert(int,faa.PriorCUM),0))
+											
 	,	(	select
 				min(c.NewDocument)
 			from
@@ -466,8 +446,8 @@ Select
 				c.RawDocumentGUID = fh.RawDocumentGUID
 		)
 from
-	EDICHRY.ShipScheduleHeaders fh
-	join EDICHRY.ShipSchedules fr
+	EDIChryslerIC.ShipScheduleHeaders fh
+	join EDIChryslerIC.ShipSchedules fr
 		on fr.RawDocumentGUID = fh.RawDocumentGUID
   join
 		@Current862s css 
@@ -476,19 +456,19 @@ from
 		and	fr.ShipToCode = css.ShipToCode
 		and	coalesce(fr.CustomerPO,'') = coalesce(css.CustomerPO,'')
 		and	coalesce(fr.CustomerModelYear,'') = coalesce(css.CustomerModelYear,'')
-	left join EDICHRY.ShipScheduleAccums fa
+	left join EDIChryslerIC.ShipScheduleAccums fa
 		on fa.RawDocumentGUID = fh.RawDocumentGUID
 		and fa.CustomerPart = fr.CustomerPart
 		and	fa.ShipToCode = fr.ShipToCode
 		and	coalesce(fa.CustomerPO,'') = coalesce(fr.CustomerPO,'')
 		and	coalesce(fa.CustomerModelYear,'') = coalesce(fr.CustomerModelYear,'')
-	left join EDICHRY.ShipScheduleAuthAccums faa
+	left join EDIChryslerIC.ShipScheduleAuthAccums faa
 		on faa.RawDocumentGUID = fh.RawDocumentGUID
 		and faa.CustomerPart = fr.CustomerPart
 		and	faa.ShipToCode = fr.ShipToCode
 		and	coalesce(faa.CustomerPO,'') = coalesce(fr.CustomerPO,'')
 		and	coalesce(faa.CustomerModelYear,'') = coalesce(fr.CustomerModelYear,'')
-	join EDICHRY.BlanketOrders bo
+	join EDIChryslerIC.BlanketOrders bo
 		on bo.EDIShipToCode = fr.ShipToCode
 		and bo.CustomerPart = fr.CustomerPart
 		and
@@ -504,7 +484,7 @@ where
 		(	select
 				*
 			from
-				EDICHRY.ShipSchedules ss
+				EDIChryslerIC.ShipSchedules ss
 		where
 				ss.status = 1 and
 				ss.RawDocumentGUID = css.RawDocumentGUID and
@@ -513,38 +493,14 @@ where
 				and ss.ShipToCode = fr.ShipToCode
 				and	ss.ReleaseDT = ft.fn_TruncDate('dd', getdate())
 		)
-	and fh.Status = 1 --(select dbo.udf_StatusValue('EDICHRY.ShipScheduleHeaders', 'Status', 'Active'))
+	and fh.Status = 1 --(select dbo.udf_StatusValue('EDIChryslerIC.ShipScheduleHeaders', 'Status', 'Active'))
 group by
 	bo.BlanketOrderNo
 ,	fh.RawDocumentGUID
 , bo.ReferenceAccum
 , bo.AdjustmentAccum 
-having
-					  case when min(bo.ModelYear862) like '%C%'
-												then
-												(case bo.ReferenceAccum 
-												When 'N' 
-												then min(coalesce(convert(int,bo.AccumShipped),0))
-												When 'C' 
-												then min(coalesce(convert(int,fa.LastAccumQty),0))
-												else min(coalesce(convert(int,bo.AccumShipped),0))
-												end
-												)
-												else 0
-												end 
-												< 
-												case when min(bo.ModelYear862) like '%C%'
-												then
-												(case bo.AdjustmentAccum 
-												When 'N' 
-												then min(coalesce(convert(int,bo.AccumShipped),0))
-												When 'P' 
-												then min(coalesce(convert(int,faa.PriorCUM),0))
-												else min(coalesce(convert(int,fa.LastAccumQty),0))
-												end
-												)
-												else 0
-												end
+having min(coalesce(convert(int,bo.AccumShipped),0))<min(coalesce(convert(int,faa.PriorCUM),0))
+												
 
 /*		862s. */
 union all
@@ -561,30 +517,8 @@ select
 ,	ReleaseNo = fr.ReleaseNo
 ,	QtyRelease = fr.ReleaseQty
 ,	StdQtyRelease = fr.ReleaseQty
-,	ReferenceAccum =  case when bo.ModelYear862 like '%C%'
-												then
-												(case bo.ReferenceAccum 
-												When 'N' 
-												then coalesce(convert(int,bo.AccumShipped),0)
-												When 'C' 
-												then coalesce(convert(int,fa.LastAccumQty),0)
-												else coalesce(convert(int,bo.AccumShipped),0)
-												end
-												)
-												else 0
-												end 
-,	CustomerAccum = case when bo.ModelYear862 like '%C%'
-												then
-												(case bo.AdjustmentAccum 
-												When 'N' 
-												then coalesce(convert(int,bo.AccumShipped),0)
-												When 'P' 
-												then coalesce(convert(int,faa.PriorCUM),0)
-												else coalesce(convert(int,fa.LastAccumQty),0)
-												end
-												)
-												else 0
-												end
+,	ReferenceAccum = coalesce(convert(int,bo.AccumShipped),0)
+,	CustomerAccum =  coalesce(convert(int,fa.LastAccumQty),0)
 ,	NewDocument =
 		(	select
 				min(c.NewDocument)
@@ -594,8 +528,8 @@ select
 				c.RawDocumentGUID = fh.RawDocumentGUID
 		)
 from
-	EDICHRY.ShipScheduleHeaders fh
-	join EDICHRY.ShipSchedules fr
+	EDIChryslerIC.ShipScheduleHeaders fh
+	join EDIChryslerIC.ShipSchedules fr
 		on fr.RawDocumentGUID = fh.RawDocumentGUID
 		join
 		@Current862s css 
@@ -604,19 +538,19 @@ from
 		and	fr.ShipToCode = css.ShipToCode
 		and	coalesce(fr.CustomerPO,'') = coalesce(css.CustomerPO,'')
 		and	coalesce(fr.CustomerModelYear,'') = coalesce(css.CustomerModelYear,'')
-	left join EDICHRY.ShipScheduleAccums fa
+	left join EDIChryslerIC.ShipScheduleAccums fa
 		on fa.RawDocumentGUID = fh.RawDocumentGUID
 		and fa.CustomerPart = fr.CustomerPart
 		and	fa.ShipToCode = fr.ShipToCode
 		and	coalesce(fa.CustomerPO,'') = coalesce(fr.CustomerPO,'')
 		and	coalesce(fa.CustomerModelYear,'') = coalesce(fr.CustomerModelYear,'')
-	left join EDICHRY.ShipScheduleAuthAccums faa
+	left join EDIChryslerIC.ShipScheduleAuthAccums faa
 		on faa.RawDocumentGUID = fh.RawDocumentGUID
 		and faa.CustomerPart = fr.CustomerPart
 		and	faa.ShipToCode = fr.ShipToCode
 		and	coalesce(faa.CustomerPO,'') = coalesce(fr.CustomerPO,'')
 		and	coalesce(faa.CustomerModelYear,'') = coalesce(fr.CustomerModelYear,'')
-	join EDICHRY.BlanketOrders bo
+	join EDIChryslerIC.BlanketOrders bo
 		on bo.EDIShipToCode = fr.ShipToCode
 		and bo.CustomerPart = fr.CustomerPart
 		and
@@ -628,7 +562,7 @@ from
 			or bo.ModelYear862 = fr.CustomerModelYear
 		)
 where
-	fh.Status = 1 --(select dbo.udf_StatusValue('EDICHRY.ShipScheduleHeaders', 'Status', 'Active'))
+	fh.Status = 1 --(select dbo.udf_StatusValue('EDIChryslerIC.ShipScheduleHeaders', 'Status', 'Active'))
 		
 
 /*		830s. */
@@ -637,9 +571,9 @@ select
 	OrderNo = bo.BlanketOrderNo
 ,	Type = (	case 
 					when bo.PlanningFlag = 'P' then 2
-					when bo.PlanningFlag = 'F' then 1
+					when bo.PlanningFlag = 'F' then 2
 					when bo.planningFlag = 'A' and fr.ScheduleType = '4' then 2
-					else 1
+					else 2
 					end
 			  )
 ,	ReleaseDT = dateadd(dd, ReleaseDueDTOffsetDays, fr.ReleaseDT)
@@ -652,36 +586,9 @@ select
 ,	ReleaseNo = fr.ReleaseNo
 ,	QtyRelease = fr.ReleaseQty
 ,	StdQtyRelease = fr.ReleaseQty
-,	ReferenceAccum =  case when bo.ModelYear862 like '%C%'
-												then
-												(CASE
-												WHEN bo.ReferenceAccum = 'N' OR bo.AdjustmentAccum = 'N'
-												then coalesce(convert(int,bo.AccumShipped),0)
-												When bo.ReferenceAccum = 'C' AND edi.udfGetAccumAdjustIndicatorCustomerAccumReceived ( coalesce(convert(int,bo.AccumShipped),0), coalesce(convert(int,fa.LastAccumQty),0)) = 1
-												then coalesce(convert(int,bo.AccumShipped),0)
-												When bo.ReferenceAccum = 'O' AND edi.udfGetAccumAdjustIndicatorCustomerAccumReceived ( coalesce(convert(int,bo.AccumShipped),0), coalesce(convert(int,fa.LastAccumQty),0)) = 1
-												then coalesce(convert(int,bo.AccumShipped),0)
-												ELSE bo.AccumShipped
-												end
-												)
-												else bo.AccumShipped
-												end 
-,	CustomerAccum = case when bo.ModelYear862 like '%C%'
-												then
-												(case 
-												 WHEN bo.AdjustmentAccum = 'N' OR bo.ReferenceAccum = 'N'											
-												then coalesce(convert(int,bo.AccumShipped),0)
-												When bo.AdjustmentAccum  = 'P' AND edi.udfGetAccumAdjustIndicatorCustomerPriorAccum ( coalesce(convert(int,bo.AccumShipped),0), coalesce(convert(int,fa.LastAccumQty),0)) = 1
-												then coalesce(convert(int,fa.LastAccumQty),0 )
-												When bo.AdjustmentAccum  = 'C' AND edi.udfGetAccumAdjustIndicatorCustomerPriorAccum ( coalesce(convert(int,bo.AccumShipped),0), coalesce(convert(int,fa.LastAccumQty),0)) = 1
-												then coalesce(convert(int,fa.LastAccumQty),0 )
-												else bo.AccumShipped
-												--then coalesce(convert(int,faa.PriorCUM),0)
-												--else coalesce(convert(int,fa.LastAccumQty),0)
-												end
-												)
-												else bo.AccumShipped
-												end
+,	ReferenceAccum =  bo.AccumShipped
+,	CustomerAccum = coalesce(convert(int,faa.PriorCum), 0 )
+												
 ,	NewDocument =
 		(	select
 				min(c.NewDocument)
@@ -691,8 +598,8 @@ select
 				c.RawDocumentGUID = fh.RawDocumentGUID
 		)
 from
-	EDICHRY.PlanningHeaders fh
-	join EDICHRY.PlanningReleases fr
+	EDIChryslerIC.PlanningHeaders fh
+	join EDIChryslerIC.PlanningReleases fr
 		on fr.RawDocumentGUID = fh.RawDocumentGUID
 	join
 		@Current830s css 
@@ -701,19 +608,19 @@ from
 		and	fr.ShipToCode = css.ShipToCode
 		and	coalesce(fr.CustomerPO,'') = coalesce(css.CustomerPO,'')
 		and	coalesce(fr.CustomerModelYear,'') = coalesce(css.CustomerModelYear,'')
-	left join EDICHRY.PlanningAccums fa
+	left join EDIChryslerIC.PlanningAccums fa
 		on fa.RawDocumentGUID = fh.RawDocumentGUID
 		and fa.CustomerPart = fr.CustomerPart
 		and	fa.ShipToCode = fr.ShipToCode
 		and	coalesce(fa.CustomerPO,'') = coalesce(fr.CustomerPO,'')
 		and	coalesce(fa.CustomerModelYear,'') = coalesce(fr.CustomerModelYear,'')
-	left join EDICHRY.PlanningAuthAccums faa
+	left join EDIChryslerIC.PlanningAuthAccums faa
 		on faa.RawDocumentGUID = fh.RawDocumentGUID
 		and faa.CustomerPart = fr.CustomerPart
 		and	faa.ShipToCode = fr.ShipToCode
 		and	coalesce(faa.CustomerPO,'') = coalesce(fr.CustomerPO,'')
 		and	coalesce(faa.CustomerModelYear,'') = coalesce(fr.CustomerModelYear,'')
-	join EDICHRY.BlanketOrders bo
+	join EDIChryslerIC.BlanketOrders bo
 		on bo.EDIShipToCode = fr.ShipToCode
 		and bo.CustomerPart = fr.CustomerPart
 		and
@@ -725,12 +632,19 @@ from
 			or bo.ModelYear830 = fr.CustomerModelYear
 		)
 where
-		fh.Status = 1 --(select dbo.udf_StatusValue('EDICHRY.PlanningHeaders', 'Status', 'Active'))
-	and		fr.Status = 1 --(select dbo.udf_StatusValue('EDICHRY.PlanningReleases', 'Status', 'Active'))
+		fh.Status = 1 --(select dbo.udf_StatusValue('EDIChryslerIC.PlanningHeaders', 'Status', 'Active'))
+	and		fr.Status = 1 --(select dbo.udf_StatusValue('EDIChryslerIC.PlanningReleases', 'Status', 'Active'))
 	--and coalesce(nullif(fr.Scheduletype,''),'4') in ('4')
 	
 order by
 	2,1,3
+
+
+/* 2018-01-10 asb FT, LLC :  Update accums for forcast because no prior accum auth is given in 830 */
+update rr 
+Set rr.CustomerAccum = ( Select max(CustomerAccum) from @RawReleases rr2 where rr2.CustomerPart = rr.CustomerPart and rr2.ShipToID = rr.ShipToID and rr2.type = 2)
+From @RawReleases rr
+Where rr.CustomerAccum = 0 and rr.type = 2
 
 /*		Calculate orders to update. */
 update
@@ -1068,10 +982,10 @@ where
 				*
 			from
 				dbo.order_header oh
-				join EDICHRY.PlanningHeaders fh
-					join EDICHRY.PlanningSupplemental ps
+				join EDIChryslerIC.PlanningHeaders fh
+					join EDIChryslerIC.PlanningSupplemental ps
 						on ps.RawDocumentGUID = fh.RawDocumentGUID
-					join EDICHRY.BlanketOrders bo
+					join EDIChryslerIC.BlanketOrders bo
 						on bo.EDIShipToCode = coalesce (ps.ConsigneeCode, ps.ShipToCode)
 						and bo.CustomerPart = ps.CustomerPart
 					on bo.BlanketOrderNo = oh.order_no
@@ -1091,10 +1005,10 @@ where
 				*
 			from
 				dbo.order_header oh
-				join EDICHRY.ShipScheduleHeaders fh
-					join EDICHRY.ShipScheduleSupplemental sss
+				join EDIChryslerIC.ShipScheduleHeaders fh
+					join EDIChryslerIC.ShipScheduleSupplemental sss
 						on sss.RawDocumentGUID = fh.RawDocumentGUID
-					join EDICHRY.BlanketOrders bo
+					join EDIChryslerIC.BlanketOrders bo
 						on bo.EDIShipToCode = sss.ShipToCode
 						and bo.CustomerPart = sss.CustomerPart
 					on bo.BlanketOrderNo = oh.order_no
@@ -1110,14 +1024,14 @@ where
 		*/
 		/*
 		insert
-			EDICHRY.LabelInfoHeader
+			EDIChryslerIC.LabelInfoHeader
 		(	SystemDT
 		)
 		select
 			@TranDT
 		
 		insert 	
-			EDICHRY.LabelInfoHeader
+			EDIChryslerIC.LabelInfoHeader
 		(	HeaderTimeStamp
 		,	OrderNo
 		,	NewDockCode
@@ -1173,7 +1087,7 @@ where
 		from
 			dbo.order_header oh
 		join
-				ediChry.blanketOrders bo
+				EDIChryslerIC.blanketOrders bo
 		on
 				bo.BlanketOrderNo = oh.order_no
 		join
@@ -1188,7 +1102,7 @@ where
 							or bo.ModelYear830 = cpr.CustomerModelYear
 				)
 		  join
-				ediChry.PlanningSupplemental prs
+				EDIChryslerIC.PlanningSupplemental prs
 		on
 				prs.RawDocumentGUID = cpr.RawDocumentGUID and
 				prs.CustomerPart = cpr.CustomerPart and
@@ -1227,7 +1141,7 @@ where
 		from
 			dbo.order_header oh
 		join
-				ediChry.blanketOrders bo
+				EDIChryslerIC.blanketOrders bo
 		on
 				bo.BlanketOrderNo = oh.order_no
 		join
@@ -1242,7 +1156,7 @@ where
 							or bo.ModelYear862 = css.CustomerModelYear
 				)
 		  join
-				ediChry.ShipScheduleSupplemental sss
+				EDIChryslerIC.ShipScheduleSupplemental sss
 		on
 				sss.RawDocumentGUID = css.RawDocumentGUID and
 				sss.CustomerPart = css.CustomerPart and
@@ -1344,7 +1258,7 @@ else begin
 		)
 	from
 		@RawReleases rr
-		join EDICHRY.BlanketOrders bo
+		join EDIChryslerIC.BlanketOrders bo
 			on bo.BlanketOrderNo = rr.OrderNo
 	order by
 		1, 2
@@ -1422,9 +1336,9 @@ Where
 		coalesce(a.newDocument,0) = 1
 and not exists
 ( Select 1 from 
-		EDICHRY.ShipSchedules b
+		EDIChryslerIC.ShipSchedules b
  Join 
-	EDICHRY.BlanketOrders bo on b.CustomerPart = bo.CustomerPart
+	EDIChryslerIC.BlanketOrders bo on b.CustomerPart = bo.CustomerPart
 and
 	b.ShipToCode = bo.EDIShipToCode
 and
@@ -1459,9 +1373,9 @@ Where
 		coalesce(a.newDocument,0) = 1
 and not exists
 ( Select 1 from 
-		EDICHRY.PlanningReleases b
+		EDIChryslerIC.PlanningReleases b
  Join 
-	EDICHRY.BlanketOrders bo on b.CustomerPart = bo.CustomerPart
+	EDIChryslerIC.BlanketOrders bo on b.CustomerPart = bo.CustomerPart
 and
 	b.ShipToCode = bo.EDIShipToCode
 and
@@ -1495,7 +1409,7 @@ Select
 from
 	@Current862s a
 	 Join 
-	EDICHRY.BlanketOrders bo on a.CustomerPart = bo.CustomerPart
+	EDIChryslerIC.BlanketOrders bo on a.CustomerPart = bo.CustomerPart
 and
 	a.ShipToCode = bo.EDIShipToCode
 and
@@ -1524,7 +1438,7 @@ Select
 from
 	@Current830s a
 	 Join 
-	EDICHRY.BlanketOrders bo on a.CustomerPart = bo.CustomerPart
+	EDIChryslerIC.BlanketOrders bo on a.CustomerPart = bo.CustomerPart
 and
 	a.ShipToCode = bo.EDIShipToCode
 and
@@ -1564,7 +1478,7 @@ Select
 from
 	@Current862s a
 	 Join 
-	EDICHRY.BlanketOrders bo on a.CustomerPart = bo.CustomerPart
+	EDIChryslerIC.BlanketOrders bo on a.CustomerPart = bo.CustomerPart
 and
 	a.ShipToCode = bo.EDIShipToCode
 and
@@ -1574,14 +1488,14 @@ and
 (	bo.CheckModelYearShipSchedule = 0
 	or bo.ModelYear862 = a.CustomerModelYear)
 	left join
-		EDIChry.ShipScheduleAccums ssa on 
+		EDIChryslerIC.ShipScheduleAccums ssa on 
 		ssa.RawDocumentGUID = a.RawDocumentGUID and
 		ssa.ShipToCode = a.ShipToCode and
 		ssa.CustomerPart = a.CustomerPart and
 		coalesce(ssa.CustomerPO,'') = coalesce(a.customerPO,'') and
 		coalesce(ssa.CustomerModelYear,'') = coalesce(a.customerModelYear,'')
  	left join
-		EDIChry.ShipScheduleAuthAccums ssaa on 
+		EDIChryslerIC.ShipScheduleAuthAccums ssaa on 
 		ssaa.RawDocumentGUID = a.RawDocumentGUID and
 		ssaa.ShipToCode = a.ShipToCode and
 		ssaa.CustomerPart = a.CustomerPart and
@@ -1620,7 +1534,7 @@ Select
 from
 	@Current830s  a
 	 Join 
-	EDICHRY.BlanketOrders bo on a.CustomerPart = bo.CustomerPart
+	EDIChryslerIC.BlanketOrders bo on a.CustomerPart = bo.CustomerPart
 and
 	a.ShipToCode = bo.EDIShipToCode
 and
@@ -1630,14 +1544,14 @@ and
 (	bo.CheckModelYearPlanning = 0
 	or bo.ModelYear830 = a.CustomerModelYear)
 	left join
-		EDIChry.PlanningAccums pra on 
+		EDIChryslerIC.PlanningAccums pra on 
 		pra.RawDocumentGUID = a.RawDocumentGUID and
 		pra.ShipToCode = a.ShipToCode and
 		pra.CustomerPart = a.CustomerPart and
 		coalesce(pra.CustomerPO,'') = coalesce(a.customerPO,'') and
 		coalesce(pra.CustomerModelYear,'') = coalesce(a.customerModelYear,'')
  	left join
-		EDIChry.PlanningAuthAccums praa on 
+		EDIChryslerIC.PlanningAuthAccums praa on 
 		praa.RawDocumentGUID = a.RawDocumentGUID and
 		praa.ShipToCode = a.ShipToCode and
 		praa.CustomerPart = a.CustomerPart and
@@ -1658,7 +1572,7 @@ order by 1,2,5,4,7
 --from
 --	@Current862s a
 --	 Join 
---	EDICHRY.BlanketOrders bo on a.CustomerPart = bo.CustomerPart
+--	EDIChryslerIC.BlanketOrders bo on a.CustomerPart = bo.CustomerPart
 --and
 --	a.ShipToCode = bo.EDIShipToCode
 --and
@@ -1668,14 +1582,14 @@ order by 1,2,5,4,7
 --(	bo.CheckModelYearShipSchedule = 0
 --	or bo.ModelYear862 = a.CustomerModelYear)
 --	left join
---		EDICHRY.ShipScheduleAccums ssa on 
+--		EDIChryslerIC.ShipScheduleAccums ssa on 
 --		ssa.RawDocumentGUID = a.RawDocumentGUID and
 --		ssa.ShipToCode = a.ShipToCode and
 --		ssa.CustomerPart = a.CustomerPart and
 --		coalesce(ssa.CustomerPO,'') = coalesce(a.customerPO,'') and
 --		coalesce(ssa.CustomerModelYear,'') = coalesce(a.customerModelYear,'')
 -- 	left join
---		EDICHRY.ShipScheduleAuthAccums ssaa on 
+--		EDIChryslerIC.ShipScheduleAuthAccums ssaa on 
 --		ssaa.RawDocumentGUID = a.RawDocumentGUID and
 --		ssaa.ShipToCode = a.ShipToCode and
 --		ssaa.CustomerPart = a.CustomerPart and
@@ -1692,7 +1606,7 @@ order by 1,2,5,4,7
 --from
 --	@Current830s  a
 --	 Join 
---	EDICHRY.BlanketOrders bo on a.CustomerPart = bo.CustomerPart
+--	EDIChryslerIC.BlanketOrders bo on a.CustomerPart = bo.CustomerPart
 --and
 --	a.ShipToCode = bo.EDIShipToCode
 --and
@@ -1702,14 +1616,14 @@ order by 1,2,5,4,7
 --(	bo.CheckModelYearPlanning = 0
 --	or bo.ModelYear830 = a.CustomerModelYear)
 --	left join
---		EDICHRY.PlanningAccums pra on 
+--		EDIChryslerIC.PlanningAccums pra on 
 --		pra.RawDocumentGUID = a.RawDocumentGUID and
 --		pra.ShipToCode = a.ShipToCode and
 --		pra.CustomerPart = a.CustomerPart and
 --		coalesce(pra.CustomerPO,'') = coalesce(a.customerPO,'') and
 --		coalesce(pra.CustomerModelYear,'') = coalesce(a.customerModelYear,'')
 -- 	left join
---		EDICHRY.PlanningAuthAccums praa on 
+--		EDIChryslerIC.PlanningAuthAccums praa on 
 --		praa.RawDocumentGUID = a.RawDocumentGUID and
 --		praa.ShipToCode = a.ShipToCode and
 --		praa.CustomerPart = a.CustomerPart and
@@ -1771,7 +1685,7 @@ SELECT
 		
 		DECLARE
 			@EmailBody NVARCHAR(MAX)
-		,	@EmailHeader NVARCHAR(MAX) = 'EDI Processing for EDIFordIC' 
+		,	@EmailHeader NVARCHAR(MAX) = 'EDI Processing for EDIChryslerIC' 
 
 		SELECT
 			@EmailBody =
@@ -1808,13 +1722,13 @@ EXEC msdb.dbo.sp_send_dbmail
 
 
 --SELECT 
---	'EDICHRY'
+--	'EDIChryslerIC'
 --	,*
 --FROM
 --	#EDIAlerts
 --UNION
 --SELECT
---	'EDICHRY'
+--	'EDIChryslerIC'
 --	,TradingPartner = COALESCE((SELECT MAX(TradingPartner) FROM fxEDI.EDI.EDIDocuments WHERE GUID = a.RawDocumentGUID) ,'')
 --,	DocumentType = 'SS'
 --,	AlertType =  'Exception Quantity Due'
@@ -1829,7 +1743,7 @@ EXEC msdb.dbo.sp_send_dbmail
 --FROM
 --	@Current862s a
 --JOIN
---		ediChry.ShipSchedules c
+--		EDIChryslerIC.ShipSchedules c
 --ON			c.RawDocumentGUID = a.RawDocumentGUID AND
 --				a.CustomerPart = c.CustomerPart AND
 --				a.ShipToCode =c.ShipToCode AND
@@ -1839,9 +1753,9 @@ EXEC msdb.dbo.sp_send_dbmail
 --		COALESCE(a.newDocument,0) = 1
 --AND NOT EXISTS
 --( SELECT 1 FROM 
---		EDICHRY.ShipSchedules b
+--		EDIChryslerIC.ShipSchedules b
 -- JOIN 
---	EDICHRY.BlanketOrders bo ON b.CustomerPart = bo.CustomerPart
+--	EDIChryslerIC.BlanketOrders bo ON b.CustomerPart = bo.CustomerPart
 --AND
 --	b.ShipToCode = bo.EDIShipToCode
 --AND
@@ -1859,7 +1773,7 @@ EXEC msdb.dbo.sp_send_dbmail
 
 --UNION
 --SELECT
---	'EDICHRY'
+--	'EDIChryslerIC'
 --	,TradingPartner = COALESCE((SELECT MAX(TradingPartner) FROM fxEDI.EDI.EDIDocuments WHERE GUID = a.RawDocumentGUID) ,'')
 --,	DocumentType = 'PR'
 --,	AlertType =  'Exception Quantity Due'
@@ -1874,7 +1788,7 @@ EXEC msdb.dbo.sp_send_dbmail
 --FROM
 --	@Current830s a
 --JOIN
---		ediChry.PlanningReleases c
+--		EDIChryslerIC.PlanningReleases c
 --ON			c.RawDocumentGUID = a.RawDocumentGUID AND
 --				a.CustomerPart = c.CustomerPart AND
 --				a.ShipToCode =c.ShipToCode AND
@@ -1884,9 +1798,9 @@ EXEC msdb.dbo.sp_send_dbmail
 --		COALESCE(a.newDocument,0) = 1
 --AND  NOT EXISTS
 --( SELECT 1 FROM 
---		EDICHRY.PlanningReleases b
+--		EDIChryslerIC.PlanningReleases b
 -- JOIN 
---	EDICHRY.BlanketOrders bo ON b.CustomerPart = bo.CustomerPart
+--	EDIChryslerIC.BlanketOrders bo ON b.CustomerPart = bo.CustomerPart
 --AND
 --	b.ShipToCode = bo.EDIShipToCode
 --AND
@@ -1939,7 +1853,7 @@ declare
 ,	@Error integer
 
 execute
-	@ProcReturn = EDICHRY.usp_Process
+	@ProcReturn = EDIChryslerIC.usp_Process
 	@TranDT = @TranDT out
 ,	@Result = @ProcResult out
 ,	@Testing = 0
@@ -1949,9 +1863,6 @@ set	@Error = @@error
 
 select
 	@Error, @ProcReturn, @TranDT, @ProcResult
-go
-
-
 go
 
 commit transaction
@@ -1968,6 +1879,10 @@ go
 Results {
 }
 */
+
+
+
+
 
 
 

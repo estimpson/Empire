@@ -1,0 +1,252 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="SupplierEDIModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="XML_ReleasePlanDataRootFunctions">
+          <Key>
+            <PropertyRef Name="RowID" />
+          </Key>
+          <Property Name="OverlayGroup" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Status" Type="int" Nullable="false" />
+          <Property Name="Type" Type="int" Nullable="false" />
+          <Property Name="FunctionName" Type="nvarchar" MaxLength="128" />
+          <Property Name="RowID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RowCreateDT" Type="datetime" />
+          <Property Name="RowCreateUser" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="RowModifiedDT" Type="datetime" />
+          <Property Name="RowModifiedUser" Type="nvarchar" MaxLength="128" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'EEH.SupplierEDI.PurchaseOrders' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="PurchaseOrders">
+          
+          <Key>
+            <PropertyRef Name="RowID" />
+          </Key>
+          <Property Name="PurchaseOrderNumber" Type="int" Nullable="false" />
+          <Property Name="EmpireVendorCode" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="EmpireBlanketPart" Type="varchar" MaxLength="25" />
+          <Property Name="ReleaseCount" Type="int" />
+          <Property Name="TradingPartnerCode" Type="varchar" MaxLength="12" Nullable="false" />
+          <Property Name="OverlayGroup" Type="varchar" MaxLength="9" Nullable="false" />
+          <Property Name="FunctionName" Type="nvarchar" MaxLength="128" />
+          <Property Name="TodaySendFlag" Type="int" Nullable="false" />
+          <Property Name="AutoSendFlag" Type="int" Nullable="false" />
+          <Property Name="RowID" Type="bigint" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'EEH.SupplierEDI.TradingPartnerOverlayGroups' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="TradingPartnerOverlayGroups">
+          <Key>
+            <PropertyRef Name="TradingPartnerCode" />
+            <PropertyRef Name="OverlayGroup" />
+          </Key>
+          <Property Name="TradingPartnerCode" Type="varchar" MaxLength="12" Nullable="false" />
+          <Property Name="OverlayGroup" Type="varchar" MaxLength="9" Nullable="false" />
+        </EntityType>
+        <Function Name="usp_Get830XML" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="SupplierEDI">
+          <Parameter Name="TradingPartnerCode" Type="varchar" Mode="In" />
+          <Parameter Name="PurchaseOrderList" Type="varchar(max)" Mode="In" />
+          <Parameter Name="XMLGet830_FunctionName" Type="nvarchar" Mode="In" />
+          <Parameter Name="PurposeCode" Type="char" Mode="In" />
+          <Parameter Name="Complete" Type="bit" Mode="In" />
+          <Parameter Name="XML830" Type="xml" Mode="InOut" />
+          <Parameter Name="TranDT" Type="datetime" Mode="InOut" />
+          <Parameter Name="Result" Type="int" Mode="InOut" />
+          <Parameter Name="Debug" Type="int" Mode="In" />
+          <Parameter Name="DebugMsg" Type="varchar(max)" Mode="InOut" />
+        </Function>
+        <Function Name="usp_GetPurchaseOrderList" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="SupplierEDI">
+          <Parameter Name="TranDT" Type="datetime" Mode="InOut" />
+          <Parameter Name="Result" Type="int" Mode="InOut" />
+          <Parameter Name="Debug" Type="int" Mode="In" />
+          <Parameter Name="DebugMsg" Type="varchar(max)" Mode="InOut" />
+        </Function>
+        <EntityContainer Name="SupplierEDIModelStoreContainer">
+          <EntitySet Name="XML_ReleasePlanDataRootFunctions" EntityType="Self.XML_ReleasePlanDataRootFunctions" Schema="SupplierEDI" store:Type="Tables" />
+          <EntitySet Name="PurchaseOrders" EntityType="Self.PurchaseOrders" store:Type="Views" store:Schema="SupplierEDI">
+            <DefiningQuery>SELECT 
+    [PurchaseOrders].[PurchaseOrderNumber] AS [PurchaseOrderNumber], 
+    [PurchaseOrders].[EmpireVendorCode] AS [EmpireVendorCode], 
+    [PurchaseOrders].[EmpireBlanketPart] AS [EmpireBlanketPart], 
+    [PurchaseOrders].[ReleaseCount] AS [ReleaseCount], 
+    [PurchaseOrders].[TradingPartnerCode] AS [TradingPartnerCode], 
+    [PurchaseOrders].[OverlayGroup] AS [OverlayGroup], 
+    [PurchaseOrders].[FunctionName] AS [FunctionName], 
+    [PurchaseOrders].[TodaySendFlag] AS [TodaySendFlag], 
+    [PurchaseOrders].[AutoSendFlag] AS [AutoSendFlag], 
+    [PurchaseOrders].[RowID] AS [RowID]
+    FROM [SupplierEDI].[PurchaseOrders] AS [PurchaseOrders]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="TradingPartnerOverlayGroups" EntityType="Self.TradingPartnerOverlayGroups" store:Type="Views" store:Schema="SupplierEDI">
+            <DefiningQuery>SELECT 
+    [TradingPartnerOverlayGroups].[TradingPartnerCode] AS [TradingPartnerCode], 
+    [TradingPartnerOverlayGroups].[OverlayGroup] AS [OverlayGroup]
+    FROM [SupplierEDI].[TradingPartnerOverlayGroups] AS [TradingPartnerOverlayGroups]</DefiningQuery>
+          </EntitySet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="SupplierEDIModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="SupplierEDI_Entities" annotation:LazyLoadingEnabled="true" >
+          <FunctionImport Name="usp_GetPurchaseOrderList" ReturnType="Collection(SupplierEDIModel.usp_GetPurchaseOrderList_Result)">
+            <Parameter Name="TranDT" Mode="InOut" Type="DateTime" />
+            <Parameter Name="Result" Mode="InOut" Type="Int32" />
+            <Parameter Name="Debug" Mode="In" Type="Int32" />
+            <Parameter Name="DebugMsg" Mode="InOut" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="usp_Get830XML">
+            <Parameter Name="TradingPartnerCode" Mode="In" Type="String" />
+            <Parameter Name="PurchaseOrderList" Mode="In" Type="String" />
+            <Parameter Name="XMLGet830_FunctionName" Mode="In" Type="String" />
+            <Parameter Name="PurposeCode" Mode="In" Type="String" />
+            <Parameter Name="Complete" Mode="In" Type="Boolean" />
+            <Parameter Name="XML830" Mode="InOut" Type="String" />
+            <Parameter Name="TranDT" Mode="InOut" Type="DateTime" />
+            <Parameter Name="Result" Mode="InOut" Type="Int32" />
+            <Parameter Name="Debug" Mode="In" Type="Int32" />
+            <Parameter Name="DebugMsg" Mode="InOut" Type="String" />
+          </FunctionImport>
+          <EntitySet Name="XML_ReleasePlanDataRootFunctions" EntityType="SupplierEDIModel.XML_ReleasePlanDataRootFunctions" />
+          <EntitySet Name="PurchaseOrders" EntityType="SupplierEDIModel.PurchaseOrder" />
+          <EntitySet Name="TradingPartnerOverlayGroups" EntityType="SupplierEDIModel.TradingPartnerOverlayGroup" />
+        </EntityContainer>
+        <ComplexType Name="usp_GetPurchaseOrderList_Result">
+          <Property Type="Int32" Name="PurchaseOrderNumber" Nullable="false" />
+          <Property Type="String" Name="EmpireVendorCode" Nullable="false" MaxLength="10" />
+          <Property Type="String" Name="EmpireBlanketPart" Nullable="true" MaxLength="25" />
+          <Property Type="Int32" Name="ReleaseCount" Nullable="true" />
+          <Property Type="String" Name="TradingPartnerCode" Nullable="false" MaxLength="12" />
+          <Property Type="String" Name="OverlayGroup" Nullable="false" MaxLength="9" />
+          <Property Type="String" Name="FunctionName" Nullable="true" MaxLength="128" />
+          <Property Type="Int32" Name="TodaySendFlag" Nullable="false" />
+          <Property Type="Int32" Name="AutoSendFlag" Nullable="false" />
+          <Property Type="Int64" Name="RowID" Nullable="true" />
+        </ComplexType>
+        <EntityType Name="XML_ReleasePlanDataRootFunctions">
+          <Key>
+            <PropertyRef Name="RowID" />
+          </Key>
+          <Property Name="OverlayGroup" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Status" Type="Int32" Nullable="false" />
+          <Property Name="Type" Type="Int32" Nullable="false" />
+          <Property Name="FunctionName" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="RowID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RowCreateDT" Type="DateTime" Precision="3" />
+          <Property Name="RowCreateUser" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="RowModifiedDT" Type="DateTime" Precision="3" />
+          <Property Name="RowModifiedUser" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="PurchaseOrder">
+          <Key>
+            <PropertyRef Name="RowID" />
+          </Key>
+          <Property Name="PurchaseOrderNumber" Type="Int32" Nullable="false" />
+          <Property Name="EmpireVendorCode" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="EmpireBlanketPart" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+          <Property Name="ReleaseCount" Type="Int32" />
+          <Property Name="TradingPartnerCode" Type="String" Nullable="false" MaxLength="12" FixedLength="false" Unicode="false" />
+          <Property Name="OverlayGroup" Type="String" Nullable="false" MaxLength="9" FixedLength="false" Unicode="false" />
+          <Property Name="FunctionName" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="TodaySendFlag" Type="Int32" Nullable="false" />
+          <Property Name="AutoSendFlag" Type="Int32" Nullable="false" />
+          <Property Name="RowID" Type="Int64" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TradingPartnerOverlayGroup">
+          <Key>
+            <PropertyRef Name="TradingPartnerCode" />
+            <PropertyRef Name="OverlayGroup" />
+          </Key>
+          <Property Name="TradingPartnerCode" Type="String" Nullable="false" MaxLength="12" FixedLength="false" Unicode="false" />
+          <Property Name="OverlayGroup" Type="String" Nullable="false" MaxLength="9" FixedLength="false" Unicode="false" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="SupplierEDIModelStoreContainer" CdmEntityContainer="SupplierEDI_Entities" >
+          <FunctionImportMapping FunctionImportName="usp_GetPurchaseOrderList" FunctionName="SupplierEDIModel.Store.usp_GetPurchaseOrderList">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="SupplierEDIModel.usp_GetPurchaseOrderList_Result">
+                <ScalarProperty Name="PurchaseOrderNumber" ColumnName="PurchaseOrderNumber" />
+                <ScalarProperty Name="EmpireVendorCode" ColumnName="EmpireVendorCode" />
+                <ScalarProperty Name="EmpireBlanketPart" ColumnName="EmpireBlanketPart" />
+                <ScalarProperty Name="ReleaseCount" ColumnName="ReleaseCount" />
+                <ScalarProperty Name="TradingPartnerCode" ColumnName="TradingPartnerCode" />
+                <ScalarProperty Name="OverlayGroup" ColumnName="OverlayGroup" />
+                <ScalarProperty Name="FunctionName" ColumnName="FunctionName" />
+                <ScalarProperty Name="TodaySendFlag" ColumnName="TodaySendFlag" />
+                <ScalarProperty Name="AutoSendFlag" ColumnName="AutoSendFlag" />
+                <ScalarProperty Name="RowID" ColumnName="RowID" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="usp_Get830XML" FunctionName="SupplierEDIModel.Store.usp_Get830XML" />
+          <EntitySetMapping Name="XML_ReleasePlanDataRootFunctions">
+            <EntityTypeMapping TypeName="SupplierEDIModel.XML_ReleasePlanDataRootFunctions">
+              <MappingFragment StoreEntitySet="XML_ReleasePlanDataRootFunctions">
+                <ScalarProperty Name="RowModifiedUser" ColumnName="RowModifiedUser" />
+                <ScalarProperty Name="RowModifiedDT" ColumnName="RowModifiedDT" />
+                <ScalarProperty Name="RowCreateUser" ColumnName="RowCreateUser" />
+                <ScalarProperty Name="RowCreateDT" ColumnName="RowCreateDT" />
+                <ScalarProperty Name="RowID" ColumnName="RowID" />
+                <ScalarProperty Name="FunctionName" ColumnName="FunctionName" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="OverlayGroup" ColumnName="OverlayGroup" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PurchaseOrders">
+            <EntityTypeMapping TypeName="SupplierEDIModel.PurchaseOrder">
+              <MappingFragment StoreEntitySet="PurchaseOrders">
+                <ScalarProperty Name="RowID" ColumnName="RowID" />
+                <ScalarProperty Name="AutoSendFlag" ColumnName="AutoSendFlag" />
+                <ScalarProperty Name="TodaySendFlag" ColumnName="TodaySendFlag" />
+                <ScalarProperty Name="FunctionName" ColumnName="FunctionName" />
+                <ScalarProperty Name="OverlayGroup" ColumnName="OverlayGroup" />
+                <ScalarProperty Name="TradingPartnerCode" ColumnName="TradingPartnerCode" />
+                <ScalarProperty Name="ReleaseCount" ColumnName="ReleaseCount" />
+                <ScalarProperty Name="EmpireBlanketPart" ColumnName="EmpireBlanketPart" />
+                <ScalarProperty Name="EmpireVendorCode" ColumnName="EmpireVendorCode" />
+                <ScalarProperty Name="PurchaseOrderNumber" ColumnName="PurchaseOrderNumber" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TradingPartnerOverlayGroups">
+            <EntityTypeMapping TypeName="SupplierEDIModel.TradingPartnerOverlayGroup">
+              <MappingFragment StoreEntitySet="TradingPartnerOverlayGroups">
+                <ScalarProperty Name="OverlayGroup" ColumnName="OverlayGroup" />
+                <ScalarProperty Name="TradingPartnerCode" ColumnName="TradingPartnerCode" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

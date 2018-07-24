@@ -31,7 +31,7 @@ a.EEIEntry,
 a.ReleaseNo, 
 a.LineID
 FROM MONITOR.dbo.CustomerReleasePlanRaw a join MONITOR.dbo.customerreleaseplans b on a.releaseplanid = b.id 
-WHERE a.Part= @part
+WHERE a.Part like @part + '%'
 order by a.releaseplanid, 
 a.duedt
 GO

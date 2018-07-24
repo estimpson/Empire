@@ -1,0 +1,43 @@
+﻿@{
+    var gridHeader = Html.DevExpress().GridView(settings =>
+        {
+            settings.Name = "GridViewDetail_" + ViewBag.MasterID;
+
+            settings.CallbackRouteValues = new { Controller = "Home", Action = "DetailPartial", masterID = ViewBag.MasterID };
+
+            settings.SettingsEditing.Mode = GridViewEditingMode.PopupEditForm;
+
+            settings.KeyFieldName = "ID";
+
+            settings.Columns.Add(column =>
+            {
+                column.FieldName = "ID";
+            });
+            settings.Columns.Add(column =>
+            {
+                column.FieldName = "DetailName";
+            });
+
+            settings.Columns.Add(column =>
+            {
+                column.FieldName = "ID";
+                column.Caption = "HyperLink (Capitalize DetailName)";
+                column.SetDataItemTemplateContent(container =>
+                {
+                    Html.DevExpress().HyperLink(hl =>
+                    {
+                        hl.Name = string.Format("hl{0}", (container as GridViewDataItemTemplateContainer).VisibleIndex);
+                        hl.NavigateUrl = "javascript:void(0)";
+                        hl.Properties.ClientSideEvents.Click =
+                            string.Format("function(s, e) {{ ShowPopup('{0}'); }}", DataBinder.Eval(container.DataItem, "ID"));
+                        hl.Properties.Text = "Capitalize DetailName";
+                    }).Render();
+                });
+                column.Width = 100;
+            }
+            );                     
+        });
+}
+
+@gridHeader.Bind(Model).GetHtml()
+

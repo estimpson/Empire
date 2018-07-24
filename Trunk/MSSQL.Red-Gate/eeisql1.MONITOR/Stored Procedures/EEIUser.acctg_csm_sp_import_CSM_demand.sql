@@ -3,6 +3,7 @@ GO
 SET ANSI_NULLS ON
 GO
 
+
 -- select distinct(Release_id) from eeiuser.acctg_csm_naihs order by 1 desc
 -- exec eeiuser.acctg_csm_sp_import_CSM_demand '2016-08','CSM'
 
@@ -44,13 +45,42 @@ set	@TranDT = coalesce(@TranDT, GetDate())
 --- </Tran>
 
 ---	<ArgumentValidation>
+/*  Temp table must exist.  (The new import method uses an application to create a temp table and insert raw data into it.)  */  
+if not exists (
+		select
+			1
+		from
+			sys.tables
+		where
+			name = 'tempCSM' ) begin
+	
+	set	@Result = 999500
+	RAISERROR ('Data import failed.  The tempCSM table does not exist.', 16, 1)
+	rollback tran @ProcName
+	return	
+end
 
+/*  Imported data cannot be duplicated.  */
+if exists (
+		select
+			*
+		from
+			EEIUser.acctg_csm_NAIHS n
+			join tempCSM t
+				on n.Release_ID = @Release_ID
+				and n.[Version] = @Version
+				and n.[Mnemonic-Vehicle/Plant] = t.[Mnemonic-Vehicle/Plant] ) begin
+
+	set	@Result = 999501
+	RAISERROR ('Data import failed.  One or more records have already been imported.  (At least one match on Release ID, Version and Mnemonic-Vehicle/Plant was found in the database.)', 16, 1)
+	rollback tran @ProcName
+	return	
+end
 ---	</ArgumentValidation>
 
 
 --- <Body>  
 /*
-
 -- ***** This import method is obsolete *****
 
 if	objectproperty(object_id('tempdb..CSMTEMP'), 'IsTable') is null begin
@@ -70,20 +100,6 @@ from
 */
 
 
--- The new import method uses an application to create a temp table and insert the raw data into it 
-if not exists (
-		select
-			1
-		from
-			sys.tables
-		where
-			name = 'tempCSM' ) begin
-	
-	--set	@Result = 99
-	RAISERROR ('The tempCSM table does not exist.  Cannot complete the data import.', 16, 1)
-	--rollback tran @ProcName
-	return	
-end
 
 --- <Insert rows="1+">
 set	@TableName = 'MONITOR.eeiuser.acctg_csm_NAIHS'
@@ -140,6 +156,7 @@ insert
 ,	[Global Sales Price Class]
 ,	[Short Term Risk Rating]
 ,	[Long Term Risk Rating]
+/*
 ,	[Jan 2016]
 ,	[Feb 2016]
 ,	[Mar 2016]
@@ -152,6 +169,7 @@ insert
 ,	[Oct 2016]
 ,	[Nov 2016]
 ,	[Dec 2016]
+*/
 ,	[Jan 2017]
 ,	[Feb 2017]
 ,	[Mar 2017]
@@ -188,10 +206,24 @@ insert
 ,	[Oct 2019]
 ,	[Nov 2019]
 ,	[Dec 2019]
+,	[Jan 2020]
+,	[Feb 2020]
+,	[Mar 2020]
+,	[Apr 2020]
+,	[May 2020]
+,	[Jun 2020]
+,	[Jul 2020]
+,	[Aug 2020]
+,	[Sep 2020]
+,	[Oct 2020]
+,	[Nov 2020]
+,	[Dec 2020]
+/*
 ,	[Q1 2016]
 ,	[Q2 2016]
 ,	[Q3 2016]
 ,	[Q4 2016]
+*/
 ,	[Q1 2017]
 ,	[Q2 2017]
 ,	[Q3 2017]
@@ -224,7 +256,11 @@ insert
 ,	[Q2 2024]
 ,	[Q3 2024]
 ,	[Q4 2024]
-,	[CY 2016]
+,	[Q1 2025]
+,	[Q2 2025]
+,	[Q3 2025]
+,	[Q4 2025]
+--,	[CY 2016]
 ,	[CY 2017]
 ,	[CY 2018]
 ,	[CY 2019]
@@ -232,7 +268,8 @@ insert
 ,	[CY 2021]
 ,	[CY 2022]
 ,	[CY 2023]
-,	[CY 2024])
+,	[CY 2024]
+,	[CY 2025])
 select
 	@Release_ID
 ,	@Version
@@ -285,6 +322,7 @@ select
 ,   c.[Global Sales Price Class]
 ,   c.[Short-Term Risk Rating]
 ,   c.[Long-Term Risk Rating]
+/*
 ,   [Jan 2016] = dbo.udf_StringToInt(c.[Jan 2016])
 ,   [Feb 2016] = dbo.udf_StringToInt(c.[Feb 2016])
 ,   [Mar 2016] = dbo.udf_StringToInt(c.[Mar 2016])
@@ -297,6 +335,7 @@ select
 ,   [Oct 2016] = dbo.udf_StringToInt(c.[Oct 2016])
 ,   [Nov 2016] = dbo.udf_StringToInt(c.[Nov 2016])
 ,   [Dec 2016] = dbo.udf_StringToInt(c.[Dec 2016])
+*/
 ,   [Jan 2017] = dbo.udf_StringToInt(c.[Jan 2017])
 ,   [Feb 2017] = dbo.udf_StringToInt(c.[Feb 2017])
 ,   [Mar 2017] = dbo.udf_StringToInt(c.[Mar 2017])
@@ -333,10 +372,25 @@ select
 ,   [Oct 2019] = dbo.udf_StringToInt(c.[Oct 2019])
 ,   [Nov 2019] = dbo.udf_StringToInt(c.[Nov 2019])
 ,   [Dec 2019] = dbo.udf_StringToInt(c.[Dec 2019])
+
+,   [Jan 2020] = dbo.udf_StringToInt(c.[Jan 2020])
+,   [Feb 2020] = dbo.udf_StringToInt(c.[Feb 2020])
+,   [Mar 2020] = dbo.udf_StringToInt(c.[Mar 2020])
+,   [Apr 2020] = dbo.udf_StringToInt(c.[Apr 2020])
+,   [May 2020] = dbo.udf_StringToInt(c.[May 2020])
+,   [Jun 2020] = dbo.udf_StringToInt(c.[Jun 2020])
+,   [Jul 2020] = dbo.udf_StringToInt(c.[Jul 2020])
+,   [Aug 2020] = dbo.udf_StringToInt(c.[Aug 2020])
+,   [Sep 2020] = dbo.udf_StringToInt(c.[Sep 2020])
+,   [Oct 2020] = dbo.udf_StringToInt(c.[Oct 2020])
+,   [Nov 2020] = dbo.udf_StringToInt(c.[Nov 2020])
+,   [Dec 2020] = dbo.udf_StringToInt(c.[Dec 2020])
+/*
 ,   [Q1 2016] = dbo.udf_StringToInt(c.[Q1 2016])
 ,   [Q2 2016] = dbo.udf_StringToInt(c.[Q2 2016])
 ,   [Q3 2016] = dbo.udf_StringToInt(c.[Q3 2016])
 ,   [Q4 2016] = dbo.udf_StringToInt(c.[Q4 2016])
+*/
 ,   [Q1 2017] = dbo.udf_StringToInt(c.[Q1 2017])
 ,   [Q2 2017] = dbo.udf_StringToInt(c.[Q2 2017])
 ,   [Q3 2017] = dbo.udf_StringToInt(c.[Q3 2017])
@@ -369,7 +423,12 @@ select
 ,   [Q2 2024] = dbo.udf_StringToInt(c.[Q2 2024])
 ,   [Q3 2024] = dbo.udf_StringToInt(c.[Q3 2024])
 ,   [Q4 2024] = dbo.udf_StringToInt(c.[Q4 2024])
-,   [CY 2016] = dbo.udf_StringToInt(c.[CY 2016])
+,   [Q1 2025] = dbo.udf_StringToInt(c.[Q1 2025])
+,   [Q2 2025] = dbo.udf_StringToInt(c.[Q2 2025])
+,   [Q3 2025] = dbo.udf_StringToInt(c.[Q3 2025])
+,   [Q4 2025] = dbo.udf_StringToInt(c.[Q4 2025])
+
+--,   [CY 2016] = dbo.udf_StringToInt(c.[CY 2016])
 ,   [CY 2017] = dbo.udf_StringToInt(c.[CY 2017])
 ,   [CY 2018] = dbo.udf_StringToInt(c.[CY 2018])
 ,   [CY 2019] = dbo.udf_StringToInt(c.[CY 2019])
@@ -378,6 +437,7 @@ select
 ,   [CY 2022] = dbo.udf_StringToInt(c.[CY 2022])
 ,   [CY 2023] = dbo.udf_StringToInt(c.[CY 2023])
 ,   [CY 2024] = dbo.udf_StringToInt(c.[CY 2024])
+,   [CY 2025] = dbo.udf_StringToInt(c.[CY 2025])
 from
 	--tempdb..CSMTEMP c
 	tempCSM c -- this temp table is created by the application

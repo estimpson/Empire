@@ -30,7 +30,9 @@ CREATE TABLE [FT].[CommonSerialShipLog]
 [AETCNumber] [varchar] (20) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
 [Location] [varchar] (15) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
 [BOL] [varchar] (20) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
-[Lot] [varchar] (20) COLLATE SQL_Latin1_General_CP1_CI_AS NULL
+[Lot] [varchar] (20) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
+[SSR_ID] [varchar] (15) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
+[CleanDateEEH] [datetime] NULL
 ) ON [PRIMARY]
 GO
 ALTER TABLE [FT].[CommonSerialShipLog] ADD CONSTRAINT [PK__CommonSerialShip__5788D180] PRIMARY KEY CLUSTERED  ([ID]) ON [PRIMARY]

@@ -1,5 +1,6 @@
 declare
-	@TestPart varchar(25) = 'ALC0598-HC02'
+	@FinishedPart varchar(25) = 'ALC0598-HC02'
+	--@FinishedPart varchar(25) = 'ACH0021-HF00'
 
 /*	Calendar */
 declare
@@ -11,53 +12,38 @@ declare
 declare
 	@ThisMonday datetime = @Today + @MondayOffset
 declare
-	@Day1 datetime = @ThisMonday
-,	@Day2 datetime = @ThisMonday + 1
-,	@Day3 datetime = @ThisMonday + 2
-,	@Day4 datetime = @ThisMonday + 3
-,	@Day5 datetime = @ThisMonday + 4
-,	@Day6 datetime = @ThisMonday + 5
-,	@Day7 datetime = @ThisMonday + 6
-,	@Day8 datetime = @ThisMonday + 7
-,	@Day9 datetime = @ThisMonday + 8
-,	@Day10 datetime = @ThisMonday + 9
-,	@Day11 datetime = @ThisMonday + 10
-,	@Day12 datetime = @ThisMonday + 11
-,	@Day13 datetime = @ThisMonday + 12
-,	@Day14 datetime = @ThisMonday + 13
-,	@Day15 datetime = @ThisMonday + 14
-,	@Week1 datetime = @ThisMonday
-,	@Week2 datetime = @ThisMonday + 1 * 7
-,	@Week3 datetime = @ThisMonday + 2 * 7
-,	@Week4 datetime = @ThisMonday + 3 * 7
-,	@Week5 datetime = @ThisMonday + 4 * 7
+	@LastDaily datetime = @ThisMonday + 13
+declare
+	@PastDT datetime = @ThisMonday - 2
 
+declare
+	@Calendar table
+(	CalendarDT datetime
+,	DailyWeekly char(1)
+,	WeekNo int
+)
+
+insert
+	@Calendar
+(	CalendarDT
+,	DailyWeekly
+,	WeekNo
+)
 select
-	@Today
-,	@WkDay
-,	@MondayOffset
-,	@ThisMonday
-,	@Day1
-,	@Day2
-,	@Day3
-,	@Day4
-,	@Day5
-,	@Day6
-,	@Day7
-,	@Day8
-,	@Day9
-,	@Day10
-,	@Day11
-,	@Day12
-,	@Day13
-,	@Day14
-,	@Day15
-,	@Week1
-,	@Week2
-,	@Week3
-,	@Week4
-,	@Week5
-
+	CalendarDT = @ThisMonday + ur.RowNumber - 1
+,	'D'
+,	WeekNo = datediff(day, @ThisMonday, @ThisMonday + ur.RowNumber - 1)/7 + 1
+from
+	FT.udf_Rows(14) ur
+union all
+select
+	CalendarDT = @ThisMonday + (ur.RowNumber - 1) * 7
+,	'W'
+,	WeekNo = datediff(day, @ThisMonday, @ThisMonday + (ur.RowNumber - 1) * 7)/7 + 1
+from
+	FT.udf_Rows(58) ur
+where
+	ur.RowNumber > 2
 
 /*	Honduras Lead Time. */
 begin
@@ -67,7 +53,7 @@ declare
 	select
 		*
 	from
-		openquery(EEHSQL1, ''exec MONITOR.TOPS.Leg_GetHNLeadTime ''''' + @TestPart + ''''''')
+		openquery(EEHSQL1, ''exec MONITOR.TOPS.Leg_GetHNLeadTime ''''' + @FinishedPart + ''''''')
 
 '
 --print @LeadTimeSyntax
@@ -115,7 +101,7 @@ declare
 			@HNLeadTime
 	)
 declare
-	@LeadTimeDate datetime = @Week5 + @LeadTime
+	@LeadTimeDate datetime = @ThisMonday + 7 * 4 + @LeadTime
 
 end
 
@@ -159,7 +145,7 @@ begin
 	from
 		TOPS.Leg_PartMiscData lpmd
 	where
-		lpmd.Part = @TestPart
+		lpmd.Part = @FinishedPart
 
 	/*	Is there a min production (aka Misc data) data row. */
 	declare
@@ -265,7 +251,7 @@ begin
 	from
 		TOPS.Leg_DefaultPOs ldpo
 	where
-		ldpo.Part = @TestPart
+		ldpo.Part = @FinishedPart
 	
 	/*	Is there a default po (aka default po] data row. */
 	declare
@@ -298,7 +284,7 @@ begin
 		select
 			*
 		from
-			openquery(EEHSQL1, ''exec MONITOR.TOPS.Leg_Get_EEH_Capacity ''''' + left(@TestPart, 7) + ''''''')
+			openquery(EEHSQL1, ''exec MONITOR.TOPS.Leg_Get_EEH_Capacity ''''' + left(@FinishedPart, 7) + ''''''')
 
 '
 	--print @@EEH_CapacitySyntax
@@ -344,7 +330,7 @@ begin
 	from
 		TOPS.Leg_EOP
 	where
-		BasePart = left(@TestPart, 7)
+		BasePart = left(@FinishedPart, 7)
 
 	declare
 		@SOP datetime =
@@ -363,25 +349,267 @@ begin
 		)
 end
 
+/*	Troy OnHand Data. */
+begin
+	declare
+		@TroyOnHandData table
+	(	Serial int
+	,	Part varchar(25)
+	,	Location varchar(10)
+	,	Quantity numeric(20,6)
+	,	Type char(1)
+	,	LocationCode varchar(10)
+	)
+	
+	insert
+		@TroyOnHandData
+	select
+		*
+	from
+		TOPS.Leg_TroyOnHand
+	where
+		Part = @FinishedPart
 
+	declare
+		@InitOnHand numeric(20,6) =
+		(	select
+				sum(tohd.Quantity)
+			from
+				@TroyOnHandData tohd
+		)
+	declare
+		@InitBalance numeric(20,6) = @InitOnHand
+
+end
+
+/*	Customer requirements. */
+declare
+	@CustomerRequirements table
+(	DueDT datetime
+,	OrderQty numeric(20,6)
+,	DailyWeekly char(1)
+)
+
+insert
+	@CustomerRequirements
+(	DueDT
+,	OrderQty
+,	DailyWeekly
+)
+select
+	loo.DueDT
+,	loo.OrderQty
+,	DailyWeekly =
+		case
+			when loo.DueDT < @LastDaily then 'D'
+			else 'W'
+		end
+from
+	(	select
+			DueDT =
+				case
+					when loo.DueDT < @ThisMonday then @PastDT
+					when loo.DueDT < @LastDaily then loo.DueDT
+					else loo.MondayDate
+				end
+		,	OrderQty = sum(loo.Quantity)
+		from
+			TOPS.Leg_OpenOrders loo
+		where
+			loo.Part = @FinishedPart
+		group by
+			case
+				when loo.DueDT < @ThisMonday then @PastDT
+				when loo.DueDT < @LastDaily then loo.DueDT
+				else loo.MondayDate
+			end
+		) loo
+order by
+	1
+
+/*	In transit inventory. */
+declare
+	@InTransInventory table
+(	InTransDT datetime
+,	InTransQty numeric(20,6)
+)
+
+insert
+	@InTransInventory
+(	InTransDT
+,	InTransQty
+)
+select
+	lti.InTransDT
+,	InTransQty = sum(lti.InTransQty)
+from
+	TOPS.Leg_TransInventory lti
+where
+	lti.Part = @FinishedPart
+group by
+	lti.InTransDT
+order by
+	lti.InTransDT
+
+/*	On order with EEH. */
+declare
+	@OnOrderEEH table
+(	PONumber int
+,	OrderDT datetime
+,	OrderQty numeric(20,6)
+,	DailyWeekly char(1)
+)
+
+insert
+	@OnOrderEEH
+(	PONumber
+,	OrderDT
+,	OrderQty
+,	DailyWeekly
+)
+select
+	loo.PONumber
+,	loo.DueDT
+,	loo.Balance
+,	DailyWeekly =
+		case
+			when loo.DueDT < @LastDaily then 'D'
+			else 'W'
+		end
+from
+	(	select
+			PONumber = max(loo.PONumber)
+		,	DueDT =
+				case
+					when loo.DueDT < @ThisMonday then @PastDT
+					when loo.DueDT < @LastDaily then loo.DueDT
+					else loo.MondayDate
+				end
+		,	Balance = sum(loo.Balance)
+		from
+			TOPS.Leg_OnOrder loo
+		where
+			loo.Part = @FinishedPart
+		group by
+				case
+					when loo.DueDT < @ThisMonday then @PastDT
+					when loo.DueDT < @LastDaily then loo.DueDT
+					else loo.MondayDate
+				end
+	) loo
+order by
+	loo.DueDT
+
+/*	Generate Planning Snapshot. */
+declare
+	@PlanningHeaderXML xml =
+	(	select
+			*
+		from
+			(	select
+					[FinishedPart] = @FinishedPart
+				,	[CountIfMinProduction] = @CountIfMinProduction
+				,	[StandardPack] = @StandardPack
+				,	[CountIfDefaultPO] = @CountIfDefaultPO
+				,	[DefaultPO] = @DefaultPO
+				,	[SalesPrice] = @SalesPrice
+				,	[ABC_Class] = @ABC_Class
+				,	[ABC_Class_1] = @ABC_Class_1
+				,	[ABC_Class_2] = @ABC_Class_2
+				,	[LongestLeadtime] = @LongestLeadtime
+				,	[Backdays] = @Backdays
+				,	[LeadTime] = @LeadTime
+				,	[LeadTimeDate] = @LeadTimeDate
+				,	[EAU_EEI] = @EAU_EEI
+				,	[EEH_Capacity] = @EEH_Capacity
+				,	[SOP] = @SOP
+				,	[EOP] = @EOP
+				,	[CustomerPart] = @CustomerPart
+				,	[Description] = @Description
+				,	[InitOnHand] = @InitOnHand
+				,	[InitBalance] = @InitBalance
+			) PH
+		for xml auto
+	)
+
+declare
+	@KeyDatesXML xml =
+	(	select
+			*
+		from
+			(	select
+					[Today] = @Today
+				,	[WkDay] = @WkDay
+				,	[MondayOffset] = @MondayOffset
+				,	[ThisMonday] = @ThisMonday
+				,	[LastDaily] = @LastDaily
+				,	[PastDT] = @PastDT
+			) KD
+		for xml auto
+	)
+
+declare
+	@PlanningCalendarXML xml =
+	(	select
+			*
+		from
+			@Calendar PC
+		for xml auto
+	)
+
+declare
+	@CustomerRequirementsXML xml =
+	(	select
+			*
+		from
+			@CustomerRequirements CR
+		for xml auto
+	)
+
+declare
+	@InTransInventoryXML xml =
+	(	select
+			*
+		from
+			@InTransInventory ITI
+		for xml auto
+	)
+
+declare
+	@OnOrderEEhXML xml =
+	(	select
+			*
+		from
+			@OnOrderEEH OOE
+		for xml auto
+	)
+
+
+declare
+	@HolidaySchedule xml =
+	(	select
+			*
+		from
+			TOPS.HolidaySchedule HS
+		for xml auto
+	)
 
 select
-	[@TestPart] = @TestPart
-,	[@CountIfMinProduction] = @CountIfMinProduction
-,	[@StandardPack] = @StandardPack
-,	[@CountIfDefaultPO] = @CountIfDefaultPO
-,	[@DefaultPO] = @DefaultPO
-,	[@SalesPrice] = @SalesPrice
-,	[@ABC_Class] = @ABC_Class
-,	[@ABC_Class_1] = @ABC_Class_1
-,	[@ABC_Class_2] = @ABC_Class_2
-,	[@LongestLeadtime] = @LongestLeadtime
-,	[@Backdays] = @Backdays
-,	[@LeadTime] = @LeadTime
-,	[@LeadTimeDate] = @LeadTimeDate
-,	[@EAU_EEI] = @EAU_EEI
-,	[@EEH_Capacity] = @EEH_Capacity
-,	[@SOP] = @SOP
-,	[@EOP] = @EOP
-,	[@CustomerPart] = @CustomerPart
-,	[@Description] = @Description
+	PlanningSnapshot.PlanningHeader
+,	KeyDates = PlanningSnapshot.KeyDates
+,	PlanningSnapshot.PlanningCalendar
+,	PlanningSnapshot.CustomerRequirements
+,	PlanningSnapshot.InTransInventoryXML
+,	PlanningSnapshot.OnOrderEEhXML
+,	PlanningSnapshot.HolidaySchedule
+from
+	(	select
+			PlanningHeader = @PlanningHeaderXML
+		,	KeyDates = @KeyDatesXML
+		,	PlanningCalendar = @PlanningCalendarXML
+		,	CustomerRequirements = @CustomerRequirementsXML
+		,	InTransInventoryXML = @InTransInventoryXML
+		,	OnOrderEEhXML = @OnOrderEEhXML
+		,	HolidaySchedule = @HolidaySchedule
+	) PlanningSnapshot
+for xml auto

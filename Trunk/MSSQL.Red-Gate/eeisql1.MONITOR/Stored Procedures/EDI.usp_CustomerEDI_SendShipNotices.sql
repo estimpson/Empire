@@ -3,12 +3,17 @@ GO
 SET ANSI_NULLS ON
 GO
 
+
 CREATE procedure [EDI].[usp_CustomerEDI_SendShipNotices]
 	@ShipperList varchar(max) = null
 ,	@FTPMailboxOverride int = null
 ,	@TranDT datetime = null out
 ,	@Result integer = null out
 as
+
+-- 01/09/2018 asb Fore-Thought, LLC : Update shipper status for shippers to be ignored for ASN and remove same shipper IDs from @PendingShipNotices..
+
+
 set nocount on
 set ansi_warnings on
 set ansi_nulls on
@@ -91,7 +96,27 @@ else begin
 		coalesce(s.type, 'N') = 'N'
 		and s.status = 'C'
 		and s.date_shipped > getdate() - 10
+
+ -- 01/09/2018 asb Fore-Thought, LLC : Update shipper status for shippers to be ignored for ASN and remove same shipper IDs from @PendingShipNotices..
+
+		Update s
+		Set s.status = 'W'
+		From
+			shipper s
+		join
+			@PendingShipNotices psn on psn.shipperID = s.id
+		left join
+			[EDI].[vwIgnoreShippersForASN] ia on ia.ShipperID = psn.shipperID
+		where
+			isNull(ia.shipperID, 0) = s.id
+
+		delete psn
+		From  @PendingShipNotices [psn]
+		where psn.ShipperID in ( Select ShipperID from [EDI].[vwIgnoreShippersForASN]) 
+		
 end
+
+
 
 declare
 	PendingShipNotices cursor local for
@@ -386,6 +411,7 @@ go
 Results {
 }
 */
+
 
 
 

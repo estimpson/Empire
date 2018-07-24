@@ -3,29 +3,30 @@ GO
 SET ANSI_NULLS ON
 GO
 
-create view [EDI_XML_GM_SPO_ASN].[ASNHeaders]
-as
-select
+
+CREATE VIEW [EDI_XML_GM_SPO_ASN].[ASNHeaders]
+AS
+SELECT
 	ShipperID = s.id 
 ,	IConnectID = es.IConnectID
-,	TradingPartner = coalesce(es.trading_partner_code,'SPOEDIFACT')
-,	ASNDate = getdate()
+,	TradingPartner = COALESCE(es.trading_partner_code,'SPOEDIFACT')
+,	ASNDate = GETDATE()
 ,	ShipDateTime = s.date_shipped
-,	GrossWeightLbs = convert(int, coalesce(s.gross_weight,0))
-,	NetWeightLbs = convert(int, coalesce(s.net_weight,0))
-,	StagedObjs = convert(int, coalesce(s.staged_objs,0))
-,	TruckNo = s.truck_number
+,	GrossWeightLbs = CONVERT(INT, COALESCE(s.gross_weight,0))
+,	NetWeightLbs = CONVERT(INT, COALESCE(s.net_weight,0))
+,	StagedObjs = CONVERT(INT, COALESCE(s.staged_objs,0))
+,	TruckNo = COALESCE(NULLIF(s.truck_number,''), '001')
 ,	SCAC = s.ship_via
 ,	MaterialIssuer = es.material_issuer
-,	Destination = coalesce(nullif(es.parent_destination,''), s.destination,'')
+,	Destination = COALESCE(NULLIF(es.parent_destination,''), s.destination,'')
 ,	ShippingDock =s.shipping_dock
 ,	SupplierCode = es.supplier_code
 ,	TransMode = s.trans_mode
 ,	ProNumber = s.pro_number
-from
+FROM
 	dbo.shipper s 
-	join dbo.edi_setups es
-		on es.destination = s.destination
-	join dbo.shipper_detail sd
-		on sd.shipper = s.id
+	JOIN dbo.edi_setups es
+		ON es.destination = s.destination
+	
+
 GO

@@ -6,6 +6,8 @@ GO
 
 
 
+
+
 CREATE FUNCTION [EDI_XML_ALC_ASN].[udf_ASNLines]
 (	@ShipperID INT
 )
@@ -71,8 +73,8 @@ BEGIN
 	SELECT
 		ShipperID = sd.shipper
 	,	CustomerPart = sd.customer_part
-	,	CustomerPO = MAX(SUBSTRING(sd.customer_po, 1, ISNULL(PATINDEX('%:%', sd.customer_po),25)-1))
-	,	CustomerPOLine =  MAX(SUBSTRING(sd.customer_po, ISNULL(PATINDEX('%:%', sd.customer_po),35)+1,  25 ))
+	,	CustomerPO = MAX(CASE WHEN (sd.customer_po) LIKE '%[:]%' THEN SUBSTRING(sd.customer_po, 1, ISNULL(PATINDEX('%:%', sd.customer_po),25)-1) ELSE COALESCE(NULLIF(sd.customer_po,''),'NoPODefined') END)
+	,	CustomerPOLine = MAX(CASE WHEN (sd.customer_po) LIKE '%[:]%' THEN  SUBSTRING(sd.customer_po, ISNULL(PATINDEX('%:%', sd.customer_po),35)+1,  25 ) ELSE '999' END)
 	,	ObjectQty = at.ObjectQty * at.ObjectPackCount
 	,	AccumQty = MAX(CONVERT(INT, sd.accum_shipped))
 	,	PackagingIndicator = CASE WHEN COALESCE(pm0.returnable,'N') = 'Y'  THEN '1' ELSE '4' END
@@ -100,6 +102,8 @@ BEGIN
 ---	<Return>
 	RETURN
 END
+
+
 
 
 

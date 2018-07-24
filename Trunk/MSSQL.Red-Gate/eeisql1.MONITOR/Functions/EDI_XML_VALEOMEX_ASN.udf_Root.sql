@@ -5,7 +5,6 @@ GO
 
 
 
-
 CREATE FUNCTION [EDI_XML_VALEOMEX_ASN].[udf_Root]
 (	@ShipperID INT
 ,	@Purpose CHAR(2)
@@ -14,6 +13,8 @@ CREATE FUNCTION [EDI_XML_VALEOMEX_ASN].[udf_Root]
 RETURNS XML
 AS
 BEGIN
+
+-- Select  [EDI_XML_VALEOMEX_ASN].[udf_Root] (114266, '00', 1)
 --- <Body>
 	declare
 		@xmlOutput xml
@@ -93,7 +94,7 @@ BEGIN
 			,	PartPalletPackQtyDenseRank = dense_rank() over (partition by sd.customer_part, at.parent_serial order by at.quantity)
 
 			,	PalletDenseRank = dense_rank() over (order by sd.customer_part, at.parent_serial)
-			,	PackQtyDenseRank = dense_rank() over (order by sd.customer_part, at.parent_serial, at.quantity)
+			,	PackQtyDenseRank = dense_rank() over (order by sd.customer_part,  at.quantity)
 
 			from
 				audit_trail at
@@ -121,13 +122,13 @@ BEGIN
 	insert
 		@detailXML
 	select
-		IDNumber = 2 + min((vad.PartDenseRank - 1) + (vad.PalletDenseRank - 1) + (vad.PackQtyDenseRank - 1))
+		IDNumber = 2 + min((vad.PartDenseRank - 1) +  (vad.PackQtyDenseRank - 1))
 	,	(	select
 				EDI_XML.LOOP_INFO('HL')
 			,	EDI_XML_V4010.SEG_HL
-					(	2 + min((vad.PartDenseRank - 1) + (vad.PalletDenseRank - 1) + (vad.PackQtyDenseRank - 1))
+					(	2 + min((vad.PartDenseRank - 1) +  (vad.PackQtyDenseRank - 1))
 					,	1
-					,	'T'
+					,	'O'
 					,	null
 					)
 			,	EDI_XML_VALEOMEX_ASN.SEG_LIN('00010', 'BP', vad.CustomerPart, 'PO', max(vad.CustomerPO), 'EC', max(vad.EngineeringLevel))
@@ -143,46 +144,22 @@ BEGIN
 	insert
 		@detailXML
 	select
-		IDNumber = 3 + min((vad.PartDenseRank - 1) + (vad.PalletDenseRank - 1) + (vad.PackQtyDenseRank - 1))
+		IDNumber = 3 + min((vad.PartDenseRank - 1) +  (vad.PackQtyDenseRank - 1))
 	,	(	select
 				EDI_XML.LOOP_INFO('HL')
 			,	EDI_XML_V4010.SEG_HL
-					(	3 + min((vad.PartDenseRank - 1) + (vad.PalletDenseRank - 1) + (vad.PackQtyDenseRank - 1))
-					,	2 + min((vad.PartDenseRank - 1) + (vad.PalletDenseRank - 1) + (vad.PackQtyDenseRank - 1) - 2*(vad.PartPalletDenseRank - 1))
-					,	'O'
-					,	null
-					)
-			,	EDI_XML_V4010.SEG_REF('LS', vad.SupplierCode + convert(varchar, max(vad.MasterSerial)))
-			for xml raw ('LOOP-HL'), type
-		)
-	from
-		@ValeoASNDetails vad
-	group by
-		vad.SupplierCode
-	,	vad.CustomerPart
-	,	vad.ParentSerial
-	,	vad.MasterSerial
-
-	insert
-		@detailXML
-	select
-		IDNumber = 4 + min((vad.PartDenseRank - 1) + (vad.PalletDenseRank - 1) + (vad.PackQtyDenseRank - 1) - (vad.PartPalletPackQtyDenseRank - 1))
-	,	(	select
-				EDI_XML.LOOP_INFO('HL')
-			,	EDI_XML_V4010.SEG_HL
-					(	4 + min((vad.PartDenseRank - 1) + (vad.PalletDenseRank - 1) + (vad.PackQtyDenseRank - 1) - (vad.PartPalletPackQtyDenseRank - 1))
-					,	3 + min((vad.PartDenseRank - 1) + (vad.PalletDenseRank - 1) + (vad.PackQtyDenseRank - 1) - (vad.PartPalletPackQtyDenseRank - 1))
+					(	3 + min((vad.PartDenseRank - 1) + (vad.PackQtyDenseRank - 1))
+					,	2 + min((vad.PartDenseRank - 1)  + (vad.PackQtyDenseRank - 1) )
 					,	'I'
 					,	null
 					)
-				,	EDI_XML_V4010.SEG_SN1(null, max(vad.BoxQuantity), 'PC', null)
+			,	EDI_XML_V4010.SEG_SN1(null, max(vad.BoxQuantity), 'PC', null)
 			,	(	select
 		 				EDI_XML_V4010.SEG_REF('LS', vad.SupplierCode + convert(varchar, vads.BoxSerial))
 		 			from
 		 				@ValeoASNDetails vadS
 					where
 						vads.CustomerPart = vad.CustomerPart
-						and vadS.ParentSerial = vad.ParentSerial
 					for xml path (''),type
 		 		)
 			for xml raw ('LOOP-HL'), type
@@ -192,8 +169,38 @@ BEGIN
 	group by
 		vad.SupplierCode
 	,	vad.CustomerPart
-	,	vad.ParentSerial
-	,	vad.MasterSerial
+
+	--insert
+	--	@detailXML
+	--select
+	--	IDNumber = 4 + min((vad.PartDenseRank - 1) + (vad.PalletDenseRank - 1) + (vad.PackQtyDenseRank - 1) - (vad.PartPalletPackQtyDenseRank - 1))
+	--,	(	select
+	--			EDI_XML.LOOP_INFO('HL')
+	--		,	EDI_XML_V4010.SEG_HL
+	--				(	4 + min((vad.PartDenseRank - 1) + (vad.PalletDenseRank - 1) + (vad.PackQtyDenseRank - 1) - (vad.PartPalletPackQtyDenseRank - 1))
+	--				,	3 + min((vad.PartDenseRank - 1) + (vad.PalletDenseRank - 1) + (vad.PackQtyDenseRank - 1) - (vad.PartPalletPackQtyDenseRank - 1))
+	--				,	'I'
+	--				,	null
+	--				)
+	--			,	EDI_XML_V4010.SEG_SN1(null, max(vad.BoxQuantity), 'PC', null)
+	--		,	(	select
+	--	 				EDI_XML_V4010.SEG_REF('LS', vad.SupplierCode + convert(varchar, vads.BoxSerial))
+	--	 			from
+	--	 				@ValeoASNDetails vadS
+	--				where
+	--					vads.CustomerPart = vad.CustomerPart
+	--					and vadS.ParentSerial = vad.ParentSerial
+	--				for xml path (''),type
+	--	 		)
+	--		for xml raw ('LOOP-HL'), type
+	--	)
+	--from
+	--	@ValeoASNDetails vad
+	--group by
+	--	vad.SupplierCode
+	--,	vad.CustomerPart
+	--,	vad.ParentSerial
+	--,	vad.MasterSerial
 
 	declare
 		@ItemLoops int
@@ -273,6 +280,8 @@ BEGIN
 	RETURN
 		@xmlOutput
 END
+
+
 
 
 

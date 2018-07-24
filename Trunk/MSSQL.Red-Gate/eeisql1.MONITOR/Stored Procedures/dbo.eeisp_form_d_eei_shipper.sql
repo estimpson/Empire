@@ -8,11 +8,14 @@ GO
 
 
 
+
 CREATE PROCEDURE [dbo].[eeisp_form_d_eei_shipper] ( @shipper VARCHAR(15) )
 AS 
     BEGIN
     
- -- [dbo].[eeisp_form_d_eei_shipper] 73638
+ -- [dbo].[eeisp_form_d_eei_shipper] 113881
+
+ 
  /*if exists (	select	1 
 			from		shipper_detail
 			join		object on shipper_detail.shipper = object.shipper and shipper_detail.part_original = object.part
@@ -116,26 +119,26 @@ End*/
                UPPER(COALESCE(plant.address_2, parameters.address_2))AS PlantAddress2,
                UPPER(COALESCE(plant.address_3, parameters.address_3)) AS PlantAddress3,
                COALESCE(NULLIF(order_header.line_feed_code,''),(SELECT MAX(oh.line_feed_code) FROM order_header oh WHERE oh.customer_part = shipper_detail.customer_part AND oh.destination = shipper.destination ),'') AS LineFeedCode_SumitronicsPartNumber,
-				CASE WHEN COALESCE(shipper_detail.customer_po,'') LIKE '%Spot%' THEN '' ELSE shipper_detail.customer_po END  AS CustomerPurchaseOrder,
+				CASE WHEN COALESCE(AutoSystemsEDIRelease.AutoSystemsPO, shipper_detail.customer_po,'') LIKE '%Spot%' THEN '' ELSE COALESCE(AutoSystemsEDIRelease.AutoSystemsPO, shipper_detail.customer_po) END  AS CustomerPurchaseOrder,
 				CASE
 					WHEN Shipper.customer = 'ES3GM' THEN 0
 					WHEN Shipper.customer = 'ES3DRAEXL' THEN 0
 					WHEN Shipper.customer = 'ES3DUNCANB' THEN 0
 					WHEN Shipper.customer = 'ES3SUMMIT' THEN 0
 					WHEN Shipper.customer = 'ES3AUTO' THEN 0
-					WHEN part.product_line like '%ES3%' THEN 1
-					WHEN part.product_line like '%EPL%' THEN 2
+					WHEN part.product_line LIKE '%ES3%' THEN 1
+					WHEN part.product_line LIKE '%EPL%' THEN 2
 				ELSE 0
-				END as Logo
+				END AS Logo
                
         FROM    shipper
                 JOIN 
 					destination ON shipper.destination = destination.destination
                 LEFT JOIN 
 					destination plant ON shipper.plant = plant.destination AND plant.plant IS NOT NULL
-                left JOIN 
+                LEFT JOIN 
 					destination_shipping ON destination.destination = destination_shipping.destination
-                left JOIN 
+                LEFT JOIN 
 					edi_setups ON shipper.destination = edi_setups.destination
                 LEFT JOIN 
 					destination consignee ON shipper.shipping_dock = consignee.destination
@@ -151,11 +154,28 @@ End*/
 					part_inventory ON part.part = part_inventory.part
                 LEFT JOIN 
 					carrier ON shipper.ship_via = carrier.scac
+				LEFT JOIN
+					EDIAutoSystems.BlanketOrders bo ON bo.BlanketOrderNo = shipper_detail.order_no
+				OUTER APPLY
+					( SELECT TOP 1 cpr.CustomerPO AutoSystemsPO
+						FROM 
+							EDI4010.CurrentPlanningReleases() cpr
+						JOIN
+						EDI4010.PlanningHeaders ph ON ph.RawDocumentGUID = cpr.RawDocumentGUID
+						WHERE 
+							ShipFromCode = 'US0842' AND
+							cpr.ShipToCode = bo.EDIShipToCode AND
+							cpr.CustomerPart = bo.CustomerPart
+                        
+						ORDER BY ph.DocumentDT DESC	
+					) AutoSystemsEDIRelease
+				 
                 CROSS JOIN dbo.parameters
         WHERE   ( ( CONVERT (VARCHAR(15), id) = @shipper  ) )    
-
+		
 
     END
+
 
 
 

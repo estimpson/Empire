@@ -4,39 +4,41 @@ SET ANSI_NULLS ON
 GO
 
 
-CREATE view [EDI_XML_NORPLAS_ASN].[ASNHeaders]
-as
-select
+
+CREATE VIEW [EDI_XML_NORPLAS_ASN].[ASNHeaders]
+AS
+SELECT
 	ShipperID = s.id
 ,	IConnectID = es.IConnectID
 ,	ShipDateTime = s.date_shipped
-,	ASNDate = getdate()
-,	ASNTime = getdate()
-,	TimeZoneCode = [dbo].[udfGetDSTIndication](getdate())
-,	TradingPartner	= coalesce(nullif(trading_partner_code,''), 'Formet Testing')
+,	ASNDate = GETDATE()
+,	ASNTime = GETDATE()
+,	TimeZoneCode = [dbo].[udfGetDSTIndication](GETDATE())
+,	TradingPartner	= COALESCE(NULLIF(trading_partner_code,''), 'Formet Testing')
 ,	ShipToCode = es.parent_destination
-,	ShipToID = coalesce(es.parent_destination, '966850612')
+,	ShipToID = COALESCE(es.parent_destination, '966850612')
 ,	ShipToName = d.name
-,	SupplierCode = coalesce(nullif(es.supplier_code,''),'2485858130')
-,	MaterialIssuerCode = coalesce(es.material_issuer,'966850612')
+,	SupplierCode = COALESCE(NULLIF(es.supplier_code,''),'2485858130')
+,	MaterialIssuerCode = COALESCE(es.material_issuer,'966850612')
 ,	PackCount = s.staged_objs
-,	GrossWeight = convert(int, round(coalesce(nullif(s.gross_weight,0),(s.staged_objs*1.1)+1), 0))
-,	NetWeight =  convert(int, round(coalesce(nullif(s.net_weight,0),s.staged_objs), 0))
+,	GrossWeight = CONVERT(INT, ROUND(COALESCE(NULLIF(s.gross_weight,0),(s.staged_objs*1.1)+1), 0))
+,	NetWeight =  CONVERT(INT, ROUND(COALESCE(NULLIF(s.net_weight,0),s.staged_objs), 0))
 ,	Carrier = s.ship_via
-,	TrailerNumber = coalesce( nullif(s.truck_number,''), convert(varchar(max),s.id))
+,	TrailerNumber =LEFT(COALESCE( NULLIF(s.truck_number,''), CONVERT(VARCHAR(MAX),s.id)),8)
 ,	TransMode = s.trans_mode
 ,	PackingListNumber = s.id
-,	REFBMValue = coalesce(s.bill_of_lading_number, id)
+,	REFBMValue = COALESCE(s.bill_of_lading_number, id)
 ,	REFPKValue = s.id
 
 
-from
+FROM
 	dbo.shipper s
-	join dbo.edi_setups es
-		on s.destination = es.destination
-	join dbo.destination d
-		on s.destination = d.destination
-	left join dbo.bill_of_lading bol
-		on s.bill_of_lading_number = bol_number
+	JOIN dbo.edi_setups es
+		ON s.destination = es.destination
+	JOIN dbo.destination d
+		ON s.destination = d.destination
+	LEFT JOIN dbo.bill_of_lading bol
+		ON s.bill_of_lading_number = bol_number
+
 
 GO

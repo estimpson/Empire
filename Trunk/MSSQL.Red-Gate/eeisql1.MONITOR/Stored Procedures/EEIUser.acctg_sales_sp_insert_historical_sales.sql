@@ -6,10 +6,11 @@ GO
 
 
 
--- select * from eeiuser.sales_1 where forecast_name like '%Actual%'
+
+-- select * from eeiuser.sales_1 where forecast_name like '%Actual%' and forecast_name like '%2017%' order by 2
 
 
--- exec eeiuser.acctg_sales_sp_insert_historical_sales '2017/04/30 ACTUAL', '2017-04-30 12:00:00.000', '2017-01-01','2017-04-30'
+-- exec eeiuser.acctg_sales_sp_insert_historical_sales '2017/12/31 ACTUAL', '2017-12-31 12:00:00.000', '2017-01-01','2017-12-31'
 
 
 CREATE procedure [EEIUser].[acctg_sales_sp_insert_historical_sales] (@forecast_name varchar(100),@time_stamp datetime,@FromDate datetime , @throughDate datetime)
@@ -42,6 +43,7 @@ group by	team,
 		basepart, 
 		datepart(MONTH, date_shipped),
 		datepart(YEAR, date_shipped)
+
 
 
 

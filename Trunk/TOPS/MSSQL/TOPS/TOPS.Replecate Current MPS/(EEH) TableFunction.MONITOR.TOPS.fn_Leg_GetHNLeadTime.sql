@@ -24,53 +24,130 @@ returns @HNLeadTime table
 as
 begin
 --- <Body>
+	declare
+		@BOM table
+	(	TopPart varchar(25)
+	,	Part varchar(25)
+	,	RealLeadTime int
+	,	BackDays int
+	)
+
+	if	@ProductionPart is null begin
+		declare
+			@finParts table
+		(	FinPart varchar(25) primary key
+		)
+
+		insert
+			@finParts
+		(	FinPart
+		)
+		select distinct
+			FinPart = mps.part
+		from
+			dbo.master_prod_sched mps
+			join dbo.part pFin
+				on pFin.part = mps.part
+				and pFin.type = 'F'
+			
+		insert
+			@BOM
+		(	TopPart
+		,	Part
+		,	RealLeadTime
+		,	BackDays
+		)
+		select
+			TopPart = bq.TopPart
+		,	Part = bq.Part
+		,	RealLeadTime = bq.real_lead_time
+		,	BackDays = pe.backdays
+		from
+			HN.BOM_Query bq
+			left join dbo.part_eecustom pe
+				on pe.part = bq.Part
+		where
+			bq.PartType = 'R'
+			and bq.TopPart in
+				(	select
+						FinPart
+					from
+						@finParts
+				)
+	end
+	else begin
+			
+		insert
+			@BOM
+		(	TopPart
+		,	Part
+		,	RealLeadTime
+		,	BackDays
+		)
+		select
+			TopPart = bq.TopPart
+		,	Part = bq.Part
+		,	RealLeadTime = bq.real_lead_time
+		,	BackDays = pe.backdays
+		from
+			HN.BOM_Query bq
+			left join dbo.part_eecustom pe
+				on pe.part = bq.Part
+		where
+			bq.PartType = 'R'
+			and bq.TopPart  = @ProductionPart
+	end
+
 	insert
 		@HNLeadTime
+	(	TopPart
+	,	Part
+	,	RealLeadTime
+	,	LongestLeadTime
+	,	BackDays
+	)
 	select
-		*
+		b.TopPart
+		,	b.Part
+		,	b.RealLeadTime
+		,	b.RealLeadTime
+		,	b.BackDays
 	from
-	(
-		select
-			bom.toppart
-		,	bom.part
-		,	bom.real_lead_time
-		,	longest_leadtime =
-			(
-				select
-					max(bom1.real_lead_time)
-				from
-					Monitor.HN.bom_query bom1 with (nolock)
-				where
-					bom1.parttype = 'r'
-					and bom1.toppart = bom.toppart
-			)
-		,	pe.backdays
-		from
-			Monitor.HN.bom_query bom with (nolock)
-			join
-			(
-				select distinct
-					mps.part
-				from
-					Monitor.dbo.master_prod_sched mps with (nolock)
-					join Monitor.dbo.part p with (nolock)
-						on p.part = mps.part
-				where
-					p.type = 'f'
-			) FG
-				on FG.part = bom.toppart
-			left join part_eecustom pe
-				on pe.part = bom.part
-		where
-			bom.parttype = 'r'
-	) as t1
+		(	select
+				b.TopPart
+			,	b.Part
+			,	b.RealLeadTime
+			,	b.BackDays
+			,	RowNumber = row_number() over(partition by b.TopPart order by b.TopPart, b.RealLeadTime desc)
+			from
+				@BOM b
+		) b
 	where
-		t1.real_lead_time >= t1.longest_leadtime
-		and t1.TopPart = @ProductionPart
+		b.RowNumber = 1
 --- </Body>
 
 ---	<Return>
 	return
 end
+go
+
+select
+	flghlt.TopPart
+,	flghlt.Part
+,	flghlt.RealLeadTime
+,	flghlt.LongestLeadTime
+,	flghlt.BackDays
+from
+	TOPS.fn_Leg_GetHNLeadTime('ADC0146-HF00') flghlt
+go
+
+select
+	flghlt.TopPart
+,	flghlt.Part
+,	flghlt.RealLeadTime
+,	flghlt.LongestLeadTime
+,	flghlt.BackDays
+from
+	TOPS.fn_Leg_GetHNLeadTime(null) flghlt
 go
 

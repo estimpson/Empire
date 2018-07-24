@@ -1,7 +1,25 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 11.00
 # SQL Server Management Studio Solution File, Format Version 11.00
+Project("{4F2E2C19-372F-40D8-9FA7-9D2138C6997A}") = "TOPS.Current MPS Queries", "TOPS.Current MPS Queries\TOPS.Current MPS Queries.ssmssqlproj", "{1B577AF9-0660-41F4-8AA3-A3CE01A06C41}"
+EndProject
+Project("{4F2E2C19-372F-40D8-9FA7-9D2138C6997A}") = "TOPS.Replecate Current MPS", "TOPS.Replecate Current MPS\TOPS.Replecate Current MPS.ssmssqlproj", "{00E4513E-B329-4061-9460-EAAF50C632A8}"
+EndProject
+Project("{4F2E2C19-372F-40D8-9FA7-9D2138C6997A}") = "FXSYS", "FXSYS\FXSYS.ssmssqlproj", "{6E2A0826-0115-4216-9156-29407CA109E8}"
+EndProject
+Project("{4F2E2C19-372F-40D8-9FA7-9D2138C6997A}") = "TOPS.Analysis.ReleaseHistory", "TOPS.Analysis.ReleaseHistory\TOPS.Analysis.ReleaseHistory.ssmssqlproj", "{93FAD207-2421-4049-8323-ABECF73D7C77}"
+EndProject
 Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Default|Default = Default|Default
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{1B577AF9-0660-41F4-8AA3-A3CE01A06C41}.Default|Default.ActiveCfg = Default
+		{00E4513E-B329-4061-9460-EAAF50C632A8}.Default|Default.ActiveCfg = Default
+		{6E2A0826-0115-4216-9156-29407CA109E8}.Default|Default.ActiveCfg = Default
+		{93FAD207-2421-4049-8323-ABECF73D7C77}.Default|Default.ActiveCfg = Default
+		{B8B06758-181A-460C-83BF-CA43B382E84E}.Default|Default.ActiveCfg = Default
+	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection

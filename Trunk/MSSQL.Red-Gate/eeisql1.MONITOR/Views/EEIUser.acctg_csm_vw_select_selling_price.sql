@@ -6,13 +6,6 @@ GO
 
 
 
-
-
-
-
-
-
-
 CREATE view [EEIUser].[acctg_csm_vw_select_selling_price]
 as
 select		base_part, 
@@ -27,7 +20,8 @@ select		base_part,
 			sum(sep_10) as sp_sep_10,
 			sum(oct_10) as sp_oct_10,
 			sum(nov_10) as sp_nov_10,
-			sum(dec_10) as sp_dec_10,			
+			sum(dec_10) as sp_dec_10,
+						
 			sum(jan_11) as sp_jan_11,
 			sum(feb_11) as sp_feb_11,
 			sum(mar_11) as sp_mar_11,
@@ -40,6 +34,7 @@ select		base_part,
 			sum(oct_11) as sp_oct_11,
 			sum(nov_11) as sp_nov_11,
 			sum(dec_11) as sp_dec_11,
+
 			sum(jan_12) as sp_jan_12,
 			sum(feb_12) as sp_feb_12,
 			sum(mar_12) as sp_mar_12,
@@ -52,6 +47,7 @@ select		base_part,
 			sum(oct_12) as sp_oct_12,
 			sum(nov_12) as sp_nov_12,
 			sum(dec_12) as sp_dec_12,
+
 			sum(jan_13) as sp_jan_13,
 			sum(feb_13) as sp_feb_13,
 			sum(mar_13) as sp_mar_13,
@@ -64,6 +60,7 @@ select		base_part,
 			sum(oct_13) as sp_oct_13,
 			sum(nov_13) as sp_nov_13,
 			sum(dec_13) as sp_dec_13,
+
 			sum(jan_14) as sp_jan_14,
 			sum(feb_14) as sp_feb_14,
 			sum(mar_14) as sp_mar_14,
@@ -76,6 +73,7 @@ select		base_part,
 			sum(oct_14) as sp_oct_14,
 			sum(nov_14) as sp_nov_14,
 			sum(dec_14) as sp_dec_14,
+
 			sum(jan_15) as sp_jan_15,
 			sum(feb_15) as sp_feb_15,
 			sum(mar_15) as sp_mar_15,
@@ -88,6 +86,7 @@ select		base_part,
 			sum(oct_15) as sp_oct_15,
 			sum(nov_15) as sp_nov_15,
 			sum(dec_15) as sp_dec_15,
+
 			sum(jan_16) as sp_jan_16,
 			sum(feb_16) as sp_feb_16,
 			sum(mar_16) as sp_mar_16,
@@ -140,7 +139,19 @@ select		base_part,
 			sum(nov_19) as sp_nov_19,
 			sum(dec_19) as sp_dec_19,
 
+			sum(jan_20) as sp_jan_20,
+			sum(feb_20) as sp_feb_20,
+			sum(mar_20) as sp_mar_20,
+			sum(apr_20) as sp_apr_20,
+			sum(may_20) as sp_may_20,
+			sum(jun_20) as sp_jun_20,
+			sum(jul_20) as sp_jul_20,
+			sum(aug_20) as sp_aug_20,
+			sum(sep_20) as sp_sep_20,
+			sum(oct_20) as sp_oct_20,
+			sum(nov_20) as sp_nov_20,
 			sum(dec_20) as sp_dec_20,
+
 			sum(dec_21) as sp_dec_21,
 			sum(dec_22) as sp_dec_22,
 			sum(dec_23) as sp_dec_23,
@@ -151,6 +162,7 @@ from		eeiuser.acctg_csm_selling_prices_tabular
 where		release_id = (Select	[dbo].[fn_ReturnLatestCSMRelease] ('CSM') ) 
 
 group by	base_part
+
 
 
 

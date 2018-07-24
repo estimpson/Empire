@@ -3,6 +3,8 @@ GO
 SET ANSI_NULLS ON
 GO
 
+
+
 CREATE PROCEDURE [EDINAL].[usp_Process]
 	@TranDT DATETIME = NULL OUT
 ,	@Result INTEGER = NULL OUT
@@ -709,103 +711,7 @@ and			fh.Status = 1 --(select dbo.udf_StatusValue('EDINAL.ShipScheduleHeaders', 
 /*		830s. */
 --Get 830s where Prior Accum is defined as Adjustnment accum and customer prior accum > fx accum shipped
 UNION ALL
-Select
-	ReleaseType = 2
-,	OrderNo = bo.BlanketOrderNo
-,	Type = 1
-,	ReleaseDT = dateadd(dd, -1, min(dateadd(dd, ReleaseDueDTOffsetDays, fr.ReleaseDT)))
-,	BlanketPart = min(bo.PartCode)
-,	CustomerPart = min(bo.CustomerPart)
-,	ShipToID = min(bo.ShipToCode)
-,	CustomerPO = min(bo.CustomerPO)
-,	ModelYear = min(bo.ModelYear)
-,	OrderUnit = min(bo.OrderUnit)
-,	ReleaseNo = 'CustDemandPriorAccum'
-,	QtyRelease = 0
-,	StdQtyRelease = 0
-,	ReferenceAccum = case bo.ReferenceAccum 
-												When 'N' 
-												then min(coalesce(convert(int,bo.AccumShipped),0))
-												When 'C' 
-												then min(coalesce(convert(int,fa.LastAccumQty),0))
-												else min(coalesce(convert(int,bo.AccumShipped),0))
-												end
-,	CustomerAccum = case bo.AdjustmentAccum 
-												When 'N' 
-												then min(coalesce(convert(int,bo.AccumShipped),0))
-												When 'P' 
-												then min(coalesce(convert(int,faa.PriorCUM),0))
-												else min(coalesce(convert(int,fa.LastAccumQty),0))
-												end
-	,	(	select
-				min(c.NewDocument)
-			from
-				@current830s c
-			where
-				c.RawDocumentGUID = fh.RawDocumentGUID
-		)
-from
-	EDINAL.PlanningHeaders fh
-	join EDINAL.PlanningReleases fr
-		on fr.RawDocumentGUID = fh.RawDocumentGUID
-	left join EDINAL.PlanningAccums fa
-		on fa.RawDocumentGUID = fh.RawDocumentGUID
-		and fa.CustomerPart = fr.CustomerPart
-		and	fa.ShipToCode = fr.ShipToCode
-		and	coalesce(fa.CustomerPO,'') = coalesce(fr.CustomerPO,'')
-		and	coalesce(fa.CustomerModelYear,'') = coalesce(fr.CustomerModelYear,'')
-	left join EDINAL.PlanningAuthAccums faa
-		on faa.RawDocumentGUID = fh.RawDocumentGUID
-		and faa.CustomerPart = fr.CustomerPart
-		and	faa.ShipToCode = fr.ShipToCode
-		and	coalesce(faa.CustomerPO,'') = coalesce(fr.CustomerPO,'')
-		and	coalesce(faa.CustomerModelYear,'') = coalesce(fr.CustomerModelYear,'')
-	join EDINAL.BlanketOrders bo
-		on bo.EDIShipToCode = fr.ShipToCode
-		and bo.CustomerPart = fr.CustomerPart
-		and
-		(	bo.CheckCustomerPOPlanning = 0
-			or bo.CustomerPO = fr.CustomerPO
-		)
-		and
-		(	bo.CheckModelYearPlanning = 0
-			or bo.ModelYear862 = fr.CustomerModelYear
-		)
-		join
-				(Select * From @Current830s) c 
-			on
-				c.CustomerPart = bo.customerpart and
-				c.ShipToCode = bo.EDIShipToCode and
-				(	bo.CheckCustomerPOPlanning = 0
-							or bo.CustomerPO = c.CustomerPO
-				)
-					and	(	bo.CheckModelYearPlanning = 0
-							or bo.ModelYear862 = c.CustomerModelYear
-				)
-	Where   fh.Status = 1 
-	and		c.RawDocumentGUID = fr.RawDocumentGUID
-	and		bo.AdjustmentAccum = 'P'
-group by
-	bo.BlanketOrderNo
-,	fh.RawDocumentGUID
-,	bo.ReferenceAccum
-,	bo.AdjustmentAccum 
-having
-					case bo.AdjustmentAccum 
-												When 'N' 
-												then  min(coalesce(convert(int,bo.AccumShipped),0))
-												When 'P' 
-												then min(coalesce(convert(int,faa.PriorCUM),0))
-												else min(coalesce(convert(int,fa.LastAccumQty),0))
-												end > 
-												case bo.ReferenceAccum 
-												When 'N' 
-												then min(coalesce(convert(int,bo.AccumShipped),0))
-												When 'C' 
-												then min(coalesce(convert(int,fa.LastAccumQty),0))
-												else min(coalesce(convert(int,bo.AccumShipped),0))
-												end
-Union all
+
 select
 	ReleaseType = 2
 ,	OrderNo = bo.BlanketOrderNo
@@ -830,15 +736,15 @@ select
 												When 'N' 
 												then coalesce(convert(int,bo.AccumShipped),0)
 												When 'C' 
-												then coalesce(convert(int,fa.LastAccumQty),0)
+												then coalesce(convert(int,bo.AccumShipped),0)
 												else coalesce(convert(int,bo.AccumShipped),0)
 												end
 ,	CustomerAccum = case bo.AdjustmentAccum 
 												When 'N' 
 												then coalesce(convert(int,bo.AccumShipped),0)
 												When 'P' 
-												then coalesce(convert(int,faa.PriorCUM),0)
-												else coalesce(convert(int,fa.LastAccumQty),0)
+												then coalesce(convert(int,bo.AccumShipped),0)
+												else coalesce(convert(int,bo.AccumShipped),0) -- 
 												end
 ,	NewDocument =
 		(	select
@@ -913,151 +819,15 @@ set
 from
 	@RawReleases rr
 
-if	@Testing = 0 begin
-	delete
-		rr
-	from
-		@RawReleases rr
-	where
-		rr.NewDocument = 0
-end
-
-/*		Update accums for Orders where Accum Difference has been inserted for immediate delivery */
---update
---	@RawReleases
---set
---	RelPost = CustomerAccum + coalesce (
---	(	select
---			sum (StdQtyRelease)
---		from
---			@RawReleases
---		where
---			OrderNo = rr.OrderNo
---			and Type = rr.Type
---			and	RowID <= rr.RowID), 0)
---from
---	@RawReleases rr
-
-	
---/*		Calculate orders to update. */
---update
---	rr
---set
---	NewDocument =
---	(	select
---			max(NewDocument)
---		from
---			@RawReleases rr2
---		where
---			rr2.OrderNo = rr.OrderNo
---	)
---from
---	@RawReleases rr
-
---if	@Testing = 0 begin
---	delete
---		rr
---	from
---		@RawReleases rr
---	where
---		rr.NewDocument = 0
---end
-
---ASB FT, LLC 08-09-2016 Write NAL Releases to @Releases2
-
---declare
---	@RawReleases2 table
---(	RowID int not null IDENTITY(1, 1) primary key
---,	Status int default(0)
---,	ReleaseType int
---,	OrderNo int
---,	Type tinyint
---,	ReleaseDT datetime
---,	BlanketPart varchar(25)
---,	CustomerPart varchar(35)
---,	ShipToID varchar(20)
---,	CustomerPO varchar(20)
---,	ModelYear varchar(4)
---,	OrderUnit char(2)
---,	QtyShipper numeric(20,6)
---,	Line int
---,	ReleaseNo varchar(30)
---,	DockCode varchar(30) null
---,	LineFeedCode varchar(30) null
---,	ReserveLineFeedCode varchar(30) null
---,	QtyRelease numeric(20,6)
---,	StdQtyRelease numeric(20,6)
---,	ReferenceAccum numeric(20,6)
---,	CustomerAccum numeric(20,6)
---,	RelPrior numeric(20,6)
---,	RelPost numeric(20,6)
---,	NewDocument int
---,	unique
---	(	OrderNo
---	,	NewDocument
---	,	RowID
---	)
---,	unique
---	(	OrderNo
---	,	RowID
---	,	RelPost
---	,	QtyRelease
---	,	StdQtyRelease
---	)
---,	unique
---	(	OrderNo
---	,	Type
---	,	RowID
---	)
---)
+	--SELECT  CustomerPart, ReleaseDT, ReleaseType, ReleaseNo, QtyRelease, ReferenceAccum, CustomerAccum, referenceaccum-CustomerAccum, Status, RelPrior, RelPost, RowID  FROM @RawReleases WHERE CustomerPart = '301-11802DX9' ORDER BY ReleaseType ASC, ReleaseDT asc
 
 
---Insert @RawReleases2
---(	ReleaseType
---,	OrderNo
---,	Type
---,	ReleaseDT
---,	BlanketPart
---,	CustomerPart
---,	ShipToID
---,	CustomerPO
---,	ModelYear
---,	OrderUnit
---,	ReleaseNo
---,	QtyRelease
---,	StdQtyRelease
---,	ReferenceAccum
---,	CustomerAccum
---,	NewDocument
---)
---Select 
---	ReleaseType
---,	OrderNo
---,	Type
---,	ReleaseDT
---,	BlanketPart
---,	CustomerPart
---,	ShipToID
---,	CustomerPO
---,	ModelYear
---,	OrderUnit
---,	ReleaseNo
---,	QtyRelease
---,	StdQtyRelease
---,	ReferenceAccum
---,	CustomerAccum
---,	NewDocument
---from 
---@RawReleases where BlanketPart like 'NAL%'
+--Andre S. Boulanger FT, LLC 2017-12-19 - Remove planning rows that are due before last firm row
 
-
---Delete @RawReleases where BlanketPart like 'NAL%'
-
---delete		rr2
---from		@RawReleases2 rr2
--- OUTER APPLY ( Select max(rr3.ReleaseDT) as LastSSDT from @RawReleases2 rr3 where rr3.CustomerPart = rr2.customerPart and rr3.ShipToID =  rr2.ShipToID and rr3.type = 1 group by rr3.CustomerPart, rr3.ShipToID ) ShipSched
---where rr2.Type =  2 and
---rr2.ReleaseDT <= LastSSDT
+DELETE RRP   
+FROM  @RawReleases RRP
+OUTER APPLY ( SELECT TOP 1 ReleaseDT LastFirmDate FROM @RawReleases RRF WHERE RRF.OrderNo = RRP.OrderNo AND RRF.Type = 1 ORDER BY ReleaseDT DESC ) FirmReleases
+WHERE RRP.Type = 2 AND RRP.ReleaseDT <= FirmReleases.LastFirmDate
 
 update
 	@RawReleases
@@ -1074,31 +844,34 @@ set
 from
 	@RawReleases rr
 
+update
+	@RawReleases
+set
+	RelPost =  coalesce (
+	(	select
+			sum (StdQtyRelease)
+		from
+			@RawReleases
+		where
+			OrderNo = rr.OrderNo
+			and ReleaseType = rr.ReleaseType
+			and	RowID <= rr.RowID
+			AND ReleaseType = 2), 0) 
+from
+	@RawReleases rr
+WHERE
+	rr.ReleaseType = 2
+
+update
+	@RawReleases
+set
+	RelPost =  rr.relPost  + COALESCE(MaxFirmAccum.MaxSSAccum, rr.ReferenceAccum)
+from
+	@RawReleases rr
+OUTER APPLY (SELECT TOP 1 rr3.RelPost MaxSSAccum FROM @RawReleases rr3 WHERE rr3.ReleaseType =  1 AND rr3.OrderNo = rr.OrderNo order BY rr3.RelPost desc ) AS MaxFirmAccum
+WHERE
+	rr.ReleaseType = 2
 	
---/*		Calculate orders to update. */
---update
---	rr
---set
---	NewDocument =
---	(	select
---			max(NewDocument)
---		from
---			@RawReleases rr2
---		where
---			rr2.OrderNo = rr.OrderNo
---	)
---from
---	@RawReleases rr
-
---delete
---	rr
---from
---	@RawReleases rr
---where
---	rr.NewDocument = 0
-
-
-/*		Calculate running cumulatives. */
 
 
 update
@@ -1123,17 +896,7 @@ set
 from
 	@RawReleases rr
 
-	--For Armada Only..Update Release Number with Accum Increase if customer's accum causes the qty to be increased
-	update
-	rr
-set
-		releaseNo = 'Accum Increase'
-from
-	@RawReleases rr
-where
-		RelPost-RelPrior > QtyRelease
-		and releaseNo != 'CustDemandPriorAccum'
-
+	
 
 update
 	rr
@@ -1196,6 +959,7 @@ from
 		on shipSchedule.orderNo = rr.OrderNo
 where
 	rr.status = 0
+
 
 --<Debug>
 if @Debug & 1 = 1 begin
@@ -2201,6 +1965,8 @@ go
 Results {
 }
 */
+
+
 
 
 

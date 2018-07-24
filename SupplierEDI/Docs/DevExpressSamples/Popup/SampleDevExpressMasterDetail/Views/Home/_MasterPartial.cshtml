@@ -1,0 +1,32 @@
+﻿@{
+    var gridHeader = Html.DevExpress().GridView(settings =>
+        {
+            settings.Name = "GridViewHeader";
+            
+            settings.CallbackRouteValues = new { Controller = "Home", Action = "MasterPartial" };
+            settings.CustomActionRouteValues = new { Controller = "Home", Action = "MasterCustomActionPartial" };
+            
+            settings.SettingsEditing.Mode = GridViewEditingMode.PopupEditForm;
+
+            settings.KeyFieldName = "ID";
+
+            settings.Columns.Add(column =>
+            {
+                column.FieldName = "ID";
+            });
+            settings.Columns.Add(column =>
+            {
+                column.FieldName = "MasterName";
+            });
+
+            //Render Details
+            settings.SettingsDetail.AllowOnlyOneMasterRowExpanded = true;
+            settings.SettingsDetail.ShowDetailRow = true;
+            settings.SetDetailRowTemplateContent(c =>
+            {
+                Html.RenderAction("DetailPartial", new { masterID = DataBinder.Eval(c.DataItem, "ID") });
+            });
+        });
+}
+
+@gridHeader.Bind(Model).GetHtml()

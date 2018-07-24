@@ -7,6 +7,7 @@ GO
 
 
 
+
 CREATE view [FT].[vwCommonSerial_ShipLogInProcess]
 as
 select	ShipLog.RowStatus,
@@ -37,7 +38,9 @@ select	ShipLog.RowStatus,
 	AETCNumber = ShipLog.AETCNumber,
 	BOL= ShipLog.BOL,
 	ShipperLocation = ShipLog.Location,
-	Lot = ShipLog.lot
+	Lot = ShipLog.lot,
+	ShipLog.SSR_ID,
+	ShipLog.CleanDateEEH
 	--RcvdPlant = po_header.plant
 from	FT.CommonSerialShipLog ShipLog
 	left outer join part_online on ShipLog.Part = part_online.part
