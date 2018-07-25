@@ -247,22 +247,13 @@ namespace WebPortal.NewSalesAward.Pages {
         protected global::DevExpress.Web.ASPxButton btnSubmit;
         
         /// <summary>
-        /// pnlDocument control.
+        /// lblCustCommitDoc control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel pnlDocument;
-        
-        /// <summary>
-        /// lblDocSectionTitle control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::DevExpress.Web.ASPxLabel lblDocSectionTitle;
+        protected global::DevExpress.Web.ASPxLabel lblCustCommitDoc;
         
         /// <summary>
         /// tbxDocName control.
@@ -272,33 +263,6 @@ namespace WebPortal.NewSalesAward.Pages {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::DevExpress.Web.ASPxTextBox tbxDocName;
-        
-        /// <summary>
-        /// btnDocSave control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::DevExpress.Web.ASPxButton btnDocSave;
-        
-        /// <summary>
-        /// btnDocDelete control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::DevExpress.Web.ASPxButton btnDocDelete;
-        
-        /// <summary>
-        /// btnDocGet control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::DevExpress.Web.ASPxButton btnDocGet;
         
         /// <summary>
         /// pcError control.
@@ -353,5 +317,41 @@ namespace WebPortal.NewSalesAward.Pages {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::DevExpress.Web.ASPxLabel lblUploadStatus;
+        
+        /// <summary>
+        /// pnlDocument control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel pnlDocument;
+        
+        /// <summary>
+        /// btnDocSave control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::DevExpress.Web.ASPxButton btnDocSave;
+        
+        /// <summary>
+        /// btnDocDelete control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::DevExpress.Web.ASPxButton btnDocDelete;
+        
+        /// <summary>
+        /// btnDocGet control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::DevExpress.Web.ASPxButton btnDocGet;
     }
 }

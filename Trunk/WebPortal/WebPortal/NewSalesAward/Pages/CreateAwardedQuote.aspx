@@ -187,6 +187,22 @@
                                     <dx:ASPxButton ID="btnSubmit" runat="server" Text="Submit" OnClick="btnSubmit_Click" TabIndex="8" ValidationGroup="G"></dx:ASPxButton>
                                 </td>
                             </tr>
+                            <tr>
+                                <td>
+                                    &nbsp;
+                                </td>
+                                <td>
+                                    &nbsp; <br /><br />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <dx:ASPxLabel ID="lblCustCommitDoc" runat="server" Text="Customer commitment doc:" Width="136" />
+                                </td>
+                                <td>
+                                    <dx:ASPxTextBox ID="tbxDocName" runat="server" ReadOnly="true" ClientEnabled="false" Width="305" />
+                                </td>
+                            </tr>
                         </table>
 
                     </asp:Panel>
@@ -194,42 +210,6 @@
                 </div>
 
 
-
-
-                <div style="margin-top: 65px;">
-                    <asp:Panel ID="pnlDocument" runat="server">
-                    <table class="tbl">
-                        <tr>
-                            <td>
-                                <dx:ASPxLabel ID="lblDocSectionTitle" runat="server" Text="Customer commitment doc:" Width="136" />
-                            </td>
-                            <td colspan="3">
-                                <dx:ASPxTextBox ID="tbxDocName" runat="server" ReadOnly="true" Width="300" />
-                            </td>
-                            <td>
-                                &nbsp;
-                            </td>
-                            <td>
-                                &nbsp;
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                &nbsp;
-                            </td>
-                            <td>
-                                <dx:ASPxButton ID="btnDocSave" runat="server" Text="Upload" OnClick="btnDocSave_Click"></dx:ASPxButton>
-                            </td>
-                            <td>
-                                <dx:ASPxButton ID="btnDocDelete" runat="server" Text="Delete" OnClick="btnDocDelete_Click"></dx:ASPxButton>
-                            </td>
-                            <td>
-                                <dx:ASPxButton ID="btnDocGet" runat="server" Text="Get" OnClick="btnDocGet_Click"></dx:ASPxButton>
-                            </td>
-                        </tr>
-                    </table>
-                    </asp:Panel>
-                </div>
 
 
 
@@ -250,10 +230,9 @@
 
                 </ContentTemplate>
                     <Triggers>
-                        <asp:PostBackTrigger ControlID="btnDocSave" />
+
                     </Triggers>
                 </asp:UpdatePanel>
-
 
 
 
@@ -286,5 +265,29 @@
             </dx:PanelContent>
         </PanelCollection>
     </dx:ASPxCallbackPanel>
+
+
+
+
+
+    <div style="margin: 0px 0px 0px 145px;">
+        <asp:Panel ID="pnlDocument" runat="server">
+            <table class="tbl">
+                <tr>
+                    <td>
+                        <dx:ASPxButton ID="btnDocSave" runat="server" Text="Upload" OnClick="btnDocSave_Click"></dx:ASPxButton>
+                    </td>
+                    <td>
+                        <dx:ASPxButton ID="btnDocDelete" runat="server" Text="Delete" OnClick="btnDocDelete_Click"></dx:ASPxButton>
+                    </td>
+                    <td>
+                        <dx:ASPxButton ID="btnDocGet" runat="server" Text="Get" OnClick="btnDocGet_Click"></dx:ASPxButton>
+                    </td>
+                </tr>
+            </table>
+        </asp:Panel>
+    </div>
+
+
 
 </asp:Content>
