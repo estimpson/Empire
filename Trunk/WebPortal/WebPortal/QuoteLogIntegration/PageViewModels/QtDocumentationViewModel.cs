@@ -25,7 +25,6 @@ namespace WebPortal.QuoteLogIntegration.PageViewModels
 
         public QtDocumentationViewModel()
         {
-            OperatorCode = System.Web.HttpContext.Current.Session["op"].ToString();
         }
 
         #endregion

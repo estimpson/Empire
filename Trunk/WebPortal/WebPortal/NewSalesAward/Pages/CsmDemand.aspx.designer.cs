@@ -112,13 +112,13 @@ namespace WebPortal.NewSalesAward.Pages {
         protected global::DevExpress.Web.ASPxLabel lblMnemonic;
         
         /// <summary>
-        /// tbxMnemonic control.
+        /// memoMnemonic control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::DevExpress.Web.ASPxTextBox tbxMnemonic;
+        protected global::DevExpress.Web.ASPxMemo memoMnemonic;
         
         /// <summary>
         /// lblQtyPer control.
@@ -139,24 +139,6 @@ namespace WebPortal.NewSalesAward.Pages {
         protected global::DevExpress.Web.ASPxTextBox tbxQtyPer;
         
         /// <summary>
-        /// lblTakeRate control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::DevExpress.Web.ASPxLabel lblTakeRate;
-        
-        /// <summary>
-        /// tbxTakeRate control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::DevExpress.Web.ASPxTextBox tbxTakeRate;
-        
-        /// <summary>
         /// lblFamilyAllocation control.
         /// </summary>
         /// <remarks>
@@ -175,13 +157,22 @@ namespace WebPortal.NewSalesAward.Pages {
         protected global::DevExpress.Web.ASPxTextBox tbxFamilyAllocation;
         
         /// <summary>
-        /// btnAssignMnemonic control.
+        /// lblCurrentTakeRate control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::DevExpress.Web.ASPxButton btnAssignMnemonic;
+        protected global::DevExpress.Web.ASPxLabel lblCurrentTakeRate;
+        
+        /// <summary>
+        /// tbxCurrentTakeRate control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::DevExpress.Web.ASPxTextBox tbxCurrentTakeRate;
         
         /// <summary>
         /// btnUpdateMnemonic control.
@@ -193,15 +184,6 @@ namespace WebPortal.NewSalesAward.Pages {
         protected global::DevExpress.Web.ASPxButton btnUpdateMnemonic;
         
         /// <summary>
-        /// btnRemoveMnemonic control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::DevExpress.Web.ASPxButton btnRemoveMnemonic;
-        
-        /// <summary>
         /// ASPxGlobalEvents1 control.
         /// </summary>
         /// <remarks>
@@ -209,6 +191,123 @@ namespace WebPortal.NewSalesAward.Pages {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::DevExpress.Web.ASPxGlobalEvents ASPxGlobalEvents1;
+        
+        /// <summary>
+        /// lblSpace control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::DevExpress.Web.ASPxLabel lblSpace;
+        
+        /// <summary>
+        /// lblCalcTakeRateTitle1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::DevExpress.Web.ASPxLabel lblCalcTakeRateTitle1;
+        
+        /// <summary>
+        /// lblQuotedEauCalc control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::DevExpress.Web.ASPxLabel lblQuotedEauCalc;
+        
+        /// <summary>
+        /// tbxQuotedEauCalc control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::DevExpress.Web.ASPxTextBox tbxQuotedEauCalc;
+        
+        /// <summary>
+        /// lblQtyPerCalc control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::DevExpress.Web.ASPxLabel lblQtyPerCalc;
+        
+        /// <summary>
+        /// tbxQtyPerCalc control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::DevExpress.Web.ASPxTextBox tbxQtyPerCalc;
+        
+        /// <summary>
+        /// lblFamilyAllocationCalc control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::DevExpress.Web.ASPxLabel lblFamilyAllocationCalc;
+        
+        /// <summary>
+        /// tbxFamilyAllocationCalc control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::DevExpress.Web.ASPxTextBox tbxFamilyAllocationCalc;
+        
+        /// <summary>
+        /// lblForecastDemanCalc control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::DevExpress.Web.ASPxLabel lblForecastDemanCalc;
+        
+        /// <summary>
+        /// tbxForecastDemandCalc control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::DevExpress.Web.ASPxTextBox tbxForecastDemandCalc;
+        
+        /// <summary>
+        /// lblTakeRateCalc control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::DevExpress.Web.ASPxLabel lblTakeRateCalc;
+        
+        /// <summary>
+        /// tbxCalculatedTakeRate control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::DevExpress.Web.ASPxTextBox tbxCalculatedTakeRate;
+        
+        /// <summary>
+        /// btnUseTakeRate control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::DevExpress.Web.ASPxButton btnUseTakeRate;
         
         /// <summary>
         /// divMnemonicGrid control.
@@ -238,6 +337,24 @@ namespace WebPortal.NewSalesAward.Pages {
         protected global::System.Web.UI.WebControls.EntityDataSource edsCsmData;
         
         /// <summary>
+        /// edsCsmData2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.EntityDataSource edsCsmData2;
+        
+        /// <summary>
+        /// EntityServerModeDataSource control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::DevExpress.Data.Linq.EntityServerModeDataSource EntityServerModeDataSource;
+        
+        /// <summary>
         /// odsCsmData control.
         /// </summary>
         /// <remarks>
@@ -245,6 +362,15 @@ namespace WebPortal.NewSalesAward.Pages {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.ObjectDataSource odsCsmData;
+        
+        /// <summary>
+        /// btnHid control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::DevExpress.Web.ASPxButton btnHid;
         
         /// <summary>
         /// pcError control.

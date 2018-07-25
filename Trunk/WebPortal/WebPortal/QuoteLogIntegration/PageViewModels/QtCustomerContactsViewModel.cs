@@ -19,7 +19,6 @@ namespace WebPortal.QuoteLogIntegration.PageViewModels
 
         public QtCustomerContactsViewModel()
         {
-            OperatorCode = System.Web.HttpContext.Current.Session["op"].ToString();
         }
 
         #endregion

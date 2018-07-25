@@ -11,6 +11,7 @@ namespace WebPortal.NewSalesAward.Models
 {
     using System;
     
+    [Serializable]
     public partial class usp_GetCustomerShipTos_Result
     {
         public string Destination { get; set; }

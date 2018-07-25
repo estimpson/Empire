@@ -15,7 +15,9 @@ namespace WebPortal.QuoteLogIntegration.Models
     {
         public int RowID { get; set; }
         public string Title { get; set; }
-        public string Initials { get; set; }
+        public string EmployeeCode { get; set; }
         public Nullable<System.DateTime> SignOffDate { get; set; }
+        public string Initials { get; set; }
+        public string EmployeeName { get; set; }
     }
 }

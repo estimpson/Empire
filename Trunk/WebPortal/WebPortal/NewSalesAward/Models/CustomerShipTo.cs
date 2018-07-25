@@ -13,12 +13,17 @@ namespace WebPortal.NewSalesAward.Models
     using System.Collections.Generic;
     
     [Serializable]
-    public partial class Salespeople
+    public partial class CustomerShipTo
     {
-        public string UserName { get; set; }
-        public string UserCode { get; set; }
-        public string UserInitials { get; set; }
-        public string EmailAddress { get; set; }
-        public long RowID { get; set; }
+        public string CustomerCode { get; set; }
+        public string ShipToCode { get; set; }
+        public string CustomerName { get; set; }
+        public string ShipToName { get; set; }
+        public string Address1 { get; set; }
+        public string Address2 { get; set; }
+        public string Address3 { get; set; }
+        public string Address4 { get; set; }
+        public string Address5 { get; set; }
+        public string Address6 { get; set; }
     }
 }

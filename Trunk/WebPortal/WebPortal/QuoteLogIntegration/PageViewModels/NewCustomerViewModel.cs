@@ -23,7 +23,7 @@ namespace WebPortal.QuoteLogIntegration.PageViewModels
 
         public NewCustomerViewModel()
         {
-            OperatorCode = System.Web.HttpContext.Current.Session["op"].ToString();
+            OperatorCode = System.Web.HttpContext.Current.Session["OpCode"].ToString();
         }
 
         #endregion

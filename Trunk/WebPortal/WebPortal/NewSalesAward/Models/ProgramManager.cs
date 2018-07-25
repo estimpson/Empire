@@ -12,6 +12,7 @@ namespace WebPortal.NewSalesAward.Models
     using System;
     using System.Collections.Generic;
     
+    [Serializable]
     public partial class ProgramManager
     {
         public string UserName { get; set; }

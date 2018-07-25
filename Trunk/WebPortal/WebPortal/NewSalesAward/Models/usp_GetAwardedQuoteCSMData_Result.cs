@@ -11,6 +11,7 @@ namespace WebPortal.NewSalesAward.Models
 {
     using System;
     
+    [Serializable]
     public partial class usp_GetAwardedQuoteCSMData_Result
     {
         public string ReleaseID { get; set; }
@@ -25,6 +26,9 @@ namespace WebPortal.NewSalesAward.Models
         public Nullable<System.DateTime> CSM_SOP { get; set; }
         public Nullable<System.DateTime> CSM_EOP { get; set; }
         public int ActiveFlag { get; set; }
+        public decimal DemandYear1 { get; set; }
+        public decimal DemandYear2 { get; set; }
+        public decimal DemandYear3 { get; set; }
         public long RowID { get; set; }
     }
 }

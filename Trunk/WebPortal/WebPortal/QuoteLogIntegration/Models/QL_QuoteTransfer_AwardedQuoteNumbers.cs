@@ -7,18 +7,15 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace WebPortal.NewSalesAward.Models
+namespace WebPortal.QuoteLogIntegration.Models
 {
     using System;
     using System.Collections.Generic;
     
-    [Serializable]
-    public partial class Salespeople
+    public partial class QL_QuoteTransfer_AwardedQuoteNumbers
     {
-        public string UserName { get; set; }
-        public string UserCode { get; set; }
-        public string UserInitials { get; set; }
-        public string EmailAddress { get; set; }
-        public long RowID { get; set; }
+        public string QuoteNumber { get; set; }
+        public string EEIPartNumber { get; set; }
+        public int RowID { get; set; }
     }
 }

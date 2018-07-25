@@ -401,10 +401,22 @@
     <Compile Include="NewSalesAward\Models\BasePartMnemonic.cs">
       <DependentUpon>NewSalesAwardModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="NewSalesAward\Models\CSMData.cs">
+    <Compile Include="NewSalesAward\Models\CustomerCommitmentForm.cs">
       <DependentUpon>NewSalesAwardModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="NewSalesAward\Models\CustomerCommitmentForm.cs">
+    <Compile Include="NewSalesAward\Models\CustomerShipTo.cs">
+      <DependentUpon>NewSalesAwardModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="NewSalesAward\Models\EmpireFacility.cs">
+      <DependentUpon>NewSalesAwardModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="NewSalesAward\Models\EmpireMarketSegment.cs">
+      <DependentUpon>NewSalesAwardModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="NewSalesAward\Models\EmpireMarketSubsegment.cs">
+      <DependentUpon>NewSalesAwardModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="NewSalesAward\Models\FreightTerm.cs">
       <DependentUpon>NewSalesAwardModel.tt</DependentUpon>
     </Compile>
     <Compile Include="NewSalesAward\Models\NewSalesAwardModel.Context.cs">
@@ -422,6 +434,9 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>NewSalesAwardModel.edmx</DependentUpon>
     </Compile>
+    <Compile Include="NewSalesAward\Models\ProductLine.cs">
+      <DependentUpon>NewSalesAwardModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="NewSalesAward\Models\ProgramManager.cs">
       <DependentUpon>NewSalesAwardModel.tt</DependentUpon>
     </Compile>
@@ -434,6 +449,9 @@
     <Compile Include="NewSalesAward\Models\Salespeople.cs">
       <DependentUpon>NewSalesAwardModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="NewSalesAward\Models\User.cs">
+      <DependentUpon>NewSalesAwardModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="NewSalesAward\Models\usp_GetAwardedQuoteBasePartMnemonic_Result.cs">
       <DependentUpon>NewSalesAwardModel.tt</DependentUpon>
     </Compile>
@@ -444,6 +462,9 @@
       <DependentUpon>NewSalesAwardModel.tt</DependentUpon>
     </Compile>
     <Compile Include="NewSalesAward\Models\usp_GetAwardedQuotes_Result.cs">
+      <DependentUpon>NewSalesAwardModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="NewSalesAward\Models\usp_GetCalculatedTakeRate_Result.cs">
       <DependentUpon>NewSalesAwardModel.tt</DependentUpon>
     </Compile>
     <Compile Include="NewSalesAward\Models\usp_GetCustomerShipTos_Result.cs">
@@ -513,6 +534,7 @@
     <Compile Include="QuoteLogIntegration\DataModels\QtCustomerContactDataModel.cs" />
     <Compile Include="QuoteLogIntegration\DataModels\QtQuoteDataModel.cs" />
     <Compile Include="QuoteLogIntegration\DataModels\QtSignOffDataModel.cs" />
+    <Compile Include="QuoteLogIntegration\DataModels\QtSignOffEmployees.cs" />
     <Compile Include="QuoteLogIntegration\DataModels\QtSpecialReqNotesDataModel.cs" />
     <Compile Include="QuoteLogIntegration\Models\ModelMarketSegmentSubsegment.Context.cs">
       <AutoGen>True</AutoGen>
@@ -558,6 +580,9 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>ModelQuoteTransfer.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="QuoteLogIntegration\Models\QL_QuoteTransfer_AwardedQuoteNumbers.cs">
+      <DependentUpon>ModelQuoteTransfer.tt</DependentUpon>
     </Compile>
     <Compile Include="QuoteLogIntegration\Models\usp_QL_QuoteTransfer_GetCustomerContacts_Result.cs">
       <DependentUpon>ModelQuoteTransfer.tt</DependentUpon>
@@ -618,7 +643,6 @@
     </Compile>
     <Compile Include="QuoteLogIntegration\Pages\QuoteTransfer.aspx.cs">
       <DependentUpon>QuoteTransfer.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="QuoteLogIntegration\Pages\QuoteTransfer.aspx.designer.cs">
       <DependentUpon>QuoteTransfer.aspx</DependentUpon>

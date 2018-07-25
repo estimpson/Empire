@@ -5,14 +5,47 @@ using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
-using System.Web.UI.WebControls;
 using WebPortal.QuoteLogIntegration.PageViewModels;
 
 
 namespace WebPortal.QuoteLogIntegration.Pages
 {
+    [Serializable]
+    public class ControlArrays
+    {
+        public ASPxComboBox[] CbxAnswers;
+        public ASPxMemo[] MemoNotes;
+        public ASPxLabel[] LblNotesDescs;
+    }
+
     public partial class QuoteTransfer : System.Web.UI.Page
     {
+        #region Instance variables for control arrays.
+
+        private ControlArrays _controlArrays;
+
+        void BuildControlArrays()
+        {
+            _controlArrays = new ControlArrays();
+            _controlArrays.CbxAnswers = new ASPxComboBox[]
+            {
+                cbxAnswer0, cbxAnswer1, cbxAnswer2, cbxAnswer3, cbxAnswer4, cbxAnswer5, cbxAnswer6, cbxAnswer7, cbxAnswer8
+            };
+            
+            _controlArrays.MemoNotes = new ASPxMemo[]
+            {
+                memoNotes0, memoNotes1, memoNotes2, memoNotes3, memoNotes4, memoNotes5, memoNotes6, memoNotes7, memoNotes8
+            };
+
+            _controlArrays.LblNotesDescs = new ASPxLabel[]
+            {
+                lblNotesDesc0, lblNotesDesc1, lblNotesDesc2, lblNotesDesc3, lblNotesDesc4, lblNotesDesc5, lblNotesDesc6, lblNotesDesc7, lblNotesDesc8
+            };
+        }
+       #endregion
+
+
+        #region MyViewModels
         private PageViewModels.QtQuoteViewModel QuoteViewModel
         {
             get
@@ -78,63 +111,31 @@ namespace WebPortal.QuoteLogIntegration.Pages
             }
         }
 
-
-        #region Variables
-
-        private int _rowId;
-        private string _answer;
-        private string _notes;
-        private string _signOffinitials;
-        private DateTime _signOffDate;
-
         #endregion
 
 
         protected void Page_Init(object sender, EventArgs e)
         {
-            // If arriving from another page, make sure session variables have not timed out
-            if (Session["RedirectPage"] != null && Session["op"] == null) Response.Redirect("~/Pages/Login.aspx");
-
-            // Get the operator code 
-            if (Session["op"] == null)
-            {
-                // Arrived here from the menu
-                QuoteViewModel.OperatorCode = CustViewModel.OperatorCode = Request.QueryString["op"];
-                Session["op"] = Request.QueryString["op"];
-                btnClose.Visible = false;
-            }
-            else
-            {
-                // Arrived here from another page
-                QuoteViewModel.OperatorCode = CustViewModel.OperatorCode = Session["op"].ToString();
-            }
+            QuoteViewModel.OperatorCode = CustViewModel.OperatorCode = NotesViewModel.OperatorCode = SignOffViewModel.OperatorCode =
+                DocsViewModel.OperatorCode = Session["OpCode"].ToString();
         }
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            BuildControlArrays();
             if (!Page.IsPostBack)
-            {
-                AuthenticateUser();
-
+            { 
                 if (Session["QuoteNumber"] != null)
                 {
-                    tbxQuoteNumber.Text = Session["QuoteNumber"].ToString();
-                    //PopulateForm();
+                    cbxQuoteNumbers.Text = Session["QuoteNumber"].ToString();
+                    PopulateForm();
                 }
-                else
-                {
-                    rPnl.Visible = false;
-                    tbxQuoteNumber.Focus();
-                }
-
-                btnClose.Visible = (Session["RedirectPage"] != null);
+                cbxQuoteNumbers.Focus();
             }
         }
 
 
-
         #region Control Events
-
         protected void btnGetQuote_Click(object sender, EventArgs e)
         {
             PopulateForm();
@@ -147,22 +148,23 @@ namespace WebPortal.QuoteLogIntegration.Pages
 
         protected void btnSaveNotes_Click(object sender, EventArgs e)
         {
-            if (UpdateSpecialReqNotes1() == 0) return;
-            if (UpdateSpecialReqNotes2() == 0) return;
-            if (UpdateSpecialReqNotes3() == 0) return;
-            if (UpdateSpecialReqNotes4() == 0) return;
-            if (UpdateSpecialReqNotes5() == 0) return;
-            if (UpdateSpecialReqNotes6() == 0) return;
-            if (UpdateSpecialReqNotes7() == 0) return;
-            if (UpdateSpecialReqNotes8() == 0) return;
-            UpdateSpecialReqNotes9();
+            for (int note = 0; note <= 8; note++)
+            {
+                if (UpdateSpecialReqNotes(note) == 0)
+                {
+                    ScriptManager.RegisterClientScriptBlock(btnSaveNotes, btnSaveNotes.GetType(), "HideLoadingPanel", "lp.Hide();", true);
+                    return;
+                }
+            }
+            ScriptManager.RegisterClientScriptBlock(btnSaveNotes, btnSaveNotes.GetType(), "HideLoadingPanel", "lp.Hide();", true);
         }
+
         protected void btnSaveSignOff_Click(object sender, EventArgs e)
         {
-            if (UpdateSignOffQuoteEngineer() == 0) return;
-            if (UpdateSignOffMaterialRep() == 0) return;
-            if (UpdateSignOffPem() == 0) return;
-            UpdateSignOffProductEngineer();
+            if (UpdateSignOffs() == 0) return;
+            if (PopulateSignOffLists() == 1) GetSignedOffEmployees();
+
+            ScriptManager.RegisterClientScriptBlock(btnSaveSignOff, btnSaveSignOff.GetType(), "HideLoadingPanel", "lp.Hide();", true);
         }
 
         protected void btnSaveDocDesc1Answer_Click(object sender, EventArgs e)
@@ -192,7 +194,7 @@ namespace WebPortal.QuoteLogIntegration.Pages
             if (DeleteFile() == 1)
             {
                 tbxDocName2.Text = "";
-                btnDocGet2.Enabled = false;
+                btnDocGet2.Enabled = btnDocDelete2.Enabled = false;
             }
         }
 
@@ -215,7 +217,7 @@ namespace WebPortal.QuoteLogIntegration.Pages
             if (DeleteFile() == 1)
             {
                 tbxDocName3.Text = "";
-                btnDocGet3.Enabled = false;
+                btnDocGet3.Enabled = btnDocDelete3.Enabled = false;
             }
         }
 
@@ -238,7 +240,7 @@ namespace WebPortal.QuoteLogIntegration.Pages
             if (DeleteFile() == 1)
             {
                 tbxDocName4.Text = "";
-                btnDocGet4.Enabled = false;
+                btnDocGet4.Enabled = btnDocDelete4.Enabled = false;
             }
         }
 
@@ -260,7 +262,7 @@ namespace WebPortal.QuoteLogIntegration.Pages
             if (DeleteFile() == 1)
             {
                 tbxDocName5.Text = "";
-                btnDocGet5.Enabled = false;
+                btnDocGet5.Enabled = btnDocDelete5.Enabled = false;
             }
         }
 
@@ -269,33 +271,48 @@ namespace WebPortal.QuoteLogIntegration.Pages
             GetFile("VendorQuote");
         }
 
+        //protected void cbxSoQuoteEngInitials_SelectedIndexChanged(object sender, EventArgs e)
+        //{
+        //    GetInitials(1);
+        //    PopulateSignOffLists();
+        //    ScriptManager.RegisterClientScriptBlock(cbxSoQuoteEngInitials, cbxSoQuoteEngInitials.GetType(), "HideLoadingPanel", "lp.Hide();", true);
+        //}
+
+        //protected void cbxSoMaterialRepInitials_SelectedIndexChanged(object sender, EventArgs e)
+        //{
+        //    GetInitials(2);
+        //    PopulateSignOffLists();
+        //    ScriptManager.RegisterClientScriptBlock(cbxSoMaterialRepInitials, cbxSoMaterialRepInitials.GetType(), "HideLoadingPanel", "lp.Hide();", true);
+        //}
+
+        //protected void cbxSoPemInitials_SelectedIndexChanged(object sender, EventArgs e)
+        //{
+        //    GetInitials(3);
+        //    PopulateSignOffLists();
+        //    ScriptManager.RegisterClientScriptBlock(cbxSoPemInitials, cbxSoPemInitials.GetType(), "HideLoadingPanel", "lp.Hide();", true);
+        //}
+
+        //protected void cbxSoProductEngInitials_SelectedIndexChanged(object sender, EventArgs e)
+        //{
+        //    GetInitials(4);
+        //    PopulateSignOffLists();
+        //    ScriptManager.RegisterClientScriptBlock(cbxSoProductEngInitials, cbxSoProductEngInitials.GetType(), "HideLoadingPanel", "lp.Hide();", true);
+        //}
+
         #endregion
-
-
-
-        #region Authentication Methods
-
-        private void AuthenticateUser()
-        {
-            HttpCookie authCookie = Request.Cookies["WebOk"];
-            if (authCookie == null) { Response.Redirect("~/Pages/UnathenticatedRedirect.aspx"); }
-        }
-
-        #endregion
-
 
 
         #region Quote Methods
 
         private void PopulateForm()
         {
-            string quote = tbxQuoteNumber.Text.Trim();
+            string quote = cbxQuoteNumbers.Text.Trim();
             if (quote == "") return;
 
-            //DeleteTempFiles();
+            DeleteTempFiles();
 
             if (GetQuote(quote) == 0) return;
-            Session["Quote"] = tbxQuoteNumber.Text;
+            Session["Quote"] = cbxQuoteNumbers.Text;
 
             if (InsertCustomerContacts() == 0) return;
             if (InsertSpecialReqNotes() == 0) return;
@@ -317,14 +334,13 @@ namespace WebPortal.QuoteLogIntegration.Pages
             ShowQuoteFiles("BomLabor");
             ShowQuoteFiles("CustomerQuote");
             ShowQuoteFiles("VendorQuote");
-            ToggleGetDocumentButtons();
+            ToggleDocumentButtons();
 
-            if (GetSignOffInitialsQuoteEngineer() == 0) return;
-            if (GetSignOffInitialsMaterialRep() == 0) return;
-            if (GetSignOffInitialsProductEngineer() == 0) return;
-            if (GetSignOffInitialsProgramManager() == 0) return;
-
-            GetSignOff();
+            if (PopulateSignOffLists() == 1) GetSignedOffEmployees();
+            //for (int i = 1; i < 4; i++)
+            //{
+            //    GetInitials(i);
+            //}
         }
 
         private int GetQuote(string quote)
@@ -374,7 +390,6 @@ namespace WebPortal.QuoteLogIntegration.Pages
         #endregion
 
 
-
         #region Customer Contact Methods
 
         private int InsertCustomerContacts()
@@ -398,7 +413,6 @@ namespace WebPortal.QuoteLogIntegration.Pages
         #endregion
 
 
-
         #region Tooling Breakdown Methods
 
         private void GetToolingBreakdown(string quote)
@@ -410,15 +424,33 @@ namespace WebPortal.QuoteLogIntegration.Pages
         #endregion
 
 
-
         #region Quote Documents Methods
 
-        private void ToggleGetDocumentButtons()
+        private void ToggleDocumentButtons()
         {
             btnDocDelete2.Enabled = btnDocGet2.Enabled = (tbxDocName2.Text.Trim() != "");
             btnDocDelete3.Enabled = btnDocGet3.Enabled = (tbxDocName3.Text.Trim() != "");
             btnDocDelete4.Enabled = btnDocGet4.Enabled = (tbxDocName4.Text.Trim() != "");
             btnDocDelete5.Enabled = btnDocGet5.Enabled = (tbxDocName5.Text.Trim() != "");
+        }
+
+        private void ToggleDocumentButtonsAfterClick(int button, int deletedSaved)
+        {
+            switch (button)
+            {
+                case 2:
+                    btnDocDelete2.Enabled = btnDocGet2.Enabled = (deletedSaved == 1);
+                    break;
+                case 3:
+                    btnDocDelete3.Enabled = btnDocGet3.Enabled = (deletedSaved == 1);
+                    break;
+                case 4:
+                    btnDocDelete4.Enabled = btnDocGet4.Enabled = (deletedSaved == 1);
+                    break;
+                case 5:
+                    btnDocDelete5.Enabled = btnDocGet5.Enabled = (deletedSaved == 1);
+                    break;
+            }
         }
 
         private void PopulateDocumentationAnswers()
@@ -433,9 +465,10 @@ namespace WebPortal.QuoteLogIntegration.Pages
             cbxPoConfirmed.DataSource = l;
             cbxPoConfirmed.DataBind();
         }
+
         private void GetDocumentationAnswers()
         {
-            DocsViewModel.GetDocumentationAnswers(tbxQuoteNumber.Text);
+            DocsViewModel.GetDocumentationAnswers(cbxQuoteNumbers.Text);
             if (DocsViewModel.Error != "")
             {
                 lblError.Text = String.Format("Error at GetDocumentationAnswers. {0}", DocsViewModel.Error);
@@ -447,7 +480,7 @@ namespace WebPortal.QuoteLogIntegration.Pages
 
         private void SaveDocumentationAnswers()
         {
-            DocsViewModel.SaveDocumentationAnswers(tbxQuoteNumber.Text, lblDocDesc1.Text, cbxPoConfirmed.Text);
+            DocsViewModel.SaveDocumentationAnswers(cbxQuoteNumbers.Text, lblDocDesc1.Text, cbxPoConfirmed.Text);
             if (DocsViewModel.Error != "")
             {
                 lblError.Text = String.Format("Error at SaveDocumentationAnswers. {0}", DocsViewModel.Error);
@@ -458,7 +491,7 @@ namespace WebPortal.QuoteLogIntegration.Pages
 
         private void ShowQuoteFiles(string attachmentCategory)
         {
-            DocsViewModel.ShowQuoteFileInfo(tbxQuoteNumber.Text, attachmentCategory);
+            DocsViewModel.ShowQuoteFileInfo(cbxQuoteNumbers.Text, attachmentCategory);
             if (DocsViewModel.Error != "")
             {
                 lblError.Text = String.Format("Error at ShowquoteFiles. {0}", DocsViewModel.Error);
@@ -470,19 +503,19 @@ namespace WebPortal.QuoteLogIntegration.Pages
             {
                 case "QuotePrint":
                     tbxDocName2.Text = DocsViewModel.QuoteFileName;
-                    btnDocGet2.Enabled = true;
+                    btnDocGet2.Enabled = btnDocDelete2.Enabled = true;
                     break;
                 case "BomLabor":
                     tbxDocName3.Text = DocsViewModel.QuoteFileName;
-                    btnDocGet3.Enabled = true;
+                    btnDocGet3.Enabled = btnDocDelete3.Enabled = true;
                     break;
                 case "CustomerQuote":
                     tbxDocName4.Text = DocsViewModel.QuoteFileName;
-                    btnDocGet4.Enabled = true;
+                    btnDocGet4.Enabled = btnDocDelete3.Enabled = true;
                     break;
                 case "VendorQuote":
                     tbxDocName5.Text = DocsViewModel.QuoteFileName;
-                    btnDocGet5.Enabled = true;
+                    btnDocGet5.Enabled = btnDocDelete4.Enabled = true;
                     break;           
             }
         }
@@ -494,7 +527,7 @@ namespace WebPortal.QuoteLogIntegration.Pages
             string fileName = Path.GetFileName(FileUploadControl.FileName);
             byte[] fileContents = FileUploadControl.FileBytes;
 
-            DocsViewModel.SaveQuoteFile(tbxQuoteNumber.Text, attachmentCategory, fileName, fileContents);
+            DocsViewModel.SaveQuoteFile(cbxQuoteNumbers.Text, attachmentCategory, fileName, fileContents);
             if (DocsViewModel.Error != "")
             {
                 lblUploadStatus.Text = string.Format("The file could not be uploaded. The following error occured: {0}", DocsViewModel.Error);
@@ -510,7 +543,7 @@ namespace WebPortal.QuoteLogIntegration.Pages
         {
             string fileName;
             byte[] fileContents;
-            DocsViewModel.GetQuoteFile(tbxQuoteNumber.Text, attachmentCategory, out fileName, out fileContents);
+            DocsViewModel.GetQuoteFile(cbxQuoteNumbers.Text, attachmentCategory, out fileName, out fileContents);
 
             // Separate the file's name and its extension
             int i = fileName.IndexOf('.');
@@ -551,7 +584,7 @@ namespace WebPortal.QuoteLogIntegration.Pages
         {
             string attachmentCategory = Session["AttachmentCategory"].ToString();
 
-            DocsViewModel.DeleteQuoteFile(tbxQuoteNumber.Text, attachmentCategory);
+            DocsViewModel.DeleteQuoteFile(cbxQuoteNumbers.Text, attachmentCategory);
             if (DocsViewModel.Error != "")
             {
                 lblError.Text = String.Format("Error at DeleteFile. {0}", DocsViewModel.Error);
@@ -564,8 +597,9 @@ namespace WebPortal.QuoteLogIntegration.Pages
         private void DeleteTempFiles()
         {
             string directoryPath = @"C:\inetpub\wwwroot\WebPortal\temp\";
-            string[] files = Directory.GetFiles(directoryPath);
+            if (!Directory.Exists(directoryPath)) return;
 
+            string[] files = Directory.GetFiles(directoryPath);
             foreach (string file in files)
             {
                 FileInfo fi = new FileInfo(file);
@@ -575,7 +609,6 @@ namespace WebPortal.QuoteLogIntegration.Pages
         }
 
         #endregion
-
 
 
         #region Special Requests / Notes Methods
@@ -602,18 +635,11 @@ namespace WebPortal.QuoteLogIntegration.Pages
                 "No"
             };
 
-            cbxAnswer1.DataSource = cbxAnswer2.DataSource = cbxAnswer3.DataSource = cbxAnswer4.DataSource = cbxAnswer5.DataSource =
-                cbxAnswer6.DataSource = cbxAnswer7.DataSource = cbxAnswer8.DataSource = cbxAnswer9.DataSource = l;
-
-            cbxAnswer1.DataBind();
-            cbxAnswer2.DataBind();
-            cbxAnswer3.DataBind();
-            cbxAnswer4.DataBind();
-            cbxAnswer5.DataBind();
-            cbxAnswer6.DataBind();
-            cbxAnswer7.DataBind();
-            cbxAnswer8.DataBind();
-            cbxAnswer9.DataBind();
+            for (int i = 0; i < 9; i++)
+            {
+                _controlArrays.CbxAnswers[i].DataSource = l;
+                _controlArrays.CbxAnswers[i].DataBind();
+            }
         }
 
         private void GetSpecialReqNotes()
@@ -625,77 +651,23 @@ namespace WebPortal.QuoteLogIntegration.Pages
                 pcError.ShowOnPageLoad = true;
             }
 
-            int i = 0;
+            int i = -1;
             foreach (var item in NotesViewModel.NotesList)
             {
                 i++;
-                switch (i)
-                {
-                    case 1:
-                        hfNotesRowId["Notes1"] = item.RowID;
-                        lblNotesDesc1.Text = item.Description;
-                        cbxAnswer1.Text = item.Answer;
-                        memoNotes1.Text = item.Notes;
-                        break;
-                    case 2:
-                        hfNotesRowId["Notes2"] = item.RowID;
-                        lblNotesDesc2.Text = item.Description;
-                        cbxAnswer2.Text = item.Answer;
-                        memoNotes2.Text = item.Notes;
-                        break;
-                    case 3:
-                        hfNotesRowId["Notes3"] = item.RowID;
-                        lblNotesDesc3.Text = item.Description;
-                        cbxAnswer3.Text = item.Answer;
-                        memoNotes3.Text = item.Notes;
-                        break;
-                    case 4:
-                        hfNotesRowId["Notes4"] = item.RowID;
-                        lblNotesDesc4.Text = item.Description;
-                        cbxAnswer4.Text = item.Answer;
-                        memoNotes4.Text = item.Notes;
-                        break;
-                    case 5:
-                        hfNotesRowId["Notes5"] = item.RowID;
-                        lblNotesDesc5.Text = item.Description;
-                        cbxAnswer5.Text = item.Answer;
-                        memoNotes5.Text = item.Notes;
-                        break;
-                    case 6:
-                        hfNotesRowId["Notes6"] = item.RowID;
-                        lblNotesDesc6.Text = item.Description;
-                        cbxAnswer6.Text = item.Answer;
-                        memoNotes6.Text = item.Notes;
-                        break;
-                    case 7:
-                        hfNotesRowId["Notes7"] = item.RowID;
-                        lblNotesDesc7.Text = item.Description;
-                        cbxAnswer7.Text = item.Answer;
-                        memoNotes7.Text = item.Notes;
-                        break;
-                    case 8:
-                        hfNotesRowId["Notes8"] = item.RowID;
-                        lblNotesDesc8.Text = item.Description;
-                        cbxAnswer8.Text = item.Answer;
-                        memoNotes8.Text = item.Notes;
-                        break;
-                    case 9:
-                        hfNotesRowId["Notes9"] = item.RowID;
-                        lblNotesDesc9.Text = item.Description;
-                        cbxAnswer9.Text = item.Answer;
-                        memoNotes9.Text = item.Notes;
-                        break;
-                }
+                hfNotesRowId[$"Note{i}"] = item.RowID;
+                _controlArrays.CbxAnswers[i].Text = item.Answer;
+                _controlArrays.MemoNotes[i].Text = item.Notes;
+                _controlArrays.LblNotesDescs[i].Text = item.Description;
             }
         }
 
-        private int UpdateSpecialReqNotes1()
+        private int UpdateSpecialReqNotes(int note)
         {
-            _rowId = (int)hfNotesRowId["Notes1"];
-            _answer = cbxAnswer1.Text;
-            _notes = memoNotes1.Text;
-
-            NotesViewModel.SpecialReqNotesUpdate(_rowId, _answer, _notes);
+            var rowId = (int)hfNotesRowId[$"Note{note}"];
+            var answer = _controlArrays.CbxAnswers[note].Text;
+            var notes = _controlArrays.MemoNotes[note].Text;
+            NotesViewModel.SpecialReqNotesUpdate(rowId, answer, notes);
             if (NotesViewModel.Error != "")
             {
                 lblError.Text = String.Format("Error at UpdateSpecialReqNotes1. {0}", NotesViewModel.Error);
@@ -704,135 +676,6 @@ namespace WebPortal.QuoteLogIntegration.Pages
             }
             return 1;
         }
-
-        private int UpdateSpecialReqNotes2()
-        {
-            _rowId = (int)hfNotesRowId["Notes2"];
-            _answer = cbxAnswer2.Text;
-            _notes = memoNotes2.Text;
-
-            NotesViewModel.SpecialReqNotesUpdate(_rowId, _answer, _notes);
-            if (NotesViewModel.Error != "")
-            {
-                lblError.Text = String.Format("Error at UpdateSpecialReqNotes2. {0}", NotesViewModel.Error);
-                pcError.ShowOnPageLoad = true;
-                return 0;
-            }
-            return 1;
-        }
-
-        private int UpdateSpecialReqNotes3()
-        {
-            _rowId = (int)hfNotesRowId["Notes3"];
-            _answer = cbxAnswer3.Text;
-            _notes = memoNotes3.Text;
-
-            NotesViewModel.SpecialReqNotesUpdate(_rowId, _answer, _notes);
-            if (NotesViewModel.Error != "")
-            {
-                lblError.Text = String.Format("Error at UpdateSpecialReqNotes3. {0}", NotesViewModel.Error);
-                pcError.ShowOnPageLoad = true;
-                return 0;
-            }
-            return 1;
-        }
-
-        private int UpdateSpecialReqNotes4()
-        {
-            _rowId = (int)hfNotesRowId["Notes4"];
-            _answer = cbxAnswer4.Text;
-            _notes = memoNotes4.Text;
-
-            NotesViewModel.SpecialReqNotesUpdate(_rowId, _answer, _notes);
-            if (NotesViewModel.Error != "")
-            {
-                lblError.Text = String.Format("Error at UpdateSpecialReqNotes4. {0}", NotesViewModel.Error);
-                pcError.ShowOnPageLoad = true;
-                return 0;
-            }
-            return 1;
-        }
-
-        private int UpdateSpecialReqNotes5()
-        {
-            _rowId = (int)hfNotesRowId["Notes5"];
-            _answer = cbxAnswer5.Text;
-            _notes = memoNotes5.Text;
-
-            NotesViewModel.SpecialReqNotesUpdate(_rowId, _answer, _notes);
-            if (NotesViewModel.Error != "")
-            {
-                lblError.Text = String.Format("Error at UpdateSpecialReqNotes5. {0}", NotesViewModel.Error);
-                pcError.ShowOnPageLoad = true;
-                return 0;
-            }
-            return 1;
-        }
-
-        private int UpdateSpecialReqNotes6()
-        {
-            _rowId = (int)hfNotesRowId["Notes6"];
-            _answer = cbxAnswer6.Text;
-            _notes = memoNotes6.Text;
-
-            NotesViewModel.SpecialReqNotesUpdate(_rowId, _answer, _notes);
-            if (NotesViewModel.Error != "")
-            {
-                lblError.Text = String.Format("Error at UpdateSpecialReqNotes6. {0}", NotesViewModel.Error);
-                pcError.ShowOnPageLoad = true;
-                return 0;
-            }
-            return 1;
-        }
-
-        private int UpdateSpecialReqNotes7()
-        {
-            _rowId = (int)hfNotesRowId["Notes7"];
-            _answer = cbxAnswer7.Text;
-            _notes = memoNotes7.Text;
-
-            NotesViewModel.SpecialReqNotesUpdate(_rowId, _answer, _notes);
-            if (NotesViewModel.Error != "")
-            {
-                lblError.Text = String.Format("Error at UpdateSpecialReqNotes7. {0}", NotesViewModel.Error);
-                pcError.ShowOnPageLoad = true;
-                return 0;
-            }
-            return 1;
-        }
-
-        private int UpdateSpecialReqNotes8()
-        {
-            _rowId = (int)hfNotesRowId["Notes8"];
-            _answer = cbxAnswer8.Text;
-            _notes = memoNotes8.Text;
-
-            NotesViewModel.SpecialReqNotesUpdate(_rowId, _answer, _notes);
-            if (NotesViewModel.Error != "")
-            {
-                lblError.Text = String.Format("Error at UpdateSpecialReqNotes8. {0}", NotesViewModel.Error);
-                pcError.ShowOnPageLoad = true;
-                return 0;
-            }
-            return 1;
-        }
-
-        private int UpdateSpecialReqNotes9()
-        {
-            _rowId = (int)hfNotesRowId["Notes9"];
-            _answer = cbxAnswer9.Text;
-            _notes = memoNotes9.Text;
-
-            NotesViewModel.SpecialReqNotesUpdate(_rowId, _answer, _notes);
-            if (NotesViewModel.Error != "")
-            {
-                lblError.Text = String.Format("Error at UpdateSpecialReqNotes9. {0}", NotesViewModel.Error);
-                pcError.ShowOnPageLoad = true;
-                return 0;
-            }
-            return 1;
-        }
-
         #endregion
 
 
@@ -851,65 +694,31 @@ namespace WebPortal.QuoteLogIntegration.Pages
             return 1;
         }
 
-        private int GetSignOffInitialsQuoteEngineer()
+        private int PopulateSignOffLists()
         {
-            SignOffViewModel.GetSignOffInitialsQuoteEngineer();
+            // Populate the lists with all employees
+            SignOffViewModel.GetEmployees();
             if (SignOffViewModel.Error != "")
             {
-                lblError.Text = String.Format("Error at GetSignOffInitialsQuoteEngineer. {0}", SignOffViewModel.Error);
+                lblError.Text = String.Format("Error at PopulateSignOffLists. {0}", SignOffViewModel.Error);
                 pcError.ShowOnPageLoad = true;
                 return 0;
             }
-            cbxSoQuoteEngInitials.DataSource = SignOffViewModel.QuoteEngineerList;
+
+            cbxSoQuoteEngInitials.DataSource = cbxSoMaterialRepInitials.DataSource = cbxSoPemInitials.DataSource = 
+                cbxSoProductEngInitials.DataSource = SignOffViewModel.SignOffEmployeesList;
+
             cbxSoQuoteEngInitials.DataBind();
-            return 1;
-        }
-
-        private int GetSignOffInitialsMaterialRep()
-        {
-            SignOffViewModel.GetSignOffInitialsMaterialRep();
-            if (SignOffViewModel.Error != "")
-            {
-                lblError.Text = String.Format("Error at GetSignOffInitialsMaterialRep. {0}", SignOffViewModel.Error);
-                pcError.ShowOnPageLoad = true;
-                return 0;
-            }
-            cbxSoMaterialRepInitials.DataSource = SignOffViewModel.MaterialRepList;
             cbxSoMaterialRepInitials.DataBind();
-            return 1;
-        }
-
-        private int GetSignOffInitialsProductEngineer()
-        {
-            SignOffViewModel.GetSignOffInitialsProductEngineer();
-            if (SignOffViewModel.Error != "")
-            {
-                lblError.Text = String.Format("Error at GetSignOffInitialsProductEngineer. {0}", SignOffViewModel.Error);
-                pcError.ShowOnPageLoad = true;
-                return 0;
-            }
-            cbxSoProductEngInitials.DataSource = SignOffViewModel.ProductEngineerList;
+            cbxSoPemInitials.DataBind();
             cbxSoProductEngInitials.DataBind();
             return 1;
         }
 
-        private int GetSignOffInitialsProgramManager()
+        private void GetSignedOffEmployees()
         {
-            SignOffViewModel.GetSignOffInitialsProgramManager();
-            if (SignOffViewModel.Error != "")
-            {
-                lblError.Text = String.Format("Error at GetSignOffInitialsProgramManager. {0}", SignOffViewModel.Error);
-                pcError.ShowOnPageLoad = true;
-                return 0;
-            }
-            cbxSoPemInitials.DataSource = SignOffViewModel.ProgramManagerList;
-            cbxSoPemInitials.DataBind();
-            return 1;
-        }
-
-        private void GetSignOff()
-        {
-            SignOffViewModel.GetSignOff();
+            // If an employee has signed off selected them in the list
+            SignOffViewModel.GetSignedOffEmployees();
             if (SignOffViewModel.Error != "")
             {
                 lblError.Text = String.Format("Error at GetSignOff. {0}", SignOffViewModel.Error);
@@ -925,99 +734,82 @@ namespace WebPortal.QuoteLogIntegration.Pages
                     case 1:
                         hfSignOffRowId["SignOff1"] = item.RowID;
                         lblSoQuoteEngTitle.Text = item.Title;
-                        cbxSoQuoteEngInitials.Text = item.Initials;
+                        cbxSoQuoteEngInitials.Value = item.EmployeeCode;
                         deSoQuoteEngDate.Value = (item.SignOffDate.HasValue) ? item.SignOffDate : DateTime.Now;
                         break;
                     case 2:
                         hfSignOffRowId["SignOff2"] = item.RowID;
                         lblSoMaterialRepTitle.Text = item.Title;
-                        cbxSoMaterialRepInitials.Text = item.Initials;
-                        //if (item.SignOffDate.HasValue) deSoMaterialRepDate.Value = item.SignOffDate;
+                        cbxSoMaterialRepInitials.Value = item.EmployeeCode;
                         deSoMaterialRepDate.Value = (item.SignOffDate.HasValue) ? item.SignOffDate : DateTime.Now;
                         break;
                     case 3:
                         hfSignOffRowId["SignOff3"] = item.RowID;
                         lblSoPemTitle.Text = item.Title;
-                        cbxSoPemInitials.Text = item.Initials;
-                        //if (item.SignOffDate.HasValue) deSoPemDate.Value = item.SignOffDate;
+                        cbxSoPemInitials.Value = item.EmployeeCode;
                         deSoPemDate.Value = (item.SignOffDate.HasValue) ? item.SignOffDate : DateTime.Now;
                         break;
                     case 4:
                         hfSignOffRowId["SignOff4"] = item.RowID;
                         lblSoProductEngTitle.Text = item.Title;
-                        cbxSoProductEngInitials.Text = item.Initials;
-                        //if (item.SignOffDate.HasValue) deSoProductEngDate.Value = item.SignOffDate;
+                        cbxSoProductEngInitials.Value = item.EmployeeCode;
                         deSoProductEngDate.Value = (item.SignOffDate.HasValue) ? item.SignOffDate : DateTime.Now;
                         break;
                 }
             }
         }
 
-        private int UpdateSignOffQuoteEngineer()
-        {
-            _rowId = (int)hfSignOffRowId["SignOff1"];
-            _signOffinitials = cbxSoQuoteEngInitials.Text;
-            if (deSoQuoteEngDate.Value != null) _signOffDate = Convert.ToDateTime(deSoQuoteEngDate.Value);
+        //private void GetInitials(int type)
+        //{
+        //    // Show the initials of selected employees
+        //    string employeeCode, initials;
+        //    switch (type)
+        //    {
+        //        case 1:
+        //            employeeCode = (string)cbxSoQuoteEngInitials.Value;
+        //            initials = SignOffViewModel.GetEmployeeInitials(employeeCode);
+        //            tbxQuoteEngInitials.Text = initials;
+        //            break;
+        //        case 2:
+        //            employeeCode = (string)cbxSoMaterialRepInitials.Value;
+        //            initials = SignOffViewModel.GetEmployeeInitials(employeeCode);
+        //            tbxMatRepInitials.Text = initials;
+        //            break;
+        //        case 3:
+        //            employeeCode = (string)cbxSoPemInitials.Value;
+        //            initials = SignOffViewModel.GetEmployeeInitials(employeeCode);
+        //            tbxPemInitials.Text = initials;
+        //            break;
+        //        case 4:
+        //            employeeCode = (string)cbxSoProductEngInitials.Value;
+        //            initials = SignOffViewModel.GetEmployeeInitials(employeeCode);
+        //            tbxProdEngInitials.Text = initials;
+        //            break;
+        //    }
+        //}
 
-            SignOffViewModel.SignOffUpdate(_rowId, _signOffinitials, _signOffDate);
+        private int UpdateSignOffs()
+        {
+            string quoteEng = (cbxSoQuoteEngInitials.Value != null) ? (string)cbxSoQuoteEngInitials.Value : "";
+            string matRep = (cbxSoMaterialRepInitials.Value != null) ? (string)cbxSoMaterialRepInitials.Value : "";
+            string pem = (cbxSoPemInitials.Value != null) ? (string)cbxSoPemInitials.Value : "";
+            string prodEng = (cbxSoProductEngInitials.Value != null) ? (string)cbxSoProductEngInitials.Value : "";
+
+            SignOffViewModel.SignOffUpdate((int)hfSignOffRowId["SignOff1"], quoteEng, null, (DateTime)deSoQuoteEngDate.Value);
+            SignOffViewModel.SignOffUpdate((int)hfSignOffRowId["SignOff2"], matRep, null, (DateTime)deSoMaterialRepDate.Value);
+            SignOffViewModel.SignOffUpdate((int)hfSignOffRowId["SignOff3"], pem, null, (DateTime)deSoPemDate.Value);
+            SignOffViewModel.SignOffUpdate((int)hfSignOffRowId["SignOff4"], prodEng, null, (DateTime)deSoProductEngDate.Value);
             if (SignOffViewModel.Error != "")
             {
-                lblError.Text = String.Format("Error at UpdateSignOffQuoteEngineer. {0}", SignOffViewModel.Error);
+                lblError.Text = String.Format("Error at UpdateSignOffs. {0}", SignOffViewModel.Error);
                 pcError.ShowOnPageLoad = true;
                 return 0;
             }
             return 1;
         }
-
-        private int UpdateSignOffMaterialRep()
-        {
-            _rowId = (int)hfSignOffRowId["SignOff2"];
-            _signOffinitials = cbxSoMaterialRepInitials.Text;
-            if (deSoMaterialRepDate.Value != null) _signOffDate = Convert.ToDateTime(deSoMaterialRepDate.Value);
-
-            SignOffViewModel.SignOffUpdate(_rowId, _signOffinitials, _signOffDate);
-            if (SignOffViewModel.Error != "")
-            {
-                lblError.Text = String.Format("Error at UpdateSignOffMaterialRep. {0}", SignOffViewModel.Error);
-                pcError.ShowOnPageLoad = true;
-                return 0;
-            }
-            return 1;
-        }
-
-        private int UpdateSignOffPem()
-        {
-            _rowId = (int)hfSignOffRowId["SignOff3"];
-            _signOffinitials = cbxSoPemInitials.Text;
-            if (deSoPemDate.Value != null) _signOffDate = Convert.ToDateTime(deSoPemDate.Value);
-
-            SignOffViewModel.SignOffUpdate(_rowId, _signOffinitials, _signOffDate);
-            if (SignOffViewModel.Error != "")
-            {
-                lblError.Text = String.Format("Error at UpdateSignOffPem. {0}", SignOffViewModel.Error);
-                pcError.ShowOnPageLoad = true;
-                return 0;
-            }
-            return 1;
-        }
-
-        private void UpdateSignOffProductEngineer()
-        {
-            _rowId = (int)hfSignOffRowId["SignOff4"];
-            _signOffinitials = cbxSoProductEngInitials.Text;
-            if (deSoProductEngDate.Value != null) _signOffDate = Convert.ToDateTime(deSoProductEngDate.Value);
-
-            SignOffViewModel.SignOffUpdate(_rowId, _signOffinitials, _signOffDate);
-            if (SignOffViewModel.Error != "")
-            {
-                lblError.Text = String.Format("Error at UpdateSignOffProductEngineer. {0}", SignOffViewModel.Error);
-                pcError.ShowOnPageLoad = true;
-            }
-        }
-
 
         #endregion
 
-
+       
     }
 }

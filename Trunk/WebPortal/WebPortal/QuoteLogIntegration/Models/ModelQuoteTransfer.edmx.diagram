@@ -4,7 +4,9 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="388e9077fd4149f9926217ca3c065324" Name="Diagram1" />
+      <Diagram DiagramId="388e9077fd4149f9926217ca3c065324" Name="Diagram1" >
+        <EntityTypeShape EntityType="MONITORModel5.QL_QuoteTransfer_AwardedQuoteNumbers" Width="3" PointX="0.75" PointY="0.75" />
+      </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
 </edmx:Edmx>

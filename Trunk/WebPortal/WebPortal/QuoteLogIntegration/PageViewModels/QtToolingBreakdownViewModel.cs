@@ -19,7 +19,7 @@ namespace WebPortal.QuoteLogIntegration.PageViewModels
 
         public QtToolingBreakdownViewModel()
         {
-            OperatorCode = System.Web.HttpContext.Current.Session["op"].ToString();
+            OperatorCode = System.Web.HttpContext.Current.Session["OpCode"].ToString();
         }
 
         #endregion

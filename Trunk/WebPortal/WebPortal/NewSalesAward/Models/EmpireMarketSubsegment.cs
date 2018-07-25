@@ -13,12 +13,9 @@ namespace WebPortal.NewSalesAward.Models
     using System.Collections.Generic;
     
     [Serializable]
-    public partial class Salespeople
+    public partial class EmpireMarketSubsegment
     {
-        public string UserName { get; set; }
-        public string UserCode { get; set; }
-        public string UserInitials { get; set; }
-        public string EmailAddress { get; set; }
+        public string EmpireMarketSubsegment1 { get; set; }
         public long RowID { get; set; }
     }
 }

@@ -69,7 +69,16 @@
                                 <dx:ASPxLabel ID="lblQuoteNumber" runat="server" Text="Quote #:"></dx:ASPxLabel>
                             </td>
                             <td>
-                                <dx:ASPxTextBox ID="tbxQuoteNumber" runat="server" ReadOnly="false"></dx:ASPxTextBox>
+                                <dx:ASPxComboBox ID="cbxQuoteNumbers" runat="server" DropDownStyle="DropDownList" TextField="QuoteNumber" DataSourceID="edsQuoteNumbers" 
+                                    ValueField="QuoteNumber" TextFormatString="{0}" AllowNull="true" IncrementalFilteringMode="StartsWith" Width="200">
+                                    <Columns>
+                                        <dx:ListBoxColumn Caption="QuoteNumber" FieldName="QuoteNumber" Name="QuoteNumber" Width="160" />
+                                        <dx:ListBoxColumn Caption="EEIPartNumber" FieldName="EEIPartNumber" Name="EEIPartNumber" Width="200" />
+                                    </Columns>
+                                </dx:ASPxComboBox>
+                                <asp:EntityDataSource ID="edsQuoteNumbers" runat="server" ConnectionString="name=MONITOREntitiesQuoteLogIntegrationQuoteTransfer" DefaultContainerName="MONITOREntitiesQuoteLogIntegrationQuoteTransfer" EnableFlattening="False"
+                                    EntitySetName="QL_QuoteTransfer_AwardedQuoteNumbers" Select="" OrderBy="it.RowID">
+                                </asp:EntityDataSource>
                             </td>
                             <td>
                                 <dx:ASPxButton ID="btnGetQuote" runat="server" Text="Go" OnClick="btnGetQuote_Click"></dx:ASPxButton>
@@ -483,6 +492,19 @@
                             <table class="tbl" style="width: 700px;">
                                 <tr>
                                     <td>
+                                        <dx:ASPxLabel ID="lblNotesDesc0" runat="server"></dx:ASPxLabel>
+                                    </td>
+                                    <td>
+                                        <dx:ASPxComboBox ID="cbxAnswer0" runat="server"></dx:ASPxComboBox>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2">
+                                        <dx:ASPxMemo ID="memoNotes0" runat="server" Width="100%" Height="100"></dx:ASPxMemo>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
                                         <dx:ASPxLabel ID="lblNotesDesc1" runat="server"></dx:ASPxLabel>
                                     </td>
                                     <td>
@@ -585,22 +607,11 @@
                                         <dx:ASPxMemo ID="memoNotes8" runat="server" Width="100%" Height="100"></dx:ASPxMemo>
                                     </td>
                                 </tr>
-                                <tr>
-                                    <td>
-                                        <dx:ASPxLabel ID="lblNotesDesc9" runat="server"></dx:ASPxLabel>
-                                    </td>
-                                    <td>
-                                        <dx:ASPxComboBox ID="cbxAnswer9" runat="server"></dx:ASPxComboBox>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td colspan="2">
-                                        <dx:ASPxMemo ID="memoNotes9" runat="server" Width="100%" Height="100"></dx:ASPxMemo>
-                                    </td>
-                                </tr>
                             </table>
 
-                            <dx:ASPxButton ID="btnSaveNotes" runat="server" Text="Save Notes" OnClick="btnSaveNotes_Click"></dx:ASPxButton>
+                            <dx:ASPxButton ID="btnSaveNotes" runat="server" Text="Save Notes" OnClick="btnSaveNotes_Click">
+                                <ClientSideEvents Click="function(s, e) {lp.Show();}" />
+                            </dx:ASPxButton>
                         </div>
 
 
@@ -619,7 +630,7 @@
                                         &nbsp;
                                     </td>
                                     <td>
-                                        <dx:ASPxLabel ID="lblSoInitials" runat="server" Text="Initials"></dx:ASPxLabel>
+                                        <dx:ASPxLabel ID="lblSoInitials" runat="server" Text="Name"></dx:ASPxLabel>
                                     </td>
                                     <td>
                                         <dx:ASPxLabel ID="lblSoDate" runat="server" Text="Date"></dx:ASPxLabel>
@@ -630,7 +641,16 @@
                                         <dx:ASPxLabel ID="lblSoQuoteEngTitle" runat="server"></dx:ASPxLabel>
                                     </td>
                                     <td>
-                                        <dx:ASPxComboBox ID="cbxSoQuoteEngInitials" runat="server"></dx:ASPxComboBox>
+                                        <dx:ASPxComboBox ID="cbxSoQuoteEngInitials" runat="server" DropDownStyle="DropDownList" TextField="Initials" DataSourceID="" AutoPostBack="false"
+                                            ValueField="EmployeeCode" TextFormatString="{0}" AllowNull="true" IncrementalFilteringMode="StartsWith" Width="200">
+                                            <Columns>
+                                                <dx:ListBoxColumn Caption="EmployeeName" FieldName="EmployeeName" Name="EmployeeName" Width="160" />
+                                                <dx:ListBoxColumn Caption="EmployeeCode" FieldName="EmployeeCode" Name="EmployeeCode" Width="80" />
+                                            </Columns>
+                                        </dx:ASPxComboBox>
+                                        <asp:EntityDataSource ID="edsQuoteEngInitials" runat="server" ConnectionString="name=FxPLMEntities" DefaultContainerName="FxPLMEntities" EnableFlattening="False"
+                                            EntitySetName="Users" Select="" OrderBy="it.UserName">
+                                        </asp:EntityDataSource>
                                     </td>
                                     <td>
                                         <dx:ASPxDateEdit ID="deSoQuoteEngDate" runat="server"></dx:ASPxDateEdit>
@@ -641,7 +661,16 @@
                                         <dx:ASPxLabel ID="lblSoMaterialRepTitle" runat="server"></dx:ASPxLabel>
                                     </td>
                                     <td>
-                                        <dx:ASPxComboBox ID="cbxSoMaterialRepInitials" runat="server"></dx:ASPxComboBox>
+                                        <dx:ASPxComboBox ID="cbxSoMaterialRepInitials" runat="server" DropDownStyle="DropDownList" TextField="EmployeeName" DataSourceID="" AutoPostBack="false"
+                                            ValueField="EmployeeCode" TextFormatString="{0}" AllowNull="true" IncrementalFilteringMode="StartsWith" Width="200">
+                                            <Columns>
+                                                <dx:ListBoxColumn Caption="EmployeeName" FieldName="EmployeeName" Name="EmployeeName" Width="160" />
+                                                <dx:ListBoxColumn Caption="EmployeeCode" FieldName="EmployeeCode" Name="EmployeeCode" Width="80" />
+                                            </Columns>
+                                        </dx:ASPxComboBox>
+                                        <asp:EntityDataSource ID="edsMaterialRepInitials" runat="server" ConnectionString="name=FxPLMEntities" DefaultContainerName="FxPLMEntities" EnableFlattening="False"
+                                            EntitySetName="Users" Select="" OrderBy="it.UserName">
+                                        </asp:EntityDataSource>
                                     </td>
                                     <td>
                                         <dx:ASPxDateEdit ID="deSoMaterialRepDate" runat="server"></dx:ASPxDateEdit>
@@ -652,7 +681,16 @@
                                         <dx:ASPxLabel ID="lblSoPemTitle" runat="server"></dx:ASPxLabel>
                                     </td>
                                     <td>
-                                        <dx:ASPxComboBox ID="cbxSoPemInitials" runat="server"></dx:ASPxComboBox>
+                                        <dx:ASPxComboBox ID="cbxSoPemInitials" runat="server" DropDownStyle="DropDownList" TextField="Initials" DataSourceID="" AutoPostBack="false"
+                                            ValueField="EmployeeCode" TextFormatString="{0}" AllowNull="true" IncrementalFilteringMode="StartsWith" Width="200">
+                                            <Columns>
+                                                <dx:ListBoxColumn Caption="EmployeeName" FieldName="EmployeeName" Name="EmployeeName" Width="160" />
+                                                <dx:ListBoxColumn Caption="EmployeeCode" FieldName="EmployeeCode" Name="EmployeeCode" Width="80" />
+                                            </Columns>
+                                        </dx:ASPxComboBox>
+                                        <asp:EntityDataSource ID="edsPemInitials" runat="server" ConnectionString="name=FxPLMEntities" DefaultContainerName="FxPLMEntities" EnableFlattening="False"
+                                            EntitySetName="Users" Select="" OrderBy="it.UserName">
+                                        </asp:EntityDataSource>
                                     </td>
                                     <td>
                                         <dx:ASPxDateEdit ID="deSoPemDate" runat="server"></dx:ASPxDateEdit>
@@ -663,7 +701,16 @@
                                         <dx:ASPxLabel ID="lblSoProductEngTitle" runat="server"></dx:ASPxLabel>
                                     </td>
                                     <td>
-                                        <dx:ASPxComboBox ID="cbxSoProductEngInitials" runat="server"></dx:ASPxComboBox>
+                                        <dx:ASPxComboBox ID="cbxSoProductEngInitials" runat="server" DropDownStyle="DropDownList" TextField="Initials" DataSourceID="" AutoPostBack="false" 
+                                            ValueField="EmployeeCode" TextFormatString="{0}" AllowNull="true" IncrementalFilteringMode="StartsWith" Width="200">
+                                            <Columns>
+                                                <dx:ListBoxColumn Caption="EmployeeName" FieldName="EmployeeName" Name="EmployeeName" Width="160" />
+                                                <dx:ListBoxColumn Caption="EmployeeCode" FieldName="EmployeeCode" Name="EmployeeCode" Width="80" />
+                                            </Columns>
+                                        </dx:ASPxComboBox>
+                                        <asp:EntityDataSource ID="edsProductEngInitials" runat="server" ConnectionString="name=FxPLMEntities" DefaultContainerName="FxPLMEntities" EnableFlattening="False"
+                                            EntitySetName="Users" Select="" OrderBy="it.UserName">
+                                        </asp:EntityDataSource>
                                     </td>
                                     <td>
                                         <dx:ASPxDateEdit ID="deSoProductEngDate" runat="server"></dx:ASPxDateEdit>
@@ -671,7 +718,9 @@
                                 </tr>
                             </table>
 
-                            <dx:ASPxButton ID="btnSaveSignOff" runat="server" Text="Save Sign Off" OnClick="btnSaveSignOff_Click"></dx:ASPxButton>
+                            <dx:ASPxButton ID="btnSaveSignOff" runat="server" Text="Save Sign Off" OnClick="btnSaveSignOff_Click">
+                                <ClientSideEvents Click="function(s, e) {lp.Show();}" />
+                            </dx:ASPxButton>
                         </div>
 
 

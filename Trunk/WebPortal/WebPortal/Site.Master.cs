@@ -31,16 +31,13 @@ namespace WebPortal
             {
                 HttpCookie authCookie = Request.Cookies["WebSettings"];
                 if (authCookie == null) authCookie = Request.Cookies["WebOk"];
+                if (authCookie == null) Response.Redirect("~/Pages/Login.aspx");
 
-                if (authCookie != null)
-                {
-                    Session["OpCode"] = authCookie.Values["Op"].ToString();
-                    Session["Name"] = authCookie.Values["Name"].ToString();
-                    GetUserPages();
+                Session["OpCode"] = authCookie.Values["Op"].ToString();
+                Session["Name"] = authCookie.Values["Name"].ToString();
+                GetUserPages();
 
-                    lblOperator.Text = authCookie.Values["Name"].ToString();
-                    return;
-                }
+                lblOperator.Text = authCookie.Values["Name"].ToString();
             }
         }
 
@@ -53,14 +50,14 @@ namespace WebPortal
 
             string operatorCode = HttpContext.Current.Session["OpCode"].ToString();
             string operatorName = HttpContext.Current.Session["Name"].ToString();
-
             string page = lbxWebPages.SelectedItem.Text;
             string path = "";
 
             var query = ViewModel.UserWebPagesList.Where(p => p.WebPage == page);
             foreach (var item in query) path = item.FilePath;
 
-            Response.Redirect("~/" + path + page + ".aspx?op=" + operatorCode + "&name=" + operatorName);
+            //Response.Redirect("~/" + path + page + ".aspx?op=" + operatorCode + "&name=" + operatorName);
+            Response.Redirect("~/" + path + page + ".aspx");
         }
 
         #endregion

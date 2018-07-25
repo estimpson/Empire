@@ -11,7 +11,7 @@ namespace WebPortal.QuoteLogIntegration.PageViewModels
     [Serializable]
     public class QtSignOffViewModel
     {
-        public String OperatorCode { get; private set; }
+        public String OperatorCode { get; set; }
         public String Error { get; private set; }
 
         public List<String> QuoteEngineerList;
@@ -21,13 +21,13 @@ namespace WebPortal.QuoteLogIntegration.PageViewModels
 
         public List<QtSignOffDataModel> SignOffList;
 
+        public List<QtSignOffEmployees> SignOffEmployeesList;
 
 
         #region Constructor
 
         public QtSignOffViewModel()
         {
-            OperatorCode = HttpContext.Current.Session["op"].ToString();
         }
 
         #endregion
@@ -35,20 +35,30 @@ namespace WebPortal.QuoteLogIntegration.PageViewModels
 
         #region Methods
 
-        public void GetSignOffInitialsQuoteEngineer()
+        public void GetEmployees()
         {
-            ObjectParameter tranDT = new ObjectParameter("TranDT", typeof(DateTime?));
-            ObjectParameter result = new ObjectParameter("Result", typeof(Int32?));
             Error = "";
 
-            QuoteEngineerList = new List<String>();
-            QuoteEngineerList.Add("");
             try
             {
-                using (var context = new MONITOREntitiesQuoteLogIntegrationQuoteTransfer())
+                SignOffEmployeesList = new List<QtSignOffEmployees>();
+                QtSignOffEmployees dataModel;
+
+                using (var context = new NewSalesAward.Models.FxPLMEntities())
                 {
-                    var collection = context.usp_QL_QuoteTransfer_GetSignOffInitials("QuoteEngineer", tranDT, result);
-                    foreach (var item in collection) QuoteEngineerList.Add(item.Initials);
+                    var query = (from u in context.Users
+                                 orderby u.UserName
+                                 select u);
+
+                    foreach (var item in query)
+                    {
+                        dataModel = new QtSignOffEmployees();
+                        dataModel.Initials = item.Initials;
+                        dataModel.EmployeeCode = item.UserCode;
+                        dataModel.EmployeeName = item.UserName;
+
+                        SignOffEmployeesList.Add(dataModel);
+                    }
                 }
             }
             catch (Exception ex)
@@ -57,73 +67,118 @@ namespace WebPortal.QuoteLogIntegration.PageViewModels
             }
         }
 
-        public void GetSignOffInitialsMaterialRep()
+        public string GetEmployeeInitials(string employeeCode)
         {
-            ObjectParameter tranDT = new ObjectParameter("TranDT", typeof(DateTime?));
-            ObjectParameter result = new ObjectParameter("Result", typeof(Int32?));
             Error = "";
+            string initials = "";
 
-            MaterialRepList = new List<String>();
-            MaterialRepList.Add("");
             try
             {
-                using (var context = new MONITOREntitiesQuoteLogIntegrationQuoteTransfer())
+                using (var context = new NewSalesAward.Models.FxPLMEntities())
                 {
-                    var collection = context.usp_QL_QuoteTransfer_GetSignOffInitials("MaterialRep", tranDT, result);
-                    foreach (var item in collection) MaterialRepList.Add(item.Initials);
+                    var query = (from u in context.Users
+                                 where u.UserCode == employeeCode
+                                 select u);
+
+                    foreach (var item in query) initials = item.Initials;
                 }
             }
             catch (Exception ex)
             {
                 Error = (ex.InnerException != null) ? ex.InnerException.Message : ex.Message;
             }
+            return initials;
         }
 
-        public void GetSignOffInitialsProductEngineer()
-        {
-            ObjectParameter tranDT = new ObjectParameter("TranDT", typeof(DateTime?));
-            ObjectParameter result = new ObjectParameter("Result", typeof(Int32?));
-            Error = "";
+        //public void GetSignOffInitialsQuoteEngineer()
+        //{
+        //    ObjectParameter tranDT = new ObjectParameter("TranDT", typeof(DateTime?));
+        //    ObjectParameter result = new ObjectParameter("Result", typeof(Int32?));
+        //    Error = "";
 
-            ProductEngineerList = new List<String>();
-            ProductEngineerList.Add("");
-            try
-            {
-                using (var context = new MONITOREntitiesQuoteLogIntegrationQuoteTransfer())
-                {
-                    var collection = context.usp_QL_QuoteTransfer_GetSignOffInitials("ProductEngineer", tranDT, result);
-                    foreach (var item in collection) ProductEngineerList.Add(item.Initials);
-                }
-            }
-            catch (Exception ex)
-            {
-                Error = (ex.InnerException != null) ? ex.InnerException.Message : ex.Message;
-            }
-        }
+        //    QuoteEngineerList = new List<String>();
+        //    QuoteEngineerList.Add("");
+        //    try
+        //    {
+        //        using (var context = new MONITOREntitiesQuoteLogIntegrationQuoteTransfer())
+        //        {
+        //            var collection = context.usp_QL_QuoteTransfer_GetSignOffInitials("QuoteEngineer", tranDT, result);
+        //            foreach (var item in collection) QuoteEngineerList.Add(item.Initials);
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        Error = (ex.InnerException != null) ? ex.InnerException.Message : ex.Message;
+        //    }
+        //}
 
-        public void GetSignOffInitialsProgramManager()
-        {
-            ObjectParameter tranDT = new ObjectParameter("TranDT", typeof(DateTime?));
-            ObjectParameter result = new ObjectParameter("Result", typeof(Int32?));
-            Error = "";
+        //public void GetSignOffInitialsMaterialRep()
+        //{
+        //    ObjectParameter tranDT = new ObjectParameter("TranDT", typeof(DateTime?));
+        //    ObjectParameter result = new ObjectParameter("Result", typeof(Int32?));
+        //    Error = "";
 
-            ProgramManagerList = new List<String>();
-            ProgramManagerList.Add("");
-            try
-            {
-                using (var context = new MONITOREntitiesQuoteLogIntegrationQuoteTransfer())
-                {
-                    var collection = context.usp_QL_QuoteTransfer_GetSignOffInitials("ProgramManager", tranDT, result);
-                    foreach (var item in collection) ProgramManagerList.Add(item.Initials);
-                }
-            }
-            catch (Exception ex)
-            {
-                Error = (ex.InnerException != null) ? ex.InnerException.Message : ex.Message;
-            }
-        }
+        //    MaterialRepList = new List<String>();
+        //    MaterialRepList.Add("");
+        //    try
+        //    {
+        //        using (var context = new MONITOREntitiesQuoteLogIntegrationQuoteTransfer())
+        //        {
+        //            var collection = context.usp_QL_QuoteTransfer_GetSignOffInitials("MaterialRep", tranDT, result);
+        //            foreach (var item in collection) MaterialRepList.Add(item.Initials);
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        Error = (ex.InnerException != null) ? ex.InnerException.Message : ex.Message;
+        //    }
+        //}
 
-        public void GetSignOff()
+        //public void GetSignOffInitialsProductEngineer()
+        //{
+        //    ObjectParameter tranDT = new ObjectParameter("TranDT", typeof(DateTime?));
+        //    ObjectParameter result = new ObjectParameter("Result", typeof(Int32?));
+        //    Error = "";
+
+        //    ProductEngineerList = new List<String>();
+        //    ProductEngineerList.Add("");
+        //    try
+        //    {
+        //        using (var context = new MONITOREntitiesQuoteLogIntegrationQuoteTransfer())
+        //        {
+        //            var collection = context.usp_QL_QuoteTransfer_GetSignOffInitials("ProductEngineer", tranDT, result);
+        //            foreach (var item in collection) ProductEngineerList.Add(item.Initials);
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        Error = (ex.InnerException != null) ? ex.InnerException.Message : ex.Message;
+        //    }
+        //}
+
+        //public void GetSignOffInitialsProgramManager()
+        //{
+        //    ObjectParameter tranDT = new ObjectParameter("TranDT", typeof(DateTime?));
+        //    ObjectParameter result = new ObjectParameter("Result", typeof(Int32?));
+        //    Error = "";
+
+        //    ProgramManagerList = new List<String>();
+        //    ProgramManagerList.Add("");
+        //    try
+        //    {
+        //        using (var context = new MONITOREntitiesQuoteLogIntegrationQuoteTransfer())
+        //        {
+        //            var collection = context.usp_QL_QuoteTransfer_GetSignOffInitials("ProgramManager", tranDT, result);
+        //            foreach (var item in collection) ProgramManagerList.Add(item.Initials);
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        Error = (ex.InnerException != null) ? ex.InnerException.Message : ex.Message;
+        //    }
+        //}
+
+        public void GetSignedOffEmployees()
         {
             ObjectParameter tranDT = new ObjectParameter("TranDT", typeof(DateTime?));
             ObjectParameter result = new ObjectParameter("Result", typeof(Int32?));
@@ -145,8 +200,10 @@ namespace WebPortal.QuoteLogIntegration.PageViewModels
                         {
                             RowID = item.RowID,
                             Title = item.Title,
-                            Initials = item.Initials,
-                            SignOffDate = item.SignOffDate
+                            SignOffDate = item.SignOffDate,
+                            EmployeeCode = item.EmployeeCode,
+                            EmployeeName = item.EmployeeName,
+                            Initials = item.Initials
                         };
 
                         SignOffList.Add(dataModel);
@@ -182,7 +239,7 @@ namespace WebPortal.QuoteLogIntegration.PageViewModels
             }
         }
 
-        public void SignOffUpdate(int rowId, string initials, DateTime signOffDate)
+        public void SignOffUpdate(int rowId, string employeeCode, string initials, DateTime? signOffDate)
         {
             ObjectParameter tranDT = new ObjectParameter("TranDT", typeof(DateTime?));
             ObjectParameter result = new ObjectParameter("Result", typeof(Int32?));
@@ -192,7 +249,7 @@ namespace WebPortal.QuoteLogIntegration.PageViewModels
             {
                 using (var context = new MONITOREntitiesQuoteLogIntegrationQuoteTransfer())
                 {
-                    context.usp_QL_QuoteTransfer_SignOff_Update(OperatorCode, rowId, initials, signOffDate, tranDT, result);
+                    context.usp_QL_QuoteTransfer_SignOff_Update(OperatorCode, rowId, employeeCode, initials, signOffDate, tranDT, result);
                 }
             }
             catch (Exception ex)
@@ -200,7 +257,6 @@ namespace WebPortal.QuoteLogIntegration.PageViewModels
                 Error = (ex.InnerException != null) ? ex.InnerException.Message : ex.Message;
             }
         }
-
         #endregion
 
 

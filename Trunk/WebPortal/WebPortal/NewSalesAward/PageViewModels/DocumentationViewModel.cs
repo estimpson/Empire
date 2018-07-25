@@ -23,7 +23,7 @@ namespace WebPortal.NewSalesAward.PageViewModels
 
         public DocumentationViewModel()
         {
-            OperatorCode = System.Web.HttpContext.Current.Session["op"].ToString();
+            OperatorCode = System.Web.HttpContext.Current.Session["OpCode"].ToString();
         }
 
         #endregion

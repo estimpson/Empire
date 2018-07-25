@@ -11,6 +11,7 @@ namespace WebPortal.NewSalesAward.Models
 {
     using System;
     
+    [Serializable]
     public partial class usp_LookupSalespersonByInit_Result
     {
         public string UserName { get; set; }

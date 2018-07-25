@@ -36,7 +36,7 @@ namespace WebPortal.NewSalesAward.PageViewModels
 
         public CreateAwardedQuoteViewModel()
         {
-            OperatorCode = System.Web.HttpContext.Current.Session["op"].ToString();
+            OperatorCode = System.Web.HttpContext.Current.Session["OpCode"].ToString();
         }
 
 

@@ -4,13 +4,13 @@ using System.Linq;
 using WebPortal.NewSalesAward.Models;
 using WebPortal.NewSalesAward.DataModels;
 using System.Data.Entity.Core.Objects;
+using System.Web;
 
 namespace WebPortal.NewSalesAward.PageViewModels
 {
     [Serializable]
     public class NewSalesAwardsViewModel
     {
-        public String OperatorCode { get; private set; }
         public String Error { get; private set; }
 
 
@@ -18,7 +18,6 @@ namespace WebPortal.NewSalesAward.PageViewModels
 
         public NewSalesAwardsViewModel()
         {
-            OperatorCode = System.Web.HttpContext.Current.Session["op"].ToString();
         }
 
         #endregion
@@ -26,6 +25,22 @@ namespace WebPortal.NewSalesAward.PageViewModels
 
 
         #region Quote Methods
+
+        //public List<> GetEmpireMarketSegments()
+        //{
+        //    using (var context = new FxPLMEntities())
+        //    {
+        //        var query = (from s in context.EmpireMarketSegments
+        //                     orderby s.EmpireMarketSegment1
+        //                     select s);
+
+        //        foreach (var item in query)
+        //        {
+
+        //        }
+
+        //    }
+        //}
 
         public List<usp_GetAwardedQuotes_Result> GetAwardedQuotes()
         {
@@ -155,6 +170,7 @@ namespace WebPortal.NewSalesAward.PageViewModels
 
         #endregion
 
+
         #region Assembly Tester Tooling Methods
 
         public void SetAssemblyTesterTooling(string quote, decimal? amount, string trigger, string description, string capexid)
@@ -182,7 +198,7 @@ namespace WebPortal.NewSalesAward.PageViewModels
 
         #region Base Part Attributes Methods
 
-        public void SetBasePartAttributes(string quote, string basePartFamilyList, string productLine, string marketSegment,
+        public void SetBasePartAttributes(string operatorCode, string quote, string basePartFamilyList, string productLine, string marketSegment,
             string marketSubsegment, string application, DateTime? sop, DateTime? eop, string eopNote, string comments)
         {
             ObjectParameter tranDT = new ObjectParameter("TranDT", typeof(DateTime?));
@@ -194,7 +210,7 @@ namespace WebPortal.NewSalesAward.PageViewModels
             {
                 using (var context = new FxPLMEntities())
                 {
-                    context.usp_SetBasePartAttributes(OperatorCode, quote, basePartFamilyList, productLine, marketSegment,
+                    context.usp_SetBasePartAttributes(operatorCode, quote, basePartFamilyList, productLine, marketSegment,
                         marketSubsegment, application, sop, eop, eopNote, comments, tranDT, result, 0, debugMsg);
                 }
             }
@@ -205,6 +221,32 @@ namespace WebPortal.NewSalesAward.PageViewModels
         }
 
         #endregion
+
+
+        #region Logistics Methods
+
+        public void SetLogistics(string quote, string empireFacility, string freightTerms, string customerShipTo)
+        {
+            ObjectParameter tranDT = new ObjectParameter("TranDT", typeof(DateTime?));
+            ObjectParameter result = new ObjectParameter("Result", typeof(Int32?));
+            ObjectParameter debugMsg = new ObjectParameter("DebugMsg", typeof(String));
+
+            Error = "";
+            try
+            {
+                using (var context = new FxPLMEntities())
+                {
+                    context.usp_SetLogistics(quote, empireFacility, freightTerms, customerShipTo, tranDT, result, 0, debugMsg);
+                }
+            }
+            catch (Exception ex)
+            {
+                Error = (ex.InnerException != null) ? ex.InnerException.Message : ex.Message;
+            }
+        }
+
+        #endregion
+
 
     }
 }

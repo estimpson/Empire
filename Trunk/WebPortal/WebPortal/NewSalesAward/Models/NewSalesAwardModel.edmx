@@ -43,27 +43,6 @@ warning 6002: The table/view 'FxPLM.NSA.BasePartMnemonics' does not have a prima
           <Property Name="EAU" Type="decimal" Precision="38" Scale="9" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'FxPLM.NSA.CSMData' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
-        <EntityType Name="CSMData">
-          <Key>
-            <PropertyRef Name="ReleaseID" />
-            <PropertyRef Name="VehiclePlantMnemonic" />
-            <PropertyRef Name="RowID" />
-          </Key>
-          <Property Name="ReleaseID" Type="char" MaxLength="7" Nullable="false" />
-          <Property Name="VehiclePlantMnemonic" Type="varchar" MaxLength="30" Nullable="false" />
-          <Property Name="Platform" Type="varchar" MaxLength="255" />
-          <Property Name="Program" Type="varchar" MaxLength="255" />
-          <Property Name="Vehicle" Type="varchar" MaxLength="255" />
-          <Property Name="Manufacturer" Type="varchar" MaxLength="255" />
-          <Property Name="SourcePlant" Type="varchar" MaxLength="255" />
-          <Property Name="SourcePlantCountry" Type="varchar" MaxLength="255" />
-          <Property Name="SourcePlantRegion" Type="varchar" MaxLength="255" />
-          <Property Name="CSM_SOP" Type="datetime" />
-          <Property Name="CSM_EOP" Type="datetime" />
-          <Property Name="RowID" Type="bigint" Nullable="false" />
-        </EntityType>
-        <!--Errors Found During Generation:
 warning 6002: The table/view 'FxPLM.NSA.CustomerCommitmentForms' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="CustomerCommitmentForms">
           <Key>
@@ -71,6 +50,73 @@ warning 6002: The table/view 'FxPLM.NSA.CustomerCommitmentForms' does not have a
             <PropertyRef Name="RowID" />
           </Key>
           <Property Name="FormOfCommitment" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="RowID" Type="bigint" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'FxPLM.NSA.CustomerShipTos' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="CustomerShipTos">
+          <Key>
+            <PropertyRef Name="CustomerCode" />
+            <PropertyRef Name="ShipToCode" />
+            <PropertyRef Name="CustomerName" />
+          </Key>
+          <Property Name="CustomerCode" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="ShipToCode" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="CustomerName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="ShipToName" Type="varchar" MaxLength="50" />
+          <Property Name="Address1" Type="varchar" MaxLength="50" />
+          <Property Name="Address2" Type="varchar" MaxLength="50" />
+          <Property Name="Address3" Type="varchar" MaxLength="50" />
+          <Property Name="Address4" Type="varchar" MaxLength="40" />
+          <Property Name="Address5" Type="varchar" MaxLength="40" />
+          <Property Name="Address6" Type="varchar" MaxLength="40" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'FxPLM.NSA.EmpireFacilities' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="EmpireFacilities">
+          <Key>
+            <PropertyRef Name="Code" />
+          </Key>
+          <Property Name="Code" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'FxPLM.NSA.EmpireMarketSegment' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="EmpireMarketSegment">
+          <Key>
+            <PropertyRef Name="EmpireMarketSegment" />
+            <PropertyRef Name="RowID" />
+          </Key>
+          <Property Name="EmpireMarketSegment" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="RowID" Type="bigint" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'FxPLM.NSA.EmpireMarketSubsegment' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="EmpireMarketSubsegment">
+          <Key>
+            <PropertyRef Name="EmpireMarketSubsegment" />
+            <PropertyRef Name="RowID" />
+          </Key>
+          <Property Name="EmpireMarketSubsegment" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="RowID" Type="bigint" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'FxPLM.NSA.FreightTerms' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="FreightTerms">
+          <Key>
+            <PropertyRef Name="RowID" />
+          </Key>
+          <Property Name="FreightTerms" Type="varchar" MaxLength="100" />
+          <Property Name="RowID" Type="bigint" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'FxPLM.NSA.ProductLine' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="ProductLine">
+          <Key>
+            <PropertyRef Name="ProductLine" />
+            <PropertyRef Name="RowID" />
+          </Key>
+          <Property Name="ProductLine" Type="varchar" MaxLength="25" Nullable="false" />
           <Property Name="RowID" Type="bigint" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
@@ -191,6 +237,25 @@ warning 6002: The table/view 'FxPLM.NSA.Salespeople' does not have a primary key
           <Property Name="EmailAddress" Type="varchar" MaxLength="8000" />
           <Property Name="RowID" Type="bigint" Nullable="false" />
         </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'FxPLM.NSA.Users' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="UserName" />
+            <PropertyRef Name="UserCode" />
+          </Key>
+          <Property Name="UserName" Type="varchar" MaxLength="40" Nullable="false" />
+          <Property Name="UserCode" Type="varchar" MaxLength="5" Nullable="false" />
+          <Property Name="Initials" Type="varchar" MaxLength="3" />
+          <Property Name="FirstName" Type="varchar" MaxLength="8000" />
+          <Property Name="LastName" Type="varchar" MaxLength="8000" />
+        </EntityType>
+        <Function Name="usp_AwardedQuoteFirstMnemonicEmail" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="NSA">
+          <Parameter Name="BasePart" Type="varchar" Mode="In" />
+          <Parameter Name="Mnemonic" Type="varchar" Mode="In" />
+          <Parameter Name="TranDT" Type="datetime" Mode="InOut" />
+          <Parameter Name="Result" Type="int" Mode="InOut" />
+        </Function>
         <Function Name="usp_CreateAwardedQuote" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="NSA">
           <Parameter Name="User" Type="varchar" Mode="In" />
           <Parameter Name="QuoteNumber" Type="varchar" Mode="In" />
@@ -205,6 +270,9 @@ warning 6002: The table/view 'FxPLM.NSA.Salespeople' does not have a primary key
           <Parameter Name="Result" Type="int" Mode="InOut" />
           <Parameter Name="Debug" Type="int" Mode="In" />
           <Parameter Name="DebugMsg" Type="varchar(max)" Mode="InOut" />
+        </Function>
+        <Function Name="usp_GetAwardedQuoteActiveMnemonics" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="NSA">
+          <Parameter Name="QuoteNumber" Type="varchar" Mode="In" />
         </Function>
         <Function Name="usp_GetAwardedQuoteBasePartMnemonic" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="NSA">
           <Parameter Name="QuoteNumber" Type="varchar" Mode="In" />
@@ -229,6 +297,9 @@ warning 6002: The table/view 'FxPLM.NSA.Salespeople' does not have a primary key
         </Function>
         <Function Name="usp_GetAwardedQuoteProductionPOs" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="NSA" />
         <Function Name="usp_GetAwardedQuotes" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="NSA" />
+        <Function Name="usp_GetCalculatedTakeRate" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="NSA">
+          <Parameter Name="QuoteNumber" Type="varchar" Mode="In" />
+        </Function>
         <Function Name="usp_GetCustomerShipTos" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="NSA">
           <Parameter Name="BasePart" Type="varchar" Mode="In" />
         </Function>
@@ -300,6 +371,16 @@ warning 6002: The table/view 'FxPLM.NSA.Salespeople' does not have a primary key
           <Parameter Name="Debug" Type="int" Mode="In" />
           <Parameter Name="DebugMsg" Type="varchar(max)" Mode="InOut" />
         </Function>
+        <Function Name="usp_SetLogistics" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="NSA">
+          <Parameter Name="QuoteNumber" Type="varchar" Mode="In" />
+          <Parameter Name="EmpireFacility" Type="varchar" Mode="In" />
+          <Parameter Name="FreightTerms" Type="varchar" Mode="In" />
+          <Parameter Name="CustomerShipTo" Type="varchar" Mode="In" />
+          <Parameter Name="TranDT" Type="datetime" Mode="InOut" />
+          <Parameter Name="Result" Type="int" Mode="InOut" />
+          <Parameter Name="Debug" Type="int" Mode="In" />
+          <Parameter Name="DebugMsg" Type="varchar(max)" Mode="InOut" />
+        </Function>
         <Function Name="usp_SetProductionPO" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="NSA">
           <Parameter Name="QuoteNumber" Type="varchar" Mode="In" />
           <Parameter Name="PurchaseOrderDT" Type="datetime" Mode="In" />
@@ -354,27 +435,55 @@ warning 6002: The table/view 'FxPLM.NSA.Salespeople' does not have a primary key
     [BasePartMnemonics].[EAU] AS [EAU]
     FROM [NSA].[BasePartMnemonics] AS [BasePartMnemonics]</DefiningQuery>
           </EntitySet>
-          <EntitySet Name="CSMData" EntityType="Self.CSMData" store:Type="Views" store:Schema="NSA">
-            <DefiningQuery>SELECT 
-    [CSMData].[ReleaseID] AS [ReleaseID], 
-    [CSMData].[VehiclePlantMnemonic] AS [VehiclePlantMnemonic], 
-    [CSMData].[Platform] AS [Platform], 
-    [CSMData].[Program] AS [Program], 
-    [CSMData].[Vehicle] AS [Vehicle], 
-    [CSMData].[Manufacturer] AS [Manufacturer], 
-    [CSMData].[SourcePlant] AS [SourcePlant], 
-    [CSMData].[SourcePlantCountry] AS [SourcePlantCountry], 
-    [CSMData].[SourcePlantRegion] AS [SourcePlantRegion], 
-    [CSMData].[CSM_SOP] AS [CSM_SOP], 
-    [CSMData].[CSM_EOP] AS [CSM_EOP], 
-    [CSMData].[RowID] AS [RowID]
-    FROM [NSA].[CSMData] AS [CSMData]</DefiningQuery>
-          </EntitySet>
           <EntitySet Name="CustomerCommitmentForms" EntityType="Self.CustomerCommitmentForms" store:Type="Views" store:Schema="NSA">
             <DefiningQuery>SELECT 
     [CustomerCommitmentForms].[FormOfCommitment] AS [FormOfCommitment], 
     [CustomerCommitmentForms].[RowID] AS [RowID]
     FROM [NSA].[CustomerCommitmentForms] AS [CustomerCommitmentForms]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="CustomerShipTos" EntityType="Self.CustomerShipTos" store:Type="Views" store:Schema="NSA">
+            <DefiningQuery>SELECT 
+    [CustomerShipTos].[CustomerCode] AS [CustomerCode], 
+    [CustomerShipTos].[ShipToCode] AS [ShipToCode], 
+    [CustomerShipTos].[CustomerName] AS [CustomerName], 
+    [CustomerShipTos].[ShipToName] AS [ShipToName], 
+    [CustomerShipTos].[Address1] AS [Address1], 
+    [CustomerShipTos].[Address2] AS [Address2], 
+    [CustomerShipTos].[Address3] AS [Address3], 
+    [CustomerShipTos].[Address4] AS [Address4], 
+    [CustomerShipTos].[Address5] AS [Address5], 
+    [CustomerShipTos].[Address6] AS [Address6]
+    FROM [NSA].[CustomerShipTos] AS [CustomerShipTos]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="EmpireFacilities" EntityType="Self.EmpireFacilities" store:Type="Views" store:Schema="NSA">
+            <DefiningQuery>SELECT 
+    [EmpireFacilities].[Code] AS [Code], 
+    [EmpireFacilities].[Name] AS [Name]
+    FROM [NSA].[EmpireFacilities] AS [EmpireFacilities]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="EmpireMarketSegment" EntityType="Self.EmpireMarketSegment" store:Type="Views" store:Schema="NSA">
+            <DefiningQuery>SELECT 
+    [EmpireMarketSegment].[EmpireMarketSegment] AS [EmpireMarketSegment], 
+    [EmpireMarketSegment].[RowID] AS [RowID]
+    FROM [NSA].[EmpireMarketSegment] AS [EmpireMarketSegment]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="EmpireMarketSubsegment" EntityType="Self.EmpireMarketSubsegment" store:Type="Views" store:Schema="NSA">
+            <DefiningQuery>SELECT 
+    [EmpireMarketSubsegment].[EmpireMarketSubsegment] AS [EmpireMarketSubsegment], 
+    [EmpireMarketSubsegment].[RowID] AS [RowID]
+    FROM [NSA].[EmpireMarketSubsegment] AS [EmpireMarketSubsegment]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="FreightTerms" EntityType="Self.FreightTerms" store:Type="Views" store:Schema="NSA">
+            <DefiningQuery>SELECT 
+    [FreightTerms].[FreightTerms] AS [FreightTerms], 
+    [FreightTerms].[RowID] AS [RowID]
+    FROM [NSA].[FreightTerms] AS [FreightTerms]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="ProductLine" EntityType="Self.ProductLine" store:Type="Views" store:Schema="NSA">
+            <DefiningQuery>SELECT 
+    [ProductLine].[ProductLine] AS [ProductLine], 
+    [ProductLine].[RowID] AS [RowID]
+    FROM [NSA].[ProductLine] AS [ProductLine]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="ProgramManagers" EntityType="Self.ProgramManagers" store:Type="Views" store:Schema="NSA">
             <DefiningQuery>SELECT 
@@ -474,6 +583,15 @@ warning 6002: The table/view 'FxPLM.NSA.Salespeople' does not have a primary key
     [Salespeople].[EmailAddress] AS [EmailAddress], 
     [Salespeople].[RowID] AS [RowID]
     FROM [NSA].[Salespeople] AS [Salespeople]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="Users" EntityType="Self.Users" store:Type="Views" store:Schema="NSA">
+            <DefiningQuery>SELECT 
+    [Users].[UserName] AS [UserName], 
+    [Users].[UserCode] AS [UserCode], 
+    [Users].[Initials] AS [Initials], 
+    [Users].[FirstName] AS [FirstName], 
+    [Users].[LastName] AS [LastName]
+    FROM [NSA].[Users] AS [Users]</DefiningQuery>
           </EntitySet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
@@ -600,7 +718,6 @@ warning 6002: The table/view 'FxPLM.NSA.Salespeople' does not have a primary key
             <Parameter Name="Debug" Mode="In" Type="Int32" />
             <Parameter Name="DebugMsg" Mode="InOut" Type="String" />
           </FunctionImport>
-          <EntitySet Name="CSMDatas" EntityType="FxPLMModel.CSMData" />
           <FunctionImport Name="usp_SetBasePartMnemonic">
             <Parameter Name="QuoteNumber" Mode="In" Type="String" />
             <Parameter Name="Mnemonic" Mode="In" Type="String" />
@@ -625,11 +742,40 @@ warning 6002: The table/view 'FxPLM.NSA.Salespeople' does not have a primary key
             <Parameter Name="QuoteNumber" Mode="In" Type="String" />
             <Parameter Name="Mnemonic" Mode="In" Type="String" />
           </FunctionImport>
+          <FunctionImport Name="usp_GetCustomerShipTos" ReturnType="Collection(FxPLMModel.usp_GetCustomerShipTos_Result)">
+          <Parameter Name="BasePart" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="usp_SetLogistics">
+            <Parameter Name="QuoteNumber" Mode="In" Type="String" />
+            <Parameter Name="EmpireFacility" Mode="In" Type="String" />
+            <Parameter Name="FreightTerms" Mode="In" Type="String" />
+            <Parameter Name="CustomerShipTo" Mode="In" Type="String" />
+            <Parameter Name="TranDT" Mode="InOut" Type="DateTime" />
+            <Parameter Name="Result" Mode="InOut" Type="Int32" />
+            <Parameter Name="Debug" Mode="In" Type="Int32" />
+            <Parameter Name="DebugMsg" Mode="InOut" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="usp_GetAwardedQuoteActiveMnemonics" ReturnType="Collection(String)">
+          <Parameter Name="QuoteNumber" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="usp_GetCalculatedTakeRate" ReturnType="Collection(FxPLMModel.usp_GetCalculatedTakeRate_Result)">
+          <Parameter Name="QuoteNumber" Mode="In" Type="String" />
+          </FunctionImport>
+          <EntitySet Name="EmpireMarketSegments" EntityType="FxPLMModel.EmpireMarketSegment" />
+          <EntitySet Name="EmpireMarketSubsegments" EntityType="FxPLMModel.EmpireMarketSubsegment" />
+          <EntitySet Name="ProductLines" EntityType="FxPLMModel.ProductLine" />
+          <EntitySet Name="CustomerShipTos" EntityType="FxPLMModel.CustomerShipTo" />
+          <EntitySet Name="EmpireFacilities" EntityType="FxPLMModel.EmpireFacility" />
+          <EntitySet Name="FreightTerms" EntityType="FxPLMModel.FreightTerm" />
+          <EntitySet Name="Users" EntityType="FxPLMModel.User" />
           <FunctionImport Name="usp_GetAwardedQuoteCSMData" ReturnType="Collection(FxPLMModel.usp_GetAwardedQuoteCSMData_Result)">
           <Parameter Name="QuoteNumber" Mode="In" Type="String" />
           </FunctionImport>
-          <FunctionImport Name="usp_GetCustomerShipTos" ReturnType="Collection(FxPLMModel.usp_GetCustomerShipTos_Result)">
+          <FunctionImport Name="usp_AwardedQuoteFirstMnemonicEmail">
             <Parameter Name="BasePart" Mode="In" Type="String" />
+            <Parameter Name="Mnemonic" Mode="In" Type="String" />
+            <Parameter Name="TranDT" Mode="InOut" Type="DateTime" />
+            <Parameter Name="Result" Mode="InOut" Type="Int32" />
           </FunctionImport>
           </EntityContainer>
         <ComplexType Name="usp_LookupProgramManagerByInit_Result">
@@ -779,6 +925,74 @@ warning 6002: The table/view 'FxPLM.NSA.Salespeople' does not have a primary key
           <Property Type="DateTime" Name="PurchaseOrderEOP" Nullable="true" Precision="23" />
           <Property Type="String" Name="Comments" Nullable="true" />
         </ComplexType>
+        <EntityType Name="BasePartMnemonic">
+          <Key>
+            <PropertyRef Name="QuoteNumber" />
+            <PropertyRef Name="ReleaseID" />
+            <PropertyRef Name="VehiclePlantMnemonic" />
+            <PropertyRef Name="BasePart" />
+          </Key>
+          <Property Name="QuoteNumber" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="ReleaseID" Type="String" Nullable="false" MaxLength="7" FixedLength="true" Unicode="false" />
+          <Property Name="VehiclePlantMnemonic" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="BasePart" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="QtyPer" Type="Decimal" Precision="10" Scale="0" />
+          <Property Name="TakeRate" Type="Decimal" Precision="10" Scale="6" />
+          <Property Name="FamilyAllocation" Type="Decimal" Precision="10" Scale="6" />
+          <Property Name="Platform" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Program" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Vehicle" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Manufacturer" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Family" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="SourcePlant" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="SourcePlantCountry" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="SourcePlantRegion" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="CSM_SOP" Type="DateTime" Precision="3" />
+          <Property Name="CSM_EOP" Type="DateTime" Precision="3" />
+          <Property Name="EAU" Type="Decimal" Precision="38" Scale="9" />
+        </EntityType>
+        <ComplexType Name="usp_GetAwardedQuoteBasePartMnemonic_Result">
+          <Property Type="Decimal" Name="QtyPer" Nullable="true" Precision="10" Scale="0" />
+          <Property Type="Decimal" Name="TakeRate" Nullable="true" Precision="10" Scale="6" />
+          <Property Type="Decimal" Name="FamilyAllocation" Nullable="true" Precision="10" Scale="6" />
+        </ComplexType>
+        <ComplexType Name="usp_GetCustomerShipTos_Result">
+          <Property Type="String" Name="Destination" Nullable="false" MaxLength="20" />
+          <Property Type="String" Name="DestinationName" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Customer" Nullable="false" MaxLength="10" />
+          <Property Type="String" Name="CustomerName" Nullable="false" MaxLength="50" />
+        </ComplexType>
+        <ComplexType Name="usp_GetCalculatedTakeRate_Result">
+          <Property Type="Decimal" Name="QtyPer" Nullable="true" Precision="20" Scale="4" />
+          <Property Type="Decimal" Name="FamilyAllocation" Nullable="true" Precision="20" Scale="4" />
+          <Property Type="Decimal" Name="QuotedEau" Nullable="true" Precision="20" Scale="4" />
+          <Property Type="Decimal" Name="CsmForeCastDemand" Nullable="true" Precision="20" Scale="4" />
+          <Property Type="Decimal" Name="TakeRate" Nullable="true" Precision="38" Scale="6" />
+        </ComplexType>
+        <EntityType Name="EmpireMarketSegment">
+          <Key>
+            <PropertyRef Name="EmpireMarketSegment1" />
+            <PropertyRef Name="RowID" />
+          </Key>
+          <Property Name="EmpireMarketSegment1" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="RowID" Type="Int64" Nullable="false" />
+        </EntityType>
+        <EntityType Name="EmpireMarketSubsegment">
+          <Key>
+            <PropertyRef Name="EmpireMarketSubsegment1" />
+            <PropertyRef Name="RowID" />
+          </Key>
+          <Property Name="EmpireMarketSubsegment1" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="RowID" Type="Int64" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ProductLine">
+          <Key>
+            <PropertyRef Name="ProductLine1" />
+            <PropertyRef Name="RowID" />
+          </Key>
+          <Property Name="ProductLine1" Type="String" Nullable="false" MaxLength="25" FixedLength="false" Unicode="false" />
+          <Property Name="RowID" Type="Int64" Nullable="false" />
+        </EntityType>
         <ComplexType Name="usp_GetAwardedQuotes_Result">
           <Property Type="String" Name="QuoteNumber" Nullable="false" MaxLength="100" />
           <Property Type="String" Name="BasePart" Nullable="true" MaxLength="50" />
@@ -824,6 +1038,7 @@ warning 6002: The table/view 'FxPLM.NSA.Salespeople' does not have a primary key
           <Property Type="DateTime" Name="PurchaseOrderSOP" Nullable="true" Precision="23" />
           <Property Type="DateTime" Name="PurchaseOrderEOP" Nullable="true" Precision="23" />
           <Property Type="Decimal" Name="PurchaseOrderPriceVariace" Nullable="true" Precision="23" Scale="6" />
+          <Property Type="String" Name="CustomerProductionPurchaseOrderComments" Nullable="true" />
           <Property Type="Decimal" Name="AmortizationAmount" Nullable="true" Precision="20" Scale="6" />
           <Property Type="Decimal" Name="AmortizationQuantity" Nullable="true" Precision="20" Scale="6" />
           <Property Type="Decimal" Name="AmortizationPrice" Nullable="true" Precision="38" Scale="18" />
@@ -842,56 +1057,48 @@ warning 6002: The table/view 'FxPLM.NSA.Salespeople' does not have a primary key
           <Property Type="String" Name="CustomerShipTos" Nullable="true" />
           <Property Type="String" Name="Comments" Nullable="true" />
         </ComplexType>
-        <EntityType Name="CSMData">
+        <EntityType Name="CustomerShipTo">
           <Key>
-            <PropertyRef Name="ReleaseID" />
-            <PropertyRef Name="VehiclePlantMnemonic" />
+            <PropertyRef Name="CustomerCode" />
+            <PropertyRef Name="ShipToCode" />
+            <PropertyRef Name="CustomerName" />
+          </Key>
+          <Property Name="CustomerCode" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="ShipToCode" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="CustomerName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ShipToName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Address1" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Address2" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Address3" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Address4" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
+          <Property Name="Address5" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
+          <Property Name="Address6" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="EmpireFacility">
+          <Key>
+            <PropertyRef Name="Code" />
+          </Key>
+          <Property Name="Code" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="FreightTerm">
+          <Key>
             <PropertyRef Name="RowID" />
           </Key>
-          <Property Name="ReleaseID" Type="String" Nullable="false" MaxLength="7" FixedLength="true" Unicode="false" />
-          <Property Name="VehiclePlantMnemonic" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
-          <Property Name="Platform" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="Program" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="Vehicle" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="Manufacturer" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="SourcePlant" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="SourcePlantCountry" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="SourcePlantRegion" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="CSM_SOP" Type="DateTime" Precision="3" />
-          <Property Name="CSM_EOP" Type="DateTime" Precision="3" />
+          <Property Name="FreightTerms" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="RowID" Type="Int64" Nullable="false" />
         </EntityType>
-        <EntityType Name="BasePartMnemonic">
+        <EntityType Name="User">
           <Key>
-            <PropertyRef Name="QuoteNumber" />
-            <PropertyRef Name="ReleaseID" />
-            <PropertyRef Name="VehiclePlantMnemonic" />
-            <PropertyRef Name="BasePart" />
+            <PropertyRef Name="UserName" />
+            <PropertyRef Name="UserCode" />
           </Key>
-          <Property Name="QuoteNumber" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="ReleaseID" Type="String" Nullable="false" MaxLength="7" FixedLength="true" Unicode="false" />
-          <Property Name="VehiclePlantMnemonic" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="BasePart" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
-          <Property Name="QtyPer" Type="Decimal" Precision="10" Scale="0" />
-          <Property Name="TakeRate" Type="Decimal" Precision="10" Scale="6" />
-          <Property Name="FamilyAllocation" Type="Decimal" Precision="10" Scale="6" />
-          <Property Name="Platform" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="Program" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="Vehicle" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="Manufacturer" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="Family" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="SourcePlant" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="SourcePlantCountry" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="SourcePlantRegion" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="CSM_SOP" Type="DateTime" Precision="3" />
-          <Property Name="CSM_EOP" Type="DateTime" Precision="3" />
-          <Property Name="EAU" Type="Decimal" Precision="38" Scale="9" />
+          <Property Name="UserName" Type="String" Nullable="false" MaxLength="40" FixedLength="false" Unicode="false" />
+          <Property Name="UserCode" Type="String" Nullable="false" MaxLength="5" FixedLength="false" Unicode="false" />
+          <Property Name="Initials" Type="String" MaxLength="3" FixedLength="false" Unicode="false" />
+          <Property Name="FirstName" Type="String" MaxLength="8000" FixedLength="false" Unicode="false" />
+          <Property Name="LastName" Type="String" MaxLength="8000" FixedLength="false" Unicode="false" />
         </EntityType>
-        <ComplexType Name="usp_GetAwardedQuoteBasePartMnemonic_Result">
-          <Property Type="Decimal" Name="QtyPer" Nullable="true" Precision="10" Scale="0" />
-          <Property Type="Decimal" Name="TakeRate" Nullable="true" Precision="10" Scale="6" />
-          <Property Type="Decimal" Name="FamilyAllocation" Nullable="true" Precision="10" Scale="6" />
-        </ComplexType>
         <ComplexType Name="usp_GetAwardedQuoteCSMData_Result">
           <Property Type="String" Name="ReleaseID" Nullable="false" MaxLength="7" />
           <Property Type="String" Name="VehiclePlantMnemonic" Nullable="false" MaxLength="30" />
@@ -905,13 +1112,10 @@ warning 6002: The table/view 'FxPLM.NSA.Salespeople' does not have a primary key
           <Property Type="DateTime" Name="CSM_SOP" Nullable="true" Precision="23" />
           <Property Type="DateTime" Name="CSM_EOP" Nullable="true" Precision="23" />
           <Property Type="Int32" Name="ActiveFlag" Nullable="false" />
+          <Property Type="Decimal" Name="DemandYear1" Nullable="false" Precision="10" Scale="2" />
+          <Property Type="Decimal" Name="DemandYear2" Nullable="false" Precision="10" Scale="2" />
+          <Property Type="Decimal" Name="DemandYear3" Nullable="false" Precision="10" Scale="2" />
           <Property Type="Int64" Name="RowID" Nullable="false" />
-        </ComplexType>
-        <ComplexType Name="usp_GetCustomerShipTos_Result">
-          <Property Type="String" Name="Destination" Nullable="false" MaxLength="20" />
-          <Property Type="String" Name="DestinationName" Nullable="true" MaxLength="50" />
-          <Property Type="String" Name="Customer" Nullable="false" MaxLength="10" />
-          <Property Type="String" Name="CustomerName" Nullable="false" MaxLength="50" />
         </ComplexType>
         </Schema>
     </edmx:ConceptualModels>
@@ -1127,6 +1331,7 @@ warning 6002: The table/view 'FxPLM.NSA.Salespeople' does not have a primary key
                 <ScalarProperty Name="PurchaseOrderSOP" ColumnName="PurchaseOrderSOP" />
                 <ScalarProperty Name="PurchaseOrderEOP" ColumnName="PurchaseOrderEOP" />
                 <ScalarProperty Name="PurchaseOrderPriceVariace" ColumnName="PurchaseOrderPriceVariace" />
+                <ScalarProperty Name="CustomerProductionPurchaseOrderComments" ColumnName="CustomerProductionPurchaseOrderComments" />
                 <ScalarProperty Name="AmortizationAmount" ColumnName="AmortizationAmount" />
                 <ScalarProperty Name="AmortizationQuantity" ColumnName="AmortizationQuantity" />
                 <ScalarProperty Name="AmortizationPrice" ColumnName="AmortizationPrice" />
@@ -1150,24 +1355,6 @@ warning 6002: The table/view 'FxPLM.NSA.Salespeople' does not have a primary key
           <FunctionImportMapping FunctionImportName="usp_SetAssemblyTesterTooling" FunctionName="FxPLMModel.Store.usp_SetAssemblyTesterTooling" />
           <FunctionImportMapping FunctionImportName="usp_SetHardTooling" FunctionName="FxPLMModel.Store.usp_SetHardTooling" />
           <FunctionImportMapping FunctionImportName="usp_SetToolingAmortization" FunctionName="FxPLMModel.Store.usp_SetToolingAmortization" />
-          <EntitySetMapping Name="CSMDatas">
-            <EntityTypeMapping TypeName="FxPLMModel.CSMData">
-              <MappingFragment StoreEntitySet="CSMData">
-                <ScalarProperty Name="RowID" ColumnName="RowID" />
-                <ScalarProperty Name="CSM_EOP" ColumnName="CSM_EOP" />
-                <ScalarProperty Name="CSM_SOP" ColumnName="CSM_SOP" />
-                <ScalarProperty Name="SourcePlantRegion" ColumnName="SourcePlantRegion" />
-                <ScalarProperty Name="SourcePlantCountry" ColumnName="SourcePlantCountry" />
-                <ScalarProperty Name="SourcePlant" ColumnName="SourcePlant" />
-                <ScalarProperty Name="Manufacturer" ColumnName="Manufacturer" />
-                <ScalarProperty Name="Vehicle" ColumnName="Vehicle" />
-                <ScalarProperty Name="Program" ColumnName="Program" />
-                <ScalarProperty Name="Platform" ColumnName="Platform" />
-                <ScalarProperty Name="VehiclePlantMnemonic" ColumnName="VehiclePlantMnemonic" />
-                <ScalarProperty Name="ReleaseID" ColumnName="ReleaseID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <FunctionImportMapping FunctionImportName="usp_SetBasePartMnemonic" FunctionName="FxPLMModel.Store.usp_SetBasePartMnemonic" />
           <FunctionImportMapping FunctionImportName="usp_RemoveBasePartMnemonic" FunctionName="FxPLMModel.Store.usp_RemoveBasePartMnemonic" />
           <EntitySetMapping Name="BasePartMnemonics">
@@ -1203,6 +1390,96 @@ warning 6002: The table/view 'FxPLM.NSA.Salespeople' does not have a primary key
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="usp_GetCustomerShipTos" FunctionName="FxPLMModel.Store.usp_GetCustomerShipTos">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="FxPLMModel.usp_GetCustomerShipTos_Result">
+                <ScalarProperty Name="Destination" ColumnName="Destination" />
+                <ScalarProperty Name="DestinationName" ColumnName="DestinationName" />
+                <ScalarProperty Name="Customer" ColumnName="Customer" />
+                <ScalarProperty Name="CustomerName" ColumnName="CustomerName" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="usp_SetLogistics" FunctionName="FxPLMModel.Store.usp_SetLogistics" />
+          <FunctionImportMapping FunctionImportName="usp_GetAwardedQuoteActiveMnemonics" FunctionName="FxPLMModel.Store.usp_GetAwardedQuoteActiveMnemonics" />
+          <FunctionImportMapping FunctionImportName="usp_GetCalculatedTakeRate" FunctionName="FxPLMModel.Store.usp_GetCalculatedTakeRate">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="FxPLMModel.usp_GetCalculatedTakeRate_Result">
+                <ScalarProperty Name="QtyPer" ColumnName="QtyPer" />
+                <ScalarProperty Name="FamilyAllocation" ColumnName="FamilyAllocation" />
+                <ScalarProperty Name="QuotedEau" ColumnName="QuotedEau" />
+                <ScalarProperty Name="CsmForeCastDemand" ColumnName="CsmForeCastDemand" />
+                <ScalarProperty Name="TakeRate" ColumnName="TakeRate" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <EntitySetMapping Name="EmpireMarketSegments">
+            <EntityTypeMapping TypeName="FxPLMModel.EmpireMarketSegment">
+              <MappingFragment StoreEntitySet="EmpireMarketSegment">
+                <ScalarProperty Name="RowID" ColumnName="RowID" />
+                <ScalarProperty Name="EmpireMarketSegment1" ColumnName="EmpireMarketSegment" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="EmpireMarketSubsegments">
+            <EntityTypeMapping TypeName="FxPLMModel.EmpireMarketSubsegment">
+              <MappingFragment StoreEntitySet="EmpireMarketSubsegment">
+                <ScalarProperty Name="RowID" ColumnName="RowID" />
+                <ScalarProperty Name="EmpireMarketSubsegment1" ColumnName="EmpireMarketSubsegment" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ProductLines">
+            <EntityTypeMapping TypeName="FxPLMModel.ProductLine">
+              <MappingFragment StoreEntitySet="ProductLine">
+                <ScalarProperty Name="RowID" ColumnName="RowID" />
+                <ScalarProperty Name="ProductLine1" ColumnName="ProductLine" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CustomerShipTos">
+            <EntityTypeMapping TypeName="FxPLMModel.CustomerShipTo">
+              <MappingFragment StoreEntitySet="CustomerShipTos">
+                <ScalarProperty Name="Address6" ColumnName="Address6" />
+                <ScalarProperty Name="Address5" ColumnName="Address5" />
+                <ScalarProperty Name="Address4" ColumnName="Address4" />
+                <ScalarProperty Name="Address3" ColumnName="Address3" />
+                <ScalarProperty Name="Address2" ColumnName="Address2" />
+                <ScalarProperty Name="Address1" ColumnName="Address1" />
+                <ScalarProperty Name="ShipToName" ColumnName="ShipToName" />
+                <ScalarProperty Name="CustomerName" ColumnName="CustomerName" />
+                <ScalarProperty Name="ShipToCode" ColumnName="ShipToCode" />
+                <ScalarProperty Name="CustomerCode" ColumnName="CustomerCode" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="EmpireFacilities">
+            <EntityTypeMapping TypeName="FxPLMModel.EmpireFacility">
+              <MappingFragment StoreEntitySet="EmpireFacilities">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Code" ColumnName="Code" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="FreightTerms">
+            <EntityTypeMapping TypeName="FxPLMModel.FreightTerm">
+              <MappingFragment StoreEntitySet="FreightTerms">
+                <ScalarProperty Name="RowID" ColumnName="RowID" />
+                <ScalarProperty Name="FreightTerms" ColumnName="FreightTerms" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="FxPLMModel.User">
+              <MappingFragment StoreEntitySet="Users">
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="Initials" ColumnName="Initials" />
+                <ScalarProperty Name="UserCode" ColumnName="UserCode" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <FunctionImportMapping FunctionImportName="usp_GetAwardedQuoteCSMData" FunctionName="FxPLMModel.Store.usp_GetAwardedQuoteCSMData">
             <ResultMapping>
               <ComplexTypeMapping TypeName="FxPLMModel.usp_GetAwardedQuoteCSMData_Result">
@@ -1218,20 +1495,14 @@ warning 6002: The table/view 'FxPLM.NSA.Salespeople' does not have a primary key
                 <ScalarProperty Name="CSM_SOP" ColumnName="CSM_SOP" />
                 <ScalarProperty Name="CSM_EOP" ColumnName="CSM_EOP" />
                 <ScalarProperty Name="ActiveFlag" ColumnName="ActiveFlag" />
+                <ScalarProperty Name="DemandYear1" ColumnName="DemandYear1" />
+                <ScalarProperty Name="DemandYear2" ColumnName="DemandYear2" />
+                <ScalarProperty Name="DemandYear3" ColumnName="DemandYear3" />
                 <ScalarProperty Name="RowID" ColumnName="RowID" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="usp_GetCustomerShipTos" FunctionName="FxPLMModel.Store.usp_GetCustomerShipTos">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="FxPLMModel.usp_GetCustomerShipTos_Result">
-                <ScalarProperty Name="Destination" ColumnName="Destination" />
-                <ScalarProperty Name="DestinationName" ColumnName="DestinationName" />
-                <ScalarProperty Name="Customer" ColumnName="Customer" />
-                <ScalarProperty Name="CustomerName" ColumnName="CustomerName" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="usp_AwardedQuoteFirstMnemonicEmail" FunctionName="FxPLMModel.Store.usp_AwardedQuoteFirstMnemonicEmail" />
           </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

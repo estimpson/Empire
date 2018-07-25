@@ -46,7 +46,6 @@ namespace WebPortal.NewSalesAward.Pages
 
         protected void Page_Init(object sender, EventArgs e)
         {
-            if (Session["op"] == null) Session["op"] = Request.QueryString["op"];
         }
 
         protected void Page_Load(object sender, EventArgs e)
@@ -59,13 +58,23 @@ namespace WebPortal.NewSalesAward.Pages
 
                 btnAltCustomerCommitment.Visible = false;
 
-                gvQuote.FocusedRowIndex = -1;
+                //gvQuote.FocusedRowIndex = -1;
             }
+        }
+
+        protected void Page_LoadComplete(object sender, EventArgs e)
+        {
+            
         }
 
 
 
         #region Control Events
+
+        protected void gvQuote_DataBound(object sender, EventArgs e)
+        {
+            SetFocusedRow();
+        }
 
         protected void cbxMode_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -75,11 +84,170 @@ namespace WebPortal.NewSalesAward.Pages
             HideLoadingPanel(LoadingPanelTrigger.Mode);
         }
 
+        protected void btnHid_Click(object sender, EventArgs e)
+        {
+            lblBasePart.Text = gvQuote.GetRowValues(gvQuote.FocusedRowIndex, "BasePart").ToString();
+
+            // Purchase Order
+            DateTime? purchaseOrderDt = null;
+            if (gvQuote.GetRowValues(gvQuote.FocusedRowIndex, "PurchaseOrderDate") != null) purchaseOrderDt = Convert.ToDateTime(gvQuote.GetRowValues(gvQuote.FocusedRowIndex, "PurchaseOrderDate"));
+            dePurchaseOrderDate.Value = purchaseOrderDt;
+
+            tbxPoNumber.Text = (gvQuote.GetRowValues(gvQuote.FocusedRowIndex, "CustomerProductionPurchaseOrderNumber") != null) ? gvQuote.GetRowValues(gvQuote.FocusedRowIndex, "CustomerProductionPurchaseOrderNumber").ToString() : "";
+            tbxAltCustCommit.Text = (gvQuote.GetRowValues(gvQuote.FocusedRowIndex, "AlternativeCustomerCommitment") != null) ? gvQuote.GetRowValues(gvQuote.FocusedRowIndex, "AlternativeCustomerCommitment").ToString() : "";
+
+            decimal? sellingPrice = null;
+            if (gvQuote.GetRowValues(gvQuote.FocusedRowIndex, "PurchaseOrderSellingPrice") != null) sellingPrice = Convert.ToDecimal(gvQuote.GetRowValues(gvQuote.FocusedRowIndex, "PurchaseOrderSellingPrice"));
+            tbxPoSellingPrice.Value = sellingPrice;
+
+            DateTime? poSop = null;
+            if (gvQuote.GetRowValues(gvQuote.FocusedRowIndex, "PurchaseOrderSOP") != null) poSop = Convert.ToDateTime(gvQuote.GetRowValues(gvQuote.FocusedRowIndex, "PurchaseOrderSOP"));
+            dePoSop.Value = poSop;
+
+            DateTime? poEop = null;
+            if (gvQuote.GetRowValues(gvQuote.FocusedRowIndex, "PurchaseOrderEOP") != null) poEop = Convert.ToDateTime(gvQuote.GetRowValues(gvQuote.FocusedRowIndex, "PurchaseOrderEOP"));
+            dePoEop.Value = poEop;
+
+            tbxPoComments.Text = (gvQuote.GetRowValues(gvQuote.FocusedRowIndex, "CustomerProductionPurchaseOrderComments") != null) ? gvQuote.GetRowValues(gvQuote.FocusedRowIndex, "CustomerProductionPurchaseOrderComments").ToString() : "";
+
+
+
+            // Hard Tooling
+            decimal? toolingAmount = null;
+            if (gvQuote.GetRowValues(gvQuote.FocusedRowIndex, "HardToolingAmount") != null) toolingAmount = Convert.ToDecimal(gvQuote.GetRowValues(gvQuote.FocusedRowIndex, "HardToolingAmount"));
+            tbxHardToolingAmount.Value = toolingAmount;
+
+            tbxHardToolingTrigger.Text = (gvQuote.GetRowValues(gvQuote.FocusedRowIndex, "HardToolingTrigger") != null) ? gvQuote.GetRowValues(gvQuote.FocusedRowIndex, "HardToolingTrigger").ToString() : "";
+            tbxHardToolingDescription.Text = (gvQuote.GetRowValues(gvQuote.FocusedRowIndex, "HardToolingDescription") != null) ? gvQuote.GetRowValues(gvQuote.FocusedRowIndex, "HardToolingDescription").ToString() : "";
+            tbxHardToolingCAPEXID.Text = (gvQuote.GetRowValues(gvQuote.FocusedRowIndex, "HardToolingCAPEXID") != null) ? gvQuote.GetRowValues(gvQuote.FocusedRowIndex, "HardToolingCAPEXID").ToString() : "";
+            
+
+
+            // Tooling Amortization
+            decimal? amAmount = null;
+            if (gvQuote.GetRowValues(gvQuote.FocusedRowIndex, "AmortizationAmount") != null) amAmount = Convert.ToDecimal(gvQuote.GetRowValues(gvQuote.FocusedRowIndex, "AmortizationAmount"));
+            tbxAmortizationAmount.Value = amAmount;
+
+            decimal? amQuantity = null;
+            if (gvQuote.GetRowValues(gvQuote.FocusedRowIndex, "AmortizationQuantity") != null) amQuantity = Convert.ToDecimal(gvQuote.GetRowValues(gvQuote.FocusedRowIndex, "AmortizationQuantity"));
+            tbxAmortizationQuantity.Value = amQuantity;
+
+            tbxAmortizationToolingDescription.Text = (gvQuote.GetRowValues(gvQuote.FocusedRowIndex, "AmortizationToolingDescription") != null) ? gvQuote.GetRowValues(gvQuote.FocusedRowIndex, "AmortizationToolingDescription").ToString() : "";
+            tbxAmortizationCAPEXID.Text = (gvQuote.GetRowValues(gvQuote.FocusedRowIndex, "AmortizationCAPEXID") != null) ? gvQuote.GetRowValues(gvQuote.FocusedRowIndex, "AmortizationCAPEXID").ToString() : "";
+           
+
+
+            // Assembly Tester Tooling
+            decimal? assemblyTesterToolingAmount = null;
+            if (gvQuote.GetRowValues(gvQuote.FocusedRowIndex, "AssemblyTesterToolingAmount") != null) assemblyTesterToolingAmount = Convert.ToDecimal(gvQuote.GetRowValues(gvQuote.FocusedRowIndex, "AssemblyTesterToolingAmount"));
+            tbxAssemblyTesterToolingAmount.Value = assemblyTesterToolingAmount;
+
+            tbxAssemblyTesterToolingTrigger.Text = (gvQuote.GetRowValues(gvQuote.FocusedRowIndex, "AssemblyTesterToolingTrigger") != null) ? gvQuote.GetRowValues(gvQuote.FocusedRowIndex, "AssemblyTesterToolingTrigger").ToString() : "";
+            tbxAssemblyTesterToolingDescription.Text = (gvQuote.GetRowValues(gvQuote.FocusedRowIndex, "AssemblyTesterToolingDescription") != null) ? gvQuote.GetRowValues(gvQuote.FocusedRowIndex, "AssemblyTesterToolingDescription").ToString() : "";
+            tbxAssemblyTesterToolingCAPEXID.Text = (gvQuote.GetRowValues(gvQuote.FocusedRowIndex, "AssemblyTesterToolingCAPEXID") != null) ? gvQuote.GetRowValues(gvQuote.FocusedRowIndex, "AssemblyTesterToolingCAPEXID").ToString() : "";
+           
+
+
+            // Logistics
+            cbxEmpireFacility.Text = (gvQuote.GetRowValues(gvQuote.FocusedRowIndex, "EmpireFacility") != null) ? gvQuote.GetRowValues(gvQuote.FocusedRowIndex, "EmpireFacility").ToString() : "";
+            cbxFreightTerms.Text = (gvQuote.GetRowValues(gvQuote.FocusedRowIndex, "FreightTerms") != null) ? gvQuote.GetRowValues(gvQuote.FocusedRowIndex, "FreightTerms").ToString() : "";
+            cbxCustomerShipTos.Text = (gvQuote.GetRowValues(gvQuote.FocusedRowIndex, "CustomerShipTos") != null) ? gvQuote.GetRowValues(gvQuote.FocusedRowIndex, "CustomerShipTos").ToString() : "";
+           
+
+
+            // Base Part Attributes
+            tbxBasePartFamily.Text = (gvQuote.GetRowValues(gvQuote.FocusedRowIndex, "BasePartFamily") != null) ? gvQuote.GetRowValues(gvQuote.FocusedRowIndex, "BasePartFamily").ToString() : "";
+            cbxProductLine.Text = (gvQuote.GetRowValues(gvQuote.FocusedRowIndex, "ProductLine") != null) ? gvQuote.GetRowValues(gvQuote.FocusedRowIndex, "ProductLine").ToString() : "";
+            cbxEmpireMarketSegment.Text = (gvQuote.GetRowValues(gvQuote.FocusedRowIndex, "EmpireMarketSegment") != null) ? gvQuote.GetRowValues(gvQuote.FocusedRowIndex, "EmpireMarketSegment").ToString() : "";
+            cbxEmpireMarketSubsegment.Text = (gvQuote.GetRowValues(gvQuote.FocusedRowIndex, "EmpireMarketSubsegment") != null) ? gvQuote.GetRowValues(gvQuote.FocusedRowIndex, "EmpireMarketSubsegment").ToString() : "";
+            tbxEmpireApplication.Text = (gvQuote.GetRowValues(gvQuote.FocusedRowIndex, "EmpireApplication") != null) ? gvQuote.GetRowValues(gvQuote.FocusedRowIndex, "EmpireApplication").ToString() : "";
+            tbxEmpireEopNote.Text = (gvQuote.GetRowValues(gvQuote.FocusedRowIndex, "EmpireEOPNote") != null) ? gvQuote.GetRowValues(gvQuote.FocusedRowIndex, "EmpireEOPNote").ToString() : "";
+
+            DateTime? empireSop = null;
+            if (gvQuote.GetRowValues(gvQuote.FocusedRowIndex, "EmpireSOP") != null) empireSop = Convert.ToDateTime(gvQuote.GetRowValues(gvQuote.FocusedRowIndex, "EmpireSOP"));
+            deEmpireSop.Value = empireSop;
+
+            DateTime? empireEop = null;
+            if (gvQuote.GetRowValues(gvQuote.FocusedRowIndex, "EmpireEOP") != null) empireEop = Convert.ToDateTime(gvQuote.GetRowValues(gvQuote.FocusedRowIndex, "EmpireEOP"));
+            deEmpireEop.Value = empireEop;
+
+            tbxBasePartAttributesComments.Text = (gvQuote.GetRowValues(gvQuote.FocusedRowIndex, "BasePart_Comments") != null) ? gvQuote.GetRowValues(gvQuote.FocusedRowIndex, "BasePart_Comments").ToString() : "";
+
+
+
+            // Base Part Mnemonics
+            tbxVehiclePlantMnemonic.Text = (gvQuote.GetRowValues(gvQuote.FocusedRowIndex, "VehiclePlantMnemonic") != null) ? gvQuote.GetRowValues(gvQuote.FocusedRowIndex, "VehiclePlantMnemonic").ToString() : "";
+
+            decimal? qtyPer = null;
+            if (gvQuote.GetRowValues(gvQuote.FocusedRowIndex, "QtyPer") != null) qtyPer = Convert.ToDecimal(gvQuote.GetRowValues(gvQuote.FocusedRowIndex, "QtyPer"));
+            tbxQtyPer.Value = qtyPer;
+
+            decimal? takeRate = null;
+            if (gvQuote.GetRowValues(gvQuote.FocusedRowIndex, "TakeRate") != null) takeRate = Convert.ToDecimal(gvQuote.GetRowValues(gvQuote.FocusedRowIndex, "TakeRate"));
+            tbxTakeRate.Value = takeRate;
+
+            tbxFamilyAllocation.Text = (gvQuote.GetRowValues(gvQuote.FocusedRowIndex, "FamilyAllocation") != null) ? gvQuote.GetRowValues(gvQuote.FocusedRowIndex, "FamilyAllocation").ToString() : "";
+
+            decimal? quotedEau = null;
+            if (gvQuote.GetRowValues(gvQuote.FocusedRowIndex, "QuotedEAU") != null) quotedEau = Convert.ToDecimal(gvQuote.GetRowValues(gvQuote.FocusedRowIndex, "QuotedEAU"));
+            tbxQuotedEau.Value = quotedEau;
+
+
+            pcEdit.ShowOnPageLoad = true;
+        }
+
+
+
+
+        protected void btnSaveLogistics_Click(object sender, EventArgs e)
+        {
+            SaveLogistics();
+        }
+
+        protected void btnSaveBasePartAttr_Click(object sender, EventArgs e)
+        {
+            SaveBasePartAttributes();
+        }
+
+        protected void btnSaveAssemblyTester_Click(object sender, EventArgs e)
+        {
+            SaveAssemblyTester();
+        }
+
+        protected void btnSaveAmortization_Click(object sender, EventArgs e)
+        {
+            SaveAmortization();
+        }
+
+        protected void btnSaveHardTooling_Click(object sender, EventArgs e)
+        {
+            SaveHardTooling();
+        }
+
+        protected void btnSavePO_Click(object sender, EventArgs e)
+        {
+            SavePo();
+        }
+
+
+        protected void btnSaveAll_Click(object sender, EventArgs e)
+        {
+            if (SavePo() == 0) return;
+            if (SaveHardTooling() == 0) return;
+            if (SaveAssemblyTester() == 0) return;
+            if (SaveAmortization() == 0) return;
+            if (SaveBasePartAttributes() == 0) return;
+            SaveLogistics();
+
+            pcEdit.ShowOnPageLoad = false;
+        }
+
         protected void btnNewSalesAward_Click(object sender, EventArgs e)
         {
             Session["ModeIndex"] = cbxMode.SelectedIndex;
             Response.Redirect("CreateAwardedQuote.aspx");
         }
+
         protected void btnQuoteTransfer_Click(object sender, EventArgs e)
         {
             if (gvQuote.FocusedRowIndex > -1)
@@ -89,11 +257,13 @@ namespace WebPortal.NewSalesAward.Pages
             }
             Session["RedirectPage"] = "~/NewSalesAward/Pages/NewSalesAwards.aspx";
             Session["ModeIndex"] = cbxMode.SelectedIndex;
+            Session["FocusedRowIndex"] = gvQuote.FocusedRowIndex;
             Response.Redirect("~/QuoteLogIntegration/Pages/QuoteTransfer.aspx");
         }
 
         protected void btnCustomerCommitment_Click(object sender, EventArgs e)
         {
+            // ***** Need quote number ???
             Session["AttachmentCategory"] = "CustomerCommitment";
 
             ShowQuoteFiles("CustomerCommitment");
@@ -112,17 +282,39 @@ namespace WebPortal.NewSalesAward.Pages
 
         protected void btnEditMnemonic_Click(object sender, EventArgs e)
         {
+            //string quote = gvQuote.GetRowValues(gvQuote.FocusedRowIndex, "QuoteNumber").ToString();
+            //string basePart = gvQuote.GetRowValues(gvQuote.FocusedRowIndex, "BasePart").ToString();
+            //string mnemonic = "";
+            //if (gvQuote.GetRowValues(gvQuote.FocusedRowIndex, "VehiclePlantMnemonic") != null)
+            //{
+            //    mnemonic = (gvQuote.GetRowValues(gvQuote.FocusedRowIndex, "VehiclePlantMnemonic").ToString());
+            //}
+            //Session["QuoteNumber"] = quote;
+            //Session["BasePart"] = basePart;
+            //Session["Mnemonic"] = mnemonic;
+            //Session["ModeIndex"] = cbxMode.SelectedIndex;
+            //Session["FocusedRowIndex"] = gvQuote.FocusedRowIndex;
+            //Response.Redirect("CsmDemand.aspx");
+        }
+
+        protected void btnEditBasePartMnemonics_Click(object sender, EventArgs e)
+        {
             string quote = gvQuote.GetRowValues(gvQuote.FocusedRowIndex, "QuoteNumber").ToString();
             string basePart = gvQuote.GetRowValues(gvQuote.FocusedRowIndex, "BasePart").ToString();
-            string mnemonic = "";
-            if (gvQuote.GetRowValues(gvQuote.FocusedRowIndex, "VehiclePlantMnemonic") != null)
-            {
-                mnemonic = (gvQuote.GetRowValues(gvQuote.FocusedRowIndex, "VehiclePlantMnemonic").ToString());
-            }
+            string mnemonic = tbxVehiclePlantMnemonic.Text.Trim();
+            string qtyPer = tbxQtyPer.Text.Trim();
+            string takeRate = tbxTakeRate.Text.Trim();
+            string familyAllocation = tbxFamilyAllocation.Text.Trim();
+            string quotedEau = tbxQuotedEau.Text.Trim();
+            
             Session["QuoteNumber"] = quote;
             Session["BasePart"] = basePart;
             Session["Mnemonic"] = mnemonic;
-            Session["ModeIndex"] = cbxMode.SelectedIndex;
+            Session["QtyPer"] = qtyPer;
+            Session["TakeRate"] = takeRate;
+            Session["FamilyAllocation"] = familyAllocation;
+            Session["QuotedEau"] = quotedEau;
+
             Response.Redirect("CsmDemand.aspx");
         }
 
@@ -153,6 +345,7 @@ namespace WebPortal.NewSalesAward.Pages
         private void EditModePopulateCustomerShipTos(ASPxEditBase e)
         {
             string basePart = (gvQuote.GetRowValues(gvQuote.FocusedRowIndex, "BasePart").ToString());
+
             var destinations = ViewModel.GetCustomerShipTos(basePart);
 
             var cmb = e as ASPxComboBox;
@@ -189,6 +382,9 @@ namespace WebPortal.NewSalesAward.Pages
                     break;
                 case "Base Part Attributes":
                     if (SetBasePartAttributes(quote, e) == 1) gvQuote.DataBind();
+                    break;
+                case "Logistics":
+                    if (SetLogistics(quote, e) == 1) gvQuote.DataBind();
                     break;
                 default:
                     break;
@@ -266,7 +462,17 @@ namespace WebPortal.NewSalesAward.Pages
             else
             {
                 cbxMode.SelectedIndex = 0;
-            } 
+            }
+        }
+
+        private void SetFocusedRow()
+        {
+            if (Session["FocusedRowIndex"] != null)
+            {
+                int i = Convert.ToInt16(Session["FocusedRowIndex"]);
+                gvQuote.FocusedRowIndex = i;
+                gvQuote.ScrollToVisibleIndexOnClient = i;
+            }
         }
 
         private void ToggleColumnButtonVisibility()
@@ -274,21 +480,21 @@ namespace WebPortal.NewSalesAward.Pages
             // Hide all data columns
             for (int i = 2; i < gvQuote.Columns.Count; i++) gvQuote.Columns[i].Visible = false;
 
-            // Toggle edit button columns
-            if (cbxMode.Text == "Quote")
-            {
-                gvQuote.Columns[0].Visible = gvQuote.Columns[1].Visible = false;
-            }
-            else if (cbxMode.Text == "Base Part Mnemonics")
-            {
-                gvQuote.Columns[0].Visible = false;
-                gvQuote.Columns[1].Visible = true;
-            }
-            else
-            {
-                gvQuote.Columns[0].Visible = true;
-                gvQuote.Columns[1].Visible = false;
-            }
+            //// Toggle edit button columns
+            //if (cbxMode.Text == "Quote")
+            //{
+            //    gvQuote.Columns[0].Visible = gvQuote.Columns[1].Visible = false;
+            //}
+            //else if (cbxMode.Text == "Base Part Mnemonics")
+            //{
+            //    gvQuote.Columns[0].Visible = false;
+            //    gvQuote.Columns[1].Visible = true;
+            //}
+            //else
+            //{
+            //    gvQuote.Columns[0].Visible = true;
+            //    gvQuote.Columns[1].Visible = false;
+            //}
 
             // Show only the columns required for updating the selected mode
             string mode = cbxMode.SelectedItem.Value.ToString();
@@ -306,7 +512,7 @@ namespace WebPortal.NewSalesAward.Pages
                     gvQuote.Columns["PurchaseOrderSellingPrice"].Visible = true;
                     gvQuote.Columns["PurchaseOrderSOP"].Visible = true;
                     gvQuote.Columns["PurchaseOrderEOP"].Visible = true;
-                    gvQuote.Columns["Comments"].Visible = true;
+                    gvQuote.Columns["CustomerProductionPurchaseOrderComments"].Visible = true;
                     break;
                 case "Hard Tooling":
                     gvQuote.Columns["QuoteNumber"].Visible = true;
@@ -351,7 +557,7 @@ namespace WebPortal.NewSalesAward.Pages
                     gvQuote.Columns["EmpireSOP"].Visible = true;
                     gvQuote.Columns["EmpireEOP"].Visible = true;
                     gvQuote.Columns["EmpireEOPNote"].Visible = true;
-                    gvQuote.Columns["Comments"].Visible = true;
+                    gvQuote.Columns["BasePart_Comments"].Visible = true;
                     break;
                 case "Logistics":
                     gvQuote.Columns["QuoteNumber"].Visible = true;
@@ -406,6 +612,36 @@ namespace WebPortal.NewSalesAward.Pages
 
             string comments = (e.NewValues["Comments"] != null) ? e.NewValues["Comments"].ToString() : "";
 
+
+            ViewModel.SetProductionPO(quote, purchaseOrderDt, po, altCommit, sellingPrice, sop, eop, comments);
+            if (ViewModel.Error != "")
+            {
+                lblError.Text = String.Format("Error at SetProductionPO. {0}", ViewModel.Error);
+                pcError.ShowOnPageLoad = true;
+                return 0;
+            }
+            return 1;
+        }
+
+        private int SetProductionPO(string quote)
+        {
+            DateTime? purchaseOrderDt = null;
+            if (dePurchaseOrderDate.Value != null) purchaseOrderDt = Convert.ToDateTime(dePurchaseOrderDate.Value);
+
+            string po = tbxPoNumber.Text.Trim();
+            string altCommit = tbxAltCustCommit.Text.Trim();
+
+            decimal? sellingPrice = null;
+            if (tbxPoSellingPrice.Text != null && tbxPoSellingPrice.Text != "") sellingPrice = Convert.ToDecimal(tbxPoSellingPrice.Text.Trim());
+
+            DateTime? sop = null;
+            if (dePoSop.Value != null) sop = Convert.ToDateTime(dePoSop.Value);
+
+            DateTime? eop = null;
+            if (dePoEop.Value != null) eop = Convert.ToDateTime(dePoEop.Value);
+
+            string comments = tbxPoComments.Text.Trim();
+
             ViewModel.SetProductionPO(quote, purchaseOrderDt, po, altCommit, sellingPrice, sop, eop, comments);
             if (ViewModel.Error != "")
             {
@@ -425,6 +661,25 @@ namespace WebPortal.NewSalesAward.Pages
             string description = (e.NewValues["HardToolingDescription"] != null) ? e.NewValues["HardToolingDescription"].ToString() : "";
             string capexid = (e.NewValues["HardToolingCAPEXID"] != null) ? e.NewValues["HardToolingCAPEXID"].ToString() : "";
             
+            ViewModel.SetHardTooling(quote, amount, trigger, description, capexid);
+            if (ViewModel.Error != "")
+            {
+                lblError.Text = String.Format("Error at SetHardTooling. {0}", ViewModel.Error);
+                pcError.ShowOnPageLoad = true;
+                return 0;
+            }
+            return 1;
+        }
+
+        private int SetHardTooling(string quote)
+        {
+            decimal? amount = null;
+            if (tbxHardToolingAmount.Text != null && tbxHardToolingAmount.Text != "") amount = Convert.ToDecimal(tbxHardToolingAmount.Text.Trim());
+
+            string trigger = tbxHardToolingTrigger.Text.Trim();
+            string description = tbxHardToolingDescription.Text.Trim();
+            string capexid = tbxHardToolingCAPEXID.Text.Trim();
+
             ViewModel.SetHardTooling(quote, amount, trigger, description, capexid);
             if (ViewModel.Error != "")
             {
@@ -456,6 +711,27 @@ namespace WebPortal.NewSalesAward.Pages
             return 1;
         }
 
+        private int SetToolingAmortization(string quote)
+        {
+            decimal? amount = null;
+            if (tbxAmortizationAmount.Text != null && tbxAmortizationAmount.Text != "") amount = Convert.ToDecimal(tbxAmortizationAmount.Text.Trim());
+
+            decimal? quantity = null;
+            if (tbxAmortizationQuantity.Text != null && tbxAmortizationQuantity.Text != "") quantity = Convert.ToDecimal(tbxAmortizationQuantity.Text.Trim());
+
+            string description = tbxAmortizationToolingDescription.Text.Trim();
+            string capexid = tbxAmortizationCAPEXID.Text.Trim();
+
+            ViewModel.SetToolingAmortization(quote, amount, quantity, description, capexid);
+            if (ViewModel.Error != "")
+            {
+                lblError.Text = String.Format("Error at SetToolingAmortization. {0}", ViewModel.Error);
+                pcError.ShowOnPageLoad = true;
+                return 0;
+            }
+            return 1;
+        }
+
         private int SetAssemblyTesterTooling(string quote, DevExpress.Web.Data.ASPxDataUpdatingEventArgs e)
         {
             decimal? amount = null;
@@ -464,6 +740,25 @@ namespace WebPortal.NewSalesAward.Pages
             string trigger = (e.NewValues["AssemblyTesterToolingTrigger"] != null) ? e.NewValues["AssemblyTesterToolingTrigger"].ToString() : "";
             string description = (e.NewValues["AssemblyTesterToolingDescription"] != null) ? e.NewValues["AssemblyTesterToolingDescription"].ToString() : "";
             string capexid = (e.NewValues["AssemblyTesterToolingCAPEXID"] != null) ? e.NewValues["AssemblyTesterToolingCAPEXID"].ToString() : "";
+
+            ViewModel.SetAssemblyTesterTooling(quote, amount, trigger, description, capexid);
+            if (ViewModel.Error != "")
+            {
+                lblError.Text = String.Format("Error at SetAssemblyTesterTooling. {0}", ViewModel.Error);
+                pcError.ShowOnPageLoad = true;
+                return 0;
+            }
+            return 1;
+        }
+
+        private int SetAssemblyTesterTooling(string quote)
+        {
+            decimal? amount = null;
+            if (tbxAssemblyTesterToolingAmount.Text != null && tbxAssemblyTesterToolingAmount.Text != "") amount = Convert.ToDecimal(tbxAssemblyTesterToolingAmount.Text.Trim());
+
+            string trigger = tbxAssemblyTesterToolingTrigger.Text.Trim();
+            string description = tbxAssemblyTesterToolingDescription.Text.Trim();
+            string capexid = tbxAssemblyTesterToolingCAPEXID.Text.Trim();
 
             ViewModel.SetAssemblyTesterTooling(quote, amount, trigger, description, capexid);
             if (ViewModel.Error != "")
@@ -489,8 +784,6 @@ namespace WebPortal.NewSalesAward.Pages
             DateTime? eop = null;
             if (e.NewValues["EmpireEOP"] != null) eop = Convert.ToDateTime(e.NewValues["PurchaseOrderEOP"]);
 
-
-
             string comments = "";
             var vComments = gvQuote.GetRowValues(gvQuote.FocusedRowIndex, "Comments");
             if (vComments != null) comments = vComments.ToString();
@@ -499,13 +792,141 @@ namespace WebPortal.NewSalesAward.Pages
             var vEopNote = gvQuote.GetRowValues(gvQuote.FocusedRowIndex, "EmpireEOPNote");
             if (vEopNote != null) eopNote = vEopNote.ToString();
 
-            ViewModel.SetBasePartAttributes(quote, basePartFamily, productLine, marketSegment, marketSubsegment, application, sop, eop, eopNote, comments);
+            string opCode = Session["OpCode"].ToString();
+
+            ViewModel.SetBasePartAttributes(opCode, quote, basePartFamily, productLine, marketSegment, marketSubsegment, application, sop, eop, eopNote, comments);
             if (ViewModel.Error != "")
             {
                 lblError.Text = String.Format("Error at SetAssemblyTesterTooling. {0}", ViewModel.Error);
                 pcError.ShowOnPageLoad = true;
                 return 0;
             }
+            return 1;
+        }
+
+        private int SetBasePartAttributes(string quote)
+        {
+            string basePartFamily = tbxBasePartFamily.Text.Trim();
+            string productLine = cbxProductLine.Text.Trim();
+            string marketSegment = cbxEmpireMarketSegment.Text.Trim();
+            string marketSubsegment = cbxEmpireMarketSubsegment.Text.Trim();
+            string application = tbxEmpireApplication.Text.Trim();
+
+            DateTime? sop = null;
+            if (deEmpireSop.Value != null) sop = Convert.ToDateTime(deEmpireSop.Value);
+
+            DateTime? eop = null;
+            if (deEmpireEop.Value != null) eop = Convert.ToDateTime(deEmpireEop.Value);
+
+            string comments = tbxBasePartAttributesComments.Text.Trim();
+            string eopNote = tbxEmpireEopNote.Text.Trim();
+
+            string opCode = Session["OpCode"].ToString();
+
+            ViewModel.SetBasePartAttributes(opCode, quote, basePartFamily, productLine, marketSegment, marketSubsegment, application, sop, eop, eopNote, comments);
+            if (ViewModel.Error != "")
+            {
+                lblError.Text = String.Format("Error at SetAssemblyTesterTooling. {0}", ViewModel.Error);
+                pcError.ShowOnPageLoad = true;
+                return 0;
+            }
+            return 1;
+        }
+
+        private int SetLogistics(string quote, DevExpress.Web.Data.ASPxDataUpdatingEventArgs e)
+        {
+            string empireFacility = (e.NewValues["EmpireFacility"] != null) ? e.NewValues["EmpireFacility"].ToString() : "";
+            string freightTerms = (e.NewValues["FreightTerms"] != null) ? e.NewValues["FreightTerms"].ToString() : "";
+            string customerShipTo = (e.NewValues["CustomerShipTos"] != null) ? e.NewValues["CustomerShipTos"].ToString() : "";
+
+            ViewModel.SetLogistics(quote, empireFacility, freightTerms, customerShipTo);
+            if (ViewModel.Error != "")
+            {
+                lblError.Text = String.Format("Error at SetLogistics. {0}", ViewModel.Error);
+                pcError.ShowOnPageLoad = true;
+                return 0;
+            }
+            return 1;
+        }
+
+        private int SetLogistics(string quote)
+        {
+            string empireFacility = cbxEmpireFacility.Text.Trim();
+            string freightTerms = cbxFreightTerms.Text.Trim();
+            string customerShipTo = cbxCustomerShipTos.Text.Trim();
+
+            ViewModel.SetLogistics(quote, empireFacility, freightTerms, customerShipTo);
+            if (ViewModel.Error != "")
+            {
+                lblError.Text = String.Format("Error at SetLogistics. {0}", ViewModel.Error);
+                pcError.ShowOnPageLoad = true;
+                return 0;
+            }
+            return 1;
+        }
+
+        private int SaveLogistics()
+        {
+            btnCheckmarkLogistics.Visible = false;
+            string quote = gvQuote.GetRowValues(gvQuote.FocusedRowIndex, "QuoteNumber").ToString();
+            if (SetLogistics(quote) == 0) return 0;
+
+            gvQuote.DataBind();
+            btnCheckmarkLogistics.Visible = true;
+            return 1;
+        }
+        private int SaveBasePartAttributes()
+        {
+            btnCheckmarkBasePartAttr.Visible = false;
+            string quote = gvQuote.GetRowValues(gvQuote.FocusedRowIndex, "QuoteNumber").ToString();
+            if (SetBasePartAttributes(quote) == 0) return 0;
+
+            gvQuote.DataBind();
+            btnCheckmarkBasePartAttr.Visible = true;
+            return 1;
+        }
+
+        private int SaveAssemblyTester()
+        {
+            btnCheckmarkAssemblyTester.Visible = false;
+            string quote = gvQuote.GetRowValues(gvQuote.FocusedRowIndex, "QuoteNumber").ToString();
+            if (SetAssemblyTesterTooling(quote) == 0) return 0;
+
+            gvQuote.DataBind();
+            btnCheckmarkAssemblyTester.Visible = true;
+            return 1;
+        }
+
+        private int SaveAmortization()
+        {
+            btnCheckmarkAmortization.Visible = false;
+            string quote = gvQuote.GetRowValues(gvQuote.FocusedRowIndex, "QuoteNumber").ToString();
+            if (SetToolingAmortization(quote) == 0) return 0;
+
+            gvQuote.DataBind();
+            btnCheckmarkAmortization.Visible = true;
+            return 1;
+        }
+
+        private int SaveHardTooling()
+        {
+            btnCheckmarkHardTooling.Visible = false;
+            string quote = gvQuote.GetRowValues(gvQuote.FocusedRowIndex, "QuoteNumber").ToString();
+            if (SetHardTooling(quote) == 0) return 0;
+
+            gvQuote.DataBind();
+            btnCheckmarkHardTooling.Visible = true;
+            return 1;
+        }
+
+        private int SavePo()
+        {
+            btnCheckmarkPO.Visible = false;
+            string quote = gvQuote.GetRowValues(gvQuote.FocusedRowIndex, "QuoteNumber").ToString();
+            if (SetProductionPO(quote) == 0) return 0;
+
+            gvQuote.DataBind();
+            btnCheckmarkPO.Visible = true;
             return 1;
         }
 
@@ -620,8 +1041,6 @@ namespace WebPortal.NewSalesAward.Pages
             }
             return 1;
         }
-
-
 
 
         #endregion

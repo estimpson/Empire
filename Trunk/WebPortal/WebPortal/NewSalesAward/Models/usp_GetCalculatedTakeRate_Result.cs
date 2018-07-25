@@ -10,15 +10,14 @@
 namespace WebPortal.NewSalesAward.Models
 {
     using System;
-    using System.Collections.Generic;
     
     [Serializable]
-    public partial class Salespeople
+    public partial class usp_GetCalculatedTakeRate_Result
     {
-        public string UserName { get; set; }
-        public string UserCode { get; set; }
-        public string UserInitials { get; set; }
-        public string EmailAddress { get; set; }
-        public long RowID { get; set; }
+        public Nullable<decimal> QtyPer { get; set; }
+        public Nullable<decimal> FamilyAllocation { get; set; }
+        public Nullable<decimal> QuotedEau { get; set; }
+        public Nullable<decimal> CsmForeCastDemand { get; set; }
+        public Nullable<decimal> TakeRate { get; set; }
     }
 }

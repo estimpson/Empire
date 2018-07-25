@@ -54,6 +54,34 @@
             gvCsmData.PerformCallback("ClearSort");
         }
 
+        function grid_BeginCallback(s, e) {
+
+        }
+        function grid_EndCallback(s, e) {
+            
+        }
+
+        function OnGetSelectedFieldValues(selectedValues) {
+            alert(selectedValues.length);
+            if (selectedValues.length == 0) {
+                lp.Hide();
+                return;
+            }
+
+            var s = "";
+            s = selectedValues[0];
+            alert(s);
+            lp.Hide();
+
+            //for (i = 0; i < selectedValues.length; i++) {
+
+            //    for (j = 0; j < selectedValues[i].length; j++) {
+            //        s = s + selectedValues[i][j] + "&nbsp;";
+            //    }
+            //}
+            //alert(s);
+        }
+
     </script>
 
 </asp:Content>
@@ -92,104 +120,163 @@
                 </div>
                 
 
-                <div id="divAssignMnemonic" runat="server" style="float:left; width: 330px;">
 
-                    <table class="tbl">
-                        <tr>
-                            <td>
-                                <dx:ASPxLabel ID="lblBasePart" runat="server" Text="Base Part:" />
-                            </td>
-                            <td>
-                                <dx:ASPxTextBox ID="tbxBasePart" runat="server" Width="194" ReadOnly="true" ClientEnabled="false" DisabledStyle-ForeColor="Black" />
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <dx:ASPxLabel ID="lblMnemonic" runat="server" Text="Mnemonic:" />
-                            </td>
-                            <td>
-                                <dx:ASPxTextBox ID="tbxMnemonic" runat="server" Width="194">
-                                    <ValidationSettings SetFocusOnError="True" ErrorText="" Display="Dynamic" ErrorTextPosition="Right" ValidationGroup="G">
-                                        <RequiredField IsRequired="True" ErrorText="" />
-                                    </ValidationSettings>
-                                    <InvalidStyle BackColor="LightPink" />
-                                </dx:ASPxTextBox>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <dx:ASPxLabel ID="lblQtyPer" runat="server" Text="Qty Per:" />
-                            </td>
-                            <td>
-                                <dx:ASPxTextBox ID="tbxQtyPer" runat="server" Width="194">
-                                    <ValidationSettings SetFocusOnError="True" ErrorText="" Display="Dynamic" ErrorTextPosition="Right" ValidationGroup="G">
-                                        <RequiredField IsRequired="True" ErrorText="" />
-                                        <RegularExpression ValidationExpression="^[0-9]+(\.[0-9]{1,4})?$" ErrorText="" />
-                                    </ValidationSettings>
-                                    <InvalidStyle BackColor="LightPink" />
-                                </dx:ASPxTextBox>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <dx:ASPxLabel ID="lblTakeRate" runat="server" Text="Take Rate:" />
-                            </td>
-                            <td>
-                                <dx:ASPxTextBox ID="tbxTakeRate" runat="server" Width="194">
-                                    <ValidationSettings SetFocusOnError="True" ErrorText="" Display="Dynamic" ErrorTextPosition="Right" ValidationGroup="G">
-                                        <RequiredField IsRequired="True" ErrorText="" />
-                                        <RegularExpression ValidationExpression="^[0-9]+(\.[0-9]{1,6})?$" ErrorText="" />
-                                    </ValidationSettings>
-                                    <InvalidStyle BackColor="LightPink" />
-                                </dx:ASPxTextBox>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <dx:ASPxLabel ID="lblFamilyAllocation" runat="server" Text="Family Allocation:" />
-                            </td>
-                            <td>
-                                <dx:ASPxTextBox ID="tbxFamilyAllocation" runat="server" Width="194">
-                                    <ValidationSettings SetFocusOnError="True" ErrorText="" Display="Dynamic" ErrorTextPosition="Right" ValidationGroup="G">
-                                        <RequiredField IsRequired="True" ErrorText="" />
-                                        <RegularExpression ValidationExpression="^[0-9]+(\.[0-9]{1,6})?$" ErrorText="" />
-                                    </ValidationSettings>
-                                    <InvalidStyle BackColor="LightPink" />
-                                </dx:ASPxTextBox>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>&nbsp;</td>
-                            <td>
-                                <div style="margin-top: 3px;">
-                                    <dx:ASPxButton ID="btnAssignMnemonic" runat="server" Text="Assign Mnemonic" AutoPostBack="false" OnClick="btnAssignMnemonic_Click" ValidationGroup="G" Width="194">   
-                                    </dx:ASPxButton>
+                <div style="float: left; width: 380px;">
 
-                                    <div style="margin-bottom: 5px;">
-                                        <dx:ASPxButton ID="btnUpdateMnemonic" runat="server" Text="Update Mnemonic" AutoPostBack="false" OnClick="btnUpdateMnemonic_Click" ValidationGroup="G" Width="194">
+                    <div id="divAssignMnemonic" runat="server">
+
+                        <table class="tbl">
+                            <tr>
+                                <td>
+                                    <dx:ASPxLabel ID="lblBasePart" runat="server" Text="Base Part:" Width="125" />
+                                </td>
+                                <td>
+                                    <dx:ASPxTextBox ID="tbxBasePart" runat="server" Width="194" ReadOnly="true" ClientEnabled="false" DisabledStyle-ForeColor="Black" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <dx:ASPxLabel ID="lblMnemonic" runat="server" Text="Mnemonics:" />
+                                </td>
+                                <td>
+                                    <dx:ASPxMemo ID="memoMnemonic" runat="server" Width="194" ReadOnly="true" ClientEnabled="false" Height="100" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <dx:ASPxLabel ID="lblQtyPer" runat="server" Text="Qty Per:" />
+                                </td>
+                                <td>
+                                    <dx:ASPxTextBox ID="tbxQtyPer" runat="server" Width="194">
+                                        <ValidationSettings SetFocusOnError="True" ErrorText="" Display="Dynamic" ErrorTextPosition="Right" ValidationGroup="G">
+                                            <RequiredField IsRequired="True" ErrorText="" />
+                                            <RegularExpression ValidationExpression="^[0-9]+(\.[0-9]{1,4})?$" ErrorText="" />
+                                        </ValidationSettings>
+                                        <InvalidStyle BackColor="LightPink" />
+                                    </dx:ASPxTextBox>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <dx:ASPxLabel ID="lblFamilyAllocation" runat="server" Text="Family Allocation:" />
+                                </td>
+                                <td>
+                                    <dx:ASPxTextBox ID="tbxFamilyAllocation" runat="server" Width="194">
+                                        <ValidationSettings Display="Dynamic" ErrorText="" ErrorTextPosition="Right" SetFocusOnError="True" ValidationGroup="G">
+                                            <RequiredField ErrorText="" IsRequired="True" />
+                                            <RegularExpression ErrorText="" ValidationExpression="^[0-9]+(\.[0-9]{1,6})?$" />
+                                        </ValidationSettings>
+                                        <InvalidStyle BackColor="LightPink" />
+                                    </dx:ASPxTextBox>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <dx:ASPxLabel ID="lblCurrentTakeRate" runat="server" Text="Take Rate:" />
+                                </td>
+                                <td>
+                                    <dx:ASPxTextBox ID="tbxCurrentTakeRate" runat="server" Width="194">
+                                         <ValidationSettings SetFocusOnError="True" ErrorText="" Display="Dynamic" ErrorTextPosition="Right" ValidationGroup="G">
+                                            <RequiredField IsRequired="True" ErrorText="" />
+                                            <RegularExpression ValidationExpression="^[0-9]+(\.[0-9]{1,6})?$" ErrorText="" />
+                                        </ValidationSettings>
+                                    </dx:ASPxTextBox>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>&nbsp;</td>
+                                <td>
+                                    <div style="margin-top: 3px;">
+                                        <dx:ASPxButton ID="btnUpdateMnemonic" runat="server" AutoPostBack="false" OnClick="btnUpdateMnemonic_Click" Text="Update Mnemonics" ValidationGroup="G" Width="194">
                                         </dx:ASPxButton>
                                     </div>
-                                    <dx:ASPxButton ID="btnRemoveMnemonic" runat="server" Text="Remove Mnemonic" AutoPostBack="false" OnClick="btnRemoveMnemonic_Click" Width="194">
-                                    </dx:ASPxButton>
-                                </div>
-                            </td>
-                        </tr>
-                    </table>
+                                </td>
+                            </tr>
+                        </table>
 
-                    <dx:ASPxGlobalEvents ID="ASPxGlobalEvents1" runat="server">
-                        <ClientSideEvents ValidationCompleted="function(s, e) {if (e.isValid) {lp.Show();}}" />
-                    </dx:ASPxGlobalEvents>
+                        <dx:ASPxGlobalEvents ID="ASPxGlobalEvents1" runat="server">
+                            <ClientSideEvents ValidationCompleted="function(s, e) {if (e.isValid) {lp.Show();}}" />
+                        </dx:ASPxGlobalEvents>
+
+                    </div>
+
+
+
+                    <div style="margin-top: 45px;">
+                        <table class="tbl">
+                            <tr>
+                                <td>
+                                    <dx:ASPxLabel ID="lblSpace" runat="server" Text="" Width="125" />
+                                </td>
+                                <td>
+                                    <dx:ASPxLabel ID="lblCalcTakeRateTitle1" runat="server" Text="Calculated Take Rate" Font-Size="14" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <dx:ASPxLabel ID="lblQuotedEauCalc" runat="server" Text="Quoted EAU:" />
+                                </td>
+                                <td>
+                                    <dx:ASPxTextBox ID="tbxQuotedEauCalc" runat="server" ReadOnly="true" DisplayFormatString="{0:N}" Width="194">
+                                    </dx:ASPxTextBox>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <dx:ASPxLabel ID="lblQtyPerCalc" runat="server" Text="/ (Qty Per:" />
+                                </td>
+                                <td>
+                                    <dx:ASPxTextBox ID="tbxQtyPerCalc" runat="server" ReadOnly="true" Width="194">
+                                    </dx:ASPxTextBox>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <dx:ASPxLabel ID="lblFamilyAllocationCalc" runat="server" Text="* Family Allocation:" />
+                                </td>
+                                <td>
+                                    <dx:ASPxTextBox ID="tbxFamilyAllocationCalc" runat="server" ReadOnly="true" Width="194">
+                                    </dx:ASPxTextBox>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <dx:ASPxLabel ID="lblForecastDemanCalc" runat="server" Text="* Forecast Demand):" />
+                                </td>
+                                <td>
+                                    <dx:ASPxTextBox ID="tbxForecastDemandCalc" runat="server" ReadOnly="true" DisplayFormatString="{0:N}" Width="194">
+                                    </dx:ASPxTextBox>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <dx:ASPxLabel ID="lblTakeRateCalc" runat="server" Text="= Take Rate:" />
+                                </td>
+                                <td>
+                                    <dx:ASPxTextBox ID="tbxCalculatedTakeRate" runat="server" ReadOnly="true" Width="194" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td>
+                                    <dx:ASPxButton ID="btnUseTakeRate" runat="server" Text ="Use Take Rate" OnClick="btnUseTakeRate_Click" Width="194" />
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
 
                 </div>
 
+
+
+
+
+
+
                 <div id="divMnemonicGrid" runat="server" style="float: left;">
 
-                    <dx:ASPxGridView ID="gvCsmData" runat="server" ClientInstanceName="gvCsmData" AutoGenerateColumns="False" Width="1790"
-                        DataSourceID="odsCsmData" KeyFieldName="VehiclePlantMnemonic" OnFocusedRowChanged="gvCsmData_FocusedRowChanged" 
+                    <dx:ASPxGridView ID="gvCsmData" runat="server" ClientInstanceName="gvCsmData" AutoGenerateColumns="False" Width="1652"
+                        DataSourceID="odsCsmData" KeyFieldName="RowID" OnSelectionChanged="gvCsmData_SelectionChanged"
                         EnableCallBacks="false" EnableRowsCache="true" OnDataBound="gvCsmData_DataBound">
                         <Styles>
                             <Cell>
@@ -197,35 +284,46 @@
                             </Cell>
                         </Styles>
                         <Columns>
-                            <dx:GridViewDataTextColumn FieldName="VehiclePlantMnemonic" Width="200" VisibleIndex="0" />
-                            <dx:GridViewDataTextColumn FieldName="Platform" Width="140" VisibleIndex="1" />
-                            <dx:GridViewDataTextColumn FieldName="Program" Width="140" VisibleIndex="2" />
-                            <dx:GridViewDataTextColumn FieldName="Vehicle" Width="140" VisibleIndex="3" />
-                            <dx:GridViewDataTextColumn FieldName="Manufacturer" Width="140" VisibleIndex="4" />
-                            <dx:GridViewDataTextColumn FieldName="SourcePlant" Width="140" VisibleIndex="5" />
-                            <dx:GridViewDataTextColumn FieldName="SourcePlantCountry" Width="200" VisibleIndex="6" />
-                            <dx:GridViewDataTextColumn FieldName="SourcePlantRegion" Width="200" VisibleIndex="7" />
-                            <dx:GridViewDataDateColumn FieldName="CSM_SOP" Width="140" VisibleIndex="8">
+                            <dx:GridViewCommandColumn Caption="Add / Remove" ShowSelectCheckbox="true" VisibleIndex="0" HeaderStyle-Wrap="True" Width="65" />
+                            <dx:GridViewDataTextColumn FieldName="SourcePlantCountry" Caption="Source Plant Country" Width="110" VisibleIndex="1" HeaderStyle-Wrap="True" />
+                            <dx:GridViewDataTextColumn FieldName="SourcePlant" Width="140" VisibleIndex="2" />
+                            <dx:GridViewDataTextColumn FieldName="VehiclePlantMnemonic" Caption="Vehicle Plant Mnemonic" Width="100" VisibleIndex="3" HeaderStyle-Wrap="True"/>
+                            <dx:GridViewDataTextColumn FieldName="Manufacturer" Width="115" VisibleIndex="4" />
+                            <dx:GridViewDataTextColumn FieldName="Platform" Width="125" VisibleIndex="5" />
+                            <dx:GridViewDataTextColumn FieldName="Program" Width="125" VisibleIndex="6" />
+                            <dx:GridViewDataTextColumn FieldName="Vehicle" Width="120" VisibleIndex="7" />
+                            <dx:GridViewDataDateColumn FieldName="CSM_SOP" Width="105" VisibleIndex="8">
                                 <PropertiesDateEdit DisplayFormatString="yyyy-MM-dd" EditFormatString="yyyy-MM-dd" />
                             </dx:GridViewDataDateColumn>
-                            <dx:GridViewDataDateColumn FieldName="CSM_EOP" Width="140" VisibleIndex="9">
+                            <dx:GridViewDataDateColumn FieldName="CSM_EOP" Width="105" VisibleIndex="9">
                                 <PropertiesDateEdit DisplayFormatString="yyyy-MM-dd" EditFormatString="yyyy-MM-dd" />
                             </dx:GridViewDataDateColumn>
-                            <dx:GridViewDataTextColumn FieldName="ActiveFlag" Width="90" VisibleIndex="10" SortIndex="1" />
-                            <dx:GridViewCommandColumn ShowClearFilterButton="true" ShowApplyFilterButton="true" VisibleIndex="11" />
+                            <dx:GridViewDataTextColumn FieldName="DemandYear1" Width="110" VisibleIndex="10" HeaderStyle-Wrap="True" />
+                            <dx:GridViewDataTextColumn FieldName="DemandYear2" Width="110" VisibleIndex="11" HeaderStyle-Wrap="True" />
+                            <dx:GridViewDataTextColumn FieldName="DemandYear3" Width="110" VisibleIndex="12" HeaderStyle-Wrap="True" />
+                            <dx:GridViewCommandColumn Caption=" " ShowClearFilterButton="true" ShowApplyFilterButton="true" VisibleIndex="13" />
+                            <dx:GridViewDataTextColumn FieldName="ActiveFlag" Width="10" VisibleIndex="14" Visible="true" />
+                            <dx:GridViewDataTextColumn FieldName="RowID" Width="10" VisibleIndex="15" Visible="false" />
                         </Columns>
 
                         <Settings ShowFilterRow="true" />
                         <Settings VerticalScrollBarMode="Visible" VerticalScrollBarStyle="VirtualSmooth" />
+                        <Settings VerticalScrollableHeight="400" />
                         <Settings HorizontalScrollBarMode="Auto" />
-                        <SettingsBehavior AllowSelectByRowClick="true" />
-                        <SettingsBehavior AllowFocusedRow="true" />
+                        <SettingsBehavior AllowSelectByRowClick="false" />
+                        <SettingsBehavior AllowSelectSingleRowOnly="true" />
+                        <SettingsBehavior AllowFocusedRow="false" />
                         <SettingsBehavior AutoExpandAllGroups="true" />
                         <SettingsSearchPanel Visible="false" ColumnNames="QuoteNumber; BasePart" />
                         <SettingsExport EnableClientSideExportAPI="true" ExcelExportMode="DataAware" />
-                        <SettingsPager PageSize="30"></SettingsPager>
-                        <SettingsEditing Mode="Inline"></SettingsEditing>
+                        <SettingsPager PageSize="20" />
                         <SettingsBehavior ProcessFocusedRowChangedOnServer="true" />
+                        <SettingsBehavior ProcessSelectionChangedOnServer="true" />
+
+                        <ClientSideEvents BeginCallback="grid_BeginCallback" EndCallback="grid_EndCallback" />
+                     
+                        
+                       
                     </dx:ASPxGridView>
                     <script type="text/javascript">
                         ASPxClientControl.GetControlCollection().BrowserWindowResized.AddHandler(function (s, e) {
@@ -233,8 +331,22 @@
                         });
                     </script>
 
-                    <asp:EntityDataSource ID="edsCsmData" runat="server" ConnectionString="name=FxPLMEntities" DefaultContainerName="FxPLMEntities" EnableFlattening="False" EntitySetName="CSMDatas" Select="it.[VehiclePlantMnemonic], it.[Platform], it.[Program], it.[Vehicle], it.[Manufacturer], it.[SourcePlant], it.[SourcePlantCountry], it.[SourcePlantRegion], it.[CSM_SOP], it.[CSM_EOP]">
+                    <asp:EntityDataSource ID="edsCsmData" runat="server" ConnectionString="name=FxPLMEntities" DefaultContainerName="FxPLMEntities" EnableFlattening="False"
+                        EntitySetName="CSMDatas" Select="it.[VehiclePlantMnemonic], it.[Platform], it.[Program], it.[Vehicle], it.[Manufacturer], it.[SourcePlant], it.[SourcePlantCountry], it.[SourcePlantRegion], it.[CSM_SOP], it.[CSM_EOP], it.[RowID], it.[ActiveFlag]">
                     </asp:EntityDataSource>
+
+                    <asp:EntityDataSource ID="edsCsmData2" runat="server" ContextTypeName="WebPortal.NewSalesAward.PageViewModels.CsmDemandViewModel" 
+                        EntitySetName="WebPortal.NewSalesAward.Models.usp_GetAwardedQuoteCSMData_Result" EnableFlattening="false">
+                        <SelectParameters>
+                            <asp:SessionParameter SessionField="QuoteNumber" Type="String" Name="quote" />
+                        </SelectParameters>
+                    </asp:EntityDataSource>
+
+                    <dx:EntityServerModeDataSource ID="EntityServerModeDataSource" runat="server"
+                        ContextTypeName="DevExpress.Web.Demos.LargeDatabaseContext" TableName="WebPortal.NewSalesAward.Models.usp_GetAwardedQuoteCSMData_Result" />
+
+
+
 
                     <asp:ObjectDataSource ID="odsCsmData" runat="server" SelectMethod="GetAwardedQuoteCSMData" TypeName="WebPortal.NewSalesAward.PageViewModels.CsmDemandViewModel" 
                         UpdateMethod="" DataObjectTypeName="WebPortal.NewSalesAward.Models.usp_GetAwardedQuoteCSMData_Result">   
@@ -244,7 +356,15 @@
                     </asp:ObjectDataSource>
                 </div>
 
-            </div>
+          
+
+                  </div>
+
+                <div style="display: none;">
+                    <dx:ASPxButton ID="btnHid" ClientInstanceName="btnHid" runat="server" AutoPostBack="False" Text="" UseSubmitBehavior="False" OnClick="btnHid_Click">
+                    
+                    </dx:ASPxButton>
+                </div>
 
 
             <div>
@@ -263,7 +383,7 @@
 
 
             </ContentTemplate>
-                
+
             </asp:UpdatePanel>
 
 

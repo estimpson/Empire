@@ -33,8 +33,14 @@ namespace WebPortal.NewSalesAward.Models
         public virtual DbSet<ProgramManager> ProgramManagers { get; set; }
         public virtual DbSet<QuoteReason> QuoteReasons { get; set; }
         public virtual DbSet<ActiveBasePart> ActiveBaseParts { get; set; }
-        public virtual DbSet<CSMData> CSMDatas { get; set; }
         public virtual DbSet<BasePartMnemonic> BasePartMnemonics { get; set; }
+        public virtual DbSet<EmpireMarketSegment> EmpireMarketSegments { get; set; }
+        public virtual DbSet<EmpireMarketSubsegment> EmpireMarketSubsegments { get; set; }
+        public virtual DbSet<ProductLine> ProductLines { get; set; }
+        public virtual DbSet<CustomerShipTo> CustomerShipTos { get; set; }
+        public virtual DbSet<EmpireFacility> EmpireFacilities { get; set; }
+        public virtual DbSet<FreightTerm> FreightTerms { get; set; }
+        public virtual DbSet<User> Users { get; set; }
     
         public virtual int usp_CreateAwardedQuote(string user, string quoteNumber, Nullable<System.DateTime> awardDate, string formOfCommitment, Nullable<byte> quoteReason, string replacingBasePart, string salesperson, string programManager, string comments, ObjectParameter tranDT, ObjectParameter result, Nullable<int> debug, ObjectParameter debugMsg)
         {
@@ -379,6 +385,58 @@ namespace WebPortal.NewSalesAward.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_GetAwardedQuoteBasePartMnemonic_Result>("usp_GetAwardedQuoteBasePartMnemonic", quoteNumberParameter, mnemonicParameter);
         }
     
+        public virtual ObjectResult<usp_GetCustomerShipTos_Result> usp_GetCustomerShipTos(string basePart)
+        {
+            var basePartParameter = basePart != null ?
+                new ObjectParameter("BasePart", basePart) :
+                new ObjectParameter("BasePart", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_GetCustomerShipTos_Result>("usp_GetCustomerShipTos", basePartParameter);
+        }
+    
+        public virtual int usp_SetLogistics(string quoteNumber, string empireFacility, string freightTerms, string customerShipTo, ObjectParameter tranDT, ObjectParameter result, Nullable<int> debug, ObjectParameter debugMsg)
+        {
+            var quoteNumberParameter = quoteNumber != null ?
+                new ObjectParameter("QuoteNumber", quoteNumber) :
+                new ObjectParameter("QuoteNumber", typeof(string));
+    
+            var empireFacilityParameter = empireFacility != null ?
+                new ObjectParameter("EmpireFacility", empireFacility) :
+                new ObjectParameter("EmpireFacility", typeof(string));
+    
+            var freightTermsParameter = freightTerms != null ?
+                new ObjectParameter("FreightTerms", freightTerms) :
+                new ObjectParameter("FreightTerms", typeof(string));
+    
+            var customerShipToParameter = customerShipTo != null ?
+                new ObjectParameter("CustomerShipTo", customerShipTo) :
+                new ObjectParameter("CustomerShipTo", typeof(string));
+    
+            var debugParameter = debug.HasValue ?
+                new ObjectParameter("Debug", debug) :
+                new ObjectParameter("Debug", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("usp_SetLogistics", quoteNumberParameter, empireFacilityParameter, freightTermsParameter, customerShipToParameter, tranDT, result, debugParameter, debugMsg);
+        }
+    
+        public virtual ObjectResult<string> usp_GetAwardedQuoteActiveMnemonics(string quoteNumber)
+        {
+            var quoteNumberParameter = quoteNumber != null ?
+                new ObjectParameter("QuoteNumber", quoteNumber) :
+                new ObjectParameter("QuoteNumber", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("usp_GetAwardedQuoteActiveMnemonics", quoteNumberParameter);
+        }
+    
+        public virtual ObjectResult<usp_GetCalculatedTakeRate_Result> usp_GetCalculatedTakeRate(string quoteNumber)
+        {
+            var quoteNumberParameter = quoteNumber != null ?
+                new ObjectParameter("QuoteNumber", quoteNumber) :
+                new ObjectParameter("QuoteNumber", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_GetCalculatedTakeRate_Result>("usp_GetCalculatedTakeRate", quoteNumberParameter);
+        }
+    
         public virtual ObjectResult<usp_GetAwardedQuoteCSMData_Result> usp_GetAwardedQuoteCSMData(string quoteNumber)
         {
             var quoteNumberParameter = quoteNumber != null ?
@@ -388,13 +446,17 @@ namespace WebPortal.NewSalesAward.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_GetAwardedQuoteCSMData_Result>("usp_GetAwardedQuoteCSMData", quoteNumberParameter);
         }
     
-        public virtual ObjectResult<usp_GetCustomerShipTos_Result> usp_GetCustomerShipTos(string basePart)
+        public virtual int usp_AwardedQuoteFirstMnemonicEmail(string basePart, string mnemonic, ObjectParameter tranDT, ObjectParameter result)
         {
             var basePartParameter = basePart != null ?
                 new ObjectParameter("BasePart", basePart) :
                 new ObjectParameter("BasePart", typeof(string));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_GetCustomerShipTos_Result>("usp_GetCustomerShipTos", basePartParameter);
+            var mnemonicParameter = mnemonic != null ?
+                new ObjectParameter("Mnemonic", mnemonic) :
+                new ObjectParameter("Mnemonic", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("usp_AwardedQuoteFirstMnemonicEmail", basePartParameter, mnemonicParameter, tranDT, result);
         }
     }
 }

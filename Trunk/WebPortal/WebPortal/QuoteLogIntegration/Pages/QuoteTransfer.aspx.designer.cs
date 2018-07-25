@@ -85,13 +85,22 @@ namespace WebPortal.QuoteLogIntegration.Pages {
         protected global::DevExpress.Web.ASPxLabel lblQuoteNumber;
         
         /// <summary>
-        /// tbxQuoteNumber control.
+        /// cbxQuoteNumbers control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::DevExpress.Web.ASPxTextBox tbxQuoteNumber;
+        protected global::DevExpress.Web.ASPxComboBox cbxQuoteNumbers;
+        
+        /// <summary>
+        /// edsQuoteNumbers control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.EntityDataSource edsQuoteNumbers;
         
         /// <summary>
         /// btnGetQuote control.
@@ -841,6 +850,33 @@ namespace WebPortal.QuoteLogIntegration.Pages {
         protected global::DevExpress.Web.ASPxHiddenField hfNotesRowId;
         
         /// <summary>
+        /// lblNotesDesc0 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::DevExpress.Web.ASPxLabel lblNotesDesc0;
+        
+        /// <summary>
+        /// cbxAnswer0 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::DevExpress.Web.ASPxComboBox cbxAnswer0;
+        
+        /// <summary>
+        /// memoNotes0 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::DevExpress.Web.ASPxMemo memoNotes0;
+        
+        /// <summary>
         /// lblNotesDesc1 control.
         /// </summary>
         /// <remarks>
@@ -1057,33 +1093,6 @@ namespace WebPortal.QuoteLogIntegration.Pages {
         protected global::DevExpress.Web.ASPxMemo memoNotes8;
         
         /// <summary>
-        /// lblNotesDesc9 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::DevExpress.Web.ASPxLabel lblNotesDesc9;
-        
-        /// <summary>
-        /// cbxAnswer9 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::DevExpress.Web.ASPxComboBox cbxAnswer9;
-        
-        /// <summary>
-        /// memoNotes9 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::DevExpress.Web.ASPxMemo memoNotes9;
-        
-        /// <summary>
         /// btnSaveNotes control.
         /// </summary>
         /// <remarks>
@@ -1147,6 +1156,15 @@ namespace WebPortal.QuoteLogIntegration.Pages {
         protected global::DevExpress.Web.ASPxComboBox cbxSoQuoteEngInitials;
         
         /// <summary>
+        /// edsQuoteEngInitials control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.EntityDataSource edsQuoteEngInitials;
+        
+        /// <summary>
         /// deSoQuoteEngDate control.
         /// </summary>
         /// <remarks>
@@ -1172,6 +1190,15 @@ namespace WebPortal.QuoteLogIntegration.Pages {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::DevExpress.Web.ASPxComboBox cbxSoMaterialRepInitials;
+        
+        /// <summary>
+        /// edsMaterialRepInitials control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.EntityDataSource edsMaterialRepInitials;
         
         /// <summary>
         /// deSoMaterialRepDate control.
@@ -1201,6 +1228,15 @@ namespace WebPortal.QuoteLogIntegration.Pages {
         protected global::DevExpress.Web.ASPxComboBox cbxSoPemInitials;
         
         /// <summary>
+        /// edsPemInitials control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.EntityDataSource edsPemInitials;
+        
+        /// <summary>
         /// deSoPemDate control.
         /// </summary>
         /// <remarks>
@@ -1226,6 +1262,15 @@ namespace WebPortal.QuoteLogIntegration.Pages {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::DevExpress.Web.ASPxComboBox cbxSoProductEngInitials;
+        
+        /// <summary>
+        /// edsProductEngInitials control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.EntityDataSource edsProductEngInitials;
         
         /// <summary>
         /// deSoProductEngDate control.

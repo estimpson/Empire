@@ -21,7 +21,7 @@ namespace WebPortal.SalesForecast.PageViewModels
 
         public SalesForecastUpdatedViewModel()
         {
-            OperatorCode = System.Web.HttpContext.Current.Session["op"].ToString();
+            OperatorCode = System.Web.HttpContext.Current.Session["OpCode"].ToString();
         }
 
         #endregion

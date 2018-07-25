@@ -51,22 +51,23 @@ namespace WebPortal.NewSalesAward.Pages
             {
                 AuthenticateUser();
 
+                // Make sure session variables have not timed out
+                if (Session["OpCode"] == null) Response.Redirect("~/Pages/Login.aspx");
+
                 // Get quote numbers
                 //if (GetQuoteLog() == 0) return;
 
                 PopulateDropdownLists();
 
 
-                // ***** Will probably be moved to its own page *****
-                pnlDocument.Visible = false;
+                //pnlDocument.Visible = false;
 
 
-                pnlQuoteDetails.Enabled = pnlDocument.Enabled = false;
+                //pnlQuoteDetails.Enabled = pnlDocument.Enabled = false;
                 cbxReplacingBasePart.Enabled = false;
                 cbxQuoteNumber.Focus(); 
             }
         }
-
 
 
         #region Authentication Methods
@@ -132,19 +133,18 @@ namespace WebPortal.NewSalesAward.Pages
             //if (GetAwardedQuoteDetails() == 1) pnlQuoteDetails.Enabled = true;
             GetAwardedQuoteDetails();
 
-            pnlQuoteDetails.Enabled = pnlDocument.Enabled = true;
-
             ShowQuoteFiles("CustomerCommitment");
-            btnDocDelete.Enabled = btnDocGet.Enabled = (tbxDocName.Text.Trim() != "");
         }
 
         protected void cbxQuoteReason_SelectedIndexChanged(object sender, EventArgs e)
         {
-            cbxReplacingBasePart.Enabled = (cbxQuoteReason.Text == "New Part");
+            //cbxReplacingBasePart.Enabled = (cbxQuoteReason.Text == "New Part");
         }
 
         protected void btnSubmit_Click(object sender, EventArgs e)
         {
+            if (Session["QuoteNumber"] == null) return;
+
             if (cbxFormOfCommitment.SelectedIndex < 0) cbxFormOfCommitment.BackColor = Color.LightGreen;
 
             if (SaveAwardedQuote() == 0) return;
@@ -164,6 +164,8 @@ namespace WebPortal.NewSalesAward.Pages
 
         protected void btnDocDelete_Click(object sender, EventArgs e)
         {
+            if (Session["QuoteNumber"] == null || tbxDocName.Text.Trim() == "") return;
+
             Session["AttachmentCategory"] = "CustomerCommitment";
             if (DeleteFile() == 1)
             {
@@ -174,12 +176,16 @@ namespace WebPortal.NewSalesAward.Pages
 
         protected void btnDocGet_Click(object sender, EventArgs e)
         {
+            if (Session["QuoteNumber"] == null || tbxDocName.Text.Trim() == "") return;
+
             if (tbxDocName.Text.Trim() == "") return;
             GetFile("CustomerCommitment");
         }
 
         protected void btnDocSave_Click(object sender, EventArgs e)
         {
+            if (Session["QuoteNumber"] == null) return;
+
             // Show file upload pop-up window (file upload control cannot be placed within an update panel)
             Session["AttachmentCategory"] = "CustomerCommitment";
             pcFileUpload.ShowOnPageLoad = true;
@@ -408,7 +414,7 @@ namespace WebPortal.NewSalesAward.Pages
             {
                 case "CustomerCommitment":
                     tbxDocName.Text = DocsViewModel.QuoteFileName;
-                    btnDocGet.Enabled = true;
+                    //btnDocGet.Enabled = true;
                     break;
                 case "BomLabor":
                     //tbxDocName3.Text = DocsViewModel.QuoteFileName;

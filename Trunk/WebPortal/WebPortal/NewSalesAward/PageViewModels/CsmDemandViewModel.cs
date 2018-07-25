@@ -13,15 +13,14 @@ namespace WebPortal.NewSalesAward.PageViewModels
         public String OperatorCode { get; private set; }
         public String Error { get; private set; }
 
-
-        public List<BasePartMnemonicDataModel> BpmList;
+        
+        public List<usp_GetAwardedQuoteCSMData_Result> CSMDataList;
 
 
         #region Constructor
 
         public CsmDemandViewModel()
         {
-            OperatorCode = System.Web.HttpContext.Current.Session["op"].ToString();
         }
 
         #endregion
@@ -32,12 +31,31 @@ namespace WebPortal.NewSalesAward.PageViewModels
 
         public List<usp_GetAwardedQuoteCSMData_Result> GetAwardedQuoteCSMData(string quote)
         {
-            List<usp_GetAwardedQuoteCSMData_Result> list;
+            if (CSMDataList != null) return CSMDataList;
+            CSMDataList = new List<usp_GetAwardedQuoteCSMData_Result>();
             using (var context = new FxPLMEntities())
             {
-                list = context.usp_GetAwardedQuoteCSMData(quote).ToList();
+                CSMDataList = context.usp_GetAwardedQuoteCSMData(quote).ToList();
             }
-            return list;
+            return CSMDataList;
+        }
+
+        public string GetActiveMnemonics(string quote)
+        {
+            string mnemonics = "";
+            try
+            {
+                using (var context = new FxPLMEntities())
+                {
+                    var collection = context.usp_GetAwardedQuoteActiveMnemonics(quote);
+                    foreach (var item in collection) mnemonics = item.ToString();
+                }
+            }
+            catch (Exception ex)
+            {
+                Error = (ex.InnerException != null) ? ex.InnerException.Message : ex.Message;
+            }
+            return mnemonics;
         }
 
         //public void GetCsmData()
@@ -85,7 +103,7 @@ namespace WebPortal.NewSalesAward.PageViewModels
             {
                 using (var context = new FxPLMEntities())
                 {
-                    list= context.usp_GetAwardedQuoteBasePartMnemonic(quote, mnemonic).ToList();
+                    list = context.usp_GetAwardedQuoteBasePartMnemonic(quote, mnemonic).ToList();
                 }
             }
             catch (Exception ex)
@@ -107,6 +125,8 @@ namespace WebPortal.NewSalesAward.PageViewModels
                 using (var context = new FxPLMEntities())
                 {
                     context.usp_SetBasePartMnemonic(quote, mnemonic, qtyPer, takeRate, familyAllocation, tranDT, result, 0, debugMsg);
+                    CSMDataList = new List<usp_GetAwardedQuoteCSMData_Result>();
+                    CSMDataList = context.usp_GetAwardedQuoteCSMData(quote).ToList();
                 }
             }
             catch (Exception ex)
@@ -127,6 +147,52 @@ namespace WebPortal.NewSalesAward.PageViewModels
                 using (var context = new FxPLMEntities())
                 {
                     context.usp_RemoveBasePartMnemonic(quote, mnemonic, tranDT, result, 0, debugMsg);
+                    CSMDataList = new List<usp_GetAwardedQuoteCSMData_Result>();
+                    CSMDataList = context.usp_GetAwardedQuoteCSMData(quote).ToList();
+                }
+            }
+            catch (Exception ex)
+            {
+                Error = (ex.InnerException != null) ? ex.InnerException.Message : ex.Message;
+            }
+        }
+
+        public void GetCalculatedTakeRate(string quote, out decimal? qtyPer, out decimal? familyAlloc, out decimal? quotedEau, out decimal? csmDemand, out decimal? takeRate)
+        {
+            Error = "";
+            qtyPer = familyAlloc = quotedEau = csmDemand = takeRate = 0;
+            try
+            {
+                using (var context = new FxPLMEntities())
+                {
+                    var query = context.usp_GetCalculatedTakeRate(quote);
+                    foreach (var item in query)
+                    {
+                        qtyPer = item.QtyPer;
+                        familyAlloc = item.FamilyAllocation;
+                        quotedEau = item.QuotedEau;
+                        csmDemand = item.CsmForeCastDemand;
+                        takeRate = item.TakeRate;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Error = (ex.InnerException != null) ? ex.InnerException.Message : ex.Message;
+            }
+        }
+
+        public void SendFirstMnemonicEmail(string basePart, string mnemonic)
+        {
+            Error = "";
+            ObjectParameter tranDT = new ObjectParameter("TranDT", typeof(DateTime?));
+            ObjectParameter result = new ObjectParameter("Result", typeof(Int32?));
+
+            try
+            {
+                using (var context = new FxPLMEntities())
+                {
+                    context.usp_AwardedQuoteFirstMnemonicEmail(basePart, mnemonic, tranDT, result);
                 }
             }
             catch (Exception ex)

@@ -26,7 +26,7 @@ namespace WebPortal.QuoteLogIntegration.PageViewModels
 
         public MarketSegmentSubsegmentViewModel()
         {
-            OperatorCode = System.Web.HttpContext.Current.Session["op"].ToString();
+            OperatorCode = System.Web.HttpContext.Current.Session["OpCode"].ToString();
         }
 
         #endregion

@@ -27,6 +27,7 @@ namespace WebPortal.QuoteLogIntegration.Models
             throw new UnintentionalCodeFirstException();
         }
     
+        public virtual DbSet<QL_QuoteTransfer_AwardedQuoteNumbers> QL_QuoteTransfer_AwardedQuoteNumbers { get; set; }
     
         public virtual ObjectResult<usp_QL_QuoteTransfer_GetDocumentation_Result> usp_QL_QuoteTransfer_GetDocumentation(string quoteNumber, ObjectParameter tranDT, ObjectParameter result)
         {
@@ -263,15 +264,6 @@ namespace WebPortal.QuoteLogIntegration.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_QL_QuoteTransfer_GetSignOffInitials_Result>("usp_QL_QuoteTransfer_GetSignOffInitials", typeParameter, tranDT, result);
         }
     
-        public virtual ObjectResult<usp_QL_QuoteTransfer_GetSignOff_Result> usp_QL_QuoteTransfer_GetSignOff(string quoteNumber, ObjectParameter tranDT, ObjectParameter result)
-        {
-            var quoteNumberParameter = quoteNumber != null ?
-                new ObjectParameter("QuoteNumber", quoteNumber) :
-                new ObjectParameter("QuoteNumber", typeof(string));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_QL_QuoteTransfer_GetSignOff_Result>("usp_QL_QuoteTransfer_GetSignOff", quoteNumberParameter, tranDT, result);
-        }
-    
         public virtual int usp_QL_QuoteTransfer_SignOff_Insert(string operatorCode, string quoteNumber, ObjectParameter tranDT, ObjectParameter result)
         {
             var operatorCodeParameter = operatorCode != null ?
@@ -283,27 +275,6 @@ namespace WebPortal.QuoteLogIntegration.Models
                 new ObjectParameter("QuoteNumber", typeof(string));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("usp_QL_QuoteTransfer_SignOff_Insert", operatorCodeParameter, quoteNumberParameter, tranDT, result);
-        }
-    
-        public virtual int usp_QL_QuoteTransfer_SignOff_Update(string operatorCode, Nullable<int> id, string initials, Nullable<System.DateTime> signOffDate, ObjectParameter tranDT, ObjectParameter result)
-        {
-            var operatorCodeParameter = operatorCode != null ?
-                new ObjectParameter("OperatorCode", operatorCode) :
-                new ObjectParameter("OperatorCode", typeof(string));
-    
-            var idParameter = id.HasValue ?
-                new ObjectParameter("Id", id) :
-                new ObjectParameter("Id", typeof(int));
-    
-            var initialsParameter = initials != null ?
-                new ObjectParameter("Initials", initials) :
-                new ObjectParameter("Initials", typeof(string));
-    
-            var signOffDateParameter = signOffDate.HasValue ?
-                new ObjectParameter("SignOffDate", signOffDate) :
-                new ObjectParameter("SignOffDate", typeof(System.DateTime));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("usp_QL_QuoteTransfer_SignOff_Update", operatorCodeParameter, idParameter, initialsParameter, signOffDateParameter, tranDT, result);
         }
     
         public virtual ObjectResult<usp_QL_QuoteTransfer_GetToolingBreakdown_Result> usp_QL_QuoteTransfer_GetToolingBreakdown(string quoteNumber, ObjectParameter tranDT, ObjectParameter result)
@@ -334,6 +305,40 @@ namespace WebPortal.QuoteLogIntegration.Models
                 new ObjectParameter("Answer", typeof(string));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("usp_QL_QuoteTransfer_Documentation_Insert", operatorCodeParameter, quoteNumberParameter, descriptionParameter, answerParameter, tranDT, result);
+        }
+    
+        public virtual int usp_QL_QuoteTransfer_SignOff_Update(string operatorCode, Nullable<int> id, string employeeCode, string initials, Nullable<System.DateTime> signOffDate, ObjectParameter tranDT, ObjectParameter result)
+        {
+            var operatorCodeParameter = operatorCode != null ?
+                new ObjectParameter("OperatorCode", operatorCode) :
+                new ObjectParameter("OperatorCode", typeof(string));
+    
+            var idParameter = id.HasValue ?
+                new ObjectParameter("Id", id) :
+                new ObjectParameter("Id", typeof(int));
+    
+            var employeeCodeParameter = employeeCode != null ?
+                new ObjectParameter("EmployeeCode", employeeCode) :
+                new ObjectParameter("EmployeeCode", typeof(string));
+    
+            var initialsParameter = initials != null ?
+                new ObjectParameter("Initials", initials) :
+                new ObjectParameter("Initials", typeof(string));
+    
+            var signOffDateParameter = signOffDate.HasValue ?
+                new ObjectParameter("SignOffDate", signOffDate) :
+                new ObjectParameter("SignOffDate", typeof(System.DateTime));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("usp_QL_QuoteTransfer_SignOff_Update", operatorCodeParameter, idParameter, employeeCodeParameter, initialsParameter, signOffDateParameter, tranDT, result);
+        }
+    
+        public virtual ObjectResult<usp_QL_QuoteTransfer_GetSignOff_Result> usp_QL_QuoteTransfer_GetSignOff(string quoteNumber, ObjectParameter tranDT, ObjectParameter result)
+        {
+            var quoteNumberParameter = quoteNumber != null ?
+                new ObjectParameter("QuoteNumber", quoteNumber) :
+                new ObjectParameter("QuoteNumber", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_QL_QuoteTransfer_GetSignOff_Result>("usp_QL_QuoteTransfer_GetSignOff", quoteNumberParameter, tranDT, result);
         }
     }
 }

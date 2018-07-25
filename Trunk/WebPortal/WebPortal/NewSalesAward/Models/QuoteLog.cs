@@ -12,6 +12,7 @@ namespace WebPortal.NewSalesAward.Models
     using System;
     using System.Collections.Generic;
     
+    [Serializable]
     public partial class QuoteLog
     {
         public string QuoteNumber { get; set; }

@@ -31,3 +31,7 @@ body {
     padding-right: 0px;
 }
 
+th, td {
+    padding-right: 5px;
+    padding-bottom: 1px;
+}

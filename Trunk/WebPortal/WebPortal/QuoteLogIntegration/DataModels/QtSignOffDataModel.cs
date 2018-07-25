@@ -7,7 +7,9 @@ namespace WebPortal.QuoteLogIntegration.DataModels
     {
         public int RowID { get; set; }
         public String Title { get; set; }
-        public String Initials { get; set; }
         public DateTime? SignOffDate { get; set; }
+        public String EmployeeCode { get; set; }
+        public String EmployeeName { get; set; }
+        public String Initials { get; set; }
     }
 }
