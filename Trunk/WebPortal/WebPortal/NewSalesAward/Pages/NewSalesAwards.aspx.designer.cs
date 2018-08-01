@@ -751,22 +751,22 @@ namespace WebPortal.NewSalesAward.Pages {
         protected global::DevExpress.Web.ASPxDateEdit deEmpireEop;
         
         /// <summary>
-        /// lblEmpireEopNote control.
+        /// btnShowNewEopNote control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::DevExpress.Web.ASPxLabel lblEmpireEopNote;
+        protected global::DevExpress.Web.ASPxButton btnShowNewEopNote;
         
         /// <summary>
-        /// tbxEmpireEopNote control.
+        /// btnShowAllEopNotes control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::DevExpress.Web.ASPxTextBox tbxEmpireEopNote;
+        protected global::DevExpress.Web.ASPxButton btnShowAllEopNotes;
         
         /// <summary>
         /// lblBasePartAttributesComments control.
@@ -1010,6 +1010,60 @@ namespace WebPortal.NewSalesAward.Pages {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::DevExpress.Web.ASPxButton btnSaveAll;
+        
+        /// <summary>
+        /// lblNoteTitle control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::DevExpress.Web.ASPxLabel lblNoteTitle;
+        
+        /// <summary>
+        /// htmlEditorNote control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::DevExpress.Web.ASPxHtmlEditor.ASPxHtmlEditor htmlEditorNote;
+        
+        /// <summary>
+        /// btnNoteOk control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::DevExpress.Web.ASPxButton btnNoteOk;
+        
+        /// <summary>
+        /// btnNoteCancel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::DevExpress.Web.ASPxButton btnNoteCancel;
+        
+        /// <summary>
+        /// btnSetUser control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::DevExpress.Web.ASPxButton btnSetUser;
+        
+        /// <summary>
+        /// EntityNotesUserControl control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::WebPortal.Scheduling.Pages.EntityNotesUserControl EntityNotesUserControl;
         
         /// <summary>
         /// pcError control.

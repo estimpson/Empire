@@ -50,7 +50,10 @@
     <Reference Include="DevExpress.Printing.v17.2.Core, Version=17.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.Office.v17.2.Core, Version=17.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.RichEdit.v17.2.Core, Version=17.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.SpellChecker.v17.2.Core, Version=17.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.Utils.v17.2, Version=17.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Web.ASPxHtmlEditor.v17.2, Version=17.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Web.ASPxSpellChecker.v17.2, Version=17.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.Web.ASPxThemes.v17.2, Version=17.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.Web.Resources.v17.2, Version=17.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.Web.v17.2, Version=17.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
@@ -171,6 +174,16 @@
       <DependentUpon>Model1.edmx</DependentUpon>
       <LastGenOutput>Model1.cs</LastGenOutput>
     </Content>
+    <Content Include="NewSalesAward\Models\EntityNotesModel.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>EntityNotesModel.edmx</DependentUpon>
+      <LastGenOutput>EntityNotesModel.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="NewSalesAward\Models\EntityNotesModel.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>EntityNotesModel.edmx</DependentUpon>
+      <LastGenOutput>EntityNotesModel.cs</LastGenOutput>
+    </Content>
     <Content Include="NewSalesAward\Models\NewSalesAwardModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>NewSalesAwardModel.edmx</DependentUpon>
@@ -185,6 +198,7 @@
     <Content Include="NewSalesAward\Pages\CsmDemand.aspx" />
     <Content Include="NewSalesAward\Pages\DocumentGet.aspx" />
     <Content Include="NewSalesAward\Pages\NewSalesAwards.aspx" />
+    <Content Include="NewSalesAward\Pages\NewSalesAwardsTest.aspx" />
     <Content Include="QuoteLogIntegration\Models\ModelMarketSegmentSubsegment.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>ModelMarketSegmentSubsegment.edmx</DependentUpon>
@@ -245,6 +259,13 @@
     <Content Include="NewSalesAward\Models\NewSalesAwardModel.edmx.diagram">
       <DependentUpon>NewSalesAwardModel.edmx</DependentUpon>
     </Content>
+    <EntityDeploy Include="NewSalesAward\Models\EntityNotesModel.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>EntityNotesModel.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="NewSalesAward\Models\EntityNotesModel.edmx.diagram">
+      <DependentUpon>EntityNotesModel.edmx</DependentUpon>
+    </Content>
     <None Include="Properties\PublishProfiles\CustomProfile.pubxml" />
     <EntityDeploy Include="SalesForecast\Models\ModelSalesForecast.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
@@ -296,6 +317,7 @@
       <DependentUpon>ModelScheduling.edmx</DependentUpon>
       <LastGenOutput>ModelScheduling.cs</LastGenOutput>
     </Content>
+    <Content Include="NewSalesAward\Pages\EntityNotesUserControl.ascx" />
     <Content Include="Scheduling\Pages\SchedulingMain.aspx" />
     <Content Include="Styles\GridView.css" />
     <Content Include="Styles\Master.css" />
@@ -416,6 +438,21 @@
     <Compile Include="NewSalesAward\Models\EmpireMarketSubsegment.cs">
       <DependentUpon>NewSalesAwardModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="NewSalesAward\Models\EntityNotesModel.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>EntityNotesModel.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="NewSalesAward\Models\EntityNotesModel.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>EntityNotesModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="NewSalesAward\Models\EntityNotesModel.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>EntityNotesModel.edmx</DependentUpon>
+    </Compile>
     <Compile Include="NewSalesAward\Models\FreightTerm.cs">
       <DependentUpon>NewSalesAwardModel.tt</DependentUpon>
     </Compile>
@@ -470,6 +507,9 @@
     <Compile Include="NewSalesAward\Models\usp_GetCustomerShipTos_Result.cs">
       <DependentUpon>NewSalesAwardModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="NewSalesAward\Models\usp_GetEntityNotes_Result.cs">
+      <DependentUpon>EntityNotesModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="NewSalesAward\Models\usp_LookupProgramManagerByInit_Result.cs">
       <DependentUpon>NewSalesAwardModel.tt</DependentUpon>
     </Compile>
@@ -504,9 +544,17 @@
     <Compile Include="NewSalesAward\Pages\NewSalesAwards.aspx.designer.cs">
       <DependentUpon>NewSalesAwards.aspx</DependentUpon>
     </Compile>
+    <Compile Include="NewSalesAward\Pages\NewSalesAwardsTest.aspx.cs">
+      <DependentUpon>NewSalesAwardsTest.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="NewSalesAward\Pages\NewSalesAwardsTest.aspx.designer.cs">
+      <DependentUpon>NewSalesAwardsTest.aspx</DependentUpon>
+    </Compile>
     <Compile Include="NewSalesAward\PageViewModels\CreateAwardedQuoteViewModel.cs" />
     <Compile Include="NewSalesAward\PageViewModels\CsmDemandViewModel.cs" />
     <Compile Include="NewSalesAward\PageViewModels\DocumentationViewModel.cs" />
+    <Compile Include="NewSalesAward\PageViewModels\EntityNotesViewModel.cs" />
     <Compile Include="NewSalesAward\PageViewModels\NewSalesAwardsViewModel.cs" />
     <Compile Include="Pages\Login.aspx.cs">
       <DependentUpon>Login.aspx</DependentUpon>
@@ -729,6 +777,13 @@
     </Compile>
     <Compile Include="Scheduling\Models\usp_PlanningSnapshot_Q_GetSnapshotCalendar_Result.cs">
       <DependentUpon>ModelScheduling.tt</DependentUpon>
+    </Compile>
+    <Compile Include="NewSalesAward\Pages\EntityNotesUserControl.ascx.cs">
+      <DependentUpon>EntityNotesUserControl.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="NewSalesAward\Pages\EntityNotesUserControl.ascx.designer.cs">
+      <DependentUpon>EntityNotesUserControl.ascx</DependentUpon>
     </Compile>
     <Compile Include="Scheduling\Pages\SchedulingMain.aspx.cs">
       <DependentUpon>SchedulingMain.aspx</DependentUpon>

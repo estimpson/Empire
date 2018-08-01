@@ -1,8 +1,17 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" EnableViewState="true" MasterPageFile="~/Site.Master" CodeBehind="NewSalesAwards.aspx.cs" Inherits="WebPortal.NewSalesAward.Pages.NewSalesAwards" %>
 
+<%@ Register Assembly="DevExpress.Web.ASPxHtmlEditor.v17.2, Version=17.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" Namespace="DevExpress.Web.ASPxHtmlEditor" TagPrefix="dx" %>
+
 <%@ Register Assembly="DevExpress.Web.v17.2, Version=17.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" Namespace="DevExpress.Data.Linq" TagPrefix="dx" %>
 
 <%@ Register Assembly="DevExpress.Web.v17.2, Version=17.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" Namespace="DevExpress.Web" TagPrefix="dx" %>
+
+<%@ Register Src="EntityNotesUserControl.ascx" TagPrefix="uc1" TagName="EntityNotesUserControl" %>
+
+
+
+<%@ Register assembly="DevExpress.Web.ASPxSpellChecker.v17.2, Version=17.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" namespace="DevExpress.Web.ASPxSpellChecker" tagprefix="dx" %>
+
 
 
 <asp:Content runat="server" ContentPlaceHolderID="CustomHeaderHolder">
@@ -11,6 +20,8 @@
 
         function pageLoad() {
             $(function () {
+                
+
                 updateGridHeight();
             });
         }    
@@ -32,7 +43,6 @@
             var containerHeight = ASPxClientUtils.GetDocumentClientHeight();
 
             gvQuote.SetHeight(containerHeight - 130);
-
         }
 
         var postponedCallbackRequired = false;
@@ -52,6 +62,31 @@
         function RefreshGrid(s, e) {
 
             gvQuote.PerformCallback("ClearSort");
+        }
+
+        function ShowHideNoteForm(action) {
+            if (action == 'Show') {
+                $("#divNote").show(500);
+                $("#divEntityNotesUserControl").hide(200);
+            }
+            else {
+                btnSetUser.DoClick();
+           
+                $("#divNote").hide(200);
+                htmlEditor.SetHtml('');
+                $("#divEntityNotesUserControl").show(500);
+            } 
+        }
+
+
+        function OnInit(s, e) {
+            AdjustSize();
+            ASPxClientUtils.AttachEventToElement(window, "resize", function (evt) {
+                AdjustSize();
+            });
+        } function AdjustSize() {
+            var height = document.documentElement.clientHeight;
+            pcEdit.SetHeight(height - 30);
         }
 
     </script>
@@ -126,9 +161,9 @@
                 </div>
 
                 <div id="divGridQuote" runat="server" style="margin-top: 5px;">
-                    <dx:ASPxGridView ID="gvQuote" runat="server" ClientInstanceName="gvQuote" AutoGenerateColumns="False" DataSourceID="odsQuote" 
+                    <dx:ASPxGridView ID="gvQuote" runat="server" ClientInstanceName="gvQuote" AutoGenerateColumns="False" 
                         SettingsBehavior-AllowGroup="false" SettingsBehavior-AllowSort="true" Settings-ShowGroupPanel="false" OnRowUpdating="gvQuote_RowUpdating"
-                        KeyFieldName="QuoteNumber" SettingsEditing-Mode="Inline" EnableRowsCache="False" Width="98%" 
+                        KeyFieldName="QuoteNumber" SettingsEditing-Mode="Inline" EnableRowsCache="False" Width="98%"
                         OnCustomCallback="gvQuote_CustomCallback" OnCellEditorInitialize="gvQuote_CellEditorInitialize" EnableCallBacks="false" 
                         OnDataBound="gvQuote_DataBound">
                         <ClientSideEvents RowDblClick="function(s, e) {
@@ -306,7 +341,7 @@
                         <SettingsExport EnableClientSideExportAPI="true" ExcelExportMode="DataAware" />
                         <SettingsPager PageSize="30"></SettingsPager>
                         <SettingsEditing Mode="Inline"></SettingsEditing>
-                        <SettingsBehavior ProcessFocusedRowChangedOnServer="true" />
+                        <SettingsBehavior ProcessFocusedRowChangedOnServer="false" />
                     </dx:ASPxGridView>
                     <script type="text/javascript">
                         ASPxClientControl.GetControlCollection().BrowserWindowResized.AddHandler(function (s, e) {
@@ -325,461 +360,533 @@
 
 
             <div>
-                <dx:ASPxPopupControl ID="pcEdit" runat="server" Width="320" CloseAction="CloseButton" CloseOnEscape="true" Modal="True"
-                    PopupHorizontalAlign="WindowCenter" PopupVerticalAlign="WindowCenter" ClientInstanceName="pcError"
+                <dx:ASPxPopupControl ID="pcEdit" runat="server" CloseAction="CloseButton" CloseOnEscape="true" Modal="True"
+                    PopupHorizontalAlign="WindowCenter" PopupVerticalAlign="TopSides" ClientInstanceName="pcEdit" ScrollBars="Vertical"
                     HeaderText="New Sales Award" AllowDragging="True" PopupAnimationType="Fade" ForeColor="Red" EnableViewState="False" AutoUpdatePosition="true">
+                    <ClientSideEvents Init="OnInit" />
                     <ContentCollection>
                         <dx:PopupControlContentControl runat="server">
                             <div style="margin-left: 20px;">
                                 <dx:ASPxLabel ID="lblBasePart" runat="server" Text="Base Part" Font-Size="14" ForeColor="#007bf7" />
                             </div>
 
-                            <div style="padding: 10px 20px 20px 20px;">
 
-                                <dx:ASPxPageControl runat="server" ID="pageControl" Width="100%">
-                                <TabPages>
-                                    <dx:TabPage Text="Customer PO" Visible="true">
-                                        <ContentCollection>
-                                            <dx:ContentControl runat="server">
-                                                <table class="tbl">
-                                                    <tr>
-                                                        <td>
-                                                            <dx:ASPxLabel ID="lblPurchaseOrderDate" runat="server" Text="Purchase Order Date:" Width="180" />
-                                                        </td>
-                                                        <td>
-                                                            <dx:ASPxDateEdit ID="dePurchaseOrderDate" runat="server" DisplayFormatString="yyyy-MM-dd" Width="200" />
-                                                        </td>
-                                                        <td>
-                                                            <dx:ASPxLabel ID="lblPoNumber" runat="server" Text="Customer Production PO #:" Width="180" />
-                                                        </td>
-                                                        <td>
-                                                            <dx:ASPxTextBox ID="tbxPoNumber" runat="server" Width="200" />
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>
-                                                            <dx:ASPxLabel ID="lblAltCustCommit" runat="server" Text="Alt Customer Commitment:" Width="180" />
-                                                        </td>
-                                                        <td>
-                                                            <dx:ASPxTextBox ID="tbxAltCustCommit" runat="server" Width="200" />
-                                                        </td>
-                                                        <td>
-                                                            <dx:ASPxLabel ID="lblPoSellingPrice" runat="server" Text="PO Selling Price:" Width="180" />
-                                                        </td>
-                                                        <td>
-                                                            <dx:ASPxTextBox ID="tbxPoSellingPrice" runat="server" DisplayFormatString="{0:C}" Width="200" />
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>
-                                                            <dx:ASPxLabel ID="lblPoSop" runat="server" Text="Purchase Order SOP:" Width="180" />
-                                                        </td>
-                                                        <td>
-                                                            <dx:ASPxDateEdit ID="dePoSop" runat="server" DisplayFormatString="yyyy-MM-dd" Width="200" />
-                                                        </td>
-                                                        <td>
-                                                            <dx:ASPxLabel ID="lblPoEop" runat="server" Text="Purchase Order EOP:" Width="180" />
-                                                        </td>
-                                                        <td>
-                                                            <dx:ASPxDateEdit ID="dePoEop" runat="server" DisplayFormatString="yyyy-MM-dd" Width="200" />
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>
-                                                            <dx:ASPxLabel ID="lblPoComments" runat="server" Text="Cust Prod PO Comments:" Width="180" />
-                                                        </td>
-                                                        <td colspan="3">
-                                                            <dx:ASPxTextBox ID="tbxPoComments" runat="server" Width="600" />
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>
-                                                            <dx:ASPxButton ID="btnSavePO" runat="server" Text="Save" OnClick="btnSavePO_Click" />
-                                                        </td>
-                                                        <td>
-                                                            <dx:ASPxButton ID="btnCheckmarkPO" runat="server" RenderMode="Link" Enabled="true" Visible="false">
-                                                                <Image IconID="actions_apply_32x32office2013"></Image>
-                                                            </dx:ASPxButton>
-                                                        </td>
-                                                    </tr>
-                                                </table>
-                                            </dx:ContentControl>
-                                        </ContentCollection>
-                                    </dx:TabPage>
-                                    <dx:TabPage Text="Hard Tooling" Visible="true">
-                                        <ContentCollection>
-                                            <dx:ContentControl runat="server">
-                                                <table class="tbl">
-                                                    <tr>
-                                                        <td>
-                                                            <dx:ASPxLabel ID="lblHardToolingAmount" runat="server" Text="Hard Tooling Amount:" Width="180" />
-                                                        </td>
-                                                        <td>
-                                                            <dx:ASPxTextBox ID="tbxHardToolingAmount" runat="server" Width="200" DisplayFormatString="{0:C}" />
-                                                        </td>
-                                                        <td>
-                                                            <dx:ASPxLabel ID="lblHardToolingTrigger" runat="server" Text="Hard Tooling Trigger:" Width="180" />
-                                                        </td>
-                                                        <td>
-                                                            <dx:ASPxTextBox ID="tbxHardToolingTrigger" runat="server" Width="200" />
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>
-                                                            <dx:ASPxLabel ID="lblHardToolingDescription" runat="server" Text="Hard Tooling Desc:" Width="180" />
-                                                        </td>
-                                                        <td>
-                                                            <dx:ASPxTextBox ID="tbxHardToolingDescription" runat="server" Width="200" />
-                                                        </td>
-                                                        <td>
-                                                            <dx:ASPxLabel ID="lblHardToolingCAPEXID" runat="server" Text="Hard Tooling CAPEXID:" Width="180" />
-                                                        </td>
-                                                        <td>
-                                                            <dx:ASPxTextBox ID="tbxHardToolingCAPEXID" runat="server" Width="200" />
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>
-                                                            <dx:ASPxButton ID="btnSaveHardTooling" runat="server" Text="Save" OnClick="btnSaveHardTooling_Click" />
-                                                        </td>
-                                                        <td>
-                                                            <dx:ASPxButton ID="btnCheckmarkHardTooling" runat="server" RenderMode="Link" Enabled="true" Visible="false">
-                                                                <Image IconID="actions_apply_32x32office2013"></Image>
-                                                            </dx:ASPxButton>
-                                                        </td>
-                                                    </tr>
-                                                </table>
-                                            </dx:ContentControl>
-                                        </ContentCollection>
-                                    </dx:TabPage>
-                                    <dx:TabPage Text="Tooling Amortization" Visible="true">
-                                        <ContentCollection>
-                                            <dx:ContentControl runat="server">
-                                                <table class="tbl">
-                                                    <tr>
-                                                        <td>
-                                                            <dx:ASPxLabel ID="lblAmortizationAmount" runat="server" Text="Amortization Amount:" Width="180" />
-                                                        </td>
-                                                        <td>
-                                                            <dx:ASPxTextBox ID="tbxAmortizationAmount" runat="server" Width="200" DisplayFormatString="{0:C}" />
-                                                        </td>
-                                                        <td>
-                                                            <dx:ASPxLabel ID="lblAmortizationQuantity" runat="server" Text="Amortization Quantity:" Width="180" />
-                                                        </td>
-                                                        <td>
-                                                            <dx:ASPxTextBox ID="tbxAmortizationQuantity" runat="server" Width="200" />
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>
-                                                            <dx:ASPxLabel ID="lblAmortizationToolingDescription" runat="server" Text="Amortization Tooling Desc:" Width="180" />
-                                                        </td>
-                                                        <td>
-                                                            <dx:ASPxTextBox ID="tbxAmortizationToolingDescription" runat="server" Width="200" />
-                                                        </td>
-                                                        <td>
-                                                            <dx:ASPxLabel ID="lblAmortizationCAPEXID" runat="server" Text="Amortization CAPEXID:" Width="180" />
-                                                        </td>
-                                                        <td>
-                                                            <dx:ASPxTextBox ID="tbxAmortizationCAPEXID" runat="server" Width="200" />
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>
-                                                            <dx:ASPxButton ID="btnSaveAmortization" runat="server" Text="Save" OnClick="btnSaveAmortization_Click" />
-                                                        </td>
-                                                        <td>
-                                                            <dx:ASPxButton ID="btnCheckmarkAmortization" runat="server" RenderMode="Link" Enabled="true" Visible="false">
-                                                                <Image IconID="actions_apply_32x32office2013"></Image>
-                                                            </dx:ASPxButton>
-                                                        </td>
-                                                    </tr>
-                                                </table>
-                                            </dx:ContentControl>
-                                        </ContentCollection>
-                                    </dx:TabPage>
-                                    <dx:TabPage Text="Assembly Tester Tooling" Visible="true">
-                                        <ContentCollection>
-                                            <dx:ContentControl runat="server">
-                                                <table class="tbl">
-                                                    <tr>
-                                                        <td>
-                                                            <dx:ASPxLabel ID="lblAssemblyTesterToolingAmount" runat="server" Text="Asm Tester Tooling Amount:" Width="180" />
-                                                        </td>
-                                                        <td>
-                                                            <dx:ASPxTextBox ID="tbxAssemblyTesterToolingAmount" runat="server" Width="200" DisplayFormatString="{0:C}" />
-                                                        </td>
-                                                        <td>
-                                                            <dx:ASPxLabel ID="lblAssemblyTesterToolingTrigger" runat="server" Text="Asm Tester Tooling Trigger:" Width="180" />
-                                                        </td>
-                                                        <td>
-                                                            <dx:ASPxTextBox ID="tbxAssemblyTesterToolingTrigger" runat="server" Width="200" />
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>
-                                                            <dx:ASPxLabel ID="lblAssemblyTesterToolingDescription" runat="server" Text="Asm Tester Tooling Desc:" Width="180" />
-                                                        </td>
-                                                        <td>
-                                                            <dx:ASPxTextBox ID="tbxAssemblyTesterToolingDescription" runat="server" Width="200" />
-                                                        </td>
-                                                        <td>
-                                                            <dx:ASPxLabel ID="lblAssemblyTesterToolingCAPEXID" runat="server" Text="Asm Tester Tooling CAPEXID:" Width="180" />
-                                                        </td>
-                                                        <td>
-                                                            <dx:ASPxTextBox ID="tbxAssemblyTesterToolingCAPEXID" runat="server" Width="200" />
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>
-                                                            <dx:ASPxButton ID="btnSaveAssemblyTester" runat="server" Text="Save" OnClick="btnSaveAssemblyTester_Click" />
-                                                        </td>
-                                                        <td>
-                                                            <dx:ASPxButton ID="btnCheckmarkAssemblyTester" runat="server" RenderMode="Link" Enabled="true" Visible="false">
-                                                                <Image IconID="actions_apply_32x32office2013"></Image>
-                                                            </dx:ASPxButton>
-                                                        </td>
-                                                    </tr>
-                                                </table>
-                                            </dx:ContentControl>
-                                        </ContentCollection>
-                                    </dx:TabPage>
+
+                            <div style="width: 1500px;">
+
+                                <div style="padding: 10px 20px 10px 20px; float: left;">
+
+                                    <dx:ASPxPageControl runat="server" ID="pageControl" Width="100%" ActiveTabIndex="4">
+                                    <ClientSideEvents TabClick="function(s, e) { ShowHideNoteForm('Hide'); }" />
+                                    <TabPages>
+                                        <dx:TabPage Text="Customer PO" Visible="true">
+                                            <ContentCollection>
+                                                <dx:ContentControl runat="server">
+                                                    <table class="tbl">
+                                                        <tr>
+                                                            <td>
+                                                                <dx:ASPxLabel ID="lblPurchaseOrderDate" runat="server" Text="Purchase Order Date:" Width="180" />
+                                                            </td>
+                                                            <td>
+                                                                <dx:ASPxDateEdit ID="dePurchaseOrderDate" runat="server" DisplayFormatString="yyyy-MM-dd" Width="200" />
+                                                            </td>
+                                                            <td>
+                                                                <dx:ASPxLabel ID="lblPoNumber" runat="server" Text="Customer Production PO #:" Width="180" />
+                                                            </td>
+                                                            <td>
+                                                                <dx:ASPxTextBox ID="tbxPoNumber" runat="server" Width="200" />
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>
+                                                                <dx:ASPxLabel ID="lblAltCustCommit" runat="server" Text="Alt Customer Commitment:" Width="180" />
+                                                            </td>
+                                                            <td>
+                                                                <dx:ASPxTextBox ID="tbxAltCustCommit" runat="server" Width="200" />
+                                                            </td>
+                                                            <td>
+                                                                <dx:ASPxLabel ID="lblPoSellingPrice" runat="server" Text="PO Selling Price:" Width="180" />
+                                                            </td>
+                                                            <td>
+                                                                <dx:ASPxTextBox ID="tbxPoSellingPrice" runat="server" DisplayFormatString="{0:C}" Width="200" />
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>
+                                                                <dx:ASPxLabel ID="lblPoSop" runat="server" Text="Purchase Order SOP:" Width="180" />
+                                                            </td>
+                                                            <td>
+                                                                <dx:ASPxDateEdit ID="dePoSop" runat="server" DisplayFormatString="yyyy-MM-dd" Width="200" />
+                                                            </td>
+                                                            <td>
+                                                                <dx:ASPxLabel ID="lblPoEop" runat="server" Text="Purchase Order EOP:" Width="180" />
+                                                            </td>
+                                                            <td>
+                                                                <dx:ASPxDateEdit ID="dePoEop" runat="server" DisplayFormatString="yyyy-MM-dd" Width="200" />
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>
+                                                                <dx:ASPxLabel ID="lblPoComments" runat="server" Text="Cust Prod PO Comments:" Width="180" />
+                                                            </td>
+                                                            <td colspan="3">
+                                                                <dx:ASPxTextBox ID="tbxPoComments" runat="server" Width="600" />
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>
+                                                                <dx:ASPxButton ID="btnSavePO" runat="server" Text="Save" OnClick="btnSavePO_Click" />
+                                                            </td>
+                                                            <td>
+                                                                <dx:ASPxButton ID="btnCheckmarkPO" runat="server" RenderMode="Link" Enabled="true" Visible="false">
+                                                                    <Image IconID="actions_apply_32x32office2013"></Image>
+                                                                </dx:ASPxButton>
+                                                            </td>
+                                                        </tr>
+                                                    </table>
+                                                </dx:ContentControl>
+                                            </ContentCollection>
+                                        </dx:TabPage>
+                                        <dx:TabPage Text="Hard Tooling" Visible="true">
+                                            <ContentCollection>
+                                                <dx:ContentControl runat="server">
+                                                    <table class="tbl">
+                                                        <tr>
+                                                            <td>
+                                                                <dx:ASPxLabel ID="lblHardToolingAmount" runat="server" Text="Hard Tooling Amount:" Width="180" />
+                                                            </td>
+                                                            <td>
+                                                                <dx:ASPxTextBox ID="tbxHardToolingAmount" runat="server" Width="200" DisplayFormatString="{0:C}" />
+                                                            </td>
+                                                            <td>
+                                                                <dx:ASPxLabel ID="lblHardToolingTrigger" runat="server" Text="Hard Tooling Trigger:" Width="180" />
+                                                            </td>
+                                                            <td>
+                                                                <dx:ASPxTextBox ID="tbxHardToolingTrigger" runat="server" Width="200" />
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>
+                                                                <dx:ASPxLabel ID="lblHardToolingDescription" runat="server" Text="Hard Tooling Desc:" Width="180" />
+                                                            </td>
+                                                            <td>
+                                                                <dx:ASPxTextBox ID="tbxHardToolingDescription" runat="server" Width="200" />
+                                                            </td>
+                                                            <td>
+                                                                <dx:ASPxLabel ID="lblHardToolingCAPEXID" runat="server" Text="Hard Tooling CAPEXID:" Width="180" />
+                                                            </td>
+                                                            <td>
+                                                                <dx:ASPxTextBox ID="tbxHardToolingCAPEXID" runat="server" Width="200" />
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>
+                                                                <dx:ASPxButton ID="btnSaveHardTooling" runat="server" Text="Save" OnClick="btnSaveHardTooling_Click" />
+                                                            </td>
+                                                            <td>
+                                                                <dx:ASPxButton ID="btnCheckmarkHardTooling" runat="server" RenderMode="Link" Enabled="true" Visible="false">
+                                                                    <Image IconID="actions_apply_32x32office2013"></Image>
+                                                                </dx:ASPxButton>
+                                                            </td>
+                                                        </tr>
+                                                    </table>
+                                                </dx:ContentControl>
+                                            </ContentCollection>
+                                        </dx:TabPage>
+                                        <dx:TabPage Text="Tooling Amortization" Visible="true">
+                                            <ContentCollection>
+                                                <dx:ContentControl runat="server">
+                                                    <table class="tbl">
+                                                        <tr>
+                                                            <td>
+                                                                <dx:ASPxLabel ID="lblAmortizationAmount" runat="server" Text="Amortization Amount:" Width="180" />
+                                                            </td>
+                                                            <td>
+                                                                <dx:ASPxTextBox ID="tbxAmortizationAmount" runat="server" Width="200" DisplayFormatString="{0:C}" />
+                                                            </td>
+                                                            <td>
+                                                                <dx:ASPxLabel ID="lblAmortizationQuantity" runat="server" Text="Amortization Quantity:" Width="180" />
+                                                            </td>
+                                                            <td>
+                                                                <dx:ASPxTextBox ID="tbxAmortizationQuantity" runat="server" Width="200" />
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>
+                                                                <dx:ASPxLabel ID="lblAmortizationToolingDescription" runat="server" Text="Amortization Tooling Desc:" Width="180" />
+                                                            </td>
+                                                            <td>
+                                                                <dx:ASPxTextBox ID="tbxAmortizationToolingDescription" runat="server" Width="200" />
+                                                            </td>
+                                                            <td>
+                                                                <dx:ASPxLabel ID="lblAmortizationCAPEXID" runat="server" Text="Amortization CAPEXID:" Width="180" />
+                                                            </td>
+                                                            <td>
+                                                                <dx:ASPxTextBox ID="tbxAmortizationCAPEXID" runat="server" Width="200" />
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>
+                                                                <dx:ASPxButton ID="btnSaveAmortization" runat="server" Text="Save" OnClick="btnSaveAmortization_Click" />
+                                                            </td>
+                                                            <td>
+                                                                <dx:ASPxButton ID="btnCheckmarkAmortization" runat="server" RenderMode="Link" Enabled="true" Visible="false">
+                                                                    <Image IconID="actions_apply_32x32office2013"></Image>
+                                                                </dx:ASPxButton>
+                                                            </td>
+                                                        </tr>
+                                                    </table>
+                                                </dx:ContentControl>
+                                            </ContentCollection>
+                                        </dx:TabPage>
+                                        <dx:TabPage Text="Assembly Tester Tooling" Visible="true">
+                                            <ContentCollection>
+                                                <dx:ContentControl runat="server">
+                                                    <table class="tbl">
+                                                        <tr>
+                                                            <td>
+                                                                <dx:ASPxLabel ID="lblAssemblyTesterToolingAmount" runat="server" Text="Asm Tester Tooling Amount:" Width="180" />
+                                                            </td>
+                                                            <td>
+                                                                <dx:ASPxTextBox ID="tbxAssemblyTesterToolingAmount" runat="server" Width="200" DisplayFormatString="{0:C}" />
+                                                            </td>
+                                                            <td>
+                                                                <dx:ASPxLabel ID="lblAssemblyTesterToolingTrigger" runat="server" Text="Asm Tester Tooling Trigger:" Width="180" />
+                                                            </td>
+                                                            <td>
+                                                                <dx:ASPxTextBox ID="tbxAssemblyTesterToolingTrigger" runat="server" Width="200" />
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>
+                                                                <dx:ASPxLabel ID="lblAssemblyTesterToolingDescription" runat="server" Text="Asm Tester Tooling Desc:" Width="180" />
+                                                            </td>
+                                                            <td>
+                                                                <dx:ASPxTextBox ID="tbxAssemblyTesterToolingDescription" runat="server" Width="200" />
+                                                            </td>
+                                                            <td>
+                                                                <dx:ASPxLabel ID="lblAssemblyTesterToolingCAPEXID" runat="server" Text="Asm Tester Tooling CAPEXID:" Width="180" />
+                                                            </td>
+                                                            <td>
+                                                                <dx:ASPxTextBox ID="tbxAssemblyTesterToolingCAPEXID" runat="server" Width="200" />
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>
+                                                                <dx:ASPxButton ID="btnSaveAssemblyTester" runat="server" Text="Save" OnClick="btnSaveAssemblyTester_Click" />
+                                                            </td>
+                                                            <td>
+                                                                <dx:ASPxButton ID="btnCheckmarkAssemblyTester" runat="server" RenderMode="Link" Enabled="true" Visible="false">
+                                                                    <Image IconID="actions_apply_32x32office2013"></Image>
+                                                                </dx:ASPxButton>
+                                                            </td>
+                                                        </tr>
+                                                    </table>
+                                                </dx:ContentControl>
+                                            </ContentCollection>
+                                        </dx:TabPage>
                                     
 
 
 
 
 
-                                    <dx:TabPage Text="Base Part Attributes" Visible="true">
-                                        <ContentCollection>
-                                            <dx:ContentControl runat="server">
-                                                <table class="tbl">
-                                                    <tr>
-                                                        <td>
-                                                            <dx:ASPxLabel ID="lblBasePartFamily" runat="server" Text="Base Part Family:" Width="180" />
-                                                        </td>
-                                                        <td>
-                                                            <dx:ASPxTextBox ID="tbxBasePartFamily" runat="server" Width="200" />
-                                                        </td>
-                                                        <td>
-                                                            <dx:ASPxLabel ID="lblProductLine" runat="server" Text="Product Line:" Width="180" />
-                                                        </td>
-                                                        <td>
-                                                            <dx:ASPxComboBox ID="cbxProductLine" runat="server" DropDownStyle="DropDown" TextField="ProductLine1" DataSourceID="edsProductLine" 
-                                                                ValueField="ProductLine1" TextFormatString="{0}" AllowNull="true" IncrementalFilteringMode="StartsWith" Width="200">
-                                                            </dx:ASPxComboBox>
-                                                            <asp:EntityDataSource ID="edsProductLine" runat="server" ConnectionString="name=FxPLMEntities" DefaultContainerName="FxPLMEntities" EnableFlattening="False"
-                                                                EntitySetName="ProductLines" Select="" OrderBy="it.ProductLine1" EnableInsert="true">
-                                                            </asp:EntityDataSource>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>
-                                                            <dx:ASPxLabel ID="lblEmpireMarketSegment" runat="server" Text="Empire Market Segment:" Width="180" />
-                                                        </td>
-                                                        <td>
-                                                            <dx:ASPxComboBox ID="cbxEmpireMarketSegment" runat="server" DropDownStyle="DropDown" TextField="EmpireMarketSegment1" DataSourceID="edsEmpireMarketSegment" 
-                                                                ValueField="EmpireMarketSegment1" TextFormatString="{0}" AllowNull="true" IncrementalFilteringMode="StartsWith" Width="200">
-                                                            </dx:ASPxComboBox>
-                                                            <asp:EntityDataSource ID="edsEmpireMarketSegment" runat="server" ConnectionString="name=FxPLMEntities" DefaultContainerName="FxPLMEntities" EnableFlattening="False"
-                                                                EntitySetName="EmpireMarketSegments" Select="" OrderBy="it.EmpireMarketSegment1">
-                                                            </asp:EntityDataSource>
-                                                        </td>
-                                                        <td>
-                                                            <dx:ASPxLabel ID="lblEmpireMarketSubsegment" runat="server" Text="Empire Market Subsegment:" Width="180" />
-                                                        </td>
-                                                        <td>
-                                                            <dx:ASPxComboBox ID="cbxEmpireMarketSubsegment" runat="server" DropDownStyle="DropDown" TextField="EmpireMarketSubsegment1" DataSourceID="edsEmpireMarketSubsegment" 
-                                                                ValueField="EmpireMarketSubsegment1" TextFormatString="{0}" AllowNull="true" IncrementalFilteringMode="StartsWith" Width="200">
-                                                            </dx:ASPxComboBox>
-                                                            <asp:EntityDataSource ID="edsEmpireMarketSubsegment" runat="server" ConnectionString="name=FxPLMEntities" DefaultContainerName="FxPLMEntities" EnableFlattening="False"
-                                                                EntitySetName="EmpireMarketSubsegments" Select="" OrderBy="it.EmpireMarketSubsegment1">
-                                                            </asp:EntityDataSource>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>
-                                                            <dx:ASPxLabel ID="lblEmpireApplication" runat="server" Text="Empire Application:" Width="180" />
-                                                        </td>
-                                                        <td>
-                                                            <dx:ASPxTextBox ID="tbxEmpireApplication" runat="server" Width="200" />
-                                                        </td>
-                                                        <td>
-                                                            <dx:ASPxLabel ID="lblEmpireSop" runat="server" Text="Empire SOP:" Width="180" />
-                                                        </td>
-                                                        <td>
-                                                            <dx:ASPxDateEdit ID="deEmpireSop" runat="server" Width="200" />
-                                                        </td>
-                                                        <td></td>
-                                                        <td></td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>
-                                                            <dx:ASPxLabel ID="lblEmpireEop" runat="server" Text="Empire EOP:" Width="180" />
-                                                        </td>
-                                                        <td>
-                                                            <dx:ASPxDateEdit ID="deEmpireEop" runat="server" Width="200" />
-                                                        </td>
-                                                        <td>
-                                                            <dx:ASPxLabel ID="lblEmpireEopNote" runat="server" Text="EOP Note:" Width="180" />
-                                                        </td>
-                                                        <td>
-                                                            <dx:ASPxTextBox ID="tbxEmpireEopNote" runat="server" ReadOnly="false" ClientEnabled="true" Width="200"/>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>
-                                                            <dx:ASPxLabel ID="lblBasePartAttributesComments" runat="server" Text="Comments" Width="180" />
-                                                        </td>
-                                                        <td colspan="3">
-                                                            <dx:ASPxTextBox ID="tbxBasePartAttributesComments" runat="server" Width="600" />
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>
-                                                            <dx:ASPxButton ID="btnSaveBasePartAttr" runat="server" Text="Save" OnClick="btnSaveBasePartAttr_Click" />
-                                                        </td>
-                                                        <td>
-                                                            <dx:ASPxButton ID="btnCheckmarkBasePartAttr" runat="server" RenderMode="Link" Enabled="true" Visible="false">
-                                                                <Image IconID="actions_apply_32x32office2013"></Image>
-                                                            </dx:ASPxButton>
-                                                        </td>
-                                                    </tr>
-                                                </table>
-                                            </dx:ContentControl>
-                                        </ContentCollection>
-                                    </dx:TabPage>
+                                        <dx:TabPage Text="Base Part Attributes" Visible="true">
+                                            <ContentCollection>
+                                                <dx:ContentControl runat="server">
+                                                    <table class="tbl">
+                                                        <tr>
+                                                            <td>
+                                                                <dx:ASPxLabel ID="lblBasePartFamily" runat="server" Text="Base Part Family:" Width="180" />
+                                                            </td>
+                                                            <td>
+                                                                <dx:ASPxTextBox ID="tbxBasePartFamily" runat="server" Width="200" />
+                                                            </td>
+                                                            <td></td>
+                                                            <td></td>
+                                                            <td>
+                                                                <dx:ASPxLabel ID="lblProductLine" runat="server" Text="Product Line:" Width="180" />
+                                                            </td>
+                                                            <td>
+                                                                <dx:ASPxComboBox ID="cbxProductLine" runat="server" DropDownStyle="DropDown" TextField="ProductLine1" DataSourceID="edsProductLine" 
+                                                                    ValueField="ProductLine1" TextFormatString="{0}" AllowNull="true" IncrementalFilteringMode="StartsWith" Width="200">
+                                                                </dx:ASPxComboBox>
+                                                                <asp:EntityDataSource ID="edsProductLine" runat="server" ConnectionString="name=FxPLMEntities" DefaultContainerName="FxPLMEntities" EnableFlattening="False"
+                                                                    EntitySetName="ProductLines" Select="" OrderBy="it.ProductLine1" EnableInsert="true">
+                                                                </asp:EntityDataSource>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>
+                                                                <dx:ASPxLabel ID="lblEmpireMarketSegment" runat="server" Text="Empire Market Segment:" Width="180" />
+                                                            </td>
+                                                            <td>
+                                                                <dx:ASPxComboBox ID="cbxEmpireMarketSegment" runat="server" DropDownStyle="DropDown" TextField="EmpireMarketSegment1" DataSourceID="edsEmpireMarketSegment" 
+                                                                    ValueField="EmpireMarketSegment1" TextFormatString="{0}" AllowNull="true" IncrementalFilteringMode="StartsWith" Width="200">
+                                                                </dx:ASPxComboBox>
+                                                                <asp:EntityDataSource ID="edsEmpireMarketSegment" runat="server" ConnectionString="name=FxPLMEntities" DefaultContainerName="FxPLMEntities" EnableFlattening="False"
+                                                                    EntitySetName="EmpireMarketSegments" Select="" OrderBy="it.EmpireMarketSegment1">
+                                                                </asp:EntityDataSource>
+                                                            </td>
+                                                            <td></td>
+                                                            <td></td>
+                                                            <td>
+                                                                <dx:ASPxLabel ID="lblEmpireMarketSubsegment" runat="server" Text="Empire Market Subsegment:" Width="180" />
+                                                            </td>
+                                                            <td>
+                                                                <dx:ASPxComboBox ID="cbxEmpireMarketSubsegment" runat="server" DropDownStyle="DropDown" TextField="EmpireMarketSubsegment1" DataSourceID="edsEmpireMarketSubsegment" 
+                                                                    ValueField="EmpireMarketSubsegment1" TextFormatString="{0}" AllowNull="true" IncrementalFilteringMode="StartsWith" Width="200">
+                                                                </dx:ASPxComboBox>
+                                                                <asp:EntityDataSource ID="edsEmpireMarketSubsegment" runat="server" ConnectionString="name=FxPLMEntities" DefaultContainerName="FxPLMEntities" EnableFlattening="False"
+                                                                    EntitySetName="EmpireMarketSubsegments" Select="" OrderBy="it.EmpireMarketSubsegment1">
+                                                                </asp:EntityDataSource>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>
+                                                                <dx:ASPxLabel ID="lblEmpireApplication" runat="server" Text="Empire Application:" Width="180" />
+                                                            </td>
+                                                            <td>
+                                                                <dx:ASPxTextBox ID="tbxEmpireApplication" runat="server" Width="200" />
+                                                            </td>
+                                                            <td></td>
+                                                            <td></td>
+                                                            <td>
+                                                                <dx:ASPxLabel ID="lblEmpireSop" runat="server" Text="Empire SOP:" Width="180" />
+                                                            </td>
+                                                            <td>
+                                                                <dx:ASPxDateEdit ID="deEmpireSop" runat="server" Width="200" />
+                                                            </td>
+                                                            <td></td>
+                                                            <td></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>
+                                                                <dx:ASPxLabel ID="lblEmpireEop" runat="server" Text="Empire EOP:" Width="180" />
+                                                            </td>
+                                                            <td>
+                                                                <dx:ASPxDateEdit ID="deEmpireEop" runat="server" Width="200" />
+                                                            </td>
+                                                            <td>
+                                                                <dx:ASPxButton ID="btnShowNewEopNote" runat="server" RenderMode="Link" AutoPostBack="false" UseSubmitBehavior="false">
+                                                                    <ClientSideEvents Click="function(s, e) {ShowHideNoteForm('Show');}" />
+                                                                    <Image IconID="miscellaneous_comment_32x32"></Image>
+                                                                </dx:ASPxButton>   
+                                                            </td>
+                                                            <td>
+                                                                <dx:ASPxButton ID="btnShowAllEopNotes" runat="server" RenderMode="Link" AutoPostBack="false" UseSubmitBehavior="false">
+                                                                    <ClientSideEvents Click="function(s, e) {ShowHideNoteForm('Hide');}" />
+                                                                    <Image IconID="comments_editcomment_32x32"></Image>
+                                                                </dx:ASPxButton>   
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>
+                                                                <dx:ASPxLabel ID="lblBasePartAttributesComments" runat="server" Text="Comments" Width="180" />
+                                                            </td>
+                                                            <td colspan="4">
+                                                                <dx:ASPxTextBox ID="tbxBasePartAttributesComments" runat="server" Width="100%" />
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>
+                                                                <dx:ASPxButton ID="btnSaveBasePartAttr" runat="server" Text="Save" OnClick="btnSaveBasePartAttr_Click" />
+                                                            </td>
+                                                            <td>
+                                                                <dx:ASPxButton ID="btnCheckmarkBasePartAttr" runat="server" RenderMode="Link" Enabled="true" Visible="false">
+                                                                    <Image IconID="actions_apply_32x32office2013"></Image>
+                                                                </dx:ASPxButton>
+                                                            </td>
+                                                        </tr>
+                                                    </table>
+                                                </dx:ContentControl>
+                                            </ContentCollection>
+                                        </dx:TabPage>
 
-                                    <dx:TabPage Text="Base Part Mnemonics" Visible="true">
-                                        <ContentCollection>
-                                            <dx:ContentControl runat="server">
-                                                <table class="tbl">
-                                                    <tr>
-                                                        <td>
-                                                            <dx:ASPxLabel ID="lblVehiclePlantMnemonic" runat="server" Text="Vehicle Plant Mnemonic:" Width="180" />
-                                                        </td>
-                                                        <td>
-                                                            <dx:ASPxTextBox ID="tbxVehiclePlantMnemonic" runat="server" Width="200" ReadOnly="true" ClientEnabled="false" />
-                                                        </td>
-                                                        <td>
-                                                            <dx:ASPxLabel ID="lblQtyPer" runat="server" Text="Qty Per:" Width="180" />
-                                                        </td>
-                                                        <td>
-                                                            <dx:ASPxTextBox ID="tbxQtyPer" runat="server" Width="200" ReadOnly="true" ClientEnabled="false" />
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>
-                                                            <dx:ASPxLabel ID="lblTakeRate" runat="server" Text="Take Rate:" Width="180" />
-                                                        </td>
-                                                        <td>
-                                                            <dx:ASPxTextBox ID="tbxTakeRate" runat="server" Width="200" ReadOnly="true" ClientEnabled="false" />
-                                                        </td>
-                                                        <td>
-                                                            <dx:ASPxLabel ID="lblFamilyAllocation" runat="server" Text="Family Allocation:" Width="180" />
-                                                        </td>
-                                                        <td>
-                                                            <dx:ASPxTextBox ID="tbxFamilyAllocation" runat="server" Width="200" ReadOnly="true" ClientEnabled="false" />
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>
-                                                            <dx:ASPxLabel ID="lblQuotedEau" runat="server" Text="Quoted EAU:" Width="180" />
-                                                        </td>
-                                                        <td>
-                                                            <dx:ASPxTextBox ID="tbxQuotedEau" runat="server" Width="200" ReadOnly="true" ClientEnabled="false" />
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>
-                                                            <dx:ASPxButton ID="btnEditBasePartMnemonics" runat="server" Text="Edit Mnemonics" OnClick="btnEditBasePartMnemonics_Click" />
-                                                        </td>
-                                                    </tr>
-                                                </table>
-                                            </dx:ContentControl>
-                                        </ContentCollection>
-                                    </dx:TabPage>
+                                        <dx:TabPage Text="Base Part Mnemonics" Visible="true">
+                                            <ContentCollection>
+                                                <dx:ContentControl runat="server">
+                                                    <table class="tbl">
+                                                        <tr>
+                                                            <td>
+                                                                <dx:ASPxLabel ID="lblVehiclePlantMnemonic" runat="server" Text="Vehicle Plant Mnemonic:" Width="180" />
+                                                            </td>
+                                                            <td>
+                                                                <dx:ASPxTextBox ID="tbxVehiclePlantMnemonic" runat="server" Width="200" ReadOnly="true" ClientEnabled="false" />
+                                                            </td>
+                                                            <td>
+                                                                <dx:ASPxLabel ID="lblQtyPer" runat="server" Text="Qty Per:" Width="180" />
+                                                            </td>
+                                                            <td>
+                                                                <dx:ASPxTextBox ID="tbxQtyPer" runat="server" Width="200" ReadOnly="true" ClientEnabled="false" />
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>
+                                                                <dx:ASPxLabel ID="lblTakeRate" runat="server" Text="Take Rate:" Width="180" />
+                                                            </td>
+                                                            <td>
+                                                                <dx:ASPxTextBox ID="tbxTakeRate" runat="server" Width="200" ReadOnly="true" ClientEnabled="false" />
+                                                            </td>
+                                                            <td>
+                                                                <dx:ASPxLabel ID="lblFamilyAllocation" runat="server" Text="Family Allocation:" Width="180" />
+                                                            </td>
+                                                            <td>
+                                                                <dx:ASPxTextBox ID="tbxFamilyAllocation" runat="server" Width="200" ReadOnly="true" ClientEnabled="false" />
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>
+                                                                <dx:ASPxLabel ID="lblQuotedEau" runat="server" Text="Quoted EAU:" Width="180" />
+                                                            </td>
+                                                            <td>
+                                                                <dx:ASPxTextBox ID="tbxQuotedEau" runat="server" Width="200" ReadOnly="true" ClientEnabled="false" />
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>
+                                                                <dx:ASPxButton ID="btnEditBasePartMnemonics" runat="server" Text="Edit Mnemonics" OnClick="btnEditBasePartMnemonics_Click" />
+                                                            </td>
+                                                        </tr>
+                                                    </table>
+                                                </dx:ContentControl>
+                                            </ContentCollection>
+                                        </dx:TabPage>
 
-                                    <dx:TabPage Text="Logistics" Visible="true">
-                                        <ContentCollection>
-                                            <dx:ContentControl runat="server">
-                                                <table class="tbl">
-                                                    <tr>
-                                                        <td>
-                                                            <dx:ASPxLabel ID="lblEmpireFacility" runat="server" Text="Empire Facility:" Width="180" />
-                                                        </td>
-                                                        <td>
-                                                            <dx:ASPxComboBox ID="cbxEmpireFacility" runat="server" DropDownStyle="DropDownList" TextField="Code" DataSourceID="edsEmpireFacility" 
-                                                                ValueField="Code" TextFormatString="{0}" AllowNull="true" IncrementalFilteringMode="StartsWith" Width="200">
-                                                                <Columns>
-                                                                    <dx:ListBoxColumn Caption="Code" FieldName="Code" Name="Code" Width="80" />
-                                                                    <dx:ListBoxColumn Caption="Name" FieldName="Name" Name="Name" Width="160" />
-                                                                </Columns>
-                                                            </dx:ASPxComboBox>
-                                                            <asp:EntityDataSource ID="edsEmpireFacility" runat="server" ConnectionString="name=FxPLMEntities" DefaultContainerName="FxPLMEntities" EnableFlattening="False"
-                                                                EntitySetName="EmpireFacilities" Select="" OrderBy="it.Code">
-                                                            </asp:EntityDataSource>
-                                                        </td>
-                                                        <td>
-                                                            <dx:ASPxLabel ID="lblFreightTerms" runat="server" Text="Freight Terms:" Width="190" />
-                                                        </td>
-                                                        <td>
-                                                            <dx:ASPxComboBox ID="cbxFreightTerms" runat="server" DropDownStyle="DropDown" TextField="Code" DataSourceID="edsFreightTerms" 
-                                                                ValueField="FreightTerms" TextFormatString="{0}" AllowNull="true" IncrementalFilteringMode="StartsWith" Width="200">
-                                                                <Columns>
-                                                                    <dx:ListBoxColumn Caption="FreightTerms" FieldName="FreightTerms" Name="FreightTerms" Width="200" />
-                                                                </Columns>
-                                                            </dx:ASPxComboBox>
-                                                            <asp:EntityDataSource ID="edsFreightTerms" runat="server" ConnectionString="name=FxPLMEntities" DefaultContainerName="FxPLMEntities" EnableFlattening="False"
-                                                                EntitySetName="FreightTerms" Select="" OrderBy="it.FreightTerms">
-                                                            </asp:EntityDataSource>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>
-                                                            <dx:ASPxLabel ID="lblCustomerShipTos" runat="server" Text="Customer Ship Tos:" Width="180" />
-                                                        </td>
-                                                        <td>
-                                                            <dx:ASPxComboBox ID="cbxCustomerShipTos" runat="server" DropDownStyle="DropDownList" TextField="Code" DataSourceID="edsCustomerShipTos" 
-                                                                ValueField="ShipToCode" TextFormatString="{0}" AllowNull="true" IncrementalFilteringMode="StartsWith" Width="200">
-                                                                <Columns>
-                                                                    <dx:ListBoxColumn Caption="ShipToCode" FieldName="ShipToCode" Name="ShipToCode" Width="90" />
-                                                                    <dx:ListBoxColumn Caption="ShipToName" FieldName="ShipToName" Name="ShipToName" Width="200" />
-                                                                    <dx:ListBoxColumn Caption="CustomerCode" FieldName="CustomerCode" Name="CustomerCode" Width="100" />
-                                                                    <dx:ListBoxColumn Caption="CustomerName" FieldName="CustomerName" Name="CustomerName" Width="220" />
-                                                                </Columns>
-                                                            </dx:ASPxComboBox>
-                                                            <asp:EntityDataSource ID="edsCustomerShipTos" runat="server" ConnectionString="name=FxPLMEntities" DefaultContainerName="FxPLMEntities" EnableFlattening="False"
-                                                                EntitySetName="CustomerShipTos" Select="" OrderBy="it.ShipToCode">
-                                                            </asp:EntityDataSource>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>
-                                                            <dx:ASPxButton ID="btnSaveLogistics" runat="server" Text="Save" OnClick="btnSaveLogistics_Click" />
-                                                        </td>
-                                                        <td>
-                                                            <dx:ASPxButton ID="btnCheckmarkLogistics" runat="server" RenderMode="Link" Enabled="true" Visible="false">
-                                                                <Image IconID="actions_apply_32x32office2013"></Image>
-                                                            </dx:ASPxButton>
-                                                        </td>
-                                                    </tr>
-                                                </table>
-                                            </dx:ContentControl>
-                                        </ContentCollection>
-                                    </dx:TabPage>
-
-
+                                        <dx:TabPage Text="Logistics" Visible="true">
+                                            <ContentCollection>
+                                                <dx:ContentControl runat="server">
+                                                    <table class="tbl">
+                                                        <tr>
+                                                            <td>
+                                                                <dx:ASPxLabel ID="lblEmpireFacility" runat="server" Text="Empire Facility:" Width="180" />
+                                                            </td>
+                                                            <td>
+                                                                <dx:ASPxComboBox ID="cbxEmpireFacility" runat="server" DropDownStyle="DropDownList" TextField="Code" DataSourceID="edsEmpireFacility" 
+                                                                    ValueField="Code" TextFormatString="{0}" AllowNull="true" IncrementalFilteringMode="StartsWith" Width="200">
+                                                                    <Columns>
+                                                                        <dx:ListBoxColumn Caption="Code" FieldName="Code" Name="Code" Width="80" />
+                                                                        <dx:ListBoxColumn Caption="Name" FieldName="Name" Name="Name" Width="160" />
+                                                                    </Columns>
+                                                                </dx:ASPxComboBox>
+                                                                <asp:EntityDataSource ID="edsEmpireFacility" runat="server" ConnectionString="name=FxPLMEntities" DefaultContainerName="FxPLMEntities" EnableFlattening="False"
+                                                                    EntitySetName="EmpireFacilities" Select="" OrderBy="it.Code">
+                                                                </asp:EntityDataSource>
+                                                            </td>
+                                                            <td>
+                                                                <dx:ASPxLabel ID="lblFreightTerms" runat="server" Text="Freight Terms:" Width="190" />
+                                                            </td>
+                                                            <td>
+                                                                <dx:ASPxComboBox ID="cbxFreightTerms" runat="server" DropDownStyle="DropDown" TextField="Code" DataSourceID="edsFreightTerms" 
+                                                                    ValueField="FreightTerms" TextFormatString="{0}" AllowNull="true" IncrementalFilteringMode="StartsWith" Width="200">
+                                                                    <Columns>
+                                                                        <dx:ListBoxColumn Caption="FreightTerms" FieldName="FreightTerms" Name="FreightTerms" Width="200" />
+                                                                    </Columns>
+                                                                </dx:ASPxComboBox>
+                                                                <asp:EntityDataSource ID="edsFreightTerms" runat="server" ConnectionString="name=FxPLMEntities" DefaultContainerName="FxPLMEntities" EnableFlattening="False"
+                                                                    EntitySetName="FreightTerms" Select="" OrderBy="it.FreightTerms">
+                                                                </asp:EntityDataSource>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>
+                                                                <dx:ASPxLabel ID="lblCustomerShipTos" runat="server" Text="Customer Ship Tos:" Width="180" />
+                                                            </td>
+                                                            <td>
+                                                                <dx:ASPxComboBox ID="cbxCustomerShipTos" runat="server" DropDownStyle="DropDownList" TextField="Code" DataSourceID="edsCustomerShipTos" 
+                                                                    ValueField="ShipToCode" TextFormatString="{0}" AllowNull="true" IncrementalFilteringMode="StartsWith" Width="200">
+                                                                    <Columns>
+                                                                        <dx:ListBoxColumn Caption="ShipToCode" FieldName="ShipToCode" Name="ShipToCode" Width="90" />
+                                                                        <dx:ListBoxColumn Caption="ShipToName" FieldName="ShipToName" Name="ShipToName" Width="200" />
+                                                                        <dx:ListBoxColumn Caption="CustomerCode" FieldName="CustomerCode" Name="CustomerCode" Width="100" />
+                                                                        <dx:ListBoxColumn Caption="CustomerName" FieldName="CustomerName" Name="CustomerName" Width="220" />
+                                                                    </Columns>
+                                                                </dx:ASPxComboBox>
+                                                                <asp:EntityDataSource ID="edsCustomerShipTos" runat="server" ConnectionString="name=FxPLMEntities" DefaultContainerName="FxPLMEntities" EnableFlattening="False"
+                                                                    EntitySetName="CustomerShipTos" Select="" OrderBy="it.ShipToCode">
+                                                                </asp:EntityDataSource>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>
+                                                                <dx:ASPxButton ID="btnSaveLogistics" runat="server" Text="Save" OnClick="btnSaveLogistics_Click" />
+                                                            </td>
+                                                            <td>
+                                                                <dx:ASPxButton ID="btnCheckmarkLogistics" runat="server" RenderMode="Link" Enabled="true" Visible="false">
+                                                                    <Image IconID="actions_apply_32x32office2013"></Image>
+                                                                </dx:ASPxButton>
+                                                            </td>
+                                                        </tr>
+                                                    </table>
+                                                </dx:ContentControl>
+                                            </ContentCollection>
+                                        </dx:TabPage>
 
 
-                                </TabPages>
-                                </dx:ASPxPageControl>
+
+
+                                    </TabPages>
+                                    </dx:ASPxPageControl>
+
+                                </div>
+
+
+                                <div style="float: left; margin-top: 20px;">
+                                    <dx:ASPxButton ID="btnSaveAll" runat="server" Text="Save All Tabs" OnClick="btnSaveAll_Click" />
+                                </div>
 
                             </div>
 
-                            <div style="padding-bottom: 15px; width: 98%; text-align: right;">
-                                <dx:ASPxButton ID="btnSaveAll" runat="server" Text="Save All" OnClick="btnSaveAll_Click" />
+
+
+
+
+                            <div id="divNote" style="margin-left: 40px; margin-bottom: 20px; display: none; clear: left;">
+                                <table>
+                                    <tr>
+                                        <td>
+                                            <dx:ASPxLabel ID="lblNoteTitle" runat="server" Text="Notes / Comments / Screenshots" ForeColor="#007bf7" />
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <dx:ASPxHtmlEditor ID="htmlEditorNote" runat="server" Height="160" ClientInstanceName="htmlEditor">
+                                                <SettingsImageUpload>
+                                                    <ValidationSettings AllowedContentTypes="image/jpeg,image/pjpeg,image/gif,image/png,image/x-png"></ValidationSettings>
+                                                </SettingsImageUpload>
+                                                <SettingsDialogs>
+                                                    <InsertImageDialog>
+                                                        <SettingsImageUpload>
+                                                            <ValidationSettings AllowedContentTypes="image/jpeg, image/pjpeg, image/gif, image/png, image/x-png">
+                                                            </ValidationSettings>
+                                                        </SettingsImageUpload>
+                                                    </InsertImageDialog>
+                                                </SettingsDialogs>
+                                            </dx:ASPxHtmlEditor>
+                                        </td>
+                                        <td>
+                                            <dx:ASPxButton ID="btnNoteOk" runat="server" Text="Ok" />
+                                            <br />
+                                            <br />
+                                            <dx:ASPxButton ID="btnNoteCancel" runat="server" Text="Cancel" AutoPostBack="false" UseSubmitBehavior="false">
+                                                <ClientSideEvents Click="function(s, e) {ShowHideNoteForm('Hide');}" />
+                                            </dx:ASPxButton>
+                                        </td>
+                                    </tr>
+                                </table>
                             </div>
+
+
+
+                            <div style="display: none; clear: left;">
+                                <dx:ASPxButton ID="btnSetUser" runat="server" ClientInstanceName="btnSetUser" AutoPostBack="false" UseSubmitBehavior="false" OnClick="btnSetUser_Click"></dx:ASPxButton>
+                            </div>
+
+                            <div id="divEntityNotesUserControl" style="margin-left: 40px; margin-bottom: 40px; width: 1500px; clear: left;">
+                                <uc1:EntityNotesUserControl runat="server" id="EntityNotesUserControl" />
+                            </div>
+
+
 
                         </dx:PopupControlContentControl>
                     </ContentCollection>
@@ -850,7 +957,7 @@
 
 
             </ContentTemplate>
-                
+
             </asp:UpdatePanel>
 
 

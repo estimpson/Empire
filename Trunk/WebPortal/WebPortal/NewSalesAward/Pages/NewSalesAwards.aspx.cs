@@ -6,6 +6,7 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using WebPortal.NewSalesAward.Models;
 using WebPortal.NewSalesAward.PageViewModels;
 
 namespace WebPortal.NewSalesAward.Pages
@@ -48,10 +49,26 @@ namespace WebPortal.NewSalesAward.Pages
         {
         }
 
+        private List<usp_GetAwardedQuotes_Result> QuoteList
+        {
+            get
+            {
+                if (Session["QuoteList"] == null)
+                {
+                    Session["QuoteList"] = (new NewSalesAwardsViewModel()).GetAwardedQuotes();
+                }
+                return (List<usp_GetAwardedQuotes_Result>)Session["QuoteList"];
+            }
+        }
+
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!Page.IsPostBack)
             {
+                // ***** TESTING *****
+                Response.Redirect("NewSalesAwardsTest.aspx");
+
+
                 AuthenticateUser();
 
                 PopulateModeList();
@@ -59,13 +76,23 @@ namespace WebPortal.NewSalesAward.Pages
                 btnAltCustomerCommitment.Visible = false;
 
                 //gvQuote.FocusedRowIndex = -1;
+
+                //Session["UserCode"] = "ASB";
+                //Session["EntityURI"] = "EEI/FxPLM/NSA/BasePartAttributes/RowID=27/EOPDate";
             }
+            gvQuote.DataSource = QuoteList;
+            gvQuote.DataBind();
         }
 
         protected void Page_LoadComplete(object sender, EventArgs e)
         {
             
         }
+
+        //protected void ASPxPopupControlDemo_Init(object sender, EventArgs e)
+        //{
+        //    (sender as ASPxPopupControl).ClientInstanceName = "popup_" + this.ID;
+        //}
 
 
 
@@ -161,7 +188,7 @@ namespace WebPortal.NewSalesAward.Pages
             cbxEmpireMarketSegment.Text = (gvQuote.GetRowValues(gvQuote.FocusedRowIndex, "EmpireMarketSegment") != null) ? gvQuote.GetRowValues(gvQuote.FocusedRowIndex, "EmpireMarketSegment").ToString() : "";
             cbxEmpireMarketSubsegment.Text = (gvQuote.GetRowValues(gvQuote.FocusedRowIndex, "EmpireMarketSubsegment") != null) ? gvQuote.GetRowValues(gvQuote.FocusedRowIndex, "EmpireMarketSubsegment").ToString() : "";
             tbxEmpireApplication.Text = (gvQuote.GetRowValues(gvQuote.FocusedRowIndex, "EmpireApplication") != null) ? gvQuote.GetRowValues(gvQuote.FocusedRowIndex, "EmpireApplication").ToString() : "";
-            tbxEmpireEopNote.Text = (gvQuote.GetRowValues(gvQuote.FocusedRowIndex, "EmpireEOPNote") != null) ? gvQuote.GetRowValues(gvQuote.FocusedRowIndex, "EmpireEOPNote").ToString() : "";
+            //tbxEmpireEopNote.Text = (gvQuote.GetRowValues(gvQuote.FocusedRowIndex, "EmpireEOPNote") != null) ? gvQuote.GetRowValues(gvQuote.FocusedRowIndex, "EmpireEOPNote").ToString() : "";
 
             DateTime? empireSop = null;
             if (gvQuote.GetRowValues(gvQuote.FocusedRowIndex, "EmpireSOP") != null) empireSop = Convert.ToDateTime(gvQuote.GetRowValues(gvQuote.FocusedRowIndex, "EmpireSOP"));
@@ -819,7 +846,8 @@ namespace WebPortal.NewSalesAward.Pages
             if (deEmpireEop.Value != null) eop = Convert.ToDateTime(deEmpireEop.Value);
 
             string comments = tbxBasePartAttributesComments.Text.Trim();
-            string eopNote = tbxEmpireEopNote.Text.Trim();
+            //string eopNote = tbxEmpireEopNote.Text.Trim();
+            string eopNote = "";
 
             string opCode = Session["OpCode"].ToString();
 
@@ -1043,7 +1071,18 @@ namespace WebPortal.NewSalesAward.Pages
         }
 
 
+
         #endregion
+
+        protected void btnSetUser_Click(object sender, EventArgs e)
+        {
+            Session["userCode"] = "ASB";
+            Session["entityURI"] = "EEI/FxPLM/NSA/BasePartAttributes/RowID=27/EOPDate";
+
+
+            EntityNotesUserControl.RefreshGrid();
+            
+        }
 
 
     }
