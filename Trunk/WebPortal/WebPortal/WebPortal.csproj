@@ -198,7 +198,16 @@
     <Content Include="NewSalesAward\Pages\CsmDemand.aspx" />
     <Content Include="NewSalesAward\Pages\DocumentGet.aspx" />
     <Content Include="NewSalesAward\Pages\NewSalesAwards.aspx" />
+    <Content Include="NewSalesAward\Pages\NewSalesAwardTest2.aspx" />
+    <Content Include="NewSalesAward\Pages\NSAEditPopupContents.ascx" />
+    <Content Include="NewSalesAward\Pages\NSATesterToolingTabView.ascx" />
+    <Content Include="NewSalesAward\Pages\NSABasePartAttributesTabView.ascx" />
+    <Content Include="NewSalesAward\Pages\NSABasePartMnemonicsTabView.ascx" />
+    <Content Include="NewSalesAward\Pages\NSALogisticsTabView.ascx" />
     <Content Include="NewSalesAward\Pages\NewSalesAwardsTest.aspx" />
+    <Content Include="NewSalesAward\Pages\NSAToolingAmortizationTabView.ascx" />
+    <Content Include="NewSalesAward\Pages\NSACustomerPOTabView.ascx" />
+    <Content Include="NewSalesAward\Pages\NSAHardToolingTabView.ascx" />
     <Content Include="QuoteLogIntegration\Models\ModelMarketSegmentSubsegment.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>ModelMarketSegmentSubsegment.edmx</DependentUpon>
@@ -537,6 +546,7 @@
     <Compile Include="NewSalesAward\Pages\DocumentGet.aspx.designer.cs">
       <DependentUpon>DocumentGet.aspx</DependentUpon>
     </Compile>
+    <Compile Include="NewSalesAward\Pages\I_NSATabView.cs" />
     <Compile Include="NewSalesAward\Pages\NewSalesAwards.aspx.cs">
       <DependentUpon>NewSalesAwards.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -544,12 +554,75 @@
     <Compile Include="NewSalesAward\Pages\NewSalesAwards.aspx.designer.cs">
       <DependentUpon>NewSalesAwards.aspx</DependentUpon>
     </Compile>
+    <Compile Include="NewSalesAward\Pages\NewSalesAwardTest2.aspx.cs">
+      <DependentUpon>NewSalesAwardTest2.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="NewSalesAward\Pages\NewSalesAwardTest2.aspx.designer.cs">
+      <DependentUpon>NewSalesAwardTest2.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="NewSalesAward\Pages\NSAEditPopupContents.ascx.cs">
+      <DependentUpon>NSAEditPopupContents.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="NewSalesAward\Pages\NSAEditPopupContents.ascx.designer.cs">
+      <DependentUpon>NSAEditPopupContents.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="NewSalesAward\Pages\NSATesterToolingTabView.ascx.cs">
+      <DependentUpon>NSATesterToolingTabView.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="NewSalesAward\Pages\NSATesterToolingTabView.ascx.designer.cs">
+      <DependentUpon>NSATesterToolingTabView.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="NewSalesAward\Pages\NSABasePartAttributesTabView.ascx.cs">
+      <DependentUpon>NSABasePartAttributesTabView.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="NewSalesAward\Pages\NSABasePartAttributesTabView.ascx.designer.cs">
+      <DependentUpon>NSABasePartAttributesTabView.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="NewSalesAward\Pages\NSABasePartMnemonicsTabView.ascx.cs">
+      <DependentUpon>NSABasePartMnemonicsTabView.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="NewSalesAward\Pages\NSABasePartMnemonicsTabView.ascx.designer.cs">
+      <DependentUpon>NSABasePartMnemonicsTabView.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="NewSalesAward\Pages\NSALogisticsTabView.ascx.cs">
+      <DependentUpon>NSALogisticsTabView.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="NewSalesAward\Pages\NSALogisticsTabView.ascx.designer.cs">
+      <DependentUpon>NSALogisticsTabView.ascx</DependentUpon>
+    </Compile>
     <Compile Include="NewSalesAward\Pages\NewSalesAwardsTest.aspx.cs">
       <DependentUpon>NewSalesAwardsTest.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="NewSalesAward\Pages\NewSalesAwardsTest.aspx.designer.cs">
       <DependentUpon>NewSalesAwardsTest.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="NewSalesAward\Pages\NSAToolingAmortizationTabView.ascx.cs">
+      <DependentUpon>NSAToolingAmortizationTabView.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="NewSalesAward\Pages\NSAToolingAmortizationTabView.ascx.designer.cs">
+      <DependentUpon>NSAToolingAmortizationTabView.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="NewSalesAward\Pages\NSACustomerPOTabView.ascx.cs">
+      <DependentUpon>NSACustomerPOTabView.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="NewSalesAward\Pages\NSACustomerPOTabView.ascx.designer.cs">
+      <DependentUpon>NSACustomerPOTabView.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="NewSalesAward\Pages\NSAHardToolingTabView.ascx.cs">
+      <DependentUpon>NSAHardToolingTabView.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="NewSalesAward\Pages\NSAHardToolingTabView.ascx.designer.cs">
+      <DependentUpon>NSAHardToolingTabView.ascx</DependentUpon>
     </Compile>
     <Compile Include="NewSalesAward\PageViewModels\CreateAwardedQuoteViewModel.cs" />
     <Compile Include="NewSalesAward\PageViewModels\CsmDemandViewModel.cs" />

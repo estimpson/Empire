@@ -1,0 +1,136 @@
+﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="NSABasePartAttributesTabView.ascx.cs" Inherits="WebPortal.NewSalesAward.Pages.NSABasePartAttributesTabView" %>
+
+<script>
+    var postponedCallbackRequired = false;
+
+    function OnSaveBasePartAttributesClicked(s, e) {
+        if (BasePartAttributesCallbackPanel.InCallback())
+            postponedCallbackRequired = true;
+        else
+            BasePartAttributesCallbackPanel.PerformCallback();
+    }
+
+    function OnEndBasePartAttributesCallback(s, e) {
+        if (postponedCallbackRequired) {
+            BasePartAttributesCallbackPanel.PerformCallback();
+            postponedCallbackRequired = false;
+        }
+    }
+</script>
+
+<dx:ASPxCallbackPanel ID="ASPxCallbackPanel1" ClientInstanceName="BasePartAttributesCallbackPanel" runat="server" OnCallback="BasePartAttributesCallback_OnCallback">
+    <ClientSideEvents EndCallback="OnEndBasePartAttributesCallback"></ClientSideEvents>
+    <PanelCollection>
+        <dx:PanelContent runat="server">
+            <dx:ASPxFormLayout ID="BasePartAttributesFormLayout" runat="server" ColCount="2">
+                <Items>
+                    <dx:LayoutItem Caption="Base Part Family" FieldName="BasePartFamily">
+                        <LayoutItemNestedControlCollection>
+                            <dx:LayoutItemNestedControlContainer runat="server">
+                                <dx:ASPxTextBox ID="BasePartFamilyTextBox" Width="100%" runat="server">
+                                </dx:ASPxTextBox>
+                            </dx:LayoutItemNestedControlContainer>
+                        </LayoutItemNestedControlCollection>
+                    </dx:LayoutItem>
+                    <dx:LayoutItem Caption="Product Line" FieldName="ProductLine">
+                        <LayoutItemNestedControlCollection>
+                            <dx:LayoutItemNestedControlContainer runat="server">
+                                <dx:ASPxComboBox ID="ProductLineComboBox" runat="server" Width="100%" DropDownStyle="DropDown" TextField="ProductLine1" DataSourceID="ProductLineEntityDataSource"
+                                                 ValueField="ProductLine1" TextFormatString="{0}" AllowNull="true" IncrementalFilteringMode="StartsWith">
+                                </dx:ASPxComboBox>
+                                <asp:EntityDataSource ID="ProductLineEntityDataSource" runat="server" ConnectionString="name=FxPLMEntities" DefaultContainerName="FxPLMEntities" EnableFlattening="False"
+                                                      EntitySetName="ProductLines" Select="" OrderBy="it.ProductLine1" EnableInsert="true">
+                                </asp:EntityDataSource>
+                            </dx:LayoutItemNestedControlContainer>
+                        </LayoutItemNestedControlCollection>
+                    </dx:LayoutItem>
+                    <dx:LayoutItem Caption="Empire Market Segment" FieldName="EmpireMarketSegment">
+                        <LayoutItemNestedControlCollection>
+                            <dx:LayoutItemNestedControlContainer runat="server">
+                                <dx:ASPxComboBox ID="EmpireMarketSegmentComboBox" runat="server" Width="100%" DropDownStyle="DropDown" TextField="EmpireMarketSegment1" DataSourceID="EmpireMarketSegmentEntityDataSource"
+                                                 ValueField="EmpireMarketSegment1" TextFormatString="{0}" AllowNull="true" IncrementalFilteringMode="StartsWith">
+                                </dx:ASPxComboBox>
+                                <asp:EntityDataSource ID="EmpireMarketSegmentEntityDataSource" runat="server" ConnectionString="name=FxPLMEntities" DefaultContainerName="FxPLMEntities" EnableFlattening="False"
+                                                      EntitySetName="EmpireMarketSegments" Select="" OrderBy="it.EmpireMarketSegment1" EnableInsert="true">
+                                </asp:EntityDataSource>
+                            </dx:LayoutItemNestedControlContainer>
+                        </LayoutItemNestedControlCollection>
+                    </dx:LayoutItem>
+                    <dx:LayoutItem Caption="Empire Market Subegment" FieldName="EmpireMarketSubsegment">
+                        <LayoutItemNestedControlCollection>
+                            <dx:LayoutItemNestedControlContainer runat="server">
+                                <dx:ASPxComboBox ID="EmpireMarketSubsegmentComboBox" runat="server" Width="100%" DropDownStyle="DropDown" TextField="EmpireMarketSubsegment1" DataSourceID="EmpireMarketSubsegmentEntityDataSource"
+                                                 ValueField="EmpireMarketSubsegment1" TextFormatString="{0}" AllowNull="true" IncrementalFilteringMode="StartsWith">
+                                </dx:ASPxComboBox>
+                                <asp:EntityDataSource ID="EmpireMarketSubsegmentEntityDataSource" runat="server" ConnectionString="name=FxPLMEntities" DefaultContainerName="FxPLMEntities" EnableFlattening="False"
+                                                      EntitySetName="EmpireMarketSubsegments" Select="" OrderBy="it.EmpireMarketSubsegment1" EnableInsert="true">
+                                </asp:EntityDataSource>
+                            </dx:LayoutItemNestedControlContainer>
+                        </LayoutItemNestedControlCollection>
+                    </dx:LayoutItem>
+                    <dx:LayoutItem Caption="Empire Application" FieldName="EmpireApplication">
+                        <LayoutItemNestedControlCollection>
+                            <dx:LayoutItemNestedControlContainer runat="server">
+                                <dx:ASPxTextBox ID="EmpireApplicationTextBox" Width="100%" runat="server">
+                                </dx:ASPxTextBox>
+                            </dx:LayoutItemNestedControlContainer>
+                        </LayoutItemNestedControlCollection>
+                    </dx:LayoutItem>
+                    <dx:EmptyLayoutItem/>
+                    <dx:LayoutItem Caption="Empire SOP" FieldName="EmpireSOP">
+                        <LayoutItemNestedControlCollection>
+                            <dx:LayoutItemNestedControlContainer runat="server">
+                                <dx:ASPxDateEdit ID="EmpireSOPDateEdit" runat="server" Width="100%" UseMaskBehavior="true">
+                                    <CalendarProperties>
+                                        <FastNavProperties DisplayMode="Inline"/>
+                                    </CalendarProperties>
+                                </dx:ASPxDateEdit>
+                            </dx:LayoutItemNestedControlContainer>
+                        </LayoutItemNestedControlCollection>
+                    </dx:LayoutItem>
+                    <dx:LayoutItem Caption="Empire EOP" FieldName="Empire EOP">
+                        <LayoutItemNestedControlCollection>
+                            <dx:LayoutItemNestedControlContainer runat="server">
+                                <dx:ASPxDateEdit ID="EmpireEOPDateEdit" runat="server" Width="100%" UseMaskBehavior="true" ReadOnly="True">
+                                    <CalendarProperties>
+                                        <FastNavProperties DisplayMode="Inline"/>
+                                    </CalendarProperties>
+                                </dx:ASPxDateEdit>
+                                <dx:ASPxButton ID="ASPxButton2" runat="server" RenderMode="Link" AutoPostBack="false" UseSubmitBehavior="false">
+                                    <ClientSideEvents Click="function(s, e) {ShowHideNoteForm('Hide');}"/>
+                                    <Image IconID="comments_editcomment_32x32"></Image>
+                                </dx:ASPxButton>
+                                <dx:ASPxButton ID="ASPxButton1" runat="server" RenderMode="Link" AutoPostBack="false" UseSubmitBehavior="false">
+                                    <ClientSideEvents Click="function(s, e) {ShowHideNoteForm('Show');}"/>
+                                    <Image IconID="miscellaneous_comment_32x32"></Image>
+                                </dx:ASPxButton>
+                            </dx:LayoutItemNestedControlContainer>
+                        </LayoutItemNestedControlCollection>
+                    </dx:LayoutItem>
+                    <dx:LayoutItem Caption="Comments" FieldName="BasePart_Comments" ColSpan="2">
+                        <LayoutItemNestedControlCollection>
+                            <dx:LayoutItemNestedControlContainer runat="server">
+                                <dx:ASPxTextBox ID="BasePart_CommentsTextBox" Width="100%" runat="server">
+                                </dx:ASPxTextBox>
+                            </dx:LayoutItemNestedControlContainer>
+                        </LayoutItemNestedControlCollection>
+                    </dx:LayoutItem>
+                    <dx:EmptyLayoutItem>
+                    </dx:EmptyLayoutItem>
+                    <dx:LayoutItem ShowCaption="False">
+                        <LayoutItemNestedControlCollection>
+                            <dx:LayoutItemNestedControlContainer runat="server">
+                                <dx:ASPxButton ID="btnSaveBasePartAttributes" runat="server" AutoPostBack="False" Text="Save">
+                                    <ClientSideEvents Click="OnSaveBasePartAttributesClicked"></ClientSideEvents>
+                                </dx:ASPxButton>
+                                <dx:ASPxButton ID="SaveCheckMark" runat="server" RenderMode="Link" Enabled="False" Visible="True">
+                                    <Image IconID="actions_apply_32x32office2013"/>
+                                </dx:ASPxButton>
+                            </dx:LayoutItemNestedControlContainer>
+                        </LayoutItemNestedControlCollection>
+                    </dx:LayoutItem>
+                </Items>
+            </dx:ASPxFormLayout>
+        </dx:PanelContent>
+    </PanelCollection>
+</dx:ASPxCallbackPanel>
