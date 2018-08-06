@@ -47,6 +47,8 @@ namespace WebPortal.NewSalesAward.Pages
 
         protected void Page_Init(object sender, EventArgs e)
         {
+            gvQuote.DataSource = QuoteList;
+            gvQuote.DataBind();
         }
 
         private List<usp_GetAwardedQuotes_Result> QuoteList
@@ -66,7 +68,7 @@ namespace WebPortal.NewSalesAward.Pages
             if (!Page.IsPostBack)
             {
                 // ***** TESTING *****
-                Response.Redirect("NewSalesAwardsTest.aspx");
+                //Response.Redirect("NewSalesAwardsTest.aspx");
 
 
                 AuthenticateUser();
@@ -80,8 +82,6 @@ namespace WebPortal.NewSalesAward.Pages
                 //Session["UserCode"] = "ASB";
                 //Session["EntityURI"] = "EEI/FxPLM/NSA/BasePartAttributes/RowID=27/EOPDate";
             }
-            gvQuote.DataSource = QuoteList;
-            gvQuote.DataBind();
         }
 
         protected void Page_LoadComplete(object sender, EventArgs e)
@@ -357,69 +357,69 @@ namespace WebPortal.NewSalesAward.Pages
             if (e.Parameters == "ClearSort") gvQuote.ClearSort();
         }
 
-        protected void gvQuote_CellEditorInitialize(object sender, ASPxGridViewEditorEventArgs e)
-        {
-            if (gvQuote.IsNewRowEditing) return;
+        //protected void gvQuote_CellEditorInitialize(object sender, ASPxGridViewEditorEventArgs e)
+        //{
+        //    if (gvQuote.IsNewRowEditing) return;
 
-            string column = e.Column.FieldName;
-            ASPxEditBase editor = e.Editor;
+        //    string column = e.Column.FieldName;
+        //    ASPxEditBase editor = e.Editor;
 
-            EditModeDisableColumns(column, editor); // Disable editing
+        //    EditModeDisableColumns(column, editor); // Disable editing
 
-            if (column == "CustomerShipTos") EditModePopulateCustomerShipTos(editor); // Populate the CustomerShipTos combobox
-        }
+        //    if (column == "CustomerShipTos") EditModePopulateCustomerShipTos(editor); // Populate the CustomerShipTos combobox
+        //}
 
-        private void EditModePopulateCustomerShipTos(ASPxEditBase e)
-        {
-            string basePart = (gvQuote.GetRowValues(gvQuote.FocusedRowIndex, "BasePart").ToString());
+        //private void EditModePopulateCustomerShipTos(ASPxEditBase e)
+        //{
+        //    string basePart = (gvQuote.GetRowValues(gvQuote.FocusedRowIndex, "BasePart").ToString());
 
-            var destinations = ViewModel.GetCustomerShipTos(basePart);
+        //    var destinations = ViewModel.GetCustomerShipTos(basePart);
 
-            var cmb = e as ASPxComboBox;
-            cmb.DataSource = destinations;
-            cmb.DataBind();
-        }
+        //    var cmb = e as ASPxComboBox;
+        //    cmb.DataSource = destinations;
+        //    cmb.DataBind();
+        //}
 
-        protected void gvQuote_RowUpdating(object sender, DevExpress.Web.Data.ASPxDataUpdatingEventArgs e)
-        {
-            string quote = e.NewValues["QuoteNumber"].ToString();
+        //protected void gvQuote_RowUpdating(object sender, DevExpress.Web.Data.ASPxDataUpdatingEventArgs e)
+        //{
+        //    string quote = e.NewValues["QuoteNumber"].ToString();
 
-            string mode = cbxMode.SelectedItem.Value.ToString();
-            switch (mode)
-            {
-                case "Customer PO":
-                    if (SetProductionPO(quote, e) == 1) gvQuote.DataBind();
-                    break;
-                case "Hard Tooling":
-                    if (SetHardTooling(quote, e) == 1) gvQuote.DataBind();
-                    break;
-                case "Tooling Amortization":
-                    if (SetToolingAmortization(quote, e) == 1) gvQuote.DataBind();
-                    break;
-                case "Assembly Tester Tooling":
-                    if (SetAssemblyTesterTooling(quote, e) == 1) gvQuote.DataBind();
-                    break;
-                case "Base Part Mnemonics":
-                    //gvQuote.Columns["QuoteNumber"].Visible = true;
-                    //gvQuote.Columns["BasePart"].Visible = true;
-                    //gvQuote.Columns["VehiclePlantMnemonic"].Visible = true;
-                    //gvQuote.Columns["QtyPer"].Visible = true;
-                    //gvQuote.Columns["TakeRate"].Visible = true;
-                    //gvQuote.Columns["FamilyAllocation"].Visible = true;
-                    break;
-                case "Base Part Attributes":
-                    if (SetBasePartAttributes(quote, e) == 1) gvQuote.DataBind();
-                    break;
-                case "Logistics":
-                    if (SetLogistics(quote, e) == 1) gvQuote.DataBind();
-                    break;
-                default:
-                    break;
-            }
+        //    string mode = cbxMode.SelectedItem.Value.ToString();
+        //    switch (mode)
+        //    {
+        //        case "Customer PO":
+        //            if (SetProductionPO(quote, e) == 1) gvQuote.DataBind();
+        //            break;
+        //        case "Hard Tooling":
+        //            if (SetHardTooling(quote, e) == 1) gvQuote.DataBind();
+        //            break;
+        //        case "Tooling Amortization":
+        //            if (SetToolingAmortization(quote, e) == 1) gvQuote.DataBind();
+        //            break;
+        //        case "Assembly Tester Tooling":
+        //            if (SetAssemblyTesterTooling(quote, e) == 1) gvQuote.DataBind();
+        //            break;
+        //        case "Base Part Mnemonics":
+        //            //gvQuote.Columns["QuoteNumber"].Visible = true;
+        //            //gvQuote.Columns["BasePart"].Visible = true;
+        //            //gvQuote.Columns["VehiclePlantMnemonic"].Visible = true;
+        //            //gvQuote.Columns["QtyPer"].Visible = true;
+        //            //gvQuote.Columns["TakeRate"].Visible = true;
+        //            //gvQuote.Columns["FamilyAllocation"].Visible = true;
+        //            break;
+        //        case "Base Part Attributes":
+        //            if (SetBasePartAttributes(quote, e) == 1) gvQuote.DataBind();
+        //            break;
+        //        case "Logistics":
+        //            if (SetLogistics(quote, e) == 1) gvQuote.DataBind();
+        //            break;
+        //        default:
+        //            break;
+        //    }
 
-            gvQuote.CancelEdit();
-            e.Cancel = true;
-        }
+        //    gvQuote.CancelEdit();
+        //    e.Cancel = true;
+        //}
 
         #endregion
 
@@ -1084,6 +1084,11 @@ namespace WebPortal.NewSalesAward.Pages
             
         }
 
-
+        protected void btnTest_Click(object sender, EventArgs e)
+        {
+            Session["QuoteList"] = (new NewSalesAwardsViewModel()).GetAwardedQuotes();
+            gvQuote.DataSource = QuoteList;
+            gvQuote.DataBind();
+        }
     }
 }
