@@ -197,6 +197,7 @@
     <Content Include="NewSalesAward\Pages\CreateAwardedQuote.aspx" />
     <Content Include="NewSalesAward\Pages\CsmDemand.aspx" />
     <Content Include="NewSalesAward\Pages\DocumentGet.aspx" />
+    <Content Include="NewSalesAward\Pages\NewSalesAwardEdit.aspx" />
     <Content Include="NewSalesAward\Pages\NewSalesAwards.aspx" />
     <Content Include="NewSalesAward\Pages\NewSalesAwardsTest.aspx" />
     <Content Include="QuoteLogIntegration\Models\ModelMarketSegmentSubsegment.Context.tt">
@@ -536,6 +537,13 @@
     </Compile>
     <Compile Include="NewSalesAward\Pages\DocumentGet.aspx.designer.cs">
       <DependentUpon>DocumentGet.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="NewSalesAward\Pages\NewSalesAwardEdit.aspx.cs">
+      <DependentUpon>NewSalesAwardEdit.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="NewSalesAward\Pages\NewSalesAwardEdit.aspx.designer.cs">
+      <DependentUpon>NewSalesAwardEdit.aspx</DependentUpon>
     </Compile>
     <Compile Include="NewSalesAward\Pages\NewSalesAwards.aspx.cs">
       <DependentUpon>NewSalesAwards.aspx</DependentUpon>

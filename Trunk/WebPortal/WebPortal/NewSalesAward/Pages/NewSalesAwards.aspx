@@ -17,6 +17,7 @@
 <asp:Content runat="server" ContentPlaceHolderID="CustomHeaderHolder">
 
     <script type="text/javascript">
+        var loadedOnce = false;
 
         function pageLoad() {
             $(function () {
@@ -25,6 +26,31 @@
                 updateGridHeight();
             });
         }    
+
+
+        function onBlur() {
+            loadedOnce = true;
+	        //document.body.className = 'blurred';
+        };
+        function onFocus(){
+            if (loadedOnce) {
+                btnTest.DoClick();
+            }
+
+            
+
+            //$("#btnTest").DoClick();
+        };
+
+        if (/*@cc_on!@*/false) { // check for Internet Explorer
+	        document.onfocusin = onFocus;
+	        document.onfocusout = onBlur;
+        } else {
+	        window.onfocus = onFocus;
+	        window.onblur = onBlur;
+        }
+
+
 
         function updateCheckBoxState(s, e) {
             //var checkState = s.GetCheckState();
@@ -89,6 +115,17 @@
             pcEdit.SetHeight(height - 30);
         }
 
+        function OnRowDoubleClick(s, e) {
+            gvQuote.GetRowValues(gvQuote.GetFocusedRowIndex(), 'QuoteNumber;BasePart', OnGetRowValues);
+        }
+
+        function OnGetRowValues(values) {
+            var quote = values[0];
+            var part = values[1];
+
+            window.open('NewSalesAwardEdit.aspx?Quote=' + quote + '&BasePart=' + part, 'height=500,width=1500,left=100,top=100,resizable=yes,scrollbars=yes,toolbar=yes,menubar=no,location=no,directories=no, status=yes');
+        }
+
     </script>
 
 </asp:Content>
@@ -116,7 +153,7 @@
             <ContentTemplate>
 
 
-
+               <dx:ASPxButton ID="btnTest" runat="server" ClientInstanceName="btnTest" AutoPostBack="true" UseSubmitBehavior="false" OnClick="btnTest_Click"></dx:ASPxButton>
              
             <div id="divMain" runat="server" style="border: 0px solid black; margin-bottom: 0px;">
 
@@ -162,13 +199,11 @@
 
                 <div id="divGridQuote" runat="server" style="margin-top: 5px;">
                     <dx:ASPxGridView ID="gvQuote" runat="server" ClientInstanceName="gvQuote" AutoGenerateColumns="False" 
-                        SettingsBehavior-AllowGroup="false" SettingsBehavior-AllowSort="true" Settings-ShowGroupPanel="false" OnRowUpdating="gvQuote_RowUpdating"
+                        SettingsBehavior-AllowGroup="false" SettingsBehavior-AllowSort="true" Settings-ShowGroupPanel="false"
                         KeyFieldName="QuoteNumber" SettingsEditing-Mode="Inline" EnableRowsCache="False" Width="98%"
-                        OnCustomCallback="gvQuote_CustomCallback" OnCellEditorInitialize="gvQuote_CellEditorInitialize" EnableCallBacks="false" 
+                        OnCustomCallback="gvQuote_CustomCallback" EnableCallBacks="false" 
                         OnDataBound="gvQuote_DataBound">
-                        <ClientSideEvents RowDblClick="function(s, e) {
-                            btnHid.DoClick();
-                        }" />
+                        <ClientSideEvents RowDblClick="OnRowDoubleClick" />
                         <Styles>
                             <Cell>
                                 <Paddings PaddingTop="1px" PaddingBottom="1px" />

@@ -52,6 +52,17 @@ namespace WebPortal.NewSalesAward.PageViewModels
             return list;
         }
 
+        public usp_GetAwardedQuotes_Result GetAwardedQuote(string quote)
+        {
+            using (var context = new FxPLMEntities())
+            {
+                return context.usp_GetAwardedQuotes().Where(o => o.QuoteNumber == quote).FirstOrDefault();
+            }
+        }
+
+
+
+
         public List<usp_GetCustomerShipTos_Result> GetCustomerShipTos(string basePart)
         {
             var list = new List<usp_GetCustomerShipTos_Result>();
