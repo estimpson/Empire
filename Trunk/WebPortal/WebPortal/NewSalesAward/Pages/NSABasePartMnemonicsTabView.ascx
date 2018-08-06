@@ -24,12 +24,16 @@
     <ClientSideEvents EndCallback="OnEndPartMnemonicsCallback"></ClientSideEvents>
     <PanelCollection>
         <dx:PanelContent runat="server">
-            <dx:ASPxFormLayout ID="PartMnemonicsFormLayout" runat="server" ColCount="2">
+            <dx:ASPxFormLayout ID="PartMnemonicsFormLayout" runat="server" ColCount="2" Width="100%">
                 <Items>
                     <dx:LayoutItem Caption="Vehicle Plant Mnemonic" FieldName="VehiclePlantMnemonic">
                         <LayoutItemNestedControlCollection>
                             <dx:LayoutItemNestedControlContainer runat="server">
                                 <dx:ASPxTextBox ID="VehiclePlantMnemonicTextBox" Width="100%" runat="server" ReadOnly="True">
+                                    <ClientSideEvents
+                                        GotFocus="OnEditControl_GotFocus"
+                                        Init="function (s,e) { RegisterURI(s, 'BasePartMnemonics.VehiclePlantMnemonic'); }" 
+                                    />
                                 </dx:ASPxTextBox>
                             </dx:LayoutItemNestedControlContainer>
                         </LayoutItemNestedControlCollection>
@@ -38,6 +42,10 @@
                         <LayoutItemNestedControlCollection>
                             <dx:LayoutItemNestedControlContainer runat="server">
                                 <dx:ASPxTextBox ID="QtyPerTextBox" Width="100%" runat="server" ReadOnly="True">
+                                    <ClientSideEvents
+                                        GotFocus="OnEditControl_GotFocus"
+                                        Init="function (s,e) { RegisterURI(s, 'BasePartMnemonics.QtyPer'); }" 
+                                    />
                                     <MaskSettings Mask="<0..99999g>.<000000..999999>" IncludeLiterals="DecimalSymbol" ErrorText="*"/>
                                 </dx:ASPxTextBox>
                             </dx:LayoutItemNestedControlContainer>
@@ -47,6 +55,10 @@
                         <LayoutItemNestedControlCollection>
                             <dx:LayoutItemNestedControlContainer runat="server">
                                 <dx:ASPxTextBox ID="TakeRateTextBox" Width="100%" runat="server" ReadOnly="True">
+                                    <ClientSideEvents
+                                        GotFocus="OnEditControl_GotFocus"
+                                        Init="function (s,e) { RegisterURI(s, 'BasePartMnemonics.TakeRate'); }" 
+                                    />
                                     <MaskSettings Mask="<0..99999g>.<000000..999999>" IncludeLiterals="DecimalSymbol" ErrorText="*"/>
                                 </dx:ASPxTextBox>
                             </dx:LayoutItemNestedControlContainer>
@@ -56,6 +68,10 @@
                         <LayoutItemNestedControlCollection>
                             <dx:LayoutItemNestedControlContainer runat="server">
                                 <dx:ASPxTextBox ID="FamilyAllocationTextBox" Width="100%" runat="server" ReadOnly="True">
+                                    <ClientSideEvents
+                                        GotFocus="OnEditControl_GotFocus"
+                                        Init="function (s,e) { RegisterURI(s, 'BasePartMnemonics.FamilyAllocation'); }" 
+                                    />
                                     <MaskSettings Mask="<0..99999g>.<000000..999999>" IncludeLiterals="DecimalSymbol" ErrorText="*"/>
                                 </dx:ASPxTextBox>
                             </dx:LayoutItemNestedControlContainer>
@@ -65,6 +81,10 @@
                         <LayoutItemNestedControlCollection>
                             <dx:LayoutItemNestedControlContainer runat="server">
                                 <dx:ASPxTextBox ID="QuotedEAUTextBox" Width="100%" runat="server" ReadOnly="True">
+                                    <ClientSideEvents
+                                        GotFocus="OnEditControl_GotFocus"
+                                        Init="function (s,e) { RegisterURI(s, 'BasePartMnemonics.QuotedEAU'); }" 
+                                    />
                                     <MaskSettings Mask="<0..99999g>" IncludeLiterals="DecimalSymbol" ErrorText="*"/>
                                 </dx:ASPxTextBox>
                             </dx:LayoutItemNestedControlContainer>

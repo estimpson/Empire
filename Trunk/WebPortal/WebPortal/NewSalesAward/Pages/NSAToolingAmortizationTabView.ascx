@@ -20,12 +20,16 @@
     <ClientSideEvents EndCallback="OnEndToolingAmortizationCallback"></ClientSideEvents>
     <PanelCollection>
         <dx:PanelContent runat="server">
-            <dx:ASPxFormLayout ID="ToolingAmortizationFormLayout" runat="server" ColCount="2">
+            <dx:ASPxFormLayout ID="ToolingAmortizationFormLayout" runat="server" ColCount="2" Width="100%">
                 <Items>
                     <dx:LayoutItem Caption="Amortization Amount" FieldName="AmortizationAmount">
                         <LayoutItemNestedControlCollection>
                             <dx:LayoutItemNestedControlContainer runat="server">
                                 <dx:ASPxTextBox ID="AmortizationAmountTextBox" Width="100%" runat="server">
+                                    <ClientSideEvents
+                                        GotFocus="OnEditControl_GotFocus"
+                                        Init="function (s,e) { RegisterURI(s, 'AwardedQuoteToolingPOs.AmortizationAmount'); }" 
+                                    />
                                     <MaskSettings Mask="$<0..99999999g>.<000000..999999>" IncludeLiterals="DecimalSymbol" ErrorText="*"/>
                                 </dx:ASPxTextBox>
                             </dx:LayoutItemNestedControlContainer>
@@ -35,6 +39,10 @@
                         <LayoutItemNestedControlCollection>
                             <dx:LayoutItemNestedControlContainer runat="server">
                                 <dx:ASPxTextBox ID="AmortizationQuantityTextBox" Width="100%" runat="server">
+                                    <ClientSideEvents
+                                        GotFocus="OnEditControl_GotFocus"
+                                        Init="function (s,e) { RegisterURI(s, 'AwardedQuoteToolingPOs.AmortizationQuantity'); }" 
+                                    />
                                     <MaskSettings Mask="<0..99999999g>" IncludeLiterals="DecimalSymbol" ErrorText="*"/>
                                 </dx:ASPxTextBox>
                             </dx:LayoutItemNestedControlContainer>
@@ -44,6 +52,10 @@
                         <LayoutItemNestedControlCollection>
                             <dx:LayoutItemNestedControlContainer runat="server">
                                 <dx:ASPxTextBox ID="AmortizationToolingDescriptionTextBox" Width="100%" runat="server">
+                                    <ClientSideEvents
+                                        GotFocus="OnEditControl_GotFocus"
+                                        Init="function (s,e) { RegisterURI(s, 'AwardedQuoteToolingPOs.AmortizationToolingDescription'); }" 
+                                    />
                                 </dx:ASPxTextBox>
                             </dx:LayoutItemNestedControlContainer>
                         </LayoutItemNestedControlCollection>
@@ -52,6 +64,10 @@
                         <LayoutItemNestedControlCollection>
                             <dx:LayoutItemNestedControlContainer runat="server">
                                 <dx:ASPxTextBox ID="AmortizationCAPEXIDTextBox" Width="100%" runat="server">
+                                    <ClientSideEvents
+                                        GotFocus="OnEditControl_GotFocus"
+                                        Init="function (s,e) { RegisterURI(s, 'AwardedQuoteToolingPOs.AmortizationCAPEXID'); }" 
+                                    />
                                 </dx:ASPxTextBox>
                             </dx:LayoutItemNestedControlContainer>
                         </LayoutItemNestedControlCollection>

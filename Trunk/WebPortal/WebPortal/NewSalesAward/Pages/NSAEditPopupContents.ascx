@@ -9,6 +9,8 @@
 <%@ Register TagPrefix="uc1" TagName="EntityNotesUserControl" Src="~/NewSalesAward/Pages/EntityNotesUserControl.ascx" %>
 <%@ Register TagPrefix="dx" Namespace="DevExpress.Web.ASPxHtmlEditor" Assembly="DevExpress.Web.ASPxHtmlEditor.v17.2, Version=17.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" %>
 
+<%@ Register assembly="DevExpress.Web.ASPxSpellChecker.v17.2, Version=17.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" namespace="DevExpress.Web.ASPxSpellChecker" tagprefix="dx" %>
+
 <script>
     var postponedCallbackRequired = false;
 
@@ -25,13 +27,28 @@
             postponedCallbackRequired = false;
         }
     }
+
+    function OnEditControl_GotFocus(s, e) {
+        var input = s.GetInputElement();
+        var uri = $(input).attr("EntityURI");
+        EntityURI.SetText(uri);
+    }
+
+    function RegisterURI(s, f) {
+        var input = s.GetInputElement();
+        var uri = 'EEI/FxPLM/NSA/AwardedQuotes/QuoteNumber=' +
+            QuoteNumberHiddenField.Get("QuoteNumber") +
+            '/' +
+            f;
+        $(input).attr("EntityURI", uri);
+    }
 </script>
 
 <dx:ASPxCallbackPanel ID="ASPxCallbackPanel1" ClientInstanceName="NSAEditCallbackPanel" runat="server" OnCallback="NSAEditCallback_OnCallback">
     <ClientSideEvents EndCallback="OnEndNSAEditCallback"></ClientSideEvents>
     <PanelCollection>
         <dx:PanelContent runat="server">
-            <dx:ASPxFormLayout ID="NSAEditFormLayout" runat="server" ColCount="2">
+            <dx:ASPxFormLayout ID="NSAEditFormLayout" runat="server" ColCount="2" Width="100%">
                 <Items>
                     <dx:LayoutItem Caption="Base Part" ShowCaption="False" FieldName="BasePart">
                         <LayoutItemNestedControlCollection>
@@ -119,6 +136,7 @@
                     </dx:LayoutItem>
                 </Items>
             </dx:ASPxFormLayout>
+            <dx:ASPxLabel runat="server" ID="EntityURI" ClientInstanceName="EntityURI"/>
         </dx:PanelContent>
     </PanelCollection>
 </dx:ASPxCallbackPanel>

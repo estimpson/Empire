@@ -23,12 +23,16 @@
             <div hidden="true">
                 <dx:ASPxHiddenField runat="server" ID="QuoteNumber" />
             </div>
-            <dx:ASPxFormLayout ID="HardToolingFormLayout" runat="server" ColCount="2">
+            <dx:ASPxFormLayout ID="HardToolingFormLayout" runat="server" ColCount="2" Width="100%">
                 <Items>
                     <dx:LayoutItem Caption="Hard Tooling Amount" FieldName="HardToolingAmount">
                         <LayoutItemNestedControlCollection>
                             <dx:LayoutItemNestedControlContainer runat="server">
                                 <dx:ASPxTextBox ID="HardToolingAmountTextBox" runat="server" Width="100%" UseMaskBehavior="true">
+                                    <ClientSideEvents
+                                        GotFocus="OnEditControl_GotFocus"
+                                        Init="function (s,e) { RegisterURI(s, 'AwardedQuoteToolingPOs.HardToolingAmount'); }" 
+                                    />
                                     <MaskSettings Mask="$<0..99999g>.<000000..999999>" IncludeLiterals="DecimalSymbol" ErrorText="*"/>
                                 </dx:ASPxTextBox>
                             </dx:LayoutItemNestedControlContainer>
@@ -38,6 +42,10 @@
                         <LayoutItemNestedControlCollection>
                             <dx:LayoutItemNestedControlContainer runat="server">
                                 <dx:ASPxTextBox ID="HardToolingTriggerTextBox" Width="100%" runat="server">
+                                    <ClientSideEvents
+                                        GotFocus="OnEditControl_GotFocus"
+                                        Init="function (s,e) { RegisterURI(s, 'AwardedQuoteToolingPOs.HardToolingTrigger'); }" 
+                                    />
                                 </dx:ASPxTextBox>
                             </dx:LayoutItemNestedControlContainer>
                         </LayoutItemNestedControlCollection>
@@ -46,6 +54,10 @@
                         <LayoutItemNestedControlCollection>
                             <dx:LayoutItemNestedControlContainer runat="server">
                                 <dx:ASPxTextBox ID="HardToolingDescriptionTextBox" Width="100%" runat="server">
+                                    <ClientSideEvents
+                                        GotFocus="OnEditControl_GotFocus"
+                                        Init="function (s,e) { RegisterURI(s, 'AwardedQuoteToolingPOs.HardToolingDescription'); }" 
+                                    />
                                 </dx:ASPxTextBox>
                             </dx:LayoutItemNestedControlContainer>
                         </LayoutItemNestedControlCollection>
@@ -54,6 +66,10 @@
                         <LayoutItemNestedControlCollection>
                             <dx:LayoutItemNestedControlContainer runat="server">
                                 <dx:ASPxTextBox ID="HardToolingCAPEXIDTextBox" Width="100%" runat="server">
+                                    <ClientSideEvents
+                                        GotFocus="OnEditControl_GotFocus"
+                                        Init="function (s,e) { RegisterURI(s, 'AwardedQuoteToolingPOs.HardToolingCAPEXID'); }" 
+                                    />
                                 </dx:ASPxTextBox>
                             </dx:LayoutItemNestedControlContainer>
                         </LayoutItemNestedControlCollection>

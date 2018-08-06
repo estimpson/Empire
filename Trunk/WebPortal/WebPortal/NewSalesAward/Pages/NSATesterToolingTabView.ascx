@@ -22,12 +22,16 @@
     <ClientSideEvents EndCallback="OnEndTesterToolingCallback"></ClientSideEvents>
     <PanelCollection>
         <dx:PanelContent runat="server">
-            <dx:ASPxFormLayout ID="TesterToolingFormLayout" runat="server" ColCount="2">
+            <dx:ASPxFormLayout ID="TesterToolingFormLayout" runat="server" ColCount="2" Width="100%">
                 <Items>
                     <dx:LayoutItem Caption="Asm Tester Tooling Amount" FieldName="AssemblyTesterToolingAmount">
                         <LayoutItemNestedControlCollection>
                             <dx:LayoutItemNestedControlContainer runat="server">
                                 <dx:ASPxTextBox ID="AssemblyTesterToolingAmountTextBox" Width="100%" runat="server">
+                                    <ClientSideEvents
+                                        GotFocus="OnEditControl_GotFocus"
+                                        Init="function (s,e) { RegisterURI(s, 'AwardedQuoteToolingPOs.AssemblyTesterToolingAmount'); }" 
+                                    />
                                     <MaskSettings Mask="$<0..99999g>" IncludeLiterals="DecimalSymbol" ErrorText="*"/>
                                 </dx:ASPxTextBox>
                             </dx:LayoutItemNestedControlContainer>
@@ -37,6 +41,10 @@
                         <LayoutItemNestedControlCollection>
                             <dx:LayoutItemNestedControlContainer runat="server">
                                 <dx:ASPxTextBox ID="AssemblyTesterToolingTriggerTextBox" Width="100%" runat="server">
+                                    <ClientSideEvents
+                                        GotFocus="OnEditControl_GotFocus"
+                                        Init="function (s,e) { RegisterURI(s, 'AwardedQuoteToolingPOs.AssemblyTesterToolingTrigger'); }" 
+                                    />
                                 </dx:ASPxTextBox>
                             </dx:LayoutItemNestedControlContainer>
                         </LayoutItemNestedControlCollection>
@@ -45,6 +53,10 @@
                         <LayoutItemNestedControlCollection>
                             <dx:LayoutItemNestedControlContainer runat="server">
                                 <dx:ASPxTextBox ID="AssemblyTesterToolingDescriptionTextBox" Width="100%" runat="server">
+                                    <ClientSideEvents
+                                        GotFocus="OnEditControl_GotFocus"
+                                        Init="function (s,e) { RegisterURI(s, 'AwardedQuoteToolingPOs.AssemblyTesterToolingDescription'); }" 
+                                    />
                                 </dx:ASPxTextBox>
                             </dx:LayoutItemNestedControlContainer>
                         </LayoutItemNestedControlCollection>
@@ -53,6 +65,10 @@
                         <LayoutItemNestedControlCollection>
                             <dx:LayoutItemNestedControlContainer runat="server">
                                 <dx:ASPxTextBox ID="AssemblyTesterToolingCAPEXIDTextBox" Width="100%" runat="server">
+                                    <ClientSideEvents
+                                        GotFocus="OnEditControl_GotFocus"
+                                        Init="function (s,e) { RegisterURI(s, 'AwardedQuoteToolingPOs.AssemblyTesterToolingCAPEXID'); }" 
+                                    />
                                 </dx:ASPxTextBox>
                             </dx:LayoutItemNestedControlContainer>
                         </LayoutItemNestedControlCollection>

@@ -31,6 +31,7 @@ namespace WebPortal.NewSalesAward.Pages
         public void SetQuote(usp_GetAwardedQuotes_Result awardedQuote)
         {
             AwardedQuote = awardedQuote;
+            QuoteNumberHiddenField.Set("QuoteNumber", AwardedQuote.QuoteNumber);
             CustomerPOFormLayout.DataSource = AwardedQuote;
             CustomerPOFormLayout.DataBind();
         }

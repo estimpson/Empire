@@ -22,13 +22,17 @@
     <ClientSideEvents EndCallback="OnEndLogisticsCallback"></ClientSideEvents>
     <PanelCollection>
         <dx:PanelContent runat="server">
-            <dx:ASPxFormLayout ID="LogisticsFormLayout" runat="server" ColCount="2">
+            <dx:ASPxFormLayout ID="LogisticsFormLayout" runat="server" ColCount="2" Width="100%">
                 <Items>
                     <dx:LayoutItem Caption="Empire Facility" FieldName="EmpireFacility">
                         <LayoutItemNestedControlCollection>
                             <dx:LayoutItemNestedControlContainer runat="server">
                                 <dx:ASPxComboBox ID="EmpireFacilityComboBox" runat="server" DropDownStyle="DropDownList" TextField="Code" DataSourceID="EmpireFacilityEntityDataSource" 
                                                  ValueField="Code" TextFormatString="{0}" AllowNull="true" IncrementalFilteringMode="StartsWith" Width="200">
+                                    <ClientSideEvents
+                                        GotFocus="OnEditControl_GotFocus"
+                                        Init="function (s,e) { RegisterURI(s, 'AwardedQuoteLogistics.EmpireFacility'); }" 
+                                    />
                                     <Columns>
                                         <dx:ListBoxColumn Caption="Code" FieldName="Code" Name="Code" Width="80" />
                                         <dx:ListBoxColumn Caption="Name" FieldName="Name" Name="Name" Width="160" />
@@ -45,6 +49,10 @@
                             <dx:LayoutItemNestedControlContainer runat="server">
                                 <dx:ASPxComboBox ID="FreightTermsComboBox" runat="server" DropDownStyle="DropDown" TextField="Code" DataSourceID="FreightTermsEntityDataSource" 
                                                  ValueField="FreightTerms" TextFormatString="{0}" AllowNull="true" IncrementalFilteringMode="StartsWith" Width="200">
+                                    <ClientSideEvents
+                                        GotFocus="OnEditControl_GotFocus"
+                                        Init="function (s,e) { RegisterURI(s, 'AwardedQuoteLogistics.FreightTerms'); }" 
+                                    />
                                     <Columns>
                                         <dx:ListBoxColumn Caption="FreightTerms" FieldName="FreightTerms" Name="FreightTerms" Width="200" />
                                     </Columns>
@@ -60,6 +68,10 @@
                             <dx:LayoutItemNestedControlContainer runat="server">
                                 <dx:ASPxComboBox ID="CustomerShipTosComboBox" runat="server" DropDownStyle="DropDownList" TextField="Code" DataSourceID="CustomerShipTosEntityDataSource" 
                                                  ValueField="ShipToCode" TextFormatString="{0}" AllowNull="true" IncrementalFilteringMode="StartsWith" Width="200">
+                                    <ClientSideEvents
+                                        GotFocus="OnEditControl_GotFocus"
+                                        Init="function (s,e) { RegisterURI(s, 'AwardedQuoteLogistics.CustomerShipTos'); }" 
+                                    />
                                     <Columns>
                                         <dx:ListBoxColumn Caption="ShipToCode" FieldName="ShipToCode" Name="ShipToCode" Width="90" />
                                         <dx:ListBoxColumn Caption="ShipToName" FieldName="ShipToName" Name="ShipToName" Width="200" />

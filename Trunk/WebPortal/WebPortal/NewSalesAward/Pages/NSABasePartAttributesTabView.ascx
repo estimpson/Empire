@@ -22,12 +22,16 @@
     <ClientSideEvents EndCallback="OnEndBasePartAttributesCallback"></ClientSideEvents>
     <PanelCollection>
         <dx:PanelContent runat="server">
-            <dx:ASPxFormLayout ID="BasePartAttributesFormLayout" runat="server" ColCount="2">
+            <dx:ASPxFormLayout ID="BasePartAttributesFormLayout" runat="server" ColCount="2" Width="100%">
                 <Items>
                     <dx:LayoutItem Caption="Base Part Family" FieldName="BasePartFamily">
                         <LayoutItemNestedControlCollection>
                             <dx:LayoutItemNestedControlContainer runat="server">
                                 <dx:ASPxTextBox ID="BasePartFamilyTextBox" Width="100%" runat="server">
+                                    <ClientSideEvents
+                                        GotFocus="OnEditControl_GotFocus"
+                                        Init="function (s,e) { RegisterURI(s, 'BasePartAttributes.BasePartFamily'); }" 
+                                    />
                                 </dx:ASPxTextBox>
                             </dx:LayoutItemNestedControlContainer>
                         </LayoutItemNestedControlCollection>
@@ -37,6 +41,10 @@
                             <dx:LayoutItemNestedControlContainer runat="server">
                                 <dx:ASPxComboBox ID="ProductLineComboBox" runat="server" Width="100%" DropDownStyle="DropDown" TextField="ProductLine1" DataSourceID="ProductLineEntityDataSource"
                                                  ValueField="ProductLine1" TextFormatString="{0}" AllowNull="true" IncrementalFilteringMode="StartsWith">
+                                    <ClientSideEvents
+                                        GotFocus="OnEditControl_GotFocus"
+                                        Init="function (s,e) { RegisterURI(s, 'BasePartAttributes.ProductLine'); }" 
+                                    />
                                 </dx:ASPxComboBox>
                                 <asp:EntityDataSource ID="ProductLineEntityDataSource" runat="server" ConnectionString="name=FxPLMEntities" DefaultContainerName="FxPLMEntities" EnableFlattening="False"
                                                       EntitySetName="ProductLines" Select="" OrderBy="it.ProductLine1" EnableInsert="true">
@@ -49,6 +57,10 @@
                             <dx:LayoutItemNestedControlContainer runat="server">
                                 <dx:ASPxComboBox ID="EmpireMarketSegmentComboBox" runat="server" Width="100%" DropDownStyle="DropDown" TextField="EmpireMarketSegment1" DataSourceID="EmpireMarketSegmentEntityDataSource"
                                                  ValueField="EmpireMarketSegment1" TextFormatString="{0}" AllowNull="true" IncrementalFilteringMode="StartsWith">
+                                    <ClientSideEvents
+                                        GotFocus="OnEditControl_GotFocus"
+                                        Init="function (s,e) { RegisterURI(s, 'BasePartAttributes.EmpireMarketSegment'); }" 
+                                    />
                                 </dx:ASPxComboBox>
                                 <asp:EntityDataSource ID="EmpireMarketSegmentEntityDataSource" runat="server" ConnectionString="name=FxPLMEntities" DefaultContainerName="FxPLMEntities" EnableFlattening="False"
                                                       EntitySetName="EmpireMarketSegments" Select="" OrderBy="it.EmpireMarketSegment1" EnableInsert="true">
@@ -61,6 +73,10 @@
                             <dx:LayoutItemNestedControlContainer runat="server">
                                 <dx:ASPxComboBox ID="EmpireMarketSubsegmentComboBox" runat="server" Width="100%" DropDownStyle="DropDown" TextField="EmpireMarketSubsegment1" DataSourceID="EmpireMarketSubsegmentEntityDataSource"
                                                  ValueField="EmpireMarketSubsegment1" TextFormatString="{0}" AllowNull="true" IncrementalFilteringMode="StartsWith">
+                                    <ClientSideEvents
+                                        GotFocus="OnEditControl_GotFocus"
+                                        Init="function (s,e) { RegisterURI(s, 'BasePartAttributes.EmpireMarketSubsegment'); }" 
+                                    />
                                 </dx:ASPxComboBox>
                                 <asp:EntityDataSource ID="EmpireMarketSubsegmentEntityDataSource" runat="server" ConnectionString="name=FxPLMEntities" DefaultContainerName="FxPLMEntities" EnableFlattening="False"
                                                       EntitySetName="EmpireMarketSubsegments" Select="" OrderBy="it.EmpireMarketSubsegment1" EnableInsert="true">
@@ -72,6 +88,10 @@
                         <LayoutItemNestedControlCollection>
                             <dx:LayoutItemNestedControlContainer runat="server">
                                 <dx:ASPxTextBox ID="EmpireApplicationTextBox" Width="100%" runat="server">
+                                    <ClientSideEvents
+                                        GotFocus="OnEditControl_GotFocus"
+                                        Init="function (s,e) { RegisterURI(s, 'BasePartAttributes.EmpireApplication'); }" 
+                                    />
                                 </dx:ASPxTextBox>
                             </dx:LayoutItemNestedControlContainer>
                         </LayoutItemNestedControlCollection>
@@ -81,6 +101,10 @@
                         <LayoutItemNestedControlCollection>
                             <dx:LayoutItemNestedControlContainer runat="server">
                                 <dx:ASPxDateEdit ID="EmpireSOPDateEdit" runat="server" Width="100%" UseMaskBehavior="true">
+                                    <ClientSideEvents
+                                        GotFocus="OnEditControl_GotFocus"
+                                        Init="function (s,e) { RegisterURI(s, 'BasePartAttributes.EmpireSOP'); }" 
+                                    />
                                     <CalendarProperties>
                                         <FastNavProperties DisplayMode="Inline"/>
                                     </CalendarProperties>
@@ -92,6 +116,10 @@
                         <LayoutItemNestedControlCollection>
                             <dx:LayoutItemNestedControlContainer runat="server">
                                 <dx:ASPxDateEdit ID="EmpireEOPDateEdit" runat="server" Width="100%" UseMaskBehavior="true" ReadOnly="True">
+                                    <ClientSideEvents
+                                        GotFocus="OnEditControl_GotFocus"
+                                        Init="function (s,e) { RegisterURI(s, 'BasePartAttributes.EmpireEOP'); }" 
+                                    />
                                     <CalendarProperties>
                                         <FastNavProperties DisplayMode="Inline"/>
                                     </CalendarProperties>
@@ -111,6 +139,10 @@
                         <LayoutItemNestedControlCollection>
                             <dx:LayoutItemNestedControlContainer runat="server">
                                 <dx:ASPxTextBox ID="BasePart_CommentsTextBox" Width="100%" runat="server">
+                                    <ClientSideEvents
+                                        GotFocus="OnEditControl_GotFocus"
+                                        Init="function (s,e) { RegisterURI(s, 'BasePartAttributes.Comments'); }" 
+                                    />
                                 </dx:ASPxTextBox>
                             </dx:LayoutItemNestedControlContainer>
                         </LayoutItemNestedControlCollection>
