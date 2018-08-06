@@ -15,10 +15,8 @@
             POCallbackPanel.PerformCallback();
             postponedCallbackRequired = false;
         }
+        $("#divSavePOCheckMark").show(200);
     }
-
-    var isDirty = false;
-    var state = {};
 
     function OnControlsInitialized() {
         ASPxClientEdit.AttachEditorModificationListener(OnEditorsChanged,
@@ -26,40 +24,12 @@
                 return control.GetParentControl() ===
                     CustomerPOFormLayout // Gets standalone editors nested inside the form layout control
             });
-        ASPxClientUtils.AttachEventToElement(window, "beforeunload", OnBeforeUnload);
-        state = ASPxClientUtils.GetEditorValuesInContainer(CustomerPOFormLayout.GetMainElement());
     }
 
     function OnEditorsChanged(s, e) {
-        isDirty = true;
         $("#divSavePOCheckMark").hide(200);
     }
 
-    function restoreEditorsState() {
-        for (var controlName in state) {
-            var trackedControl = ASPxClientControl.GetControlCollection().GetNotificationOptions(controlName);
-            var setValueMethod = trackedControl.SetTokenCollection ||
-                trackedControl.SelectValue ||
-                trackedControl.SetValue;
-            if (setValueMethod === trackedControl.SelectValues)
-                trackedControl.UnselectAll();
-            setValueMethod.call(trackedControl, state[controlName]);
-        }
-    }
-
-    function CancelChanges(s, e) {
-        restoreEditorsState();
-        isDirty = false;
-        $("#divSavePOCheckMark").hide(200);
-    }
-
-    function OnBeforeUnload(e) {
-        if (!isDirty)
-            return;
-        var confirmMessage = "Are you sure you want to close the form?  Any unsaved data will be lost.";
-        e.returnValue = confirmMessage;
-        return confirmMessage;
-    }
 </script>
 
 <dx:ASPxCallbackPanel ID="ASPxCallbackPanel1" ClientInstanceName="POCallbackPanel" runat="server" OnCallback="POCallback_OnCallback">
@@ -175,14 +145,22 @@
                     <dx:LayoutItem ShowCaption="False">
                         <LayoutItemNestedControlCollection>
                             <dx:LayoutItemNestedControlContainer runat="server">
-                                <dx:ASPxButton ID="btnSavePO" runat="server" AutoPostBack="False" Text="Save">
-                                    <ClientSideEvents Click="OnSavePOClicked"></ClientSideEvents>
-                                </dx:ASPxButton>
-                                <div id="divSavePOCheckMark" style="display: none">
-                                    <dx:ASPxButton ID="SaveCheckMark" ClientInstanceName="SavePOCheckMark" runat="server" RenderMode="Link" Enabled="False">
-                                        <Image IconID="actions_apply_32x32office2013"/>
-                                    </dx:ASPxButton>
-                                </div>
+                                <table>
+                                    <tr>
+                                        <td>
+                                            <dx:ASPxButton ID="btnSavePO" runat="server" AutoPostBack="False" Text="Save">
+                                                <ClientSideEvents Click="OnSavePOClicked"></ClientSideEvents>
+                                            </dx:ASPxButton>
+                                        </td>
+                                        <td>
+                                            <div id="divSavePOCheckMark" style="display: none">
+                                                <dx:ASPxButton ID="SaveCheckMark" ClientInstanceName="SavePOCheckMark" runat="server" RenderMode="Link">
+                                                    <Image IconID="actions_apply_32x32office2013"/>
+                                                </dx:ASPxButton>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </table>
                             </dx:LayoutItemNestedControlContainer>
                         </LayoutItemNestedControlCollection>
                     </dx:LayoutItem>

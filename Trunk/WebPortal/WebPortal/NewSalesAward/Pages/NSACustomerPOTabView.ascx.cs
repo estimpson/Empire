@@ -43,11 +43,7 @@ namespace WebPortal.NewSalesAward.Pages
 
         public void Save()
         {
-            SaveCheckMark.Visible = true;
-            SaveCheckMark.Enabled = false;
             if (SetProductionPO() == 0) return;
-
-            SaveCheckMark.Enabled = true;
         }
 
         private int SetProductionPO()
