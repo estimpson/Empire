@@ -283,7 +283,7 @@ declare
 execute
 	SupplierEDI.usp_Get830XML
 	@TradingPartnerCode = 'PSG'
-,	@PurchaseOrderList = '52721, 49600'
+,	@PurchaseOrderList = '34992'
 ,	@XMLGet830_FunctionName = null
 ,	@PurposeCode = '05'
 ,	@Complete = 0
