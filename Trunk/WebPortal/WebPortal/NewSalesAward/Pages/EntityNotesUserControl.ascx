@@ -7,7 +7,7 @@
 
 
 <dx:ASPxGridView ID="EntityNotesGridView" runat="server" AutoGenerateColumns="False" ClientInstanceName="entityNotes"
-                 DataSourceID="EntityNotesDataSource" KeyFieldName="RowID" Border-BorderStyle="None"
+                 DataSourceID="" KeyFieldName="RowID" Border-BorderStyle="None"
                  OnRowInserting="EntityNotesGridView_OnRowInserting"
                  OnRowUpdating="EntityNotesGridView_OnRowUpdating"
                  OnHtmlRowPrepared="EntityNotesGridView_OnHtmlRowPrepared"
@@ -30,11 +30,13 @@
             </Items>
         </AdaptiveDetailLayoutProperties>
     </SettingsAdaptivity>
-    <Settings ShowTitlePanel="True" ShowColumnHeaders="False" />
+    <Settings ShowTitlePanel="True" ShowColumnHeaders="False" ShowFilterRow="True" />
     <SettingsPager Visible="False">
     </SettingsPager>
     <SettingsEditing Mode="PopupEditForm" />
-    <SettingsPopup EditForm-Modal="True" EditForm-HorizontalAlign="Center" EditForm-VerticalAlign="WindowCenter"/>
+    <SettingsPopup EditForm-Modal="True" EditForm-HorizontalAlign="Center" EditForm-VerticalAlign="WindowCenter">
+<EditForm HorizontalAlign="Center" VerticalAlign="WindowCenter" Modal="True"></EditForm>
+    </SettingsPopup>
     <EditFormLayoutProperties></EditFormLayoutProperties>
     <SettingsBehavior SortMode="Value" AllowSort="False" />
     <Settings VerticalScrollBarMode="Visible" VerticalScrollBarStyle="Standard" VerticalScrollableHeight="800" />
@@ -68,6 +70,8 @@
                 <dx:ASPxLabel runat="server" Text='<%# Eval("Author") %>'>
                     <Font Size="17px" Bold="True" />
                 </dx:ASPxLabel>
+                <dx:ASPxLabel runat="server" Text='<%# Eval("EntityURI") %>'>
+                </dx:ASPxLabel>
                 <dx:ASPxLabel runat="server" Text='<%# Eval("RowCreateDT") %>' ForeColor="#AFB0B3" Font-Underline="True" >
                 </dx:ASPxLabel>
                 <br />
@@ -86,7 +90,7 @@
         </DataRow>
     </Templates>
     <Columns>
-        <dx:GridViewCommandColumn ShowEditButton="True" ShowNewButtonInHeader="True" VisibleIndex="0">
+        <dx:GridViewCommandColumn ShowEditButton="True" ShowNewButtonInHeader="True" VisibleIndex="0" ShowClearFilterButton="True">
         </dx:GridViewCommandColumn>
         <dx:GridViewDataTextColumn FieldName="Author" VisibleIndex="1">
             <EditFormSettings Visible="False"/>
@@ -95,6 +99,9 @@
             <PropertiesTextEdit EncodeHtml="False" />
         </dx:GridViewDataTextColumn>
         <dx:GridViewDataTextColumn FieldName="RowID" VisibleIndex="8" Visible="False">
+            <EditFormSettings Visible="False" />
+        </dx:GridViewDataTextColumn>
+        <dx:GridViewDataTextColumn FieldName="EntityURI" VisibleIndex="9" Visible="True">
             <EditFormSettings Visible="False" />
         </dx:GridViewDataTextColumn>
         <dx:GridViewDataDateColumn FieldName="RowCreateDT" SortIndex="0" SortOrder="Descending" VisibleIndex="9" AdaptivePriority="1">
@@ -110,6 +117,8 @@
             <EditFormSettings Visible="False"/>
         </dx:GridViewDataTextColumn>
     </Columns>
+
+<Border BorderStyle="None"></Border>
 </dx:ASPxGridView>
 <asp:ObjectDataSource ID="EntityNotesDataSource" runat="server" InsertMethod="AddEntityNote" SelectMethod="GetEntityNotes" TypeName="WebPortal.NewSalesAward.PageViewModels.EntityNotesViewModel" UpdateMethod="ModifyEntityNote">
     <InsertParameters>

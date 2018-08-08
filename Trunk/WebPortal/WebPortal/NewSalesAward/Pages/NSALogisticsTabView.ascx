@@ -15,6 +15,19 @@
             LogisticsCallbackPanel.PerformCallback();
             postponedCallbackRequired = false;
         }
+        $("#divSaveLogisticsCheckMark").show(50);
+    }
+
+    function OnControlsInitializedLogistics() {
+        ASPxClientEdit.AttachEditorModificationListener(OnEditorsChangedLogistics,
+            function(control) {
+                return control.GetParentControl() ===
+                    LogisticsFormLayout // Gets standalone editors nested inside the form layout control
+            });
+    }
+
+    function OnEditorsChangedLogistics(s, e) {
+        $("#divSaveLogisticsCheckMark").hide(50);
     }
 </script>
 
@@ -22,7 +35,10 @@
     <ClientSideEvents EndCallback="OnEndLogisticsCallback"></ClientSideEvents>
     <PanelCollection>
         <dx:PanelContent runat="server">
-            <dx:ASPxFormLayout ID="LogisticsFormLayout" runat="server" ColCount="2" Width="100%">
+            <dx:ASPxGlobalEvents runat="server">
+                <ClientSideEvents ControlsInitialized="OnControlsInitializedLogistics"></ClientSideEvents>
+            </dx:ASPxGlobalEvents>
+            <dx:ASPxFormLayout ID="LogisticsFormLayout" runat="server" ClientInstanceName="LogisticsFormLayout" ColCount="2" Width="100%">
                 <Items>
                     <dx:LayoutItem Caption="Empire Facility" FieldName="EmpireFacility">
                         <LayoutItemNestedControlCollection>
@@ -85,17 +101,25 @@
                             </dx:LayoutItemNestedControlContainer>
                         </LayoutItemNestedControlCollection>
                     </dx:LayoutItem>
-                    <dx:EmptyLayoutItem>
-                    </dx:EmptyLayoutItem>
                     <dx:LayoutItem ShowCaption="False">
                         <LayoutItemNestedControlCollection>
                             <dx:LayoutItemNestedControlContainer runat="server">
-                                <dx:ASPxButton ID="btnSaveLogistics" runat="server" AutoPostBack="False" Text="Save">
-                                    <ClientSideEvents Click="OnSaveLogisticsClicked"></ClientSideEvents>
-                                </dx:ASPxButton>
-                                <dx:ASPxButton ID="SaveCheckMark" runat="server" RenderMode="Link" Enabled="False" Visible="True">
-                                    <Image IconID="actions_apply_32x32office2013"/>
-                                </dx:ASPxButton>
+                                <table>
+                                    <tr>
+                                        <td>
+                                            <dx:ASPxButton ID="btnSaveLogistics" runat="server" AutoPostBack="False" Text="Save">
+                                                <ClientSideEvents Click="OnSaveLogisticsClicked"></ClientSideEvents>
+                                            </dx:ASPxButton>
+                                        </td>
+                                        <td>
+                                            <div id="divSaveLogisticsCheckMark" style="display: none">
+                                                <dx:ASPxButton ID="SaveCheckMark" runat="server" RenderMode="Link" Enabled="False" Visible="True">
+                                                    <Image IconID="actions_apply_32x32office2013"/>
+                                                </dx:ASPxButton>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </table>
                             </dx:LayoutItemNestedControlContainer>
                         </LayoutItemNestedControlCollection>
                     </dx:LayoutItem>

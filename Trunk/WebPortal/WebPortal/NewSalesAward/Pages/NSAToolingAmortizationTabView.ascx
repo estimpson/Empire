@@ -13,6 +13,19 @@
             ToolingAmortizationCallbackPanel.PerformCallback();
             postponedCallbackRequired = false;
         }
+        $("#divSaveToolingAmortizationCheckMark").show(50);
+    }
+
+    function OnControlsInitializedToolingAmortization() {
+        ASPxClientEdit.AttachEditorModificationListener(OnEditorsChangedToolingAmortization,
+            function(control) {
+                return control.GetParentControl() ===
+                    ToolingAmortizationFormLayout // Gets standalone editors nested inside the form layout control
+            });
+    }
+
+    function OnEditorsChangedToolingAmortization(s, e) {
+        $("#divSaveToolingAmortizationCheckMark").hide(50);
     }
 </script>
 
@@ -20,7 +33,10 @@
     <ClientSideEvents EndCallback="OnEndToolingAmortizationCallback"></ClientSideEvents>
     <PanelCollection>
         <dx:PanelContent runat="server">
-            <dx:ASPxFormLayout ID="ToolingAmortizationFormLayout" runat="server" ColCount="2" Width="100%">
+            <dx:ASPxGlobalEvents runat="server">
+                <ClientSideEvents ControlsInitialized="OnControlsInitializedToolingAmortization"></ClientSideEvents>
+            </dx:ASPxGlobalEvents>
+            <dx:ASPxFormLayout ID="ToolingAmortizationFormLayout" runat="server" ClientInstanceName="ToolingAmortizationFormLayout" ColCount="2" Width="100%">
                 <Items>
                     <dx:LayoutItem Caption="Amortization Amount" FieldName="AmortizationAmount">
                         <LayoutItemNestedControlCollection>
@@ -75,12 +91,22 @@
                     <dx:LayoutItem ShowCaption="False">
                         <LayoutItemNestedControlCollection>
                             <dx:LayoutItemNestedControlContainer runat="server">
-                                <dx:ASPxButton ID="btnSaveToolingAmortization" runat="server" AutoPostBack="False" Text="Save">
-                                    <ClientSideEvents Click="OnSaveToolingAmortizationClicked"></ClientSideEvents>
-                                </dx:ASPxButton>
-                                <dx:ASPxButton ID="SaveCheckMark" runat="server" RenderMode="Link" Enabled="False" Visible="True">
-                                    <Image IconID="actions_apply_32x32office2013" />
-                                </dx:ASPxButton>
+                                <table>
+                                    <tr>
+                                        <td>
+                                            <dx:ASPxButton ID="btnSaveToolingAmortization" runat="server" AutoPostBack="False" Text="Save">
+                                                <ClientSideEvents Click="OnSaveToolingAmortizationClicked"></ClientSideEvents>
+                                            </dx:ASPxButton>
+                                        </td>
+                                        <td>
+                                            <div id="divSaveToolingAmortizationCheckMark" style="display: none">
+                                                <dx:ASPxButton ID="SaveCheckMark" runat="server" RenderMode="Link" Enabled="False" Visible="True">
+                                                    <Image IconID="actions_apply_32x32office2013" />
+                                                </dx:ASPxButton>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </table>
                             </dx:LayoutItemNestedControlContainer>
                         </LayoutItemNestedControlCollection>
                     </dx:LayoutItem>

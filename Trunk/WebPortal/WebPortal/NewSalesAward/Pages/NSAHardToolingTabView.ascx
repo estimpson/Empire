@@ -13,6 +13,19 @@
             HardToolingCallbackPanel.PerformCallback();
             postponedCallbackRequired = false;
         }
+        $("#divSaveHardToolingCheckMark").show(50);
+    }
+
+    function OnControlsInitializedHardTooling() {
+        ASPxClientEdit.AttachEditorModificationListener(OnEditorsChangedHardTooling,
+            function(control) {
+                return control.GetParentControl() ===
+                    HardToolingFormLayout // Gets standalone editors nested inside the form layout control
+            });
+    }
+
+    function OnEditorsChangedHardTooling(s, e) {
+        $("#divSaveHardToolingCheckMark").hide(50);
     }
 </script>
 
@@ -20,10 +33,10 @@
     <ClientSideEvents EndCallback="OnEndHardToolingCallback"></ClientSideEvents>
     <PanelCollection>
         <dx:PanelContent runat="server">
-            <div hidden="true">
-                <dx:ASPxHiddenField runat="server" ID="QuoteNumber" />
-            </div>
-            <dx:ASPxFormLayout ID="HardToolingFormLayout" runat="server" ColCount="2" Width="100%">
+            <dx:ASPxGlobalEvents runat="server">
+                <ClientSideEvents ControlsInitialized="OnControlsInitializedHardTooling"></ClientSideEvents>
+            </dx:ASPxGlobalEvents>
+            <dx:ASPxFormLayout ID="HardToolingFormLayout" ClientInstanceName="HardToolingFormLayout" runat="server" ColCount="2" Width="100%">
                 <Items>
                     <dx:LayoutItem Caption="Hard Tooling Amount" FieldName="HardToolingAmount">
                         <LayoutItemNestedControlCollection>
@@ -77,12 +90,22 @@
                     <dx:LayoutItem ShowCaption="False">
                         <LayoutItemNestedControlCollection>
                             <dx:LayoutItemNestedControlContainer runat="server">
-                                <dx:ASPxButton ID="btnSaveHardTooling" runat="server" AutoPostBack="False" Text="Save">
-                                    <ClientSideEvents Click="OnSaveHardToolingClicked"></ClientSideEvents>
-                                </dx:ASPxButton>
-                                <dx:ASPxButton ID="SaveCheckMark" runat="server" RenderMode="Link" Enabled="False" Visible="True">
-                                    <Image IconID="actions_apply_32x32office2013" />
-                                </dx:ASPxButton>
+                                <table>
+                                    <tr>
+                                        <td>
+                                            <dx:ASPxButton ID="btnSaveHardTooling" runat="server" AutoPostBack="False" Text="Save">
+                                                <ClientSideEvents Click="OnSaveHardToolingClicked"></ClientSideEvents>
+                                            </dx:ASPxButton>
+                                        </td>
+                                        <td>
+                                            <div id="divSaveHardToolingCheckMark" style="display: none">
+                                                <dx:ASPxButton ID="SaveCheckMark" runat="server" RenderMode="Link" Enabled="False" Visible="True">
+                                                    <Image IconID="actions_apply_32x32office2013" />
+                                                </dx:ASPxButton>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </table>
                             </dx:LayoutItemNestedControlContainer>
                         </LayoutItemNestedControlCollection>
                     </dx:LayoutItem>

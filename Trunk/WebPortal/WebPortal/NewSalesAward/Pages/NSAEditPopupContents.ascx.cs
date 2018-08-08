@@ -19,10 +19,15 @@ namespace WebPortal.NewSalesAward.Pages
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            if(Page.IsPostBack)
+            {
+                string x = "x";
+            }
         }
 
         protected void NSAEditCallback_OnCallback(object sender, CallbackEventArgsBase e)
         {
+            //  Refactor.  Remove callback from got focus!
             //  Save all.
             foreach (var nsaTabView in NSATabViews)
             {
@@ -32,10 +37,19 @@ namespace WebPortal.NewSalesAward.Pages
 
         public void SetQuote(usp_GetAwardedQuotes_Result awardedQuote)
         {
+            //  Binding.
             AwardedQuote = awardedQuote;
             NSAEditFormLayout.DataSource = AwardedQuote;
             NSAEditFormLayout.DataBind();
 
+            //  Used for EntityURI building.
+            QuoteNumberHiddenField.Set("QuoteNumber", AwardedQuote.QuoteNumber);
+
+            //  Retrieve the entity notes for this quote.
+            Session["userCode"] = Session["OpCode"];
+            Session["entityURI"] = "EEI/FxPLM/NSA/AwardedQuotes/QuoteNumber=" + AwardedQuote.QuoteNumber + "%";
+            EntityNotesUserControl.RefreshGrid();
+            
             //  Set quote for each tab view.
             foreach (var nsaTabView in NSATabViews)
             {
@@ -45,5 +59,7 @@ namespace WebPortal.NewSalesAward.Pages
             //  Make the first tab visible.
             NSAEditPageControl.ActiveTabPage = NSAEditPageControl.TabPages[0];
         }
+
+
     }
 }

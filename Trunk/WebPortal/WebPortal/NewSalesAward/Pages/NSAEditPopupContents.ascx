@@ -31,7 +31,13 @@
     function OnEditControl_GotFocus(s, e) {
         var input = s.GetInputElement();
         var uri = $(input).attr("EntityURI");
-        EntityURI.SetText(uri);
+        
+        hfUri.Set("uri", uri);
+
+        var filterCondition = "[EntityURI] = '" + uri + "'";
+        EntityURI.SetText(filterCondition);
+
+        entityNotes.ApplyFilter(filterCondition);
     }
 
     function RegisterURI(s, f) {
@@ -44,10 +50,12 @@
     }
 </script>
 
+
 <dx:ASPxCallbackPanel ID="ASPxCallbackPanel1" ClientInstanceName="NSAEditCallbackPanel" runat="server" OnCallback="NSAEditCallback_OnCallback">
     <ClientSideEvents EndCallback="OnEndNSAEditCallback"></ClientSideEvents>
     <PanelCollection>
         <dx:PanelContent runat="server">
+            <dx:ASPxHiddenField runat="server" ID="QuoteNumberHiddenField" ClientInstanceName="QuoteNumberHiddenField"/>
             <dx:ASPxFormLayout ID="NSAEditFormLayout" runat="server" ColCount="2" Width="100%">
                 <Items>
                     <dx:LayoutItem Caption="Base Part" ShowCaption="False" FieldName="BasePart">
@@ -137,6 +145,7 @@
                 </Items>
             </dx:ASPxFormLayout>
             <dx:ASPxLabel runat="server" ID="EntityURI" ClientInstanceName="EntityURI"/>
+            <dx:ASPxHiddenField runat="server" ClientInstanceName="hfUri" ID="hfUri"></dx:ASPxHiddenField>
         </dx:PanelContent>
     </PanelCollection>
 </dx:ASPxCallbackPanel>
@@ -179,3 +188,5 @@
 <div id="divEntityNotesUserControl" style="margin-left: 40px; margin-bottom: 40px; width: 1500px; clear: left;">
     <uc1:EntityNotesUserControl runat="server" id="EntityNotesUserControl" />
 </div>
+
+

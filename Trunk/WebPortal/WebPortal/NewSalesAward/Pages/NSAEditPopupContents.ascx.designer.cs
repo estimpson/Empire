@@ -22,6 +22,15 @@ namespace WebPortal.NewSalesAward.Pages {
         protected global::DevExpress.Web.ASPxCallbackPanel ASPxCallbackPanel1;
         
         /// <summary>
+        /// QuoteNumberHiddenField control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::DevExpress.Web.ASPxHiddenField QuoteNumberHiddenField;
+        
+        /// <summary>
         /// NSAEditFormLayout control.
         /// </summary>
         /// <remarks>
@@ -119,6 +128,15 @@ namespace WebPortal.NewSalesAward.Pages {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::DevExpress.Web.ASPxLabel EntityURI;
+        
+        /// <summary>
+        /// hfUri control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::DevExpress.Web.ASPxHiddenField hfUri;
         
         /// <summary>
         /// lblNoteTitle control.

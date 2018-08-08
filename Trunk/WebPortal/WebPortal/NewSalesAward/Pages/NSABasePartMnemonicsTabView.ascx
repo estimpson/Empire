@@ -24,7 +24,7 @@
     <ClientSideEvents EndCallback="OnEndPartMnemonicsCallback"></ClientSideEvents>
     <PanelCollection>
         <dx:PanelContent runat="server">
-            <dx:ASPxFormLayout ID="PartMnemonicsFormLayout" runat="server" ColCount="2" Width="100%">
+            <dx:ASPxFormLayout ID="PartMnemonicsFormLayout" runat="server" ClientInstanceName="PartMnemonicsFormLayout" ColCount="2" Width="100%">
                 <Items>
                     <dx:LayoutItem Caption="Vehicle Plant Mnemonic" FieldName="VehiclePlantMnemonic">
                         <LayoutItemNestedControlCollection>
@@ -90,14 +90,18 @@
                             </dx:LayoutItemNestedControlContainer>
                         </LayoutItemNestedControlCollection>
                     </dx:LayoutItem>
-                    <dx:EmptyLayoutItem>
-                    </dx:EmptyLayoutItem>
                     <dx:LayoutItem ShowCaption="False">
                         <LayoutItemNestedControlCollection>
                             <dx:LayoutItemNestedControlContainer runat="server">
-                                <dx:ASPxButton ID="btnEditMnemonics" runat="server" AutoPostBack="False" Text="Edit Mnemonics">
-                                    <ClientSideEvents Click="OnEditMnemonics"></ClientSideEvents>
-                                </dx:ASPxButton>
+                                <table>
+                                    <tr>
+                                        <td>
+                                            <dx:ASPxButton ID="btnEditMnemonics" runat="server" AutoPostBack="False" Text="Edit Mnemonics">
+                                                <ClientSideEvents Click="OnEditMnemonics"></ClientSideEvents>
+                                            </dx:ASPxButton>
+                                        </td>
+                                    </tr>
+                                </table>
                             </dx:LayoutItemNestedControlContainer>
                         </LayoutItemNestedControlCollection>
                     </dx:LayoutItem>

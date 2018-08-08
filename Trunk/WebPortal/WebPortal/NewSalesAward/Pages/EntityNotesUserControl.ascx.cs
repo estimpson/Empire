@@ -1,21 +1,52 @@
 ﻿using System;
 using System.Collections.Specialized;
+using System.Collections.Generic;
 using System.Web.UI;
 using DevExpress.Web;
 using DevExpress.Web.ASPxHtmlEditor;
 using DevExpress.Web.Data;
+using WebPortal.NewSalesAward.Models;
+using WebPortal.NewSalesAward.PageViewModels;
 
 
 namespace WebPortal.Scheduling.Pages
 {
     public partial class EntityNotesUserControl : System.Web.UI.UserControl
     {
+        private List<usp_GetEntityNotes_Result> NoteList
+        {
+            get
+            {
+                //if (Session["NoteList"] == null)
+                //{
+                //    Session["NoteList"] = (new EntityNotesViewModel()).GetEntityNotes(user, entityUri);
+                //}
+                return (List<usp_GetEntityNotes_Result>)Session["NoteList"];
+            }
+            set
+            {
+                Session["NoteList"] = value;
+            }
+        }
+
+        protected void Page_Init(object sender, EventArgs e)
+        {
+            //EntityNotesGridView.DataSource = NoteList;
+            //EntityNotesGridView.DataBind();
+        }
+
         protected void Page_Load(object sender, EventArgs e)
         {
         }
 
         public void RefreshGrid()
         {
+            //EntityNotesDataSource.Select();
+            //EntityNotesGridView.DataBind();
+            string user = Session["userCode"].ToString();
+            string entityUri = Session["entityURI"].ToString();
+            NoteList = (new EntityNotesViewModel()).GetEntityNotes(user, entityUri);
+            EntityNotesGridView.DataSource = NoteList;
             EntityNotesGridView.DataBind();
         }
 

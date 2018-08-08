@@ -15,7 +15,7 @@
             POCallbackPanel.PerformCallback();
             postponedCallbackRequired = false;
         }
-        $("#divSavePOCheckMark").show(200);
+        $("#divSavePOCheckMark").show(50);
     }
 
     function OnControlsInitialized() {
@@ -27,19 +27,18 @@
     }
 
     function OnEditorsChanged(s, e) {
-        $("#divSavePOCheckMark").hide(200);
+        $("#divSavePOCheckMark").hide(50);
     }
 
 </script>
 
-<dx:ASPxCallbackPanel ID="ASPxCallbackPanel1" ClientInstanceName="POCallbackPanel" runat="server" OnCallback="POCallback_OnCallback">
+<dx:ASPxCallbackPanel ID="ASPxCallbackPanel1" ClientInstanceName="POCallbackPanel" runat="server" OnCallback="POCallback_OnCallback" >
     <ClientSideEvents EndCallback="OnEndPOCallback"></ClientSideEvents>
     <PanelCollection>
         <dx:PanelContent runat="server">
             <dx:ASPxGlobalEvents runat="server">
                 <ClientSideEvents ControlsInitialized="OnControlsInitialized"></ClientSideEvents>
             </dx:ASPxGlobalEvents>
-            <dx:ASPxHiddenField runat="server" ID="QuoteNumberHiddenField" ClientInstanceName="QuoteNumberHiddenField"/>
             <dx:ASPxFormLayout ID="CustomerPOFormLayout" ClientInstanceName="CustomerPOFormLayout" runat="server" ColCount="2" Width="100%">
                 <Items>
                     <dx:LayoutItem Caption="Purchase Order Date" FieldName="PurchaseOrderDate">
