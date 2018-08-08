@@ -96,7 +96,7 @@ namespace WebPortal.Scheduling
                     Rule2.Format = GridConditionHighlightFormat.GreenFillWithDarkGreenText;
                     gvwSnapshotCalendar.FormatConditions.Add(Rule2);
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
 
                     throw;
