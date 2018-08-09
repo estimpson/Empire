@@ -31,13 +31,8 @@
     function OnEditControl_GotFocus(s, e) {
         var input = s.GetInputElement();
         var uri = $(input).attr("EntityURI");
-        
-        hfUri.Set("uri", uri);
 
-        var filterCondition = "[EntityURI] = '" + uri + "'";
-        EntityURI.SetText(filterCondition);
-
-        entityNotes.ApplyFilter(filterCondition);
+        FilterEntityNotesUserControl(uri);
     }
 
     function RegisterURI(s, f) {
@@ -71,9 +66,6 @@
                                 <dx:ASPxButton ID="SaveAllButton" runat="server" AutoPostBack="False" Text="Save All">
                                     <ClientSideEvents Click="OnSaveAllClicked"></ClientSideEvents>
                                 </dx:ASPxButton>
-                                <%--<dx:ASPxButton ID="SaveCheckMark" runat="server" RenderMode="Link" Enabled="False" Visible="True">
-                                    <Image IconID="actions_apply_32x32office2013"/>
-                                </dx:ASPxButton>--%>
                             </dx:LayoutItemNestedControlContainer>
                         </LayoutItemNestedControlCollection>
                     </dx:LayoutItem>
@@ -145,7 +137,6 @@
                 </Items>
             </dx:ASPxFormLayout>
             <dx:ASPxLabel runat="server" ID="EntityURI" ClientInstanceName="EntityURI"/>
-            <dx:ASPxHiddenField runat="server" ClientInstanceName="hfUri" ID="hfUri"></dx:ASPxHiddenField>
         </dx:PanelContent>
     </PanelCollection>
 </dx:ASPxCallbackPanel>

@@ -46,8 +46,8 @@ namespace WebPortal.NewSalesAward.Pages
             QuoteNumberHiddenField.Set("QuoteNumber", AwardedQuote.QuoteNumber);
 
             //  Retrieve the entity notes for this quote.
-            Session["userCode"] = Session["OpCode"];
-            Session["entityURI"] = "EEI/FxPLM/NSA/AwardedQuotes/QuoteNumber=" + AwardedQuote.QuoteNumber + "%";
+            EntityNotesUserControl.Retrieve(Session["OpCode"].ToString(),
+                "EEI/FxPLM/NSA/AwardedQuotes/QuoteNumber=" + AwardedQuote.QuoteNumber + "%");
             EntityNotesUserControl.RefreshGrid();
             
             //  Set quote for each tab view.

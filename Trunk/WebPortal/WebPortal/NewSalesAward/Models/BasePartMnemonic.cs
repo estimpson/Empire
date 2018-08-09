@@ -33,5 +33,6 @@ namespace WebPortal.NewSalesAward.Models
         public Nullable<System.DateTime> CSM_SOP { get; set; }
         public Nullable<System.DateTime> CSM_EOP { get; set; }
         public Nullable<decimal> EAU { get; set; }
+        public Nullable<decimal> QuotedEAU { get; set; }
     }
 }

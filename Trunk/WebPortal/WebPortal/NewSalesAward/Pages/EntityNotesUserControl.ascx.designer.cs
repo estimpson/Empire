@@ -13,6 +13,24 @@ namespace WebPortal.Scheduling.Pages {
     public partial class EntityNotesUserControl {
         
         /// <summary>
+        /// hfUri control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::DevExpress.Web.ASPxHiddenField hfUri;
+        
+        /// <summary>
+        /// hfRowIDs control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::DevExpress.Web.ASPxHiddenField hfRowIDs;
+        
+        /// <summary>
         /// EntityNotesGridView control.
         /// </summary>
         /// <remarks>
@@ -20,14 +38,5 @@ namespace WebPortal.Scheduling.Pages {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::DevExpress.Web.ASPxGridView EntityNotesGridView;
-        
-        /// <summary>
-        /// EntityNotesDataSource control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.ObjectDataSource EntityNotesDataSource;
     }
 }

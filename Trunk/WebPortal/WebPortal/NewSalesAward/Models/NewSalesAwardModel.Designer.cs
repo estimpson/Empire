@@ -1,4 +1,4 @@
-﻿// T4 code generation is enabled for model 'C:\Dev\GitHub\FX\Trunk\CustomerFiles\Empire\Trunk\WebPortal\WebPortal\NewSalesAward\Models\NewSalesAwardModel.edmx'. 
+﻿// T4 code generation is enabled for model 'C:\GitHub\Empire\Trunk\WebPortal\WebPortal\NewSalesAward\Models\NewSalesAwardModel.edmx'. 
 // To enable legacy code generation, change the value of the 'Code Generation Strategy' designer
 // property to 'Legacy ObjectContext'. This property is available in the Properties Window when the model
 // is open in the designer.

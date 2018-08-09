@@ -56,14 +56,9 @@
 
         function OnInit(s, e) {
                 //AdjustSize();
-                ASPxClientUtils.AttachEventToElement(window, "resize", function (evt) {
-                AdjustSize();
-            });
-        }
-
-        function AdjustSize() {
-            var height = document.documentElement.clientHeight;
-            pcEdit.SetHeight(height - 130);
+                //ASPxClientUtils.AttachEventToElement(window, "resize", function (evt) {
+                //AdjustSize();
+            //});
         }
 
     </script>

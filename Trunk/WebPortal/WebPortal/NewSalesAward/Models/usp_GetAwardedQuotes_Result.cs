@@ -18,7 +18,7 @@ namespace WebPortal.NewSalesAward.Models
         public string BasePart { get; set; }
         public string Salesperson { get; set; }
         public string ProgramManager { get; set; }
-        public System.DateTime AwardDate { get; set; }
+        public Nullable<System.DateTime> AwardDate { get; set; }
         public string FormOfCommitment { get; set; }
         public Nullable<System.DateTime> QuoteTrasferMeetingDT { get; set; }
         public Nullable<System.DateTime> SalesForecastDT { get; set; }
@@ -76,5 +76,6 @@ namespace WebPortal.NewSalesAward.Models
         public string FreightTerms { get; set; }
         public string CustomerShipTos { get; set; }
         public string Comments { get; set; }
+        public int ValidQuoteNumberFlag { get; set; }
     }
 }
