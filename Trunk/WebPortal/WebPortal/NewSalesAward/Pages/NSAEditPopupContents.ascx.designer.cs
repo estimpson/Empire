@@ -130,40 +130,13 @@ namespace WebPortal.NewSalesAward.Pages {
         protected global::DevExpress.Web.ASPxLabel EntityURI;
         
         /// <summary>
-        /// lblNoteTitle control.
+        /// ASPxLabel1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::DevExpress.Web.ASPxLabel lblNoteTitle;
-        
-        /// <summary>
-        /// htmlEditorNote control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::DevExpress.Web.ASPxHtmlEditor.ASPxHtmlEditor htmlEditorNote;
-        
-        /// <summary>
-        /// btnNoteOk control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::DevExpress.Web.ASPxButton btnNoteOk;
-        
-        /// <summary>
-        /// btnNoteCancel control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::DevExpress.Web.ASPxButton btnNoteCancel;
+        protected global::DevExpress.Web.ASPxLabel ASPxLabel1;
         
         /// <summary>
         /// EntityNotesUserControl control.

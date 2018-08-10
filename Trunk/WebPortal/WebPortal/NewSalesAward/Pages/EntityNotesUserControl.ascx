@@ -12,25 +12,48 @@
         var vrows = $("span").filter(function () { return ($(this).text() === uri) }).closest('tr');
 
         vrows.show();
-        $('span[id*="EntityNotesGridView_Title"]').text(vrows.length + " Comment" + ((vrows.length === 1) ? "" : "s"));
+        $('span[id*="EntityNotesGridView_Title"]').text(vrows.length + " Note" + ((vrows.length === 1) ? "" : "s"));
 
         uriFilt.SetText(uri);
+    }
+
+    function OnClickEditNote(s, e) {
+        //  Get the div containing the button clicked.
+        var a = $(event.target).closest('div');
+
+        //  Find the span containing the RowID.
+        var b = a.find('span[id*=RowID]');
+
+        //  Lookup the grid row associated with that RowID.
+        var row = rowIDsHiddenField.Get (b.text ());
+        entityNotes.StartEditRow (row); 
     }
 </script>
 
 <dx:ASPxHiddenField runat="server" ClientInstanceName="uriHiddenField" ID="hfUri"></dx:ASPxHiddenField>
 <dx:ASPxHiddenField runat="server" ClientInstanceName="rowIDsHiddenField" ID="hfRowIDs"></dx:ASPxHiddenField>
-<dx:ASPxLabel runat="server" ClientInstanceName="uriFilt" Text="xxx"/>
-<dx:ASPxGridView ID="EntityNotesGridView" runat="server" AutoGenerateColumns="False" ClientInstanceName="entityNotes"
+<div style="display: none">
+    <dx:ASPxLabel runat="server" ClientInstanceName="uriFilt" Text="xxx"/>
+</div>
+<dx:ASPxGridView ID="EntityNotesGridView" CssClass="borderlessGrid" runat="server" AutoGenerateColumns="False" ClientInstanceName="entityNotes"
                  KeyFieldName="RowID" Border-BorderStyle="None"
                  EnableRowsCache="True"
+                 EnableCallBacks="True"
                  OnRowInserting="EntityNotesGridView_OnRowInserting"
                  OnRowUpdating="EntityNotesGridView_OnRowUpdating"
                  OnHtmlRowPrepared="EntityNotesGridView_OnHtmlRowPrepared"
                  OnHtmlRowCreated="EntityNotesGridView_OnHtmlRowCreated"
                  Width="98%"
                  >
-<%--    <ClientSideEvents EndCallback="function () { FilterEntityNotesUserControl( uriHiddenField.Get ('uriFilter')); }" />--%>
+    <ClientSideEvents
+        EndCallback="function () { FilterEntityNotesUserControl( uriHiddenField.Get ('uriFilter'));
+        $('.dxgvCSD' ).css('border', 'none').css('box-shadow', 'none');
+        }"
+        Init="function () { FilterEntityNotesUserControl( uriHiddenField.Get ('uriFilter'));
+        $('.dxgvCSD' ).css('border', 'none').css('box-shadow', 'none');
+        }"
+        />
+    <Border BorderStyle="None"></Border>
     <SettingsAdaptivity AdaptivityMode="HideDataCellsWindowLimit">
         <AdaptiveDetailLayoutProperties>
             <Items>
@@ -50,7 +73,7 @@
     <Settings ShowTitlePanel="True" ShowColumnHeaders="False" />
     <SettingsPager Visible="False" />
     <SettingsEditing Mode="PopupEditForm" />
-    <SettingsPopup EditForm-Modal="True" EditForm-HorizontalAlign="Center" EditForm-VerticalAlign="WindowCenter">
+    <SettingsPopup>
         <EditForm HorizontalAlign="Center" VerticalAlign="WindowCenter" Modal="True" />
     </SettingsPopup>
     <SettingsBehavior SortMode="Value" AllowSort="False" />
@@ -81,7 +104,7 @@
             </div>
         </EditForm>
         <DataRow>
-            <div style="padding:5px">
+            <div style="padding: 5px; border-bottom: 1px solid darkorange;">
                 <dx:ASPxLabel runat="server" Text='<%# Eval("Author") %>'>
                     <Font Size="17px" Bold="True" />
                 </dx:ASPxLabel>
@@ -97,25 +120,12 @@
                 <div id="x" style="text-align: left; padding: 2px 2px 0 0">
                     <dx:ASPxButton ID="EditRow" runat="server" AutoPostBack="False" Text="Edit"
                                    RenderMode="Link">
-                        <ClientSideEvents Click="function (s, e) {
-                                var a = $(event.target).closest('div');
-                                console.log ('a:' + a);
-                                console.log ('a.len:' + a.length);
-                                console.log (a.attr('id'));
-                                var b = a.find('span[id*=RowID]');  
-                                console.log ('b:' + b);
-                                console.log ('b.len:' + b.length);
-                                console.log (b.text());
-                                var row = rowIDsHiddenField.Get (b.text ());
-                                console.log (row);
-                                entityNotes.StartEditRow (row); 
-                            }" />
+                        <ClientSideEvents Click="OnClickEditNote" />
                     </dx:ASPxButton>
-                    <div style="display: inline">
+                    <div style="display: none">
                         <dx:ASPxLabel runat="server" ID="RowID" ClientInstanceName="rowID" Text='<%# Eval("RowID") %>' />
                     </div>
                 </div>
-                <hr style="color: #AFB0B3"/>
             </div>
         </DataRow>
     </Templates>

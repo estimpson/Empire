@@ -9,12 +9,10 @@
 <%@ Register TagPrefix="uc1" TagName="EntityNotesUserControl" Src="~/NewSalesAward/Pages/EntityNotesUserControl.ascx" %>
 <%@ Register TagPrefix="dx" Namespace="DevExpress.Web.ASPxHtmlEditor" Assembly="DevExpress.Web.ASPxHtmlEditor.v17.2, Version=17.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" %>
 
-<%@ Register assembly="DevExpress.Web.ASPxSpellChecker.v17.2, Version=17.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" namespace="DevExpress.Web.ASPxSpellChecker" tagprefix="dx" %>
-
 <script>
     var postponedCallbackRequired = false;
 
-    function OnSaveAllClicked(s, e) {
+    function OnSaveAllClicked (s, e) {
         if (NSAEditCallbackPanel.InCallback())
             postponedCallbackRequired = true;
         else
@@ -28,11 +26,46 @@
         }
     }
 
-    function OnEditControl_GotFocus(s, e) {
+    function OnEditControl_GotFocus (s, e) {
         var input = s.GetInputElement();
         var uri = $(input).attr("EntityURI");
 
         FilterEntityNotesUserControl(uri);
+    }
+
+    function OnActiveTabChanged (s, e) {
+        var tab = e.tab;
+        var uri = 'EEI/FxPLM/NSA/AwardedQuotes/QuoteNumber=' + QuoteNumberHiddenField.Get("QuoteNumber");
+
+        switch (tab.index) {
+            case 0:
+                uri += '/AwardedQuoteProductionPOs';
+                break;
+            case 1:
+                uri += '/AwardedQuoteToolingPOs';
+                break;
+            case 2:
+                uri += '/AwardedQuoteToolingPOs';
+                break;
+            case 3:
+                uri += '/AwardedQuoteToolingPOs';
+                break;
+            case 4:
+                uri += '/BasePartAttributes';
+                break;
+            case 5:
+                uri += '/BasePartMnemonics';
+                break;
+            case 6:
+                uri += '/AwardedQuoteLogistics';
+                break;
+        };
+        FilterEntityNotesUserControl(uri);
+    }
+
+    function OnHeaderClick(s, e) {
+        FilterEntityNotesUserControl('EEI/FxPLM/NSA/AwardedQuotes/QuoteNumber=' +
+            QuoteNumberHiddenField.Get("QuoteNumber"));
     }
 
     function RegisterURI(s, f) {
@@ -45,7 +78,6 @@
     }
 </script>
 
-
 <dx:ASPxCallbackPanel ID="ASPxCallbackPanel1" ClientInstanceName="NSAEditCallbackPanel" runat="server" OnCallback="NSAEditCallback_OnCallback">
     <ClientSideEvents EndCallback="OnEndNSAEditCallback"></ClientSideEvents>
     <PanelCollection>
@@ -56,7 +88,9 @@
                     <dx:LayoutItem Caption="Base Part" ShowCaption="False" FieldName="BasePart">
                         <LayoutItemNestedControlCollection>
                             <dx:LayoutItemNestedControlContainer runat="server">
-                                <dx:ASPxLabel runat="server" Font-Size="14" ForeColor="#007bf7"/>
+                                <dx:ASPxLabel runat="server" Font-Size="14" ForeColor="#007bf7" OnDataBound="OnDataBound" OnDataBinding="OnDataBinding">
+                                    <ClientSideEvents Click="OnHeaderClick"></ClientSideEvents>
+                                </dx:ASPxLabel>
                             </dx:LayoutItemNestedControlContainer>
                         </LayoutItemNestedControlCollection>
                     </dx:LayoutItem>
@@ -73,11 +107,14 @@
                         <LayoutItemNestedControlCollection>
                             <dx:LayoutItemNestedControlContainer runat="server">
                                 <dx:ASPxPageControl runat="server" ID="NSAEditPageControl" Width="100%" ActiveTabIndex="0">
+                                    <ClientSideEvents
+                                        ActiveTabChanged="OnActiveTabChanged"
+                                        />
                                     <TabPages>
                                         <dx:TabPage Text="Customer PO" Visible="True">
                                             <ContentCollection>
                                                 <dx:ContentControl runat="server">
-                                                    <uc1:NSACustomerPOTabView runat="server" id="NSACustomerPOTabView"/>
+                                                    <uc1:NSACustomerPOTabView runat="server" id="NSACustomerPOTabView" />
                                                 </dx:ContentControl>
                                             </ContentCollection>
                                         </dx:TabPage>
@@ -141,43 +178,17 @@
     </PanelCollection>
 </dx:ASPxCallbackPanel>
 
-<div id="divNote" style="margin-left: 40px; margin-bottom: 20px; display: none; clear: left;">
+<div id="divEntityNotesUserControl" style="border-top: 2px solid darkorange; margin-left: 40px; margin-bottom: 40px; width: 1500px; clear: left;">
     <table>
         <tr>
             <td>
-                <dx:ASPxLabel ID="lblNoteTitle" runat="server" Text="Notes / Comments / Screenshots" ForeColor="#007bf7" />
+                <dx:ASPxLabel ID="ASPxLabel1" runat="server" Text="Notes / Comments / Screenshots" ForeColor="#007bf7" />
             </td>
         </tr>
         <tr>
-            <td>
-                <dx:ASPxHtmlEditor ID="htmlEditorNote" runat="server" Height="160" ClientInstanceName="htmlEditor">
-                    <SettingsImageUpload>
-                        <ValidationSettings AllowedContentTypes="image/jpeg,image/pjpeg,image/gif,image/png,image/x-png"></ValidationSettings>
-                    </SettingsImageUpload>
-                    <SettingsDialogs>
-                        <InsertImageDialog>
-                            <SettingsImageUpload>
-                                <ValidationSettings AllowedContentTypes="image/jpeg, image/pjpeg, image/gif, image/png, image/x-png">
-                                </ValidationSettings>
-                            </SettingsImageUpload>
-                        </InsertImageDialog>
-                    </SettingsDialogs>
-                </dx:ASPxHtmlEditor>
-            </td>
-            <td>
-                <dx:ASPxButton ID="btnNoteOk" runat="server" Text="Ok" />
-                <br />
-                <br />
-                <dx:ASPxButton ID="btnNoteCancel" runat="server" Text="Cancel" AutoPostBack="false" UseSubmitBehavior="false">
-                    <ClientSideEvents Click="function(s, e) {ShowHideNoteForm('Hide');}" />
-                </dx:ASPxButton>
-            </td>
+            <uc1:EntityNotesUserControl runat="server" id="EntityNotesUserControl" />
         </tr>
     </table>
-</div>
-
-<div id="divEntityNotesUserControl" style="margin-left: 40px; margin-bottom: 40px; width: 1500px; clear: left;">
-    <uc1:EntityNotesUserControl runat="server" id="EntityNotesUserControl" />
 </div>
 
 
