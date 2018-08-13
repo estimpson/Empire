@@ -7,7 +7,6 @@
 <%@ Register TagPrefix="uc1" TagName="NSABasePartMnemonicsTabView" Src="~/NewSalesAward/Pages/NSABasePartMnemonicsTabView.ascx" %>
 <%@ Register TagPrefix="uc1" TagName="NSALogisticsTabView" Src="~/NewSalesAward/Pages/NSALogisticsTabView.ascx" %>
 <%@ Register TagPrefix="uc1" TagName="EntityNotesUserControl" Src="~/NewSalesAward/Pages/EntityNotesUserControl.ascx" %>
-<%@ Register TagPrefix="dx" Namespace="DevExpress.Web.ASPxHtmlEditor" Assembly="DevExpress.Web.ASPxHtmlEditor.v17.2, Version=17.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" %>
 
 <script>
     var postponedCallbackRequired = false;
@@ -38,27 +37,27 @@
         var uri = 'EEI/FxPLM/NSA/AwardedQuotes/QuoteNumber=' + QuoteNumberHiddenField.Get("QuoteNumber");
 
         switch (tab.index) {
-            case 0:
-                uri += '/AwardedQuoteProductionPOs';
-                break;
-            case 1:
-                uri += '/AwardedQuoteToolingPOs';
-                break;
-            case 2:
-                uri += '/AwardedQuoteToolingPOs';
-                break;
-            case 3:
-                uri += '/AwardedQuoteToolingPOs';
-                break;
-            case 4:
-                uri += '/BasePartAttributes';
-                break;
-            case 5:
-                uri += '/BasePartMnemonics';
-                break;
-            case 6:
-                uri += '/AwardedQuoteLogistics';
-                break;
+        case 0:
+            uri += '/AwardedQuoteProductionPOs';
+            break;
+        case 1:
+            uri += '/AwardedQuoteToolingPOs';
+            break;
+        case 2:
+            uri += '/AwardedQuoteToolingPOs';
+            break;
+        case 3:
+            uri += '/AwardedQuoteToolingPOs';
+            break;
+        case 4:
+            uri += '/BasePartAttributes';
+            break;
+        case 5:
+            uri += '/BasePartMnemonics';
+            break;
+        case 6:
+            uri += '/AwardedQuoteLogistics';
+            break;
         };
         FilterEntityNotesUserControl(uri);
     }
@@ -83,7 +82,7 @@
     <PanelCollection>
         <dx:PanelContent runat="server">
             <dx:ASPxHiddenField runat="server" ID="QuoteNumberHiddenField" ClientInstanceName="QuoteNumberHiddenField"/>
-            <dx:ASPxFormLayout ID="NSAEditFormLayout" runat="server" ColCount="2" Width="100%">
+            <dx:ASPxFormLayout ID="NSAEditFormLayout" ClientInstanceName="editFormLayout" runat="server" ColCount="2" Width="100%">
                 <Items>
                     <dx:LayoutItem Caption="Base Part" ShowCaption="False" FieldName="BasePart">
                         <LayoutItemNestedControlCollection>
@@ -178,7 +177,7 @@
     </PanelCollection>
 </dx:ASPxCallbackPanel>
 
-<div id="divEntityNotesUserControl" style="border-top: 2px solid darkorange; margin-left: 40px; margin-bottom: 40px; width: 1500px; clear: left;">
+<div id="divEntityNotesUserControl" style="border-top: 2px solid darkorange; margin-left: 40px; width: 1500px; clear: left;">
     <table>
         <tr>
             <td>

@@ -12,12 +12,41 @@
             });
         }
 
-        function updateGridHeight() {
-            gvQuote.SetHeight(0);
+        var postponedCallbackRequired = false;
+        function OnEndCallback (s) {
+            if (postponedCallbackRequired) {
+                postponedCallbackRequired = false;
+                s.PerformCallback();
+            }
+            updateGridHeight();
+        }
+
+        function Grid_OnEndCallback(s) {
+            OnEndCallback(s);
+            updateGridHeight();
+        }
+
+        //$(window).load(function() {
+        //    updateGridHeight();
+        //});
+
+        //$(window).resize(function() {
+        //    updateGridHeight();
+        //});
+
+        function updateGridHeight (s, e) {
+            //gvQuote.SetHeight(0);
 
             var containerHeight = ASPxClientUtils.GetDocumentClientHeight();
+            console.log("containerHeight:" + containerHeight);
 
             gvQuote.SetHeight(containerHeight - 130);
+
+            //
+
+            entityNotes.SetHeight(containerHeight - 500);
+            //$('#divEntityNotesUserControl').css('height', containerHeight - 500);
+            console.log("pcEdit.Size: " + pcEdit.GetWidth() + "," + pcEdit.GetHeight());
         }
 
         var postponedCallbackRequired = false;
@@ -36,31 +65,14 @@
             }
         }
 
-        function RefreshGrid(s, e) {
-
-            //gvQuote.PerformCallback("ClearSort");
+        function OnGridRowDoubleClick(s, e) {
+            pcEdit.PerformCallback();
+            pcEdit.ShowWindow();
+            postponedCallbackRequired = true;
+            updateGridHeight();
+            //var containerHeight = ASPxClientUtils.GetDocumentClientHeight();
+            //console.log("containerHeight:" + containerHeight);
         }
-
-        function ShowHideNoteForm(action) {
-            if (action == 'Show') {
-                $("#divNote").show(500);
-                $("#divEntityNotesUserControl").hide(200);
-            } else {
-                btnSetUser.DoClick();
-
-                $("#divNote").hide(200);
-                htmlEditor.SetHtml('');
-                $("#divEntityNotesUserControl").show(500);
-            }
-        }
-
-        function OnInit(s, e) {
-                //AdjustSize();
-                //ASPxClientUtils.AttachEventToElement(window, "resize", function (evt) {
-                //AdjustSize();
-            //});
-        }
-
     </script>
 
 </asp:Content>
@@ -108,11 +120,7 @@
                      EnableCallBacks="True"
                      OnDataBound="gvQuote_DataBound"
                      AutoPostBack="False">
-        <ClientSideEvents RowDblClick="function(s, e)
-                                    {
-                                        pcEdit.PerformCallback();
-                                        pcEdit.ShowWindow();
-                                    }"/>
+        <ClientSideEvents RowDblClick="OnGridRowDoubleClick"/>
         <Styles>
             <Cell>
                 <Paddings PaddingTop="1px" PaddingBottom="1px"/>
@@ -311,13 +319,14 @@
 </div>
 </div>
 <div>
-    <dx:ASPxPopupControl ID="pcEdit" runat="server" CloseAction="CloseButton" CloseOnEscape="true" Modal="True"
-                         PopupHorizontalAlign="WindowCenter" PopupVerticalAlign="TopSides" ClientInstanceName="pcEdit"
-                         ScrollBars="Vertical" HeaderText="Edit New Sales Award" AllowDragging="True"
-                         PopupAnimationType="Fade" ForeColor="Red" EnableViewState="False" AutoUpdatePosition="true"
-                         ResizingMode="Postponed"
-                         AutoPostBack="False" EnableCallbackAnimation="True" EnableCallBacks="True" OnWindowCallback="pcEdit_OnWindowCallback">
-        <ClientSideEvents Init="OnInit"/>
+    <dx:ASPxPopupControl
+        ID="pcEdit" runat="server" CloseAction="CloseButton" CloseOnEscape="true" Modal="True"
+        PopupHorizontalAlign="WindowCenter" PopupVerticalAlign="TopSides" ClientInstanceName="pcEdit"
+        HeaderText="Edit New Sales Award" AllowDragging="True"
+        PopupAnimationType="Fade" ForeColor="Red" EnableViewState="False" AutoUpdatePosition="true"
+        AutoPostBack="False" EnableCallbackAnimation="True" EnableCallBacks="True" OnWindowCallback="pcEdit_OnWindowCallback"
+        >
+        <ClientSideEvents Shown="updateGridHeight"></ClientSideEvents>
         <ContentCollection>
             <dx:PopupControlContentControl runat="server">
                 <uc1:NSAEditPopupContents runat="server" ID="NSAEditPopupContents"/>

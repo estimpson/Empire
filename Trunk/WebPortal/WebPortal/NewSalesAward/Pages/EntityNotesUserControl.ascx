@@ -46,12 +46,13 @@
                  Width="98%"
                  >
     <ClientSideEvents
-        EndCallback="function () { FilterEntityNotesUserControl( uriHiddenField.Get ('uriFilter'));
-        $('.dxgvCSD' ).css('border', 'none').css('box-shadow', 'none');
-        }"
-        Init="function () { FilterEntityNotesUserControl( uriHiddenField.Get ('uriFilter'));
-        $('.dxgvCSD' ).css('border', 'none').css('box-shadow', 'none');
-        }"
+        EndCallback="function (s, e) {
+    FilterEntityNotesUserControl( uriHiddenField.Get ('uriFilter'));
+    $('.dxgvCSD' ).css('border', 'none').css('box-shadow', 'none');
+    }"
+    Init="function () { FilterEntityNotesUserControl( uriHiddenField.Get ('uriFilter'));
+    $('.dxgvCSD' ).css('border', 'none').css('box-shadow', 'none');
+}"
         />
     <Border BorderStyle="None"></Border>
     <SettingsAdaptivity AdaptivityMode="HideDataCellsWindowLimit">
@@ -77,7 +78,7 @@
         <EditForm HorizontalAlign="Center" VerticalAlign="WindowCenter" Modal="True" />
     </SettingsPopup>
     <SettingsBehavior SortMode="Value" AllowSort="False" />
-    <Settings VerticalScrollBarMode="Visible" VerticalScrollBarStyle="Standard" VerticalScrollableHeight="800" />
+    <Settings VerticalScrollBarMode="Visible" VerticalScrollBarStyle="Standard" />
     <SettingsDataSecurity AllowDelete="False" />
     <Templates>
         <TitlePanel>
