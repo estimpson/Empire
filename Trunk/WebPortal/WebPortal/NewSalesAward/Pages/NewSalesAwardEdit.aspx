@@ -25,14 +25,14 @@
         function ShowHideNoteForm(action) {
             if (action == 'Show') {
                 //$("#divNote").show(500);
-                //$("#divEntityNotesUserControl").hide(200);
+                //$("#divFilterEntityNotesUserControl").hide(200);
             }
             else {
                 //btnSetUser.DoClick();
            
                 //$("#divNote").hide(200);
                 //htmlEditor.SetHtml('');
-                //$("#divEntityNotesUserControl").show(500);
+                //$("#divFilterEntityNotesUserControl").show(500);
             } 
         }
 

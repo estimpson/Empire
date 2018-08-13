@@ -1066,7 +1066,7 @@ namespace WebPortal.NewSalesAward.Pages {
         protected global::DevExpress.Web.ASPxButton btnSetUser;
         
         /// <summary>
-        /// EntityNotesUserControl control.
+        /// FilterEntityNotesUserControl control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.

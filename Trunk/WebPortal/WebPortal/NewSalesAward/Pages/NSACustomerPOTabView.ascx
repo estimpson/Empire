@@ -33,7 +33,7 @@
 </script>
 
 <dx:ASPxCallbackPanel ID="ASPxCallbackPanel1" ClientInstanceName="POCallbackPanel" runat="server" OnCallback="POCallback_OnCallback" >
-    <ClientSideEvents EndCallback="OnEndPOCallback"></ClientSideEvents>
+    <ClientSideEvents EndCallback="OnEndPOCallback" Init="function () {  }"></ClientSideEvents>
     <PanelCollection>
         <dx:PanelContent runat="server">
             <dx:ASPxGlobalEvents runat="server">

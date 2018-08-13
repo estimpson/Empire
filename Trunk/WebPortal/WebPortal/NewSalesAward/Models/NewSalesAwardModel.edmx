@@ -41,6 +41,7 @@ warning 6002: The table/view 'FxPLM.NSA.BasePartMnemonics' does not have a prima
           <Property Name="CSM_SOP" Type="datetime" />
           <Property Name="CSM_EOP" Type="datetime" />
           <Property Name="EAU" Type="decimal" Precision="38" Scale="9" />
+          <Property Name="QuotedEAU" Type="numeric" Precision="20" Scale="0" />
         </EntityType>
         <!--Errors Found During Generation:
 warning 6002: The table/view 'FxPLM.NSA.CustomerCommitmentForms' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
@@ -432,7 +433,8 @@ warning 6002: The table/view 'FxPLM.NSA.Users' does not have a primary key defin
     [BasePartMnemonics].[SourcePlantRegion] AS [SourcePlantRegion], 
     [BasePartMnemonics].[CSM_SOP] AS [CSM_SOP], 
     [BasePartMnemonics].[CSM_EOP] AS [CSM_EOP], 
-    [BasePartMnemonics].[EAU] AS [EAU]
+    [BasePartMnemonics].[EAU] AS [EAU], 
+    [BasePartMnemonics].[QuotedEAU] AS [QuotedEAU]
     FROM [NSA].[BasePartMnemonics] AS [BasePartMnemonics]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="CustomerCommitmentForms" EntityType="Self.CustomerCommitmentForms" store:Type="Views" store:Schema="NSA">
@@ -950,6 +952,7 @@ warning 6002: The table/view 'FxPLM.NSA.Users' does not have a primary key defin
           <Property Name="CSM_SOP" Type="DateTime" Precision="3" />
           <Property Name="CSM_EOP" Type="DateTime" Precision="3" />
           <Property Name="EAU" Type="Decimal" Precision="38" Scale="9" />
+          <Property Name="QuotedEAU" Type="Decimal" Precision="20" Scale="0" />
         </EntityType>
         <ComplexType Name="usp_GetAwardedQuoteBasePartMnemonic_Result">
           <Property Type="Decimal" Name="QtyPer" Nullable="true" Precision="10" Scale="0" />
@@ -998,7 +1001,7 @@ warning 6002: The table/view 'FxPLM.NSA.Users' does not have a primary key defin
           <Property Type="String" Name="BasePart" Nullable="true" MaxLength="50" />
           <Property Type="String" Name="Salesperson" Nullable="true" MaxLength="40" />
           <Property Type="String" Name="ProgramManager" Nullable="true" MaxLength="40" />
-          <Property Type="DateTime" Name="AwardDate" Nullable="false" Precision="23" />
+          <Property Type="DateTime" Name="AwardDate" Nullable="true" Precision="23" />
           <Property Type="String" Name="FormOfCommitment" Nullable="false" MaxLength="50" />
           <Property Type="DateTime" Name="QuoteTrasferMeetingDT" Nullable="true" Precision="23" />
           <Property Type="DateTime" Name="SalesForecastDT" Nullable="true" Precision="23" />
@@ -1056,6 +1059,7 @@ warning 6002: The table/view 'FxPLM.NSA.Users' does not have a primary key defin
           <Property Type="String" Name="FreightTerms" Nullable="true" MaxLength="100" />
           <Property Type="String" Name="CustomerShipTos" Nullable="true" />
           <Property Type="String" Name="Comments" Nullable="true" />
+          <Property Type="Int32" Name="ValidQuoteNumberFlag" Nullable="false" />
         </ComplexType>
         <EntityType Name="CustomerShipTo">
           <Key>
@@ -1349,6 +1353,7 @@ warning 6002: The table/view 'FxPLM.NSA.Users' does not have a primary key defin
                 <ScalarProperty Name="FreightTerms" ColumnName="FreightTerms" />
                 <ScalarProperty Name="CustomerShipTos" ColumnName="CustomerShipTos" />
                 <ScalarProperty Name="Comments" ColumnName="Comments" />
+                <ScalarProperty Name="ValidQuoteNumberFlag" ColumnName="ValidQuoteNumberFlag" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
@@ -1360,6 +1365,7 @@ warning 6002: The table/view 'FxPLM.NSA.Users' does not have a primary key defin
           <EntitySetMapping Name="BasePartMnemonics">
             <EntityTypeMapping TypeName="FxPLMModel.BasePartMnemonic">
               <MappingFragment StoreEntitySet="BasePartMnemonics">
+                <ScalarProperty Name="QuotedEAU" ColumnName="QuotedEAU" />
                 <ScalarProperty Name="EAU" ColumnName="EAU" />
                 <ScalarProperty Name="CSM_EOP" ColumnName="CSM_EOP" />
                 <ScalarProperty Name="CSM_SOP" ColumnName="CSM_SOP" />

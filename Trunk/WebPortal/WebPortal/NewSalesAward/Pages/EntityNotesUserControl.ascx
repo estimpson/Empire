@@ -4,16 +4,57 @@
 
 <%@ Register Assembly="DevExpress.Web.v17.2, Version=17.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" Namespace="DevExpress.Web" TagPrefix="dx" %>
 
+<script>
+    function FilterEntityNotesUserControl(uri) {
+        uriHiddenField.Set("uriFilter", uri);
 
+        $('tr[id*="EntityNotesGridView_DXDataRow"]').hide();
+        var vrows = $("span").filter(function () { return ($(this).text() === uri) }).closest('tr');
 
-<dx:ASPxGridView ID="EntityNotesGridView" runat="server" AutoGenerateColumns="False" ClientInstanceName="entityNotes"
-                 DataSourceID="" KeyFieldName="RowID" Border-BorderStyle="None"
+        vrows.show();
+        $('span[id*="EntityNotesGridView_Title"]').text(vrows.length + " Note" + ((vrows.length === 1) ? "" : "s"));
+
+        uriFilt.SetText(uri);
+    }
+
+    function OnClickEditNote(s, e) {
+        //  Get the div containing the button clicked.
+        var a = $(event.target).closest('div');
+
+        //  Find the span containing the RowID.
+        var b = a.find('span[id*=RowID]');
+
+        //  Lookup the grid row associated with that RowID.
+        var row = rowIDsHiddenField.Get (b.text ());
+        entityNotes.StartEditRow (row); 
+    }
+</script>
+
+<dx:ASPxHiddenField runat="server" ClientInstanceName="uriHiddenField" ID="hfUri"></dx:ASPxHiddenField>
+<dx:ASPxHiddenField runat="server" ClientInstanceName="rowIDsHiddenField" ID="hfRowIDs"></dx:ASPxHiddenField>
+<div style="display: none">
+    <dx:ASPxLabel runat="server" ClientInstanceName="uriFilt" Text="xxx"/>
+</div>
+<dx:ASPxGridView ID="EntityNotesGridView" CssClass="borderlessGrid" runat="server" AutoGenerateColumns="False" ClientInstanceName="entityNotes"
+                 KeyFieldName="RowID" Border-BorderStyle="None"
+                 EnableRowsCache="True"
+                 EnableCallBacks="True"
                  OnRowInserting="EntityNotesGridView_OnRowInserting"
                  OnRowUpdating="EntityNotesGridView_OnRowUpdating"
                  OnHtmlRowPrepared="EntityNotesGridView_OnHtmlRowPrepared"
                  OnHtmlRowCreated="EntityNotesGridView_OnHtmlRowCreated"
                  Width="98%"
                  >
+    <ClientSideEvents
+        EndCallback="function (s, e) {
+    FilterEntityNotesUserControl( uriHiddenField.Get ('uriFilter'));
+    $('.dxgvCSD' ).css('border', 'none').css('box-shadow', 'none');
+    }"
+    Init="function () { FilterEntityNotesUserControl( uriHiddenField.Get ('uriFilter'));
+    $('.dxgvCSD' ).css('border', 'none').css('box-shadow', 'none');
+}"
+        />
+    <Border BorderStyle="None"></Border>
     <SettingsAdaptivity AdaptivityMode="HideDataCellsWindowLimit">
         <AdaptiveDetailLayoutProperties>
             <Items>
@@ -30,26 +71,24 @@
             </Items>
         </AdaptiveDetailLayoutProperties>
     </SettingsAdaptivity>
-    <Settings ShowTitlePanel="True" ShowColumnHeaders="False" ShowFilterRow="True" />
-    <SettingsPager Visible="False">
-    </SettingsPager>
+    <Settings ShowTitlePanel="True" ShowColumnHeaders="False" />
+    <SettingsPager Visible="False" />
     <SettingsEditing Mode="PopupEditForm" />
-    <SettingsPopup EditForm-Modal="True" EditForm-HorizontalAlign="Center" EditForm-VerticalAlign="WindowCenter">
-<EditForm HorizontalAlign="Center" VerticalAlign="WindowCenter" Modal="True"></EditForm>
+    <SettingsPopup>
+        <EditForm HorizontalAlign="Center" VerticalAlign="WindowCenter" Modal="True" />
     </SettingsPopup>
-    <EditFormLayoutProperties></EditFormLayoutProperties>
     <SettingsBehavior SortMode="Value" AllowSort="False" />
-    <Settings VerticalScrollBarMode="Visible" VerticalScrollBarStyle="Standard" VerticalScrollableHeight="800" />
+    <Settings VerticalScrollBarMode="Visible" VerticalScrollBarStyle="Standard" />
     <SettingsDataSecurity AllowDelete="False" />
     <Templates>
         <TitlePanel>
-            <dx:ASPxLabel runat="server" Text='<%# Eval("VisibleRowCount") %>'/> Comments
+            <dx:ASPxLabel runat="server" Text='<%# Eval("VisibleRowCount") + " Comments" %>'/>
             <br />
             <div style="text-align: left; padding: 2px 2px 2px 2px">
-                <dx:ASPxButton ID="NewRow" runat="server" AutoPostBack="False" Text="New"
-                               OnClick="NewRow_OnClick"
-                               RenderMode="Link" Visible="false"
-                />
+                <dx:ASPxButton ID="NewRow" runat="server" AutoPostBack="False" Text="New Note"
+                               RenderMode="Link">
+                    <ClientSideEvents Click="function () { entityNotes.AddNewRow(); }" />
+                </dx:ASPxButton>
             </div>
         </TitlePanel>
         <EditForm>
@@ -66,26 +105,28 @@
             </div>
         </EditForm>
         <DataRow>
-            <div style="padding:5px">
+            <div style="padding: 5px; border-bottom: 1px solid darkorange;">
                 <dx:ASPxLabel runat="server" Text='<%# Eval("Author") %>'>
                     <Font Size="17px" Bold="True" />
                 </dx:ASPxLabel>
-                <dx:ASPxLabel runat="server" Text='<%# Eval("EntityURI") %>'>
-                </dx:ASPxLabel>
                 <dx:ASPxLabel runat="server" Text='<%# Eval("RowCreateDT") %>' ForeColor="#AFB0B3" Font-Underline="True" >
+                </dx:ASPxLabel>
+                <dx:ASPxLabel runat="server" Text='<%# Eval("EntityURI") %>' ForeColor="#AFB0B3" Font-Underline="True" Font-Size="8px">
                 </dx:ASPxLabel>
                 <br />
                 <div style="padding: 10px 0 0 0">
                     <dx:ASPxLabel runat="server" Text='<%# Eval("Body") %>' EncodeHtml="False"/>
                 </div>
                 <br />
-                <div style="text-align: left; padding: 2px 2px 0 0">
+                <div id="x" style="text-align: left; padding: 2px 2px 0 0">
                     <dx:ASPxButton ID="EditRow" runat="server" AutoPostBack="False" Text="Edit"
-                                   OnClick="EditRow_OnClick"
-                                   RenderMode="Link"
-                                   />
+                                   RenderMode="Link">
+                        <ClientSideEvents Click="OnClickEditNote" />
+                    </dx:ASPxButton>
+                    <div style="display: none">
+                        <dx:ASPxLabel runat="server" ID="RowID" ClientInstanceName="rowID" Text='<%# Eval("RowID") %>' />
+                    </div>
                 </div>
-                <hr style="color: #AFB0B3"/>
             </div>
         </DataRow>
     </Templates>
@@ -118,21 +159,5 @@
         </dx:GridViewDataTextColumn>
     </Columns>
 
-<Border BorderStyle="None"></Border>
+    <Border BorderStyle="None"></Border>
 </dx:ASPxGridView>
-<asp:ObjectDataSource ID="EntityNotesDataSource" runat="server" InsertMethod="AddEntityNote" SelectMethod="GetEntityNotes" TypeName="WebPortal.NewSalesAward.PageViewModels.EntityNotesViewModel" UpdateMethod="ModifyEntityNote">
-    <InsertParameters>
-        <asp:SessionParameter Name="userCode" SessionField="userCode" Type="String" />
-        <asp:SessionParameter Name="entityURI" SessionField="entityURI" Type="String" />
-        <asp:Parameter Name="body" Type="String" />
-    </InsertParameters>
-    <SelectParameters>
-        <asp:SessionParameter Name="userCode" SessionField="userCode" Type="String" />
-        <asp:SessionParameter Name="entityURI" SessionField="entityURI" Type="String" />
-    </SelectParameters>
-    <UpdateParameters>
-        <asp:SessionParameter Name="userCode" SessionField="userCode" Type="String" />
-        <asp:SessionParameter Name="entityURI" SessionField="entityURI" Type="String" />
-        <asp:Parameter Name="body" Type="String" />
-    </UpdateParameters>
-</asp:ObjectDataSource>
