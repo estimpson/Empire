@@ -32,22 +32,36 @@
             this.label1 = new System.Windows.Forms.Label();
             this.lblPriorReleaseId = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
-            this.tbxPriorReleaseId = new System.Windows.Forms.TextBox();
-            this.tbxCurrentReleaseId = new System.Windows.Forms.TextBox();
             this.panel1 = new System.Windows.Forms.Panel();
             this.label18 = new System.Windows.Forms.Label();
             this.linkLblClose = new System.Windows.Forms.LinkLabel();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tpCsm = new System.Windows.Forms.TabPage();
-            this.lblTitle = new System.Windows.Forms.Label();
-            this.label17 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.pnlImport = new System.Windows.Forms.Panel();
+            this.lblCompleteCsmGc = new System.Windows.Forms.Label();
+            this.lblCompleteCsmNa = new System.Windows.Forms.Label();
+            this.lblCompleteCsmRf = new System.Windows.Forms.Label();
+            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.tbxPriorReleaseId = new System.Windows.Forms.TextBox();
+            this.tbxCurrentReleaseId = new System.Windows.Forms.TextBox();
             this.btnImportGreaterChina = new System.Windows.Forms.Button();
+            this.btnRollForward = new System.Windows.Forms.Button();
+            this.lblInstruction1A3 = new System.Windows.Forms.Label();
+            this.lblInstruction1A2 = new System.Windows.Forms.Label();
+            this.lblInstruction1A1 = new System.Windows.Forms.Label();
+            this.lblInstruction1A = new System.Windows.Forms.Label();
+            this.lblTitle = new System.Windows.Forms.Label();
+            this.lblInstruction1B = new System.Windows.Forms.Label();
+            this.lblInstruction1 = new System.Windows.Forms.Label();
             this.tpCsmDelta = new System.Windows.Forms.TabPage();
-            this.label19 = new System.Windows.Forms.Label();
-            this.label16 = new System.Windows.Forms.Label();
+            this.lblCompleteDeltaGc = new System.Windows.Forms.Label();
+            this.lblCompleteDeltaNa = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
+            this.label16 = new System.Windows.Forms.Label();
+            this.label22 = new System.Windows.Forms.Label();
+            this.label26 = new System.Windows.Forms.Label();
+            this.label27 = new System.Windows.Forms.Label();
+            this.lblDeltaInstructions = new System.Windows.Forms.Label();
+            this.label19 = new System.Windows.Forms.Label();
             this.pnlDeltaImport = new System.Windows.Forms.Panel();
             this.btnDeltaImport = new System.Windows.Forms.Button();
             this.label8 = new System.Windows.Forms.Label();
@@ -75,13 +89,21 @@
             this.label11 = new System.Windows.Forms.Label();
             this.tbxHistoricalForecastName = new System.Windows.Forms.TextBox();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label17 = new System.Windows.Forms.Label();
+            this.label21 = new System.Windows.Forms.Label();
+            this.label23 = new System.Windows.Forms.Label();
+            this.label24 = new System.Windows.Forms.Label();
+            this.label25 = new System.Windows.Forms.Label();
             this.btnMidModel = new System.Windows.Forms.Button();
             this.label20 = new System.Windows.Forms.Label();
-            this.label22 = new System.Windows.Forms.Label();
+            this.cbxRollForward = new System.Windows.Forms.CheckBox();
+            this.cbxImportNaCsm = new System.Windows.Forms.CheckBox();
+            this.cbxNaDeltaImport = new System.Windows.Forms.CheckBox();
             this.panel1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tpCsm.SuspendLayout();
-            this.pnlImport.SuspendLayout();
+            this.tableLayoutPanel1.SuspendLayout();
             this.tpCsmDelta.SuspendLayout();
             this.pnlDeltaImport.SuspendLayout();
             this.tpOfficialForecast.SuspendLayout();
@@ -95,7 +117,7 @@
             // 
             this.btnImport.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnImport.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(122)))), ((int)(((byte)(204)))));
-            this.btnImport.Location = new System.Drawing.Point(240, 120);
+            this.btnImport.Location = new System.Drawing.Point(204, 136);
             this.btnImport.Margin = new System.Windows.Forms.Padding(4);
             this.btnImport.Name = "btnImport";
             this.btnImport.Size = new System.Drawing.Size(170, 50);
@@ -111,7 +133,7 @@
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.ForeColor = System.Drawing.Color.White;
-            this.label1.Location = new System.Drawing.Point(12, 8);
+            this.label1.Location = new System.Drawing.Point(99, 7);
             this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(247, 29);
@@ -123,7 +145,7 @@
             this.lblPriorReleaseId.AutoSize = true;
             this.lblPriorReleaseId.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblPriorReleaseId.ForeColor = System.Drawing.Color.White;
-            this.lblPriorReleaseId.Location = new System.Drawing.Point(72, 30);
+            this.lblPriorReleaseId.Location = new System.Drawing.Point(4, 0);
             this.lblPriorReleaseId.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblPriorReleaseId.Name = "lblPriorReleaseId";
             this.lblPriorReleaseId.Size = new System.Drawing.Size(150, 24);
@@ -135,32 +157,12 @@
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label3.ForeColor = System.Drawing.Color.White;
-            this.label3.Location = new System.Drawing.Point(49, 70);
+            this.label3.Location = new System.Drawing.Point(4, 37);
             this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(173, 24);
             this.label3.TabIndex = 5;
             this.label3.Text = "Current Release ID:";
-            // 
-            // tbxPriorReleaseId
-            // 
-            this.tbxPriorReleaseId.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.tbxPriorReleaseId.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tbxPriorReleaseId.Location = new System.Drawing.Point(240, 26);
-            this.tbxPriorReleaseId.Margin = new System.Windows.Forms.Padding(4);
-            this.tbxPriorReleaseId.Name = "tbxPriorReleaseId";
-            this.tbxPriorReleaseId.Size = new System.Drawing.Size(170, 29);
-            this.tbxPriorReleaseId.TabIndex = 0;
-            // 
-            // tbxCurrentReleaseId
-            // 
-            this.tbxCurrentReleaseId.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.tbxCurrentReleaseId.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tbxCurrentReleaseId.Location = new System.Drawing.Point(240, 66);
-            this.tbxCurrentReleaseId.Margin = new System.Windows.Forms.Padding(4);
-            this.tbxCurrentReleaseId.Name = "tbxCurrentReleaseId";
-            this.tbxCurrentReleaseId.Size = new System.Drawing.Size(170, 29);
-            this.tbxCurrentReleaseId.TabIndex = 1;
             // 
             // panel1
             // 
@@ -174,7 +176,7 @@
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Margin = new System.Windows.Forms.Padding(4);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1193, 709);
+            this.panel1.Size = new System.Drawing.Size(1434, 709);
             this.panel1.TabIndex = 11;
             this.panel1.Paint += new System.Windows.Forms.PaintEventHandler(this.panel1_Paint);
             // 
@@ -184,7 +186,7 @@
             this.label18.AutoSize = true;
             this.label18.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label18.ForeColor = System.Drawing.Color.White;
-            this.label18.Location = new System.Drawing.Point(270, 15);
+            this.label18.Location = new System.Drawing.Point(357, 14);
             this.label18.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label18.Name = "label18";
             this.label18.Size = new System.Drawing.Size(151, 20);
@@ -197,7 +199,7 @@
             this.linkLblClose.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.linkLblClose.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(122)))), ((int)(((byte)(204)))));
             this.linkLblClose.LinkColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(122)))), ((int)(((byte)(204)))));
-            this.linkLblClose.Location = new System.Drawing.Point(1131, 8);
+            this.linkLblClose.Location = new System.Drawing.Point(1372, 9);
             this.linkLblClose.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.linkLblClose.Name = "linkLblClose";
             this.linkLblClose.Size = new System.Drawing.Size(48, 25);
@@ -221,80 +223,122 @@
             this.tabControl1.Margin = new System.Windows.Forms.Padding(4);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(1183, 583);
+            this.tabControl1.Size = new System.Drawing.Size(1424, 583);
             this.tabControl1.TabIndex = 18;
             this.tabControl1.SelectedIndexChanged += new System.EventHandler(this.tabControl1_SelectedIndexChanged);
             // 
             // tpCsm
             // 
             this.tpCsm.BackColor = System.Drawing.Color.Black;
+            this.tpCsm.Controls.Add(this.lblCompleteCsmGc);
+            this.tpCsm.Controls.Add(this.lblCompleteCsmNa);
+            this.tpCsm.Controls.Add(this.lblCompleteCsmRf);
+            this.tpCsm.Controls.Add(this.tableLayoutPanel1);
+            this.tpCsm.Controls.Add(this.lblInstruction1A3);
+            this.tpCsm.Controls.Add(this.lblInstruction1A2);
+            this.tpCsm.Controls.Add(this.lblInstruction1A1);
+            this.tpCsm.Controls.Add(this.lblInstruction1A);
             this.tpCsm.Controls.Add(this.lblTitle);
-            this.tpCsm.Controls.Add(this.label17);
-            this.tpCsm.Controls.Add(this.label2);
-            this.tpCsm.Controls.Add(this.pnlImport);
+            this.tpCsm.Controls.Add(this.lblInstruction1B);
+            this.tpCsm.Controls.Add(this.lblInstruction1);
             this.tpCsm.Location = new System.Drawing.Point(4, 32);
             this.tpCsm.Margin = new System.Windows.Forms.Padding(4);
             this.tpCsm.Name = "tpCsm";
             this.tpCsm.Padding = new System.Windows.Forms.Padding(4);
-            this.tpCsm.Size = new System.Drawing.Size(1175, 547);
+            this.tpCsm.Size = new System.Drawing.Size(1416, 547);
             this.tpCsm.TabIndex = 0;
             this.tpCsm.Text = "CSM";
             // 
-            // lblTitle
+            // lblCompleteCsmGc
             // 
-            this.lblTitle.AutoSize = true;
-            this.lblTitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblTitle.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(122)))), ((int)(((byte)(204)))));
-            this.lblTitle.Location = new System.Drawing.Point(71, 55);
-            this.lblTitle.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.lblTitle.Name = "lblTitle";
-            this.lblTitle.Size = new System.Drawing.Size(187, 25);
-            this.lblTitle.TabIndex = 22;
-            this.lblTitle.Text = "North America CSM";
+            this.lblCompleteCsmGc.AutoSize = true;
+            this.lblCompleteCsmGc.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblCompleteCsmGc.ForeColor = System.Drawing.Color.SpringGreen;
+            this.lblCompleteCsmGc.Location = new System.Drawing.Point(72, 148);
+            this.lblCompleteCsmGc.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblCompleteCsmGc.Name = "lblCompleteCsmGc";
+            this.lblCompleteCsmGc.Size = new System.Drawing.Size(114, 20);
+            this.lblCompleteCsmGc.TabIndex = 30;
+            this.lblCompleteCsmGc.Text = "GC Complete.";
+            this.lblCompleteCsmGc.Visible = false;
             // 
-            // label17
+            // lblCompleteCsmNa
             // 
-            this.label17.AutoSize = true;
-            this.label17.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label17.ForeColor = System.Drawing.Color.White;
-            this.label17.Location = new System.Drawing.Point(272, 82);
-            this.label17.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label17.Name = "label17";
-            this.label17.Size = new System.Drawing.Size(92, 24);
-            this.label17.TabIndex = 21;
-            this.label17.Text = "2.  Import.";
+            this.lblCompleteCsmNa.AutoSize = true;
+            this.lblCompleteCsmNa.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblCompleteCsmNa.ForeColor = System.Drawing.Color.SpringGreen;
+            this.lblCompleteCsmNa.Location = new System.Drawing.Point(72, 124);
+            this.lblCompleteCsmNa.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblCompleteCsmNa.Name = "lblCompleteCsmNa";
+            this.lblCompleteCsmNa.Size = new System.Drawing.Size(112, 20);
+            this.lblCompleteCsmNa.TabIndex = 29;
+            this.lblCompleteCsmNa.Text = "NA Complete.";
+            this.lblCompleteCsmNa.Visible = false;
             // 
-            // label2
+            // lblCompleteCsmRf
             // 
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.ForeColor = System.Drawing.Color.White;
-            this.label2.Location = new System.Drawing.Point(272, 55);
-            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(473, 24);
-            this.label2.TabIndex = 18;
-            this.label2.Text = "1.  Copy column names and data from the spreadsheet.";
+            this.lblCompleteCsmRf.AutoSize = true;
+            this.lblCompleteCsmRf.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblCompleteCsmRf.ForeColor = System.Drawing.Color.SpringGreen;
+            this.lblCompleteCsmRf.Location = new System.Drawing.Point(72, 100);
+            this.lblCompleteCsmRf.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblCompleteCsmRf.Name = "lblCompleteCsmRf";
+            this.lblCompleteCsmRf.Size = new System.Drawing.Size(111, 20);
+            this.lblCompleteCsmRf.TabIndex = 28;
+            this.lblCompleteCsmRf.Text = "RF Complete.";
+            this.lblCompleteCsmRf.Visible = false;
             // 
-            // pnlImport
+            // tableLayoutPanel1
             // 
-            this.pnlImport.Controls.Add(this.btnImport);
-            this.pnlImport.Controls.Add(this.lblPriorReleaseId);
-            this.pnlImport.Controls.Add(this.label3);
-            this.pnlImport.Controls.Add(this.tbxCurrentReleaseId);
-            this.pnlImport.Controls.Add(this.tbxPriorReleaseId);
-            this.pnlImport.Controls.Add(this.btnImportGreaterChina);
-            this.pnlImport.Location = new System.Drawing.Point(36, 111);
-            this.pnlImport.Margin = new System.Windows.Forms.Padding(4);
-            this.pnlImport.Name = "pnlImport";
-            this.pnlImport.Size = new System.Drawing.Size(669, 221);
-            this.pnlImport.TabIndex = 17;
+            this.tableLayoutPanel1.ColumnCount = 3;
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 200F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 200F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 430F));
+            this.tableLayoutPanel1.Controls.Add(this.cbxImportNaCsm, 2, 3);
+            this.tableLayoutPanel1.Controls.Add(this.lblPriorReleaseId, 0, 0);
+            this.tableLayoutPanel1.Controls.Add(this.cbxRollForward, 2, 2);
+            this.tableLayoutPanel1.Controls.Add(this.label3, 0, 1);
+            this.tableLayoutPanel1.Controls.Add(this.tbxPriorReleaseId, 1, 0);
+            this.tableLayoutPanel1.Controls.Add(this.tbxCurrentReleaseId, 1, 1);
+            this.tableLayoutPanel1.Controls.Add(this.btnImport, 1, 3);
+            this.tableLayoutPanel1.Controls.Add(this.btnImportGreaterChina, 1, 4);
+            this.tableLayoutPanel1.Controls.Add(this.btnRollForward, 1, 2);
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(328, 218);
+            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
+            this.tableLayoutPanel1.RowCount = 5;
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(1041, 268);
+            this.tableLayoutPanel1.TabIndex = 27;
+            // 
+            // tbxPriorReleaseId
+            // 
+            this.tbxPriorReleaseId.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.tbxPriorReleaseId.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tbxPriorReleaseId.Location = new System.Drawing.Point(204, 4);
+            this.tbxPriorReleaseId.Margin = new System.Windows.Forms.Padding(4);
+            this.tbxPriorReleaseId.Name = "tbxPriorReleaseId";
+            this.tbxPriorReleaseId.Size = new System.Drawing.Size(170, 29);
+            this.tbxPriorReleaseId.TabIndex = 0;
+            // 
+            // tbxCurrentReleaseId
+            // 
+            this.tbxCurrentReleaseId.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.tbxCurrentReleaseId.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tbxCurrentReleaseId.Location = new System.Drawing.Point(204, 41);
+            this.tbxCurrentReleaseId.Margin = new System.Windows.Forms.Padding(4);
+            this.tbxCurrentReleaseId.Name = "tbxCurrentReleaseId";
+            this.tbxCurrentReleaseId.Size = new System.Drawing.Size(170, 29);
+            this.tbxCurrentReleaseId.TabIndex = 1;
             // 
             // btnImportGreaterChina
             // 
             this.btnImportGreaterChina.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnImportGreaterChina.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(204)))), ((int)(((byte)(0)))), ((int)(((byte)(20)))));
-            this.btnImportGreaterChina.Location = new System.Drawing.Point(240, 117);
+            this.btnImportGreaterChina.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(122)))), ((int)(((byte)(204)))));
+            this.btnImportGreaterChina.Location = new System.Drawing.Point(203, 193);
             this.btnImportGreaterChina.Name = "btnImportGreaterChina";
             this.btnImportGreaterChina.Size = new System.Drawing.Size(170, 50);
             this.btnImportGreaterChina.TabIndex = 6;
@@ -303,77 +347,256 @@
             this.btnImportGreaterChina.Click += new System.EventHandler(this.btnImportGreaterChina_Click);
             this.btnImportGreaterChina.MouseDown += new System.Windows.Forms.MouseEventHandler(this.btnImportGreaterChina_MouseDown);
             // 
+            // btnRollForward
+            // 
+            this.btnRollForward.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnRollForward.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(122)))), ((int)(((byte)(204)))));
+            this.btnRollForward.Location = new System.Drawing.Point(204, 78);
+            this.btnRollForward.Margin = new System.Windows.Forms.Padding(4);
+            this.btnRollForward.Name = "btnRollForward";
+            this.btnRollForward.Size = new System.Drawing.Size(170, 50);
+            this.btnRollForward.TabIndex = 27;
+            this.btnRollForward.Text = "Roll Forward";
+            this.btnRollForward.UseVisualStyleBackColor = true;
+            this.btnRollForward.Click += new System.EventHandler(this.btnRollForward_Click);
+            this.btnRollForward.MouseDown += new System.Windows.Forms.MouseEventHandler(this.btnRollForward_MouseDown);
+            // 
+            // lblInstruction1A3
+            // 
+            this.lblInstruction1A3.AutoSize = true;
+            this.lblInstruction1A3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblInstruction1A3.ForeColor = System.Drawing.Color.White;
+            this.lblInstruction1A3.Location = new System.Drawing.Point(372, 153);
+            this.lblInstruction1A3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblInstruction1A3.Name = "lblInstruction1A3";
+            this.lblInstruction1A3.Size = new System.Drawing.Size(142, 18);
+            this.lblInstruction1A3.TabIndex = 26;
+            this.lblInstruction1A3.Text = "Control + C to copy.";
+            // 
+            // lblInstruction1A2
+            // 
+            this.lblInstruction1A2.AutoSize = true;
+            this.lblInstruction1A2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblInstruction1A2.ForeColor = System.Drawing.Color.White;
+            this.lblInstruction1A2.Location = new System.Drawing.Point(372, 133);
+            this.lblInstruction1A2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblInstruction1A2.Name = "lblInstruction1A2";
+            this.lblInstruction1A2.Size = new System.Drawing.Size(165, 18);
+            this.lblInstruction1A2.TabIndex = 25;
+            this.lblInstruction1A2.Text = "Control + A to select all.";
+            // 
+            // lblInstruction1A1
+            // 
+            this.lblInstruction1A1.AutoSize = true;
+            this.lblInstruction1A1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblInstruction1A1.ForeColor = System.Drawing.Color.White;
+            this.lblInstruction1A1.Location = new System.Drawing.Point(372, 113);
+            this.lblInstruction1A1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblInstruction1A1.Name = "lblInstruction1A1";
+            this.lblInstruction1A1.Size = new System.Drawing.Size(231, 18);
+            this.lblInstruction1A1.TabIndex = 24;
+            this.lblInstruction1A1.Text = "Click inside the spreadsheet table.";
+            // 
+            // lblInstruction1A
+            // 
+            this.lblInstruction1A.AutoSize = true;
+            this.lblInstruction1A.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblInstruction1A.ForeColor = System.Drawing.Color.White;
+            this.lblInstruction1A.Location = new System.Drawing.Point(331, 87);
+            this.lblInstruction1A.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblInstruction1A.Name = "lblInstruction1A";
+            this.lblInstruction1A.Size = new System.Drawing.Size(306, 20);
+            this.lblInstruction1A.TabIndex = 23;
+            this.lblInstruction1A.Text = "A.  Copy the data from the spreadsheet:";
+            // 
+            // lblTitle
+            // 
+            this.lblTitle.AutoSize = true;
+            this.lblTitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblTitle.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(122)))), ((int)(((byte)(204)))));
+            this.lblTitle.Location = new System.Drawing.Point(71, 52);
+            this.lblTitle.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblTitle.Name = "lblTitle";
+            this.lblTitle.Size = new System.Drawing.Size(195, 29);
+            this.lblTitle.TabIndex = 22;
+            this.lblTitle.Text = "Import CSM Data";
+            // 
+            // lblInstruction1B
+            // 
+            this.lblInstruction1B.AutoSize = true;
+            this.lblInstruction1B.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblInstruction1B.ForeColor = System.Drawing.Color.White;
+            this.lblInstruction1B.Location = new System.Drawing.Point(331, 177);
+            this.lblInstruction1B.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblInstruction1B.Name = "lblInstruction1B";
+            this.lblInstruction1B.Size = new System.Drawing.Size(255, 20);
+            this.lblInstruction1B.TabIndex = 21;
+            this.lblInstruction1B.Text = "B.  Click the Import button below.";
+            // 
+            // lblInstruction1
+            // 
+            this.lblInstruction1.AutoSize = true;
+            this.lblInstruction1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblInstruction1.ForeColor = System.Drawing.Color.White;
+            this.lblInstruction1.Location = new System.Drawing.Point(305, 55);
+            this.lblInstruction1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblInstruction1.Name = "lblInstruction1";
+            this.lblInstruction1.Size = new System.Drawing.Size(523, 25);
+            this.lblInstruction1.TabIndex = 18;
+            this.lblInstruction1.Text = "2.  Import the North America CSM data (China will be next).";
+            // 
             // tpCsmDelta
             // 
             this.tpCsmDelta.BackColor = System.Drawing.Color.Black;
-            this.tpCsmDelta.Controls.Add(this.label19);
-            this.tpCsmDelta.Controls.Add(this.label16);
+            this.tpCsmDelta.Controls.Add(this.cbxNaDeltaImport);
+            this.tpCsmDelta.Controls.Add(this.lblCompleteDeltaGc);
+            this.tpCsmDelta.Controls.Add(this.lblCompleteDeltaNa);
             this.tpCsmDelta.Controls.Add(this.label4);
+            this.tpCsmDelta.Controls.Add(this.label16);
+            this.tpCsmDelta.Controls.Add(this.label22);
+            this.tpCsmDelta.Controls.Add(this.label26);
+            this.tpCsmDelta.Controls.Add(this.label27);
+            this.tpCsmDelta.Controls.Add(this.lblDeltaInstructions);
+            this.tpCsmDelta.Controls.Add(this.label19);
             this.tpCsmDelta.Controls.Add(this.pnlDeltaImport);
             this.tpCsmDelta.Location = new System.Drawing.Point(4, 32);
             this.tpCsmDelta.Margin = new System.Windows.Forms.Padding(4);
             this.tpCsmDelta.Name = "tpCsmDelta";
             this.tpCsmDelta.Padding = new System.Windows.Forms.Padding(4);
-            this.tpCsmDelta.Size = new System.Drawing.Size(1175, 547);
+            this.tpCsmDelta.Size = new System.Drawing.Size(1416, 547);
             this.tpCsmDelta.TabIndex = 1;
             this.tpCsmDelta.Text = "CSM Delta";
             // 
-            // label19
+            // lblCompleteDeltaGc
             // 
-            this.label19.AutoSize = true;
-            this.label19.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label19.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(122)))), ((int)(((byte)(204)))));
-            this.label19.Location = new System.Drawing.Point(150, 55);
-            this.label19.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label19.Name = "label19";
-            this.label19.Size = new System.Drawing.Size(108, 25);
-            this.label19.TabIndex = 23;
-            this.label19.Text = "CSM Delta";
+            this.lblCompleteDeltaGc.AutoSize = true;
+            this.lblCompleteDeltaGc.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblCompleteDeltaGc.ForeColor = System.Drawing.Color.SpringGreen;
+            this.lblCompleteDeltaGc.Location = new System.Drawing.Point(104, 121);
+            this.lblCompleteDeltaGc.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblCompleteDeltaGc.Name = "lblCompleteDeltaGc";
+            this.lblCompleteDeltaGc.Size = new System.Drawing.Size(114, 20);
+            this.lblCompleteDeltaGc.TabIndex = 34;
+            this.lblCompleteDeltaGc.Text = "GC Complete.";
+            this.lblCompleteDeltaGc.Visible = false;
             // 
-            // label16
+            // lblCompleteDeltaNa
             // 
-            this.label16.AutoSize = true;
-            this.label16.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label16.ForeColor = System.Drawing.Color.White;
-            this.label16.Location = new System.Drawing.Point(272, 82);
-            this.label16.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(92, 24);
-            this.label16.TabIndex = 21;
-            this.label16.Text = "2.  Import.";
+            this.lblCompleteDeltaNa.AutoSize = true;
+            this.lblCompleteDeltaNa.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblCompleteDeltaNa.ForeColor = System.Drawing.Color.SpringGreen;
+            this.lblCompleteDeltaNa.Location = new System.Drawing.Point(104, 97);
+            this.lblCompleteDeltaNa.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblCompleteDeltaNa.Name = "lblCompleteDeltaNa";
+            this.lblCompleteDeltaNa.Size = new System.Drawing.Size(112, 20);
+            this.lblCompleteDeltaNa.TabIndex = 33;
+            this.lblCompleteDeltaNa.Text = "NA Complete.";
+            this.lblCompleteDeltaNa.Visible = false;
             // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label4.ForeColor = System.Drawing.Color.White;
-            this.label4.Location = new System.Drawing.Point(272, 55);
+            this.label4.Location = new System.Drawing.Point(346, 153);
             this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(584, 24);
-            this.label4.TabIndex = 20;
-            this.label4.Text = "1.  Save the spreadsheet into the CSM Data folder as:  NA Delta.CSV.";
+            this.label4.Size = new System.Drawing.Size(142, 18);
+            this.label4.TabIndex = 32;
+            this.label4.Text = "Control + C to copy.";
+            // 
+            // label16
+            // 
+            this.label16.AutoSize = true;
+            this.label16.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label16.ForeColor = System.Drawing.Color.White;
+            this.label16.Location = new System.Drawing.Point(346, 133);
+            this.label16.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(165, 18);
+            this.label16.TabIndex = 31;
+            this.label16.Text = "Control + A to select all.";
+            // 
+            // label22
+            // 
+            this.label22.AutoSize = true;
+            this.label22.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label22.ForeColor = System.Drawing.Color.White;
+            this.label22.Location = new System.Drawing.Point(346, 113);
+            this.label22.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label22.Name = "label22";
+            this.label22.Size = new System.Drawing.Size(231, 18);
+            this.label22.TabIndex = 30;
+            this.label22.Text = "Click inside the spreadsheet table.";
+            // 
+            // label26
+            // 
+            this.label26.AutoSize = true;
+            this.label26.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label26.ForeColor = System.Drawing.Color.White;
+            this.label26.Location = new System.Drawing.Point(305, 87);
+            this.label26.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label26.Name = "label26";
+            this.label26.Size = new System.Drawing.Size(306, 20);
+            this.label26.TabIndex = 29;
+            this.label26.Text = "A.  Copy the data from the spreadsheet:";
+            // 
+            // label27
+            // 
+            this.label27.AutoSize = true;
+            this.label27.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label27.ForeColor = System.Drawing.Color.White;
+            this.label27.Location = new System.Drawing.Point(305, 177);
+            this.label27.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label27.Name = "label27";
+            this.label27.Size = new System.Drawing.Size(255, 20);
+            this.label27.TabIndex = 28;
+            this.label27.Text = "B.  Click the Import button below.";
+            // 
+            // lblDeltaInstructions
+            // 
+            this.lblDeltaInstructions.AutoSize = true;
+            this.lblDeltaInstructions.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblDeltaInstructions.ForeColor = System.Drawing.Color.White;
+            this.lblDeltaInstructions.Location = new System.Drawing.Point(279, 55);
+            this.lblDeltaInstructions.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblDeltaInstructions.Name = "lblDeltaInstructions";
+            this.lblDeltaInstructions.Size = new System.Drawing.Size(447, 25);
+            this.lblDeltaInstructions.TabIndex = 27;
+            this.lblDeltaInstructions.Text = "1.  Import North America Delta (China will be next).";
+            // 
+            // label19
+            // 
+            this.label19.AutoSize = true;
+            this.label19.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label19.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(122)))), ((int)(((byte)(204)))));
+            this.label19.Location = new System.Drawing.Point(103, 52);
+            this.label19.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label19.Name = "label19";
+            this.label19.Size = new System.Drawing.Size(128, 29);
+            this.label19.TabIndex = 23;
+            this.label19.Text = "CSM Delta";
             // 
             // pnlDeltaImport
             // 
             this.pnlDeltaImport.Controls.Add(this.btnDeltaImport);
             this.pnlDeltaImport.Controls.Add(this.label8);
             this.pnlDeltaImport.Controls.Add(this.tbxCurrentDeltaReleaseId);
-            this.pnlDeltaImport.Location = new System.Drawing.Point(36, 111);
+            this.pnlDeltaImport.Location = new System.Drawing.Point(258, 209);
             this.pnlDeltaImport.Margin = new System.Windows.Forms.Padding(4);
             this.pnlDeltaImport.Name = "pnlDeltaImport";
-            this.pnlDeltaImport.Size = new System.Drawing.Size(457, 149);
+            this.pnlDeltaImport.Size = new System.Drawing.Size(457, 131);
             this.pnlDeltaImport.TabIndex = 19;
             // 
             // btnDeltaImport
             // 
             this.btnDeltaImport.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnDeltaImport.Location = new System.Drawing.Point(240, 76);
+            this.btnDeltaImport.Location = new System.Drawing.Point(240, 54);
             this.btnDeltaImport.Margin = new System.Windows.Forms.Padding(4);
             this.btnDeltaImport.Name = "btnDeltaImport";
-            this.btnDeltaImport.Size = new System.Drawing.Size(180, 50);
+            this.btnDeltaImport.Size = new System.Drawing.Size(197, 50);
             this.btnDeltaImport.TabIndex = 2;
-            this.btnDeltaImport.Text = "Import Delta";
+            this.btnDeltaImport.Text = "Import NA Delta";
             this.btnDeltaImport.UseVisualStyleBackColor = true;
             this.btnDeltaImport.Click += new System.EventHandler(this.btnDeltaImport_Click);
             this.btnDeltaImport.MouseDown += new System.Windows.Forms.MouseEventHandler(this.btnDeltaImport_MouseDown);
@@ -383,7 +606,7 @@
             this.label8.AutoSize = true;
             this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label8.ForeColor = System.Drawing.Color.White;
-            this.label8.Location = new System.Drawing.Point(49, 30);
+            this.label8.Location = new System.Drawing.Point(49, 18);
             this.label8.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(173, 24);
@@ -394,10 +617,10 @@
             // 
             this.tbxCurrentDeltaReleaseId.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.tbxCurrentDeltaReleaseId.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tbxCurrentDeltaReleaseId.Location = new System.Drawing.Point(240, 26);
+            this.tbxCurrentDeltaReleaseId.Location = new System.Drawing.Point(240, 14);
             this.tbxCurrentDeltaReleaseId.Margin = new System.Windows.Forms.Padding(4);
             this.tbxCurrentDeltaReleaseId.Name = "tbxCurrentDeltaReleaseId";
-            this.tbxCurrentDeltaReleaseId.Size = new System.Drawing.Size(180, 29);
+            this.tbxCurrentDeltaReleaseId.Size = new System.Drawing.Size(197, 29);
             this.tbxCurrentDeltaReleaseId.TabIndex = 1;
             // 
             // tpOfficialForecast
@@ -416,24 +639,24 @@
             // label14
             // 
             this.label14.AutoSize = true;
-            this.label14.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label14.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label14.ForeColor = System.Drawing.Color.White;
-            this.label14.Location = new System.Drawing.Point(593, 114);
+            this.label14.Location = new System.Drawing.Point(655, 114);
             this.label14.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(225, 20);
+            this.label14.Size = new System.Drawing.Size(154, 18);
             this.label14.TabIndex = 21;
-            this.label14.Text = "* Example:   2017/06/20 OSF";
+            this.label14.Text = "* Ex:  2018/07/21 OSF";
             // 
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label5.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(122)))), ((int)(((byte)(204)))));
             this.label5.Location = new System.Drawing.Point(272, 47);
             this.label5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(255, 24);
+            this.label5.Size = new System.Drawing.Size(268, 25);
             this.label5.TabIndex = 20;
             this.label5.Text = "Insert official forecast records.";
             // 
@@ -447,7 +670,7 @@
             this.panel2.Location = new System.Drawing.Point(36, 84);
             this.panel2.Margin = new System.Windows.Forms.Padding(4);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(549, 209);
+            this.panel2.Size = new System.Drawing.Size(611, 209);
             this.panel2.TabIndex = 19;
             // 
             // dtpDateTimeStamp
@@ -455,7 +678,7 @@
             this.dtpDateTimeStamp.Location = new System.Drawing.Point(240, 71);
             this.dtpDateTimeStamp.Margin = new System.Windows.Forms.Padding(4);
             this.dtpDateTimeStamp.Name = "dtpDateTimeStamp";
-            this.dtpDateTimeStamp.Size = new System.Drawing.Size(291, 27);
+            this.dtpDateTimeStamp.Size = new System.Drawing.Size(360, 27);
             this.dtpDateTimeStamp.TabIndex = 8;
             // 
             // label7
@@ -476,7 +699,7 @@
             this.btnInsertForecast.Location = new System.Drawing.Point(240, 127);
             this.btnInsertForecast.Margin = new System.Windows.Forms.Padding(4);
             this.btnInsertForecast.Name = "btnInsertForecast";
-            this.btnInsertForecast.Size = new System.Drawing.Size(291, 50);
+            this.btnInsertForecast.Size = new System.Drawing.Size(360, 50);
             this.btnInsertForecast.TabIndex = 2;
             this.btnInsertForecast.Text = "Insert Forecast";
             this.btnInsertForecast.UseVisualStyleBackColor = true;
@@ -502,7 +725,7 @@
             this.tbxForecastName.Location = new System.Drawing.Point(240, 26);
             this.tbxForecastName.Margin = new System.Windows.Forms.Padding(4);
             this.tbxForecastName.Name = "tbxForecastName";
-            this.tbxForecastName.Size = new System.Drawing.Size(291, 29);
+            this.tbxForecastName.Size = new System.Drawing.Size(360, 29);
             this.tbxForecastName.TabIndex = 0;
             // 
             // tpHistoricalSales
@@ -521,24 +744,24 @@
             // label15
             // 
             this.label15.AutoSize = true;
-            this.label15.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label15.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label15.ForeColor = System.Drawing.Color.White;
-            this.label15.Location = new System.Drawing.Point(593, 114);
+            this.label15.Location = new System.Drawing.Point(652, 116);
             this.label15.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(257, 20);
+            this.label15.Size = new System.Drawing.Size(180, 18);
             this.label15.TabIndex = 23;
-            this.label15.Text = "* Example:   2017/06/20 ACTUAL";
+            this.label15.Text = "* Ex:  2017/06/20 ACTUAL";
             // 
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label9.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(122)))), ((int)(((byte)(204)))));
             this.label9.Location = new System.Drawing.Point(272, 47);
             this.label9.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(255, 24);
+            this.label9.Size = new System.Drawing.Size(267, 25);
             this.label9.TabIndex = 22;
             this.label9.Text = "Insert historical sales records.";
             // 
@@ -556,7 +779,7 @@
             this.panel3.Location = new System.Drawing.Point(36, 84);
             this.panel3.Margin = new System.Windows.Forms.Padding(4);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(553, 316);
+            this.panel3.Size = new System.Drawing.Size(609, 316);
             this.panel3.TabIndex = 21;
             // 
             // dtpHistoricalDateTimeStamp
@@ -564,7 +787,7 @@
             this.dtpHistoricalDateTimeStamp.Location = new System.Drawing.Point(240, 71);
             this.dtpHistoricalDateTimeStamp.Margin = new System.Windows.Forms.Padding(4);
             this.dtpHistoricalDateTimeStamp.Name = "dtpHistoricalDateTimeStamp";
-            this.dtpHistoricalDateTimeStamp.Size = new System.Drawing.Size(291, 27);
+            this.dtpHistoricalDateTimeStamp.Size = new System.Drawing.Size(360, 27);
             this.dtpHistoricalDateTimeStamp.TabIndex = 10;
             // 
             // label13
@@ -584,7 +807,7 @@
             this.dtpEndDate.Location = new System.Drawing.Point(240, 165);
             this.dtpEndDate.Margin = new System.Windows.Forms.Padding(4);
             this.dtpEndDate.Name = "dtpEndDate";
-            this.dtpEndDate.Size = new System.Drawing.Size(291, 27);
+            this.dtpEndDate.Size = new System.Drawing.Size(360, 27);
             this.dtpEndDate.TabIndex = 8;
             // 
             // label12
@@ -604,7 +827,7 @@
             this.dtpStartDate.Location = new System.Drawing.Point(240, 118);
             this.dtpStartDate.Margin = new System.Windows.Forms.Padding(4);
             this.dtpStartDate.Name = "dtpStartDate";
-            this.dtpStartDate.Size = new System.Drawing.Size(291, 27);
+            this.dtpStartDate.Size = new System.Drawing.Size(360, 27);
             this.dtpStartDate.TabIndex = 6;
             // 
             // btnInsertHistoricalSales
@@ -613,7 +836,7 @@
             this.btnInsertHistoricalSales.Location = new System.Drawing.Point(240, 222);
             this.btnInsertHistoricalSales.Margin = new System.Windows.Forms.Padding(4);
             this.btnInsertHistoricalSales.Name = "btnInsertHistoricalSales";
-            this.btnInsertHistoricalSales.Size = new System.Drawing.Size(291, 50);
+            this.btnInsertHistoricalSales.Size = new System.Drawing.Size(360, 50);
             this.btnInsertHistoricalSales.TabIndex = 2;
             this.btnInsertHistoricalSales.Text = "Insert Historical";
             this.btnInsertHistoricalSales.UseVisualStyleBackColor = true;
@@ -651,15 +874,20 @@
             this.tbxHistoricalForecastName.Location = new System.Drawing.Point(240, 26);
             this.tbxHistoricalForecastName.Margin = new System.Windows.Forms.Padding(4);
             this.tbxHistoricalForecastName.Name = "tbxHistoricalForecastName";
-            this.tbxHistoricalForecastName.Size = new System.Drawing.Size(291, 29);
+            this.tbxHistoricalForecastName.Size = new System.Drawing.Size(360, 29);
             this.tbxHistoricalForecastName.TabIndex = 0;
             // 
             // tabPage1
             // 
             this.tabPage1.BackColor = System.Drawing.Color.Black;
+            this.tabPage1.Controls.Add(this.label2);
+            this.tabPage1.Controls.Add(this.label17);
+            this.tabPage1.Controls.Add(this.label21);
+            this.tabPage1.Controls.Add(this.label23);
+            this.tabPage1.Controls.Add(this.label24);
+            this.tabPage1.Controls.Add(this.label25);
             this.tabPage1.Controls.Add(this.btnMidModel);
             this.tabPage1.Controls.Add(this.label20);
-            this.tabPage1.Controls.Add(this.label22);
             this.tabPage1.Location = new System.Drawing.Point(4, 32);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
@@ -667,10 +895,82 @@
             this.tabPage1.TabIndex = 4;
             this.tabPage1.Text = "Mid-model year";
             // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.ForeColor = System.Drawing.Color.White;
+            this.label2.Location = new System.Drawing.Point(407, 151);
+            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(142, 18);
+            this.label2.TabIndex = 32;
+            this.label2.Text = "Control + C to copy.";
+            // 
+            // label17
+            // 
+            this.label17.AutoSize = true;
+            this.label17.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label17.ForeColor = System.Drawing.Color.White;
+            this.label17.Location = new System.Drawing.Point(407, 131);
+            this.label17.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label17.Name = "label17";
+            this.label17.Size = new System.Drawing.Size(165, 18);
+            this.label17.TabIndex = 31;
+            this.label17.Text = "Control + A to select all.";
+            // 
+            // label21
+            // 
+            this.label21.AutoSize = true;
+            this.label21.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label21.ForeColor = System.Drawing.Color.White;
+            this.label21.Location = new System.Drawing.Point(407, 111);
+            this.label21.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label21.Name = "label21";
+            this.label21.Size = new System.Drawing.Size(231, 18);
+            this.label21.TabIndex = 30;
+            this.label21.Text = "Click inside the spreadsheet table.";
+            // 
+            // label23
+            // 
+            this.label23.AutoSize = true;
+            this.label23.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label23.ForeColor = System.Drawing.Color.White;
+            this.label23.Location = new System.Drawing.Point(366, 85);
+            this.label23.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label23.Name = "label23";
+            this.label23.Size = new System.Drawing.Size(306, 20);
+            this.label23.TabIndex = 29;
+            this.label23.Text = "A.  Copy the data from the spreadsheet:";
+            // 
+            // label24
+            // 
+            this.label24.AutoSize = true;
+            this.label24.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label24.ForeColor = System.Drawing.Color.White;
+            this.label24.Location = new System.Drawing.Point(366, 175);
+            this.label24.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label24.Name = "label24";
+            this.label24.Size = new System.Drawing.Size(255, 20);
+            this.label24.TabIndex = 28;
+            this.label24.Text = "B.  Click the Import button below.";
+            // 
+            // label25
+            // 
+            this.label25.AutoSize = true;
+            this.label25.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label25.ForeColor = System.Drawing.Color.White;
+            this.label25.Location = new System.Drawing.Point(340, 55);
+            this.label25.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label25.Name = "label25";
+            this.label25.Size = new System.Drawing.Size(221, 25);
+            this.label25.TabIndex = 27;
+            this.label25.Text = "Import Mid-model years.";
+            // 
             // btnMidModel
             // 
             this.btnMidModel.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnMidModel.Location = new System.Drawing.Point(276, 106);
+            this.btnMidModel.Location = new System.Drawing.Point(370, 229);
             this.btnMidModel.Margin = new System.Windows.Forms.Padding(4);
             this.btnMidModel.Name = "btnMidModel";
             this.btnMidModel.Size = new System.Drawing.Size(243, 50);
@@ -682,33 +982,57 @@
             // label20
             // 
             this.label20.AutoSize = true;
-            this.label20.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label20.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label20.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(122)))), ((int)(((byte)(204)))));
-            this.label20.Location = new System.Drawing.Point(108, 55);
+            this.label20.Location = new System.Drawing.Point(108, 53);
             this.label20.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label20.Name = "label20";
-            this.label20.Size = new System.Drawing.Size(150, 25);
+            this.label20.Size = new System.Drawing.Size(186, 29);
             this.label20.TabIndex = 26;
             this.label20.Text = "Mid-model Year";
             // 
-            // label22
+            // cbxRollForward
             // 
-            this.label22.AutoSize = true;
-            this.label22.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label22.ForeColor = System.Drawing.Color.White;
-            this.label22.Location = new System.Drawing.Point(272, 55);
-            this.label22.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label22.Name = "label22";
-            this.label22.Size = new System.Drawing.Size(713, 24);
-            this.label22.TabIndex = 24;
-            this.label22.Text = "Copy column names and data (no summary data) from the spreadsheet, then import.";
+            this.cbxRollForward.AutoSize = true;
+            this.cbxRollForward.ForeColor = System.Drawing.Color.White;
+            this.cbxRollForward.Location = new System.Drawing.Point(403, 77);
+            this.cbxRollForward.Name = "cbxRollForward";
+            this.cbxRollForward.Size = new System.Drawing.Size(435, 24);
+            this.cbxRollForward.TabIndex = 31;
+            this.cbxRollForward.Text = "Roll forward was previously completed for this release";
+            this.cbxRollForward.UseVisualStyleBackColor = true;
+            this.cbxRollForward.CheckedChanged += new System.EventHandler(this.cbxRollForward_CheckedChanged);
+            // 
+            // cbxImportNaCsm
+            // 
+            this.cbxImportNaCsm.AutoSize = true;
+            this.cbxImportNaCsm.ForeColor = System.Drawing.Color.White;
+            this.cbxImportNaCsm.Location = new System.Drawing.Point(403, 135);
+            this.cbxImportNaCsm.Name = "cbxImportNaCsm";
+            this.cbxImportNaCsm.Size = new System.Drawing.Size(420, 24);
+            this.cbxImportNaCsm.TabIndex = 32;
+            this.cbxImportNaCsm.Text = "NA import was previously completed for this release";
+            this.cbxImportNaCsm.UseVisualStyleBackColor = true;
+            this.cbxImportNaCsm.CheckedChanged += new System.EventHandler(this.cbxImportNaCsm_CheckedChanged);
+            // 
+            // cbxNaDeltaImport
+            // 
+            this.cbxNaDeltaImport.AutoSize = true;
+            this.cbxNaDeltaImport.ForeColor = System.Drawing.Color.White;
+            this.cbxNaDeltaImport.Location = new System.Drawing.Point(722, 263);
+            this.cbxNaDeltaImport.Name = "cbxNaDeltaImport";
+            this.cbxNaDeltaImport.Size = new System.Drawing.Size(465, 24);
+            this.cbxNaDeltaImport.TabIndex = 35;
+            this.cbxNaDeltaImport.Text = "NA Delta import was previously completed for this release";
+            this.cbxNaDeltaImport.UseVisualStyleBackColor = true;
+            this.cbxNaDeltaImport.CheckedChanged += new System.EventHandler(this.cbxNaDeltaImport_CheckedChanged);
             // 
             // formMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Black;
-            this.ClientSize = new System.Drawing.Size(1193, 709);
+            this.ClientSize = new System.Drawing.Size(1434, 709);
             this.ControlBox = false;
             this.Controls.Add(this.panel1);
             this.ForeColor = System.Drawing.Color.Black;
@@ -723,8 +1047,8 @@
             this.tabControl1.ResumeLayout(false);
             this.tpCsm.ResumeLayout(false);
             this.tpCsm.PerformLayout();
-            this.pnlImport.ResumeLayout(false);
-            this.pnlImport.PerformLayout();
+            this.tableLayoutPanel1.ResumeLayout(false);
+            this.tableLayoutPanel1.PerformLayout();
             this.tpCsmDelta.ResumeLayout(false);
             this.tpCsmDelta.PerformLayout();
             this.pnlDeltaImport.ResumeLayout(false);
@@ -749,10 +1073,7 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label lblPriorReleaseId;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.TextBox tbxPriorReleaseId;
-        private System.Windows.Forms.TextBox tbxCurrentReleaseId;
         private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.Panel pnlImport;
         private System.Windows.Forms.TabControl tabControl1;
         private System.Windows.Forms.TabPage tpCsm;
         private System.Windows.Forms.TabPage tpCsmDelta;
@@ -760,8 +1081,7 @@
         private System.Windows.Forms.Button btnDeltaImport;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.TextBox tbxCurrentDeltaReleaseId;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label lblInstruction1;
         private System.Windows.Forms.LinkLabel linkLblClose;
         private System.Windows.Forms.TabPage tpOfficialForecast;
         private System.Windows.Forms.TabPage tpHistoricalSales;
@@ -783,18 +1103,44 @@
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.TextBox tbxHistoricalForecastName;
-        private System.Windows.Forms.Label label14;
         private System.Windows.Forms.Label label15;
         private System.Windows.Forms.Label lblTitle;
-        private System.Windows.Forms.Label label17;
+        private System.Windows.Forms.Label lblInstruction1B;
         private System.Windows.Forms.Label label19;
-        private System.Windows.Forms.Label label16;
         private System.Windows.Forms.Button btnImportGreaterChina;
         private System.Windows.Forms.Label label18;
         private System.Windows.Forms.TabPage tabPage1;
         private System.Windows.Forms.Label label20;
-        private System.Windows.Forms.Label label22;
         private System.Windows.Forms.Button btnMidModel;
+        private System.Windows.Forms.Label lblInstruction1A3;
+        private System.Windows.Forms.Label lblInstruction1A2;
+        private System.Windows.Forms.Label lblInstruction1A1;
+        private System.Windows.Forms.Label lblInstruction1A;
+        private System.Windows.Forms.Button btnRollForward;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
+        private System.Windows.Forms.TextBox tbxPriorReleaseId;
+        private System.Windows.Forms.TextBox tbxCurrentReleaseId;
+        private System.Windows.Forms.Label label14;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label label17;
+        private System.Windows.Forms.Label label21;
+        private System.Windows.Forms.Label label23;
+        private System.Windows.Forms.Label label24;
+        private System.Windows.Forms.Label label25;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label label16;
+        private System.Windows.Forms.Label label22;
+        private System.Windows.Forms.Label label26;
+        private System.Windows.Forms.Label label27;
+        private System.Windows.Forms.Label lblDeltaInstructions;
+        private System.Windows.Forms.Label lblCompleteCsmRf;
+        private System.Windows.Forms.Label lblCompleteDeltaNa;
+        private System.Windows.Forms.Label lblCompleteCsmGc;
+        private System.Windows.Forms.Label lblCompleteCsmNa;
+        private System.Windows.Forms.Label lblCompleteDeltaGc;
+        private System.Windows.Forms.CheckBox cbxImportNaCsm;
+        private System.Windows.Forms.CheckBox cbxRollForward;
+        private System.Windows.Forms.CheckBox cbxNaDeltaImport;
     }
 }
 

@@ -2,9 +2,11 @@
 {
     public enum ClearTabs
     {
+        RollForwardClear,
         ImportCsmClear,
         ImportCsmGreaterChinaClear,
-        ImportDeltaCsmClear,
+        ImportNaDeltaClear,
+        ImportGcDeltaClear,
         InsertOfficialForecastClear,
         InsertHistoricalSalesClear
     }
