@@ -10,159 +10,123 @@
 namespace WebPortal.NewSalesAward.Pages {
     
     
-    public partial class NewSalesAwardTest2 {
+    public partial class QuoteTabView {
         
         /// <summary>
-        /// lblTitle control.
+        /// ASPxCallbackPanel1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblTitle;
+        protected global::DevExpress.Web.ASPxCallbackPanel ASPxCallbackPanel1;
         
         /// <summary>
-        /// ASPxLoadingPanel1 control.
+        /// BasePartAttributesFormLayout control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::DevExpress.Web.ASPxLoadingPanel ASPxLoadingPanel1;
+        protected global::DevExpress.Web.ASPxFormLayout BasePartAttributesFormLayout;
         
         /// <summary>
-        /// cbp1 control.
+        /// cbxQuoteNumber control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::DevExpress.Web.ASPxCallbackPanel cbp1;
+        protected global::DevExpress.Web.ASPxComboBox cbxQuoteNumber;
         
         /// <summary>
-        /// pc1 control.
+        /// SqlDataSource1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::DevExpress.Web.PanelContent pc1;
+        protected global::System.Web.UI.WebControls.SqlDataSource SqlDataSource1;
         
         /// <summary>
-        /// updatePnl control.
+        /// deAwardDate control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.UpdatePanel updatePnl;
+        protected global::DevExpress.Web.ASPxDateEdit deAwardDate;
         
         /// <summary>
-        /// divMain control.
+        /// cbxFormOfCommitment control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divMain;
+        protected global::DevExpress.Web.ASPxComboBox cbxFormOfCommitment;
         
         /// <summary>
-        /// lblMode control.
+        /// cbxQuoteReason control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::DevExpress.Web.ASPxLabel lblMode;
+        protected global::DevExpress.Web.ASPxComboBox cbxQuoteReason;
         
         /// <summary>
-        /// cbxMode control.
+        /// cbxReplacingBasePart control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::DevExpress.Web.ASPxComboBox cbxMode;
+        protected global::DevExpress.Web.ASPxComboBox cbxReplacingBasePart;
         
         /// <summary>
-        /// btnNewSalesAward control.
+        /// cbxSalesperson control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::DevExpress.Web.ASPxButton btnNewSalesAward;
+        protected global::DevExpress.Web.ASPxComboBox cbxSalesperson;
         
         /// <summary>
-        /// btnQuoteTransfer control.
+        /// cbxProgramManager control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::DevExpress.Web.ASPxButton btnQuoteTransfer;
+        protected global::DevExpress.Web.ASPxComboBox cbxProgramManager;
         
         /// <summary>
-        /// btnCustomerCommitment control.
+        /// memoComments control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::DevExpress.Web.ASPxButton btnCustomerCommitment;
+        protected global::DevExpress.Web.ASPxMemo memoComments;
         
         /// <summary>
-        /// btnAltCustomerCommitment control.
+        /// btnSubmit control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::DevExpress.Web.ASPxButton btnAltCustomerCommitment;
+        protected global::DevExpress.Web.ASPxButton btnSubmit;
         
         /// <summary>
-        /// divGridQuote control.
+        /// tbxDocName control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divGridQuote;
-        
-        /// <summary>
-        /// gvQuote control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::DevExpress.Web.ASPxGridView gvQuote;
-        
-        /// <summary>
-        /// odsQuote control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.ObjectDataSource odsQuote;
-        
-        /// <summary>
-        /// pcEdit control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::DevExpress.Web.ASPxPopupControl pcEdit;
-        
-        /// <summary>
-        /// NSAEditPopupContents control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::WebPortal.NewSalesAward.Pages.NSAEditPopupContents NSAEditPopupContents;
+        protected global::DevExpress.Web.ASPxTextBox tbxDocName;
     }
 }

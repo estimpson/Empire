@@ -686,7 +686,6 @@ warning 6002: The table/view 'FxPLM.NSA.Users' does not have a primary key defin
             <Parameter Name="DebugMsg" Mode="InOut" Type="String" />
           </FunctionImport>
           <FunctionImport Name="usp_GetAwardedQuoteProductionPOs" ReturnType="Collection(FxPLMModel.usp_GetAwardedQuoteProductionPOs_Result)" />
-          <FunctionImport Name="usp_GetAwardedQuotes" ReturnType="Collection(FxPLMModel.usp_GetAwardedQuotes_Result)" />
           <FunctionImport Name="usp_SetAssemblyTesterTooling">
             <Parameter Name="QuoteNumber" Mode="In" Type="String" />
             <Parameter Name="AssemblyTesterToolingAmount" Mode="In" Type="Decimal" />
@@ -779,6 +778,7 @@ warning 6002: The table/view 'FxPLM.NSA.Users' does not have a primary key defin
             <Parameter Name="TranDT" Mode="InOut" Type="DateTime" />
             <Parameter Name="Result" Mode="InOut" Type="Int32" />
           </FunctionImport>
+          <FunctionImport Name="usp_GetAwardedQuotes" ReturnType="Collection(FxPLMModel.usp_GetAwardedQuotes_Result)" />
           </EntityContainer>
         <ComplexType Name="usp_LookupProgramManagerByInit_Result">
           <Property Type="String" Name="UserName" Nullable="false" MaxLength="40" />
@@ -996,71 +996,6 @@ warning 6002: The table/view 'FxPLM.NSA.Users' does not have a primary key defin
           <Property Name="ProductLine1" Type="String" Nullable="false" MaxLength="25" FixedLength="false" Unicode="false" />
           <Property Name="RowID" Type="Int64" Nullable="false" />
         </EntityType>
-        <ComplexType Name="usp_GetAwardedQuotes_Result">
-          <Property Type="String" Name="QuoteNumber" Nullable="false" MaxLength="100" />
-          <Property Type="String" Name="BasePart" Nullable="true" MaxLength="50" />
-          <Property Type="String" Name="Salesperson" Nullable="true" MaxLength="40" />
-          <Property Type="String" Name="ProgramManager" Nullable="true" MaxLength="40" />
-          <Property Type="DateTime" Name="AwardDate" Nullable="true" Precision="23" />
-          <Property Type="String" Name="FormOfCommitment" Nullable="false" MaxLength="50" />
-          <Property Type="DateTime" Name="QuoteTrasferMeetingDT" Nullable="true" Precision="23" />
-          <Property Type="DateTime" Name="SalesForecastDT" Nullable="true" Precision="23" />
-          <Property Type="String" Name="BasePartCustomer" Nullable="true" MaxLength="50" />
-          <Property Type="String" Name="QuoteReason" Nullable="false" MaxLength="25" />
-          <Property Type="String" Name="ReplacingBasePart" Nullable="true" MaxLength="7" />
-          <Property Type="String" Name="CustomerPart" Nullable="true" MaxLength="50" />
-          <Property Type="String" Name="VehiclePlantMnemonic" Nullable="true" />
-          <Property Type="String" Name="Family" Nullable="true" />
-          <Property Type="String" Name="Program" Nullable="true" />
-          <Property Type="String" Name="Vehicle" Nullable="true" />
-          <Property Type="String" Name="EmpireApplication" Nullable="true" MaxLength="500" />
-          <Property Type="String" Name="BasePartFamily" Nullable="true" MaxLength="400" />
-          <Property Type="String" Name="EmpireMarketSegment" Nullable="true" MaxLength="200" />
-          <Property Type="String" Name="EmpireMarketSubsegment" Nullable="true" MaxLength="200" />
-          <Property Type="String" Name="ProductLine" Nullable="true" MaxLength="25" />
-          <Property Type="DateTime" Name="EmpireSOP" Nullable="true" Precision="16" />
-          <Property Type="DateTime" Name="EmpireEOP" Nullable="true" Precision="16" />
-          <Property Type="String" Name="EmpireEOPNote" Nullable="true" MaxLength="250" />
-          <Property Type="String" Name="BasePart_Comments" Nullable="true" />
-          <Property Type="String" Name="SourcePlantRegion" Nullable="true" />
-          <Property Type="Decimal" Name="QtyPer" Nullable="true" Precision="10" Scale="0" />
-          <Property Type="Decimal" Name="TakeRate" Nullable="true" Precision="10" Scale="6" />
-          <Property Type="Decimal" Name="FamilyAllocation" Nullable="true" Precision="10" Scale="6" />
-          <Property Type="Decimal" Name="CSMEAU" Nullable="true" Precision="38" Scale="9" />
-          <Property Type="DateTime" Name="QuoteDate" Nullable="true" Precision="23" />
-          <Property Type="Decimal" Name="QuotedEAU" Nullable="true" Precision="20" Scale="0" />
-          <Property Type="Int32" Name="MinimumOrderQuantity" Nullable="true" />
-          <Property Type="Decimal" Name="QuotedPrice" Nullable="true" Precision="20" Scale="4" />
-          <Property Type="Decimal" Name="QuotedMaterialCost" Nullable="true" Precision="20" Scale="6" />
-          <Property Type="Decimal" Name="QuotedSales" Nullable="true" Precision="38" Scale="4" />
-          <Property Type="String" Name="QuotedLTA" Nullable="true" MaxLength="100" />
-          <Property Type="DateTime" Name="PurchaseOrderDate" Nullable="true" Precision="23" />
-          <Property Type="String" Name="CustomerProductionPurchaseOrderNumber" Nullable="true" MaxLength="50" />
-          <Property Type="String" Name="AlternativeCustomerCommitment" Nullable="true" MaxLength="100" />
-          <Property Type="Decimal" Name="PurchaseOrderSellingPrice" Nullable="true" Precision="20" Scale="6" />
-          <Property Type="DateTime" Name="PurchaseOrderSOP" Nullable="true" Precision="23" />
-          <Property Type="DateTime" Name="PurchaseOrderEOP" Nullable="true" Precision="23" />
-          <Property Type="Decimal" Name="PurchaseOrderPriceVariace" Nullable="true" Precision="23" Scale="6" />
-          <Property Type="String" Name="CustomerProductionPurchaseOrderComments" Nullable="true" />
-          <Property Type="Decimal" Name="AmortizationAmount" Nullable="true" Precision="20" Scale="6" />
-          <Property Type="Decimal" Name="AmortizationQuantity" Nullable="true" Precision="20" Scale="6" />
-          <Property Type="Decimal" Name="AmortizationPrice" Nullable="true" Precision="38" Scale="18" />
-          <Property Type="String" Name="AmortizationToolingDescription" Nullable="true" />
-          <Property Type="String" Name="AmortizationCAPEXID" Nullable="true" MaxLength="100" />
-          <Property Type="Decimal" Name="HardToolingAmount" Nullable="true" Precision="20" Scale="6" />
-          <Property Type="String" Name="HardToolingTrigger" Nullable="true" />
-          <Property Type="String" Name="HardToolingDescription" Nullable="true" />
-          <Property Type="String" Name="HardToolingCAPEXID" Nullable="true" MaxLength="100" />
-          <Property Type="Decimal" Name="AssemblyTesterToolingAmount" Nullable="true" Precision="20" Scale="6" />
-          <Property Type="String" Name="AssemblyTesterToolingTrigger" Nullable="true" />
-          <Property Type="String" Name="AssemblyTesterToolingDescription" Nullable="true" />
-          <Property Type="String" Name="AssemblyTesterToolingCAPEXID" Nullable="true" MaxLength="100" />
-          <Property Type="String" Name="EmpireFacility" Nullable="true" MaxLength="20" />
-          <Property Type="String" Name="FreightTerms" Nullable="true" MaxLength="100" />
-          <Property Type="String" Name="CustomerShipTos" Nullable="true" />
-          <Property Type="String" Name="Comments" Nullable="true" />
-          <Property Type="Int32" Name="ValidQuoteNumberFlag" Nullable="false" />
-        </ComplexType>
         <EntityType Name="CustomerShipTo">
           <Key>
             <PropertyRef Name="CustomerCode" />
@@ -1120,6 +1055,72 @@ warning 6002: The table/view 'FxPLM.NSA.Users' does not have a primary key defin
           <Property Type="Decimal" Name="DemandYear2" Nullable="false" Precision="10" Scale="2" />
           <Property Type="Decimal" Name="DemandYear3" Nullable="false" Precision="10" Scale="2" />
           <Property Type="Int64" Name="RowID" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="usp_GetAwardedQuotes_Result">
+          <Property Type="String" Name="QuoteNumber" Nullable="false" MaxLength="100" />
+          <Property Type="String" Name="BasePart" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="ExcelSpreadsheetBasePart" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="Salesperson" Nullable="true" MaxLength="40" />
+          <Property Type="String" Name="ProgramManager" Nullable="true" MaxLength="40" />
+          <Property Type="DateTime" Name="AwardDate" Nullable="true" Precision="23" />
+          <Property Type="String" Name="FormOfCommitment" Nullable="false" MaxLength="50" />
+          <Property Type="DateTime" Name="QuoteTrasferMeetingDT" Nullable="true" Precision="23" />
+          <Property Type="DateTime" Name="SalesForecastDT" Nullable="true" Precision="23" />
+          <Property Type="String" Name="BasePartCustomer" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="QuoteReason" Nullable="false" MaxLength="25" />
+          <Property Type="String" Name="ReplacingBasePart" Nullable="true" MaxLength="7" />
+          <Property Type="String" Name="CustomerPart" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="VehiclePlantMnemonic" Nullable="true" />
+          <Property Type="String" Name="Family" Nullable="true" />
+          <Property Type="String" Name="Program" Nullable="true" />
+          <Property Type="String" Name="Vehicle" Nullable="true" />
+          <Property Type="String" Name="EmpireApplication" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="BasePartFamily" Nullable="true" MaxLength="400" />
+          <Property Type="String" Name="EmpireMarketSegment" Nullable="true" MaxLength="200" />
+          <Property Type="String" Name="EmpireMarketSubsegment" Nullable="true" MaxLength="200" />
+          <Property Type="String" Name="ProductLine" Nullable="true" MaxLength="25" />
+          <Property Type="DateTime" Name="EmpireSOP" Nullable="true" Precision="16" />
+          <Property Type="DateTime" Name="EmpireEOP" Nullable="true" Precision="16" />
+          <Property Type="String" Name="EmpireEOPNote" Nullable="true" MaxLength="250" />
+          <Property Type="String" Name="BasePart_Comments" Nullable="true" />
+          <Property Type="String" Name="SourcePlantRegion" Nullable="true" />
+          <Property Type="Decimal" Name="QtyPer" Nullable="true" Precision="10" Scale="0" />
+          <Property Type="Decimal" Name="TakeRate" Nullable="true" Precision="10" Scale="6" />
+          <Property Type="Decimal" Name="FamilyAllocation" Nullable="true" Precision="10" Scale="6" />
+          <Property Type="Decimal" Name="CSMEAU" Nullable="true" Precision="38" Scale="9" />
+          <Property Type="DateTime" Name="QuoteDate" Nullable="true" Precision="23" />
+          <Property Type="Decimal" Name="QuotedEAU" Nullable="true" Precision="20" Scale="0" />
+          <Property Type="Int32" Name="MinimumOrderQuantity" Nullable="true" />
+          <Property Type="Decimal" Name="QuotedPrice" Nullable="true" Precision="20" Scale="4" />
+          <Property Type="Decimal" Name="QuotedMaterialCost" Nullable="true" Precision="20" Scale="6" />
+          <Property Type="Decimal" Name="QuotedSales" Nullable="true" Precision="38" Scale="4" />
+          <Property Type="String" Name="QuotedLTA" Nullable="true" MaxLength="100" />
+          <Property Type="DateTime" Name="PurchaseOrderDate" Nullable="true" Precision="23" />
+          <Property Type="String" Name="CustomerProductionPurchaseOrderNumber" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="AlternativeCustomerCommitment" Nullable="true" MaxLength="100" />
+          <Property Type="Decimal" Name="PurchaseOrderSellingPrice" Nullable="true" Precision="20" Scale="6" />
+          <Property Type="DateTime" Name="PurchaseOrderSOP" Nullable="true" Precision="23" />
+          <Property Type="DateTime" Name="PurchaseOrderEOP" Nullable="true" Precision="23" />
+          <Property Type="Decimal" Name="PurchaseOrderPriceVariace" Nullable="true" Precision="23" Scale="6" />
+          <Property Type="String" Name="CustomerProductionPurchaseOrderComments" Nullable="true" />
+          <Property Type="Decimal" Name="AmortizationAmount" Nullable="true" Precision="20" Scale="6" />
+          <Property Type="Int32" Name="AmortizationQuantity" Nullable="true" />
+          <Property Type="Decimal" Name="AmortizationPrice" Nullable="true" Precision="38" Scale="18" />
+          <Property Type="String" Name="AmortizationToolingDescription" Nullable="true" />
+          <Property Type="String" Name="AmortizationCAPEXID" Nullable="true" MaxLength="100" />
+          <Property Type="Decimal" Name="HardToolingAmount" Nullable="true" Precision="20" Scale="6" />
+          <Property Type="String" Name="HardToolingTrigger" Nullable="true" />
+          <Property Type="String" Name="HardToolingDescription" Nullable="true" />
+          <Property Type="String" Name="HardToolingCAPEXID" Nullable="true" MaxLength="100" />
+          <Property Type="Decimal" Name="AssemblyTesterToolingAmount" Nullable="true" Precision="20" Scale="6" />
+          <Property Type="String" Name="AssemblyTesterToolingTrigger" Nullable="true" />
+          <Property Type="String" Name="AssemblyTesterToolingDescription" Nullable="true" />
+          <Property Type="String" Name="AssemblyTesterToolingCAPEXID" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="EmpireFacility" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="FreightTerms" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="CustomerShipTos" Nullable="true" />
+          <Property Type="String" Name="Comments" Nullable="true" />
+          <Property Type="Int32" Name="ValidQuoteNumberFlag" Nullable="false" />
         </ComplexType>
         </Schema>
     </edmx:ConceptualModels>
@@ -1288,75 +1289,6 @@ warning 6002: The table/view 'FxPLM.NSA.Users' does not have a primary key defin
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="usp_GetAwardedQuotes" FunctionName="FxPLMModel.Store.usp_GetAwardedQuotes">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="FxPLMModel.usp_GetAwardedQuotes_Result">
-                <ScalarProperty Name="QuoteNumber" ColumnName="QuoteNumber" />
-                <ScalarProperty Name="BasePart" ColumnName="BasePart" />
-                <ScalarProperty Name="Salesperson" ColumnName="Salesperson" />
-                <ScalarProperty Name="ProgramManager" ColumnName="ProgramManager" />
-                <ScalarProperty Name="AwardDate" ColumnName="AwardDate" />
-                <ScalarProperty Name="FormOfCommitment" ColumnName="FormOfCommitment" />
-                <ScalarProperty Name="QuoteTrasferMeetingDT" ColumnName="QuoteTrasferMeetingDT" />
-                <ScalarProperty Name="SalesForecastDT" ColumnName="SalesForecastDT" />
-                <ScalarProperty Name="BasePartCustomer" ColumnName="BasePartCustomer" />
-                <ScalarProperty Name="QuoteReason" ColumnName="QuoteReason" />
-                <ScalarProperty Name="ReplacingBasePart" ColumnName="ReplacingBasePart" />
-                <ScalarProperty Name="CustomerPart" ColumnName="CustomerPart" />
-                <ScalarProperty Name="VehiclePlantMnemonic" ColumnName="VehiclePlantMnemonic" />
-                <ScalarProperty Name="Family" ColumnName="Family" />
-                <ScalarProperty Name="Program" ColumnName="Program" />
-                <ScalarProperty Name="Vehicle" ColumnName="Vehicle" />
-                <ScalarProperty Name="EmpireApplication" ColumnName="EmpireApplication" />
-                <ScalarProperty Name="BasePartFamily" ColumnName="BasePartFamily" />
-                <ScalarProperty Name="EmpireMarketSegment" ColumnName="EmpireMarketSegment" />
-                <ScalarProperty Name="EmpireMarketSubsegment" ColumnName="EmpireMarketSubsegment" />
-                <ScalarProperty Name="ProductLine" ColumnName="ProductLine" />
-                <ScalarProperty Name="EmpireSOP" ColumnName="EmpireSOP" />
-                <ScalarProperty Name="EmpireEOP" ColumnName="EmpireEOP" />
-                <ScalarProperty Name="EmpireEOPNote" ColumnName="EmpireEOPNote" />
-                <ScalarProperty Name="BasePart_Comments" ColumnName="BasePart_Comments" />
-                <ScalarProperty Name="SourcePlantRegion" ColumnName="SourcePlantRegion" />
-                <ScalarProperty Name="QtyPer" ColumnName="QtyPer" />
-                <ScalarProperty Name="TakeRate" ColumnName="TakeRate" />
-                <ScalarProperty Name="FamilyAllocation" ColumnName="FamilyAllocation" />
-                <ScalarProperty Name="CSMEAU" ColumnName="CSMEAU" />
-                <ScalarProperty Name="QuoteDate" ColumnName="QuoteDate" />
-                <ScalarProperty Name="QuotedEAU" ColumnName="QuotedEAU" />
-                <ScalarProperty Name="MinimumOrderQuantity" ColumnName="MinimumOrderQuantity" />
-                <ScalarProperty Name="QuotedPrice" ColumnName="QuotedPrice" />
-                <ScalarProperty Name="QuotedMaterialCost" ColumnName="QuotedMaterialCost" />
-                <ScalarProperty Name="QuotedSales" ColumnName="QuotedSales" />
-                <ScalarProperty Name="QuotedLTA" ColumnName="QuotedLTA" />
-                <ScalarProperty Name="PurchaseOrderDate" ColumnName="PurchaseOrderDate" />
-                <ScalarProperty Name="CustomerProductionPurchaseOrderNumber" ColumnName="CustomerProductionPurchaseOrderNumber" />
-                <ScalarProperty Name="AlternativeCustomerCommitment" ColumnName="AlternativeCustomerCommitment" />
-                <ScalarProperty Name="PurchaseOrderSellingPrice" ColumnName="PurchaseOrderSellingPrice" />
-                <ScalarProperty Name="PurchaseOrderSOP" ColumnName="PurchaseOrderSOP" />
-                <ScalarProperty Name="PurchaseOrderEOP" ColumnName="PurchaseOrderEOP" />
-                <ScalarProperty Name="PurchaseOrderPriceVariace" ColumnName="PurchaseOrderPriceVariace" />
-                <ScalarProperty Name="CustomerProductionPurchaseOrderComments" ColumnName="CustomerProductionPurchaseOrderComments" />
-                <ScalarProperty Name="AmortizationAmount" ColumnName="AmortizationAmount" />
-                <ScalarProperty Name="AmortizationQuantity" ColumnName="AmortizationQuantity" />
-                <ScalarProperty Name="AmortizationPrice" ColumnName="AmortizationPrice" />
-                <ScalarProperty Name="AmortizationToolingDescription" ColumnName="AmortizationToolingDescription" />
-                <ScalarProperty Name="AmortizationCAPEXID" ColumnName="AmortizationCAPEXID" />
-                <ScalarProperty Name="HardToolingAmount" ColumnName="HardToolingAmount" />
-                <ScalarProperty Name="HardToolingTrigger" ColumnName="HardToolingTrigger" />
-                <ScalarProperty Name="HardToolingDescription" ColumnName="HardToolingDescription" />
-                <ScalarProperty Name="HardToolingCAPEXID" ColumnName="HardToolingCAPEXID" />
-                <ScalarProperty Name="AssemblyTesterToolingAmount" ColumnName="AssemblyTesterToolingAmount" />
-                <ScalarProperty Name="AssemblyTesterToolingTrigger" ColumnName="AssemblyTesterToolingTrigger" />
-                <ScalarProperty Name="AssemblyTesterToolingDescription" ColumnName="AssemblyTesterToolingDescription" />
-                <ScalarProperty Name="AssemblyTesterToolingCAPEXID" ColumnName="AssemblyTesterToolingCAPEXID" />
-                <ScalarProperty Name="EmpireFacility" ColumnName="EmpireFacility" />
-                <ScalarProperty Name="FreightTerms" ColumnName="FreightTerms" />
-                <ScalarProperty Name="CustomerShipTos" ColumnName="CustomerShipTos" />
-                <ScalarProperty Name="Comments" ColumnName="Comments" />
-                <ScalarProperty Name="ValidQuoteNumberFlag" ColumnName="ValidQuoteNumberFlag" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="usp_SetAssemblyTesterTooling" FunctionName="FxPLMModel.Store.usp_SetAssemblyTesterTooling" />
           <FunctionImportMapping FunctionImportName="usp_SetHardTooling" FunctionName="FxPLMModel.Store.usp_SetHardTooling" />
           <FunctionImportMapping FunctionImportName="usp_SetToolingAmortization" FunctionName="FxPLMModel.Store.usp_SetToolingAmortization" />
@@ -1509,6 +1441,76 @@ warning 6002: The table/view 'FxPLM.NSA.Users' does not have a primary key defin
             </ResultMapping>
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="usp_AwardedQuoteFirstMnemonicEmail" FunctionName="FxPLMModel.Store.usp_AwardedQuoteFirstMnemonicEmail" />
+          <FunctionImportMapping FunctionImportName="usp_GetAwardedQuotes" FunctionName="FxPLMModel.Store.usp_GetAwardedQuotes">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="FxPLMModel.usp_GetAwardedQuotes_Result">
+                <ScalarProperty Name="QuoteNumber" ColumnName="QuoteNumber" />
+                <ScalarProperty Name="BasePart" ColumnName="BasePart" />
+                <ScalarProperty Name="ExcelSpreadsheetBasePart" ColumnName="ExcelSpreadsheetBasePart" />
+                <ScalarProperty Name="Salesperson" ColumnName="Salesperson" />
+                <ScalarProperty Name="ProgramManager" ColumnName="ProgramManager" />
+                <ScalarProperty Name="AwardDate" ColumnName="AwardDate" />
+                <ScalarProperty Name="FormOfCommitment" ColumnName="FormOfCommitment" />
+                <ScalarProperty Name="QuoteTrasferMeetingDT" ColumnName="QuoteTrasferMeetingDT" />
+                <ScalarProperty Name="SalesForecastDT" ColumnName="SalesForecastDT" />
+                <ScalarProperty Name="BasePartCustomer" ColumnName="BasePartCustomer" />
+                <ScalarProperty Name="QuoteReason" ColumnName="QuoteReason" />
+                <ScalarProperty Name="ReplacingBasePart" ColumnName="ReplacingBasePart" />
+                <ScalarProperty Name="CustomerPart" ColumnName="CustomerPart" />
+                <ScalarProperty Name="VehiclePlantMnemonic" ColumnName="VehiclePlantMnemonic" />
+                <ScalarProperty Name="Family" ColumnName="Family" />
+                <ScalarProperty Name="Program" ColumnName="Program" />
+                <ScalarProperty Name="Vehicle" ColumnName="Vehicle" />
+                <ScalarProperty Name="EmpireApplication" ColumnName="EmpireApplication" />
+                <ScalarProperty Name="BasePartFamily" ColumnName="BasePartFamily" />
+                <ScalarProperty Name="EmpireMarketSegment" ColumnName="EmpireMarketSegment" />
+                <ScalarProperty Name="EmpireMarketSubsegment" ColumnName="EmpireMarketSubsegment" />
+                <ScalarProperty Name="ProductLine" ColumnName="ProductLine" />
+                <ScalarProperty Name="EmpireSOP" ColumnName="EmpireSOP" />
+                <ScalarProperty Name="EmpireEOP" ColumnName="EmpireEOP" />
+                <ScalarProperty Name="EmpireEOPNote" ColumnName="EmpireEOPNote" />
+                <ScalarProperty Name="BasePart_Comments" ColumnName="BasePart_Comments" />
+                <ScalarProperty Name="SourcePlantRegion" ColumnName="SourcePlantRegion" />
+                <ScalarProperty Name="QtyPer" ColumnName="QtyPer" />
+                <ScalarProperty Name="TakeRate" ColumnName="TakeRate" />
+                <ScalarProperty Name="FamilyAllocation" ColumnName="FamilyAllocation" />
+                <ScalarProperty Name="CSMEAU" ColumnName="CSMEAU" />
+                <ScalarProperty Name="QuoteDate" ColumnName="QuoteDate" />
+                <ScalarProperty Name="QuotedEAU" ColumnName="QuotedEAU" />
+                <ScalarProperty Name="MinimumOrderQuantity" ColumnName="MinimumOrderQuantity" />
+                <ScalarProperty Name="QuotedPrice" ColumnName="QuotedPrice" />
+                <ScalarProperty Name="QuotedMaterialCost" ColumnName="QuotedMaterialCost" />
+                <ScalarProperty Name="QuotedSales" ColumnName="QuotedSales" />
+                <ScalarProperty Name="QuotedLTA" ColumnName="QuotedLTA" />
+                <ScalarProperty Name="PurchaseOrderDate" ColumnName="PurchaseOrderDate" />
+                <ScalarProperty Name="CustomerProductionPurchaseOrderNumber" ColumnName="CustomerProductionPurchaseOrderNumber" />
+                <ScalarProperty Name="AlternativeCustomerCommitment" ColumnName="AlternativeCustomerCommitment" />
+                <ScalarProperty Name="PurchaseOrderSellingPrice" ColumnName="PurchaseOrderSellingPrice" />
+                <ScalarProperty Name="PurchaseOrderSOP" ColumnName="PurchaseOrderSOP" />
+                <ScalarProperty Name="PurchaseOrderEOP" ColumnName="PurchaseOrderEOP" />
+                <ScalarProperty Name="PurchaseOrderPriceVariace" ColumnName="PurchaseOrderPriceVariace" />
+                <ScalarProperty Name="CustomerProductionPurchaseOrderComments" ColumnName="CustomerProductionPurchaseOrderComments" />
+                <ScalarProperty Name="AmortizationAmount" ColumnName="AmortizationAmount" />
+                <ScalarProperty Name="AmortizationQuantity" ColumnName="AmortizationQuantity" />
+                <ScalarProperty Name="AmortizationPrice" ColumnName="AmortizationPrice" />
+                <ScalarProperty Name="AmortizationToolingDescription" ColumnName="AmortizationToolingDescription" />
+                <ScalarProperty Name="AmortizationCAPEXID" ColumnName="AmortizationCAPEXID" />
+                <ScalarProperty Name="HardToolingAmount" ColumnName="HardToolingAmount" />
+                <ScalarProperty Name="HardToolingTrigger" ColumnName="HardToolingTrigger" />
+                <ScalarProperty Name="HardToolingDescription" ColumnName="HardToolingDescription" />
+                <ScalarProperty Name="HardToolingCAPEXID" ColumnName="HardToolingCAPEXID" />
+                <ScalarProperty Name="AssemblyTesterToolingAmount" ColumnName="AssemblyTesterToolingAmount" />
+                <ScalarProperty Name="AssemblyTesterToolingTrigger" ColumnName="AssemblyTesterToolingTrigger" />
+                <ScalarProperty Name="AssemblyTesterToolingDescription" ColumnName="AssemblyTesterToolingDescription" />
+                <ScalarProperty Name="AssemblyTesterToolingCAPEXID" ColumnName="AssemblyTesterToolingCAPEXID" />
+                <ScalarProperty Name="EmpireFacility" ColumnName="EmpireFacility" />
+                <ScalarProperty Name="FreightTerms" ColumnName="FreightTerms" />
+                <ScalarProperty Name="CustomerShipTos" ColumnName="CustomerShipTos" />
+                <ScalarProperty Name="Comments" ColumnName="Comments" />
+                <ScalarProperty Name="ValidQuoteNumberFlag" ColumnName="ValidQuoteNumberFlag" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
           </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

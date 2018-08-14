@@ -6,6 +6,7 @@
 <%@ Register TagPrefix="uc1" TagName="NSABasePartAttributesTabView" Src="~/NewSalesAward/Pages/NSABasePartAttributesTabView.ascx" %>
 <%@ Register TagPrefix="uc1" TagName="NSABasePartMnemonicsTabView" Src="~/NewSalesAward/Pages/NSABasePartMnemonicsTabView.ascx" %>
 <%@ Register TagPrefix="uc1" TagName="NSALogisticsTabView" Src="~/NewSalesAward/Pages/NSALogisticsTabView.ascx" %>
+<%@ Register TagPrefix="uc1" TagName="QuoteTabView" Src="~/NewSalesAward/Pages/QuoteTabView.ascx" %>
 <%@ Register TagPrefix="uc1" TagName="EntityNotesUserControl" Src="~/NewSalesAward/Pages/EntityNotesUserControl.ascx" %>
 
 <script>
@@ -110,6 +111,18 @@
                                         ActiveTabChanged="OnActiveTabChanged"
                                         />
                                     <TabPages>
+                                        <dx:TabPage Text="Quote" Visible="true">
+                                            <ContentCollection>
+                                                <dx:ContentControl runat="server">
+                                                    
+
+                                                  <uc1:QuoteTabView runat="server" id="QuoteTabView" />
+
+
+                                                </dx:ContentControl>
+                                            </ContentCollection>
+                                        </dx:TabPage>
+
                                         <dx:TabPage Text="Customer PO" Visible="True">
                                             <ContentCollection>
                                                 <dx:ContentControl runat="server">

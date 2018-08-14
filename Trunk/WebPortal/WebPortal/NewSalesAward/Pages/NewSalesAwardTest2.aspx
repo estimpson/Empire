@@ -110,7 +110,26 @@
                                      }"/>
             </dx:ASPxComboBox>
         </td>
-
+        <td style="padding-left: 20px;">
+            <dx:ASPxButton ID="btnNewSalesAward" runat="server" AutoPostBack="true" CausesValidation="false" UseSubmitBehavior="false"
+                Text="Add New Quote Award" Width="100%" OnClick="btnNewSalesAward_Click">
+            </dx:ASPxButton>
+        </td>
+        <td>
+            <dx:ASPxButton ID="btnQuoteTransfer" runat="server" AutoPostBack="true" CausesValidation="false" UseSubmitBehavior="false" 
+                Text="Add Quote Transfer" Width="100%" OnClick="btnQuoteTransfer_Click">
+            </dx:ASPxButton>
+        </td>
+        <td>
+            <dx:ASPxButton ID="btnCustomerCommitment" runat="server" AutoPostBack="false" CausesValidation="false" UseSubmitBehavior="false"
+                Text="Cust Commitment" Width="100%" OnClick="btnCustomerCommitment_Click" Visible="false">
+            </dx:ASPxButton>
+        </td>
+        <td>
+            <dx:ASPxButton ID="btnAltCustomerCommitment" runat="server" AutoPostBack="true" CausesValidation="false" UseSubmitBehavior="false"
+                Text="Alt Cust Commitment" Width="100%" OnClick="btnAltCustomerCommitment_Click">
+            </dx:ASPxButton>
+        </td>
     </tr>
 </table>
 <div id="divGridQuote" runat="server" style="margin-top: 5px;">
@@ -141,6 +160,8 @@
             <dx:GridViewDataTextColumn FieldName="QuoteNumber" Width="120" VisibleIndex="2">
             </dx:GridViewDataTextColumn>
             <dx:GridViewDataTextColumn FieldName="BasePart" Width="140" VisibleIndex="3">
+            </dx:GridViewDataTextColumn>
+            <dx:GridViewDataTextColumn FieldName="ExcelSpreadsheetBasePart" Width="190" VisibleIndex="3" CellStyle-ForeColor="Red">
             </dx:GridViewDataTextColumn>
             <dx:GridViewDataTextColumn FieldName="Salesperson" Width="150" VisibleIndex="4">
             </dx:GridViewDataTextColumn>

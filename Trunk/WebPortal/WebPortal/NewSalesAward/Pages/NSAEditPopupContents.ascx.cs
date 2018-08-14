@@ -23,13 +23,12 @@ namespace WebPortal.NewSalesAward.Pages
             set => Session["AwardedQuote"] = value;
         }
 
-        private List<I_NSATabView> NSATabViews => new List<I_NSATabView> { NSACustomerPOTabView, NSAHardToolingTabView, NSAToolingAmortizationTabView, NSATesterToolingTabView, NSABasePartAttributesTabView, NSABasePartMnemonicsTabView, NSALogisticsTabView };
+        private List<I_NSATabView> NSATabViews => new List<I_NSATabView> { QuoteTabView, NSACustomerPOTabView, NSAHardToolingTabView, NSAToolingAmortizationTabView, NSATesterToolingTabView, NSABasePartAttributesTabView, NSABasePartMnemonicsTabView, NSALogisticsTabView };
 
         protected void Page_Load(object sender, EventArgs e)
         {
             if(Page.IsPostBack)
             {
-                string x = "x";
             }
         }
 

@@ -47,6 +47,10 @@ namespace WebPortal.NewSalesAward.Pages
             if (!Page.IsPostBack) PopulateModeList();
         }
 
+
+
+
+
         protected void gvQuote_DataBound(object sender, EventArgs e)
         {
             SetFocusedRow();
@@ -59,6 +63,52 @@ namespace WebPortal.NewSalesAward.Pages
             ToggleColumnButtonVisibility();
             HideLoadingPanel(LoadingPanelTrigger.Mode);
         }
+
+        protected void btnNewSalesAward_Click(object sender, EventArgs e)
+        {
+            Session["ModeIndex"] = cbxMode.SelectedIndex;
+            Response.Redirect("CreateAwardedQuote.aspx");
+        }
+
+        protected void btnQuoteTransfer_Click(object sender, EventArgs e)
+        {
+            if (gvQuote.FocusedRowIndex > -1)
+            {
+                string quote = gvQuote.GetRowValues(gvQuote.FocusedRowIndex, "QuoteNumber").ToString();
+                Session["QuoteNumber"] = quote;
+            }
+            Session["RedirectPage"] = "~/NewSalesAward/Pages/NewSalesAwards.aspx";
+            Session["ModeIndex"] = cbxMode.SelectedIndex;
+            Session["FocusedRowIndex"] = gvQuote.FocusedRowIndex;
+            Response.Redirect("~/QuoteLogIntegration/Pages/QuoteTransfer.aspx");
+        }
+
+        protected void btnCustomerCommitment_Click(object sender, EventArgs e)
+        {
+            //// ***** Need quote number ???
+            //Session["AttachmentCategory"] = "CustomerCommitment";
+
+            //ShowQuoteFiles("CustomerCommitment");
+            //btnDocGet.Enabled = btnDocDelete.Enabled = (DocsViewModel.QuoteFileName != "");
+            //pcFileUpload.ShowOnPageLoad = true;
+        }
+
+        protected void btnAltCustomerCommitment_Click(object sender, EventArgs e)
+        {
+            //Session["AttachmentCategory"] = "AltCustomerCommitment";
+
+            //ShowQuoteFiles("AltCustomerCommitment");
+            //btnDocGet.Enabled = btnDocDelete.Enabled = (DocsViewModel.QuoteFileName != "");
+            //pcFileUpload.ShowOnPageLoad = true;
+        }
+
+
+
+
+
+
+
+
 
         private void AuthenticateUser()
         {
@@ -202,6 +252,12 @@ namespace WebPortal.NewSalesAward.Pages
             Mode
         }
 
+
+
+
+
+
+
         protected void pcEdit_OnWindowCallback(object source, PopupWindowCallbackArgs e)
         {
             var quoteNumber = (string)gvQuote.GetRowValues(gvQuote.FocusedRowIndex, "QuoteNumber");
@@ -211,5 +267,7 @@ namespace WebPortal.NewSalesAward.Pages
 
             NSAEditPopupContents.SetQuote(awardedQuote);
         }
+
+
     }
 }

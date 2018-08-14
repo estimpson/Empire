@@ -16,6 +16,7 @@ namespace WebPortal.NewSalesAward.Models
     {
         public string QuoteNumber { get; set; }
         public string BasePart { get; set; }
+        public string ExcelSpreadsheetBasePart { get; set; }
         public string Salesperson { get; set; }
         public string ProgramManager { get; set; }
         public Nullable<System.DateTime> AwardDate { get; set; }
@@ -60,7 +61,7 @@ namespace WebPortal.NewSalesAward.Models
         public Nullable<decimal> PurchaseOrderPriceVariace { get; set; }
         public string CustomerProductionPurchaseOrderComments { get; set; }
         public Nullable<decimal> AmortizationAmount { get; set; }
-        public Nullable<decimal> AmortizationQuantity { get; set; }
+        public Nullable<int> AmortizationQuantity { get; set; }
         public Nullable<decimal> AmortizationPrice { get; set; }
         public string AmortizationToolingDescription { get; set; }
         public string AmortizationCAPEXID { get; set; }

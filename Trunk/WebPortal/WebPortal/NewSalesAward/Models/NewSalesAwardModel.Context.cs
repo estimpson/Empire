@@ -234,11 +234,6 @@ namespace WebPortal.NewSalesAward.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_GetAwardedQuoteProductionPOs_Result>("usp_GetAwardedQuoteProductionPOs");
         }
     
-        public virtual ObjectResult<usp_GetAwardedQuotes_Result> usp_GetAwardedQuotes()
-        {
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_GetAwardedQuotes_Result>("usp_GetAwardedQuotes");
-        }
-    
         public virtual int usp_SetAssemblyTesterTooling(string quoteNumber, Nullable<decimal> assemblyTesterToolingAmount, string assemblyTesterToolingTrigger, string assemblyTesterToolingDescription, string assemblyTesterToolingCAPEXID, ObjectParameter tranDT, ObjectParameter result, Nullable<int> debug, ObjectParameter debugMsg)
         {
             var quoteNumberParameter = quoteNumber != null ?
@@ -457,6 +452,11 @@ namespace WebPortal.NewSalesAward.Models
                 new ObjectParameter("Mnemonic", typeof(string));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("usp_AwardedQuoteFirstMnemonicEmail", basePartParameter, mnemonicParameter, tranDT, result);
+        }
+    
+        public virtual ObjectResult<usp_GetAwardedQuotes_Result> usp_GetAwardedQuotes()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_GetAwardedQuotes_Result>("usp_GetAwardedQuotes");
         }
     }
 }
