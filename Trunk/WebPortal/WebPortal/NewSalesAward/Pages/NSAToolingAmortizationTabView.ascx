@@ -22,10 +22,28 @@
                 return control.GetParentControl() ===
                     ToolingAmortizationFormLayout // Gets standalone editors nested inside the form layout control
             });
+
+        //  Show amortized price.
+        UpdateAmortizationPrice();
     }
 
     function OnEditorsChangedToolingAmortization(s, e) {
         $("#divSaveToolingAmortizationCheckMark").hide(50);
+    }
+
+    function OnAmortizationAmountChanged(s, e) {
+        UpdateAmortizationPrice();
+    }
+
+    function OnAmortizationQuantityChanged(s, e) {
+        UpdateAmortizationPrice();
+    }
+
+    function UpdateAmortizationPrice() {
+        var amortizationAmount = amortizationAmountEditor.GetValue();
+        var amortizationQuantity = amortizationQuantityEditor.GetValue();
+        if (amortizationAmount === 0) amortizationAmount = undefined;
+        amortizedPriceEditor.SetValue(amortizationAmount / amortizationQuantity);
     }
 </script>
 
@@ -41,10 +59,11 @@
                     <dx:LayoutItem Caption="Amortization Amount" FieldName="AmortizationAmount">
                         <LayoutItemNestedControlCollection>
                             <dx:LayoutItemNestedControlContainer runat="server">
-                                <dx:ASPxTextBox ID="AmortizationAmountTextBox" Width="100%" runat="server">
+                                <dx:ASPxTextBox ID="AmortizationAmountTextBox" ClientInstanceName="amortizationAmountEditor" Width="100%" runat="server">
                                     <ClientSideEvents
                                         GotFocus="OnEditControl_GotFocus"
                                         Init="function (s,e) { RegisterURI(s, 'AwardedQuoteToolingPOs.AmortizationAmount'); }" 
+                                        TextChanged="OnAmortizationAmountChanged"
                                     />
                                     <MaskSettings Mask="$<0..99999999g>.<000000..999999>" IncludeLiterals="DecimalSymbol" ErrorText="*"/>
                                 </dx:ASPxTextBox>
@@ -54,12 +73,27 @@
                     <dx:LayoutItem Caption="Amortization Quantity" FieldName="AmortizationQuantity">
                         <LayoutItemNestedControlCollection>
                             <dx:LayoutItemNestedControlContainer runat="server">
-                                <dx:ASPxTextBox ID="AmortizationQuantityTextBox" Width="100%" runat="server">
+                                <dx:ASPxTextBox ID="AmortizationQuantityTextBox" ClientInstanceName="amortizationQuantityEditor" Width="100%" runat="server">
                                     <ClientSideEvents
                                         GotFocus="OnEditControl_GotFocus"
                                         Init="function (s,e) { RegisterURI(s, 'AwardedQuoteToolingPOs.AmortizationQuantity'); }" 
+                                        TextChanged="OnAmortizationQuantityChanged"
                                     />
-                                    <MaskSettings Mask="<0..99999999g>" IncludeLiterals="DecimalSymbol" ErrorText="*"/>
+                                    <MaskSettings Mask="<0..99999999g>." IncludeLiterals="DecimalSymbol" ErrorText="*"/>
+                                </dx:ASPxTextBox>
+                            </dx:LayoutItemNestedControlContainer>
+                        </LayoutItemNestedControlCollection>
+                    </dx:LayoutItem>
+                    <dx:EmptyLayoutItem />
+                    <dx:LayoutItem Caption="Amortization Price" FieldName="AmortizationPrice">
+                        <LayoutItemNestedControlCollection>
+                            <dx:LayoutItemNestedControlContainer runat="server">
+                                <dx:ASPxTextBox ID="AmortizationPriceTextBox" ClientInstanceName="amortizedPriceEditor" Width="100%" runat="server" ReadOnly="True">
+                                    <ClientSideEvents
+                                        GotFocus="OnEditControl_GotFocus"
+                                        Init="function (s,e) { RegisterURI(s, 'AwardedQuoteToolingPOs.AmortizatedPrice'); }" 
+                                    />
+                                    <MaskSettings Mask="$<0..99999999g>.<000000..999999>" IncludeLiterals="DecimalSymbol" ErrorText="*"/>
                                 </dx:ASPxTextBox>
                             </dx:LayoutItemNestedControlContainer>
                         </LayoutItemNestedControlCollection>

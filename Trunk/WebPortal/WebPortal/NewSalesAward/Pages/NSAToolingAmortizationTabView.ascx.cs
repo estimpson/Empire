@@ -44,7 +44,10 @@ namespace WebPortal.NewSalesAward.Pages
         {
             SaveCheckMark.Visible = true;
             SaveCheckMark.Enabled = false;
-            if (SetToolingAmortization() == 0) return;
+            if (SetToolingAmortization() == 0)
+            {
+                throw new Exception(ViewModel.Error);
+            }
 
             SaveCheckMark.Enabled = true;
         }

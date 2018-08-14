@@ -85,7 +85,7 @@
                                         GotFocus="OnEditControl_GotFocus"
                                         Init="function (s,e) { RegisterURI(s, 'BasePartMnemonics.QuotedEAU'); }" 
                                     />
-                                    <MaskSettings Mask="<0..99999g>" IncludeLiterals="DecimalSymbol" ErrorText="*"/>
+                                    <MaskSettings Mask="<0..999999999g>" IncludeLiterals="DecimalSymbol" ErrorText="*"/>
                                 </dx:ASPxTextBox>
                             </dx:LayoutItemNestedControlContainer>
                         </LayoutItemNestedControlCollection>
