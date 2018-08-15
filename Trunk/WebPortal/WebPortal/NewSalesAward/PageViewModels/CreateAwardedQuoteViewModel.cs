@@ -22,6 +22,9 @@ namespace WebPortal.NewSalesAward.PageViewModels
         public String Salesperson { get; set; }
         public String ProgramManager { get; set; }
         public String Comments { get; set; }
+        public String QuotedEau { get; set; }
+        public String QuotedPrice { get; set; }
+        public String QuotedMaterialCost { get; set; }
         public String Error { get; private set; }
 
         #endregion

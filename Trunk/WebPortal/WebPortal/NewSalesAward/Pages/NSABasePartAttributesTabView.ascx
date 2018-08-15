@@ -142,7 +142,7 @@
                                 </dx:ASPxDateEdit>
                                 <dx:ASPxButton ID="ASPxButton2" runat="server" RenderMode="Link" AutoPostBack="false" UseSubmitBehavior="false">
                                     <ClientSideEvents Click="function(s, e) {ShowHideNoteForm('Hide');}"/>
-                                    <Image IconID="comments_editcomment_32x32"></Image>
+                                    <Image IconID="lock-7-32.jpg"></Image>
                                 </dx:ASPxButton>
                                 <dx:ASPxButton ID="ASPxButton1" runat="server" RenderMode="Link" AutoPostBack="false" UseSubmitBehavior="false">
                                     <ClientSideEvents Click="function(s, e) {ShowHideNoteForm('Show');}"/>

@@ -331,10 +331,13 @@ namespace WebPortal.NewSalesAward.Pages
             //  Get the list entry.
             var awardedQuote = QuoteList.FirstOrDefault(q => q.QuoteNumber == quoteNumber);
 
+            
+
+
             //  Set quote for each tab view.
             foreach (var nsaTabView in NSATabViews)
             {
-                nsaTabView.SetQuote(awardedQuote);
+                nsaTabView.SetQuote();
             }
 
             //  Make the first tab visible.

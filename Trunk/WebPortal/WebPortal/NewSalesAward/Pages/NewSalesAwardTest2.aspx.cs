@@ -12,6 +12,17 @@ namespace WebPortal.NewSalesAward.Pages
 {
     public partial class NewSalesAwardTest2 : System.Web.UI.Page
     {
+        private usp_GetAwardedQuotes_Result AwardedQuote
+        {
+            set => Session["AwardedQuote"] = value;
+        }
+
+        private string Mode
+        {
+            set => Session["Mode"] = value;
+        }
+
+
         private NewSalesAwardsViewModel ViewModel
         {
             get
@@ -64,11 +75,11 @@ namespace WebPortal.NewSalesAward.Pages
             HideLoadingPanel(LoadingPanelTrigger.Mode);
         }
 
-        protected void btnNewSalesAward_Click(object sender, EventArgs e)
-        {
-            Session["ModeIndex"] = cbxMode.SelectedIndex;
-            Response.Redirect("CreateAwardedQuote.aspx");
-        }
+        //protected void btnNewSalesAward_Click(object sender, EventArgs e)
+        //{
+        //    Session["ModeIndex"] = cbxMode.SelectedIndex;
+        //    Response.Redirect("CreateAwardedQuote.aspx");
+        //}
 
         protected void btnQuoteTransfer_Click(object sender, EventArgs e)
         {
@@ -265,7 +276,10 @@ namespace WebPortal.NewSalesAward.Pages
             //  Get the list entry.
             var awardedQuote = QuoteList.FirstOrDefault(q => q.QuoteNumber == quoteNumber);
 
-            NSAEditPopupContents.SetQuote(awardedQuote);
+            AwardedQuote = awardedQuote;
+            Mode = e.Parameter;
+
+            NSAEditPopupContents.SetQuote();
         }
 
 

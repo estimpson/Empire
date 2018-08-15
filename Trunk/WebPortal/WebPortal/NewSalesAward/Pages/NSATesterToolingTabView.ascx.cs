@@ -11,8 +11,11 @@ namespace WebPortal.NewSalesAward.Pages
         private usp_GetAwardedQuotes_Result AwardedQuote
         {
             get => (usp_GetAwardedQuotes_Result)Session["AwardedQuote"];
+        }
 
-            set => Session["AwardedQuote"] = value;
+        private string Mode
+        {
+            get => (string)Session["Mode"];
         }
 
         private NewSalesAwardsViewModel ViewModel
@@ -28,11 +31,12 @@ namespace WebPortal.NewSalesAward.Pages
         {
         }
 
-        public void SetQuote(usp_GetAwardedQuotes_Result awardedQuote)
+        public void SetQuote()
         {
-            AwardedQuote = awardedQuote;
             TesterToolingFormLayout.DataSource = AwardedQuote;
             TesterToolingFormLayout.DataBind();
+
+            ASPxCallbackPanel1.Enabled = (Mode == "edit");
         }
 
         protected void TesterToolingCallback_OnCallback(object sender, CallbackEventArgsBase e)

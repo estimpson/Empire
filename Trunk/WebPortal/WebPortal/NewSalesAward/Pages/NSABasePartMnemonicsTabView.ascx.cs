@@ -11,19 +11,23 @@ namespace WebPortal.NewSalesAward.Pages
         private usp_GetAwardedQuotes_Result AwardedQuote
         {
             get => (usp_GetAwardedQuotes_Result)Session["AwardedQuote"];
+        }
 
-            set => Session["AwardedQuote"] = value;
+        private string Mode
+        {
+            get => (string)Session["Mode"];
         }
 
         protected void Page_Load(object sender, EventArgs e)
         {
         }
 
-        public void SetQuote(usp_GetAwardedQuotes_Result awardedQuote)
+        public void SetQuote()
         {
-            AwardedQuote = awardedQuote;
             PartMnemonicsFormLayout.DataSource = AwardedQuote;
             PartMnemonicsFormLayout.DataBind();
+
+            ASPxCallbackPanel1.Enabled = (Mode == "edit");
         }
 
         public void Save()

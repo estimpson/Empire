@@ -66,12 +66,27 @@
         }
 
         function OnGridRowDoubleClick(s, e) {
-            pcEdit.PerformCallback();
+            gvQuote.GetRowValues(gvQuote.GetFocusedRowIndex(), 'BasePart', OnGetRowValues);
             pcEdit.ShowWindow();
             postponedCallbackRequired = true;
             updateGridHeight();
             //var containerHeight = ASPxClientUtils.GetDocumentClientHeight();
             //console.log("containerHeight:" + containerHeight);
+        }
+        function OnGetRowValues(value) {
+            if (value == null) {
+                pcEdit.PerformCallback("fix");
+            }
+            else {
+                pcEdit.PerformCallback("edit");
+            }
+        }
+
+        function OnNewSalesAwardClick(s, e) {
+            pcEdit.PerformCallback("new");
+            pcEdit.ShowWindow();
+            postponedCallbackRequired = true;
+            updateGridHeight();
         }
     </script>
 
@@ -111,8 +126,9 @@
             </dx:ASPxComboBox>
         </td>
         <td style="padding-left: 20px;">
-            <dx:ASPxButton ID="btnNewSalesAward" runat="server" AutoPostBack="true" CausesValidation="false" UseSubmitBehavior="false"
-                Text="Add New Quote Award" Width="100%" OnClick="btnNewSalesAward_Click">
+            <dx:ASPxButton ID="btnNewSalesAward" runat="server" ClientInstanceName="btnNewSalesAward" AutoPostBack="false" CausesValidation="false" UseSubmitBehavior="false"
+                Text="Add New Quote Award" Width="100%">
+                <ClientSideEvents Click="OnNewSalesAwardClick" />
             </dx:ASPxButton>
         </td>
         <td>
@@ -158,19 +174,25 @@
             </dx:GridViewDataTextColumn>
 
             <dx:GridViewDataTextColumn FieldName="QuoteNumber" Width="120" VisibleIndex="2">
+                <Settings AutoFilterCondition="Contains" />
             </dx:GridViewDataTextColumn>
             <dx:GridViewDataTextColumn FieldName="BasePart" Width="140" VisibleIndex="3">
+                <Settings AutoFilterCondition="Contains" />
             </dx:GridViewDataTextColumn>
             <dx:GridViewDataTextColumn FieldName="ExcelSpreadsheetBasePart" Width="190" VisibleIndex="3" CellStyle-ForeColor="Red">
+                <Settings AutoFilterCondition="Contains" />
             </dx:GridViewDataTextColumn>
             <dx:GridViewDataTextColumn FieldName="Salesperson" Width="150" VisibleIndex="4">
+                <Settings AutoFilterCondition="Contains" />
             </dx:GridViewDataTextColumn>
             <dx:GridViewDataTextColumn FieldName="ProgramManager" Width="150" VisibleIndex="5">
+                <Settings AutoFilterCondition="Contains" />
             </dx:GridViewDataTextColumn>
             <dx:GridViewDataDateColumn FieldName="AwardDate" Width="120" VisibleIndex="6">
                 <PropertiesDateEdit DisplayFormatString="yyyy-MM-dd" EditFormatString="yyyy-MM-dd"/>
             </dx:GridViewDataDateColumn>
             <dx:GridViewDataTextColumn FieldName="FormOfCommitment" Width="220" VisibleIndex="7">
+                <Settings AutoFilterCondition="Contains" />
             </dx:GridViewDataTextColumn>
             <dx:GridViewDataDateColumn FieldName="QuoteTrasferMeetingDT" Width="190" VisibleIndex="8">
             </dx:GridViewDataDateColumn>
@@ -178,30 +200,43 @@
                 <PropertiesDateEdit DisplayFormatString="yyyy-MM-dd" EditFormatString="yyyy-MM-dd"/>
             </dx:GridViewDataDateColumn>
             <dx:GridViewDataTextColumn FieldName="BasePartCustomer" Width="150" VisibleIndex="10">
+                <Settings AutoFilterCondition="Contains" />
             </dx:GridViewDataTextColumn>
             <dx:GridViewDataTextColumn FieldName="QuoteReason" Width="180" VisibleIndex="11">
+                <Settings AutoFilterCondition="Contains" />
             </dx:GridViewDataTextColumn>
             <dx:GridViewDataTextColumn FieldName="ReplacingBasePart" Width="160" VisibleIndex="12">
+                <Settings AutoFilterCondition="Contains" />
             </dx:GridViewDataTextColumn>
             <dx:GridViewDataTextColumn FieldName="CustomerPart" Width="160" VisibleIndex="13">
+                <Settings AutoFilterCondition="Contains" />
             </dx:GridViewDataTextColumn>
             <dx:GridViewDataTextColumn FieldName="VehiclePlantMnemonic" Width="230" VisibleIndex="14">
+                <Settings AutoFilterCondition="Contains" />
             </dx:GridViewDataTextColumn>
             <dx:GridViewDataTextColumn FieldName="Family" Width="120" VisibleIndex="15">
+                <Settings AutoFilterCondition="Contains" />
             </dx:GridViewDataTextColumn>
             <dx:GridViewDataTextColumn FieldName="Program" Width="120" VisibleIndex="16">
+                <Settings AutoFilterCondition="Contains" />
             </dx:GridViewDataTextColumn>
             <dx:GridViewDataTextColumn FieldName="Vehicle" Width="140" VisibleIndex="17">
+                <Settings AutoFilterCondition="Contains" />
             </dx:GridViewDataTextColumn>
             <dx:GridViewDataTextColumn FieldName="EmpireApplication" Width="310" VisibleIndex="18">
+                <Settings AutoFilterCondition="Contains" />
             </dx:GridViewDataTextColumn>
             <dx:GridViewDataTextColumn FieldName="BasePartFamily" Width="140" VisibleIndex="19">
+                <Settings AutoFilterCondition="Contains" />
             </dx:GridViewDataTextColumn>
             <dx:GridViewDataTextColumn FieldName="EmpireMarketSegment" Width="180" VisibleIndex="20">
+                <Settings AutoFilterCondition="Contains" />
             </dx:GridViewDataTextColumn>
             <dx:GridViewDataTextColumn FieldName="EmpireMarketSubsegment" Width="210" VisibleIndex="21">
+                <Settings AutoFilterCondition="Contains" />
             </dx:GridViewDataTextColumn>
             <dx:GridViewDataTextColumn FieldName="ProductLine" Width="150" VisibleIndex="22">
+                <Settings AutoFilterCondition="Contains" />
             </dx:GridViewDataTextColumn>
             <dx:GridViewDataDateColumn FieldName="EmpireSOP" Width="120" VisibleIndex="23">
                 <PropertiesDateEdit DisplayFormatString="yyyy-MM-dd" EditFormatString="yyyy-MM-dd"/>
@@ -210,10 +245,13 @@
                 <PropertiesDateEdit DisplayFormatString="yyyy-MM-dd" EditFormatString="yyyy-MM-dd"/>
             </dx:GridViewDataDateColumn>
             <dx:GridViewDataTextColumn FieldName="EmpireEOPNote" Width="300" VisibleIndex="25">
+                <Settings AutoFilterCondition="Contains" />
             </dx:GridViewDataTextColumn>
             <dx:GridViewDataTextColumn FieldName="BasePart_Comments" Width="300" VisibleIndex="26">
+                <Settings AutoFilterCondition="Contains" />
             </dx:GridViewDataTextColumn>
             <dx:GridViewDataTextColumn FieldName="SourcePlantRegion" Width="160" VisibleIndex="27">
+                <Settings AutoFilterCondition="Contains" />
             </dx:GridViewDataTextColumn>
             <dx:GridViewDataTextColumn FieldName="QtyPer" Width="110" VisibleIndex="28">
             </dx:GridViewDataTextColumn>
@@ -227,6 +265,7 @@
                 <PropertiesDateEdit DisplayFormatString="yyyy-MM-dd" EditFormatString="yyyy-MM-dd"/>
             </dx:GridViewDataDateColumn>
             <dx:GridViewDataTextColumn FieldName="QuotedEAU" Width="120" VisibleIndex="33">
+                <Settings AutoFilterCondition="Contains" />
             </dx:GridViewDataTextColumn>
             <dx:GridViewDataTextColumn FieldName="MinimumOrderQuantity" Width="180" VisibleIndex="34">
             </dx:GridViewDataTextColumn>
@@ -235,8 +274,6 @@
             <dx:GridViewDataTextColumn FieldName="QuotedMaterialCost" Width="160" VisibleIndex="36">
             </dx:GridViewDataTextColumn>
             <dx:GridViewDataTextColumn FieldName="QuotedSales" Width="120" PropertiesTextEdit-DisplayFormatString="{0:C}" VisibleIndex="37">
-                <PropertiesTextEdit DisplayFormatString="{0:C}">
-                </PropertiesTextEdit>
             </dx:GridViewDataTextColumn>
             <dx:GridViewDataTextColumn FieldName="QuotedLTA" Width="180" VisibleIndex="38">
             </dx:GridViewDataTextColumn>
@@ -244,12 +281,13 @@
                 <PropertiesDateEdit DisplayFormatString="yyyy-MM-dd" EditFormatString="yyyy-MM-dd"/>
             </dx:GridViewDataDateColumn>
             <dx:GridViewDataTextColumn FieldName="CustomerProductionPurchaseOrderNumber" Width="310" VisibleIndex="40">
+                <Settings AutoFilterCondition="Contains" />
             </dx:GridViewDataTextColumn>
             <dx:GridViewDataTextColumn FieldName="AlternativeCustomerCommitment" Width="250" VisibleIndex="41">
+                <Settings AutoFilterCondition="Contains" />
             </dx:GridViewDataTextColumn>
             <dx:GridViewDataTextColumn FieldName="PurchaseOrderSellingPrice" Width="230" PropertiesTextEdit-DisplayFormatString="{0:C}" VisibleIndex="42">
-                <PropertiesTextEdit DisplayFormatString="{0:C}">
-                </PropertiesTextEdit>
+                <PropertiesTextEdit DisplayFormatString="{0:C}"></PropertiesTextEdit>
             </dx:GridViewDataTextColumn>
             <dx:GridViewDataDateColumn FieldName="PurchaseOrderSOP" Width="150" VisibleIndex="43">
                 <PropertiesDateEdit DisplayFormatString="yyyy-MM-dd" EditFormatString="yyyy-MM-dd"/>
@@ -260,42 +298,50 @@
             <dx:GridViewDataTextColumn FieldName="PurchaseOrderPriceVariace" Width="210" VisibleIndex="45">
             </dx:GridViewDataTextColumn>
             <dx:GridViewDataTextColumn FieldName="CustomerProductionPurchaseOrderComments" Width="300" VisibleIndex="46">
+                <Settings AutoFilterCondition="Contains" />
             </dx:GridViewDataTextColumn>
             <dx:GridViewDataTextColumn FieldName="AmortizationAmount" Width="160" PropertiesTextEdit-DisplayFormatString="{0:C}" VisibleIndex="47">
-                <PropertiesTextEdit DisplayFormatString="{0:C}">
-                </PropertiesTextEdit>
+                <PropertiesTextEdit DisplayFormatString="{0:C}"></PropertiesTextEdit>
             </dx:GridViewDataTextColumn>
             <dx:GridViewDataTextColumn FieldName="AmortizationQuantity" Width="160" VisibleIndex="48">
             </dx:GridViewDataTextColumn>
             <dx:GridViewDataTextColumn FieldName="AmortizationPrice" Width="140" VisibleIndex="49">
             </dx:GridViewDataTextColumn>
             <dx:GridViewDataTextColumn FieldName="AmortizationToolingDescription" Width="250" VisibleIndex="50">
+                <Settings AutoFilterCondition="Contains" />
             </dx:GridViewDataTextColumn>
             <dx:GridViewDataTextColumn FieldName="AmortizationCAPEXID" Width="170" VisibleIndex="51">
+                <Settings AutoFilterCondition="Contains" />
             </dx:GridViewDataTextColumn>
             <dx:GridViewDataTextColumn FieldName="HardToolingAmount" Width="160" PropertiesTextEdit-DisplayFormatString="{0:C}" VisibleIndex="52">
-                <PropertiesTextEdit DisplayFormatString="{0:C}">
-                </PropertiesTextEdit>
+                <PropertiesTextEdit DisplayFormatString="{0:C}"></PropertiesTextEdit>
             </dx:GridViewDataTextColumn>
             <dx:GridViewDataTextColumn FieldName="HardToolingTrigger" Width="160" VisibleIndex="53">
+                <Settings AutoFilterCondition="Contains" />
             </dx:GridViewDataTextColumn>
             <dx:GridViewDataTextColumn FieldName="HardToolingDescription" Width="250" VisibleIndex="54">
+                <Settings AutoFilterCondition="Contains" />
             </dx:GridViewDataTextColumn>
             <dx:GridViewDataTextColumn FieldName="HardToolingCAPEXID" Width="170" VisibleIndex="55">
+                <Settings AutoFilterCondition="Contains" />
             </dx:GridViewDataTextColumn>
             <dx:GridViewDataTextColumn FieldName="AssemblyTesterToolingAmount" Width="240" PropertiesTextEdit-DisplayFormatString="{0:C}" VisibleIndex="56">
-                <PropertiesTextEdit DisplayFormatString="{0:C}">
-                </PropertiesTextEdit>
+                <PropertiesTextEdit DisplayFormatString="{0:C}"></PropertiesTextEdit>
             </dx:GridViewDataTextColumn>
             <dx:GridViewDataTextColumn FieldName="AssemblyTesterToolingTrigger" Width="230" VisibleIndex="57">
+                <Settings AutoFilterCondition="Contains" />
             </dx:GridViewDataTextColumn>
             <dx:GridViewDataTextColumn FieldName="AssemblyTesterToolingDescription" Width="260" VisibleIndex="58">
+                <Settings AutoFilterCondition="Contains" />
             </dx:GridViewDataTextColumn>
             <dx:GridViewDataTextColumn FieldName="AssemblyTesterToolingCAPEXID" Width="240" VisibleIndex="59">
+                <Settings AutoFilterCondition="Contains" />
             </dx:GridViewDataTextColumn>
             <dx:GridViewDataTextColumn FieldName="EmpireFacility" Width="140" VisibleIndex="60">
+                <Settings AutoFilterCondition="Contains" />
             </dx:GridViewDataTextColumn>
             <dx:GridViewDataTextColumn FieldName="FreightTerms" Width="140" VisibleIndex="61">
+                <Settings AutoFilterCondition="Contains" />
             </dx:GridViewDataTextColumn>
 
             <dx:GridViewDataComboBoxColumn FieldName="CustomerShipTos" VisibleIndex="62" Width="160">
@@ -310,6 +356,7 @@
             </dx:GridViewDataComboBoxColumn>
 
             <dx:GridViewDataTextColumn FieldName="Comments" Width="350" VisibleIndex="63">
+                <Settings AutoFilterCondition="Contains" />
             </dx:GridViewDataTextColumn>
             <dx:GridViewCommandColumn ShowClearFilterButton="true" ShowApplyFilterButton="true" VisibleIndex="64"/>
         </Columns>
@@ -343,7 +390,7 @@
     <dx:ASPxPopupControl
         ID="pcEdit" runat="server" CloseAction="CloseButton" CloseOnEscape="true" Modal="True"
         PopupHorizontalAlign="WindowCenter" PopupVerticalAlign="TopSides" ClientInstanceName="pcEdit"
-        HeaderText="Edit New Sales Award" AllowDragging="True"
+        HeaderText="" AllowDragging="True"
         PopupAnimationType="Fade" ForeColor="Red" EnableViewState="False" AutoUpdatePosition="true"
         AutoPostBack="False" EnableCallbackAnimation="True" EnableCallBacks="True" OnWindowCallback="pcEdit_OnWindowCallback"
         >

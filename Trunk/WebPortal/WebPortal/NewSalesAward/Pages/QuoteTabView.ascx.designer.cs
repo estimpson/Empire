@@ -31,6 +31,15 @@ namespace WebPortal.NewSalesAward.Pages {
         protected global::DevExpress.Web.ASPxFormLayout BasePartAttributesFormLayout;
         
         /// <summary>
+        /// lblQuoteNumber control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::DevExpress.Web.ASPxLabel lblQuoteNumber;
+        
+        /// <summary>
         /// cbxQuoteNumber control.
         /// </summary>
         /// <remarks>
@@ -49,6 +58,24 @@ namespace WebPortal.NewSalesAward.Pages {
         protected global::System.Web.UI.WebControls.SqlDataSource SqlDataSource1;
         
         /// <summary>
+        /// pnlQuoteDetails control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::DevExpress.Web.ASPxPanel pnlQuoteDetails;
+        
+        /// <summary>
+        /// lblAwardDate control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::DevExpress.Web.ASPxLabel lblAwardDate;
+        
+        /// <summary>
         /// deAwardDate control.
         /// </summary>
         /// <remarks>
@@ -56,6 +83,15 @@ namespace WebPortal.NewSalesAward.Pages {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::DevExpress.Web.ASPxDateEdit deAwardDate;
+        
+        /// <summary>
+        /// lblFormOfCommitment control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::DevExpress.Web.ASPxLabel lblFormOfCommitment;
         
         /// <summary>
         /// cbxFormOfCommitment control.
@@ -67,6 +103,15 @@ namespace WebPortal.NewSalesAward.Pages {
         protected global::DevExpress.Web.ASPxComboBox cbxFormOfCommitment;
         
         /// <summary>
+        /// lblQuoteReason control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::DevExpress.Web.ASPxLabel lblQuoteReason;
+        
+        /// <summary>
         /// cbxQuoteReason control.
         /// </summary>
         /// <remarks>
@@ -74,6 +119,15 @@ namespace WebPortal.NewSalesAward.Pages {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::DevExpress.Web.ASPxComboBox cbxQuoteReason;
+        
+        /// <summary>
+        /// lblReplacingBasePart control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::DevExpress.Web.ASPxLabel lblReplacingBasePart;
         
         /// <summary>
         /// cbxReplacingBasePart control.
@@ -85,6 +139,15 @@ namespace WebPortal.NewSalesAward.Pages {
         protected global::DevExpress.Web.ASPxComboBox cbxReplacingBasePart;
         
         /// <summary>
+        /// lblSalesperson control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::DevExpress.Web.ASPxLabel lblSalesperson;
+        
+        /// <summary>
         /// cbxSalesperson control.
         /// </summary>
         /// <remarks>
@@ -94,6 +157,15 @@ namespace WebPortal.NewSalesAward.Pages {
         protected global::DevExpress.Web.ASPxComboBox cbxSalesperson;
         
         /// <summary>
+        /// lblProgramManager control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::DevExpress.Web.ASPxLabel lblProgramManager;
+        
+        /// <summary>
         /// cbxProgramManager control.
         /// </summary>
         /// <remarks>
@@ -101,6 +173,69 @@ namespace WebPortal.NewSalesAward.Pages {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::DevExpress.Web.ASPxComboBox cbxProgramManager;
+        
+        /// <summary>
+        /// lblQuotedEau control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::DevExpress.Web.ASPxLabel lblQuotedEau;
+        
+        /// <summary>
+        /// tbxQuotedEau control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::DevExpress.Web.ASPxTextBox tbxQuotedEau;
+        
+        /// <summary>
+        /// lblQuotedPrice control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::DevExpress.Web.ASPxLabel lblQuotedPrice;
+        
+        /// <summary>
+        /// tbxQuotedPrice control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::DevExpress.Web.ASPxTextBox tbxQuotedPrice;
+        
+        /// <summary>
+        /// lblQuotedMaterialCost control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::DevExpress.Web.ASPxLabel lblQuotedMaterialCost;
+        
+        /// <summary>
+        /// tbxQuotedMaterialCost control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::DevExpress.Web.ASPxTextBox tbxQuotedMaterialCost;
+        
+        /// <summary>
+        /// lblComments control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::DevExpress.Web.ASPxLabel lblComments;
         
         /// <summary>
         /// memoComments control.
@@ -119,6 +254,15 @@ namespace WebPortal.NewSalesAward.Pages {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::DevExpress.Web.ASPxButton btnSubmit;
+        
+        /// <summary>
+        /// lblCustCommitDoc control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::DevExpress.Web.ASPxLabel lblCustCommitDoc;
         
         /// <summary>
         /// tbxDocName control.

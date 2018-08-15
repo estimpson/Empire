@@ -38,27 +38,30 @@
         var uri = 'EEI/FxPLM/NSA/AwardedQuotes/QuoteNumber=' + QuoteNumberHiddenField.Get("QuoteNumber");
 
         switch (tab.index) {
-        case 0:
-            uri += '/AwardedQuoteProductionPOs';
-            break;
-        case 1:
-            uri += '/AwardedQuoteToolingPOs';
-            break;
-        case 2:
-            uri += '/AwardedQuoteToolingPOs';
-            break;
-        case 3:
-            uri += '/AwardedQuoteToolingPOs';
-            break;
-        case 4:
-            uri += '/BasePartAttributes';
-            break;
-        case 5:
-            uri += '/BasePartMnemonics';
-            break;
-        case 6:
-            uri += '/AwardedQuoteLogistics';
-            break;
+            case 0:
+                uri += '/Quote';
+                break;
+            case 1:
+                uri += '/AwardedQuoteProductionPOs';
+                break;
+            case 2:
+                uri += '/AwardedQuoteToolingPOs';
+                break;
+            case 3:
+                uri += '/AwardedQuoteToolingPOs';
+                break;
+            case 4:
+                uri += '/AwardedQuoteToolingPOs';
+                break;
+            case 5:
+                uri += '/BasePartAttributes';
+                break;
+            case 6:
+                uri += '/BasePartMnemonics';
+                break;
+            case 7:
+                uri += '/AwardedQuoteLogistics';
+                break;
         };
         FilterEntityNotesUserControl(uri);
     }
@@ -190,11 +193,11 @@
     </PanelCollection>
 </dx:ASPxCallbackPanel>
 
-<div id="divEntityNotesUserControl" style="border-top: 2px solid darkorange; margin-left: 40px; width: 1500px; clear: left;">
+<div id="divEntityNotesUserControl" style="border-top: 2px solid darkorange; margin-left: 40px; width: 1500px; clear: left; margin-top: 10px;">
     <table>
         <tr>
             <td>
-                <dx:ASPxLabel ID="ASPxLabel1" runat="server" Text="Notes / Comments / Screenshots" ForeColor="#007bf7" />
+                <dx:ASPxLabel ID="ASPxLabel1" runat="server" Text="Notes / Comments / Screenshots" Font-Size="13" ForeColor="DarkOrange" />
             </td>
         </tr>
         <tr>

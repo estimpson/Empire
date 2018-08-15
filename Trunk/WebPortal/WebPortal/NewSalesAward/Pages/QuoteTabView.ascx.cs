@@ -11,9 +11,14 @@ namespace WebPortal.NewSalesAward.Pages
         private usp_GetAwardedQuotes_Result AwardedQuote
         {
             get => (usp_GetAwardedQuotes_Result)Session["AwardedQuote"];
-
-            set => Session["AwardedQuote"] = value;
         }
+
+        private string Mode
+        {
+            get => (string)Session["Mode"];
+        }
+
+
 
         private CreateAwardedQuoteViewModel ViewModel
         {
@@ -88,17 +93,17 @@ namespace WebPortal.NewSalesAward.Pages
             //comboBox.DataBind();
         }
 
-        protected void cbxQuoteNumber_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            // ***** On successful save, should return to the main page, so clearing will not be necessary (selected index should not change more than once) *****
-            //ClearForm();
+        //protected void cbxQuoteNumber_SelectedIndexChanged(object sender, EventArgs e)
+        //{
+        //    // ***** On successful save, should return to the main page, so clearing will not be necessary (selected index should not change more than once) *****
+        //    //ClearForm();
 
-            Session["QuoteNumber"] = cbxQuoteNumber.Value.ToString();
-            //if (GetAwardedQuoteDetails() == 1) pnlQuoteDetails.Enabled = true;
-            GetAwardedQuoteDetails();
+        //    Session["QuoteNumber"] = cbxQuoteNumber.Value.ToString();
+        //    //if (GetAwardedQuoteDetails() == 1) pnlQuoteDetails.Enabled = true;
+        //    GetAwardedQuoteDetails();
 
-            //ShowQuoteFiles("CustomerCommitment");
-        }
+        //    //ShowQuoteFiles("CustomerCommitment");
+        //}
 
         protected void cbxQuoteReason_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -121,11 +126,32 @@ namespace WebPortal.NewSalesAward.Pages
 
         #region Methods
 
-        public void SetQuote(usp_GetAwardedQuotes_Result awardedQuote)
+        public void SetQuote()
         {
-            AwardedQuote = awardedQuote;
-            BasePartAttributesFormLayout.DataSource = AwardedQuote;
-            BasePartAttributesFormLayout.DataBind();
+            //AwardedQuote = awardedQuote;
+            //BasePartAttributesFormLayout.DataSource = AwardedQuote;
+            //BasePartAttributesFormLayout.DataBind();
+
+            Session["QuoteNumber"] = AwardedQuote.QuoteNumber;
+            GetAwardedQuoteDetails();
+
+            switch (Mode)
+            {
+                case "new":
+                    cbxQuoteNumber.Text = "";
+                    pnlQuoteDetails.Visible = false;
+                    btnSubmit.Text = "Save";
+                    break;
+                case "edit":
+
+                    btnSubmit.Text = "Save";
+                    break;
+                case "fix":
+
+                    cbxQuoteNumber.Text = "";
+                    btnSubmit.Text = "Fix Quote";
+                    break;
+            }
         }
 
         public void Save()
@@ -197,8 +223,10 @@ namespace WebPortal.NewSalesAward.Pages
                 }
 
                 deAwardDate.Value = ViewModel.AwardDate;
-
                 memoComments.Text = ViewModel.Comments;
+                tbxQuotedEau.Text = ViewModel.QuotedEau;
+                tbxQuotedPrice.Text = ViewModel.QuotedPrice;
+                tbxQuotedMaterialCost.Text = ViewModel.QuotedMaterialCost;
             }
             catch (Exception ex)
             {
@@ -290,8 +318,15 @@ namespace WebPortal.NewSalesAward.Pages
             return 1;
         }
 
-
         #endregion
+
+
+        protected void cbxQuoteNumber_Callback(object sender, CallbackEventArgsBase e)
+        {
+            //Session["QuoteNumber"] = cbxQuoteNumber.Value.ToString();
+            Session["QuoteNumber"] = e.ToString();
+            GetAwardedQuoteDetails();
+        }
 
 
     }

@@ -8,19 +8,18 @@ namespace WebPortal.NewSalesAward.Pages
 {
     public partial class NSAEditPopupContents : UserControl
     {
-        class _awardedQuote : usp_GetAwardedQuotes_Result
-        {
-            public _awardedQuote()
-            {
-                
-            }
-        }
-
         private usp_GetAwardedQuotes_Result AwardedQuote
         {
             get => (usp_GetAwardedQuotes_Result)Session["AwardedQuote"];
 
             set => Session["AwardedQuote"] = value;
+        }
+
+        private string Mode
+        {
+            get => (string)Session["Mode"];
+
+            set => Session["Mode"] = value;
         }
 
         private List<I_NSATabView> NSATabViews => new List<I_NSATabView> { QuoteTabView, NSACustomerPOTabView, NSAHardToolingTabView, NSAToolingAmortizationTabView, NSATesterToolingTabView, NSABasePartAttributesTabView, NSABasePartMnemonicsTabView, NSALogisticsTabView };
@@ -42,25 +41,27 @@ namespace WebPortal.NewSalesAward.Pages
             }
         }
 
-        public void SetQuote(usp_GetAwardedQuotes_Result awardedQuote)
+        public void SetQuote()
         {
             //  Binding.
-            AwardedQuote = awardedQuote;
-            NSAEditFormLayout.DataSource = AwardedQuote;
-            NSAEditFormLayout.DataBind();
+            if (Mode != "new")
+            { 
+                NSAEditFormLayout.DataSource = AwardedQuote;
+                NSAEditFormLayout.DataBind();
 
-            //  Used for EntityURI building.
-            QuoteNumberHiddenField.Set("QuoteNumber", AwardedQuote.QuoteNumber);
+                //  Used for EntityURI building.
+                QuoteNumberHiddenField.Set("QuoteNumber", AwardedQuote.QuoteNumber);
 
-            //  Retrieve the entity notes for this quote.
-            EntityNotesUserControl.Retrieve(Session["OpCode"].ToString(),
-                "EEI/FxPLM/NSA/AwardedQuotes/QuoteNumber=" + AwardedQuote.QuoteNumber + "%");
-            EntityNotesUserControl.RefreshGrid();
-            
+                //  Retrieve the entity notes for this quote.
+                EntityNotesUserControl.Retrieve(Session["OpCode"].ToString(),
+                    "EEI/FxPLM/NSA/AwardedQuotes/QuoteNumber=" + AwardedQuote.QuoteNumber + "%");
+                EntityNotesUserControl.RefreshGrid();
+            }
+
             //  Set quote for each tab view.
             foreach (var nsaTabView in NSATabViews)
             {
-                nsaTabView.SetQuote(awardedQuote);
+                nsaTabView.SetQuote();
             }
 
             //  Make the first tab visible.
@@ -75,7 +76,17 @@ namespace WebPortal.NewSalesAward.Pages
         protected void OnDataBound(object sender, EventArgs e)
         {
             var k = (ASPxLabel) sender;
-            k.Text = "Quote Number: " + AwardedQuote.QuoteNumber + (AwardedQuote.BasePart == null ? " [Invalid Quote Number]" : " | " + AwardedQuote.BasePart);
+
+            if (Mode == "new")
+            {
+                k.Text = "";
+            }
+            else
+            {
+                k.Text = "Quote Number: " + AwardedQuote.QuoteNumber + (AwardedQuote.BasePart == null ? " [Invalid Quote Number]" : " | " + AwardedQuote.BasePart);
+            }
         }
+
+
     }
 }
