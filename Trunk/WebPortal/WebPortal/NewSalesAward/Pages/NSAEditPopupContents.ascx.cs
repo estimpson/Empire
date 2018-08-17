@@ -44,35 +44,25 @@ namespace WebPortal.NewSalesAward.Pages
         public void SetQuote()
         {
             //  Binding.
-            //if (Mode != "new")
-            //{ 
-            //    NSAEditFormLayout.DataSource = AwardedQuote;
-            //    NSAEditFormLayout.DataBind();
+            NSAEditFormLayout.DataSource = AwardedQuote;
+            NSAEditFormLayout.DataBind();
 
-            //    //  Used for EntityURI building.
-            //    QuoteNumberHiddenField.Set("QuoteNumber", AwardedQuote.QuoteNumber);
+            //  Used for EntityURI building.
+            QuoteNumberHiddenField.Set("QuoteNumber", AwardedQuote.QuoteNumber);
 
-            //    //  Retrieve the entity notes for this quote.
-            //    EntityNotesUserControl.Retrieve(Session["OpCode"].ToString(),
-            //        "EEI/FxPLM/NSA/AwardedQuotes/QuoteNumber=" + AwardedQuote.QuoteNumber + "%");
-            //    EntityNotesUserControl.RefreshGrid();
-            //}
+            //  Retrieve the entity notes for this quote.
+            EntityNotesUserControl.Retrieve(Session["OpCode"].ToString(),
+                "EEI/FxPLM/NSA/AwardedQuotes/QuoteNumber=" + AwardedQuote.QuoteNumber + "%");
+            EntityNotesUserControl.RefreshGrid();
 
-            if (Mode == "fix")
+            //  Set quote for each tab view.
+            foreach (var nsaTabView in NSATabViews)
             {
-                
+                nsaTabView.SetQuote();
             }
-            else // edit
-            {
-                //  Set quote for each tab view.
-                foreach (var nsaTabView in NSATabViews)
-                {
-                    nsaTabView.SetQuote();
-                }
 
-                //  Make the first tab visible.
-                NSAEditPageControl.ActiveTabPage = NSAEditPageControl.TabPages[0];
-            }
+            //  Make the first tab visible.
+            NSAEditPageControl.ActiveTabPage = NSAEditPageControl.TabPages[0];
         }
 
 
