@@ -29,6 +29,30 @@
     function OnEditorsChangedBasePartAttributes(s, e) {
         $("#divSaveBasePartAttributesCheckMark").hide(50);
     }
+
+    function EndMandatoryNote(s, unlocked, unlockNote) {
+        console.log("EndMandatoryNote");
+        console.log(s);
+        console.log("unlocked: " + unlocked);
+        console.log(unlockNote);
+
+        s.cpUnlocked = unlocked;
+        s.SetEnabled(unlocked);
+        var inputElement = s.GetInputElement();
+        inputElement.readOnly = unlocked;
+        if (unlocked) {
+            console.log("if (unlocked): " + true);
+            s.cpUnlockNote = unlockNote;
+            //eopLockButton.SetImageUrl("/Images/lock-unlocked-32.jpg");
+            s.ShowDropDown();
+            s.Focus();
+        } else {
+            console.log("if (unlocked): " + false);
+            s.cpUnlockNote = undefined;
+            //eopLockButton.SetImageUrl("/Images/lock-7-32.jpg");
+        }
+    }
+
 </script>
 
 <dx:ASPxCallbackPanel ID="ASPxCallbackPanel1" ClientInstanceName="BasePartAttributesCallbackPanel" runat="server" OnCallback="BasePartAttributesCallback_OnCallback">
@@ -38,7 +62,9 @@
             <dx:ASPxGlobalEvents runat="server">
                 <ClientSideEvents ControlsInitialized="OnControlsInitializedBasePartAttributes"></ClientSideEvents>
             </dx:ASPxGlobalEvents>
-            <dx:ASPxFormLayout ID="BasePartAttributesFormLayout" runat="server" ClientInstanceName="BasePartAttributesFormLayout" ColCount="2" Width="100%">
+            <dx:ASPxFormLayout ID="BasePartAttributesFormLayout" runat="server" ClientInstanceName="BasePartAttributesFormLayout"
+                               ColCount="2" Width="100%"
+                               OnInit="BasePartAttributesFormLayout_OnInit">
                 <Items>
                     <dx:LayoutItem Caption="Base Part Family" FieldName="BasePartFamily">
                         <LayoutItemNestedControlCollection>
@@ -84,7 +110,7 @@
                             </dx:LayoutItemNestedControlContainer>
                         </LayoutItemNestedControlCollection>
                     </dx:LayoutItem>
-                    <dx:LayoutItem Caption="Empire Market Subegment" FieldName="EmpireMarketSubsegment">
+                    <dx:LayoutItem Caption="Empire Market Subsegment" FieldName="EmpireMarketSubsegment">
                         <LayoutItemNestedControlCollection>
                             <dx:LayoutItemNestedControlContainer runat="server">
                                 <dx:ASPxComboBox ID="EmpireMarketSubsegmentComboBox" runat="server" Width="100%" DropDownStyle="DropDown" TextField="EmpireMarketSubsegment1" DataSourceID="EmpireMarketSubsegmentEntityDataSource"
@@ -131,23 +157,51 @@
                     <dx:LayoutItem Caption="Empire EOP" FieldName="Empire EOP">
                         <LayoutItemNestedControlCollection>
                             <dx:LayoutItemNestedControlContainer runat="server">
-                                <dx:ASPxDateEdit ID="EmpireEOPDateEdit" runat="server" Width="100%" UseMaskBehavior="true" ReadOnly="True">
-                                    <ClientSideEvents
-                                        GotFocus="OnEditControl_GotFocus"
-                                        Init="function (s,e) { RegisterURI(s, 'BasePartAttributes.EmpireEOP'); }" 
-                                    />
-                                    <CalendarProperties>
-                                        <FastNavProperties DisplayMode="Inline"/>
-                                    </CalendarProperties>
-                                </dx:ASPxDateEdit>
-                                <dx:ASPxButton ID="ASPxButton2" runat="server" RenderMode="Link" AutoPostBack="false" UseSubmitBehavior="false">
-                                    <ClientSideEvents Click="function(s, e) {ShowHideNoteForm('Hide');}"/>
-                                    <Image IconID="lock-7-32.jpg"></Image>
-                                </dx:ASPxButton>
-                                <dx:ASPxButton ID="ASPxButton1" runat="server" RenderMode="Link" AutoPostBack="false" UseSubmitBehavior="false">
-                                    <ClientSideEvents Click="function(s, e) {ShowHideNoteForm('Show');}"/>
-                                    <Image IconID="miscellaneous_comment_32x32"></Image>
-                                </dx:ASPxButton>
+                                <div style="width:100%">
+                                    <script>
+                                        function OnEOPDateEditorInit(s, e) {
+                                            RegisterURI(s, 'BasePartAttributes.EmpireEOP');
+                                            s.EnabledChanged.AddHandler(function () { OnEOPEnabledChanged(s, e); });
+                                        }
+
+                                        function OnEOPEnabledChanged(s, e) {
+                                            console.log("EnabledChanged");
+                                            if (s.GetEnabled()) {
+                                                eopLockButton.SetImageUrl('/Images/lock-unlocked-32.jpg');
+                                            } else {
+                                                eopLockButton.SetImageUrl('Images/lock-7-32.jpg');
+                                            }
+                                        }
+
+                                        function onEOPLockButtonClick (s, e) {
+                                            console.log("unlock clicked");
+                                            PromptMandatoryNote(eopDateEditor, EndMandatoryNote);
+                                        }
+                                    </script>
+                                    <table style="width:100%">
+                                        <tr>
+                                            <td style="width: 100%">
+                                                <dx:ASPxDateEdit ID="EmpireEOPDateEdit" ClientInstanceName="eopDateEditor" runat="server" ClientEnabled="False"
+                                                                 Width="100%" UseMaskBehavior="true">
+                                                    <ClientSideEvents
+                                                        GotFocus="OnEditControl_GotFocus"
+                                                        Init="OnEOPDateEditorInit"
+                                                    />
+                                                    <CalendarProperties>
+                                                        <FastNavProperties DisplayMode="Inline"/>
+                                                    </CalendarProperties>
+                                                </dx:ASPxDateEdit>
+                                            </td>
+                                            <td>
+                                                <dx:ASPxButton ID="EOPLockButton" runat="server" ClientInstanceName="eopLockButton"
+                                                               RenderMode="Link" AutoPostBack="false" UseSubmitBehavior="false">
+                                                    <ClientSideEvents Click="onEOPLockButtonClick"/>
+                                                    <Image Url="/Images/lock-7-32.jpg" ></Image>
+                                                </dx:ASPxButton>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
                             </dx:LayoutItemNestedControlContainer>
                         </LayoutItemNestedControlCollection>
                     </dx:LayoutItem>

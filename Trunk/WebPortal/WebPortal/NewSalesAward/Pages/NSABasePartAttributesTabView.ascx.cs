@@ -80,5 +80,11 @@ namespace WebPortal.NewSalesAward.Pages
                 marketSubsegment, application, sop, eop, eopNote, comments);
             return ViewModel.Error != "" ? 0 : 1;
         }
+
+        protected void BasePartAttributesFormLayout_OnInit(object sender, EventArgs e)
+        {
+            EmpireEOPDateEdit.JSProperties.Add("cpUnlocked", false);
+            EmpireEOPDateEdit.JSProperties.Add("cpUnlockNote", null);
+        }
     }
 }
