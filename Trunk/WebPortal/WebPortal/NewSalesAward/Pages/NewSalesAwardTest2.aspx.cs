@@ -33,6 +33,12 @@ namespace WebPortal.NewSalesAward.Pages
         }
 
 
+        private enum LoadingPanelTrigger
+        {
+            Mode
+        }
+
+
         private List<usp_GetAwardedQuotes_Result> _quoteList;
         private List<usp_GetAwardedQuotes_Result> QuoteList
         {
@@ -61,7 +67,67 @@ namespace WebPortal.NewSalesAward.Pages
 
 
 
+        #region Events
 
+        protected void pcEdit_OnWindowCallback(object source, PopupWindowCallbackArgs e)
+        {
+            var quoteNumber = (string)gvQuote.GetRowValues(gvQuote.FocusedRowIndex, "QuoteNumber");
+
+            //  Get the list entry.
+            var awardedQuote = QuoteList.FirstOrDefault(q => q.QuoteNumber == quoteNumber);
+
+            AwardedQuote = awardedQuote;
+            Mode = e.Parameter;
+
+            NSAEditPopupContents.SetQuote();
+        }
+
+        protected void pcFixQuote_WindowCallback(object source, PopupWindowCallbackArgs e)
+        {
+            if (e.Parameter == "fixQuoteClicked")
+            {
+                // Fix Awarded Quote
+                string oldQuote = tbxOldQuoteNumber.Text;
+                string newQuote = cbxQuoteNumber.Value.ToString();
+                if (newQuote == null) return;
+
+                ViewModel.AwardedQuoteChangeQuoteNumber(oldQuote, newQuote);
+                if (ViewModel.Error == "") tbxOldQuoteNumber.Text = cbxQuoteNumber.Text = "";
+            }
+            else
+            {
+                // Showing the popup window
+                var quoteNumber = (string)gvQuote.GetRowValues(gvQuote.FocusedRowIndex, "QuoteNumber");
+                tbxOldQuoteNumber.Text = quoteNumber;
+            }
+        }
+
+        protected void cbxQuoteNumber_OnItemsRequestedByFilterCondition_SQL(object source, ListEditItemsRequestedByFilterConditionEventArgs e)
+        {
+            try
+            {
+                ASPxComboBox comboBox = (ASPxComboBox)source;
+
+                //SqlDataSource1.ConnectionString = "data source=eeisql1.empireelect.local;initial catalog=FxPLM;persist security info=True;user id=cdipaola;password=emp1reFt1";
+                SqlDataSource1.ConnectionString = System.Configuration.ConfigurationManager.ConnectionStrings["QuoteTabSql"].ConnectionString;
+
+                SqlDataSource1.SelectCommand =
+                       @"SELECT [QuoteNumber], [EEIPartNumber], [Program] FROM (select [QuoteNumber], [EEIPartNumber], [Program], row_number()over(order by q.[QuoteNumber]) as [rn] from [NSA].[QuoteLog] as q where (([QuoteNumber] + ' ' + [EEIPartNumber] + ' ' + [Program]) LIKE @filter)) as st where st.[rn] between @startIndex and @endIndex";
+
+                SqlDataSource1.SelectParameters.Clear();
+                SqlDataSource1.SelectParameters.Add("filter", TypeCode.String, string.Format("%{0}%", e.Filter));
+                SqlDataSource1.SelectParameters.Add("startIndex", TypeCode.Int64, (e.BeginIndex + 1).ToString());
+                SqlDataSource1.SelectParameters.Add("endIndex", TypeCode.Int64, (e.EndIndex + 1).ToString());
+                comboBox.DataSource = SqlDataSource1;
+                comboBox.DataBind();
+            }
+            catch (Exception ex)
+            {
+                string error = (ex.InnerException != null) ? ex.InnerException.Message : ex.Message;
+                //lblError.Text = String.Format("Failed to return quote data. {0}", error);
+                //pcError.ShowOnPageLoad = true;
+            }
+        }
 
         protected void gvQuote_DataBound(object sender, EventArgs e)
         {
@@ -114,13 +180,12 @@ namespace WebPortal.NewSalesAward.Pages
             //pcFileUpload.ShowOnPageLoad = true;
         }
 
+        #endregion
 
 
 
 
-
-
-
+        #region Methods
 
         private void AuthenticateUser()
         {
@@ -273,77 +338,7 @@ namespace WebPortal.NewSalesAward.Pages
             }
         }
 
-        private enum LoadingPanelTrigger
-        {
-            Mode
-        }
-
-
-
-
-
-
-
-        protected void pcEdit_OnWindowCallback(object source, PopupWindowCallbackArgs e)
-        {
-            var quoteNumber = (string)gvQuote.GetRowValues(gvQuote.FocusedRowIndex, "QuoteNumber");
-
-            //  Get the list entry.
-            var awardedQuote = QuoteList.FirstOrDefault(q => q.QuoteNumber == quoteNumber);
-
-            AwardedQuote = awardedQuote;
-            Mode = e.Parameter;
-
-            NSAEditPopupContents.SetQuote();
-        }
-
-        protected void pcFixQuote_WindowCallback(object source, PopupWindowCallbackArgs e)
-        {
-            if (e.Parameter == "fixQuoteClicked")
-            {
-                // Fix Awarded Quote
-                string oldQuote = tbxOldQuoteNumber.Text;
-                string newQuote = cbxQuoteNumber.Value.ToString();
-                if (newQuote == null) return;
-
-                ViewModel.AwardedQuoteChangeQuoteNumber(oldQuote, newQuote);
-                if (ViewModel.Error == "") tbxOldQuoteNumber.Text = cbxQuoteNumber.Text = "";
-            }
-            else
-            { 
-                // Showing the popup window
-                var quoteNumber = (string)gvQuote.GetRowValues(gvQuote.FocusedRowIndex, "QuoteNumber");
-                tbxOldQuoteNumber.Text = quoteNumber;
-            }
-        }
-
-        protected void cbxQuoteNumber_OnItemsRequestedByFilterCondition_SQL(object source, ListEditItemsRequestedByFilterConditionEventArgs e)
-        {
-            try
-            {
-                ASPxComboBox comboBox = (ASPxComboBox)source;
-
-                //SqlDataSource1.ConnectionString = "data source=eeisql1.empireelect.local;initial catalog=FxPLM;persist security info=True;user id=cdipaola;password=emp1reFt1";
-                //SqlDataSource1.ConnectionString = System.Configuration.ConfigurationManager.ConnectionStrings["FxPLMEntities"].ConnectionString;
-                SqlDataSource1.ConnectionString = "data source=eeisql2;initial catalog=FxPLM;persist security info=True;user id=estimpson;password=)Kc0mput3r";
-
-                SqlDataSource1.SelectCommand =
-                       @"SELECT [QuoteNumber], [EEIPartNumber], [Program] FROM (select [QuoteNumber], [EEIPartNumber], [Program], row_number()over(order by q.[QuoteNumber]) as [rn] from [NSA].[QuoteLog] as q where (([QuoteNumber] + ' ' + [EEIPartNumber] + ' ' + [Program]) LIKE @filter)) as st where st.[rn] between @startIndex and @endIndex";
-
-                SqlDataSource1.SelectParameters.Clear();
-                SqlDataSource1.SelectParameters.Add("filter", TypeCode.String, string.Format("%{0}%", e.Filter));
-                SqlDataSource1.SelectParameters.Add("startIndex", TypeCode.Int64, (e.BeginIndex + 1).ToString());
-                SqlDataSource1.SelectParameters.Add("endIndex", TypeCode.Int64, (e.EndIndex + 1).ToString());
-                comboBox.DataSource = SqlDataSource1;
-                comboBox.DataBind();
-            }
-            catch (Exception ex)
-            {
-                string error = (ex.InnerException != null) ? ex.InnerException.Message : ex.Message;
-                //lblError.Text = String.Format("Failed to return quote data. {0}", error);
-                //pcError.ShowOnPageLoad = true;
-            }
-        }
+        #endregion
 
 
     }

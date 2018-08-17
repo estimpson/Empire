@@ -149,7 +149,7 @@
         </td>
         <td>
             <dx:ASPxButton ID="btnAltCustomerCommitment" runat="server" AutoPostBack="true" CausesValidation="false" UseSubmitBehavior="false"
-                Text="Alt Cust Commitment" Width="100%" OnClick="btnAltCustomerCommitment_Click">
+                Text="Alt Cust Commitment" Width="100%" OnClick="btnAltCustomerCommitment_Click" Visible="false">
             </dx:ASPxButton>
         </td>
     </tr>
@@ -400,7 +400,8 @@
         PopupAnimationType="Fade" ForeColor="Red" EnableViewState="False" AutoUpdatePosition="true"
         AutoPostBack="False" EnableCallbackAnimation="True" EnableCallBacks="True" OnWindowCallback="pcEdit_OnWindowCallback"
         >
-        <ClientSideEvents Shown="updateGridHeight"></ClientSideEvents>
+        <ClientSideEvents Shown="updateGridHeight">
+        </ClientSideEvents>
         <ContentCollection>
             <dx:PopupControlContentControl runat="server">
                 <uc1:NSAEditPopupContents runat="server" ID="NSAEditPopupContents"/>

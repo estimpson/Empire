@@ -58,21 +58,7 @@
                                             <dx:ASPxLabel ID="lblQuoteNumber" runat="server" Text="Quote Number:" Width="140" ></dx:ASPxLabel>
                                         </td>
                                         <td>
-                                            <dx:ASPxComboBox ID="cbxQuoteNumber" runat="server" ClientInstanceName="cbxQuoteNumber" EnableCallbackMode="true" CallbackPageSize="10" 
-                                                ValidateRequestMode="Disabled" ValueType="System.String" ValueField="QuoteNumber" ValidationSettings-CausesValidation="false"
-                                                OnItemsRequestedByFilterCondition="cbxQuoteNumber_OnItemsRequestedByFilterCondition_SQL"
-                                                OnItemRequestedByValue="cbxQuoteNumber_OnItemRequestedByValue_SQL" TextFormatString="{0}  {1}  {2}"
-                                                Width="298px" DropDownStyle="DropDown" OnCallback="cbxQuoteNumber_Callback" TabIndex="0">
-                                                <ClientSideEvents SelectedIndexChanged="QuoteNumberSelectedIndexChanged" />
-                                                <Columns>
-                                                    <dx:ListBoxColumn FieldName="QuoteNumber" />
-                                                    <dx:ListBoxColumn FieldName="EEIPartNumber" />
-                                                    <dx:ListBoxColumn FieldName="Program" />
-                                                </Columns>
-                                                <ValidationSettings CausesValidation="false"></ValidationSettings>
-                                            </dx:ASPxComboBox>
-
-                                            <asp:SqlDataSource ID="SqlDataSource1" runat="server" />
+                                            <dx:ASPxTextBox ID="tbxQuoteNumber" runat="server" ReadOnly="true"></dx:ASPxTextBox>
                                         </td>
                                     </tr>
                                 </table>
@@ -110,7 +96,7 @@
                                                 <dx:ASPxLabel ID="lblQuoteReason" runat="server" Text="Quote Reason:"></dx:ASPxLabel>
                                             </td>
                                             <td>
-                                                <dx:ASPxComboBox ID="cbxQuoteReason" runat="server" OnSelectedIndexChanged="cbxQuoteReason_SelectedIndexChanged" AutoPostBack="true" TabIndex="3" Width="220">
+                                                <dx:ASPxComboBox ID="cbxQuoteReason" runat="server" AutoPostBack="true" TabIndex="3" Width="220">
                                                     <ValidationSettings SetFocusOnError="True" ErrorText="" Display="Dynamic" ErrorTextPosition="Right" ValidationGroup="G">
                                                         <RequiredField IsRequired="True" ErrorText="" />
                                                     </ValidationSettings>
@@ -186,7 +172,15 @@
                                                 &nbsp;
                                             </td>
                                             <td>
-                                                <dx:ASPxButton ID="btnSubmit" runat="server" Text="Submit" OnClick="btnSubmit_Click" TabIndex="8" ValidationGroup="G"></dx:ASPxButton>
+                                                <dx:ASPxButton ID="btnSubmit" runat="server" Text="Submit" OnClick="btnSubmit_Click" TabIndex="8" ValidationGroup="G" Visible="false"></dx:ASPxButton>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                &nbsp;
                                             </td>
                                         </tr>
                                         <tr>
@@ -206,6 +200,52 @@
                                             </td>
                                         </tr>
                                     </table>
+
+
+                                    <div style="margin: 0px 0px 0px 140px;">
+                                        <asp:Panel ID="pnlDocument" runat="server">
+                                            <table class="tbl">
+                                                <tr>
+                                                    <td>
+                                                        <dx:ASPxButton ID="btnDocSave" runat="server" Text="Upload" OnClick="btnDocSave_Click"></dx:ASPxButton>
+                                                    </td>
+                                                    <td>
+                                                        <dx:ASPxButton ID="btnDocDelete" runat="server" Text="Delete" OnClick="btnDocDelete_Click"></dx:ASPxButton>
+                                                    </td>
+                                                    <td>
+                                                        <dx:ASPxButton ID="btnDocGet" runat="server" Text="Get" OnClick="btnDocGet_Click"></dx:ASPxButton>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </asp:Panel>
+                                    </div>
+
+
+
+
+                                    <dx:ASPxPopupControl ID="pcFileUpload" runat="server" Width="320" CloseAction="CloseButton" CloseOnEscape="false" Modal="True"
+                                        PopupHorizontalAlign="WindowCenter" PopupVerticalAlign="WindowCenter" ClientInstanceName="pcFileUpload"
+                                        HeaderText="File Upload" AllowDragging="True" PopupAnimationType="Fade" ForeColor="Red" EnableViewState="False" AutoUpdatePosition="true">
+                                        <ContentCollection>
+                                            <dx:PopupControlContentControl runat="server">
+                                                <div style="padding: 10px 20px 20px 20px;">
+
+                                                    <asp:FileUpload id="FileUploadControl" runat="server" BackColor="White" />
+                                                    <br /><br />
+
+                                                    <asp:Button ID="btnUpload" runat="server" Text="Upload" UseSubmitBehavior="false" OnClick="btnUpload_Click" />
+                                                    <br /><br />
+
+                                                    <dx:ASPxLabel ID="lblUploadStatus" runat="server" Text=""></dx:ASPxLabel>
+
+                                                </div>
+                                            </dx:PopupControlContentControl>
+                                        </ContentCollection>
+                                    </dx:ASPxPopupControl>
+
+
+
+
                                         </dx:PanelContent>
                                     </PanelCollection>
                                 </dx:ASPxPanel>
