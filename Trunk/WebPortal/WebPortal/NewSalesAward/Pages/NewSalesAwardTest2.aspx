@@ -67,18 +67,21 @@
 
         function OnGridRowDoubleClick(s, e) {
             gvQuote.GetRowValues(gvQuote.GetFocusedRowIndex(), 'BasePart', OnGetRowValues);
-            pcEdit.ShowWindow();
-            postponedCallbackRequired = true;
-            updateGridHeight();
+            //postponedCallbackRequired = true;
+            //updateGridHeight();
             //var containerHeight = ASPxClientUtils.GetDocumentClientHeight();
             //console.log("containerHeight:" + containerHeight);
         }
         function OnGetRowValues(value) {
             if (value == null) {
-                pcEdit.PerformCallback("fix");
+                console.log("show fix quote");
+                pcFixQuote.PerformCallback();
+                pcFixQuote.ShowWindow();
             }
             else {
+                console.log("show edit");
                 pcEdit.PerformCallback("edit");
+                pcEdit.ShowWindow();
             }
         }
 
@@ -87,6 +90,10 @@
             pcEdit.ShowWindow();
             postponedCallbackRequired = true;
             updateGridHeight();
+        }
+
+        function FixAwardedQuoteButtonClicked(s, e) {
+            pcFixQuote.PerformCallback("fixQuoteClicked");
         }
     </script>
 
@@ -126,14 +133,13 @@
             </dx:ASPxComboBox>
         </td>
         <td style="padding-left: 20px;">
-            <dx:ASPxButton ID="btnNewSalesAward" runat="server" ClientInstanceName="btnNewSalesAward" AutoPostBack="false" CausesValidation="false" UseSubmitBehavior="false"
-                Text="Add New Quote Award" Width="100%">
-                <ClientSideEvents Click="OnNewSalesAwardClick" />
+            <dx:ASPxButton ID="btnNewSalesAward" runat="server" AutoPostBack="true" CausesValidation="false" UseSubmitBehavior="false"
+                Text="Add New Quote Award" Width="100%" OnClick="btnNewSalesAward_Click">
             </dx:ASPxButton>
         </td>
         <td>
             <dx:ASPxButton ID="btnQuoteTransfer" runat="server" AutoPostBack="true" CausesValidation="false" UseSubmitBehavior="false" 
-                Text="Add Quote Transfer" Width="100%" OnClick="btnQuoteTransfer_Click">
+                Text="Quote Transfer" Width="100%" OnClick="btnQuoteTransfer_Click">
             </dx:ASPxButton>
         </td>
         <td>
@@ -402,6 +408,68 @@
         </ContentCollection>
     </dx:ASPxPopupControl>
 </div>
+
+
+
+<div>
+    <dx:ASPxPopupControl ID="pcFixQuote" runat="server" Width="320" CloseAction="CloseButton" CloseOnEscape="true" Modal="True"
+        PopupHorizontalAlign="WindowCenter" PopupVerticalAlign="WindowCenter" ClientInstanceName="pcFixQuote"
+        HeaderText="Fix Awarded Quote" AllowDragging="True" PopupAnimationType="Fade" EnableViewState="False" 
+        AutoUpdatePosition="true" OnWindowCallback="pcFixQuote_WindowCallback">
+        <ContentCollection>
+            <dx:PopupControlContentControl runat="server">
+                <div style="padding: 10px 20px 20px 20px;">
+                    
+                    <table class="tbl">
+                        <tr>
+                            <td>
+                                <dx:ASPxLabel ID="lblOldQuoteNumber" runat="server" Text="Old Quote Number:" Width="140" />
+                            </td>
+                            <td>
+                                <dx:ASPxTextBox ID="tbxOldQuoteNumber" runat="server" ReadOnly="true" Width="298" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <dx:ASPxLabel ID="lblNewQuoteNumber" runat="server" Text="New Quote Number:" Width="140" />
+                            </td>
+                            <td>
+                                <dx:ASPxComboBox ID="cbxQuoteNumber" runat="server" ClientInstanceName="cbxQuoteNumber" EnableCallbackMode="true" CallbackPageSize="10" 
+                                    ValidateRequestMode="Disabled" ValueType="System.String" ValueField="QuoteNumber" ValidationSettings-CausesValidation="false"
+                                    OnItemsRequestedByFilterCondition="cbxQuoteNumber_OnItemsRequestedByFilterCondition_SQL"
+                                    TextFormatString="{0}  {1}  {2}"
+                                    Width="298px" DropDownStyle="DropDown" TabIndex="0">
+                                    <Columns>
+                                        <dx:ListBoxColumn FieldName="QuoteNumber" />
+                                        <dx:ListBoxColumn FieldName="EEIPartNumber" />
+                                        <dx:ListBoxColumn FieldName="Program" />
+                                    </Columns>
+                                    <ValidationSettings CausesValidation="false"></ValidationSettings>
+                                </dx:ASPxComboBox>
+
+                                <asp:SqlDataSource ID="SqlDataSource1" runat="server" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                &nbsp;
+                            </td>
+                            <td>
+                                <dx:ASPxButton ID="btnFixAwardedQuote" runat="server" ClientInstanceName="btnFixAwardedQuote" Text="Save" AutoPostBack="false" UseSubmitBehavior="false">
+                                    <ClientSideEvents Click="FixAwardedQuoteButtonClicked" /> 
+                                </dx:ASPxButton>
+                            </td>
+                        </tr>
+                    </table>
+
+                </div>
+            </dx:PopupControlContentControl>
+        </ContentCollection>
+    </dx:ASPxPopupControl>
+</div>
+
+
+
 
 
 </ContentTemplate>

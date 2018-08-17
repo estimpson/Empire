@@ -124,12 +124,12 @@
                                     <dx:ASPxLabel ID="lblQuoteReason" runat="server" Text="QuoteReason:"></dx:ASPxLabel>
                                 </td>
                                 <td>
-                                    <dx:ASPxComboBox ID="cbxQuoteReason" runat="server" OnSelectedIndexChanged="cbxQuoteReason_SelectedIndexChanged" AutoPostBack="true" TabIndex="3" Width="220">
+                                    <dx:ASPxTextBox ID="tbxQuoteReason" runat="server">
                                         <ValidationSettings SetFocusOnError="True" ErrorText="" Display="Dynamic" ErrorTextPosition="Right" ValidationGroup="G">
                                             <RequiredField IsRequired="True" ErrorText="" />
                                         </ValidationSettings>
                                         <InvalidStyle BackColor="LightPink" />
-                                    </dx:ASPxComboBox>
+                                    </dx:ASPxTextBox>
                                 </td>
                             </tr>
                             <tr>

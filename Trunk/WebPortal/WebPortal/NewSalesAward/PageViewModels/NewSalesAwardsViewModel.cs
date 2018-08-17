@@ -13,6 +13,8 @@ namespace WebPortal.NewSalesAward.PageViewModels
     {
         public String Error { get; private set; }
 
+        public List<String> QuoteNumberList = new List<String>();
+
 
         #region Constructor
 
@@ -42,6 +44,28 @@ namespace WebPortal.NewSalesAward.PageViewModels
         //    }
         //}
 
+        public void GetQuoteLog()
+        {
+            Error = "";
+            QuoteNumberList.Clear();
+            QuoteNumberList.Add("");
+
+            try
+            {
+                using (var context = new FxPLMEntities())
+                {
+                    var query = from ql in context.QuoteLogs
+                                select ql;
+
+                    foreach (var result in query) QuoteNumberList.Add(result.QuoteNumber);
+                }
+            }
+            catch (Exception ex)
+            {
+                Error = (ex.InnerException != null) ? ex.InnerException.Message : ex.Message;
+            }
+        }
+
         public List<usp_GetAwardedQuotes_Result> GetAwardedQuotes()
         {
             List<usp_GetAwardedQuotes_Result> list;
@@ -56,12 +80,9 @@ namespace WebPortal.NewSalesAward.PageViewModels
         {
             using (var context = new FxPLMEntities())
             {
-                return context.usp_GetAwardedQuotes().Where(o => o.QuoteNumber == quote).FirstOrDefault();
+                return context.usp_GetAwardedQuote(quote).First();
             }
         }
-
-
-
 
         public List<usp_GetCustomerShipTos_Result> GetCustomerShipTos(string basePart)
         {
@@ -79,6 +100,26 @@ namespace WebPortal.NewSalesAward.PageViewModels
                 Error = (ex.InnerException != null) ? ex.InnerException.Message : ex.Message;
             }
             return list;
+        }
+
+        public void AwardedQuoteChangeQuoteNumber(string oldQuote, string newQuote)
+        {
+            ObjectParameter tranDT = new ObjectParameter("TranDT", typeof(DateTime?));
+            ObjectParameter result = new ObjectParameter("Result", typeof(Int32?));
+            ObjectParameter debugMsg = new ObjectParameter("DebugMsg", typeof(String));
+
+            Error = "";
+            try
+            {
+                using (var context = new FxPLMEntities())
+                {
+                    context.usp_AwardedQuote_ChangeQuoteNumber(oldQuote, newQuote, tranDT, result, 0, debugMsg);
+                }
+            }
+            catch (Exception ex)
+            {
+                Error = (ex.InnerException != null) ? ex.InnerException.Message : ex.Message;
+            }
         }
 
         #endregion

@@ -44,28 +44,35 @@ namespace WebPortal.NewSalesAward.Pages
         public void SetQuote()
         {
             //  Binding.
-            if (Mode != "new")
-            { 
-                NSAEditFormLayout.DataSource = AwardedQuote;
-                NSAEditFormLayout.DataBind();
+            //if (Mode != "new")
+            //{ 
+            //    NSAEditFormLayout.DataSource = AwardedQuote;
+            //    NSAEditFormLayout.DataBind();
 
-                //  Used for EntityURI building.
-                QuoteNumberHiddenField.Set("QuoteNumber", AwardedQuote.QuoteNumber);
+            //    //  Used for EntityURI building.
+            //    QuoteNumberHiddenField.Set("QuoteNumber", AwardedQuote.QuoteNumber);
 
-                //  Retrieve the entity notes for this quote.
-                EntityNotesUserControl.Retrieve(Session["OpCode"].ToString(),
-                    "EEI/FxPLM/NSA/AwardedQuotes/QuoteNumber=" + AwardedQuote.QuoteNumber + "%");
-                EntityNotesUserControl.RefreshGrid();
-            }
+            //    //  Retrieve the entity notes for this quote.
+            //    EntityNotesUserControl.Retrieve(Session["OpCode"].ToString(),
+            //        "EEI/FxPLM/NSA/AwardedQuotes/QuoteNumber=" + AwardedQuote.QuoteNumber + "%");
+            //    EntityNotesUserControl.RefreshGrid();
+            //}
 
-            //  Set quote for each tab view.
-            foreach (var nsaTabView in NSATabViews)
+            if (Mode == "fix")
             {
-                nsaTabView.SetQuote();
+                
             }
+            else // edit
+            {
+                //  Set quote for each tab view.
+                foreach (var nsaTabView in NSATabViews)
+                {
+                    nsaTabView.SetQuote();
+                }
 
-            //  Make the first tab visible.
-            NSAEditPageControl.ActiveTabPage = NSAEditPageControl.TabPages[0];
+                //  Make the first tab visible.
+                NSAEditPageControl.ActiveTabPage = NSAEditPageControl.TabPages[0];
+            }
         }
 
 
@@ -87,6 +94,6 @@ namespace WebPortal.NewSalesAward.Pages
             }
         }
 
-
+        
     }
 }
