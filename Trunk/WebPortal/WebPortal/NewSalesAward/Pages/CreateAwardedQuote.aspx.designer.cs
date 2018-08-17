@@ -157,13 +157,13 @@ namespace WebPortal.NewSalesAward.Pages {
         protected global::DevExpress.Web.ASPxLabel lblQuoteReason;
         
         /// <summary>
-        /// cbxQuoteReason control.
+        /// tbxQuoteReason control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::DevExpress.Web.ASPxComboBox cbxQuoteReason;
+        protected global::DevExpress.Web.ASPxTextBox tbxQuoteReason;
         
         /// <summary>
         /// lblReplacingBasePart control.

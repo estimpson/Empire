@@ -42,51 +42,6 @@ namespace WebPortal.NewSalesAward.Models
         public virtual DbSet<FreightTerm> FreightTerms { get; set; }
         public virtual DbSet<User> Users { get; set; }
     
-        public virtual int usp_CreateAwardedQuote(string user, string quoteNumber, Nullable<System.DateTime> awardDate, string formOfCommitment, Nullable<byte> quoteReason, string replacingBasePart, string salesperson, string programManager, string comments, ObjectParameter tranDT, ObjectParameter result, Nullable<int> debug, ObjectParameter debugMsg)
-        {
-            var userParameter = user != null ?
-                new ObjectParameter("User", user) :
-                new ObjectParameter("User", typeof(string));
-    
-            var quoteNumberParameter = quoteNumber != null ?
-                new ObjectParameter("QuoteNumber", quoteNumber) :
-                new ObjectParameter("QuoteNumber", typeof(string));
-    
-            var awardDateParameter = awardDate.HasValue ?
-                new ObjectParameter("AwardDate", awardDate) :
-                new ObjectParameter("AwardDate", typeof(System.DateTime));
-    
-            var formOfCommitmentParameter = formOfCommitment != null ?
-                new ObjectParameter("FormOfCommitment", formOfCommitment) :
-                new ObjectParameter("FormOfCommitment", typeof(string));
-    
-            var quoteReasonParameter = quoteReason.HasValue ?
-                new ObjectParameter("QuoteReason", quoteReason) :
-                new ObjectParameter("QuoteReason", typeof(byte));
-    
-            var replacingBasePartParameter = replacingBasePart != null ?
-                new ObjectParameter("ReplacingBasePart", replacingBasePart) :
-                new ObjectParameter("ReplacingBasePart", typeof(string));
-    
-            var salespersonParameter = salesperson != null ?
-                new ObjectParameter("Salesperson", salesperson) :
-                new ObjectParameter("Salesperson", typeof(string));
-    
-            var programManagerParameter = programManager != null ?
-                new ObjectParameter("ProgramManager", programManager) :
-                new ObjectParameter("ProgramManager", typeof(string));
-    
-            var commentsParameter = comments != null ?
-                new ObjectParameter("Comments", comments) :
-                new ObjectParameter("Comments", typeof(string));
-    
-            var debugParameter = debug.HasValue ?
-                new ObjectParameter("Debug", debug) :
-                new ObjectParameter("Debug", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("usp_CreateAwardedQuote", userParameter, quoteNumberParameter, awardDateParameter, formOfCommitmentParameter, quoteReasonParameter, replacingBasePartParameter, salespersonParameter, programManagerParameter, commentsParameter, tranDT, result, debugParameter, debugMsg);
-        }
-    
         public virtual int usp_SetBasePartAttributes(string user, string quoteNumber, string basePartFamilyList, string productLine, string empireMarketSegment, string empireMarketSubsegment, string empireApplication, Nullable<System.DateTime> empireSOP, Nullable<System.DateTime> empireEOP, string empireEOPNote, string comments, ObjectParameter tranDT, ObjectParameter result, Nullable<int> debug, ObjectParameter debugMsg)
         {
             var userParameter = user != null ?
@@ -173,19 +128,6 @@ namespace WebPortal.NewSalesAward.Models
                 new ObjectParameter("Debug", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("usp_SignOffBasePartAttributes", userParameter, quoteNumberParameter, tranDT, result, debugParameter, debugMsg);
-        }
-    
-        public virtual int usp_GetAwardedQuoteDetails(string quoteNumber, ObjectParameter awardDate, ObjectParameter formOfCommitment, ObjectParameter quoteReason, ObjectParameter replacingBasePart, ObjectParameter salesperson, ObjectParameter programManager, ObjectParameter comments, ObjectParameter tranDT, ObjectParameter result, Nullable<int> debug, ObjectParameter debugMsg)
-        {
-            var quoteNumberParameter = quoteNumber != null ?
-                new ObjectParameter("QuoteNumber", quoteNumber) :
-                new ObjectParameter("QuoteNumber", typeof(string));
-    
-            var debugParameter = debug.HasValue ?
-                new ObjectParameter("Debug", debug) :
-                new ObjectParameter("Debug", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("usp_GetAwardedQuoteDetails", quoteNumberParameter, awardDate, formOfCommitment, quoteReason, replacingBasePart, salesperson, programManager, comments, tranDT, result, debugParameter, debugMsg);
         }
     
         public virtual int usp_SetProductionPO(string quoteNumber, Nullable<System.DateTime> purchaseOrderDT, string pONumber, string alternativeCustomerCommitment, Nullable<decimal> sellingPrice, Nullable<System.DateTime> purchaseOrderSOP, Nullable<System.DateTime> purchaseOrderEOP, string comments, ObjectParameter tranDT, ObjectParameter result, Nullable<int> debug, ObjectParameter debugMsg)
@@ -454,9 +396,93 @@ namespace WebPortal.NewSalesAward.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("usp_AwardedQuoteFirstMnemonicEmail", basePartParameter, mnemonicParameter, tranDT, result);
         }
     
+        public virtual int usp_AwardedQuote_ChangeQuoteNumber(string oldQuoteNumber, string newQuoteNumber, ObjectParameter tranDT, ObjectParameter result, Nullable<int> debug, ObjectParameter debugMsg)
+        {
+            var oldQuoteNumberParameter = oldQuoteNumber != null ?
+                new ObjectParameter("OldQuoteNumber", oldQuoteNumber) :
+                new ObjectParameter("OldQuoteNumber", typeof(string));
+    
+            var newQuoteNumberParameter = newQuoteNumber != null ?
+                new ObjectParameter("NewQuoteNumber", newQuoteNumber) :
+                new ObjectParameter("NewQuoteNumber", typeof(string));
+    
+            var debugParameter = debug.HasValue ?
+                new ObjectParameter("Debug", debug) :
+                new ObjectParameter("Debug", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("usp_AwardedQuote_ChangeQuoteNumber", oldQuoteNumberParameter, newQuoteNumberParameter, tranDT, result, debugParameter, debugMsg);
+        }
+    
         public virtual ObjectResult<usp_GetAwardedQuotes_Result> usp_GetAwardedQuotes()
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_GetAwardedQuotes_Result>("usp_GetAwardedQuotes");
+        }
+    
+        public virtual ObjectResult<usp_GetAwardedQuotes_Result> usp_GetAwardedQuote(string quoteNumber)
+        {
+            var quoteNumberParameter = quoteNumber != null ?
+                new ObjectParameter("QuoteNumber", quoteNumber) :
+                new ObjectParameter("QuoteNumber", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_GetAwardedQuotes_Result>("usp_GetAwardedQuote", quoteNumberParameter);
+        }
+    
+        public virtual int usp_GetAwardedQuoteDetails(string quoteNumber, ObjectParameter awardDate, ObjectParameter formOfCommitment, ObjectParameter quoteReason, ObjectParameter replacingBasePart, ObjectParameter salesperson, ObjectParameter programManager, ObjectParameter comments, ObjectParameter tranDT, ObjectParameter result, Nullable<int> debug, ObjectParameter debugMsg)
+        {
+            var quoteNumberParameter = quoteNumber != null ?
+                new ObjectParameter("QuoteNumber", quoteNumber) :
+                new ObjectParameter("QuoteNumber", typeof(string));
+    
+            var debugParameter = debug.HasValue ?
+                new ObjectParameter("Debug", debug) :
+                new ObjectParameter("Debug", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("usp_GetAwardedQuoteDetails", quoteNumberParameter, awardDate, formOfCommitment, quoteReason, replacingBasePart, salesperson, programManager, comments, tranDT, result, debugParameter, debugMsg);
+        }
+    
+        public virtual int usp_CreateAwardedQuote(string user, string quoteNumber, Nullable<System.DateTime> awardDate, string formOfCommitment, string quoteReason, string replacingBasePart, string salesperson, string programManager, string comments, ObjectParameter tranDT, ObjectParameter result, Nullable<int> debug, ObjectParameter debugMsg)
+        {
+            var userParameter = user != null ?
+                new ObjectParameter("User", user) :
+                new ObjectParameter("User", typeof(string));
+    
+            var quoteNumberParameter = quoteNumber != null ?
+                new ObjectParameter("QuoteNumber", quoteNumber) :
+                new ObjectParameter("QuoteNumber", typeof(string));
+    
+            var awardDateParameter = awardDate.HasValue ?
+                new ObjectParameter("AwardDate", awardDate) :
+                new ObjectParameter("AwardDate", typeof(System.DateTime));
+    
+            var formOfCommitmentParameter = formOfCommitment != null ?
+                new ObjectParameter("FormOfCommitment", formOfCommitment) :
+                new ObjectParameter("FormOfCommitment", typeof(string));
+    
+            var quoteReasonParameter = quoteReason != null ?
+                new ObjectParameter("QuoteReason", quoteReason) :
+                new ObjectParameter("QuoteReason", typeof(string));
+    
+            var replacingBasePartParameter = replacingBasePart != null ?
+                new ObjectParameter("ReplacingBasePart", replacingBasePart) :
+                new ObjectParameter("ReplacingBasePart", typeof(string));
+    
+            var salespersonParameter = salesperson != null ?
+                new ObjectParameter("Salesperson", salesperson) :
+                new ObjectParameter("Salesperson", typeof(string));
+    
+            var programManagerParameter = programManager != null ?
+                new ObjectParameter("ProgramManager", programManager) :
+                new ObjectParameter("ProgramManager", typeof(string));
+    
+            var commentsParameter = comments != null ?
+                new ObjectParameter("Comments", comments) :
+                new ObjectParameter("Comments", typeof(string));
+    
+            var debugParameter = debug.HasValue ?
+                new ObjectParameter("Debug", debug) :
+                new ObjectParameter("Debug", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("usp_CreateAwardedQuote", userParameter, quoteNumberParameter, awardDateParameter, formOfCommitmentParameter, quoteReasonParameter, replacingBasePartParameter, salespersonParameter, programManagerParameter, commentsParameter, tranDT, result, debugParameter, debugMsg);
         }
     }
 }

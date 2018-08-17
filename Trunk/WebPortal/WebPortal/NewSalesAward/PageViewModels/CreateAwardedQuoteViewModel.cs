@@ -17,7 +17,7 @@ namespace WebPortal.NewSalesAward.PageViewModels
         public String QuoteNumber { get; set; }
         public DateTime? AwardDate { get; set; }
         public String FormOfCommitment { get; set; }
-        public byte QuoteReason { get; set; }
+        public String QuoteReason { get; set; }
         public String ReplacingBasePart { get; set; }
         public String Salesperson { get; set; }
         public String ProgramManager { get; set; }
@@ -71,7 +71,8 @@ namespace WebPortal.NewSalesAward.PageViewModels
         {
             ObjectParameter awardDate = new ObjectParameter("AwardDate", typeof(DateTime?));
             ObjectParameter formOfCommitment = new ObjectParameter("FormOfCommitment", typeof(string));
-            ObjectParameter quoteReason = new ObjectParameter("QuoteReason", typeof(Int16?));
+            //ObjectParameter quoteReason = new ObjectParameter("QuoteReason", typeof(Int16?));
+            ObjectParameter quoteReason = new ObjectParameter("QuoteReason", typeof(string));
             ObjectParameter replacingBasePart = new ObjectParameter("ReplacingBasePart", typeof(string));
             ObjectParameter salesperson = new ObjectParameter("Salesperson", typeof(string));
             ObjectParameter programManager = new ObjectParameter("ProgramManager", typeof(string));
@@ -90,7 +91,8 @@ namespace WebPortal.NewSalesAward.PageViewModels
 
                     if (awardDate.Value != DBNull.Value) AwardDate = Convert.ToDateTime(awardDate.Value);
                     FormOfCommitment = formOfCommitment.Value.ToString();
-                    if (quoteReason.Value != DBNull.Value) QuoteReason = Convert.ToByte(quoteReason.Value);
+                    //if (quoteReason.Value != DBNull.Value) QuoteReason = Convert.ToByte(quoteReason.Value);
+                    QuoteReason = quoteReason.Value.ToString();
                     ReplacingBasePart = replacingBasePart.Value.ToString();
                     Salesperson = salesperson.Value.ToString();
                     ProgramManager = programManager.Value.ToString();
@@ -279,6 +281,28 @@ namespace WebPortal.NewSalesAward.PageViewModels
                 using (var context = new FxPLMEntities())
                 {
                     context.usp_CreateAwardedQuote(OperatorCode, QuoteNumber, AwardDate, FormOfCommitment, QuoteReason, ReplacingBasePart, Salesperson, ProgramManager, Comments, tranDT, result, debug, debugMsg);
+                }
+            }
+            catch (Exception ex)
+            {
+                Error = (ex.InnerException != null) ? ex.InnerException.Message : ex.Message;
+            }
+        }
+
+        public void FixAwardedQuote(string oldQuoteNumber, string newQuoteNumber)
+        {
+            Error = "";
+
+            ObjectParameter tranDT = new ObjectParameter("TranDT", typeof(DateTime?));
+            ObjectParameter result = new ObjectParameter("Result", typeof(Int32?));
+            ObjectParameter debugMsg = new ObjectParameter("DebugMsg", typeof(string));
+            int debug = 0;
+
+            try
+            {
+                using (var context = new FxPLMEntities())
+                {
+                    context.usp_AwardedQuote_ChangeQuoteNumber(oldQuoteNumber, newQuoteNumber, tranDT, result, debug, debugMsg);
                 }
             }
             catch (Exception ex)

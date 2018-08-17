@@ -149,12 +149,12 @@ namespace WebPortal.NewSalesAward.Pages
 
             if (SaveAwardedQuote() == 0) return;
 
-            Response.Redirect("NewSalesAwards.aspx");
+            Response.Redirect("NewSalesAwardTest2.aspx");
         }
 
         protected void btnClose_Click(object sender, EventArgs e)
         {
-            Response.Redirect("NewSalesAwards.aspx");
+            Response.Redirect("NewSalesAwardTest2.aspx");
         }
 
         #endregion
@@ -211,7 +211,7 @@ namespace WebPortal.NewSalesAward.Pages
         {
             if (GetSalespeople() == 0) return;
             if (GetProgramManagers() == 0) return;
-            if (GetQuoteReasons() == 0) return;
+            //if (GetQuoteReasons() == 0) return;
             if (GetCustomerCommitmentForms() == 0) return;
             GetActiveBaseParts();
         }
@@ -249,8 +249,9 @@ namespace WebPortal.NewSalesAward.Pages
                 ListEditItem itemProgramManager = cbxProgramManager.Items.FindByValue(ViewModel.ProgramManager);
                 if (itemProgramManager != null) cbxProgramManager.Value = ViewModel.ProgramManager;
 
-                ListEditItem itemQuoteReason = cbxQuoteReason.Items.FindByValue(ViewModel.QuoteReason);
-                if (itemQuoteReason != null) cbxQuoteReason.Value = ViewModel.QuoteReason;
+                //ListEditItem itemQuoteReason = cbxQuoteReason.Items.FindByValue(ViewModel.QuoteReason);
+                //if (itemQuoteReason != null) cbxQuoteReason.Value = ViewModel.QuoteReason;
+                tbxQuoteReason.Text = ViewModel.QuoteReason;
 
                 ListEditItem itemFormOfCommitment = cbxFormOfCommitment.Items.FindByValue(ViewModel.FormOfCommitment);
                 if (itemFormOfCommitment != null) cbxFormOfCommitment.Value = ViewModel.FormOfCommitment;
@@ -308,21 +309,21 @@ namespace WebPortal.NewSalesAward.Pages
             return 1;
         }
 
-        private int GetQuoteReasons()
-        {
-            var quoteReasons = ViewModel.GetQuoteReasons();
-            if (ViewModel.Error != "")
-            {
-                lblError.Text = String.Format("Error at GetQuoteReasons. {0}", ViewModel.Error);
-                pcError.ShowOnPageLoad = true;
-                return 0;
-            }
-            cbxQuoteReason.DataSource = quoteReasons;
-            cbxQuoteReason.TextField = "QuoteReason";
-            cbxQuoteReason.ValueField = "QuoteReasonId";
-            cbxQuoteReason.DataBind();
-            return 1;
-        }
+        //private int GetQuoteReasons()
+        //{
+        //    var quoteReasons = ViewModel.GetQuoteReasons();
+        //    if (ViewModel.Error != "")
+        //    {
+        //        lblError.Text = String.Format("Error at GetQuoteReasons. {0}", ViewModel.Error);
+        //        pcError.ShowOnPageLoad = true;
+        //        return 0;
+        //    }
+        //    cbxQuoteReason.DataSource = quoteReasons;
+        //    cbxQuoteReason.TextField = "QuoteReason";
+        //    cbxQuoteReason.ValueField = "QuoteReasonId";
+        //    cbxQuoteReason.DataBind();
+        //    return 1;
+        //}
 
         private int GetCustomerCommitmentForms()
         {
@@ -362,7 +363,8 @@ namespace WebPortal.NewSalesAward.Pages
             if (deAwardDate.Value != null) awardDt = Convert.ToDateTime(deAwardDate.Value);
             ViewModel.AwardDate = awardDt;
 
-            ViewModel.QuoteReason = Convert.ToByte(cbxQuoteReason.Value);
+            //ViewModel.QuoteReason = Convert.ToByte(cbxQuoteReason.Value);
+            ViewModel.QuoteReason = tbxQuoteReason.Text.Trim();
             ViewModel.Comments = memoComments.Text.Trim();
             ViewModel.FormOfCommitment = cbxFormOfCommitment.Text;
             ViewModel.ProgramManager = cbxProgramManager.Value.ToString();

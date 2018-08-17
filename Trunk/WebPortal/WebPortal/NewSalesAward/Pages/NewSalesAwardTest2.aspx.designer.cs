@@ -164,5 +164,68 @@ namespace WebPortal.NewSalesAward.Pages {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::WebPortal.NewSalesAward.Pages.NSAEditPopupContents NSAEditPopupContents;
+        
+        /// <summary>
+        /// pcFixQuote control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::DevExpress.Web.ASPxPopupControl pcFixQuote;
+        
+        /// <summary>
+        /// lblOldQuoteNumber control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::DevExpress.Web.ASPxLabel lblOldQuoteNumber;
+        
+        /// <summary>
+        /// tbxOldQuoteNumber control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::DevExpress.Web.ASPxTextBox tbxOldQuoteNumber;
+        
+        /// <summary>
+        /// lblNewQuoteNumber control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::DevExpress.Web.ASPxLabel lblNewQuoteNumber;
+        
+        /// <summary>
+        /// cbxQuoteNumber control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::DevExpress.Web.ASPxComboBox cbxQuoteNumber;
+        
+        /// <summary>
+        /// SqlDataSource1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.SqlDataSource SqlDataSource1;
+        
+        /// <summary>
+        /// btnFixAwardedQuote control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::DevExpress.Web.ASPxButton btnFixAwardedQuote;
     }
 }

@@ -199,6 +199,7 @@
     <Content Include="NewSalesAward\Pages\CreateAwardedQuote.aspx" />
     <Content Include="NewSalesAward\Pages\CsmDemand.aspx" />
     <Content Include="NewSalesAward\Pages\DocumentGet.aspx" />
+    <Content Include="NewSalesAward\Pages\FixAwardedQuote.aspx" />
     <Content Include="NewSalesAward\Pages\NewSalesAwardEdit.aspx" />
     <Content Include="NewSalesAward\Pages\NewSalesAwards.aspx" />
     <Content Include="NewSalesAward\Pages\NewSalesAwardTest2.aspx" />
@@ -549,6 +550,13 @@
     </Compile>
     <Compile Include="NewSalesAward\Pages\DocumentGet.aspx.designer.cs">
       <DependentUpon>DocumentGet.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="NewSalesAward\Pages\FixAwardedQuote.aspx.cs">
+      <DependentUpon>FixAwardedQuote.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="NewSalesAward\Pages\FixAwardedQuote.aspx.designer.cs">
+      <DependentUpon>FixAwardedQuote.aspx</DependentUpon>
     </Compile>
     <Compile Include="NewSalesAward\Pages\I_NSATabView.cs" />
     <Compile Include="NewSalesAward\Pages\NewSalesAwardEdit.aspx.cs">
