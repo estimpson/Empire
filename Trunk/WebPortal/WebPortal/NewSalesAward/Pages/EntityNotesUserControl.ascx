@@ -28,8 +28,49 @@
         var row = rowIDsHiddenField.Get (b.text ());
         entityNotes.StartEditRow (row); 
     }
+
+    function OnNewRow(s, e) {
+        modeHiddenField.Set("UnlockMode", "false");
+        entityNotes.AddNewRow();
+    }
+
+    var MandatoryNoteSender;
+    var EndMandatoryNoteCallback;
+
+    function PromptMandatoryNote(s, endMandatoryNoteCallback) {
+        MandatoryNoteSender = s;
+        if (MandatoryNoteSender.cpUnlocked) {
+            modeHiddenField.Set("UnlockData", MandatoryNoteSender.cpUnlockNote);
+        } else {
+            modeHiddenField.Set("UnlockData", undefined);
+        }
+        
+        EndMandatoryNoteCallback = endMandatoryNoteCallback;
+        modeHiddenField.Set("UnlockData", MandatoryNoteSender.cpUnlockNote);
+        modeHiddenField.Set("UnlockMode", "true");
+        entityNotes.AddNewRow();
+    }
+
+    function onEntityNotesEndCallback(s, e) {
+        FilterEntityNotesUserControl( uriHiddenField.Get ("uriFilter"));
+        $('.dxgvCSD').css("border", "none").css("box-shadow", "none");
+
+        if (!s.cpEndEditing) return;
+
+        console.log("UnlockMode: " + modeHiddenField.Get("UnlockMode"));
+        if (modeHiddenField.Get("UnlockMode")) {
+            if (!s.cpUnlock) {
+                console.log("cancelled unlock");
+                EndMandatoryNoteCallback(MandatoryNoteSender, false, undefined);
+            } else {
+                console.log("unlock data: " + s.cpUnlockData);
+                EndMandatoryNoteCallback(MandatoryNoteSender, true, s.cpUnlockData);
+            }
+        }
+    }
 </script>
 
+<dx:ASPxHiddenField runat="server" ClientInstanceName="modeHiddenField" ID="hfMode"></dx:ASPxHiddenField>
 <dx:ASPxHiddenField runat="server" ClientInstanceName="uriHiddenField" ID="hfUri"></dx:ASPxHiddenField>
 <dx:ASPxHiddenField runat="server" ClientInstanceName="rowIDsHiddenField" ID="hfRowIDs"></dx:ASPxHiddenField>
 <div style="display: none">
@@ -39,18 +80,19 @@
                  KeyFieldName="RowID" Border-BorderStyle="None"
                  EnableRowsCache="True"
                  EnableCallBacks="True"
+                 OnInitNewRow="EntityNotesGridView_OnInitNewRow"
+                 OnStartRowEditing="EntityNotesGridView_OnStartRowEditing"
                  OnRowInserting="EntityNotesGridView_OnRowInserting"
                  OnRowUpdating="EntityNotesGridView_OnRowUpdating"
+                 OnCancelRowEditing="EntityNotesGridView_OnCancelRowEditing"
                  OnHtmlRowPrepared="EntityNotesGridView_OnHtmlRowPrepared"
                  OnHtmlRowCreated="EntityNotesGridView_OnHtmlRowCreated"
                  Width="98%"
                  >
     <ClientSideEvents
-        EndCallback="function (s, e) {
+        EndCallback="onEntityNotesEndCallback"
+        Init="function () {
     FilterEntityNotesUserControl( uriHiddenField.Get ('uriFilter'));
-    $('.dxgvCSD' ).css('border', 'none').css('box-shadow', 'none');
-    }"
-    Init="function () { FilterEntityNotesUserControl( uriHiddenField.Get ('uriFilter'));
     $('.dxgvCSD' ).css('border', 'none').css('box-shadow', 'none');
 }"
         />
@@ -87,7 +129,7 @@
             <div style="text-align: left; padding: 2px 2px 2px 2px">
                 <dx:ASPxButton ID="NewRow" runat="server" AutoPostBack="False" Text="New Note"
                                RenderMode="Link">
-                    <ClientSideEvents Click="function () { entityNotes.AddNewRow(); }" />
+                    <ClientSideEvents Click="OnNewRow" />
                 </dx:ASPxButton>
             </div>
         </TitlePanel>
