@@ -1,0 +1,3112 @@
+diff --git a/RedGateDatabaseInfo.xml b/RedGateDatabaseInfo.xml
+new file mode 100644
+index 0000000..d1e3a18
+--- /dev/null
++++ b/RedGateDatabaseInfo.xml
+@@ -0,0 +1,62 @@
++﻿<?xml version="1.0" encoding="utf-8"?>
++<DatabaseInformation Version="2">
++  <ScriptFileEncoding>UTF8</ScriptFileEncoding>
++  <DefaultCollation>SQL_Latin1_General_CP1_CI_AS</DefaultCollation>
++  <DefaultSchema>dbo</DefaultSchema>
++  <DefaultUser>dbo</DefaultUser>
++  <DefaultFilegroup>PRIMARY</DefaultFilegroup>
++  <DatabaseVersion>12</DatabaseVersion>
++  <IsAzure>False</IsAzure>
++  <MaxDataFileSize>10485760</MaxDataFileSize>
++  <WriteToFileOptions>
++    <Prefixes>
++      <None>
++      </None>
++      <Table>Tables</Table>
++      <StoredProcedure>Stored Procedures</StoredProcedure>
++      <View>Views</View>
++      <Default>Defaults</Default>
++      <FullTextCatalog>Storage\Full Text Catalogs</FullTextCatalog>
++      <Function>Functions</Function>
++      <Role>Security\Roles</Role>
++      <Rule>Rules</Rule>
++      <User>Security\Users</User>
++      <UserDefinedType>Types\User-defined Data Types</UserDefinedType>
++      <Trigger>
++      </Trigger>
++      <DdlTrigger>Database Triggers</DdlTrigger>
++      <Assembly>Assemblies</Assembly>
++      <Synonym>Synonyms</Synonym>
++      <XmlSchemaCollection>Types\XML Schema Collections</XmlSchemaCollection>
++      <MessageType>Service Broker\Message Types</MessageType>
++      <Contract>Service Broker\Contracts</Contract>
++      <Queue>Service Broker\Queues</Queue>
++      <Service>Service Broker\Services</Service>
++      <Route>Service Broker\Routes</Route>
++      <EventNotification>Service Broker\Event Notifications</EventNotification>
++      <PartitionScheme>Storage\Partition Schemes</PartitionScheme>
++      <PartitionFunction>Storage\Partition Functions</PartitionFunction>
++      <Field>
++      </Field>
++      <Index>
++      </Index>
++      <Schema>Security\Schemas</Schema>
++      <ServiceBinding>Service Broker\Remote Service Bindings</ServiceBinding>
++      <Certificate>Security\Certificates</Certificate>
++      <SymmetricKey>Security\Symmetric Keys</SymmetricKey>
++      <AsymmetricKey>Security\Asymmetric Keys</AsymmetricKey>
++      <CheckConstraint>
++      </CheckConstraint>
++      <FullTextStoplist>Storage\Full Text Stoplists</FullTextStoplist>
++      <ExtendedProperty>Extended Properties</ExtendedProperty>
++      <Data>Data</Data>
++      <Sequence>Sequences</Sequence>
++      <SearchPropertyList>Search Property Lists</SearchPropertyList>
++      <SecurityPolicy>Security Policies</SecurityPolicy>
++    </Prefixes>
++    <DataWriteAllFilesInOneDirectory>True</DataWriteAllFilesInOneDirectory>
++  </WriteToFileOptions>
++  <DataFileSet>
++    <Count>0</Count>
++  </DataFileSet>
++</DatabaseInformation>
+\ No newline at end of file
+diff --git a/Security/Schemas/Contacts.sql b/Security/Schemas/Contacts.sql
+new file mode 100644
+index 0000000..e8fab08
+--- /dev/null
++++ b/Security/Schemas/Contacts.sql
+@@ -0,0 +1,3 @@
++CREATE SCHEMA [Contacts]
++AUTHORIZATION [dbo]
++GO
+diff --git a/Security/Schemas/FT.sql b/Security/Schemas/FT.sql
+new file mode 100644
+index 0000000..2d41154
+--- /dev/null
++++ b/Security/Schemas/FT.sql
+@@ -0,0 +1,3 @@
++CREATE SCHEMA [FT]
++AUTHORIZATION [dbo]
++GO
+diff --git a/Security/Schemas/Notes.sql b/Security/Schemas/Notes.sql
+new file mode 100644
+index 0000000..1dc2edd
+--- /dev/null
++++ b/Security/Schemas/Notes.sql
+@@ -0,0 +1,3 @@
++CREATE SCHEMA [Notes]
++AUTHORIZATION [dbo]
++GO
+diff --git a/Security/Schemas/PM.sql b/Security/Schemas/PM.sql
+new file mode 100644
+index 0000000..27bbda4
+--- /dev/null
++++ b/Security/Schemas/PM.sql
+@@ -0,0 +1,3 @@
++CREATE SCHEMA [PM]
++AUTHORIZATION [dbo]
++GO
+diff --git a/Stored Procedures/FT.sp_AddForeignKeys.sql b/Stored Procedures/FT.sp_AddForeignKeys.sql
+new file mode 100644
+index 0000000..639b26f
+--- /dev/null
++++ b/Stored Procedures/FT.sp_AddForeignKeys.sql
+@@ -0,0 +1,122 @@
++SET QUOTED_IDENTIFIER ON
++GO
++SET ANSI_NULLS ON
++GO
++
++create procedure [FT].[sp_AddForeignKeys]
++as
++declare
++	@ForeignKeyName sysname
++,	@TableSchema sysname
++,	@TableName sysname
++,	@ColumnName sysname
++,	@UniqueTableSchema sysname
++,	@UniqueTableName sysname
++,	@UniqueColumnName sysname
++,	@CreateForeignKeySyntax nvarchar(max)
++,	@UniqueColumnList nvarchar(max)
++
++declare	ForeignKeys cursor local for
++select distinct
++	rcd.CONSTRAINT_NAME
++,	rcd.TABLE_SCHEMA
++,	rcd.TABLE_NAME
++,	rcd.UNIQUE_TABLE_SCHEMA
++,	rcd.UNIQUE_TABLE_NAME
++from
++	FT.REFERENTIAL_CONSTRAINT_DEFS rcd
++where
++	rcd.CONSTRAINT_NAME not in
++		(	select
++				rccu.CONSTRAINT_NAME
++			from
++				FT.REFERENTIAL_CONSTRAINTS_COLUMN_USAGE rccu
++		)
++
++open
++	ForeignKeys
++
++fetch
++	ForeignKeys
++into
++	@ForeignKeyName
++,	@TableSchema
++,	@TableName
++,	@UniqueTableSchema
++,	@UniqueTableName
++
++while	@@FETCH_STATUS = 0 begin
++	
++	set	@CreateForeignKeySyntax = N'alter table [' + @TableSchema + '].[' + @TableName + '] add constraint ' + @ForeignKeyName + ' foreign key ('
++	
++	declare	ForeignKeyColumns cursor local for
++	select
++		COLUMN_NAME
++	,	UNIQUE_COLUMN_NAME
++	from
++		FT.REFERENTIAL_CONSTRAINT_DEFS
++	where
++		CONSTRAINT_NAME = @ForeignKeyName and
++		TABLE_NAME = @TableName
++	
++	open
++		ForeignKeyColumns
++	
++	fetch
++		ForeignKeyColumns
++	into
++		@ColumnName
++	,	@UniqueColumnName
++		
++	set	@CreateForeignKeySyntax = @CreateForeignKeySyntax + @ColumnName
++	set	@UniqueColumnList = @UniqueColumnName
++	
++	fetch
++		ForeignKeyColumns
++	into
++		@ColumnName
++	,	@UniqueColumnName
++		
++	while	@@FETCH_STATUS = 0 begin
++		set	@CreateForeignKeySyntax = @CreateForeignKeySyntax + ',' + @ColumnName
++		set	@UniqueColumnList = @UniqueColumnList + ',' + @UniqueColumnName
++		
++		fetch
++			ForeignKeyColumns
++		into
++			@ColumnName
++		,	@UniqueColumnName
++	end
++	
++	close
++		ForeignKeyColumns
++	
++	deallocate
++		ForeignKeyColumns
++	
++	set	@CreateForeignKeySyntax = @CreateForeignKeySyntax + ') references [' + @UniqueTableSchema + '].[' + @UniqueTableName + '] (' + @UniqueColumnList + ')'
++	
++	print @CreateForeignKeySyntax
++	
++	execute	sp_executesql @CreateForeignKeySyntax
++	
++	fetch
++		ForeignKeys
++	into
++		@ForeignKeyName
++	,	@TableSchema
++	,	@TableName
++	,	@UniqueTableSchema
++	,	@UniqueTableName
++	
++	set	@CreateForeignKeySyntax = ''
++	set	@UniqueColumnList = ''
++end
++
++close
++	ForeignKeys
++
++truncate table
++	FT.REFERENTIAL_CONSTRAINT_DEFS
++
++GO
+diff --git a/Stored Procedures/FT.sp_DropForeignKeys.sql b/Stored Procedures/FT.sp_DropForeignKeys.sql
+new file mode 100644
+index 0000000..1d7a339
+--- /dev/null
++++ b/Stored Procedures/FT.sp_DropForeignKeys.sql
+@@ -0,0 +1,65 @@
++SET QUOTED_IDENTIFIER ON
++GO
++SET ANSI_NULLS ON
++GO
++
++create procedure [FT].[sp_DropForeignKeys]
++as
++if	not exists
++	(	select
++			*
++		from
++			FT.REFERENTIAL_CONSTRAINT_DEFS) begin
++
++	insert
++		FT.REFERENTIAL_CONSTRAINT_DEFS
++	select
++		*
++	from
++		FT.REFERENTIAL_CONSTRAINTS_COLUMN_USAGE
++	order by
++		CONSTRAINT_NAME
++	,	ORDINAL_POSITION
++
++	declare
++		@ForeignKeyName sysname
++	,	@TableSchema sysname
++	,	@TableName sysname
++	,	@DropForeignKeySyntax nvarchar(max)
++
++	declare	ForeignKeys cursor local for
++	select distinct
++		CONSTRAINT_NAME
++	,	TABLE_SCHEMA
++	,	TABLE_NAME
++	from
++		FT.REFERENTIAL_CONSTRAINT_DEFS
++
++	open
++		ForeignKeys
++
++	fetch
++		ForeignKeys
++	into
++		@ForeignKeyName
++	,	@TableSchema
++	,	@TableName
++
++	while	@@FETCH_STATUS = 0 begin
++		
++		set	@DropForeignKeySyntax = N'alter table [' + @TableSchema + '].[' + @TableName + '] drop constraint ' + @ForeignKeyName
++		
++		execute	sp_executesql @DropForeignKeySyntax
++		
++		fetch
++			ForeignKeys
++		into
++			@ForeignKeyName
++		,	@TableSchema
++		,	@TableName
++	end
++
++	close	ForeignKeys
++end
++
++GO
+diff --git a/Tables/Contacts.CompanyDepartments.sql b/Tables/Contacts.CompanyDepartments.sql
+new file mode 100644
+index 0000000..7a24b83
+--- /dev/null
++++ b/Tables/Contacts.CompanyDepartments.sql
+@@ -0,0 +1,177 @@
++CREATE TABLE [Contacts].[CompanyDepartments]
++(
++[Status] [int] NOT NULL CONSTRAINT [DF__CompanyDe__Statu__261B931E] DEFAULT ((0)),
++[Type] [int] NOT NULL CONSTRAINT [DF__CompanyDep__Type__270FB757] DEFAULT ((0)),
++[Department] [varchar] (50) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL,
++[RowID] [int] NOT NULL IDENTITY(1, 1),
++[RowCreateDT] [datetime] NULL CONSTRAINT [DF__CompanyDe__RowCr__2803DB90] DEFAULT (getdate()),
++[RowCreateUser] [sys].[sysname] NOT NULL CONSTRAINT [DF__CompanyDe__RowCr__28F7FFC9] DEFAULT (suser_name()),
++[RowModifiedDT] [datetime] NULL CONSTRAINT [DF__CompanyDe__RowMo__29EC2402] DEFAULT (getdate()),
++[RowModifiedUser] [sys].[sysname] NOT NULL CONSTRAINT [DF__CompanyDe__RowMo__2AE0483B] DEFAULT (suser_name())
++) ON [PRIMARY]
++GO
++SET QUOTED_IDENTIFIER ON
++GO
++SET ANSI_NULLS ON
++GO
++
++create trigger [Contacts].[tr_CompanyDepartments_uRowModified] on [Contacts].[CompanyDepartments] after update
++as
++declare
++	@TranDT datetime
++,	@Result int
++
++set xact_abort off
++set nocount on
++set ansi_warnings off
++set	@Result = 999999
++
++--- <Error Handling>
++declare
++	@CallProcName sysname,
++	@TableName sysname,
++	@ProcName sysname,
++	@ProcReturn integer,
++	@ProcResult integer,
++	@Error integer,
++	@RowCount integer
++
++set	@ProcName = user_name(objectproperty(@@procid, 'OwnerId')) + '.' + object_name(@@procid)  -- e.g. Contacts.usp_Test
++--- </Error Handling>
++
++begin try
++	--- <Tran Required=Yes AutoCreate=Yes TranDTParm=Yes>
++	declare
++		@TranCount smallint
++
++	set	@TranCount = @@TranCount
++	set	@TranDT = coalesce(@TranDT, GetDate())
++	save tran @ProcName
++	--- </Tran>
++
++	---	<ArgumentValidation>
++
++	---	</ArgumentValidation>
++	
++	--- <Body>
++	if	not update(RowModifiedDT) begin
++		--- <Update rows="*">
++		set	@TableName = 'Contacts.CompanyDepartments'
++		
++		update
++			cd
++		set	RowModifiedDT = getdate()
++		,	RowModifiedUser = suser_name()
++		from
++			Contacts.CompanyDepartments cd
++			join inserted i
++				on i.RowID = cd.RowID
++		
++		select
++			@Error = @@Error,
++			@RowCount = @@Rowcount
++		
++		if	@Error != 0 begin
++			set	@Result = 999999
++			RAISERROR ('Error updating table %s in procedure %s.  Error: %d', 16, 1, @TableName, @ProcName, @Error)
++			rollback tran @ProcName
++			return
++		end
++		--- </Update>
++		
++		--- </Body>
++	end
++end try
++begin catch
++	declare
++		@errorName int
++	,	@errorSeverity int
++	,	@errorState int
++	,	@errorLine int
++	,	@errorProcedures sysname
++	,	@errorMessage nvarchar(2048)
++	,	@xact_state int
++	
++	select
++		@errorName = error_number()
++	,	@errorSeverity = error_severity()
++	,	@errorState = error_state ()
++	,	@errorLine = error_line()
++	,	@errorProcedures = error_procedure()
++	,	@errorMessage = error_message()
++	,	@xact_state = xact_state()
++
++	if	xact_state() = -1 begin
++		print 'Error number: ' + convert(varchar, @errorName)
++		print 'Error severity: ' + convert(varchar, @errorSeverity)
++		print 'Error state: ' + convert(varchar, @errorState)
++		print 'Error line: ' + convert(varchar, @errorLine)
++		print 'Error procedure: ' + @errorProcedures
++		print 'Error message: ' + @errorMessage
++		print 'xact_state: ' + convert(varchar, @xact_state)
++		
++		rollback transaction
++	end
++	else begin
++		/*	Capture any errors in SP Logging. */
++		rollback tran @ProcName
++	end
++end catch
++
++---	<Return>
++set	@Result = 0
++return
++--- </Return>
++/*
++Example:
++Initial queries
++{
++
++}
++
++Test syntax
++{
++
++set statistics io on
++set statistics time on
++go
++
++begin transaction Test
++go
++
++insert
++	Contacts.CompanyDepartments
++...
++
++update
++	...
++from
++	Contacts.CompanyDepartments
++...
++
++delete
++	...
++from
++	Contacts.CompanyDepartments
++...
++go
++
++if	@@trancount > 0 begin
++	rollback
++end
++go
++
++set statistics io off
++set statistics time off
++go
++
++}
++
++Results {
++}
++*/
++GO
++ALTER TABLE [Contacts].[CompanyDepartments] ADD CONSTRAINT [PK__CompanyD__FFEE74512156DE01] PRIMARY KEY CLUSTERED  ([RowID]) ON [PRIMARY]
++GO
++ALTER TABLE [Contacts].[CompanyDepartments] ADD CONSTRAINT [UQ__CompanyD__1F72B96E24334AAC] UNIQUE NONCLUSTERED  ([Department]) ON [PRIMARY]
++GO
+diff --git a/Tables/Contacts.ContactEmploymentStatus.sql b/Tables/Contacts.ContactEmploymentStatus.sql
+new file mode 100644
+index 0000000..eae327a
+--- /dev/null
++++ b/Tables/Contacts.ContactEmploymentStatus.sql
+@@ -0,0 +1,177 @@
++CREATE TABLE [Contacts].[ContactEmploymentStatus]
++(
++[Status] [int] NOT NULL CONSTRAINT [DF__ContactEm__Statu__3FDB6521] DEFAULT ((0)),
++[Type] [int] NOT NULL CONSTRAINT [DF__ContactEmp__Type__40CF895A] DEFAULT ((0)),
++[EmploymentStatus] [varchar] (50) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL,
++[RowID] [int] NOT NULL IDENTITY(1, 1),
++[RowCreateDT] [datetime] NULL CONSTRAINT [DF__ContactEm__RowCr__41C3AD93] DEFAULT (getdate()),
++[RowCreateUser] [sys].[sysname] NOT NULL CONSTRAINT [DF__ContactEm__RowCr__42B7D1CC] DEFAULT (suser_name()),
++[RowModifiedDT] [datetime] NULL CONSTRAINT [DF__ContactEm__RowMo__43ABF605] DEFAULT (getdate()),
++[RowModifiedUser] [sys].[sysname] NOT NULL CONSTRAINT [DF__ContactEm__RowMo__44A01A3E] DEFAULT (suser_name())
++) ON [PRIMARY]
++GO
++SET QUOTED_IDENTIFIER ON
++GO
++SET ANSI_NULLS ON
++GO
++
++create trigger [Contacts].[tr_ContactEmploymentStatus_uRowModified] on [Contacts].[ContactEmploymentStatus] after update
++as
++declare
++	@TranDT datetime
++,	@Result int
++
++set xact_abort off
++set nocount on
++set ansi_warnings off
++set	@Result = 999999
++
++--- <Error Handling>
++declare
++	@CallProcName sysname,
++	@TableName sysname,
++	@ProcName sysname,
++	@ProcReturn integer,
++	@ProcResult integer,
++	@Error integer,
++	@RowCount integer
++
++set	@ProcName = user_name(objectproperty(@@procid, 'OwnerId')) + '.' + object_name(@@procid)  -- e.g. Contacts.usp_Test
++--- </Error Handling>
++
++begin try
++	--- <Tran Required=Yes AutoCreate=Yes TranDTParm=Yes>
++	declare
++		@TranCount smallint
++
++	set	@TranCount = @@TranCount
++	set	@TranDT = coalesce(@TranDT, GetDate())
++	save tran @ProcName
++	--- </Tran>
++
++	---	<ArgumentValidation>
++
++	---	</ArgumentValidation>
++	
++	--- <Body>
++	if	not update(RowModifiedDT) begin
++		--- <Update rows="*">
++		set	@TableName = 'Contacts.ContactEmploymentStatus'
++		
++		update
++			ces
++		set	RowModifiedDT = getdate()
++		,	RowModifiedUser = suser_name()
++		from
++			Contacts.ContactEmploymentStatus ces
++			join inserted i
++				on i.RowID = ces.RowID
++		
++		select
++			@Error = @@Error,
++			@RowCount = @@Rowcount
++		
++		if	@Error != 0 begin
++			set	@Result = 999999
++			RAISERROR ('Error updating table %s in procedure %s.  Error: %d', 16, 1, @TableName, @ProcName, @Error)
++			rollback tran @ProcName
++			return
++		end
++		--- </Update>
++		
++		--- </Body>
++	end
++end try
++begin catch
++	declare
++		@errorName int
++	,	@errorSeverity int
++	,	@errorState int
++	,	@errorLine int
++	,	@errorProcedures sysname
++	,	@errorMessage nvarchar(2048)
++	,	@xact_state int
++	
++	select
++		@errorName = error_number()
++	,	@errorSeverity = error_severity()
++	,	@errorState = error_state ()
++	,	@errorLine = error_line()
++	,	@errorProcedures = error_procedure()
++	,	@errorMessage = error_message()
++	,	@xact_state = xact_state()
++
++	if	xact_state() = -1 begin
++		print 'Error number: ' + convert(varchar, @errorName)
++		print 'Error severity: ' + convert(varchar, @errorSeverity)
++		print 'Error state: ' + convert(varchar, @errorState)
++		print 'Error line: ' + convert(varchar, @errorLine)
++		print 'Error procedure: ' + @errorProcedures
++		print 'Error message: ' + @errorMessage
++		print 'xact_state: ' + convert(varchar, @xact_state)
++		
++		rollback transaction
++	end
++	else begin
++		/*	Capture any errors in SP Logging. */
++		rollback tran @ProcName
++	end
++end catch
++
++---	<Return>
++set	@Result = 0
++return
++--- </Return>
++/*
++Example:
++Initial queries
++{
++
++}
++
++Test syntax
++{
++
++set statistics io on
++set statistics time on
++go
++
++begin transaction Test
++go
++
++insert
++	Contacts.ContactEmploymentStatus
++...
++
++update
++	...
++from
++	Contacts.ContactEmploymentStatus
++...
++
++delete
++	...
++from
++	Contacts.ContactEmploymentStatus
++...
++go
++
++if	@@trancount > 0 begin
++	rollback
++end
++go
++
++set statistics io off
++set statistics time off
++go
++
++}
++
++Results {
++}
++*/
++GO
++ALTER TABLE [Contacts].[ContactEmploymentStatus] ADD CONSTRAINT [PK__ContactE__FFEE74513B16B004] PRIMARY KEY CLUSTERED  ([RowID]) ON [PRIMARY]
++GO
++ALTER TABLE [Contacts].[ContactEmploymentStatus] ADD CONSTRAINT [UQ__ContactE__A09F648E3DF31CAF] UNIQUE NONCLUSTERED  ([EmploymentStatus]) ON [PRIMARY]
++GO
+diff --git a/Tables/Contacts.EmailAddresses.sql b/Tables/Contacts.EmailAddresses.sql
+new file mode 100644
+index 0000000..1058346
+--- /dev/null
++++ b/Tables/Contacts.EmailAddresses.sql
+@@ -0,0 +1,186 @@
++CREATE TABLE [Contacts].[EmailAddresses]
++(
++[Status] [int] NOT NULL CONSTRAINT [DF__EmailAddr__Statu__014935CB] DEFAULT ((0)),
++[Type] [int] NOT NULL CONSTRAINT [DF__EmailAddre__Type__023D5A04] DEFAULT ((0)),
++[Person] [int] NOT NULL,
++[EmailType] [int] NOT NULL,
++[EmailAddress] [varchar] (100) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL,
++[RowID] [int] NOT NULL IDENTITY(1, 1),
++[RowCreateDT] [datetime] NULL CONSTRAINT [DF__EmailAddr__RowCr__03317E3D] DEFAULT (getdate()),
++[RowCreateUser] [sys].[sysname] NOT NULL CONSTRAINT [DF__EmailAddr__RowCr__0425A276] DEFAULT (suser_name()),
++[RowModifiedDT] [datetime] NULL CONSTRAINT [DF__EmailAddr__RowMo__0519C6AF] DEFAULT (getdate()),
++[RowModifiedUser] [sys].[sysname] NOT NULL CONSTRAINT [DF__EmailAddr__RowMo__060DEAE8] DEFAULT (suser_name())
++) ON [PRIMARY]
++GO
++SET QUOTED_IDENTIFIER ON
++GO
++SET ANSI_NULLS ON
++GO
++
++create trigger [Contacts].[tr_EmailAddresses_uRowModified] on [Contacts].[EmailAddresses] after update
++as
++declare
++	@TranDT datetime
++,	@Result int
++
++set xact_abort off
++set nocount on
++set ansi_warnings off
++set	@Result = 999999
++
++--- <Error Handling>
++declare
++	@CallProcName sysname,
++	@TableName sysname,
++	@ProcName sysname,
++	@ProcReturn integer,
++	@ProcResult integer,
++	@Error integer,
++	@RowCount integer
++
++set	@ProcName = user_name(objectproperty(@@procid, 'OwnerId')) + '.' + object_name(@@procid)  -- e.g. Contacts.usp_Test
++--- </Error Handling>
++
++begin try
++	--- <Tran Required=Yes AutoCreate=Yes TranDTParm=Yes>
++	declare
++		@TranCount smallint
++
++	set	@TranCount = @@TranCount
++	set	@TranDT = coalesce(@TranDT, GetDate())
++	save tran @ProcName
++	--- </Tran>
++
++	---	<ArgumentValidation>
++
++	---	</ArgumentValidation>
++	
++	--- <Body>
++	if	not update(RowModifiedDT) begin
++		--- <Update rows="*">
++		set	@TableName = 'Contacts.EmailAddresses'
++		
++		update
++			pn
++		set	RowModifiedDT = getdate()
++		,	RowModifiedUser = suser_name()
++		from
++			Contacts.EmailAddresses pn
++			join inserted i
++				on i.RowID = pn.RowID
++		
++		select
++			@Error = @@Error,
++			@RowCount = @@Rowcount
++		
++		if	@Error != 0 begin
++			set	@Result = 999999
++			RAISERROR ('Error updating table %s in procedure %s.  Error: %d', 16, 1, @TableName, @ProcName, @Error)
++			rollback tran @ProcName
++			return
++		end
++		--- </Update>
++		
++		--- </Body>
++	end
++end try
++begin catch
++	declare
++		@errorName int
++	,	@errorSeverity int
++	,	@errorState int
++	,	@errorLine int
++	,	@errorProcedures sysname
++	,	@errorMessage nvarchar(2048)
++	,	@xact_state int
++	
++	select
++		@errorName = error_number()
++	,	@errorSeverity = error_severity()
++	,	@errorState = error_state ()
++	,	@errorLine = error_line()
++	,	@errorProcedures = error_procedure()
++	,	@errorMessage = error_message()
++	,	@xact_state = xact_state()
++
++	if	xact_state() = -1 begin
++		print 'Error number: ' + convert(varchar, @errorName)
++		print 'Error severity: ' + convert(varchar, @errorSeverity)
++		print 'Error state: ' + convert(varchar, @errorState)
++		print 'Error line: ' + convert(varchar, @errorLine)
++		print 'Error procedure: ' + @errorProcedures
++		print 'Error message: ' + @errorMessage
++		print 'xact_state: ' + convert(varchar, @xact_state)
++		
++		rollback transaction
++	end
++	else begin
++		/*	Capture any errors in SP Logging. */
++		rollback tran @ProcName
++	end
++end catch
++
++---	<Return>
++set	@Result = 0
++return
++--- </Return>
++/*
++Example:
++Initial queries
++{
++
++}
++
++Test syntax
++{
++
++set statistics io on
++set statistics time on
++go
++
++begin transaction Test
++go
++
++insert
++	Contacts.EmailAddresses
++...
++
++update
++	...
++from
++	Contacts.EmailAddresses
++...
++
++delete
++	...
++from
++	Contacts.EmailAddresses
++...
++go
++
++if	@@trancount > 0 begin
++	rollback
++end
++go
++
++set statistics io off
++set statistics time off
++go
++
++}
++
++Results {
++}
++*/
++
++GO
++ALTER TABLE [Contacts].[EmailAddresses] ADD CONSTRAINT [PK__EmailAdd__FFEE74517F60ED59] PRIMARY KEY CLUSTERED  ([RowID]) ON [PRIMARY]
++GO
++ALTER TABLE [Contacts].[EmailAddresses] ADD CONSTRAINT [FK__EmailAddr__Email__5812160E] FOREIGN KEY ([EmailType]) REFERENCES [Contacts].[EmailTypes] ([RowID])
++GO
++ALTER TABLE [Contacts].[EmailAddresses] ADD CONSTRAINT [FK__EmailAddr__Email__6D0D32F4] FOREIGN KEY ([EmailType]) REFERENCES [Contacts].[EmailTypes] ([RowID])
++GO
++ALTER TABLE [Contacts].[EmailAddresses] ADD CONSTRAINT [FK__EmailAddr__Perso__59063A47] FOREIGN KEY ([Person]) REFERENCES [Contacts].[People] ([RowID])
++GO
++ALTER TABLE [Contacts].[EmailAddresses] ADD CONSTRAINT [FK__EmailAddr__Perso__6E01572D] FOREIGN KEY ([Person]) REFERENCES [Contacts].[People] ([RowID])
++GO
+diff --git a/Tables/Contacts.EmailTypes.sql b/Tables/Contacts.EmailTypes.sql
+new file mode 100644
+index 0000000..2a2fa86
+--- /dev/null
++++ b/Tables/Contacts.EmailTypes.sql
+@@ -0,0 +1,178 @@
++CREATE TABLE [Contacts].[EmailTypes]
++(
++[Status] [int] NOT NULL CONSTRAINT [DF__EmailType__Statu__0DAF0CB0] DEFAULT ((0)),
++[Type] [int] NOT NULL CONSTRAINT [DF__EmailTypes__Type__0EA330E9] DEFAULT ((0)),
++[Name] [varchar] (50) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL,
++[RowID] [int] NOT NULL IDENTITY(1, 1),
++[RowCreateDT] [datetime] NULL CONSTRAINT [DF__EmailType__RowCr__0F975522] DEFAULT (getdate()),
++[RowCreateUser] [sys].[sysname] NOT NULL CONSTRAINT [DF__EmailType__RowCr__108B795B] DEFAULT (suser_name()),
++[RowModifiedDT] [datetime] NULL CONSTRAINT [DF__EmailType__RowMo__117F9D94] DEFAULT (getdate()),
++[RowModifiedUser] [sys].[sysname] NOT NULL CONSTRAINT [DF__EmailType__RowMo__1273C1CD] DEFAULT (suser_name())
++) ON [PRIMARY]
++GO
++SET QUOTED_IDENTIFIER ON
++GO
++SET ANSI_NULLS ON
++GO
++
++create trigger [Contacts].[tr_EmailTypes_uRowModified] on [Contacts].[EmailTypes] after update
++as
++declare
++	@TranDT datetime
++,	@Result int
++
++set xact_abort off
++set nocount on
++set ansi_warnings off
++set	@Result = 999999
++
++--- <Error Handling>
++declare
++	@CallProcName sysname,
++	@TableName sysname,
++	@ProcName sysname,
++	@ProcReturn integer,
++	@ProcResult integer,
++	@Error integer,
++	@RowCount integer
++
++set	@ProcName = user_name(objectproperty(@@procid, 'OwnerId')) + '.' + object_name(@@procid)  -- e.g. Contacts.usp_Test
++--- </Error Handling>
++
++begin try
++	--- <Tran Required=Yes AutoCreate=Yes TranDTParm=Yes>
++	declare
++		@TranCount smallint
++
++	set	@TranCount = @@TranCount
++	set	@TranDT = coalesce(@TranDT, GetDate())
++	save tran @ProcName
++	--- </Tran>
++
++	---	<ArgumentValidation>
++
++	---	</ArgumentValidation>
++	
++	--- <Body>
++	if	not update(RowModifiedDT) begin
++		--- <Update rows="*">
++		set	@TableName = 'Contacts.EmailTypes'
++		
++		update
++			et
++		set	RowModifiedDT = getdate()
++		,	RowModifiedUser = suser_name()
++		from
++			Contacts.EmailTypes et
++			join inserted i
++				on i.RowID = et.RowID
++		
++		select
++			@Error = @@Error,
++			@RowCount = @@Rowcount
++		
++		if	@Error != 0 begin
++			set	@Result = 999999
++			RAISERROR ('Error updating table %s in procedure %s.  Error: %d', 16, 1, @TableName, @ProcName, @Error)
++			rollback tran @ProcName
++			return
++		end
++		--- </Update>
++		
++		--- </Body>
++	end
++end try
++begin catch
++	declare
++		@errorName int
++	,	@errorSeverity int
++	,	@errorState int
++	,	@errorLine int
++	,	@errorProcedures sysname
++	,	@errorMessage nvarchar(2048)
++	,	@xact_state int
++	
++	select
++		@errorName = error_number()
++	,	@errorSeverity = error_severity()
++	,	@errorState = error_state ()
++	,	@errorLine = error_line()
++	,	@errorProcedures = error_procedure()
++	,	@errorMessage = error_message()
++	,	@xact_state = xact_state()
++
++	if	xact_state() = -1 begin
++		print 'Error number: ' + convert(varchar, @errorName)
++		print 'Error severity: ' + convert(varchar, @errorSeverity)
++		print 'Error state: ' + convert(varchar, @errorState)
++		print 'Error line: ' + convert(varchar, @errorLine)
++		print 'Error procedure: ' + @errorProcedures
++		print 'Error message: ' + @errorMessage
++		print 'xact_state: ' + convert(varchar, @xact_state)
++		
++		rollback transaction
++	end
++	else begin
++		/*	Capture any errors in SP Logging. */
++		rollback tran @ProcName
++	end
++end catch
++
++---	<Return>
++set	@Result = 0
++return
++--- </Return>
++/*
++Example:
++Initial queries
++{
++
++}
++
++Test syntax
++{
++
++set statistics io on
++set statistics time on
++go
++
++begin transaction Test
++go
++
++insert
++	Contacts.EmailTypes
++...
++
++update
++	...
++from
++	Contacts.EmailTypes
++...
++
++delete
++	...
++from
++	Contacts.EmailTypes
++...
++go
++
++if	@@trancount > 0 begin
++	rollback
++end
++go
++
++set statistics io off
++set statistics time off
++go
++
++}
++
++Results {
++}
++*/
++
++GO
++ALTER TABLE [Contacts].[EmailTypes] ADD CONSTRAINT [PK__EmailTyp__FFEE745108EA5793] PRIMARY KEY CLUSTERED  ([RowID]) ON [PRIMARY]
++GO
++ALTER TABLE [Contacts].[EmailTypes] ADD CONSTRAINT [UQ__EmailTyp__737584F60BC6C43E] UNIQUE NONCLUSTERED  ([Name]) ON [PRIMARY]
++GO
+diff --git a/Tables/Contacts.NamePrefix.sql b/Tables/Contacts.NamePrefix.sql
+new file mode 100644
+index 0000000..75f2e4b
+--- /dev/null
++++ b/Tables/Contacts.NamePrefix.sql
+@@ -0,0 +1,177 @@
++CREATE TABLE [Contacts].[NamePrefix]
++(
++[Status] [int] NOT NULL CONSTRAINT [DF__NamePrefi__Statu__5CACADF9] DEFAULT ((0)),
++[Type] [int] NOT NULL CONSTRAINT [DF__NamePrefix__Type__5DA0D232] DEFAULT ((0)),
++[Prefix] [varchar] (50) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL,
++[RowID] [int] NOT NULL IDENTITY(1, 1),
++[RowCreateDT] [datetime] NULL CONSTRAINT [DF__NamePrefi__RowCr__5E94F66B] DEFAULT (getdate()),
++[RowCreateUser] [sys].[sysname] NOT NULL CONSTRAINT [DF__NamePrefi__RowCr__5F891AA4] DEFAULT (suser_name()),
++[RowModifiedDT] [datetime] NULL CONSTRAINT [DF__NamePrefi__RowMo__607D3EDD] DEFAULT (getdate()),
++[RowModifiedUser] [sys].[sysname] NOT NULL CONSTRAINT [DF__NamePrefi__RowMo__61716316] DEFAULT (suser_name())
++) ON [PRIMARY]
++GO
++SET QUOTED_IDENTIFIER ON
++GO
++SET ANSI_NULLS ON
++GO
++
++create trigger [Contacts].[tr_NamePrefix_uRowModified] on [Contacts].[NamePrefix] after update
++as
++declare
++	@TranDT datetime
++,	@Result int
++
++set xact_abort off
++set nocount on
++set ansi_warnings off
++set	@Result = 999999
++
++--- <Error Handling>
++declare
++	@CallProcName sysname,
++	@TableName sysname,
++	@ProcName sysname,
++	@ProcReturn integer,
++	@ProcResult integer,
++	@Error integer,
++	@RowCount integer
++
++set	@ProcName = user_name(objectproperty(@@procid, 'OwnerId')) + '.' + object_name(@@procid)  -- e.g. Contacts.usp_Test
++--- </Error Handling>
++
++begin try
++	--- <Tran Required=Yes AutoCreate=Yes TranDTParm=Yes>
++	declare
++		@TranCount smallint
++
++	set	@TranCount = @@TranCount
++	set	@TranDT = coalesce(@TranDT, GetDate())
++	save tran @ProcName
++	--- </Tran>
++
++	---	<ArgumentValidation>
++
++	---	</ArgumentValidation>
++	
++	--- <Body>
++	if	not update(RowModifiedDT) begin
++		--- <Update rows="*">
++		set	@TableName = 'Contacts.NamePrefix'
++		
++		update
++			np
++		set	RowModifiedDT = getdate()
++		,	RowModifiedUser = suser_name()
++		from
++			Contacts.NamePrefix np
++			join inserted i
++				on i.RowID = np.RowID
++		
++		select
++			@Error = @@Error,
++			@RowCount = @@Rowcount
++		
++		if	@Error != 0 begin
++			set	@Result = 999999
++			RAISERROR ('Error updating table %s in procedure %s.  Error: %d', 16, 1, @TableName, @ProcName, @Error)
++			rollback tran @ProcName
++			return
++		end
++		--- </Update>
++		
++		--- </Body>
++	end
++end try
++begin catch
++	declare
++		@errorName int
++	,	@errorSeverity int
++	,	@errorState int
++	,	@errorLine int
++	,	@errorProcedures sysname
++	,	@errorMessage nvarchar(2048)
++	,	@xact_state int
++	
++	select
++		@errorName = error_number()
++	,	@errorSeverity = error_severity()
++	,	@errorState = error_state ()
++	,	@errorLine = error_line()
++	,	@errorProcedures = error_procedure()
++	,	@errorMessage = error_message()
++	,	@xact_state = xact_state()
++
++	if	xact_state() = -1 begin
++		print 'Error number: ' + convert(varchar, @errorName)
++		print 'Error severity: ' + convert(varchar, @errorSeverity)
++		print 'Error state: ' + convert(varchar, @errorState)
++		print 'Error line: ' + convert(varchar, @errorLine)
++		print 'Error procedure: ' + @errorProcedures
++		print 'Error message: ' + @errorMessage
++		print 'xact_state: ' + convert(varchar, @xact_state)
++		
++		rollback transaction
++	end
++	else begin
++		/*	Capture any errors in SP Logging. */
++		rollback tran @ProcName
++	end
++end catch
++
++---	<Return>
++set	@Result = 0
++return
++--- </Return>
++/*
++Example:
++Initial queries
++{
++
++}
++
++Test syntax
++{
++
++set statistics io on
++set statistics time on
++go
++
++begin transaction Test
++go
++
++insert
++	Contacts.NamePrefix
++...
++
++update
++	...
++from
++	Contacts.NamePrefix
++...
++
++delete
++	...
++from
++	Contacts.NamePrefix
++...
++go
++
++if	@@trancount > 0 begin
++	rollback
++end
++go
++
++set statistics io off
++set statistics time off
++go
++
++}
++
++Results {
++}
++*/
++GO
++ALTER TABLE [Contacts].[NamePrefix] ADD CONSTRAINT [PK__NamePref__FFEE745157E7F8DC] PRIMARY KEY CLUSTERED  ([RowID]) ON [PRIMARY]
++GO
++ALTER TABLE [Contacts].[NamePrefix] ADD CONSTRAINT [UQ__NamePref__1FB4799D5AC46587] UNIQUE NONCLUSTERED  ([Prefix]) ON [PRIMARY]
++GO
+diff --git a/Tables/Contacts.People.sql b/Tables/Contacts.People.sql
+new file mode 100644
+index 0000000..54af10c
+--- /dev/null
++++ b/Tables/Contacts.People.sql
+@@ -0,0 +1,244 @@
++CREATE TABLE [Contacts].[People]
++(
++[Status] [int] NOT NULL CONSTRAINT [DF__People__Status__64D7DFA6] DEFAULT ((0)),
++[Type] [int] NOT NULL CONSTRAINT [DF__People__Type__65CC03DF] DEFAULT ((0)),
++[Prefix] [int] NULL,
++[FirstName] [varchar] (50) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
++[MiddleName] [varchar] (50) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
++[LastName] [varchar] (50) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
++[Title] [varchar] (50) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
++[Company] [int] NULL,
++[CompanyLocation] [int] NULL,
++[Department] [int] NULL,
++[PrimaryEmailAddress] [int] NULL,
++[PrimaryPhone] [int] NULL,
++[EmploymentStatus] [int] NULL,
++[DateOfBirth] [datetime] NULL,
++[ProfilePic] [varbinary] (max) NULL,
++[ProfileText] [varchar] (max) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
++[RowID] [int] NOT NULL IDENTITY(1, 1),
++[RowCreateDT] [datetime] NULL CONSTRAINT [DF__People__RowCreat__6D6D25A7] DEFAULT (getdate()),
++[RowCreateUser] [sys].[sysname] NOT NULL CONSTRAINT [DF__People__RowCreat__6E6149E0] DEFAULT (suser_name()),
++[RowModifiedDT] [datetime] NULL CONSTRAINT [DF__People__RowModif__6F556E19] DEFAULT (getdate()),
++[RowModifiedUser] [sys].[sysname] NOT NULL CONSTRAINT [DF__People__RowModif__70499252] DEFAULT (suser_name())
++) ON [PRIMARY]
++GO
++SET QUOTED_IDENTIFIER ON
++GO
++SET ANSI_NULLS ON
++GO
++
++create trigger [Contacts].[tr_People_uRowModified] on [Contacts].[People] after update
++as
++declare
++	@TranDT datetime
++,	@Result int
++
++set xact_abort off
++set nocount on
++set ansi_warnings off
++set	@Result = 999999
++
++--- <Error Handling>
++declare
++	@CallProcName sysname,
++	@TableName sysname,
++	@ProcName sysname,
++	@ProcReturn integer,
++	@ProcResult integer,
++	@Error integer,
++	@RowCount integer
++
++set	@ProcName = user_name(objectproperty(@@procid, 'OwnerId')) + '.' + object_name(@@procid)  -- e.g. Contacts.usp_Test
++--- </Error Handling>
++
++begin try
++	--- <Tran Required=Yes AutoCreate=Yes TranDTParm=Yes>
++	declare
++		@TranCount smallint
++
++	set	@TranCount = @@TranCount
++	set	@TranDT = coalesce(@TranDT, GetDate())
++	save tran @ProcName
++	--- </Tran>
++
++	---	<ArgumentValidation>
++
++	---	</ArgumentValidation>
++	
++	--- <Body>
++	if	not update(RowModifiedDT) begin
++		--- <Update rows="*">
++		set	@TableName = 'Contacts.People'
++		
++		update
++			p
++		set	RowModifiedDT = getdate()
++		,	RowModifiedUser = suser_name()
++		from
++			Contacts.People p
++			join inserted i
++				on i.RowID = p.RowID
++		
++		select
++			@Error = @@Error,
++			@RowCount = @@Rowcount
++		
++		if	@Error != 0 begin
++			set	@Result = 999999
++			RAISERROR ('Error updating table %s in procedure %s.  Error: %d', 16, 1, @TableName, @ProcName, @Error)
++			rollback tran @ProcName
++			return
++		end
++		--- </Update>
++		
++		--- </Body>
++	end
++end try
++begin catch
++	declare
++		@errorName int
++	,	@errorSeverity int
++	,	@errorState int
++	,	@errorLine int
++	,	@errorProcedures sysname
++	,	@errorMessage nvarchar(2048)
++	,	@xact_state int
++	
++	select
++		@errorName = error_number()
++	,	@errorSeverity = error_severity()
++	,	@errorState = error_state ()
++	,	@errorLine = error_line()
++	,	@errorProcedures = error_procedure()
++	,	@errorMessage = error_message()
++	,	@xact_state = xact_state()
++
++	if	xact_state() = -1 begin
++		print 'Error number: ' + convert(varchar, @errorName)
++		print 'Error severity: ' + convert(varchar, @errorSeverity)
++		print 'Error state: ' + convert(varchar, @errorState)
++		print 'Error line: ' + convert(varchar, @errorLine)
++		print 'Error procedure: ' + @errorProcedures
++		print 'Error message: ' + @errorMessage
++		print 'xact_state: ' + convert(varchar, @xact_state)
++		
++		rollback transaction
++	end
++	else begin
++		/*	Capture any errors in SP Logging. */
++		rollback tran @ProcName
++	end
++end catch
++
++---	<Return>
++set	@Result = 0
++return
++--- </Return>
++/*
++Example:
++Initial queries
++{
++
++}
++
++Test syntax
++{
++
++set statistics io on
++set statistics time on
++go
++
++begin transaction Test
++go
++
++insert
++	Contacts.People
++...
++
++update
++	...
++from
++	Contacts.People
++...
++
++delete
++	...
++from
++	Contacts.People
++...
++go
++
++if	@@trancount > 0 begin
++	rollback
++end
++go
++
++set statistics io off
++set statistics time off
++go
++
++}
++
++Results {
++}
++*/
++GO
++ALTER TABLE [Contacts].[People] ADD CONSTRAINT [PK__People__FFEE745162EF9734] PRIMARY KEY CLUSTERED  ([RowID]) ON [PRIMARY]
++GO
++ALTER TABLE [Contacts].[People] ADD CONSTRAINT [FK__People__Company__2B9F624A] FOREIGN KEY ([Company]) REFERENCES [PM].[Companies] ([RowID])
++GO
++ALTER TABLE [Contacts].[People] ADD CONSTRAINT [FK__People__Company__4D35603F] FOREIGN KEY ([Company]) REFERENCES [PM].[Companies] ([RowID])
++GO
++ALTER TABLE [Contacts].[People] ADD CONSTRAINT [FK__People__Company__67B44C51] FOREIGN KEY ([Company]) REFERENCES [PM].[Companies] ([RowID])
++GO
++ALTER TABLE [Contacts].[People] ADD CONSTRAINT [FK__People__Company__763775D2] FOREIGN KEY ([Company]) REFERENCES [PM].[Companies] ([RowID])
++GO
++ALTER TABLE [Contacts].[People] ADD CONSTRAINT [FK__People__CompanyL__2C938683] FOREIGN KEY ([CompanyLocation]) REFERENCES [PM].[CompanyLocations] ([RowID])
++GO
++ALTER TABLE [Contacts].[People] ADD CONSTRAINT [FK__People__CompanyL__4E298478] FOREIGN KEY ([CompanyLocation]) REFERENCES [PM].[CompanyLocations] ([RowID])
++GO
++ALTER TABLE [Contacts].[People] ADD CONSTRAINT [FK__People__CompanyL__68A8708A] FOREIGN KEY ([CompanyLocation]) REFERENCES [PM].[CompanyLocations] ([RowID])
++GO
++ALTER TABLE [Contacts].[People] ADD CONSTRAINT [FK__People__CompanyL__772B9A0B] FOREIGN KEY ([CompanyLocation]) REFERENCES [PM].[CompanyLocations] ([RowID])
++GO
++ALTER TABLE [Contacts].[People] ADD CONSTRAINT [FK__People__Departme__2D87AABC] FOREIGN KEY ([Department]) REFERENCES [Contacts].[CompanyDepartments] ([RowID])
++GO
++ALTER TABLE [Contacts].[People] ADD CONSTRAINT [FK__People__Departme__4F1DA8B1] FOREIGN KEY ([Department]) REFERENCES [Contacts].[CompanyDepartments] ([RowID])
++GO
++ALTER TABLE [Contacts].[People] ADD CONSTRAINT [FK__People__Departme__699C94C3] FOREIGN KEY ([Department]) REFERENCES [Contacts].[CompanyDepartments] ([RowID])
++GO
++ALTER TABLE [Contacts].[People] ADD CONSTRAINT [FK__People__Departme__781FBE44] FOREIGN KEY ([Department]) REFERENCES [Contacts].[CompanyDepartments] ([RowID])
++GO
++ALTER TABLE [Contacts].[People] ADD CONSTRAINT [FK__People__Employme__30641767] FOREIGN KEY ([EmploymentStatus]) REFERENCES [Contacts].[ContactEmploymentStatus] ([RowID])
++GO
++ALTER TABLE [Contacts].[People] ADD CONSTRAINT [FK__People__Employme__51FA155C] FOREIGN KEY ([EmploymentStatus]) REFERENCES [Contacts].[ContactEmploymentStatus] ([RowID])
++GO
++ALTER TABLE [Contacts].[People] ADD CONSTRAINT [FK__People__Employme__6C79016E] FOREIGN KEY ([EmploymentStatus]) REFERENCES [Contacts].[ContactEmploymentStatus] ([RowID])
++GO
++ALTER TABLE [Contacts].[People] ADD CONSTRAINT [FK__People__Employme__7AFC2AEF] FOREIGN KEY ([EmploymentStatus]) REFERENCES [Contacts].[ContactEmploymentStatus] ([RowID])
++GO
++ALTER TABLE [Contacts].[People] ADD CONSTRAINT [FK__People__Prefix__2AAB3E11] FOREIGN KEY ([Prefix]) REFERENCES [Contacts].[NamePrefix] ([RowID])
++GO
++ALTER TABLE [Contacts].[People] ADD CONSTRAINT [FK__People__Prefix__4C413C06] FOREIGN KEY ([Prefix]) REFERENCES [Contacts].[NamePrefix] ([RowID])
++GO
++ALTER TABLE [Contacts].[People] ADD CONSTRAINT [FK__People__Prefix__66C02818] FOREIGN KEY ([Prefix]) REFERENCES [Contacts].[NamePrefix] ([RowID])
++GO
++ALTER TABLE [Contacts].[People] ADD CONSTRAINT [FK__People__Prefix__75435199] FOREIGN KEY ([Prefix]) REFERENCES [Contacts].[NamePrefix] ([RowID])
++GO
++ALTER TABLE [Contacts].[People] ADD CONSTRAINT [FK__People__PrimaryE__2E7BCEF5] FOREIGN KEY ([PrimaryEmailAddress]) REFERENCES [Contacts].[EmailAddresses] ([RowID])
++GO
++ALTER TABLE [Contacts].[People] ADD CONSTRAINT [FK__People__PrimaryE__5011CCEA] FOREIGN KEY ([PrimaryEmailAddress]) REFERENCES [Contacts].[EmailAddresses] ([RowID])
++GO
++ALTER TABLE [Contacts].[People] ADD CONSTRAINT [FK__People__PrimaryE__6A90B8FC] FOREIGN KEY ([PrimaryEmailAddress]) REFERENCES [Contacts].[EmailAddresses] ([RowID])
++GO
++ALTER TABLE [Contacts].[People] ADD CONSTRAINT [FK__People__PrimaryE__7913E27D] FOREIGN KEY ([PrimaryEmailAddress]) REFERENCES [Contacts].[EmailAddresses] ([RowID])
++GO
++ALTER TABLE [Contacts].[People] ADD CONSTRAINT [FK__People__PrimaryP__2F6FF32E] FOREIGN KEY ([PrimaryPhone]) REFERENCES [Contacts].[PhoneNumbers] ([RowID])
++GO
++ALTER TABLE [Contacts].[People] ADD CONSTRAINT [FK__People__PrimaryP__5105F123] FOREIGN KEY ([PrimaryPhone]) REFERENCES [Contacts].[PhoneNumbers] ([RowID])
++GO
++ALTER TABLE [Contacts].[People] ADD CONSTRAINT [FK__People__PrimaryP__6B84DD35] FOREIGN KEY ([PrimaryPhone]) REFERENCES [Contacts].[PhoneNumbers] ([RowID])
++GO
++ALTER TABLE [Contacts].[People] ADD CONSTRAINT [FK__People__PrimaryP__7A0806B6] FOREIGN KEY ([PrimaryPhone]) REFERENCES [Contacts].[PhoneNumbers] ([RowID])
++GO
+diff --git a/Tables/Contacts.PhoneNumbers.sql b/Tables/Contacts.PhoneNumbers.sql
+new file mode 100644
+index 0000000..6d28679
+--- /dev/null
++++ b/Tables/Contacts.PhoneNumbers.sql
+@@ -0,0 +1,186 @@
++CREATE TABLE [Contacts].[PhoneNumbers]
++(
++[Status] [int] NOT NULL CONSTRAINT [DF__PhoneNumb__Statu__20C1E124] DEFAULT ((0)),
++[Type] [int] NOT NULL CONSTRAINT [DF__PhoneNumbe__Type__21B6055D] DEFAULT ((0)),
++[Person] [int] NOT NULL,
++[PhoneType] [int] NOT NULL,
++[PhoneNumber] [varchar] (50) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL,
++[RowID] [int] NOT NULL IDENTITY(1, 1),
++[RowCreateDT] [datetime] NULL CONSTRAINT [DF__PhoneNumb__RowCr__22AA2996] DEFAULT (getdate()),
++[RowCreateUser] [sys].[sysname] NOT NULL CONSTRAINT [DF__PhoneNumb__RowCr__239E4DCF] DEFAULT (suser_name()),
++[RowModifiedDT] [datetime] NULL CONSTRAINT [DF__PhoneNumb__RowMo__24927208] DEFAULT (getdate()),
++[RowModifiedUser] [sys].[sysname] NOT NULL CONSTRAINT [DF__PhoneNumb__RowMo__25869641] DEFAULT (suser_name())
++) ON [PRIMARY]
++GO
++SET QUOTED_IDENTIFIER ON
++GO
++SET ANSI_NULLS ON
++GO
++
++create trigger [Contacts].[tr_PhoneNumbers_uRowModified] on [Contacts].[PhoneNumbers] after update
++as
++declare
++	@TranDT datetime
++,	@Result int
++
++set xact_abort off
++set nocount on
++set ansi_warnings off
++set	@Result = 999999
++
++--- <Error Handling>
++declare
++	@CallProcName sysname,
++	@TableName sysname,
++	@ProcName sysname,
++	@ProcReturn integer,
++	@ProcResult integer,
++	@Error integer,
++	@RowCount integer
++
++set	@ProcName = user_name(objectproperty(@@procid, 'OwnerId')) + '.' + object_name(@@procid)  -- e.g. Contacts.usp_Test
++--- </Error Handling>
++
++begin try
++	--- <Tran Required=Yes AutoCreate=Yes TranDTParm=Yes>
++	declare
++		@TranCount smallint
++
++	set	@TranCount = @@TranCount
++	set	@TranDT = coalesce(@TranDT, GetDate())
++	save tran @ProcName
++	--- </Tran>
++
++	---	<ArgumentValidation>
++
++	---	</ArgumentValidation>
++	
++	--- <Body>
++	if	not update(RowModifiedDT) begin
++		--- <Update rows="*">
++		set	@TableName = 'Contacts.PhoneNumbers'
++		
++		update
++			pn
++		set	RowModifiedDT = getdate()
++		,	RowModifiedUser = suser_name()
++		from
++			Contacts.PhoneNumbers pn
++			join inserted i
++				on i.RowID = pn.RowID
++		
++		select
++			@Error = @@Error,
++			@RowCount = @@Rowcount
++		
++		if	@Error != 0 begin
++			set	@Result = 999999
++			RAISERROR ('Error updating table %s in procedure %s.  Error: %d', 16, 1, @TableName, @ProcName, @Error)
++			rollback tran @ProcName
++			return
++		end
++		--- </Update>
++		
++		--- </Body>
++	end
++end try
++begin catch
++	declare
++		@errorName int
++	,	@errorSeverity int
++	,	@errorState int
++	,	@errorLine int
++	,	@errorProcedures sysname
++	,	@errorMessage nvarchar(2048)
++	,	@xact_state int
++	
++	select
++		@errorName = error_number()
++	,	@errorSeverity = error_severity()
++	,	@errorState = error_state ()
++	,	@errorLine = error_line()
++	,	@errorProcedures = error_procedure()
++	,	@errorMessage = error_message()
++	,	@xact_state = xact_state()
++
++	if	xact_state() = -1 begin
++		print 'Error number: ' + convert(varchar, @errorName)
++		print 'Error severity: ' + convert(varchar, @errorSeverity)
++		print 'Error state: ' + convert(varchar, @errorState)
++		print 'Error line: ' + convert(varchar, @errorLine)
++		print 'Error procedure: ' + @errorProcedures
++		print 'Error message: ' + @errorMessage
++		print 'xact_state: ' + convert(varchar, @xact_state)
++		
++		rollback transaction
++	end
++	else begin
++		/*	Capture any errors in SP Logging. */
++		rollback tran @ProcName
++	end
++end catch
++
++---	<Return>
++set	@Result = 0
++return
++--- </Return>
++/*
++Example:
++Initial queries
++{
++
++}
++
++Test syntax
++{
++
++set statistics io on
++set statistics time on
++go
++
++begin transaction Test
++go
++
++insert
++	Contacts.PhoneNumbers
++...
++
++update
++	...
++from
++	Contacts.PhoneNumbers
++...
++
++delete
++	...
++from
++	Contacts.PhoneNumbers
++...
++go
++
++if	@@trancount > 0 begin
++	rollback
++end
++go
++
++set statistics io off
++set statistics time off
++go
++
++}
++
++Results {
++}
++*/
++
++GO
++ALTER TABLE [Contacts].[PhoneNumbers] ADD CONSTRAINT [PK__PhoneNum__FFEE74511ED998B2] PRIMARY KEY CLUSTERED  ([RowID]) ON [PRIMARY]
++GO
++ALTER TABLE [Contacts].[PhoneNumbers] ADD CONSTRAINT [FK__PhoneNumb__Perso__59FA5E80] FOREIGN KEY ([Person]) REFERENCES [Contacts].[People] ([RowID])
++GO
++ALTER TABLE [Contacts].[PhoneNumbers] ADD CONSTRAINT [FK__PhoneNumb__Perso__6EF57B66] FOREIGN KEY ([Person]) REFERENCES [Contacts].[People] ([RowID])
++GO
++ALTER TABLE [Contacts].[PhoneNumbers] ADD CONSTRAINT [FK__PhoneNumb__Phone__5AEE82B9] FOREIGN KEY ([PhoneType]) REFERENCES [Contacts].[PhoneTypes] ([RowID])
++GO
++ALTER TABLE [Contacts].[PhoneNumbers] ADD CONSTRAINT [FK__PhoneNumb__Phone__6FE99F9F] FOREIGN KEY ([PhoneType]) REFERENCES [Contacts].[PhoneTypes] ([RowID])
++GO
+diff --git a/Tables/Contacts.PhoneTypes.sql b/Tables/Contacts.PhoneTypes.sql
+new file mode 100644
+index 0000000..c6b45c3
+--- /dev/null
++++ b/Tables/Contacts.PhoneTypes.sql
+@@ -0,0 +1,178 @@
++CREATE TABLE [Contacts].[PhoneTypes]
++(
++[Status] [int] NOT NULL CONSTRAINT [DF__PhoneType__Statu__2D27B809] DEFAULT ((0)),
++[Type] [int] NOT NULL CONSTRAINT [DF__PhoneTypes__Type__2E1BDC42] DEFAULT ((0)),
++[Name] [varchar] (50) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL,
++[RowID] [int] NOT NULL IDENTITY(1, 1),
++[RowCreateDT] [datetime] NULL CONSTRAINT [DF__PhoneType__RowCr__2F10007B] DEFAULT (getdate()),
++[RowCreateUser] [sys].[sysname] NOT NULL CONSTRAINT [DF__PhoneType__RowCr__300424B4] DEFAULT (suser_name()),
++[RowModifiedDT] [datetime] NULL CONSTRAINT [DF__PhoneType__RowMo__30F848ED] DEFAULT (getdate()),
++[RowModifiedUser] [sys].[sysname] NOT NULL CONSTRAINT [DF__PhoneType__RowMo__31EC6D26] DEFAULT (suser_name())
++) ON [PRIMARY]
++GO
++SET QUOTED_IDENTIFIER ON
++GO
++SET ANSI_NULLS ON
++GO
++
++create trigger [Contacts].[tr_PhoneTypes_uRowModified] on [Contacts].[PhoneTypes] after update
++as
++declare
++	@TranDT datetime
++,	@Result int
++
++set xact_abort off
++set nocount on
++set ansi_warnings off
++set	@Result = 999999
++
++--- <Error Handling>
++declare
++	@CallProcName sysname,
++	@TableName sysname,
++	@ProcName sysname,
++	@ProcReturn integer,
++	@ProcResult integer,
++	@Error integer,
++	@RowCount integer
++
++set	@ProcName = user_name(objectproperty(@@procid, 'OwnerId')) + '.' + object_name(@@procid)  -- e.g. Contacts.usp_Test
++--- </Error Handling>
++
++begin try
++	--- <Tran Required=Yes AutoCreate=Yes TranDTParm=Yes>
++	declare
++		@TranCount smallint
++
++	set	@TranCount = @@TranCount
++	set	@TranDT = coalesce(@TranDT, GetDate())
++	save tran @ProcName
++	--- </Tran>
++
++	---	<ArgumentValidation>
++
++	---	</ArgumentValidation>
++	
++	--- <Body>
++	if	not update(RowModifiedDT) begin
++		--- <Update rows="*">
++		set	@TableName = 'Contacts.PhoneTypes'
++		
++		update
++			pt
++		set	RowModifiedDT = getdate()
++		,	RowModifiedUser = suser_name()
++		from
++			Contacts.PhoneTypes pt
++			join inserted i
++				on i.RowID = pt.RowID
++		
++		select
++			@Error = @@Error,
++			@RowCount = @@Rowcount
++		
++		if	@Error != 0 begin
++			set	@Result = 999999
++			RAISERROR ('Error updating table %s in procedure %s.  Error: %d', 16, 1, @TableName, @ProcName, @Error)
++			rollback tran @ProcName
++			return
++		end
++		--- </Update>
++		
++		--- </Body>
++	end
++end try
++begin catch
++	declare
++		@errorName int
++	,	@errorSeverity int
++	,	@errorState int
++	,	@errorLine int
++	,	@errorProcedures sysname
++	,	@errorMessage nvarchar(2048)
++	,	@xact_state int
++	
++	select
++		@errorName = error_number()
++	,	@errorSeverity = error_severity()
++	,	@errorState = error_state ()
++	,	@errorLine = error_line()
++	,	@errorProcedures = error_procedure()
++	,	@errorMessage = error_message()
++	,	@xact_state = xact_state()
++
++	if	xact_state() = -1 begin
++		print 'Error number: ' + convert(varchar, @errorName)
++		print 'Error severity: ' + convert(varchar, @errorSeverity)
++		print 'Error state: ' + convert(varchar, @errorState)
++		print 'Error line: ' + convert(varchar, @errorLine)
++		print 'Error procedure: ' + @errorProcedures
++		print 'Error message: ' + @errorMessage
++		print 'xact_state: ' + convert(varchar, @xact_state)
++		
++		rollback transaction
++	end
++	else begin
++		/*	Capture any errors in SP Logging. */
++		rollback tran @ProcName
++	end
++end catch
++
++---	<Return>
++set	@Result = 0
++return
++--- </Return>
++/*
++Example:
++Initial queries
++{
++
++}
++
++Test syntax
++{
++
++set statistics io on
++set statistics time on
++go
++
++begin transaction Test
++go
++
++insert
++	Contacts.PhoneTypes
++...
++
++update
++	...
++from
++	Contacts.PhoneTypes
++...
++
++delete
++	...
++from
++	Contacts.PhoneTypes
++...
++go
++
++if	@@trancount > 0 begin
++	rollback
++end
++go
++
++set statistics io off
++set statistics time off
++go
++
++}
++
++Results {
++}
++*/
++
++GO
++ALTER TABLE [Contacts].[PhoneTypes] ADD CONSTRAINT [PK__PhoneTyp__FFEE7451286302EC] PRIMARY KEY CLUSTERED  ([RowID]) ON [PRIMARY]
++GO
++ALTER TABLE [Contacts].[PhoneTypes] ADD CONSTRAINT [UQ__PhoneTyp__737584F62B3F6F97] UNIQUE NONCLUSTERED  ([Name]) ON [PRIMARY]
++GO
+diff --git a/Tables/FT.REFERENTIAL_CONSTRAINT_DEFS.sql b/Tables/FT.REFERENTIAL_CONSTRAINT_DEFS.sql
+new file mode 100644
+index 0000000..d566223
+--- /dev/null
++++ b/Tables/FT.REFERENTIAL_CONSTRAINT_DEFS.sql
+@@ -0,0 +1,23 @@
++CREATE TABLE [FT].[REFERENTIAL_CONSTRAINT_DEFS]
++(
++[CONSTRAINT_CATALOG] [nvarchar] (128) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
++[CONSTRAINT_SCHEMA] [nvarchar] (128) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
++[CONSTRAINT_NAME] [nvarchar] (128) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL,
++[TABLE_CATALOG] [nvarchar] (128) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
++[TABLE_SCHEMA] [nvarchar] (128) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
++[TABLE_NAME] [nvarchar] (128) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL,
++[COLUMN_NAME] [nvarchar] (128) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
++[ORDINAL_POSITION] [int] NOT NULL,
++[UNIQUE_CONSTRAINT_CATALOG] [nvarchar] (128) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
++[UNIQUE_CONSTRAINT_SCHEMA] [nvarchar] (128) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
++[UNIQUE_CONSTRAINT_NAME] [nvarchar] (128) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL,
++[UNIQUE_TABLE_CATALOG] [nvarchar] (128) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
++[UNIQUE_TABLE_SCHEMA] [nvarchar] (128) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
++[UNIQUE_TABLE_NAME] [nvarchar] (128) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL,
++[UNIQUE_COLUMN_NAME] [nvarchar] (128) COLLATE SQL_Latin1_General_CP1_CI_AS NULL
++) ON [PRIMARY]
++GO
++EXEC sp_addextendedproperty N'SVN_Revision', N'$Rev$', 'SCHEMA', N'FT', 'TABLE', N'REFERENTIAL_CONSTRAINT_DEFS', NULL, NULL
++GO
++EXEC sp_addextendedproperty N'T_Checksum', N'-8087610475', 'SCHEMA', N'FT', 'TABLE', N'REFERENTIAL_CONSTRAINT_DEFS', NULL, NULL
++GO
+diff --git a/Tables/Notes.Entities.sql b/Tables/Notes.Entities.sql
+new file mode 100644
+index 0000000..ae23305
+--- /dev/null
++++ b/Tables/Notes.Entities.sql
+@@ -0,0 +1,178 @@
++CREATE TABLE [Notes].[Entities]
++(
++[Status] [int] NOT NULL CONSTRAINT [DF__Entities__Status__18027DF1] DEFAULT ((0)),
++[Type] [int] NOT NULL CONSTRAINT [DF__Entities__Type__18F6A22A] DEFAULT ((0)),
++[EntityURI] [varchar] (1000) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL,
++[EntityGUID] [uniqueidentifier] NULL CONSTRAINT [DF__Entities__Entity__19EAC663] DEFAULT (newid()),
++[RowID] [int] NOT NULL IDENTITY(1, 1),
++[RowCreateDT] [datetime] NULL CONSTRAINT [DF__Entities__RowCre__1ADEEA9C] DEFAULT (getdate()),
++[RowCreateUser] [sys].[sysname] NOT NULL CONSTRAINT [DF__Entities__RowCre__1BD30ED5] DEFAULT (suser_name()),
++[RowModifiedDT] [datetime] NULL CONSTRAINT [DF__Entities__RowMod__1CC7330E] DEFAULT (getdate()),
++[RowModifiedUser] [sys].[sysname] NOT NULL CONSTRAINT [DF__Entities__RowMod__1DBB5747] DEFAULT (suser_name())
++) ON [PRIMARY]
++GO
++SET QUOTED_IDENTIFIER ON
++GO
++SET ANSI_NULLS ON
++GO
++
++create trigger [Notes].[tr_Entities_uRowModified] on [Notes].[Entities] after update
++as
++declare
++	@TranDT datetime
++,	@Result int
++
++set xact_abort off
++set nocount on
++set ansi_warnings off
++set	@Result = 999999
++
++--- <Error Handling>
++declare
++	@CallProcName sysname,
++	@TableName sysname,
++	@ProcName sysname,
++	@ProcReturn integer,
++	@ProcResult integer,
++	@Error integer,
++	@RowCount integer
++
++set	@ProcName = user_name(objectproperty(@@procid, 'OwnerId')) + '.' + object_name(@@procid)  -- e.g. Notes.usp_Test
++--- </Error Handling>
++
++begin try
++	--- <Tran Required=Yes AutoCreate=Yes TranDTParm=Yes>
++	declare
++		@TranCount smallint
++
++	set	@TranCount = @@TranCount
++	set	@TranDT = coalesce(@TranDT, GetDate())
++	save tran @ProcName
++	--- </Tran>
++
++	---	<ArgumentValidation>
++
++	---	</ArgumentValidation>
++	
++	--- <Body>
++	if	not update(RowModifiedDT) begin
++		--- <Update rows="*">
++		set	@TableName = 'Notes.Entities'
++		
++		update
++			e
++		set	RowModifiedDT = getdate()
++		,	RowModifiedUser = suser_name()
++		from
++			Notes.Entities e
++			join inserted i
++				on i.RowID = e.RowID
++		
++		select
++			@Error = @@Error,
++			@RowCount = @@Rowcount
++		
++		if	@Error != 0 begin
++			set	@Result = 999999
++			RAISERROR ('Error updating table %s in procedure %s.  Error: %d', 16, 1, @TableName, @ProcName, @Error)
++			rollback tran @ProcName
++			return
++		end
++		--- </Update>
++		
++		--- </Body>
++	end
++end try
++begin catch
++	declare
++		@errorName int
++	,	@errorSeverity int
++	,	@errorState int
++	,	@errorLine int
++	,	@errorProcedures sysname
++	,	@errorMessage nvarchar(2048)
++	,	@xact_state int
++	
++	select
++		@errorName = error_number()
++	,	@errorSeverity = error_severity()
++	,	@errorState = error_state ()
++	,	@errorLine = error_line()
++	,	@errorProcedures = error_procedure()
++	,	@errorMessage = error_message()
++	,	@xact_state = xact_state()
++
++	if	xact_state() = -1 begin
++		print 'Error number: ' + convert(varchar, @errorName)
++		print 'Error severity: ' + convert(varchar, @errorSeverity)
++		print 'Error state: ' + convert(varchar, @errorState)
++		print 'Error line: ' + convert(varchar, @errorLine)
++		print 'Error procedure: ' + @errorProcedures
++		print 'Error message: ' + @errorMessage
++		print 'xact_state: ' + convert(varchar, @xact_state)
++		
++		rollback transaction
++	end
++	else begin
++		/*	Capture any errors in SP Logging. */
++		rollback tran @ProcName
++	end
++end catch
++
++---	<Return>
++set	@Result = 0
++return
++--- </Return>
++/*
++Example:
++Initial queries
++{
++
++}
++
++Test syntax
++{
++
++set statistics io on
++set statistics time on
++go
++
++begin transaction Test
++go
++
++insert
++	Notes.Entities
++...
++
++update
++	...
++from
++	Notes.Entities
++...
++
++delete
++	...
++from
++	Notes.Entities
++...
++go
++
++if	@@trancount > 0 begin
++	rollback
++end
++go
++
++set statistics io off
++set statistics time off
++go
++
++}
++
++Results {
++}
++*/
++GO
++ALTER TABLE [Notes].[Entities] ADD CONSTRAINT [PK__Entities__FFEE7451133DC8D4] PRIMARY KEY CLUSTERED  ([RowID]) ON [PRIMARY]
++GO
++ALTER TABLE [Notes].[Entities] ADD CONSTRAINT [UQ__Entities__FA37CD61161A357F] UNIQUE NONCLUSTERED  ([EntityGUID]) ON [PRIMARY]
++GO
+diff --git a/Tables/Notes.NoteCategories.sql b/Tables/Notes.NoteCategories.sql
+new file mode 100644
+index 0000000..c7d757f
+--- /dev/null
++++ b/Tables/Notes.NoteCategories.sql
+@@ -0,0 +1,178 @@
++CREATE TABLE [Notes].[NoteCategories]
++(
++[Status] [int] NOT NULL CONSTRAINT [DF__NoteCateg__Statu__0BD1B136] DEFAULT ((0)),
++[Type] [int] NOT NULL CONSTRAINT [DF__NoteCatego__Type__0CC5D56F] DEFAULT ((0)),
++[Name] [varchar] (255) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL,
++[CategoryColor] [binary] (3) NOT NULL,
++[RowID] [int] NOT NULL IDENTITY(1, 1),
++[RowCreateDT] [datetime] NULL CONSTRAINT [DF__NoteCateg__RowCr__0DB9F9A8] DEFAULT (getdate()),
++[RowCreateUser] [sys].[sysname] NOT NULL CONSTRAINT [DF__NoteCateg__RowCr__0EAE1DE1] DEFAULT (suser_name()),
++[RowModifiedDT] [datetime] NULL CONSTRAINT [DF__NoteCateg__RowMo__0FA2421A] DEFAULT (getdate()),
++[RowModifiedUser] [sys].[sysname] NOT NULL CONSTRAINT [DF__NoteCateg__RowMo__10966653] DEFAULT (suser_name())
++) ON [PRIMARY]
++GO
++SET QUOTED_IDENTIFIER ON
++GO
++SET ANSI_NULLS ON
++GO
++
++create trigger [Notes].[tr_NoteCategories_uRowModified] on [Notes].[NoteCategories] after update
++as
++declare
++	@TranDT datetime
++,	@Result int
++
++set xact_abort off
++set nocount on
++set ansi_warnings off
++set	@Result = 999999
++
++--- <Error Handling>
++declare
++	@CallProcName sysname,
++	@TableName sysname,
++	@ProcName sysname,
++	@ProcReturn integer,
++	@ProcResult integer,
++	@Error integer,
++	@RowCount integer
++
++set	@ProcName = user_name(objectproperty(@@procid, 'OwnerId')) + '.' + object_name(@@procid)  -- e.g. Notes.usp_Test
++--- </Error Handling>
++
++begin try
++	--- <Tran Required=Yes AutoCreate=Yes TranDTParm=Yes>
++	declare
++		@TranCount smallint
++
++	set	@TranCount = @@TranCount
++	set	@TranDT = coalesce(@TranDT, GetDate())
++	save tran @ProcName
++	--- </Tran>
++
++	---	<ArgumentValidation>
++
++	---	</ArgumentValidation>
++	
++	--- <Body>
++	if	not update(RowModifiedDT) begin
++		--- <Update rows="*">
++		set	@TableName = 'Notes.NoteCategories'
++		
++		update
++			nc
++		set	RowModifiedDT = getdate()
++		,	RowModifiedUser = suser_name()
++		from
++			Notes.NoteCategories nc
++			join inserted i
++				on i.RowID = nc.RowID
++		
++		select
++			@Error = @@Error,
++			@RowCount = @@Rowcount
++		
++		if	@Error != 0 begin
++			set	@Result = 999999
++			RAISERROR ('Error updating table %s in procedure %s.  Error: %d', 16, 1, @TableName, @ProcName, @Error)
++			rollback tran @ProcName
++			return
++		end
++		--- </Update>
++		
++		--- </Body>
++	end
++end try
++begin catch
++	declare
++		@errorName int
++	,	@errorSeverity int
++	,	@errorState int
++	,	@errorLine int
++	,	@errorProcedures sysname
++	,	@errorMessage nvarchar(2048)
++	,	@xact_state int
++	
++	select
++		@errorName = error_number()
++	,	@errorSeverity = error_severity()
++	,	@errorState = error_state ()
++	,	@errorLine = error_line()
++	,	@errorProcedures = error_procedure()
++	,	@errorMessage = error_message()
++	,	@xact_state = xact_state()
++
++	if	xact_state() = -1 begin
++		print 'Error number: ' + convert(varchar, @errorName)
++		print 'Error severity: ' + convert(varchar, @errorSeverity)
++		print 'Error state: ' + convert(varchar, @errorState)
++		print 'Error line: ' + convert(varchar, @errorLine)
++		print 'Error procedure: ' + @errorProcedures
++		print 'Error message: ' + @errorMessage
++		print 'xact_state: ' + convert(varchar, @xact_state)
++		
++		rollback transaction
++	end
++	else begin
++		/*	Capture any errors in SP Logging. */
++		rollback tran @ProcName
++	end
++end catch
++
++---	<Return>
++set	@Result = 0
++return
++--- </Return>
++/*
++Example:
++Initial queries
++{
++
++}
++
++Test syntax
++{
++
++set statistics io on
++set statistics time on
++go
++
++begin transaction Test
++go
++
++insert
++	Notes.NoteCategories
++...
++
++update
++	...
++from
++	Notes.NoteCategories
++...
++
++delete
++	...
++from
++	Notes.NoteCategories
++...
++go
++
++if	@@trancount > 0 begin
++	rollback
++end
++go
++
++set statistics io off
++set statistics time off
++go
++
++}
++
++Results {
++}
++*/
++GO
++ALTER TABLE [Notes].[NoteCategories] ADD CONSTRAINT [PK__NoteCate__FFEE7451070CFC19] PRIMARY KEY CLUSTERED  ([RowID]) ON [PRIMARY]
++GO
++ALTER TABLE [Notes].[NoteCategories] ADD CONSTRAINT [UQ__NoteCate__737584F609E968C4] UNIQUE NONCLUSTERED  ([Name]) ON [PRIMARY]
++GO
+diff --git a/Tables/Notes.Notes.sql b/Tables/Notes.Notes.sql
+new file mode 100644
+index 0000000..9f698ea
+--- /dev/null
++++ b/Tables/Notes.Notes.sql
+@@ -0,0 +1,206 @@
++CREATE TABLE [Notes].[Notes]
++(
++[Status] [int] NOT NULL CONSTRAINT [DF__Notes__Status__1269A02C] DEFAULT ((0)),
++[Type] [int] NOT NULL CONSTRAINT [DF__Notes__Type__135DC465] DEFAULT ((0)),
++[Author] [int] NOT NULL,
++[SubjectLine] [varchar] (max) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
++[Body] [varchar] (max) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
++[ReferencedURI] [varchar] (max) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
++[Category] [int] NULL,
++[ImportanceFlag] [int] NULL,
++[PrivacyFlag] [int] NULL,
++[EntityGUID] [uniqueidentifier] NULL,
++[Hierarchy] [sys].[hierarchyid] NOT NULL,
++[RowID] [int] NOT NULL IDENTITY(1, 1),
++[RowCreateDT] [datetime] NULL CONSTRAINT [DF__Notes__RowCreate__18227982] DEFAULT (getdate()),
++[RowCreateUser] [sys].[sysname] NOT NULL CONSTRAINT [DF__Notes__RowCreate__19169DBB] DEFAULT (suser_name()),
++[RowModifiedDT] [datetime] NULL CONSTRAINT [DF__Notes__RowModifi__1A0AC1F4] DEFAULT (getdate()),
++[RowModifiedUser] [sys].[sysname] NOT NULL CONSTRAINT [DF__Notes__RowModifi__1AFEE62D] DEFAULT (suser_name())
++) ON [PRIMARY]
++GO
++SET QUOTED_IDENTIFIER ON
++GO
++SET ANSI_NULLS ON
++GO
++
++create trigger [Notes].[tr_Notes_uRowModified] on [Notes].[Notes] after update
++as
++declare
++	@TranDT datetime
++,	@Result int
++
++set xact_abort off
++set nocount on
++set ansi_warnings off
++set	@Result = 999999
++
++--- <Error Handling>
++declare
++	@CallProcName sysname,
++	@TableName sysname,
++	@ProcName sysname,
++	@ProcReturn integer,
++	@ProcResult integer,
++	@Error integer,
++	@RowCount integer
++
++set	@ProcName = user_name(objectproperty(@@procid, 'OwnerId')) + '.' + object_name(@@procid)  -- e.g. Notes.usp_Test
++--- </Error Handling>
++
++begin try
++	--- <Tran Required=Yes AutoCreate=Yes TranDTParm=Yes>
++	declare
++		@TranCount smallint
++
++	set	@TranCount = @@TranCount
++	set	@TranDT = coalesce(@TranDT, GetDate())
++	save tran @ProcName
++	--- </Tran>
++
++	---	<ArgumentValidation>
++
++	---	</ArgumentValidation>
++	
++	--- <Body>
++	if	not update(RowModifiedDT)
++		or not update(RowModifiedUser) begin
++		--- <Update rows="*">
++		set	@TableName = 'Notes.Notes'
++		
++		update
++			n
++		set	RowModifiedDT = case when update(RowModifiedDT) then i.RowModifiedDT else getdate() end
++		,	RowModifiedUser = case when update(RowModifiedUser) then i.RowModifiedUser else suser_name() end
++		from
++			Notes.Notes n
++			join inserted i
++				on i.RowID = n.RowID
++		
++		select
++			@Error = @@Error,
++			@RowCount = @@Rowcount
++		
++		if	@Error != 0 begin
++			set	@Result = 999999
++			RAISERROR ('Error updating table %s in procedure %s.  Error: %d', 16, 1, @TableName, @ProcName, @Error)
++			rollback tran @ProcName
++			return
++		end
++		--- </Update>
++		
++	end
++		--- </Body>
++end try
++begin catch
++	declare
++		@errorName int
++	,	@errorSeverity int
++	,	@errorState int
++	,	@errorLine int
++	,	@errorProcedures sysname
++	,	@errorMessage nvarchar(2048)
++	,	@xact_state int
++	
++	select
++		@errorName = error_number()
++	,	@errorSeverity = error_severity()
++	,	@errorState = error_state ()
++	,	@errorLine = error_line()
++	,	@errorProcedures = error_procedure()
++	,	@errorMessage = error_message()
++	,	@xact_state = xact_state()
++
++	if	xact_state() = -1 begin
++		print 'Error number: ' + convert(varchar, @errorName)
++		print 'Error severity: ' + convert(varchar, @errorSeverity)
++		print 'Error state: ' + convert(varchar, @errorState)
++		print 'Error line: ' + convert(varchar, @errorLine)
++		print 'Error procedure: ' + @errorProcedures
++		print 'Error message: ' + @errorMessage
++		print 'xact_state: ' + convert(varchar, @xact_state)
++		
++		rollback transaction
++	end
++	else begin
++		/*	Capture any errors in SP Logging. */
++		rollback tran @ProcName
++	end
++end catch
++
++---	<Return>
++set	@Result = 0
++return
++--- </Return>
++/*
++Example:
++Initial queries
++{
++
++}
++
++Test syntax
++{
++
++set statistics io on
++set statistics time on
++go
++
++begin transaction Test
++go
++
++insert
++	Notes.Notes
++...
++
++update
++	...
++from
++	Notes.Notes
++...
++
++delete
++	...
++from
++	Notes.Notes
++...
++go
++
++if	@@trancount > 0 begin
++	rollback
++end
++go
++
++set statistics io off
++set statistics time off
++go
++
++}
++
++Results {
++}
++*/
++GO
++ALTER TABLE [Notes].[Notes] ADD CONSTRAINT [CK__Notes__Importanc__163A3110] CHECK (([ImportanceFlag]>=(0) AND [ImportanceFlag]<=(3)))
++GO
++ALTER TABLE [Notes].[Notes] ADD CONSTRAINT [CK__Notes__PrivacyFl__172E5549] CHECK (([PrivacyFlag]>=(0) AND [PrivacyFlag]<=(1)))
++GO
++ALTER TABLE [Notes].[Notes] ADD CONSTRAINT [PK__Notes__FFEE74510DA4EB0F] PRIMARY KEY CLUSTERED  ([RowID]) ON [PRIMARY]
++GO
++ALTER TABLE [Notes].[Notes] ADD CONSTRAINT [UQ__Notes__A20F6C63108157BA] UNIQUE NONCLUSTERED  ([Hierarchy]) ON [PRIMARY]
++GO
++ALTER TABLE [Notes].[Notes] ADD CONSTRAINT [FK__Notes__Author__1451E89E] FOREIGN KEY ([Author]) REFERENCES [PM].[Employees] ([RowID])
++GO
++ALTER TABLE [Notes].[Notes] ADD CONSTRAINT [FK__Notes__Author__2DF1BF10] FOREIGN KEY ([Author]) REFERENCES [PM].[Employees] ([RowID])
++GO
++ALTER TABLE [Notes].[Notes] ADD CONSTRAINT [FK__Notes__Author__36BC0F3B] FOREIGN KEY ([Author]) REFERENCES [PM].[Employees] ([RowID])
++GO
++ALTER TABLE [Notes].[Notes] ADD CONSTRAINT [FK__Notes__Author__49EEDF40] FOREIGN KEY ([Author]) REFERENCES [PM].[Employees] ([RowID])
++GO
++ALTER TABLE [Notes].[Notes] ADD CONSTRAINT [FK__Notes__Category__15460CD7] FOREIGN KEY ([Category]) REFERENCES [Notes].[NoteCategories] ([RowID])
++GO
++ALTER TABLE [Notes].[Notes] ADD CONSTRAINT [FK__Notes__Category__2EE5E349] FOREIGN KEY ([Category]) REFERENCES [Notes].[NoteCategories] ([RowID])
++GO
++ALTER TABLE [Notes].[Notes] ADD CONSTRAINT [FK__Notes__Category__37B03374] FOREIGN KEY ([Category]) REFERENCES [Notes].[NoteCategories] ([RowID])
++GO
++ALTER TABLE [Notes].[Notes] ADD CONSTRAINT [FK__Notes__Category__4AE30379] FOREIGN KEY ([Category]) REFERENCES [Notes].[NoteCategories] ([RowID])
++GO
+diff --git a/Tables/PM.Companies.sql b/Tables/PM.Companies.sql
+new file mode 100644
+index 0000000..b36800f
+--- /dev/null
++++ b/Tables/PM.Companies.sql
+@@ -0,0 +1,203 @@
++CREATE TABLE [PM].[Companies]
++(
++[Status] [int] NOT NULL CONSTRAINT [DF__Companies__Statu__7484378A] DEFAULT ((0)),
++[Type] [int] NOT NULL CONSTRAINT [DF__Companies__Type__75785BC3] DEFAULT ((0)),
++[CompanyCode] [varchar] (50) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL,
++[xCompanyCode] [varchar] (50) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL,
++[Name] [varchar] (255) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL,
++[PrimaryAddress1] [varchar] (255) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
++[PrimaryAddress2] [varchar] (255) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
++[PrimaryAddress3] [varchar] (255) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
++[PrimaryCity] [varchar] (255) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
++[PrimaryState] [varchar] (255) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
++[PrimaryCountry] [varchar] (255) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
++[PrimaryZipCode] [varchar] (255) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
++[Phone] [int] NULL,
++[Fax] [int] NULL,
++[BillingAddress1] [varchar] (255) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
++[BillingAddress2] [varchar] (255) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
++[BillingAddress3] [varchar] (255) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
++[BillingCity] [varchar] (255) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
++[BillingState] [varchar] (255) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
++[BillingCountry] [varchar] (255) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
++[BillingZipCode] [varchar] (255) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
++[Logo] [varbinary] (max) NULL,
++[ProfileText] [varchar] (max) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
++[RowID] [int] NOT NULL IDENTITY(1, 1),
++[RowCreateDT] [datetime] NULL CONSTRAINT [DF__Companies__RowCr__7854C86E] DEFAULT (getdate()),
++[RowCreateUser] [sys].[sysname] NOT NULL CONSTRAINT [DF__Companies__RowCr__7948ECA7] DEFAULT (suser_name()),
++[RowModifiedDT] [datetime] NULL CONSTRAINT [DF__Companies__RowMo__7A3D10E0] DEFAULT (getdate()),
++[RowModifiedUser] [sys].[sysname] NOT NULL CONSTRAINT [DF__Companies__RowMo__7B313519] DEFAULT (suser_name())
++) ON [PRIMARY]
++GO
++SET QUOTED_IDENTIFIER ON
++GO
++SET ANSI_NULLS ON
++GO
++
++create trigger [PM].[tr_Companies_uRowModified] on [PM].[Companies] after update
++as
++declare
++	@TranDT datetime
++,	@Result int
++
++set xact_abort off
++set nocount on
++set ansi_warnings off
++set	@Result = 999999
++
++--- <Error Handling>
++declare
++	@CallProcName sysname,
++	@TableName sysname,
++	@ProcName sysname,
++	@ProcReturn integer,
++	@ProcResult integer,
++	@Error integer,
++	@RowCount integer
++
++set	@ProcName = user_name(objectproperty(@@procid, 'OwnerId')) + '.' + object_name(@@procid)  -- e.g. PM.usp_Test
++--- </Error Handling>
++
++begin try
++	--- <Tran Required=Yes AutoCreate=Yes TranDTParm=Yes>
++	declare
++		@TranCount smallint
++
++	set	@TranCount = @@TranCount
++	set	@TranDT = coalesce(@TranDT, GetDate())
++	save tran @ProcName
++	--- </Tran>
++
++	---	<ArgumentValidation>
++
++	---	</ArgumentValidation>
++	
++	--- <Body>
++	if	not update(RowModifiedDT) begin
++		--- <Update rows="*">
++		set	@TableName = 'PM.Companies'
++		
++		update
++			c
++		set	RowModifiedDT = getdate()
++		,	RowModifiedUser = suser_name()
++		from
++			PM.Companies c
++			join inserted i
++				on i.RowID = c.RowID
++		
++		select
++			@Error = @@Error,
++			@RowCount = @@Rowcount
++		
++		if	@Error != 0 begin
++			set	@Result = 999999
++			RAISERROR ('Error updating table %s in procedure %s.  Error: %d', 16, 1, @TableName, @ProcName, @Error)
++			rollback tran @ProcName
++			return
++		end
++		--- </Update>
++		
++		--- </Body>
++	end
++end try
++begin catch
++	declare
++		@errorName int
++	,	@errorSeverity int
++	,	@errorState int
++	,	@errorLine int
++	,	@errorProcedures sysname
++	,	@errorMessage nvarchar(2048)
++	,	@xact_state int
++	
++	select
++		@errorName = error_number()
++	,	@errorSeverity = error_severity()
++	,	@errorState = error_state ()
++	,	@errorLine = error_line()
++	,	@errorProcedures = error_procedure()
++	,	@errorMessage = error_message()
++	,	@xact_state = xact_state()
++
++	if	xact_state() = -1 begin
++		print 'Error number: ' + convert(varchar, @errorName)
++		print 'Error severity: ' + convert(varchar, @errorSeverity)
++		print 'Error state: ' + convert(varchar, @errorState)
++		print 'Error line: ' + convert(varchar, @errorLine)
++		print 'Error procedure: ' + @errorProcedures
++		print 'Error message: ' + @errorMessage
++		print 'xact_state: ' + convert(varchar, @xact_state)
++		
++		rollback transaction
++	end
++	else begin
++		/*	Capture any errors in SP Logging. */
++		rollback tran @ProcName
++	end
++end catch
++
++---	<Return>
++set	@Result = 0
++return
++--- </Return>
++/*
++Example:
++Initial queries
++{
++
++}
++
++Test syntax
++{
++
++set statistics io on
++set statistics time on
++go
++
++begin transaction Test
++go
++
++insert
++	PM.Companies
++...
++
++update
++	...
++from
++	PM.Companies
++...
++
++delete
++	...
++from
++	PM.Companies
++...
++go
++
++if	@@trancount > 0 begin
++	rollback
++end
++go
++
++set statistics io off
++set statistics time off
++go
++
++}
++
++Results {
++}
++*/
++GO
++ALTER TABLE [PM].[Companies] ADD CONSTRAINT [PK__Companie__FFEE74516CE315C2] PRIMARY KEY CLUSTERED  ([RowID]) ON [PRIMARY]
++GO
++ALTER TABLE [PM].[Companies] ADD CONSTRAINT [UQ__Companie__11A0134B729BEF18] UNIQUE NONCLUSTERED  ([CompanyCode]) ON [PRIMARY]
++GO
++ALTER TABLE [PM].[Companies] ADD CONSTRAINT [UQ__Companie__87BC7F1A6FBF826D] UNIQUE NONCLUSTERED  ([xCompanyCode]) ON [PRIMARY]
++GO
++ALTER TABLE [PM].[Companies] ADD CONSTRAINT [FK__Companies__Fax__7760A435] FOREIGN KEY ([Fax]) REFERENCES [Contacts].[PhoneNumbers] ([RowID])
++GO
++ALTER TABLE [PM].[Companies] ADD CONSTRAINT [FK__Companies__Phone__766C7FFC] FOREIGN KEY ([Phone]) REFERENCES [Contacts].[PhoneNumbers] ([RowID])
++GO
+diff --git a/Tables/PM.CompanyLocations.sql b/Tables/PM.CompanyLocations.sql
+new file mode 100644
+index 0000000..953bc3e
+--- /dev/null
++++ b/Tables/PM.CompanyLocations.sql
+@@ -0,0 +1,202 @@
++CREATE TABLE [PM].[CompanyLocations]
++(
++[Status] [int] NOT NULL CONSTRAINT [DF__CompanyLo__Statu__0C5BC11B] DEFAULT ((0)),
++[Type] [int] NOT NULL CONSTRAINT [DF__CompanyLoc__Type__0D4FE554] DEFAULT ((0)),
++[Company] [int] NOT NULL,
++[LocationCode] [varchar] (50) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL,
++[xLocationCode] [varchar] (50) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL,
++[Name] [varchar] (255) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL,
++[PrimaryAddress1] [varchar] (255) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
++[PrimaryAddress2] [varchar] (255) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
++[PrimaryAddress3] [varchar] (255) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
++[PrimaryCity] [varchar] (255) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
++[PrimaryState] [varchar] (255) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
++[PrimaryCountry] [varchar] (255) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
++[PrimaryZipCode] [varchar] (255) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
++[Phone] [int] NULL,
++[Fax] [int] NULL,
++[ShippingAddress1] [varchar] (255) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
++[ShippingAddress2] [varchar] (255) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
++[ShippingAddress3] [varchar] (255) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
++[ShippingCity] [varchar] (255) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
++[ShippingState] [varchar] (255) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
++[ShippingCountry] [varchar] (255) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
++[ShippingZipCode] [varchar] (255) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
++[RowID] [int] NOT NULL IDENTITY(1, 1),
++[RowCreateDT] [datetime] NULL CONSTRAINT [DF__CompanyLo__RowCr__11207638] DEFAULT (getdate()),
++[RowCreateUser] [sys].[sysname] NOT NULL CONSTRAINT [DF__CompanyLo__RowCr__12149A71] DEFAULT (suser_name()),
++[RowModifiedDT] [datetime] NULL CONSTRAINT [DF__CompanyLo__RowMo__1308BEAA] DEFAULT (getdate()),
++[RowModifiedUser] [sys].[sysname] NOT NULL CONSTRAINT [DF__CompanyLo__RowMo__13FCE2E3] DEFAULT (suser_name())
++) ON [PRIMARY]
++GO
++SET QUOTED_IDENTIFIER ON
++GO
++SET ANSI_NULLS ON
++GO
++
++create trigger [PM].[tr_CompanyLocations_uRowModified] on [PM].[CompanyLocations] after update
++as
++declare
++	@TranDT datetime
++,	@Result int
++
++set xact_abort off
++set nocount on
++set ansi_warnings off
++set	@Result = 999999
++
++--- <Error Handling>
++declare
++	@CallProcName sysname,
++	@TableName sysname,
++	@ProcName sysname,
++	@ProcReturn integer,
++	@ProcResult integer,
++	@Error integer,
++	@RowCount integer
++
++set	@ProcName = user_name(objectproperty(@@procid, 'OwnerId')) + '.' + object_name(@@procid)  -- e.g. PM.usp_Test
++--- </Error Handling>
++
++begin try
++	--- <Tran Required=Yes AutoCreate=Yes TranDTParm=Yes>
++	declare
++		@TranCount smallint
++
++	set	@TranCount = @@TranCount
++	set	@TranDT = coalesce(@TranDT, GetDate())
++	save tran @ProcName
++	--- </Tran>
++
++	---	<ArgumentValidation>
++
++	---	</ArgumentValidation>
++	
++	--- <Body>
++	if	not update(RowModifiedDT) begin
++		--- <Update rows="*">
++		set	@TableName = 'PM.CompanyLocations'
++		
++		update
++			cl
++		set	RowModifiedDT = getdate()
++		,	RowModifiedUser = suser_name()
++		from
++			PM.CompanyLocations cl
++			join inserted i
++				on i.RowID = cl.RowID
++		
++		select
++			@Error = @@Error,
++			@RowCount = @@Rowcount
++		
++		if	@Error != 0 begin
++			set	@Result = 999999
++			RAISERROR ('Error updating table %s in procedure %s.  Error: %d', 16, 1, @TableName, @ProcName, @Error)
++			rollback tran @ProcName
++			return
++		end
++		--- </Update>
++		
++		--- </Body>
++	end
++end try
++begin catch
++	declare
++		@errorName int
++	,	@errorSeverity int
++	,	@errorState int
++	,	@errorLine int
++	,	@errorProcedures sysname
++	,	@errorMessage nvarchar(2048)
++	,	@xact_state int
++	
++	select
++		@errorName = error_number()
++	,	@errorSeverity = error_severity()
++	,	@errorState = error_state ()
++	,	@errorLine = error_line()
++	,	@errorProcedures = error_procedure()
++	,	@errorMessage = error_message()
++	,	@xact_state = xact_state()
++
++	if	xact_state() = -1 begin
++		print 'Error number: ' + convert(varchar, @errorName)
++		print 'Error severity: ' + convert(varchar, @errorSeverity)
++		print 'Error state: ' + convert(varchar, @errorState)
++		print 'Error line: ' + convert(varchar, @errorLine)
++		print 'Error procedure: ' + @errorProcedures
++		print 'Error message: ' + @errorMessage
++		print 'xact_state: ' + convert(varchar, @xact_state)
++		
++		rollback transaction
++	end
++	else begin
++		/*	Capture any errors in SP Logging. */
++		rollback tran @ProcName
++	end
++end catch
++
++---	<Return>
++set	@Result = 0
++return
++--- </Return>
++/*
++Example:
++Initial queries
++{
++
++}
++
++Test syntax
++{
++
++set statistics io on
++set statistics time on
++go
++
++begin transaction Test
++go
++
++insert
++	PM.CompanyLocations
++...
++
++update
++	...
++from
++	PM.CompanyLocations
++...
++
++delete
++	...
++from
++	PM.CompanyLocations
++...
++go
++
++if	@@trancount > 0 begin
++	rollback
++end
++go
++
++set statistics io off
++set statistics time off
++go
++
++}
++
++Results {
++}
++*/
++GO
++ALTER TABLE [PM].[CompanyLocations] ADD CONSTRAINT [PK__CompanyL__FFEE745107970BFE] PRIMARY KEY CLUSTERED  ([RowID]) ON [PRIMARY]
++GO
++ALTER TABLE [PM].[CompanyLocations] ADD CONSTRAINT [UQ__CompanyL__BBBE55420A7378A9] UNIQUE NONCLUSTERED  ([Company], [Name]) ON [PRIMARY]
++GO
++ALTER TABLE [PM].[CompanyLocations] ADD CONSTRAINT [FK__CompanyLo__Compa__0E44098D] FOREIGN KEY ([Company]) REFERENCES [PM].[Companies] ([RowID])
++GO
++ALTER TABLE [PM].[CompanyLocations] ADD CONSTRAINT [FK__CompanyLo__Phone__0F382DC6] FOREIGN KEY ([Phone]) REFERENCES [Contacts].[PhoneNumbers] ([RowID])
++GO
++ALTER TABLE [PM].[CompanyLocations] ADD CONSTRAINT [FK__CompanyLoca__Fax__102C51FF] FOREIGN KEY ([Fax]) REFERENCES [Contacts].[PhoneNumbers] ([RowID])
++GO
+diff --git a/Tables/PM.Employees.sql b/Tables/PM.Employees.sql
+new file mode 100644
+index 0000000..3e5bc46
+--- /dev/null
++++ b/Tables/PM.Employees.sql
+@@ -0,0 +1,183 @@
++CREATE TABLE [PM].[Employees]
++(
++[Status] [int] NOT NULL CONSTRAINT [DF__Employees__Statu__71DCD509] DEFAULT ((0)),
++[Type] [int] NOT NULL CONSTRAINT [DF__Employees__Type__72D0F942] DEFAULT ((0)),
++[Person] [int] NULL,
++[HireDate] [datetime] NULL,
++[MonitorEmployeeCode] [varchar] (5) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
++[RowID] [int] NOT NULL IDENTITY(1, 1),
++[RowCreateDT] [datetime] NULL CONSTRAINT [DF__Employees__RowCr__74B941B4] DEFAULT (getdate()),
++[RowCreateUser] [sys].[sysname] NOT NULL CONSTRAINT [DF__Employees__RowCr__75AD65ED] DEFAULT (suser_name()),
++[RowModifiedDT] [datetime] NULL CONSTRAINT [DF__Employees__RowMo__76A18A26] DEFAULT (getdate()),
++[RowModifiedUser] [sys].[sysname] NOT NULL CONSTRAINT [DF__Employees__RowMo__7795AE5F] DEFAULT (suser_name())
++) ON [PRIMARY]
++GO
++SET QUOTED_IDENTIFIER ON
++GO
++SET ANSI_NULLS ON
++GO
++
++create trigger [PM].[tr_Employees_uRowModified] on [PM].[Employees] after update
++as
++declare
++	@TranDT datetime
++,	@Result int
++
++set xact_abort off
++set nocount on
++set ansi_warnings off
++set	@Result = 999999
++
++--- <Error Handling>
++declare
++	@CallProcName sysname,
++	@TableName sysname,
++	@ProcName sysname,
++	@ProcReturn integer,
++	@ProcResult integer,
++	@Error integer,
++	@RowCount integer
++
++set	@ProcName = user_name(objectproperty(@@procid, 'OwnerId')) + '.' + object_name(@@procid)  -- e.g. PM.usp_Test
++--- </Error Handling>
++
++begin try
++	--- <Tran Required=Yes AutoCreate=Yes TranDTParm=Yes>
++	declare
++		@TranCount smallint
++
++	set	@TranCount = @@TranCount
++	set	@TranDT = coalesce(@TranDT, GetDate())
++	save tran @ProcName
++	--- </Tran>
++
++	---	<ArgumentValidation>
++
++	---	</ArgumentValidation>
++	
++	--- <Body>
++	if	not update(RowModifiedDT) begin
++		--- <Update rows="*">
++		set	@TableName = 'PM.Employees'
++		
++		update
++			e
++		set	RowModifiedDT = getdate()
++		,	RowModifiedUser = suser_name()
++		from
++			PM.Employees e
++			join inserted i
++				on i.RowID = e.RowID
++		
++		select
++			@Error = @@Error,
++			@RowCount = @@Rowcount
++		
++		if	@Error != 0 begin
++			set	@Result = 999999
++			RAISERROR ('Error updating table %s in procedure %s.  Error: %d', 16, 1, @TableName, @ProcName, @Error)
++			rollback tran @ProcName
++			return
++		end
++		--- </Update>
++		
++		--- </Body>
++	end
++end try
++begin catch
++	declare
++		@errorName int
++	,	@errorSeverity int
++	,	@errorState int
++	,	@errorLine int
++	,	@errorProcedures sysname
++	,	@errorMessage nvarchar(2048)
++	,	@xact_state int
++	
++	select
++		@errorName = error_number()
++	,	@errorSeverity = error_severity()
++	,	@errorState = error_state ()
++	,	@errorLine = error_line()
++	,	@errorProcedures = error_procedure()
++	,	@errorMessage = error_message()
++	,	@xact_state = xact_state()
++
++	if	xact_state() = -1 begin
++		print 'Error number: ' + convert(varchar, @errorName)
++		print 'Error severity: ' + convert(varchar, @errorSeverity)
++		print 'Error state: ' + convert(varchar, @errorState)
++		print 'Error line: ' + convert(varchar, @errorLine)
++		print 'Error procedure: ' + @errorProcedures
++		print 'Error message: ' + @errorMessage
++		print 'xact_state: ' + convert(varchar, @xact_state)
++		
++		rollback transaction
++	end
++	else begin
++		/*	Capture any errors in SP Logging. */
++		rollback tran @ProcName
++	end
++end catch
++
++---	<Return>
++set	@Result = 0
++return
++--- </Return>
++/*
++Example:
++Initial queries
++{
++
++}
++
++Test syntax
++{
++
++set statistics io on
++set statistics time on
++go
++
++begin transaction Test
++go
++
++insert
++	PM.Employees
++...
++
++update
++	...
++from
++	PM.Employees
++...
++
++delete
++	...
++from
++	PM.Employees
++...
++go
++
++if	@@trancount > 0 begin
++	rollback
++end
++go
++
++set statistics io off
++set statistics time off
++go
++
++}
++
++Results {
++}
++*/
++GO
++ALTER TABLE [PM].[Employees] ADD CONSTRAINT [PK__Employee__FFEE74516D181FEC] PRIMARY KEY CLUSTERED  ([RowID]) ON [PRIMARY]
++GO
++ALTER TABLE [PM].[Employees] ADD CONSTRAINT [UQ__Employee__2BC2597D6FF48C97] UNIQUE NONCLUSTERED  ([Person]) ON [PRIMARY]
++GO
++ALTER TABLE [PM].[Employees] ADD CONSTRAINT [FK__Employees__Perso__2B4A5C8F] FOREIGN KEY ([Person]) REFERENCES [Contacts].[People] ([RowID])
++GO
++ALTER TABLE [PM].[Employees] ADD CONSTRAINT [FK__Employees__Perso__73C51D7B] FOREIGN KEY ([Person]) REFERENCES [Contacts].[People] ([RowID])
++GO
+diff --git a/Views/FT.REFERENTIAL_CONSTRAINTS_COLUMN_USAGE.sql b/Views/FT.REFERENTIAL_CONSTRAINTS_COLUMN_USAGE.sql
+new file mode 100644
+index 0000000..0e19599
+--- /dev/null
++++ b/Views/FT.REFERENTIAL_CONSTRAINTS_COLUMN_USAGE.sql
+@@ -0,0 +1,36 @@
++SET QUOTED_IDENTIFIER ON
++GO
++SET ANSI_NULLS ON
++GO
++
++create view [FT].[REFERENTIAL_CONSTRAINTS_COLUMN_USAGE]
++as
++select
++	KCU1.CONSTRAINT_CATALOG as 'CONSTRAINT_CATALOG'
++,	KCU1.CONSTRAINT_SCHEMA as 'CONSTRAINT_SCHEMA'
++,	KCU1.CONSTRAINT_NAME as 'CONSTRAINT_NAME'
++,	KCU1.TABLE_CATALOG as 'TABLE_CATALOG'
++,	KCU1.TABLE_SCHEMA as 'TABLE_SCHEMA'
++,	KCU1.TABLE_NAME as 'TABLE_NAME'
++,	KCU1.COLUMN_NAME as 'COLUMN_NAME'
++,	KCU1.ORDINAL_POSITION as 'ORDINAL_POSITION'
++,	KCU2.CONSTRAINT_CATALOG as 'UNIQUE_CONSTRAINT_CATALOG'
++,	KCU2.CONSTRAINT_SCHEMA as 'UNIQUE_CONSTRAINT_SCHEMA'
++,	KCU2.CONSTRAINT_NAME as 'UNIQUE_CONSTRAINT_NAME'
++,	KCU2.TABLE_CATALOG as 'UNIQUE_TABLE_CATALOG'
++,	KCU2.TABLE_SCHEMA as 'UNIQUE_TABLE_SCHEMA'
++,	KCU2.TABLE_NAME as 'UNIQUE_TABLE_NAME'
++,	KCU2.COLUMN_NAME as 'UNIQUE_COLUMN_NAME'
++from
++	INFORMATION_SCHEMA.REFERENTIAL_CONSTRAINTS RC
++	join INFORMATION_SCHEMA.KEY_COLUMN_USAGE KCU1
++		on KCU1.CONSTRAINT_CATALOG = RC.CONSTRAINT_CATALOG
++		   and KCU1.CONSTRAINT_SCHEMA = RC.CONSTRAINT_SCHEMA
++		   and KCU1.CONSTRAINT_NAME = RC.CONSTRAINT_NAME
++	join INFORMATION_SCHEMA.KEY_COLUMN_USAGE KCU2
++		on KCU2.CONSTRAINT_CATALOG = RC.UNIQUE_CONSTRAINT_CATALOG
++		   and KCU2.CONSTRAINT_SCHEMA = RC.UNIQUE_CONSTRAINT_SCHEMA
++		   and KCU2.CONSTRAINT_NAME = RC.UNIQUE_CONSTRAINT_NAME
++where
++	KCU1.ORDINAL_POSITION = KCU2.ORDINAL_POSITION;
++GO
