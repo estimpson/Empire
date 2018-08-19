@@ -14,6 +14,8 @@ create procedure [Notes].[usp_AddEntityNote]
 ,	@ImportanceFlag int = null
 ,	@PrivacyFlag int = null
 ,	@ParentNote int = null
+,	@NewNoteID int = null out
+,	@NewNoteGUID uniqueidentifier = null out
 ,	@TranDT datetime = null out
 ,	@Result integer = null out
 ,	@Debug int = 0
@@ -102,109 +104,229 @@ begin
 		--- </Tran>
 
 		--- <Body>
-		/*	Do something. */
-		set @TocMsg = 'Do something'
-		begin
-			/* statements */
-			declare
-				@EmployeeID int =
-				(	select
-						max(e.RowID)
-					from
-						PM.Employees e
-					where
-						e.MonitorEmployeeCode = @UserCode
-				)
-
-			if	@EmployeeID is null begin
-
-				insert
-					Contacts.People
-				(	FirstName
-				,	LastName
-				)
-				select
-					u.FirstName
-				,	u.LastName
+		/* Create PLM employee as needed. */
+		set @TocMsg = 'Create PLM employee as needed'
+		declare
+			@EmployeeID int =
+			(	select
+					max(e.RowID)
 				from
-					NSA.Users u
+					PM.Employees e
 				where
-					u.UserCode = @UserCode
-				
-				declare
-					@PersonID int = scope_identity()
+					e.MonitorEmployeeCode = @UserCode
+			)
 
-				insert
-					PM.Employees
-				(	Person
-				,	MonitorEmployeeCode
-				)
-				select
-					Person = @PersonID
-				,	MonitorEmployeeCode = @UserCode
-
-				set @EmployeeID = scope_identity()
+		if	@EmployeeID is null begin
+			--- <Insert rows="1">
+			set	@TableName = 'Contacts.People'
+			
+			insert
+				Contacts.People
+			(	FirstName
+			,	LastName
+			)
+			select
+				u.FirstName
+			,	u.LastName
+			from
+				NSA.Users u
+			where
+				u.UserCode = @UserCode
+			
+			select
+				@Error = @@Error,
+				@RowCount = @@Rowcount
+			
+			if	@Error != 0 begin
+				set	@Result = 999999
+				RAISERROR ('Error inserting into table %s in procedure %s.  Error: %d', 16, 1, @TableName, @ProcName, @Error)
 			end
-
-			declare
-				@CategoryID int =
-				(	select
-						max(nc.RowID)
-					from
-						Notes.NoteCategories nc
-					where
-						nc.Name = @CategoryName
-				)
-			if	@CategoryID is null
-				and @CategoryName is not null begin
-
-				insert
-					Notes.NoteCategories
-				(	Name
-				)
-				select
-					Name = @CategoryName
-
-				set	@CategoryID = scope_identity()
+			if	@RowCount != 1 begin
+				set	@Result = 999999
+				RAISERROR ('Error inserting into table %s in procedure %s.  Rows inserted: %d.  Expected rows: 1.', 16, 1, @TableName, @ProcName, @RowCount)
 			end
-
+			--- </Insert>
 			declare
-				@EntityGUID uniqueidentifier =
+				@PersonID int = scope_identity()
+
+			--- <Insert rows="1">
+			set	@TableName = 'PM.Employees'
+			
+			insert
+				PM.Employees
+			(	Person
+			,	MonitorEmployeeCode
+			)
+			select
+				Person = @PersonID
+			,	MonitorEmployeeCode = @UserCode
+
+			select
+				@Error = @@Error,
+				@RowCount = @@Rowcount
+			
+			if	@Error != 0 begin
+				set	@Result = 999999
+				RAISERROR ('Error inserting into table %s in procedure %s.  Error: %d', 16, 1, @TableName, @ProcName, @Error)
+			end
+			if	@RowCount != 1 begin
+				set	@Result = 999999
+				RAISERROR ('Error inserting into table %s in procedure %s.  Rows inserted: %d.  Expected rows: 1.', 16, 1, @TableName, @ProcName, @RowCount)
+			end
+			--- </Insert>
+			set @EmployeeID = scope_identity()
+
+			--- <TOC>
+			if	@Debug & 0x01 = 0x01 begin
+				set @TocDT = getdate()
+				set @TimeDiff =
+					case
+						when datediff(day, @TocDT - @TicDT, convert(datetime, '1900-01-01')) > 1
+							then convert(varchar, datediff(day, @TocDT - @TicDT, convert(datetime, '1900-01-01'))) + ' day(s) ' + convert(char(12), @TocDT - @TicDT, 114)
+						else
+							convert(varchar(12), @TocDT - @TicDT, 114)
+					end
+				set @DebugMsg = @DebugMsg + char(13) + char(10) + replicate(' -', (@Debug & 0x3E) / 2) + @TocMsg + ': ' + @TimeDiff
+				set @TicDT = @TocDT
+			end
+			--- </TOC>
+		end
+
+		/* Create note category as needed. */
+		set @TocMsg = 'Create note category as needed'
+		declare
+			@CategoryID int =
+			(	select
+					max(nc.RowID)
+				from
+					Notes.NoteCategories nc
+				where
+					nc.Name = @CategoryName
+			)
+
+		if	@CategoryID is null
+			and @CategoryName is not null begin
+
+			--- <Insert rows="1">
+			set	@TableName = 'Notes.NoteCategories'
+			
+			insert
+				Notes.NoteCategories
+			(	Name
+			)
+			select
+				Name = @CategoryName
+
+			select
+				@Error = @@Error,
+				@RowCount = @@Rowcount
+			
+			if	@Error != 0 begin
+				set	@Result = 999999
+				RAISERROR ('Error inserting into table %s in procedure %s.  Error: %d', 16, 1, @TableName, @ProcName, @Error)
+			end
+			if	@RowCount != 1 begin
+				set	@Result = 999999
+				RAISERROR ('Error inserting into table %s in procedure %s.  Rows inserted: %d.  Expected rows: 1.', 16, 1, @TableName, @ProcName, @RowCount)
+			end
+			--- </Insert>
+			
+			set	@CategoryID = scope_identity()
+
+			--- <TOC>
+			if	@Debug & 0x01 = 0x01 begin
+				set @TocDT = getdate()
+				set @TimeDiff =
+					case
+						when datediff(day, @TocDT - @TicDT, convert(datetime, '1900-01-01')) > 1
+							then convert(varchar, datediff(day, @TocDT - @TicDT, convert(datetime, '1900-01-01'))) + ' day(s) ' + convert(char(12), @TocDT - @TicDT, 114)
+						else
+							convert(varchar(12), @TocDT - @TicDT, 114)
+					end
+				set @DebugMsg = @DebugMsg + char(13) + char(10) + replicate(' -', (@Debug & 0x3E) / 2) + @TocMsg + ': ' + @TimeDiff
+				set @TicDT = @TocDT
+			end
+			--- </TOC>
+		end
+
+		/*	Create entity as needed. */
+		set @TocMsg = 'Create entity as needed'
+		declare
+			@EntityGUID uniqueidentifier =
+			(	select top(1)
+					e.EntityGUID
+				from
+					Notes.Entities e
+				where
+					e.EntityURI = @EntityURI
+				order by
+					e.RowID
+			)
+
+		if	@EntityGUID is null
+			and @EntityURI > '' begin
+
+			--- <Insert rows="1">
+			set	@TableName = 'Notes.Entities'
+			
+			insert
+				Notes.Entities
+			(	EntityURI
+			)
+			select
+				EntityURI = @EntityURI
+
+			select
+				@Error = @@Error,
+				@RowCount = @@Rowcount
+			
+			if	@Error != 0 begin
+				set	@Result = 999999
+				RAISERROR ('Error inserting into table %s in procedure %s.  Error: %d', 16, 1, @TableName, @ProcName, @Error)
+				rollback tran @ProcName
+				return
+			end
+			if	@RowCount != 1 begin
+				set	@Result = 999999
+				RAISERROR ('Error inserting into table %s in procedure %s.  Rows inserted: %d.  Expected rows: 1.', 16, 1, @TableName, @ProcName, @RowCount)
+				rollback tran @ProcName
+				return
+			end
+			--- </Insert>
+			
+			set	@EntityGUID =
 				(	select top(1)
 						e.EntityGUID
 					from
 						Notes.Entities e
 					where
-						e.EntityURI = @EntityURI
+						e.RowID = scope_identity()
 					order by
 						e.RowID
 				)
 
-			if	@EntityGUID is null
-				and @EntityURI > '' begin
-
-				insert
-					Notes.Entities
-				(	EntityURI
-				)
-				select
-					EntityURI = @EntityURI
-
-				set	@EntityGUID =
-					(	select top(1)
-							e.EntityGUID
-						from
-							Notes.Entities e
-						where
-							e.RowID = scope_identity()
-						order by
-							e.RowID
-					)
+			--- <TOC>
+			if	@Debug & 0x01 = 0x01 begin
+				set @TocDT = getdate()
+				set @TimeDiff =
+					case
+						when datediff(day, @TocDT - @TicDT, convert(datetime, '1900-01-01')) > 1
+							then convert(varchar, datediff(day, @TocDT - @TicDT, convert(datetime, '1900-01-01'))) + ' day(s) ' + convert(char(12), @TocDT - @TicDT, 114)
+						else
+							convert(varchar(12), @TocDT - @TicDT, 114)
+					end
+				set @DebugMsg = @DebugMsg + char(13) + char(10) + replicate(' -', (@Debug & 0x3E) / 2) + @TocMsg + ': ' + @TimeDiff
+				set @TicDT = @TocDT
 			end
+			--- </TOC>
+		end
 
-			declare
-				@hierarchy hierarchyid
+		/*	Generate hierarchy of new note. */
+		set @TocMsg = 'Generate hierarchy of new note'
+		declare
+			@hierarchy hierarchyid
 
+		begin
 			if	@ParentNote is null begin
 
 				declare
@@ -261,6 +383,28 @@ begin
 					).GetDescendant(@lastChild, null)
 			end
 
+			--- <TOC>
+			if	@Debug & 0x01 = 0x01 begin
+				set @TocDT = getdate()
+				set @TimeDiff =
+					case
+						when datediff(day, @TocDT - @TicDT, convert(datetime, '1900-01-01')) > 1
+							then convert(varchar, datediff(day, @TocDT - @TicDT, convert(datetime, '1900-01-01'))) + ' day(s) ' + convert(char(12), @TocDT - @TicDT, 114)
+						else
+							convert(varchar(12), @TocDT - @TicDT, 114)
+					end
+				set @DebugMsg = @DebugMsg + char(13) + char(10) + replicate(' -', (@Debug & 0x3E) / 2) + @TocMsg + ': ' + @TimeDiff
+				set @TicDT = @TocDT
+			end
+			--- </TOC>
+		end
+
+		/*	Create entity note. */
+		set @TocMsg = 'Create entity note'
+		begin
+			--- <Insert rows="1">
+			set	@TableName = 'Notes.Notes'
+			
 			insert
 				Notes.Notes
 			(	Author
@@ -289,6 +433,29 @@ begin
 			,	Hierarchy = @hierarchy
 			,	RowCreateUser = @UserCode
 			,	RowModifiedUser = @UserCode
+			
+			select
+				@Error = @@Error,
+				@RowCount = @@Rowcount
+			
+			if	@Error != 0 begin
+				set	@Result = 999999
+				RAISERROR ('Error inserting into table %s in procedure %s.  Error: %d', 16, 1, @TableName, @ProcName, @Error)
+			end
+			if	@RowCount != 1 begin
+				set	@Result = 999999
+				RAISERROR ('Error inserting into table %s in procedure %s.  Rows inserted: %d.  Expected rows: 1.', 16, 1, @TableName, @ProcName, @RowCount)
+			end
+			--- </Insert>
+			set @NewNoteID = scope_identity()
+			set @NewNoteGUID =
+				(	select
+						n.NoteGUID
+					from
+						Notes.Notes n
+					where
+						n.RowID = @NewNoteID
+				)
 
 			--- <TOC>
 			if	@Debug & 0x01 = 0x01 begin

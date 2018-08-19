@@ -3,12 +3,12 @@ GO
 SET ANSI_NULLS ON
 GO
 
-create procedure [NSA].[usp_CreateAwardedQuote]
+CREATE procedure [NSA].[usp_CreateAwardedQuote]
 	@User varchar(5)
 ,	@QuoteNumber varchar(100)
 ,	@AwardDate datetime
 ,	@FormOfCommitment varchar(50)
-,	@QuoteReason tinyint
+,	@QuoteReason varchar(25)
 ,	@ReplacingBasePart char(7)
 ,	@Salesperson varchar(5)
 ,	@ProgramManager varchar(5)
@@ -144,13 +144,14 @@ begin
 			,	CreationUser = @User
 			,	AwardDate = @AwardDate
 			,	FormOfCommitment = @FormOfCommitment
-			,	QuoteReason =
-					case
-						when @QuoteReason = 0 then 'New'
-						when @QuoteReason = 1 then 'Renewal'
-						when @QuoteReason = 2 then 'Replacement'
-						else 'Unknown'
-					end
+			--,	QuoteReason =
+			--		case
+			--			when @QuoteReason = 0 then 'New'
+			--			when @QuoteReason = 1 then 'Renewal'
+			--			when @QuoteReason = 2 then 'Replacement'
+			--			else 'Unknown'
+			--		end
+			,	QuoteReason = @QuoteReason
 			,	ReplacingBasePart = @ReplacingBasePart
 			,	Salesperson = @Salesperson
 			,	ProgramManager = @ProgramManager

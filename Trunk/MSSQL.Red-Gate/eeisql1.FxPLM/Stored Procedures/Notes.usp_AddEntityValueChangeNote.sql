@@ -3,15 +3,23 @@ GO
 SET ANSI_NULLS ON
 GO
 
-create procedure [NSA].[usp_GetAwardedQuoteDetails]
-	@QuoteNumber varchar(100)
-,	@AwardDate datetime out
-,	@FormOfCommitment varchar(50) out
-,	@QuoteReason varchar(25) out
-,	@ReplacingBasePart char(7) out
-,	@Salesperson varchar(5) out
-,	@ProgramManager varchar(5) out
-,	@Comments varchar(max) out
+create procedure [Notes].[usp_AddEntityValueChangeNote]
+	@UserCode varchar(25)
+,	@EntityURI varchar(1000)
+,	@SubjectLine varchar(max) = null
+,	@Body varchar(max) = null
+--,	@ThumbnailImage varbinary(max) = null
+,	@ReferencedURI varchar(max) = null
+,	@CategoryName varchar(255) = null
+,	@ImportanceFlag int = null
+,	@PrivacyFlag int = null
+,	@ParentNote int = null
+,	@OldValueVar sql_variant = null
+,	@NewValueVar sql_variant = null
+,	@OldValue varchar(max) = null
+,	@NewValue varchar(max) = null
+,	@NewNoteID int = null out
+,	@NewNoteGUID uniqueidentifier = null out
 ,	@TranDT datetime = null out
 ,	@Result integer = null out
 ,	@Debug int = 0
@@ -52,7 +60,7 @@ begin
 		USP_Name = user_name(objectproperty(@@procid, 'OwnerId')) + '.' + object_name(@@procid)
 	,	BeginDT = getdate()
 	,	InArguments =
-			'@QuoteNumber = ' + coalesce('''' + @QuoteNumber + '''', '<null>')
+			'@UserCode = ' + coalesce('''' + @UserCode + '''', '<null>')
 			+ ', @TranDT = ' + coalesce(convert(varchar, @TranDT, 121), '<null>')
 			+ ', @Result = ' + coalesce(convert(varchar, @Result), '<null>')
 			+ ', @Debug = ' + coalesce(convert(varchar, @Debug), '<null>')
@@ -73,7 +81,7 @@ begin
 		@Error integer,
 		@RowCount integer
 
-	set	@ProcName = user_name(objectproperty(@@procid, 'OwnerId')) + '.' + object_name(@@procid)  -- e.g. NSA.usp_Test
+	set	@ProcName = user_name(objectproperty(@@procid, 'OwnerId')) + '.' + object_name(@@procid)  -- e.g. Notes.usp_Test
 	--- </Error Handling>
 
 	/*	Record initial transaction count. */
@@ -84,6 +92,11 @@ begin
 
 	begin try
 
+		---	<ArgumentValidation>
+
+		---	</ArgumentValidation>
+
+		--- <Body>
 		--- <Tran Required=Yes AutoCreate=Yes TranDTParm=Yes>
 		if	@TranCount = 0 begin
 			begin tran @ProcName
@@ -94,56 +107,100 @@ begin
 		set	@TranDT = coalesce(@TranDT, GetDate())
 		--- </Tran>
 
-		---	<ArgumentValidation>
-		/*	Ensure quote number is valid. */
-		if	not exists
-			(	select
-					*
-				from
-					NSA.QuoteLog ql
-				where
-					ql.QuoteNumber = @QuoteNumber
-			) begin
-			raiserror ('Error: Quote %s not found.', 16, 1, @QuoteNUmber)
-		end	
-		---	</ArgumentValidation>
-		
 		--- <Body>
-		/*	Get awarded quote details. */
-		set @TocMsg = 'Get awarded quote details'
+		/*	Create entity note. */
+		set @TocMsg = 'Create entity note'
+
 		begin
+			/* Create using generic procedure. */
+			--- <Call>	
+			set	@CallProcName = 'Notes.usp_AddEntityNote'
+			
+			execute @ProcReturn = Notes.usp_AddEntityNote
+					@UserCode = @UserCode
+				,	@EntityURI = @EntityURI
+				,	@SubjectLine = @SubjectLine
+				,	@Body = @Body
+				,	@ReferencedURI = @ReferencedURI
+				,	@CategoryName = @CategoryName
+				,	@ImportanceFlag = @ImportanceFlag
+				,	@PrivacyFlag = @PrivacyFlag
+				,	@ParentNote = @ParentNote
+				,	@NewNoteID = @NewNoteID out
+				,	@NewNoteGUID = @NewNoteGUID out
+				,	@TranDT = @TranDT out
+				,	@Result = @ProcResult out
+				,	@Debug = @cDebug
+				,	@DebugMsg = @cDebugMsg out
+			
+			set	@Error = @@Error
+			if	@Error != 0 begin
+				set	@Result = 900501
+				RAISERROR ('Error encountered in %s.  Error: %d while calling %s', 16, 1, @ProcName, @Error, @CallProcName)
+			end
+			if	@ProcReturn != 0 begin
+				set	@Result = 900502
+				RAISERROR ('Error encountered in %s.  ProcReturn: %d while calling %s', 16, 1, @ProcName, @ProcReturn, @CallProcName)
+			end
+			if	@ProcResult != 0 begin
+				set	@Result = 900502
+				RAISERROR ('Error encountered in %s.  ProcResult: %d while calling %s', 16, 1, @ProcName, @ProcResult, @CallProcName)
+			end
+			--- </Call>
+
+			--- <TOC>
+			if	@Debug & 0x01 = 0x01 begin
+				set @TocDT = getdate()
+				set @TimeDiff =
+					case
+						when datediff(day, @TocDT - @TicDT, convert(datetime, '1900-01-01')) > 1
+							then convert(varchar, datediff(day, @TocDT - @TicDT, convert(datetime, '1900-01-01'))) + ' day(s) ' + convert(char(12), @TocDT - @TicDT, 114)
+						else
+							convert(varchar(12), @TocDT - @TicDT, 114)
+					end
+				set @DebugMsg = @DebugMsg + char(13) + char(10) + replicate(' -', (@Debug & 0x3E) / 2) + @TocMsg + ': ' + @TimeDiff
+				set @TicDT = @TocDT
+			end
+			set @DebugMsg += coalesce(char(13) + char(10) + @cDebugMsg, N'')
+			set @cDebugMsg = null
+			--- </TOC>
+		end
+
+		/*	Create entity value change log. */
+		set @TocMsg = 'Create entity value change log'
+
+		begin
+			--- <Insert rows="1">
+			set	@TableName = 'Notes.EntityValueChanges'
+			
+			insert
+				Notes.EntityValueChanges
+			(	NoteID
+			,	OldValueVar
+			,	NewValueVar
+			,	OldValue
+			,	NewValue
+			)
 			select
-				@AwardDate = coalesce(aq.AwardDate, ql.AwardedDate)
-			,	@FormOfCommitment = aq.FormOfCommitment
-			,	@QuoteReason = aq.QuoteReason --coalesce(aq.QuoteReason, qr.QuoteReasonID)
-			,	@ReplacingBasePart = aq.ReplacingBasePart
-			,	@Salesperson = coalesce(aq.Salesperson, s.UserCode)
-			,	@ProgramManager = coalesce(aq.ProgramManager, pm.UserCode)
-			,	@Comments = aq.Comments
-			from
-				NSA.QuoteLog ql
-				left join NSA.QuoteReasons qr
-					on qr.QuoteReason = ql.QuoteReason
-				left join NSA.AwardedQuotes aq
-					on aq.QuoteNumber = ql.QuoteNumber
-				outer apply
-					(	select top 1
-							*
-						from
-							NSA.Salespeople s
-						where
-							s.UserInitials = ql.SalesInitials
-					) s
-				outer apply
-					(	select top 1
-							*
-						from
-							NSA.ProgramManagers pm
-						where
-							pm.UserInitials = ql.ProgramManagerInitials
-					) pm
-			where
-				ql.QuoteNumber = @QuoteNumber
+				NoteID = @NewNoteID
+			,	OldValueVar = @OldValueVar
+			,	NewValueVar = @NewValueVar
+			,	OldValue = coalesce(@OldValue, convert(varchar(max), @OldValueVar))
+			,	NewValue = coalesce(@NewValue, convert(varchar(max), @NewValueVar))
+			
+			select
+				@Error = @@Error,
+				@RowCount = @@Rowcount
+			
+			if	@Error != 0 begin
+				set	@Result = 999999
+				RAISERROR ('Error inserting into table %s in procedure %s.  Error: %d', 16, 1, @TableName, @ProcName, @Error)
+			end
+			if	@RowCount != 1 begin
+				set	@Result = 999999
+				RAISERROR ('Error inserting into table %s in procedure %s.  Rows inserted: %d.  Expected rows: 1.', 16, 1, @TableName, @ProcName, @RowCount)
+			end
+			--- </Insert>
 
 			--- <TOC>
 			if	@Debug & 0x01 = 0x01 begin
@@ -241,14 +298,8 @@ set statistics time on
 go
 
 declare
-	@QuoteNumber varchar(100) = '0394-17'
-,	@AwardDate datetime
-,	@FormOfCommitment varchar(50)
-,	@QuoteReason tinyint
-,	@ReplacingBasePart char(7)
-,	@Salesperson varchar(5)
-,	@ProgramManager varchar(5)
-,	@Comments varchar(max)
+	@FinishedPart varchar(25) = 'ALC0598-HC02'
+,	@ParentHeirarchID hierarchyid
 
 begin transaction Test
 
@@ -259,32 +310,16 @@ declare
 ,	@Error integer
 
 execute
-	@ProcReturn = NSA.usp_GetAwardedQuoteDetails
-	@QuoteNumber = @QuoteNumber
-,	@AwardDate = @AwardDate out
-,	@FormOfCommitment = @FormOfCommitment out
-,	@QuoteReason = @QuoteReason out
-,	@ReplacingBasePart = @ReplacingBasePart out
-,	@Salesperson = @Salesperson out
-,	@ProgramManager = @ProgramManager out
-,	@Comments = @Comments out
+	@ProcReturn = Notes.usp_AddEntityValueChangeNote
+	@FinishedPart = @FinishedPart
+,	@ParentHeirarchID = @ParentHeirarchID
 ,	@TranDT = @TranDT out
 ,	@Result = @ProcResult out
 
 set	@Error = @@error
 
 select
-	[@Error] = @Error
-,	[@ProcReturn] = @ProcReturn
-,	[@TranDT] = @TranDT
-,	[@ProcResult] = @ProcResult
-,	[@AwardDate] = @AwardDate
-,	[@FormOfCommitment] = @FormOfCommitment
-,	[@QuoteReason] = @QuoteReason
-,	[@ReplacingBasePart] = @ReplacingBasePart
-,	[@Salesperson] = @Salesperson
-,	[@ProgramManager] = @ProgramManager
-,	[@Comments] = @Comments
+	@Error, @ProcReturn, @TranDT, @ProcResult
 go
 
 if	@@trancount > 0 begin

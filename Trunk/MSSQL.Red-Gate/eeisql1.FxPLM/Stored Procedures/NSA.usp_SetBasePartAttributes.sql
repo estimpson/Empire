@@ -19,7 +19,7 @@ create procedure [NSA].[usp_SetBasePartAttributes]
 ,	@EmpireSOP datetime
 ,	@EmpireEOP datetime
 --,	@EmpireMidModelYear datetime
-,	@EmpireEOPNote varchar(250)
+,	@EmpireEOPNote varchar(max)
 ,	@Comments varchar(max)
 ,	@TranDT datetime = null out
 ,	@Result integer = null out
@@ -263,9 +263,78 @@ begin
 			--- </TOC>
 		end
 
+		/*	Log change of entity value(s). */
+		set @TocMsg = 'Log change of entity value(s)'
+		declare
+			@OldEOP datetime =
+				(	select
+		  				bpa.EmpireEOP
+		  			from
+		  				NSA.BasePartAttributes bpa
+					where
+						bpa.BasePart = @BasePart
+		  		)
+		,	@NewNoteGUID uniqueidentifier
+
+		if	coalesce(@OldEOP, @EmpireEOP) != coalesce(@EmpireEOP, '1900-01-01') begin
+
+			declare
+				@EntityURI varchar(1000) = 'EEI/FxPLM/NSA/AwardedQuotes/QuoteNumber=' + @QuoteNumber + '/BasePartAttributes.EmpireEOP'
+
+
+			--- <Call>
+			set	@CallProcName = 'Notes.usp_AddEntityValueChangeNote'
+			execute @ProcReturn = Notes.usp_AddEntityValueChangeNote
+					@UserCode = @User
+				,	@EntityURI = @EntityURI
+				,	@Body = @EmpireEOPNote
+				,	@OldValueVar = @OldEOP
+				,	@NewValueVar = @EmpireEOP
+				,	@NewNoteGUID = @NewNoteGUID out
+				,	@TranDT = @TranDT out
+				,	@Result = @ProcResult out
+				,	@Debug = @cDebug
+				,	@DebugMsg = @cDebugMsg out
+			
+			set	@Error = @@Error
+			if	@Error != 0 begin
+				set	@Result = 900501
+				RAISERROR ('Error encountered in %s.  Error: %d while calling %s', 16, 1, @ProcName, @Error, @CallProcName)
+			end
+			if	@ProcReturn != 0 begin
+				set	@Result = 900502
+				RAISERROR ('Error encountered in %s.  ProcReturn: %d while calling %s', 16, 1, @ProcName, @ProcReturn, @CallProcName)
+			end
+			if	@ProcResult != 0 begin
+				set	@Result = 900502
+				RAISERROR ('Error encountered in %s.  ProcResult: %d while calling %s', 16, 1, @ProcName, @ProcResult, @CallProcName)
+			end
+			--- </Call>
+			
+			--- <TOC>
+			if	@Debug & 0x01 = 0x01 begin
+				set @TocDT = getdate()
+				set @TimeDiff =
+					case
+						when datediff(day, @TocDT - @TicDT, convert(datetime, '1900-01-01')) > 1
+							then convert(varchar, datediff(day, @TocDT - @TicDT, convert(datetime, '1900-01-01'))) + ' day(s) ' + convert(char(12), @TocDT - @TicDT, 114)
+						else
+							convert(varchar(12), @TocDT - @TicDT, 114)
+					end
+				set @DebugMsg = @DebugMsg + char(13) + char(10) + replicate(' -', (@Debug & 0x3E) / 2) + @TocMsg + ': ' + @TimeDiff
+				set @TicDT = @TocDT
+			end
+			set @DebugMsg += coalesce(char(13) + char(10) + @cDebugMsg, N'')
+			set @cDebugMsg = null
+			--- </TOC>
+		end
+
 		/*	Update base part entry. */
 		set @TocMsg = 'Update base part entry'
 		begin
+			declare
+				@eopNote varchar(250) = convert(char(36), @NewNoteGUID)
+
 			--- <Call>	
 			set	@CallProcName = 'MONITOR.EEIUser.acctg_csm_sp_update_base_part_attributes'
 			execute @ProcReturn = MONITOR.EEIUser.acctg_csm_sp_update_base_part_attributes
@@ -284,7 +353,7 @@ begin
 			,	@empire_sop = @EmpireSOP
 			,	@empire_eop = @EmpireEOP
 			,	@mid_model_year = null
-			,	@empire_eop_note = @EmpireEOPNote
+			,	@empire_eop_note = @eopNote
 			,	@include_in_forecast = @IncludeInForecastBit
 			
 			set	@Error = @@Error
