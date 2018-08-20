@@ -49,15 +49,6 @@ namespace WebPortal.NewSalesAward.Pages {
         protected global::DevExpress.Web.PanelContent pc1;
         
         /// <summary>
-        /// updatePnl control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.UpdatePanel updatePnl;
-        
-        /// <summary>
         /// divMain control.
         /// </summary>
         /// <remarks>
@@ -119,15 +110,6 @@ namespace WebPortal.NewSalesAward.Pages {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::DevExpress.Web.ASPxButton btnAltCustomerCommitment;
-        
-        /// <summary>
-        /// divGridQuote control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divGridQuote;
         
         /// <summary>
         /// gvQuote control.
