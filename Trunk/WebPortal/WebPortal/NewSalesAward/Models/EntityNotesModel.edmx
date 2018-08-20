@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="EntityNotesModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="EntityNotesModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <Function Name="usp_AddEntityNote" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Notes">
           <Parameter Name="UserCode" Type="varchar" Mode="In" />
           <Parameter Name="EntityURI" Type="varchar" Mode="In" />
@@ -15,6 +15,8 @@
           <Parameter Name="ImportanceFlag" Type="int" Mode="In" />
           <Parameter Name="PrivacyFlag" Type="int" Mode="In" />
           <Parameter Name="ParentNote" Type="int" Mode="In" />
+          <Parameter Name="NewNoteID" Type="int" Mode="InOut" />
+          <Parameter Name="NewNoteGUID" Type="uniqueidentifier" Mode="InOut" />
           <Parameter Name="TranDT" Type="datetime" Mode="InOut" />
           <Parameter Name="Result" Type="int" Mode="InOut" />
           <Parameter Name="Debug" Type="int" Mode="In" />
@@ -44,8 +46,7 @@
           <Parameter Name="DebugMsg" Type="varchar(max)" Mode="InOut" />
         </Function>
         <EntityContainer Name="EntityNotesModelStoreContainer" />
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="EntityNotesModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -60,6 +61,8 @@
             <Parameter Name="ImportanceFlag" Mode="In" Type="Int32" />
             <Parameter Name="PrivacyFlag" Mode="In" Type="Int32" />
             <Parameter Name="ParentNote" Mode="In" Type="Int32" />
+            <Parameter Name="NewNoteID" Mode="InOut" Type="Int32" />
+            <Parameter Name="NewNoteGUID" Mode="InOut" Type="Guid" />
             <Parameter Name="TranDT" Mode="InOut" Type="DateTime" />
             <Parameter Name="Result" Mode="InOut" Type="Int32" />
             <Parameter Name="Debug" Mode="In" Type="Int32" />
@@ -101,7 +104,7 @@
           <Property Type="Int32" Name="ImportanceFlag" Nullable="true" />
           <Property Type="Int32" Name="PrivacyFlag" Nullable="true" />
           <Property Type="Int32" Name="Locked" Nullable="false" />
-          <Property Type="Guid" Name="EntityGUID" Nullable="true" />
+          <Property Type="Guid" Name="EntityGUID" Nullable="false" />
           <Property Type="String" Name="EntityURI" Nullable="false" MaxLength="1000" />
           <Property Type="String" Name="HierarchyURI" Nullable="true" MaxLength="4000" />
           <Property Type="Int32" Name="RowID" Nullable="false" />
@@ -109,6 +112,9 @@
           <Property Type="String" Name="RowCreateUser" Nullable="true" MaxLength="152" />
           <Property Type="DateTime" Name="RowModifiedDT" Nullable="true" Precision="23" />
           <Property Type="String" Name="RowModifiedUser" Nullable="true" MaxLength="152" />
+          <Property Type="Int32" Name="ValueChange" Nullable="true" />
+          <Property Type="String" Name="OldValue" Nullable="true" />
+          <Property Type="String" Name="NewValue" Nullable="true" />
         </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
@@ -139,6 +145,9 @@
                 <ScalarProperty Name="RowCreateUser" ColumnName="RowCreateUser" />
                 <ScalarProperty Name="RowModifiedDT" ColumnName="RowModifiedDT" />
                 <ScalarProperty Name="RowModifiedUser" ColumnName="RowModifiedUser" />
+                <ScalarProperty Name="ValueChange" ColumnName="ValueChange" />
+                <ScalarProperty Name="OldValue" ColumnName="OldValue" />
+                <ScalarProperty Name="NewValue" ColumnName="NewValue" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>

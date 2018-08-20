@@ -24,7 +24,7 @@ namespace WebPortal.NewSalesAward.Models
         public Nullable<int> ImportanceFlag { get; set; }
         public Nullable<int> PrivacyFlag { get; set; }
         public int Locked { get; set; }
-        public Nullable<System.Guid> EntityGUID { get; set; }
+        public System.Guid EntityGUID { get; set; }
         public string EntityURI { get; set; }
         public string HierarchyURI { get; set; }
         public int RowID { get; set; }
@@ -32,5 +32,8 @@ namespace WebPortal.NewSalesAward.Models
         public string RowCreateUser { get; set; }
         public Nullable<System.DateTime> RowModifiedDT { get; set; }
         public string RowModifiedUser { get; set; }
+        public Nullable<int> ValueChange { get; set; }
+        public string OldValue { get; set; }
+        public string NewValue { get; set; }
     }
 }

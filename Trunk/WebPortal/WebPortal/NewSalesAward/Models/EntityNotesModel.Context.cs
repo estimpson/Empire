@@ -28,7 +28,7 @@ namespace WebPortal.NewSalesAward.Models
         }
     
     
-        public virtual int usp_AddEntityNote(string userCode, string entityURI, string subjectLine, string body, string referencedURI, string categoryName, Nullable<int> importanceFlag, Nullable<int> privacyFlag, Nullable<int> parentNote, ObjectParameter tranDT, ObjectParameter result, Nullable<int> debug, ObjectParameter debugMsg)
+        public virtual int usp_AddEntityNote(string userCode, string entityURI, string subjectLine, string body, string referencedURI, string categoryName, Nullable<int> importanceFlag, Nullable<int> privacyFlag, Nullable<int> parentNote, ObjectParameter newNoteID, ObjectParameter newNoteGUID, ObjectParameter tranDT, ObjectParameter result, Nullable<int> debug, ObjectParameter debugMsg)
         {
             var userCodeParameter = userCode != null ?
                 new ObjectParameter("UserCode", userCode) :
@@ -70,7 +70,7 @@ namespace WebPortal.NewSalesAward.Models
                 new ObjectParameter("Debug", debug) :
                 new ObjectParameter("Debug", typeof(int));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("usp_AddEntityNote", userCodeParameter, entityURIParameter, subjectLineParameter, bodyParameter, referencedURIParameter, categoryNameParameter, importanceFlagParameter, privacyFlagParameter, parentNoteParameter, tranDT, result, debugParameter, debugMsg);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("usp_AddEntityNote", userCodeParameter, entityURIParameter, subjectLineParameter, bodyParameter, referencedURIParameter, categoryNameParameter, importanceFlagParameter, privacyFlagParameter, parentNoteParameter, newNoteID, newNoteGUID, tranDT, result, debugParameter, debugMsg);
         }
     
         public virtual ObjectResult<usp_GetEntityNotes_Result> usp_GetEntityNotes(string userCode, string entityURI, ObjectParameter tranDT, ObjectParameter result, Nullable<int> debug, ObjectParameter debugMsg)
