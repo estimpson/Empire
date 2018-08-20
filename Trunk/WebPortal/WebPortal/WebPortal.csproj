@@ -164,6 +164,8 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Images\ajax-loader.gif" />
+    <Content Include="Images\comment.jpg" />
+    <Content Include="Images\comment.png" />
     <Content Include="Images\lock-7-32.jpg" />
     <Content Include="Images\lock-unlocked-32.jpg" />
     <Content Include="Models\Model1.Context.tt">

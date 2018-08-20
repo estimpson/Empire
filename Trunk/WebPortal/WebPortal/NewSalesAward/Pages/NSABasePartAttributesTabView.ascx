@@ -6,16 +6,26 @@
     function OnSaveBasePartAttributesClicked(s, e) {
         if (BasePartAttributesCallbackPanel.InCallback())
             postponedCallbackRequired = true;
-        else
-            BasePartAttributesCallbackPanel.PerformCallback();
+        else {
+            var unlockNotes = "";
+            if (eopDateEditor.cpUnlocked) {
+                unlockNotes += eopDateEditor.cpUnlockNote;
+            }
+            var jsonData = {};
+            jsonData["BasePartAttributes_EmpireEOPNote"] = unlockNotes;
+            BasePartAttributesCallbackPanel.PerformCallback(JSON.stringify(jsonData));
+            console.log(jsonData);
+        }
     }
 
     function OnEndBasePartAttributesCallback(s, e) {
+        console.log("OnEndBasePartAttributesCallback");
         if (postponedCallbackRequired) {
             BasePartAttributesCallbackPanel.PerformCallback();
             postponedCallbackRequired = false;
         }
         $("#divSaveBasePartAttributesCheckMark").show(50);
+        IndividualTabSaved(s, e);
     }
 
     function OnControlsInitializedBasePartAttributes() {
@@ -142,7 +152,7 @@
                     <dx:LayoutItem Caption="Empire SOP" FieldName="EmpireSOP">
                         <LayoutItemNestedControlCollection>
                             <dx:LayoutItemNestedControlContainer runat="server">
-                                <dx:ASPxDateEdit ID="EmpireSOPDateEdit" runat="server" Width="100%" UseMaskBehavior="true">
+                                <dx:ASPxDateEdit ID="EmpireSOPDateEdit" ClientInstanceName="sopDateEditor" runat="server" Width="100%" UseMaskBehavior="true">
                                     <ClientSideEvents
                                         GotFocus="OnEditControl_GotFocus"
                                         Init="function (s,e) { RegisterURI(s, 'BasePartAttributes.EmpireSOP'); }" 
@@ -154,30 +164,36 @@
                             </dx:LayoutItemNestedControlContainer>
                         </LayoutItemNestedControlCollection>
                     </dx:LayoutItem>
-                    <dx:LayoutItem Caption="Empire EOP" FieldName="Empire EOP">
+                    <dx:LayoutItem Caption="Empire EOP" FieldName="EmpireEOP">
                         <LayoutItemNestedControlCollection>
                             <dx:LayoutItemNestedControlContainer runat="server">
+                                <script>
+                                    function OnEOPDateEditorInit(s, e) {
+                                        RegisterURI(s, 'BasePartAttributes.EmpireEOP');
+                                        s.EnabledChanged.AddHandler(function () { OnEOPEnabledChanged(s, e); });
+                                    }
+
+                                    function OnEOPEnabledChanged(s, e) {
+                                        console.log("EnabledChanged");
+                                        if (s.GetEnabled()) {
+                                            eopLockButton.SetImageUrl('/Images/lock-unlocked-32.jpg');
+                                        } else {
+                                            eopLockButton.SetImageUrl('Images/lock-7-32.jpg');
+                                        }
+                                    }
+
+                                    function onEOPLockButtonClick (s, e) {
+                                        console.log("unlock clicked");
+                                        ShowEditorEntityNotes(eopDateEditor);
+                                        PromptMandatoryNote(eopDateEditor, EndMandatoryNote);
+                                    }
+
+                                    function onEOPCommentButtonClick (s, e) {
+                                        console.log("comment clicked");
+                                        ShowEditorEntityNotes(eopDateEditor);
+                                    }
+                                </script>
                                 <div style="width:100%">
-                                    <script>
-                                        function OnEOPDateEditorInit(s, e) {
-                                            RegisterURI(s, 'BasePartAttributes.EmpireEOP');
-                                            s.EnabledChanged.AddHandler(function () { OnEOPEnabledChanged(s, e); });
-                                        }
-
-                                        function OnEOPEnabledChanged(s, e) {
-                                            console.log("EnabledChanged");
-                                            if (s.GetEnabled()) {
-                                                eopLockButton.SetImageUrl('/Images/lock-unlocked-32.jpg');
-                                            } else {
-                                                eopLockButton.SetImageUrl('Images/lock-7-32.jpg');
-                                            }
-                                        }
-
-                                        function onEOPLockButtonClick (s, e) {
-                                            console.log("unlock clicked");
-                                            PromptMandatoryNote(eopDateEditor, EndMandatoryNote);
-                                        }
-                                    </script>
                                     <table style="width:100%">
                                         <tr>
                                             <td style="width: 100%">
@@ -197,6 +213,13 @@
                                                                RenderMode="Link" AutoPostBack="false" UseSubmitBehavior="false">
                                                     <ClientSideEvents Click="onEOPLockButtonClick"/>
                                                     <Image Url="/Images/lock-7-32.jpg" ></Image>
+                                                </dx:ASPxButton>
+                                            </td>
+                                            <td>
+                                                <dx:ASPxButton ID="EOPCommentButton" runat="server" ClientInstanceName="eopCommentButton"
+                                                               RenderMode="Link" AutoPostBack="false" UseSubmitBehavior="false">
+                                                    <ClientSideEvents Click="onEOPCommentButtonClick"/>
+                                                    <Image Url="/Images/comment.png" ></Image>
                                                 </dx:ASPxButton>
                                             </td>
                                         </tr>

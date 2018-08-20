@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Web.UI;
 using DevExpress.Web;
 using WebPortal.NewSalesAward.Models;
+using WebPortal.NewSalesAward.PageViewModels;
 
 namespace WebPortal.NewSalesAward.Pages
 {
@@ -11,16 +12,12 @@ namespace WebPortal.NewSalesAward.Pages
         private usp_GetAwardedQuotes_Result AwardedQuote
         {
             get => (usp_GetAwardedQuotes_Result)Session["AwardedQuote"];
-
             set => Session["AwardedQuote"] = value;
         }
 
-        private string Mode
-        {
-            get => (string)Session["Mode"];
+        private string Mode => (string)Session["Mode"];
 
-            set => Session["Mode"] = value;
-        }
+
 
         private List<I_NSATabView> NSATabViews => new List<I_NSATabView> { QuoteTabView, NSACustomerPOTabView, NSAHardToolingTabView, NSAToolingAmortizationTabView, NSATesterToolingTabView, NSABasePartAttributesTabView, NSABasePartMnemonicsTabView, NSALogisticsTabView };
 
@@ -34,11 +31,31 @@ namespace WebPortal.NewSalesAward.Pages
         protected void NSAEditCallback_OnCallback(object sender, CallbackEventArgsBase e)
         {
             //  Refactor.  Remove callback from got focus!
-            //  Save all.
-            foreach (var nsaTabView in NSATabViews)
+            switch (e.Parameter)
             {
-                nsaTabView.Save();
+                case "SaveAll":
+                    //  Save all.
+                    foreach (var nsaTabView in NSATabViews)
+                    {
+                        nsaTabView.Save();
+                    }
+
+                    //  Refresh data.
+                    RefreshAwardedQuote();
+                    break;
+                case "IndividualTabSaved":
+                    //  Refresh data.
+                    RefreshAwardedQuote();
+                    break;
             }
+        }
+
+        private void RefreshAwardedQuote()
+        {
+            var quoteNumber = AwardedQuote.QuoteNumber;
+            var refreshedAwardedQuote = new NewSalesAwardsViewModel().GetAwardedQuote(quoteNumber);
+            AwardedQuote = refreshedAwardedQuote;
+            SetQuote();
         }
 
         public void SetQuote()

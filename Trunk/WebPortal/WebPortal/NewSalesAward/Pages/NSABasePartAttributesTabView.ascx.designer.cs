@@ -130,6 +130,15 @@ namespace WebPortal.NewSalesAward.Pages {
         protected global::DevExpress.Web.ASPxButton EOPLockButton;
         
         /// <summary>
+        /// EOPCommentButton control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::DevExpress.Web.ASPxButton EOPCommentButton;
+        
+        /// <summary>
         /// BasePart_CommentsTextBox control.
         /// </summary>
         /// <remarks>

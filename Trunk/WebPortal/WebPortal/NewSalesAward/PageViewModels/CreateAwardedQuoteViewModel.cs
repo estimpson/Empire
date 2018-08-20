@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Data.Entity.Core.Objects;
+using DevExpress.Utils.OAuth.Provider;
 using WebPortal.NewSalesAward.Models;
 using WebPortal.NewSalesAward.DataModels;
 
@@ -13,7 +14,7 @@ namespace WebPortal.NewSalesAward.PageViewModels
     {
         #region Properties
 
-        public String OperatorCode { get; set; }
+        public string OperatorCode => HttpContext.Current.Session["OpCode"].ToString();
         public String QuoteNumber { get; set; }
         public DateTime? AwardDate { get; set; }
         public String FormOfCommitment { get; set; }
@@ -30,17 +31,6 @@ namespace WebPortal.NewSalesAward.PageViewModels
         #endregion
 
         public List<String> QuoteNumberList = new List<String>();
-
-        //public List<String> SalespersonList = new List<String>();
-        //public List<String> ProgramManagerList = new List<String>();
-        //public List<String> NewBusinessTypeList = new List<String>();
-        //public List<String> ReplacingBasePartList = new List<String>();
-
-
-        public CreateAwardedQuoteViewModel()
-        {
-            OperatorCode = System.Web.HttpContext.Current.Session["OpCode"].ToString();
-        }
 
 
         #region Methods

@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Linq;
 using System.Web.UI;
 using DevExpress.Web;
+using Newtonsoft.Json;
 using WebPortal.NewSalesAward.Models;
 using WebPortal.NewSalesAward.PageViewModels;
 
@@ -41,19 +43,27 @@ namespace WebPortal.NewSalesAward.Pages
 
         protected void BasePartAttributesCallback_OnCallback(object sender, CallbackEventArgsBase e)
         {
-            Save();
+            Save(e.Parameter);
         }
 
         public void Save()
         {
+            Save("");
+        }
+
+        public void Save(string saveParameter)
+        {
             SaveCheckMark.Visible = true;
             SaveCheckMark.Enabled = false;
-            if (SetBasePartAttributes() == 0) return;
-
+            if (SetBasePartAttributes(saveParameter) == 0)
+            {
+                throw new Exception(ViewModel.Error);
+            }
+            
             SaveCheckMark.Enabled = true;
         }
 
-        private int SetBasePartAttributes()
+        private int SetBasePartAttributes(string saveParameter)
         {
             var operatorCode = Session["OpCode"].ToString();
 
@@ -73,11 +83,17 @@ namespace WebPortal.NewSalesAward.Pages
                 ? Convert.ToDateTime(EmpireEOPDateEdit.Value)
                 : (DateTime?) null;
 
-            var eopNote = "x";
+            var eopChangeNote = string.Empty;
+            if (eop != AwardedQuote.EmpireEOP)
+            {
+                dynamic x = JsonConvert.DeserializeObject(saveParameter);
+                eopChangeNote = x.BasePartAttributes_EmpireEOPNote;
+            }
+
             var comments = BasePart_CommentsTextBox.Text.Trim();
 
             ViewModel.SetBasePartAttributes(operatorCode, quote, basePartFamilyList, productLine, marketSegment,
-                marketSubsegment, application, sop, eop, eopNote, comments);
+                marketSubsegment, application, sop, eop, eopChangeNote, comments);
             return ViewModel.Error != "" ? 0 : 1;
         }
 

@@ -11,22 +11,32 @@
 
 <script>
     var postponedCallbackRequired = false;
-
-    function OnSaveAllClicked (s, e) {
-        if (NSAEditCallbackPanel.InCallback())
-            postponedCallbackRequired = true;
-        else
-            NSAEditCallbackPanel.PerformCallback();
-    }
+    var callbackMessage;
 
     function OnEndNSAEditCallback(s, e) {
         if (postponedCallbackRequired) {
-            NSAEditCallbackPanel.PerformCallback();
+            NSAEditCallbackPanel.PerformCallback(callbackMessage);
             postponedCallbackRequired = false;
         }
     }
 
+    function IndividualTabSaved(s, e) {
+        console.log("IndividualTabSaved");
+        callbackMessage = "IndividualTabSaved";
+        if (NSAEditCallbackPanel.InCallback())
+            postponedCallbackRequired = true;
+        else
+            NSAEditCallbackPanel.PerformCallback(callbackMessage);
+    }
+
     function OnEditControl_GotFocus (s, e) {
+        var input = s.GetInputElement();
+        var uri = $(input).attr("EntityURI");
+
+        FilterEntityNotesUserControl(uri);
+    }
+
+    function ShowEditorEntityNotes(s) {
         var input = s.GetInputElement();
         var uri = $(input).attr("EntityURI");
 
@@ -38,30 +48,30 @@
         var uri = 'EEI/FxPLM/NSA/AwardedQuotes/QuoteNumber=' + QuoteNumberHiddenField.Get("QuoteNumber");
 
         switch (tab.index) {
-            case 0:
-                uri += '/Quote';
-                break;
-            case 1:
-                uri += '/AwardedQuoteProductionPOs';
-                break;
-            case 2:
-                uri += '/AwardedQuoteToolingPOs';
-                break;
-            case 3:
-                uri += '/AwardedQuoteToolingPOs';
-                break;
-            case 4:
-                uri += '/AwardedQuoteToolingPOs';
-                break;
-            case 5:
-                uri += '/BasePartAttributes';
-                break;
-            case 6:
-                uri += '/BasePartMnemonics';
-                break;
-            case 7:
-                uri += '/AwardedQuoteLogistics';
-                break;
+        case 0:
+            uri += '/Quote';
+            break;
+        case 1:
+            uri += '/AwardedQuoteProductionPOs';
+            break;
+        case 2:
+            uri += '/AwardedQuoteToolingPOs';
+            break;
+        case 3:
+            uri += '/AwardedQuoteToolingPOs';
+            break;
+        case 4:
+            uri += '/AwardedQuoteToolingPOs';
+            break;
+        case 5:
+            uri += '/BasePartAttributes';
+            break;
+        case 6:
+            uri += '/BasePartMnemonics';
+            break;
+        case 7:
+            uri += '/AwardedQuoteLogistics';
+            break;
         };
         FilterEntityNotesUserControl(uri);
     }
@@ -100,6 +110,15 @@
                     <dx:LayoutItem ShowCaption="False" HorizontalAlign="Right">
                         <LayoutItemNestedControlCollection>
                             <dx:LayoutItemNestedControlContainer runat="server">
+                                <script>
+                                    function OnSaveAllClicked (s, e) {
+                                        callbackMessage = "SaveAll";
+                                        if (NSAEditCallbackPanel.InCallback())
+                                            postponedCallbackRequired = true;
+                                        else
+                                            NSAEditCallbackPanel.PerformCallback(callbackMessage);
+                                    }
+                                </script>
                                 <dx:ASPxButton ID="SaveAllButton" runat="server" AutoPostBack="False" Text="Save All">
                                     <ClientSideEvents Click="OnSaveAllClicked"></ClientSideEvents>
                                 </dx:ASPxButton>
