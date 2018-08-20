@@ -4,7 +4,7 @@
 
 <asp:Content runat="server" ContentPlaceHolderID="CustomHeaderHolder">
 
-    <script src="/Scripts/jquery-3.3.1.js"></script>
+    <script src="~/Scripts/jquery-3.3.1.js"></script>
     <script type="text/javascript">
 
         $(window).ready(function() {

@@ -176,9 +176,9 @@
                                     function OnEOPEnabledChanged(s, e) {
                                         console.log("EnabledChanged");
                                         if (s.GetEnabled()) {
-                                            eopLockButton.SetImageUrl('/Images/lock-unlocked-32.jpg');
+                                            eopLockButton.SetImageUrl('~/Images/lock-unlocked-32.jpg');
                                         } else {
-                                            eopLockButton.SetImageUrl('Images/lock-7-32.jpg');
+                                            eopLockButton.SetImageUrl('~/Images/lock-7-32.jpg');
                                         }
                                     }
 
@@ -212,14 +212,14 @@
                                                 <dx:ASPxButton ID="EOPLockButton" runat="server" ClientInstanceName="eopLockButton"
                                                                RenderMode="Link" AutoPostBack="false" UseSubmitBehavior="false">
                                                     <ClientSideEvents Click="onEOPLockButtonClick"/>
-                                                    <Image Url="/Images/lock-7-32.jpg" ></Image>
+                                                    <Image Url="~/Images/lock-7-32.jpg" ></Image>
                                                 </dx:ASPxButton>
                                             </td>
                                             <td>
                                                 <dx:ASPxButton ID="EOPCommentButton" runat="server" ClientInstanceName="eopCommentButton"
                                                                RenderMode="Link" AutoPostBack="false" UseSubmitBehavior="false">
                                                     <ClientSideEvents Click="onEOPCommentButtonClick"/>
-                                                    <Image Url="/Images/comment.png" ></Image>
+                                                    <Image Url="~/Images/comment.png" ></Image>
                                                 </dx:ASPxButton>
                                             </td>
                                         </tr>
