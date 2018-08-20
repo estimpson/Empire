@@ -156,6 +156,13 @@
                 <dx:ASPxLabel runat="server" Text='<%# Eval("EntityURI") %>' ForeColor="#AFB0B3" Font-Underline="True" Font-Size="8px">
                 </dx:ASPxLabel>
                 <br />
+                <dx:ASPxLabel runat="server" Text='<%# Eval("ValueChange") %>' ForeColor="#AFB0B3" Font-Underline="True" >
+                </dx:ASPxLabel>
+                <dx:ASPxLabel runat="server" Text='<%# Eval("OldValue") %>' ForeColor="#AFB0B3" Font-Underline="True" >
+                </dx:ASPxLabel>
+                <dx:ASPxLabel runat="server" Text='<%# Eval("NewValue") %>' ForeColor="#AFB0B3" Font-Underline="True" >
+                </dx:ASPxLabel>
+                <br />
                 <div style="padding: 10px 0 0 0">
                     <dx:ASPxLabel runat="server" Text='<%# Eval("Body") %>' EncodeHtml="False"/>
                 </div>
