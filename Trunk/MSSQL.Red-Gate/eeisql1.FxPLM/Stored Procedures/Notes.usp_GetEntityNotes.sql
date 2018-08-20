@@ -121,6 +121,9 @@ begin
 			,	n.EntityGUID
 			,	e.EntityURI
 			,	HierarchyURI = n.Hierarchy.ToString()
+			,	ValueChange = evc.Type
+			,	evc.OldValue
+			,	evc.NewValue
 			,	n.RowID
 			,	n.RowCreateDT
 			,	RowCreateUser =
@@ -151,7 +154,9 @@ begin
 			from
 				Notes.Notes n
 					left join Notes.NoteCategories nc
-					on nc.RowID = n.Category
+						on nc.RowID = n.Category
+					left join Notes.EntityValueChanges evc
+						on evc.NoteID = n.RowID
 				join Notes.Entities e
 					on e.EntityGUID = n.EntityGUID
 				join PM.Employees emp
