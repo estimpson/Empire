@@ -354,7 +354,7 @@ warning 6002: The table/view 'FxPLM.NSA.Users' does not have a primary key defin
           <Parameter Name="EmpireApplication" Type="varchar" Mode="In" />
           <Parameter Name="EmpireSOP" Type="datetime" Mode="In" />
           <Parameter Name="EmpireEOP" Type="datetime" Mode="In" />
-          <Parameter Name="EmpireEOPNote" Type="varchar" Mode="In" />
+          <Parameter Name="EmpireEOPNote" Type="varchar(max)" Mode="In" />
           <Parameter Name="Comments" Type="varchar(max)" Mode="In" />
           <Parameter Name="TranDT" Type="datetime" Mode="InOut" />
           <Parameter Name="Result" Type="int" Mode="InOut" />
@@ -1111,7 +1111,7 @@ warning 6002: The table/view 'FxPLM.NSA.Users' does not have a primary key defin
           <Property Type="Decimal" Name="FamilyAllocation" Nullable="true" Precision="10" Scale="6" />
           <Property Type="Decimal" Name="CSMEAU" Nullable="true" Precision="38" Scale="9" />
           <Property Type="DateTime" Name="QuoteDate" Nullable="true" Precision="23" />
-          <Property Type="Decimal" Name="QuotedEAU" Nullable="true" Precision="20" Scale="0" />
+          <Property Type="Int32" Name="QuotedEAU" Nullable="true" />
           <Property Type="Int32" Name="MinimumOrderQuantity" Nullable="true" />
           <Property Type="Decimal" Name="QuotedPrice" Nullable="true" Precision="20" Scale="4" />
           <Property Type="Decimal" Name="QuotedMaterialCost" Nullable="true" Precision="20" Scale="6" />
@@ -1143,6 +1143,7 @@ warning 6002: The table/view 'FxPLM.NSA.Users' does not have a primary key defin
           <Property Type="String" Name="CustomerShipTos" Nullable="true" />
           <Property Type="String" Name="Comments" Nullable="true" />
           <Property Type="Int32" Name="ValidQuoteNumberFlag" Nullable="false" />
+          <Property Type="String" Name="CustomerCommitmentAttachment" Nullable="true" MaxLength="255" />
         </ComplexType>
         </Schema>
     </edmx:ConceptualModels>
@@ -1529,6 +1530,7 @@ warning 6002: The table/view 'FxPLM.NSA.Users' does not have a primary key defin
                 <ScalarProperty Name="CustomerShipTos" ColumnName="CustomerShipTos" />
                 <ScalarProperty Name="Comments" ColumnName="Comments" />
                 <ScalarProperty Name="ValidQuoteNumberFlag" ColumnName="ValidQuoteNumberFlag" />
+                <ScalarProperty Name="CustomerCommitmentAttachment" ColumnName="CustomerCommitmentAttachment" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>

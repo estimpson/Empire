@@ -48,7 +48,7 @@
                                         GotFocus="OnEditControl_GotFocus"
                                         Init="function (s,e) { RegisterURI(s, 'AwardedQuoteToolingPOs.AssemblyTesterToolingAmount'); }" 
                                     />
-                                    <MaskSettings Mask="$<0..99999g>" IncludeLiterals="DecimalSymbol" ErrorText="*"/>
+                                    <MaskSettings Mask="$<0..99999999g>.<000000..999999>" IncludeLiterals="DecimalSymbol" ErrorText="*"/>
                                 </dx:ASPxTextBox>
                             </dx:LayoutItemNestedControlContainer>
                         </LayoutItemNestedControlCollection>

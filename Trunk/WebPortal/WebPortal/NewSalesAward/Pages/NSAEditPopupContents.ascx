@@ -1,4 +1,5 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="NSAEditPopupContents.ascx.cs" Inherits="WebPortal.NewSalesAward.Pages.NSAEditPopupContents" %>
+<%@ Register TagPrefix="uc1" TagName="NSAQuoteTabView" Src="~/NewSalesAward/Pages/NSAQuoteTabView.ascx" %>
 <%@ Register TagPrefix="uc1" TagName="NSACustomerPOTabView" Src="~/NewSalesAward/Pages/NSACustomerPOTabView.ascx" %>
 <%@ Register TagPrefix="uc1" TagName="NSAHardToolingTabView" Src="~/NewSalesAward/Pages/NSAHardToolingTabView.ascx" %>
 <%@ Register TagPrefix="uc1" TagName="NSAToolingAmortizationTabView" Src="~/NewSalesAward/Pages/NSAToolingAmortizationTabView.ascx" %>
@@ -133,7 +134,15 @@
                                         ActiveTabChanged="OnActiveTabChanged"
                                         />
                                     <TabPages>
-                                        <dx:TabPage Text="Quote" Visible="true">
+                                        <dx:TabPage Text="Quote" Visible="True">
+                                            <ContentCollection>
+                                                <dx:ContentControl runat="server">
+                                                    <uc1:NSAQuoteTabView runat="server" id="NSAQuoteTabView" />
+                                                </dx:ContentControl>
+                                            </ContentCollection>
+                                        </dx:TabPage>
+
+                                        <dx:TabPage Text="Quote (Old)" Visible="true">
                                             <ContentCollection>
                                                 <dx:ContentControl runat="server">
                                                     

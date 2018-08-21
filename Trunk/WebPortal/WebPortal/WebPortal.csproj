@@ -206,6 +206,7 @@
     <Content Include="NewSalesAward\Pages\NewSalesAwards.aspx" />
     <Content Include="NewSalesAward\Pages\NewSalesAwardTest2.aspx" />
     <Content Include="NewSalesAward\Pages\NSAEditPopupContents.ascx" />
+    <Content Include="NewSalesAward\Pages\NSAQuoteTabView.ascx" />
     <Content Include="NewSalesAward\Pages\NSATesterToolingTabView.ascx" />
     <Content Include="NewSalesAward\Pages\NSABasePartAttributesTabView.ascx" />
     <Content Include="NewSalesAward\Pages\NSABasePartMnemonicsTabView.ascx" />
@@ -591,6 +592,13 @@
     </Compile>
     <Compile Include="NewSalesAward\Pages\NSAEditPopupContents.ascx.designer.cs">
       <DependentUpon>NSAEditPopupContents.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="NewSalesAward\Pages\NSAQuoteTabView.ascx.cs">
+      <DependentUpon>NSAQuoteTabView.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="NewSalesAward\Pages\NSAQuoteTabView.ascx.designer.cs">
+      <DependentUpon>NSAQuoteTabView.ascx</DependentUpon>
     </Compile>
     <Compile Include="NewSalesAward\Pages\NSATesterToolingTabView.ascx.cs">
       <DependentUpon>NSATesterToolingTabView.ascx</DependentUpon>

@@ -79,7 +79,7 @@
                                         Init="function (s,e) { RegisterURI(s, 'AwardedQuoteToolingPOs.AmortizationQuantity'); }" 
                                         TextChanged="OnAmortizationQuantityChanged"
                                     />
-                                    <MaskSettings Mask="<0..99999999g>." IncludeLiterals="DecimalSymbol" ErrorText="*"/>
+                                    <MaskSettings Mask="<0..99999999g>" IncludeLiterals="DecimalSymbol" ErrorText="*"/>
                                 </dx:ASPxTextBox>
                             </dx:LayoutItemNestedControlContainer>
                         </LayoutItemNestedControlCollection>

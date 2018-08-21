@@ -46,7 +46,7 @@ namespace WebPortal.NewSalesAward.Models
         public Nullable<decimal> FamilyAllocation { get; set; }
         public Nullable<decimal> CSMEAU { get; set; }
         public Nullable<System.DateTime> QuoteDate { get; set; }
-        public Nullable<decimal> QuotedEAU { get; set; }
+        public Nullable<int> QuotedEAU { get; set; }
         public Nullable<int> MinimumOrderQuantity { get; set; }
         public Nullable<decimal> QuotedPrice { get; set; }
         public Nullable<decimal> QuotedMaterialCost { get; set; }
@@ -78,5 +78,6 @@ namespace WebPortal.NewSalesAward.Models
         public string CustomerShipTos { get; set; }
         public string Comments { get; set; }
         public int ValidQuoteNumberFlag { get; set; }
+        public string CustomerCommitmentAttachment { get; set; }
     }
 }

@@ -19,7 +19,7 @@ namespace WebPortal.NewSalesAward.Pages
 
 
 
-        private List<I_NSATabView> NSATabViews => new List<I_NSATabView> { QuoteTabView, NSACustomerPOTabView, NSAHardToolingTabView, NSAToolingAmortizationTabView, NSATesterToolingTabView, NSABasePartAttributesTabView, NSABasePartMnemonicsTabView, NSALogisticsTabView };
+        private List<I_NSATabView> NSATabViews => new List<I_NSATabView> {NSAQuoteTabView, QuoteTabView, NSACustomerPOTabView, NSAHardToolingTabView, NSAToolingAmortizationTabView, NSATesterToolingTabView, NSABasePartAttributesTabView, NSABasePartMnemonicsTabView, NSALogisticsTabView };
 
         protected void Page_Load(object sender, EventArgs e)
         {
