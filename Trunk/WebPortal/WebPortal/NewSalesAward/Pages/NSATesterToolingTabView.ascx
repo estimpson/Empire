@@ -95,16 +95,16 @@
                                 <table>
                                     <tr>
                                         <td>
-                                            <dx:ASPxButton ID="btnSaveTesterTooling" runat="server" AutoPostBack="False" Text="Save">
-                                                <ClientSideEvents Click="OnSaveTesterToolingClicked"></ClientSideEvents>
-                                            </dx:ASPxButton>
-                                        </td>
-                                        <td>
                                             <div id="divSaveTesterToolingCheckMark" style="display: none">
                                                 <dx:ASPxButton ID="SaveCheckMark" runat="server" RenderMode="Link" Enabled="False" Visible="True">
                                                     <Image IconID="actions_apply_32x32office2013"/>
                                                 </dx:ASPxButton>
                                             </div>
+                                        </td>
+                                        <td>
+                                            <dx:ASPxButton ID="btnSaveTesterTooling" runat="server" AutoPostBack="False" Text="Save">
+                                                <ClientSideEvents Click="OnSaveTesterToolingClicked"></ClientSideEvents>
+                                            </dx:ASPxButton>
                                         </td>
                                     </tr>
                                 </table>

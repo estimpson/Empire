@@ -16,6 +16,7 @@
         if (postponedCallbackRequired) {
             QuoteInfoCallbackPanel.PerformCallback();
             postponedCallbackRequired = false;
+            return;
         }
         $("#divSaveQuoteInfoCheckMark").show(50);
         IndividualTabSaved(s, e);
@@ -143,12 +144,7 @@
                         <LayoutItemNestedControlCollection>
                             <dx:LayoutItemNestedControlContainer runat="server">
                                 <dx:ASPxTextBox ID="QuotedEAUTextBox" ClientInstanceName="quotedEAUEditor" Width="100%" runat="server">
-                                    <ClientSideEvents
-                                        GotFocus="OnEditControl_GotFocus"
-                                        Init="function (s,e) { RegisterURI(s, 'QuoteLog.EAU'); }" 
-                                        TextChanged="OnAmortizationQuantityChanged"
-                                    />
-                                    <MaskSettings Mask="<0..99999999g>." IncludeLiterals="DecimalSymbol" ErrorText="*"/>
+                                    <MaskSettings Mask="<0..99999999g>" IncludeLiterals="DecimalSymbol" ErrorText="*"/>
                                 </dx:ASPxTextBox>
                             </dx:LayoutItemNestedControlContainer>
                         </LayoutItemNestedControlCollection>
@@ -196,6 +192,9 @@
                     <dx:LayoutItem ShowCaption="False">
                         <LayoutItemNestedControlCollection>
                             <dx:LayoutItemNestedControlContainer runat="server">
+                                <script>
+
+                                </script>
                                 <table>
                                     <tr>
                                         <td>
@@ -221,7 +220,12 @@
                         <LayoutItemNestedControlCollection>
                             <dx:LayoutItemNestedControlContainer runat="server">
                                 <script>
+                                    function onFileUploaderInit(s, e) {
+                                        s.SetEnabled(!(customerCommitmentAttachmentTextBox.GetText()>""));
+                                    }
+
                                     function onFileUploadComplete(s, e) {
+                                        console.log("onFileUploadComplete");
                                         if(e.callbackData) {
                                             var fileData = e.callbackData.split('|');
                                             var fileName = fileData[0],
@@ -230,10 +234,12 @@
                                             console.log("fileName: " + fileName);
                                             console.log("fileUrl: " + fileUrl);
                                             console.log("fileSize: " + fileSize);
+                                            customerCommitmentAttachmentTextBox.SetText(fileName);
+                                            s.SetEnabled(false);
                                         }
                                     }
                                 </script>
-                                <div style="padding-top: 10px">
+                                <%--<div style="padding-top: 10px">--%>
                                     <div class="uploadContainer">
                                         <dx:ASPxUploadControl ID="CustomerCommitmentUploadControl" ClientInstanceName="customerCommitmentUploadControl" runat="server"
                                                               NullText="Select a file..." UploadMode="Advanced"
@@ -242,21 +248,96 @@
                                             <AdvancedModeSettings EnableMultiSelect="False" EnableDragAndDrop="True" />
                                             <ValidationSettings MaxFileSize="41943040" />
                                             <ClientSideEvents
-                                                FilesUploadStart=""
+                                                Init="onFileUploaderInit"
                                                 FileUploadComplete="onFileUploadComplete" />
                                         </dx:ASPxUploadControl>
                                     </div>
-                                    <div class="filesContainer">
-                                        
-                                    </div>
-                                </div>
+                                <%--</div>--%>
                             </dx:LayoutItemNestedControlContainer>
                         </LayoutItemNestedControlCollection>
                     </dx:LayoutItem>
-                    <dx:LayoutItem Caption="Customer Commitment File" FieldName="">
+                    <dx:LayoutItem Caption="Customer Commitment File" FieldName="CustomerCommitmentAttachment">
                         <LayoutItemNestedControlCollection>
                             <dx:LayoutItemNestedControlContainer runat="server">
-                                <dx:ASPxLabel runat="server" />
+                                <div style="width: 100%">
+                                    <table style="width: 100%">
+                                        <tr>
+                                            <td style="width: 100%">
+                                                <dx:ASPxTextBox ClientInstanceName="customerCommitmentAttachmentTextBox" runat="server" ReadOnly="True" Width="100%"/>
+                                            </td>
+                                            <td>
+                                                <script>
+                                                    var postponedCallbackFileActions;
+                                                    var callbackType;
+
+                                                    function OnDeleteCustomerCommitmentClick(s, e) {
+                                                        callbackType = "Delete";
+                                                        if (fileActionsCallback.InCallback()) {
+                                                            var postponedCallbackFileActions = true;
+                                                        } else {
+                                                            callbackType = "Delete";
+                                                            fileActionsCallback.PerformCallback(callbackType);
+                                                        }
+                                                    }
+
+                                                    function OnOpenCustomerCommitmentClick(s, e) {
+                                                        callbackType = "Open";
+                                                        if (fileActionsCallback.InCallback()) {
+                                                            var postponedCallbackFileActions = true;
+                                                        } else {
+                                                            fileActionsCallback.PerformCallback(callbackType);
+                                                        }
+                                                    }
+
+                                                    function OnEndCallbackHandleFileActions(s, e) {
+                                                        if (postponedCallbackFileActions) {
+                                                            fileActionsCallback.PerformCallback(callbackType);
+                                                            return;
+                                                        }
+
+                                                        switch (callbackType) {
+                                                        case "Open":
+                                                            var src = customerCommitmentFile.cpFilePath;
+                                                            window.open(src, "_blank", "resizable=true", true);
+                                                            break;
+                                                        case "Delete":
+                                                            customerCommitmentAttachmentTextBox.SetText("");
+                                                            customerCommitmentUploadControl.SetEnabled(true);
+                                                            break;
+                                                        }
+                                                    }
+                                                </script>
+                                                <dx:ASPxCallbackPanel runat="server" ID="HandleFileActionsCallback" ClientInstanceName="fileActionsCallback"
+                                                                      OnCallback="HandleFileActionsCallback_OnCallback">
+                                                    <ClientSideEvents
+                                                        EndCallback="OnEndCallbackHandleFileActions"/>
+                                                    <PanelCollection>
+                                                        <dx:PanelContent runat="server">
+                                                            <table>
+                                                                <tr>
+                                                                    <td>
+                                                                        <dx:ASPxButton ID="OpenCustomerCommitmentFileButton" ClientInstanceName="customerCommitmentFile" runat="server" 
+                                                                                       RenderMode="Link" AutoPostBack="False" UseSubmitBehavior="False">
+                                                                            <Image IconID="print_preview_32x32gray"></Image>
+                                                                            <ClientSideEvents Click="OnOpenCustomerCommitmentClick" />
+                                                                        </dx:ASPxButton>
+                                                                    </td>
+                                                                    <td>
+                                                                        <dx:ASPxButton runat="server" RenderMode="Link" AutoPostBack="False" UseSubmitBehavior="False">
+                                                                            <Image IconID="actions_deleteitem_32x32gray"></Image>
+                                                                            <ClientSideEvents Click="OnDeleteCustomerCommitmentClick" />
+                                                                        </dx:ASPxButton>
+                                                                    </td>
+                                                                </tr>
+                                                            </table>
+                                                        </dx:PanelContent>
+                                                    </PanelCollection>
+                                                </dx:ASPxCallbackPanel>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                                
                             </dx:LayoutItemNestedControlContainer>
                         </LayoutItemNestedControlCollection>
                     </dx:LayoutItem>

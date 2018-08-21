@@ -67,15 +67,6 @@ namespace WebPortal.NewSalesAward.Pages {
         protected global::DevExpress.Web.ASPxTextBox AssemblyTesterToolingCAPEXIDTextBox;
         
         /// <summary>
-        /// btnSaveTesterTooling control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::DevExpress.Web.ASPxButton btnSaveTesterTooling;
-        
-        /// <summary>
         /// SaveCheckMark control.
         /// </summary>
         /// <remarks>
@@ -83,5 +74,14 @@ namespace WebPortal.NewSalesAward.Pages {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::DevExpress.Web.ASPxButton SaveCheckMark;
+        
+        /// <summary>
+        /// btnSaveTesterTooling control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::DevExpress.Web.ASPxButton btnSaveTesterTooling;
     }
 }

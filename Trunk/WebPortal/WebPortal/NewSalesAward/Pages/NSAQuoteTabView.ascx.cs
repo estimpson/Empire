@@ -100,13 +100,51 @@ namespace WebPortal.NewSalesAward.Pages
             }
         }
 
-        const string UPLOAD_DIRECTORY = "";
         protected void CustomerCommitmentUploadControl_OnFileUploadComplete(object sender, FileUploadCompleteEventArgs e)
         {
-            var resultExtension = Path.GetExtension(e.UploadedFile.FileName);
-            var resultFileName = Path.ChangeExtension(Path.GetRandomFileName(), resultExtension);
-            var resultFileUrl = UPLOAD_DIRECTORY + resultFileName;
             DocsViewModel.SaveQuoteFile(AwardedQuote.QuoteNumber, "CustomerCommitment", e.UploadedFile.FileName, e.UploadedFile.FileBytes);
+            e.CallbackData =
+                $"{e.UploadedFile.FileName}|{ResolveClientUrl("~/Temp")}|{e.UploadedFile.ContentLength / 1024} KB";
+        }
+
+        protected void HandleFileActionsCallback_OnCallback(object source, CallbackEventArgsBase e)
+        {
+            switch (e.Parameter)
+            {
+                case "Delete":
+                    DeleteCustomerCommitmentFile();
+                    break;
+                case "Open":
+                    OpenCustomerCommitmentFile();
+                    break;
+            }
+        }
+
+        private void DeleteCustomerCommitmentFile()
+        {
+            DocsViewModel.DeleteQuoteFile(AwardedQuote.QuoteNumber, "CustomerCommitment");
+            if (DocsViewModel.Error != "")
+            {
+                throw new Exception(DocsViewModel.Error);
+            }
+        }
+
+        private void OpenCustomerCommitmentFile()
+        {
+            DocsViewModel.GetQuoteFile(AwardedQuote.QuoteNumber, "CustomerCommitment", out string fileName, out byte[] fileContents);
+            var attachmentExtension = Path.GetExtension(fileName);
+            var tempFileName =
+                Path.ChangeExtension($"{Path.GetFileNameWithoutExtension(fileName)}-{Path.GetRandomFileName()}",
+                    attachmentExtension);
+            var tempFileServerPath = $"{AppDomain.CurrentDomain.BaseDirectory}/Temp/{tempFileName}";
+            var tempFileClientPath = $"../../Temp/{tempFileName}";
+
+            var fs = new FileStream(tempFileServerPath, FileMode.Create);
+            fs.Write(fileContents, 0, fileContents.Length);
+            fs.Flush();
+            fs.Close();
+
+            OpenCustomerCommitmentFileButton.JSProperties.Add("cpFilePath", tempFileClientPath);
         }
     }
 }
