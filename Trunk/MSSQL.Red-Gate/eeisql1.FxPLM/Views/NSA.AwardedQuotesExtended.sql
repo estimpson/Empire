@@ -13,6 +13,7 @@ select
 ,	ProgramManager = uPM.UserName
 ,	aq.AwardDate
 ,	aq.FormOfCommitment
+,	CustomerCommitmentAttachment = qqaCC.AttachmentFileName
 ,	QuoteTrasferMeetingDT = aq.QuoteTransfer_SignOffDT
 ,	SalesForecastDT = aq.CSM_SignOffDT
 ,	BasePartCustomer = ql.Customer
@@ -38,8 +39,8 @@ select
 ,	bpm.FamilyAllocation
 ,	CSMEAU = bpm.EAU
 ,	QuoteDate = ql.ReceiptDate
-,	QuotedEAU = ql.EAU
-,	ql.MinimumOrderQuantity
+,	QuotedEAU = convert(int, ql.EAU)
+,	MinimumOrderQuantity = convert(int, ql.MinimumOrderQuantity)
 ,	QuotedPrice = ql.QuotePrice
 ,	QuotedMaterialCost = ql.StraightMaterialCost
 ,	QuotedSales = ql.EAU * ql.QuotePrice
@@ -53,7 +54,7 @@ select
 ,	PurchaseOrderPriceVariace = aqppo.SellingPrice - ql.QuotePrice
 ,	CustomerProductionPurchaseOrderComments = aqppo.Comments
 ,	aqtpo.AmortizationAmount
-,	aqtpo.AmortizationQuantity
+,	AmortizationQuantity = convert(int, aqtpo.AmortizationQuantity)
 ,	aqtpo.AmortizationPrice
 ,	aqtpo.AmortizationToolingDescription
 ,	aqtpo.AmortizationCAPEXID
@@ -80,6 +81,9 @@ from
 		on uSP.UserCode = aq.Salesperson
 	left join NSA.Users uPM
 		on uPM.UserCode = aq.ProgramManager
+	left join EEISQL2.FxUtilities.FS.QT_QuoteAttachments qqaCC
+		on qqaCC.QuoteNumber = aq.QuoteNumber
+		and qqaCC.AttachmentCategory = 'CustomerCommitment'
 	outer apply
 		(	select
 				bpm.QuoteNumber
