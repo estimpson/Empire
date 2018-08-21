@@ -155,7 +155,7 @@ namespace WebPortal.NewSalesAward.Pages
                 string quote = gvQuote.GetRowValues(gvQuote.FocusedRowIndex, "QuoteNumber").ToString();
                 Session["QuoteNumber"] = quote;
             }
-            Session["RedirectPage"] = "~/NewSalesAward/Pages/NewSalesAwardTest2.aspx";
+            Session["RedirectPage"] = "~/NewSalesAward/Pages/NewSalesAwards.aspx";
             Session["ModeIndex"] = cbxMode.SelectedIndex;
             Session["FocusedRowIndex"] = gvQuote.FocusedRowIndex;
             Response.Redirect("~/QuoteLogIntegration/Pages/QuoteTransfer.aspx");
