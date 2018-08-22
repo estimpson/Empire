@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Linq;
 using System.Web.UI;
 using DevExpress.Web;
 using Newtonsoft.Json;
@@ -10,27 +9,17 @@ namespace WebPortal.NewSalesAward.Pages
 {
     public partial class NSABasePartAttributesTabView : UserControl, I_NSATabView
     {
-        private usp_GetAwardedQuotes_Result AwardedQuote
-        {
-            get => (usp_GetAwardedQuotes_Result)Session["AwardedQuote"];
-        }
+        private usp_GetAwardedQuotes_Result AwardedQuote => (usp_GetAwardedQuotes_Result) Session["AwardedQuote"];
 
-        private string Mode
-        {
-            get => (string)Session["Mode"];
-        }
+        private string Mode => (string) Session["Mode"];
 
         private NewSalesAwardsViewModel ViewModel
         {
             get
             {
                 if (ViewState["ViewModel"] == null) ViewState["ViewModel"] = new NewSalesAwardsViewModel();
-                return (NewSalesAwardsViewModel)ViewState["ViewModel"];
+                return (NewSalesAwardsViewModel) ViewState["ViewModel"];
             }
-        }
-
-        protected void Page_Load(object sender, EventArgs e)
-        {
         }
 
         public void SetQuote()
@@ -38,12 +27,7 @@ namespace WebPortal.NewSalesAward.Pages
             BasePartAttributesFormLayout.DataSource = AwardedQuote;
             BasePartAttributesFormLayout.DataBind();
 
-            ASPxCallbackPanel1.Enabled = (Mode == "edit");
-        }
-
-        protected void BasePartAttributesCallback_OnCallback(object sender, CallbackEventArgsBase e)
-        {
-            Save(e.Parameter);
+            ASPxCallbackPanel1.Enabled = Mode == "edit";
         }
 
         public void Save()
@@ -51,15 +35,21 @@ namespace WebPortal.NewSalesAward.Pages
             Save("");
         }
 
+        protected void Page_Load(object sender, EventArgs e)
+        {
+        }
+
+        protected void BasePartAttributesCallback_OnCallback(object sender, CallbackEventArgsBase e)
+        {
+            Save(e.Parameter);
+        }
+
         public void Save(string saveParameter)
         {
             SaveCheckMark.Visible = true;
             SaveCheckMark.Enabled = false;
-            if (SetBasePartAttributes(saveParameter) == 0)
-            {
-                throw new Exception(ViewModel.Error);
-            }
-            
+            if (SetBasePartAttributes(saveParameter) == 0) throw new Exception(ViewModel.Error);
+
             SaveCheckMark.Enabled = true;
         }
 
@@ -75,11 +65,11 @@ namespace WebPortal.NewSalesAward.Pages
             var marketSubsegment = EmpireMarketSubsegmentComboBox.Text.Trim();
             var application = EmpireApplicationTextBox.Text.Trim();
 
-            var sop = (EmpireSOPDateEdit.Value != null)
+            var sop = EmpireSOPDateEdit.Value != null
                 ? Convert.ToDateTime(EmpireSOPDateEdit.Value)
                 : (DateTime?) null;
 
-            var eop = (EmpireEOPDateEdit.Value != null)
+            var eop = EmpireEOPDateEdit.Value != null
                 ? Convert.ToDateTime(EmpireEOPDateEdit.Value)
                 : (DateTime?) null;
 

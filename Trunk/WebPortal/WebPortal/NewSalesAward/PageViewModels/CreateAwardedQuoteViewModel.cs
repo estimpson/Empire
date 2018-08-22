@@ -292,7 +292,7 @@ namespace WebPortal.NewSalesAward.PageViewModels
             {
                 using (var context = new FxPLMEntities())
                 {
-                    context.usp_AwardedQuote_ChangeQuoteNumber(oldQuoteNumber, newQuoteNumber, tranDT, result, debug, debugMsg);
+                    context.usp_AwardedQuote_ChangeQuoteNumber(OperatorCode, oldQuoteNumber, newQuoteNumber, tranDT, result, debug, debugMsg);
                 }
             }
             catch (Exception ex)

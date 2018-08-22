@@ -215,7 +215,6 @@
     <Content Include="NewSalesAward\Pages\NSAToolingAmortizationTabView.ascx" />
     <Content Include="NewSalesAward\Pages\NSACustomerPOTabView.ascx" />
     <Content Include="NewSalesAward\Pages\NSAHardToolingTabView.ascx" />
-    <Content Include="NewSalesAward\Pages\QuoteTabView.ascx" />
     <Content Include="QuoteLogIntegration\Models\ModelMarketSegmentSubsegment.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>ModelMarketSegmentSubsegment.edmx</DependentUpon>
@@ -655,13 +654,6 @@
     </Compile>
     <Compile Include="NewSalesAward\Pages\NSAHardToolingTabView.ascx.designer.cs">
       <DependentUpon>NSAHardToolingTabView.ascx</DependentUpon>
-    </Compile>
-    <Compile Include="NewSalesAward\Pages\QuoteTabView.ascx.cs">
-      <DependentUpon>QuoteTabView.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="NewSalesAward\Pages\QuoteTabView.ascx.designer.cs">
-      <DependentUpon>QuoteTabView.ascx</DependentUpon>
     </Compile>
     <Compile Include="NewSalesAward\PageViewModels\CreateAwardedQuoteViewModel.cs" />
     <Compile Include="NewSalesAward\PageViewModels\CsmDemandViewModel.cs" />

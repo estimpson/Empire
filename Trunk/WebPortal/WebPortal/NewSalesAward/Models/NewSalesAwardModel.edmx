@@ -252,6 +252,7 @@ warning 6002: The table/view 'FxPLM.NSA.Users' does not have a primary key defin
           <Property Name="LastName" Type="varchar" MaxLength="8000" />
         </EntityType>
         <Function Name="usp_AwardedQuote_ChangeQuoteNumber" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="NSA">
+          <Parameter Name="User" Type="varchar" Mode="In" />
           <Parameter Name="OldQuoteNumber" Type="varchar" Mode="In" />
           <Parameter Name="NewQuoteNumber" Type="varchar" Mode="In" />
           <Parameter Name="TranDT" Type="datetime" Mode="InOut" />
@@ -290,9 +291,6 @@ warning 6002: The table/view 'FxPLM.NSA.Users' does not have a primary key defin
           <Parameter Name="QuoteNumber" Type="varchar" Mode="In" />
           <Parameter Name="Mnemonic" Type="varchar" Mode="In" />
         </Function>
-        <Function Name="usp_GetAwardedQuoteCSMData" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="NSA">
-          <Parameter Name="QuoteNumber" Type="varchar" Mode="In" />
-        </Function>
         <Function Name="usp_GetAwardedQuoteDetails" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="NSA">
           <Parameter Name="QuoteNumber" Type="varchar" Mode="In" />
           <Parameter Name="AwardDate" Type="datetime" Mode="InOut" />
@@ -307,7 +305,6 @@ warning 6002: The table/view 'FxPLM.NSA.Users' does not have a primary key defin
           <Parameter Name="Debug" Type="int" Mode="In" />
           <Parameter Name="DebugMsg" Type="varchar(max)" Mode="InOut" />
         </Function>
-        <Function Name="usp_GetAwardedQuoteProductionPOs" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="NSA" />
         <Function Name="usp_GetAwardedQuotes" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="NSA" />
         <Function Name="usp_GetCalculatedTakeRate" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="NSA">
           <Parameter Name="QuoteNumber" Type="varchar" Mode="In" />
@@ -334,6 +331,7 @@ warning 6002: The table/view 'FxPLM.NSA.Users' does not have a primary key defin
           <Parameter Name="DebugMsg" Type="varchar(max)" Mode="InOut" />
         </Function>
         <Function Name="usp_SetAssemblyTesterTooling" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="NSA">
+          <Parameter Name="User" Type="varchar" Mode="In" />
           <Parameter Name="QuoteNumber" Type="varchar" Mode="In" />
           <Parameter Name="AssemblyTesterToolingAmount" Type="numeric" Mode="In" />
           <Parameter Name="AssemblyTesterToolingTrigger" Type="varchar(max)" Mode="In" />
@@ -362,6 +360,7 @@ warning 6002: The table/view 'FxPLM.NSA.Users' does not have a primary key defin
           <Parameter Name="DebugMsg" Type="varchar(max)" Mode="InOut" />
         </Function>
         <Function Name="usp_SetBasePartMnemonic" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="NSA">
+          <Parameter Name="User" Type="varchar" Mode="In" />
           <Parameter Name="QuoteNumber" Type="varchar" Mode="In" />
           <Parameter Name="Mnemonic" Type="varchar" Mode="In" />
           <Parameter Name="QtyPer" Type="numeric" Mode="In" />
@@ -373,6 +372,7 @@ warning 6002: The table/view 'FxPLM.NSA.Users' does not have a primary key defin
           <Parameter Name="DebugMsg" Type="varchar(max)" Mode="InOut" />
         </Function>
         <Function Name="usp_SetHardTooling" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="NSA">
+          <Parameter Name="User" Type="varchar" Mode="In" />
           <Parameter Name="QuoteNumber" Type="varchar" Mode="In" />
           <Parameter Name="HardToolingAmount" Type="numeric" Mode="In" />
           <Parameter Name="HardToolingTrigger" Type="varchar(max)" Mode="In" />
@@ -394,6 +394,7 @@ warning 6002: The table/view 'FxPLM.NSA.Users' does not have a primary key defin
           <Parameter Name="DebugMsg" Type="varchar(max)" Mode="InOut" />
         </Function>
         <Function Name="usp_SetProductionPO" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="NSA">
+          <Parameter Name="User" Type="varchar" Mode="In" />
           <Parameter Name="QuoteNumber" Type="varchar" Mode="In" />
           <Parameter Name="PurchaseOrderDT" Type="datetime" Mode="In" />
           <Parameter Name="PONumber" Type="varchar" Mode="In" />
@@ -407,7 +408,23 @@ warning 6002: The table/view 'FxPLM.NSA.Users' does not have a primary key defin
           <Parameter Name="Debug" Type="int" Mode="In" />
           <Parameter Name="DebugMsg" Type="varchar(max)" Mode="InOut" />
         </Function>
+        <Function Name="usp_SetQuoteDetails" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="NSA">
+          <Parameter Name="User" Type="varchar" Mode="In" />
+          <Parameter Name="QuoteNumber" Type="varchar" Mode="In" />
+          <Parameter Name="AwardDate" Type="datetime" Mode="In" />
+          <Parameter Name="FormOfCommitment" Type="varchar" Mode="In" />
+          <Parameter Name="QuoteReason" Type="varchar" Mode="In" />
+          <Parameter Name="ReplacingBasePart" Type="char" Mode="In" />
+          <Parameter Name="Salesperson" Type="varchar" Mode="In" />
+          <Parameter Name="ProgramManager" Type="varchar" Mode="In" />
+          <Parameter Name="Comments" Type="varchar(max)" Mode="In" />
+          <Parameter Name="TranDT" Type="datetime" Mode="InOut" />
+          <Parameter Name="Result" Type="int" Mode="InOut" />
+          <Parameter Name="Debug" Type="int" Mode="In" />
+          <Parameter Name="DebugMsg" Type="varchar(max)" Mode="InOut" />
+        </Function>
         <Function Name="usp_SetToolingAmortization" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="NSA">
+          <Parameter Name="User" Type="varchar" Mode="In" />
           <Parameter Name="QuoteNumber" Type="varchar" Mode="In" />
           <Parameter Name="AmortizationAmount" Type="numeric" Mode="In" />
           <Parameter Name="AmortizationQuantity" Type="numeric" Mode="In" />
@@ -654,6 +671,7 @@ warning 6002: The table/view 'FxPLM.NSA.Users' does not have a primary key defin
           <EntitySet Name="QuoteReasons" EntityType="FxPLMModel.QuoteReason" />
           <EntitySet Name="ActiveBaseParts" EntityType="FxPLMModel.ActiveBasePart" />
           <FunctionImport Name="usp_SetProductionPO">
+            <Parameter Name="User" Mode="In" Type="String" />
             <Parameter Name="QuoteNumber" Mode="In" Type="String" />
             <Parameter Name="PurchaseOrderDT" Mode="In" Type="DateTime" />
             <Parameter Name="PONumber" Mode="In" Type="String" />
@@ -669,6 +687,7 @@ warning 6002: The table/view 'FxPLM.NSA.Users' does not have a primary key defin
           </FunctionImport>
           <FunctionImport Name="usp_GetAwardedQuoteProductionPOs" ReturnType="Collection(FxPLMModel.usp_GetAwardedQuoteProductionPOs_Result)" />
           <FunctionImport Name="usp_SetAssemblyTesterTooling">
+            <Parameter Name="User" Mode="In" Type="String" />
             <Parameter Name="QuoteNumber" Mode="In" Type="String" />
             <Parameter Name="AssemblyTesterToolingAmount" Mode="In" Type="Decimal" />
             <Parameter Name="AssemblyTesterToolingTrigger" Mode="In" Type="String" />
@@ -680,6 +699,7 @@ warning 6002: The table/view 'FxPLM.NSA.Users' does not have a primary key defin
             <Parameter Name="DebugMsg" Mode="InOut" Type="String" />
           </FunctionImport>
           <FunctionImport Name="usp_SetHardTooling">
+            <Parameter Name="User" Mode="In" Type="String" />
             <Parameter Name="QuoteNumber" Mode="In" Type="String" />
             <Parameter Name="HardToolingAmount" Mode="In" Type="Decimal" />
             <Parameter Name="HardToolingTrigger" Mode="In" Type="String" />
@@ -691,6 +711,7 @@ warning 6002: The table/view 'FxPLM.NSA.Users' does not have a primary key defin
             <Parameter Name="DebugMsg" Mode="InOut" Type="String" />
           </FunctionImport>
           <FunctionImport Name="usp_SetToolingAmortization">
+            <Parameter Name="User" Mode="In" Type="String" />
             <Parameter Name="QuoteNumber" Mode="In" Type="String" />
             <Parameter Name="AmortizationAmount" Mode="In" Type="Decimal" />
             <Parameter Name="AmortizationQuantity" Mode="In" Type="Decimal" />
@@ -702,6 +723,7 @@ warning 6002: The table/view 'FxPLM.NSA.Users' does not have a primary key defin
             <Parameter Name="DebugMsg" Mode="InOut" Type="String" />
           </FunctionImport>
           <FunctionImport Name="usp_SetBasePartMnemonic">
+            <Parameter Name="User" Mode="In" Type="String" />
             <Parameter Name="QuoteNumber" Mode="In" Type="String" />
             <Parameter Name="Mnemonic" Mode="In" Type="String" />
             <Parameter Name="QtyPer" Mode="In" Type="Decimal" />
@@ -761,6 +783,7 @@ warning 6002: The table/view 'FxPLM.NSA.Users' does not have a primary key defin
             <Parameter Name="Result" Mode="InOut" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="usp_AwardedQuote_ChangeQuoteNumber">
+            <Parameter Name="User" Mode="In" Type="String" />
             <Parameter Name="OldQuoteNumber" Mode="In" Type="String" />
             <Parameter Name="NewQuoteNumber" Mode="In" Type="String" />
             <Parameter Name="TranDT" Mode="InOut" Type="DateTime" />
@@ -787,6 +810,21 @@ warning 6002: The table/view 'FxPLM.NSA.Users' does not have a primary key defin
             <Parameter Name="DebugMsg" Mode="InOut" Type="String" />
           </FunctionImport>
           <FunctionImport Name="usp_CreateAwardedQuote">
+            <Parameter Name="User" Mode="In" Type="String" />
+            <Parameter Name="QuoteNumber" Mode="In" Type="String" />
+            <Parameter Name="AwardDate" Mode="In" Type="DateTime" />
+            <Parameter Name="FormOfCommitment" Mode="In" Type="String" />
+            <Parameter Name="QuoteReason" Mode="In" Type="String" />
+            <Parameter Name="ReplacingBasePart" Mode="In" Type="String" />
+            <Parameter Name="Salesperson" Mode="In" Type="String" />
+            <Parameter Name="ProgramManager" Mode="In" Type="String" />
+            <Parameter Name="Comments" Mode="In" Type="String" />
+            <Parameter Name="TranDT" Mode="InOut" Type="DateTime" />
+            <Parameter Name="Result" Mode="InOut" Type="Int32" />
+            <Parameter Name="Debug" Mode="In" Type="Int32" />
+            <Parameter Name="DebugMsg" Mode="InOut" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="usp_SetQuoteDetails">
             <Parameter Name="User" Mode="In" Type="String" />
             <Parameter Name="QuoteNumber" Mode="In" Type="String" />
             <Parameter Name="AwardDate" Mode="In" Type="DateTime" />
@@ -1294,22 +1332,6 @@ warning 6002: The table/view 'FxPLM.NSA.Users' does not have a primary key defin
             </EntityTypeMapping>
           </EntitySetMapping>
           <FunctionImportMapping FunctionImportName="usp_SetProductionPO" FunctionName="FxPLMModel.Store.usp_SetProductionPO" />
-          <FunctionImportMapping FunctionImportName="usp_GetAwardedQuoteProductionPOs" FunctionName="FxPLMModel.Store.usp_GetAwardedQuoteProductionPOs">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="FxPLMModel.usp_GetAwardedQuoteProductionPOs_Result">
-                <ScalarProperty Name="QuoteNumber" ColumnName="QuoteNumber" />
-                <ScalarProperty Name="BasePart" ColumnName="BasePart" />
-                <ScalarProperty Name="PONumber" ColumnName="PONumber" />
-                <ScalarProperty Name="PurchaseOrderFileName" ColumnName="PurchaseOrderFileName" />
-                <ScalarProperty Name="PurchaseOrderDT" ColumnName="PurchaseOrderDT" />
-                <ScalarProperty Name="AlternativeCustomerCommitment" ColumnName="AlternativeCustomerCommitment" />
-                <ScalarProperty Name="SellingPrice" ColumnName="SellingPrice" />
-                <ScalarProperty Name="PurchaseOrderSOP" ColumnName="PurchaseOrderSOP" />
-                <ScalarProperty Name="PurchaseOrderEOP" ColumnName="PurchaseOrderEOP" />
-                <ScalarProperty Name="Comments" ColumnName="Comments" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="usp_SetAssemblyTesterTooling" FunctionName="FxPLMModel.Store.usp_SetAssemblyTesterTooling" />
           <FunctionImportMapping FunctionImportName="usp_SetHardTooling" FunctionName="FxPLMModel.Store.usp_SetHardTooling" />
           <FunctionImportMapping FunctionImportName="usp_SetToolingAmortization" FunctionName="FxPLMModel.Store.usp_SetToolingAmortization" />
@@ -1439,28 +1461,6 @@ warning 6002: The table/view 'FxPLM.NSA.Users' does not have a primary key defin
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <FunctionImportMapping FunctionImportName="usp_GetAwardedQuoteCSMData" FunctionName="FxPLMModel.Store.usp_GetAwardedQuoteCSMData">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="FxPLMModel.usp_GetAwardedQuoteCSMData_Result">
-                <ScalarProperty Name="ReleaseID" ColumnName="ReleaseID" />
-                <ScalarProperty Name="VehiclePlantMnemonic" ColumnName="VehiclePlantMnemonic" />
-                <ScalarProperty Name="Platform" ColumnName="Platform" />
-                <ScalarProperty Name="Program" ColumnName="Program" />
-                <ScalarProperty Name="Vehicle" ColumnName="Vehicle" />
-                <ScalarProperty Name="Manufacturer" ColumnName="Manufacturer" />
-                <ScalarProperty Name="SourcePlant" ColumnName="SourcePlant" />
-                <ScalarProperty Name="SourcePlantCountry" ColumnName="SourcePlantCountry" />
-                <ScalarProperty Name="SourcePlantRegion" ColumnName="SourcePlantRegion" />
-                <ScalarProperty Name="CSM_SOP" ColumnName="CSM_SOP" />
-                <ScalarProperty Name="CSM_EOP" ColumnName="CSM_EOP" />
-                <ScalarProperty Name="ActiveFlag" ColumnName="ActiveFlag" />
-                <ScalarProperty Name="DemandYear1" ColumnName="DemandYear1" />
-                <ScalarProperty Name="DemandYear2" ColumnName="DemandYear2" />
-                <ScalarProperty Name="DemandYear3" ColumnName="DemandYear3" />
-                <ScalarProperty Name="RowID" ColumnName="RowID" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="usp_AwardedQuoteFirstMnemonicEmail" FunctionName="FxPLMModel.Store.usp_AwardedQuoteFirstMnemonicEmail" />
           <FunctionImportMapping FunctionImportName="usp_AwardedQuote_ChangeQuoteNumber" FunctionName="FxPLMModel.Store.usp_AwardedQuote_ChangeQuoteNumber" />
           <FunctionImportMapping FunctionImportName="usp_GetAwardedQuotes" FunctionName="FxPLMModel.Store.usp_GetAwardedQuotes">
@@ -1606,6 +1606,7 @@ warning 6002: The table/view 'FxPLM.NSA.Users' does not have a primary key defin
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="usp_GetAwardedQuoteDetails" FunctionName="FxPLMModel.Store.usp_GetAwardedQuoteDetails" />
           <FunctionImportMapping FunctionImportName="usp_CreateAwardedQuote" FunctionName="FxPLMModel.Store.usp_CreateAwardedQuote" />
+          <FunctionImportMapping FunctionImportName="usp_SetQuoteDetails" FunctionName="FxPLMModel.Store.usp_SetQuoteDetails" />
           </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

@@ -143,7 +143,8 @@
                     <dx:LayoutItem Caption="Quoted EAU" FieldName="QuotedEAU">
                         <LayoutItemNestedControlCollection>
                             <dx:LayoutItemNestedControlContainer runat="server">
-                                <dx:ASPxTextBox ID="QuotedEAUTextBox" ClientInstanceName="quotedEAUEditor" Width="100%" runat="server">
+                                <dx:ASPxTextBox ID="QuotedEAUTextBox" ClientInstanceName="quotedEAUEditor" runat="server"
+                                                Width="100%" ReadOnly="True">
                                     <MaskSettings Mask="<0..99999999g>" IncludeLiterals="DecimalSymbol" ErrorText="*"/>
                                 </dx:ASPxTextBox>
                             </dx:LayoutItemNestedControlContainer>
@@ -153,7 +154,8 @@
                     <dx:LayoutItem Caption="Quoted Price" FieldName="QuotedPrice">
                         <LayoutItemNestedControlCollection>
                             <dx:LayoutItemNestedControlContainer runat="server">
-                                <dx:ASPxTextBox ID="QuotedPriceTextBox" ClientInstanceName="quotedPriceEditor" Width="100%" runat="server" ReadOnly="True">
+                                <dx:ASPxTextBox ID="QuotedPriceTextBox" ClientInstanceName="quotedPriceEditor" runat="server"
+                                                Width="100%" ReadOnly="True">
                                     <ClientSideEvents
                                         GotFocus="OnEditControl_GotFocus"
                                         Init="function (s,e) { RegisterURI(s, 'QuoteLog.QuotedPrice'); }" 
@@ -166,7 +168,8 @@
                     <dx:LayoutItem Caption="Quoted Material Cost" FieldName="QuotedMaterialCost">
                         <LayoutItemNestedControlCollection>
                             <dx:LayoutItemNestedControlContainer runat="server">
-                                <dx:ASPxTextBox ID="QuotedMaterialCostTextBox" ClientInstanceName="quotedMaterialCostEditor" Width="100%" runat="server" ReadOnly="True">
+                                <dx:ASPxTextBox ID="QuotedMaterialCostTextBox" ClientInstanceName="quotedMaterialCostEditor" runat="server"
+                                                Width="100%" ReadOnly="True">
                                     <ClientSideEvents
                                         GotFocus="OnEditControl_GotFocus"
                                         Init="function (s,e) { RegisterURI(s, 'QuoteLog.QuotedMaterialCost'); }" 

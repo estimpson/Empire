@@ -1,27 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using WebPortal.NewSalesAward.Models;
-using WebPortal.NewSalesAward.DataModels;
 using System.Data.Entity.Core.Objects;
+using System.Linq;
+using System.Web;
+using WebPortal.NewSalesAward.Models;
 
 namespace WebPortal.NewSalesAward.PageViewModels
 {
     [Serializable]
     public class CsmDemandViewModel
     {
-        public String OperatorCode { get; private set; }
-        public String Error { get; private set; }
-
-        
+        public string OperatorCode => HttpContext.Current.Session["OpCode"].ToString();
         public List<usp_GetAwardedQuoteCSMData_Result> CSMDataList;
+        public string Error { get; private set; }
 
 
         #region Constructor
-
-        public CsmDemandViewModel()
-        {
-        }
 
         #endregion
 
@@ -37,24 +31,26 @@ namespace WebPortal.NewSalesAward.PageViewModels
             {
                 CSMDataList = context.usp_GetAwardedQuoteCSMData(quote).ToList();
             }
+
             return CSMDataList;
         }
 
         public string GetActiveMnemonics(string quote)
         {
-            string mnemonics = "";
+            var mnemonics = "";
             try
             {
                 using (var context = new FxPLMEntities())
                 {
                     var collection = context.usp_GetAwardedQuoteActiveMnemonics(quote);
-                    foreach (var item in collection) mnemonics = item.ToString();
+                    foreach (var item in collection) mnemonics = item;
                 }
             }
             catch (Exception ex)
             {
-                Error = (ex.InnerException != null) ? ex.InnerException.Message : ex.Message;
+                Error = ex.InnerException != null ? ex.InnerException.Message : ex.Message;
             }
+
             return mnemonics;
         }
 
@@ -95,9 +91,10 @@ namespace WebPortal.NewSalesAward.PageViewModels
         //    }
         //}
 
-        public List<usp_GetAwardedQuoteBasePartMnemonic_Result> GetAwardedQuoteBasePartMnemonic(string quote, string mnemonic)
+        public List<usp_GetAwardedQuoteBasePartMnemonic_Result> GetAwardedQuoteBasePartMnemonic(string quote,
+            string mnemonic)
         {
-            var list = new List<usp_GetAwardedQuoteBasePartMnemonic_Result>(); 
+            var list = new List<usp_GetAwardedQuoteBasePartMnemonic_Result>();
             Error = "";
             try
             {
@@ -108,38 +105,41 @@ namespace WebPortal.NewSalesAward.PageViewModels
             }
             catch (Exception ex)
             {
-                Error = (ex.InnerException != null) ? ex.InnerException.Message : ex.Message;
+                Error = ex.InnerException != null ? ex.InnerException.Message : ex.Message;
             }
+
             return list;
         }
 
-        public void AssignCsmMnemonic(string quote, string mnemonic, decimal? qtyPer, decimal? takeRate, decimal? familyAllocation)
+        public void AssignCsmMnemonic(string quote, string mnemonic, decimal? qtyPer, decimal? takeRate,
+            decimal? familyAllocation)
         {
-            ObjectParameter tranDT = new ObjectParameter("TranDT", typeof(DateTime?));
-            ObjectParameter result = new ObjectParameter("Result", typeof(Int32?));
-            ObjectParameter debugMsg = new ObjectParameter("DebugMsg", typeof(String));
+            var tranDT = new ObjectParameter("TranDT", typeof(DateTime?));
+            var result = new ObjectParameter("Result", typeof(int?));
+            var debugMsg = new ObjectParameter("DebugMsg", typeof(string));
 
             Error = "";
             try
             {
                 using (var context = new FxPLMEntities())
                 {
-                    context.usp_SetBasePartMnemonic(quote, mnemonic, qtyPer, takeRate, familyAllocation, tranDT, result, 0, debugMsg);
+                    context.usp_SetBasePartMnemonic(OperatorCode, quote, mnemonic, qtyPer, takeRate, familyAllocation,
+                        tranDT, result, 0, debugMsg);
                     CSMDataList = new List<usp_GetAwardedQuoteCSMData_Result>();
                     CSMDataList = context.usp_GetAwardedQuoteCSMData(quote).ToList();
                 }
             }
             catch (Exception ex)
             {
-                Error = (ex.InnerException != null) ? ex.InnerException.Message : ex.Message;
+                Error = ex.InnerException != null ? ex.InnerException.Message : ex.Message;
             }
         }
 
         public void RemoveCsmMnemonic(string quote, string mnemonic)
         {
-            ObjectParameter tranDT = new ObjectParameter("TranDT", typeof(DateTime?));
-            ObjectParameter result = new ObjectParameter("Result", typeof(Int32?));
-            ObjectParameter debugMsg = new ObjectParameter("DebugMsg", typeof(String));
+            var tranDT = new ObjectParameter("TranDT", typeof(DateTime?));
+            var result = new ObjectParameter("Result", typeof(int?));
+            var debugMsg = new ObjectParameter("DebugMsg", typeof(string));
 
             Error = "";
             try
@@ -153,11 +153,12 @@ namespace WebPortal.NewSalesAward.PageViewModels
             }
             catch (Exception ex)
             {
-                Error = (ex.InnerException != null) ? ex.InnerException.Message : ex.Message;
+                Error = ex.InnerException != null ? ex.InnerException.Message : ex.Message;
             }
         }
 
-        public void GetCalculatedTakeRate(string quote, out decimal? qtyPer, out decimal? familyAlloc, out decimal? quotedEau, out decimal? csmDemand, out decimal? takeRate)
+        public void GetCalculatedTakeRate(string quote, out decimal? qtyPer, out decimal? familyAlloc,
+            out decimal? quotedEau, out decimal? csmDemand, out decimal? takeRate)
         {
             Error = "";
             qtyPer = familyAlloc = quotedEau = csmDemand = takeRate = 0;
@@ -178,15 +179,15 @@ namespace WebPortal.NewSalesAward.PageViewModels
             }
             catch (Exception ex)
             {
-                Error = (ex.InnerException != null) ? ex.InnerException.Message : ex.Message;
+                Error = ex.InnerException != null ? ex.InnerException.Message : ex.Message;
             }
         }
 
         public void SendFirstMnemonicEmail(string basePart, string mnemonic)
         {
             Error = "";
-            ObjectParameter tranDT = new ObjectParameter("TranDT", typeof(DateTime?));
-            ObjectParameter result = new ObjectParameter("Result", typeof(Int32?));
+            var tranDT = new ObjectParameter("TranDT", typeof(DateTime?));
+            var result = new ObjectParameter("Result", typeof(int?));
 
             try
             {
@@ -197,12 +198,10 @@ namespace WebPortal.NewSalesAward.PageViewModels
             }
             catch (Exception ex)
             {
-                Error = (ex.InnerException != null) ? ex.InnerException.Message : ex.Message;
+                Error = ex.InnerException != null ? ex.InnerException.Message : ex.Message;
             }
         }
 
         #endregion
-
-
     }
 }

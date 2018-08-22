@@ -55,35 +55,21 @@ namespace WebPortal.NewSalesAward.Pages
 
         private int SetQuoteInfo(string saveParameter)
         {
-            //var operatorCode = Session["OpCode"].ToString();
+            var quote = AwardedQuote.QuoteNumber;
 
-            //var quote = AwardedQuote.QuoteNumber;
+            var awardDate = (AwardDateEdit.Value != null)
+                ? Convert.ToDateTime(AwardDateEdit.Value)
+                : (DateTime?)null;
 
-            //var basePartFamilyList = BasePartFamilyTextBox.Text.Trim();
-            //var productLine = ProductLineComboBox.Text.Trim();
-            //var marketSegment = EmpireMarketSegmentComboBox.Text.Trim();
-            //var marketSubsegment = EmpireMarketSubsegmentComboBox.Text.Trim();
-            //var application = EmpireApplicationTextBox.Text.Trim();
+            var formOfCommitment = FormOfCommitmentComboBox.Text.Trim();
+            var quoteReason = QuoteReasonComboBox.Text.Trim();
+            var replacingBasePart = ReplacingBasePartComboBox.Text.Trim();
+            var salesperson = SalespersonComboBox.Value.ToString();
+            var programManager = ProgramManagerComboBox.Value.ToString();
+            var comments = CommentsTextBox.Text.Trim();
 
-            //var sop = (EmpireSOPDateEdit.Value != null)
-            //    ? Convert.ToDateTime(EmpireSOPDateEdit.Value)
-            //    : (DateTime?)null;
-
-            //var eop = (EmpireEOPDateEdit.Value != null)
-            //    ? Convert.ToDateTime(EmpireEOPDateEdit.Value)
-            //    : (DateTime?)null;
-
-            //var eopChangeNote = string.Empty;
-            //if (eop != AwardedQuote.EmpireEOP)
-            //{
-            //    dynamic x = JsonConvert.DeserializeObject(saveParameter);
-            //    eopChangeNote = x.BasePartAttributes_EmpireEOPNote;
-            //}
-
-            //var comments = BasePart_CommentsTextBox.Text.Trim();
-
-            //ViewModel.SetBasePartAttributes(operatorCode, quote, basePartFamilyList, productLine, marketSegment,
-            //    marketSubsegment, application, sop, eop, eopChangeNote, comments);
+            ViewModel.SetQuoteDetails(quote, awardDate, formOfCommitment, quoteReason,
+                replacingBasePart, salesperson, programManager, comments);
             return ViewModel.Error != "" ? 0 : 1;
         }
 

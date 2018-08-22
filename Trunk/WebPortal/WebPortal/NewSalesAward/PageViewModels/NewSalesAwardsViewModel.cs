@@ -11,11 +11,10 @@ namespace WebPortal.NewSalesAward.PageViewModels
     [Serializable]
     public class NewSalesAwardsViewModel
     {
+        public string OperatorCode => HttpContext.Current.Session["OpCode"].ToString();
         public String Error { get; private set; }
 
         public List<String> QuoteNumberList = new List<String>();
-
-
         #region Constructor
 
         public NewSalesAwardsViewModel()
@@ -28,21 +27,6 @@ namespace WebPortal.NewSalesAward.PageViewModels
 
         #region Quote Methods
 
-        //public List<> GetEmpireMarketSegments()
-        //{
-        //    using (var context = new FxPLMEntities())
-        //    {
-        //        var query = (from s in context.EmpireMarketSegments
-        //                     orderby s.EmpireMarketSegment1
-        //                     select s);
-
-        //        foreach (var item in query)
-        //        {
-
-        //        }
-
-        //    }
-        //}
 
         public void GetQuoteLog()
         {
@@ -113,7 +97,29 @@ namespace WebPortal.NewSalesAward.PageViewModels
             {
                 using (var context = new FxPLMEntities())
                 {
-                    context.usp_AwardedQuote_ChangeQuoteNumber(oldQuote, newQuote, tranDT, result, 0, debugMsg);
+                    context.usp_AwardedQuote_ChangeQuoteNumber(OperatorCode, oldQuote, newQuote, tranDT, result, 0, debugMsg);
+                }
+            }
+            catch (Exception ex)
+            {
+                Error = (ex.InnerException != null) ? ex.InnerException.Message : ex.Message;
+            }
+        }
+
+        public void SetQuoteDetails(string quoteNumber, DateTime? awardDate, string formOfCommitment, string quoteReason,
+            string replacingBasePart, string salesperson, string programManager, string comments)
+        {
+            ObjectParameter tranDT = new ObjectParameter("TranDT", typeof(DateTime?));
+            ObjectParameter result = new ObjectParameter("Result", typeof(Int32?));
+            ObjectParameter debugMsg = new ObjectParameter("DebugMsg", typeof(String));
+
+            Error = "";
+            try
+            {
+                using (var context = new FxPLMEntities())
+                {
+                    context.usp_SetQuoteDetails(OperatorCode, quoteNumber, awardDate, formOfCommitment, quoteReason,
+                        replacingBasePart, salesperson, programManager, comments, tranDT, result, 0, debugMsg);
                 }
             }
             catch (Exception ex)
@@ -127,28 +133,6 @@ namespace WebPortal.NewSalesAward.PageViewModels
 
         #region Customer PO Methods
 
-        //public List<usp_GetAwardedQuoteProductionPOs_Result> GetAwardedQuoteProductionPOs()
-        //{
-        //    List<usp_GetAwardedQuoteProductionPOs_Result> list;
-        //    using (var context = new FxPLMEntities())
-        //    {
-        //        list = context.usp_GetAwardedQuoteProductionPOs().ToList();
-        //    }
-        //    return list;
-        //}
-
-        //public void UpdateAwardedQuoteProductionPOs(usp_GetAwardedQuoteProductionPOs_Result u)
-        //{
-        //    using (var context = new FxPLMEntities())
-        //    {
-        //        ObjectParameter tranDT = new ObjectParameter("TranDT", typeof(DateTime?));
-        //        ObjectParameter result = new ObjectParameter("Result", typeof(Int32?));
-
-        //        context.usp_SetProductionPO(u.QuoteNumber, u.PurchaseOrderDT, u.PONumber, u.AlternativeCustomerCommitment,
-        //            u.SellingPrice, u.PurchaseOrderSOP, u.PurchaseOrderEOP, u.Comments, tranDT, result, 0, null);
-        //    }
-        //}
-
         public void SetProductionPO(string quote, DateTime? purchaseOrderDt, string po, string altCustCommitment, decimal? sellingPrice, DateTime? poSop,
             DateTime? poEop, string comments)
         {
@@ -161,7 +145,7 @@ namespace WebPortal.NewSalesAward.PageViewModels
             {
                 using (var context = new FxPLMEntities())
                 {
-                    context.usp_SetProductionPO(quote, purchaseOrderDt, po, altCustCommitment, sellingPrice, poSop, poEop, comments, tranDT, result, 0, debugMsg);
+                    context.usp_SetProductionPO(OperatorCode, quote, purchaseOrderDt, po, altCustCommitment, sellingPrice, poSop, poEop, comments, tranDT, result, 0, debugMsg);
                 }
             }
             catch (Exception ex)
@@ -186,7 +170,7 @@ namespace WebPortal.NewSalesAward.PageViewModels
             {
                 using (var context = new FxPLMEntities())
                 {
-                    context.usp_SetHardTooling(quote, amount, trigger, description, capexid, tranDT, result, 0, debugMsg);
+                    context.usp_SetHardTooling(OperatorCode, quote, amount, trigger, description, capexid, tranDT, result, 0, debugMsg);
                 }
             }
             catch (Exception ex)
@@ -211,7 +195,7 @@ namespace WebPortal.NewSalesAward.PageViewModels
             {
                 using (var context = new FxPLMEntities())
                 {
-                    context.usp_SetToolingAmortization(quote, amount, quantity, description, capexid, tranDT, result, 0, debugMsg);
+                    context.usp_SetToolingAmortization(OperatorCode, quote, amount, quantity, description, capexid, tranDT, result, 0, debugMsg);
                 }
             }
             catch (Exception ex)
@@ -236,7 +220,7 @@ namespace WebPortal.NewSalesAward.PageViewModels
             {
                 using (var context = new FxPLMEntities())
                 {
-                    context.usp_SetAssemblyTesterTooling(quote, amount, trigger, description, capexid, tranDT, result, 0, debugMsg);
+                    context.usp_SetAssemblyTesterTooling(OperatorCode, quote, amount, trigger, description, capexid, tranDT, result, 0, debugMsg);
                 }
             }
             catch (Exception ex)

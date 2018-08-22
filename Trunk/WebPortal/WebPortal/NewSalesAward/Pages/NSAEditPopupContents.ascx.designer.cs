@@ -67,15 +67,6 @@ namespace WebPortal.NewSalesAward.Pages {
         protected global::WebPortal.NewSalesAward.Pages.NSAQuoteTabView NSAQuoteTabView;
         
         /// <summary>
-        /// QuoteTabView control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::WebPortal.NewSalesAward.Pages.QuoteTabView QuoteTabView;
-        
-        /// <summary>
         /// NSACustomerPOTabView control.
         /// </summary>
         /// <remarks>
