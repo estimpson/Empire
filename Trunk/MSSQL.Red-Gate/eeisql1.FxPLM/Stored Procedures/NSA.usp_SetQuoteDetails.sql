@@ -3,13 +3,16 @@ GO
 SET ANSI_NULLS ON
 GO
 
-create procedure [NSA].[usp_SetToolingAmortization]
+create procedure [NSA].[usp_SetQuoteDetails]
 	@User varchar(5)
 ,	@QuoteNumber varchar(100)
-,	@AmortizationAmount numeric(20,6)
-,	@AmortizationQuantity numeric(20,6)
-,	@AmortizationToolingDescription varchar(max)
-,	@AmortizationCAPEXID varchar(100)
+,	@AwardDate datetime
+,	@FormOfCommitment varchar(50)
+,	@QuoteReason varchar(25)
+,	@ReplacingBasePart char(7)
+,	@Salesperson varchar(5)
+,	@ProgramManager varchar(5)
+,	@Comments varchar(max)
 ,	@TranDT datetime = null out
 ,	@Result integer = null out
 ,	@Debug int = 0
@@ -54,10 +57,13 @@ begin
 			,	(	select
 						[@User] = @User
 					,	[@QuoteNumber] = @QuoteNumber
-					,	[@AmortizationAmount] = @AmortizationAmount
-					,	[@AmortizationQuantity] = @AmortizationQuantity
-					,	[@AmortizationToolingDescription] = @AmortizationToolingDescription
-					,	[@AmortizationCAPEXID] = @AmortizationCAPEXID
+					,	[@AwardDate] = @AwardDate
+					,	[@FormOfCommitment] = @FormOfCommitment
+					,	[@QuoteReason] = @QuoteReason
+					,	[@ReplacingBasePart] = @ReplacingBasePart
+					,	[@Salesperson] = @Salesperson
+					,	[@ProgramManager] = @ProgramManager
+					,	[@Comments] = @Comments
 					,	[@TranDT] = @TranDT
 					,	[@Result] = @Result
 					,	[@Debug] = @Debug
@@ -128,118 +134,57 @@ begin
 		---	</ArgumentValidation>
 
 		--- <Body>
-		/*	Create new tooling PO entry if needed. */
-		set @TocMsg = 'Create new tooling PO entry if needed'
-		if	not exists
-			(	select
-					*
-				from
-					NSA.AwardedQuoteToolingPOs aqtpo
-				where
-					aqtpo.QuoteNumber = @QuoteNumber
-			)
-		begin
-			--- <Insert rows="1">
-			set	@TableName = 'NSA.AwardedQuoteToolingPOs'
-			
-			insert
-				NSA.AwardedQuoteToolingPOs
-			(	QuoteNumber
-			,	AmortizationAmount
-			,	AmortizationQuantity
-			,	AmortizationToolingDescription
-			,	AmortizationCAPEXID
-			)
-			select
-				QuoteNumber = @QuoteNumber
-			,	AmortizationAmount = @AmortizationAmount
-			,	AmortizationQuantity = @AmortizationQuantity
-			,	AmortizationToolingDescription = @AmortizationToolingDescription
-			,	AmortizationCAPEXID = @AmortizationCAPEXID
-			
-			select
-				@Error = @@Error,
-				@RowCount = @@Rowcount
-			
-			if	@Error != 0 begin
-				set	@Result = 999999
-				RAISERROR ('Error inserting into table %s in procedure %s.  Error: %d', 16, 1, @TableName, @ProcName, @Error)
-				rollback tran @ProcName
-			end
-			if	@RowCount != 1 begin
-				set	@Result = 999999
-				RAISERROR ('Error inserting into table %s in procedure %s.  Rows inserted: %d.  Expected rows: 1.', 16, 1, @TableName, @ProcName, @RowCount)
-				rollback tran @ProcName
-			end
-			--- </Insert>
-			
+		/*	Update New Sales Award quote information. */
+		set @TocMsg = 'Update tooling PO entry'
 
-			--- <TOC>
-			if	@Debug & 0x01 = 0x01 begin
-				set @TocDT = getdate()
-				set @TimeDiff =
-					case
-						when datediff(day, @TocDT - @TicDT, convert(datetime, '1900-01-01')) > 1
-							then convert(varchar, datediff(day, @TocDT - @TicDT, convert(datetime, '1900-01-01'))) + ' day(s) ' + convert(char(12), @TocDT - @TicDT, 114)
-						else
-							convert(varchar(12), @TocDT - @TicDT, 114)
-					end
-				set @DebugMsg = @DebugMsg + char(13) + char(10) + replicate(' -', (@Debug & 0x3E) / 2) + @TocMsg + ': ' + @TimeDiff
-				set @TicDT = @TocDT
-			end
-			--- </TOC>
+		--- <Update rows="1">
+		set	@TableName = 'NSA.AwardedQuoteToolingPOs'
+			
+		update
+			aq
+		set
+			aq.AwardDate = @AwardDate
+		,	aq.FormOfCommitment = @FormOfCommitment
+		,	aq.QuoteReason = @QuoteReason
+		,	aq.ReplacingBasePart = @ReplacingBasePart
+		,	aq.Salesperson = @Salesperson
+		,	aq.ProgramManager = @ProgramManager
+		,	aq.Comments = @Comments
+		from
+			NSA.AwardedQuotes aq
+		where
+			aq.QuoteNumber = @QuoteNumber
+			
+		select
+			@Error = @@Error,
+			@RowCount = @@Rowcount
+			
+		if	@Error != 0 begin
+			set	@Result = 999999
+			RAISERROR ('Error updating table %s in procedure %s.  Error: %d', 16, 1, @TableName, @ProcName, @Error)
+			rollback tran @ProcName
 		end
-		--- </Body>
-		else begin
-			/*	Update tooling PO entry. */
-			set @TocMsg = 'Update tooling PO entry'
-
-			--- <Update rows="1">
-			set	@TableName = 'NSA.AwardedQuoteToolingPOs'
-			
-			update
-				aqtpo
-			set
-				aqtpo.AmortizationAmount = @AmortizationAmount
-			,	aqtpo.AmortizationQuantity = @AmortizationQuantity
-			,	aqtpo.AmortizationToolingDescription = @AmortizationToolingDescription
-			,	aqtpo.AmortizationCAPEXID = @AmortizationCAPEXID
-			from
-				NSA.AwardedQuoteToolingPOs aqtpo
-			where
-				aqtpo.QuoteNumber = @QuoteNumber
-			
-			select
-				@Error = @@Error,
-				@RowCount = @@Rowcount
-			
-			if	@Error != 0 begin
-				set	@Result = 999999
-				RAISERROR ('Error updating table %s in procedure %s.  Error: %d', 16, 1, @TableName, @ProcName, @Error)
-				rollback tran @ProcName
-			end
-			if	@RowCount != 1 begin
-				set	@Result = 999999
-				RAISERROR ('Error updating %s in procedure %s.  Rows Updated: %d.  Expected rows: 1.', 16, 1, @TableName, @ProcName, @RowCount)
-				rollback tran @ProcName
-			end
-			--- </Update>
-
-			--- <TOC>
-			if	@Debug & 0x01 = 0x01 begin
-				set @TocDT = getdate()
-				set @TimeDiff =
-					case
-						when datediff(day, @TocDT - @TicDT, convert(datetime, '1900-01-01')) > 1
-							then convert(varchar, datediff(day, @TocDT - @TicDT, convert(datetime, '1900-01-01'))) + ' day(s) ' + convert(char(12), @TocDT - @TicDT, 114)
-						else
-							convert(varchar(12), @TocDT - @TicDT, 114)
-					end
-				set @DebugMsg = @DebugMsg + char(13) + char(10) + replicate(' -', (@Debug & 0x3E) / 2) + @TocMsg + ': ' + @TimeDiff
-				set @TicDT = @TocDT
-			end
-			--- </TOC>
+		if	@RowCount != 1 begin
+			set	@Result = 999999
+			RAISERROR ('Error updating %s in procedure %s.  Rows Updated: %d.  Expected rows: 1.', 16, 1, @TableName, @ProcName, @RowCount)
+			rollback tran @ProcName
 		end
+		--- </Update>
+
+		--- <TOC>
+		if	@Debug & 0x01 = 0x01 begin
+			set @TocDT = getdate()
+			set @TimeDiff =
+				case
+					when datediff(day, @TocDT - @TicDT, convert(datetime, '1900-01-01')) > 1
+						then convert(varchar, datediff(day, @TocDT - @TicDT, convert(datetime, '1900-01-01'))) + ' day(s) ' + convert(char(12), @TocDT - @TicDT, 114)
+					else
+						convert(varchar(12), @TocDT - @TicDT, 114)
+				end
+			set @DebugMsg = @DebugMsg + char(13) + char(10) + replicate(' -', (@Debug & 0x3E) / 2) + @TocMsg + ': ' + @TimeDiff
+			set @TicDT = @TocDT
+		end
+		--- </TOC>
 
 		---	<CloseTran AutoCommit=Yes>
 		if	@TranCount = 0 begin
@@ -338,7 +283,7 @@ declare
 ,	@Error integer
 
 execute
-	@ProcReturn = NSA.usp_SetToolingAmortization
+	@ProcReturn = NSA.usp_SetQuoteDetails
 	@FinishedPart = @FinishedPart
 ,	@ParentHeirarchID = @ParentHeirarchID
 ,	@TranDT = @TranDT out

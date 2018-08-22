@@ -3,8 +3,9 @@ GO
 SET ANSI_NULLS ON
 GO
 
-CREATE procedure [NSA].[usp_SetBasePartMnemonic]
-	@QuoteNumber varchar(100)
+create procedure [NSA].[usp_SetBasePartMnemonic]
+	@User varchar(5)
+,	@QuoteNumber varchar(100)
 ,	@Mnemonic varchar(30)
 ,	@QtyPer numeric(10,0)
 ,	@TakeRate numeric(10,6)
@@ -48,12 +49,22 @@ begin
 	select
 		USP_Name = user_name(objectproperty(@@procid, 'OwnerId')) + '.' + object_name(@@procid)
 	,	BeginDT = getdate()
-	,	InArguments =
-			'@QuoteNumber = ' + coalesce('''' + @QuoteNumber + '''', '<null>')
-			+ ', @TranDT = ' + coalesce(convert(varchar, @TranDT, 121), '<null>')
-			+ ', @Result = ' + coalesce(convert(varchar, @Result), '<null>')
-			+ ', @Debug = ' + coalesce(convert(varchar, @Debug), '<null>')
-			+ ', @DebugMsg = ' + coalesce('''' + @DebugMsg + '''', '<null>')
+	,	InArguments = convert
+			(	varchar(max)
+			,	(	select
+						[@User] = @User
+					,	[@QuoteNumber] = @QuoteNumber
+					,	[@Mnemonic] = @Mnemonic
+					,	[@QtyPer] = @QtyPer
+					,	[@TakeRate] = @TakeRate
+					,	[@FamilyAllocation] = @FamilyAllocation
+					,	[@TranDT] = @TranDT
+					,	[@Result] = @Result
+					,	[@Debug] = @Debug
+					,	[@DebugMsg] = @DebugMsg
+					for xml raw			
+				)
+			)
 
 	set	@LogID = scope_identity()
 	--- </SP Begin Logging>
@@ -237,9 +248,15 @@ begin
 		update
 			uc
 		set	EndDT = getdate()
-		,	OutArguments = 
-				'@TranDT = ' + coalesce(convert(varchar, @TranDT, 121), '<null>')
-				+ ', @Result = ' + coalesce(convert(varchar, @Result), '<null>')
+		,	OutArguments = convert
+				(	varchar(max)
+				,	(	select
+							[@TranDT] = @TranDT
+						,	[@Result] = @Result
+						,	[@DebugMsg] = @DebugMsg
+						for xml raw			
+					)
+				)
 		from
 			FXSYS.USP_Calls uc
 		where

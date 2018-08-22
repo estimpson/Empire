@@ -7,18 +7,12 @@ create procedure [NSA].[usp_SetBasePartAttributes]
 	@User varchar(5)
 ,	@QuoteNumber varchar(100)
 ,	@BasePartFamilyList varchar(400)
---,	@QuoteCustomer char(3)
---,	@ParentCustomer varchar(50)
 ,	@ProductLine varchar(25)
 ,	@EmpireMarketSegment varchar(200)
 ,	@EmpireMarketSubsegment varchar(200)
 ,	@EmpireApplication varchar(500)
---,	@Salesperson varchar(50)
---,	@AwardDate datetime
---,	@TypeOfAward varchar(50)
 ,	@EmpireSOP datetime
 ,	@EmpireEOP datetime
---,	@EmpireMidModelYear datetime
 ,	@EmpireEOPNote varchar(max)
 ,	@Comments varchar(max)
 ,	@TranDT datetime = null out
@@ -60,12 +54,27 @@ begin
 	select
 		USP_Name = user_name(objectproperty(@@procid, 'OwnerId')) + '.' + object_name(@@procid)
 	,	BeginDT = getdate()
-	,	InArguments =
-			'@User = ' + coalesce('''' + @User + '''', '<null>')
-			+ ', @TranDT = ' + coalesce(convert(varchar, @TranDT, 121), '<null>')
-			+ ', @Result = ' + coalesce(convert(varchar, @Result), '<null>')
-			+ ', @Debug = ' + coalesce(convert(varchar, @Debug), '<null>')
-			+ ', @DebugMsg = ' + coalesce('''' + @DebugMsg + '''', '<null>')
+	,	InArguments = convert
+			(	varchar(max)
+			,	(	select
+						[@User] = @User
+					,	[@QuoteNumber] = @QuoteNumber
+					,	[@BasePartFamilyList] = @BasePartFamilyList
+					,	[@ProductLine] = @ProductLine
+					,	[@EmpireMarketSegment] = @EmpireMarketSegment
+					,	[@EmpireMarketSubsegment] = @EmpireMarketSubsegment
+					,	[@EmpireApplication] = @EmpireApplication
+					,	[@EmpireSOP] = @EmpireSOP
+					,	[@EmpireEOP] = @EmpireEOP
+					,	[@EmpireEOPNote] = @EmpireEOPNote
+					,	[@Comments] = @Comments
+					,	[@TranDT] = @TranDT
+					,	[@Result] = @Result
+					,	[@Debug] = @Debug
+					,	[@DebugMsg] = @DebugMsg
+					for xml raw			
+				)
+			)
 
 	set	@LogID = scope_identity()
 	--- </SP Begin Logging>
@@ -450,9 +459,15 @@ begin
 		update
 			uc
 		set	EndDT = getdate()
-		,	OutArguments = 
-				'@TranDT = ' + coalesce(convert(varchar, @TranDT, 121), '<null>')
-				+ ', @Result = ' + coalesce(convert(varchar, @Result), '<null>')
+		,	OutArguments = convert
+				(	varchar(max)
+				,	(	select
+							[@TranDT] = @TranDT
+						,	[@Result] = @Result
+						,	[@DebugMsg] = @DebugMsg
+						for xml raw			
+					)
+				)
 		from
 			FXSYS.USP_Calls uc
 		where

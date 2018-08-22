@@ -3,7 +3,7 @@ GO
 SET ANSI_NULLS ON
 GO
 
-CREATE procedure [NSA].[usp_GetAwardedQuoteBasePartMnemonic]
+create procedure [NSA].[usp_GetAwardedQuoteBasePartMnemonic]
 	@QuoteNumber varchar(100)
 ,	@Mnemonic varchar(30)
 as
@@ -28,7 +28,14 @@ begin
 	select
 		USP_Name = user_name(objectproperty(@@procid, 'OwnerId')) + '.' + object_name(@@procid)
 	,	BeginDT = getdate()
-	,	InArguments = null
+	,	InArguments = convert
+			(	varchar(max)
+			,	(	select
+						[@QuoteNumber] = @QuoteNumber
+					,	[@Mnemonic] = @Mnemonic
+					for xml raw			
+				)
+			)
 
 	set	@LogID = scope_identity()
 	--- </SP Begin Logging>
@@ -111,8 +118,8 @@ set statistics time on
 go
 
 declare
-	@FinishedPart varchar(25) = 'ALC0598-HC02'
-,	@ParentHeirarchID hierarchyid
+	@QuoteNumber varchar(100)
+,	@Mnemonic varchar(30)
 
 begin transaction Test
 
@@ -123,9 +130,9 @@ declare
 ,	@Error integer
 
 execute
-	@ProcReturn = NSA.usp_GetAwardedQuoteBasePartAttributes
-	@FinishedPart = @FinishedPart
-,	@ParentHeirarchID = @ParentHeirarchID
+	@ProcReturn = NSA.usp_GetAwardedQuoteBasePartMnemonic
+	@QuoteNumber = @QuoteNumber
+,	@Mnemonic = @Mnemonic
 ,	@TranDT = @TranDT out
 ,	@Result = @ProcResult out
 
@@ -149,5 +156,4 @@ go
 Results {
 }
 */
-
 GO

@@ -51,12 +51,24 @@ begin
 	select
 		USP_Name = user_name(objectproperty(@@procid, 'OwnerId')) + '.' + object_name(@@procid)
 	,	BeginDT = getdate()
-	,	InArguments =
-			'@QuoteNumber = ' + coalesce('''' + @QuoteNumber + '''', '<null>')
-			+ ', @TranDT = ' + coalesce(convert(varchar, @TranDT, 121), '<null>')
-			+ ', @Result = ' + coalesce(convert(varchar, @Result), '<null>')
-			+ ', @Debug = ' + coalesce(convert(varchar, @Debug), '<null>')
-			+ ', @DebugMsg = ' + coalesce('''' + @DebugMsg + '''', '<null>')
+	,	InArguments = convert
+			(	varchar(max)
+			,	(	select
+						[@QuoteNumber] = @QuoteNumber
+					,	[@AwardDate] = @AwardDate
+					,	[@FormOfCommitment] = @FormOfCommitment
+					,	[@QuoteReason] = @QuoteReason
+					,	[@ReplacingBasePart] = @ReplacingBasePart
+					,	[@Salesperson] = @Salesperson
+					,	[@ProgramManager] = @ProgramManager
+					,	[@Comments] = @Comments
+					,	[@TranDT] = @TranDT
+					,	[@Result] = @Result
+					,	[@Debug] = @Debug
+					,	[@DebugMsg] = @DebugMsg
+					for xml raw			
+				)
+			)
 
 	set	@LogID = scope_identity()
 	--- </SP Begin Logging>
@@ -172,9 +184,22 @@ begin
 		update
 			uc
 		set	EndDT = getdate()
-		,	OutArguments = 
-				'@TranDT = ' + coalesce(convert(varchar, @TranDT, 121), '<null>')
-				+ ', @Result = ' + coalesce(convert(varchar, @Result), '<null>')
+		,	OutArguments = convert
+				(	varchar(max)
+				,	(	select
+							[@AwardDate] = @AwardDate
+						,	[@FormOfCommitment] = @FormOfCommitment
+						,	[@QuoteReason] = @QuoteReason
+						,	[@ReplacingBasePart] = @ReplacingBasePart
+						,	[@Salesperson] = @Salesperson
+						,	[@ProgramManager] = @ProgramManager
+						,	[@Comments] = @Comments
+						,	[@TranDT] = @TranDT
+						,	[@Result] = @Result
+						,	[@DebugMsg] = @DebugMsg
+						for xml raw			
+					)
+				)
 		from
 			FXSYS.USP_Calls uc
 		where
@@ -244,7 +269,7 @@ declare
 	@QuoteNumber varchar(100) = '0394-17'
 ,	@AwardDate datetime
 ,	@FormOfCommitment varchar(50)
-,	@QuoteReason tinyint
+,	@QuoteReason varchar(25)
 ,	@ReplacingBasePart char(7)
 ,	@Salesperson varchar(5)
 ,	@ProgramManager varchar(5)

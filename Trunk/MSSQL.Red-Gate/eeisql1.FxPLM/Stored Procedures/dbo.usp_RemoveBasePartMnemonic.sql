@@ -4,7 +4,8 @@ SET ANSI_NULLS ON
 GO
 
 create procedure [dbo].[usp_RemoveBasePartMnemonic]
-	@QuoteNumber varchar(100)
+	@User varchar(5)
+,	@QuoteNumber varchar(100)
 ,	@Mnemonic varchar(30)
 ,	@TranDT datetime = null out
 ,	@Result integer = null out
@@ -45,12 +46,19 @@ begin
 	select
 		USP_Name = user_name(objectproperty(@@procid, 'OwnerId')) + '.' + object_name(@@procid)
 	,	BeginDT = getdate()
-	,	InArguments =
-			'@QuoteNumber = ' + coalesce('''' + @QuoteNumber + '''', '<null>')
-			+ ', @TranDT = ' + coalesce(convert(varchar, @TranDT, 121), '<null>')
-			+ ', @Result = ' + coalesce(convert(varchar, @Result), '<null>')
-			+ ', @Debug = ' + coalesce(convert(varchar, @Debug), '<null>')
-			+ ', @DebugMsg = ' + coalesce('''' + @DebugMsg + '''', '<null>')
+	,	InArguments = convert
+			(	varchar(max)
+			,	(	select
+						[@User] = @User
+					,	[@QuoteNumber] = @QuoteNumber
+					,	[@Mnemonic] = @Mnemonic
+					,	[@TranDT] = @TranDT
+					,	[@Result] = @Result
+					,	[@Debug] = @Debug
+					,	[@DebugMsg] = @DebugMsg
+					for xml raw			
+				)
+			)
 
 	set	@LogID = scope_identity()
 	--- </SP Begin Logging>
@@ -202,9 +210,15 @@ begin
 		update
 			uc
 		set	EndDT = getdate()
-		,	OutArguments = 
-				'@TranDT = ' + coalesce(convert(varchar, @TranDT, 121), '<null>')
-				+ ', @Result = ' + coalesce(convert(varchar, @Result), '<null>')
+		,	OutArguments = convert
+				(	varchar(max)
+				,	(	select
+							[@TranDT] = @TranDT
+						,	[@Result] = @Result
+						,	[@DebugMsg] = @DebugMsg
+						for xml raw			
+					)
+				)
 		from
 			FXSYS.USP_Calls uc
 		where

@@ -4,7 +4,8 @@ SET ANSI_NULLS ON
 GO
 
 create procedure [NSA].[usp_SetHardTooling]
-	@QuoteNumber varchar(100)
+	@User varchar(5)
+,	@QuoteNumber varchar(100)
 ,	@HardToolingAmount numeric(20,6)
 ,	@HardToolingTrigger varchar(max)
 ,	@HardToolingDescription varchar(max)
@@ -48,12 +49,22 @@ begin
 	select
 		USP_Name = user_name(objectproperty(@@procid, 'OwnerId')) + '.' + object_name(@@procid)
 	,	BeginDT = getdate()
-	,	InArguments =
-			'@QuoteNumber = ' + coalesce('''' + @QuoteNumber + '''', '<null>')
-			+ ', @TranDT = ' + coalesce(convert(varchar, @TranDT, 121), '<null>')
-			+ ', @Result = ' + coalesce(convert(varchar, @Result), '<null>')
-			+ ', @Debug = ' + coalesce(convert(varchar, @Debug), '<null>')
-			+ ', @DebugMsg = ' + coalesce('''' + @DebugMsg + '''', '<null>')
+	,	InArguments = convert
+			(	varchar(max)
+			,	(	select
+						[@User] = @User
+					,	[@QuoteNumber] = @QuoteNumber
+					,	[@HardToolingAmount] = @HardToolingAmount
+					,	[@HardToolingTrigger] = @HardToolingTrigger
+					,	[@HardToolingDescription] = @HardToolingDescription
+					,	[@@HardToolingCAPEXID] = @HardToolingCAPEXID
+					,	[@TranDT] = @TranDT
+					,	[@Result] = @Result
+					,	[@Debug] = @Debug
+					,	[@DebugMsg] = @DebugMsg
+					for xml raw			
+				)
+			)
 
 	set	@LogID = scope_identity()
 	--- </SP Begin Logging>
@@ -240,9 +251,15 @@ begin
 		update
 			uc
 		set	EndDT = getdate()
-		,	OutArguments = 
-				'@TranDT = ' + coalesce(convert(varchar, @TranDT, 121), '<null>')
-				+ ', @Result = ' + coalesce(convert(varchar, @Result), '<null>')
+		,	OutArguments = convert
+				(	varchar(max)
+				,	(	select
+							[@TranDT] = @TranDT
+						,	[@Result] = @Result
+						,	[@DebugMsg] = @DebugMsg
+						for xml raw			
+					)
+				)
 		from
 			FXSYS.USP_Calls uc
 		where

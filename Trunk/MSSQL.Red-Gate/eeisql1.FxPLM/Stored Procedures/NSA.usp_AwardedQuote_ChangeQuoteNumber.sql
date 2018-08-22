@@ -4,7 +4,8 @@ SET ANSI_NULLS ON
 GO
 
 create procedure [NSA].[usp_AwardedQuote_ChangeQuoteNumber]
-	@OldQuoteNumber varchar(100)
+	@User varchar(5)
+,	@OldQuoteNumber varchar(100)
 ,	@NewQuoteNumber varchar(100)
 ,	@TranDT datetime = null out
 ,	@Result integer = null out
@@ -45,13 +46,19 @@ begin
 	select
 		USP_Name = user_name(objectproperty(@@procid, 'OwnerId')) + '.' + object_name(@@procid)
 	,	BeginDT = getdate()
-	,	InArguments =
-			  '@OldQuoteNumber = ' + coalesce('''' + @OldQuoteNumber + '''', '<null>')
-			+ ', @NewQuoteNumber = ' + coalesce('''' + @NewQuoteNumber + '''', '<null>')
-			+ ', @TranDT = ' + coalesce(convert(varchar, @TranDT, 121), '<null>')
-			+ ', @Result = ' + coalesce(convert(varchar, @Result), '<null>')
-			+ ', @Debug = ' + coalesce(convert(varchar, @Debug), '<null>')
-			+ ', @DebugMsg = ' + coalesce('''' + @DebugMsg + '''', '<null>')
+	,	InArguments = convert
+			(	varchar(max)
+			,	(	select
+						[@User] = @User
+					,	[@OldQuoteNumber] = @OldQuoteNumber
+					,	[@NewQuoteNumber] = @NewQuoteNumber
+					,	[@TranDT] = @TranDT
+					,	[@Result] = @Result
+					,	[@Debug] = @Debug
+					,	[@DebugMsg] = @DebugMsg
+					for xml raw			
+				)
+			)
 
 	set	@LogID = scope_identity()
 	--- </SP Begin Logging>
@@ -335,9 +342,15 @@ begin
 		update
 			uc
 		set	EndDT = getdate()
-		,	OutArguments = 
-				'@TranDT = ' + coalesce(convert(varchar, @TranDT, 121), '<null>')
-				+ ', @Result = ' + coalesce(convert(varchar, @Result), '<null>')
+		,	OutArguments = convert
+				(	varchar(max)
+				,	(	select
+							[@TranDT] = @TranDT
+						,	[@Result] = @Result
+						,	[@DebugMsg] = @DebugMsg
+						for xml raw			
+					)
+				)
 		from
 			FXSYS.USP_Calls uc
 		where
@@ -405,7 +418,7 @@ go
 
 declare
 	@OldQuoteNumber varchar(100) = '0002-2'
-,	@NewQuoteNumber varchar(100) = '0101'
+,	@NewQuoteNumber varchar(100) = '525-07'
 
 begin transaction Test
 

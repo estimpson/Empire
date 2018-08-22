@@ -4,7 +4,8 @@ SET ANSI_NULLS ON
 GO
 
 create procedure [NSA].[usp_SetProductionPO]
-	@QuoteNumber varchar(100)
+	@User varchar(5)
+,	@QuoteNumber varchar(100)
 ,	@PurchaseOrderDT datetime
 ,	@PONumber varchar(50)
 ,	@AlternativeCustomerCommitment varchar(100)
@@ -51,12 +52,25 @@ begin
 	select
 		USP_Name = user_name(objectproperty(@@procid, 'OwnerId')) + '.' + object_name(@@procid)
 	,	BeginDT = getdate()
-	,	InArguments =
-			'@QuoteNumber = ' + coalesce('''' + @QuoteNumber + '''', '<null>')
-			+ ', @TranDT = ' + coalesce(convert(varchar, @TranDT, 121), '<null>')
-			+ ', @Result = ' + coalesce(convert(varchar, @Result), '<null>')
-			+ ', @Debug = ' + coalesce(convert(varchar, @Debug), '<null>')
-			+ ', @DebugMsg = ' + coalesce('''' + @DebugMsg + '''', '<null>')
+	,	InArguments = convert
+			(	varchar(max)
+			,	(	select
+						[@User] = @User
+					,	[@QuoteNumber] = @QuoteNumber
+					,	[@PurchaseOrderDT] = @PurchaseOrderDT
+					,	[@PONumber] = @PONumber
+					,	[@AlternativeCustomerCommitment] = @AlternativeCustomerCommitment
+					,	[@SellingPrice] = @SellingPrice
+					,	[@PurchaseOrderSOP] = @PurchaseOrderSOP
+					,	[@PurchaseOrderEOP] = @PurchaseOrderEOP
+					,	[@Comments] = @Comments
+					,	[@TranDT] = @TranDT
+					,	[@Result] = @Result
+					,	[@Debug] = @Debug
+					,	[@DebugMsg] = @DebugMsg
+					for xml raw			
+				)
+			)
 
 	set	@LogID = scope_identity()
 	--- </SP Begin Logging>
@@ -255,9 +269,15 @@ begin
 		update
 			uc
 		set	EndDT = getdate()
-		,	OutArguments = 
-				'@TranDT = ' + coalesce(convert(varchar, @TranDT, 121), '<null>')
-				+ ', @Result = ' + coalesce(convert(varchar, @Result), '<null>')
+		,	OutArguments = convert
+				(	varchar(max)
+				,	(	select
+							[@TranDT] = @TranDT
+						,	[@Result] = @Result
+						,	[@DebugMsg] = @DebugMsg
+						for xml raw			
+					)
+				)
 		from
 			FXSYS.USP_Calls uc
 		where
