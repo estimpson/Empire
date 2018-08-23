@@ -10,7 +10,7 @@ using WebPortal.NewSalesAward.PageViewModels;
 
 namespace WebPortal.NewSalesAward.Pages
 {
-    public partial class NewSalesAwardTest2 : System.Web.UI.Page
+    public partial class NewSalesAward : System.Web.UI.Page
     {
         private usp_GetAwardedQuotes_Result AwardedQuote
         {

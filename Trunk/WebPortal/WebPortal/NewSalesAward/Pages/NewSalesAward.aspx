@@ -1,4 +1,4 @@
-﻿<%@ Page Title="New Sales Award" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="NewSalesAwardTest2.aspx.cs" Inherits="WebPortal.NewSalesAward.Pages.NewSalesAwardTest2" %>
+﻿<%@ Page Title="New Sales Award" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="NewSalesAward.aspx.cs" Inherits="WebPortal.NewSalesAward.Pages.NewSalesAward" %>
 <%@ Register Src="~/NewSalesAward/Pages/NSAEditPopupContents.ascx" TagPrefix="uc1" TagName="NSAEditPopupContents" %>
 
 
@@ -23,7 +23,8 @@
             console.log("updateGridHeight");
             var containerHeight = ASPxClientUtils.GetDocumentClientHeight();
             gvQuote.SetHeight(containerHeight - 130);
-
+            entityNotes.SetHeight(containerHeight - 600);
+            -            
             //  Show the grid's container.
             $('#quoteGridViewContainer').css("visibility", "");
         }
@@ -355,11 +356,6 @@
                                 <SettingsEditing Mode="Inline"></SettingsEditing>
                                 <SettingsBehavior ProcessFocusedRowChangedOnServer="false"/>
                             </dx:ASPxGridView>
-                            <script type="text/javascript">
-                                ASPxClientControl.GetControlCollection().BrowserWindowResized.AddHandler(function(s, e) {
-                                    DoResizeAll();
-                                });
-                            </script>
 
                             <asp:ObjectDataSource ID="odsQuote" runat="server" SelectMethod="GetAwardedQuotes" TypeName="WebPortal.NewSalesAward.PageViewModels.NewSalesAwardsViewModel"
                                                   DataObjectTypeName="WebPortal.NewSalesAward.Models.usp_GetAwardedQuotes_Result">
@@ -370,11 +366,13 @@
                         <dx:ASPxPopupControl
                             ID="pcEdit" runat="server" CloseAction="CloseButton" CloseOnEscape="true" Modal="True"
                             PopupHorizontalAlign="WindowCenter" PopupVerticalAlign="TopSides" ClientInstanceName="pcEdit"
-                            HeaderText="" AllowDragging="True"
+                            HeaderText="Edit New Sales Award" AllowDragging="True" AllowResize="True"
                             PopupAnimationType="Fade" ForeColor="Red" EnableViewState="False" AutoUpdatePosition="true"
                             AutoPostBack="False" EnableCallbackAnimation="True" EnableCallBacks="True" OnWindowCallback="pcEdit_OnWindowCallback"
                             >
-                            <ClientSideEvents Shown="DoResizeAll">
+                            <ClientSideEvents
+                                Shown="DoResizeAll"
+                                AfterResizing="DoResizeAll">
                             </ClientSideEvents>
                             <ContentCollection>
                                 <dx:PopupControlContentControl runat="server">

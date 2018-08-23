@@ -149,12 +149,12 @@ namespace WebPortal.NewSalesAward.Pages
 
             if (SaveAwardedQuote() == 0) return;
 
-            Response.Redirect("NewSalesAwardTest2.aspx");
+            Response.Redirect("NewSalesAward.aspx");
         }
 
         protected void btnClose_Click(object sender, EventArgs e)
         {
-            Response.Redirect("NewSalesAwardTest2.aspx");
+            Response.Redirect("NewSalesAward.aspx");
         }
 
         #endregion

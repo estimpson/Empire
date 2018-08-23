@@ -202,16 +202,13 @@
     <Content Include="NewSalesAward\Pages\CsmDemand.aspx" />
     <Content Include="NewSalesAward\Pages\DocumentGet.aspx" />
     <Content Include="NewSalesAward\Pages\FixAwardedQuote.aspx" />
-    <Content Include="NewSalesAward\Pages\NewSalesAwardEdit.aspx" />
-    <Content Include="NewSalesAward\Pages\NewSalesAwards.aspx" />
-    <Content Include="NewSalesAward\Pages\NewSalesAwardTest2.aspx" />
+    <Content Include="NewSalesAward\Pages\NewSalesAward.aspx" />
     <Content Include="NewSalesAward\Pages\NSAEditPopupContents.ascx" />
     <Content Include="NewSalesAward\Pages\NSAQuoteTabView.ascx" />
     <Content Include="NewSalesAward\Pages\NSATesterToolingTabView.ascx" />
     <Content Include="NewSalesAward\Pages\NSABasePartAttributesTabView.ascx" />
     <Content Include="NewSalesAward\Pages\NSABasePartMnemonicsTabView.ascx" />
     <Content Include="NewSalesAward\Pages\NSALogisticsTabView.ascx" />
-    <Content Include="NewSalesAward\Pages\NewSalesAwardsTest.aspx" />
     <Content Include="NewSalesAward\Pages\NSAToolingAmortizationTabView.ascx" />
     <Content Include="NewSalesAward\Pages\NSACustomerPOTabView.ascx" />
     <Content Include="NewSalesAward\Pages\NSAHardToolingTabView.ascx" />
@@ -564,26 +561,12 @@
       <DependentUpon>FixAwardedQuote.aspx</DependentUpon>
     </Compile>
     <Compile Include="NewSalesAward\Pages\I_NSATabView.cs" />
-    <Compile Include="NewSalesAward\Pages\NewSalesAwardEdit.aspx.cs">
-      <DependentUpon>NewSalesAwardEdit.aspx</DependentUpon>
+    <Compile Include="NewSalesAward\Pages\NewSalesAward.aspx.cs">
+      <DependentUpon>NewSalesAward.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="NewSalesAward\Pages\NewSalesAwardEdit.aspx.designer.cs">
-      <DependentUpon>NewSalesAwardEdit.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="NewSalesAward\Pages\NewSalesAwards.aspx.cs">
-      <DependentUpon>NewSalesAwards.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="NewSalesAward\Pages\NewSalesAwards.aspx.designer.cs">
-      <DependentUpon>NewSalesAwards.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="NewSalesAward\Pages\NewSalesAwardTest2.aspx.cs">
-      <DependentUpon>NewSalesAwardTest2.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="NewSalesAward\Pages\NewSalesAwardTest2.aspx.designer.cs">
-      <DependentUpon>NewSalesAwardTest2.aspx</DependentUpon>
+    <Compile Include="NewSalesAward\Pages\NewSalesAward.aspx.designer.cs">
+      <DependentUpon>NewSalesAward.aspx</DependentUpon>
     </Compile>
     <Compile Include="NewSalesAward\Pages\NSAEditPopupContents.ascx.cs">
       <DependentUpon>NSAEditPopupContents.ascx</DependentUpon>
@@ -626,13 +609,6 @@
     </Compile>
     <Compile Include="NewSalesAward\Pages\NSALogisticsTabView.ascx.designer.cs">
       <DependentUpon>NSALogisticsTabView.ascx</DependentUpon>
-    </Compile>
-    <Compile Include="NewSalesAward\Pages\NewSalesAwardsTest.aspx.cs">
-      <DependentUpon>NewSalesAwardsTest.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="NewSalesAward\Pages\NewSalesAwardsTest.aspx.designer.cs">
-      <DependentUpon>NewSalesAwardsTest.aspx</DependentUpon>
     </Compile>
     <Compile Include="NewSalesAward\Pages\NSAToolingAmortizationTabView.ascx.cs">
       <DependentUpon>NSAToolingAmortizationTabView.ascx</DependentUpon>

@@ -23,6 +23,12 @@
                     ToolingAmortizationFormLayout // Gets standalone editors nested inside the form layout control
             });
 
+        //  Add an additional listener for the amortization amount and quantity editors.
+        ASPxClientEdit.AttachEditorModificationListener(function () { UpdateAmortizationPrice(); },
+            function(control) {
+                return (control === amortizationAmountEditor) || (control === amortizationQuantityEditor)
+            });
+
         //  Show amortized price.
         UpdateAmortizationPrice();
     }
@@ -59,11 +65,22 @@
                     <dx:LayoutItem Caption="Amortization Amount" FieldName="AmortizationAmount">
                         <LayoutItemNestedControlCollection>
                             <dx:LayoutItemNestedControlContainer runat="server">
-                                <dx:ASPxTextBox ID="AmortizationAmountTextBox" ClientInstanceName="amortizationAmountEditor" Width="100%" runat="server">
+                                <script>
+                                    function OnAmortizationTextBoxInit(s, e) {
+                                        RegisterURI(s, 'AwardedQuoteToolingPOs.AmortizationAmount');
+
+                                        //  Register a call back with the 
+                                        var inputElement = s.GetInputElement();
+                                        inputElement.oninput = function() {
+                                            OnAmortizationAmountChanged();
+                                        }
+                                    }
+                                </script>
+                                <dx:ASPxTextBox ID="AmortizationAmountTextBox" ClientInstanceName="amortizationAmountEditor" Width="100%" runat="server"
+                                                >
                                     <ClientSideEvents
                                         GotFocus="OnEditControl_GotFocus"
                                         Init="function (s,e) { RegisterURI(s, 'AwardedQuoteToolingPOs.AmortizationAmount'); }" 
-                                        TextChanged="OnAmortizationAmountChanged"
                                     />
                                     <MaskSettings Mask="$<0..99999999g>.<000000..999999>" IncludeLiterals="DecimalSymbol" ErrorText="*"/>
                                 </dx:ASPxTextBox>
@@ -77,7 +94,6 @@
                                     <ClientSideEvents
                                         GotFocus="OnEditControl_GotFocus"
                                         Init="function (s,e) { RegisterURI(s, 'AwardedQuoteToolingPOs.AmortizationQuantity'); }" 
-                                        TextChanged="OnAmortizationQuantityChanged"
                                     />
                                     <MaskSettings Mask="<0..99999999g>" IncludeLiterals="DecimalSymbol" ErrorText="*"/>
                                 </dx:ASPxTextBox>
