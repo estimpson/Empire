@@ -198,6 +198,7 @@
       <DependentUpon>NewSalesAwardModel.edmx</DependentUpon>
       <LastGenOutput>NewSalesAwardModel.cs</LastGenOutput>
     </Content>
+    <Content Include="NewSalesAward\Pages\ConfirmationPopupUserControl.ascx" />
     <Content Include="NewSalesAward\Pages\CreateAwardedQuote.aspx" />
     <Content Include="NewSalesAward\Pages\CsmDemand.aspx" />
     <Content Include="NewSalesAward\Pages\DocumentGet.aspx" />
@@ -531,6 +532,13 @@
     </Compile>
     <Compile Include="NewSalesAward\Models\usp_LookupSalespersonByInit_Result.cs">
       <DependentUpon>NewSalesAwardModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="NewSalesAward\Pages\ConfirmationPopupUserControl.ascx.cs">
+      <DependentUpon>ConfirmationPopupUserControl.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="NewSalesAward\Pages\ConfirmationPopupUserControl.ascx.designer.cs">
+      <DependentUpon>ConfirmationPopupUserControl.ascx</DependentUpon>
     </Compile>
     <Compile Include="NewSalesAward\Pages\CreateAwardedQuote.aspx.cs">
       <DependentUpon>CreateAwardedQuote.aspx</DependentUpon>
