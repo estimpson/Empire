@@ -25,8 +25,8 @@
             gvQuote.SetHeight(containerHeight - 130);
             entityNotes.SetHeight(containerHeight - 600);
             -            
-            //  Show the grid's container.
-            $('#quoteGridViewContainer').css("visibility", "");
+                //  Show the grid's container.
+                $('#quoteGridViewContainer').css("visibility", "");
         }
 
         function OnGridRowDoubleClick(s, e) {
@@ -388,51 +388,78 @@
                             AutoUpdatePosition="true" OnWindowCallback="pcFixQuote_WindowCallback">
                             <ContentCollection>
                                 <dx:PopupControlContentControl runat="server">
-                                    <div style="padding: 10px 20px 20px 20px;">
-                                        
-                                        <table class="tbl">
-                                            <tr>
-                                                <td>
-                                                    <dx:ASPxLabel ID="lblOldQuoteNumber" runat="server" Text="Old Quote Number:" Width="140" />
-                                                </td>
-                                                <td>
-                                                    <dx:ASPxTextBox ID="tbxOldQuoteNumber" runat="server" ReadOnly="true" Width="298" />
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    <dx:ASPxLabel ID="lblNewQuoteNumber" runat="server" Text="New Quote Number:" Width="140" />
-                                                </td>
-                                                <td>
-                                                    <dx:ASPxComboBox ID="cbxQuoteNumber" runat="server" ClientInstanceName="cbxQuoteNumber" EnableCallbackMode="true" CallbackPageSize="10" 
-                                                        ValidateRequestMode="Disabled" ValueType="System.String" ValueField="QuoteNumber" ValidationSettings-CausesValidation="false"
-                                                        OnItemsRequestedByFilterCondition="cbxQuoteNumber_OnItemsRequestedByFilterCondition_SQL"
-                                                        TextFormatString="{0}  {1}  {2}"
-                                                        Width="298px" DropDownStyle="DropDown" TabIndex="0">
-                                                        <Columns>
-                                                            <dx:ListBoxColumn FieldName="QuoteNumber" />
-                                                            <dx:ListBoxColumn FieldName="EEIPartNumber" />
-                                                            <dx:ListBoxColumn FieldName="Program" />
-                                                        </Columns>
-                                                        <ValidationSettings CausesValidation="false"></ValidationSettings>
-                                                    </dx:ASPxComboBox>
+                                    <dx:ASPxCallbackPanel runat="server" ID="ASPxCallbackPanel1" ClientInstanceName="FixQuoteCallback">
+                                        <PanelCollection>
+                                            <dx:PanelContent runat="server">
+                                                <div style="padding: 10px 20px 20px 20px;">
+                                                    
+                                                    <table class="tbl">
+                                                        <tr>
+                                                            <td>
+                                                                <dx:ASPxLabel ID="lblOldQuoteNumber" runat="server" Text="Old Quote Number:" Width="140" />
+                                                            </td>
+                                                            <td>
+                                                                <dx:ASPxTextBox ID="tbxOldQuoteNumber" runat="server" ReadOnly="true" Width="298" />
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>
+                                                                <dx:ASPxLabel ID="lblNewQuoteNumber" runat="server" Text="New Quote Number:" Width="140" />
+                                                            </td>
+                                                            <td>
+                                                                <script>
+                                                                    var startTime;
+                                                                    function OnBeginQuoteCallback() {
+                                                                        startTime = new Date();
+                                                                    }
+                                                                    function OnEndQuoteCallback() {
+                                                                        var result = new Date() - startTime;
+                                                                        result /= 1000;
+                                                                        result = result.toString();
+                                                                        if (result.length > 4)
+                                                                            result = result.substr(0, 4);
+                                                                        console.log("Time to retrieve the last data: " +
+                                                                            result.toString() +
+                                                                            " sec");
+                                                                    }
+                                                                </script>
+                                                                <dx:ASPxComboBox ID="cbxQuoteNumber" runat="server" ClientInstanceName="cbxQuoteNumber"
+                                                                                 EnableCallbackMode="true" CallbackPageSize="10"  
+                                                                                 ValidateRequestMode="Disabled" ValueType="System.String" ValueField="QuoteNumber"
+                                                                                 ValidationSettings-CausesValidation="false"
+                                                                                 OnItemsRequestedByFilterCondition="cbxQuoteNumber_OnItemsRequestedByFilterCondition_SQL"
+                                                                                 OnItemRequestedByValue="cbxQuoteNumber_OnItemRequestedByValue"
+                                                                                 TextFormatString="{0}  {1}  {2}"
+                                                                                 Width="298px" DropDownStyle="DropDown">
+                                                                    <ClientSideEvents
+                                                                        BeginCallback="OnBeginQuoteCallback"
+                                                                        EndCallback="OnEndQuoteCallback" />
+                                                                    <Columns>
+                                                                        <dx:ListBoxColumn FieldName="QuoteNumber" />
+                                                                        <dx:ListBoxColumn FieldName="EEIPartNumber" />
+                                                                        <dx:ListBoxColumn FieldName="Program" />
+                                                                    </Columns>
+                                                                    <ValidationSettings CausesValidation="false"></ValidationSettings>
+                                                                </dx:ASPxComboBox>
 
-                                                    <asp:SqlDataSource ID="SqlDataSource1" runat="server" />
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    &nbsp;
-                                                </td>
-                                                <td>
-                                                    <dx:ASPxButton ID="btnFixAwardedQuote" runat="server" ClientInstanceName="btnFixAwardedQuote" Text="Save" AutoPostBack="false" UseSubmitBehavior="false">
-                                                        <ClientSideEvents Click="FixAwardedQuoteButtonClicked" /> 
-                                                    </dx:ASPxButton>
-                                                </td>
-                                            </tr>
-                                        </table>
-
-                                    </div>
+                                                                <asp:SqlDataSource ID="SqlDataSource1" runat="server" />
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>
+                                                                &nbsp;
+                                                            </td>
+                                                            <td>
+                                                                <dx:ASPxButton ID="btnFixAwardedQuote" runat="server" ClientInstanceName="btnFixAwardedQuote" Text="Save" AutoPostBack="false" UseSubmitBehavior="false">
+                                                                    <ClientSideEvents Click="FixAwardedQuoteButtonClicked" /> 
+                                                                </dx:ASPxButton>
+                                                            </td>
+                                                        </tr>
+                                                    </table>
+                                                </div>
+                                            </dx:PanelContent>
+                                        </PanelCollection>
+                                    </dx:ASPxCallbackPanel>
                                 </dx:PopupControlContentControl>
                             </ContentCollection>
                         </dx:ASPxPopupControl>
