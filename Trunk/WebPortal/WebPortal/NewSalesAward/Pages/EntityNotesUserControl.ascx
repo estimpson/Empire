@@ -4,17 +4,30 @@
 
 <%@ Register Assembly="DevExpress.Web.v17.2, Version=17.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" Namespace="DevExpress.Web" TagPrefix="dx" %>
 
+<%@ Register TagPrefix="dx" Namespace="DevExpress.Web.ASPxSpellChecker" Assembly="DevExpress.Web.ASPxSpellChecker.v17.2, Version=17.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" %>
 <script>
+    var FilterByContext = true;
+
+    function ReFilter() {
+        FilterEntityNotesUserControl(uriHiddenField.Get("uriFilter"));
+    }
+
     function FilterEntityNotesUserControl(uri) {
         uriHiddenField.Set("uriFilter", uri);
-
-        $('tr[id*="EntityNotesGridView_DXDataRow"]').hide();
-        var vrows = $("span").filter(function () { return ($(this).text() === uri) }).closest('tr');
-
-        vrows.show();
-        $('span[id*="EntityNotesGridView_Title"]').text(vrows.length + " Note" + ((vrows.length === 1) ? "" : "s"));
-
         uriFilt.SetText(uri);
+
+        if (FilterByContext) {
+
+            $('tr[id*="EntityNotesGridView_DXDataRow"]').hide();
+            var vrows = $("span").filter(function() { return ($(this).text() === uri) }).closest('tr');
+
+            vrows.show("slow");
+            $('span[id*="EntityNotesGridView_Title"]').text(vrows.length + " Note" + ((vrows.length === 1) ? "" : "s"));
+        } else {
+
+            $('tr[id*="EntityNotesGridView_DXDataRow"]').show("slow");
+        }
+           
     }
 
     function OnClickEditNote(s, e) {
@@ -76,137 +89,176 @@
 <div style="display: none">
     <dx:ASPxLabel runat="server" ClientInstanceName="uriFilt" Text="xxx"/>
 </div>
-<dx:ASPxGridView ID="EntityNotesGridView" CssClass="borderlessGrid" runat="server" AutoGenerateColumns="False" ClientInstanceName="entityNotes"
-                 KeyFieldName="RowID" Border-BorderStyle="None"
-                 EnableRowsCache="True"
-                 EnableCallBacks="True"
-                 OnInitNewRow="EntityNotesGridView_OnInitNewRow"
-                 OnStartRowEditing="EntityNotesGridView_OnStartRowEditing"
-                 OnRowInserting="EntityNotesGridView_OnRowInserting"
-                 OnRowUpdating="EntityNotesGridView_OnRowUpdating"
-                 OnCancelRowEditing="EntityNotesGridView_OnCancelRowEditing"
-                 OnHtmlRowPrepared="EntityNotesGridView_OnHtmlRowPrepared"
-                 OnHtmlRowCreated="EntityNotesGridView_OnHtmlRowCreated"
-                 Width="98%"
-                 >
-    <ClientSideEvents
-        EndCallback="onEntityNotesEndCallback"
-        Init="function () {
-    FilterEntityNotesUserControl( uriHiddenField.Get ('uriFilter'));
-    $('.dxgvCSD' ).css('border', 'none').css('box-shadow', 'none');
-}"
-        />
-    <Border BorderStyle="None"></Border>
-    <SettingsAdaptivity AdaptivityMode="HideDataCellsWindowLimit">
-        <AdaptiveDetailLayoutProperties>
-            <Items>
-                <dx:GridViewColumnLayoutItem>
-                </dx:GridViewColumnLayoutItem>
-                <dx:GridViewColumnLayoutItem ColumnName="Author">
-                </dx:GridViewColumnLayoutItem>
-                <dx:GridViewColumnLayoutItem ColumnName="Body">
-                </dx:GridViewColumnLayoutItem>
-                <dx:GridViewColumnLayoutItem ColumnName="RowCreateDT">
-                </dx:GridViewColumnLayoutItem>
-                <dx:GridViewColumnLayoutItem ColumnName="RowCreateUser">
-                </dx:GridViewColumnLayoutItem>
-            </Items>
-        </AdaptiveDetailLayoutProperties>
-    </SettingsAdaptivity>
-    <Settings ShowTitlePanel="True" ShowColumnHeaders="False" />
-    <SettingsPager Visible="False" />
-    <SettingsEditing Mode="PopupEditForm" />
-    <SettingsPopup>
-        <EditForm HorizontalAlign="Center" VerticalAlign="WindowCenter" Modal="True" />
-    </SettingsPopup>
-    <SettingsBehavior SortMode="Value" AllowSort="False" />
-    <Settings VerticalScrollBarMode="Visible" VerticalScrollBarStyle="Standard" />
-    <SettingsDataSecurity AllowDelete="False" />
-    <Templates>
-        <TitlePanel>
-            <dx:ASPxLabel runat="server" Text='<%# Eval("VisibleRowCount") + " Comments" %>'/>
-            <br />
-            <div style="text-align: left; padding: 2px 2px 2px 2px">
-                <dx:ASPxButton ID="NewRow" runat="server" AutoPostBack="False" Text="New Note"
-                               RenderMode="Link">
-                    <ClientSideEvents Click="OnNewRow" />
+
+<div style="border-top: 2px solid darkorange; margin-left: 40px; width: 1500px; clear: left; margin-top: 10px;">
+    <table style="margin-top: 10px; ">
+        <tr>
+            <td>
+                <dx:ASPxLabel ID="ASPxLabel1" runat="server" Text="Notes / Comments / Change Tracking" Font-Size="13" ForeColor="DarkOrange" />
+            </td>
+            <script>
+                function OnFilterButtonClick(s, e) {
+                    console.log("FilterByContext");
+                    FilterByContext = true;
+                    ReFilter();
+                }
+
+                function OnShowAllButtonClick(s, e) {
+                    console.log("ShowAll");
+                    FilterByContext = false;
+                    ReFilter();
+                }
+            </script>
+            <td>
+                <dx:ASPxButton ID="FilterButton" runat="server" AutoPostBack="False"
+                               Text="Filter by Context" Checked="True" GroupName="F">
+                    <ClientSideEvents
+                        Click="OnFilterButtonClick" />
                 </dx:ASPxButton>
-            </div>
-        </TitlePanel>
-        <EditForm>
-            <dx:ASPxHtmlEditor ID="ASPxHtmlEditor1" runat="server" Html='<%# Eval("Body") %>'>
-                <SettingsImageUpload>
-                    <ValidationSettings AllowedContentTypes="image/jpeg,image/pjpeg,image/gif,image/png,image/x-png"></ValidationSettings>
-                </SettingsImageUpload>
+            </td>
+            <td>
+                <dx:ASPxButton ID="ShowAllButton" runat="server" AutoPostBack="False"
+                               Text="Show All Notes" GroupName="F">
+                    <ClientSideEvents
+                        Click="OnShowAllButtonClick" />
+                </dx:ASPxButton>
+            </td>
+        </tr>
+        <tr>
+            <dx:ASPxGridView ID="EntityNotesGridView" CssClass="borderlessGrid" runat="server" AutoGenerateColumns="False" ClientInstanceName="entityNotes"
+                             KeyFieldName="RowID" Border-BorderStyle="None"
+                             EnableRowsCache="True"
+                             EnableCallBacks="True"
+                             OnInitNewRow="EntityNotesGridView_OnInitNewRow"
+                             OnStartRowEditing="EntityNotesGridView_OnStartRowEditing"
+                             OnRowInserting="EntityNotesGridView_OnRowInserting"
+                             OnRowUpdating="EntityNotesGridView_OnRowUpdating"
+                             OnCancelRowEditing="EntityNotesGridView_OnCancelRowEditing"
+                             OnHtmlRowPrepared="EntityNotesGridView_OnHtmlRowPrepared"
+                             OnHtmlRowCreated="EntityNotesGridView_OnHtmlRowCreated"
+                             Width="98%"
+                             >
+                <ClientSideEvents
+                    EndCallback="onEntityNotesEndCallback"
+                    Init="function () {
+                FilterEntityNotesUserControl( uriHiddenField.Get ('uriFilter'));
+                $('.dxgvCSD' ).css('border', 'none').css('box-shadow', 'none');
+            }"
+                    />
+                <Border BorderStyle="None"></Border>
+                <SettingsAdaptivity AdaptivityMode="HideDataCellsWindowLimit">
+                    <AdaptiveDetailLayoutProperties>
+                        <Items>
+                            <dx:GridViewColumnLayoutItem>
+                            </dx:GridViewColumnLayoutItem>
+                            <dx:GridViewColumnLayoutItem ColumnName="Author">
+                            </dx:GridViewColumnLayoutItem>
+                            <dx:GridViewColumnLayoutItem ColumnName="Body">
+                            </dx:GridViewColumnLayoutItem>
+                            <dx:GridViewColumnLayoutItem ColumnName="RowCreateDT">
+                            </dx:GridViewColumnLayoutItem>
+                            <dx:GridViewColumnLayoutItem ColumnName="RowCreateUser">
+                            </dx:GridViewColumnLayoutItem>
+                        </Items>
+                    </AdaptiveDetailLayoutProperties>
+                </SettingsAdaptivity>
+                <Settings ShowTitlePanel="True" ShowColumnHeaders="False" />
+                <SettingsPager Visible="False" />
+                <SettingsEditing Mode="PopupEditForm" />
+                <SettingsPopup>
+                    <EditForm HorizontalAlign="Center" VerticalAlign="WindowCenter" Modal="True" />
+                </SettingsPopup>
+                <SettingsBehavior SortMode="Value" AllowSort="False" />
+                <Settings VerticalScrollBarMode="Visible" VerticalScrollBarStyle="Standard" />
+                <SettingsDataSecurity AllowDelete="False" />
+                <Templates>
+                    <TitlePanel>
+                        <dx:ASPxLabel runat="server" Text='<%# Eval("VisibleRowCount") + " Comments" %>'/>
+                        <br />
+                        <div style="text-align: left; padding: 2px 2px 2px 2px">
+                            <dx:ASPxButton ID="NewRow" runat="server" AutoPostBack="False" Text="New Note"
+                                           RenderMode="Link">
+                                <ClientSideEvents Click="OnNewRow" />
+                            </dx:ASPxButton>
+                        </div>
+                    </TitlePanel>
+                    <EditForm>
+                        <dx:ASPxHtmlEditor ID="ASPxHtmlEditor1" runat="server" Html='<%# Eval("Body") %>'>
+                            <SettingsImageUpload>
+                                <ValidationSettings AllowedContentTypes="image/jpeg,image/pjpeg,image/gif,image/png,image/x-png"></ValidationSettings>
+                            </SettingsImageUpload>
 
-            </dx:ASPxHtmlEditor>
-            <br />
-            <div style="text-align: right; padding: 2px 2px 2px 2px">
-                <dx:ASPxGridViewTemplateReplacement runat="server" ID="UpdateButton" ReplacementType="EditFormUpdateButton"/>
-                <dx:ASPxGridViewTemplateReplacement runat="server" ID="CancelButton" ReplacementType="EditFormCancelButton"/>
-            </div>
-        </EditForm>
-        <DataRow>
-            <div style="padding: 5px; border-bottom: 1px solid darkorange;">
-                <dx:ASPxLabel runat="server" Text='<%# Eval("Author") %>'>
-                    <Font Size="17px" Bold="True" />
-                </dx:ASPxLabel>
-                <dx:ASPxLabel runat="server" Text='<%# Eval("RowCreateDT") %>' ForeColor="#AFB0B3" Font-Underline="True" >
-                </dx:ASPxLabel>
-                <dx:ASPxLabel runat="server" Text='<%# Eval("EntityURI") %>' ForeColor="#AFB0B3" Font-Underline="True" Font-Size="8px">
-                </dx:ASPxLabel>
-                <br />
-                <dx:ASPxLabel runat="server" Text='<%# Eval("ValueChange") %>' ForeColor="#AFB0B3" Font-Underline="True" >
-                </dx:ASPxLabel>
-                <dx:ASPxLabel runat="server" Text='<%# Eval("OldValue") %>' ForeColor="#AFB0B3" Font-Underline="True" >
-                </dx:ASPxLabel>
-                <dx:ASPxLabel runat="server" Text='<%# Eval("NewValue") %>' ForeColor="#AFB0B3" Font-Underline="True" >
-                </dx:ASPxLabel>
-                <br />
-                <div style="padding: 10px 0 0 0">
-                    <dx:ASPxLabel runat="server" Text='<%# Eval("Body") %>' EncodeHtml="False"/>
-                </div>
-                <br />
-                <div id="x" style="text-align: left; padding: 2px 2px 0 0">
-                    <dx:ASPxButton ID="EditRow" runat="server" AutoPostBack="False" Text="Edit"
-                                   RenderMode="Link">
-                        <ClientSideEvents Click="OnClickEditNote" />
-                    </dx:ASPxButton>
-                    <div style="display: none">
-                        <dx:ASPxLabel runat="server" ID="RowID" ClientInstanceName="rowID" Text='<%# Eval("RowID") %>' />
-                    </div>
-                </div>
-            </div>
-        </DataRow>
-    </Templates>
-    <Columns>
-        <dx:GridViewCommandColumn ShowEditButton="True" ShowNewButtonInHeader="True" VisibleIndex="0" ShowClearFilterButton="True">
-        </dx:GridViewCommandColumn>
-        <dx:GridViewDataTextColumn FieldName="Author" VisibleIndex="1">
-            <EditFormSettings Visible="False"/>
-        </dx:GridViewDataTextColumn>
-        <dx:GridViewDataTextColumn FieldName="Body" VisibleIndex="2">
-            <PropertiesTextEdit EncodeHtml="False" />
-        </dx:GridViewDataTextColumn>
-        <dx:GridViewDataTextColumn FieldName="RowID" VisibleIndex="8" Visible="False">
-            <EditFormSettings Visible="False" />
-        </dx:GridViewDataTextColumn>
-        <dx:GridViewDataTextColumn FieldName="EntityURI" VisibleIndex="9" Visible="True">
-            <EditFormSettings Visible="False" />
-        </dx:GridViewDataTextColumn>
-        <dx:GridViewDataDateColumn FieldName="RowCreateDT" SortIndex="0" SortOrder="Descending" VisibleIndex="9" AdaptivePriority="1">
-            <EditFormSettings Visible="False"/>
-        </dx:GridViewDataDateColumn>
-        <dx:GridViewDataTextColumn FieldName="RowCreateUser" VisibleIndex="10" AdaptivePriority="1">
-            <EditFormSettings Visible="False"/>
-        </dx:GridViewDataTextColumn>
-        <dx:GridViewDataDateColumn FieldName="RowModifiedDT" VisibleIndex="11" AdaptivePriority="1">
-            <EditFormSettings Visible="False"/>
-        </dx:GridViewDataDateColumn>
-        <dx:GridViewDataTextColumn FieldName="RowModifiedUser" VisibleIndex="12" AdaptivePriority="1">
-            <EditFormSettings Visible="False"/>
-        </dx:GridViewDataTextColumn>
-    </Columns>
+                        </dx:ASPxHtmlEditor>
+                        <br />
+                        <div style="text-align: right; padding: 2px 2px 2px 2px">
+                            <dx:ASPxGridViewTemplateReplacement runat="server" ID="UpdateButton" ReplacementType="EditFormUpdateButton"/>
+                            <dx:ASPxGridViewTemplateReplacement runat="server" ID="CancelButton" ReplacementType="EditFormCancelButton"/>
+                        </div>
+                    </EditForm>
+                    <DataRow>
+                        <div style="padding: 5px; border-bottom: 1px solid darkorange;">
+                            <dx:ASPxLabel runat="server" Text='<%# Eval("Author") %>'>
+                                <Font Size="17px" Bold="True" />
+                            </dx:ASPxLabel>
+                            <dx:ASPxLabel runat="server" Text='<%# Eval("RowCreateDT") %>' ForeColor="#AFB0B3" Font-Underline="True">
+                            </dx:ASPxLabel>
+                            <dx:ASPxLabel runat="server" Text='<%# Eval("EntityURI") %>' ForeColor="darkorange" Font-Underline="True">
+                            </dx:ASPxLabel>
+                            <br />
+                            <dx:ASPxLabel runat="server" Text='<%# Eval("ValueChange") %>' ForeColor="#AFB0B3" Font-Underline="True">
+                            </dx:ASPxLabel>
+                            <dx:ASPxLabel runat="server" Text='<%# Eval("OldValue") %>' ForeColor="darkorange" Font-Underline="True">
+                            </dx:ASPxLabel>
+                            <dx:ASPxLabel runat="server" Text='<%# Eval("NewValue") %>' ForeColor="darkorange" Font-Underline="True">
+                            </dx:ASPxLabel>
+                            <br />
+                            <div style="padding: 10px 0 0 0">
+                                <dx:ASPxLabel runat="server" Text='<%# Eval("Body") %>' EncodeHtml="False"/>
+                            </div>
+                            <br />
+                            <div id="x" style="text-align: left; padding: 2px 2px 0 0">
+                                <dx:ASPxButton ID="EditRow" runat="server" AutoPostBack="False" Text="Edit"
+                                               RenderMode="Link">
+                                    <ClientSideEvents Click="OnClickEditNote" />
+                                </dx:ASPxButton>
+                                <div style="display: none">
+                                    <dx:ASPxLabel runat="server" ID="RowID" ClientInstanceName="rowID" Text='<%# Eval("RowID") %>' />
+                                </div>
+                            </div>
+                        </div>
+                    </DataRow>
+                </Templates>
+                <Columns>
+                    <dx:GridViewCommandColumn ShowEditButton="True" ShowNewButtonInHeader="True" VisibleIndex="0" ShowClearFilterButton="True">
+                    </dx:GridViewCommandColumn>
+                    <dx:GridViewDataTextColumn FieldName="Author" VisibleIndex="1">
+                        <EditFormSettings Visible="False"/>
+                    </dx:GridViewDataTextColumn>
+                    <dx:GridViewDataTextColumn FieldName="Body" VisibleIndex="2">
+                        <PropertiesTextEdit EncodeHtml="False" />
+                    </dx:GridViewDataTextColumn>
+                    <dx:GridViewDataTextColumn FieldName="RowID" VisibleIndex="8" Visible="False">
+                        <EditFormSettings Visible="False" />
+                    </dx:GridViewDataTextColumn>
+                    <dx:GridViewDataTextColumn FieldName="EntityURI" VisibleIndex="9" Visible="True">
+                        <EditFormSettings Visible="False" />
+                    </dx:GridViewDataTextColumn>
+                    <dx:GridViewDataDateColumn FieldName="RowCreateDT" SortIndex="0" SortOrder="Descending" VisibleIndex="9" AdaptivePriority="1">
+                        <EditFormSettings Visible="False"/>
+                    </dx:GridViewDataDateColumn>
+                    <dx:GridViewDataTextColumn FieldName="RowCreateUser" VisibleIndex="10" AdaptivePriority="1">
+                        <EditFormSettings Visible="False"/>
+                    </dx:GridViewDataTextColumn>
+                    <dx:GridViewDataDateColumn FieldName="RowModifiedDT" VisibleIndex="11" AdaptivePriority="1">
+                        <EditFormSettings Visible="False"/>
+                    </dx:GridViewDataDateColumn>
+                    <dx:GridViewDataTextColumn FieldName="RowModifiedUser" VisibleIndex="12" AdaptivePriority="1">
+                        <EditFormSettings Visible="False"/>
+                    </dx:GridViewDataTextColumn>
+                </Columns>
 
-    <Border BorderStyle="None"></Border>
-</dx:ASPxGridView>
+                <Border BorderStyle="None"></Border>
+            </dx:ASPxGridView>
+        </tr>
+    </table>
+</div>

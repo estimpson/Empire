@@ -40,6 +40,33 @@ namespace WebPortal.Scheduling.Pages {
         protected global::DevExpress.Web.ASPxHiddenField hfRowIDs;
         
         /// <summary>
+        /// ASPxLabel1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::DevExpress.Web.ASPxLabel ASPxLabel1;
+        
+        /// <summary>
+        /// FilterButton control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::DevExpress.Web.ASPxButton FilterButton;
+        
+        /// <summary>
+        /// ShowAllButton control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::DevExpress.Web.ASPxButton ShowAllButton;
+        
+        /// <summary>
         /// EntityNotesGridView control.
         /// </summary>
         /// <remarks>
