@@ -57,7 +57,9 @@
     <DataWriteAllFilesInOneDirectory>True</DataWriteAllFilesInOneDirectory>
   </WriteToFileOptions>
   <DataFileSet>
-    <Count>1</Count>
+    <Count>3</Count>
     <DataFile>TOPS.HolidaySchedule_Data.sql</DataFile>
+    <DataFile>FT.WebPages_Data.sql</DataFile>
+    <DataFile>FT.WebPagesUsers_Data.sql</DataFile>
   </DataFileSet>
 </DatabaseInformation>
