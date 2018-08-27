@@ -25,6 +25,7 @@ namespace WebPortal.QuoteLogIntegration.PageViewModels
         public String CapactiyEau { get; private set; }
         public String Salesman { get; private set; }
         public String QuoteEngineer { get; private set; }
+        public String ProgramManager { get; private set; }
         public String SalePrice { get; private set; }
         public String LtaYear1 { get; private set; }
         public String LtaYear2 { get; private set; }
@@ -37,6 +38,7 @@ namespace WebPortal.QuoteLogIntegration.PageViewModels
         public String Tooling { get; private set; }
         public String Sop { get; private set;}
         public String Eop { get; private set; }
+        public String QuoteTransferComplete { get; private set; }
 
         public String Error { get; private set; }
 
@@ -78,6 +80,7 @@ namespace WebPortal.QuoteLogIntegration.PageViewModels
                         CapactiyEau = (item.CapacityEau.HasValue) ? item.CapacityEau.Value.ToString("N0") : "";
                         Salesman = item.Salesman;
                         QuoteEngineer = item.QuoteEngineer;
+                        ProgramManager = item.ProgramManager;
                         SalePrice = (item.SalesPrice.HasValue) ? item.SalesPrice.Value.ToString("C2") : "";
                         LtaYear1 = (item.LtaYear1 != 0) ? item.LtaYear1.Value.ToString("C2") : "";
                         LtaYear2 = (item.LtaYear2 != 0) ? item.LtaYear2.Value.ToString("C2") : "";
@@ -90,6 +93,7 @@ namespace WebPortal.QuoteLogIntegration.PageViewModels
                         Tooling = (item.Tooling.HasValue) ? item.Tooling.Value.ToString("C2") : "";
                         Sop = (item.SOP.HasValue) ? item.SOP.Value.ToString("yyyy-MM-dd") : "";
                         Eop = (item.EOP.HasValue) ? item.EOP.Value.ToString("yyyy-MM-dd") : "";
+                        QuoteTransferComplete = item.QuoteTransferComplete;
                     }
                 }
             }
@@ -120,6 +124,24 @@ namespace WebPortal.QuoteLogIntegration.PageViewModels
             return customerList;
         }
 
+        public void QuoteTransferCompleteUpdateSendEmail(string quote, string complete, DateTime? completedDate)
+        {
+            ObjectParameter tranDT = new ObjectParameter("TranDT", typeof(DateTime?));
+            ObjectParameter result = new ObjectParameter("Result", typeof(Int32?));
+
+            Error = "";
+            try
+            {
+                using (var context = new MONITOREntitiesQuoteLogIntegrationQuoteTransfer())
+                {
+                    context.usp_QL_QuoteTransfer_Complete_UpdateSendEmail(OperatorCode, quote, complete, completedDate, tranDT, result);
+                }
+            }
+            catch(Exception ex)
+            {
+                Error = (ex.InnerException != null) ? ex.InnerException.Message : ex.Message;
+            }
+        }
 
         //public void ApproveCustomer()
         //{

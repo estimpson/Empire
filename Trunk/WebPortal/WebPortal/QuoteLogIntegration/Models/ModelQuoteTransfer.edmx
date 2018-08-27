@@ -16,6 +16,14 @@ warning 6002: The table/view 'MONITOR.EEIUser.QL_QuoteTransfer_AwardedQuoteNumbe
           <Property Name="EEIPartNumber" Type="varchar" MaxLength="50" />
           <Property Name="RowID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
         </EntityType>
+        <Function Name="usp_QL_QuoteTransfer_Complete_UpdateSendEmail" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="EEIUser">
+          <Parameter Name="OperatorCode" Type="varchar" Mode="In" />
+          <Parameter Name="QuoteNumber" Type="varchar" Mode="In" />
+          <Parameter Name="Complete" Type="char" Mode="In" />
+          <Parameter Name="CompletedDate" Type="datetime" Mode="In" />
+          <Parameter Name="TranDT" Type="datetime" Mode="InOut" />
+          <Parameter Name="Result" Type="int" Mode="InOut" />
+        </Function>
         <Function Name="usp_QL_QuoteTransfer_CustomerContacts_Insert" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="EEIUser">
           <Parameter Name="OperatorCode" Type="varchar" Mode="In" />
           <Parameter Name="QuoteNumber" Type="varchar" Mode="In" />
@@ -297,6 +305,14 @@ warning 6002: The table/view 'MONITOR.EEIUser.QL_QuoteTransfer_AwardedQuoteNumbe
             <Parameter Name="TranDT" Mode="InOut" Type="DateTime" />
             <Parameter Name="Result" Mode="InOut" Type="Int32" />
           </FunctionImport>
+          <FunctionImport Name="usp_QL_QuoteTransfer_Complete_UpdateSendEmail">
+            <Parameter Name="OperatorCode" Mode="In" Type="String" />
+            <Parameter Name="QuoteNumber" Mode="In" Type="String" />
+            <Parameter Name="Complete" Mode="In" Type="String" />
+            <Parameter Name="CompletedDate" Mode="In" Type="DateTime" />
+            <Parameter Name="TranDT" Mode="InOut" Type="DateTime" />
+            <Parameter Name="Result" Mode="InOut" Type="Int32" />
+          </FunctionImport>
         </EntityContainer>
         <ComplexType Name="usp_QL_QuoteTransfer_GetDocumentation_Result">
           <Property Type="String" Name="Description" Nullable="true" MaxLength="250" />
@@ -327,6 +343,8 @@ warning 6002: The table/view 'MONITOR.EEIUser.QL_QuoteTransfer_AwardedQuoteNumbe
           <Property Type="Decimal" Name="Tooling" Nullable="true" Precision="20" Scale="0" />
           <Property Type="DateTime" Name="SOP" Nullable="true" Precision="23" />
           <Property Type="DateTime" Name="EOP" Nullable="true" Precision="23" />
+          <Property Type="String" Name="ProgramManager" Nullable="true" MaxLength="51" />
+          <Property Type="String" Name="QuoteTransferComplete" Nullable="true" MaxLength="1" />
         </ComplexType>
         <ComplexType Name="usp_QL_QuoteTransfer_GetCustomerContacts_Result">
           <Property Type="Int32" Name="RowID" Nullable="false" />
@@ -423,6 +441,8 @@ warning 6002: The table/view 'MONITOR.EEIUser.QL_QuoteTransfer_AwardedQuoteNumbe
                 <ScalarProperty Name="Tooling" ColumnName="Tooling" />
                 <ScalarProperty Name="SOP" ColumnName="SOP" />
                 <ScalarProperty Name="EOP" ColumnName="EOP" />
+                <ScalarProperty Name="ProgramManager" ColumnName="ProgramManager" />
+                <ScalarProperty Name="QuoteTransferComplete" ColumnName="QuoteTransferComplete" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
@@ -519,6 +539,7 @@ warning 6002: The table/view 'MONITOR.EEIUser.QL_QuoteTransfer_AwardedQuoteNumbe
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="usp_QL_QuoteTransfer_Complete_UpdateSendEmail" FunctionName="MONITORModel5.Store.usp_QL_QuoteTransfer_Complete_UpdateSendEmail" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

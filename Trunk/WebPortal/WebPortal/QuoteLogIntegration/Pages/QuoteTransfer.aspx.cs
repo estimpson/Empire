@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
+using System.Drawing;
 using WebPortal.QuoteLogIntegration.PageViewModels;
 
 
@@ -271,6 +272,34 @@ namespace WebPortal.QuoteLogIntegration.Pages
             GetFile("VendorQuote");
         }
 
+        protected void cpTransferComplete_Callback(object sender, CallbackEventArgsBase e)
+        {
+            string quote = cbxQuoteNumbers.Text.Trim();
+            if (quote == "")
+            {
+                lblError.Text = "A quote must be selected.";
+                pcError.ShowOnPageLoad = true;
+            }
+
+            lblTransferCompleteResult.Text = "";
+            System.Threading.Thread.Sleep(1000);
+
+            if (e.Parameter == "Y")
+            {
+                QuoteViewModel.QuoteTransferCompleteUpdateSendEmail(quote, "Y", DateTime.Now);
+            }
+            else
+            {
+                QuoteViewModel.QuoteTransferCompleteUpdateSendEmail(quote, "N", null);
+            }
+
+            if (QuoteViewModel.Error != "")
+            {
+                lblTransferCompleteResult.Text = "Error: " + QuoteViewModel.Error;
+                lblTransferCompleteResult.ForeColor = Color.Red;
+            }
+        }
+
         //protected void cbxSoQuoteEngInitials_SelectedIndexChanged(object sender, EventArgs e)
         //{
         //    GetInitials(1);
@@ -375,6 +404,7 @@ namespace WebPortal.QuoteLogIntegration.Pages
             tbxEop.Text = QuoteViewModel.Eop;
             tbxSalesman.Text = QuoteViewModel.Salesman;
             tbxEngineerAssignedToQuote.Text = QuoteViewModel.QuoteEngineer;
+            tbxProgramManager.Text = QuoteViewModel.ProgramManager;
             tbxSalesPrice.Text = QuoteViewModel.SalePrice;
             tbxYear1.Text = QuoteViewModel.LtaYear1;
             tbxYear2.Text = QuoteViewModel.LtaYear2;
@@ -385,6 +415,15 @@ namespace WebPortal.QuoteLogIntegration.Pages
             tbxMaterial.Text = QuoteViewModel.Material;
             tbxLabor.Text = QuoteViewModel.Labor;
             tbxTooling.Text = QuoteViewModel.Tooling;
+
+            if (QuoteViewModel.QuoteTransferComplete == "Y")
+            {
+                rlTransferComplete.Items[0].Selected = true;
+            }
+            else
+            {
+                rlTransferComplete.Items[1].Selected = true;
+            }
         }
 
         #endregion
@@ -808,8 +847,11 @@ namespace WebPortal.QuoteLogIntegration.Pages
             return 1;
         }
 
+
+
+
         #endregion
 
-       
+
     }
 }

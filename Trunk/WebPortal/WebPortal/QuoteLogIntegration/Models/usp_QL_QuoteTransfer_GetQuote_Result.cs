@@ -36,5 +36,7 @@ namespace WebPortal.QuoteLogIntegration.Models
         public Nullable<decimal> Tooling { get; set; }
         public Nullable<System.DateTime> SOP { get; set; }
         public Nullable<System.DateTime> EOP { get; set; }
+        public string ProgramManager { get; set; }
+        public string QuoteTransferComplete { get; set; }
     }
 }

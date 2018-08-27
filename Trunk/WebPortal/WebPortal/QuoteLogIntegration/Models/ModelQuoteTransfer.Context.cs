@@ -340,5 +340,26 @@ namespace WebPortal.QuoteLogIntegration.Models
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_QL_QuoteTransfer_GetSignOff_Result>("usp_QL_QuoteTransfer_GetSignOff", quoteNumberParameter, tranDT, result);
         }
+    
+        public virtual int usp_QL_QuoteTransfer_Complete_UpdateSendEmail(string operatorCode, string quoteNumber, string complete, Nullable<System.DateTime> completedDate, ObjectParameter tranDT, ObjectParameter result)
+        {
+            var operatorCodeParameter = operatorCode != null ?
+                new ObjectParameter("OperatorCode", operatorCode) :
+                new ObjectParameter("OperatorCode", typeof(string));
+    
+            var quoteNumberParameter = quoteNumber != null ?
+                new ObjectParameter("QuoteNumber", quoteNumber) :
+                new ObjectParameter("QuoteNumber", typeof(string));
+    
+            var completeParameter = complete != null ?
+                new ObjectParameter("Complete", complete) :
+                new ObjectParameter("Complete", typeof(string));
+    
+            var completedDateParameter = completedDate.HasValue ?
+                new ObjectParameter("CompletedDate", completedDate) :
+                new ObjectParameter("CompletedDate", typeof(System.DateTime));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("usp_QL_QuoteTransfer_Complete_UpdateSendEmail", operatorCodeParameter, quoteNumberParameter, completeParameter, completedDateParameter, tranDT, result);
+        }
     }
 }

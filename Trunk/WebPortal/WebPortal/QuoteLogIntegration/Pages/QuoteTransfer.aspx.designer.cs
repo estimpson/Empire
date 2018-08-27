@@ -364,6 +364,24 @@ namespace WebPortal.QuoteLogIntegration.Pages {
         protected global::DevExpress.Web.ASPxTextBox tbxEngineerAssignedToQuote;
         
         /// <summary>
+        /// lblProgramManager control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::DevExpress.Web.ASPxLabel lblProgramManager;
+        
+        /// <summary>
+        /// tbxProgramManager control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::DevExpress.Web.ASPxTextBox tbxProgramManager;
+        
+        /// <summary>
         /// lblCustomerContactsHeader control.
         /// </summary>
         /// <remarks>
@@ -1100,6 +1118,42 @@ namespace WebPortal.QuoteLogIntegration.Pages {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::DevExpress.Web.ASPxButton btnSaveNotes;
+        
+        /// <summary>
+        /// cpTransferComplete control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::DevExpress.Web.ASPxCallbackPanel cpTransferComplete;
+        
+        /// <summary>
+        /// lblTransferComplete control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::DevExpress.Web.ASPxLabel lblTransferComplete;
+        
+        /// <summary>
+        /// rlTransferComplete control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::DevExpress.Web.ASPxRadioButtonList rlTransferComplete;
+        
+        /// <summary>
+        /// lblTransferCompleteResult control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::DevExpress.Web.ASPxLabel lblTransferCompleteResult;
         
         /// <summary>
         /// lblSignOffHeader control.

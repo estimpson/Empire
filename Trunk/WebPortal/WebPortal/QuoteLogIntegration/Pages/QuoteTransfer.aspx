@@ -27,6 +27,15 @@
                 postponedCallbackRequired = false;
             }
         }
+
+        function SelectionChangedTransferComplete(s, e) {
+            if (s.GetValue() == 'Y') {
+                cpTransferComplete.PerformCallback("Y");
+            }
+            else {
+                cpTransferComplete.PerformCallback("N");
+            }
+        }
     </script>
 
 </asp:Content>
@@ -195,6 +204,12 @@
                                     </td>
                                     <td>
                                         <dx:ASPxTextBox ID="tbxEngineerAssignedToQuote" runat="server" ClientEnabled="false" DisabledStyle-ForeColor="Black"></dx:ASPxTextBox>
+                                    </td>
+                                    <td>
+                                        <dx:ASPxLabel ID="lblProgramManager" runat="server" Text="Program Manager:"></dx:ASPxLabel>
+                                    </td>
+                                    <td>
+                                        <dx:ASPxTextBox ID="tbxProgramManager" runat="server" ClientEnabled="false" DisabledStyle-ForeColor="Black"></dx:ASPxTextBox>
                                     </td>
                                 </tr>
                             </table>
@@ -614,6 +629,35 @@
                             </dx:ASPxButton>
                         </div>
 
+
+
+                        <dx:ASPxCallbackPanel ID="cpTransferComplete" runat="server" ClientInstanceName="cpTransferComplete" OnCallback="cpTransferComplete_Callback">
+                            <PanelCollection>
+                                <dx:PanelContent runat="server">
+                                    <div class="SectionHeader">
+                                        <table>
+                                            <tr>
+                                                <td>
+                                                    <dx:ASPxLabel ID="lblTransferComplete" runat="server" Text="Quote transfer complete?"></dx:ASPxLabel>
+                                                </td>
+                                                <td>
+                                                    <dx:ASPxRadioButtonList ID="rlTransferComplete" runat="server" RepeatLayout="Flow" RepeatColumns="2">
+                                                        <Items>
+                                                            <dx:ListEditItem Text="Yes" Value="Y" />
+                                                            <dx:ListEditItem Text="No" Value="N" />
+                                                        </Items>
+                                                        <ClientSideEvents SelectedIndexChanged="SelectionChangedTransferComplete" />
+                                                    </dx:ASPxRadioButtonList>
+                                                </td>
+                                                <td>
+                                                    <dx:ASPxLabel ID="lblTransferCompleteResult" runat="server"></dx:ASPxLabel>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </dx:PanelContent>
+                            </PanelCollection>
+                        </dx:ASPxCallbackPanel>
 
 
                         <div class="SectionHeader">
