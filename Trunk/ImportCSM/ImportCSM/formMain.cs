@@ -178,7 +178,7 @@ namespace ImportCSM
             if (ProcessCsmGreaterChina() == 1)
             {
                 status = 1;
-                _messageBox.Message = "Successful import of Greater China CSM.  Click OK to insert Official Sales Forecast, and wait for the next message.";
+                _messageBox.Message = "Successful import of Greater China CSM.  Click OK to insert Official Sales Forecast, then wait for the next message.";
                 _messageBox.ShowDialog();
 
                 // Insert Official Sales Forecast
@@ -930,11 +930,16 @@ namespace ImportCSM
         }
 
         #endregion
-        
+
 
 
         #region Official Forecast Methods
 
+        /// <summary>
+        /// Overloaded function run automatically after the GC CSM import
+        /// </summary>
+        /// <param name="forecastName"></param>
+        /// <returns></returns>
         private int InsertOfficialForecast(string forecastName)
         {
             string error;
@@ -956,6 +961,12 @@ namespace ImportCSM
             if (forecastName == "")
             {
                 _messageBox.Message = "Please enter a forecast name.";
+                _messageBox.ShowDialog();
+                return 0;
+            }
+            if (!forecastName.Contains("OSF"))
+            {
+                _messageBox.Message = "Forecast name must contain OSF.";
                 _messageBox.ShowDialog();
                 return 0;
             }
