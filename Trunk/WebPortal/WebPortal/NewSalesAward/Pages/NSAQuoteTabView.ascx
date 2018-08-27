@@ -54,7 +54,7 @@
                                 <dx:ASPxDateEdit ID="AwardDateEdit" ClientInstanceName="awardDateEditor" runat="server" Width="100%" UseMaskBehavior="true">
                                     <ClientSideEvents
                                         GotFocus="OnEditControl_GotFocus"
-                                        Init="function (s,e) { RegisterURI(s, 'AwardedQuotes.AwardDate'); }" />
+                                        Init="function (s,e) { RegisterURI(s, 'AwardDate'); }" />
                                     <CalendarProperties>
                                         <FastNavProperties DisplayMode="Inline" />
                                     </CalendarProperties>
@@ -69,7 +69,7 @@
                                                  ValueField="FormOfCommitment" TextFormatString="{0}" AllowNull="true" IncrementalFilteringMode="StartsWith">
                                     <ClientSideEvents
                                         GotFocus="OnEditControl_GotFocus"
-                                        Init="function (s,e) { RegisterURI(s, 'AwardedQuotes.FormOfCommitment'); }" 
+                                        Init="function (s,e) { RegisterURI(s, 'FormOfCommitment'); }" 
                                     />
                                 </dx:ASPxComboBox>
                                 <asp:EntityDataSource ID="FormOfCommitmentEntityDataSource" runat="server" ConnectionString="name=FxPLMEntities" DefaultContainerName="FxPLMEntities" EnableFlattening="False"
@@ -85,7 +85,7 @@
                                                  ValueField="QuoteReason1" TextFormatString="{0}" AllowNull="true" IncrementalFilteringMode="StartsWith">
                                     <ClientSideEvents
                                         GotFocus="OnEditControl_GotFocus"
-                                        Init="function (s,e) { RegisterURI(s, 'AwardedQuotes.QuoteReason'); }" 
+                                        Init="function (s,e) { RegisterURI(s, 'QuoteReason'); }" 
                                     />
                                 </dx:ASPxComboBox>
                                 <asp:EntityDataSource ID="QuoteReasonsEntityDataSource" runat="server" ConnectionString="name=FxPLMEntities" DefaultContainerName="FxPLMEntities" EnableFlattening="False"
@@ -101,7 +101,7 @@
                                                  ValueField="BasePart" TextFormatString="{0}" AllowNull="true" IncrementalFilteringMode="StartsWith">
                                     <ClientSideEvents
                                         GotFocus="OnEditControl_GotFocus"
-                                        Init="function (s,e) { RegisterURI(s, 'AwardedQuotes.ReplacingBasePart'); }" 
+                                        Init="function (s,e) { RegisterURI(s, 'ReplacingBasePart'); }" 
                                     />
                                 </dx:ASPxComboBox>
                                 <asp:EntityDataSource ID="ActiveBasePartsEntityDataSource" runat="server" ConnectionString="name=FxPLMEntities" DefaultContainerName="FxPLMEntities" EnableFlattening="False"
@@ -117,7 +117,7 @@
                                                  ValueField="UserCode" TextFormatString="{0}" AllowNull="true" IncrementalFilteringMode="StartsWith">
                                     <ClientSideEvents
                                         GotFocus="OnEditControl_GotFocus"
-                                        Init="function (s,e) { RegisterURI(s, 'AwardedQuotes.ReplacingBasePart'); }" 
+                                        Init="function (s,e) { RegisterURI(s, 'ReplacingBasePart'); }" 
                                     />
                                 </dx:ASPxComboBox>
                                 <asp:EntityDataSource ID="SalespeoplesDataSource" runat="server" ConnectionString="name=FxPLMEntities" DefaultContainerName="FxPLMEntities" EnableFlattening="False"
@@ -133,7 +133,7 @@
                                                  ValueField="UserCode" TextFormatString="{0}" AllowNull="true" IncrementalFilteringMode="StartsWith">
                                     <ClientSideEvents
                                         GotFocus="OnEditControl_GotFocus"
-                                        Init="function (s,e) { RegisterURI(s, 'AwardedQuotes.ReplacingBasePart'); }" 
+                                        Init="function (s,e) { RegisterURI(s, 'ReplacingBasePart'); }" 
                                     />
                                 </dx:ASPxComboBox>
                                 <asp:EntityDataSource ID="ProgramManagersEntityDataSource" runat="server" ConnectionString="name=FxPLMEntities" DefaultContainerName="FxPLMEntities" EnableFlattening="False"
@@ -147,6 +147,10 @@
                             <dx:LayoutItemNestedControlContainer runat="server">
                                 <dx:ASPxTextBox ID="QuotedEAUTextBox" ClientInstanceName="quotedEAUEditor" runat="server"
                                                 Width="100%" ReadOnly="True">
+                                    <ClientSideEvents
+                                        GotFocus="OnEditControl_GotFocus"
+                                        Init="function (s,e) { RegisterURI(s, 'QuoteLog.QuotedEAU'); }" 
+                                    />
                                     <MaskSettings Mask="<0..99999999g>" IncludeLiterals="DecimalSymbol" ErrorText="*"/>
                                 </dx:ASPxTextBox>
                             </dx:LayoutItemNestedControlContainer>

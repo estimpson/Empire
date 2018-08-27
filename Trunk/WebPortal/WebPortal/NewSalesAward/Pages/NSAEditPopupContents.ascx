@@ -11,8 +11,7 @@
 
 <script>
     var postponedCallbackRequired = false;
-    var callbackMessage;
-
+    var callbackMessage;OnEditControl_GotFocus
     function OnEndNSAEditCallback(s, e) {
         if (postponedCallbackRequired) {
             NSAEditCallbackPanel.PerformCallback(callbackMessage);
@@ -27,12 +26,15 @@
             postponedCallbackRequired = true;
         else
             NSAEditCallbackPanel.PerformCallback(callbackMessage);
+
+        // Refresh main page's grid using ugly call:
+        CallbackPanel.PerformCallback();
     }
 
     function OnEditControl_GotFocus (s, e) {
         var input = s.GetInputElement();
         var uri = $(input).attr("EntityURI");
-
+        console.log("filter uri: " + uri);
         FilterEntityNotesUserControl(uri);
     }
 
@@ -117,6 +119,9 @@
                                             postponedCallbackRequired = true;
                                         else
                                             NSAEditCallbackPanel.PerformCallback(callbackMessage);
+
+                                        // Refresh main page's grid using ugly call:
+                                        CallbackPanel.PerformCallback();
                                     }
                                 </script>
                                 <dx:ASPxButton ID="SaveAllButton" runat="server" AutoPostBack="False" Text="Save All">

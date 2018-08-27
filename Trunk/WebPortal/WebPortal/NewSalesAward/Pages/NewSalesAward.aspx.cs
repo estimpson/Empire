@@ -1,16 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
-using System.Web;
 using System.Web.UI;
-using System.Web.UI.WebControls;
 using DevExpress.Web;
 using WebPortal.NewSalesAward.Models;
 using WebPortal.NewSalesAward.PageViewModels;
 
 namespace WebPortal.NewSalesAward.Pages
 {
-    public partial class NewSalesAward : System.Web.UI.Page
+    public partial class NewSalesAward : Page
     {
         private usp_GetAwardedQuotes_Result AwardedQuote
         {
@@ -28,37 +27,24 @@ namespace WebPortal.NewSalesAward.Pages
             get
             {
                 if (ViewState["ViewModel"] == null) ViewState["ViewModel"] = new NewSalesAwardsViewModel();
-                return (NewSalesAwardsViewModel)ViewState["ViewModel"];
+                return (NewSalesAwardsViewModel) ViewState["ViewModel"];
             }
         }
 
-
-        private enum LoadingPanelTrigger
-        {
-            Mode
-        }
-
-
-        private List<usp_GetAwardedQuotes_Result> _quoteList;
         private List<usp_GetAwardedQuotes_Result> QuoteList
         {
             get
             {
-                if (_quoteList != null) return _quoteList;
-                _quoteList = _quoteList ?? ((List<usp_GetAwardedQuotes_Result>)ViewState["QuoteList"] ??
-                                            ViewModel.GetAwardedQuotes());
-                //if (ViewState["QuoteList"] == null)
-                //    ViewState["QuoteList"] = ViewModel.GetAwardedQuotes();
-                //return (List<usp_GetAwardedQuotes_Result>) ViewState["QuoteList"];
-                return _quoteList;
+                ViewState["QuoteList"] = ViewState["QuoteList"] ?? ViewModel.GetAwardedQuotes();
+                return (List<usp_GetAwardedQuotes_Result>) ViewState["QuoteList"];
             }
+            set => ViewState["QuoteList"] = value;
         }
 
         protected void Page_Init(object sender, EventArgs e)
         {
-            SqlDataSource1.ConnectionString = System.Configuration.ConfigurationManager.ConnectionStrings["QuoteTabSql"].ConnectionString;
+            SqlDataSource1.ConnectionString = ConfigurationManager.ConnectionStrings["QuoteTabSql"].ConnectionString;
 
-            gvQuote.DataSource = QuoteList;
             gvQuote.DataBind();
         }
 
@@ -67,13 +53,17 @@ namespace WebPortal.NewSalesAward.Pages
             if (!Page.IsPostBack) PopulateModeList();
         }
 
+        private enum LoadingPanelTrigger
+        {
+            Mode
+        }
 
 
         #region Events
 
         protected void pcEdit_OnWindowCallback(object source, PopupWindowCallbackArgs e)
         {
-            var quoteNumber = (string)gvQuote.GetRowValues(gvQuote.FocusedRowIndex, "QuoteNumber");
+            var quoteNumber = (string) gvQuote.GetRowValues(gvQuote.FocusedRowIndex, "QuoteNumber");
 
             //  Get the list entry.
             var awardedQuote = QuoteList.FirstOrDefault(q => q.QuoteNumber == quoteNumber);
@@ -89,30 +79,31 @@ namespace WebPortal.NewSalesAward.Pages
             if (e.Parameter == "fixQuoteClicked")
             {
                 // Fix Awarded Quote
-                string oldQuote = tbxOldQuoteNumber.Text;
-                string newQuote = cbxQuoteNumber.Value.ToString();
-                if (newQuote == null) return;
+                var oldQuote = tbxOldQuoteNumber.Text;
+                var newQuote = cbxQuoteNumber.Value.ToString();
 
                 ViewModel.AwardedQuoteChangeQuoteNumber(oldQuote, newQuote);
                 if (ViewModel.Error == "") tbxOldQuoteNumber.Text = cbxQuoteNumber.Text = "";
+                (source as ASPxPopupControl).JSProperties.Add("cpAction", "quoteFixed");
             }
             else
             {
                 // Showing the popup window
-                var quoteNumber = (string)gvQuote.GetRowValues(gvQuote.FocusedRowIndex, "QuoteNumber");
+                var quoteNumber = (string) gvQuote.GetRowValues(gvQuote.FocusedRowIndex, "QuoteNumber");
                 tbxOldQuoteNumber.Text = quoteNumber;
+                (source as ASPxPopupControl).JSProperties.Add("cpAction", "popupShown");
             }
         }
 
-        protected void cbxQuoteNumber_OnItemsRequestedByFilterCondition_SQL(object source, ListEditItemsRequestedByFilterConditionEventArgs e)
+        protected void cbxQuoteNumber_OnItemsRequestedByFilterCondition_SQL(object source,
+            ListEditItemsRequestedByFilterConditionEventArgs e)
         {
             try
             {
-                ASPxComboBox comboBox = (ASPxComboBox)source;
+                var comboBox = (ASPxComboBox) source;
 
-                //SqlDataSource1.ConnectionString = "data source=eeisql1.empireelect.local;initial catalog=FxPLM;persist security info=True;user id=cdipaola;password=emp1reFt1";
                 SqlDataSource1.SelectCommand =
-                       @"
+                    @"
 select
 	st.QuoteNumber
 ,	st.EEIPartNumber
@@ -140,16 +131,17 @@ where
             }
             catch (Exception ex)
             {
-                string error = (ex.InnerException != null) ? ex.InnerException.Message : ex.Message;
+                var error = ex.InnerException != null ? ex.InnerException.Message : ex.Message;
                 //lblError.Text = String.Format("Failed to return quote data. {0}", error);
                 //pcError.ShowOnPageLoad = true;
             }
         }
+
         protected void cbxQuoteNumber_OnItemRequestedByValue(object source, ListEditItemRequestedByValueEventArgs e)
         {
             long value = 0;
-            if (e.Value == null || !Int64.TryParse(e.Value.ToString(), out value)) return;
-            ASPxComboBox comboBox = (ASPxComboBox) source;
+            if (e.Value == null || !long.TryParse(e.Value.ToString(), out value)) return;
+            var comboBox = (ASPxComboBox) source;
             SqlDataSource1.SelectCommand =
                 @"
 select
@@ -164,6 +156,11 @@ where
             SqlDataSource1.SelectParameters.Add("QuoteNumber", TypeCode.String, e.Value.ToString());
             comboBox.DataSource = SqlDataSource1;
             comboBox.DataBind();
+        }
+
+        protected void gvQuote_OnDataBinding(object sender, EventArgs e)
+        {
+            gvQuote.DataSource = QuoteList;
         }
 
         protected void gvQuote_DataBound(object sender, EventArgs e)
@@ -189,38 +186,17 @@ where
         {
             if (gvQuote.FocusedRowIndex > -1)
             {
-                string quote = gvQuote.GetRowValues(gvQuote.FocusedRowIndex, "QuoteNumber").ToString();
+                var quote = gvQuote.GetRowValues(gvQuote.FocusedRowIndex, "QuoteNumber").ToString();
                 Session["QuoteNumber"] = quote;
             }
+
             Session["RedirectPage"] = "~/NewSalesAward/Pages/NewSalesAward.aspx";
             Session["ModeIndex"] = cbxMode.SelectedIndex;
             Session["FocusedRowIndex"] = gvQuote.FocusedRowIndex;
             Response.Redirect("~/QuoteLogIntegration/Pages/QuoteTransfer.aspx");
         }
 
-        protected void btnCustomerCommitment_Click(object sender, EventArgs e)
-        {
-            //// ***** Need quote number ???
-            //Session["AttachmentCategory"] = "CustomerCommitment";
-
-            //ShowQuoteFiles("CustomerCommitment");
-            //btnDocGet.Enabled = btnDocDelete.Enabled = (DocsViewModel.QuoteFileName != "");
-            //pcFileUpload.ShowOnPageLoad = true;
-        }
-
-        protected void btnAltCustomerCommitment_Click(object sender, EventArgs e)
-        {
-            //Session["AttachmentCategory"] = "AltCustomerCommitment";
-
-            //ShowQuoteFiles("AltCustomerCommitment");
-            //btnDocGet.Enabled = btnDocDelete.Enabled = (DocsViewModel.QuoteFileName != "");
-            //pcFileUpload.ShowOnPageLoad = true;
-        }
-
         #endregion
-
-
-
 
         #region Methods
 
@@ -250,7 +226,7 @@ where
             // If returning from another page, pick up where the user left off
             if (Session["ModeIndex"] != null)
             {
-                cbxMode.SelectedIndex = (int)Session["ModeIndex"];
+                cbxMode.SelectedIndex = (int) Session["ModeIndex"];
                 ToggleColumnButtonVisibility();
             }
             else
@@ -258,20 +234,6 @@ where
                 cbxMode.SelectedIndex = 0;
             }
         }
-
-        //private int GetQuoteLog()
-        //{
-        //    ViewModel.GetQuoteLog();
-        //    if (ViewModel.Error != "")
-        //    {
-        //        //lblError.Text = String.Format("Failed to return quote number list. Error at GetQuoteLog. {0}", ViewModel.Error);
-        //        //pcError.ShowOnPageLoad = true;
-        //        return 0;
-        //    }
-        //    cbxQuoteNumber.DataSource = ViewModel.QuoteNumberList;
-        //    cbxQuoteNumber.DataBind();
-        //    return 1;
-        //}
 
         private void SetFocusedRow()
         {
@@ -376,5 +338,11 @@ where
         }
 
         #endregion
+
+        protected void cbp1_OnCallback(object sender, CallbackEventArgsBase e)
+        {
+            QuoteList = ViewModel.GetAwardedQuotes();
+            gvQuote.DataBind();
+        }
     }
 }
