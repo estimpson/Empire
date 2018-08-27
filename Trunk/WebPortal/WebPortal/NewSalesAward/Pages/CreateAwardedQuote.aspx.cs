@@ -90,7 +90,7 @@ namespace WebPortal.NewSalesAward.Pages
             {
                 ASPxComboBox comboBox = (ASPxComboBox)source;
 
-                SqlDataSource1.ConnectionString = "data source=eeisql1.empireelect.local;initial catalog=FxPLM;persist security info=True;user id=cdipaola;password=emp1reFt1";
+                SqlDataSource1.ConnectionString = System.Configuration.ConfigurationManager.ConnectionStrings["QuoteTabSql"].ConnectionString;
 
                 SqlDataSource1.SelectCommand =
                        @"SELECT [QuoteNumber], [EEIPartNumber], [Program] FROM (select [QuoteNumber], [EEIPartNumber], [Program], row_number()over(order by q.[QuoteNumber]) as [rn] from [NSA].[QuoteLog] as q where (([QuoteNumber] + ' ' + [EEIPartNumber] + ' ' + [Program]) LIKE @filter)) as st where st.[rn] between @startIndex and @endIndex";

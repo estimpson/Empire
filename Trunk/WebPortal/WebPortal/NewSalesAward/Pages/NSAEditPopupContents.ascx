@@ -208,15 +208,6 @@
     </PanelCollection>
 </dx:ASPxCallbackPanel>
 
-<div id="divEntityNotesUserControl" style="border-top: 2px solid darkorange; margin-left: 40px; width: 1500px; clear: left; margin-top: 10px;">
-    <table>
-        <tr>
-            <td>
-                <dx:ASPxLabel ID="ASPxLabel1" runat="server" Text="Notes / Comments / Screenshots" Font-Size="13" ForeColor="DarkOrange" />
-            </td>
-        </tr>
-        <tr>
-            <uc1:EntityNotesUserControl runat="server" id="EntityNotesUserControl" />
-        </tr>
-    </table>
+<div id="divEntityNotesUserControl">
+    <uc1:EntityNotesUserControl runat="server" id="EntityNotesUserControl" />
 </div>

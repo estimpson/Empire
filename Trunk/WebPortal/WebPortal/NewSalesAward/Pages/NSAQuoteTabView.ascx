@@ -1,4 +1,6 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="NSAQuoteTabView.ascx.cs" Inherits="WebPortal.NewSalesAward.Pages.NSAQuoteTabView" %>
+<%@ Register Src="~/NewSalesAward/Pages/ConfirmationPopupUserControl.ascx" TagPrefix="uc1" TagName="ConfirmationPopupUserControl" %>
+
 
 <script>
     var postponedCallbackRequired = false;
@@ -224,7 +226,7 @@
                             <dx:LayoutItemNestedControlContainer runat="server">
                                 <script>
                                     function onFileUploaderInit(s, e) {
-                                        s.SetEnabled(!(customerCommitmentAttachmentTextBox.GetText()>""));
+                                        s.SetEnabled(!(customerCommitmentAttachmentTextBox.GetText() > ""));
                                     }
 
                                     function onFileUploadComplete(s, e) {
@@ -239,6 +241,7 @@
                                             console.log("fileSize: " + fileSize);
                                             customerCommitmentAttachmentTextBox.SetText(fileName);
                                             s.SetEnabled(false);
+                                            SetCommitmentFileActionsEnabled(true);
                                         }
                                     }
                                 </script>
@@ -274,13 +277,17 @@
                                                     var callbackType;
 
                                                     function OnDeleteCustomerCommitmentClick(s, e) {
-                                                        callbackType = "Delete";
-                                                        if (fileActionsCallback.InCallback()) {
-                                                            var postponedCallbackFileActions = true;
-                                                        } else {
-                                                            callbackType = "Delete";
-                                                            fileActionsCallback.PerformCallback(callbackType);
-                                                        }
+                                                        ConfirmationPrompt(null,
+                                                            function() {
+                                                                callbackType = "Delete";
+                                                                if (fileActionsCallback.InCallback()) {
+                                                                    var postponedCallbackFileActions = true;
+                                                                } else {
+                                                                    callbackType = "Delete";
+                                                                    fileActionsCallback.PerformCallback(callbackType);
+                                                                }
+                                                            },
+                                                            null, 'Confirmation', 'Are you sure you want to delete the customer commitment attachment?');
                                                     }
 
                                                     function OnOpenCustomerCommitmentClick(s, e) {
@@ -292,6 +299,10 @@
                                                         }
                                                     }
 
+                                                    function OnInitFileActions(s, e) {
+                                                        SetCommitmentFileActionsEnabled(customerCommitmentAttachmentTextBox.GetText() > "");
+                                                    }
+
                                                     function OnEndCallbackHandleFileActions(s, e) {
                                                         if (postponedCallbackFileActions) {
                                                             fileActionsCallback.PerformCallback(callbackType);
@@ -299,20 +310,28 @@
                                                         }
 
                                                         switch (callbackType) {
-                                                        case "Open":
-                                                            var src = customerCommitmentFile.cpFilePath;
-                                                            window.open(src, "_blank", "resizable=true", true);
-                                                            break;
-                                                        case "Delete":
-                                                            customerCommitmentAttachmentTextBox.SetText("");
-                                                            customerCommitmentUploadControl.SetEnabled(true);
-                                                            break;
+                                                            case "Open":
+                                                                var src = customerCommitmentFile.cpFilePath;
+                                                                window.open(src, "_blank", "resizable=true", true);
+                                                                break;
+                                                            case "Delete":
+                                                                customerCommitmentAttachmentTextBox.SetText("");
+                                                                customerCommitmentUploadControl.SetEnabled(true);
+                                                                SetCommitmentFileActionsEnabled(false);
+                                                                break;
                                                         }
+                                                    }
+
+                                                    function SetCommitmentFileActionsEnabled(e) {
+                                                        console.log("CommitmentFileActionsEnabled: " + e);
+                                                        customerCommitmentFile.SetEnabled(e);
+                                                        deleteCommitmentFile.SetEnabled(e);
                                                     }
                                                 </script>
                                                 <dx:ASPxCallbackPanel runat="server" ID="HandleFileActionsCallback" ClientInstanceName="fileActionsCallback"
                                                                       OnCallback="HandleFileActionsCallback_OnCallback">
                                                     <ClientSideEvents
+                                                        Init="OnInitFileActions"
                                                         EndCallback="OnEndCallbackHandleFileActions"/>
                                                     <PanelCollection>
                                                         <dx:PanelContent runat="server">
@@ -326,7 +345,8 @@
                                                                         </dx:ASPxButton>
                                                                     </td>
                                                                     <td>
-                                                                        <dx:ASPxButton runat="server" RenderMode="Link" AutoPostBack="False" UseSubmitBehavior="False">
+                                                                        <dx:ASPxButton ClientInstanceName="deleteCommitmentFile" runat="server" 
+                                                                                       RenderMode="Link" AutoPostBack="False" UseSubmitBehavior="False">
                                                                             <Image IconID="actions_deleteitem_32x32gray"></Image>
                                                                             <ClientSideEvents Click="OnDeleteCustomerCommitmentClick" />
                                                                         </dx:ASPxButton>
@@ -348,5 +368,6 @@
             </dx:ASPxFormLayout>
         </dx:PanelContent>
     </PanelCollection>
-
 </dx:ASPxCallbackPanel>
+
+<uc1:ConfirmationPopupUserControl runat="server" id="ConfirmationPopupUserControl" />

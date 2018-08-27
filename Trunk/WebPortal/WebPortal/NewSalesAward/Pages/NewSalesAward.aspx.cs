@@ -56,6 +56,8 @@ namespace WebPortal.NewSalesAward.Pages
 
         protected void Page_Init(object sender, EventArgs e)
         {
+            SqlDataSource1.ConnectionString = System.Configuration.ConfigurationManager.ConnectionStrings["QuoteTabSql"].ConnectionString;
+
             gvQuote.DataSource = QuoteList;
             gvQuote.DataBind();
         }
@@ -109,10 +111,25 @@ namespace WebPortal.NewSalesAward.Pages
                 ASPxComboBox comboBox = (ASPxComboBox)source;
 
                 //SqlDataSource1.ConnectionString = "data source=eeisql1.empireelect.local;initial catalog=FxPLM;persist security info=True;user id=cdipaola;password=emp1reFt1";
-                SqlDataSource1.ConnectionString = System.Configuration.ConfigurationManager.ConnectionStrings["QuoteTabSql"].ConnectionString;
-
                 SqlDataSource1.SelectCommand =
-                       @"SELECT [QuoteNumber], [EEIPartNumber], [Program] FROM (select [QuoteNumber], [EEIPartNumber], [Program], row_number()over(order by q.[QuoteNumber]) as [rn] from [NSA].[QuoteLog] as q where (([QuoteNumber] + ' ' + [EEIPartNumber] + ' ' + [Program]) LIKE @filter)) as st where st.[rn] between @startIndex and @endIndex";
+                       @"
+select
+	st.QuoteNumber
+,	st.EEIPartNumber
+,	st.Program
+from
+	(	select
+			q.QuoteNumber
+		,	q.EEIPartNumber
+		,	q.Program
+		,	rn = row_number() over (order by q.QuoteNumber)
+		from
+			NSA.QuoteLog q
+		where
+			q.QuoteNumber + ' ' + EEIPartNumber + ' ' + Program like @filter
+	) st
+where
+	st.rn between @startIndex and @endIndex";
 
                 SqlDataSource1.SelectParameters.Clear();
                 SqlDataSource1.SelectParameters.Add("filter", TypeCode.String, string.Format("%{0}%", e.Filter));
@@ -127,6 +144,26 @@ namespace WebPortal.NewSalesAward.Pages
                 //lblError.Text = String.Format("Failed to return quote data. {0}", error);
                 //pcError.ShowOnPageLoad = true;
             }
+        }
+        protected void cbxQuoteNumber_OnItemRequestedByValue(object source, ListEditItemRequestedByValueEventArgs e)
+        {
+            long value = 0;
+            if (e.Value == null || !Int64.TryParse(e.Value.ToString(), out value)) return;
+            ASPxComboBox comboBox = (ASPxComboBox) source;
+            SqlDataSource1.SelectCommand =
+                @"
+select
+	st.QuoteNumber
+,	st.EEIPartNumber
+,	st.Program
+from
+	NSA.QuoteLog st
+where
+	st.QuoteNumber = @QuoteNumber";
+            SqlDataSource1.SelectParameters.Clear();
+            SqlDataSource1.SelectParameters.Add("QuoteNumber", TypeCode.String, e.Value.ToString());
+            comboBox.DataSource = SqlDataSource1;
+            comboBox.DataBind();
         }
 
         protected void gvQuote_DataBound(object sender, EventArgs e)
@@ -339,7 +376,5 @@ namespace WebPortal.NewSalesAward.Pages
         }
 
         #endregion
-
-
     }
 }
