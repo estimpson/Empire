@@ -94,24 +94,6 @@ namespace WebPortal.NewSalesAward.Pages {
         protected global::DevExpress.Web.ASPxButton btnQuoteTransfer;
         
         /// <summary>
-        /// btnCustomerCommitment control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::DevExpress.Web.ASPxButton btnCustomerCommitment;
-        
-        /// <summary>
-        /// btnAltCustomerCommitment control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::DevExpress.Web.ASPxButton btnAltCustomerCommitment;
-        
-        /// <summary>
         /// gvQuote control.
         /// </summary>
         /// <remarks>

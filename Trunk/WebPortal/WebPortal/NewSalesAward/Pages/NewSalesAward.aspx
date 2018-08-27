@@ -36,7 +36,7 @@
         function OnGetRowValues(value) {
             if (value == null) {
                 console.log("show fix quote");
-                pcFixQuote.PerformCallback();
+                pcFixQuote.PerformCallback("show");
                 pcFixQuote.ShowWindow();
             }
             else {
@@ -51,10 +51,6 @@
             pcEdit.ShowWindow();
             postponedCallbackRequired = true;
             DoResizeAll();
-        }
-
-        function FixAwardedQuoteButtonClicked(s, e) {
-            pcFixQuote.PerformCallback("fixQuoteClicked");
         }
     </script>
 
@@ -83,9 +79,11 @@
             if (postponedCallbackRequired) {
                 CallbackPanel.PerformCallback();
             }
+            DoResizeAll();
         }
     </script>
-    <dx:ASPxCallbackPanel ID="cbp1" runat="server" EnableCallbackAnimation="false" ClientInstanceName="CallbackPanel" SettingsLoadingPanel-Enabled="true">
+    <dx:ASPxCallbackPanel ID="cbp1" runat="server" EnableCallbackAnimation="false" ClientInstanceName="CallbackPanel" SettingsLoadingPanel-Enabled="true"
+                          OnCallback="cbp1_OnCallback">
         <ClientSideEvents EndCallback="OnEndCallback"></ClientSideEvents>
         <PanelCollection>
             <dx:PanelContent ID="pc1" runat="server">
@@ -114,16 +112,6 @@
                                         Text="Quote Transfer" Width="100%" OnClick="btnQuoteTransfer_Click">
                                     </dx:ASPxButton>
                                 </td>
-                                <td>
-                                    <dx:ASPxButton ID="btnCustomerCommitment" runat="server" AutoPostBack="false" CausesValidation="false" UseSubmitBehavior="false"
-                                        Text="Cust Commitment" Width="100%" OnClick="btnCustomerCommitment_Click" Visible="false">
-                                    </dx:ASPxButton>
-                                </td>
-                                <td>
-                                    <dx:ASPxButton ID="btnAltCustomerCommitment" runat="server" AutoPostBack="true" CausesValidation="false" UseSubmitBehavior="false"
-                                        Text="Alt Cust Commitment" Width="100%" OnClick="btnAltCustomerCommitment_Click" Visible="false">
-                                    </dx:ASPxButton>
-                                </td>
                             </tr>
                         </table>
                         <div id="quoteGridViewContainer" style="margin-top: 5px; visibility: hidden;">
@@ -131,6 +119,7 @@
                                              SettingsBehavior-AllowGroup="false" SettingsBehavior-AllowSort="true" Settings-ShowGroupPanel="false"
                                              KeyFieldName="QuoteNumber" EnableRowsCache="True" Width="98%"
                                              EnableCallBacks="True"
+                                             OnDataBinding="gvQuote_OnDataBinding"
                                              OnDataBound="gvQuote_DataBound"
                                              AutoPostBack="False">
                                 <ClientSideEvents
@@ -382,10 +371,24 @@
                         </dx:ASPxPopupControl>
                     </div>
                     <div>
+                        <script>
+                            function OnFixQuoteEndCallback(s, e) {
+                                console.log("s.cpAction: ", s.cpAction);
+                                if (s.cpAction === "quoteFixed") {
+                                    console.log("hide Fix Quote popup");
+                                    pcFixQuote.Hide();
+                                    CallbackPanel.PerformCallback();
+                                }
+                            }
+                        </script>
                         <dx:ASPxPopupControl ID="pcFixQuote" runat="server" Width="320" CloseAction="CloseButton" CloseOnEscape="true" Modal="True"
                             PopupHorizontalAlign="WindowCenter" PopupVerticalAlign="WindowCenter" ClientInstanceName="pcFixQuote"
                             HeaderText="Fix Awarded Quote" AllowDragging="True" PopupAnimationType="Fade" EnableViewState="False" 
                             AutoUpdatePosition="true" OnWindowCallback="pcFixQuote_WindowCallback">
+                            <ClientSideEvents
+                                EndCallback="OnFixQuoteEndCallback">
+
+                            </ClientSideEvents>
                             <ContentCollection>
                                 <dx:PopupControlContentControl runat="server">
                                     <dx:ASPxCallbackPanel runat="server" ID="ASPxCallbackPanel1" ClientInstanceName="FixQuoteCallback">
@@ -430,7 +433,7 @@
                                                                                  OnItemsRequestedByFilterCondition="cbxQuoteNumber_OnItemsRequestedByFilterCondition_SQL"
                                                                                  OnItemRequestedByValue="cbxQuoteNumber_OnItemRequestedByValue"
                                                                                  TextFormatString="{0}  {1}  {2}"
-                                                                                 Width="298px" DropDownStyle="DropDown">
+                                                                                 Width="298px" DropDownStyle="DropDownList">
                                                                     <ClientSideEvents
                                                                         BeginCallback="OnBeginQuoteCallback"
                                                                         EndCallback="OnEndQuoteCallback" />
@@ -450,6 +453,13 @@
                                                                 &nbsp;
                                                             </td>
                                                             <td>
+                                                                <script>
+                                                                    
+                                                                    function FixAwardedQuoteButtonClicked(s, e) {
+                                                                        pcFixQuote.PerformCallback("fixQuoteClicked");
+                                                                    }
+
+                                                                </script>
                                                                 <dx:ASPxButton ID="btnFixAwardedQuote" runat="server" ClientInstanceName="btnFixAwardedQuote" Text="Save" AutoPostBack="false" UseSubmitBehavior="false">
                                                                     <ClientSideEvents Click="FixAwardedQuoteButtonClicked" /> 
                                                                 </dx:ASPxButton>
