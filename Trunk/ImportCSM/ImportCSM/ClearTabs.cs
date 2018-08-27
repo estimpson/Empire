@@ -5,9 +5,11 @@
         RollForwardClear,
         ImportCsmClear,
         ImportCsmGreaterChinaClear,
+        ImportCsmGreaterChinaAndForecastClear,
         ImportNaDeltaClear,
         ImportGcDeltaClear,
         InsertOfficialForecastClear,
-        InsertHistoricalSalesClear
+        InsertHistoricalSalesClear,
+        MidModelClear
     }
 }

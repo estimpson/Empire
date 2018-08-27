@@ -70,22 +70,6 @@ namespace ImportCSM
 
         private void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            //if (tabControl1.SelectedTab == tabControl1.TabPages["tpCsm"])
-            //{
-            //    ControlScreenState(ClearTabs.ImportCsmClear);
-            //}
-            //else if(tabControl1.SelectedTab == tabControl1.TabPages["tpCsmDelta"])
-            //{
-            //    ControlScreenState(ClearTabs.ImportDeltaCsmClear);
-            //}
-            //else if (tabControl1.SelectedTab == tabControl1.TabPages["tpOfficialForecast"])
-            //{
-            //    ControlScreenState(ClearTabs.InsertOfficialForecastClear);
-            //}
-            //else
-            //{
-            //    ControlScreenState(ClearTabs.InsertHistoricalSalesClear);
-            //}
         }
 
         #endregion
@@ -143,6 +127,11 @@ namespace ImportCSM
             Cursor.Current = Cursors.WaitCursor;
         }
 
+        private void btnMidModel_MouseDown(object sender, MouseEventArgs e)
+        {
+            Cursor.Current = Cursors.WaitCursor;
+        }
+
         #endregion
 
 
@@ -184,21 +173,31 @@ namespace ImportCSM
 
         private void btnImportGreaterChina_Click(object sender, EventArgs e)
         {
+            int status = 0;
             // Import Greater China CSM
             if (ProcessCsmGreaterChina() == 1)
             {
-                _messageBox.Message = "Successful import of Greater China CSM.  Click OK to insert Official Sales Forecast.";
+                status = 1;
+                _messageBox.Message = "Successful import of Greater China CSM.  Click OK to insert Official Sales Forecast, then wait for the next message.";
                 _messageBox.ShowDialog();
 
                 // Insert Official Sales Forecast
                 string forecastName = DateTime.Now.ToString("yyyy/MM/dd") + " OSF";
                 if (InsertOfficialForecast(forecastName) == 1)
                 {
+                    status = 2;
                     _messageBox.Message = "Successful Sales Forecast insert.";
                     _messageBox.ShowDialog();
-                }
+                }                
+            }
 
+            if (status == 1)
+            {
                 ControlScreenState(ClearTabs.ImportCsmGreaterChinaClear);
+            }
+            else if (status == 2)
+            {
+                ControlScreenState(ClearTabs.ImportCsmGreaterChinaAndForecastClear);
             }
             Cursor.Current = Cursors.Default;
         }
@@ -244,6 +243,12 @@ namespace ImportCSM
                 _messageBox.ShowDialog();
                 ControlScreenState(ClearTabs.InsertHistoricalSalesClear);
             }
+            Cursor.Current = Cursors.Default;
+        }
+
+        private void btnMidModel_Click(object sender, EventArgs e)
+        {
+            ProcessMidModel();
             Cursor.Current = Cursors.Default;
         }
 
@@ -565,6 +570,7 @@ namespace ImportCSM
         #endregion
 
 
+
         #region CSM Delta Methods
 
         //private int LocateFile()
@@ -600,9 +606,16 @@ namespace ImportCSM
             string release = tbxCurrentDeltaReleaseId.Text.Trim();
             const string VERSION = "CSM";
 
+            string error;
+            CheckPriorDeltaImport(out error);
+            if (error != "")
+            {
+                DialogResult result = MessageBox.Show(error + string.Format(" Is release {0} correct?", release), "Message", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                if (result == DialogResult.No) return 0;
+            }
+
             // Import new CSM Delta data
-            //int importResult = ImportCsmDelta(release, VERSION);
-            int importResult = ImportCsmDeltaNew(release, VERSION);
+            int importResult = ImportCsmDelta(release, VERSION);
 
             // If the import failed at any point, roll back
             if (importResult == 0)
@@ -674,111 +687,13 @@ namespace ImportCSM
         //    return result;
         //}
 
-
-
-        //private int ImportCsmDeltaOld(string release, string version)
-        //{
-        //    try
-        //    {
-        //        var format = DataFormats.CommaSeparatedValue;
-
-        //        // Read the CSV
-        //        var dataObject = Clipboard.GetDataObject();
-        //        var stream = (System.IO.Stream)dataObject.GetData(format);
-        //        if (stream == null)
-        //        {
-        //            _messageBox.Message = "Please copy spreadsheet data.";
-        //            _messageBox.ShowDialog();
-        //            return 0;
-        //        }
-        //        var encoding = new System.Text.UTF8Encoding();
-        //        var reader = new System.IO.StreamReader(stream, encoding);
-        //        string data = reader.ReadToEnd();
-
-        //        var rows = data.Split('\r');
-
-        //         // Loop through spreadsheet rows
-        //        foreach (var rowRaw in rows)
-        //        {
-        //            string guidStr = Guid.NewGuid().ToString();
-
-        //            string rowData = guidStr + "," + release + "," + version + ",";
-
-        //            var row = rowRaw.Replace("\n", "");
-        //            if (row == "\0") break;
-        //            if (row == "") break;
-
-
-        //            string[] quotesSplit = row.Split('"');
-        //            if (quotesSplit.Count() > 1)
-        //            {
-        //                string otherFields = quotesSplit[0];
-        //                string notes = quotesSplit[1].Replace("\"", "");
-        //                notes = notes.Replace("'", "''");
-
-        //                // Skip the header row
-        //                string[] arry = otherFields.Split(',');
-        //                if (arry.Count() < 13) continue;
-        //                if (arry[0] == "Design parent/ manufacturer") continue;
-
-        //                foreach (var item in arry) rowData += (item + ",");
-
-        //                // Place quotes around each field
-        //                string rowDataFormatted = "'" + rowData.Replace(",", "','") + "'";
-
-        //                // End of string correction
-        //                int stringLength = rowDataFormatted.Length;
-        //                rowDataFormatted = rowDataFormatted.Remove(stringLength -4, 4);
-        //                //MessageBox.Show("Formatted remove:  " + rowDataFormatted);
-
-        //                rowDataFormatted += notes;
-        //                rowDataFormatted += "'";
-
-        //                //MessageBox.Show("Formatted with notes:  " + rowDataFormatted);
-
-        //                // Insert a row of data into the table
-        //                int result = InsertCsmDeltaDataRow(rowDataFormatted);
-        //                if (result == 0) return 0;
-        //            }
-        //            else
-        //            {
-        //                // Skip the header row
-        //                string[] arry = row.Split(',');
-        //                if (arry.Count() < 13) continue;
-        //                if (arry[0] == "Design parent/ manufacturer") continue;
-
-        //                foreach (var item in arry) rowData += (item + ",");
-
-        //                // Place quotes around each field
-        //                string rowDataFormatted = "'" + rowData.Replace(",", "','") + "'";
-
-        //                // End of string correction
-        //                int stringLength = rowDataFormatted.Length;
-        //                rowDataFormatted = rowDataFormatted.Remove(stringLength - 3, 3);
-
-        //                // Insert a row of data into the table
-        //                int result = InsertCsmDeltaDataRow(rowDataFormatted);
-        //                if (result == 0) return 0;   
-        //            }
-        //        }
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        string error = (ex.InnerException == null) ? ex.Message : ex.InnerException.Message;
-        //        _messageBox.Message = "Import failed.  Exception thrown at ImportCsmDelta().  " + error;
-        //        _messageBox.ShowDialog();
-        //        return 0;
-        //    }
-        //    return 1;
-        //}
-
-        private int ImportCsmDeltaNew(string release, string version)
+        private int ImportCsmDelta(string release, string version)
         {
             try
             {
                 var format = DataFormats.CommaSeparatedValue;
 
-                // Read the CSV
+                // Read the clipboard for data copied from a spreadsheet
                 var dataObject = Clipboard.GetDataObject();
                 var stream = (System.IO.Stream)dataObject.GetData(format);
                 if (stream == null)
@@ -791,68 +706,46 @@ namespace ImportCSM
                 var reader = new System.IO.StreamReader(stream, encoding);
                 string data = reader.ReadToEnd();
 
+                // Split the data into rows and loop through them
                 var rows = data.Split('\r');
-
-                // Loop through spreadsheet rows
                 foreach (var rowRaw in rows)
                 {
+                    // Create an ID, and build the beginning of a comma-separated string called identityData
                     string guidStr = Guid.NewGuid().ToString();
-
-                    string rowData = guidStr + "," + release + "," + version + ",";
-
+                    string identityData = "'" + guidStr + "','" + release + "','" + version + "',";
+                    
+                    // Exit if an empty row is found
                     var row = rowRaw.Replace("\n", "");
                     if (row == "\0") break;
                     if (row == "") break;
 
+                    // Split on double quotes, which are found when a comma exists within a field (comma will cause two fields to be created from one) 
                     string[] quotesSplit = row.Split('"');
                     if (quotesSplit.Count() > 1)
                     {
-                        string otherFields = quotesSplit[0];
+                        // Correct the Notes field by removing the double quotes (combining two fields into one)
                         string notes = quotesSplit[1].Replace("\"", "");
+
+                        // Handle (escape) any single quotes within the Notes field
                         notes = notes.Replace("'", "''");
 
+                        // Create an array of all the other copied data fields
+                        string otherFields = quotesSplit[0];
                         string[] arry = otherFields.Split(',');
 
-                        // Skip header rows
+                        // Restart the loop if we are in one of the header rows
                         if (arry[0] == "North America Delta") continue;
                         if (arry[0] == "Greater China Delta") continue;
                         if (arry[0] == "Design parent/ manufacturer") continue;
 
-                        // Comma separate fields
-                        foreach (var item in arry) rowData += (item + ",");
+                        // Capture the mnemonic field (used to check if this data has already been imported)
+                        string mnemonic = arry[9];
 
-                        // Place quotes around each field
-                        string rowDataFormatted = "'" + rowData.Replace(",", "','") + "'";
-
-                        // End of string correction
-                        int stringLength = rowDataFormatted.Length;
-                        rowDataFormatted = rowDataFormatted.Remove(stringLength - 4, 4);
-
-                        rowDataFormatted += notes;
-                        rowDataFormatted += "'";
-
-                        // Insert a row of data into the table
-                        int result = InsertCsmDeltaDataRow(rowDataFormatted);
-                        if (result == 0) return 0;
-                    }
-                    else
-                    { 
-                        string[] arry = row.Split(',');
-
-                        // Skip header rows
-                        if (arry[0] == "North America Delta") continue;
-                        if (arry[0] == "Greater China Delta") continue;
-                        if (arry[0] == "Design parent/ manufacturer") continue;
-
-                        //foreach (var item in arry) rowData += (item + ",");
-
-                        //// Place quotes around each field
-                        //string rowDataFormatted = "'" + rowData.Replace(",", "','") + "'";
-
+                        // Clean the copied data if necessary
                         string newRow = "";
                         foreach (var field in arry)
                         {
-                            // Handle any single quotes
+                            // Handle (escape) any single quotes within the fields
                             string editedField = field.Replace("'", "''");
 
                             // Wrap each field in single quotes and separate with commas
@@ -860,12 +753,54 @@ namespace ImportCSM
                             newRow += newField;
                         }
 
-                        // End of string correction
+                        // Combine the identity data with the copied spreadsheet data
+                        newRow = identityData + newRow;
+
+                        // Remove extra characters at the end of the string
+                        int stringLength = newRow.Length;
+                        newRow = newRow.Remove(stringLength - 3, 3);
+
+                        // Add the corrected Notes field to the end of the string
+                        newRow += "'" + notes + "'";
+
+                        // Insert a row of data into the table
+                        int result = InsertCsmDeltaDataRow(release, version, mnemonic, newRow);
+                        if (result == 0) return 0;
+                    }
+                    else
+                    {
+                        // Create an array of data fields
+                        string[] arry = row.Split(',');
+
+                        // Restart the loop if we are in one of the header rows
+                        if (arry[0] == "North America Delta") continue;
+                        if (arry[0] == "Greater China Delta") continue;
+                        if (arry[0] == "Design parent/ manufacturer") continue;
+
+                        // Capture the mnemonic field (used to check if this data has already been imported)
+                        string mnemonic = arry[9];
+
+                        // Clean the copied data if necessary
+                        string newRow = "";
+                        foreach (var field in arry)
+                        {
+                            // Handle (escape) any single quotes within the fields
+                            string editedField = field.Replace("'", "''");
+
+                            // Wrap each field in single quotes and separate with commas
+                            string newField = "'" + editedField + "',";
+                            newRow += newField;
+                        }
+
+                        // Combine the identity data with the copied spreadsheet data
+                        newRow = identityData + newRow;
+
+                        // Perform end of string correction
                         int stringLength = newRow.Length;
                         newRow = newRow.Remove(stringLength - 1, 1);
 
                         // Insert a row of data into the table
-                        int result = InsertCsmDeltaDataRow(newRow);
+                        int result = InsertCsmDeltaDataRow(release, version, mnemonic, newRow);
                         if (result == 0) return 0;
                     }
                 }
@@ -880,66 +815,48 @@ namespace ImportCSM
             return 1;
         }
 
-        //private int ImportCsmDelta(string release, string version)
-        //{
-        //    int methodResult = 1;
+        private void CheckPriorDeltaImport(out string error)
+        {
+            error = "";
 
-        //    //var parser = new TextFieldParser(@"S:\LogisticsVariance\FedEx\FedExVariance.csv") {HasFieldsEnclosedInQuotes = true};
-        //    var parser = new TextFieldParser(@"S:\CSM Data\NA Delta.csv") { HasFieldsEnclosedInQuotes = true };
-        //    parser.SetDelimiters(",");
+            string priorRelease = tbxPriorReleaseId.Text.Trim();
+            if (priorRelease == "") return;
 
-        //    try
-        //    {
-        //        while (!parser.EndOfData)
-        //        {
-        //            string guidStr = Guid.NewGuid().ToString();
-        //            string newRow = "'" + guidStr + "','" + release + "','" + version + "',";
+            var con =
+                new SqlConnection(
+                    "data source=eeisql1.empireelect.local;initial catalog=MONITOR;persist security info=True;user id=Andre");
 
-        //            int fieldCount = 0;
-        //            string[] fields = parser.ReadFields();
-        //            foreach (var field in fields)
-        //            {
-        //                fieldCount++;
-        //                if (fieldCount > 13) break;
+            try
+            {
+                string rowCount = "";
 
-        //                // Handle any single quotes
-        //                string editedField = field.Replace("'", "''");
+                var cmd = new SqlCommand();
+                cmd.CommandText = "SELECT COUNT(1) AS cnt FROM EEIUser.acctg_csm_NAIHS_Delta WHERE Release_ID = '" + priorRelease + "'";
+                cmd.CommandType = CommandType.Text;
+                cmd.Connection = con;
+                con.Open();
 
-        //                string newField = "'" + editedField + "',";
-        //                newRow += newField;
-        //            }
+                SqlDataReader reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    rowCount = reader[0].ToString();
+                }
+                reader.Close();
 
-        //            // End of string correction
-        //            int stringLength = newRow.Length;
-        //            newRow = newRow.Remove(stringLength - 1, 1);
+                int iRowCount = Convert.ToInt32(rowCount);
+                if (iRowCount < 1) error = string.Format("The prior release ({0}) does not have any Delta data.", priorRelease);
+            }
+            catch (Exception)
+            {
+            }
+            finally
+            {
+                con.Close();
+                con.Dispose();
+            }
+        }
 
-        //            if (!newRow.Contains("North America Delta") && !newRow.Contains("Design parent/ manufacturer") &&
-        //                !newRow.Contains("Design parent/manufacturer") && !newRow.Contains("Design parent / manufacturer") &&
-        //                !newRow.Contains("Design parent /manufacturer") && !newRow.Contains("Source: IHS Markit"))
-        //            {
-        //                // Insert row into the raw data table
-        //                int result = InsertCsmDeltaDataRow(newRow);
-        //                if (result == 0) return 0;
-        //            }
-        //        }
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        methodResult = 0;
-
-        //        string error = (ex.InnerException != null) ? ex.InnerException.Message : ex.Message;
-        //        _messageBox.Message = string.Format("Failed to import raw CSM Delta data.  {0}", error);
-        //        _messageBox.ShowDialog();
-        //    }
-        //    finally
-        //    {
-        //        parser.Close();
-        //    }
-
-        //    return methodResult;
-        //}
-
-        private int InsertCsmDeltaDataRow(string values)
+        private int InsertCsmDeltaDataRow(string release, string version, string mnemonic, string values)
         {
             // Ignore any empty rows
             var arr = values.Split(',');
@@ -951,10 +868,16 @@ namespace ImportCSM
 
             try
             {
-                var command = new SqlCommand("INSERT INTO EEIUser.acctg_csm_NAIHS_Delta " +
-                                             "VALUES (" +
-                                             values + ");",
-                                             con);
+                var command = new SqlCommand("if not exists (" +
+                                            "select 1 from EEIUser.acctg_csm_NAIHS_Delta d " + 
+                                            "where d.Release_ID = '" + release + "' " +
+                                            "and d.Version = '" + version + "' " + 
+                                            "and d.[Mnemonic-Vehicle] = '" + mnemonic + "') " +
+                                            "begin " +
+                                            "insert into EEIUser.acctg_csm_NAIHS_Delta " +
+                                            "values (" +
+                                            values + ") end;",
+                                            con);
 
                 con.Open();
                 command.ExecuteNonQuery();
@@ -1007,10 +930,16 @@ namespace ImportCSM
         }
 
         #endregion
-        
+
+
 
         #region Official Forecast Methods
 
+        /// <summary>
+        /// Overloaded function run automatically after the GC CSM import
+        /// </summary>
+        /// <param name="forecastName"></param>
+        /// <returns></returns>
         private int InsertOfficialForecast(string forecastName)
         {
             string error;
@@ -1035,6 +964,12 @@ namespace ImportCSM
                 _messageBox.ShowDialog();
                 return 0;
             }
+            if (!forecastName.Contains("OSF"))
+            {
+                _messageBox.Message = "Forecast name must contain OSF.";
+                _messageBox.ShowDialog();
+                return 0;
+            }
 
             DateTime dateTimeStamp = dtpDateTimeStamp.Value;
             string error;
@@ -1049,6 +984,7 @@ namespace ImportCSM
         }
 
         #endregion
+
 
 
         #region Historical Sales Methods
@@ -1079,6 +1015,439 @@ namespace ImportCSM
         }
 
         #endregion
+
+
+
+        #region Mid-model Year
+
+        private void ProcessMidModel()
+        {
+            string release = tbxReleaseMidModel.Text.Trim();
+            if (release == "")
+            {
+                _messageBox.Message = "Please enter a release.";
+                _messageBox.ShowDialog();
+                return;
+            }
+
+            string error;
+            CheckPriorMidModelImport(out error);
+            if (error != "")
+            {
+                DialogResult result = MessageBox.Show(error + string.Format(" Is release {0} correct?", release), "Message", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                if (result == DialogResult.No) return;
+            }
+
+            // Make sure the raw table is empty
+            if (DeleteMidModelRaw() == 0) return;
+
+            // Import copied spreadsheet data into a raw data table
+            if (ImportMidModel(release) == 0) return;
+
+            // Insert into the final table from the raw table
+            if (InsertMidModel(release) == 1)
+            {
+                _messageBox.Message = "Success.";
+                _messageBox.ShowDialog();
+
+                ControlScreenState(ClearTabs.MidModelClear);
+            }
+
+            // Clean up the raw table
+            DeleteMidModelRaw();
+        }
+
+        //private int ImportMidModelYear_Old()
+        //{
+        //    try
+        //    {
+        //        var format = DataFormats.CommaSeparatedValue;
+
+        //        // Read the clipboard
+        //        var dataObject = Clipboard.GetDataObject();
+        //        var stream = (System.IO.Stream)dataObject.GetData(format);
+        //        if (stream == null)
+        //        {
+        //            _messageBox.Message = "Please copy spreadsheet data.";
+        //            _messageBox.ShowDialog();
+        //            return 0;
+        //        }
+        //        var encoding = new System.Text.UTF8Encoding();
+        //        var reader = new System.IO.StreamReader(stream, encoding);
+        //        string data = reader.ReadToEnd();
+
+        //        var rows = data.Split('\r');
+        //        bool header = true;
+
+        //        // Loop through spreadsheet rows
+        //        foreach (var rowRaw in rows)
+        //        {
+        //            var row = rowRaw.Replace("\n", "");
+        //            if (row.Contains("\0")) break;
+        //            if (row == "") break;
+
+        //            int fieldCount = 0;
+        //            string basePart = "";
+        //            string newTiming = "";
+        //            string priorTiming = "";
+        //            string reason = "";
+        //            string midModel = "";
+        //            List<String> basePartNewTimingList = new List<string>();
+
+        //            string[] arry = row.Split(',');
+        //            foreach (var item in arry)
+        //            {
+        //                if (header)
+        //                {
+        //                    if (item == "")
+        //                    {
+        //                        header = false;
+        //                        break;
+        //                    }
+        //                }
+
+        //                if (item == "parent_customer")
+        //                {
+        //                    break;
+        //                }
+        //                else
+        //                {
+        //                    fieldCount++;
+
+        //                    if (fieldCount == 4) { basePart = item.ToString(); }
+        //                    if (fieldCount == 11) { newTiming = item.ToString(); }
+        //                    if (fieldCount == 12) { priorTiming = item.ToString(); }
+        //                    if (fieldCount == 13) { reason = item.ToString(); }
+        //                    if (fieldCount == 14) { midModel = item.ToString(); }
+
+        //                    if (fieldCount > 13 && newTiming != "")
+        //                    {
+        //                        string year = newTiming.Remove(0, 11);
+        //                        int len = year.Length;
+        //                        year = year.Remove(4, len - 4);
+        //                        int iYear = Convert.ToInt32(year);
+
+        //                        // If the EOP year of the new timing is the current year, send an email alert
+        //                        if (iYear == DateTime.Now.Year)
+        //                        {
+        //                            if (!basePartNewTimingList.Contains(basePart))
+        //                            {
+        //                                // First instance of a new timing change for this base part, so send email alert
+        //                                SendNewTimingAlert(basePart, newTiming, priorTiming, reason);
+
+        //                                basePartNewTimingList.Add(basePart);
+        //                            }
+        //                        }
+        //                    }
+
+        //                    if (basePart != "" && midModel != "")
+        //                    {
+        //                        if (UpdateMidModelYear(basePart, midModel) == 0) return 0;
+
+        //                        basePart = midModel = "";
+        //                    }
+        //                }
+        //            }
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        string error = (ex.InnerException == null) ? ex.Message : ex.InnerException.Message;
+        //        _messageBox.Message = "Import failed.  Exception thwrown at ImportMidModelYear().  " + error;
+        //        _messageBox.ShowDialog();
+        //        return 0;
+        //    }
+        //    return 1;
+        //}
+
+        private void CheckPriorMidModelImport(out string error)
+        {
+            error = "";
+
+            string priorRelease = tbxPriorReleaseId.Text.Trim();
+            if (priorRelease == "") return;
+
+            var con =
+                new SqlConnection(
+                    "data source=eeisql1.empireelect.local;initial catalog=MONITOR;persist security info=True;user id=Andre");
+
+            try
+            {
+                string rowCount = "";
+
+                var cmd = new SqlCommand();
+                cmd.CommandText = "SELECT COUNT(1) AS cnt FROM EEIUser.acctg_csm_mid_model WHERE Release_ID = '" + priorRelease + "'";
+                cmd.CommandType = CommandType.Text;
+                cmd.Connection = con;
+                con.Open();
+
+                SqlDataReader reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    rowCount = reader[0].ToString();
+                }
+                reader.Close();
+
+                int iRowCount = Convert.ToInt32(rowCount);
+                if (iRowCount < 1) error = string.Format("The prior release ({0}) does not have any Mid Model data.", priorRelease);
+            }
+            catch (Exception)
+            {
+            }
+            finally
+            {
+                con.Close();
+                con.Dispose();
+            }
+        }
+
+        private int ImportMidModel(string release)
+        {
+            try
+            {
+                var format = DataFormats.CommaSeparatedValue;
+
+                // Read the clipboard for data copied from a spreadsheet
+                var dataObject = Clipboard.GetDataObject();
+                var stream = (System.IO.Stream)dataObject.GetData(format);
+                if (stream == null)
+                {
+                    _messageBox.Message = "Please copy spreadsheet data.";
+                    _messageBox.ShowDialog();
+                    return 0;
+                }
+                var encoding = new System.Text.UTF8Encoding();
+                var reader = new System.IO.StreamReader(stream, encoding);
+                string data = reader.ReadToEnd();
+
+                // Split the data into rows and loop through them
+                var rows = data.Split('\r');
+                foreach (var rowRaw in rows)
+                {
+                    // Exit if an empty row is found
+                    var row = rowRaw.Replace("\n", "");
+                    if (row == "\0") break;
+                    if (row == "") break;
+
+                    // Create an array of data fields
+                    string[] arry = row.Split(',');
+
+                    // Restart the loop if we are in one of the header rows
+                    if (arry[0] == "Concept" || arry[0] == "Regions" || arry[0] == "Date" || arry[0] == "V: Region" || arry[0] == "") continue;
+
+                    // Capture specific fields to use as parameters in checking if this data set has already been imported
+                    string platform = arry[2];
+                    string program = arry[3];
+                    string nameplate = arry[16];
+
+                    // Create the data string, cleaning the copied data if necessary
+                    string newRow = "'" + release + "',";
+                    foreach (var field in arry)
+                    {
+                        // Handle (escape) any single quotes within the fields
+                        string editedField = field.Replace("'", "''");
+
+                        // Wrap each field in single quotes and separate with commas
+                        string newField = "'" + editedField + "',";
+                        newRow += newField;
+                    }
+
+                    // Perform end of string correction
+                    int stringLength = newRow.Length;
+                    newRow = newRow.Remove(stringLength - 1, 1);
+
+                    // Insert a row of data into the raw table
+                    int result = InsertMidModelRaw(release, platform, program, nameplate, newRow);
+                    if (result == 0) return 0;
+                }
+            }
+            catch (Exception ex)
+            {
+                string error = (ex.InnerException == null) ? ex.Message : ex.InnerException.Message;
+                _messageBox.Message = "Import failed.  Exception thrown at ImportMidModel().  " + error;
+                _messageBox.ShowDialog();
+                return 0;
+            }
+            return 1;
+        }
+
+        private int InsertMidModelRaw(string release, string platform, string program, string nameplate, string values)
+        {
+            // Ignore any empty rows
+            var arr = values.Split(',');
+            if (arr[3] == "''") return 1;
+
+            var con =
+                new SqlConnection(
+                    "data source=eeisql1.empireelect.local;initial catalog=MONITOR;persist security info=True;user id=Andre");
+
+            try
+            {
+                var command = new SqlCommand("if not exists (" +
+                                            "select 1 from EEIUser.acctg_csm_mid_model mm " +
+                                            "where mm.Release_ID = '" + release + "' " +
+                                            "and mm.Platform = '" + platform + "' " +
+                                            "and mm.Program = '" + program + "' " +
+                                            "and mm.ProductionNameplate = '" + nameplate + "') " +
+                                            "begin " +
+                                            "insert into EEIUser.acctg_csm_mid_model_raw " +
+                                            "values (" +
+                                            values + ") end;",
+                                            con);
+
+                con.Open();
+                command.ExecuteNonQuery();
+                command.Dispose();
+            }
+            catch (Exception ex)
+            {
+                string error = (ex.InnerException != null) ? ex.InnerException.Message : ex.Message;
+                _messageBox.Message = "Import failed.  Exception thrown at InsertMidModelRaw().  " + error;
+                _messageBox.ShowDialog();
+                return 0;
+            }
+            finally
+            {
+                con.Close();
+                con.Dispose();
+            }
+            return 1;
+        }
+
+        private int InsertMidModel(string release)
+        {
+            var con =
+                new SqlConnection(
+                    "data source=eeisql1.empireelect.local;initial catalog=MONITOR;persist security info=True;user id=Andre");
+
+            try
+            {
+                var command = new SqlCommand("insert into EEIUser.acctg_csm_mid_model " +
+                            "(Release_ID, Region, DesignParent, [Platform], Program, Vehicle, " +
+                            "Sop, Eop, ChangeDate, ChangeType, Exterior, Interior, Engine, " +
+                            "Transmission, Chassis, Suspension, Location, ProductionNameplate, Brand) " +
+
+                            "select Release_ID, Region, DesignParent, [Platform], Program, Vehicle, " +
+                            "convert(datetime, (Sop + '-01')), convert(datetime, (Eop + '-01')), convert(datetime, ChangeDate), " + 
+                            "ChangeType, Exterior, Interior, Engine, Transmission, Chassis, Suspension, Location, ProductionNameplate, Brand " +
+                            "from EEIUser.acctg_csm_mid_model_raw " +
+                            "where Release_ID = '" + release + "';",
+                            con);
+
+                con.Open();
+                command.ExecuteNonQuery();
+                command.Dispose();
+            }
+            catch (Exception ex)
+            {
+                string error = (ex.InnerException != null) ? ex.InnerException.Message : ex.Message;
+                _messageBox.Message = "Import failed.  Exception thrown at InsertMidModel().  " + error;
+                _messageBox.ShowDialog();
+                return 0;
+            }
+            finally
+            {
+                con.Close();
+                con.Dispose();
+            }
+            return 1;
+        }
+
+        private int DeleteMidModelRaw()
+        {
+            var con =
+                new SqlConnection(
+                    "data source=eeisql1.empireelect.local;initial catalog=MONITOR;persist security info=True;user id=Andre");
+
+            try
+            {
+                var command = new SqlCommand("if exists (" +
+                                            "select 1 from EEIUser.acctg_csm_mid_model_raw) " +
+                                            "begin " +
+                                            "delete from EEIUser.acctg_csm_mid_model_raw " +
+                                            "end;",
+                                            con);
+
+                con.Open();
+                command.ExecuteNonQuery();
+                command.Dispose();
+            }
+            catch (Exception ex)
+            {
+                string error = (ex.InnerException != null) ? ex.InnerException.Message : ex.Message;
+                _messageBox.Message = "Import failed.  Exception thrown at DeleteMidModelRaw().  " + error;
+                _messageBox.ShowDialog();
+                return 0;
+            }
+            finally
+            {
+                con.Close();
+                con.Dispose();
+            }
+            return 1;
+        }
+
+        private void SendNewTimingAlert(string basePart, string newTiming, string priorTiming, string reason)
+        {
+            var con =
+                new SqlConnection(
+                    "data source=eeisql1.empireelect.local;initial catalog=MONITOR;persist security info=True;user id=Andre");
+
+            try
+            {
+                var command = new SqlCommand("exec FT.ftsp_EMailAlert_NewEopTiming '" + basePart + "', '" + newTiming + "', '" + priorTiming + "', '" + reason + "'", con);
+
+                con.Open();
+                command.ExecuteNonQuery();
+                command.Dispose();
+            }
+            catch (Exception)
+            {
+            }
+            finally
+            {
+                con.Close();
+                con.Dispose();
+            }
+        }
+
+        private int UpdateMidModelYear(string basePart, string midModel)
+        {
+            DateTime midModelYear = Convert.ToDateTime(midModel);
+
+            var con =
+                new SqlConnection(
+                    "data source=eeisql1.empireelect.local;initial catalog=MONITOR;persist security info=True;user id=Andre");
+
+            try
+            {
+                var command = new SqlCommand("UPDATE EEIUser.acctg_csm_base_part_attributes " +
+                                             "SET mid_model_year = '" + midModelYear + "' " +
+                                             "WHERE base_part = '" + basePart + "' " +
+                                             "AND release_id = ( select [dbo].[fn_ReturnLatestCSMRelease]('CSM') )",
+                                             con);
+
+                con.Open();
+                command.ExecuteNonQuery();
+                command.Dispose();
+            }
+            catch (Exception ex)
+            {
+                string error = (ex.InnerException != null) ? ex.InnerException.Message : ex.Message;
+                _messageBox.Message = "Import failed.  Exception thrown at UpdateMidModelYear().  " + error;
+                _messageBox.ShowDialog();
+                return 0;
+            }
+            finally
+            {
+                con.Close();
+                con.Dispose();
+            }
+            return 1;
+        }
+
+        #endregion
+
 
 
         #region Other Methods
@@ -1128,7 +1497,7 @@ namespace ImportCSM
                         currentYear = year;
                     }
 
-                    tbxCurrentReleaseId.Text = tbxCurrentDeltaReleaseId.Text = currentYear + '-' + currentMonth;
+                    tbxCurrentReleaseId.Text = tbxCurrentDeltaReleaseId.Text = tbxReleaseMidModel.Text = currentYear + '-' + currentMonth;
                 }
                 command.Dispose();
             }
@@ -1196,6 +1565,10 @@ namespace ImportCSM
                     lblCompleteCsmGc.Visible = true;
                     btnImportGreaterChina.Visible = false;
                     break;
+                case ClearTabs.ImportCsmGreaterChinaAndForecastClear:
+                    lblCompleteCsmGc.Visible = lblAutoForecast.Visible = true;
+                    btnImportGreaterChina.Visible = false;
+                    break;
                 case ClearTabs.ImportNaDeltaClear:
                     lblCompleteDeltaNa.Visible = true;
                     lblDeltaInstructions.Text = "2.  Import Greater China Delta.";
@@ -1214,188 +1587,12 @@ namespace ImportCSM
                     tbxHistoricalForecastName.Text = "";
                     tbxHistoricalForecastName.Focus();
                     break;
+                case ClearTabs.MidModelClear:
+                    lblCompleteMidModel.Visible = true;
+                    btnMidModel.Visible = false;
+                    break;
             }
         }
-
-        #endregion
-
-
-        #region Mid-model Year
-
-        private void btnMidModel_Click(object sender, EventArgs e)
-        {
-            Cursor.Current = Cursors.WaitCursor;
-            if (ImportMidModelYear() == 0) return;
-            Cursor.Current = Cursors.Default;
-
-            _messageBox.Message = "Success.";
-            _messageBox.ShowDialog();            
-        }
-
-        private int ImportMidModelYear()
-        {
-            try
-            {
-                var format = DataFormats.CommaSeparatedValue;
-
-                // Read the clipboard
-                var dataObject = Clipboard.GetDataObject();
-                var stream = (System.IO.Stream)dataObject.GetData(format);
-                if (stream == null)
-                {
-                    _messageBox.Message = "Please copy spreadsheet data.";
-                    _messageBox.ShowDialog();
-                    return 0;
-                }
-                var encoding = new System.Text.UTF8Encoding();
-                var reader = new System.IO.StreamReader(stream, encoding);
-                string data = reader.ReadToEnd();
-
-                var rows = data.Split('\r');
-                bool header = true;
-
-                // Loop through spreadsheet rows
-                foreach (var rowRaw in rows)
-                {
-                    var row = rowRaw.Replace("\n", "");
-                    if (row.Contains("\0")) break;
-                    if (row == "") break;
-
-                    int fieldCount = 0;
-                    string basePart = "";
-                    string newTiming = "";
-                    string priorTiming = "";
-                    string reason = "";
-                    string midModel = "";
-                    List<String> basePartNewTimingList = new List<string>();
-
-                    string[] arry = row.Split(',');
-                    foreach (var item in arry)
-                    {
-                        if (header)
-                        {
-                            if (item == "")
-                            {
-                                header = false;
-                                break;
-                            }
-                        }
-
-                        if (item == "parent_customer")
-                        {
-                            break;
-                        } 
-                        else
-                        {
-                            fieldCount++;
-
-                            if (fieldCount == 4) { basePart = item.ToString(); }
-                            if (fieldCount == 11) { newTiming = item.ToString(); }
-                            if (fieldCount == 12) { priorTiming = item.ToString(); }
-                            if (fieldCount == 13) { reason = item.ToString(); }
-                            if (fieldCount == 14) { midModel = item.ToString(); }
-
-                            if (fieldCount > 13 && newTiming != "")
-                            {
-                                string year = newTiming.Remove(0, 11);
-                                int len = year.Length;
-                                year = year.Remove(4, len - 4);
-                                int iYear = Convert.ToInt32(year);
-
-                                // If the EOP year of the new timing is the current year, send an email alert
-                                if (iYear == DateTime.Now.Year)
-                                {
-                                    if (!basePartNewTimingList.Contains(basePart))
-                                    {
-                                        // First instance of a new timing change for this base part, so send email alert
-                                        SendNewTimingAlert(basePart, newTiming, priorTiming, reason);
-
-                                        basePartNewTimingList.Add(basePart);
-                                    }
-                                }
-                            }
-
-                            if (basePart != "" && midModel != "")
-                            {
-                                if (UpdateMidModelYear(basePart, midModel) == 0) return 0;
-
-                                basePart = midModel = "";
-                            }
-                        }
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                string error = (ex.InnerException == null) ? ex.Message : ex.InnerException.Message;
-                _messageBox.Message = "Import failed.  Exception thwrown at ImportMidModelYear().  " + error;
-                _messageBox.ShowDialog();
-                return 0;
-            }
-            return 1;
-        }
-
-        private void SendNewTimingAlert(string basePart, string newTiming, string priorTiming, string reason)
-        {
-            var con =
-                new SqlConnection(
-                    "data source=eeisql1.empireelect.local;initial catalog=MONITOR;persist security info=True;user id=Andre");
-
-            try
-            {
-                var command = new SqlCommand("exec FT.ftsp_EMailAlert_NewEopTiming '" + basePart + "', '" + newTiming + "', '" + priorTiming + "', '" + reason + "'", con);
-
-                con.Open();
-                command.ExecuteNonQuery();
-                command.Dispose();
-            }
-            catch (Exception ex)
-            {
-            }
-            finally
-            {
-                con.Close();
-                con.Dispose();
-            }
-        }
-
-        private int UpdateMidModelYear(string basePart, string midModel)
-        {
-            DateTime midModelYear = Convert.ToDateTime(midModel);
-
-            var con =
-                new SqlConnection(
-                    "data source=eeisql1.empireelect.local;initial catalog=MONITOR;persist security info=True;user id=Andre");
-
-            try
-            {
-                var command = new SqlCommand("UPDATE EEIUser.acctg_csm_base_part_attributes " +
-                                             "SET mid_model_year = '" + midModelYear + "' " +
-                                             "WHERE base_part = '" + basePart + "' " +
-                                             "AND release_id = ( select [dbo].[fn_ReturnLatestCSMRelease]('CSM') )",
-                                             con);
-
-                con.Open();
-                command.ExecuteNonQuery();
-                command.Dispose();
-            }
-            catch (Exception ex)
-            {
-                string error = (ex.InnerException != null) ? ex.InnerException.Message : ex.Message;
-                _messageBox.Message = "Import failed.  Exception thrown at UpdateMidModelYear().  " + error;
-                _messageBox.ShowDialog();
-                return 0;
-            }
-            finally
-            {
-                con.Close();
-                con.Dispose();
-            }
-            return 1;
-        }
-
-
-
 
         #endregion
 

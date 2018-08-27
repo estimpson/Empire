@@ -41,6 +41,8 @@
             this.lblCompleteCsmNa = new System.Windows.Forms.Label();
             this.lblCompleteCsmRf = new System.Windows.Forms.Label();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.cbxImportNaCsm = new System.Windows.Forms.CheckBox();
+            this.cbxRollForward = new System.Windows.Forms.CheckBox();
             this.tbxPriorReleaseId = new System.Windows.Forms.TextBox();
             this.tbxCurrentReleaseId = new System.Windows.Forms.TextBox();
             this.btnImportGreaterChina = new System.Windows.Forms.Button();
@@ -53,6 +55,7 @@
             this.lblInstruction1B = new System.Windows.Forms.Label();
             this.lblInstruction1 = new System.Windows.Forms.Label();
             this.tpCsmDelta = new System.Windows.Forms.TabPage();
+            this.cbxNaDeltaImport = new System.Windows.Forms.CheckBox();
             this.lblCompleteDeltaGc = new System.Windows.Forms.Label();
             this.lblCompleteDeltaNa = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
@@ -97,9 +100,10 @@
             this.label25 = new System.Windows.Forms.Label();
             this.btnMidModel = new System.Windows.Forms.Button();
             this.label20 = new System.Windows.Forms.Label();
-            this.cbxRollForward = new System.Windows.Forms.CheckBox();
-            this.cbxImportNaCsm = new System.Windows.Forms.CheckBox();
-            this.cbxNaDeltaImport = new System.Windows.Forms.CheckBox();
+            this.lblAutoForecast = new System.Windows.Forms.Label();
+            this.label28 = new System.Windows.Forms.Label();
+            this.tbxReleaseMidModel = new System.Windows.Forms.TextBox();
+            this.lblCompleteMidModel = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tpCsm.SuspendLayout();
@@ -133,7 +137,7 @@
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.ForeColor = System.Drawing.Color.White;
-            this.label1.Location = new System.Drawing.Point(99, 7);
+            this.label1.Location = new System.Drawing.Point(29, 7);
             this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(247, 29);
@@ -184,12 +188,12 @@
             // 
             this.label18.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.label18.AutoSize = true;
-            this.label18.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label18.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label18.ForeColor = System.Drawing.Color.White;
-            this.label18.Location = new System.Drawing.Point(357, 14);
+            this.label18.Location = new System.Drawing.Point(290, 16);
             this.label18.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label18.Name = "label18";
-            this.label18.Size = new System.Drawing.Size(151, 20);
+            this.label18.Size = new System.Drawing.Size(133, 18);
             this.label18.TabIndex = 20;
             this.label18.Text = "Empire Electronics";
             // 
@@ -230,6 +234,7 @@
             // tpCsm
             // 
             this.tpCsm.BackColor = System.Drawing.Color.Black;
+            this.tpCsm.Controls.Add(this.lblAutoForecast);
             this.tpCsm.Controls.Add(this.lblCompleteCsmGc);
             this.tpCsm.Controls.Add(this.lblCompleteCsmNa);
             this.tpCsm.Controls.Add(this.lblCompleteCsmRf);
@@ -254,7 +259,7 @@
             this.lblCompleteCsmGc.AutoSize = true;
             this.lblCompleteCsmGc.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblCompleteCsmGc.ForeColor = System.Drawing.Color.SpringGreen;
-            this.lblCompleteCsmGc.Location = new System.Drawing.Point(72, 148);
+            this.lblCompleteCsmGc.Location = new System.Drawing.Point(57, 148);
             this.lblCompleteCsmGc.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblCompleteCsmGc.Name = "lblCompleteCsmGc";
             this.lblCompleteCsmGc.Size = new System.Drawing.Size(114, 20);
@@ -267,7 +272,7 @@
             this.lblCompleteCsmNa.AutoSize = true;
             this.lblCompleteCsmNa.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblCompleteCsmNa.ForeColor = System.Drawing.Color.SpringGreen;
-            this.lblCompleteCsmNa.Location = new System.Drawing.Point(72, 124);
+            this.lblCompleteCsmNa.Location = new System.Drawing.Point(57, 124);
             this.lblCompleteCsmNa.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblCompleteCsmNa.Name = "lblCompleteCsmNa";
             this.lblCompleteCsmNa.Size = new System.Drawing.Size(112, 20);
@@ -280,7 +285,7 @@
             this.lblCompleteCsmRf.AutoSize = true;
             this.lblCompleteCsmRf.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblCompleteCsmRf.ForeColor = System.Drawing.Color.SpringGreen;
-            this.lblCompleteCsmRf.Location = new System.Drawing.Point(72, 100);
+            this.lblCompleteCsmRf.Location = new System.Drawing.Point(57, 100);
             this.lblCompleteCsmRf.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblCompleteCsmRf.Name = "lblCompleteCsmRf";
             this.lblCompleteCsmRf.Size = new System.Drawing.Size(111, 20);
@@ -293,7 +298,7 @@
             this.tableLayoutPanel1.ColumnCount = 3;
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 200F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 200F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 430F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 641F));
             this.tableLayoutPanel1.Controls.Add(this.cbxImportNaCsm, 2, 3);
             this.tableLayoutPanel1.Controls.Add(this.lblPriorReleaseId, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.cbxRollForward, 2, 2);
@@ -313,6 +318,30 @@
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel1.Size = new System.Drawing.Size(1041, 268);
             this.tableLayoutPanel1.TabIndex = 27;
+            // 
+            // cbxImportNaCsm
+            // 
+            this.cbxImportNaCsm.AutoSize = true;
+            this.cbxImportNaCsm.ForeColor = System.Drawing.Color.White;
+            this.cbxImportNaCsm.Location = new System.Drawing.Point(403, 135);
+            this.cbxImportNaCsm.Name = "cbxImportNaCsm";
+            this.cbxImportNaCsm.Size = new System.Drawing.Size(420, 24);
+            this.cbxImportNaCsm.TabIndex = 32;
+            this.cbxImportNaCsm.Text = "NA import was previously completed for this release";
+            this.cbxImportNaCsm.UseVisualStyleBackColor = true;
+            this.cbxImportNaCsm.CheckedChanged += new System.EventHandler(this.cbxImportNaCsm_CheckedChanged);
+            // 
+            // cbxRollForward
+            // 
+            this.cbxRollForward.AutoSize = true;
+            this.cbxRollForward.ForeColor = System.Drawing.Color.White;
+            this.cbxRollForward.Location = new System.Drawing.Point(403, 77);
+            this.cbxRollForward.Name = "cbxRollForward";
+            this.cbxRollForward.Size = new System.Drawing.Size(435, 24);
+            this.cbxRollForward.TabIndex = 31;
+            this.cbxRollForward.Text = "Roll forward was previously completed for this release";
+            this.cbxRollForward.UseVisualStyleBackColor = true;
+            this.cbxRollForward.CheckedChanged += new System.EventHandler(this.cbxRollForward_CheckedChanged);
             // 
             // tbxPriorReleaseId
             // 
@@ -412,12 +441,12 @@
             // lblTitle
             // 
             this.lblTitle.AutoSize = true;
-            this.lblTitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblTitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblTitle.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(122)))), ((int)(((byte)(204)))));
-            this.lblTitle.Location = new System.Drawing.Point(71, 52);
+            this.lblTitle.Location = new System.Drawing.Point(56, 52);
             this.lblTitle.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblTitle.Name = "lblTitle";
-            this.lblTitle.Size = new System.Drawing.Size(195, 29);
+            this.lblTitle.Size = new System.Drawing.Size(230, 32);
             this.lblTitle.TabIndex = 22;
             this.lblTitle.Text = "Import CSM Data";
             // 
@@ -467,12 +496,24 @@
             this.tpCsmDelta.TabIndex = 1;
             this.tpCsmDelta.Text = "CSM Delta";
             // 
+            // cbxNaDeltaImport
+            // 
+            this.cbxNaDeltaImport.AutoSize = true;
+            this.cbxNaDeltaImport.ForeColor = System.Drawing.Color.White;
+            this.cbxNaDeltaImport.Location = new System.Drawing.Point(752, 263);
+            this.cbxNaDeltaImport.Name = "cbxNaDeltaImport";
+            this.cbxNaDeltaImport.Size = new System.Drawing.Size(465, 24);
+            this.cbxNaDeltaImport.TabIndex = 35;
+            this.cbxNaDeltaImport.Text = "NA Delta import was previously completed for this release";
+            this.cbxNaDeltaImport.UseVisualStyleBackColor = true;
+            this.cbxNaDeltaImport.CheckedChanged += new System.EventHandler(this.cbxNaDeltaImport_CheckedChanged);
+            // 
             // lblCompleteDeltaGc
             // 
             this.lblCompleteDeltaGc.AutoSize = true;
             this.lblCompleteDeltaGc.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblCompleteDeltaGc.ForeColor = System.Drawing.Color.SpringGreen;
-            this.lblCompleteDeltaGc.Location = new System.Drawing.Point(104, 121);
+            this.lblCompleteDeltaGc.Location = new System.Drawing.Point(97, 121);
             this.lblCompleteDeltaGc.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblCompleteDeltaGc.Name = "lblCompleteDeltaGc";
             this.lblCompleteDeltaGc.Size = new System.Drawing.Size(114, 20);
@@ -485,7 +526,7 @@
             this.lblCompleteDeltaNa.AutoSize = true;
             this.lblCompleteDeltaNa.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblCompleteDeltaNa.ForeColor = System.Drawing.Color.SpringGreen;
-            this.lblCompleteDeltaNa.Location = new System.Drawing.Point(104, 97);
+            this.lblCompleteDeltaNa.Location = new System.Drawing.Point(97, 97);
             this.lblCompleteDeltaNa.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblCompleteDeltaNa.Name = "lblCompleteDeltaNa";
             this.lblCompleteDeltaNa.Size = new System.Drawing.Size(112, 20);
@@ -568,12 +609,12 @@
             // label19
             // 
             this.label19.AutoSize = true;
-            this.label19.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label19.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label19.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(122)))), ((int)(((byte)(204)))));
-            this.label19.Location = new System.Drawing.Point(103, 52);
+            this.label19.Location = new System.Drawing.Point(96, 52);
             this.label19.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label19.Name = "label19";
-            this.label19.Size = new System.Drawing.Size(128, 29);
+            this.label19.Size = new System.Drawing.Size(151, 32);
             this.label19.TabIndex = 23;
             this.label19.Text = "CSM Delta";
             // 
@@ -585,7 +626,7 @@
             this.pnlDeltaImport.Location = new System.Drawing.Point(258, 209);
             this.pnlDeltaImport.Margin = new System.Windows.Forms.Padding(4);
             this.pnlDeltaImport.Name = "pnlDeltaImport";
-            this.pnlDeltaImport.Size = new System.Drawing.Size(457, 131);
+            this.pnlDeltaImport.Size = new System.Drawing.Size(487, 131);
             this.pnlDeltaImport.TabIndex = 19;
             // 
             // btnDeltaImport
@@ -594,7 +635,7 @@
             this.btnDeltaImport.Location = new System.Drawing.Point(240, 54);
             this.btnDeltaImport.Margin = new System.Windows.Forms.Padding(4);
             this.btnDeltaImport.Name = "btnDeltaImport";
-            this.btnDeltaImport.Size = new System.Drawing.Size(197, 50);
+            this.btnDeltaImport.Size = new System.Drawing.Size(228, 50);
             this.btnDeltaImport.TabIndex = 2;
             this.btnDeltaImport.Text = "Import NA Delta";
             this.btnDeltaImport.UseVisualStyleBackColor = true;
@@ -620,7 +661,7 @@
             this.tbxCurrentDeltaReleaseId.Location = new System.Drawing.Point(240, 14);
             this.tbxCurrentDeltaReleaseId.Margin = new System.Windows.Forms.Padding(4);
             this.tbxCurrentDeltaReleaseId.Name = "tbxCurrentDeltaReleaseId";
-            this.tbxCurrentDeltaReleaseId.Size = new System.Drawing.Size(197, 29);
+            this.tbxCurrentDeltaReleaseId.Size = new System.Drawing.Size(228, 29);
             this.tbxCurrentDeltaReleaseId.TabIndex = 1;
             // 
             // tpOfficialForecast
@@ -632,7 +673,7 @@
             this.tpOfficialForecast.Location = new System.Drawing.Point(4, 32);
             this.tpOfficialForecast.Margin = new System.Windows.Forms.Padding(4);
             this.tpOfficialForecast.Name = "tpOfficialForecast";
-            this.tpOfficialForecast.Size = new System.Drawing.Size(1175, 547);
+            this.tpOfficialForecast.Size = new System.Drawing.Size(1416, 547);
             this.tpOfficialForecast.TabIndex = 2;
             this.tpOfficialForecast.Text = "Official Forecast";
             // 
@@ -737,7 +778,7 @@
             this.tpHistoricalSales.Location = new System.Drawing.Point(4, 32);
             this.tpHistoricalSales.Margin = new System.Windows.Forms.Padding(4);
             this.tpHistoricalSales.Name = "tpHistoricalSales";
-            this.tpHistoricalSales.Size = new System.Drawing.Size(1175, 547);
+            this.tpHistoricalSales.Size = new System.Drawing.Size(1416, 547);
             this.tpHistoricalSales.TabIndex = 3;
             this.tpHistoricalSales.Text = "Historical Sales";
             // 
@@ -880,6 +921,9 @@
             // tabPage1
             // 
             this.tabPage1.BackColor = System.Drawing.Color.Black;
+            this.tabPage1.Controls.Add(this.lblCompleteMidModel);
+            this.tabPage1.Controls.Add(this.label28);
+            this.tabPage1.Controls.Add(this.tbxReleaseMidModel);
             this.tabPage1.Controls.Add(this.label2);
             this.tabPage1.Controls.Add(this.label17);
             this.tabPage1.Controls.Add(this.label21);
@@ -891,7 +935,7 @@
             this.tabPage1.Location = new System.Drawing.Point(4, 32);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(1175, 547);
+            this.tabPage1.Size = new System.Drawing.Size(1416, 547);
             this.tabPage1.TabIndex = 4;
             this.tabPage1.Text = "Mid-model year";
             // 
@@ -970,7 +1014,7 @@
             // btnMidModel
             // 
             this.btnMidModel.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnMidModel.Location = new System.Drawing.Point(370, 229);
+            this.btnMidModel.Location = new System.Drawing.Point(559, 264);
             this.btnMidModel.Margin = new System.Windows.Forms.Padding(4);
             this.btnMidModel.Name = "btnMidModel";
             this.btnMidModel.Size = new System.Drawing.Size(243, 50);
@@ -978,54 +1022,67 @@
             this.btnMidModel.Text = "Import Mid-model";
             this.btnMidModel.UseVisualStyleBackColor = true;
             this.btnMidModel.Click += new System.EventHandler(this.btnMidModel_Click);
+            this.btnMidModel.MouseDown += new System.Windows.Forms.MouseEventHandler(this.btnMidModel_MouseDown);
             // 
             // label20
             // 
             this.label20.AutoSize = true;
-            this.label20.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label20.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label20.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(122)))), ((int)(((byte)(204)))));
-            this.label20.Location = new System.Drawing.Point(108, 53);
+            this.label20.Location = new System.Drawing.Point(97, 53);
             this.label20.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label20.Name = "label20";
-            this.label20.Size = new System.Drawing.Size(186, 29);
+            this.label20.Size = new System.Drawing.Size(215, 32);
             this.label20.TabIndex = 26;
             this.label20.Text = "Mid-model Year";
             // 
-            // cbxRollForward
+            // lblAutoForecast
             // 
-            this.cbxRollForward.AutoSize = true;
-            this.cbxRollForward.ForeColor = System.Drawing.Color.White;
-            this.cbxRollForward.Location = new System.Drawing.Point(403, 77);
-            this.cbxRollForward.Name = "cbxRollForward";
-            this.cbxRollForward.Size = new System.Drawing.Size(435, 24);
-            this.cbxRollForward.TabIndex = 31;
-            this.cbxRollForward.Text = "Roll forward was previously completed for this release";
-            this.cbxRollForward.UseVisualStyleBackColor = true;
-            this.cbxRollForward.CheckedChanged += new System.EventHandler(this.cbxRollForward_CheckedChanged);
+            this.lblAutoForecast.AutoSize = true;
+            this.lblAutoForecast.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblAutoForecast.ForeColor = System.Drawing.Color.SpringGreen;
+            this.lblAutoForecast.Location = new System.Drawing.Point(58, 172);
+            this.lblAutoForecast.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblAutoForecast.Name = "lblAutoForecast";
+            this.lblAutoForecast.Size = new System.Drawing.Size(155, 20);
+            this.lblAutoForecast.TabIndex = 31;
+            this.lblAutoForecast.Text = "Forecast Complete.";
+            this.lblAutoForecast.Visible = false;
             // 
-            // cbxImportNaCsm
+            // label28
             // 
-            this.cbxImportNaCsm.AutoSize = true;
-            this.cbxImportNaCsm.ForeColor = System.Drawing.Color.White;
-            this.cbxImportNaCsm.Location = new System.Drawing.Point(403, 135);
-            this.cbxImportNaCsm.Name = "cbxImportNaCsm";
-            this.cbxImportNaCsm.Size = new System.Drawing.Size(420, 24);
-            this.cbxImportNaCsm.TabIndex = 32;
-            this.cbxImportNaCsm.Text = "NA import was previously completed for this release";
-            this.cbxImportNaCsm.UseVisualStyleBackColor = true;
-            this.cbxImportNaCsm.CheckedChanged += new System.EventHandler(this.cbxImportNaCsm_CheckedChanged);
+            this.label28.AutoSize = true;
+            this.label28.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label28.ForeColor = System.Drawing.Color.White;
+            this.label28.Location = new System.Drawing.Point(368, 231);
+            this.label28.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label28.Name = "label28";
+            this.label28.Size = new System.Drawing.Size(173, 24);
+            this.label28.TabIndex = 34;
+            this.label28.Text = "Current Release ID:";
             // 
-            // cbxNaDeltaImport
+            // tbxReleaseMidModel
             // 
-            this.cbxNaDeltaImport.AutoSize = true;
-            this.cbxNaDeltaImport.ForeColor = System.Drawing.Color.White;
-            this.cbxNaDeltaImport.Location = new System.Drawing.Point(722, 263);
-            this.cbxNaDeltaImport.Name = "cbxNaDeltaImport";
-            this.cbxNaDeltaImport.Size = new System.Drawing.Size(465, 24);
-            this.cbxNaDeltaImport.TabIndex = 35;
-            this.cbxNaDeltaImport.Text = "NA Delta import was previously completed for this release";
-            this.cbxNaDeltaImport.UseVisualStyleBackColor = true;
-            this.cbxNaDeltaImport.CheckedChanged += new System.EventHandler(this.cbxNaDeltaImport_CheckedChanged);
+            this.tbxReleaseMidModel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.tbxReleaseMidModel.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tbxReleaseMidModel.Location = new System.Drawing.Point(559, 227);
+            this.tbxReleaseMidModel.Margin = new System.Windows.Forms.Padding(4);
+            this.tbxReleaseMidModel.Name = "tbxReleaseMidModel";
+            this.tbxReleaseMidModel.Size = new System.Drawing.Size(243, 29);
+            this.tbxReleaseMidModel.TabIndex = 33;
+            // 
+            // lblCompleteMidModel
+            // 
+            this.lblCompleteMidModel.AutoSize = true;
+            this.lblCompleteMidModel.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblCompleteMidModel.ForeColor = System.Drawing.Color.SpringGreen;
+            this.lblCompleteMidModel.Location = new System.Drawing.Point(99, 97);
+            this.lblCompleteMidModel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblCompleteMidModel.Name = "lblCompleteMidModel";
+            this.lblCompleteMidModel.Size = new System.Drawing.Size(117, 20);
+            this.lblCompleteMidModel.TabIndex = 35;
+            this.lblCompleteMidModel.Text = "MM Complete.";
+            this.lblCompleteMidModel.Visible = false;
             // 
             // formMain
             // 
@@ -1141,6 +1198,10 @@
         private System.Windows.Forms.CheckBox cbxImportNaCsm;
         private System.Windows.Forms.CheckBox cbxRollForward;
         private System.Windows.Forms.CheckBox cbxNaDeltaImport;
+        private System.Windows.Forms.Label lblAutoForecast;
+        private System.Windows.Forms.Label label28;
+        private System.Windows.Forms.TextBox tbxReleaseMidModel;
+        private System.Windows.Forms.Label lblCompleteMidModel;
     }
 }
 
