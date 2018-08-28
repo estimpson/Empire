@@ -16,6 +16,15 @@ warning 6002: The table/view 'MONITOR.EEIUser.QL_QuoteTransfer_AwardedQuoteNumbe
           <Property Name="EEIPartNumber" Type="varchar" MaxLength="50" />
           <Property Name="RowID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
         </EntityType>
+        <Function Name="usp_QL_GetQuoteTransfers" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="EEIUser" />
+        <Function Name="usp_QL_NewQuoteTransfer" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="EEIUser">
+          <Parameter Name="User" Type="varchar" Mode="In" />
+          <Parameter Name="QuoteNumber" Type="varchar" Mode="In" />
+          <Parameter Name="TranDT" Type="datetime" Mode="InOut" />
+          <Parameter Name="Result" Type="int" Mode="InOut" />
+          <Parameter Name="Debug" Type="int" Mode="In" />
+          <Parameter Name="DebugMsg" Type="varchar(max)" Mode="InOut" />
+        </Function>
         <Function Name="usp_QL_QuoteTransfer_Complete_UpdateSendEmail" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="EEIUser">
           <Parameter Name="OperatorCode" Type="varchar" Mode="In" />
           <Parameter Name="QuoteNumber" Type="varchar" Mode="In" />
@@ -313,6 +322,15 @@ warning 6002: The table/view 'MONITOR.EEIUser.QL_QuoteTransfer_AwardedQuoteNumbe
             <Parameter Name="TranDT" Mode="InOut" Type="DateTime" />
             <Parameter Name="Result" Mode="InOut" Type="Int32" />
           </FunctionImport>
+          <FunctionImport Name="usp_QL_GetQuoteTransfers" ReturnType="Collection(MONITORModel5.usp_QL_GetQuoteTransfers_Result)" />
+          <FunctionImport Name="usp_QL_NewQuoteTransfer">
+            <Parameter Name="User" Mode="In" Type="String" />
+            <Parameter Name="QuoteNumber" Mode="In" Type="String" />
+            <Parameter Name="TranDT" Mode="InOut" Type="DateTime" />
+            <Parameter Name="Result" Mode="InOut" Type="Int32" />
+            <Parameter Name="Debug" Mode="In" Type="Int32" />
+            <Parameter Name="DebugMsg" Mode="InOut" Type="String" />
+          </FunctionImport>
         </EntityContainer>
         <ComplexType Name="usp_QL_QuoteTransfer_GetDocumentation_Result">
           <Property Type="String" Name="Description" Nullable="true" MaxLength="250" />
@@ -399,6 +417,32 @@ warning 6002: The table/view 'MONITOR.EEIUser.QL_QuoteTransfer_AwardedQuoteNumbe
           <Property Type="DateTime" Name="SignOffDate" Nullable="true" Precision="23" />
           <Property Type="String" Name="Initials" Nullable="true" MaxLength="3" />
           <Property Type="String" Name="EmployeeName" Nullable="true" MaxLength="40" />
+        </ComplexType>
+        <ComplexType Name="usp_QL_GetQuoteTransfers_Result">
+          <Property Type="String" Name="QuoteNumber" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Customer" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="EmpirePartNumber" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="CustomerPartNumber" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Program" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Application" Nullable="true" MaxLength="255" />
+          <Property Type="Decimal" Name="FinancialEau" Nullable="true" Precision="20" Scale="0" />
+          <Property Type="Decimal" Name="CapacityEau" Nullable="true" Precision="23" Scale="1" />
+          <Property Type="String" Name="Salesman" Nullable="true" MaxLength="51" />
+          <Property Type="String" Name="QuoteEngineer" Nullable="true" MaxLength="51" />
+          <Property Type="String" Name="ProgramManager" Nullable="true" MaxLength="51" />
+          <Property Type="Decimal" Name="SalesPrice" Nullable="true" Precision="20" Scale="4" />
+          <Property Type="Decimal" Name="LtaYear1" Nullable="true" Precision="38" Scale="4" />
+          <Property Type="Decimal" Name="LtaYear2" Nullable="true" Precision="38" Scale="4" />
+          <Property Type="Decimal" Name="LtaYear3" Nullable="true" Precision="38" Scale="4" />
+          <Property Type="Decimal" Name="LtaYear4" Nullable="true" Precision="38" Scale="4" />
+          <Property Type="Decimal" Name="PrototypePrice" Nullable="true" Precision="20" Scale="2" />
+          <Property Type="Int32" Name="MinimumOrderQuantity" Nullable="true" />
+          <Property Type="Decimal" Name="Material" Nullable="true" Precision="20" Scale="6" />
+          <Property Type="Decimal" Name="Labor" Nullable="true" Precision="20" Scale="4" />
+          <Property Type="Decimal" Name="Tooling" Nullable="true" Precision="20" Scale="0" />
+          <Property Type="DateTime" Name="SOP" Nullable="true" Precision="23" />
+          <Property Type="DateTime" Name="EOP" Nullable="true" Precision="23" />
+          <Property Type="String" Name="QuoteTransferComplete" Nullable="true" MaxLength="1" />
         </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
@@ -540,6 +584,37 @@ warning 6002: The table/view 'MONITOR.EEIUser.QL_QuoteTransfer_AwardedQuoteNumbe
             </ResultMapping>
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="usp_QL_QuoteTransfer_Complete_UpdateSendEmail" FunctionName="MONITORModel5.Store.usp_QL_QuoteTransfer_Complete_UpdateSendEmail" />
+          <FunctionImportMapping FunctionImportName="usp_QL_GetQuoteTransfers" FunctionName="MONITORModel5.Store.usp_QL_GetQuoteTransfers">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="MONITORModel5.usp_QL_GetQuoteTransfers_Result">
+                <ScalarProperty Name="QuoteNumber" ColumnName="QuoteNumber" />
+                <ScalarProperty Name="Customer" ColumnName="Customer" />
+                <ScalarProperty Name="EmpirePartNumber" ColumnName="EmpirePartNumber" />
+                <ScalarProperty Name="CustomerPartNumber" ColumnName="CustomerPartNumber" />
+                <ScalarProperty Name="Program" ColumnName="Program" />
+                <ScalarProperty Name="Application" ColumnName="Application" />
+                <ScalarProperty Name="FinancialEau" ColumnName="FinancialEau" />
+                <ScalarProperty Name="CapacityEau" ColumnName="CapacityEau" />
+                <ScalarProperty Name="Salesman" ColumnName="Salesman" />
+                <ScalarProperty Name="QuoteEngineer" ColumnName="QuoteEngineer" />
+                <ScalarProperty Name="ProgramManager" ColumnName="ProgramManager" />
+                <ScalarProperty Name="SalesPrice" ColumnName="SalesPrice" />
+                <ScalarProperty Name="LtaYear1" ColumnName="LtaYear1" />
+                <ScalarProperty Name="LtaYear2" ColumnName="LtaYear2" />
+                <ScalarProperty Name="LtaYear3" ColumnName="LtaYear3" />
+                <ScalarProperty Name="LtaYear4" ColumnName="LtaYear4" />
+                <ScalarProperty Name="PrototypePrice" ColumnName="PrototypePrice" />
+                <ScalarProperty Name="MinimumOrderQuantity" ColumnName="MinimumOrderQuantity" />
+                <ScalarProperty Name="Material" ColumnName="Material" />
+                <ScalarProperty Name="Labor" ColumnName="Labor" />
+                <ScalarProperty Name="Tooling" ColumnName="Tooling" />
+                <ScalarProperty Name="SOP" ColumnName="SOP" />
+                <ScalarProperty Name="EOP" ColumnName="EOP" />
+                <ScalarProperty Name="QuoteTransferComplete" ColumnName="QuoteTransferComplete" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="usp_QL_NewQuoteTransfer" FunctionName="MONITORModel5.Store.usp_QL_NewQuoteTransfer" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

@@ -361,5 +361,27 @@ namespace WebPortal.QuoteLogIntegration.Models
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("usp_QL_QuoteTransfer_Complete_UpdateSendEmail", operatorCodeParameter, quoteNumberParameter, completeParameter, completedDateParameter, tranDT, result);
         }
+    
+        public virtual ObjectResult<usp_QL_GetQuoteTransfers_Result> usp_QL_GetQuoteTransfers()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_QL_GetQuoteTransfers_Result>("usp_QL_GetQuoteTransfers");
+        }
+    
+        public virtual int usp_QL_NewQuoteTransfer(string user, string quoteNumber, ObjectParameter tranDT, ObjectParameter result, Nullable<int> debug, ObjectParameter debugMsg)
+        {
+            var userParameter = user != null ?
+                new ObjectParameter("User", user) :
+                new ObjectParameter("User", typeof(string));
+    
+            var quoteNumberParameter = quoteNumber != null ?
+                new ObjectParameter("QuoteNumber", quoteNumber) :
+                new ObjectParameter("QuoteNumber", typeof(string));
+    
+            var debugParameter = debug.HasValue ?
+                new ObjectParameter("Debug", debug) :
+                new ObjectParameter("Debug", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("usp_QL_NewQuoteTransfer", userParameter, quoteNumberParameter, tranDT, result, debugParameter, debugMsg);
+        }
     }
 }

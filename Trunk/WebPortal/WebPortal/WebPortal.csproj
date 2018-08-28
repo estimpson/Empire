@@ -247,6 +247,7 @@
     <Content Include="QuoteLogIntegration\Pages\QuoteDocument.aspx" />
     <Content Include="QuoteLogIntegration\Pages\QuoteTransfer.aspx" />
     <Content Include="QuoteLogIntegration\Pages\QuoteTransferFileUpload.aspx" />
+    <Content Include="QuoteLogIntegration\Pages\QuoteTransferList.aspx" />
     <Content Include="SalesForecast\Models\ModelSalesForecast.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>ModelSalesForecast.edmx</DependentUpon>
@@ -712,6 +713,9 @@
     <Compile Include="QuoteLogIntegration\Models\QL_QuoteTransfer_AwardedQuoteNumbers.cs">
       <DependentUpon>ModelQuoteTransfer.tt</DependentUpon>
     </Compile>
+    <Compile Include="QuoteLogIntegration\Models\usp_QL_GetQuoteTransfers_Result.cs">
+      <DependentUpon>ModelQuoteTransfer.tt</DependentUpon>
+    </Compile>
     <Compile Include="QuoteLogIntegration\Models\usp_QL_QuoteTransfer_GetCustomerContacts_Result.cs">
       <DependentUpon>ModelQuoteTransfer.tt</DependentUpon>
     </Compile>
@@ -782,10 +786,18 @@
     <Compile Include="QuoteLogIntegration\Pages\QuoteTransferFileUpload.aspx.designer.cs">
       <DependentUpon>QuoteTransferFileUpload.aspx</DependentUpon>
     </Compile>
+    <Compile Include="QuoteLogIntegration\Pages\QuoteTransferList.aspx.cs">
+      <DependentUpon>QuoteTransferList.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="QuoteLogIntegration\Pages\QuoteTransferList.aspx.designer.cs">
+      <DependentUpon>QuoteTransferList.aspx</DependentUpon>
+    </Compile>
     <Compile Include="QuoteLogIntegration\PageViewModels\MarketSegmentSubsegmentViewModel.cs" />
     <Compile Include="QuoteLogIntegration\PageViewModels\NewCustomerViewModel.cs" />
     <Compile Include="QuoteLogIntegration\PageViewModels\QtCustomerContactsViewModel.cs" />
     <Compile Include="QuoteLogIntegration\PageViewModels\QtDocumentationViewModel.cs" />
+    <Compile Include="QuoteLogIntegration\PageViewModels\QtQuoteTransferViewModel.cs" />
     <Compile Include="QuoteLogIntegration\PageViewModels\QtQuoteViewModel.cs" />
     <Compile Include="QuoteLogIntegration\PageViewModels\QtSignOffViewModel.cs" />
     <Compile Include="QuoteLogIntegration\PageViewModels\QtSpecialReqNotesViewModel.cs" />
