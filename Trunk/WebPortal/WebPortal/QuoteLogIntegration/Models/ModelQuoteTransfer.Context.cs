@@ -47,31 +47,6 @@ namespace WebPortal.QuoteLogIntegration.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_QL_QuoteTransfer_GetQuote_Result>("usp_QL_QuoteTransfer_GetQuote", quoteNumberParameter, tranDT, result);
         }
     
-        public virtual int usp_QL_QuoteTransfer_ToolingBreakdown_Insert(string operatorCode, string quoteNumber, string description, Nullable<int> quantity, Nullable<decimal> value, ObjectParameter tranDT, ObjectParameter result)
-        {
-            var operatorCodeParameter = operatorCode != null ?
-                new ObjectParameter("OperatorCode", operatorCode) :
-                new ObjectParameter("OperatorCode", typeof(string));
-    
-            var quoteNumberParameter = quoteNumber != null ?
-                new ObjectParameter("QuoteNumber", quoteNumber) :
-                new ObjectParameter("QuoteNumber", typeof(string));
-    
-            var descriptionParameter = description != null ?
-                new ObjectParameter("Description", description) :
-                new ObjectParameter("Description", typeof(string));
-    
-            var quantityParameter = quantity.HasValue ?
-                new ObjectParameter("Quantity", quantity) :
-                new ObjectParameter("Quantity", typeof(int));
-    
-            var valueParameter = value.HasValue ?
-                new ObjectParameter("Value", value) :
-                new ObjectParameter("Value", typeof(decimal));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("usp_QL_QuoteTransfer_ToolingBreakdown_Insert", operatorCodeParameter, quoteNumberParameter, descriptionParameter, quantityParameter, valueParameter, tranDT, result);
-        }
-    
         public virtual int usp_QL_QuoteTransfer_ToolingBreakdown_Update(string operatorCode, Nullable<int> id, string description, Nullable<int> quantity, Nullable<decimal> value, ObjectParameter tranDT, ObjectParameter result)
         {
             var operatorCodeParameter = operatorCode != null ?
@@ -108,19 +83,6 @@ namespace WebPortal.QuoteLogIntegration.Models
                 new ObjectParameter("Id", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("usp_QL_QuoteTransfer_ToolingBreakdown_Delete", operatorCodeParameter, idParameter, tranDT, result);
-        }
-    
-        public virtual int usp_QL_QuoteTransfer_CustomerContacts_Insert(string operatorCode, string quoteNumber, ObjectParameter tranDT, ObjectParameter result)
-        {
-            var operatorCodeParameter = operatorCode != null ?
-                new ObjectParameter("OperatorCode", operatorCode) :
-                new ObjectParameter("OperatorCode", typeof(string));
-    
-            var quoteNumberParameter = quoteNumber != null ?
-                new ObjectParameter("QuoteNumber", quoteNumber) :
-                new ObjectParameter("QuoteNumber", typeof(string));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("usp_QL_QuoteTransfer_CustomerContacts_Insert", operatorCodeParameter, quoteNumberParameter, tranDT, result);
         }
     
         public virtual int usp_QL_QuoteTransfer_CustomerContacts_Update(string operatorCode, Nullable<int> id, string firstName, string lastName, string phoneNumber, string faxNumber, string emailAddress, ObjectParameter tranDT, ObjectParameter result)
@@ -163,19 +125,6 @@ namespace WebPortal.QuoteLogIntegration.Models
                 new ObjectParameter("QuoteNumber", typeof(string));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_QL_QuoteTransfer_GetCustomerContacts_Result>("usp_QL_QuoteTransfer_GetCustomerContacts", quoteNumberParameter, tranDT, result);
-        }
-    
-        public virtual int usp_QL_QuoteTransfer_SpecialReqNotes_Insert(string operatorCode, string quoteNumber, ObjectParameter tranDT, ObjectParameter result)
-        {
-            var operatorCodeParameter = operatorCode != null ?
-                new ObjectParameter("OperatorCode", operatorCode) :
-                new ObjectParameter("OperatorCode", typeof(string));
-    
-            var quoteNumberParameter = quoteNumber != null ?
-                new ObjectParameter("QuoteNumber", quoteNumber) :
-                new ObjectParameter("QuoteNumber", typeof(string));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("usp_QL_QuoteTransfer_SpecialReqNotes_Insert", operatorCodeParameter, quoteNumberParameter, tranDT, result);
         }
     
         public virtual int usp_QL_QuoteTransfer_SpecialReqNotes_Update(string operatorCode, Nullable<int> id, string answer, string notes, ObjectParameter tranDT, ObjectParameter result)
@@ -264,19 +213,6 @@ namespace WebPortal.QuoteLogIntegration.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_QL_QuoteTransfer_GetSignOffInitials_Result>("usp_QL_QuoteTransfer_GetSignOffInitials", typeParameter, tranDT, result);
         }
     
-        public virtual int usp_QL_QuoteTransfer_SignOff_Insert(string operatorCode, string quoteNumber, ObjectParameter tranDT, ObjectParameter result)
-        {
-            var operatorCodeParameter = operatorCode != null ?
-                new ObjectParameter("OperatorCode", operatorCode) :
-                new ObjectParameter("OperatorCode", typeof(string));
-    
-            var quoteNumberParameter = quoteNumber != null ?
-                new ObjectParameter("QuoteNumber", quoteNumber) :
-                new ObjectParameter("QuoteNumber", typeof(string));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("usp_QL_QuoteTransfer_SignOff_Insert", operatorCodeParameter, quoteNumberParameter, tranDT, result);
-        }
-    
         public virtual ObjectResult<usp_QL_QuoteTransfer_GetToolingBreakdown_Result> usp_QL_QuoteTransfer_GetToolingBreakdown(string quoteNumber, ObjectParameter tranDT, ObjectParameter result)
         {
             var quoteNumberParameter = quoteNumber != null ?
@@ -284,27 +220,6 @@ namespace WebPortal.QuoteLogIntegration.Models
                 new ObjectParameter("QuoteNumber", typeof(string));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_QL_QuoteTransfer_GetToolingBreakdown_Result>("usp_QL_QuoteTransfer_GetToolingBreakdown", quoteNumberParameter, tranDT, result);
-        }
-    
-        public virtual int usp_QL_QuoteTransfer_Documentation_Insert(string operatorCode, string quoteNumber, string description, string answer, ObjectParameter tranDT, ObjectParameter result)
-        {
-            var operatorCodeParameter = operatorCode != null ?
-                new ObjectParameter("OperatorCode", operatorCode) :
-                new ObjectParameter("OperatorCode", typeof(string));
-    
-            var quoteNumberParameter = quoteNumber != null ?
-                new ObjectParameter("QuoteNumber", quoteNumber) :
-                new ObjectParameter("QuoteNumber", typeof(string));
-    
-            var descriptionParameter = description != null ?
-                new ObjectParameter("Description", description) :
-                new ObjectParameter("Description", typeof(string));
-    
-            var answerParameter = answer != null ?
-                new ObjectParameter("Answer", answer) :
-                new ObjectParameter("Answer", typeof(string));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("usp_QL_QuoteTransfer_Documentation_Insert", operatorCodeParameter, quoteNumberParameter, descriptionParameter, answerParameter, tranDT, result);
         }
     
         public virtual int usp_QL_QuoteTransfer_SignOff_Update(string operatorCode, Nullable<int> id, string employeeCode, string initials, Nullable<System.DateTime> signOffDate, ObjectParameter tranDT, ObjectParameter result)
@@ -382,6 +297,52 @@ namespace WebPortal.QuoteLogIntegration.Models
                 new ObjectParameter("Debug", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("usp_QL_NewQuoteTransfer", userParameter, quoteNumberParameter, tranDT, result, debugParameter, debugMsg);
+        }
+    
+        public virtual int usp_QL_QuoteTransfer_Documentation_Insert(string operatorCode, string quoteNumber, string description, string answer, ObjectParameter tranDT, ObjectParameter result)
+        {
+            var operatorCodeParameter = operatorCode != null ?
+                new ObjectParameter("OperatorCode", operatorCode) :
+                new ObjectParameter("OperatorCode", typeof(string));
+    
+            var quoteNumberParameter = quoteNumber != null ?
+                new ObjectParameter("QuoteNumber", quoteNumber) :
+                new ObjectParameter("QuoteNumber", typeof(string));
+    
+            var descriptionParameter = description != null ?
+                new ObjectParameter("Description", description) :
+                new ObjectParameter("Description", typeof(string));
+    
+            var answerParameter = answer != null ?
+                new ObjectParameter("Answer", answer) :
+                new ObjectParameter("Answer", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("usp_QL_QuoteTransfer_Documentation_Insert", operatorCodeParameter, quoteNumberParameter, descriptionParameter, answerParameter, tranDT, result);
+        }
+    
+        public virtual int usp_QL_QuoteTransfer_ToolingBreakdown_Insert(string operatorCode, string quoteNumber, string description, Nullable<int> quantity, Nullable<decimal> value, ObjectParameter tranDT, ObjectParameter result)
+        {
+            var operatorCodeParameter = operatorCode != null ?
+                new ObjectParameter("OperatorCode", operatorCode) :
+                new ObjectParameter("OperatorCode", typeof(string));
+    
+            var quoteNumberParameter = quoteNumber != null ?
+                new ObjectParameter("QuoteNumber", quoteNumber) :
+                new ObjectParameter("QuoteNumber", typeof(string));
+    
+            var descriptionParameter = description != null ?
+                new ObjectParameter("Description", description) :
+                new ObjectParameter("Description", typeof(string));
+    
+            var quantityParameter = quantity.HasValue ?
+                new ObjectParameter("Quantity", quantity) :
+                new ObjectParameter("Quantity", typeof(int));
+    
+            var valueParameter = value.HasValue ?
+                new ObjectParameter("Value", value) :
+                new ObjectParameter("Value", typeof(decimal));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("usp_QL_QuoteTransfer_ToolingBreakdown_Insert", operatorCodeParameter, quoteNumberParameter, descriptionParameter, quantityParameter, valueParameter, tranDT, result);
         }
     }
 }

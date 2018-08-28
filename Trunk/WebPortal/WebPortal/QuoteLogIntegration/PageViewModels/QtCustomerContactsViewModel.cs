@@ -47,29 +47,6 @@ namespace WebPortal.QuoteLogIntegration.PageViewModels
             return contactList;
         }
 
-        public void CustomerContactsInsert()
-        {
-            ObjectParameter tranDT = new ObjectParameter("TranDT", typeof(DateTime?));
-            ObjectParameter result = new ObjectParameter("Result", typeof(Int32?));
-            Error = "";
-
-            string quote = (System.Web.HttpContext.Current.Session["Quote"] != null)
-                ? quote = System.Web.HttpContext.Current.Session["Quote"].ToString()
-                : "";
-
-            try
-            {
-                using (var context = new MONITOREntitiesQuoteLogIntegrationQuoteTransfer())
-                {
-                    context.usp_QL_QuoteTransfer_CustomerContacts_Insert(OperatorCode, quote, tranDT, result);
-                }
-            }
-            catch (Exception ex)
-            {
-                Error = (ex.InnerException != null) ? ex.InnerException.Message : ex.Message;
-            }
-        }
-
         public void CustomerContactsUpdate(usp_QL_QuoteTransfer_GetCustomerContacts_Result u)
         {
             ObjectParameter tranDT = new ObjectParameter("TranDT", typeof(DateTime?));

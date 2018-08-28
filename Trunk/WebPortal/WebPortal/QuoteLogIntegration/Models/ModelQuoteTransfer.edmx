@@ -33,12 +33,6 @@ warning 6002: The table/view 'MONITOR.EEIUser.QL_QuoteTransfer_AwardedQuoteNumbe
           <Parameter Name="TranDT" Type="datetime" Mode="InOut" />
           <Parameter Name="Result" Type="int" Mode="InOut" />
         </Function>
-        <Function Name="usp_QL_QuoteTransfer_CustomerContacts_Insert" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="EEIUser">
-          <Parameter Name="OperatorCode" Type="varchar" Mode="In" />
-          <Parameter Name="QuoteNumber" Type="varchar" Mode="In" />
-          <Parameter Name="TranDT" Type="datetime" Mode="InOut" />
-          <Parameter Name="Result" Type="int" Mode="InOut" />
-        </Function>
         <Function Name="usp_QL_QuoteTransfer_CustomerContacts_Update" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="EEIUser">
           <Parameter Name="OperatorCode" Type="varchar" Mode="In" />
           <Parameter Name="Id" Type="int" Mode="In" />
@@ -93,24 +87,12 @@ warning 6002: The table/view 'MONITOR.EEIUser.QL_QuoteTransfer_AwardedQuoteNumbe
           <Parameter Name="TranDT" Type="datetime" Mode="InOut" />
           <Parameter Name="Result" Type="int" Mode="InOut" />
         </Function>
-        <Function Name="usp_QL_QuoteTransfer_SignOff_Insert" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="EEIUser">
-          <Parameter Name="OperatorCode" Type="varchar" Mode="In" />
-          <Parameter Name="QuoteNumber" Type="varchar" Mode="In" />
-          <Parameter Name="TranDT" Type="datetime" Mode="InOut" />
-          <Parameter Name="Result" Type="int" Mode="InOut" />
-        </Function>
         <Function Name="usp_QL_QuoteTransfer_SignOff_Update" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="EEIUser">
           <Parameter Name="OperatorCode" Type="varchar" Mode="In" />
           <Parameter Name="Id" Type="int" Mode="In" />
           <Parameter Name="EmployeeCode" Type="varchar" Mode="In" />
           <Parameter Name="Initials" Type="varchar" Mode="In" />
           <Parameter Name="SignOffDate" Type="datetime" Mode="In" />
-          <Parameter Name="TranDT" Type="datetime" Mode="InOut" />
-          <Parameter Name="Result" Type="int" Mode="InOut" />
-        </Function>
-        <Function Name="usp_QL_QuoteTransfer_SpecialReqNotes_Insert" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="EEIUser">
-          <Parameter Name="OperatorCode" Type="varchar" Mode="In" />
-          <Parameter Name="QuoteNumber" Type="varchar" Mode="In" />
           <Parameter Name="TranDT" Type="datetime" Mode="InOut" />
           <Parameter Name="Result" Type="int" Mode="InOut" />
         </Function>
@@ -190,15 +172,6 @@ warning 6002: The table/view 'MONITOR.EEIUser.QL_QuoteTransfer_AwardedQuoteNumbe
             <Parameter Name="TranDT" Mode="InOut" Type="DateTime" />
             <Parameter Name="Result" Mode="InOut" Type="Int32" />
           </FunctionImport>
-          <FunctionImport Name="usp_QL_QuoteTransfer_ToolingBreakdown_Insert">
-            <Parameter Name="OperatorCode" Mode="In" Type="String" />
-            <Parameter Name="QuoteNumber" Mode="In" Type="String" />
-            <Parameter Name="Description" Mode="In" Type="String" />
-            <Parameter Name="Quantity" Mode="In" Type="Int32" />
-            <Parameter Name="Value" Mode="In" Type="Decimal" />
-            <Parameter Name="TranDT" Mode="InOut" Type="DateTime" />
-            <Parameter Name="Result" Mode="InOut" Type="Int32" />
-          </FunctionImport>
           <FunctionImport Name="usp_QL_QuoteTransfer_ToolingBreakdown_Update">
             <Parameter Name="OperatorCode" Mode="In" Type="String" />
             <Parameter Name="Id" Mode="In" Type="Int32" />
@@ -214,12 +187,6 @@ warning 6002: The table/view 'MONITOR.EEIUser.QL_QuoteTransfer_AwardedQuoteNumbe
             <Parameter Name="TranDT" Mode="InOut" Type="DateTime" />
             <Parameter Name="Result" Mode="InOut" Type="Int32" />
           </FunctionImport>
-          <FunctionImport Name="usp_QL_QuoteTransfer_CustomerContacts_Insert">
-            <Parameter Name="OperatorCode" Mode="In" Type="String" />
-            <Parameter Name="QuoteNumber" Mode="In" Type="String" />
-            <Parameter Name="TranDT" Mode="InOut" Type="DateTime" />
-            <Parameter Name="Result" Mode="InOut" Type="Int32" />
-          </FunctionImport>
           <FunctionImport Name="usp_QL_QuoteTransfer_CustomerContacts_Update">
             <Parameter Name="OperatorCode" Mode="In" Type="String" />
             <Parameter Name="Id" Mode="In" Type="Int32" />
@@ -232,12 +199,6 @@ warning 6002: The table/view 'MONITOR.EEIUser.QL_QuoteTransfer_AwardedQuoteNumbe
             <Parameter Name="Result" Mode="InOut" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="usp_QL_QuoteTransfer_GetCustomerContacts" ReturnType="Collection(MONITORModel5.usp_QL_QuoteTransfer_GetCustomerContacts_Result)">
-            <Parameter Name="QuoteNumber" Mode="In" Type="String" />
-            <Parameter Name="TranDT" Mode="InOut" Type="DateTime" />
-            <Parameter Name="Result" Mode="InOut" Type="Int32" />
-          </FunctionImport>
-          <FunctionImport Name="usp_QL_QuoteTransfer_SpecialReqNotes_Insert">
-            <Parameter Name="OperatorCode" Mode="In" Type="String" />
             <Parameter Name="QuoteNumber" Mode="In" Type="String" />
             <Parameter Name="TranDT" Mode="InOut" Type="DateTime" />
             <Parameter Name="Result" Mode="InOut" Type="Int32" />
@@ -280,22 +241,8 @@ warning 6002: The table/view 'MONITOR.EEIUser.QL_QuoteTransfer_AwardedQuoteNumbe
             <Parameter Name="TranDT" Mode="InOut" Type="DateTime" />
             <Parameter Name="Result" Mode="InOut" Type="Int32" />
           </FunctionImport>
-          <FunctionImport Name="usp_QL_QuoteTransfer_SignOff_Insert">
-            <Parameter Name="OperatorCode" Mode="In" Type="String" />
-            <Parameter Name="QuoteNumber" Mode="In" Type="String" />
-            <Parameter Name="TranDT" Mode="InOut" Type="DateTime" />
-            <Parameter Name="Result" Mode="InOut" Type="Int32" />
-          </FunctionImport>
           <FunctionImport Name="usp_QL_QuoteTransfer_GetToolingBreakdown" ReturnType="Collection(MONITORModel5.usp_QL_QuoteTransfer_GetToolingBreakdown_Result)">
             <Parameter Name="QuoteNumber" Mode="In" Type="String" />
-            <Parameter Name="TranDT" Mode="InOut" Type="DateTime" />
-            <Parameter Name="Result" Mode="InOut" Type="Int32" />
-          </FunctionImport>
-          <FunctionImport Name="usp_QL_QuoteTransfer_Documentation_Insert">
-            <Parameter Name="OperatorCode" Mode="In" Type="String" />
-            <Parameter Name="QuoteNumber" Mode="In" Type="String" />
-            <Parameter Name="Description" Mode="In" Type="String" />
-            <Parameter Name="Answer" Mode="In" Type="String" />
             <Parameter Name="TranDT" Mode="InOut" Type="DateTime" />
             <Parameter Name="Result" Mode="InOut" Type="Int32" />
           </FunctionImport>
@@ -330,6 +277,23 @@ warning 6002: The table/view 'MONITOR.EEIUser.QL_QuoteTransfer_AwardedQuoteNumbe
             <Parameter Name="Result" Mode="InOut" Type="Int32" />
             <Parameter Name="Debug" Mode="In" Type="Int32" />
             <Parameter Name="DebugMsg" Mode="InOut" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="usp_QL_QuoteTransfer_Documentation_Insert">
+            <Parameter Name="OperatorCode" Mode="In" Type="String" />
+            <Parameter Name="QuoteNumber" Mode="In" Type="String" />
+            <Parameter Name="Description" Mode="In" Type="String" />
+            <Parameter Name="Answer" Mode="In" Type="String" />
+            <Parameter Name="TranDT" Mode="InOut" Type="DateTime" />
+            <Parameter Name="Result" Mode="InOut" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="usp_QL_QuoteTransfer_ToolingBreakdown_Insert">
+            <Parameter Name="OperatorCode" Mode="In" Type="String" />
+            <Parameter Name="QuoteNumber" Mode="In" Type="String" />
+            <Parameter Name="Description" Mode="In" Type="String" />
+            <Parameter Name="Quantity" Mode="In" Type="Int32" />
+            <Parameter Name="Value" Mode="In" Type="Decimal" />
+            <Parameter Name="TranDT" Mode="InOut" Type="DateTime" />
+            <Parameter Name="Result" Mode="InOut" Type="Int32" />
           </FunctionImport>
         </EntityContainer>
         <ComplexType Name="usp_QL_QuoteTransfer_GetDocumentation_Result">
@@ -490,10 +454,8 @@ warning 6002: The table/view 'MONITOR.EEIUser.QL_QuoteTransfer_AwardedQuoteNumbe
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="usp_QL_QuoteTransfer_ToolingBreakdown_Insert" FunctionName="MONITORModel5.Store.usp_QL_QuoteTransfer_ToolingBreakdown_Insert" />
           <FunctionImportMapping FunctionImportName="usp_QL_QuoteTransfer_ToolingBreakdown_Update" FunctionName="MONITORModel5.Store.usp_QL_QuoteTransfer_ToolingBreakdown_Update" />
           <FunctionImportMapping FunctionImportName="usp_QL_QuoteTransfer_ToolingBreakdown_Delete" FunctionName="MONITORModel5.Store.usp_QL_QuoteTransfer_ToolingBreakdown_Delete" />
-          <FunctionImportMapping FunctionImportName="usp_QL_QuoteTransfer_CustomerContacts_Insert" FunctionName="MONITORModel5.Store.usp_QL_QuoteTransfer_CustomerContacts_Insert" />
           <FunctionImportMapping FunctionImportName="usp_QL_QuoteTransfer_CustomerContacts_Update" FunctionName="MONITORModel5.Store.usp_QL_QuoteTransfer_CustomerContacts_Update" />
           <FunctionImportMapping FunctionImportName="usp_QL_QuoteTransfer_GetCustomerContacts" FunctionName="MONITORModel5.Store.usp_QL_QuoteTransfer_GetCustomerContacts">
             <ResultMapping>
@@ -508,7 +470,6 @@ warning 6002: The table/view 'MONITOR.EEIUser.QL_QuoteTransfer_AwardedQuoteNumbe
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="usp_QL_QuoteTransfer_SpecialReqNotes_Insert" FunctionName="MONITORModel5.Store.usp_QL_QuoteTransfer_SpecialReqNotes_Insert" />
           <FunctionImportMapping FunctionImportName="usp_QL_QuoteTransfer_SpecialReqNotes_Update" FunctionName="MONITORModel5.Store.usp_QL_QuoteTransfer_SpecialReqNotes_Update" />
           <FunctionImportMapping FunctionImportName="usp_QL_QuoteTransfer_GetSpecialReqNotes" FunctionName="MONITORModel5.Store.usp_QL_QuoteTransfer_GetSpecialReqNotes">
             <ResultMapping>
@@ -549,7 +510,6 @@ warning 6002: The table/view 'MONITOR.EEIUser.QL_QuoteTransfer_AwardedQuoteNumbe
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="usp_QL_QuoteTransfer_SignOff_Insert" FunctionName="MONITORModel5.Store.usp_QL_QuoteTransfer_SignOff_Insert" />
           <FunctionImportMapping FunctionImportName="usp_QL_QuoteTransfer_GetToolingBreakdown" FunctionName="MONITORModel5.Store.usp_QL_QuoteTransfer_GetToolingBreakdown">
             <ResultMapping>
               <ComplexTypeMapping TypeName="MONITORModel5.usp_QL_QuoteTransfer_GetToolingBreakdown_Result">
@@ -560,7 +520,6 @@ warning 6002: The table/view 'MONITOR.EEIUser.QL_QuoteTransfer_AwardedQuoteNumbe
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="usp_QL_QuoteTransfer_Documentation_Insert" FunctionName="MONITORModel5.Store.usp_QL_QuoteTransfer_Documentation_Insert" />
           <EntitySetMapping Name="QL_QuoteTransfer_AwardedQuoteNumbers">
             <EntityTypeMapping TypeName="MONITORModel5.QL_QuoteTransfer_AwardedQuoteNumbers">
               <MappingFragment StoreEntitySet="QL_QuoteTransfer_AwardedQuoteNumbers">
@@ -615,6 +574,8 @@ warning 6002: The table/view 'MONITOR.EEIUser.QL_QuoteTransfer_AwardedQuoteNumbe
             </ResultMapping>
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="usp_QL_NewQuoteTransfer" FunctionName="MONITORModel5.Store.usp_QL_NewQuoteTransfer" />
+          <FunctionImportMapping FunctionImportName="usp_QL_QuoteTransfer_Documentation_Insert" FunctionName="MONITORModel5.Store.usp_QL_QuoteTransfer_Documentation_Insert" />
+          <FunctionImportMapping FunctionImportName="usp_QL_QuoteTransfer_ToolingBreakdown_Insert" FunctionName="MONITORModel5.Store.usp_QL_QuoteTransfer_ToolingBreakdown_Insert" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

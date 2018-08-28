@@ -63,29 +63,6 @@ namespace WebPortal.QuoteLogIntegration.PageViewModels
             }
         }
 
-        public void SpecialReqNotesInsert()
-        {
-            ObjectParameter tranDT = new ObjectParameter("TranDT", typeof(DateTime?));
-            ObjectParameter result = new ObjectParameter("Result", typeof(Int32?));
-            Error = "";
-
-            string quote = (System.Web.HttpContext.Current.Session["Quote"] != null)
-                ? quote = System.Web.HttpContext.Current.Session["Quote"].ToString()
-                : "";
-
-            try
-            {
-                using (var context = new MONITOREntitiesQuoteLogIntegrationQuoteTransfer())
-                {
-                    context.usp_QL_QuoteTransfer_SpecialReqNotes_Insert(OperatorCode, quote, tranDT, result);
-                }
-            }
-            catch (Exception ex)
-            {
-                Error = (ex.InnerException != null) ? ex.InnerException.Message : ex.Message;
-            }
-        }
-
         public void SpecialReqNotesUpdate(int rowId, string answer, string notes)
         {
             ObjectParameter tranDT = new ObjectParameter("TranDT", typeof(DateTime?));

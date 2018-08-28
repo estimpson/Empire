@@ -47,6 +47,17 @@ namespace WebPortal.QuoteLogIntegration.Pages
 
 
         #region MyViewModels
+
+        private QtQuoteTransferViewModel QuoteTransferViewModel
+        {
+            get
+            {
+                ViewState["QuoteTransferViewModel"] =
+                    ViewState["QuoteTransferViewModel"] ?? new QtQuoteTransferViewModel();
+                return (QtQuoteTransferViewModel) ViewState["QuoteTransferViewModel"];
+            }
+        }
+
         private PageViewModels.QtQuoteViewModel QuoteViewModel
         {
             get
@@ -343,9 +354,7 @@ namespace WebPortal.QuoteLogIntegration.Pages
             if (GetQuote(quote) == 0) return;
             Session["Quote"] = cbxQuoteNumbers.Text;
 
-            if (InsertCustomerContacts() == 0) return;
-            if (InsertSpecialReqNotes() == 0) return;
-            if (InsertSignOff() == 0) return;
+            if (NewQuoteTransfer(quote) != 1) return;
 
             PopulateQuoteFields();
             Session["Quote"] = quote;
@@ -370,6 +379,18 @@ namespace WebPortal.QuoteLogIntegration.Pages
             //{
             //    GetInitials(i);
             //}
+        }
+
+        private int NewQuoteTransfer(string quote)
+        {
+            QuoteTransferViewModel.NewQuoteTransfer(quote);
+            if (QuoteTransferViewModel.Error != "")
+            {
+                lblError.Text = String.Format("Error at NewQuoteTransfer. {0}", QuoteTransferViewModel.Error);
+                pcError.ShowOnPageLoad = true;
+                return 0;
+            }
+            return 1;
         }
 
         private int GetQuote(string quote)
@@ -430,18 +451,6 @@ namespace WebPortal.QuoteLogIntegration.Pages
 
 
         #region Customer Contact Methods
-
-        private int InsertCustomerContacts()
-        {
-            CustViewModel.CustomerContactsInsert();
-            if (CustViewModel.Error != "")
-            {
-                lblError.Text = String.Format("Error at InsertCustomerContacts. {0}", CustViewModel.Error);
-                pcError.ShowOnPageLoad = true;
-                return 0;
-            }
-            return 1;
-        }
 
         private void GetCustomerContacts(string quote)
         {
@@ -652,18 +661,6 @@ namespace WebPortal.QuoteLogIntegration.Pages
 
         #region Special Requests / Notes Methods
 
-        private int InsertSpecialReqNotes()
-        {
-            NotesViewModel.SpecialReqNotesInsert();
-            if (NotesViewModel.Error != "")
-            {
-                lblError.Text = String.Format("Error at InsertSpecialReqNotes. {0}", NotesViewModel.Error);
-                pcError.ShowOnPageLoad = true;
-                return 0;
-            }
-            return 1;
-        }
-
         private void PopulateNotesAnswers()
         {
             List<String> l = new List<String>
@@ -720,18 +717,6 @@ namespace WebPortal.QuoteLogIntegration.Pages
 
 
         #region Sign Off Methods
-
-        private int InsertSignOff()
-        {
-            SignOffViewModel.SignOffInsert();
-            if (SignOffViewModel.Error != "")
-            {
-                lblError.Text = String.Format("Error at InsertSignOff. {0}", SignOffViewModel.Error);
-                pcError.ShowOnPageLoad = true;
-                return 0;
-            }
-            return 1;
-        }
 
         private int PopulateSignOffLists()
         {

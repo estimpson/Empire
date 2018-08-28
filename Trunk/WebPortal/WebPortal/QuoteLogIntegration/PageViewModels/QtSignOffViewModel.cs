@@ -216,29 +216,6 @@ namespace WebPortal.QuoteLogIntegration.PageViewModels
             }
         }
 
-        public void SignOffInsert()
-        {
-            ObjectParameter tranDT = new ObjectParameter("TranDT", typeof(DateTime?));
-            ObjectParameter result = new ObjectParameter("Result", typeof(Int32?));
-            Error = "";
-
-            string quote = (System.Web.HttpContext.Current.Session["Quote"] != null)
-                ? quote = System.Web.HttpContext.Current.Session["Quote"].ToString()
-                : "";
-
-            try
-            {
-                using (var context = new MONITOREntitiesQuoteLogIntegrationQuoteTransfer())
-                {
-                    context.usp_QL_QuoteTransfer_SignOff_Insert(OperatorCode, quote, tranDT, result);
-                }
-            }
-            catch (Exception ex)
-            {
-                Error = (ex.InnerException != null) ? ex.InnerException.Message : ex.Message;
-            }
-        }
-
         public void SignOffUpdate(int rowId, string employeeCode, string initials, DateTime? signOffDate)
         {
             ObjectParameter tranDT = new ObjectParameter("TranDT", typeof(DateTime?));
