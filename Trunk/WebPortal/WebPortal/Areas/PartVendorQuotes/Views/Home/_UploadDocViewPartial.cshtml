@@ -1,0 +1,51 @@
+﻿@using WebPortal.Areas.PartVendorQuotes.Controllers
+
+
+@using (Html.BeginForm("Index", "Home", FormMethod.Post, new { @class = "upload" }))
+{
+    <div class="uploadContainer">
+        <table width="420">
+            <tr style="vertical-align: top;">
+                <td>
+                    @Html.DevExpress().UploadControl(settings => {
+                        settings.Name = "ucMultiSelection";
+                        settings.CallbackRouteValues = new { Controller = "Home", Action = "UploadControlUpload" };
+
+                        settings.AdvancedModeSettings.EnableMultiSelect = true;
+                        settings.AdvancedModeSettings.EnableFileList = true;
+                        settings.AdvancedModeSettings.EnableDragAndDrop = true;
+
+                        settings.ShowUploadButton = true;
+                        settings.ShowProgressPanel = true;
+                        settings.ValidationSettings.Assign(HomeController.UploadValidationSettings);
+
+                        settings.ClientSideEvents.Init = "";
+                        settings.ClientSideEvents.FilesUploadStart = "function(s,e) { onFileUploadStart(); }";
+                        settings.ClientSideEvents.FileUploadComplete = "function(s,e) { onFileUploadComplete(e); }";
+                    }).GetHtml()
+                </td>
+                <td>
+                    @Html.DevExpress().Button(
+                        settings => {
+                            settings.Name = "OpenFileButton";
+                            settings.RenderMode = ButtonRenderMode.Link;
+                            settings.Text = "";
+                            settings.Images.Image.IconID = "print_preview_32x32gray";
+                            settings.ClientSideEvents.Click = "function(s, e) {onOpenFileButtonClick(e);}";
+                        }).GetHtml()
+                </td>
+                <td>
+                    @Html.DevExpress().Button(
+                        settings => {
+                            settings.Name = "DeleteFileButton";
+                            settings.RenderMode = ButtonRenderMode.Link;
+                            settings.Text = "";
+                            settings.Images.Image.IconID = "actions_deleteitem_32x32gray";
+                            settings.ClientSideEvents.Click = "function(s, e) {onDeleteFileButtonClick(e);}";
+                        }).GetHtml()
+                </td>
+            </tr>
+        </table>
+        
+    </div>
+}

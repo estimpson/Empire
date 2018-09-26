@@ -1,0 +1,279 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="MONITORModel7.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <Function Name="usp_AddPartVendorQuote" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="FxPVQ">
+          <Parameter Name="User" Type="varchar" Mode="In" />
+          <Parameter Name="VendorCode" Type="varchar" Mode="In" />
+          <Parameter Name="PartCode" Type="varchar" Mode="In" />
+          <Parameter Name="Oem" Type="varchar" Mode="In" />
+          <Parameter Name="EffectiveDate" Type="datetime" Mode="In" />
+          <Parameter Name="EndDate" Type="datetime" Mode="In" />
+          <Parameter Name="Price" Type="decimal" Mode="In" />
+          <Parameter Name="TranDT" Type="datetime" Mode="InOut" />
+          <Parameter Name="Result" Type="int" Mode="InOut" />
+          <Parameter Name="Debug" Type="int" Mode="In" />
+          <Parameter Name="DebugMsg" Type="varchar(max)" Mode="InOut" />
+        </Function>
+        <Function Name="usp_DeletePartVendorQuote" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="FxPVQ">
+          <Parameter Name="User" Type="varchar" Mode="In" />
+          <Parameter Name="RowID" Type="int" Mode="In" />
+          <Parameter Name="AttachmentCategory" Type="varchar" Mode="In" />
+          <Parameter Name="TranDT" Type="datetime" Mode="InOut" />
+          <Parameter Name="Result" Type="int" Mode="InOut" />
+          <Parameter Name="Debug" Type="int" Mode="In" />
+          <Parameter Name="DebugMsg" Type="varchar(max)" Mode="InOut" />
+        </Function>
+        <Function Name="usp_EditPartVendorQuote" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="FxPVQ">
+          <Parameter Name="User" Type="varchar" Mode="In" />
+          <Parameter Name="RowID" Type="int" Mode="In" />
+          <Parameter Name="VendorCode" Type="varchar" Mode="In" />
+          <Parameter Name="PartCode" Type="varchar" Mode="In" />
+          <Parameter Name="Oem" Type="varchar" Mode="In" />
+          <Parameter Name="EffectiveDate" Type="datetime" Mode="In" />
+          <Parameter Name="EndDate" Type="datetime" Mode="In" />
+          <Parameter Name="Price" Type="decimal" Mode="In" />
+          <Parameter Name="TranDT" Type="datetime" Mode="InOut" />
+          <Parameter Name="Result" Type="int" Mode="InOut" />
+          <Parameter Name="Debug" Type="int" Mode="In" />
+          <Parameter Name="DebugMsg" Type="varchar(max)" Mode="InOut" />
+        </Function>
+        <Function Name="usp_GetOems" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="FxPVQ" />
+        <Function Name="usp_GetParts" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="FxPVQ" />
+        <Function Name="usp_GetPartVendorQuotes" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="FxPVQ" />
+        <Function Name="usp_GetVendors" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="FxPVQ" />
+        <Function Name="usp_PVQ_FileManagement_Delete" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="FxPVQ">
+          <Parameter Name="QuoteNumber" Type="varchar" Mode="In" />
+          <Parameter Name="AttachmentCategory" Type="varchar" Mode="In" />
+          <Parameter Name="TranDT" Type="datetime" Mode="InOut" />
+          <Parameter Name="Result" Type="int" Mode="InOut" />
+        </Function>
+        <Function Name="usp_PVQ_FileManagement_Get" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="FxPVQ">
+          <Parameter Name="QuoteNumber" Type="varchar" Mode="In" />
+          <Parameter Name="AttachmentCategory" Type="varchar" Mode="In" />
+          <Parameter Name="TranDT" Type="datetime" Mode="InOut" />
+          <Parameter Name="Result" Type="int" Mode="InOut" />
+        </Function>
+        <Function Name="usp_PVQ_FileManagement_Save" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="FxPVQ">
+          <Parameter Name="QuoteNumber" Type="varchar" Mode="In" />
+          <Parameter Name="AttachmentCategory" Type="varchar" Mode="In" />
+          <Parameter Name="FileName" Type="nvarchar" Mode="In" />
+          <Parameter Name="FileContents" Type="varbinary(max)" Mode="In" />
+          <Parameter Name="TranDT" Type="datetime" Mode="InOut" />
+          <Parameter Name="Result" Type="int" Mode="InOut" />
+        </Function>
+        <EntityContainer Name="MONITORModel7StoreContainer" />
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="MONITORModel7" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="MONITOREntities4" annotation:LazyLoadingEnabled="true" >
+          <FunctionImport Name="usp_GetParts" ReturnType="Collection(MONITORModel7.usp_GetParts_Result)" />
+          <FunctionImport Name="usp_GetVendors" ReturnType="Collection(MONITORModel7.usp_GetVendors_Result)" />
+          <FunctionImport Name="usp_GetOems" ReturnType="Collection(MONITORModel7.usp_GetOems_Result)" />
+          <FunctionImport Name="usp_AddPartVendorQuote">
+            <Parameter Name="User" Mode="In" Type="String" />
+            <Parameter Name="VendorCode" Mode="In" Type="String" />
+            <Parameter Name="PartCode" Mode="In" Type="String" />
+            <Parameter Name="Oem" Mode="In" Type="String" />
+            <Parameter Name="EffectiveDate" Mode="In" Type="DateTime" />
+            <Parameter Name="EndDate" Mode="In" Type="DateTime" />
+            <Parameter Name="Price" Mode="In" Type="Decimal" />
+            <Parameter Name="TranDT" Mode="InOut" Type="DateTime" />
+            <Parameter Name="Result" Mode="InOut" Type="Int32" />
+            <Parameter Name="Debug" Mode="In" Type="Int32" />
+            <Parameter Name="DebugMsg" Mode="InOut" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="usp_GetPartVendorQuotes" ReturnType="Collection(MONITORModel7.usp_GetPartVendorQuotes_Result)" />
+          <FunctionImport Name="usp_EditPartVendorQuote">
+            <Parameter Name="User" Mode="In" Type="String" />
+            <Parameter Name="RowID" Mode="In" Type="Int32" />
+            <Parameter Name="VendorCode" Mode="In" Type="String" />
+            <Parameter Name="PartCode" Mode="In" Type="String" />
+            <Parameter Name="Oem" Mode="In" Type="String" />
+            <Parameter Name="EffectiveDate" Mode="In" Type="DateTime" />
+            <Parameter Name="EndDate" Mode="In" Type="DateTime" />
+            <Parameter Name="Price" Mode="In" Type="Decimal" />
+            <Parameter Name="TranDT" Mode="InOut" Type="DateTime" />
+            <Parameter Name="Result" Mode="InOut" Type="Int32" />
+            <Parameter Name="Debug" Mode="In" Type="Int32" />
+            <Parameter Name="DebugMsg" Mode="InOut" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="usp_PVQ_FileManagement_Get" ReturnType="Collection(MONITORModel7.usp_PVQ_FileManagement_Get_Result)">
+            <Parameter Name="QuoteNumber" Mode="In" Type="String" />
+            <Parameter Name="AttachmentCategory" Mode="In" Type="String" />
+            <Parameter Name="TranDT" Mode="InOut" Type="DateTime" />
+            <Parameter Name="Result" Mode="InOut" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="usp_PVQ_FileManagement_Save">
+            <Parameter Name="QuoteNumber" Mode="In" Type="String" />
+            <Parameter Name="AttachmentCategory" Mode="In" Type="String" />
+            <Parameter Name="FileName" Mode="In" Type="String" />
+            <Parameter Name="FileContents" Mode="In" Type="Binary" />
+            <Parameter Name="TranDT" Mode="InOut" Type="DateTime" />
+            <Parameter Name="Result" Mode="InOut" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="usp_DeletePartVendorQuote" ReturnType="Collection(MONITORModel7.usp_DeletePartVendorQuote_Result)">
+            <Parameter Name="User" Mode="In" Type="String" />
+            <Parameter Name="RowID" Mode="In" Type="Int32" />
+            <Parameter Name="AttachmentCategory" Mode="In" Type="String" />
+            <Parameter Name="TranDT" Mode="InOut" Type="DateTime" />
+            <Parameter Name="Result" Mode="InOut" Type="Int32" />
+            <Parameter Name="Debug" Mode="In" Type="Int32" />
+            <Parameter Name="DebugMsg" Mode="InOut" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="usp_PVQ_FileManagement_Delete" ReturnType="Collection(MONITORModel7.usp_PVQ_FileManagement_Delete_Result)">
+            <Parameter Name="QuoteNumber" Mode="In" Type="String" />
+            <Parameter Name="AttachmentCategory" Mode="In" Type="String" />
+            <Parameter Name="TranDT" Mode="InOut" Type="DateTime" />
+            <Parameter Name="Result" Mode="InOut" Type="Int32" />
+          </FunctionImport>
+        </EntityContainer>
+        <ComplexType Name="usp_GetParts_Result">
+          <Property Type="String" Name="PartCode" Nullable="false" MaxLength="25" />
+          <Property Type="String" Name="PartName" Nullable="false" MaxLength="100" />
+        </ComplexType>
+        <ComplexType Name="usp_GetVendors_Result">
+          <Property Type="String" Name="VendorCode" Nullable="false" MaxLength="10" />
+          <Property Type="String" Name="VendorName" Nullable="false" MaxLength="35" />
+        </ComplexType>
+        <ComplexType Name="usp_GetOems_Result">
+          <Property Type="Int32" Name="RowID" Nullable="false" />
+          <Property Type="String" Name="Oem" Nullable="false" MaxLength="35" />
+        </ComplexType>
+        <ComplexType Name="usp_PVQ_FileManagement_Get_Result">
+          <Property Type="Guid" Name="StreamID" Nullable="true" />
+          <Property Type="Binary" Name="FileContents" Nullable="true" />
+          <Property Type="String" Name="FileName" Nullable="true" MaxLength="128" />
+          <Property Type="Binary" Name="PathLocator" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="usp_GetPartVendorQuotes_Result">
+          <Property Type="Int32" Name="RowID" Nullable="false" />
+          <Property Type="String" Name="VendorCode" Nullable="false" MaxLength="10" />
+          <Property Type="String" Name="PartCode" Nullable="false" MaxLength="25" />
+          <Property Type="String" Name="Oem" Nullable="false" MaxLength="35" />
+          <Property Type="DateTime" Name="EffectiveDate" Nullable="true" Precision="23" />
+          <Property Type="DateTime" Name="EndDate" Nullable="true" Precision="23" />
+          <Property Type="Decimal" Name="Price" Nullable="true" Precision="10" Scale="6" />
+          <Property Type="String" Name="QuoteFileName" Nullable="true" MaxLength="100" />
+        </ComplexType>
+        <ComplexType Name="usp_DeletePartVendorQuote_Result">
+          <Property Type="Int32" Name="C_Error" Nullable="true" />
+          <Property Type="Int32" Name="C_ProcReturn" Nullable="true" />
+          <Property Type="DateTime" Name="C_TranDT" Nullable="true" Precision="23" />
+          <Property Type="Int32" Name="C_ProcResult" Nullable="true" />
+          <Property Type="Guid" Name="C_NewStreamID" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="usp_PVQ_FileManagement_Delete_Result">
+          <Property Type="Int32" Name="C_Error" Nullable="true" />
+          <Property Type="Int32" Name="C_ProcReturn" Nullable="true" />
+          <Property Type="DateTime" Name="C_TranDT" Nullable="true" Precision="23" />
+          <Property Type="Int32" Name="C_ProcResult" Nullable="true" />
+          <Property Type="Guid" Name="C_NewStreamID" Nullable="true" />
+        </ComplexType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="MONITORModel7StoreContainer" CdmEntityContainer="MONITOREntities4" >
+          <FunctionImportMapping FunctionImportName="usp_GetParts" FunctionName="MONITORModel7.Store.usp_GetParts">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="MONITORModel7.usp_GetParts_Result">
+                <ScalarProperty Name="PartCode" ColumnName="PartCode" />
+                <ScalarProperty Name="PartName" ColumnName="PartName" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="usp_GetVendors" FunctionName="MONITORModel7.Store.usp_GetVendors">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="MONITORModel7.usp_GetVendors_Result">
+                <ScalarProperty Name="VendorCode" ColumnName="VendorCode" />
+                <ScalarProperty Name="VendorName" ColumnName="VendorName" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="usp_GetOems" FunctionName="MONITORModel7.Store.usp_GetOems">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="MONITORModel7.usp_GetOems_Result">
+                <ScalarProperty Name="RowID" ColumnName="RowID" />
+                <ScalarProperty Name="Oem" ColumnName="Oem" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="usp_AddPartVendorQuote" FunctionName="MONITORModel7.Store.usp_AddPartVendorQuote" />
+          <FunctionImportMapping FunctionImportName="usp_GetPartVendorQuotes" FunctionName="MONITORModel7.Store.usp_GetPartVendorQuotes">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="MONITORModel7.usp_GetPartVendorQuotes_Result">
+                <ScalarProperty Name="RowID" ColumnName="RowID" />
+                <ScalarProperty Name="VendorCode" ColumnName="VendorCode" />
+                <ScalarProperty Name="PartCode" ColumnName="PartCode" />
+                <ScalarProperty Name="Oem" ColumnName="Oem" />
+                <ScalarProperty Name="EffectiveDate" ColumnName="EffectiveDate" />
+                <ScalarProperty Name="EndDate" ColumnName="EndDate" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="QuoteFileName" ColumnName="QuoteFileName" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="usp_EditPartVendorQuote" FunctionName="MONITORModel7.Store.usp_EditPartVendorQuote" />
+          <FunctionImportMapping FunctionImportName="usp_PVQ_FileManagement_Get" FunctionName="MONITORModel7.Store.usp_PVQ_FileManagement_Get">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="MONITORModel7.usp_PVQ_FileManagement_Get_Result">
+                <ScalarProperty Name="StreamID" ColumnName="StreamID" />
+                <ScalarProperty Name="FileContents" ColumnName="FileContents" />
+                <ScalarProperty Name="FileName" ColumnName="FileName" />
+                <ScalarProperty Name="PathLocator" ColumnName="PathLocator" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="usp_PVQ_FileManagement_Save" FunctionName="MONITORModel7.Store.usp_PVQ_FileManagement_Save" />
+          <FunctionImportMapping FunctionImportName="usp_DeletePartVendorQuote" FunctionName="MONITORModel7.Store.usp_DeletePartVendorQuote">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="MONITORModel7.usp_DeletePartVendorQuote_Result">
+                <ScalarProperty Name="C_Error" ColumnName="@Error" />
+                <ScalarProperty Name="C_ProcReturn" ColumnName="@ProcReturn" />
+                <ScalarProperty Name="C_TranDT" ColumnName="@TranDT" />
+                <ScalarProperty Name="C_ProcResult" ColumnName="@ProcResult" />
+                <ScalarProperty Name="C_NewStreamID" ColumnName="@NewStreamID" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="usp_PVQ_FileManagement_Delete" FunctionName="MONITORModel7.Store.usp_PVQ_FileManagement_Delete">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="MONITORModel7.usp_PVQ_FileManagement_Delete_Result">
+                <ScalarProperty Name="C_Error" ColumnName="@Error" />
+                <ScalarProperty Name="C_ProcReturn" ColumnName="@ProcReturn" />
+                <ScalarProperty Name="C_TranDT" ColumnName="@TranDT" />
+                <ScalarProperty Name="C_ProcResult" ColumnName="@ProcResult" />
+                <ScalarProperty Name="C_NewStreamID" ColumnName="@NewStreamID" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
