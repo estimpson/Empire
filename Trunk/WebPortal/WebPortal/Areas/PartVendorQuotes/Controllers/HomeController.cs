@@ -2,6 +2,7 @@
 using DevExpress.Web.Mvc;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity.Core;
 using System.Data.Entity.Core.Objects;
 using System.IO;
 using System.Linq;
@@ -22,37 +23,20 @@ namespace WebPortal.Areas.PartVendorQuotes.Controllers
         // GET: PartVendorQuotes/Home
         public ActionResult Index()
         {
-            PartVendorQuotesViewModel model = new PartVendorQuotesViewModel();
-
-            using (var context = new MONITOREntities4())
-            {
-                model.PartVendorQuotes = context.usp_GetPartVendorQuotes().ToList();
-                model.Parts = context.usp_GetParts().ToList();
-                model.Vendors = context.usp_GetVendors().ToList();
-                model.Oems = context.usp_GetOems().ToList();
-            }
-
-            return View(model);
+            return View();
         }
 
+        #region Grid
         public ActionResult PartVendorQuotesGridViewPartial()
         {
             PartVendorQuotesViewModel model = new PartVendorQuotesViewModel();
 
-            using (var context = new MONITOREntities4())
-            {
-                model.PartVendorQuotes = context.usp_GetPartVendorQuotes().ToList();
-                model.Parts = context.usp_GetParts().ToList();
-                model.Vendors = context.usp_GetVendors().ToList();
-                model.Oems = context.usp_GetOems().ToList();
-            }
+            model.PartVendorQuotes = _context.usp_GetPartVendorQuotes().ToList();
+            model.Parts = _context.usp_GetParts().ToList();
+            model.Vendors = _context.usp_GetVendors().ToList();
+            model.Oems = _context.usp_GetOems().ToList();
 
             return PartialView("_PartVendorQuotesGridViewPartial", model);
-        }
-
-        public PartialViewResult UploadDocViewPartial()
-        {
-            return PartialView("_UploadDocViewPartial");
         }
 
         [HttpPost, ValidateInput(false)]
@@ -67,28 +51,24 @@ namespace WebPortal.Areas.PartVendorQuotes.Controllers
                     ObjectParameter debugMsg = new ObjectParameter("DebugMsg", typeof(String));
                     _context.usp_AddPartVendorQuote("", item.VendorCode, item.PartCode, item.Oem, item.EffectiveDate, item.EndDate, item.Price, tranDT, result, 0, debugMsg);
                 }
+                catch (EntityCommandExecutionException e)
+                {
+                    ViewData["EditError"] = "SQL Error:  " + e.Message + " " + e.InnerException?.Message;
+                }
                 catch (Exception e)
                 {
-                    ViewData["EditError"] = e.Message;
+                    ViewData["EditError"] = "NON-SQL Error:" + e.Message + e.InnerException?.Message;
                 }
             }
             else
                 ViewData["EditError"] = "Please, correct all errors.";
 
-            var partVendorQuotesViewModel = new PartVendorQuotesViewModel
-            {
-                Parts = _context.usp_GetParts().ToList(),
-                Vendors = _context.usp_GetVendors().ToList(),
-                PartVendorQuotes = _context.usp_GetPartVendorQuotes().ToList(),
-                Oems = _context.usp_GetOems().ToList()
-            };
-
-            return PartialView("_PartVendorQuotesGridViewPartial", partVendorQuotesViewModel);
+            return PartVendorQuotesGridViewPartial();
         }
+
         [HttpPost, ValidateInput(false)]
         public ActionResult PartVendorQuotesGridViewPartialUpdate([ModelBinder(typeof(DevExpressEditorsBinder))] usp_GetPartVendorQuotes_Result item)
         {
-            ViewData["EditError"] = "Hello";
             if (ModelState.IsValid)
             {
                 try
@@ -98,25 +78,21 @@ namespace WebPortal.Areas.PartVendorQuotes.Controllers
                     ObjectParameter debugMsg = new ObjectParameter("DebugMsg", typeof(String));
                     _context.usp_EditPartVendorQuote("", item.RowID, item.VendorCode, item.PartCode, item.Oem, item.EffectiveDate, item.EndDate, item.Price, tranDT, result, 0, debugMsg);
                 }
+                catch (EntityCommandExecutionException e)
+                {
+                    ViewData["EditError"] = "SQL Error (On Update):  " + e.Message + " " + e.InnerException?.Message;
+                }
                 catch (Exception e)
                 {
-                    ViewData["EditError"] = e.Message;
+                    ViewData["EditError"] = e.GetType().Name + " - NON-SQL Error:  " + e.Message + e.InnerException?.Message;
                 }
             }
             else
                 ViewData["EditError"] = "Please, correct all errors.";
  
-                
-            var partVendorQuotesViewModel = new PartVendorQuotesViewModel
-            {
-                Parts = _context.usp_GetParts().ToList(),
-                Vendors = _context.usp_GetVendors().ToList(),
-                PartVendorQuotes = _context.usp_GetPartVendorQuotes().ToList(),
-                Oems = _context.usp_GetOems().ToList()
-            };
-
-            return PartialView("_PartVendorQuotesGridViewPartial", partVendorQuotesViewModel);
+            return PartVendorQuotesGridViewPartial();
         }
+
         [HttpPost, ValidateInput(false)]
         public ActionResult PartVendorQuotesGridViewPartialDelete([ModelBinder(typeof(DevExpressEditorsBinder))]System.Int32 RowId)
         {
@@ -131,85 +107,71 @@ namespace WebPortal.Areas.PartVendorQuotes.Controllers
                 {
                     _context.usp_DeletePartVendorQuote("", RowId, attachmentCategory, tranDT, result, 0, debugMsg);
                 }
+                catch (EntityCommandExecutionException e)
+                {
+                    ViewData["EditError"] = "SQL Error:  " + e.Message + " " + e.InnerException?.Message;
+                }
                 catch (Exception e)
                 {
                     ViewData["EditError"] = e.Message;
                 }
             }
-
-            //if (ViewData["EditError"] != null)
-            //{
-            //     settings.Settings.ShowFooter = true;
-            //    settings.SetFooterRowTemplateContent(c =>
-            //    {
-            //        Html.ViewContext.Writer.Write(ViewData["EditError"]);
-            //    });
-            //}
-            
-            var partVendorQuotesViewModel = new PartVendorQuotesViewModel
-            {
-                Parts = _context.usp_GetParts().ToList(),
-                Vendors = _context.usp_GetVendors().ToList(),
-                PartVendorQuotes = _context.usp_GetPartVendorQuotes().ToList(),
-                Oems = _context.usp_GetOems().ToList()
-            };
-            
-            return PartialView("_PartVendorQuotesGridViewPartial", partVendorQuotesViewModel);
+          
+            return PartVendorQuotesGridViewPartial();
         }
 
+        #endregion
+
+        #region Upload Control
+        public static UploadControlValidationSettings UploadValidationSettings
+            => new UploadControlValidationSettings { MaxFileSize = 419430400 };
+
+        public PartialViewResult UploadDocViewPartial()
+        {
+            return PartialView("_UploadDocViewPartial");
+        }
+
+        // Necessary evil.
         public ActionResult UploadControlUpload([ModelBinder(typeof(MultiFileSelectionDemoBinder))]IEnumerable<UploadedFile> ucMultiSelection)
         {
             return null;
         }
 
-
-        public ActionResult SelectedRowChanged(int rowID, string quoteFileName)
+        // This action occurs when an upload is started and notifies controller of the currently
+        // selected RowID.
+        public ActionResult FileUploadStart(int rowID, string quoteFileName)
         {
             RowID = rowID;
             QuoteFileName = quoteFileName;
             return null;
         }
 
-        public ActionResult OpenFileButtonClicked()
+        public static void MultiSelection_FileUploadComplete(object sender, FileUploadCompleteEventArgs args)
         {
-
-            return null;
-        }
-
-        public ActionResult DeleteFileButtonClicked()
-        {
-
-            return null;
-        }
-
-
-        public static readonly UploadControlValidationSettings UploadValidationSettings = new UploadControlValidationSettings
-        {
-            MaxFileSize = 41943040
-        };
-
-        public static void MultiSelection_FileUploadComplete(object sender, FileUploadCompleteEventArgs e)
-        {
-            var rowID = RowID;
-
-            ObjectParameter tranDT = new ObjectParameter("TranDT", typeof(DateTime?));
-            ObjectParameter result = new ObjectParameter("Result", typeof(Int32?));
-
-            //throw new Exception(rowID.ToString());
-            //DocsViewModel.SaveQuoteFile(AwardedQuote.QuoteNumber, "CustomerCommitment", e.UploadedFile.FileName, e.UploadedFile.FileBytes);
-
-            string partVendorQuoteNumber = "PVQ_" + rowID.ToString();
-            string attachmentCategory = "VendorQuote";
-
             try
             {
-                var context = new MONITOREntities4();
-                context.usp_PVQ_FileManagement_Save(partVendorQuoteNumber, attachmentCategory, e.UploadedFile.FileName, e.UploadedFile.FileBytes, tranDT, result);
+                var rowID = RowID;
+
+                ObjectParameter tranDT = new ObjectParameter("TranDT", typeof(DateTime?));
+                ObjectParameter result = new ObjectParameter("Result", typeof(Int32?));
+
+                string partVendorQuoteNumber = "PVQ_" + rowID.ToString();
+                string attachmentCategory = "VendorQuote";
+
+                using (var context = new MONITOREntities4())
+                {
+                    context.usp_PVQ_FileManagement_Save(partVendorQuoteNumber, attachmentCategory, args.UploadedFile.FileName, args.UploadedFile.FileBytes, tranDT, result);
+                }
             }
-            catch (Exception ex)
+            catch (EntityCommandExecutionException e)
             {
-                string error = ex.InnerException.Message;
+                throw new Exception("SQL Error:  " + e.Message + " " + e.InnerException?.Message);
             }
+            catch (Exception e)
+            {
+                throw new Exception("NON-SQL Error:" + e.Message + e.InnerException?.Message);
+            }
+
         }
 
         public ActionResult OpenPartVendorQuoteFile()
@@ -240,36 +202,26 @@ namespace WebPortal.Areas.PartVendorQuotes.Controllers
             fs.Write(fileContents, 0, fileContents.Length);
             fs.Flush();
             fs.Close();
-
-            //OpenCustomerCommitmentFileButton.JSProperties.Add("cpFilePath", tempFileClientPath);
             return null;
         }
 
-        public ActionResult DeletePartVendorQuoteFile(int rowID)
+        public void DeletePartVendorQuoteFile(int rowID)
         {
             string partVendorQuoteNumber = "PVQ_" + rowID.ToString();
             string attachmentCategory = "VendorQuote";
 
             ObjectParameter tranDT = new ObjectParameter("TranDT", typeof(DateTime?));
             ObjectParameter result = new ObjectParameter("Result", typeof(Int32?));
-            //ObjectParameter debugMsg = new ObjectParameter("DebugMsg", typeof(String));
-            //int debug = 0;
 
-            try
-            {
-                _context.usp_PVQ_FileManagement_Delete(partVendorQuoteNumber, attachmentCategory, tranDT, result);
-            }
-            catch (Exception e)
-            {
-
-                throw e.InnerException;
-            }
-            return null;
+            _context.usp_PVQ_FileManagement_Delete(partVendorQuoteNumber, attachmentCategory, tranDT, result);
         }
+        #endregion
 
-
-        public ActionResult ExportTo(string customExportCommand) {
-            switch(customExportCommand) {
+        #region Export
+        public ActionResult ExportTo(string customExportCommand)
+        {
+            switch (customExportCommand)
+            {
                 case "CustomExportToXLS":
                 case "CustomExportToXLSX":
                     return GridViewExportHelper.ExportFormatsInfo[customExportCommand](
@@ -278,6 +230,7 @@ namespace WebPortal.Areas.PartVendorQuotes.Controllers
                     return RedirectToAction("Index");
             }
         }
+        #endregion
     }
 
     public class MultiFileSelectionDemoBinder : DevExpressEditorsBinder
@@ -288,5 +241,4 @@ namespace WebPortal.Areas.PartVendorQuotes.Controllers
             UploadControlBinderSettings.FileUploadCompleteHandler = HomeController.MultiSelection_FileUploadComplete;
         }
     }
-
 }

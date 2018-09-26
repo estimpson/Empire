@@ -47,7 +47,7 @@
         function onFileUploadStart() {
             console.log("starting upload to RowID:" + document.getElementById("focusedRowID").value);
             $.ajax({
-                url: "Home/SelectedRowChanged",
+                url: "Home/FileUploadStart",
                 data: { RowID: document.getElementById("focusedRowID").value, QuoteFileName: document.getElementById("quoteFileName").value }
             });
         }

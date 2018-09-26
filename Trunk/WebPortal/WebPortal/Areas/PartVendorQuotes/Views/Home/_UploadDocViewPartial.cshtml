@@ -8,21 +8,22 @@
             <tr style="vertical-align: top;">
                 <td>
                     @Html.DevExpress().UploadControl(settings => {
-                        settings.Name = "ucMultiSelection";
-                        settings.CallbackRouteValues = new { Controller = "Home", Action = "UploadControlUpload" };
+                   settings.Name = "ucMultiSelection";
+                   settings.CallbackRouteValues = new { Controller = "Home", Action = "UploadControlUpload" };
 
-                        settings.AdvancedModeSettings.EnableMultiSelect = true;
-                        settings.AdvancedModeSettings.EnableFileList = true;
-                        settings.AdvancedModeSettings.EnableDragAndDrop = true;
+                   settings.AdvancedModeSettings.EnableMultiSelect = true;
+                   settings.AdvancedModeSettings.EnableFileList = true;
+                   settings.AdvancedModeSettings.EnableDragAndDrop = true;
 
-                        settings.ShowUploadButton = true;
-                        settings.ShowProgressPanel = true;
-                        settings.ValidationSettings.Assign(HomeController.UploadValidationSettings);
+                   settings.ShowUploadButton = true;
+                   settings.ShowProgressPanel = true;
+                   
+                   settings.ValidationSettings.Assign(HomeController.UploadValidationSettings);
 
-                        settings.ClientSideEvents.Init = "";
-                        settings.ClientSideEvents.FilesUploadStart = "function(s,e) { onFileUploadStart(); }";
-                        settings.ClientSideEvents.FileUploadComplete = "function(s,e) { onFileUploadComplete(e); }";
-                    }).GetHtml()
+                   settings.ClientSideEvents.Init = "";
+                   settings.ClientSideEvents.FilesUploadStart = "function(s,e) { onFileUploadStart(); }";
+                   settings.ClientSideEvents.FileUploadComplete = "function(s,e) { onFileUploadComplete(e); }";
+               }).GetHtml()
                 </td>
                 <td>
                     @Html.DevExpress().Button(
