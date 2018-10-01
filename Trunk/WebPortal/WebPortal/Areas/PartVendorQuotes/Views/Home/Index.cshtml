@@ -15,124 +15,132 @@
     @Html.Hidden("customExportCommand")
     @Html.Hidden("focusedRowID")
     @Html.Hidden("quoteFileName")
-    @Html.Action("PartVendorQuotesGridViewPartial")
-    <br /><br />
-    @Html.Action("UploadDocViewPartial")
+
+    <div style="margin-bottom: 20px;">
+        @Html.Action("PartVendorQuotesGridViewPartial")
+    </div>
+    <div style="float: left;">
+        @Html.Action("UploadDocViewPartial")
+    </div>
 }
 
-@section AdditionalResources {
-    <script type="text/javascript">
-        function EditGridRowOnDoubleClick(s, e) {
-            s.StartEditRow(e.visibleIndex);
-        }
-    </script>
+        @section AdditionalResources {
+            <script type="text/javascript">
+                function EditGridRowOnDoubleClick(s, e) {
+                    s.StartEditRow(e.visibleIndex);
+                }
+            </script>
 
-    <script type="text/javascript">
-        function OnToolbarItemClick(s, e) {
-            if (!IsCustomExportToolbarCommand(e.item.name))
-                return;
-            var $exportFormat = $('#customExportCommand');
-            $exportFormat.val(e.item.name);
-            $('form').submit();
-            window.setTimeout(function () {
-                $exportFormat.val("");
-            }, 0);
-        }
-        function IsCustomExportToolbarCommand(command) {
-            return command === "CustomExportToXLS" || command === "CustomExportToXLSX";
-        }
-    </script>
+            <script type="text/javascript">
+                function OnToolbarItemClick(s, e) {
+                    if (!IsCustomExportToolbarCommand(e.item.name))
+                        return;
+                    var $exportFormat = $('#customExportCommand');
+                    $exportFormat.val(e.item.name);
+                    $('form').submit();
+                    window.setTimeout(function () {
+                        $exportFormat.val("");
+                    }, 0);
+                }
+                function IsCustomExportToolbarCommand(command) {
+                    return command === "CustomExportToXLS" || command === "CustomExportToXLSX";
+                }
+            </script>
 
-    <script type="text/javascript">
-        function onFileUploadStart() {
-            console.log("starting upload to RowID:" + document.getElementById("focusedRowID").value);
-            $.ajax({
-                url: "Home/FileUploadStart",
-                data: { RowID: document.getElementById("focusedRowID").value, QuoteFileName: document.getElementById("quoteFileName").value }
-            });
-        }
+            <script type="text/javascript">
+                function onFileUploadStart() {
+                    console.log("starting upload to RowID:" + document.getElementById("focusedRowID").value);
+                    $.ajax({
+                        url: "Home/FileUploadStart",
+                        data: { RowID: document.getElementById("focusedRowID").value, QuoteFileName: document.getElementById("quoteFileName").value }
+                    });
+                }
 
-        function onFileUploadComplete(e) {
-            console.log("File Upload Complete");
-            GridView.Refresh();
-
-            EnableMultiSelection(false);
-            EnableFilePreviewAndDelete(true);
-        }
-
-        function onOpenFileButtonClick(e) {
-            console.log("Open file button clicked");
-            $.ajax({
-                url: "Home/OpenPartVendorQuoteFile"
-            });
-        }
-
-        function onDeleteFileButtonClick(e) {
-            console.log("Delete file button clicked");
-            console.log("Delete RowID: " + document.getElementById("focusedRowID").value);
-            $.ajax({
-                url: "Home/DeletePartVendorQuoteFile",
-                //data: { RowID: document.getElementById("focusedRowID").value, QuoteFileName: document.getElementById("quoteFileName").value }
-                data: { RowID: document.getElementById("focusedRowID").value }
-            })
-                .done(function () {
-                    console.log("From Delete javascript: done.");
+                function onFileUploadComplete(e) {
+                    console.log("File Upload Complete");
                     GridView.Refresh();
 
-                    EnableMultiSelection(true);
-                    EnableFilePreviewAndDelete(false);
-                })
-                .fail(function () {
-                    console.log("From Delete javascript: fail.");
-                });
+                    //EnableMultiSelection(false);
+                    EnableFilePreviewAndDelete(true);
+                }
+
+                function onOpenFileButtonClick(e) {
+                    console.log("Open file button clicked");
+                    $.ajax({
+                        url: "Home/OpenPartVendorQuoteFile",
+                        data: { RowID: document.getElementById("focusedRowID").value }
+                    })
+                        .done(function (data) {
+                            var src = data;
+                            window.open(src, "_blank", "resizable=true", true);
+                        });
+                }
+
+                function onDeleteFileButtonClick(e) {
+                    console.log("Delete file button clicked");
+                    console.log("Delete RowID: " + document.getElementById("focusedRowID").value);
+                    $.ajax({
+                        url: "Home/DeletePartVendorQuoteFile",
+                        //data: { RowID: document.getElementById("focusedRowID").value, QuoteFileName: document.getElementById("quoteFileName").value }
+                        data: { RowID: document.getElementById("focusedRowID").value }
+                    })
+                        .done(function () {
+                            console.log("From Delete javascript: done.");
+                            GridView.Refresh();
+
+                            EnableMultiSelection(true);
+                            EnableFilePreviewAndDelete(false);
+                        })
+                        .fail(function () {
+                            console.log("From Delete javascript: fail.");
+                        });
+                }
+
+            </script>
+
+            <script type="text/javascript">
+                function FocusedRowChanged(s, e) {
+                    console.log("Focus Changed" + s);
+                    console.log("Focus Row Index: " + s.GetFocusedRowIndex());
+                    if (!(s.GetFocusedRowIndex() >= 0)) {
+                        console.log("nothing selected");
+                        EnableMultiSelection(false);
+                        EnableFilePreviewAndDelete(false);
+                        return;
+                    }
+
+                    var rowID = s.GetRowKey(s.GetFocusedRowIndex());
+                    console.log("rowID: " + rowID);
+                    if (!rowID) {
+                        console.log("no row selected");
+                        EnableMultiSelection(false);
+                        EnableFilePreviewAndDelete(false);
+                        return;
+                    }
+
+                    var x = JSON.parse(document.getElementById('XYZ123').value);
+                    console.log(x);
+                    var row = x.find((xe) => { return xe.RowID == rowID; });
+                    console.log(row);
+                    EnableMultiSelection(!row.File);
+                    EnableFilePreviewAndDelete(row.File);
+                    document.getElementById("focusedRowID").value = row.RowID;
+                    document.getElementById("quoteFileName").value = row.File;
+                }
+
+                function EnableMultiSelection(b) {
+                    ucMultiSelection.SetEnabled(b);
+                }
+
+                function EnableFilePreviewAndDelete(b) {
+                    OpenFileButton.SetEnabled(b);
+                    DeleteFileButton.SetEnabled(b);
+                }
+
+                function GridEndCallback(s, e) {
+                    console.log("GridEndCallback");
+                    FocusedRowChanged(s, e);
+                }
+
+            </script>
         }
-
-    </script>
-
-    <script type="text/javascript">
-        function FocusedRowChanged(s, e) {
-            console.log("Focus Changed" + s);
-            console.log("Focus Row Index: " + s.GetFocusedRowIndex());
-            if (!(s.GetFocusedRowIndex() >= 0)) {
-                console.log("nothing selected");
-                EnableMultiSelection(false);
-                EnableFilePreviewAndDelete(false);
-                return;
-            }
-
-            var rowID = s.GetRowKey(s.GetFocusedRowIndex());
-            console.log("rowID: " + rowID);
-            if (!rowID) {
-                console.log("no row selected");
-                EnableMultiSelection(false);
-                EnableFilePreviewAndDelete(false);
-                return;
-            }
-
-            var x = JSON.parse(document.getElementById('XYZ123').value);
-            console.log(x);
-            var row = x.find((xe) => { return xe.RowID == rowID; });
-            console.log(row);
-            EnableMultiSelection(!row.File);
-            EnableFilePreviewAndDelete(row.File);
-            document.getElementById("focusedRowID").value = row.RowID;
-            document.getElementById("quoteFileName").value = row.File;
-        }
-
-        function EnableMultiSelection(b) {
-            ucMultiSelection.SetEnabled(b);
-        }
-
-        function EnableFilePreviewAndDelete(b) {
-            OpenFileButton.SetEnabled(b);
-            DeleteFileButton.SetEnabled(b);
-        }
-
-        function GridEndCallback(s, e)
-        {
-            console.log("GridEndCallback");
-            FocusedRowChanged(s, e);
-       }
-
-    </script>
-}

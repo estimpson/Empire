@@ -174,9 +174,8 @@ namespace WebPortal.Areas.PartVendorQuotes.Controllers
 
         }
 
-        public ActionResult OpenPartVendorQuoteFile()
+        public ActionResult OpenPartVendorQuoteFile(int rowID)
         {
-            var rowID = RowID;
             string partVendorQuoteNumber = "PVQ_" + rowID.ToString();
             string attachmentCategory = "VendorQuote";
             string fileName = "";
@@ -185,24 +184,50 @@ namespace WebPortal.Areas.PartVendorQuotes.Controllers
             ObjectParameter tranDT = new ObjectParameter("TranDT", typeof(DateTime?));
             ObjectParameter result = new ObjectParameter("Result", typeof(Int32?));
 
-            var context = new MONITOREntities4();
-            var collection = context.usp_PVQ_FileManagement_Get(partVendorQuoteNumber, attachmentCategory, tranDT, result);
-            var item = collection.ToList().First();
-            fileName = item.FileName;
-            fileContents = item.FileContents;
+            try
+            {
+                using (var context = new MONITOREntities4())
+                {
+                    var collection = context.usp_PVQ_FileManagement_Get(partVendorQuoteNumber, attachmentCategory, tranDT, result);
+                    var item = collection.ToList().First();
+                    fileName = item.FileName;
+                    fileContents = item.FileContents;
+                }
+            }
+            catch (EntityCommandExecutionException e)
+            {
+                string error = (e.InnerException != null) ? e.InnerException.Message : e.Message;
+                //throw new Exception("SQL Error:  " + e.Message + " " + e.InnerException?.Message);
+                throw new Exception("SQL Error:  " + error);
+            } 
+            catch (Exception e)
+            {
+                string error = (e.InnerException != null) ? e.InnerException.Message : e.Message;
+                //throw new Exception("NON-SQL Error:" + e.Message + e.InnerException?.Message);
+                throw new Exception("SQL Error:  " + error);
+            }
 
-            var attachmentExtension = Path.GetExtension(fileName);
-            var tempFileName =
-                Path.ChangeExtension($"{Path.GetFileNameWithoutExtension(fileName)}-{Path.GetRandomFileName()}",
-                    attachmentExtension);
-            var tempFileServerPath = $"{AppDomain.CurrentDomain.BaseDirectory}/Temp/{tempFileName}";
-            var tempFileClientPath = $"../../Temp/{tempFileName}";
+            string tempFileServerPath;
+            string tempFileClientPath;
+            try
+            {
+                var attachmentExtension = Path.GetExtension(fileName);
+                var tempFileName =
+                    Path.ChangeExtension($"{Path.GetFileNameWithoutExtension(fileName)}-{Path.GetRandomFileName()}",
+                        attachmentExtension);
+                tempFileServerPath = $"{AppDomain.CurrentDomain.BaseDirectory}/Temp/{tempFileName}";
+                tempFileClientPath = $"../Temp/{tempFileName}";
 
-            var fs = new FileStream(tempFileServerPath, FileMode.Create);
-            fs.Write(fileContents, 0, fileContents.Length);
-            fs.Flush();
-            fs.Close();
-            return null;
+                var fs = new FileStream(tempFileServerPath, FileMode.Create);
+                fs.Write(fileContents, 0, fileContents.Length);
+                fs.Flush();
+                fs.Close();
+            }
+            catch (Exception e)
+            {
+                throw new Exception("Exception:" + e.Message + e.InnerException?.Message);
+            }
+            return Content(tempFileClientPath);
         }
 
         public void DeletePartVendorQuoteFile(int rowID)
