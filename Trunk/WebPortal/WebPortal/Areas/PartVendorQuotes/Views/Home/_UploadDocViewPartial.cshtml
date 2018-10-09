@@ -1,5 +1,8 @@
 ﻿@using WebPortal.Areas.PartVendorQuotes.Controllers
 
+@{
+    Layout = null;
+}
 
 @using (Html.BeginForm("Index", "Home", FormMethod.Post, new { @class = "upload" }))
 {
@@ -17,7 +20,7 @@
 
                    settings.ShowUploadButton = true;
                    settings.ShowProgressPanel = true;
-                   
+
                    settings.ValidationSettings.Assign(HomeController.UploadValidationSettings);
 
                    settings.ClientSideEvents.Init = "";
@@ -47,6 +50,6 @@
                 </td>
             </tr>
         </table>
-        
+
     </div>
 }

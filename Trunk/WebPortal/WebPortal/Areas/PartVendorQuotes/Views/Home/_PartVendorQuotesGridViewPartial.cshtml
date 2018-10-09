@@ -3,6 +3,10 @@
 @model WebPortal.Areas.PartVendorQuotes.ViewModels.PartVendorQuotesViewModel
 
 @{
+    Layout = null;
+}
+
+@{
     var grid = Html.DevExpress().GridView(settings =>
     {
         settings.EnableRowsCache = true;
@@ -118,4 +122,4 @@
     }
 }
 @grid.Bind(Model.PartVendorQuotes).GetHtml()
-@Html.Hidden("XYZ123", new JavaScriptSerializer().Serialize(Model.PartVendorQuotes.Select(pv => new { RowID = pv.RowID, File = pv.QuoteFileName })))
+@*@Html.Hidden("XYZ123", new JavaScriptSerializer().Serialize(Model.PartVendorQuotes.Select(pv => new { RowID = pv.RowID, File = pv.QuoteFileName })))*@
