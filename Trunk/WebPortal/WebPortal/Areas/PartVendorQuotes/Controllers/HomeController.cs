@@ -17,16 +17,35 @@ namespace WebPortal.Areas.PartVendorQuotes.Controllers
     {
         private static int RowID;
         private static string QuoteFileName;
+        private static string UploadError;
 
         private MONITOREntities4 _context = new MONITOREntities4();
 
         // GET: PartVendorQuotes/Home
         public ActionResult Index()
         {
+            if (Session["DeletedTempFiles"] == null)
+            {
+                Session["DeletedTempFiles"] = "true";
+                DeleteTempFiles();
+            }
+
             return View();
         }
 
+
+        #region Messages
+
+        public PartialViewResult MessagesViewPartial()
+        {
+            return PartialView("_MessagesViewPartial");
+        }
+        
+        #endregion
+
+
         #region Grid
+
         public ActionResult PartVendorQuotesGridViewPartial()
         {
             PartVendorQuotesViewModel model = new PartVendorQuotesViewModel();
@@ -37,6 +56,18 @@ namespace WebPortal.Areas.PartVendorQuotes.Controllers
             model.Oems = _context.usp_GetOems().ToList();
 
             return PartialView("_PartVendorQuotesGridViewPartial", model);
+        }
+
+        public string GetFocusedRowFile(int rowID)
+        {
+            string fileName = "";
+            PartVendorQuotesViewModel model = new PartVendorQuotesViewModel();
+            model.PartVendorQuotes = _context.usp_GetPartVendorQuotes().ToList();
+
+            var partVendorQuotes = model.PartVendorQuotes.Where(w => w.RowID == rowID).Select(a => a.QuoteFileName).ToList();
+            foreach (var item in partVendorQuotes) fileName = item;
+            
+            return fileName;
         }
 
         [HttpPost, ValidateInput(false)]
@@ -53,16 +84,17 @@ namespace WebPortal.Areas.PartVendorQuotes.Controllers
                 }
                 catch (EntityCommandExecutionException e)
                 {
-                    ViewData["EditError"] = "SQL Error:  " + e.Message + " " + e.InnerException?.Message;
+                    ViewData["EditError"] = "SQL Error: " + e.Message + " " + e.InnerException?.Message;
                 }
                 catch (Exception e)
                 {
-                    ViewData["EditError"] = "NON-SQL Error:" + e.Message + e.InnerException?.Message;
+                    ViewData["EditError"] = "NON-SQL Error: " + e.Message + " " + e.InnerException?.Message;
                 }
             }
             else
+            {
                 ViewData["EditError"] = "Please, correct all errors.";
-
+            }
             return PartVendorQuotesGridViewPartial();
         }
 
@@ -80,16 +112,17 @@ namespace WebPortal.Areas.PartVendorQuotes.Controllers
                 }
                 catch (EntityCommandExecutionException e)
                 {
-                    ViewData["EditError"] = "SQL Error (On Update):  " + e.Message + " " + e.InnerException?.Message;
+                    ViewData["EditError"] = "SQL Error (On Update): " + e.Message + " " + e.InnerException?.Message;
                 }
                 catch (Exception e)
                 {
-                    ViewData["EditError"] = e.GetType().Name + " - NON-SQL Error:  " + e.Message + e.InnerException?.Message;
+                    ViewData["EditError"] = "NON-SQL Error: " + e.Message + " " + e.InnerException?.Message;
                 }
             }
             else
+            {
                 ViewData["EditError"] = "Please, correct all errors.";
- 
+            }
             return PartVendorQuotesGridViewPartial();
         }
 
@@ -109,11 +142,11 @@ namespace WebPortal.Areas.PartVendorQuotes.Controllers
                 }
                 catch (EntityCommandExecutionException e)
                 {
-                    ViewData["EditError"] = "SQL Error:  " + e.Message + " " + e.InnerException?.Message;
+                    ViewData["EditError"] = "SQL Error: " + e.Message + " " + e.InnerException?.Message;
                 }
                 catch (Exception e)
                 {
-                    ViewData["EditError"] = e.Message;
+                    ViewData["EditError"] = "NON-SQL Error: " + e.Message + " " + e.InnerException?.Message;
                 }
             }
           
@@ -122,7 +155,9 @@ namespace WebPortal.Areas.PartVendorQuotes.Controllers
 
         #endregion
 
+
         #region Upload Control
+
         public static UploadControlValidationSettings UploadValidationSettings
             => new UploadControlValidationSettings { MaxFileSize = 419430400 };
 
@@ -150,6 +185,7 @@ namespace WebPortal.Areas.PartVendorQuotes.Controllers
         {
             try
             {
+                UploadError = "";
                 var rowID = RowID;
 
                 ObjectParameter tranDT = new ObjectParameter("TranDT", typeof(DateTime?));
@@ -158,6 +194,7 @@ namespace WebPortal.Areas.PartVendorQuotes.Controllers
                 string partVendorQuoteNumber = "PVQ_" + rowID.ToString();
                 string attachmentCategory = "VendorQuote";
 
+                // Save uploaded file to the file server
                 using (var context = new MONITOREntities4())
                 {
                     context.usp_PVQ_FileManagement_Save(partVendorQuoteNumber, attachmentCategory, args.UploadedFile.FileName, args.UploadedFile.FileBytes, tranDT, result);
@@ -165,48 +202,35 @@ namespace WebPortal.Areas.PartVendorQuotes.Controllers
             }
             catch (EntityCommandExecutionException e)
             {
-                throw new Exception("SQL Error:  " + e.Message + " " + e.InnerException?.Message);
+                UploadError = "SQL Error:  " + e.Message + " " + e.InnerException?.Message;
+                //throw new Exception("SQL Error:  " + e.Message + " " + e.InnerException?.Message);
             }
             catch (Exception e)
             {
-                throw new Exception("NON-SQL Error:" + e.Message + e.InnerException?.Message);
+                UploadError = "SQL Error:  " + e.Message + " " + e.InnerException?.Message;
+                //throw new Exception("NON-SQL Error:" + e.Message + e.InnerException?.Message);
             }
+        }
 
+        public ActionResult CheckUploadSuccess()
+        {
+            if (UploadError != "")
+            {
+                return new HttpStatusCodeResult(410, UploadError);
+            }
+            return new HttpStatusCodeResult(200);
         }
 
         public ActionResult OpenPartVendorQuoteFile(int rowID)
         {
-            string partVendorQuoteNumber = "PVQ_" + rowID.ToString();
-            string attachmentCategory = "VendorQuote";
-            string fileName = "";
-            byte[] fileContents = null;
-
-            ObjectParameter tranDT = new ObjectParameter("TranDT", typeof(DateTime?));
-            ObjectParameter result = new ObjectParameter("Result", typeof(Int32?));
-
-            try
-            {
-                using (var context = new MONITOREntities4())
-                {
-                    var collection = context.usp_PVQ_FileManagement_Get(partVendorQuoteNumber, attachmentCategory, tranDT, result);
-                    var item = collection.ToList().First();
-                    fileName = item.FileName;
-                    fileContents = item.FileContents;
-                }
-            }
-            catch (EntityCommandExecutionException e)
-            {
-                string error = (e.InnerException != null) ? e.InnerException.Message : e.Message;
-                //throw new Exception("SQL Error:  " + e.Message + " " + e.InnerException?.Message);
-                throw new Exception("SQL Error:  " + error);
-            } 
-            catch (Exception e)
-            {
-                string error = (e.InnerException != null) ? e.InnerException.Message : e.Message;
-                //throw new Exception("NON-SQL Error:" + e.Message + e.InnerException?.Message);
-                throw new Exception("SQL Error:  " + error);
-            }
-
+            // Return the file contents from the file server
+            string fileName;
+            byte[] fileContents;
+            string result = GetFile(rowID, out fileName, out fileContents);
+            if (result != "")
+                return new HttpStatusCodeResult(410, result);
+        
+            // Create the file to display in a javascript window
             string tempFileServerPath;
             string tempFileClientPath;
             try
@@ -225,24 +249,98 @@ namespace WebPortal.Areas.PartVendorQuotes.Controllers
             }
             catch (Exception e)
             {
-                throw new Exception("Exception:" + e.Message + e.InnerException?.Message);
+                string error = (e.InnerException != null) ? e.InnerException.Message : e.Message;
+                return new HttpStatusCodeResult(410, error);
             }
             return Content(tempFileClientPath);
         }
 
-        public void DeletePartVendorQuoteFile(int rowID)
+        public string GetFile(int rowID, out string fileName, out byte[] fileContents)
         {
+            string error = "";
+            string partVendorQuoteNumber = "PVQ_" + rowID.ToString();
+            string attachmentCategory = "VendorQuote";
+            fileName = "";
+            fileContents = null;
+
+            ObjectParameter tranDT = new ObjectParameter("TranDT", typeof(DateTime?));
+            ObjectParameter result = new ObjectParameter("Result", typeof(Int32?));
+            try
+            {
+                using (var context = new MONITOREntities4())
+                {
+                    var collection = context.usp_PVQ_FileManagement_Get(partVendorQuoteNumber, attachmentCategory, tranDT, result);
+                    var item = collection.ToList().First();
+                    fileName = item.FileName;
+                    fileContents = item.FileContents;
+                }
+            }
+            catch (EntityCommandExecutionException e)
+            {
+                error = (e.InnerException != null) ? e.InnerException.Message : e.Message;
+            }
+            catch (Exception e)
+            {
+                error = (e.InnerException != null) ? e.InnerException.Message : e.Message;
+            }
+            return error;
+        }
+
+        public ActionResult DeletePartVendorQuoteFile(int rowID)
+        {
+            string error;
             string partVendorQuoteNumber = "PVQ_" + rowID.ToString();
             string attachmentCategory = "VendorQuote";
 
             ObjectParameter tranDT = new ObjectParameter("TranDT", typeof(DateTime?));
             ObjectParameter result = new ObjectParameter("Result", typeof(Int32?));
+            try
+            {
+                _context.usp_PVQ_FileManagement_Delete(partVendorQuoteNumber, attachmentCategory, tranDT, result);
+            }
+            catch (EntityCommandExecutionException e)
+            {
+                error = (e.InnerException == null) ? e.Message : e.InnerException.Message;
+                return new HttpStatusCodeResult(410, error);
+            }
+            catch (Exception e)
+            {
+                error = (e.InnerException == null) ? e.Message : e.InnerException.Message;
+                return new HttpStatusCodeResult(410, error);
+            }
+            return new HttpStatusCodeResult(200);
 
-            _context.usp_PVQ_FileManagement_Delete(partVendorQuoteNumber, attachmentCategory, tranDT, result);
+            //if (ViewData["Attempt"] == null)
+            //{
+            //    ViewData["Attempt"] = 1;
+            //    return new HttpStatusCodeResult(200);
+            //}
+            //else
+            //{
+            //    ViewData["Attempt"] = null;
+            //    return new HttpStatusCodeResult(410, "TESTING: error capture and display.");
+            //}
         }
+
+        private void DeleteTempFiles()
+        {
+            string directoryPath = @"C:\inetpub\wwwroot\WebPortal\temp\";
+            if (!Directory.Exists(directoryPath)) return;
+
+            string[] files = Directory.GetFiles(directoryPath);
+            foreach (string file in files)
+            {
+                FileInfo fi = new FileInfo(file);
+                if (fi.LastAccessTime < DateTime.Now.AddDays(-1)) ;
+                fi.Delete();
+            }
+        }
+
         #endregion
 
+
         #region Export
+
         public ActionResult ExportTo(string customExportCommand)
         {
             switch (customExportCommand)
@@ -255,8 +353,10 @@ namespace WebPortal.Areas.PartVendorQuotes.Controllers
                     return RedirectToAction("Index");
             }
         }
+
         #endregion
     }
+
 
     public class MultiFileSelectionDemoBinder : DevExpressEditorsBinder
     {

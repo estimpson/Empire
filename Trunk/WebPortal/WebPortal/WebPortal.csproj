@@ -325,6 +325,7 @@
     <Content Include="Areas\PartVendorQuotes\Views\Home\Index.cshtml" />
     <Content Include="Areas\PartVendorQuotes\Views\Home\_PartVendorQuotesGridViewPartial.cshtml" />
     <Content Include="Areas\PartVendorQuotes\Views\Home\_UploadDocViewPartial.cshtml" />
+    <Content Include="Areas\PartVendorQuotes\Views\Home\_MessagesViewPartial.cshtml" />
     <None Include="Properties\PublishProfiles\CustomProfile.pubxml" />
     <EntityDeploy Include="SalesForecast\Models\ModelSalesForecast.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
@@ -996,6 +997,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Areas\PartVendorQuotes\Views\Messages\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

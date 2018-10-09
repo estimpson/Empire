@@ -1,0 +1,14 @@
+﻿@{ 
+    <div id="outerMessageContainer">
+        <div id="innerMessageContainer" class="innerMessageContainer">
+            @Html.DevExpress().Label(
+               settings =>
+               {
+                   settings.Name = "lblMessage";
+                   settings.Text = "";
+                   settings.ControlStyle.ForeColor = System.Drawing.Color.White;
+                   settings.Properties.EnableClientSideAPI = true;
+               }).GetHtml()
+        </div>
+    </div>
+}

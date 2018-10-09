@@ -4,10 +4,197 @@
     ViewBag.Title = "Part Vendor Quotes";
 }
 
+<script type="text/javascript">
+
+    function EditGridRowOnDoubleClick(s, e) {
+        s.StartEditRow(e.visibleIndex);
+    }
+
+    function OnToolbarItemClick(s, e) {
+        if (!IsCustomExportToolbarCommand(e.item.name))
+            return;
+        var $exportFormat = $('#customExportCommand');
+        $exportFormat.val(e.item.name);
+        $('form').submit();
+        window.setTimeout(function () {
+            $exportFormat.val("");
+        }, 0);
+    }
+
+    function IsCustomExportToolbarCommand(command) {
+        return command === "CustomExportToXLS" || command === "CustomExportToXLSX";
+    }
+
+    function onFileUploadStart() {
+        console.log("starting upload to RowID:" + document.getElementById("focusedRowID").value);
+        $.ajax({
+            url: "Home/FileUploadStart",
+            data: { RowID: document.getElementById("focusedRowID").value, QuoteFileName: document.getElementById("quoteFileName").value }
+        });
+    }
+
+    function onFileUploadComplete(e) {
+        console.log("File Upload Complete");
+
+        $.ajax({
+            url: "Home/CheckUploadSuccess",
+            success: function () {
+                GridView.Refresh();
+
+                //EnableMultiSelection(false);
+                EnableFilePreviewAndDelete(true);
+
+                document.getElementById("lblMessage").innerHTML = "Success";
+
+                document.getElementById("outerMessageContainer").style.visibility = "visible";
+
+                document.getElementById("innerMessageContainer").style.backgroundColor = "gold";
+                document.getElementById("innerMessageContainer").style.width = "80px";
+                document.getElementById("innerMessageContainer").style.display = "none";
+                $("#innerMessageContainer").show(500).delay(2000).hide(500);
+            },
+            error: function (xhr, httpStatusMessage, customErrorMessage) {
+                if (xhr.status === 410) {
+                    console.log("Error : " + customErrorMessage);
+                    document.getElementById("lblMessage").innerHTML = customErrorMessage;
+                    document.getElementById("outerMessageContainer").style.visibility = "visible";
+
+                    document.getElementById("innerMessageContainer").style.backgroundColor = "#ff0000";
+                    document.getElementById("innerMessageContainer").style.width = "100%";
+                    document.getElementById("innerMessageContainer").style.display = "none";
+                    $("#innerMessageContainer").show(500);
+                }
+            },
+            done: function () { }
+        });
+    }
+
+    function onOpenFileButtonClick(e) {
+        console.log("Open file button clicked");
+        $.ajax({
+            url: "Home/OpenPartVendorQuoteFile",
+            data: {
+                RowID: document.getElementById("focusedRowID").value
+            },
+            success: function (data) {
+                var src = data;
+                window.open(src, "_blank", "resizable=true", true);
+            },
+            error: function (xhr, httpStatusMessage, customErrorMessage) {
+                if (xhr.status === 410) {
+                    console.log("Error : " + customErrorMessage);
+                    document.getElementById("lblMessage").innerHTML = customErrorMessage;
+                    document.getElementById("outerMessageContainer").style.visibility = "visible";
+
+                    document.getElementById("innerMessageContainer").style.backgroundColor = "#ff0000";
+                    document.getElementById("innerMessageContainer").style.width = "100%";
+                    document.getElementById("innerMessageContainer").style.display = "none";
+
+                    $("#innerMessageContainer").show(500);
+                }
+            },
+            done: function () { }
+        });
+            //.done(function (data) {
+            //    var src = data;
+            //    window.open(src, "_blank", "resizable=true", true);
+            //});
+    }
+
+    function onDeleteFileButtonClick(e) {
+        console.log("Delete file button clicked");
+        console.log("Delete RowID: " + document.getElementById("focusedRowID").value);
+
+        $.ajax({
+            url: "Home/DeletePartVendorQuoteFile",
+            //data: { RowID: document.getElementById("focusedRowID").value, QuoteFileName: document.getElementById("quoteFileName").value }
+            data: {
+                RowID: document.getElementById("focusedRowID").value
+            },
+            success: function () {
+                GridView.Refresh();
+
+                document.getElementById("lblMessage").innerHTML = "Success";
+                
+                document.getElementById("outerMessageContainer").style.visibility = "visible";
+
+                document.getElementById("innerMessageContainer").style.backgroundColor = "gold";
+                document.getElementById("innerMessageContainer").style.width = "80px";
+                document.getElementById("innerMessageContainer").style.display = "none";                
+                $("#innerMessageContainer").show(500).delay(2000).hide(500);
+
+                EnableMultiSelection(true);
+                EnableFilePreviewAndDelete(false);
+            },
+            error: function (xhr, httpStatusMessage, customErrorMessage) {
+                if (xhr.status === 410) {
+                    console.log("Error : " + customErrorMessage);
+                    document.getElementById("lblMessage").innerHTML = customErrorMessage;
+                    document.getElementById("outerMessageContainer").style.visibility = "visible";
+
+                    document.getElementById("innerMessageContainer").style.backgroundColor = "#ff0000";
+                    document.getElementById("innerMessageContainer").style.width = "100%";
+                    document.getElementById("innerMessageContainer").style.display = "none";
+                    $("#innerMessageContainer").show(500);
+                }
+            },
+            done: function () { }
+        });
+    }
+
+    function FocusedRowChanged(s, e) {
+        var ID = s.GetRowKey(s.GetFocusedRowIndex());
+        $.ajax({
+            url: "Home/GetFocusedRowFile",
+            data: { rowID: ID },
+            success: function (data) {
+                console.log("Data: " + data);
+                EnableMultiSelection(data == "");
+                EnableFilePreviewAndDelete(data != "");
+                document.getElementById("focusedRowID").value = ID;
+                document.getElementById("quoteFileName").value = data;
+            }
+        });
+    }
+
+    function EnableMultiSelection(b) {
+        ucMultiSelection.SetEnabled(b);
+    }
+
+    function EnableFilePreviewAndDelete(b) {
+        OpenFileButton.SetEnabled(b);
+        DeleteFileButton.SetEnabled(b);
+    }
+
+    function GridEndCallback(s, e) {
+        console.log("GridEndCallback");
+        FocusedRowChanged(s, e);
+    }
+
+</script>
+
+
+<style>
+
+    #outerMessageContainer {
+        height: 30px;
+        visibility: hidden;
+    }
+
+    #innerMessageContainer {
+        height: 24px;
+        border-radius: 25px;
+        padding: 4px 10px 0px 13px;
+        font-size: 12px;
+        color: #fff;
+    }
+
+</style>
+
+
 <h2>Part Vendor Quotes</h2>
 
 <p>@ViewData["EditError"]</p>
-
 
 
 @using (Html.BeginForm("ExportTo", "Home"))
@@ -16,6 +203,9 @@
     @Html.Hidden("focusedRowID")
     @Html.Hidden("quoteFileName")
 
+    <div>
+        @Html.Action("MessagesViewPartial")
+    </div>
     <div style="margin-bottom: 20px;">
         @Html.Action("PartVendorQuotesGridViewPartial")
     </div>
@@ -24,123 +214,6 @@
     </div>
 }
 
-        @section AdditionalResources {
-            <script type="text/javascript">
-                function EditGridRowOnDoubleClick(s, e) {
-                    s.StartEditRow(e.visibleIndex);
-                }
-            </script>
 
-            <script type="text/javascript">
-                function OnToolbarItemClick(s, e) {
-                    if (!IsCustomExportToolbarCommand(e.item.name))
-                        return;
-                    var $exportFormat = $('#customExportCommand');
-                    $exportFormat.val(e.item.name);
-                    $('form').submit();
-                    window.setTimeout(function () {
-                        $exportFormat.val("");
-                    }, 0);
-                }
-                function IsCustomExportToolbarCommand(command) {
-                    return command === "CustomExportToXLS" || command === "CustomExportToXLSX";
-                }
-            </script>
 
-            <script type="text/javascript">
-                function onFileUploadStart() {
-                    console.log("starting upload to RowID:" + document.getElementById("focusedRowID").value);
-                    $.ajax({
-                        url: "Home/FileUploadStart",
-                        data: { RowID: document.getElementById("focusedRowID").value, QuoteFileName: document.getElementById("quoteFileName").value }
-                    });
-                }
 
-                function onFileUploadComplete(e) {
-                    console.log("File Upload Complete");
-                    GridView.Refresh();
-
-                    //EnableMultiSelection(false);
-                    EnableFilePreviewAndDelete(true);
-                }
-
-                function onOpenFileButtonClick(e) {
-                    console.log("Open file button clicked");
-                    $.ajax({
-                        url: "Home/OpenPartVendorQuoteFile",
-                        data: { RowID: document.getElementById("focusedRowID").value }
-                    })
-                        .done(function (data) {
-                            var src = data;
-                            window.open(src, "_blank", "resizable=true", true);
-                        });
-                }
-
-                function onDeleteFileButtonClick(e) {
-                    console.log("Delete file button clicked");
-                    console.log("Delete RowID: " + document.getElementById("focusedRowID").value);
-                    $.ajax({
-                        url: "Home/DeletePartVendorQuoteFile",
-                        //data: { RowID: document.getElementById("focusedRowID").value, QuoteFileName: document.getElementById("quoteFileName").value }
-                        data: { RowID: document.getElementById("focusedRowID").value }
-                    })
-                        .done(function () {
-                            console.log("From Delete javascript: done.");
-                            GridView.Refresh();
-
-                            EnableMultiSelection(true);
-                            EnableFilePreviewAndDelete(false);
-                        })
-                        .fail(function () {
-                            console.log("From Delete javascript: fail.");
-                        });
-                }
-
-            </script>
-
-            <script type="text/javascript">
-                function FocusedRowChanged(s, e) {
-                    console.log("Focus Changed" + s);
-                    console.log("Focus Row Index: " + s.GetFocusedRowIndex());
-                    if (!(s.GetFocusedRowIndex() >= 0)) {
-                        console.log("nothing selected");
-                        EnableMultiSelection(false);
-                        EnableFilePreviewAndDelete(false);
-                        return;
-                    }
-
-                    var rowID = s.GetRowKey(s.GetFocusedRowIndex());
-                    console.log("rowID: " + rowID);
-                    if (!rowID) {
-                        console.log("no row selected");
-                        EnableMultiSelection(false);
-                        EnableFilePreviewAndDelete(false);
-                        return;
-                    }
-
-                    var x = JSON.parse(document.getElementById('XYZ123').value);
-                    console.log(x);
-                    var row = x.find((xe) => { return xe.RowID == rowID; });
-                    console.log(row);
-                    EnableMultiSelection(!row.File);
-                    EnableFilePreviewAndDelete(row.File);
-                    document.getElementById("focusedRowID").value = row.RowID;
-                    document.getElementById("quoteFileName").value = row.File;
-                }
-
-                function EnableMultiSelection(b) {
-                    ucMultiSelection.SetEnabled(b);
-                }
-
-                function EnableFilePreviewAndDelete(b) {
-                    OpenFileButton.SetEnabled(b);
-                    DeleteFileButton.SetEnabled(b);
-                }
-
-                function GridEndCallback(s, e) {
-                    console.log("GridEndCallback");
-                    FocusedRowChanged(s, e);
-                }
-
-            </script>
-        }
