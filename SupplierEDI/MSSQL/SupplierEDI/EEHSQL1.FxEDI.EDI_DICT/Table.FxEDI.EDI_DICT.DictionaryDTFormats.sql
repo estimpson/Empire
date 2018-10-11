@@ -1,16 +1,23 @@
 
 /*
-Create Table.FxEDI.EDI_DICT.DictionaryDTFormat.sql
+Create Table.FxEDI.EDI_DICT.DictionaryDTFormats.sql
 */
 
---use FxEDI
---go
+use FxEDI
+go
 
---drop table EDI_DICT.DictionaryDTFormat
-if	objectproperty(object_id('EDI_DICT.DictionaryDTFormat'), 'IsTable') is null begin
+/*
+exec FT.sp_DropForeignKeys
 
-	create table EDI_DICT.DictionaryDTFormat
-	(	DictionaryVersion varchar(50) default ('0') not null
+drop table EDI_DICT.DictionaryDTFormats
+
+exec FT.sp_AddForeignKeys
+*/
+if	objectproperty(object_id('EDI_DICT.DictionaryDTFormats'), 'IsTable') is null begin
+
+	create table EDI_DICT.DictionaryDTFormats
+	(	DictionaryVersion varchar(25)
+	,	Status int not null default(0)
 	,	Type int not null default(0)
 	,	FormatString varchar(12) not null
 	,	RowID int identity(1,1) primary key clustered
@@ -18,27 +25,48 @@ if	objectproperty(object_id('EDI_DICT.DictionaryDTFormat'), 'IsTable') is null b
 	,	RowCreateUser sysname default(suser_name())
 	,	RowModifiedDT datetime default(getdate())
 	,	RowModifiedUser sysname default(suser_name())
-	,	unique nonclustered
-		(	DictionaryVersion
-		,	Type
-		)
 	)
 end
 go
 
 /*
-Create trigger EDI_DICT.tr_DictionaryDTFormat_uRowModified on EDI_DICT.DictionaryDTFormat
+insert
+	EDI_DICT.DictionaryDTFormats
+(	DictionaryVersion
+,	Status
+,	Type
+,	FormatString
+,	RowCreateDT
+,	RowCreateUser
+,	RowModifiedDT
+,	RowModifiedUser
+)
+select
+	ddf.DictionaryVersion
+,	ddf.Status
+,	ddf.Type
+,	ddf.FormatString
+,	ddf.RowCreateDT
+,	ddf.RowCreateUser
+,	ddf.RowModifiedDT
+,	ddf.RowModifiedUser
+from
+	EEH.FxEDI_EDI_DICT.DictionaryDTFormats ddf
+*/
+
+/*
+Create trigger EDI_DICT.tr_DictionaryDTFormats_uRowModified on EDI_DICT.DictionaryDTFormats
 */
 
 --use FxEDI
 --go
 
-if	objectproperty(object_id('EDI_DICT.tr_DictionaryDTFormat_uRowModified'), 'IsTrigger') = 1 begin
-	drop trigger EDI_DICT.tr_DictionaryDTFormat_uRowModified
+if	objectproperty(object_id('EDI_DICT.tr_DictionaryDTFormats_uRowModified'), 'IsTrigger') = 1 begin
+	drop trigger EDI_DICT.tr_DictionaryDTFormats_uRowModified
 end
 go
 
-create trigger EDI_DICT.tr_DictionaryDTFormat_uRowModified on EDI_DICT.DictionaryDTFormat after update
+create trigger EDI_DICT.tr_DictionaryDTFormats_uRowModified on EDI_DICT.DictionaryDTFormats after update
 as
 declare
 	@TranDT datetime
@@ -79,14 +107,14 @@ begin try
 	--- <Body>
 	if	not update(RowModifiedDT) begin
 		--- <Update rows="*">
-		set	@TableName = 'EDI_DICT.DictionaryDTFormat'
+		set	@TableName = 'EDI_DICT.DictionaryDTFormats'
 		
 		update
 			ddf
 		set	RowModifiedDT = getdate()
 		,	RowModifiedUser = suser_name()
 		from
-			EDI_DICT.DictionaryDTFormat ddf
+			EDI_DICT.DictionaryDTFormats ddf
 			join inserted i
 				on i.RowID = ddf.RowID
 		
@@ -163,19 +191,19 @@ begin transaction Test
 go
 
 insert
-	EDI_DICT.DictionaryDTFormat
+	EDI_DICT.DictionaryDTFormats
 ...
 
 update
 	...
 from
-	EDI_DICT.DictionaryDTFormat
+	EDI_DICT.DictionaryDTFormats
 ...
 
 delete
 	...
 from
-	EDI_DICT.DictionaryDTFormat
+	EDI_DICT.DictionaryDTFormats
 ...
 go
 
@@ -195,13 +223,8 @@ Results {
 */
 go
 
-insert
-	EDI_DICT.DictionaryDTFormat
-(	DictionaryVersion
-,	Type
-,	FormatString
-)
 select
-	DictionaryVersion = '002002FORD'
-,	Type = 2
-,	FormatString = 'HHMM'
+	*
+from
+	EDI_DICT.DictionaryDTFormats ddf
+go

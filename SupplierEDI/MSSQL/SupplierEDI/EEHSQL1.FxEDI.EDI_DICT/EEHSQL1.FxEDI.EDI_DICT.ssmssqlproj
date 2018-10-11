@@ -1,10 +1,22 @@
 <?xml version="1.0"?>
-<SqlWorkbenchSqlProject xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" Name="EEHSQL1.EEH.EDI_XML_NET_830">
+<SqlWorkbenchSqlProject xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" Name="FxEDI.EDI_DICT">
   <Items>
     <LogicalFolder Name="Connections" Type="2" Sorted="true">
       <Items>
+        <ConnectionNode Name="aztec:estimpson">
+          <Created>2016-05-18T13:30:36.5888118-04:00</Created>
+          <Type>SQL</Type>
+          <Server>aztec</Server>
+          <UserName>estimpson</UserName>
+          <Authentication>SQL</Authentication>
+          <InitialDB>FxAztec</InitialDB>
+          <LoginTimeout>15</LoginTimeout>
+          <ExecutionTimeout>0</ExecutionTimeout>
+          <ConnectionProtocol>NotSpecified</ConnectionProtocol>
+          <ApplicationName>Microsoft SQL Server Management Studio - Query</ApplicationName>
+        </ConnectionNode>
         <ConnectionNode Name="eehsql1:estimpson">
-          <Created>2018-06-26T15:28:52.3384488-04:00</Created>
+          <Created>2018-06-20T16:16:19.8619287-04:00</Created>
           <Type>SQL</Type>
           <Server>eehsql1</Server>
           <UserName>estimpson</UserName>
@@ -19,53 +31,65 @@
     </LogicalFolder>
     <LogicalFolder Name="Queries" Type="0" Sorted="true">
       <Items>
-        <FileNode Name="ScalarFunction.EEH.EDI_XML_NET_830.Get830.sql">
+        <FileNode Name="Schema.FxEDI.EDI_DICT.sql">
           <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:eehsql1:False:estimpson</AssociatedConnectionMoniker>
           <AssociatedConnSrvName>eehsql1</AssociatedConnSrvName>
           <AssociatedConnUserName>estimpson</AssociatedConnUserName>
-          <FullPath>ScalarFunction.EEH.EDI_XML_NET_830.Get830.sql</FullPath>
+          <FullPath>Schema.FxEDI.EDI_DICT.sql</FullPath>
         </FileNode>
-        <FileNode Name="ScalarFunction.EEH.EDI_XML_NET_830.Get830_valid.sql">
+        <FileNode Name="Script.Query.SegmentContents.sql">
           <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:eehsql1:False:estimpson</AssociatedConnectionMoniker>
           <AssociatedConnSrvName>eehsql1</AssociatedConnSrvName>
           <AssociatedConnUserName>estimpson</AssociatedConnUserName>
-          <FullPath>ScalarFunction.EEH.EDI_XML_NET_830.Get830_valid.sql</FullPath>
+          <FullPath>Script.Query.SegmentContents.sql</FullPath>
         </FileNode>
-        <FileNode Name="ScalarFunction.EEH.EDI_XML_NET_830.GetReleases.sql">
+        <FileNode Name="Table.FxEDI.EDI.DictionaryRaw.sql">
           <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:eehsql1:False:estimpson</AssociatedConnectionMoniker>
           <AssociatedConnSrvName>eehsql1</AssociatedConnSrvName>
           <AssociatedConnUserName>estimpson</AssociatedConnUserName>
-          <FullPath>ScalarFunction.EEH.EDI_XML_NET_830.GetReleases.sql</FullPath>
+          <FullPath>Table.FxEDI.EDI.DictionaryRaw.sql</FullPath>
         </FileNode>
-        <FileNode Name="ScalarFunction.EEH.EDI_XML_NET_830.GetReleases_valid.sql">
+        <FileNode Name="Table.FxEDI.EDI_DICT.DictionaryDTFormats.sql">
           <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:eehsql1:False:estimpson</AssociatedConnectionMoniker>
           <AssociatedConnSrvName>eehsql1</AssociatedConnSrvName>
           <AssociatedConnUserName>estimpson</AssociatedConnUserName>
-          <FullPath>ScalarFunction.EEH.EDI_XML_NET_830.GetReleases_valid.sql</FullPath>
+          <FullPath>Table.FxEDI.EDI_DICT.DictionaryDTFormats.sql</FullPath>
         </FileNode>
-        <FileNode Name="Schema.EEH.EDI_XML_NET_830.sql">
+        <FileNode Name="Table.FxEDI.EDI_DICT.DictionaryElements.sql">
           <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:eehsql1:False:estimpson</AssociatedConnectionMoniker>
           <AssociatedConnSrvName>eehsql1</AssociatedConnSrvName>
           <AssociatedConnUserName>estimpson</AssociatedConnUserName>
-          <FullPath>Schema.EEH.EDI_XML_NET_830.sql</FullPath>
+          <FullPath>Table.FxEDI.EDI_DICT.DictionaryElements.sql</FullPath>
         </FileNode>
-        <FileNode Name="View.EEH.EDI_XML_NET_830.PurchaseOrderDetails.sql">
+        <FileNode Name="Table.FxEDI.EDI_DICT.DictionaryElementValueCodes.sql">
           <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:eehsql1:False:estimpson</AssociatedConnectionMoniker>
           <AssociatedConnSrvName>eehsql1</AssociatedConnSrvName>
           <AssociatedConnUserName>estimpson</AssociatedConnUserName>
-          <FullPath>View.EEH.EDI_XML_NET_830.PurchaseOrderDetails.sql</FullPath>
+          <FullPath>Table.FxEDI.EDI_DICT.DictionaryElementValueCodes.sql</FullPath>
         </FileNode>
-        <FileNode Name="View.EEH.EDI_XML_NET_830.PurchaseOrderInfo.sql">
+        <FileNode Name="Table.FxEDI.EDI_DICT.DictionarySegmentCodes.sql">
           <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:eehsql1:False:estimpson</AssociatedConnectionMoniker>
           <AssociatedConnSrvName>eehsql1</AssociatedConnSrvName>
           <AssociatedConnUserName>estimpson</AssociatedConnUserName>
-          <FullPath>View.EEH.EDI_XML_NET_830.PurchaseOrderInfo.sql</FullPath>
+          <FullPath>Table.FxEDI.EDI_DICT.DictionarySegmentCodes.sql</FullPath>
         </FileNode>
-        <FileNode Name="View.EEH.EDI_XML_NET_830.TradingPartnerInfo.sql">
+        <FileNode Name="Table.FxEDI.EDI_DICT.DictionarySegmentContents.sql">
           <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:eehsql1:False:estimpson</AssociatedConnectionMoniker>
           <AssociatedConnSrvName>eehsql1</AssociatedConnSrvName>
           <AssociatedConnUserName>estimpson</AssociatedConnUserName>
-          <FullPath>View.EEH.EDI_XML_NET_830.TradingPartnerInfo.sql</FullPath>
+          <FullPath>Table.FxEDI.EDI_DICT.DictionarySegmentContents.sql</FullPath>
+        </FileNode>
+        <FileNode Name="Table.FxEDI.EDI_DICT.DictionaryTransactions.sql">
+          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:eehsql1:False:estimpson</AssociatedConnectionMoniker>
+          <AssociatedConnSrvName>eehsql1</AssociatedConnSrvName>
+          <AssociatedConnUserName>estimpson</AssociatedConnUserName>
+          <FullPath>Table.FxEDI.EDI_DICT.DictionaryTransactions.sql</FullPath>
+        </FileNode>
+        <FileNode Name="Table.FxEDI.EDI_DICT.DictionaryTransactionSegments.sql">
+          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:eehsql1:False:estimpson</AssociatedConnectionMoniker>
+          <AssociatedConnSrvName>eehsql1</AssociatedConnSrvName>
+          <AssociatedConnUserName>estimpson</AssociatedConnUserName>
+          <FullPath>Table.FxEDI.EDI_DICT.DictionaryTransactionSegments.sql</FullPath>
         </FileNode>
       </Items>
     </LogicalFolder>
