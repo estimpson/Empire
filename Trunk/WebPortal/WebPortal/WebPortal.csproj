@@ -482,7 +482,6 @@
     </Compile>
     <Compile Include="Areas\PartVendorQuotes\PartVendorQuotesAreaRegistration.cs" />
     <Compile Include="Areas\PartVendorQuotes\ViewModels\PartVendorQuoteViewModel.cs" />
-    <Compile Include="Areas\PartVendorQuotes\ViewModels\PartVendorQuotesViewModel.cs" />
     <Compile Include="Areas\PartVendorQuotes\ViewModels\VendorViewModel.cs" />
     <Compile Include="Areas\PartVendorQuotes\Views\_Helpers\GridViewHelper.cs" />
     <Compile Include="Contact.aspx.cs">
