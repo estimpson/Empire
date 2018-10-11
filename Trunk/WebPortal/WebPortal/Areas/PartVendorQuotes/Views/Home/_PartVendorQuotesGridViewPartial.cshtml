@@ -1,0 +1,130 @@
+﻿@using System.Web.Script.Serialization
+@using WebPortal.Areas.PartVendorQuotes.Views._Helpers
+@model WebPortal.Areas.PartVendorQuotes.ViewModels.PartVendorQuotesViewModel
+
+@{
+    Layout = null;
+}
+
+@{
+    Html.EnableClientValidation();
+    Html.EnableUnobtrusiveJavaScript();
+}
+
+@{
+    var grid = Html.DevExpress().GridView(settings =>
+    {
+        settings.EnableRowsCache = true;
+        settings.Name = "GridView";
+        settings.KeyFieldName = "RowID";
+        settings.CallbackRouteValues = new
+        {
+            Controller = "Home",
+            Action = "PartVendorQuotesGridViewPartial"
+        };
+        settings.ClientSideEvents.RowDblClick = "EditGridRowOnDoubleClick";
+        settings.ClientSideEvents.FocusedRowChanged = "FocusedRowChanged";
+        settings.ClientSideEvents.EndCallback = "GridEndCallback";
+
+        settings.SettingsEditing.AddNewRowRouteValues = new { Controller = "Home", Action = "PartVendorQuotesGridViewPartialAddNew" };
+        settings.SettingsEditing.UpdateRowRouteValues = new { Controller = "Home", Action = "PartVendorQuotesGridViewPartialUpdate" };
+        settings.SettingsEditing.DeleteRowRouteValues = new { Controller = "Home", Action = "PartVendorQuotesGridViewPartialDelete" };
+
+        GridViewHelper.SetStandardAdaptivitySettings(settings);
+        GridViewHelper.UseStandardToolbar(settings, Html);
+
+        settings.Columns.Add("RowID").Visible = false;
+        settings.Columns.Add(c =>
+        {
+            c.FieldName = "PartCode";
+            c.Caption = "Part";
+
+            c.EditorProperties().ComboBox(p =>
+            {
+                p.TextField = "PartCode";
+                p.ValueField = "PartCode";
+                p.ValueType = typeof(string);
+                p.DataSource = Model.Parts;
+            });
+        });
+        settings.Columns.Add(c =>
+        {
+            c.FieldName = "VendorCode";
+            c.Caption = "Vendor";
+
+            c.EditorProperties().ComboBox(p =>
+            {
+                p.TextField = "VendorCode";
+                p.ValueField = "VendorCode";
+                p.ValueType = typeof(string);
+                p.DataSource = Model.Vendors;
+            });
+        });
+        settings.Columns.Add(c =>
+        {
+            c.FieldName = "Oem";
+            c.Caption = "OEM";
+
+            c.EditorProperties().ComboBox(p =>
+            {
+                p.TextField = "Oem";
+                p.ValueField = "Oem";
+                p.ValueType = typeof(string);
+                p.DataSource = Model.Oems;
+            });
+        });
+        settings.Columns.Add(c =>
+        {
+            c.FieldName = "EffectiveDate";
+            c.Caption = "Effective Date";
+            c.ColumnType = MVCxGridViewColumnType.DateEdit;
+            var deProperties = c.PropertiesEdit as DateEditProperties;
+            deProperties.DisplayFormatString = "d";
+        });
+        settings.Columns.Add(c =>
+        {
+            c.FieldName = "EndDate";
+            c.Caption = "End Date";
+            c.ColumnType = MVCxGridViewColumnType.DateEdit;
+            var deProperties = c.PropertiesEdit as DateEditProperties;
+            deProperties.DisplayFormatString = "d";
+        });
+        settings.Columns.Add(c =>
+        {
+            c.FieldName = "Price";
+            c.EditorProperties().SpinEdit(p =>
+            {
+                p.DisplayFormatString = "{0:C}";
+                p.DisplayFormatInEditMode = true;
+            });
+        });
+        settings.Columns.Add(c =>
+        {
+            c.FieldName = "QuoteFileName";
+            c.Caption = "Quote Filename";
+        });
+
+        settings.EditFormLayoutProperties.ColCount = 2;
+        settings.EditFormLayoutProperties.Items.Add("PartCode");
+        settings.EditFormLayoutProperties.Items.Add("EffectiveDate");
+        settings.EditFormLayoutProperties.Items.Add("VendorCode");
+        settings.EditFormLayoutProperties.Items.Add("EndDate");
+        settings.EditFormLayoutProperties.Items.Add("Oem");
+        settings.EditFormLayoutProperties.Items.Add("Price");
+        settings.EditFormLayoutProperties.Items.AddEmptyItem(new EmptyLayoutItem());
+        settings.EditFormLayoutProperties.Items.AddCommandItem(itemSettings =>
+        {
+            itemSettings.HorizontalAlign = FormLayoutHorizontalAlign.Right;
+        });
+        settings.EditFormLayoutProperties.SettingsAdaptivity.AdaptivityMode = FormLayoutAdaptivityMode.SingleColumnWindowLimit;
+        settings.EditFormLayoutProperties.SettingsAdaptivity.SwitchToSingleColumnAtWindowInnerWidth = 700;
+
+        GridViewHelper.SetStandardBehavior(settings);
+    });
+    if (ViewData["EditError"] != null)
+    {
+        grid.SetEditErrorText((string)ViewData["EditError"]);
+    }
+}
+@grid.Bind(Model.PartVendorQuotes).GetHtml()
+@*@Html.Hidden("XYZ123", new JavaScriptSerializer().Serialize(Model.PartVendorQuotes.Select(pv => new { RowID = pv.RowID, File = pv.QuoteFileName })))*@

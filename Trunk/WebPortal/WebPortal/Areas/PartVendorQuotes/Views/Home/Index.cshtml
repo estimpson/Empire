@@ -1,0 +1,204 @@
+﻿@model WebPortal.Areas.PartVendorQuotes.ViewModels.PartVendorQuotesViewModel
+
+@{
+    ViewBag.Title = "Part Vendor Quotes";
+}
+
+
+<script type="text/javascript">
+
+    function EditGridRowOnDoubleClick(s, e) {
+        s.StartEditRow(e.visibleIndex);
+    }
+
+    function OnToolbarItemClick(s, e) {
+        if (!IsCustomExportToolbarCommand(e.item.name))
+            return;
+        var $exportFormat = $('#customExportCommand');
+        $exportFormat.val(e.item.name);
+        $('form').submit();
+        window.setTimeout(function () {
+            $exportFormat.val("");
+        }, 0);
+    }
+
+    function IsCustomExportToolbarCommand(command) {
+        return command === "CustomExportToXLS" || command === "CustomExportToXLSX";
+    }
+
+    function onFileUploadStart() {
+        console.log("starting upload to RowID:" + document.getElementById("focusedRowID").value);
+        $.ajax({
+            url: "Home/FileUploadStart",
+            data: { RowID: document.getElementById("focusedRowID").value, QuoteFileName: document.getElementById("quoteFileName").value }
+        });
+    }
+
+    function onFileUploadComplete(e) {
+        console.log("File Upload Complete");
+
+        $.ajax({
+            url: "Home/CheckUploadSuccess",
+            type: "POST",
+            success: function () {
+                GridView.Refresh();
+
+                //EnableMultiSelection(false);
+                EnableFilePreviewAndDelete(true);
+
+                document.getElementById("lblMessage").innerHTML = "Success";
+
+                document.getElementById("outerMessageContainer").style.visibility = "visible";
+
+                document.getElementById("innerMessageContainer").style.backgroundColor = "gold";
+                document.getElementById("innerMessageContainer").style.width = "80px";
+                document.getElementById("innerMessageContainer").style.display = "none";
+                $("#innerMessageContainer").show(500).delay(2000).hide(500);
+            },
+            error: function (xhr, httpStatusMessage, customErrorMessage) {
+                if (xhr.status === 410) {
+                    console.log("Error : " + customErrorMessage);
+                    document.getElementById("lblMessage").innerHTML = customErrorMessage;
+                    document.getElementById("outerMessageContainer").style.visibility = "visible";
+
+                    document.getElementById("innerMessageContainer").style.backgroundColor = "#ff0000";
+                    document.getElementById("innerMessageContainer").style.width = "100%";
+                    document.getElementById("innerMessageContainer").style.display = "none";
+                    $("#innerMessageContainer").show(500);
+                }
+            },
+            done: function () { }
+        });
+    }
+
+    function onOpenFileButtonClick(e) {
+        console.log("Open file button clicked");
+        $.ajax({
+            url: "Home/OpenPartVendorQuoteFile",
+            data: {
+                RowID: document.getElementById("focusedRowID").value
+            },
+            type: "POST",
+            success: function (data) {
+                var src = data;
+                window.open(src, "_blank", "resizable=true", true);
+            },
+            error: function (xhr, httpStatusMessage, customErrorMessage) {
+                if (xhr.status === 410) {
+                    console.log("Error : " + customErrorMessage);
+                    document.getElementById("lblMessage").innerHTML = customErrorMessage;
+                    document.getElementById("outerMessageContainer").style.visibility = "visible";
+
+                    document.getElementById("innerMessageContainer").style.backgroundColor = "#ff0000";
+                    document.getElementById("innerMessageContainer").style.width = "100%";
+                    document.getElementById("innerMessageContainer").style.display = "none";
+
+                    $("#innerMessageContainer").show(500);
+                }
+            },
+            done: function () { }
+        });
+        //.done(function (data) {
+        //    var src = data;
+        //    window.open(src, "_blank", "resizable=true", true);
+        //});
+    }
+
+    function onDeleteFileButtonClick(e) {
+        console.log("Delete file button clicked");
+        console.log("Delete RowID: " + document.getElementById("focusedRowID").value);
+
+        $.ajax({
+            url: "Home/DeletePartVendorQuoteFile",
+            //data: { RowID: document.getElementById("focusedRowID").value, QuoteFileName: document.getElementById("quoteFileName").value }
+            data: {
+                RowID: document.getElementById("focusedRowID").value
+            },
+            type: "POST",
+            success: function () {
+                GridView.Refresh();
+
+                document.getElementById("lblMessage").innerHTML = "Success";
+
+                document.getElementById("outerMessageContainer").style.visibility = "visible";
+
+                document.getElementById("innerMessageContainer").style.backgroundColor = "gold";
+                document.getElementById("innerMessageContainer").style.width = "80px";
+                document.getElementById("innerMessageContainer").style.display = "none";
+                $("#innerMessageContainer").show(500).delay(2000).hide(500);
+
+                EnableMultiSelection(true);
+                EnableFilePreviewAndDelete(false);
+            },
+            error: function (xhr, httpStatusMessage, customErrorMessage) {
+                if (xhr.status === 410) {
+                    console.log("Error : " + customErrorMessage);
+                    document.getElementById("lblMessage").innerHTML = customErrorMessage;
+                    document.getElementById("outerMessageContainer").style.visibility = "visible";
+
+                    document.getElementById("innerMessageContainer").style.backgroundColor = "#ff0000";
+                    document.getElementById("innerMessageContainer").style.width = "100%";
+                    document.getElementById("innerMessageContainer").style.display = "none";
+                    $("#innerMessageContainer").show(500);
+                }
+            },
+            done: function () { }
+        });
+    }
+
+    function FocusedRowChanged(s, e) {
+        var ID = s.GetRowKey(s.GetFocusedRowIndex());
+        $.ajax({
+            url: "Home/GetFocusedRowFile",
+            data: { rowID: ID },
+            type: "POST",
+            success: function (data) {
+                console.log("Data: " + data);
+                EnableMultiSelection(data == "");
+                EnableFilePreviewAndDelete(data != "");
+                document.getElementById("focusedRowID").value = ID;
+                document.getElementById("quoteFileName").value = data;
+            }
+        });
+    }
+
+    function EnableMultiSelection(b) {
+        ucMultiSelection.SetEnabled(b);
+    }
+
+    function EnableFilePreviewAndDelete(b) {
+        OpenFileButton.SetEnabled(b);
+        DeleteFileButton.SetEnabled(b);
+    }
+
+    function GridEndCallback(s, e) {
+        console.log("GridEndCallback");
+        FocusedRowChanged(s, e);
+    }
+
+</script>
+
+
+
+<h2>Part Vendor Quotes</h2>
+
+@using (Html.BeginForm("ExportTo", "Home", FormMethod.Post, new { id = "mainForm" }))
+{
+    @Html.Hidden("customExportCommand")
+    @Html.Hidden("focusedRowID")
+    @Html.Hidden("quoteFileName")
+
+    <div>
+        @Html.Action("MessagesViewPartial")
+    </div>
+    <div style="margin-bottom: 20px;">
+        @Html.Action("PartVendorQuotesGridViewPartial")
+    </div>
+    <div style="float: left;">
+        @Html.Action("UploadDocViewPartial")
+    </div>
+}
+
+
+
+

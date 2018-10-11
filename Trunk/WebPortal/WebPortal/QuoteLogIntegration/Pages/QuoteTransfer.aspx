@@ -29,7 +29,7 @@
         }
 
         function SelectionChangedTransferComplete(s, e) {
-            if (s.GetValue() == 'Y') {
+            if (s.GetValue() === 'Y') {
                 cpTransferComplete.PerformCallback("Y");
             }
             else {

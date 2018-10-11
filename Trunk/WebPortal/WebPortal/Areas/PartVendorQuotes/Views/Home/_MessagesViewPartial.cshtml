@@ -1,0 +1,34 @@
+﻿@{
+    Layout = null;
+}
+
+<style>
+
+    #outerMessageContainer {
+        height: 30px;
+        visibility: hidden;
+    }
+
+    #innerMessageContainer {
+        height: 24px;
+        border-radius: 25px;
+        padding: 4px 10px 0px 13px;
+        font-size: 12px;
+        color: #fff;
+    }
+</style>
+
+@{
+    <div id="outerMessageContainer">
+        <div id="innerMessageContainer" class="innerMessageContainer">
+            @Html.DevExpress().Label(
+               settings =>
+               {
+                   settings.Name = "lblMessage";
+                   settings.Text = "";
+                   settings.ControlStyle.ForeColor = System.Drawing.Color.White;
+                   settings.Properties.EnableClientSideAPI = true;
+               }).GetHtml()
+        </div>
+    </div>
+}

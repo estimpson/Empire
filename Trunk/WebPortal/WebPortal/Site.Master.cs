@@ -56,8 +56,15 @@ namespace WebPortal
             var query = ViewModel.UserWebPagesList.Where(p => p.WebPage == page);
             foreach (var item in query) path = item.FilePath;
 
-            //Response.Redirect("~/" + path + page + ".aspx?op=" + operatorCode + "&name=" + operatorName);
-            Response.Redirect("~/" + path + page + ".aspx");
+            if (page == "PartVendorQuotes") // MVC Area
+            {
+                Response.Redirect("~/" + path + "Home");
+            }
+            else
+            {
+                //Response.Redirect("~/" + path + page + ".aspx?op=" + operatorCode + "&name=" + operatorName);
+                Response.Redirect("~/" + path + page + ".aspx");
+            }
         }
 
         #endregion
