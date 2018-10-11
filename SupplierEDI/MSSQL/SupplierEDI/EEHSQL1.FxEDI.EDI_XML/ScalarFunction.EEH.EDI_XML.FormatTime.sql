@@ -1,0 +1,71 @@
+
+/*
+Create ScalarFunction.EEH.EDI_XML.FormatTime.sql
+*/
+
+use EEH
+go
+
+if	objectproperty(object_id('EDI_XML.FormatTime'), 'IsScalarFunction') = 1 begin
+	drop function EDI_XML.FormatTime
+end
+go
+
+create function EDI_XML.FormatTime
+(	@dictionaryVersion varchar(25)
+,	@time time
+)
+returns varchar(12)
+as
+begin
+--- <Body>
+	declare
+		@timeString varchar(12)
+	,	@timeFormat varchar(12)
+
+	select
+		@timeFormat = ddf.FormatString
+	from
+		FxEDI_EDI_DICT.DictionaryDTFormats ddf
+	where
+		ddf.DictionaryVersion = coalesce
+			(	(	select
+						ddfR.DictionaryVersion
+					from
+						FxEDI_EDI_DICT.DictionaryDTFormats ddfR
+					where
+						ddfR.DictionaryVersion = @dictionaryVersion
+						and ddfR.Type = 2
+				)
+			,	(	select
+						max(ddfP.DictionaryVersion)
+					from
+						FxEDI_EDI_DICT.DictionaryDTFormats ddfP
+					where
+						ddfP.DictionaryVersion < @dictionaryVersion
+						and ddfP.Type = 2
+				)
+			,	(	select
+						min(ddfP.DictionaryVersion)
+					from
+						FxEDI_EDI_DICT.DictionaryDTFormats ddfP
+					where
+						ddfP.DictionaryVersion > @dictionaryVersion
+						and ddfP.Type = 2
+				)
+			)
+		and ddf.Type = 2
+
+	set @timeString = EDI_XML.FormatDT(@timeFormat, @time)
+--- </Body>
+
+---	<Return>
+	return
+		@timeString
+end
+go
+
+select
+	EDI_XML.FormatTime('004010', getdate())
+go
+
