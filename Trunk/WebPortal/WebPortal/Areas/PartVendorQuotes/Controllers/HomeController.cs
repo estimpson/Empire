@@ -50,12 +50,20 @@ namespace WebPortal.Areas.PartVendorQuotes.Controllers
         {
             PartVendorQuotesViewModel model = new PartVendorQuotesViewModel();
 
+            //var realModel = _context.usp_GetPartVendorQuotes().Select(pvq =>
+            //       new pvqVM
+            //       {
+            //           Part = pvq.PartCode
+            //       }
+            //    ).ToList();
+
             model.PartVendorQuotes = _context.usp_GetPartVendorQuotes().ToList();
             model.Parts = _context.usp_GetParts().ToList();
             model.Vendors = _context.usp_GetVendors().ToList();
             model.Oems = _context.usp_GetOems().ToList();
 
             return PartialView("_PartVendorQuotesGridViewPartial", model);
+            //return PartialView("_PartVendorQuotesGridViewPartial", model.PartVendorQuotes);
         }
 
         public string GetFocusedRowFile(int rowID)

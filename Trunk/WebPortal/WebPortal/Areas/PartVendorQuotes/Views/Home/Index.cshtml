@@ -4,6 +4,7 @@
     ViewBag.Title = "Part Vendor Quotes";
 }
 
+
 <script type="text/javascript">
 
     function EditGridRowOnDoubleClick(s, e) {
@@ -97,10 +98,10 @@
             },
             done: function () { }
         });
-            //.done(function (data) {
-            //    var src = data;
-            //    window.open(src, "_blank", "resizable=true", true);
-            //});
+        //.done(function (data) {
+        //    var src = data;
+        //    window.open(src, "_blank", "resizable=true", true);
+        //});
     }
 
     function onDeleteFileButtonClick(e) {
@@ -118,12 +119,12 @@
                 GridView.Refresh();
 
                 document.getElementById("lblMessage").innerHTML = "Success";
-                
+
                 document.getElementById("outerMessageContainer").style.visibility = "visible";
 
                 document.getElementById("innerMessageContainer").style.backgroundColor = "gold";
                 document.getElementById("innerMessageContainer").style.width = "80px";
-                document.getElementById("innerMessageContainer").style.display = "none";                
+                document.getElementById("innerMessageContainer").style.display = "none";
                 $("#innerMessageContainer").show(500).delay(2000).hide(500);
 
                 EnableMultiSelection(true);
@@ -181,10 +182,7 @@
 
 <h2>Part Vendor Quotes</h2>
 
-<p>@ViewData["EditError"]</p>
-
-
-@using (Html.BeginForm("ExportTo", "Home"))
+@using (Html.BeginForm("ExportTo", "Home", FormMethod.Post, new { id = "mainForm" }))
 {
     @Html.Hidden("customExportCommand")
     @Html.Hidden("focusedRowID")
