@@ -438,6 +438,9 @@
       <DependentUpon>About.aspx</DependentUpon>
     </Compile>
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Areas\PartVendorQuotes\Code\DataServices\DbContextService.cs" />
+    <Compile Include="Areas\PartVendorQuotes\ViewModels\OEMViewModel.cs" />
+    <Compile Include="Areas\PartVendorQuotes\ViewModels\PartViewModel.cs" />
     <Compile Include="Areas\PartVendorQuotes\Controllers\GridViewExportHelper.cs" />
     <Compile Include="Areas\PartVendorQuotes\Controllers\HomeController.cs" />
     <Compile Include="Areas\PartVendorQuotes\Controllers\UploadDocController.cs" />
@@ -478,7 +481,9 @@
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Areas\PartVendorQuotes\PartVendorQuotesAreaRegistration.cs" />
+    <Compile Include="Areas\PartVendorQuotes\ViewModels\PartVendorQuoteViewModel.cs" />
     <Compile Include="Areas\PartVendorQuotes\ViewModels\PartVendorQuotesViewModel.cs" />
+    <Compile Include="Areas\PartVendorQuotes\ViewModels\VendorViewModel.cs" />
     <Compile Include="Areas\PartVendorQuotes\Views\_Helpers\GridViewHelper.cs" />
     <Compile Include="Contact.aspx.cs">
       <DependentUpon>Contact.aspx</DependentUpon>

@@ -1,14 +1,11 @@
 ﻿@using System.Web.Script.Serialization
+@using WebPortal.Areas.PartVendorQuotes.Code.DataServices
 @using WebPortal.Areas.PartVendorQuotes.Views._Helpers
-@model WebPortal.Areas.PartVendorQuotes.ViewModels.PartVendorQuotesViewModel
+@using WebPortal.Areas.PartVendorQuotes.ViewModels
+@model IList<PartVendorQuoteViewModel>
 
 @{
     Layout = null;
-}
-
-@{
-    Html.EnableClientValidation();
-    Html.EnableUnobtrusiveJavaScript();
 }
 
 @{
@@ -44,7 +41,7 @@
                 p.TextField = "PartCode";
                 p.ValueField = "PartCode";
                 p.ValueType = typeof(string);
-                p.DataSource = Model.Parts;
+                p.DataSource = DbContextService.GetParts();
             });
         });
         settings.Columns.Add(c =>
@@ -57,7 +54,7 @@
                 p.TextField = "VendorCode";
                 p.ValueField = "VendorCode";
                 p.ValueType = typeof(string);
-                p.DataSource = Model.Vendors;
+                p.DataSource = DbContextService.GetVendors();
             });
         });
         settings.Columns.Add(c =>
@@ -70,7 +67,7 @@
                 p.TextField = "Oem";
                 p.ValueField = "Oem";
                 p.ValueType = typeof(string);
-                p.DataSource = Model.Oems;
+                p.DataSource = DbContextService.GetOems();
             });
         });
         settings.Columns.Add(c =>
@@ -126,5 +123,5 @@
         grid.SetEditErrorText((string)ViewData["EditError"]);
     }
 }
-@grid.Bind(Model.PartVendorQuotes).GetHtml()
+@grid.Bind(Model).GetHtml()
 @*@Html.Hidden("XYZ123", new JavaScriptSerializer().Serialize(Model.PartVendorQuotes.Select(pv => new { RowID = pv.RowID, File = pv.QuoteFileName })))*@

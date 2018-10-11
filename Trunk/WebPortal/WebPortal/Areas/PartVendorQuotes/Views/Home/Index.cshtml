@@ -1,5 +1,4 @@
-﻿@model WebPortal.Areas.PartVendorQuotes.ViewModels.PartVendorQuotesViewModel
-
+﻿
 @{
     ViewBag.Title = "Part Vendor Quotes";
 }
@@ -179,6 +178,10 @@
 </script>
 
 
+@{
+    Html.EnableClientValidation();
+    Html.EnableUnobtrusiveJavaScript();
+}
 
 <h2>Part Vendor Quotes</h2>
 
@@ -188,9 +191,9 @@
     @Html.Hidden("focusedRowID")
     @Html.Hidden("quoteFileName")
 
-    <div>
+    @*<div>
         @Html.Action("MessagesViewPartial")
-    </div>
+    </div>*@
     <div style="margin-bottom: 20px;">
         @Html.Action("PartVendorQuotesGridViewPartial")
     </div>

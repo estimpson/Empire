@@ -15,9 +15,9 @@ namespace WebPortal.Areas.PartVendorQuotes.Controllers
 {
     public class HomeController : Controller
     {
-        private static int RowID;
-        private static string QuoteFileName;
-        private static string UploadError;
+        private static int _rowID;
+        private static string _quoteFileName;
+        private static string _uploadError;
 
         private MONITOREntities4 _context = new MONITOREntities4();
 
@@ -48,46 +48,38 @@ namespace WebPortal.Areas.PartVendorQuotes.Controllers
 
         public ActionResult PartVendorQuotesGridViewPartial()
         {
-            PartVendorQuotesViewModel model = new PartVendorQuotesViewModel();
 
-            //var realModel = _context.usp_GetPartVendorQuotes().Select(pvq =>
-            //       new pvqVM
-            //       {
-            //           Part = pvq.PartCode
-            //       }
-            //    ).ToList();
-
-            model.PartVendorQuotes = _context.usp_GetPartVendorQuotes().ToList();
-            model.Parts = _context.usp_GetParts().ToList();
-            model.Vendors = _context.usp_GetVendors().ToList();
-            model.Oems = _context.usp_GetOems().ToList();
+            var model = _context.usp_GetPartVendorQuotes().Select(pvq =>
+                   new PartVendorQuoteViewModel
+                   {
+                       PartCode = pvq.PartCode,
+                       VendorCode = pvq.VendorCode,
+                       Oem = pvq.Oem,
+                       EffectiveDate = pvq.EffectiveDate,
+                       EndDate = pvq.EndDate,
+                       Price = pvq.Price,
+                       QuoteFileName = pvq.QuoteFileName,
+                   }
+                ).ToList();
 
             return PartialView("_PartVendorQuotesGridViewPartial", model);
-            //return PartialView("_PartVendorQuotesGridViewPartial", model.PartVendorQuotes);
         }
 
         public string GetFocusedRowFile(int rowID)
         {
-            string fileName = "";
-            PartVendorQuotesViewModel model = new PartVendorQuotesViewModel();
-            model.PartVendorQuotes = _context.usp_GetPartVendorQuotes().ToList();
-
-            var partVendorQuotes = model.PartVendorQuotes.Where(w => w.RowID == rowID).Select(a => a.QuoteFileName).ToList();
-            foreach (var item in partVendorQuotes) fileName = item;
-            
-            return fileName;
+            return _context.usp_GetPartVendorQuotes().SingleOrDefault(pvq=>pvq.RowID == rowID).QuoteFileName;
         }
 
         [HttpPost, ValidateInput(false)]
-        public ActionResult PartVendorQuotesGridViewPartialAddNew([ModelBinder(typeof(DevExpressEditorsBinder))] usp_GetPartVendorQuotes_Result item)
+        public ActionResult PartVendorQuotesGridViewPartialAddNew([ModelBinder(typeof(DevExpressEditorsBinder))] PartVendorQuoteViewModel item)
         {
             if (ModelState.IsValid)
             {
                 try
                 {
-                    ObjectParameter tranDT = new ObjectParameter("TranDT", typeof(DateTime?));
-                    ObjectParameter result = new ObjectParameter("Result", typeof(Int32?));
-                    ObjectParameter debugMsg = new ObjectParameter("DebugMsg", typeof(String));
+                    var tranDT = new ObjectParameter("TranDT", typeof(DateTime?));
+                    var result = new ObjectParameter("Result", typeof(Int32?));
+                    var debugMsg = new ObjectParameter("DebugMsg", typeof(String));
                     _context.usp_AddPartVendorQuote("", item.VendorCode, item.PartCode, item.Oem, item.EffectiveDate, item.EndDate, item.Price, tranDT, result, 0, debugMsg);
                 }
                 catch (EntityCommandExecutionException e)
@@ -107,15 +99,15 @@ namespace WebPortal.Areas.PartVendorQuotes.Controllers
         }
 
         [HttpPost, ValidateInput(false)]
-        public ActionResult PartVendorQuotesGridViewPartialUpdate([ModelBinder(typeof(DevExpressEditorsBinder))] usp_GetPartVendorQuotes_Result item)
+        public ActionResult PartVendorQuotesGridViewPartialUpdate([ModelBinder(typeof(DevExpressEditorsBinder))] PartVendorQuoteViewModel item)
         {
             if (ModelState.IsValid)
             {
                 try
                 {
-                    ObjectParameter tranDT = new ObjectParameter("TranDT", typeof(DateTime?));
-                    ObjectParameter result = new ObjectParameter("Result", typeof(Int32?));
-                    ObjectParameter debugMsg = new ObjectParameter("DebugMsg", typeof(String));
+                    var tranDT = new ObjectParameter("TranDT", typeof(DateTime?));
+                    var result = new ObjectParameter("Result", typeof(Int32?));
+                    var debugMsg = new ObjectParameter("DebugMsg", typeof(String));
                     _context.usp_EditPartVendorQuote("", item.RowID, item.VendorCode, item.PartCode, item.Oem, item.EffectiveDate, item.EndDate, item.Price, tranDT, result, 0, debugMsg);
                 }
                 catch (EntityCommandExecutionException e)
@@ -139,9 +131,9 @@ namespace WebPortal.Areas.PartVendorQuotes.Controllers
         {
             if (RowId >= 0)
             {
-                ObjectParameter tranDT = new ObjectParameter("TranDT", typeof(DateTime?));
-                ObjectParameter result = new ObjectParameter("Result", typeof(Int32?));
-                ObjectParameter debugMsg = new ObjectParameter("DebugMsg", typeof(String));
+                var tranDT = new ObjectParameter("TranDT", typeof(DateTime?));
+                var result = new ObjectParameter("Result", typeof(Int32?));
+                var debugMsg = new ObjectParameter("DebugMsg", typeof(String));
 
                 string attachmentCategory = "VendorQuote";
                 try
@@ -184,8 +176,8 @@ namespace WebPortal.Areas.PartVendorQuotes.Controllers
         // selected RowID.
         public ActionResult FileUploadStart(int rowID, string quoteFileName)
         {
-            RowID = rowID;
-            QuoteFileName = quoteFileName;
+            _rowID = rowID;
+            _quoteFileName = quoteFileName;
             return null;
         }
 
@@ -193,8 +185,8 @@ namespace WebPortal.Areas.PartVendorQuotes.Controllers
         {
             try
             {
-                UploadError = "";
-                var rowID = RowID;
+                _uploadError = "";
+                var rowID = _rowID;
 
                 ObjectParameter tranDT = new ObjectParameter("TranDT", typeof(DateTime?));
                 ObjectParameter result = new ObjectParameter("Result", typeof(Int32?));
@@ -210,21 +202,21 @@ namespace WebPortal.Areas.PartVendorQuotes.Controllers
             }
             catch (EntityCommandExecutionException e)
             {
-                UploadError = "SQL Error:  " + e.Message + " " + e.InnerException?.Message;
+                _uploadError = "SQL Error:  " + e.Message + " " + e.InnerException?.Message;
                 //throw new Exception("SQL Error:  " + e.Message + " " + e.InnerException?.Message);
             }
             catch (Exception e)
             {
-                UploadError = "SQL Error:  " + e.Message + " " + e.InnerException?.Message;
+                _uploadError = "SQL Error:  " + e.Message + " " + e.InnerException?.Message;
                 //throw new Exception("NON-SQL Error:" + e.Message + e.InnerException?.Message);
             }
         }
 
         public ActionResult CheckUploadSuccess()
         {
-            if (UploadError != "")
+            if (_uploadError != "")
             {
-                return new HttpStatusCodeResult(410, UploadError);
+                return new HttpStatusCodeResult(410, _uploadError);
             }
             return new HttpStatusCodeResult(200);
         }
