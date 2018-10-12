@@ -1,0 +1,8 @@
+SET QUOTED_IDENTIFIER ON
+GO
+SET ANSI_NULLS ON
+GO
+create view [HN].[VWNetMPS] as
+select	*
+from	EEH.[HN].[VWNetMPS] with (READUNCOMMITTED)
+GO

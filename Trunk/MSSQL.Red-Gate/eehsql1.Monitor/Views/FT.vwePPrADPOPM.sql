@@ -1,0 +1,8 @@
+SET QUOTED_IDENTIFIER ON
+GO
+SET ANSI_NULLS ON
+GO
+create view [FT].[vwePPrADPOPM] as
+select	*
+from	EEH.[FT].[vwePPrADPOPM] with (READUNCOMMITTED)
+GO

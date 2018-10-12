@@ -1,0 +1,3 @@
+CREATE SCHEMA [andre]
+AUTHORIZATION [andre]
+GO

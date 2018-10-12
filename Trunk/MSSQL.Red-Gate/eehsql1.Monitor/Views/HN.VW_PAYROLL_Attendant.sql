@@ -1,0 +1,8 @@
+SET QUOTED_IDENTIFIER ON
+GO
+SET ANSI_NULLS ON
+GO
+
+Create View [HN].[VW_PAYROLL_Attendant] as
+	SELECT	* FROM ITSmartClock.HN.VW_PAYROLL_Attendant
+GO

@@ -1,0 +1,2 @@
+CREATE USER [RFUser] FOR LOGIN [RFUser]
+GO

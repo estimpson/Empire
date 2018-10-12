@@ -1,0 +1,3 @@
+CREATE SCHEMA [EMPIRE\jaltamirano]
+AUTHORIZATION [EMPIRE\jaltamirano]
+GO

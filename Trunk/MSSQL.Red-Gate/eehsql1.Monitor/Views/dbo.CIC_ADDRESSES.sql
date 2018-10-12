@@ -1,0 +1,8 @@
+SET QUOTED_IDENTIFIER ON
+GO
+SET ANSI_NULLS ON
+GO
+create view [dbo].[CIC_ADDRESSES] as
+select	*
+from	EEH.[dbo].[CIC_ADDRESSES] with (READUNCOMMITTED)
+GO

@@ -1,0 +1,3 @@
+CREATE SCHEMA [EMPIRE\smendoza]
+AUTHORIZATION [EMPIRE\smendoza]
+GO

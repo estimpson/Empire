@@ -1,0 +1,5 @@
+IF NOT EXISTS (SELECT * FROM master.dbo.syslogins WHERE loginname = N'EMPIREELECT\Domain Admins')
+CREATE LOGIN [EMPIREELECT\Domain Admins] FROM WINDOWS
+GO
+CREATE USER [EMPIREELECT\Domain Admins] FOR LOGIN [EMPIREELECT\Domain Admins]
+GO

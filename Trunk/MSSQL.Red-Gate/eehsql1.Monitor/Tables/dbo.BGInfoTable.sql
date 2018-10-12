@@ -1,0 +1,30 @@
+CREATE TABLE [dbo].[BGInfoTable]
+(
+[Time_Stamp] [datetime] NOT NULL,
+[User_Name] [nvarchar] (255) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
+[Host_Name] [nvarchar] (255) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
+[OS_Version] [nvarchar] (255) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
+[Service_Pack] [nvarchar] (255) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
+[Machine_Domain] [nvarchar] (255) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
+[Logon_Domain] [nvarchar] (255) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
+[Logon_Server] [nvarchar] (255) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
+[System_Type] [nvarchar] (255) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
+[Network_Card] [nvarchar] (255) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
+[IP_Address] [nvarchar] (255) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
+[Subnet_Mask] [nvarchar] (255) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
+[Default_Gateway] [nvarchar] (255) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
+[MAC_Address] [nvarchar] (255) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
+[Network_Speed] [nvarchar] (255) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
+[Network_Type] [nvarchar] (255) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
+[DHCP_Server] [nvarchar] (255) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
+[DNS_Server] [nvarchar] (255) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
+[CPU] [nvarchar] (255) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
+[Memory] [nvarchar] (255) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
+[Boot_Time] [nvarchar] (255) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
+[Snapshot_Time] [nvarchar] (255) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
+[IE_Version] [nvarchar] (255) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
+[Volumes] [nvarchar] (255) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
+[Free_Space] [nvarchar] (255) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
+[Procesador] [nvarchar] (255) COLLATE SQL_Latin1_General_CP1_CI_AS NULL
+) ON [PRIMARY]
+GO

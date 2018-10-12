@@ -1,0 +1,6 @@
+IF NOT EXISTS (SELECT * FROM master.dbo.syslogins WHERE loginname = N'EMPIRE\obodega')
+CREATE LOGIN [EMPIRE\obodega] FROM WINDOWS
+GO
+CREATE USER [EMPIRE\obodega] FOR LOGIN [EMPIRE\obodega] WITH DEFAULT_SCHEMA=[EMPIRE\obodega]
+GO
+REVOKE CONNECT TO [EMPIRE\obodega]

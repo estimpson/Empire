@@ -1,0 +1,2 @@
+CREATE USER [WebUser] FOR LOGIN [WebUser]
+GO

@@ -1,0 +1,8 @@
+CREATE TABLE [dbo].[PartBTS]
+(
+[Part] [varchar] (50) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL,
+[Type] [nvarchar] (50) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL
+) ON [PRIMARY]
+GO
+ALTER TABLE [dbo].[PartBTS] ADD CONSTRAINT [PK_PartBTS] PRIMARY KEY CLUSTERED  ([Part]) ON [PRIMARY]
+GO

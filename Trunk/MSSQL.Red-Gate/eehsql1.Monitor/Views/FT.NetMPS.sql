@@ -1,0 +1,9 @@
+SET QUOTED_IDENTIFIER ON
+GO
+SET ANSI_NULLS ON
+GO
+
+CREATE view [FT].[NetMPS] as
+select	*
+from	EEHArs.[FT].[NetMPS] with (READUNCOMMITTED)
+GO

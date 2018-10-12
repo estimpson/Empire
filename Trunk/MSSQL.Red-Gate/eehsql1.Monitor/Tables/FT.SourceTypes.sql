@@ -1,0 +1,8 @@
+CREATE TABLE [FT].[SourceTypes]
+(
+[SourceID] [varchar] (10) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL,
+[WOType] [int] NOT NULL
+) ON [PRIMARY]
+GO
+ALTER TABLE [FT].[SourceTypes] ADD CONSTRAINT [PK__SourceTy__16E019F9E36F02C2] PRIMARY KEY CLUSTERED  ([SourceID]) ON [PRIMARY]
+GO
