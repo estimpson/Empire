@@ -53,7 +53,24 @@ SET ANSI_NULLS ON
 GO
 CREATE TRIGGER [dbo].[mtr_shipper_detail_d] ON [dbo].[shipper_detail] FOR DELETE
 AS
-BEGIN
+begin
+	if	exists
+		(	select
+				*
+			from
+				Deleted d
+			where
+				exists
+				(	select
+						*
+					from
+						dbo.object o
+					where
+						o.shipper = d.shipper
+						and o.part = d.part_original
+				)
+		) rollback
+
 	-- declarations
 	DECLARE	@shipper		INTEGER,
 		@part			VARCHAR(35),
@@ -133,9 +150,10 @@ SET QUOTED_IDENTIFIER ON
 GO
 SET ANSI_NULLS ON
 GO
-CREATE trigger [dbo].[mtr_shipper_detail_i] on [dbo].[shipper_detail] for insert
-as
-begin
+
+CREATE TRIGGER [dbo].[mtr_shipper_detail_i] ON [dbo].[shipper_detail] FOR INSERT
+AS
+BEGIN
 	-- declarations
 	declare	@shipper		integer,
 		@part			varchar(35),
@@ -162,15 +180,15 @@ begin
 
 
 	-- loop through all updated records
-	while ( isnull(@shipper,-1) <> -1 )
-	begin
+	WHILE ( ISNULL(@shipper,-1) <> -1 )
+	BEGIN
 
 		select	@part = min(part)
 		from 	inserted
 		where	shipper = @shipper
 
-		while ( isnull(@part,'') <> '' )
-		begin
+		WHILE ( ISNULL(@part,'') <> '' )
+		BEGIN
 
 			exec msp_calc_invoice_currency @shipper, null, null, @part, null
 	
@@ -181,8 +199,8 @@ begin
 			where	shipper = @shipper and
 				part = @part
 				
-			if isnull ( @order_number, 0 ) > 0
-				Begin
+			IF ISNULL ( @order_number, 0 ) > 0
+				BEGIN
 				
 				exec msp_calculate_committed_qty @order_number, @part_original, @suffix
 				
@@ -200,212 +218,213 @@ begin
 				--End	Added 02/15/2012
 				end
 				
-				if exists (select 1 from shipper_detail sd join shipper s on sd.shipper = s.id where s.status in  ('O', 'A', 'S') and sd.order_no = @order_number and sd.shipper != @shipper and @CustomerCode like '%NAL%')
-				--Begin Added 02/17/2012 - Andre S.Boulanger Fore-Thought, LLC
+--				IF EXISTS (SELECT 1 FROM shipper_detail sd JOIN shipper s ON sd.shipper = s.id WHERE s.status IN  ('O', 'A', 'S') AND sd.order_no = @order_number AND sd.shipper != @shipper AND @CustomerCode LIKE '%NAL%')
+--				--Begin Added 02/17/2012 - Andre S.Boulanger Fore-Thought, LLC
 				
-	Begin			
-				Declare  
-	@OrderDetail table 
-( 
-id int not null Identity (1,1) primary key ,
-OrderNo int,
-Part varchar(25),
-DueDate datetime,
-Quantity numeric (20,6),
-PriorAccum	numeric(20,6),
-Accum numeric(20,6),
-RAN varchar(30) 
-)
+--	BEGIN			
+--				Declare  
+--	@OrderDetail table 
+--( 
+--id int not null Identity (1,1) primary key ,
+--OrderNo int,
+--Part varchar(25),
+--DueDate datetime,
+--Quantity numeric (20,6),
+--PriorAccum	numeric(20,6),
+--Accum numeric(20,6),
+--RAN varchar(30) 
+--)
 	
-insert 
-	@OrderDetail
-( 
-OrderNo,
-Part,
-DueDate ,
-Quantity ,
-RAN
- )
+--insert 
+--	@OrderDetail
+--( 
+--OrderNo,
+--Part,
+--DueDate ,
+--Quantity ,
+--RAN
+-- )
 	
-select
-	order_no,
-	part_number,
-	due_date,
-	quantity,
-	release_no
-from	
-	dbo.order_detail
-where
-	order_no = @Order_number
-order by 
-	due_date, release_no, id
+--select
+--	order_no,
+--	part_number,
+--	due_date,
+--	quantity,
+--	release_no
+--from	
+--	dbo.order_detail
+--where
+--	order_no = @Order_number
+--order by 
+--	due_date, release_no, id
 		
 		
-update	 od
-		set	Accum = (select sum(quantity) from @OrderDetail where ID <= od.ID ),
-				PriorAccum = COALESCE((select sum(quantity) from @OrderDetail where ID < od.ID ),0)
+--update	 od
+--		set	Accum = (select sum(quantity) from @OrderDetail where ID <= od.ID ),
+--				PriorAccum = COALESCE((select sum(quantity) from @OrderDetail where ID < od.ID ),0)
 				
-from
-	@OrderDetail od
+--from
+--	@OrderDetail od
 		
 
-Declare  
-	@ShipperDetail table 
-( 
-id int not null Identity (1,1) primary key,
-ShipperID int,
-DateStamp datetime,
-ScheduledShipTime datetime null,
-Quantity numeric(20,6),
-PriorAccum numeric (20,6),
-Accum numeric(20,6)
-)
+--Declare  
+--	@ShipperDetail table 
+--( 
+--id int not null Identity (1,1) primary key,
+--ShipperID int,
+--DateStamp datetime,
+--ScheduledShipTime datetime null,
+--Quantity numeric(20,6),
+--PriorAccum numeric (20,6),
+--Accum numeric(20,6)
+--)
 	
-insert 
-	@ShipperDetail
-( 
-ShipperID ,
-DateStamp ,
-ScheduledShipTime,
-Quantity
- )
+--insert 
+--	@ShipperDetail
+--( 
+--ShipperID ,
+--DateStamp ,
+--ScheduledShipTime,
+--Quantity
+-- )
 	
-select
-	s.id,
-	s.date_stamp,
-	scheduled_ship_time,
-	sd.qty_required
-from	
-	dbo.shipper s
-join
-	shipper_detail sd on s.id = sd.shipper
-where
-	sd.order_no = @Order_number and
-	s.status in ('O', 'A', 'S') and
-	s.type is NULL
-order by 
-	ft.fn_DatePart('Year',date_stamp),ft.fn_DatePart('DayofYear',date_stamp), ft.fn_DatePart('Hour',scheduled_ship_time), ft.fn_DatePart('Minute',scheduled_ship_time), ft.fn_DatePart('Second',scheduled_ship_time) , s.id
+--select
+--	s.id,
+--	s.date_stamp,
+--	scheduled_ship_time,
+--	sd.qty_required
+--from	
+--	dbo.shipper s
+--join
+--	shipper_detail sd on s.id = sd.shipper
+--where
+--	sd.order_no = @Order_number and
+--	s.status in ('O', 'A', 'S') and
+--	s.type is NULL
+--order by 
+--	ft.fn_DatePart('Year',date_stamp),ft.fn_DatePart('DayofYear',date_stamp), ft.fn_DatePart('Hour',scheduled_ship_time), ft.fn_DatePart('Minute',scheduled_ship_time), ft.fn_DatePart('Second',scheduled_ship_time) , s.id
 	
-update	 sd
-		set	Accum = (select sum(quantity) from @ShipperDetail where ID <= sd.ID),
-				PriorAccum = COALESCE((select sum(quantity) from @shipperDetail where ID < sd.ID),0)
-from
-	@ShipperDetail sd
+--update	 sd
+--		set	Accum = (select sum(quantity) from @ShipperDetail where ID <= sd.ID),
+--				PriorAccum = COALESCE((select sum(quantity) from @shipperDetail where ID < sd.ID),0)
+--from
+--	@ShipperDetail sd
 
 
-declare @OrderRANAlert table(
-				OrderNo int null,
-				Part varchar(25) null,
-				RAN varchar(50) null,
-				RANQuantiy int null,
-				RanDueDate datetime null,
-				ShipperID  int,
-				ShipperDateStamp datetime null,
-				ScheduledShipTime datetime null
-				)
+--declare @OrderRANAlert table(
+--				OrderNo int null,
+--				Part varchar(25) null,
+--				RAN varchar(50) null,
+--				RANQuantiy int null,
+--				RanDueDate datetime null,
+--				ShipperID  int,
+--				ShipperDateStamp datetime null,
+--				ScheduledShipTime datetime null
+--				)
 
 
-insert	@OrderRANAlert
-        (	OrderNo,
-			Part,  
-			RAN ,
-			RANQuantiy ,
-			RanDueDate ,
-			ShipperID,
-			ShipperDateStamp,
-			ScheduledShipTime
-        )
+--insert	@OrderRANAlert
+--        (	OrderNo,
+--			Part,  
+--			RAN ,
+--			RANQuantiy ,
+--			RanDueDate ,
+--			ShipperID,
+--			ShipperDateStamp,
+--			ScheduledShipTime
+--        )
 
-select
-	od.OrderNo, 	
-	od.Part,
-	RAN,
-	CalculatedRanQuantity= case
-		when od.Accum<=sd.Accum and od.PriorAccum>=sd.PriorAccum
-		then od.quantity
-		when od.Accum>=sd.Accum and od.PriorAccum<=sd.PriorAccum
-		then sd.Accum-sd.PriorAccum
-		when od.Accum>=sd.PriorAccum and od.PriorAccum<=sd.PriorAccum
-		then od.Accum-sd.PriorAccum
-		when od.Accum>sd.PriorAccum and od.PriorAccum<=sd.Accum
-		then sd.Accum-od.priorAccum
-		else	0
-		end,
-	RANDueDate = od.DueDate,
-	ShipperID = sd.ShipperID,
-	ShipperDateStamp = sd.DateStamp,
-	ScheduledShipTime =sd.ScheduledShipTime
-from		
-	@OrderDetail od 
-join
-	@ShipperDetail sd on sd.PriorAccum <= od.PriorAccum
-where
-	case
-		when od.Accum<=sd.Accum and od.PriorAccum>=sd.PriorAccum
-		then od.quantity
-		when od.Accum>=sd.Accum and od.PriorAccum<=sd.PriorAccum
-		then sd.Accum-sd.PriorAccum
-		when od.Accum>=sd.PriorAccum and od.PriorAccum<=sd.PriorAccum
-		then od.Accum-sd.PriorAccum
-		when od.Accum>sd.PriorAccum and od.PriorAccum<=sd.Accum
-		then sd.Accum-od.priorAccum
-		else	0
-		end >0
+--select
+--	od.OrderNo, 	
+--	od.Part,
+--	RAN,
+--	CalculatedRanQuantity= case
+--		when od.Accum<=sd.Accum and od.PriorAccum>=sd.PriorAccum
+--		then od.quantity
+--		when od.Accum>=sd.Accum and od.PriorAccum<=sd.PriorAccum
+--		then sd.Accum-sd.PriorAccum
+--		when od.Accum>=sd.PriorAccum and od.PriorAccum<=sd.PriorAccum
+--		then od.Accum-sd.PriorAccum
+--		when od.Accum>sd.PriorAccum and od.PriorAccum<=sd.Accum
+--		then sd.Accum-od.priorAccum
+--		else	0
+--		end,
+--	RANDueDate = od.DueDate,
+--	ShipperID = sd.ShipperID,
+--	ShipperDateStamp = sd.DateStamp,
+--	ScheduledShipTime =sd.ScheduledShipTime
+--from		
+--	@OrderDetail od 
+--join
+--	@ShipperDetail sd on sd.PriorAccum <= od.PriorAccum
+--where
+--	case
+--		when od.Accum<=sd.Accum and od.PriorAccum>=sd.PriorAccum
+--		then od.quantity
+--		when od.Accum>=sd.Accum and od.PriorAccum<=sd.PriorAccum
+--		then sd.Accum-sd.PriorAccum
+--		when od.Accum>=sd.PriorAccum and od.PriorAccum<=sd.PriorAccum
+--		then od.Accum-sd.PriorAccum
+--		when od.Accum>sd.PriorAccum and od.PriorAccum<=sd.Accum
+--		then sd.Accum-od.priorAccum
+--		else	0
+--		end >0
 	
 	
-	DECLARE @tableHTML  NVARCHAR(MAX) ;
+--	DECLARE @tableHTML  NVARCHAR(MAX) ;
 
-SET @tableHTML =
-    N'<H1>NAL Order Having Mutiple Shippers</H1>' +
-    N'<table border="1">' +
-    N'<tr><th>OrderNo</th>' +
-    N'<th>Part</th><th>RAN</th><th>RANQty</th><th>RANDueDate</th><th>ShipperID</th><th>ShipperDateStamp</th>' +
-    N'<th>ScheduledShipTime</th></tr>' +
-    CAST ( ( SELECT td = eo.OrderNo, '',
-                    td = eo.Part, '',
-                    td = eo.RAN, '',
-                    td = eo.RANQuantiy, '',
-                    td = eo.RanDueDate, '',
-                    td = eo.ShipperID, '',
-                     td = eo.ShipperDateStamp, '',
-                    td = eo.ScheduledShipTime
-              FROM @OrderRANAlert  eo
-              order by 1,2,3  
-              FOR XML PATH('tr'), TYPE 
-    ) AS NVARCHAR(MAX) ) +
-    N'</table>' ;
+--SET @tableHTML =
+--    N'<H1>NAL Order Having Mutiple Shippers</H1>' +
+--    N'<table border="1">' +
+--    N'<tr><th>OrderNo</th>' +
+--    N'<th>Part</th><th>RAN</th><th>RANQty</th><th>RANDueDate</th><th>ShipperID</th><th>ShipperDateStamp</th>' +
+--    N'<th>ScheduledShipTime</th></tr>' +
+--    CAST ( ( SELECT td = eo.OrderNo, '',
+--                    td = eo.Part, '',
+--                    td = eo.RAN, '',
+--                    td = eo.RANQuantiy, '',
+--                    td = eo.RanDueDate, '',
+--                    td = eo.ShipperID, '',
+--                     td = eo.ShipperDateStamp, '',
+--                    td = eo.ScheduledShipTime
+--              FROM @OrderRANAlert  eo
+--              ORDER BY 1,2,3  
+--              FOR XML PATH('tr'), TYPE 
+--    ) AS NVARCHAR(MAX) ) +
+--    N'</table>' ;
     
-exec msdb.dbo.sp_send_dbmail @profile_name = 'DBMail', -- sysname
-    @recipients = 'MMinth@empireelect.com; Mcalix@empireelect.com', -- varchar(max)
-    @copy_recipients = 'aboulanger@fore-thought.com;dwest@empireelect.com', -- varchar(max)
-    --@blind_copy_recipients = 'aboulanger@fore-thought.com;estimpson@fore-thought.com', -- varchar(max)
-    @subject = N'Mutiple Shippers Scheduled to Dock for NAL', -- nvarchar(255)
-    @body = @TableHTML, -- nvarchar(max)
-    @body_format = 'HTML', -- varchar(20)
-    @importance = 'High' -- varchar(6)
+--EXEC msdb.dbo.sp_send_dbmail @profile_name = 'DBMail', -- sysname
+--    @recipients = 'MMinth@empireelect.com; Mcalix@empireelect.com', -- varchar(max)
+--    @copy_recipients = 'aboulanger@fore-thought.com;dwest@empireelect.com', -- varchar(max)
+--    --@blind_copy_recipients = 'aboulanger@fore-thought.com;estimpson@fore-thought.com', -- varchar(max)
+--    @subject = N'Mutiple Shippers Scheduled to Dock for NAL', -- nvarchar(255)
+--    @body = @TableHTML, -- nvarchar(max)
+--    @body_format = 'HTML', -- varchar(20)
+--    @importance = 'High' -- varchar(6)
 
-	End						
+--	END						
 										
 										
 				--End	Added 02/17/2012
 				
 				
-				End
+				END
 					
-			select	@part = min(part)
-			from 	inserted
-			where	shipper = @shipper and
+			SELECT	@part = MIN(part)
+			FROM 	inserted
+			WHERE	shipper = @shipper AND
 				part > @part
 
-		end
+		END
 
-		select	@shipper = min(shipper)
-		from 	inserted
-		where	shipper > @shipper
+		SELECT	@shipper = MIN(shipper)
+		FROM 	inserted
+		WHERE	shipper > @shipper
 
-	end
+	END
 
-end
+END
+
 GO
 SET QUOTED_IDENTIFIER ON
 GO
