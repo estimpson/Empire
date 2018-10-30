@@ -3,6 +3,7 @@ GO
 SET ANSI_NULLS ON
 GO
 
+
 CREATE procedure [FT].[usp_EmailFailedFTP]
 
 as
@@ -18,10 +19,11 @@ Select
 into  #MissingData
  from EDI.EDIDocuments 
  where  
-	RowCreateDT>= dateadd(MINUTE, -15, getdate()) and 
+	RowCreateDT>= dateadd(MINUTE, -30, getdate()) and 
 	[status] = 0 and
 	convert(varchar(max), DATA) is Not Null and
 	[type] is Not NULL
+	and TradingPartner not in ('Chrysler', 'Pilot', 'Stanley Electric U.S. Co. Inc')
  
  
  if exists ( Select 1 from #MissingData)
@@ -58,4 +60,5 @@ EXEC		[eeisql1].msdb.dbo.sp_send_dbmail
 	End
 
 	End
+
 GO

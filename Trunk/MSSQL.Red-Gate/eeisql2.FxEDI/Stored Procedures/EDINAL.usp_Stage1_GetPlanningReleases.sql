@@ -5,6 +5,7 @@ GO
 
 
 
+
 CREATE procedure [EDINAL].[usp_Stage1_GetPlanningReleases]
 	@TranDT datetime = null out
 ,	@Result integer = null out
@@ -155,7 +156,7 @@ select
 ,	CustomerPO = ed.Data.value('(for $a in LOOP-LIN/SEG-LIN/DE[@code="0235"] where $a="PO" return $a/../DE[. >> $a][@code="0234"][1])[1]', 'varchar(30)')
 ,	CustomerPOLine = ed.Data.value('(for $a in LOOP-LIN/SEG-LIN/DE[@code="0235"] where $a="PL" return $a/../DE[. >> $a][@code="0234"][1])[1]', 'varchar(30)')
 ,	CustomerModelYear = ''
-,	CustomerECL = ''
+,	CustomerECL =  ed.Data.value('(for $a in LOOP-LIN/SEG-LIN/DE[@code="0235"] where $a="EC" return $a/../DE[. >> $a][@code="0234"][1])[1]', 'varchar(30)')
 ,	Data = EDIData.Data.query('.')
 	
 from
@@ -197,7 +198,7 @@ select
 ,	CustomerPO = ed.Data.value('(for $a in LOOP-LIN/SEG-LIN/DE[@code="0235"] where $a="PO" return $a/../DE[. >> $a][@code="0234"][1])[1]', 'varchar(30)')
 ,	CustomerPOLine = ed.Data.value('(for $a in LOOP-LIN/SEG-LIN/DE[@code="0235"] where $a="PL" return $a/../DE[. >> $a][@code="0234"][1])[1]', 'varchar(30)')
 ,	CustomerModelYear = ''
-,	CustomerECL = ''
+,	CustomerECL =  ed.Data.value('(for $a in LOOP-LIN/SEG-LIN/DE[@code="0235"] where $a="EC" return $a/../DE[. >> $a][@code="0234"][1])[1]', 'varchar(30)')
 ,	Data = EDIData.Data.query('.')
 from
 	@PlanningReleasesTemp1 ed
@@ -279,7 +280,7 @@ select
 ,	CustomerPO = ed.Data.value('(for $a in LOOP-LIN/SEG-LIN/DE[@code="0235"] where $a="PO" return $a/../DE[. >> $a][@code="0234"][1])[1]', 'varchar(30)')
 ,	CustomerPOLine = ed.Data.value('(for $a in LOOP-LIN/SEG-LIN/DE[@code="0235"] where $a="PL" return $a/../DE[. >> $a][@code="0234"][1])[1]', 'varchar(30)')
 ,	CustomerModelYear = ''
-,	CustomerECL = ''
+,	CustomerECL =  ed.Data.value('(for $a in LOOP-LIN/SEG-LIN/DE[@code="0235"] where $a="EC" return $a/../DE[. >> $a][@code="0234"][1])[1]', 'varchar(30)')
 ,	Data = EDIData.Data.query('.')
 from
 	@PlanningReleasesTemp1 ed
@@ -465,6 +466,7 @@ go
 Results {
 }
 */
+
 
 
 
