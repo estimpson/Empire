@@ -21,11 +21,13 @@ CREATE TABLE [EDI].[EDIDocuments]
 [SourceType] [varchar] (50) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
 [MoparSSDDocument] [varchar] (50) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
 [VersionEDIFACTorX12] [varchar] (50) COLLATE SQL_Latin1_General_CP1_CI_AS NULL
-) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+) ON [PRIMARY]
 GO
 ALTER TABLE [EDI].[EDIDocuments] ADD CONSTRAINT [PK__EDIDocum__3214EC275F579441] PRIMARY KEY CLUSTERED  ([ID]) ON [PRIMARY]
 GO
 CREATE NONCLUSTERED INDEX [ix_EDIDocuments_rfl] ON [EDI].[EDIDocuments] ([RowCreateDT], [Status], [FileName]) INCLUDE ([GUID]) ON [PRIMARY]
 GO
 CREATE NONCLUSTERED INDEX [ix_EDIDocuments_1] ON [EDI].[EDIDocuments] ([RowCreateDT], [Type]) ON [PRIMARY]
+GO
+CREATE NONCLUSTERED INDEX [ix_EDIDocuments_2] ON [EDI].[EDIDocuments] ([Status], [RowCreateDT]) INCLUDE ([Data]) ON [PRIMARY]
 GO
