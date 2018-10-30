@@ -1,0 +1,3 @@
+CREATE SCHEMA [EDILearMexico]
+AUTHORIZATION [dbo]
+GO
