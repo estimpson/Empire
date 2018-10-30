@@ -6,6 +6,8 @@ GO
 
 
 
+
+
 CREATE procedure [FTP].[usp_ReceiveCustomerEDI_v2]
 	@ReceiveFileFromFolderRoot sysname = '\RawEDIData\CustomerEDI\Inbound'
 ,	@TranDT datetime = null out
@@ -272,7 +274,8 @@ select
 				then '00CHRY'
 			when EDI.udf_EDIDocument_TradingPartner(red.Data) LIKE '%Ford%' 
 				then '00FORD'
-
+			when EDI.udf_EDIDocument_TradingPartner(red.Data) LIKE '%Magna (Interior Trim Components)%' 
+				then 'MagnaITC'	
 			when EDI.udf_EDIDocument_TradingPartner(red.Data) LIKE '%Varroc%' 
 				then 'VARROC'
 			when EDI.udf_EDIDocument_TradingPartner(red.Data) LIKE '%Stanley Electric%%' 
@@ -285,6 +288,8 @@ select
 				then 'ADAC'
 			when EDI.udf_EDIDocument_TradingPartner(red.Data) LIKE '%Toyota%' 
 				then '00TOYO'
+				when EDI.udf_EDIDocument_TradingPartner(red.Data) LIKE '%Lear EPMS%' 
+				then 'LearMexico'
 				when EDI.udf_EDIDocument_TradingPartner(red.Data) LIKE '%Dana Corporation%' 
 				then
 					case
@@ -475,6 +480,8 @@ go
 Results {
 }
 */
+
+
 
 
 

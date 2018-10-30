@@ -2,6 +2,7 @@ SET QUOTED_IDENTIFIER ON
 GO
 SET ANSI_NULLS ON
 GO
+
 CREATE procedure [FTP].[usp_ReceiveCustomerEDI_TestMailBox]
 	@ReceiveFileFromFolderRoot sysname = '\RawEDIData\CustomerEDI_TestMailBox\Inbound'
 ,	@TranDT datetime = null out
@@ -237,6 +238,8 @@ select
 			THEN '002001'
 			WHEN  EDI.udf_EDIDocument_MoparSSDCRNumberIndicator(red.Data) = 1
 			THEN 'MOPARSSD'
+			when EDI.udf_EDIDocument_TradingPartner(red.Data) LIKE '%Lear EPMS%' 
+			then 'LearMexico'
 			ELSE 
 			--(CASE WHEN EDI.udf_EDIDocument_Type(Data) LIKE '[A-Z]%' THEN EDI.udf_EDIDocument_Version(red.data)+COALESCE(EDI.udf_EDIDocument_EDIRelease(red.data),EDI.udf_EDIDocument_Version(red.data)) ELSE EDI.udf_EDIDocument_Version(red.data) END) --IConnect writes Release, no need for this case statement
 			EDI.udf_EDIDocument_Version(red.Data)
@@ -391,4 +394,5 @@ go
 Results {
 }
 */
+
 GO
