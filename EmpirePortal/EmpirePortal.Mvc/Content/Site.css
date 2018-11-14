@@ -1,0 +1,81 @@
+﻿body {
+    padding-top: 50px;
+    padding-bottom: 20px;
+}
+
+/* Set padding to keep content from hitting the edges */
+.body-content {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+/* Override the default bootstrap behavior where horizontal description lists 
+   will truncate terms that are too long to fit in the left column 
+*/
+.dl-horizontal dt {
+    white-space: normal;
+}
+
+/*  Fix the height of the header and add a bottom border. */
+.headerPane .headerTop {
+    height: 25px;
+}
+
+.headerTop {
+    border-bottom-color: #e8e8e8;
+    border-bottom-style: solid;
+    border-bottom-width: 1px;
+}
+
+.templateTitle {
+    float: left;
+    margin-left: 15px;
+}
+
+.templateTitle a {
+    text-decoration: none;
+    color: black;
+}
+
+.templateTitle {
+    float: left;
+}
+
+.loginControl {
+    float: right;
+    margin-right: 25px;
+    font-size: 12px;
+}
+
+.loginControl a {
+    color: black;
+    text-decoration: none;
+    border-bottom: dashed 1px black;
+    display: inline-block;
+}
+
+.templateTitle .logo {
+    float: left;
+    display: inline-block;
+    padding-right: 30px;
+}
+
+.templateTitle .headerMenu {
+    display: inline-block;
+    margin-top: 7px;
+}
+
+/* Keep alerts from taking up space (float them). */
+.alert-container {
+    position: fixed;
+    left: 0;
+    right: 0;
+    padding-left: 3em;
+    padding-right: 3em;
+}
+
+/* White background on nav menu. */
+.dxmLite_MaterialCompact .dxm-main {
+    background-color: white;
+    border-style: none;
+}
