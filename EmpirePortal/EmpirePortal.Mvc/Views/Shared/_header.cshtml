@@ -1,0 +1,33 @@
+﻿@using FxWeb.Mvc.Infrastructure.DevExpress
+@model PanelRenderMode?
+
+@if (Model == PanelRenderMode.Collapsed)
+{
+    <div class="headerTop">
+        <div class="loginControl">
+            @Html.Partial("_logon")
+        </div>
+    </div>
+    <div class="templateTitle">
+        @Html.ActionLink("Fx.Web", "Index", "Home")
+    </div>
+}
+else
+{
+    if (Model == PanelRenderMode.Full)
+    {
+        <div class="headerTop">
+            <div class="loginControl">
+                @Html.Partial("_logon")
+            </div>
+        </div>
+        <div class="templateTitle">
+            <div class="logo">
+                <img src="/Content/Images/EmpireLogo.png" alt="Empire Logo" />
+            </div>
+            <div class="headerMenu">
+                @Html.Action("ModuleMenu", "Home")
+            </div>
+        </div>
+    }
+}

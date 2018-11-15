@@ -1,0 +1,43 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28010.2050
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EmpirePortal.Mvc", "EmpirePortal.Mvc\EmpirePortal.Mvc.csproj", "{207E6C24-B5CB-456F-AFD2-16360CA22CF4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FxWeb.Domain.Core", "..\..\FX\FxWeb\FxWeb.Domain.Core\FxWeb.Domain.Core.csproj", "{A65D43A4-3340-4A0F-9FD2-B02848DD1A4C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FxWeb.Mvc.Infrastructure", "..\..\FX\FxWeb\FxWeb.Mvc.Infrastructure\FxWeb.Mvc.Infrastructure.csproj", "{7DA8ED68-B2B6-472A-86D7-9504A1B81306}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EmpirePortal.Domain.Sql", "EmpirePortal.Domain.Sql\EmpirePortal.Domain.Sql.csproj", "{0C19165E-8D07-49A5-9B5D-80F17EF0396A}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{207E6C24-B5CB-456F-AFD2-16360CA22CF4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{207E6C24-B5CB-456F-AFD2-16360CA22CF4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{207E6C24-B5CB-456F-AFD2-16360CA22CF4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{207E6C24-B5CB-456F-AFD2-16360CA22CF4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A65D43A4-3340-4A0F-9FD2-B02848DD1A4C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A65D43A4-3340-4A0F-9FD2-B02848DD1A4C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A65D43A4-3340-4A0F-9FD2-B02848DD1A4C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A65D43A4-3340-4A0F-9FD2-B02848DD1A4C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7DA8ED68-B2B6-472A-86D7-9504A1B81306}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7DA8ED68-B2B6-472A-86D7-9504A1B81306}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7DA8ED68-B2B6-472A-86D7-9504A1B81306}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7DA8ED68-B2B6-472A-86D7-9504A1B81306}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0C19165E-8D07-49A5-9B5D-80F17EF0396A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0C19165E-8D07-49A5-9B5D-80F17EF0396A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0C19165E-8D07-49A5-9B5D-80F17EF0396A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0C19165E-8D07-49A5-9B5D-80F17EF0396A}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {01ECFE01-262B-4B51-BEBD-299A6F9307F4}
+	EndGlobalSection
+EndGlobal

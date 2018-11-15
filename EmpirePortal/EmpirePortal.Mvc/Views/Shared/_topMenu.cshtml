@@ -1,0 +1,9 @@
+﻿@model EmpirePortal.Mvc.Controllers.Home.ModuleMenuViewModel
+
+@Html.DevExpress().Menu(settings =>
+{
+    settings.Name = "HeaderMenu";
+    settings.ItemAutoWidth = false;
+    settings.ControlStyle.CssClass = "headerMenu";
+    settings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+}).Bind(Model).GetHtml()

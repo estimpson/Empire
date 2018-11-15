@@ -1,0 +1,206 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="FxPLMModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="MenuItems">
+          <Key>
+            <PropertyRef Name="RowID" />
+          </Key>
+          <Property Name="ShortName" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="Status" Type="int" Nullable="false" />
+          <Property Name="Type" Type="int" Nullable="false" />
+          <Property Name="Caption" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Url" Type="varchar" MaxLength="50" />
+          <Property Name="MenuOrder" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="IsModule" Type="bit" Nullable="false" />
+          <Property Name="ParentMenuItemRowID" Type="int" />
+          <Property Name="AssetGuid" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="RowID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RowCreateDT" Type="datetime" />
+          <Property Name="RowCreateUser" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="RowModifiedDT" Type="datetime" />
+          <Property Name="RowModifiedUser" Type="nvarchar" MaxLength="128" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'FxPLM.Portal.MenuItem_Tree' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="MenuItem_Tree">
+          <Key>
+            <PropertyRef Name="Sequence" />
+          </Key>
+          <Property Name="Id" Type="int" />
+          <Property Name="ShortName" Type="varchar" MaxLength="100" />
+          <Property Name="PartialName" Type="varchar" MaxLength="100" />
+          <Property Name="ParentMenuName" Type="varchar" MaxLength="100" />
+          <Property Name="Caption" Type="varchar" MaxLength="50" />
+          <Property Name="Url" Type="varchar" MaxLength="50" />
+          <Property Name="MenuOrder" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="IsModule" Type="bit" />
+          <Property Name="Level" Type="int" />
+          <Property Name="HasChildren" Type="bit" />
+          <Property Name="Sequence" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FK__MenuItems__Paren__1C680BB2">
+          <End Role="MenuItems" Type="Self.MenuItems" Multiplicity="0..1" />
+          <End Role="MenuItems1" Type="Self.MenuItems" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MenuItems">
+              <PropertyRef Name="RowID" />
+            </Principal>
+            <Dependent Role="MenuItems1">
+              <PropertyRef Name="ParentMenuItemRowID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="FxPLMModelStoreContainer">
+          <EntitySet Name="MenuItems" EntityType="Self.MenuItems" Schema="Portal" store:Type="Tables" />
+          <EntitySet Name="MenuItem_Tree" EntityType="Self.MenuItem_Tree" store:Type="Views" store:Schema="Portal">
+            <DefiningQuery>SELECT 
+    [MenuItem_Tree].[Id] AS [Id], 
+    [MenuItem_Tree].[ShortName] AS [ShortName], 
+    [MenuItem_Tree].[PartialName] AS [PartialName], 
+    [MenuItem_Tree].[ParentMenuName] AS [ParentMenuName], 
+    [MenuItem_Tree].[Caption] AS [Caption], 
+    [MenuItem_Tree].[Url] AS [Url], 
+    [MenuItem_Tree].[MenuOrder] AS [MenuOrder], 
+    [MenuItem_Tree].[IsModule] AS [IsModule], 
+    [MenuItem_Tree].[Level] AS [Level], 
+    [MenuItem_Tree].[HasChildren] AS [HasChildren], 
+    [MenuItem_Tree].[Sequence] AS [Sequence]
+    FROM [Portal].[MenuItem_Tree] AS [MenuItem_Tree]</DefiningQuery>
+          </EntitySet>
+          <AssociationSet Name="FK__MenuItems__Paren__1C680BB2" Association="Self.FK__MenuItems__Paren__1C680BB2">
+            <End Role="MenuItems" EntitySet="MenuItems" />
+            <End Role="MenuItems1" EntitySet="MenuItems" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="FxPLMModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="CorePortalEntities" annotation:LazyLoadingEnabled="true" >
+          <EntitySet Name="MenuItemNodes" EntityType="FxPLMModel.MenuItemNode" />
+          <EntitySet Name="MenuItems" EntityType="FxPLMModel.MenuItem" />
+          <AssociationSet Name="FK__MenuItems__Paren__1C680BB2" Association="FxPLMModel.FK__MenuItems__Paren__1C680BB2">
+            <End Role="MenuItem" EntitySet="MenuItems" />
+            <End Role="MenuItem1" EntitySet="MenuItems" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="MenuItemNode">
+          <Key>
+            <PropertyRef Name="Sequence" />
+          </Key>
+          <Property Name="Id" Type="Int32" />
+          <Property Name="ShortName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="PartialName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="ParentMenuName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Caption" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Url" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="MenuOrder" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="IsModule" Type="Boolean" />
+          <Property Name="Level" Type="Int32" />
+          <Property Name="HasChildren" Type="Boolean" />
+          <Property Name="Sequence" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="MenuItem">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="ShortName" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Status" Type="Int32" Nullable="false" />
+          <Property Name="Type" Type="Int32" Nullable="false" />
+          <Property Name="Caption" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Url" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="MenuOrder" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <Property Name="IsModule" Type="Boolean" Nullable="false" />
+          <Property Name="ParentMenuItem_Id" Type="Int32" />
+          <Property Name="AssetGuid" Type="Guid" Nullable="false" />
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RowCreateDT" Type="DateTime" Precision="3" />
+          <Property Name="RowCreateUser" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="RowModifiedDT" Type="DateTime" Precision="3" />
+          <Property Name="RowModifiedUser" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="ChildMenuItems" Relationship="FxPLMModel.FK__MenuItems__Paren__1C680BB2" FromRole="MenuItem" ToRole="MenuItem1" />
+          <NavigationProperty Name="ParentMenuItem" Relationship="FxPLMModel.FK__MenuItems__Paren__1C680BB2" FromRole="MenuItem1" ToRole="MenuItem" />
+        </EntityType>
+        <Association Name="FK__MenuItems__Paren__1C680BB2">
+          <End Type="FxPLMModel.MenuItem" Role="MenuItem" Multiplicity="0..1" />
+          <End Type="FxPLMModel.MenuItem" Role="MenuItem1" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MenuItem">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="MenuItem1">
+              <PropertyRef Name="ParentMenuItem_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="FxPLMModelStoreContainer" CdmEntityContainer="CorePortalEntities" >
+          <EntitySetMapping Name="MenuItemNodes">
+            <EntityTypeMapping TypeName="FxPLMModel.MenuItemNode">
+              <MappingFragment StoreEntitySet="MenuItem_Tree">
+                <ScalarProperty Name="Sequence" ColumnName="Sequence" />
+                <ScalarProperty Name="HasChildren" ColumnName="HasChildren" />
+                <ScalarProperty Name="Level" ColumnName="Level" />
+                <ScalarProperty Name="IsModule" ColumnName="IsModule" />
+                <ScalarProperty Name="MenuOrder" ColumnName="MenuOrder" />
+                <ScalarProperty Name="Url" ColumnName="Url" />
+                <ScalarProperty Name="Caption" ColumnName="Caption" />
+                <ScalarProperty Name="ParentMenuName" ColumnName="ParentMenuName" />
+                <ScalarProperty Name="PartialName" ColumnName="PartialName" />
+                <ScalarProperty Name="ShortName" ColumnName="ShortName" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MenuItems">
+            <EntityTypeMapping TypeName="FxPLMModel.MenuItem">
+              <MappingFragment StoreEntitySet="MenuItems">
+                <ScalarProperty Name="RowModifiedUser" ColumnName="RowModifiedUser" />
+                <ScalarProperty Name="RowModifiedDT" ColumnName="RowModifiedDT" />
+                <ScalarProperty Name="RowCreateUser" ColumnName="RowCreateUser" />
+                <ScalarProperty Name="RowCreateDT" ColumnName="RowCreateDT" />
+                <ScalarProperty Name="Id" ColumnName="RowID" />
+                <ScalarProperty Name="AssetGuid" ColumnName="AssetGuid" />
+                <ScalarProperty Name="ParentMenuItem_Id" ColumnName="ParentMenuItemRowID" />
+                <ScalarProperty Name="IsModule" ColumnName="IsModule" />
+                <ScalarProperty Name="MenuOrder" ColumnName="MenuOrder" />
+                <ScalarProperty Name="Url" ColumnName="Url" />
+                <ScalarProperty Name="Caption" ColumnName="Caption" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="ShortName" ColumnName="ShortName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
