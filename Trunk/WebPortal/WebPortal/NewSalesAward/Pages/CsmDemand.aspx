@@ -114,7 +114,7 @@
             <div id="divMain" runat="server" style="border: 0px solid black; overflow: hidden; margin-bottom: 10px; width: 2200px;">
 
                 <div>
-                    <dx:ASPxButton ID="btnClose" runat="server" Text="" RenderMode="Link" ToolTip="Close" OnClick="btnClose_Click">
+                    <dx:ASPxButton ID="btnClose" runat="server" Text="" RenderMode="Link" ToolTip="Close" OnClick="btnClose_Click" Visible="false">
                         <Image IconID="actions_close_32x32gray" />
                     </dx:ASPxButton>
                 </div>
@@ -144,7 +144,7 @@
                             </tr>
                             <tr>
                                 <td>
-                                    <dx:ASPxLabel ID="lblQtyPer" runat="server" Text="Qty Per:" />
+                                    <dx:ASPxLabel ID="lblQtyPer" runat="server" Text="Qty Per:" Font-Bold="true" />
                                 </td>
                                 <td>
                                     <dx:ASPxTextBox ID="tbxQtyPer" runat="server" Width="194">
@@ -158,7 +158,7 @@
                             </tr>
                             <tr>
                                 <td>
-                                    <dx:ASPxLabel ID="lblFamilyAllocation" runat="server" Text="Family Allocation:" />
+                                    <dx:ASPxLabel ID="lblFamilyAllocation" runat="server" Text="Family Allocation:" Font-Bold="true" />
                                 </td>
                                 <td>
                                     <dx:ASPxTextBox ID="tbxFamilyAllocation" runat="server" Width="194">
@@ -190,6 +190,14 @@
                                         <dx:ASPxButton ID="btnUpdateMnemonic" runat="server" AutoPostBack="false" OnClick="btnUpdateMnemonic_Click" Text="Update Mnemonics" ValidationGroup="G" Width="194">
                                         </dx:ASPxButton>
                                     </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>&nbsp;</td>
+                                <td>
+                                    <div style="margin-top: 7px;">
+                                        <dx:ASPxLabel ID="lblUpdateMnemonicsInstruct" runat="server" Text="** If Qty Per or Family Allocation are changed, then update all selected mnemonics." Font-Size="10" ForeColor="DarkGray"></dx:ASPxLabel>
+                                    </div>        
                                 </td>
                             </tr>
                         </table>
@@ -241,7 +249,7 @@
                             </tr>
                             <tr>
                                 <td>
-                                    <dx:ASPxLabel ID="lblForecastDemanCalc" runat="server" Text="* Forecast Demand):" />
+                                    <dx:ASPxLabel ID="lblForecastDemanCalc" runat="server" Text="* Forecast Demand):" ToolTip="Summarized value derived from the selected mnemonic with the maximum CSM_SOP." ForeColor="Green" />
                                 </td>
                                 <td>
                                     <dx:ASPxTextBox ID="tbxForecastDemandCalc" runat="server" ReadOnly="true" DisplayFormatString="{0:N}" Width="194">
@@ -250,7 +258,7 @@
                             </tr>
                             <tr>
                                 <td>
-                                    <dx:ASPxLabel ID="lblTakeRateCalc" runat="server" Text="= Take Rate:" />
+                                    <dx:ASPxLabel ID="lblTakeRateCalc" runat="server" Text="= Take Rate:" Font-Bold="true" />
                                 </td>
                                 <td>
                                     <dx:ASPxTextBox ID="tbxCalculatedTakeRate" runat="server" ReadOnly="true" Width="194" />
@@ -260,6 +268,14 @@
                                 <td></td>
                                 <td>
                                     <dx:ASPxButton ID="btnUseTakeRate" runat="server" Text ="Use Take Rate" OnClick="btnUseTakeRate_Click" Width="194" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td>
+                                    <div style="margin-top: 7px;">
+                                        <dx:ASPxLabel ID="lblUseTakeRateInstruct" runat="server" Text="** Take rate will be applied to all selected mnemonics. (Update Mnemonics does not need to be clicked after clicking Use Take Rate.)" Font-Size="10" ForeColor="DarkGray"></dx:ASPxLabel>
+                                    </div>
                                 </td>
                             </tr>
                         </table>
@@ -275,7 +291,7 @@
 
                 <div id="divMnemonicGrid" runat="server" style="float: left;">
 
-                    <dx:ASPxGridView ID="gvCsmData" runat="server" ClientInstanceName="gvCsmData" AutoGenerateColumns="False" Width="1652"
+                    <dx:ASPxGridView ID="gvCsmData" runat="server" ClientInstanceName="gvCsmData" AutoGenerateColumns="False" Width="1640"
                         DataSourceID="odsCsmData" KeyFieldName="RowID" OnSelectionChanged="gvCsmData_SelectionChanged"
                         EnableCallBacks="false" EnableRowsCache="true" OnDataBound="gvCsmData_DataBound">
                         <Styles>

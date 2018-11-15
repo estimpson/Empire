@@ -30,7 +30,7 @@
         GridViewHelper.SetStandardAdaptivitySettings(settings);
         GridViewHelper.UseStandardToolbar(settings, Html);
 
-        settings.Columns.Add("RowID").Visible = false;
+        settings.Columns.Add("RowID").Visible=false;
         settings.Columns.Add(c =>
         {
             c.FieldName = "PartCode";
