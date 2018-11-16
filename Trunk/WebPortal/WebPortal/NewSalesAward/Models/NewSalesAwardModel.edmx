@@ -291,6 +291,9 @@ warning 6002: The table/view 'FxPLM.NSA.Users' does not have a primary key defin
           <Parameter Name="QuoteNumber" Type="varchar" Mode="In" />
           <Parameter Name="Mnemonic" Type="varchar" Mode="In" />
         </Function>
+        <Function Name="usp_GetAwardedQuoteCSMData" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="NSA">
+          <Parameter Name="QuoteNumber" Type="varchar" Mode="In" />
+        </Function>
         <Function Name="usp_GetAwardedQuoteDetails" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="NSA">
           <Parameter Name="QuoteNumber" Type="varchar" Mode="In" />
           <Parameter Name="AwardDate" Type="datetime" Mode="InOut" />
@@ -1111,9 +1114,9 @@ warning 6002: The table/view 'FxPLM.NSA.Users' does not have a primary key defin
           <Property Type="DateTime" Name="CSM_SOP" Nullable="true" Precision="23" />
           <Property Type="DateTime" Name="CSM_EOP" Nullable="true" Precision="23" />
           <Property Type="Int32" Name="ActiveFlag" Nullable="false" />
-          <Property Type="Decimal" Name="DemandYear1" Nullable="false" Precision="10" Scale="2" />
-          <Property Type="Decimal" Name="DemandYear2" Nullable="false" Precision="10" Scale="2" />
-          <Property Type="Decimal" Name="DemandYear3" Nullable="false" Precision="10" Scale="2" />
+          <Property Type="Decimal" Name="DemandYear1" Nullable="true" Precision="10" Scale="2" />
+          <Property Type="Decimal" Name="DemandYear2" Nullable="true" Precision="10" Scale="2" />
+          <Property Type="Decimal" Name="DemandYear3" Nullable="true" Precision="10" Scale="2" />
           <Property Type="Int64" Name="RowID" Nullable="false" />
         </ComplexType>
         <ComplexType Name="usp_GetAwardedQuotes_Result">
@@ -1607,6 +1610,28 @@ warning 6002: The table/view 'FxPLM.NSA.Users' does not have a primary key defin
           <FunctionImportMapping FunctionImportName="usp_GetAwardedQuoteDetails" FunctionName="FxPLMModel.Store.usp_GetAwardedQuoteDetails" />
           <FunctionImportMapping FunctionImportName="usp_CreateAwardedQuote" FunctionName="FxPLMModel.Store.usp_CreateAwardedQuote" />
           <FunctionImportMapping FunctionImportName="usp_SetQuoteDetails" FunctionName="FxPLMModel.Store.usp_SetQuoteDetails" />
+          <FunctionImportMapping FunctionImportName="usp_GetAwardedQuoteCSMData" FunctionName="FxPLMModel.Store.usp_GetAwardedQuoteCSMData">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="FxPLMModel.usp_GetAwardedQuoteCSMData_Result">
+                <ScalarProperty Name="ReleaseID" ColumnName="ReleaseID" />
+                <ScalarProperty Name="VehiclePlantMnemonic" ColumnName="VehiclePlantMnemonic" />
+                <ScalarProperty Name="Platform" ColumnName="Platform" />
+                <ScalarProperty Name="Program" ColumnName="Program" />
+                <ScalarProperty Name="Vehicle" ColumnName="Vehicle" />
+                <ScalarProperty Name="Manufacturer" ColumnName="Manufacturer" />
+                <ScalarProperty Name="SourcePlant" ColumnName="SourcePlant" />
+                <ScalarProperty Name="SourcePlantCountry" ColumnName="SourcePlantCountry" />
+                <ScalarProperty Name="SourcePlantRegion" ColumnName="SourcePlantRegion" />
+                <ScalarProperty Name="CSM_SOP" ColumnName="CSM_SOP" />
+                <ScalarProperty Name="CSM_EOP" ColumnName="CSM_EOP" />
+                <ScalarProperty Name="ActiveFlag" ColumnName="ActiveFlag" />
+                <ScalarProperty Name="DemandYear1" ColumnName="DemandYear1" />
+                <ScalarProperty Name="DemandYear2" ColumnName="DemandYear2" />
+                <ScalarProperty Name="DemandYear3" ColumnName="DemandYear3" />
+                <ScalarProperty Name="RowID" ColumnName="RowID" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
           </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

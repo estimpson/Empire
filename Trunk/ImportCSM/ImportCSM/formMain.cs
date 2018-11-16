@@ -716,7 +716,8 @@ namespace ImportCSM
                     
                     // Exit if an empty row is found
                     var row = rowRaw.Replace("\n", "");
-                    if (row == "\0") break;
+                    row = row.Replace("\0", "");
+                    //if (row == "\0") break;
                     if (row == "") break;
 
                     // Split on double quotes, which are found when a comma exists within a field (comma will cause two fields to be created from one) 
@@ -737,6 +738,10 @@ namespace ImportCSM
                         if (arry[0] == "North America Delta") continue;
                         if (arry[0] == "Greater China Delta") continue;
                         if (arry[0] == "Design parent/ manufacturer") continue;
+
+                        // Exit the loop if we have reached the footer row
+                        if (arry[0] == "Source: IHS Markit") break;
+
 
                         // Capture the mnemonic field (used to check if this data has already been imported)
                         string mnemonic = arry[9];
@@ -776,6 +781,10 @@ namespace ImportCSM
                         if (arry[0] == "North America Delta") continue;
                         if (arry[0] == "Greater China Delta") continue;
                         if (arry[0] == "Design parent/ manufacturer") continue;
+
+                        // Exit the loop if we have reached the footer row
+                        if (arry[0] == "Source: IHS Markit") break;
+
 
                         // Capture the mnemonic field (used to check if this data has already been imported)
                         string mnemonic = arry[9];
@@ -1203,6 +1212,7 @@ namespace ImportCSM
 
         private int ImportMidModel(string release)
         {
+            string newRow = "";
             try
             {
                 var format = DataFormats.CommaSeparatedValue;
@@ -1226,22 +1236,23 @@ namespace ImportCSM
                 {
                     // Exit if an empty row is found
                     var row = rowRaw.Replace("\n", "");
-                    if (row == "\0") break;
+                    row = row.Replace("\0", "");
+                    //if (row == "\0") break;
                     if (row == "") break;
 
                     // Create an array of data fields
                     string[] arry = row.Split(',');
 
                     // Restart the loop if we are in one of the header rows
-                    if (arry[0] == "Concept" || arry[0] == "Regions" || arry[0] == "Date" || arry[0] == "V: Region" || arry[0] == "") continue;
+                    if (arry[0] == "Concept" || arry[0] == "Regions" || arry[0] == "Date" || arry[0] == "V: Region") continue;
 
                     // Capture specific fields to use as parameters in checking if this data set has already been imported
-                    string platform = arry[2];
-                    string program = arry[3];
-                    string nameplate = arry[16];
+                    //string platform = arry[2];
+                    //string program = arry[3];
+                    //string nameplate = arry[16];
 
                     // Create the data string, cleaning the copied data if necessary
-                    string newRow = "'" + release + "',";
+                    newRow = "'" + release + "',";
                     foreach (var field in arry)
                     {
                         // Handle (escape) any single quotes within the fields
@@ -1257,21 +1268,23 @@ namespace ImportCSM
                     newRow = newRow.Remove(stringLength - 1, 1);
 
                     // Insert a row of data into the raw table
-                    int result = InsertMidModelRaw(release, platform, program, nameplate, newRow);
+                    //int result = InsertMidModelRaw(release, platform, program, nameplate, newRow);
+                    int result = InsertMidModelRaw(newRow);
                     if (result == 0) return 0;
                 }
             }
             catch (Exception ex)
             {
                 string error = (ex.InnerException == null) ? ex.Message : ex.InnerException.Message;
-                _messageBox.Message = "Import failed.  Exception thrown at ImportMidModel().  " + error;
+                _messageBox.Message = "Import failed.  Exception thrown at ImportMidModel().  " + " " + newRow + " " + error;
                 _messageBox.ShowDialog();
                 return 0;
             }
             return 1;
         }
 
-        private int InsertMidModelRaw(string release, string platform, string program, string nameplate, string values)
+        //private int InsertMidModelRaw(string release, string platform, string program, string nameplate, string values)
+        private int InsertMidModelRaw(string values)
         {
             // Ignore any empty rows
             var arr = values.Split(',');
@@ -1283,16 +1296,21 @@ namespace ImportCSM
 
             try
             {
-                var command = new SqlCommand("if not exists (" +
-                                            "select 1 from EEIUser.acctg_csm_mid_model mm " +
-                                            "where mm.Release_ID = '" + release + "' " +
-                                            "and mm.Platform = '" + platform + "' " +
-                                            "and mm.Program = '" + program + "' " +
-                                            "and mm.ProductionNameplate = '" + nameplate + "') " +
-                                            "begin " +
-                                            "insert into EEIUser.acctg_csm_mid_model_raw " +
+                //var command = new SqlCommand("if not exists (" +
+                //                            "select 1 from EEIUser.acctg_csm_mid_model mm " +
+                //                            "where mm.Release_ID = '" + release + "' " +
+                //                            "and mm.Platform = '" + platform + "' " +
+                //                            "and mm.Program = '" + program + "' " +
+                //                            "and mm.ProductionNameplate = '" + nameplate + "') " +
+                //                            "begin " +
+                //                            "insert into EEIUser.acctg_csm_mid_model_raw " +
+                //                            "values (" +
+                //                            values + ") end;",
+                //                            con);
+
+                var command = new SqlCommand("insert into EEIUser.acctg_csm_mid_model_raw " +
                                             "values (" +
-                                            values + ") end;",
+                                            values + ");",
                                             con);
 
                 con.Open();
@@ -1325,11 +1343,13 @@ namespace ImportCSM
                 var command = new SqlCommand("insert into EEIUser.acctg_csm_mid_model " +
                             "(Release_ID, Region, DesignParent, [Platform], Program, Vehicle, " +
                             "Sop, Eop, ChangeDate, ChangeType, Exterior, Interior, Engine, " +
-                            "Transmission, Chassis, Suspension, Location, ProductionNameplate, Brand) " +
+                            "Transmission, Chassis, Suspension, Location, ProductionNameplate, " + 
+                            "Brand, RowCreateDT) " +
 
                             "select Release_ID, Region, DesignParent, [Platform], Program, Vehicle, " +
                             "convert(datetime, (Sop + '-01')), convert(datetime, (Eop + '-01')), convert(datetime, ChangeDate), " + 
-                            "ChangeType, Exterior, Interior, Engine, Transmission, Chassis, Suspension, Location, ProductionNameplate, Brand " +
+                            "ChangeType, Exterior, Interior, Engine, Transmission, Chassis, Suspension, Location, ProductionNameplate, " +
+                            "Brand, " + "getdate() " +
                             "from EEIUser.acctg_csm_mid_model_raw " +
                             "where Release_ID = '" + release + "';",
                             con);

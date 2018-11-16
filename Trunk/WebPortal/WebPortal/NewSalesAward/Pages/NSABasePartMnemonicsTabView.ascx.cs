@@ -41,10 +41,10 @@ namespace WebPortal.NewSalesAward.Pages
             var quote = AwardedQuote.QuoteNumber;
             var basePart = AwardedQuote.BasePart;
             var mnemonic = AwardedQuote.VehiclePlantMnemonic;
-            var qtyPer = AwardedQuote.QtyPer.ToString();
-            var takeRate = AwardedQuote.TakeRate.ToString();
-            var familyAllocation = AwardedQuote.FamilyAllocation.ToString();
-            var quotedEau = AwardedQuote.QuotedEAU.ToString();
+            var qtyPer = (AwardedQuote.QtyPer.HasValue) ? AwardedQuote.QtyPer.ToString() : "0";
+            var takeRate = (AwardedQuote.TakeRate.HasValue) ? AwardedQuote.TakeRate.ToString() : "0";
+            var familyAllocation = (AwardedQuote.FamilyAllocation.HasValue) ? AwardedQuote.FamilyAllocation.ToString() : "0";
+            var quotedEau = (AwardedQuote.QuotedEAU.HasValue) ? AwardedQuote.QuotedEAU.ToString() : "0";
 
             Session["QuoteNumber"] = quote;
             Session["BasePart"] = basePart;
@@ -54,5 +54,7 @@ namespace WebPortal.NewSalesAward.Pages
             Session["FamilyAllocation"] = familyAllocation;
             Session["QuotedEau"] = quotedEau;
         }
+
+
     }
 }

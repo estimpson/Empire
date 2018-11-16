@@ -64,8 +64,14 @@ namespace WebPortal.NewSalesAward.Pages
             var formOfCommitment = FormOfCommitmentComboBox.Text.Trim();
             var quoteReason = QuoteReasonComboBox.Text.Trim();
             var replacingBasePart = ReplacingBasePartComboBox.Text.Trim();
-            var salesperson = SalespersonComboBox.Value.ToString();
-            var programManager = ProgramManagerComboBox.Value.ToString();
+            var salesperson = SalespersonComboBox.Text.Trim();
+
+            //var salesperson = (SalespersonComboBox.Value == null)
+            //    ? null
+            //    : SalespersonComboBox.Value.ToString();
+            //var programManager = ProgramManagerComboBox.Value.ToString();
+
+            var programManager = ProgramManagerComboBox.Text.Trim();
             var comments = CommentsTextBox.Text.Trim();
 
             ViewModel.SetQuoteDetails(quote, awardDate, formOfCommitment, quoteReason,

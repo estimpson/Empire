@@ -1,0 +1,93 @@
+﻿@import '_variables.scss';
+
+
+@mixin standard-button($button-bg){
+    border: $button-border;
+    color: white;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-size: $button-font-size;
+    padding: $button-padding;
+    background-color: $button-bg;
+}
+
+// Single line comment will not show up in CSS file
+@mixin border-radius-vendor($radius) {
+    -webkit-border-radius: $radius;
+    -moz-border-radius: $radius;
+    //-ms-border-radius: $radius;
+    border-radius: $radius;
+}
+
+.primary-button{
+    @include standard-button($primary-color);
+    @include border-radius-vendor(20px);
+}
+
+.secondary-button {
+    @include standard-button($secondary-color);
+    @include border-radius-vendor(20px);
+}
+
+
+/* Nested Rules */
+ul.contacts {
+    background-color: green;
+    list-style-type: none;
+    padding: 0;
+
+    li {
+            article {
+                border: solid 5px #000;
+                background-color: gold;
+                margin-bottom: 10px;
+                padding: 10px;
+
+            header {
+                font-style: italic;
+            }
+
+            p {
+                color: white;
+            }
+        }
+    }
+}
+
+/* Inheritance */
+.button {
+    color: white;
+    text-align: center;
+    font-size: 20px;
+    width: 200px;
+    height: 100px;
+    line-height: 100px;
+    @include border-radius-vendor(10px);
+}
+
+.yes {
+    @extend .button;
+    background-color: orange;
+}
+
+.no {
+    @extend .button;
+    background-color: red;
+}
+
+
+nav.related li a {
+    color: red;
+
+    &:hover {
+        color: orange;
+        font-size: 30px;
+    }
+
+    &:visited {
+        color: purple;
+    }
+
+    body.logged-in & {
+        font-style: italic;
+    }
+}

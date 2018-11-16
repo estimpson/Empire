@@ -35,7 +35,16 @@ namespace WebPortal
 
                 Session["OpCode"] = authCookie.Values["Op"].ToString();
                 Session["Name"] = authCookie.Values["Name"].ToString();
-                GetUserPages();
+
+                string currentPath = HttpContext.Current.Request.Url.AbsolutePath;
+                if (currentPath.Contains("CsmDemand"))
+                {
+                    imgButton.Visible = false;
+                }
+                else
+                {
+                    GetUserPages();
+                }
 
                 lblOperator.Text = authCookie.Values["Name"].ToString();
             }

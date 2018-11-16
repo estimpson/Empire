@@ -96,7 +96,7 @@
                                 <table>
                                     <tr>
                                         <td>
-                                            <dx:ASPxButton ID="btnEditMnemonics" runat="server" AutoPostBack="False" Text="Edit Mnemonics">
+                                            <dx:ASPxButton ID="btnEditMnemonics" runat="server" AutoPostBack="False" Text="Mnemonics">
                                                 <ClientSideEvents Click="OnEditMnemonics"></ClientSideEvents>
                                             </dx:ASPxButton>
                                         </td>

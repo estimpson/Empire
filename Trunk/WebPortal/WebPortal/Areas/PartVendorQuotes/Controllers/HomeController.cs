@@ -48,26 +48,24 @@ namespace WebPortal.Areas.PartVendorQuotes.Controllers
 
         public ActionResult PartVendorQuotesGridViewPartial()
         {
-
-            var model = _context.usp_GetPartVendorQuotes().Select(pvq =>
-                   new PartVendorQuoteViewModel
-                   {
-                       PartCode = pvq.PartCode,
-                       VendorCode = pvq.VendorCode,
-                       Oem = pvq.Oem,
-                       EffectiveDate = pvq.EffectiveDate,
-                       EndDate = pvq.EndDate,
-                       Price = pvq.Price,
-                       QuoteFileName = pvq.QuoteFileName,
-                   }
-                ).ToList();
+            var model = _context.usp_GetPartVendorQuotes().ToList().Select(pv => new PartVendorQuoteViewModel
+            {
+                RowID = pv.RowID,
+                VendorCode = pv.VendorCode,
+                PartCode = pv.PartCode,
+                Oem = pv.Oem,
+                EffectiveDate = pv.EffectiveDate,
+                EndDate = pv.EndDate,
+                Price = pv.Price,
+                QuoteFileName = pv.QuoteFileName,
+            }).ToList();
 
             return PartialView("_PartVendorQuotesGridViewPartial", model);
         }
 
         public string GetFocusedRowFile(int rowID)
         {
-            return _context.usp_GetPartVendorQuotes().SingleOrDefault(pvq=>pvq.RowID == rowID).QuoteFileName;
+            return _context.usp_GetPartVendorQuotes().SingleOrDefault(pvq => pvq.RowID == rowID)?.QuoteFileName;
         }
 
         [HttpPost, ValidateInput(false)]

@@ -137,13 +137,17 @@ namespace WebPortal.NewSalesAward.Pages
         {
             if (ValidateForm() == 0) return;
 
+            // NOTE: 
+            // Qty per and family allocation are editable and will be assigned to all selected mnemonics here.
+            // Take rate is calculated and assigned to all selected mnemonics when the Use Take Rate button is clicked.
+
             string[] collection = memoMnemonic.Text.Split(',').Select(x => x.Trim()).Where(x => !string.IsNullOrWhiteSpace(x)).ToArray();
             foreach (var item in collection)
             {
                 string mnemonic = item.ToString();
-                if (AssignCsmMnemonic(mnemonic) == 1)
+                if (AssignCsmMnemonic(mnemonic) == 1) // Assign take rate (redundant), qty per and family allocation
                 {
-                    GetCalculatedTakeRate();
+                    GetCalculatedTakeRate(); // This will update the calculate take rate section with the assigned qty per and family allocation 
 
                     //Session["UnselectAll"] = "true";
                     gvCsmData.Selection.UnselectAll();
@@ -160,6 +164,11 @@ namespace WebPortal.NewSalesAward.Pages
             tbxCurrentTakeRate.Text = tbxCalculatedTakeRate.Text;
             if (ValidateForm() == 0) return;
 
+            // NOTE:
+            // The calculated take rate may change when a mnemonic is selected or de-selected from the grid 
+            // depending on its SOP in relation to other selected mnemonics. 
+
+            // Assign the calculated take rate to all selected mnemonics
             string[] collection = memoMnemonic.Text.Split(',').Select(x => x.Trim()).Where(x => !string.IsNullOrWhiteSpace(x)).ToArray();
             foreach (var item in collection)
             {
@@ -179,7 +188,8 @@ namespace WebPortal.NewSalesAward.Pages
 
         protected void btnClose_Click(object sender, EventArgs e)
         {
-            Response.Redirect("NewSalesAwards.aspx");
+            //string jScript = "<script>window.close();</script>";
+            //ClientScript.RegisterClientScriptBlock(this.GetType(), "keyClientBlock", jScript);
         }
 
         #endregion

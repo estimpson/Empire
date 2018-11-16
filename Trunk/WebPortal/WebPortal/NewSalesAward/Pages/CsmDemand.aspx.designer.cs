@@ -184,6 +184,15 @@ namespace WebPortal.NewSalesAward.Pages {
         protected global::DevExpress.Web.ASPxButton btnUpdateMnemonic;
         
         /// <summary>
+        /// lblUpdateMnemonicsInstruct control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::DevExpress.Web.ASPxLabel lblUpdateMnemonicsInstruct;
+        
+        /// <summary>
         /// ASPxGlobalEvents1 control.
         /// </summary>
         /// <remarks>
@@ -308,6 +317,15 @@ namespace WebPortal.NewSalesAward.Pages {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::DevExpress.Web.ASPxButton btnUseTakeRate;
+        
+        /// <summary>
+        /// lblUseTakeRateInstruct control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::DevExpress.Web.ASPxLabel lblUseTakeRateInstruct;
         
         /// <summary>
         /// divMnemonicGrid control.

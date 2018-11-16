@@ -58,8 +58,8 @@ namespace WebPortal.NewSalesAward.Pages
             var quote = AwardedQuote.QuoteNumber;
 
             var amount = !string.IsNullOrWhiteSpace(AssemblyTesterToolingAmountTextBox.Text)
-                ? Convert.ToInt32(AssemblyTesterToolingAmountTextBox.Text)
-                : (int?) null;
+                ? Convert.ToDecimal(AssemblyTesterToolingAmountTextBox.Text)
+                : (decimal?) null;
 
             var trigger = AssemblyTesterToolingTriggerTextBox.Text.Trim();
             var description = AssemblyTesterToolingDescriptionTextBox.Text.Trim();

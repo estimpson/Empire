@@ -26,7 +26,6 @@
     }
 
     function onFileUploadStart() {
-        console.log("starting upload to RowID:" + document.getElementById("focusedRowID").value);
         $.ajax({
             url: "Home/FileUploadStart",
             data: { RowID: document.getElementById("focusedRowID").value, QuoteFileName: document.getElementById("quoteFileName").value }
@@ -71,7 +70,6 @@
     }
 
     function onOpenFileButtonClick(e) {
-        console.log("Open file button clicked");
         $.ajax({
             url: "Home/OpenPartVendorQuoteFile",
             data: {
@@ -104,9 +102,6 @@
     }
 
     function onDeleteFileButtonClick(e) {
-        console.log("Delete file button clicked");
-        console.log("Delete RowID: " + document.getElementById("focusedRowID").value);
-
         $.ajax({
             url: "Home/DeletePartVendorQuoteFile",
             //data: { RowID: document.getElementById("focusedRowID").value, QuoteFileName: document.getElementById("quoteFileName").value }
@@ -191,9 +186,9 @@
     @Html.Hidden("focusedRowID")
     @Html.Hidden("quoteFileName")
 
-    @*<div>
+    <div>
         @Html.Action("MessagesViewPartial")
-    </div>*@
+    </div>
     <div style="margin-bottom: 20px;">
         @Html.Action("PartVendorQuotesGridViewPartial")
     </div>
