@@ -1,5 +1,5 @@
 ﻿body {
-    padding-top: 50px;
+    padding-top: 10px;
     padding-bottom: 20px;
 }
 
@@ -78,4 +78,9 @@
 .dxmLite_MaterialCompact .dxm-main {
     background-color: white;
     border-style: none;
+}
+
+/*  Fix grid header maybe? */
+.dxgvHSDC {
+    padding-right: 2px;
 }

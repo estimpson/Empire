@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
+using EmpirePortal.Mvc.App_Start;
 
 namespace EmpirePortal.Mvc
 {
@@ -12,10 +9,12 @@ namespace EmpirePortal.Mvc
     {
         protected void Application_Start()
         {
+            DependencyInjectionConfig.RegisterTypes();
             AreaRegistration.RegisterAllAreas();
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
+            ModelBinders.Binders.DefaultBinder = new DevExpress.Web.Mvc.DevExpressEditorsBinder();
         }
     }
 }

@@ -6,8 +6,9 @@
     <edmx:Diagrams>
       <Diagram DiagramId="a1f3acd7bf954d2a814d0af89f3a543c" Name="Diagram1" >
         <EntityTypeShape EntityType="FxPLMModel.MenuItemNode" Width="1.5" PointX="0.75" PointY="0.75" />
-        <EntityTypeShape EntityType="FxPLMModel.MenuItem" Width="2.5" PointX="3.375" PointY="0.75" />
+        <EntityTypeShape EntityType="FxPLMModel.MenuItem" Width="1.5" PointX="3.75" PointY="0.75" />
         <AssociationConnector Association="FxPLMModel.FK__MenuItems__Paren__1C680BB2" />
+        <EntityTypeShape EntityType="FxPLMModel.User" Width="1.5" PointX="6.75" PointY="0.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

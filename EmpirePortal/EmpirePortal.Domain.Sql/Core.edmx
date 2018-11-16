@@ -24,6 +24,29 @@
           <Property Name="RowModifiedDT" Type="datetime" />
           <Property Name="RowModifiedUser" Type="nvarchar" MaxLength="128" Nullable="false" />
         </EntityType>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="RowID" />
+          </Key>
+          <Property Name="UserName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Status" Type="int" Nullable="false" />
+          <Property Name="Type" Type="int" Nullable="false" />
+          <Property Name="FirstName" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="MiddleName" Type="nvarchar" MaxLength="100" />
+          <Property Name="LastName" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="PasswordHash" Type="nchar" MaxLength="48" Nullable="false" />
+          <Property Name="EmailAddress" Type="nvarchar" MaxLength="100" />
+          <Property Name="SecurityGuid" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="MonitorOperator_EEH" Type="varchar" MaxLength="10" />
+          <Property Name="MonitorOperator_EEI" Type="varchar" MaxLength="10" />
+          <Property Name="IsAccountActive" Type="bit" Nullable="false" />
+          <Property Name="IsPasswordActive" Type="bit" Nullable="false" />
+          <Property Name="RowID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RowCreateDT" Type="datetime" StoreGeneratedPattern="Computed" />
+          <Property Name="RowCreateUser" Type="nvarchar" MaxLength="128" Nullable="false" StoreGeneratedPattern="Computed" />
+          <Property Name="RowModifiedDT" Type="datetime" StoreGeneratedPattern="Computed" />
+          <Property Name="RowModifiedUser" Type="nvarchar" MaxLength="128" Nullable="false" StoreGeneratedPattern="Computed" />
+        </EntityType>
         <!--Errors Found During Generation:
 warning 6002: The table/view 'FxPLM.Portal.MenuItem_Tree' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="MenuItem_Tree">
@@ -54,8 +77,32 @@ warning 6002: The table/view 'FxPLM.Portal.MenuItem_Tree' does not have a primar
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Function Name="usp_GetEehMonitorOperator" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Portal">
+          <Parameter Name="Value" Type="varchar(max)" Mode="In" />
+          <Parameter Name="TranDT" Type="datetime" Mode="InOut" />
+          <Parameter Name="Result" Type="int" Mode="InOut" />
+          <Parameter Name="Debug" Type="int" Mode="In" />
+          <Parameter Name="DebugMsg" Type="varchar(max)" Mode="InOut" />
+        </Function>
+        <Function Name="usp_GetEehMonitorOperatorsByRange" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Portal">
+          <Parameter Name="Filter" Type="varchar(max)" Mode="In" />
+          <Parameter Name="Start" Type="int" Mode="In" />
+          <Parameter Name="End" Type="int" Mode="In" />
+          <Parameter Name="TranDT" Type="datetime" Mode="InOut" />
+          <Parameter Name="Result" Type="int" Mode="InOut" />
+          <Parameter Name="Debug" Type="int" Mode="In" />
+          <Parameter Name="DebugMsg" Type="varchar(max)" Mode="InOut" />
+        </Function>
+        <Function Name="usp_GetMonitorOperators" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Portal">
+          <Parameter Name="MonitorLoginLocation" Type="char" Mode="In" />
+          <Parameter Name="TranDT" Type="datetime" Mode="InOut" />
+          <Parameter Name="Result" Type="int" Mode="InOut" />
+          <Parameter Name="Debug" Type="int" Mode="In" />
+          <Parameter Name="DebugMsg" Type="varchar(max)" Mode="InOut" />
+        </Function>
         <EntityContainer Name="FxPLMModelStoreContainer">
           <EntitySet Name="MenuItems" EntityType="Self.MenuItems" Schema="Portal" store:Type="Tables" />
+          <EntitySet Name="Users" EntityType="Self.Users" Schema="Portal" store:Type="Tables" />
           <EntitySet Name="MenuItem_Tree" EntityType="Self.MenuItem_Tree" store:Type="Views" store:Schema="Portal">
             <DefiningQuery>SELECT 
     [MenuItem_Tree].[Id] AS [Id], 
@@ -87,6 +134,30 @@ warning 6002: The table/view 'FxPLM.Portal.MenuItem_Tree' does not have a primar
             <End Role="MenuItem" EntitySet="MenuItems" />
             <End Role="MenuItem1" EntitySet="MenuItems" />
           </AssociationSet>
+          <EntitySet Name="Users" EntityType="FxPLMModel.User" />
+          <FunctionImport Name="GetMonitorOperators" ReturnType="Collection(FxPLMModel.MonitorOperators)">
+            <Parameter Name="MonitorLoginLocation" Mode="In" Type="String" />
+            <Parameter Name="TranDT" Mode="InOut" Type="DateTime" />
+            <Parameter Name="Result" Mode="InOut" Type="Int32" />
+            <Parameter Name="Debug" Mode="In" Type="Int32" />
+            <Parameter Name="DebugMsg" Mode="InOut" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="GetEehMonitorOperatorsByRange" ReturnType="Collection(FxPLMModel.MonitorOperators)">
+            <Parameter Name="Filter" Mode="In" Type="String" />
+            <Parameter Name="Start" Mode="In" Type="Int32" />
+            <Parameter Name="End" Mode="In" Type="Int32" />
+            <Parameter Name="TranDT" Mode="InOut" Type="DateTime" />
+            <Parameter Name="Result" Mode="InOut" Type="Int32" />
+            <Parameter Name="Debug" Mode="In" Type="Int32" />
+            <Parameter Name="DebugMsg" Mode="InOut" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="GetEehMonitorOperator" ReturnType="Collection(FxPLMModel.MonitorOperators)">
+            <Parameter Name="Value" Mode="In" Type="String" />
+            <Parameter Name="TranDT" Mode="InOut" Type="DateTime" />
+            <Parameter Name="Result" Mode="InOut" Type="Int32" />
+            <Parameter Name="Debug" Mode="In" Type="Int32" />
+            <Parameter Name="DebugMsg" Mode="InOut" Type="String" />
+          </FunctionImport>
         </EntityContainer>
         <EntityType Name="MenuItemNode">
           <Key>
@@ -137,6 +208,39 @@ warning 6002: The table/view 'FxPLM.Portal.MenuItem_Tree' does not have a primar
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="UserName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Status" Type="Int32" Nullable="false" />
+          <Property Name="Type" Type="Int32" Nullable="false" />
+          <Property Name="FirstName" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="MiddleName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="LastName" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="PasswordHash" Type="String" Nullable="false" MaxLength="48" FixedLength="true" Unicode="true" />
+          <Property Name="EmailAddress" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="SecurityGuid" Type="Guid" Nullable="false" />
+          <Property Name="MonitorOperator_EEH" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="MonitorOperator_EEI" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="IsAccountActive" Type="Boolean" Nullable="false" />
+          <Property Name="IsPasswordActive" Type="Boolean" Nullable="false" />
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RowCreateDT" Type="DateTime" Precision="3" annotation:StoreGeneratedPattern="Computed" />
+          <Property Name="RowCreateUser" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" annotation:StoreGeneratedPattern="Computed" />
+          <Property Name="RowModifiedDT" Type="DateTime" Precision="3" annotation:StoreGeneratedPattern="Computed" />
+          <Property Name="RowModifiedUser" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" annotation:StoreGeneratedPattern="Computed" />
+        </EntityType>
+        <ComplexType Name="MonitorOperators">
+          <Property Type="String" Name="MonitorLoginLocation" Nullable="false" MaxLength="3" />
+          <Property Type="String" Name="FullName" Nullable="false" MaxLength="40" />
+          <Property Type="String" Name="MonitorOperatorCode" Nullable="false" MaxLength="10" />
+          <Property Type="String" Name="PortalUserName" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="FirstName" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="MiddleName" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="LastName" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="EmailAddress" Nullable="true" MaxLength="100" />
+        </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -180,6 +284,72 @@ warning 6002: The table/view 'FxPLM.Portal.MenuItem_Tree' does not have a primar
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="FxPLMModel.User">
+              <MappingFragment StoreEntitySet="Users">
+                <ScalarProperty Name="RowModifiedUser" ColumnName="RowModifiedUser" />
+                <ScalarProperty Name="RowModifiedDT" ColumnName="RowModifiedDT" />
+                <ScalarProperty Name="RowCreateUser" ColumnName="RowCreateUser" />
+                <ScalarProperty Name="RowCreateDT" ColumnName="RowCreateDT" />
+                <ScalarProperty Name="Id" ColumnName="RowID" />
+                <ScalarProperty Name="IsPasswordActive" ColumnName="IsPasswordActive" />
+                <ScalarProperty Name="IsAccountActive" ColumnName="IsAccountActive" />
+                <ScalarProperty Name="MonitorOperator_EEI" ColumnName="MonitorOperator_EEI" />
+                <ScalarProperty Name="MonitorOperator_EEH" ColumnName="MonitorOperator_EEH" />
+                <ScalarProperty Name="SecurityGuid" ColumnName="SecurityGuid" />
+                <ScalarProperty Name="EmailAddress" ColumnName="EmailAddress" />
+                <ScalarProperty Name="PasswordHash" ColumnName="PasswordHash" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="MiddleName" ColumnName="MiddleName" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="GetMonitorOperators" FunctionName="FxPLMModel.Store.usp_GetMonitorOperators">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="FxPLMModel.MonitorOperators">
+                <ScalarProperty Name="MonitorLoginLocation" ColumnName="MonitorLoginLocation" />
+                <ScalarProperty Name="FullName" ColumnName="FullName" />
+                <ScalarProperty Name="MonitorOperatorCode" ColumnName="MonitorOperatorCode" />
+                <ScalarProperty Name="PortalUserName" ColumnName="PortalUserName" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="MiddleName" ColumnName="MiddleName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="EmailAddress" ColumnName="EmailAddress" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="GetEehMonitorOperatorsByRange" FunctionName="FxPLMModel.Store.usp_GetEehMonitorOperatorsByRange">
+          <ResultMapping>
+              <ComplexTypeMapping TypeName="FxPLMModel.MonitorOperators">
+                <ScalarProperty Name="MonitorLoginLocation" ColumnName="MonitorLoginLocation" />
+                <ScalarProperty Name="FullName" ColumnName="FullName" />
+                <ScalarProperty Name="MonitorOperatorCode" ColumnName="MonitorOperatorCode" />
+                <ScalarProperty Name="PortalUserName" ColumnName="PortalUserName" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="MiddleName" ColumnName="MiddleName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="EmailAddress" ColumnName="EmailAddress" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="GetEehMonitorOperator" FunctionName="FxPLMModel.Store.usp_GetEehMonitorOperator">
+          <ResultMapping>
+              <ComplexTypeMapping TypeName="FxPLMModel.MonitorOperators">
+                <ScalarProperty Name="MonitorLoginLocation" ColumnName="MonitorLoginLocation" />
+                <ScalarProperty Name="FullName" ColumnName="FullName" />
+                <ScalarProperty Name="MonitorOperatorCode" ColumnName="MonitorOperatorCode" />
+                <ScalarProperty Name="PortalUserName" ColumnName="PortalUserName" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="MiddleName" ColumnName="MiddleName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="EmailAddress" ColumnName="EmailAddress" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

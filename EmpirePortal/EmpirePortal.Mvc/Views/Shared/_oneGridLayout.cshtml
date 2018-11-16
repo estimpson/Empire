@@ -1,0 +1,89 @@
+﻿@using FxWeb.Mvc.Infrastructure.ViewModels
+@model OneGridViewModel
+
+@{
+    /**/
+
+    ViewBag.Title = Model.ViewTitle;
+}
+
+<h2>@Model.ViewTitle</h2>
+
+@{
+    Html.EnableClientValidation();
+    Html.EnableUnobtrusiveJavaScript();
+}
+
+@using (Html.BeginForm(
+    "ExportTo"
+    , ViewContext.RouteData.GetRequiredString("controller")
+    , FormMethod.Post, new { id = "frm" }))
+{
+    <div id="gridContainer" style="visibility: hidden">
+        @Html.Action(Model.PartialGridViewActionName)
+    </div>
+    @Html.Hidden("customExportCommand")
+}
+
+@section AdditionalResources {
+    <script type="text/javascript">
+        function EditGridRowOnDoubleClick(s, e) {
+            s.StartEditRow(e.visibleIndex);
+        }
+
+        function OnToolbarItemClick(s, e) {
+            console.log("toolbar item name " + e.item.name);
+            if (!IsCustomExportToolbarCommand(e.item.name))
+                return;
+            var $exportFormat = $('#customExportCommand');
+            $exportFormat.val(e.item.name);
+            $('#frm').submit();
+            window.setTimeout(function () {
+                $exportFormat.val("");
+            }, 0);
+        }
+
+        function IsCustomExportToolbarCommand(command) {
+            return command === "GridView.CustomExportToXLS" || command === "GridView.CustomExportToXLSX";
+        }
+
+        function OnGotFocus(s, e) {
+            const currentValue = s.GetValue();
+            if (currentValue) {
+                s.SetValue(currentValue * 100);
+            }
+        }
+
+        function OnLostFocus(s, e) {
+            const currentValue = s.GetValue();
+            if (currentValue) {
+                s.SetValue(currentValue / 100);
+            }
+        }
+
+        function PrepareValidationScripts() {
+            const form = $('#frm');
+            if (!form) return;
+            form.removeData("validator");
+            $.validator.unobtrusive.parse(form);
+            form.attr("data-executed", "true");
+        }
+
+        $(document).ready((s, e) => {
+            $(window).on("resize",
+                function() {
+                    adjustHeight(GridView);
+                });
+
+            adjustHeight(GridView);
+        });
+
+        function adjustHeight(gridView) {
+            var height = document.getElementById("FooterPane").getBoundingClientRect().y -
+                gridView.GetGridTD().getBoundingClientRect().y -
+                30;
+            gridView.SetHeight(height);
+            $("#gridContainer").css("visibility", "");
+        }
+    </script>
+}

@@ -1,6 +1,8 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 11.00
-# SQL Server Management Studio Solution File, Format Version 11.00
+Microsoft Visual Studio Solution File, Format Version 12.00
+# SQL Server Management Studio Solution File, Format Version 14.00
+VisualStudioVersion = 14.0.23107.0
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{4F2E2C19-372F-40D8-9FA7-9D2138C6997A}") = "PartStandardHistorical", "PartStandardHistorical\PartStandardHistorical.ssmssqlproj", "{6D9E389E-096F-4F50-B895-CFB99DB975D7}"
 EndProject
 Project("{4F2E2C19-372F-40D8-9FA7-9D2138C6997A}") = "GL Import", "GL Import\GL Import.ssmssqlproj", "{2E58FD1C-3A0D-46C3-91EC-9744878D3942}"
@@ -30,8 +32,6 @@ EndProject
 Project("{4F2E2C19-372F-40D8-9FA7-9D2138C6997A}") = "Empower_EditPOs", "Empower_EditPOs\Empower_EditPOs.ssmssqlproj", "{1C444023-7896-4998-B5E3-403BBCF002BC}"
 EndProject
 Project("{4F2E2C19-372F-40D8-9FA7-9D2138C6997A}") = "RMA", "RMA\RMA.ssmssqlproj", "{26291C96-5CB9-4EEC-8B9E-FE8345497B9F}"
-EndProject
-Project("{4F2E2C19-372F-40D8-9FA7-9D2138C6997A}") = "FxDBScripts", "..\..\..\Fx\FxDBScripts\FxDBScripts.ssmssqlproj", "{B81233FE-6B02-4E90-9EBE-9A24BD72D404}"
 EndProject
 Project("{4F2E2C19-372F-40D8-9FA7-9D2138C6997A}") = "Sales-CSM", "Sales-CSM\Sales-CSM.ssmssqlproj", "{11C4F13D-1D6D-4575-A98B-B90FA18403C3}"
 EndProject
@@ -65,6 +65,8 @@ Project("{4F2E2C19-372F-40D8-9FA7-9D2138C6997A}") = "Monitor.EDI", "Monitor.EDI\
 EndProject
 Project("{4F2E2C19-372F-40D8-9FA7-9D2138C6997A}") = "FxEDI.FS", "FxEDI.FS\FxEDI.FS.ssmssqlproj", "{E4074FAE-7785-4085-8F47-9478BE769AE2}"
 EndProject
+Project("{4F2E2C19-372F-40D8-9FA7-9D2138C6997A}") = "FxDBScripts", "..\..\..\..\G-Drive\Fx\FxDBScripts\FxDBScripts.ssmssqlproj", "{A8DB8347-465C-4E2A-AB9B-463DFCCEAA6B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Default|Default = Default|Default
@@ -85,7 +87,6 @@ Global
 		{0E6F05AF-4187-4E81-AEDA-0D75711A8843}.Default|Default.ActiveCfg = Default
 		{1C444023-7896-4998-B5E3-403BBCF002BC}.Default|Default.ActiveCfg = Default
 		{26291C96-5CB9-4EEC-8B9E-FE8345497B9F}.Default|Default.ActiveCfg = Default
-		{B81233FE-6B02-4E90-9EBE-9A24BD72D404}.Default|Default.ActiveCfg = Default
 		{11C4F13D-1D6D-4575-A98B-B90FA18403C3}.Default|Default.ActiveCfg = Default
 		{61FFE0BD-BE78-41EE-8172-B4811BA645A3}.Default|Default.ActiveCfg = Default
 		{D88DCA86-B826-457E-876D-E3318AF649B2}.Default|Default.ActiveCfg = Default
@@ -102,7 +103,7 @@ Global
 		{8EEA13BD-F24A-4439-B692-632CBF59BC66}.Default|Default.ActiveCfg = Default
 		{B9D1EF9C-1D93-4839-B5FF-8A80FE6C0080}.Default|Default.ActiveCfg = Default
 		{E4074FAE-7785-4085-8F47-9478BE769AE2}.Default|Default.ActiveCfg = Default
-		{18D98268-190B-4DC1-9E89-18E9C01C3820}.Default|Default.ActiveCfg = Default
+		{A8DB8347-465C-4E2A-AB9B-463DFCCEAA6B}.Default|Default.ActiveCfg = Default
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

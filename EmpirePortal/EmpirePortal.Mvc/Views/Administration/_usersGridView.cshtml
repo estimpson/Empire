@@ -1,0 +1,147 @@
+﻿@using System.Web.UI.WebControls
+@using EmpirePortal.Domain.Sql
+@using FxWeb.Mvc.Infrastructure.DataServices
+@using FxWeb.Mvc.Infrastructure.DevExpress.GridView
+@model  System.Collections.IList
+
+@{
+    var grid = Html.DevExpress().GridView(settings =>
+    {
+        settings.Name = "GridView";
+        var gridViewHelper = new GridViewHelperDefault();
+        gridViewHelper.SetDimensions(settings);
+
+        //gridViewHelper.SetCrudActionRoutes(settings);
+        settings.CallbackRouteValues = new
+        {
+            Controller = "Administration",
+            Action = "UsersGridViewPartial"
+        };
+        settings.SettingsEditing.AddNewRowRouteValues = new { Controller = "Administration", Action = "UsersGridViewPartialAddNew" };
+        settings.SettingsEditing.UpdateRowRouteValues = new { Controller = "Administration", Action = "UsersGridViewPartialUpdate" };
+        settings.SettingsEditing.DeleteRowRouteValues = new { Controller = "Administration", Action = "UsersGridViewPartialDelete" };
+
+        gridViewHelper.SetEditBehaviors(settings);
+        gridViewHelper.SetAdaptivityBehaviors(settings);
+        gridViewHelper.SetStandardLookAndFeelBehaviors(settings);
+        gridViewHelper.BuildStandardToolbar(settings, Html);
+
+        //gridViewHelper.BuildColumns(settings);
+        settings.KeyFieldName = "UserName";
+        settings.Columns.Add("UserName")
+            .WithTextBox()
+            .WithInlineHelpText("User name must be unique")
+            .WithErrorDisplay(ErrorDisplayMode.ImageWithText, ErrorTextPosition.Bottom);
+        settings.Columns.Add("FirstName");
+        settings.Columns.Add("MiddleName");
+        settings.Columns.Add("LastName");
+        settings.Columns.Add("NewAccountPassword")
+            .WithNonVisible();
+        settings.Columns.Add("ConfirmNewAccountPassword")
+            .WithNonVisible();
+        settings.Columns.Add("CurrentPasswordHash")
+            .WithNonVisible();
+        settings.Columns.Add("ChangePassword")
+            .WithNonVisible();
+        settings.Columns.Add("ConfirmChangePassword")
+            .WithNonVisible();
+        settings.Columns.Add("EmailAddress");
+        settings.Columns.Add("IsAccountActive")
+            .WithCheckBox();
+        settings.Columns.Add("MonitorOperator_EEH")
+            .WithComboBox(p =>
+            {
+                p.CallbackPageSize = 30;
+                p.CallbackRouteValues = new {Controller = "Administration", Action = "EehMonitorOperatorsComboBoxPartialInGrid"};
+                p.FilterMinLength = 0;
+
+                p.Width = Unit.Percentage(100);
+                p.DropDownStyle = DropDownStyle.DropDownList;
+                p.Columns.Add("FullName");
+                p.Columns.Add("MonitorOperatorCode");
+                p.TextField = "MonitorOperatorCode";
+                p.ValueField = "MonitorOperatorCode";
+                p.ValueType = typeof(string);
+                p.BindList(CoreDbContextService.Db.GetMonitorOperators("EEH").OrderBy(mo=>mo.FullName));
+                //p.BindList(CoreDbContextService.Db.GetEehMonitorOperatorsRange, CoreDbContextService.Db.GetEehMonitorOperatorsByOperator);
+            })
+            .WithInlineHelpText("Select parent from list or leave blank for module menu...");
+        settings.Columns.Add("MonitorOperator_EEI")
+            .WithComboBox(p =>
+            {
+                p.CallbackPageSize = 30;
+                p.Width = Unit.Percentage(100);
+                p.DropDownStyle = DropDownStyle.DropDownList;
+                p.Columns.Add("FullName");
+                p.Columns.Add("MonitorOperatorCode");
+                p.TextField = "MonitorOperatorCode";
+                p.ValueField = "MonitorOperatorCode";
+                p.ValueType = typeof(string);
+                p.BindList(CoreDbContextService.Db.GetMonitorOperators("EEI").OrderBy(mo => mo.FullName));
+            })
+            .WithInlineHelpText("Select parent from list or leave blank for module menu...");
+
+        gridViewHelper.BuildEditForm(settings);
+        settings.SettingsText.PopupEditFormCaption = "Portal User";
+        settings.SettingsPopup.EditForm.Width = 600;
+        settings.EditFormLayoutProperties.ColCount = 1;
+        settings.EditFormLayoutProperties.Items.AddGroupItem(g1 =>
+        {
+            g1.Caption = "Account";
+            g1.Items.Add("UserName");
+            g1.Items.Add("EmailAddress");
+            g1.Items.Add("IsAccountActive");
+        });
+        settings.EditFormLayoutProperties.Items.AddGroupItem(g2 =>
+        {
+            g2.Caption = "Name";
+            g2.Items.Add("FirstName");
+            g2.Items.Add("MiddleName");
+            g2.Items.Add("LastName");
+        });
+
+        settings.EditFormLayoutProperties.Items.AddGroupItem(g3 =>
+        {
+            g3.Caption = "Password";
+            g3.Name = "NewAccountPasswordGroup";
+            g3.Items.Add("NewAccountPassword");
+            g3.Items.Add("ConfirmNewAccountPassword");
+
+        });
+        settings.EditFormLayoutProperties.Items.AddGroupItem(g4 =>
+        {
+            g4.Caption = "Change Password";
+            g4.Name = "ChangePasswordGroup";
+            g4.Items.Add("ChangePassword");
+            g4.Items.Add("ConfirmChangePassword");
+        });
+
+        settings.EditFormLayoutProperties.Items.AddGroupItem(g5 =>
+        {
+            g5.Caption = "Set Monitor Operators";
+            g5.Items.Add("MonitorOperator_EEH");
+            g5.Items.Add("MonitorOperator_EEI");
+        });
+
+        settings.EditFormLayoutProperties.Items.AddCommandItem(itemSettings =>
+        {
+            itemSettings.Width = Unit.Percentage(100);
+            itemSettings.HorizontalAlign = FormLayoutHorizontalAlign.Right;
+        });
+
+        gridViewHelper.BuildServerSideEventHandlers(settings, TempData);
+        settings.BeforeGetCallbackResult += (s, e) =>
+        {
+            if (!(s is MVCxGridView g)) return;
+            g.EditFormLayoutProperties.FindItemOrGroupByName("NewAccountPasswordGroup").Visible = g.IsNewRowEditing;
+            g.EditFormLayoutProperties.FindItemOrGroupByName("ChangePasswordGroup").Visible = !g.IsNewRowEditing;
+        };
+
+        gridViewHelper.BuildContextMenu(settings);
+    });
+    if (ViewData["EditError"] != null)
+    {
+        grid.SetEditErrorText((string)ViewData["EditError"]);
+    }
+}
+@grid.Bind(Model).GetHtml()
