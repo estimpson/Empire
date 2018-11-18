@@ -1,0 +1,98 @@
+﻿@using System.Web.UI.WebControls
+@using EmpirePortal.Mvc.Controllers.Account
+@using FxWeb.Mvc.Infrastructure.DevExpress.FormLayout
+
+@model LoginViewModel
+
+@{
+    Html.EnableClientValidation();
+    Html.EnableUnobtrusiveJavaScript();
+}
+
+@section AdditionalResources {
+    <script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
+}
+
+    @Html.DevExpress().PopupControl(
+       settings =>
+       {
+           settings.Name = "LoginPopup";
+           settings.Width = 320;
+           settings.AllowDragging = true;
+           settings.CloseAction = CloseAction.None;
+           //settings.CloseAction = CloseAction.CloseButton;
+           //settings.CloseOnEscape = true;
+           settings.ShowCloseButton = false;
+           settings.PopupAnimationType = AnimationType.Slide;
+           settings.HeaderText = "Login";
+           settings.Modal = true;
+           settings.AutoUpdatePosition = true;
+           settings.PopupHorizontalAlign = PopupHorizontalAlign.WindowCenter;
+           settings.PopupVerticalAlign = PopupVerticalAlign.WindowCenter;
+           settings.ShowOnPageLoad = true;
+           settings.SetContent(() =>
+           {
+               using (Html.BeginForm("AttemptLogin", "Account", FormMethod.Post, new { id = "popupForm", @class = "edit_form" }))
+               {
+                   @Html.DevExpress().FormLayout(s =>
+                   {
+                       s.Name = "LoginFormLayout";
+                       s.RequiredMarkDisplayMode = RequiredMarkMode.None;
+                       s.Width = Unit.Percentage(100);
+                       s.Height = Unit.Percentage(100);
+
+                       s.NestedExtensionWidth = Unit.Percentage(100);
+
+                       //s.Items.Add(i =>
+                       //{
+                       //    i.Name = "UsernameTextBox";
+                       //    i.Caption = "Username";
+                       //    i.NestedExtensionType = FormLayoutNestedExtensionItemType.TextBox;
+                       //});
+                       s.Items.Add(m => m.UserName)
+                           .WithTextBox()
+                           .WithErrorDisplay(ErrorDisplayMode.Text, ErrorTextPosition.Bottom);
+                       //s.Items.Add(i =>
+                       //{
+                       //    i.Name = "PasswordTextBox";
+                       //    i.Caption = "Password";
+                       //    i.NestedExtensionType = FormLayoutNestedExtensionItemType.TextBox;
+                       //    ((TextBoxSettings) i.NestedExtensionSettings).Properties.Password = true;
+                       //});
+                       s.Items.Add(m => m.Password)
+                           .WithPassword(true);
+                       s.Items.Add(m => m.RememberMe);
+                       s.Items.Add(i =>
+                       {
+                           i.ShowCaption = DefaultBoolean.False;
+                           i.SetNestedContent(() =>
+                           {
+                               Html.DevExpress().Button(
+                                   buttonSettings =>
+                                   {
+                                       buttonSettings.Name = "btnUpdate";
+                                       buttonSettings.ControlStyle.CssClass = "button";
+                                       buttonSettings.Width = 80;
+                                       buttonSettings.Text = "OK";
+                                       buttonSettings.UseSubmitBehavior = true;
+                                   }
+                                   ).Render();
+                               //Html.DevExpress().Button(
+                               //    buttonSettings =>
+                               //    {
+                               //        buttonSettings.Name = "btnCancel";
+                               //        buttonSettings.ControlStyle.CssClass = "button";
+                               //        buttonSettings.Width = 80;
+                               //        buttonSettings.Text = "Cancel";
+                               //        buttonSettings.ClientSideEvents.Click = "function(s, e){ LoginPopup.Hide(); }";
+                               //    }
+                               //    ).Render();
+                           });
+                       });
+                   }).Render();
+               }
+           });
+
+           settings.ClientSideEvents.CloseUp = "function(s, e){ ASPxClientEdit.ClearEditorsInContainer(null, '', true); }";
+       }).GetHtml()

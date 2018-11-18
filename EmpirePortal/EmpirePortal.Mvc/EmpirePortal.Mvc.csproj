@@ -187,6 +187,9 @@
     <Compile Include="App_Start\DependencyInjectionConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\Account\AccountController.cs" />
+    <Compile Include="Controllers\Account\AccountController.Login.cs" />
+    <Compile Include="Controllers\Account\ViewModels\LoginViewModel.cs" />
     <Compile Include="Controllers\Administration\AdministrationController.cs" />
     <Compile Include="Controllers\Administration\AdministrationController.Users.cs" />
     <Compile Include="Controllers\Administration\ViewModels\UserViewModel.cs" />
@@ -287,6 +290,7 @@
     <Content Include="Views\Shared\_topMenu.cshtml" />
     <Content Include="Views\Shared\_oneGridLayout.cshtml" />
     <Content Include="Views\Administration\_usersGridView.cshtml" />
+    <Content Include="Views\Shared\_loginPopup.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
