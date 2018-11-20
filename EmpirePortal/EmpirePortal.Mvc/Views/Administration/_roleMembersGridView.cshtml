@@ -1,0 +1,79 @@
+﻿@using System.Web.UI.WebControls
+@using EmpirePortal.Mvc.Controllers.Administration
+@using FxWeb.Mvc.Infrastructure.DevExpress.GridView
+@model  System.Collections.IList
+
+@{
+    var grid = Html.DevExpress().GridView(settings =>
+    {
+        settings.Height = Unit.Pixel(400);
+        settings.Name = "ChildGridView";
+        var gridViewHelper = new GridViewHelperDefault();
+        gridViewHelper.SetDimensions(settings);
+
+        //gridViewHelper.SetCrudActionRoutes(settings);
+        settings.CallbackRouteValues = new
+        {
+            Controller = "Administration",
+            Action = "RoleMembershipGridViewPartial"
+        };
+        settings.SettingsEditing.AddNewRowRouteValues = new {Controller = "Administration", Action = "RolesGridViewPartialAddNew"};
+        settings.SettingsEditing.UpdateRowRouteValues = new {Controller = "Administration", Action = "RolesGridViewPartialUpdate"};
+        settings.SettingsEditing.DeleteRowRouteValues = new {Controller = "Administration", Action = "RolesGridViewPartialDelete"};
+
+        gridViewHelper.SetEditBehaviors(settings);
+        gridViewHelper.SetAdaptivityBehaviors(settings);
+
+        //gridViewHelper.BuildColumns(settings);
+        settings.KeyFieldName = "UserName";
+        settings.Columns.Add("RoleName")
+            .WithNonVisible();
+        settings.Columns.Add("UserName")
+            .WithTextBox()
+            .WithErrorDisplay(ErrorDisplayMode.ImageWithText, ErrorTextPosition.Bottom);
+        settings.Columns.Add("FullName")
+            .WithTextBox()
+            .WithErrorDisplay(ErrorDisplayMode.ImageWithText, ErrorTextPosition.Bottom);
+        settings.Columns.Add("IsMember")
+            .WithCheckBox();
+
+        //gridViewHelper.BuildServerSideEventHandlers(settings, TempData);
+        //gridViewHelper.BuildContextMenu(settings);
+        //settings.SettingsBehavior.AllowSelectByRowClick = true;
+        //settings.SettingsBehavior.AllowSelectSingleRowOnly = false;
+
+        settings.CellEditorInitialize = (s, e) =>
+        {
+            ((ASPxEdit) e.Editor).ValidationSettings.Display = Display.None;
+            e.Editor.ReadOnly = e.Column.FieldName != "IsMember";
+            e.Editor.ClientEnabled = e.Column.FieldName == "IsMember";
+        };
+
+        settings.SettingsEditing.Mode = GridViewEditingMode.Batch;
+        settings.SettingsEditing.BatchEditSettings.StartEditAction = GridViewBatchStartEditAction.Click;
+        settings.SettingsEditing.BatchUpdateRouteValues = new {Controller = "Administration", Action = "RoleUserBatchEditingUpdateModel", RoleName = ((RoleViewModel) ViewData["RoleViewModel"]).Name};
+    });
+    if (ViewData["EditError"] != null)
+    {
+        grid.SetEditErrorText((string) ViewData["EditError"]);
+    }
+}
+@grid.Bind(Model).GetHtml()
+
+
+<script type="text/javascript">
+    $(document).ready((s, e) => {
+        $(window).on("resize",
+            function() {
+                adjustHeight(ChildGridView);
+            });
+
+        adjustHeight(ChildGridView);
+    });
+
+    function adjustHeight(gridView) {
+        console.log("here");
+        gridView.SetHeight(400);
+        $("#gridContainer").css("visibility", "");
+    }
+</script>

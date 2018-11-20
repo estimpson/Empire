@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using FxWeb.Domain.Core.Security;
 using FxWeb.Domain.Core.Security.Privileges;
 using FxWeb.Domain.Core.Types;
@@ -26,7 +27,8 @@ namespace EmpirePortal.Domain.Sql
 
         public Guid ActivationCode { get; set; }
         public bool IsActive { get; set; }
-        public ICollection<IRole> Roles { get; }
         public ICollection<IUserMenuItemPrivilege> MenuItemPrivileges { get; }
+
+        ICollection<IRole> IUser.Roles => Roles.ToList<IRole>();
     }
 }

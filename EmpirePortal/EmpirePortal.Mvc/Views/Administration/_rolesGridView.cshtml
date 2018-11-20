@@ -1,0 +1,89 @@
+﻿@using System.Web.UI.WebControls
+@using EmpirePortal.Mvc.Controllers.Administration
+@using FxWeb.Mvc.Infrastructure.DevExpress.GridView
+@model  System.Collections.IList
+
+@functions{
+    object GetEditingRole(ASPxGridView grid)
+    {
+        if (grid.IsNewRowEditing)
+            return new RoleViewModel();
+        return grid.GetRow(grid.EditingRowVisibleIndex);
+    }
+}
+
+@{
+    var grid = Html.DevExpress().GridView(settings =>
+    {
+        settings.Name = "GridView";
+        var gridViewHelper = new GridViewHelperDefault();
+        gridViewHelper.SetDimensions(settings);
+
+        //gridViewHelper.SetCrudActionRoutes(settings);
+        settings.CallbackRouteValues = new
+        {
+            Controller = "Administration",
+            Action = "RolesGridViewPartial"
+        };
+        settings.SettingsEditing.AddNewRowRouteValues = new {Controller = "Administration", Action = "RolesGridViewPartialAddNew"};
+        settings.SettingsEditing.UpdateRowRouteValues = new {Controller = "Administration", Action = "RolesGridViewPartialUpdate"};
+        settings.SettingsEditing.DeleteRowRouteValues = new {Controller = "Administration", Action = "RolesGridViewPartialDelete"};
+
+        gridViewHelper.SetEditBehaviors(settings);
+        gridViewHelper.SetAdaptivityBehaviors(settings);
+        gridViewHelper.SetStandardLookAndFeelBehaviors(settings);
+        gridViewHelper.BuildStandardToolbar(settings, Html);
+
+        //gridViewHelper.BuildColumns(settings);
+        settings.KeyFieldName = "Name";
+        settings.Columns.Add("Name")
+            .WithTextBox()
+            .WithErrorDisplay(ErrorDisplayMode.ImageWithText, ErrorTextPosition.Bottom);
+        settings.Columns.Add("Description")
+            .WithTextBox()
+            .WithErrorDisplay(ErrorDisplayMode.ImageWithText, ErrorTextPosition.Bottom);
+
+        gridViewHelper.BuildEditForm(settings);
+        settings.SettingsText.PopupEditFormCaption = "Application Role";
+        settings.SettingsPopup.EditForm.Width = 600;
+        settings.EditFormLayoutProperties.ColCount = 1;
+        settings.EditFormLayoutProperties.Items.AddTabbedGroupItem(g =>
+        {
+            g.Height = Unit.Pixel(600);
+            g.Items.AddGroupItem(g1 =>
+            {
+                g1.Caption = "Role Definition";
+                g1.Items.Add("Name");
+                g1.Items.Add("Description");
+
+                g1.Items.AddCommandItem(itemSettings =>
+                {
+                    itemSettings.Width = Unit.Percentage(100);
+                    itemSettings.HorizontalAlign = FormLayoutHorizontalAlign.Right;
+                });
+
+            });
+            g.Items.AddGroupItem(g2 =>
+            {
+                g2.Caption = "Role Membership";
+                g2.Items.Add(i =>
+                {
+                    i.Caption = "Membership";
+                    i.ShowCaption = DefaultBoolean.False;
+                    i.CaptionSettings.Location = LayoutItemCaptionLocation.Top;
+                    i.SetTemplateContent(c =>
+                    {
+                        Html.RenderAction("RoleMembershipGridViewPartial", "Administration", ViewData["RoleViewModel"] ?? GetEditingRole(c.Grid));
+                    });
+                });
+            });
+        });
+        gridViewHelper.BuildServerSideEventHandlers(settings, TempData);
+        gridViewHelper.BuildContextMenu(settings);
+    });
+    if (ViewData["EditError"] != null)
+    {
+        grid.SetEditErrorText((string) ViewData["EditError"]);
+    }
+}
+@grid.Bind(Model).GetHtml()

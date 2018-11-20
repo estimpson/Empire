@@ -1,6 +1,17 @@
+drop table
+	Portal.UserRoles
 
+
+create table Portal.UserRoles
+	(	UserId int not null references Portal.Users(RowID) on delete cascade
+	,	RoleId int not null references Portal.Roles(RowID) on delete cascade
+	,	primary key
+		(	UserId
+		,	RoleId
+		)
+	)
 /*
-Create Table.FxPLM.Portal.Users.sql
+Create Table.FxPLM.Portal.UserRoles.sql
 */
 
 use FxPLM
@@ -9,54 +20,43 @@ go
 /*
 exec FT.sp_DropForeignKeys
 
-drop table Portal.Users
+drop table Portal.UserRoles
 
 exec FT.sp_AddForeignKeys
 */
-if	objectproperty(object_id('Portal.Users'), 'IsTable') is null begin
+if	objectproperty(object_id('Portal.UserRoles'), 'IsTable') is null begin
 
-	create table Portal.Users
-	(	UserName varchar(50) not null
+	create table Portal.UserRoles
+	(	UserSecurityGuid uniqueidentifier not null references Portal.Users(SecurityGuid) on delete cascade
+	,	RoleSecurityGuid uniqueidentifier not null references Portal.Roles(SecurityGuid) on delete cascade
 	,	Status int not null default(0)
 	,	Type int not null default(0)
-	,	FirstName nvarchar(100) not null
-	,	MiddleName nvarchar(100) null
-	,	LastName nvarchar(100) not null
-	,	PasswordHash nchar(48) not null
-	,	EmailAddress nvarchar(100) null
-	,	SecurityGuid uniqueidentifier default(newsequentialid()) not null
-	,	MonitorOperator_EEH varchar(10) null
-	,	MonitorOperator_EEI varchar(10) null
-	,	IsAccountActive bit not null
-	,	IsPasswordActive bit not null
 	,	RowID int identity(1,1) primary key clustered
 	,	RowCreateDT datetime default(getdate())
 	,	RowCreateUser sysname default(suser_name())
 	,	RowModifiedDT datetime default(getdate())
 	,	RowModifiedUser sysname default(suser_name())
 	,	unique nonclustered
-		(	UserName
-		)
-	,	unique nonclustered
-		(	SecurityGuid
+		(	UserSecurityGuid
+		,	RoleSecurityGuid
 		)
 	)
 end
 go
 
 /*
-Create trigger Portal.tr_Users_uRowModified on Portal.Users
+Create trigger Portal.tr_UserRoles_uRowModified on Portal.UserRoles
 */
 
 --use FxPLM
 --go
 
-if	objectproperty(object_id('Portal.tr_Users_uRowModified'), 'IsTrigger') = 1 begin
-	drop trigger Portal.tr_Users_uRowModified
+if	objectproperty(object_id('Portal.tr_UserRoles_uRowModified'), 'IsTrigger') = 1 begin
+	drop trigger Portal.tr_UserRoles_uRowModified
 end
 go
 
-create trigger Portal.tr_Users_uRowModified on Portal.Users after update
+create trigger Portal.tr_UserRoles_uRowModified on Portal.UserRoles after update
 as
 declare
 	@TranDT datetime
@@ -97,16 +97,16 @@ begin try
 	--- <Body>
 	if	not update(RowModifiedDT) begin
 		--- <Update rows="*">
-		set	@TableName = 'Portal.Users'
+		set	@TableName = 'Portal.UserRoles'
 		
 		update
-			u
+			ur
 		set	RowModifiedDT = getdate()
 		,	RowModifiedUser = suser_name()
 		from
-			Portal.Users u
+			Portal.UserRoles ur
 			join inserted i
-				on i.RowID = u.RowID
+				on i.RowID = ur.RowID
 		
 		select
 			@Error = @@Error,
@@ -181,19 +181,19 @@ begin transaction Test
 go
 
 insert
-	Portal.Users
+	Portal.UserRoles
 ...
 
 update
 	...
 from
-	Portal.Users
+	Portal.UserRoles
 ...
 
 delete
 	...
 from
-	Portal.Users
+	Portal.UserRoles
 ...
 go
 

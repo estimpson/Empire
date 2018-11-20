@@ -11,7 +11,6 @@ namespace EmpirePortal.Mvc.Controllers.Administration
         [Required]
         [DisplayFormat(NullDisplayText = "Enter first name...")]
         public string FirstName { get; set; }
-        [DisplayFormat(NullDisplayText = "Enter middle name...")]
         public string MiddleName { get; set; }
         [Required]
         [DisplayFormat(NullDisplayText = "Enter last name...")]

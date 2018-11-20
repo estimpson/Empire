@@ -78,6 +78,10 @@
       <DependentUpon>Core.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Role.Core.cs" />
+    <Compile Include="Role.cs">
+      <DependentUpon>Core.tt</DependentUpon>
+    </Compile>
     <Compile Include="User.Core.cs" />
     <Compile Include="User.cs">
       <DependentUpon>Core.tt</DependentUpon>

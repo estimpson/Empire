@@ -84,3 +84,9 @@
 .dxgvHSDC {
     padding-right: 2px;
 }
+
+/*  Create more contrast on selected grid rows. */
+.dxgvControl_MaterialCompact .dxgvTable_MaterialCompact .dxgvSelectedRow_MaterialCompact, .dxgvControl_MaterialCompact .dxgvTable_MaterialCompact .dxgvSelectedRow_MaterialCompact.dxgvDataRowHover_MaterialCompact {
+    background-color: #306B7B;
+    color: white;
+}

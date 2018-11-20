@@ -19,6 +19,30 @@
     </LogicalFolder>
     <LogicalFolder Name="Queries" Type="0" Sorted="true">
       <Items>
+        <FileNode Name="Procedure.FxPLM.Portal.usp_GetEehMonitorOperator.sql">
+          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:eeisql1:False:estimpson</AssociatedConnectionMoniker>
+          <AssociatedConnSrvName>eeisql1</AssociatedConnSrvName>
+          <AssociatedConnUserName>estimpson</AssociatedConnUserName>
+          <FullPath>Procedure.FxPLM.Portal.usp_GetEehMonitorOperator.sql</FullPath>
+        </FileNode>
+        <FileNode Name="Procedure.FxPLM.Portal.usp_GetEehMonitorOperatorsByRange.sql">
+          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:eeisql1:False:estimpson</AssociatedConnectionMoniker>
+          <AssociatedConnSrvName>eeisql1</AssociatedConnSrvName>
+          <AssociatedConnUserName>estimpson</AssociatedConnUserName>
+          <FullPath>Procedure.FxPLM.Portal.usp_GetEehMonitorOperatorsByRange.sql</FullPath>
+        </FileNode>
+        <FileNode Name="Procedure.FxPLM.Portal.usp_GetMonitorOperators.sql">
+          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:eeisql1:False:estimpson</AssociatedConnectionMoniker>
+          <AssociatedConnSrvName>eeisql1</AssociatedConnSrvName>
+          <AssociatedConnUserName>estimpson</AssociatedConnUserName>
+          <FullPath>Procedure.FxPLM.Portal.usp_GetMonitorOperators.sql</FullPath>
+        </FileNode>
+        <FileNode Name="Procedure.FxPLM.Portal.usp_Repl_EehMonitorEmployees.sql">
+          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:eeisql1:False:estimpson</AssociatedConnectionMoniker>
+          <AssociatedConnSrvName>eeisql1</AssociatedConnSrvName>
+          <AssociatedConnUserName>estimpson</AssociatedConnUserName>
+          <FullPath>Procedure.FxPLM.Portal.usp_Repl_EehMonitorEmployees.sql</FullPath>
+        </FileNode>
         <FileNode Name="Schema.FxPLM.Portal.sql">
           <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:eeisql1:False:estimpson</AssociatedConnectionMoniker>
           <AssociatedConnSrvName>eeisql1</AssociatedConnSrvName>
@@ -30,6 +54,30 @@
           <AssociatedConnSrvName>eeisql1</AssociatedConnSrvName>
           <AssociatedConnUserName>estimpson</AssociatedConnUserName>
           <FullPath>Table.FxPLM.Portal.MenuItems.sql</FullPath>
+        </FileNode>
+        <FileNode Name="Table.FxPLM.Portal.Roles.sql">
+          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:eeisql1:False:estimpson</AssociatedConnectionMoniker>
+          <AssociatedConnSrvName>eeisql1</AssociatedConnSrvName>
+          <AssociatedConnUserName>estimpson</AssociatedConnUserName>
+          <FullPath>Table.FxPLM.Portal.Roles.sql</FullPath>
+        </FileNode>
+        <FileNode Name="Table.FxPLM.Portal.UserRoles.sql">
+          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:eeisql1:False:estimpson</AssociatedConnectionMoniker>
+          <AssociatedConnSrvName>eeisql1</AssociatedConnSrvName>
+          <AssociatedConnUserName>estimpson</AssociatedConnUserName>
+          <FullPath>Table.FxPLM.Portal.UserRoles.sql</FullPath>
+        </FileNode>
+        <FileNode Name="Table.FxPLM.Portal.Users.sql">
+          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:eeisql1:False:estimpson</AssociatedConnectionMoniker>
+          <AssociatedConnSrvName>eeisql1</AssociatedConnSrvName>
+          <AssociatedConnUserName>estimpson</AssociatedConnUserName>
+          <FullPath>Table.FxPLM.Portal.Users.sql</FullPath>
+        </FileNode>
+        <FileNode Name="View.FxDev.Portal.MenuItem_Tree.sql">
+          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:eeisql1:False:estimpson</AssociatedConnectionMoniker>
+          <AssociatedConnSrvName>eeisql1</AssociatedConnSrvName>
+          <AssociatedConnUserName>estimpson</AssociatedConnUserName>
+          <FullPath>View.FxDev.Portal.MenuItem_Tree.sql</FullPath>
         </FileNode>
       </Items>
     </LogicalFolder>

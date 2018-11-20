@@ -1,0 +1,114 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# SQL Server Management Studio Solution File, Format Version 14.00
+VisualStudioVersion = 14.0.23107.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{4F2E2C19-372F-40D8-9FA7-9D2138C6997A}") = "PartStandardHistorical", "PartStandardHistorical\PartStandardHistorical.ssmssqlproj", "{90076B94-D570-499A-A957-96E2E51B6C44}"
+EndProject
+Project("{4F2E2C19-372F-40D8-9FA7-9D2138C6997A}") = "GL Import", "GL Import\GL Import.ssmssqlproj", "{85A30C60-FDC2-4F5A-BB84-64FFF333AA7A}"
+EndProject
+Project("{4F2E2C19-372F-40D8-9FA7-9D2138C6997A}") = "EEA PIBS", "EEA PIBS\EEA PIBS.ssmssqlproj", "{690FB593-A09D-416E-BE31-F21220B0F5BD}"
+EndProject
+Project("{4F2E2C19-372F-40D8-9FA7-9D2138C6997A}") = "Misc", "Misc\Misc.ssmssqlproj", "{0E149FAC-9594-49AA-8467-4FAB7D0B333A}"
+EndProject
+Project("{4F2E2C19-372F-40D8-9FA7-9D2138C6997A}") = "Physical Inventory", "Physical Inventory\Physical Inventory.ssmssqlproj", "{3931922B-CE83-435E-86CA-10D1C1210DCC}"
+EndProject
+Project("{4F2E2C19-372F-40D8-9FA7-9D2138C6997A}") = "Year-End Scrap", "Year-End Scrap\Year-End Scrap.ssmssqlproj", "{709FEC17-A8C6-4568-B257-98FD6C7A755F}"
+EndProject
+Project("{4F2E2C19-372F-40D8-9FA7-9D2138C6997A}") = "Object Plant Integrity", "Object Plant Integrity\Object Plant Integrity.ssmssqlproj", "{3EAAAE4B-7FDC-47D5-800A-A8EF8B8AAAEF}"
+EndProject
+Project("{4F2E2C19-372F-40D8-9FA7-9D2138C6997A}") = "Container Management", "Container Management\Container Management.ssmssqlproj", "{9B4C183D-36D6-4AC8-B183-8E111E1760CE}"
+EndProject
+Project("{4F2E2C19-372F-40D8-9FA7-9D2138C6997A}") = "Admin", "Admin\Admin.ssmssqlproj", "{BA5BA127-26AA-4CFB-BFA5-D3FBD23DA9B0}"
+EndProject
+Project("{4F2E2C19-372F-40D8-9FA7-9D2138C6997A}") = "FxUpdate", "FxUpdate\FxUpdate.ssmssqlproj", "{1B615534-35DD-4088-A483-110DAA77E515}"
+EndProject
+Project("{4F2E2C19-372F-40D8-9FA7-9D2138C6997A}") = "InventoryConsolidation", "InventoryConsolidation\InventoryConsolidation.ssmssqlproj", "{EDB37ED3-0062-4D9C-B0B9-DBD68C639A28}"
+EndProject
+Project("{4F2E2C19-372F-40D8-9FA7-9D2138C6997A}") = "Common Serial", "Common Serial\Common Serial.ssmssqlproj", "{AB2E53CB-8F98-40F1-88C7-AA532120DE8E}"
+EndProject
+Project("{4F2E2C19-372F-40D8-9FA7-9D2138C6997A}") = "Cost Rollup", "Cost Rollup\Cost Rollup.ssmssqlproj", "{8369C746-34BE-4BB0-960B-816CD2B5FF2C}"
+EndProject
+Project("{4F2E2C19-372F-40D8-9FA7-9D2138C6997A}") = "Empower_EditPOs", "Empower_EditPOs\Empower_EditPOs.ssmssqlproj", "{0F23007D-5B1E-45E0-867F-08E37A787173}"
+EndProject
+Project("{4F2E2C19-372F-40D8-9FA7-9D2138C6997A}") = "RMA", "RMA\RMA.ssmssqlproj", "{8BA55042-DD4D-4538-A9FD-0AC245E4F66B}"
+EndProject
+Project("{4F2E2C19-372F-40D8-9FA7-9D2138C6997A}") = "Sales-CSM", "Sales-CSM\Sales-CSM.ssmssqlproj", "{5B346751-28E9-4CA7-8B5F-5F047DEA4F0C}"
+EndProject
+Project("{4F2E2C19-372F-40D8-9FA7-9D2138C6997A}") = "FxEDI", "FxEDI\FxEDI.ssmssqlproj", "{720F8775-7807-4526-B37D-5FED866794B0}"
+EndProject
+Project("{4F2E2C19-372F-40D8-9FA7-9D2138C6997A}") = "FxUtilities", "FxUtilities\FxUtilities.ssmssqlproj", "{1C145844-A71D-4B9A-93BB-F4791144CA26}"
+EndProject
+Project("{4F2E2C19-372F-40D8-9FA7-9D2138C6997A}") = "FxEDI.FTP", "FxEDI.FTP\FxEDI.FTP.ssmssqlproj", "{6BEA9EE0-806E-44D7-9894-FB662E1E0844}"
+EndProject
+Project("{4F2E2C19-372F-40D8-9FA7-9D2138C6997A}") = "FxEDI.EDI", "FxEDI.EDI\FxEDI.EDI.ssmssqlproj", "{AF2CD9AC-759D-4495-B7B0-27C739DA1E55}"
+EndProject
+Project("{4F2E2C19-372F-40D8-9FA7-9D2138C6997A}") = "Monitor.CustomerPartTrigger", "Monitor.CustomerPartTrigger\Monitor.CustomerPartTrigger.ssmssqlproj", "{1572C353-8DCA-490D-B654-DD3EE048F3BE}"
+EndProject
+Project("{4F2E2C19-372F-40D8-9FA7-9D2138C6997A}") = "Monitor.EDI_XML_AutoLiv_ASN", "Monitor.EDI_XML_AutoLiv_ASN\Monitor.EDI_XML_AutoLiv_ASN.ssmssqlproj", "{2CE59833-A3DE-4D60-B1C3-628E41A81C10}"
+EndProject
+Project("{4F2E2C19-372F-40D8-9FA7-9D2138C6997A}") = "MONITOR.EDI_XML_Autosystems_ASN", "MONITOR.EDI_XML_Autosystems_ASN\MONITOR.EDI_XML_Autosystems_ASN.ssmssqlproj", "{3D50249F-4434-4523-8823-BE8E5B0DBE75}"
+EndProject
+Project("{4F2E2C19-372F-40D8-9FA7-9D2138C6997A}") = "CreateRMA", "CreateRMA\CreateRMA.ssmssqlproj", "{1AE2635C-E491-4B58-BC5D-FA964BD8C1F6}"
+EndProject
+Project("{4F2E2C19-372F-40D8-9FA7-9D2138C6997A}") = "Valeo-ASN", "Valeo-ASN\Valeo-ASN.ssmssqlproj", "{EAB3B809-648F-4358-9A8B-68C0DB79E945}"
+EndProject
+Project("{4F2E2C19-372F-40D8-9FA7-9D2138C6997A}") = "FxEDI.TroubleShooting", "FxEDI.TroubleShooting\FxEDI.TroubleShooting.ssmssqlproj", "{5A107E1F-7DA2-43C3-A935-7A512F5C671A}"
+EndProject
+Project("{4F2E2C19-372F-40D8-9FA7-9D2138C6997A}") = "Stanley-ASN", "Stanley-ASN\Stanley-ASN.ssmssqlproj", "{F372E799-35D7-4131-BEB3-F69E18E847C8}"
+EndProject
+Project("{4F2E2C19-372F-40D8-9FA7-9D2138C6997A}") = "FxEDI.JobTermination", "FxEDI.JobTermination\FxEDI.JobTermination.ssmssqlproj", "{BA9DFDF1-8344-4B04-8A95-F7765F1684AC}"
+EndProject
+Project("{4F2E2C19-372F-40D8-9FA7-9D2138C6997A}") = "FxPLM", "..\..\..\FxPLM\MSSQL\FxPLM\FxPLM.ssmssqlproj", "{B67B8AA9-4843-4487-B4ED-86684107BDEB}"
+EndProject
+Project("{4F2E2C19-372F-40D8-9FA7-9D2138C6997A}") = "Monitor.EDI", "Monitor.EDI\Monitor.EDI.ssmssqlproj", "{A80E6C61-9909-4FD2-BC6B-1E25EBA03CAF}"
+EndProject
+Project("{4F2E2C19-372F-40D8-9FA7-9D2138C6997A}") = "FxEDI.FS", "FxEDI.FS\FxEDI.FS.ssmssqlproj", "{996098B8-1762-4155-B0B5-AE12DC8D415B}"
+EndProject
+Project("{4F2E2C19-372F-40D8-9FA7-9D2138C6997A}") = "FxPLM.Portal", "FxPLM.Portal\FxPLM.Portal.ssmssqlproj", "{3C9B7DC3-2AE9-4B22-9FF5-AC7176232202}"
+EndProject
+Project("{4F2E2C19-372F-40D8-9FA7-9D2138C6997A}") = "FxDBScripts", "..\..\..\..\G-Drive\Fx\FxDBScripts\FxDBScripts.ssmssqlproj", "{7A080EAB-822D-4E33-B821-F3DBE7347C37}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Default|Default = Default|Default
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{90076B94-D570-499A-A957-96E2E51B6C44}.Default|Default.ActiveCfg = Default
+		{85A30C60-FDC2-4F5A-BB84-64FFF333AA7A}.Default|Default.ActiveCfg = Default
+		{690FB593-A09D-416E-BE31-F21220B0F5BD}.Default|Default.ActiveCfg = Default
+		{0E149FAC-9594-49AA-8467-4FAB7D0B333A}.Default|Default.ActiveCfg = Default
+		{3931922B-CE83-435E-86CA-10D1C1210DCC}.Default|Default.ActiveCfg = Default
+		{709FEC17-A8C6-4568-B257-98FD6C7A755F}.Default|Default.ActiveCfg = Default
+		{3EAAAE4B-7FDC-47D5-800A-A8EF8B8AAAEF}.Default|Default.ActiveCfg = Default
+		{9B4C183D-36D6-4AC8-B183-8E111E1760CE}.Default|Default.ActiveCfg = Default
+		{BA5BA127-26AA-4CFB-BFA5-D3FBD23DA9B0}.Default|Default.ActiveCfg = Default
+		{1B615534-35DD-4088-A483-110DAA77E515}.Default|Default.ActiveCfg = Default
+		{EDB37ED3-0062-4D9C-B0B9-DBD68C639A28}.Default|Default.ActiveCfg = Default
+		{AB2E53CB-8F98-40F1-88C7-AA532120DE8E}.Default|Default.ActiveCfg = Default
+		{8369C746-34BE-4BB0-960B-816CD2B5FF2C}.Default|Default.ActiveCfg = Default
+		{0F23007D-5B1E-45E0-867F-08E37A787173}.Default|Default.ActiveCfg = Default
+		{8BA55042-DD4D-4538-A9FD-0AC245E4F66B}.Default|Default.ActiveCfg = Default
+		{5B346751-28E9-4CA7-8B5F-5F047DEA4F0C}.Default|Default.ActiveCfg = Default
+		{720F8775-7807-4526-B37D-5FED866794B0}.Default|Default.ActiveCfg = Default
+		{1C145844-A71D-4B9A-93BB-F4791144CA26}.Default|Default.ActiveCfg = Default
+		{6BEA9EE0-806E-44D7-9894-FB662E1E0844}.Default|Default.ActiveCfg = Default
+		{AF2CD9AC-759D-4495-B7B0-27C739DA1E55}.Default|Default.ActiveCfg = Default
+		{1572C353-8DCA-490D-B654-DD3EE048F3BE}.Default|Default.ActiveCfg = Default
+		{2CE59833-A3DE-4D60-B1C3-628E41A81C10}.Default|Default.ActiveCfg = Default
+		{3D50249F-4434-4523-8823-BE8E5B0DBE75}.Default|Default.ActiveCfg = Default
+		{1AE2635C-E491-4B58-BC5D-FA964BD8C1F6}.Default|Default.ActiveCfg = Default
+		{EAB3B809-648F-4358-9A8B-68C0DB79E945}.Default|Default.ActiveCfg = Default
+		{5A107E1F-7DA2-43C3-A935-7A512F5C671A}.Default|Default.ActiveCfg = Default
+		{F372E799-35D7-4131-BEB3-F69E18E847C8}.Default|Default.ActiveCfg = Default
+		{BA9DFDF1-8344-4B04-8A95-F7765F1684AC}.Default|Default.ActiveCfg = Default
+		{B67B8AA9-4843-4487-B4ED-86684107BDEB}.Default|Default.ActiveCfg = Default
+		{A80E6C61-9909-4FD2-BC6B-1E25EBA03CAF}.Default|Default.ActiveCfg = Default
+		{996098B8-1762-4155-B0B5-AE12DC8D415B}.Default|Default.ActiveCfg = Default
+		{3C9B7DC3-2AE9-4B22-9FF5-AC7176232202}.Default|Default.ActiveCfg = Default
+		{7A080EAB-822D-4E33-B821-F3DBE7347C37}.Default|Default.ActiveCfg = Default
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

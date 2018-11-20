@@ -12,27 +12,19 @@ namespace EmpirePortal.Domain.Sql
     using System;
     using System.Collections.Generic;
     
-    public partial class User
+    public partial class Role
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public User()
+        public Role()
         {
-            this.Roles = new HashSet<Role>();
+            this.Users = new HashSet<User>();
         }
     
-        public string UserName { get; set; }
+        public string Name { get; set; }
         public int Status { get; set; }
         public int Type { get; set; }
-        public string FirstName { get; set; }
-        public string MiddleName { get; set; }
-        public string LastName { get; set; }
-        public string PasswordHash { get; set; }
-        public string EmailAddress { get; set; }
+        public string Description { get; set; }
         public System.Guid SecurityGuid { get; set; }
-        public string MonitorOperator_EEH { get; set; }
-        public string MonitorOperator_EEI { get; set; }
-        public bool IsAccountActive { get; set; }
-        public bool IsPasswordActive { get; set; }
         public int Id { get; set; }
         public Nullable<System.DateTime> RowCreateDT { get; set; }
         public string RowCreateUser { get; set; }
@@ -40,6 +32,6 @@ namespace EmpirePortal.Domain.Sql
         public string RowModifiedUser { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Role> Roles { get; set; }
+        public virtual ICollection<User> Users { get; set; }
     }
 }

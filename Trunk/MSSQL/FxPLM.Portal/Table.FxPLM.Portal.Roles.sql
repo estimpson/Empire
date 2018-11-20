@@ -1,6 +1,6 @@
 
 /*
-Create Table.FxPLM.Portal.Users.sql
+Create Table.FxPLM.Portal.Roles.sql
 */
 
 use FxPLM
@@ -9,33 +9,25 @@ go
 /*
 exec FT.sp_DropForeignKeys
 
-drop table Portal.Users
+drop table Portal.Roles
 
 exec FT.sp_AddForeignKeys
 */
-if	objectproperty(object_id('Portal.Users'), 'IsTable') is null begin
+if	objectproperty(object_id('Portal.Roles'), 'IsTable') is null begin
 
-	create table Portal.Users
-	(	UserName varchar(50) not null
+	create table Portal.Roles
+	(	RoleName varchar(50) default ('0') not null
 	,	Status int not null default(0)
 	,	Type int not null default(0)
-	,	FirstName nvarchar(100) not null
-	,	MiddleName nvarchar(100) null
-	,	LastName nvarchar(100) not null
-	,	PasswordHash nchar(48) not null
-	,	EmailAddress nvarchar(100) null
+	,	Description nvarchar(100) not null
 	,	SecurityGuid uniqueidentifier default(newsequentialid()) not null
-	,	MonitorOperator_EEH varchar(10) null
-	,	MonitorOperator_EEI varchar(10) null
-	,	IsAccountActive bit not null
-	,	IsPasswordActive bit not null
 	,	RowID int identity(1,1) primary key clustered
 	,	RowCreateDT datetime default(getdate())
 	,	RowCreateUser sysname default(suser_name())
 	,	RowModifiedDT datetime default(getdate())
 	,	RowModifiedUser sysname default(suser_name())
 	,	unique nonclustered
-		(	UserName
+		(	RoleName
 		)
 	,	unique nonclustered
 		(	SecurityGuid
@@ -45,18 +37,18 @@ end
 go
 
 /*
-Create trigger Portal.tr_Users_uRowModified on Portal.Users
+Create trigger Portal.tr_Roles_uRowModified on Portal.Roles
 */
 
 --use FxPLM
 --go
 
-if	objectproperty(object_id('Portal.tr_Users_uRowModified'), 'IsTrigger') = 1 begin
-	drop trigger Portal.tr_Users_uRowModified
+if	objectproperty(object_id('Portal.tr_Roles_uRowModified'), 'IsTrigger') = 1 begin
+	drop trigger Portal.tr_Roles_uRowModified
 end
 go
 
-create trigger Portal.tr_Users_uRowModified on Portal.Users after update
+create trigger Portal.tr_Roles_uRowModified on Portal.Roles after update
 as
 declare
 	@TranDT datetime
@@ -97,16 +89,16 @@ begin try
 	--- <Body>
 	if	not update(RowModifiedDT) begin
 		--- <Update rows="*">
-		set	@TableName = 'Portal.Users'
+		set	@TableName = 'Portal.Roles'
 		
 		update
-			u
+			r
 		set	RowModifiedDT = getdate()
 		,	RowModifiedUser = suser_name()
 		from
-			Portal.Users u
+			Portal.Roles r
 			join inserted i
-				on i.RowID = u.RowID
+				on i.RowID = r.RowID
 		
 		select
 			@Error = @@Error,
@@ -181,19 +173,19 @@ begin transaction Test
 go
 
 insert
-	Portal.Users
+	Portal.Roles
 ...
 
 update
 	...
 from
-	Portal.Users
+	Portal.Roles
 ...
 
 delete
 	...
 from
-	Portal.Users
+	Portal.Roles
 ...
 go
 

@@ -50,7 +50,7 @@ namespace EmpirePortal.Domain.Sql
     public partial class CorePortalEntities : ICoreDataSource
     {
         public IQueryable<ILogAction> LogActions { get; }
-        public IQueryable<IRole> Roles { get; }
+        IQueryable<IRole> ICoreDataSource.Roles => Roles;
         IQueryable<IUser> ICoreDataSource.Users => Users;
         IQueryable<IMenuItem> ICoreDataSource.MenuItems => MenuItems;
         public IQueryable<IMenuItemNode> MenuItemTree { get; }
@@ -109,6 +109,13 @@ namespace EmpirePortal.Domain.Sql
         public void DeleteUser(string userName)
         {
             var modelItem = Users.Single(it => it.UserName == userName);
+            RemoveEntity(modelItem);
+            SaveChanges();
+        }
+
+        public void DeleteRole(string roleName)
+        {
+            var modelItem = Roles.Single(it => it.Name == roleName);
             RemoveEntity(modelItem);
             SaveChanges();
         }
