@@ -20,7 +20,7 @@ if	objectproperty(object_id('Portal.MenuItems'), 'IsTable') is null begin
 	,	Status int not null default(0)
 	,	Type int not null default(0)
 	,	Caption varchar(50) not null
-	,	Url varchar(50) null
+	,	Url varchar(1000) null
 	,	MenuOrder decimal(18,2) not null
 	,	IsModule bit not null
 	,	ParentMenuItemRowID int null references Portal.MenuItems(RowID)
