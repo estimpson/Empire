@@ -19,6 +19,8 @@ namespace ImportCSM
         private readonly CustomMessageBox _messageBox;
         private readonly ProcessData _processData;
 
+        private readonly CsmNaGc _csmNaGc;
+
         #endregion
 
 
@@ -31,13 +33,16 @@ namespace ImportCSM
             _processData = new ProcessData();
             _messageBox = new CustomMessageBox();
 
+            _csmNaGc = new CsmNaGc("ASB");
+
             linkLblClose.LinkBehavior = LinkBehavior.NeverUnderline;
 
             SetInitialCsmForm();
             SetReleaseIDs();
             SetInitialOfficialForecastForm();
 
-            tbxPriorReleaseId.Focus();
+            //tbxPriorReleaseId.Focus();
+            tabControl1.TabPages.Remove(tpCsm);
         }
 
         private void formMain_Activated(object sender, EventArgs e)
@@ -317,10 +322,10 @@ namespace ImportCSM
             if (ImportRawData() == 0) return 0;
        
             // Import new CSM data
-            if (ImportCsm(currentRelease) == 0) return 0;
+            //if (ImportCsm(currentRelease) == 0) return 0;
 
             // Clean up the database
-            RemoveTempTable();
+            //RemoveTempTable();
             return 1;
         }
 
@@ -456,17 +461,23 @@ namespace ImportCSM
         private int CreateTable(string columns)
         {
             var con =
+                //new SqlConnection(
+                //    "data source=eeisql1.empireelect.local;initial catalog=MONITOR;persist security info=True;user id=Andre");
                 new SqlConnection(
-                    "data source=eeisql1.empireelect.local;initial catalog=MONITOR;persist security info=True;user id=Andre");
+                    "data source=eeisql2;initial catalog=MONITOR;persist security info=True;user id=cdipaola;password=emp1reFt1");
 
             try
             {
-                var command = new SqlCommand("IF EXISTS (" +
-                                             "SELECT 1 " +
-                                             "FROM sys.tables " +
-                                             "WHERE name LIKE 'tempCSM') " +
-                                             "DROP TABLE tempCSM CREATE TABLE tempCSM(" +
-                                             columns + ");",
+                var command = new SqlCommand("if exists (" +
+                                             "select * " +
+                                             "from sys.tables " +
+                                             "where name like 'tempCSM' ) begin " +
+                                             "drop table tempCSM " +
+                                             "create table tempCSM(" +
+                                             columns + ") end " +
+                                             "else begin " +
+                                             "create table tempCSM(" +
+                                             columns + ") end",
                                              con);
 
                 con.Open();
@@ -492,16 +503,21 @@ namespace ImportCSM
         {
             var con =
                 new SqlConnection(
-                    "data source=eeisql1.empireelect.local;initial catalog=MONITOR;persist security info=True;user id=Andre");
+                    "data source=eeisql2;initial catalog=MONITOR;persist security info=True;user id=cdipaola;password=emp1reFt1");
 
             try
             {
-                var command = new SqlCommand("IF EXISTS (" +
-                                             "SELECT 1 " +
-                                             "FROM sys.tables " +
-                                             "WHERE name LIKE 'tempCSM') " +
-                                             "INSERT INTO tempCSM " +
-                                             "VALUES (" +
+                //var command = new SqlCommand("IF EXISTS (" +
+                //                             "SELECT 1 " +
+                //                             "FROM sys.tables " +
+                //                             "WHERE name LIKE 'tempCSM') " +
+                //                             "INSERT INTO tempCSM " +
+                //                             "VALUES (" +
+                //                             values + ");",
+                //                             con);
+
+                var command = new SqlCommand("insert into tempCSM " +
+                                             "values (" +
                                              values + ");",
                                              con);
 
@@ -1612,6 +1628,329 @@ namespace ImportCSM
                     btnMidModel.Visible = false;
                     break;
             }
+        }
+
+
+        #endregion
+
+
+
+
+
+
+
+
+
+
+        #region Events CSM North America
+
+        private void btnImportNA_Click(object sender, EventArgs e)
+        {
+            ProcessCsmNa();
+        }
+
+        #endregion
+
+
+
+        #region Events CSM Greater China
+
+        private void btnImportGC_Click(object sender, EventArgs e)
+        {
+            ProcessCsmGc();
+        }
+
+        #endregion
+
+
+
+        #region Methods CSM North America
+
+        private void ProcessCsmNa()
+        {
+            string release;
+            string returnMessage = CheckReleaseFormat(out release);
+            if (returnMessage != "")
+            {
+                _messageBox.Message = returnMessage;
+                _messageBox.ShowDialog();
+                return;
+            }
+
+            if (ValidateReleaseNa(release) == 0) return;
+
+            if (CheckDateColumns(release) == 0) return;
+
+            if (ImportRawCsmData() == 0) return;
+
+            //// Move raw data into CSM tables
+            //if (ImportNa(release) == 1)
+            //{
+            //    MessageBox.Show("Success!");
+            //    lblNaImportComplete.Visible = true;
+            //}
+        }
+
+        private int ValidateReleaseNa(string release)
+        {
+            string error, message;
+            string region = "North America";
+            _csmNaGc.ValidateRelease(release, region, out message, out error);
+            if (error != "")
+            {
+                _messageBox.Message = "Import failed at ValidateReleaseNa().  " + error;
+                _messageBox.ShowDialog();
+                return 0;
+            }
+            if (message != "")
+            {
+                DialogResult dr = MessageBox.Show(message, "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
+                if (dr == DialogResult.No)
+                {
+                    tbxCurrentReleaseNA.Text = "";
+                    return 0;
+                }
+            }
+            return 1;
+        }
+
+        private int ImportNa(string release)
+        {
+            string error;
+            _csmNaGc.ImportNa(release, out error);
+            if (error != "")
+            {
+                _messageBox.Message = "Import failed at ImportNa().  " + error;
+                _messageBox.ShowDialog();
+                return 0;
+            }
+            return 1;
+        }
+
+        #endregion
+
+
+
+        #region Methods CSM Greater China
+
+        private void ProcessCsmGc()
+        {
+            string release;
+            string returnMessage = CheckReleaseFormat(out release);
+            if (returnMessage != "")
+            {
+                _messageBox.Message = returnMessage;
+                _messageBox.ShowDialog();
+                return;
+            }
+
+            if (ValidateReleaseGc(release) == 0) return;
+
+            if (CheckDateColumns(release) == 0) return;
+
+            if (ImportRawCsmData() == 0) return;
+
+            // Move raw data into CSM tables
+            if (ImportGc(release) == 1)
+            {
+                MessageBox.Show("Success!");
+                lblGcImportComplete.Visible = true;
+            }
+        }
+
+        private int ValidateReleaseGc(string release)
+        {
+            string error, message;
+            string region = "Greater China";
+            _csmNaGc.ValidateRelease(release, region, out message, out error);
+            if (error != "")
+            {
+                _messageBox.Message = "Import failed at ValidateReleaseGc().  " + error;
+                _messageBox.ShowDialog();
+                return 0;
+            }
+            if (message != "")
+            {
+                DialogResult dr = MessageBox.Show(message, "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
+                if (dr == DialogResult.No)
+                {
+                    tbxCurrentReleaseGC.Text = "";
+                    return 0;
+                }
+            }
+            return 1;
+        }
+
+        private int ImportGc(string release)
+        {
+            string error;
+            _csmNaGc.ImportGc(release, out error);
+            if (error != "")
+            {
+                _messageBox.Message = "Import failed at ImportGc().  " + error;
+                _messageBox.ShowDialog();
+                return 0;
+            }
+            return 1;
+        }
+
+        #endregion
+
+
+
+        #region Methods shared by CSM North America and Greater China
+
+        private string CheckReleaseFormat(out string currentRelease)
+        {
+            string message = "";
+
+            currentRelease = tbxCurrentReleaseNA.Text.Trim();
+            if (string.IsNullOrWhiteSpace(currentRelease)) message = "Please enter the current Release ID.";
+
+            if (message == "")
+            {
+                // Proper length
+                if (currentRelease.Length != 7) message = "The Release ID format or value is not correct.";
+            }
+
+            if (message == "")
+            {
+                // Valid year
+                string year = currentRelease.Substring(0, 4);
+                try
+                {
+                    int iYear = Convert.ToDateTime("01-01-" + year).Year;
+                }
+                catch (Exception)
+                {
+                    message = "The Release ID format or value is not correct.";
+                }
+            }
+
+            if (message == "")
+            {
+                // Valid month
+                string month = currentRelease.Substring(5, 2);
+                try
+                {
+                    int iMonth = Convert.ToDateTime("01-" + month + "-2030").Month;
+                }
+                catch (Exception ex)
+                {
+                    message = "The Release ID format or value is not correct.";
+                }
+            }
+
+            if (message == "")
+            {
+                // Dash format
+                string dash = currentRelease.Substring(4, 1);
+                if (dash != "-")
+                {
+                    message = "The Release ID format or value is not correct.";
+                }
+            }
+            return message;
+        }
+
+        private int CheckDateColumns(string release)
+        {
+            string error, message;
+            _csmNaGc.CheckDateColumns(release, out message, out error);
+            if (error != "")
+            {
+                _messageBox.Message = "Import failed at CheckDateColumns().  " + error;
+                _messageBox.ShowDialog();
+                return 0;
+            }
+            if (message != "")
+            {
+                DialogResult dr = MessageBox.Show(message, "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
+                if (dr == DialogResult.No) return 0;
+            }
+            return 1;
+        }
+
+        private int ImportRawCsmData()
+        {
+            try
+            {
+                bool columnsCaptured = false;
+                var format = DataFormats.CommaSeparatedValue;
+
+                // Read the clipboard for data copied from a spreadsheet
+                var dataObject = Clipboard.GetDataObject();
+                var stream = (System.IO.Stream)dataObject.GetData(format);
+                if (stream == null)
+                {
+                    _messageBox.Message = "Please copy spreadsheet data.";
+                    _messageBox.ShowDialog();
+                    return 0;
+                }
+                var encoding = new System.Text.UTF8Encoding();
+                var reader = new System.IO.StreamReader(stream, encoding);
+                string data = reader.ReadToEnd();
+
+                // Split the data into rows and loop through them
+                var rows = data.Split('\r');
+                foreach (var rowRaw in rows)
+                {
+                    // Exit if an empty row is found
+                    var row = rowRaw.Replace("\n", "");
+                    row = row.Replace("\0", "");
+                    //if (row == "\0") break;
+                    if (row == "") break;
+
+                    // Create an array of data fields
+                    string[] arry = row.Split(',');
+
+                    // If colum names have not been captured yet, create a string of them and use that string to create a table
+                    if (!columnsCaptured)
+                    {
+                        string columnNames = "";
+                        foreach (var item in arry) columnNames += ("[" + item + "]" + " varchar(100),");
+
+                        // End of string correction
+                        int stringLength = columnNames.Length;
+                        columnNames = columnNames.Remove(stringLength - 1, 1);
+
+                        // Create a table that will be deleted later
+                        int result = CreateTable(columnNames);
+                        if (result == 0) return 0;
+
+                        columnsCaptured = true;
+                    }
+                    else
+                    {
+                        string newRow = "";
+                        foreach (var field in arry)
+                        {
+                            // Handle any single quotes
+                            string editedField = field.Replace("'", "''");
+
+                            // Wrap each field in single quotes
+                            string newField = "'" + editedField + "',";
+                            newRow += newField;
+                        }
+
+                        // End of string correction
+                        int stringLength = newRow.Length;
+                        newRow = newRow.Remove(stringLength - 1, 1);
+
+                        // Insert a row of data into the table
+                        int result = InsertDataRow(newRow);
+                        if (result == 0) return 0;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                string error = (ex.InnerException == null) ? ex.Message : ex.InnerException.Message;
+                _messageBox.Message = "Import failed.  Exception thwrown at ImportRawData().  " + error;
+                _messageBox.ShowDialog();
+                return 0;
+            }
+            return 1;
         }
 
         #endregion

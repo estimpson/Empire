@@ -1,0 +1,128 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="2.0" xmlns:edmx="http://schemas.microsoft.com/ado/2008/10/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="MONITORModel1.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+        <Function Name="acctg_csm_sp_check_datecolumns" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="EEIUser">
+          <Parameter Name="OperatorCode" Type="varchar" Mode="In" />
+          <Parameter Name="CurrentRelease" Type="char" Mode="In" />
+          <Parameter Name="Message" Type="varchar" Mode="InOut" />
+          <Parameter Name="TranDT" Type="datetime" Mode="InOut" />
+          <Parameter Name="Result" Type="int" Mode="InOut" />
+        </Function>
+        <Function Name="acctg_csm_sp_import_GC" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="EEIUser">
+          <Parameter Name="OperatorCode" Type="varchar" Mode="In" />
+          <Parameter Name="CurrentRelease" Type="char" Mode="In" />
+          <Parameter Name="TranDT" Type="datetime" Mode="InOut" />
+          <Parameter Name="Result" Type="int" Mode="InOut" />
+        </Function>
+        <Function Name="acctg_csm_sp_import_NA" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="EEIUser">
+          <Parameter Name="OperatorCode" Type="varchar" Mode="In" />
+          <Parameter Name="CurrentRelease" Type="char" Mode="In" />
+          <Parameter Name="TranDT" Type="datetime" Mode="InOut" />
+          <Parameter Name="Result" Type="int" Mode="InOut" />
+        </Function>
+        <Function Name="acctg_csm_sp_validate_release" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="EEIUser">
+          <Parameter Name="OperatorCode" Type="varchar" Mode="In" />
+          <Parameter Name="CurrentRelease" Type="char" Mode="In" />
+          <Parameter Name="Region" Type="varchar" Mode="In" />
+          <Parameter Name="Message" Type="varchar" Mode="InOut" />
+          <Parameter Name="TranDT" Type="datetime" Mode="InOut" />
+          <Parameter Name="Result" Type="int" Mode="InOut" />
+        </Function>
+        <EntityContainer Name="MONITORModel1StoreContainer" />
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="MONITORModel1" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+        <EntityContainer Name="MONITOREntitiesTest" annotation:LazyLoadingEnabled="true" >
+          <FunctionImport Name="acctg_csm_sp_insert_detail">
+            <Parameter Name="OperatorCode" Mode="In" Type="String" />
+            <Parameter Name="CurrentRelease" Mode="In" Type="String" />
+            <Parameter Name="TranDT" Mode="InOut" Type="DateTime" />
+            <Parameter Name="Result" Mode="InOut" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="acctg_csm_sp_insert_header">
+            <Parameter Name="OperatorCode" Mode="In" Type="String" />
+            <Parameter Name="CurrentRelease" Mode="In" Type="String" />
+            <Parameter Name="TranDT" Mode="InOut" Type="DateTime" />
+            <Parameter Name="Result" Mode="InOut" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="acctg_csm_sp_rollforward_detail">
+            <Parameter Name="OperatorCode" Mode="In" Type="String" />
+            <Parameter Name="CurrentRelease" Mode="In" Type="String" />
+            <Parameter Name="PriorRelease" Mode="In" Type="String" />
+            <Parameter Name="TranDT" Mode="InOut" Type="DateTime" />
+            <Parameter Name="Result" Mode="InOut" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="acctg_csm_sp_rollforward_header">
+            <Parameter Name="OperatorCode" Mode="In" Type="String" />
+            <Parameter Name="CurrentRelease" Mode="In" Type="String" />
+            <Parameter Name="PriorRelease" Mode="In" Type="String" />
+            <Parameter Name="TranDT" Mode="InOut" Type="DateTime" />
+            <Parameter Name="Result" Mode="InOut" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="acctg_csm_sp_validate_release">
+            <Parameter Name="OperatorCode" Mode="In" Type="String" />
+            <Parameter Name="CurrentRelease" Mode="In" Type="String" />
+            <Parameter Name="Region" Mode="In" Type="String" />
+            <Parameter Name="Message" Mode="InOut" Type="String" />
+            <Parameter Name="TranDT" Mode="InOut" Type="DateTime" />
+            <Parameter Name="Result" Mode="InOut" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="acctg_csm_sp_import_NA">
+            <Parameter Name="OperatorCode" Mode="In" Type="String" />
+            <Parameter Name="CurrentRelease" Mode="In" Type="String" />
+            <Parameter Name="TranDT" Mode="InOut" Type="DateTime" />
+            <Parameter Name="Result" Mode="InOut" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="acctg_csm_sp_import_GC">
+            <Parameter Name="OperatorCode" Mode="In" Type="String" />
+            <Parameter Name="CurrentRelease" Mode="In" Type="String" />
+            <Parameter Name="TranDT" Mode="InOut" Type="DateTime" />
+            <Parameter Name="Result" Mode="InOut" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="acctg_csm_sp_check_datecolumns">
+            <Parameter Name="OperatorCode" Mode="In" Type="String" />
+            <Parameter Name="CurrentRelease" Mode="In" Type="String" />
+            <Parameter Name="Message" Mode="InOut" Type="String" />
+            <Parameter Name="TranDT" Mode="InOut" Type="DateTime" />
+            <Parameter Name="Result" Mode="InOut" Type="Int32" />
+          </FunctionImport>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="MONITORModel1StoreContainer" CdmEntityContainer="MONITOREntitiesTest" >
+          <FunctionImportMapping FunctionImportName="acctg_csm_sp_validate_release" FunctionName="MONITORModel1.Store.acctg_csm_sp_validate_release" />
+          <FunctionImportMapping FunctionImportName="acctg_csm_sp_import_NA" FunctionName="MONITORModel1.Store.acctg_csm_sp_import_NA" />
+          <FunctionImportMapping FunctionImportName="acctg_csm_sp_import_GC" FunctionName="MONITORModel1.Store.acctg_csm_sp_import_GC" />
+          <FunctionImportMapping FunctionImportName="acctg_csm_sp_check_datecolumns" FunctionName="MONITORModel1.Store.acctg_csm_sp_check_datecolumns" />
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2008/10/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="true" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
