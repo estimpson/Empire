@@ -2,8 +2,6 @@ SET QUOTED_IDENTIFIER ON
 GO
 SET ANSI_NULLS ON
 GO
-
-
 CREATE procedure [EEIUser].[acctg_inv_sp_exceptions_daily] 
 as
 declare	@rundate datetime;
@@ -42,13 +40,13 @@ insert into	#a (serial, part)
 	(
 		select	serial, 
 				part
-		from	object_historical_daily 
+		from	HistoricalData.dbo.object_historical_daily 
 		where	time_stamp = @begdate 
 				and part <> 'PALLET'
 	union
 		select	serial, 
 				part 
-		from	object_historical_daily 
+		from	HistoricalData.dbo.object_historical_daily 
 		where	time_stamp = @enddate 
 				and part <> 'PALLET'
 	union
@@ -94,10 +92,8 @@ set			tie = (isnull(beg_bal,0)+isnull(r_qty,0)+isnull(u_qty,0)+isnull(a_qty,0)-i
 update		#a
 set			status = (case ISNULL(tie,0) when ISNULL(end_bal,0) then 'OK' else 'NOT OK' end)
 
-insert into eeiuser.acctg_inv_exceptions_daily
+insert into HistoricalData.dbo.acctg_inv_exceptions_daily
 select @rundate as rundate, @begdate as begdate, @enddate as enddate, * from #a 
 --where status <> 'OK'
-
-select * from eeiuser.acctg_inv_exceptions_daily
 
 GO
