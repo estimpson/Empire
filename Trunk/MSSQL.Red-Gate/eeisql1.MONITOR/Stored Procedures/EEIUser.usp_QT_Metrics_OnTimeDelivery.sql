@@ -15,18 +15,20 @@ select
 				from
 					eeiuser.QT_QuoteLog ql
 				where
-					ql.CustomerQuoteDate is not null
+					ql.EngineeringMaterialsDate is not null
 					and ql.QuoteStatus != 'NO QUOTE'
-					and ql.CustomerQuoteDate <= ql.EEIPromisedDueDate
+					--and ql.EngineeringMaterialsDate <= ql.EEIPromisedDueDate
+					and ql.EngineeringMaterialsDate <= coalesce(ql.RequestedDueDate, ql.EEIPromisedDueDate)
 					and datepart(yyyy, ql.CustomerQuoteDate) = datepart(yyyy, GETDATE())	)
 ,	Late = (	select
 					COUNT(1)
 				from
 					eeiuser.QT_QuoteLog ql
 				where
-					ql.CustomerQuoteDate is not null
+					ql.EngineeringMaterialsDate is not null
 					and ql.QuoteStatus != 'NO QUOTE'
-					and ql.CustomerQuoteDate > ql.EEIPromisedDueDate
+					--and ql.EngineeringMaterialsDate > ql.EEIPromisedDueDate
+					and ql.EngineeringMaterialsDate > coalesce(ql.RequestedDueDate, ql.EEIPromisedDueDate)
 					and datepart(yyyy, ql.CustomerQuoteDate) = datepart(yyyy, GETDATE())	)
 --- </Body>
 GO

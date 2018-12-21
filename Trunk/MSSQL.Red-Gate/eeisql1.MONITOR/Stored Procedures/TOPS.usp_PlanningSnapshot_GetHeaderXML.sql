@@ -474,6 +474,8 @@ begin
 			(	BasePart char(7)
 			,	SOP datetime
 			,	EOP datetime
+			,	CSM_SOP datetime
+			,	CSM_EOP datetime
 			)
 
 			if	exists
@@ -490,11 +492,15 @@ begin
 				(	BasePart
 				,	SOP
 				,	EOP
+				,	CSM_SOP
+				,	CSM_EOP
 				)
 				select
 					ed.BasePart
 				,	ed.SOP
 				,	ed.EOP
+				,	ed.CSM_SOP
+				,	ed.CSM_EOP
 				from
 					#EOPData ed
 				where
@@ -507,6 +513,8 @@ begin
 					le.BasePart
 				,	le.SOP
 				,	le.EOP
+				,	le.CSM_SOP
+				,	le.CSM_EOP
 				from
 					TOPS.Leg_EOP le
 				where
@@ -526,6 +534,22 @@ begin
 				@EOP datetime =
 				(	select
 						min(ed.EOP)
+					from
+						@EOP_Data ed			
+				)
+
+			declare
+				@CSM_SOP datetime =
+				(	select
+						min(ed.CSM_SOP)
+					from
+						@EOP_Data ed			
+				)
+
+			declare
+				@CSM_EOP datetime =
+				(	select
+						min(ed.CSM_EOP)
 					from
 						@EOP_Data ed			
 				)
@@ -617,6 +641,8 @@ begin
 							,	[EEH_Capacity] = @EEH_Capacity
 							,	[SOP] = @SOP
 							,	[EOP] = @EOP
+							,	[CSM_SOP] = @CSM_SOP
+							,	[CSM_EOP] = @CSM_EOP
 							,	[CustomerPart] = @CustomerPart
 							,	[Description] = @Description
 							,	[InitOnHand] = @InitOnHand

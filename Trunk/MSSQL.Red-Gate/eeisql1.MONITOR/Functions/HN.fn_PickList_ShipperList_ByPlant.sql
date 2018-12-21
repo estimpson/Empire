@@ -19,7 +19,7 @@ begin
 	--Select	ShipperID = id, Shipper=convert(varchar,id), Orden=1 
 	Select	ShipperID = id, Shipper=convert(varchar,id) + '-' + destination, Orden=1 
 	FROM shipper 
-	where isnull(plant,'EEI')=@Plant 
+	where left(isnull(plant,'EEI'),3)= @Plant
 	and date_stamp>=dateadd(day,-7,getdate()) and status in ('O','S') ) Data
 	order by Orden, ShipperID
 

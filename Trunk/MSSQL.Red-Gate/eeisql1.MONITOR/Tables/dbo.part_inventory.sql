@@ -25,7 +25,8 @@ CREATE TABLE [dbo].[part_inventory]
 [min_prod_run] [numeric] (20, 6) NULL,
 [critical_part] [varchar] (1) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
 [criticalpartnotes] [varchar] (254) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
-[eehlabel] [varchar] (30) COLLATE SQL_Latin1_General_CP1_CI_AS NULL
+[eehlabel] [varchar] (30) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
+[Box_Type] [nvarchar] (50) COLLATE SQL_Latin1_General_CP1_CI_AS NULL
 ) ON [PRIMARY]
 GO
 ALTER TABLE [dbo].[part_inventory] ADD CONSTRAINT [PK__part_inventory__3C9F05C3] PRIMARY KEY CLUSTERED  ([part]) ON [PRIMARY]

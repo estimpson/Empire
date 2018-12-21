@@ -689,6 +689,40 @@ if	@Error != 0 begin
 end
 --- </Insert>
 
+/*  Create the location */
+set	@TableName = 'dbo.location'
+insert into location( Code, Name, type, group_no, plant )
+select	Distinct  Code = coalesce( ShipperLocation, Container.ContainerCode),
+		Name = coalesce( ShipperLocation, Container.ContainerCode),
+		type = 'ST', group_no = 'FINISHED GOODS',
+		plant = 'TRAN-EEI'
+from
+    FT.vwCommonSerial_ShipLogInProcess ShipLogInProcess
+    join @ShipperContainers Container
+        on ShipLogInProcess.Shipper = Container.Shipper
+	left join location on Location.code = coalesce( ShipperLocation, Container.ContainerCode)
+where
+    ShipLogInProcess.Origin = @OriginPlant
+    and not exists
+		(	select
+				1
+			from
+				dbo.object o
+			where
+				o.serial = ShipLogInProcess.Serial
+		)
+	and Location.code is null
+
+select
+	@Error = @@Error,
+	@RowCount = @@Rowcount
+
+if	@Error != 0 begin
+	set	@Result = 999999
+	RAISERROR ('Error inserting into table %s in procedure %s.  Error: %d', 16, 1, @TableName, @ProcName, @Error)
+	rollback tran @ProcName
+	return
+end
 /*	Create inventory. */
 --- <Insert rows="*">
 set	@TableName = 'dbo.object'
@@ -740,7 +774,7 @@ select
 ,	custom1 = ShipLogInProcess.AETCNumber
 ,	custom2 = ShipLogInProcess.BOL
 ,	lot = ShipLogInProcess.lot
-,	note=case when ShipLogInProcess.Status='H' then 'Certified to release' else '' end
+,	note=case when ShipLogInProcess.Status='H' then 'Certified to release ' + ShipLogInProcess.SSR_ID else '' end
 from
     FT.vwCommonSerial_ShipLogInProcess ShipLogInProcess
     join @ShipperContainers Container
@@ -843,7 +877,7 @@ select
 ,	custom1 = ShipLogInProcess.AETCNumber
 ,	custom2 = ShipLogInProcess.BOL
 ,	ShipLogInProcess.lot
-,	note=case when ShipLogInProcess.Status='H' then 'Certified to release' else '' end
+,	note=case when ShipLogInProcess.Status='H' then 'Certified to release - ' + ShipLogInProcess.SSR_ID  else '' end
 from
 	FT.vwCommonSerial_ShipLogInProcess ShipLogInProcess
 	join @ShipperContainers Container

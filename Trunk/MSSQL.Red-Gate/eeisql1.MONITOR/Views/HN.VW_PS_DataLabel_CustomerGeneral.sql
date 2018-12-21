@@ -11,6 +11,8 @@ GO
 
 
 
+
+
 CREATE view [HN].[VW_PS_DataLabel_CustomerGeneral]
 as
 
@@ -86,7 +88,7 @@ SELECT	Serial=objectserial,
 		SetSecond=SUBSTRING(PartName, 21, 20),
 		SetOperator='MON',
 		--SetOperator='',
-		SetCurrentDate=GETDATE(),SLAInfoRecord=SLAInfoRecord,SLALotNo,Boxes
+		SetCurrentDate=GETDATE(),SLAInfoRecord=SLAInfoRecord,SLALotNo,Boxes,SetLotMagna='',IndexNo = isnull(IndexNo, '')
 FROM            vw_eei_CustomerLabel 
 union all
 Select	Serial=convert(varchar,pallet.Serial),
@@ -151,13 +153,15 @@ Select	Serial=convert(varchar,pallet.Serial),
 		setsecond=convert(varchar,GETDATE(),108),
 		setoperator='MON',
 		setCurrentDate=CONVERT(varchar, getdate(), 101)	,
-			SLAInfoRecord='',SLALotNo='',Boxes=''
+			SLAInfoRecord='',SLALotNo='',Boxes='',SetLotMagna='',IndexNo=''
 from	monitor.dbo.object o
 	inner join (Select Part, Serial=parent_serial, Qty=sum(Quantity), Lot
 				from monitor.dbo.object
 				group by part, parent_serial, lot) Pallet
 		on o.serial = pallet.Serial
 where	o.part='pallet'
+
+
 
 
 

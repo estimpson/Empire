@@ -3,9 +3,11 @@ GO
 SET ANSI_NULLS ON
 GO
 
-create function [EDI_XML_NALPLEX_ASN].[udf_OrderSerials]
+
+CREATE function [EDI_XML_NALPLEX_ASN].[udf_OrderSerials]
 (	@ShipperID int
 ,	@CustomerPart varchar(30)
+,	@PackQuantity numeric(20,6)
 )
 returns xml
 as
@@ -22,6 +24,7 @@ begin
 	where
 		ao.ShipperID = @ShipperID
 		and ao.CustomerPart = @CustomerPart
+		and ao.quantity = @PackQuantity
 
 	open serialREFs
 
@@ -47,4 +50,5 @@ begin
 	return
 		@xmlOutput
 end
+
 GO

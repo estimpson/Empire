@@ -14,7 +14,7 @@ BEGIN
 
 
 
-	SET @SQLDetails = 'SELECT	object.serial, object.part, p.name, object.location, object.operator, On_Hand=object.std_quantity, Lot=lot,Field1, Notes=object.note, '
+	SET @SQLDetails = 'SELECT	object.serial, object.part, p.name, object.location, object.operator, On_Hand=object.std_quantity, warehousefreightlot, Lot=lot,Field1, Notes=object.note, '
 	SET @SQLDetails = @SQLDetails + 'object.last_date, object.status, object.user_defined_status, pi.standard_unit,object.parent_serial, '
 	SET @SQLDetails = @SQLDetails + 'pi.unit_weight,Grommets = null, '
 	SET @SQLDetails = @SQLDetails + 'object.start_date FROM object left JOIN part p ON p.part = object.part '

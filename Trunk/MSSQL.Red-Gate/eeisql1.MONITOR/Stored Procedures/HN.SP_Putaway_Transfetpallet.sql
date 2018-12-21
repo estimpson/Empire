@@ -2,11 +2,11 @@ SET QUOTED_IDENTIFIER ON
 GO
 SET ANSI_NULLS ON
 GO
-
 CREATE procedure [HN].[SP_Putaway_Transfetpallet]
 	@Operator varchar(10)
 ,	@toloc varchar(20)
 ,	@Pallet int
+,	@WarehouseFreightLot varchar(20) = null
 ,	@Result integer = null out
 as
 set nocount on
@@ -49,9 +49,30 @@ set	@TranDT = coalesce(@TranDT, GetDate())
 
 
 
+--	<ArgumentValidation>
+	--	Pallet required:
+if	 @Pallet=0 begin
+
+	set	@Result = 999999
+	RAISERROR ('This serial/pallet %i is not exist', 16, 1, @Pallet)
+	rollback tran @ProcName
+	return
+end
 
 
+if	not exists
+	(	select	1
+		from	object
+		where	serial = @Pallet) begin
 
+	set	@Result = 999999
+	RAISERROR ('This serial/pallet %i is not exist', 16, 1, @Pallet)
+	rollback tran @ProcName
+	return
+end
+
+
+if @Pallet <= 0 return;
 
 --- <Body>
 /*	Update inventory location. */
@@ -91,6 +112,7 @@ insert
 ,	std_cost
 ,	user_defined_status
 ,	tare_weight
+,	WarehouseFreightLot
 )
 select
 	o.serial
@@ -115,6 +137,7 @@ select
 ,	std_cost = o.cost
 ,	o.user_defined_status
 ,	o.tare_weight
+,	@WarehouseFreightLot
 from
 	dbo.object o
 where
@@ -146,6 +169,7 @@ where
 ,	std_cost
 ,	user_defined_status
 ,	tare_weight
+,	WarehouseFreightLot
 )
 select
 	o.serial
@@ -170,6 +194,7 @@ select
 ,	std_cost = o.cost
 ,	o.user_defined_status
 ,	o.tare_weight
+,	@WarehouseFreightLot
 from
 	dbo.object o
 where
@@ -196,6 +221,7 @@ set
 ,	location =@toloc
 ,	last_date = @TranDT
 ,	last_time = @TranDT
+,	WarehouseFreightLot = @WarehouseFreightLot
 from
 	dbo.object o
 where
@@ -209,6 +235,7 @@ set
 ,	location =@toloc
 ,	last_date = @TranDT
 ,	last_time = @TranDT
+,	WarehouseFreightLot = @WarehouseFreightLot
 from
 	dbo.object o
 where
@@ -229,7 +256,7 @@ end
 /* Update Log */
 Update hn.Putaway_log set Status='Completed',DateEnd=Getdate() 
 
-where operator=@Operator and Location=@toloc
+where operator=@Operator and Location=@toloc and DateEnd is null
 
 select
 	@Error = @@Error,

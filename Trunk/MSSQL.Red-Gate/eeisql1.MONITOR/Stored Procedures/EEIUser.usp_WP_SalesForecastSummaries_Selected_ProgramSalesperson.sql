@@ -4,7 +4,7 @@ SET ANSI_NULLS ON
 GO
 
 
-create procedure [EEIUser].[usp_WP_SalesForecastSummaries_Selected_ProgramSalesperson]
+CREATE procedure [EEIUser].[usp_WP_SalesForecastSummaries_Selected_ProgramSalesperson]
 	@Filter varchar(50)
 ,	@FilterValue varchar(250)
 as
@@ -73,12 +73,12 @@ from
 	eeiuser.acctg_csm_vw_select_sales_forecast sf
 where 
 (	
-	@Filter = 'Program'
+	@Filter = 'Program' or @Filter = 'Program Forecast'
 	and sf.program = @FilterValue
 )
 or
 (	
-	@Filter = 'Salesperson'
+	@Filter = 'Salesperson' or @Filter = 'Salesperson Actual'
 	and sf.salesperson = @FilterValue
 )
 	

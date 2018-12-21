@@ -16,7 +16,7 @@ begin tran
 declare	@SelectSQL varchar(max), @result int, @OrdersCountInserted  int
 
 set @result = 0
-set @SelectSQL='Select Destination=''NALFLORA#3'', Customer=''NALFLORA'', PartNumber=''NAL1314-HA00'', STDPACK=125, CustomerPO=''Free Samples'', Price=0.000001, CreateBy=''424'', WOEngineerID=13318, Plant=''EEI'''
+set @SelectSQL='Select Destination=''ADAC4'', Customer=''ADAC'', PartNumber=''ADC0214-HD00'', STDPACK=200, CustomerPO=''Free Samples'', Price=0.000001, CreateBy=''424'', WOEngineerID=13318, Plant=''EEI'''
 
 exec dbo.SP_TROY_MON_SaveSalesOrder
 	@SelectSQL=@SelectSQL,
@@ -28,7 +28,7 @@ exec dbo.SP_TROY_MON_SaveSalesOrder
 select	result=@result,orders=@OrdersCountInserted 
 
 
-SELECT	top (@OrdersCountInserted) * from Monitor.dbo.order_header order by order_date desc
+--SELECT	top (@OrdersCountInserted) * from Monitor.dbo.order_header order by order_date desc
 
 rollback tran
 
@@ -70,7 +70,15 @@ create table ##UploadData
 declare @InsertSQL varchar(max)
 declare @ExecuteSQL varchar(max)
 
-set @InsertSQL='INSERT INTO ##UploadData(Destination,Customer,PartNumber,STDPack,CustomerPO,Price,OperatorCode,WOEngineerID,Plant)'
+
+--if exists  (SELECT 1
+--			FROM tempdb.dbo.sysobjects 
+--			WHERE xtype = 'U' 
+--				and [name] like '##UploadData%')
+--begin
+
+--	DROP TABLE ##UploadData
+--end
 
 IF EXISTS (SELECT	1
 			FROM	##UploadData
@@ -80,6 +88,8 @@ IF EXISTS (SELECT	1
 	DROP TABLE ##UploadData
 
 END
+
+set @InsertSQL='INSERT INTO ##UploadData(Destination,Customer,PartNumber,STDPack,CustomerPO,Price,OperatorCode,WOEngineerID,Plant)'
 
 
 --PRINT @InsertSQL
@@ -128,7 +138,6 @@ begin
 				return @Result
 		end
 
-		
 		--1.0 CREATE PART CUSTOMER 
 		INSERT INTO part_customer (part, Customer,customer_part,customer_standard_pack,type,customer_unit,blanket_price)
 		SELECT	DISTINCT CPF.PartNumber,CPF.customer,part.cross_ref,CPF.STDPack ,'B','EA', CPF.Price
@@ -152,7 +161,12 @@ begin
 				RAISERROR ('Error updating table %s in procedure %s.  Rows inserted: %d.  Expected rows: %d.', 16, 1, @TableName, @ProcName, @RowCount, 1)
 				rollback tran @ProcName
 				return @Result
-		end		
+		end	
+
+		--SELECT * FROM 	order_header WHERE 	blanket_part like 'ADC0214-%'
+		--SELECT	* FROM part_customer where	part like 'ADC0214-%'
+		--select	* from	part_customer_price_matrix where	part like 'ADC0214-%'
+		--select	* from	part where part like 'ADC0214-%'
 
 		--2.0 CREATE PART CUSTOMER PRICE MATRIX
 		INSERT INTO part_customer_price_matrix (part, Customer, price, qty_break,alternate_price)
@@ -199,9 +213,7 @@ begin
 				left join destination on destination.customer = customer.customer and destination.destination = CPF.Destination
 				left join (select Part, Package = MAX(code) from part_packaging group by part ) Packs on Packs.part = CPF.PartNumber
 
-		--select	drawing_number from part where part='TRW0486-DV02'
-		--select	* from order_header where order_no=29995
-		--select	* from customer where customer='AUTOSYSTEM'
+	
 		SET		@TableName = 'order_header'
 		SELECT	@Error = @@ERROR, @OrdersCount = @@ROWCOUNT
 		--print @RowCount

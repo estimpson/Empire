@@ -2,11 +2,17 @@ SET QUOTED_IDENTIFIER ON
 GO
 SET ANSI_NULLS ON
 GO
+
+
 -- =============================================
 -- Author:		<Hector Joel Chavez>
 -- Create date: <9/26/2016>
 -- Description:	<Generate Analysis of ship outs and releases>
 -- =============================================
+
+-- exec [HN].[SP_MAT_Releases_Shipouts_Analysis] @fechainicial = '2018-01-01', @fechafinal = '2018-05-04', @parte = 'SLA0346?', @dia = 5
+
+
 
 CREATE PROCEDURE [HN].[SP_MAT_Releases_Shipouts_Analysis]
 
@@ -24,6 +30,10 @@ BEGIN
 	ident varchar(1)
 )
 
+
+select @parte = replace(@parte,';','')
+
+
 INSERT INTO #Datos(DueDT, StdQty, Generateddt, ident)
 SELECT DueDT= DueDT, StdQty=Sum(StdQty), Generateddt = convert(date,generateddt), ident FROM
 		(
@@ -34,7 +44,7 @@ SELECT DueDT= DueDT, StdQty=Sum(StdQty), Generateddt = convert(date,generateddt)
 						a.StdQty,a.Part
 
 		FROM			MONITOR.dbo.CustomerReleasePlanRaw a join MONITOR.dbo.customerreleaseplans b on a.releaseplanid = b.id
-		WHERE	Part Like'%'+@Parte+'%'-- like @Parte+'%' 
+		WHERE	Part Like'%'+@Parte+'%'  -- like @Parte+'%' 
 			and Generateddt >= @FechaInicial and generateddt < @FechaFinal 
 			And Datepart(dw, convert(date, Generateddt)) = @Dia
 		) Datos
@@ -87,8 +97,10 @@ where ident = 'y'
 UPDATE #Datos set StdQty = StdQty+0.000001
 where Ident='x'
 
-select DueDT, StdQty=ISNULL(StdQty,0), Generateddt, Ident from #Datos
+select month(DueDT) as Due_Month, year(DueDT) as Due_Year, DueDT, StdQty=ISNULL(StdQty,0), Generateddt, Ident from #Datos
 
 drop table #Datos
 END
+
+
 GO

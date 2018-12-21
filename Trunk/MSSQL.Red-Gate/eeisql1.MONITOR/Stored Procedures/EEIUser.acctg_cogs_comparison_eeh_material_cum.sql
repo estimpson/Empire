@@ -5,7 +5,7 @@ GO
 
 
 
---exec eeiuser.acctg_cogs_comparisoneeh_material_cum 2008,7,2008,8
+-- exec eeiuser.acctg_cogs_comparison_eeh_material_cum 2017,12,2018,1
 
 
 CREATE procedure [EEIUser].[acctg_cogs_comparison_eeh_material_cum]	(
@@ -86,7 +86,8 @@ where		fiscal_year = @fiscal_year2 and period = @period2 and
 
 
 
-select		PartList.Part as part_number, 
+select		LEFT(PartList.Part,7) AS base_part,
+			PartList.Part as part_number, 
 			coalesce(nullif(ph1.product_line,''), nullif(ph2.product_line,''), 'No Product Line') as product_line,
 			coalesce(nullif(ph1.type,''), nullif(ph2.type,''), 'No Type') as type,
 			isnull(a.quantity,0) as quantity1, 
@@ -95,53 +96,68 @@ select		PartList.Part as part_number,
 			ph1.product_line as product_line1,
 			ph2.product_line as product_line2,
 			(case when ph1.product_line = ph2.product_line then 'false' else 'true' end) as product_line_change,
+			
 			ph1.type as type1,
 			ph2.type as type2,
 			(case when ph1.type = ph2.type then 'false' else 'true' end) as type_change,
-			ISNULL(psh1.price,0) as price1,
-			ISNULL(psh2.price,0) as price2,
-			ISNULL(psh1.price,0)-ISNULL(psh2.price,0) as price_change,			
+			
+			(case when (ISNULL(psh1.price,0)=0 and isnulL(a.quantity,0)=0) then psh2.price else psh1.price end) as price1,
+			(case when (ISNULL(psh2.price,0)=0 and isnulL(b.quantity,0)=0) then psh1.price else psh2.price end) as price2,
+			(case when (ISNULL(psh2.price,0)=0 and isnulL(b.quantity,0)=0) then psh1.price else psh2.price end)-(case when (ISNULL(psh1.price,0)=0 and isnulL(a.quantity,0)=0) then psh2.price else psh1.price end) as price_change,			
+			ISNULL(b.quantity,0)*((case when (ISNULL(psh2.price,0)=0 and isnulL(b.quantity,0)=0) then psh1.price else psh2.price end)-(case when (ISNULL(psh1.price,0)=0 and isnulL(a.quantity,0)=0) then psh2.price else psh1.price end)) AS price_impact,
+			
 			(ISNULL(a.quantity,0)*ISNULL(psh1.price,0)) as ext_price1,
 			(ISNULL(b.quantity,0)*ISNULL(psh2.price,0)) as ext_price2,
 			((ISNULL(b.quantity,0)*ISNULL(psh2.price,0))-(ISNULL(a.quantity,0)*ISNULL(psh1.price,0))) as ext_price_change,
-			ISNULL(psh1.material_cum,0) as material_cum1,
+
+			(case when (ISNULL(psh1.material_cum,0)=0 and isnulL(a.quantity,0)=0) then psh2.material_cum else psh1.material_cum end) AS material_cum1, 
 			(case when (ISNULL(psh2.material_cum,0)=0 and isnulL(b.quantity,0)=0) then psh1.material_cum else psh2.material_cum end) as material_cum2,
-			ISNULL(psh2.material_cum,0)-ISNULL(psh1.material_cum,0) as material_cum_change,			
+			(case when (ISNULL(psh2.material_cum,0)=0 and isnulL(b.quantity,0)=0) then psh1.material_cum else psh2.material_cum end)-ISNULL(psh1.material_cum,0) as material_cum_change,			
+			
 			(ISNULL(a.quantity,0)*ISNULL(psh1.material_cum,0)) as ext_material_cum1,
 			(ISNULL(b.quantity,0)*ISNULL(psh2.material_cum,0)) as ext_material_cum2,
 			((ISNULL(b.quantity,0)*ISNULL(psh2.material_cum,0))-(ISNULL(a.quantity,0)*ISNULL(psh1.material_cum,0))) as ext_material_cum_change,
-			ISNULL(eeh_material_cum1,0) as frozen_material_cum1,
-			(case when (ISNULL(eeh_material_cum2,0)=0 and isnull(b.quantity,0)=0) then eeh_material_cum1 else psh2.frozen_material_cum end) as frozen_material_cum2,
-			(case when (isnull(eeh_material_cum2,0)=0 and isnull(b.quantity,0)=0) then 0 else ISNULL(eeh_material_cum2,0)-ISNULL(eeh_material_cum1,0) end) as frozen_material_cum_change,
-			(ISNULL(a.quantity,0)*ISNULL(eeh_material_cum1,0)) as ext_frozen_material_cum1,
-			(ISNULL(b.quantity,0)*ISNULL(eeh_material_cum2,0)) as ext_frozen_material_cum2,
-			((ISNULL(b.quantity,0)*ISNULL(eeh_material_cum2,0))-(ISNULL(a.quantity,0)*ISNULL(eeh_material_cum1,0))) as ext_frozen_material_cum_change,
+			
+			(case when (ISNULL(eeh_material_cum1,0)=0 and isnull(a.quantity,0)=0) then eeh_material_cum2 else eeh_material_cum1 end) as eeh_material_cum1,
+			(case when (ISNULL(eeh_material_cum2,0)=0 and isnull(b.quantity,0)=0) then eeh_material_cum1 else eeh_material_cum2 end) as eeh_material_cum2,
+			(case when (ISNULL(eeh_material_cum2,0)=0 and isnull(b.quantity,0)=0) then eeh_material_cum1 else eeh_material_cum2 end)-(case when (ISNULL(eeh_material_cum1,0)=0 and isnull(a.quantity,0)=0) then eeh_material_cum2 else eeh_material_cum1 end) as eeh_material_cum_change,
+			ISNULL(b.quantity,0)*((case when (ISNULL(eeh_material_cum2,0)=0 and isnull(b.quantity,0)=0) then eeh_material_cum1 else eeh_material_cum2 end)-(case when (ISNULL(eeh_material_cum1,0)=0 and isnull(a.quantity,0)=0) then eeh_material_cum2 else eeh_material_cum1 end)) AS material_impact,
+			
+			(ISNULL(a.quantity,0)*ISNULL(eeh_material_cum1,0)) as ext_eeh_material_cum1,
+			(ISNULL(b.quantity,0)*ISNULL(eeh_material_cum2,0)) as ext_eeh_material_cum2,
+			((ISNULL(b.quantity,0)*ISNULL(eeh_material_cum2,0))-(ISNULL(a.quantity,0)*ISNULL(eeh_material_cum1,0))) as ext_eeh_material_cum_change,
+			
 			ISNULL(sh1.std_hours,0) as std_hours1,
 			ISNULL(sh2.std_hours,0) as std_hours2,
 			ISNULL(sh2.std_hours,0)-ISNULL(sh1.std_hours,0) as std_hours_change,
+			
 			(ISNULL(sh1.std_hours,0)*@labor_rate) as absorbed_labor_cum1,
 			(ISNULL(sh2.std_hours,0)*@labor_rate) as absorbed_labor_cum2,
 			(ISNULL(sh2.std_hours,0)*@labor_rate)-(ISNULL(sh1.std_hours,0)*@labor_rate) as absorbed_labor_cum_change,
+			
 			(ISNULL(a.quantity,0)*ISNULL(sh1.std_hours,0)*@labor_rate) as ext_absorbed_labor_cum1,
 			(ISNULL(b.quantity,0)*ISNULL(sh2.std_hours,0)*@labor_rate) as ext_absorbed_labor_cum2,
 			(ISNULL(b.quantity,0)*ISNULL(sh2.std_hours,0)*@labor_rate)-(ISNULL(a.quantity,0)*ISNULL(sh1.std_hours,0)*@labor_rate) as ext_absorbed_labor_cum_change,
+			
 			(ISNULL(a.quantity,0)*ISNULL(sh1.std_hours,0)*@labor_rate*@burden_rate) as ext_absorbed_burden_cum1,
 			(ISNULL(b.quantity,0)*ISNULL(sh1.std_hours,0)*@labor_rate*@burden_rate) as ext_absorbed_burden_cum2,
 			(ISNULL(b.quantity,0)*ISNULL(sh2.std_hours,0)*@labor_rate*@burden_rate)-(ISNULL(a.quantity,0)*ISNULL(sh1.std_hours,0)*@labor_rate*@burden_rate) as ext_absorbed_burden_cum_change,
-			isNULL(a.ExtendedSales,0) as Period1ShipperDetailExtended,
+			
+			ISNULL(a.ExtendedSales,0) as Period1ShipperDetailExtended,
 			isNULL(b.ExtendedSales,0) as Period2ShipperDetailExtended,
+			
 			(ISNULL(sh1.std_hours,0)*@labor_rate*@burden_rate) as absorbed_burden_cum1,
 			(ISNULL(sh2.std_hours,0)*@labor_rate*@burden_rate) as absorbed_burden_cum2,
 			(ISNULL(sh2.std_hours,0)*@labor_rate*@burden_rate) - (ISNULL(sh1.std_hours,0)*@labor_rate*@burden_rate) as absorbed_burden_cum_diff
-			
-
+			,@Period1BeginDT
+			,@period1EndDT
 
 
 from			@partList PartList
 left join	
 (	Select	part_original,
-			sum(qty_packed) as quantity,
-			sum(qty_packed*alternate_price) as ExtendedSales
+			SUM(qty_packed) as quantity,
+			SUM(qty_packed*alternate_price) as ExtendedSales
 	from		shipper_detail
 	join		shipper  on shipper_detail.shipper = shipper.id
 	where	isNULL (shipper.type, 'Y') <> 'V' and isNULL (shipper.type, 'Y') <> 'T' and
@@ -183,7 +199,7 @@ from		[EEHSQL1].[Historicaldata].[dbo].part_standard_historical_daily eehpartsta
 where	eehpartstandard2.time_stamp =@eehpsh_time2 ) eehps2 on PartList.part = eehpart2
 where	isnull(a.quantity,0)+isnull(b.quantity,0)>0
 order by	PartList.part 
-option(recompile)
+--option(recompile)
 
 end
 GO

@@ -45,8 +45,11 @@ while (@QEList != '') begin
 						eeiuser.QT_QuoteLog ql
 					where
 						ql.EngineeringInitials = @QE
-						and ql.CustomerQuoteDate is not null
-						and ql.CustomerQuoteDate <= ql.EEIPromisedDueDate
+						and ql.QuoteStatus != 'NO QUOTE'
+						--and ql.CustomerQuoteDate is not null
+						--and ql.CustomerQuoteDate <= ql.EEIPromisedDueDate
+						and ql.EngineeringMaterialsDate is not null
+						and ql.EngineeringMaterialsDate <= ql.EEIPromisedDueDate
 						and datepart(yyyy, ql.CustomerQuoteDate) = datepart(yyyy, GETDATE())	)
 	,	Late = (	select
 						COUNT(1)
@@ -54,8 +57,11 @@ while (@QEList != '') begin
 						eeiuser.QT_QuoteLog ql
 					where
 						ql.EngineeringInitials = @QE
-						and ql.CustomerQuoteDate is not null
-						and ql.CustomerQuoteDate > ql.EEIPromisedDueDate
+						and ql.QuoteStatus != 'NO QUOTE'
+						--and ql.CustomerQuoteDate is not null
+						--and ql.CustomerQuoteDate > ql.EEIPromisedDueDate
+						and ql.EngineeringMaterialsDate is not null
+						and ql.EngineeringMaterialsDate > ql.EEIPromisedDueDate
 						and datepart(yyyy, ql.CustomerQuoteDate) = datepart(yyyy, GETDATE())	)
 	
 	if (PATINDEX('%,%', @QEList) > 0) begin
@@ -71,11 +77,12 @@ end
 --- <Return>	
 select 
 	QuoteEngineer = 
-		case
-			when (coalesce(qei.FirstName, '') <> '') and (coalesce(qei.LastName, '') <> '') then qei.FirstName + ' ' + left(qei.LastName, 1)
-			when (coalesce(qei.FirstName, '') <> '') then qei.FirstName
-			else tcq.QuoteEngineer
-		end
+		qei.FirstName + ' ' + left(qei.LastName, 1)
+		--case
+		--	when (coalesce(qei.FirstName, '') <> '') and (coalesce(qei.LastName, '') <> '') then qei.FirstName + ' ' + left(qei.LastName, 1)
+		--	when (coalesce(qei.FirstName, '') <> '') then qei.FirstName
+		--	else tcq.QuoteEngineer
+		--end
 ,	OnTime
 ,	Late
 from 
@@ -85,5 +92,6 @@ from
 where
 	tcq.OnTime > 0
 	or tcq.Late > 0
+	and (coalesce(qei.FirstName, '') <> '') and (coalesce(qei.LastName, '') <> '')
 --- </Return>
 GO

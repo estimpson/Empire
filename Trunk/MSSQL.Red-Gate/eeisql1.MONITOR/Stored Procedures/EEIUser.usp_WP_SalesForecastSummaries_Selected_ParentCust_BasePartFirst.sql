@@ -27,6 +27,9 @@ declare
 ,	Cal_20_Sales decimal (38,6)
 ,	Cal_21_Sales decimal (38,6)
 ,	Cal_22_Sales decimal (38,6)
+,	Cal_23_Sales decimal (38,6)
+,	Cal_24_Sales decimal (38,6)
+,	Cal_25_Sales decimal (38,6)
 )
 
 insert
@@ -44,10 +47,13 @@ select
 ,	coalesce(sf.Cal_20_Sales, 0)
 ,	coalesce(sf.Cal_21_Sales, 0)
 ,	coalesce(sf.Cal_22_Sales, 0)
+,	coalesce(sf.Cal_23_Sales, 0)
+,	coalesce(sf.Cal_24_Sales, 0)
+,	coalesce(sf.Cal_25_Sales, 0)
 from 
 	eeiuser.acctg_csm_vw_select_sales_forecast sf
 where 
-	@Filter = 'Parent Customer'
+	@Filter = 'Parent Customer' or @Filter = 'Parent Customer Actual'
 	and sf.parent_customer = @FilterValue
 	
 
@@ -64,12 +70,18 @@ select
 ,	sum(Cal_20_Sales) as Sales_2020
 ,	sum(Cal_21_Sales) as Sales_2021
 ,	sum(Cal_22_Sales) as Sales_2022
+,	sum(Cal_23_Sales) as Sales_2023
+,	sum(Cal_24_Sales) as Sales_2024
+,	sum(Cal_25_Sales) as Sales_2025
 ,	(sum(Cal_17_Sales) - sum(Cal_16_Sales)) as Change_2017
 ,	(sum(Cal_18_Sales) - sum(Cal_17_Sales)) as Change_2018
 ,	(sum(Cal_19_Sales) - sum(Cal_18_Sales)) as Change_2019
 ,	(sum(Cal_20_Sales) - sum(Cal_19_Sales)) as Change_2020
 ,	(sum(Cal_21_Sales) - sum(Cal_20_Sales)) as Change_2021
 ,	(sum(Cal_22_Sales) - sum(Cal_21_Sales)) as Change_2022
+,	(sum(Cal_23_Sales) - sum(Cal_22_Sales)) as Change_2023
+,	(sum(Cal_24_Sales) - sum(Cal_23_Sales)) as Change_2024
+,	(sum(Cal_25_Sales) - sum(Cal_24_Sales)) as Change_2025
 from 
 	@forecastData fd
 group by 

@@ -5,6 +5,7 @@ GO
 
 
 
+
 CREATE VIEW [EDI_XML_VISTEON_LEGACY_ASN].[ASNLines]
 AS
 SELECT
@@ -12,7 +13,7 @@ SELECT
 ,	CustomerPart = sd.customer_part
 ,	CustomerPO = MAX(sd.customer_po)
 ,	ShipQty = SUM(CONVERT(INT, sd.alternative_qty))
-,	AccumQty = SUM(CONVERT(INT, sd.accum_shipped))
+,	AccumQty = MAX(CONVERT(INT, sd.accum_shipped))
 ,	CustomerECL = MAX(oh.engineering_level)
 ,	RowNumber = ROW_NUMBER() OVER (PARTITION BY s.id ORDER BY sd.customer_part)
 FROM
@@ -30,6 +31,7 @@ WHERE
 GROUP BY
 	s.id
 ,	sd.customer_part
+
 
 
 GO

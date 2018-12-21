@@ -6,8 +6,12 @@ GO
 
 
 
+
+
 CREATE view [EDI_XML_Chrysler_ASN].[ASNHeaders]
 as
+
+-- Andre S. Boulanger 5/7/2018 : Set trailer number to always send 01 as Empire always ships UPS; users entering into trailer number data string of length > that Chrysler allows causing ASN failures; upper case Pro number
 select
 	ShipperID = s.id
 ,	iConnectID = es.IConnectID
@@ -16,8 +20,8 @@ select
 ,	ShipDate = convert(date, s.date_shipped)
 ,	ShipTime = convert(time, s.date_shipped)
 ,	TimeZoneCode = [dbo].[udfGetDSTIndication](s.date_shipped)
-,	GrossWeight = convert(int, round(s.gross_weight, 0))
-,	NetWeight = convert(int, round(s.net_weight, 0))
+,	GrossWeight = convert(int, ceiling(s.gross_weight))+2
+,	NetWeight = convert(int, ceiling(s.net_weight))+1
 ,	PackageType = 'CTN25'
 ,	BOLQuantity = s.staged_objs
 ,	Carrier = s.ship_via
@@ -35,8 +39,8 @@ select
 			when s.trans_mode not in ('A', 'AC', 'AE', 'E', 'U') then es.pool_code
 		end
 ,	EquipmentType = es.equipment_description
-,	TruckNumber = coalesce(nullif(s.truck_number,''), convert(varchar(25), s.id))
-,	PRONumber = s.pro_number
+,	TruckNumber = coalesce( '01', nullif(s.truck_number,''), convert(varchar(25), s.id))
+,	PRONumber = uPPER(s.pro_number)
 ,	BOLNumber =
 		case
 			when es.parent_destination = 'milkrun' then substring(es.material_issuer, datepart(dw, s.date_shipped)*2-1, 2) + right('0'+convert(varchar, datepart(month, s.date_shipped)),2) + right('0'+convert(varchar, datepart(day, s.date_shipped)),2)
@@ -63,6 +67,8 @@ from
 where
 	coalesce(s.type, 'N') in ('N', 'M')
 	--and s.id = 75964
+
+
 
 
 

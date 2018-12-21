@@ -17,7 +17,11 @@ select  salesperson
 		,empire_market_subsegment
 		,empire_application
 		,empire_sop
+		,mid_model_year
 		,empire_eop
+		,verified_eop
+		,verified_eop_date
+		,empire_eop_note
 		,include_in_forecast
 From eeiuser.acctg_csm_base_part_attributes
 where base_part = @base_part and release_id = @release_id

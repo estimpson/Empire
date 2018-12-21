@@ -3,6 +3,7 @@ GO
 SET ANSI_NULLS ON
 GO
 
+
 CREATE function [EDI_XML_ALC_ASN].[udf_Root]
 (	@ShipperID int
 ,	@Purpose char(2)
@@ -80,9 +81,9 @@ begin
 												,	EDI_XML_ALC_ASN.SEG_PIA('1', 'NOLOT', 'BB')
 						 						for xml raw ('LOOP-PIA'), type
 						 					)
-										,	EDI_XML_VD97A.SEG_QTY('12', al.ObjectQty, 'PCE')
+										,	EDI_XML_VD97A.SEG_QTY('12', al.ObjectQty, 'EA')
 										,	EDI_XML_VD97A.SEG_DTM('94', ah.ShipDateTime-30, '102')
-										--,	EDI_XML_VD97A.SEG_QTY('3', al.AccumQty, 'PCE')
+										--,	EDI_XML_VD97A.SEG_QTY('3', al.AccumQty, 'EA')
 										--RFF Loop
 										,	(	select
 						 							EDI_XML.LOOP_INFO('RFF')
@@ -109,5 +110,6 @@ begin
 	return
 		@xmlOutput
 end
+
 
 GO

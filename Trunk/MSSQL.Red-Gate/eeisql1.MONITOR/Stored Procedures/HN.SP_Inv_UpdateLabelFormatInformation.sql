@@ -71,14 +71,15 @@ from dbo.part_inventory TroyPartInv
 end
 
 --Actualizar Inforecord de partes
-/*
-	Insert into monitor.dbo.part_characteristics (Part, InfoRecord)
-	Select	Part,InfoRecord
+
+Insert into monitor.dbo.part_characteristics (Part, IndexNo)
+	Select	Part,IndexNo
 	from	eehsql1.eeh.dbo.part_characteristics
-	where	len(isnull(InfoRecord,''))>0
+		WHERE INDEXNO IS NOT NULL AND INDEXNO>0
 		and part not in (Select PArt
 						 from monitor.dbo.part_characteristics)
-*/
+
+
 
 update monitor.dbo.part
 set InfoRecord = InfoRecordHN.InfoRecord

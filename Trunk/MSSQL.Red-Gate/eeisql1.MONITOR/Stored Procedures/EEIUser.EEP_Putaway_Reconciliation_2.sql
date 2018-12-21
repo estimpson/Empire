@@ -48,8 +48,10 @@ from
 				left join audit_trail at2 on audit_trail.serial = at2.serial and at2.type = 'R'
 				left join location on audit_trail.to_loc = location.code 
 				left join part on audit_trail.part = part.part 
-			where	audit_trail.date_stamp >= dateadd(d,-1,@arrival_date)  
-				and audit_trail.date_stamp <= dateadd(d,+1,@arrival_date)
+			where	
+				--* audit_trail.date_stamp >= dateadd(d,-1,@arrival_date)  
+				--* and audit_trail.date_stamp <= dateadd(d,+1,@arrival_date)
+				datediff(day,audit_trail.date_stamp,@arrival_date)=0 
 				and audit_trail.type = 't' 
 				and audit_trail.part <> 'PALLET' 
 				and location.plant = 'EEP' 
@@ -61,6 +63,16 @@ from
 
 order by ISNULL(a.part,b.part)
 
+/*
+Modify Date: 2018-12-12 2:37PM
+By: Roberto Larios
+REquest By: Salvarador Perez / Mario Calix
+Comments: 
+In El Paso there was the problem that inventories were "duplicated," since it was compared to the receipt of one day before and one after the receipt date.
+If a container was received per day, it was increased in the next container
 
+--* audit_trail.date_stamp >= dateadd(d,-1,@arrival_date)  
+--* and audit_trail.date_stamp <= dateadd(d,+1,@arrival_date)
+*/
 
 GO

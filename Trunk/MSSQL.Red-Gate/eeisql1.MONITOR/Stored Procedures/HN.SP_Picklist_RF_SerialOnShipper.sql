@@ -93,7 +93,21 @@ DECLARE @Error integer,	@RowCount integer
 		ROLLBACK TRAN @ProcName
 		RETURN	@Result
 	END
-	
+
+-----	 Ensure shipper is not closed.
+if exists (
+	select	1
+	  from	shipper
+	 where	id = @ShipperID and
+		( status = 'C' or status = 'Z' ) )
+	BEGIN
+
+		SET	@Result = 100001
+		RAISERROR ('Error:  Shipper %i does not exists or is closed', 16, 1,@Serial)
+		ROLLBACK TRAN @ProcName
+		RETURN	@Result
+	END
+
 	Declare @PalletSerial int = null
 	
 	if exists( select	1
@@ -139,12 +153,46 @@ BEGIN
 
 	Insert into #ObjectInformation
 	Select	Serial, object.Part, Status, Location, Shipper, Parent_Serial, Standard_Pack, Quantity, 
-		weeks_on_stock=case when datediff(week,ObjectBirthday,getdate())>12 then 13 else datediff(week,ObjectBirthday,getdate()) end
-	from	object
+	--	weeks_on_stock=case when datediff(week,ObjectBirthday,getdate())>12 then 13 else datediff(week,ObjectBirthday,getdate()) end
+	weeks_on_stock=
+				case 
+					when LocationValid.plant='EEP' and locationvalid.code like 'tran%' then -1000000
+					when LocationValid.plant='EEP' and locationvalid.code not like 'tran%'
+						then convert(int,replace(replace(isnull(WarehouseFreightLot,'0'),'-',''),'VAF',''))*-1
+				else
+ 					case when datediff(week,object.ObjectBirthday,getdate())>12 or location like 'E%-dom-%' then 13 else datediff(week,object.ObjectBirthday,getdate()) end
+				end
+	from	object object
 		left join part_inventory PInv
 			 on object.part = PInv.part
+		inner join (Select	code, plant = ltrim(rtrim(replace(plant,'TRAN-',''))), group_no
+				from	location with (readuncommitted)
+				where	( plant like '%eei%'
+						or plant like '%eea%'
+						or plant like '%eep%')
+						and ((group_no like '%warehouse%' and isnull(secured_location,'N')='N') 
+								or (group_no in ('FINISHED GOODS')))
+				union all
+				Select	*, group_no=''
+				from (
+				Select	distinct location
+				from object
+				where	location like 'tran%'
+					and quantity>0
+					and status='A'
+					and part <> 'PALLET') TransLocation 
+					cross join ( Select Plant='EEI' union all 
+								 Select Plant='EEA' union all 
+								 Select Plant='EEP') Data
+						) LocationValid
+		on LocationValid.code = object.location
 		where	(Serial= @Serial
 				 or Parent_Serial=@serial )
+				 and object.quantity>0				
+		and object.location not like '%FIS'
+		and object.location not like '%-%F'
+	
+
 	
 	if exists (
 		Select 1

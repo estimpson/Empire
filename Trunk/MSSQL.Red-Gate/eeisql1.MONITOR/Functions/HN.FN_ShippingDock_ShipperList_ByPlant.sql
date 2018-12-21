@@ -41,7 +41,7 @@ BEGIN
 	  shipper.staged_objs, shipper.bill_of_lading_number, shipper.scheduled_ship_time , shipper.picklist_printed, shipper.plant
 	  FROM dbo.shipper shipper
 		join dbo.customer customer on customer.customer = shipper.customer 
-	WHERE isnull(plant,'EEI')=@Plant 
+	WHERE left(isnull(plant,'EEI'),3)=@Plant 
 	and date_stamp>=dateadd(day,-7,getdate()) and status in ('O','S') 
 	order by  ShipperID
 	

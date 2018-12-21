@@ -117,7 +117,9 @@ select	@base_part as [base_part],
 		
 		ISNULL(dec_21,0) as [Total_2021],
 		ISNULL(dec_22,0) as [Total_2022],
-		ISNULL(dec_23,0) as [Total_2023]
+		ISNULL(dec_23,0) as [Total_2023],
+		ISNULL(dec_24,0) as [Total_2024],
+		ISNULL(dec_25,0) as [Total_2025]
 		
 
 from	eeiuser.acctg_csm_selling_prices_tabular 

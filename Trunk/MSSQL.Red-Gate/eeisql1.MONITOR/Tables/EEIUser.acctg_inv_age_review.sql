@@ -39,8 +39,10 @@ CREATE TABLE [EEIUser].[acctg_inv_age_review]
 [RM_Net_104_WkDemand] [decimal] (18, 6) NULL,
 [Net_RM_104_Wk] [decimal] (18, 6) NULL,
 [Net_RM_104_Wk_Material] [decimal] (18, 6) NULL,
-[WeeksRemainProduction] [int] NULL CONSTRAINT [DF__acctg_inv__Weeks__1A6E7332] DEFAULT ((0))
-) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+[WeeksRemainProduction] [int] NULL CONSTRAINT [DF__acctg_inv__Weeks__1A6E7332] DEFAULT ((0)),
+[ExcessOverride] [int] NULL,
+[scrap] [bit] NULL
+) ON [PRIMARY]
 GO
 ALTER TABLE [EEIUser].[acctg_inv_age_review] ADD CONSTRAINT [PK_acctg_inv_age_review] PRIMARY KEY CLUSTERED  ([asofdate], [receivedfiscalyear], [receivedperiod], [part]) ON [PRIMARY]
 GO

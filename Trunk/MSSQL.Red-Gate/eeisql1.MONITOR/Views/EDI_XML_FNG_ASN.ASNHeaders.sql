@@ -3,8 +3,11 @@ GO
 SET ANSI_NULLS ON
 GO
 
-create view [EDI_XML_FNG_ASN].[ASNHeaders]
+
+CREATE view [EDI_XML_FNG_ASN].[ASNHeaders]
 as
+
+-- Andre S. Boulanger FT, LLC 5/7/2018 - Getting left 10 of trailer number
 select
 	ShipperID = s.id
 ,	IConnectID = es.IConnectID
@@ -24,7 +27,7 @@ select
 ,	GrossWeight = convert(int, round(s.gross_weight, 0))
 ,	NetWeight = convert(int, round(s.net_weight, 0))
 ,	Carrier = s.ship_via
-,	TrailerNumber = coalesce( nullif(s.truck_number,''), convert(varchar(max),s.id))
+,	TrailerNumber =LEFT( coalesce( nullif(s.truck_number,''), convert(varchar(max),s.id)),10)
 ,	TransMode = s.trans_mode
 ,	PackingListNumber = s.id
 ,	REFBMValue = coalesce(s.bill_of_lading_number, id)
@@ -38,4 +41,5 @@ from
 		dbo.destination d on es.destination = d.destination
 	left join
 		dbo.bill_of_lading bol on s.bill_of_lading_number = bol_number
+
 GO

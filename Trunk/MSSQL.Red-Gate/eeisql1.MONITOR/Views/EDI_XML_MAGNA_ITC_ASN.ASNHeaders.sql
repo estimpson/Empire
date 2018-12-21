@@ -3,7 +3,7 @@ GO
 SET ANSI_NULLS ON
 GO
 
-create view [EDI_XML_MAGNA_ITC_ASN].[ASNHeaders]
+CREATE view [EDI_XML_MAGNA_ITC_ASN].[ASNHeaders]
 as
 select
 	ShipperID = s.id
@@ -13,12 +13,12 @@ select
 ,	ASNTime = getdate()
 ,	GrossWeight = convert(int,s.gross_weight)
 ,	NetWeight = convert(int,s.net_weight)
-,	PackCount = s.staged_objs
+,	PackCount = COALESCE(NULLIF(s.staged_objs,0), ISNULL(ShipperDetail.sdBoxesStaged,0),0 )
 ,	ShipDateTime = s.date_shipped
 ,	TimeZonecode = [dbo].[udfGetDSTIndication](date_shipped)
 ,	SCAC = s.ship_via
 ,	TransMode = s.trans_mode
-,	TrailerNumber = coalesce(s.truck_number, s.id)
+,	TrailerNumber = coalesce(s.truck_number, CONVERT(VARCHAR(50),s.id))
 ,	EquipDesc = coalesce( es.equipment_description, 'TL')
 ,	EquipInitial = coalesce( bol.equipment_initial, s.ship_via)
 ,	REFBMValue = coalesce(s.bill_of_lading_number, s.id)
@@ -38,4 +38,5 @@ from
 		on bol.bol_number = s.bill_of_lading_number
 	join dbo.destination d
 		on d.destination = s.destination
+	OUTER APPLY ( SELECT TOP 1 CONVERT(INT, SUM(sd.boxes_staged) ) sdBoxesStaged FROM shipper_detail sd WHERE sd.shipper = s.id AND sd.boxes_staged IS NOT NULL ) AS ShipperDetail
 GO

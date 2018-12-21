@@ -5,7 +5,6 @@ GO
 
 
 
-
 CREATE procedure [EEIUser].[acctg_csm_sp_roll_forward_CSM_data_one_month] 
 	@prior_release_id varchar(10)
 ,	@current_release_id varchar(10)
@@ -209,8 +208,13 @@ insert into eeiuser.acctg_csm_base_part_attributes
 		,[Salesperson]
 		,[date_of_award]
 		,[type_of_award]
+		,[mid_model_year]
+		,[empire_eop_note]
+		,[verified_eop]
+		,[verified_eop_date]
 )
-select @current_release_id
+select 
+	  @current_release_id
       ,[base_part]
       ,[family]
       ,[customer]
@@ -225,6 +229,10 @@ select @current_release_id
       ,[Salesperson]
 	  ,[date_of_award]
 	  ,[type_of_award]
+	  ,[mid_model_year]
+	  ,[empire_eop_note]
+	  ,[verified_eop]
+	  ,[verified_eop_date]
 FROM	[EEIUser].[acctg_csm_base_part_attributes]
 where	release_id = @prior_release_id
 
@@ -244,6 +252,55 @@ if	@RowCount < 1 begin
 	rollback tran @ProcName
 	return
 end
+
+
+
+
+--4b.  Copy over mneumonics from prior month to current month
+
+-- select * from eeiuser.acctg_csm_base_part_mnemonic
+
+-- delete from eeiuser.acctg_csm_base_part_mnemonic where release_id = '2018-02'
+
+--- <Insert rows="1+">
+set	@TableName = 'EEIUser.acctg_csm_base_part_mnemonic'
+insert into eeiuser.acctg_csm_base_part_mnemonic
+(	RELEASE_ID
+      ,FORECAST_ID
+      ,MNEMONIC
+      ,BASE_PART
+      ,QTY_PER
+      ,TAKE_RATE
+      ,FAMILY_ALLOCATION
+)
+select 
+	@current_release_id
+      ,FORECAST_ID
+      ,MNEMONIC
+      ,BASE_PART
+      ,QTY_PER
+      ,TAKE_RATE
+      ,FAMILY_ALLOCATION
+FROM	[EEIUser].acctg_csm_base_part_mnemonic
+where	release_id = @prior_release_id
+
+select
+	@Error = @@Error,
+	@RowCount = @@Rowcount
+	
+if	@Error != 0 begin
+	set	@Result = 999999
+	RAISERROR ('Error inserting into table %s in procedure %s.  Error: %d', 16, 1, @TableName, @ProcName, @Error)
+	rollback tran @ProcName
+	return
+end
+if	@RowCount < 1 begin
+	set	@Result = 999999
+	RAISERROR ('Error inserting into table %s in procedure %s.  Rows inserted: %d.  Expected rows: 1+.', 16, 1, @TableName, @ProcName, @RowCount)
+	rollback tran @ProcName
+	return
+end
+
 
 
 
@@ -527,7 +584,6 @@ end
 
 
 
-
 ---	<CloseTran AutoCommit=Yes>
 if	@TranCount = 0 begin
 	commit tran @ProcName
@@ -540,7 +596,4 @@ set	@Result = 0
 return
 	@Result
 --- </Return>
-
-
-
 GO

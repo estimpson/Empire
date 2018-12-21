@@ -18,12 +18,18 @@ select
 	OnTime = (	select	COUNT(1)
 				from	EEIUser.QT_QuoteLog
 				where	DATEPART(yyyy, CustomerQuoteDate) = @CurrentYear
-						and CustomerQuoteDate is not null
-						and CustomerQuoteDate <= EEIPromisedDueDate)
+						--and CustomerQuoteDate is not null
+						--and CustomerQuoteDate <= EEIPromisedDueDate
+						and EngineeringMaterialsDate is not null
+						and QuoteStatus != 'NO QUOTE'
+						and EngineeringMaterialsDate <= EEIPromisedDueDate)
 ,	Late = (	select	COUNT(1)
 				from	EEIUser.QT_QuoteLog
 				where	DATEPART(yyyy, CustomerQuoteDate) = @CurrentYear
-						and CustomerQuoteDate is not null
-						and CustomerQuoteDate > EEIPromisedDueDate)
+						--and CustomerQuoteDate is not null
+						--and CustomerQuoteDate > EEIPromisedDueDate
+						and EngineeringMaterialsDate is not null
+						and QuoteStatus != 'NO QUOTE'
+						and EngineeringMaterialsDate > EEIPromisedDueDate)
 --- </Body>
 GO

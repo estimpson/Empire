@@ -120,7 +120,9 @@ select	@base_part as [basepart],
 
 		AA.[total_2021]*BB.[total_2021] as [total_2021],
 		AA.[total_2022]*BB.[total_2022] as [total_2022],
-		AA.[total_2023]*BB.[total_2023] as [total_2023]
+		AA.[total_2023]*BB.[total_2023] as [total_2023],
+		AA.[total_2024]*BB.[total_2024] as [total_2024],
+		AA.[total_2025]*BB.[total_2025] as [total_2025]
 from 
 		(	select	a.BASE_PART, 
 					ISNULL(sum(a.qty_per*a.take_rate*a.family_allocation*b.[Jan 2015]),0) as [jan 2015], 
@@ -225,7 +227,9 @@ from
 
 					ISNULL(sum(a.qty_per*a.take_rate*a.family_allocation*b.[CY 2021]),0) as [total_2021], 
 					ISNULL(sum(a.qty_per*a.take_rate*a.family_allocation*b.[CY 2022]),0) as [total_2022],
-					ISNULL(sum(a.qty_per*a.take_rate*a.family_allocation*b.[CY 2023]),0) as [total_2023]
+					ISNULL(sum(a.qty_per*a.take_rate*a.family_allocation*b.[CY 2023]),0) as [total_2023],
+					ISNULL(sum(a.qty_per*a.take_rate*a.family_allocation*b.[CY 2024]),0) as [total_2024],
+					ISNULL(sum(a.qty_per*a.take_rate*a.family_allocation*b.[CY 2025]),0) as [total_2025]
 					
 			from 
 					(	select	* 
@@ -349,7 +353,9 @@ from
 					
 					ISNULL(b.[CY 2021],0) as [total_2021], 
 					ISNULL(b.[CY 2022],0) as [total_2022],
-					ISNULL(b.[CY 2023],0) as [total_2023]
+					ISNULL(b.[CY 2023],0) as [total_2023],
+					ISNULL(b.[CY 2024],0) as [total_2024],
+					ISNULL(b.[CY 2025],0) as [total_2025]
 			from 
 					(	select	* 
 						from	eeiuser.acctg_csm_base_part_mnemonic

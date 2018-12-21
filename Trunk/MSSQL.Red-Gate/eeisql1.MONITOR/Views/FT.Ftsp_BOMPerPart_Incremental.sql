@@ -4,6 +4,7 @@ SET ANSI_NULLS ON
 GO
 
 
+
 CREATE view  [FT].[Ftsp_BOMPerPart_Incremental]
 
 
@@ -101,7 +102,7 @@ select	Base_part = left(XRT.ChildPart,7),
 from	FT.XRt XRT
 		 join	part on XRt.ChildPart = part.part
 	LEFT JOIN	part_standard eei_ps ON XRT.ChildPart = eei_ps.part
-	LEFT JOIN	eehreport1.monitor.dbo.part_standard eeh_ps on XRT.ChildPart = eeh_ps.part
+	LEFT JOIN	eehsql1.monitor.dbo.part_standard eeh_ps on XRT.ChildPart = eeh_ps.part
 	LEFT JOIN	part_machine PM on XRt.ChildPart = PM.part and PM.sequence = 1
 		
 where	left(XRt.ChildPart,3) = left(xrt.topPart,3)
@@ -122,6 +123,7 @@ where	left(XRt.ChildPart,3) = left(xrt.topPart,3)
 )bb 
 
 on aa.TopPart = bb.TopPart
+
 
 
 

@@ -120,7 +120,9 @@ Total_2021 decimal(19,0),
 
 Total_2021 decimal(19,0),
 Total_2022 decimal(19,0),
-Total_2023 decimal(19,0) )
+Total_2023 decimal(19,0), 
+Total_2024 decimal(19,0),
+Total_2025 decimal(19,0))
 
 
 insert into @actual
@@ -227,7 +229,9 @@ sum([Dec 2021]) as [Dec 2021],
 
 sum([total_2021]) as [total_2021],
 sum([total_2022]) as [total_2022],
-sum([total_2023]) as [total_2023]
+sum([total_2023]) as [total_2023],
+sum([total_2024]) as [total_2024],
+sum([total_2025]) as [total_2025]
 from (
 select
 'Planner Demand' as description,
@@ -333,7 +337,9 @@ sum(dec_21) as [Dec 2021],
 
 sum(0) as total_2021,
 sum(0) as total_2022,
-sum(0) as total_2023
+sum(0) as total_2023,
+sum(0) as total_2024,
+sum(0) as total_2025
 
 from
 (select 
@@ -431,7 +437,7 @@ from
 */
 
 from order_detail
-where datepart(yyyy,due_date) in ('2015','2016','2017','2018','2019','2020','2021')
+where datepart(yyyy,due_date) in ('2015','2016','2017','2018','2019','2020','2021','2022','2023')
 and left(part_number,7) = @base_part
 group by due_date) a
 union
@@ -539,7 +545,9 @@ sum(b.dec_21) as [Dec 2021],
 
 sum(0) as total_2021,
 sum(0) as total_2022,
-sum(0) as total_2023
+sum(0) as total_2023,
+sum(0) as total_2024,
+sum(0) as total_2025
 
 from
 (select
@@ -638,7 +646,7 @@ from
 
 from shipper_detail, shipper
 where shipper.id = shipper_detail.shipper and
-datepart(yyyy,shipper.date_shipped) in ('2015','2016','2017','2018','2019','2020','2021')
+datepart(yyyy,shipper.date_shipped) in ('2015','2016','2017','2018','2019','2020','2021','2022','2023')
 and isnull(shipper.type,'S')<>'T'
 and left(part_original,7)=@base_part
 group by shipper.date_shipped) b
@@ -750,7 +758,9 @@ Dec_21 decimal(19,0),
 
 Total_2021 decimal(19,0),
 Total_2022 decimal(19,0),
-Total_2023 decimal(19,0))
+Total_2023 decimal(19,0),
+Total_2024 decimal(19,0),
+Total_2025 decimal(19,0) )
 
 insert into @forecast
 select 
@@ -857,7 +867,10 @@ sum([Dec 2021]) as [Dec 2021],
 
 sum([total_2021]) as [total_2021],
 sum([total_2022]) as [total_2022],
-sum([total_2023]) as [total_2023]
+sum([total_2023]) as [total_2023],
+sum([total_2024]) as [total_2024],
+sum([total_2025]) as [total_2025]
+
 from (
 select	@base_part as [base_part],
 		b.version,
@@ -974,7 +987,9 @@ select	@base_part as [base_part],
 	 
 		ISNULL((case when b.version in ('Empire Factor','Empire Adjustment') then ISNULL(b.[CY 2021],0) else a.qty_per*a.take_rate*a.family_allocation*b.[CY 2021] end),0) as [total_2021], 
 		ISNULL((case when b.version in ('Empire Factor','Empire Adjustment') then ISNULL(b.[CY 2022],0) else a.qty_per*a.take_rate*a.family_allocation*b.[CY 2022] end),0) as [total_2022],
-		ISNULL((case when b.version in ('Empire Factor','Empire Adjustment') then ISNULL(b.[CY 2023],0) else a.qty_per*a.take_rate*a.family_allocation*b.[CY 2023] end),0) as [total_2023]
+		ISNULL((case when b.version in ('Empire Factor','Empire Adjustment') then ISNULL(b.[CY 2023],0) else a.qty_per*a.take_rate*a.family_allocation*b.[CY 2023] end),0) as [total_2023],
+		ISNULL((case when b.version in ('Empire Factor','Empire Adjustment') then ISNULL(b.[CY 2024],0) else a.qty_per*a.take_rate*a.family_allocation*b.[CY 2024] end),0) as [total_2024],
+		ISNULL((case when b.version in ('Empire Factor','Empire Adjustment') then ISNULL(b.[CY 2025],0) else a.qty_per*a.take_rate*a.family_allocation*b.[CY 2025] end),0) as [total_2025]
 from 
 		(	select	* 
 			from	eeiuser.acctg_csm_base_part_mnemonic
@@ -1117,7 +1132,9 @@ select	@base_part as base_part,
 		
 		ISNULL(b.[CY 2021] ,0) as [total_2021], 
 		ISNULL(b.[CY 2022] ,0) as [total_2022],
-		ISNULL(b.[CY 2023] ,0) as [total_2023]
+		ISNULL(b.[CY 2023] ,0) as [total_2023],
+		ISNULL(b.[CY 2024] ,0) as [total_2024],
+		ISNULL(b.[CY 2025] ,0) as [total_2025]
 from 
 		(	select	* 
 			from	eeiuser.acctg_csm_base_part_mnemonic

@@ -12,13 +12,26 @@ CREATE function [HN].[fn_CrearInfoDashboard_Summary]
 
 /*
 	
-	SELECT	* FROM	HN.fn_CrearInfoDashboard_Summary(37,NULL,'EEI',NULL)
-
+	SELECT	* FROM	HN.fn_CrearInfoDashboard_Summary(24,NULL,'EEI',NULL)
+	Select *
+	from TemporalDataDashboard
+	where part_number='ALI0147-HQ00'
+	order by due_date
+	SELECT   Origen.Part_Number
+			,Quantity=sum(convert(int,origen.quantity))
+			,Origen.Due_Date
+			,Origen.Customer_Part
+	FROM order_detail origen 
+	where part_number='ALI0147-HQ00'
+	group by Origen.Part_Number,Origen.Due_Date,Origen.Customer_Part
+	order by due_date
 */
 
 
 returns @ReturnData table
 (	PartNumber					varchar(25)
+,	PriorityOrderDT				datetime
+,   PriorityOrderQty				int
 ,	QtyPartWK					int
 ,	BoxesWk						int
 ,	HoursWK						numeric(18,2)
@@ -87,6 +100,8 @@ GROUP BY part--,PieceRate
 --insert return data
 insert @ReturnData
 select	FinalData.PartNumber,
+		Orders.FirstOrderDT,
+		Orders.quantity,
 		FinalData.NeedSortedWeekly,
 		FinalData.NeedSortedBoxesWeekly,
 		FinalData.HoursRequiredWeekly,
@@ -103,7 +118,7 @@ select	FinalData.PartNumber,
 		--,FinalData.Acum_SecondsPieceRate
 		--,FinalData.DiasIdeales
 from	(
-	Select	PartNumber=part_number,
+	Select	PartNumber=part_number,		
 			NeedSortedWeekly=Sum(Sort_needed),
 			NeedSortedBoxesWeekly=ceiling(sum(sort_needed  / pi.standard_pack)),
 			HoursRequiredWeekly=Sum(Hours_required),
@@ -137,7 +152,19 @@ from	(
 	Group By part_number,DiasIdeales,pi.standard_pack
 			--Factor.factor,
 )FinalData
+	left join (Select part_number, quantity= min(quantity), FirstOrderDT=min(FirstOrderDT)
+				From [dbo].[TemporalDataDashboard]  db
+					inner join (Select Part= part_number, FirstOrderDT= MIN(convert(date,due_date))
+								From [dbo].[TemporalDataDashboard] 
+								group by part_number
+								) Fecha
+						on db.part_number = Fecha.part
+						and convert(date,db.due_date) = Fecha.FirstOrderDT
+				group by part_number) Orders
+		on FinalDAta.PartNumber = Orders.part_number
 	
+
+
 	return
 end
 GO

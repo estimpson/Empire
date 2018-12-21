@@ -8,6 +8,7 @@ GO
 
 
 
+
 -- exec eeiuser.acctg_inv_sp_reconciliation_daily_chooseable '2015-06-30','2015-07-31','153011','WIRE HARN - EEH','F'
 
 
@@ -194,6 +195,7 @@ where	gct.ledger = @ledger
 	and gct.monitor_transaction_date >= @adjbegdate
 	and gct.monitor_transaction_date < @adjenddate
 	and gct.period != 0 
+	and gct.balance_name = 'Actual'
 	AND NOT EXISTS (SELECT 1 FROM #Acctg_InvChange WHERE #Acctg_InvChange.part = gct.monitor_part)
 GROUP BY
 	gct.monitor_part
@@ -282,7 +284,8 @@ FROM
 			and fiscal_year between convert(varchar,datepart(yyyy,@adjbegdate)) and convert(varchar,datepart(yyyy,@adjenddate))  
 			and gct.monitor_transaction_date >= @adjbegdate
 			and gct.monitor_transaction_date < @adjenddate
-			and gct.period != 0 
+			and gct.period != 0
+			and gct.balance_name = 'ACTUAL' 
 	) a
 
 
@@ -334,6 +337,7 @@ order by #acctg_invchange.currentproductline
 		,#acctg_invchange.part
 option(recompile)
 end
+
 
 
 

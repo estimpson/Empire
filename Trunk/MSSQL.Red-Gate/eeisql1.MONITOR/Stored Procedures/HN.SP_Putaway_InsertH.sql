@@ -53,7 +53,7 @@ set	@TranDT = coalesce(@TranDT, GetDate())
 declare
     @TranType char(1) = 'H'
 ,   @Remark varchar(10) = 'Phys Scan'
-,   @Notes varchar(50) = 'Serial scanned during physical inventory.'
+,   @Notes varchar(50) = 'Serial scanned during physical inventory.2'
 declare @SuffixFISLocationByPlant varchar(5)
 
 if upper(rtrim(ltrim(@plant))) = 'EEI'
@@ -91,6 +91,7 @@ insert
 ,	std_cost
 ,	user_defined_status
 ,	tare_weight
+,	warehousefreightlot
 )
 select
 	o.serial
@@ -115,6 +116,7 @@ select
 ,	std_cost = o.cost
 ,	o.user_defined_status
 ,	o.tare_weight
+,	o.warehousefreightlot
 from
 	dbo.object o
 where
@@ -135,7 +137,7 @@ end
 
 set @TranType = 'G'
 set @Remark = 'Begin Phys'
-set @Notes  = 'Begin a physical inventory.'
+set @Notes  = 'Begin a physical inventory.2'
 
 --- <Insert rows="*">
 set	@TableName = 'dbo.audit_trail'
@@ -164,6 +166,7 @@ insert
 ,	std_cost
 ,	user_defined_status
 ,	tare_weight
+,	warehousefreightlot
 )
 select
 	o.serial
@@ -188,6 +191,7 @@ select
 ,	std_cost = o.cost
 ,	o.user_defined_status
 ,	o.tare_weight
+,	o.warehousefreightlot
 from
 	dbo.object o
 where (o.serial = @BoxSerial or 

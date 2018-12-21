@@ -6,6 +6,7 @@ GO
 
 
 
+
 CREATE VIEW [dbo].[vw_empower_transactions_by_posting_account] AS
 SELECT
 	monitor_inventory_transactions.monitor_audit_trail_id,
@@ -19,7 +20,8 @@ SELECT
 	SUM(monitor_inventory_transaction_allocations.monitor_amount) amount,
 	monitor_inventory_documents.fiscal_year,
 	monitor_inventory_documents.ledger,
-	monitor_inventory_documents.period 
+	monitor_inventory_documents.period,
+	monitor_inventory_documents.balance_name 
 FROM
 	Empower..monitor_inventory_transactions INNER JOIN
 	Empower..monitor_inventory_transaction_allocations ON
@@ -38,7 +40,8 @@ GROUP BY
 	monitor_inventory_transaction_allocations.posting_account,
 	monitor_inventory_documents.fiscal_year,
 	monitor_inventory_documents.ledger,
-	monitor_inventory_documents.period 
+	monitor_inventory_documents.period,
+	monitor_inventory_documents.balance_name
 UNION ALL
 SELECT
 	monitor_po_receiver_transactions.monitor_audit_trail_id,
@@ -57,7 +60,8 @@ SELECT
 	END amount,
 	po_receivers.fiscal_year,
 	po_receivers.ledger,
-	po_receivers.period
+	po_receivers.period,
+	po_receivers.balance_name
 FROM
 	Empower..monitor_po_receiver_transactions INNER JOIN
 	Empower..po_receiver_items ON
@@ -95,7 +99,8 @@ SELECT
 	,gl_cost_transactions.document_amount amount
 	,je_documents.fiscal_year
 	,je_documents.ledger
-	,je_documents.period 
+	,je_documents.period
+	,je_documents.balance_name
 FROM
 	Empower..je_documents INNER JOIN
 	Empower..gl_cost_transactions ON
@@ -106,6 +111,7 @@ FROM
 WHERE
 	gl_cost_transactions.update_ledger_balances = 1 AND
 	gl_cost_transactions.approved = 1
+
 
 
 

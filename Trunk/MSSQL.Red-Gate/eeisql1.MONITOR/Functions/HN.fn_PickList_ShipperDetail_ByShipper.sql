@@ -40,7 +40,7 @@ begin
 
 
 	Insert into @TempoObject_SumPart
-	SELECT	o.crossRef,
+	SELECT	distinct o.crossRef,
 			o.part, 
 			weeks_on_stock=weeks_on_stock,
 			Available =sum( CASE WHEN ISNULL(SHIPPER,-1) = @ShipperID THEN 0 ELSE quantity END),
@@ -72,7 +72,7 @@ begin
 	,	BoxesPicked
 	
 	)
-	Select 
+	Select distinct
 		Prioridad = row_number() over (Partition by  CrossRef, part, StandardPack order by weeks_on_stock desc),
 		@ShipperID,
 		CrossRef, 

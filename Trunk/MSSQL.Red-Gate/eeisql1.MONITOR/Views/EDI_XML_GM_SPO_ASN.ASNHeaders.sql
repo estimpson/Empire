@@ -4,6 +4,7 @@ SET ANSI_NULLS ON
 GO
 
 
+
 CREATE VIEW [EDI_XML_GM_SPO_ASN].[ASNHeaders]
 AS
 SELECT
@@ -23,10 +24,12 @@ SELECT
 ,	SupplierCode = es.supplier_code
 ,	TransMode = s.trans_mode
 ,	ProNumber = s.pro_number
+,	CNNumber = RIGHT(s.aetc_number,7)
 FROM
 	dbo.shipper s 
 	JOIN dbo.edi_setups es
 		ON es.destination = s.destination
 	
+
 
 GO

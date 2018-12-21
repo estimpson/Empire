@@ -3,13 +3,14 @@ GO
 SET ANSI_NULLS ON
 GO
 
-create view [EDI_XML_NALPLEX_ASN].[ASNObjects]
+
+CREATE view [EDI_XML_NALPLEX_ASN].[ASNObjects]
 as
 select
 	ShipperID = s.id
 ,	CustomerPart = sd.customer_part
 ,	CustomerSerial = 'AAV' + convert(varchar(12), at.serial)
---,	at.std_quantity 
+,	at.quantity
 from
 	dbo.shipper s
 	join dbo.shipper_detail sd
@@ -20,4 +21,5 @@ from
 		and at.part = sd.part
 where
 	coalesce(s.type, 'N') in ('N', 'M')
+
 GO

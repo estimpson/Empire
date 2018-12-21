@@ -5,10 +5,15 @@ GO
 
 
 
+-- select * from eeiuser.acctg_csm_vw_select_material_cost where version <> 'Current Cost 2018-10-08'
+
 
 CREATE view [EEIUser].[acctg_csm_vw_select_material_cost]
 as
 select		base_part, 
+			version as lastupdated, 
+			partusedforcost,
+
 			sum(jan_10) as mc_jan_10,
 			sum(feb_10) as mc_feb_10,
 			sum(mar_10) as mc_mar_10,
@@ -155,22 +160,16 @@ select		base_part,
 			sum(dec_21) as mc_dec_21,
 			sum(dec_22) as mc_dec_22,
 			sum(dec_23) as mc_dec_23,
-			sum(dec_24) as mc_dec_24
+			sum(dec_24) as mc_dec_24,
+			sum(dec_25) as mc_dec_25
 
 from		eeiuser.acctg_csm_material_cost_tabular	 
 
 where		release_id = (Select	[dbo].[fn_ReturnLatestCSMRelease] ('CSM') ) 
 
-group by	base_part
-
-
-
-
-
-
-
-
-
+group by	base_part,
+			version,
+			partusedforcost
 
 
 

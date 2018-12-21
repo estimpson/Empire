@@ -385,6 +385,8 @@ begin
 					where
 						psh.FinishedPart = @FinishedPart
 				)
+			,	@Revision varchar(25) = right(datepart(yy, getdate()), 2) + '.' + right('0' + convert(varchar(8),datepart(wk, getdate())), 2) + '.000'
+			,	@NewPlanningSnapshotID hierarchyid
 
 			if	@PartRoot is null begin
 				/*	Create root. */
@@ -420,94 +422,138 @@ begin
 								)
 					)
 
+				set	@NewPlanningSnapshotID = hierarchyid::GetRoot().GetDescendant(@PriorPartRoot, @PostPartRoot)
+			end
+			else begin
 				declare
-					@NewPartRoot hierarchyid = hierarchyid::GetRoot().GetDescendant(@PriorPartRoot, @PostPartRoot)
-
-				/*	Write Planning Snapshot XML. */
-				begin
-					set @Debug += 2
-
-					--- <Insert rows="1">
-					set	@TableName = 'TOPS.PlanningSnapshots'
+					@PriorChild hierarchyid =
+							(	select
+									min(psh.PlanningSnapshotID)
+								from
+									TOPS.PlanningSnapshotHeaders psh
+								where
+									psh.FinishedPart = @FinishedPart
+									and psh.PlanningSnapshotID.GetAncestor(1) = @PartRoot
+									and psh.Revision =
+										(	select
+												max(psh2.Revision)
+											from
+												TOPS.PlanningSnapshotHeaders psh2
+											where
+												psh2.FinishedPart = @FinishedPart
+												and psh2.PlanningSnapshotID.GetAncestor(1) = @PartRoot
+												and psh2.Revision < @Revision
+										)
+							)
 				
-					insert
-						TOPS.PlanningSnapshots
-					(	FinishedPart
-					,	Revision
-					,	PlanningXML
-					)
-					select
-						FinishedPart = @FinishedPart
-					,	Revision = right(datepart(yy, getdate()), 2) + '.' + right('0' + convert(varchar(8),datepart(wk, getdate())), 2) + '.000'
-					,	PlanningXML = @PlanningSnapshotXML
-				
-					select
-						@RowCount = @@Rowcount
-				
-					if	@RowCount != 1 begin
-						set	@Result = 999999
-						RAISERROR ('Error inserting into table %s in procedure %s.  Rows inserted: %d.  Expected rows: 1.', 16, 1, @TableName, @ProcName, @RowCount)
-					end
-					--- </Insert>
+				declare
+					@PostChild hierarchyid =
+							(	select
+									min(psh.PlanningSnapshotID)
+								from
+									TOPS.PlanningSnapshotHeaders psh
+								where
+									psh.FinishedPart = @FinishedPart
+									and psh.PlanningSnapshotID.GetAncestor(1) = @PartRoot
+									and psh.Revision =
+										(	select
+												max(psh2.Revision)
+											from
+												TOPS.PlanningSnapshotHeaders psh2
+											where
+												psh2.FinishedPart = @FinishedPart
+												and psh2.PlanningSnapshotID.GetAncestor(1) = @PartRoot
+												and psh2.Revision > @Revision
+										)
+							)
 
-					declare
-						@PlanningSnapshotGUID uniqueidentifier =
-						(	select top(1)
-								ps.RowGUID
-							from
-								TOPS.PlanningSnapshots ps
-							where
-								ps.RowID = scope_identity()
-							order by
-								ps.RowID
-						)
+				set	@NewPlanningSnapshotID = @PartRoot.GetDescendant(@PriorChild, @PostChild)
+			end
 
-					--- <TOC>
-					if	@Debug & 0x01 = 0x01 begin
-						exec FXSYS.usp_SPTock
-							@StepDescription = N'Write Planning Snapshot XML'
-						,	@TicDT = @TicDT
-						,	@TocDT = @TocDT out
-						,	@Debug = @Debug
-						,	@DebugMsg = @DebugMsg out
-									
-						set @TicDT = @TocDT
-					end
-					--- </TOC>
-					set @DebugMsg += coalesce(char(13) + char(10) + @cDebugMsg, N'')
-					set @cDebugMsg = null
-					set @Debug -= 2
-				end
-				
+			/*	Write Planning Snapshot XML. */
+			begin
+				set @Debug += 2
+
 				--- <Insert rows="1">
-				set	@TableName = 'TOPS.PlanningSnapshotHeaders'
-	
+				set	@TableName = 'TOPS.PlanningSnapshots'
+				
 				insert
-					TOPS.PlanningSnapshotHeaders
+					TOPS.PlanningSnapshots
 				(	FinishedPart
 				,	Revision
-				,	PlanningSnapshotID
-				,	PlanningCalendarGUID
-				,	PlanningSnapshotGUID
-				,	HolidayScheduleGUID
+				,	PlanningXML
 				)
 				select
 					FinishedPart = @FinishedPart
-				,	Revision = right(datepart(yy, getdate()), 2) + '.' + right('0' + convert(varchar(8),datepart(wk, getdate())), 2) + '.000'
-				,	PlanningSnapshotID = @NewPartRoot
-				,	PlanningSnapshotXML = @PlanningCalendarGUID
-				,	PlanningSnapshotGUID = @PlanningSnapshotGUID
-				,	HolidayScheduleGUID = null
-
+				,	Revision = @revision
+				,	PlanningXML = @PlanningSnapshotXML
+				
 				select
 					@RowCount = @@Rowcount
-	
+				
 				if	@RowCount != 1 begin
 					set	@Result = 999999
 					RAISERROR ('Error inserting into table %s in procedure %s.  Rows inserted: %d.  Expected rows: 1.', 16, 1, @TableName, @ProcName, @RowCount)
 				end
 				--- </Insert>
+
+				declare
+					@PlanningSnapshotGUID uniqueidentifier =
+					(	select top(1)
+							ps.RowGUID
+						from
+							TOPS.PlanningSnapshots ps
+						where
+							ps.RowID = scope_identity()
+						order by
+							ps.RowID
+					)
+
+				--- <TOC>
+				if	@Debug & 0x01 = 0x01 begin
+					exec FXSYS.usp_SPTock
+						@StepDescription = N'Write Planning Snapshot XML'
+					,	@TicDT = @TicDT
+					,	@TocDT = @TocDT out
+					,	@Debug = @Debug
+					,	@DebugMsg = @DebugMsg out
+									
+					set @TicDT = @TocDT
+				end
+				--- </TOC>
+				set @DebugMsg += coalesce(char(13) + char(10) + @cDebugMsg, N'')
+				set @cDebugMsg = null
+				set @Debug -= 2
 			end
+				
+			--- <Insert rows="1">
+			set	@TableName = 'TOPS.PlanningSnapshotHeaders'
+	
+			insert
+				TOPS.PlanningSnapshotHeaders
+			(	FinishedPart
+			,	Revision
+			,	PlanningSnapshotID
+			,	PlanningCalendarGUID
+			,	PlanningSnapshotGUID
+			,	HolidayScheduleGUID
+			)
+			select
+				FinishedPart = @FinishedPart
+			,	Revision = right(datepart(yy, getdate()), 2) + '.' + right('0' + convert(varchar(8),datepart(wk, getdate())), 2) + '.000'
+			,	PlanningSnapshotID = @NewPlanningSnapshotID
+			,	PlanningSnapshotXML = @PlanningCalendarGUID
+			,	PlanningSnapshotGUID = @PlanningSnapshotGUID
+			,	HolidayScheduleGUID = null
+
+			select
+				@RowCount = @@Rowcount
+	
+			if	@RowCount != 1 begin
+				set	@Result = 999999
+				RAISERROR ('Error inserting into table %s in procedure %s.  Rows inserted: %d.  Expected rows: 1.', 16, 1, @TableName, @ProcName, @RowCount)
+			end
+			--- </Insert>
 
 			--- <TOC>
 			if	@Debug & 0x01 = 0x01 begin

@@ -4,14 +4,15 @@ SET ANSI_NULLS ON
 GO
 
 
-CREATE procedure [EDIAutoLiv].[usp_Process]
-	@TranDT datetime = null out
-,	@Result integer = null out
-,	@Testing int = 1
+
+CREATE PROCEDURE [EDIAutoLiv].[usp_Process]
+	@TranDT DATETIME = NULL OUT
+,	@Result INTEGER = NULL OUT
+,	@Testing INT = 1
 --<Debug>
-,	@Debug integer = 0
+,	@Debug INTEGER = 0
 --</Debug>
-as
+AS
 set nocount on
 set ansi_warnings on
 set	@Result = 999999
@@ -22,8 +23,8 @@ declare	@StartDT datetime
 if @Debug & 1 = 1 begin
 	set	@StartDT = GetDate ()
 	print	'START.   ' + Convert (varchar (50), @StartDT)
-	set	@ProcStartDT = GetDate ()
-end
+	SET	@ProcStartDT = GETDATE ()
+END
 --</Debug>
 
 --- <Error Handling>
@@ -47,9 +48,9 @@ set	@TranCount = @@TranCount
 if	@TranCount = 0 begin
 	begin tran @ProcName
 end
-else begin
-	save tran @ProcName
-end
+ELSE BEGIN
+	SAVE TRAN @ProcName
+END
 set	@TranDT = coalesce(@TranDT, GetDate())
 --- </Tran>
 
@@ -62,8 +63,8 @@ set	@TranDT = coalesce(@TranDT, GetDate())
 if @Debug & 1 = 1 begin
 	print	'Determine the current 830s and 862s.'
 	print	'	Active are all 862s for a Ship To / Ship From / last Document DT / last Imported Version (for Document Number / Control Number).'
-	set	@StartDT = GetDate ()
-end
+	SET	@StartDT = GETDATE ()
+END
 --</Debug>
 /*	Determine the current 830s and 862s. */
 /*		Active are all 862s for a Ship To / Ship From / last Document DT / last Imported Version (for Document Number / Control Number).*/
@@ -163,14 +164,14 @@ if	not exists
 	and @Testing = 0 begin
 	set @Result = 100
 	rollback transaction @ProcName
-	return
-end
+	RETURN
+END
 
 --<Debug>
 if @Debug & 1 = 1 begin
 	print	'Mark "Active" 862s and 830s.'
-	set	@StartDT = GetDate ()
-end
+	SET	@StartDT = GETDATE ()
+END
 --- <Update rows="*">
 set	@TableName = 'EDIAutoLiv.SchipSchedules'
 
@@ -206,8 +207,8 @@ if	@Error != 0 begin
 	set	@Result = 999999
 	RAISERROR ('Error updating table %s in procedure %s.  Error: %d', 16, 1, @TableName, @ProcName, @Error)
 	rollback tran @ProcName
-	return
-end
+	RETURN
+END
 --- </Update>
 
 --- <Update rows="*">
@@ -245,8 +246,8 @@ if	@Error != 0 begin
 	set	@Result = 999999
 	RAISERROR ('Error updating table %s in procedure %s.  Error: %d', 16, 1, @TableName, @ProcName, @Error)
 	rollback tran @ProcName
-	return
-end
+	RETURN
+END
 --- </Update>
 --<Debug>
 if @Debug & 1 = 1 begin
@@ -290,8 +291,8 @@ if	@Error != 0 begin
 	set	@Result = 999999
 	RAISERROR ('Error updating table %s in procedure %s.  Error: %d', 16, 1, @TableName, @ProcName, @Error)
 	rollback tran @ProcName
-	return
-end
+	RETURN
+END
 --- </Update>
 
 --- <Update rows="*">
@@ -329,8 +330,8 @@ if	@Error != 0 begin
 	set	@Result = 999999
 	RAISERROR ('Error updating table %s in procedure %s.  Error: %d', 16, 1, @TableName, @ProcName, @Error)
 	rollback tran @ProcName
-	return
-end
+	RETURN
+END
 --- </Update>
 --<Debug>
 if @Debug & 1 = 1 begin
@@ -350,18 +351,18 @@ if	@Testing > 1 begin
 	select
 		'PlanningHeaders'
 		
-	select
+	SELECT
 		*
-	from
+	FROM
 		EDIAutoLiv.PlanningHeaders fh
-end
+END
 
 --<Debug>
 if @Debug & 1 = 1 begin
 	print	'Write new releases.'
 	print	'	Calculate raw releases from active 862s and 830s.'
-	set	@StartDT = GetDate ()
-end
+	SET	@StartDT = GETDATE ()
+END
 --</Debug>
 /*	Write new releases. */
 /*		Calculate raw releases from active 862s and 830s. */
@@ -763,19 +764,19 @@ end
 --<Debug>
 if @Debug & 1 = 1 begin
 	print	'	Replace order detail.'
-	set	@StartDT = GetDate ()
-end
+	SET	@StartDT = GETDATE ()
+END
 --</Debug>
 
 if	@Testing = 2 begin
 	select
 		'@RawReleases'
 	
-	select
+	SELECT
 		*
-	from
+	FROM
 		@RawReleases rr
-end
+END
 
 /*		Replace order detail. */
 if	@Testing = 0 begin
@@ -814,8 +815,8 @@ if	@Testing = 0 begin
 		set	@Result = 999999
 		RAISERROR ('Error deleting from table %s in procedure %s.  Error: %d', 16, 1, @TableName, @ProcName, @Error)
 		rollback tran @ProcName
-		return
-	end
+		RETURN
+	END
 	--- </Delete>
 	
 	--- <Insert rows="*">
@@ -934,8 +935,8 @@ where
 		set	@Result = 999999
 		RAISERROR ('Error inserting into table %s in procedure %s.  Error: %d', 16, 1, @TableName, @ProcName, @Error)
 		rollback tran @ProcName
-		return
-	end
+		RETURN
+	END
 	
 	--- </Insert>
 	
@@ -1082,8 +1083,8 @@ where
 			set	@Result = 999999
 			RAISERROR ('Error updating table %s in procedure %s.  Error: %d', 16, 1, @TableName, @ProcName, @Error)
 			rollback tran @ProcName
-			return
-		end
+			RETURN
+		END
 		
 		--- <Update rows="*">
 		set	@TableName = 'dbo.order_header'
@@ -1132,16 +1133,16 @@ where
 			@Error = @@Error,
 			@RowCount = @@Rowcount
 		
-		if	@Error != 0 begin
+		IF	@Error != 0 BEGIN
 			set	@Result = 999999
 			RAISERROR ('Error updating table %s in procedure %s.  Error: %d', 16, 1, @TableName, @ProcName, @Error)
 			rollback tran @ProcName
-			return
-		end
-	end
+			RETURN
+		END
+	END
 	--- </Update>
 --end
-else begin
+ELSE BEGIN
 	if	@Testing > 1 begin
 		select 'raw releases'
 		
@@ -1183,19 +1184,19 @@ else begin
 		
 		/*	to be inserted*/
 		
-		select 'to be inserted'
-	end
+		SELECT 'to be inserted'
+	END
 		
-	select
+	SELECT
 		order_no = rr.OrderNo
 	,	sequence = rr.Line
 	,	part_number = rr.BlanketPart
-	,	product_name = (select name from dbo.part where part = rr.BlanketPart)
-	,	type = case rr.Type when 1 then 'F' when 2 then 'P' end
+	,	product_name = (SELECT name FROM dbo.part WHERE part = rr.BlanketPart)
+	,	type = CASE rr.Type WHEN 1 THEN 'F' WHEN 2 THEN 'P' END
 	,	quantity = rr.RelPost - rr.relPrior
 	,	status = ''
-	,	notes = 'Processed Date : '+ convert(varchar, getdate(), 120) + ' ~ ' + case rr.Type when 1 then 'EDI Processed Release' when 2 then 'EDI Processed Release' end
-	,	unit = (select unit from order_header where order_no = rr.OrderNo)
+	,	notes = 'Processed Date : '+ CONVERT(VARCHAR, GETDATE(), 120) + ' ~ ' + CASE rr.Type WHEN 1 THEN 'EDI Processed Release' WHEN 2 THEN 'EDI Processed Release' END
+	,	unit = (SELECT unit FROM order_header WHERE order_no = rr.OrderNo)
 	,	due_date = rr.ReleaseDT
 	,	release_no = rr.ReleaseNo
 	,	destination = rr.ShipToID
@@ -1206,27 +1207,27 @@ else begin
 	,	packline_qty = 0
 	,	packaging_type = bo.PackageType
 	,	weight = (rr.RelPost - rr.relPrior) * bo.UnitWeight
-	,	plant = (select plant from order_header where order_no = rr.OrderNo)
-	,	week_no = datediff(wk, (select fiscal_year_begin from parameters), rr.ReleaseDT) + 1
+	,	plant = (SELECT plant FROM order_header WHERE order_no = rr.OrderNo)
+	,	week_no = DATEDIFF(wk, (SELECT fiscal_year_begin FROM parameters), rr.ReleaseDT) + 1
 	,	std_qty = rr.RelPost - rr.relPrior
 	,	our_cum = rr.RelPrior
 	,	the_cum = rr.RelPost
-	,	price = (select price from order_header where order_no = rr.OrderNo)
-	,	alternate_price = (select alternate_price from order_header where order_no = rr.OrderNo)
-	,	committed_qty = coalesce
-		(	case
-				when rr.QtyShipper > rr.RelPost - bo.AccumShipped then rr.RelPost - rr.relPrior
-				when rr.QtyShipper > rr.RelPrior - bo.AccumShipped then rr.QtyShipper - (rr.RelPrior - bo.AccumShipped)
-			end
+	,	price = (SELECT price FROM order_header WHERE order_no = rr.OrderNo)
+	,	alternate_price = (SELECT alternate_price FROM order_header WHERE order_no = rr.OrderNo)
+	,	committed_qty = COALESCE
+		(	CASE
+				WHEN rr.QtyShipper > rr.RelPost - bo.AccumShipped THEN rr.RelPost - rr.relPrior
+				WHEN rr.QtyShipper > rr.RelPrior - bo.AccumShipped THEN rr.QtyShipper - (rr.RelPrior - bo.AccumShipped)
+			END
 		,	0
 		)
-	from
+	FROM
 		@RawReleases rr
-		join EDIAutoLiv.BlanketOrders bo
-			on bo.BlanketOrderNo = rr.OrderNo
-	order by
+		JOIN EDIAutoLiv.BlanketOrders bo
+			ON bo.BlanketOrderNo = rr.OrderNo
+	ORDER BY
 		1, 2
-end
+END
 --<Debug>
 if @Debug & 1 = 1 begin
 	print	'	...replaced.   ' + Convert (varchar, DateDiff (ms, @StartDT, GetDate ())) + ' ms'
@@ -1591,7 +1592,7 @@ SELECT
 
 	EXEC msdb.dbo.sp_send_dbmail
 			@profile_name = 'DBMail'-- sysname
-	,		@recipients = 'jjflores@empireelect.hn;vgarcia@empireelect.com;IAragon@empireelect.com'-- varchar(max)
+	,		@recipients = @EmailAddress -- varchar(max)
 	,		@copy_recipients = 'aboulanger@fore-thought.com;dwest@empireelect.com' -- varchar(max)
 	, 		@subject = @EmailHeader
 	,  		@body = @EmailBody
@@ -1648,9 +1649,6 @@ select
 	@Error, @ProcReturn, @TranDT, @ProcResult
 go
 
-
-go
-
 --commit transaction
 rollback transaction
 
@@ -1665,6 +1663,7 @@ go
 Results {
 }
 */
+
 
 
 

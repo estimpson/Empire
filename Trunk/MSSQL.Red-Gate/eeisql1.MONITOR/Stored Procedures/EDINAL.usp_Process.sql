@@ -5,6 +5,9 @@ GO
 
 
 
+
+
+
 CREATE PROCEDURE [EDINAL].[usp_Process]
 	@TranDT DATETIME = NULL OUT
 ,	@Result INTEGER = NULL OUT
@@ -804,6 +807,13 @@ where		c.RawDocumentGUID = fr.RawDocumentGUID
 order by
 	2,1,4
 
+	/* asb FT 02/15/2018 : Set order_header engineering level to 1 for all blanket orders for NAL parts; Per Evan Jennings Andre,
+At this time, we are not planning to change the revision numbers for the parts you supply, i.e. your release numbers should always be 1. Therefore, you should not ever receive releases for the same part with different EC levels.
+Thank you,
+Evan Jennings | Business Systems Analyst */
+
+update order_header Set engineering_level = '1' where blanket_part like 'NAL%'
+
 /*		Calculate orders to update. */
 update
 	rr
@@ -865,10 +875,11 @@ WHERE
 update
 	@RawReleases
 set
-	RelPost =  rr.relPost  + COALESCE(MaxFirmAccum.MaxSSAccum, rr.ReferenceAccum)
+	RelPost =  rr.relPost  + COALESCE(dbo.fn_GreaterOf(MaxFirmAccum.MaxSSAccum,RefPlanAccum.MaxPlnAccum) , rr.ReferenceAccum)
 from
 	@RawReleases rr
 OUTER APPLY (SELECT TOP 1 rr3.RelPost MaxSSAccum FROM @RawReleases rr3 WHERE rr3.ReleaseType =  1 AND rr3.OrderNo = rr.OrderNo order BY rr3.RelPost desc ) AS MaxFirmAccum
+OUTER APPLY (SELECT max(rr4.ReferenceAccum) MaxPlnAccum FROM @RawReleases rr4 WHERE rr4.ReleaseType =  2 AND rr4.OrderNo = rr.OrderNo ) AS RefPlanAccum
 WHERE
 	rr.ReleaseType = 2
 	
@@ -981,7 +992,7 @@ if	@Testing = 2 begin
 	SELECT
 		*
 	FROM
-		@RawReleases rr
+		@RawReleases rr WHERE CustomerPO =  'MUS007288'
 END
 
 /*		Replace order detail. */
@@ -1474,6 +1485,7 @@ Declare @EDIOrdersAlert table (
 	CustomerPart varchar(100) NULL,
 	CustomerPO varchar(100) NULL,
 	CustomerModelYear varchar NULL,
+	SchedulerEMAILAddress VARCHAR(255) NULL,
 	Description varchar (max)
 	)
 		
@@ -1489,6 +1501,7 @@ insert
 	CustomerPart,
 	CustomerPO,
 	CustomerModelYear,
+	SchedulerEMAILAddress,
 	Description 
 )
 
@@ -1503,9 +1516,12 @@ Select
 ,	CustomerPart = Coalesce(a.CustomerPart,'')
 ,	CustomerPO = Coalesce(a.CustomerPO,'')
 ,	CustomerModelYear = Coalesce(a.CustomerModelYear,'')
+,	SchedulerEMAILAddress =  COALESCE([FT].[fn_ReturnSchedulerEMailAddress](bo.scheduler),'')
 ,   Description = 'Please Add Blanket Order to Fx and Reprocess EDI'
 from
 	@Current862s a
+	LEFT JOIN 
+	EDINAL.BlanketOrders bo on 	a.ShipToCode = bo.EDIShipToCode
 Where
 		coalesce(a.newDocument,0) = 1
 and not exists
@@ -1540,9 +1556,12 @@ Select
 ,	CustomerPart = Coalesce(a.CustomerPart,'')
 ,	CustomerPO = Coalesce(a.CustomerPO,'')
 ,	CustomerModelYear = Coalesce(a.CustomerModelYear,'')
+,	SchedulerEMAILAddress =  COALESCE([FT].[fn_ReturnSchedulerEMailAddress](bo.scheduler),'')
 ,   Description = 'Please Add Blanket Order to Fx and Reprocess EDI'
 from
 	@Current830s a
+	LEFT JOIN 
+	EDINAL.BlanketOrders bo on 	a.ShipToCode = bo.EDIShipToCode
 Where
 		coalesce(a.newDocument,0) = 1
 and not exists
@@ -1579,6 +1598,7 @@ Select
 ,	CustomerPart = Coalesce(a.CustomerPart,'')
 ,	CustomerPO = Coalesce(a.CustomerPO,'')
 ,	CustomerModelYear = Coalesce(a.CustomerModelYear,'')
+,	SchedulerEMAILAddress =  COALESCE([FT].[fn_ReturnSchedulerEMailAddress](bo.scheduler),'')
 ,   Description = 'EDI Processed for Fx Blanket Sales Order No: ' + convert(varchar(15), bo.BlanketOrderNo)
 from
 	@Current862s a
@@ -1607,6 +1627,7 @@ Select
 ,	CustomerPart = Coalesce(a.CustomerPart,'')
 ,	CustomerPO = Coalesce(a.CustomerPO,'')
 ,	CustomerModelYear = Coalesce(a.CustomerModelYear,'')
+,	SchedulerEMAILAddress =  COALESCE([FT].[fn_ReturnSchedulerEMailAddress](bo.scheduler),'')
 ,   Description = 'EDI Processed for Fx Blanket Sales Order No: ' + convert(varchar(15), bo.BlanketOrderNo)
 from
 	@Current830s a
@@ -1636,6 +1657,7 @@ Select
 ,	CustomerPart = Coalesce(a.CustomerPart,'')
 ,	CustomerPO = Coalesce(a.CustomerPO,'')
 ,	CustomerModelYear = Coalesce(a.CustomerModelYear,'')
+,	SchedulerEMAILAddress =  COALESCE([FT].[fn_ReturnSchedulerEMailAddress](bo.scheduler),'')
 ,   Description = 'Customer Accum Received != Fx Accum Shipped for BlanketOrder No ' 
 					+ convert(varchar(15), bo.BlanketOrderNo) 
 					+ '  Customer Accum: ' 
@@ -1692,6 +1714,7 @@ Select
 ,	CustomerPart = Coalesce(a.CustomerPart,'')
 ,	CustomerPO = Coalesce(a.CustomerPO,'')
 ,	CustomerModelYear = Coalesce(a.CustomerModelYear,'')
+,	SchedulerEMAILAddress =  COALESCE([FT].[fn_ReturnSchedulerEMailAddress](bo.scheduler),'')
 ,   Description = 'Customer Accum Received != Fx Accum Shipped for BlanketOrder No ' 
 					+ convert(varchar(15), bo.BlanketOrderNo) 
 					+ '  Customer Accum: ' 
@@ -1807,104 +1830,82 @@ join
 	Where
 		coalesce(a.newDocument,0) = 1
 
-
-
-Select	*
-into	#EDIAlerts
-From	@EDIOrdersAlert
-
-Select	TradingPartner ,
-				DocumentType , --'PR - Planning Release; SS - ShipSchedule'
-				AlertType ,
-				ReleaseNo ,
-				ShipToCode,
-				ConsigneeCode ,				
-				CustomerPart ,
-				CustomerPO ,
-				Description 
-				
-into	#EDIAlertsEmail
-From	@EDIOrdersAlert
-
-
-IF EXISTS (SELECT 1 FROM #EDIAlerts)
-
-BEGIN
-
-DECLARE			@EmailAddress NVARCHAR(MAX),
-											@scheduler VARCHAR(MAX)
-
-SELECT
-		@scheduler = MAX(scheduler) 
-				FROM
-						destination
-				WHERE
-						EXISTS
-								( SELECT 1 FROM @RawReleases rr WHERE  rr.ShipToID = destination.destination )
-
-SELECT 
-		@EmailAddress = [FT].[fn_ReturnSchedulerEMailAddress] (@scheduler)
-		
-		
-
-		DECLARE
+/*  E-Mail and Exceptions */
+			DECLARE 
 			@html NVARCHAR(MAX),
-			@EmailTableName sysname  = N'#EDIAlertsEmail'
-		
-		EXEC [FT].[usp_TableToHTML]
-				@tableName = @Emailtablename
-			, @OrderBy = '[AlertType], [TradingPartner],  [DocumentType], [ShipToCode], [CustomerPart]'
-			,	@html = @html OUT
-		
-		DECLARE
-			@EmailBody NVARCHAR(MAX)
-		,	@EmailHeader NVARCHAR(MAX) = 'EDI Processing for EDINAL' 
+			@EmailTableName sysname  = N'#EDIOrdersAlerts',
+			@SchedulerEmailAddress VARCHAR(255),
+			@EmailBody NVARCHAR(MAX),
+			@EmailHeader NVARCHAR(MAX) = 'EDI Processing for EDINAL' 
+	
 
-		SELECT
+DECLARE
+	SchedulerAlert CURSOR LOCAL FOR
+SELECT
+	DISTINCT SchedulerEMAILAddress
+FROM
+	@EDIOrdersAlert
+ORDER BY
+	SchedulerEMAILAddress
+
+OPEN
+	SchedulerAlert
+WHILE
+	1 = 1 BEGIN
+	
+	FETCH
+		SchedulerAlert
+	INTO
+		@SchedulerEmailAddress
+			
+	IF	@@FETCH_STATUS != 0 BEGIN
+		BREAK
+	END
+	
+	if object_id('tempdb..#EDIOrdersAlerts') is not null
+	BEGIN
+	DROP TABLE #EDIOrdersAlerts
+	END    
+	
+	SELECT 
+		 *
+		 INTO #EDIOrdersAlerts
+	FROM
+		@EDIOrdersAlert
+	WHERE 
+		SchedulerEMAILAddress = @SchedulerEmailAddress
+		
+	EXEC [FT].[usp_TableToHTML]
+				@tableName = @Emailtablename
+			,	@OrderBy = '[AlertType], [TradingPartner],  [DocumentType], [ShipToCode], [CustomerPart]'
+			,	@html = @html OUT
+	SELECT
 			@EmailBody =
 				N'<H1>' + @EmailHeader + N'</H1>' +
 				@html
-
-	--print @emailBody
+						
 
 EXEC msdb.dbo.sp_send_dbmail
 			@profile_name = 'DBMail'-- sysname
-	,		@recipients = @EmailAddress -- varchar(max)
+	,		@recipients = @SchedulerEmailAddress -- varchar(max)
 	,		@copy_recipients = 'aboulanger@fore-thought.com;dwest@empireelect.com' -- varchar(max)
 	, 		@subject = @EmailHeader
 	,  		@body = @EmailBody
 	,  		@body_format = 'HTML'
 	,		@importance = 'High' 
-					
-
-/*Insert [EDIAlerts].[ProcessedReleases]
-
-(	 EDIGroup
-	,TradingPartner
-	,DocumentType --'PR - Planning Release; SS - ShipSchedule'
-	,AlertType 
-	,ReleaseNo
-	,ShipToCode
-	,ConsigneeCode 
-	,ShipFromCode 
-	,CustomerPart
-	,CustomerPO
-	,CustomerModelYear
-	,Description
-)
 
 
-Select 
-	'EDI3060'
-	,*
-From
-	#EDIAlerts
-	*/
-
-END
+	DELETE @EDIOrdersAlert WHERE SchedulerEMAILAddress =  @SchedulerEmailAddress
 
 
+SELECT 	@SchedulerEmailAddress = '',
+				@html = '',
+				@EmailBody = ''
 
+	END
+
+CLOSE	Scheduleralert 
+DEALLOCATE	Scheduleralert
 
 /* End E-Mail and Exceptions */
 
@@ -1965,6 +1966,9 @@ go
 Results {
 }
 */
+
+
+
 
 
 

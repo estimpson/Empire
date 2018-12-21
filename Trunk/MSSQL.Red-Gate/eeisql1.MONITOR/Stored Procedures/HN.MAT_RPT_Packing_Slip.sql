@@ -13,8 +13,8 @@ CREATE PROCEDURE [HN].[MAT_RPT_Packing_Slip] (
 
 /*
 
-exec	HN.MAT_RPT_ShipmentDocumentation
-		@Shipper = 107860, @country='HND'
+exec	HN.MAT_RPT_Packing_Slip
+		@Shipper = 107860
 */
 
 
@@ -111,7 +111,8 @@ select @CurrentPart, @Serials
 			show_Comp=  CASE when isnull(pfa.ItsUSA,1) = 0 and pfa.AccountType = 'Customer' then 1
 							 when isnull(pfa.ItsUSA,1)=1 and part.product_line not like '%PCB%' and pfa.AccountType = 'Customer' and pfa.MethodShipping = 'UPS' THEN 1
 							 when isnull(pfa.ItsUSA,1)=1 and part.product_line like '%PCB%' and pfa.AccountType = 'Customer' and pfa.MethodShipping = 'UPS' THEN 1
-							 else 0 END 
+							 else 0 END, 
+			DatePrint = getdate()
 	from	monitor.dbo.shipper shipper
 			join monitor.dbo.shipper_detail shipperdetail on shipperdetail.Shipper = shipper.ID
 			left join monitor.dbo.destination destination on destination.destination = shipper.Destination

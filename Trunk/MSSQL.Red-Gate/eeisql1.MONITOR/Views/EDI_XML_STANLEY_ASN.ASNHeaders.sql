@@ -5,6 +5,7 @@ GO
 
 
 
+
 CREATE VIEW [EDI_XML_STANLEY_ASN].[ASNHeaders]
 AS
 SELECT
@@ -13,7 +14,7 @@ SELECT
 ,	ShipDateTime = s.date_shipped
 ,	ASNDate = CONVERT(DATE, s.date_shipped)
 ,	ASNTime = CONVERT(TIME, s.date_shipped)
-,	TimeZoneCode = 'ED'
+,	TimeZoneCode = [dbo].[udfGetDSTIndication](s.date_shipped) 
 ,	TradingPartner = es.trading_partner_code
 ,	ShipToID = COALESCE(NULLIF(es.EDIShipToID, ''), NULLIF(es.parent_destination, ''), es.destination)
 ,	ShipToName = d.name
@@ -41,5 +42,6 @@ FROM
 		ON s.bill_of_lading_number = bol_number
 WHERE
 	s.date_shipped IS NOT NULL
+
 
 GO

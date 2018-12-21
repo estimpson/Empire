@@ -13,9 +13,9 @@ CREATE procedure [EEIUser].[acctg_csm_sp_insert_new_base_part_mnemonic]
 @release_id varchar(25),
 @mnemonic varchar(25),
 @base_part varchar(25),
-@qty_per decimal(10,8),
-@Family_allocation decimal(10,8),
-@take_rate decimal(10,8)
+@qty_per decimal(10,0),
+@Family_allocation decimal(10,6),
+@take_rate decimal(10,6)
 
 
 as 

@@ -171,7 +171,7 @@ begin
 		/*	Insert/Update/Delete Requirement*/
 		begin
 			if	@NewRequirement is null begin
-				--- <Delete rows="1">
+				--- <Delete rows="*">
 				set	@TableName = '@Overrides'
 				
 				delete
@@ -180,14 +180,6 @@ begin
 					@Overrides o
 				where
 					o.CalendarDT = @CalendarDT
-				
-				select
-					@RowCount = @@Rowcount
-				
-				if	@RowCount != 1 begin
-					set	@Result = 999999
-					RAISERROR ('Error deleting from table %s in procedure %s.  Rows deleted: %d.  Expected rows: 1.', 16, 1, @TableName, @ProcName, @RowCount)
-				end
 				--- </Delete>
 			end
 			else if
@@ -557,10 +549,12 @@ go
 
 declare
 	@User varchar(5) = 'ees'
-,	@FinishedPart varchar(25) = 'ALC0598-HC02'
+,	@FinishedPart varchar(25) = 'CHR0014-HA00'
 ,	@Revision char(9) = '18.02.000'
-,	@CalendarDT datetime = '2001-01-01'
+,	@CalendarDT datetime = '2018-01-08 12:00AM'
 ,	@NewRequirement numeric(20,6) = 100 -- null to remove override
+,	@Debug int = 1
+,	@DebugMsg nvarchar(max)
 
 begin transaction Test
 
@@ -595,7 +589,17 @@ where
 	psh.FinishedPart = @FinishedPart
 	and psh.Revision = @Revision
 
-set	@CalendarDT = '2001-01-01'
+execute
+	@ProcReturn = TOPS.usp_PlanningSnapshot_Q_GetSnapshotCalendar
+	@FinishedPart = @FinishedPart
+,	@Revision = @Revision
+,	@TranDT = @TranDT out
+,	@Result = @ProcResult out
+,	@Debug = @Debug
+,	@DebugMsg = @DebugMsg out
+
+
+set	@CalendarDT = '2018-01-08'
 set @NewRequirement = null
 
 execute

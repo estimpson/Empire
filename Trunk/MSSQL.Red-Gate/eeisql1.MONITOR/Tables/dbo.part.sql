@@ -259,5 +259,7 @@ ALTER TABLE [dbo].[part] ADD CONSTRAINT [PK__part__17B8652E] PRIMARY KEY NONCLUS
 GO
 CREATE NONCLUSTERED INDEX [class_index] ON [dbo].[part] ([class]) ON [PRIMARY]
 GO
+CREATE NONCLUSTERED INDEX [IDX1_Part_PartType] ON [dbo].[part] ([part], [type]) ON [PRIMARY]
+GO
 GRANT SELECT ON  [dbo].[part] TO [APPUser]
 GO

@@ -290,6 +290,7 @@ where
 ,	object_type
 ,	notes
 ,	Custom2
+,	warehousefreightlot
 )	
 select
 	serial = o.serial
@@ -307,6 +308,7 @@ select
 ,	object_type = o.type
 ,	notes ='Begin a physical inventory'
 ,	o.Custom2
+,	o.warehousefreightlot
 from
 	dbo.object o
 where
@@ -363,6 +365,7 @@ insert
 ,	tare_weight
 ,	price
 ,	custom2
+,	warehousefreightlot
 )
 select
 	o.serial
@@ -389,6 +392,7 @@ select
 ,	o.tare_weight
 ,  price=0
 ,	o.custom2
+,	o.warehousefreightlot
 from
 	dbo.object o
 where

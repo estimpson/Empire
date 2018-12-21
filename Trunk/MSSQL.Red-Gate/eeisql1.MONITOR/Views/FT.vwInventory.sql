@@ -2,20 +2,21 @@ SET QUOTED_IDENTIFIER ON
 GO
 SET ANSI_NULLS ON
 GO
-create view [FT].[vwInventory]
-as
-select	Serial = object.serial,
+CREATE VIEW [FT].[vwInventory]
+AS
+SELECT	Serial = object.serial,
 	PartECN = object.part,
-	Status = isnull (object.status, 'X'),
+	Status = ISNULL (object.status, 'X'),
 	Location = object.location,
-	Plant = isnull (location.plant,
-		case	when object.location like 'TRAN%' then 'INTRANSIT'
-			when object.location like '%LOST%' then 'LOST'
-			else 'EEI'
-		end),
-	StdQty = object.std_quantity
-from	object
-	left join location on object.location = location.code
-	join part on object.part = part.part
-where	object.part != 'PALLET'
+	Plant = ISNULL (location.plant,
+		CASE	WHEN object.location LIKE 'TRAN%' THEN 'INTRANSIT'
+			WHEN object.location LIKE '%LOST%' THEN 'LOST'
+			ELSE 'EEI'
+		END),
+	StdQty = object.std_quantity,
+	Shipper = isNULL(object.shipper,0)
+FROM	object
+	LEFT JOIN location ON object.location = location.code
+	JOIN part ON object.part = part.part
+WHERE	object.part != 'PALLET'
 GO

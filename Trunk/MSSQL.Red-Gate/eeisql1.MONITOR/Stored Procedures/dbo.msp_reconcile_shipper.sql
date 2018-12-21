@@ -3,6 +3,7 @@ GO
 SET ANSI_NULLS ON
 GO
 
+
 CREATE procedure [dbo].[msp_reconcile_shipper]
 (	@shipper	integer )
 as
@@ -43,7 +44,7 @@ if exists (
 	select	1
 	  from	shipper
 	 where	id = @shipper and
-		( type = 'C' or type = 'Z' ) )
+		( shipper.status = 'C' or shipper.status = 'Z' ) )
 		return -2
 
 --	2. Ensure shipper exists.
@@ -160,4 +161,5 @@ delete	shipper_detail
   
 commit transaction
 return 0
+
 GO

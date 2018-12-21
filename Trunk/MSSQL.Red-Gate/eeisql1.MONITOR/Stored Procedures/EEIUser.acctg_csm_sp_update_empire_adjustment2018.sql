@@ -121,7 +121,9 @@ CREATE procedure [EEIUser].[acctg_csm_sp_update_empire_adjustment2018]
      
      @Total_2021 decimal(15,2),
      @Total_2022 decimal(15,2),
-	 @Total_2023 decimal(15,2) 
+	 @Total_2023 decimal(15,2),
+	 @Total_2024 decimal(15,2),
+	 @Total_2025 decimal(15,2)
     
 as
 
@@ -246,6 +248,8 @@ set
 		,[CY 2021] = ISNULL(@Total_2021 ,0) 
 		,[CY 2022] = ISNULL(@Total_2022 ,0) 
 		,[CY 2023] = ISNULL(@Total_2023 ,0) 
+		,[CY 2024] = ISNULL(@Total_2024 ,0) 
+		,[CY 2025] = ISNULL(@Total_2025 ,0) 
 
 		where	[mnemonic-vehicle/plant] = @mnemonicvehicleplant 
 				and	release_id = @release_id
@@ -297,7 +301,15 @@ set		[CY 2015] = (@jan2015+@feb2015+@mar2015+@apr2015+@may2015+@jun2015+@jul2015
 		[Q1 2023] = (round(@total_2023/4,0)),
 		[Q2 2023] = (round(@total_2023/4,0)),
 		[Q3 2023] = (round(@total_2023/4,0)),
-		[Q4 2023] = (round(@total_2023/4,0))
+		[Q4 2023] = (round(@total_2023/4,0)),
+		[Q1 2024] = (round(@total_2024/4,0)),
+		[Q2 2024] = (round(@total_2024/4,0)),
+		[Q3 2024] = (round(@total_2024/4,0)),
+		[Q4 2024] = (round(@total_2024/4,0)),
+		[Q1 2025] = (round(@total_2025/4,0)),
+		[Q2 2025] = (round(@total_2025/4,0)),
+		[Q3 2025] = (round(@total_2025/4,0)),
+		[Q4 2025] = (round(@total_2025/4,0))
 
 where	[mnemonic-vehicle/plant] = @mnemonicvehicleplant
 	and release_id = @release_id		 

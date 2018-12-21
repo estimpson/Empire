@@ -1,3 +1,5 @@
+
+EXEC sp_addrolemember N'db_owner', N'EMPIREELECT\EEI_EMPOWER_USERS'
 EXEC sp_addrolemember N'db_owner', N'Andre'
 GO
 EXEC sp_addrolemember N'db_owner', N'APPUser'

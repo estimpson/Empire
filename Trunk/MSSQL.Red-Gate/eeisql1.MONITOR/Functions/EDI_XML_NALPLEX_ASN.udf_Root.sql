@@ -3,7 +3,8 @@ GO
 SET ANSI_NULLS ON
 GO
 
-create function [EDI_XML_NALPLEX_ASN].[udf_Root]
+
+CREATE function [EDI_XML_NALPLEX_ASN].[udf_Root]
 (	@ShipperID int
 ,	@Purpose char(2)
 ,	@partialComplete int
@@ -68,7 +69,7 @@ begin
 								,	(	select
 											EDI_XML.LOOP_INFO('CLD')
 										,	EDI_XML_V4010.SEG_CLD(alpqd.PackCount, alpqd.PackQty, ah.PackageType)
-										,	EDI_XML_NALPLEX_ASN.udf_OrderSerials(ah.ShipperID, al.CustomerPart)
+										,	EDI_XML_NALPLEX_ASN.udf_OrderSerials(ah.ShipperID, al.CustomerPart, alpqd.PackQty)
 										from
 											EDI_XML_NALPLEX_ASN.ASNLinePackQtyDetails alpqd
 										where
@@ -99,4 +100,5 @@ begin
 	return
 		@xmlOutput
 end
+
 GO

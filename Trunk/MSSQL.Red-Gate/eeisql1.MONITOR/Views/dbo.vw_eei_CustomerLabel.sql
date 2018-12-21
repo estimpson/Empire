@@ -9,6 +9,7 @@ GO
 
 
 
+
 CREATE view [dbo].[vw_eei_CustomerLabel]
 as
 select		object.serial as objectserial,
@@ -57,8 +58,8 @@ select		object.serial as objectserial,
 			COALESCE( es1PlantCode, es2PlantCode, es3PlantCode, ' ') as PlantCode,
 			COALESCE( mfgDT, getdate(), ' ') as MfgDateDT,
 			isnull (part.InfoRecord,'0') as SLAInfoRecord,SUBSTRING('ABCDEFGHIJKLMNOPQRSTUVWXYZ12345', YEAR(GETDATE()) - 2004, 1) 
-                      + SUBSTRING('ABCDEFGHIJKLMNOPQRSTUVWXYZ12345', MONTH(GETDATE()), 1) + SUBSTRING('ABCDEFGHIJKLMNOPQRSTUVWXYZ12345', DAY(GETDATE()), 1)  AS SLALotNo, Boxes = coalesce(dbo.object.field1,'RELABEL') 
-
+                      + SUBSTRING('ABCDEFGHIJKLMNOPQRSTUVWXYZ12345', MONTH(GETDATE()), 1) + SUBSTRING('ABCDEFGHIJKLMNOPQRSTUVWXYZ12345', DAY(GETDATE()), 1)  AS SLALotNo, Boxes = coalesce(dbo.object.field1,'RELABEL') ,
+					  Indexno=(SELECT IndexNo  FROM part_characteristics  WHERE part=object.part)
 From		object
 join			part on object.part = part.part
 cross join	parameters
@@ -191,6 +192,7 @@ left join			(	Select	oh1.order_no	oh1OrderderNo,
 							sd1.part_original = o1.part and
 							sd1.order_no = oh1.order_no) shipperorder on object.serial = o1serial
 left join		FT.CommonSerialShipLog on object.serial = FT.CommonSerialShipLog.serial
+
 
 
 

@@ -10,9 +10,9 @@ CREATE procedure [EEIUser].[acctg_csm_sp_update_csm_demand]
  ( @base_part varchar(30)
   ,@release_id char(7)
   ,@MnemonicVehiclePlant varchar(30)
-  ,@qty_per decimal(10,2)
-  ,@take_rate decimal(10,2)
-  ,@family_allocation decimal(10,2)
+  ,@qty_per decimal(10,0)
+  ,@take_rate decimal(10,6)
+  ,@family_allocation decimal(10,6)
   )
   
 as

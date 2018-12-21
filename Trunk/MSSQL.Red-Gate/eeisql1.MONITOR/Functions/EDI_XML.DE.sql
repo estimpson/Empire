@@ -3,6 +3,7 @@ GO
 SET ANSI_NULLS ON
 GO
 
+
 CREATE function [EDI_XML].[DE]
 (	@dictionaryVersion varchar(25)
 ,	@elementCode char(4)
@@ -26,7 +27,7 @@ begin
 			,	[DE!1!name] = coalesce(de.ElementName, '')
 			,	[DE!1!type] = case when de.ElementDataType = 'ID' and devc.Description is null then 'AN' else coalesce(de.ElementDataType, '') end
 			,	[DE!1!desc] = devc.Description
-			,	[DE!1] = @value
+			,	[DE!1] = left(@value,de.ElementLengthMax)
 			from
 				(	select
 						'' dummy
@@ -72,4 +73,5 @@ begin
 	return
 		@xmlOutput
 end
+
 GO

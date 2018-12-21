@@ -7,7 +7,7 @@ GO
 
 -- exec eeiuser.acctg_csm_sp_select_total_planner_demand 'NOR0015'
 
-create procedure [EEIUser].[acctg_csm_sp_select_total_planner_demand2018]
+CREATE procedure [EEIUser].[acctg_csm_sp_select_total_planner_demand2018]
   @base_part varchar(30)
 as
 select
@@ -113,10 +113,11 @@ sum(dec_21) as [Dec 2021],
 (sum(jan_21)+sum(feb_21)+sum(mar_21)+sum(apr_21)+sum(may_21)+sum(jun_21)+sum(jul_21)+sum(aug_21)+sum(sep_21)+sum(oct_21)+sum(nov_21)+sum(dec_21)) as total_2021,
 */
 
-sum(0.0) as total_2020,
 sum(0.0) as total_2021,
 sum(0.0) as total_2022,
-sum(0.0) as total_2023
+sum(0.0) as total_2023,
+sum(0.0) as total_2024,
+sum(0.0) as total_2025
 
 from
 (select 
@@ -216,7 +217,7 @@ from
 
 
 from order_detail
-where datepart(yyyy,due_date) in ('2015','2016','2017','2018','2019','2020','2021')
+where datepart(yyyy,due_date) in ('2015','2016','2017','2018','2019','2020','2021','2022','2023')
 and left(part_number,7) = @base_part
 group by due_date) a
 union
@@ -323,10 +324,11 @@ sum(b.dec_21) as [Dec 2021],
 (sum(b.jan_21)+sum(b.feb_21)+sum(b.mar_21)+sum(b.apr_21)+sum(b.may_21)+sum(b.jun_21)+sum(b.jul_21)+sum(b.aug_21)+sum(b.sep_21)+sum(b.oct_21)+sum(b.nov_21)+sum(b.dec_21)) as total_2021,
 */
 
-sum(0.0) as total_2020,
 sum(0.0) as total_2021,
 sum(0.0) as total_2022,
-sum(0.0) as total_2023
+sum(0.0) as total_2023,
+sum(0.0) as total_2024,
+sum(0.0) as total_2025
 
 from
 (select
@@ -426,7 +428,7 @@ from
 
 from shipper_detail, shipper
 where shipper.id = shipper_detail.shipper and
-datepart(yyyy,shipper.date_shipped) in ('2015','2016','2017','2018','2019','2020','2021')
+datepart(yyyy,shipper.date_shipped) in ('2015','2016','2017','2018','2019','2020','2021','2022','2023')
 and isnull(shipper.type,'S')<>'T'
 and left(part_original,7)=@base_part
 group by shipper.date_shipped) b

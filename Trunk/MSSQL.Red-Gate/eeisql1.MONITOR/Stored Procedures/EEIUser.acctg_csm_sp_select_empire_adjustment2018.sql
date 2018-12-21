@@ -129,7 +129,9 @@ select	@base_part as [base_part],
 		
 		ISNULL(b.[CY 2021] ,0) as [total_2021], 
 		ISNULL(b.[CY 2022] ,0) as [total_2022],
-		ISNULL(b.[CY 2023] ,0) as [total_2023]
+		ISNULL(b.[CY 2023] ,0) as [total_2023],
+		ISNULL(b.[CY 2024] ,0) as [total_2024],
+		ISNULL(b.[CY 2025] ,0) as [total_2025]
 from 
 		(	select	* 
 			from	eeiuser.acctg_csm_base_part_mnemonic
