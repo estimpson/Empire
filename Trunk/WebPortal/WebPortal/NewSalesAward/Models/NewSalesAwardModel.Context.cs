@@ -41,6 +41,8 @@ namespace WebPortal.NewSalesAward.Models
         public virtual DbSet<EmpireFacility> EmpireFacilities { get; set; }
         public virtual DbSet<FreightTerm> FreightTerms { get; set; }
         public virtual DbSet<User> Users { get; set; }
+        public virtual DbSet<NewQuoteAward_SalesPeople> NewQuoteAward_SalesPeople { get; set; }
+        public virtual DbSet<NewQuoteAward_QuoteReasons> NewQuoteAward_QuoteReasons { get; set; }
     
         public virtual int usp_SetBasePartAttributes(string user, string quoteNumber, string basePartFamilyList, string productLine, string empireMarketSegment, string empireMarketSubsegment, string empireApplication, Nullable<System.DateTime> empireSOP, Nullable<System.DateTime> empireEOP, string empireEOPNote, string comments, ObjectParameter tranDT, ObjectParameter result, Nullable<int> debug, ObjectParameter debugMsg)
         {

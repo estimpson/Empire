@@ -157,13 +157,13 @@ namespace WebPortal.NewSalesAward.Pages {
         protected global::DevExpress.Web.ASPxLabel lblQuoteReason;
         
         /// <summary>
-        /// tbxQuoteReason control.
+        /// cbxQuoteReason control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::DevExpress.Web.ASPxTextBox tbxQuoteReason;
+        protected global::DevExpress.Web.ASPxComboBox cbxQuoteReason;
         
         /// <summary>
         /// lblReplacingBasePart control.
@@ -182,6 +182,15 @@ namespace WebPortal.NewSalesAward.Pages {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::DevExpress.Web.ASPxComboBox cbxReplacingBasePart;
+        
+        /// <summary>
+        /// lblReplacementPartWarning control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblReplacementPartWarning;
         
         /// <summary>
         /// lblSalesperson control.

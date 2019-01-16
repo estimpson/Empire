@@ -95,39 +95,66 @@ namespace WebPortal.NewSalesAward.PageViewModels
             }
         }
 
-        public List<SalespersonDataModel> GetSalespeople()
+        public List<String> GetSalesPeople()
         {
             Error = "";
-            var list = new List<SalespersonDataModel>();
-
-            var empty = new SalespersonDataModel { UserCode = "", UserName = "", UserInitials = "", EmailAddress = "" };
-            list.Add(empty);
+            var list = new List<String>();
 
             try
             {
                 using (var context = new FxPLMEntities())
                 {
-                    var query = from s in context.Salespeoples
-                                orderby s.UserName ascending
+                    var query = from s in context.NewQuoteAward_SalesPeople
                                 select s;
 
-                    foreach (var result in query)
-                    {
-                        var salesPerson = new SalespersonDataModel();
-                        salesPerson.UserCode = result.UserCode;
-                        salesPerson.UserName = result.UserName;
-                        salesPerson.UserInitials = result.UserInitials;
-                        salesPerson.EmailAddress = result.EmailAddress;
-                        list.Add(salesPerson);
-                    }
+                    foreach (var result in query) list.Add(result.SalesPerson);
                 }
             }
             catch (Exception ex)
             {
                 Error = (ex.InnerException != null) ? ex.InnerException.Message : ex.Message;
             }
+
             return list;
         }
+
+        /// <summary>
+        /// Obsolete as of 01.11.2019
+        /// </summary>
+        /// <returns></returns>
+        //public List<SalespersonDataModel> GetSalespeople()
+        //{
+        //    Error = "";
+        //    var list = new List<SalespersonDataModel>();
+
+        //    var empty = new SalespersonDataModel { UserCode = "", UserName = "", UserInitials = "", EmailAddress = "" };
+        //    list.Add(empty);
+
+        //    try
+        //    {
+        //        using (var context = new FxPLMEntities())
+        //        {
+        //            var query = from s in context.Salespeoples
+        //                        orderby s.UserName ascending
+        //                        select s;
+
+        //            foreach (var result in query)
+        //            {
+        //                var salesPerson = new SalespersonDataModel();
+        //                salesPerson.UserCode = result.UserCode;
+        //                salesPerson.UserName = result.UserName;
+        //                salesPerson.UserInitials = result.UserInitials;
+        //                salesPerson.EmailAddress = result.EmailAddress;
+        //                list.Add(salesPerson);
+        //            }
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        Error = (ex.InnerException != null) ? ex.InnerException.Message : ex.Message;
+        //    }
+        //    return list;
+        //}
 
         public List<ProgramManagerDataModel> GetProgramManagers()
         {
@@ -163,37 +190,63 @@ namespace WebPortal.NewSalesAward.PageViewModels
             return list;
         }
 
-        public List<QuoteReasonDataModel> GetQuoteReasons()
+        public List<String> GetQuoteReasons()
         {
             Error = "";
-            var list = new List<QuoteReasonDataModel>();
-
-            var empty = new QuoteReasonDataModel { QuoteReasonId = 0, QuoteReason = "" };
-            list.Add(empty);
+            var list = new List<String>();
 
             try
             {
                 using (var context = new FxPLMEntities())
                 {
-                    var query = from qr in context.QuoteReasons
-                                orderby qr.QuoteReason1 ascending
-                                select qr;
+                    var query = from s in context.NewQuoteAward_QuoteReasons
+                                select s;
 
-                    foreach (var result in query)
-                    {
-                        var quoteReason = new QuoteReasonDataModel();
-                        quoteReason.QuoteReasonId = result.QuoteReasonID;
-                        quoteReason.QuoteReason = result.QuoteReason1;
-                        list.Add(quoteReason);
-                    }
+                    foreach (var result in query) list.Add(result.QuoteReason);
                 }
             }
             catch (Exception ex)
             {
                 Error = (ex.InnerException != null) ? ex.InnerException.Message : ex.Message;
             }
+
             return list;
         }
+
+        /// <summary>
+        /// Obsolete as of 01.15.2019
+        /// </summary>
+        //public List<QuoteReasonDataModel> GetQuoteReasons()
+        //{
+        //    Error = "";
+        //    var list = new List<QuoteReasonDataModel>();
+
+        //    var empty = new QuoteReasonDataModel { QuoteReasonId = 0, QuoteReason = "" };
+        //    list.Add(empty);
+
+        //    try
+        //    {
+        //        using (var context = new FxPLMEntities())
+        //        {
+        //            var query = from qr in context.QuoteReasons
+        //                        orderby qr.QuoteReason1 ascending
+        //                        select qr;
+
+        //            foreach (var result in query)
+        //            {
+        //                var quoteReason = new QuoteReasonDataModel();
+        //                quoteReason.QuoteReasonId = result.QuoteReasonID;
+        //                quoteReason.QuoteReason = result.QuoteReason1;
+        //                list.Add(quoteReason);
+        //            }
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        Error = (ex.InnerException != null) ? ex.InnerException.Message : ex.Message;
+        //    }
+        //    return list;
+        //}
 
         public List<CustomerCommitmentFormDataModel> GetCustomerCommitmentForms()
         {

@@ -587,6 +587,12 @@
     <Compile Include="NewSalesAward\Models\FreightTerm.cs">
       <DependentUpon>NewSalesAwardModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="NewSalesAward\Models\NewQuoteAward_QuoteReasons.cs">
+      <DependentUpon>NewSalesAwardModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="NewSalesAward\Models\NewQuoteAward_SalesPeople.cs">
+      <DependentUpon>NewSalesAwardModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="NewSalesAward\Models\NewSalesAwardModel.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
