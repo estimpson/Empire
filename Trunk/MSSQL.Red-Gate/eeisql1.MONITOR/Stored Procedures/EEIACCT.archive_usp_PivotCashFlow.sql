@@ -3,7 +3,7 @@ GO
 SET ANSI_NULLS ON
 GO
 
-create procedure [EEIACCT].[usp_PivotCashFlow]
+create procedure [EEIACCT].[archive_usp_PivotCashFlow]
 	@TransferPriceAdjustment numeric(20,6) = null
 ,	@TranDT datetime out
 ,	@Result integer out

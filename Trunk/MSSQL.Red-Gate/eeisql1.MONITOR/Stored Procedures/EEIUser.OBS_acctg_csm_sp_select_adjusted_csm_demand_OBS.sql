@@ -10,7 +10,7 @@ GO
 -- eeiuser.acctg_csm_sp_select_adjusted_csm_demand_dw 'NAL0040', '2012-08'
 
 
-CREATE procedure [EEIUser].[acctg_csm_sp_select_adjusted_csm_demand_OBS]
+CREATE procedure [EEIUser].[OBS_acctg_csm_sp_select_adjusted_csm_demand_OBS]
 	@base_part varchar(30),
 	@release_id varchar(30)
 as

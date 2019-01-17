@@ -7,10 +7,11 @@ GO
 
 
 
+
 -- eeiuser.acctg_csm_sp_select_adjusted_csm_demand_dw 'NAL0040', '2012-08'
 
 
-CREATE procedure [EEIUser].[acctg_csm_sp_select_adjusted_csm_demand2_OBS]
+create procedure [EEIUser].[acctg_csm_sp_select_adjusted_csm_demand2019]
 	@base_part varchar(30),
 	@release_id varchar(30)
 as
@@ -87,7 +88,6 @@ select	@base_part as [basepart],
 		(AA.[Dec 2019]*BB.[Dec 2019]) as [Dec2019],
 		((AA.[Jan 2019]*BB.[Jan 2019])+(AA.[Feb 2019]*BB.[Feb 2019])+(AA.[Mar 2019]*BB.[Mar 2019])+(AA.[Apr 2019]*BB.[Apr 2019])+(AA.[May 2019]*BB.[May 2019])+(AA.[Jun 2019]*BB.[Jun 2019])+(AA.[Jul 2019]*BB.[Jul 2019])+(AA.[Aug 2019]*BB.[Aug 2019])+(AA.[Sep 2019]*BB.[Sep 2019])+(AA.[Oct 2019]*BB.[Oct 2019])+(AA.[Nov 2019]*BB.[Nov 2019])+(AA.[Dec 2019]*BB.[Dec 2019])) as [Total_2019],
 
-		/*
 		AA.[Jan 2020]*BB.[Jan 2020] as [Jan2020],
 		AA.[Feb 2020]*BB.[Feb 2020] as [Feb2020],
 		AA.[Mar 2020]*BB.[Mar 2020] as [Mar2020],
@@ -101,11 +101,42 @@ select	@base_part as [basepart],
 		(AA.[Nov 2020]*BB.[Nov 2020]) as [Nov2020],
 		(AA.[Dec 2020]*BB.[Dec 2020]) as [Dec2020],
 		((AA.[Jan 2020]*BB.[Jan 2020])+(AA.[Feb 2020]*BB.[Feb 2020])+(AA.[Mar 2020]*BB.[Mar 2020])+(AA.[Apr 2020]*BB.[Apr 2020])+(AA.[May 2020]*BB.[May 2020])+(AA.[Jun 2020]*BB.[Jun 2020])+(AA.[Jul 2020]*BB.[Jul 2020])+(AA.[Aug 2020]*BB.[Aug 2020])+(AA.[Sep 2020]*BB.[Sep 2020])+(AA.[Oct 2020]*BB.[Oct 2020])+(AA.[Nov 2020]*BB.[Nov 2020])+(AA.[Dec 2020]*BB.[Dec 2020])) as [Total_2020],
+
+		AA.[Jan 2021]*BB.[Jan 2021] as [Jan2021],
+		AA.[Feb 2021]*BB.[Feb 2021] as [Feb2021],
+		AA.[Mar 2021]*BB.[Mar 2021] as [Mar2021],
+		AA.[Apr 2021]*BB.[Apr 2021] as [Apr2021],
+		(AA.[May 2021]*BB.[May 2021]) as [May2021],
+		(AA.[Jun 2021]*BB.[Jun 2021]) as [Jun2021],
+		(AA.[Jul 2021]*BB.[Jul 2021]) as [Jul2021],
+		(AA.[Aug 2021]*BB.[Aug 2021]) as [Aug2021],
+		(AA.[Sep 2021]*BB.[Sep 2021]) as [Sep2021],
+		(AA.[Oct 2021]*BB.[Oct 2021]) as [Oct2021],
+		(AA.[Nov 2021]*BB.[Nov 2021]) as [Nov2021],
+		(AA.[Dec 2021]*BB.[Dec 2021]) as [Dec2021],
+		((AA.[Jan 2021]*BB.[Jan 2021])+(AA.[Feb 2021]*BB.[Feb 2021])+(AA.[Mar 2021]*BB.[Mar 2021])+(AA.[Apr 2021]*BB.[Apr 2021])+(AA.[May 2021]*BB.[May 2021])+(AA.[Jun 2021]*BB.[Jun 2021])+(AA.[Jul 2021]*BB.[Jul 2021])+(AA.[Aug 2021]*BB.[Aug 2021])+(AA.[Sep 2021]*BB.[Sep 2021])+(AA.[Oct 2021]*BB.[Oct 2021])+(AA.[Nov 2021]*BB.[Nov 2021])+(AA.[Dec 2021]*BB.[Dec 2021])) as [Total_2021],
+
+		/*
+		AA.[Jan 2022]*BB.[Jan 2022] as [Jan2022],
+		AA.[Feb 2022]*BB.[Feb 2022] as [Feb2022],
+		AA.[Mar 2022]*BB.[Mar 2022] as [Mar2022],
+		AA.[Apr 2022]*BB.[Apr 2022] as [Apr2022],
+		(AA.[May 2022]*BB.[May 2022]) as [May2022],
+		(AA.[Jun 2022]*BB.[Jun 2022]) as [Jun2022],
+		(AA.[Jul 2022]*BB.[Jul 2022]) as [Jul2022],
+		(AA.[Aug 2022]*BB.[Aug 2022]) as [Aug2022],
+		(AA.[Sep 2022]*BB.[Sep 2022]) as [Sep2022],
+		(AA.[Oct 2022]*BB.[Oct 2022]) as [Oct2022],
+		(AA.[Nov 2022]*BB.[Nov 2022]) as [Nov2022],
+		(AA.[Dec 2022]*BB.[Dec 2022]) as [Dec2022],
+		((AA.[Jan 2022]*BB.[Jan 2022])+(AA.[Feb 2022]*BB.[Feb 2022])+(AA.[Mar 2022]*BB.[Mar 2022])+(AA.[Apr 2022]*BB.[Apr 2022])+(AA.[May 2022]*BB.[May 2022])+(AA.[Jun 2022]*BB.[Jun 2022])+(AA.[Jul 2022]*BB.[Jul 2022])+(AA.[Aug 2022]*BB.[Aug 2022])+(AA.[Sep 2022]*BB.[Sep 2022])+(AA.[Oct 2022]*BB.[Oct 2022])+(AA.[Nov 2022]*BB.[Nov 2022])+(AA.[Dec 2022]*BB.[Dec 2022])) as [Total_2022],
 		*/
 
-		AA.[total_2020]*BB.[total_2020] as [total_2020],
-		AA.[total_2021]*BB.[total_2021] as [total_2021],
-		AA.[total_2022]*BB.[total_2022] as [total_2022]
+		AA.[total_2022]*BB.[total_2022] as [total_2022],
+		AA.[total_2023]*BB.[total_2023] as [total_2023],
+		AA.[total_2024]*BB.[total_2024] as [total_2024],
+		AA.[total_2025]*BB.[total_2025] as [total_2025],
+		AA.[total_2026]*BB.[total_2026] as [total_2026]
 from 
 		(	select	a.BASE_PART, 
 					ISNULL(sum(a.qty_per*a.take_rate*a.family_allocation*b.[Jan 2015]),0) as [jan 2015], 
@@ -178,7 +209,6 @@ from
 					ISNULL(sum(a.qty_per*a.take_rate*a.family_allocation*b.[Dec 2019]),0) as [dec 2019], 
 					ISNULL(sum(a.qty_per*a.take_rate*a.family_allocation*(b.[Jan 2019]+b.[Feb 2019]+b.[Mar 2019]+b.[Apr 2019]+b.[May 2019]+b.[Jun 2019]+b.[Jul 2019]+b.[Aug 2019]+b.[Sep 2019]+b.[Oct 2019]+b.[Nov 2019]+b.[Dec 2019])),0) as [total_2019],
 
-					/*
 					ISNULL(sum(a.qty_per*a.take_rate*a.family_allocation*b.[Jan 2020]),0) as [jan 2020], 
 					ISNULL(sum(a.qty_per*a.take_rate*a.family_allocation*b.[Feb 2020]),0) as [feb 2020], 
 					ISNULL(sum(a.qty_per*a.take_rate*a.family_allocation*b.[Mar 2020]),0) as [mar 2020], 
@@ -192,15 +222,47 @@ from
 					ISNULL(sum(a.qty_per*a.take_rate*a.family_allocation*b.[Nov 2020]),0) as [nov 2020], 
 					ISNULL(sum(a.qty_per*a.take_rate*a.family_allocation*b.[Dec 2020]),0) as [dec 2020], 
 					ISNULL(sum(a.qty_per*a.take_rate*a.family_allocation*(b.[Jan 2020]+b.[Feb 2020]+b.[Mar 2020]+b.[Apr 2020]+b.[May 2020]+b.[Jun 2020]+b.[Jul 2020]+b.[Aug 2020]+b.[Sep 2020]+b.[Oct 2020]+b.[Nov 2020]+b.[Dec 2020])),0) as [total_2020],
+
+					ISNULL(sum(a.qty_per*a.take_rate*a.family_allocation*b.[Jan 2021]),0) as [jan 2021], 
+					ISNULL(sum(a.qty_per*a.take_rate*a.family_allocation*b.[Feb 2021]),0) as [feb 2021], 
+					ISNULL(sum(a.qty_per*a.take_rate*a.family_allocation*b.[Mar 2021]),0) as [mar 2021], 
+					ISNULL(sum(a.qty_per*a.take_rate*a.family_allocation*b.[Apr 2021]),0) as [apr 2021], 
+					ISNULL(sum(a.qty_per*a.take_rate*a.family_allocation*b.[May 2021]),0) as [may 2021], 
+					ISNULL(sum(a.qty_per*a.take_rate*a.family_allocation*b.[Jun 2021]),0) as [jun 2021], 
+					ISNULL(sum(a.qty_per*a.take_rate*a.family_allocation*b.[Jul 2021]),0) as [jul 2021], 
+					ISNULL(sum(a.qty_per*a.take_rate*a.family_allocation*b.[Aug 2021]),0) as [aug 2021], 
+					ISNULL(sum(a.qty_per*a.take_rate*a.family_allocation*b.[Sep 2021]),0) as [sep 2021], 
+					ISNULL(sum(a.qty_per*a.take_rate*a.family_allocation*b.[Oct 2021]),0) as [oct 2021], 
+					ISNULL(sum(a.qty_per*a.take_rate*a.family_allocation*b.[Nov 2021]),0) as [nov 2021], 
+					ISNULL(sum(a.qty_per*a.take_rate*a.family_allocation*b.[Dec 2021]),0) as [dec 2021], 
+					ISNULL(sum(a.qty_per*a.take_rate*a.family_allocation*(b.[Jan 2021]+b.[Feb 2021]+b.[Mar 2021]+b.[Apr 2021]+b.[May 2021]+b.[Jun 2021]+b.[Jul 2021]+b.[Aug 2021]+b.[Sep 2021]+b.[Oct 2021]+b.[Nov 2021]+b.[Dec 2021])),0) as [total_2021],
+
+					/*
+					ISNULL(sum(a.qty_per*a.take_rate*a.family_allocation*b.[Jan 2022]),0) as [jan 2022], 
+					ISNULL(sum(a.qty_per*a.take_rate*a.family_allocation*b.[Feb 2022]),0) as [feb 2022], 
+					ISNULL(sum(a.qty_per*a.take_rate*a.family_allocation*b.[Mar 2022]),0) as [mar 2022], 
+					ISNULL(sum(a.qty_per*a.take_rate*a.family_allocation*b.[Apr 2022]),0) as [apr 2022], 
+					ISNULL(sum(a.qty_per*a.take_rate*a.family_allocation*b.[May 2022]),0) as [may 2022], 
+					ISNULL(sum(a.qty_per*a.take_rate*a.family_allocation*b.[Jun 2022]),0) as [jun 2022], 
+					ISNULL(sum(a.qty_per*a.take_rate*a.family_allocation*b.[Jul 2022]),0) as [jul 2022], 
+					ISNULL(sum(a.qty_per*a.take_rate*a.family_allocation*b.[Aug 2022]),0) as [aug 2022], 
+					ISNULL(sum(a.qty_per*a.take_rate*a.family_allocation*b.[Sep 2022]),0) as [sep 2022], 
+					ISNULL(sum(a.qty_per*a.take_rate*a.family_allocation*b.[Oct 2022]),0) as [oct 2022], 
+					ISNULL(sum(a.qty_per*a.take_rate*a.family_allocation*b.[Nov 2022]),0) as [nov 2022], 
+					ISNULL(sum(a.qty_per*a.take_rate*a.family_allocation*b.[Dec 2022]),0) as [dec 2022], 
+					ISNULL(sum(a.qty_per*a.take_rate*a.family_allocation*(b.[Jan 2022]+b.[Feb 2022]+b.[Mar 2022]+b.[Apr 2022]+b.[May 2022]+b.[Jun 2022]+b.[Jul 2022]+b.[Aug 2022]+b.[Sep 2022]+b.[Oct 2022]+b.[Nov 2022]+b.[Dec 2022])),0) as [total_2022],
 					*/
 
-					ISNULL(sum(a.qty_per*a.take_rate*a.family_allocation*b.[CY 2020]),0) as [total_2020], 
-					ISNULL(sum(a.qty_per*a.take_rate*a.family_allocation*b.[CY 2021]),0) as [total_2021], 
-					ISNULL(sum(a.qty_per*a.take_rate*a.family_allocation*b.[CY 2022]),0) as [total_2022]
+					ISNULL(sum(a.qty_per*a.take_rate*a.family_allocation*b.[CY 2022]),0) as [total_2022],
+					ISNULL(sum(a.qty_per*a.take_rate*a.family_allocation*b.[CY 2023]),0) as [total_2023],
+					ISNULL(sum(a.qty_per*a.take_rate*a.family_allocation*b.[CY 2024]),0) as [total_2024],
+					ISNULL(sum(a.qty_per*a.take_rate*a.family_allocation*b.[CY 2025]),0) as [total_2025],
+					ISNULL(sum(a.qty_per*a.take_rate*a.family_allocation*b.[CY 2026]),0) as [total_2026]
 					
 			from 
 					(	select	* 
 						from	eeiuser.acctg_csm_base_part_mnemonic
+						where	release_id = @release_id
 					) a 
 					left outer join 
 					(	select	* 
@@ -208,7 +270,8 @@ from
 						where	release_id = @release_id
 							and VERSION = 'CSM'
 					) b
-					on a.mnemonic = b.[Mnemonic-Vehicle/Plant] 
+					on a.mnemonic = b.[Mnemonic-Vehicle/Plant]
+					and a.release_id = b.release_id 
 					where	a.base_part = @base_part 
 					group by base_part
 						
@@ -286,7 +349,6 @@ from
 					ISNULL(b.[Dec 2019],0) as [dec 2019], 
 					ISNULL((b.[Jan 2019]+b.[Feb 2019]+b.[Mar 2019]+b.[Apr 2019]+b.[May 2019]+b.[Jun 2019]+b.[Jul 2019]+b.[Aug 2019]+b.[Sep 2019]+b.[Oct 2019]+b.[Nov 2019]+b.[Dec 2019]),0) as [total_2019],
 					
-					/*
 					ISNULL(b.[Jan 2020],0) as [jan 2020], 
 					ISNULL(b.[Feb 2020],0) as [feb 2020], 
 					ISNULL(b.[Mar 2020],0) as [mar 2020], 
@@ -300,14 +362,46 @@ from
 					ISNULL(b.[Nov 2020],0) as [nov 2020], 
 					ISNULL(b.[Dec 2020],0) as [dec 2020], 
 					ISNULL((b.[Jan 2020]+b.[Feb 2020]+b.[Mar 2020]+b.[Apr 2020]+b.[May 2020]+b.[Jun 2020]+b.[Jul 2020]+b.[Aug 2020]+b.[Sep 2020]+b.[Oct 2020]+b.[Nov 2020]+b.[Dec 2020]),0) as [total_2020],
+
+					ISNULL(b.[Jan 2021],0) as [jan 2021], 
+					ISNULL(b.[Feb 2021],0) as [feb 2021], 
+					ISNULL(b.[Mar 2021],0) as [mar 2021], 
+					ISNULL(b.[Apr 2021],0) as [apr 2021], 
+					ISNULL(b.[May 2021],0) as [may 2021], 
+					ISNULL(b.[Jun 2021],0) as [jun 2021], 
+					ISNULL(b.[Jul 2021],0) as [jul 2021], 
+					ISNULL(b.[Aug 2021],0) as [aug 2021], 
+					ISNULL(b.[Sep 2021],0) as [sep 2021], 
+					ISNULL(b.[Oct 2021],0) as [oct 2021], 
+					ISNULL(b.[Nov 2021],0) as [nov 2021], 
+					ISNULL(b.[Dec 2021],0) as [dec 2021], 
+					ISNULL((b.[Jan 2021]+b.[Feb 2021]+b.[Mar 2021]+b.[Apr 2021]+b.[May 2021]+b.[Jun 2021]+b.[Jul 2021]+b.[Aug 2021]+b.[Sep 2021]+b.[Oct 2021]+b.[Nov 2021]+b.[Dec 2021]),0) as [total_2021],
+
+					/*
+					ISNULL(b.[Jan 2022],0) as [jan 2022], 
+					ISNULL(b.[Feb 2022],0) as [feb 2022], 
+					ISNULL(b.[Mar 2022],0) as [mar 2022], 
+					ISNULL(b.[Apr 2022],0) as [apr 2022], 
+					ISNULL(b.[May 2022],0) as [may 2022], 
+					ISNULL(b.[Jun 2022],0) as [jun 2022], 
+					ISNULL(b.[Jul 2022],0) as [jul 2022], 
+					ISNULL(b.[Aug 2022],0) as [aug 2022], 
+					ISNULL(b.[Sep 2022],0) as [sep 2022], 
+					ISNULL(b.[Oct 2022],0) as [oct 2022], 
+					ISNULL(b.[Nov 2022],0) as [nov 2022], 
+					ISNULL(b.[Dec 2022],0) as [dec 2022], 
+					ISNULL((b.[Jan 2022]+b.[Feb 2022]+b.[Mar 2022]+b.[Apr 2022]+b.[May 2022]+b.[Jun 2022]+b.[Jul 2022]+b.[Aug 2022]+b.[Sep 2022]+b.[Oct 2022]+b.[Nov 2022]+b.[Dec 2022]),0) as [total_2022],
 					*/
 					
-					ISNULL(b.[CY 2020],0) as [total_2020], 
-					ISNULL(b.[CY 2021],0) as [total_2021], 
-					ISNULL(b.[CY 2022],0) as [total_2022]
+					ISNULL(b.[CY 2022],0) as [total_2022],
+					ISNULL(b.[CY 2023],0) as [total_2023],
+					ISNULL(b.[CY 2024],0) as [total_2024],
+					ISNULL(b.[CY 2025],0) as [total_2025],
+					ISNULL(b.[CY 2026],0) as [total_2026]
 			from 
 					(	select	* 
 						from	eeiuser.acctg_csm_base_part_mnemonic
+						where	release_id = @release_id
 					) a 
 					join 
 					(	select	* 
@@ -316,9 +410,11 @@ from
 							and VERSION = 'Empire Factor'
 					) b
 					on a.mnemonic = b.[Mnemonic-Vehicle/Plant]
+					and a.release_id = b.release_id
 					where	a.base_part = @base_part
 		) BB
 on AA.base_part = BB.base_part
+
 
 
 

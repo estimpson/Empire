@@ -4,6 +4,7 @@ SET ANSI_NULLS ON
 GO
 
 
+
 CREATE PROCEDURE [dbo].[msp_shipout]
 	@shipper INTEGER,
 	@invdate DATETIME = NULL
@@ -726,7 +727,7 @@ if	exists
     
 	EXEC msdb.dbo.sp_send_dbmail
 		@profile_name = 'DBMail'
-	,	@recipients = 'estimpson@fore-thought.com;gurbina@empireelect.local;aboulanger@fore-thought.com'
+	,	@recipients = 'estimpson@fore-thought.com;iaragon@empireelect.com;aboulanger@fore-thought.com'
 	,	@subject = N'Shipout Order Update Alert'
 	,	@body = @ShipoutOrderUpdateAlertHTML
 	,	@body_format = 'HTML'
@@ -782,6 +783,7 @@ COMMIT TRANSACTION -- (1T)
 
 SELECT 0
 RETURN 0
+
 
 
 GO

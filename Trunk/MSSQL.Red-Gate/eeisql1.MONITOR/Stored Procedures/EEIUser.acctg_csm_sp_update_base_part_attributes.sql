@@ -6,6 +6,7 @@ GO
 
 
 
+
 CREATE procedure [EEIUser].[acctg_csm_sp_update_base_part_attributes] 
 (	
 @base_part varchar(30), 
@@ -22,7 +23,6 @@ CREATE procedure [EEIUser].[acctg_csm_sp_update_base_part_attributes]
 @empire_application varchar(500), 
 @empire_sop smalldatetime = null, 
 @empire_eop smalldatetime = null, 
-@mid_model_year datetime = null,
 @empire_eop_note varchar(250),
 @include_in_forecast bit)
 as
@@ -70,7 +70,6 @@ set
 		,empire_market_subsegment = @empire_market_subsegment
 		,empire_application = @empire_application
 		,empire_sop = @empire_sop
-		,mid_model_year = @mid_model_year
 		,empire_eop = @empire_eop
 		,empire_eop_note = @empire_eop_note
 		,include_in_forecast = @include_in_forecast

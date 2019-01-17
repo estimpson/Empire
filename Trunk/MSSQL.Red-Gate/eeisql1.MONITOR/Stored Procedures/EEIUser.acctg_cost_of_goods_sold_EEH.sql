@@ -8,8 +8,7 @@ GO
 
 
 
-
-CREATE proc [EEIUser].[acctg_cost_of_goods_sold] (@beg_date date, @end_date date)
+CREATE proc [EEIUser].[acctg_cost_of_goods_sold_EEH] (@beg_date date, @end_date date)
 
 as
 
@@ -172,8 +171,7 @@ from [EEIUser].[acctg_csm_vw_select_material_cost]
 --4. Return the result set
 -------------------------------------------------------------------
 
- SELECT		--(case when left(shipper_detail.part_original,7) in (select distinct base_part from eeiuser.acctg_csm_base_part_attributes where product_line = 'PCBe' and release_id = '2018-12') then 'PCBe' else isnull(eei_costs.product_line,'Not Specified') end) as product_line, 
-			eei_costs.product_line,
+ SELECT		(case when left(shipper_detail.part_original,7) in (select distinct base_part from eeiuser.acctg_csm_base_part_attributes where product_line = 'PCBe' and release_id = '2018-12') then 'PCBe' else isnull(eei_costs.product_line,'Not Specified') end) as product_line, 
 			shipper_detail.shipper,			
 			shipper.type,
 			shipper.customer,			
@@ -207,8 +205,8 @@ from [EEIUser].[acctg_csm_vw_select_material_cost]
 			isnull(shipper_detail.qty_packed,0)*isnull(ic.UnbulbedMaterialCost,0) as ext_unBulbed_material_cost,
 			ic.IncrementalMaterialCost,
 			isnull(shipper_detail.qty_packed,0)*isnull(ic.incrementalMaterialCost,0) as ext_incremental_material_cost
- FROM        shipper shipper 
- 		JOIN shipper_detail shipper_detail		ON shipper.id = shipper_detail.shipper
+ FROM        EEHSQL1.MONITOR.dbo.shipper shipper 
+ 		JOIN EEHSQL1.MONITOR.dbo.shipper_detail shipper_detail		ON shipper.id = shipper_detail.shipper
 	LEFT OUTER JOIN #eei_costs eei_costs				ON shipper_detail.part_original = eei_costs.part AND convert(date,shipper.date_shipped) = convert(date, eei_costs.time_stamp)
 	LEFT OUTER JOIN #eeh_costs eeh_costs				ON shipper_detail.part_original = eeh_costs.part AND convert(date,shipper.date_shipped) = convert(date, eeh_costs.time_stamp)
 	LEFT OUTER JOIN FT.Ftsp_BOMPerPart_incremental IC	ON ic.toppart = shipper_detail.part_original
@@ -223,6 +221,13 @@ order by	eei_costs.product_line,
 --option(recompile)
 
 end
+
+
+
+
+
+
+
 
 
 GO

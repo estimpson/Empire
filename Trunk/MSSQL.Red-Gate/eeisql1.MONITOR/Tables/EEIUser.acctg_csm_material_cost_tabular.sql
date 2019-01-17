@@ -163,12 +163,33 @@ CREATE TABLE [EEIUser].[acctg_csm_material_cost_tabular]
 [OCT_20] [decimal] (18, 6) NULL,
 [NOV_20] [decimal] (18, 6) NULL,
 [DEC_20] [decimal] (18, 6) NULL,
+[JAN_21] [decimal] (18, 6) NULL,
+[FEB_21] [decimal] (18, 6) NULL,
+[MAR_21] [decimal] (18, 6) NULL,
+[APR_21] [decimal] (18, 6) NULL,
+[MAY_21] [decimal] (18, 6) NULL,
+[JUN_21] [decimal] (18, 6) NULL,
+[JUL_21] [decimal] (18, 6) NULL,
+[AUG_21] [decimal] (18, 6) NULL,
+[SEP_21] [decimal] (18, 6) NULL,
+[OCT_21] [decimal] (18, 6) NULL,
+[NOV_21] [decimal] (18, 6) NULL,
 [DEC_21] [decimal] (18, 6) NULL,
 [DEC_22] [decimal] (18, 6) NULL,
 [DEC_23] [decimal] (18, 6) NULL,
 [DEC_24] [decimal] (18, 6) NULL,
-[DEC_25] [decimal] (18, 6) NULL
+[DEC_25] [decimal] (18, 6) NULL,
+[DEC_26] [decimal] (18, 6) NULL,
+[ID] [int] NULL
 ) ON [PRIMARY]
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+SET ANSI_NULLS ON
+GO
+create trigger [EEIUser].[tr_csm_material_cost_tabular_DeleteInsertOnly] on [EEIUser].[acctg_csm_material_cost_tabular] for update
+as
+rollback
 GO
 ALTER TABLE [EEIUser].[acctg_csm_material_cost_tabular] ADD CONSTRAINT [PK_acctg_csm_material_cost_tabular_pk] PRIMARY KEY CLUSTERED  ([RELEASE_ID], [ROW_ID], [BASE_PART]) ON [PRIMARY]
 GO

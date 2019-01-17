@@ -7,7 +7,8 @@ GO
 
 
 
-CREATE procedure [EEIUser].[acctg_csm_sp_select_empire_adjustment2] 
+
+CREATE procedure [EEIUser].[OBS_acctg_csm_sp_select_empire_adjustment] 
   @base_part varchar(30),
   @release_id varchar(30)
 as
@@ -83,39 +84,8 @@ select	@base_part as [base_part],
 		ISNULL(b.[dec 2018],0) as [dec2018], 
 		(ISNULL(b.[jan 2018],0)+ISNULL(b.[feb 2018],0)+ISNULL(b.[mar 2018],0)+ISNULL(b.[apr 2018],0)+ISNULL(b.[may 2018],0)+ISNULL(b.[jun 2018],0)+ISNULL(b.[jul 2018],0)+ISNULL(b.[aug 2018],0)+ISNULL(b.[sep 2018],0)+ISNULL(b.[oct 2018],0)+ISNULL(b.[nov 2018],0)+ISNULL(b.[dec 2018],0)) as [total_2018],
  
-		ISNULL(b.[jan 2019],0) as [jan2019], 
-		ISNULL(b.[feb 2019],0) as [feb2019], 
-		ISNULL(b.[mar 2019],0) as [mar2019], 
-		ISNULL(b.[apr 2019],0) as [apr2019], 
-		ISNULL(b.[may 2019],0) as [may2019], 
-		ISNULL(b.[jun 2019],0) as [jun2019], 
-		ISNULL(b.[jul 2019],0) as [jul2019], 
-		ISNULL(b.[aug 2019],0) as [aug2019], 
-		ISNULL(b.[sep 2019],0) as [sep2019], 
-		ISNULL(b.[oct 2019],0) as [oct2019], 
-		ISNULL(b.[nov 2019],0) as [nov2019], 
-		ISNULL(b.[dec 2019],0) as [dec2019], 
-		(ISNULL(b.[jan 2019],0)+ISNULL(b.[feb 2019],0)+ISNULL(b.[mar 2019],0)+ISNULL(b.[apr 2019],0)+ISNULL(b.[may 2019],0)+ISNULL(b.[jun 2019],0)+ISNULL(b.[jul 2019],0)+ISNULL(b.[aug 2019],0)+ISNULL(b.[sep 2019],0)+ISNULL(b.[oct 2019],0)+ISNULL(b.[nov 2019],0)+ISNULL(b.[dec 2019],0)) as [total_2019],
- 
-		/*
-		ISNULL(b.[jan 2020],0) as [jan2020], 
-		ISNULL(b.[feb 2020],0) as [feb2020], 
-		ISNULL(b.[mar 2020],0) as [mar2020], 
-		ISNULL(b.[apr 2020],0) as [apr2020], 
-		ISNULL(b.[may 2020],0) as [may2020], 
-		ISNULL(b.[jun 2020],0) as [jun2020], 
-		ISNULL(b.[jul 2020],0) as [jul2020], 
-		ISNULL(b.[aug 2020],0) as [aug2020], 
-		ISNULL(b.[sep 2020],0) as [sep2020], 
-		ISNULL(b.[oct 2020],0) as [oct2020], 
-		ISNULL(b.[nov 2020],0) as [nov2020], 
-		ISNULL(b.[dec 2020],0) as [dec2020], 
-		(ISNULL(b.[jan 2020],0)+ISNULL(b.[feb 2020],0)+ISNULL(b.[mar 2020],0)+ISNULL(b.[apr 2020],0)+ISNULL(b.[may 2020],0)+ISNULL(b.[jun 2020],0)+ISNULL(b.[jul 2020],0)+ISNULL(b.[aug 2020],0)+ISNULL(b.[sep 2020],0)+ISNULL(b.[oct 2020],0)+ISNULL(b.[nov 2020],0)+ISNULL(b.[dec 2020],0)) as [total_2020],
-		*/
-		
-		ISNULL(b.[CY 2020] ,0) as [total_2020],
-		ISNULL(b.[CY 2021] ,0) as [total_2021], 
-		ISNULL(b.[CY 2022] ,0) as [total_2022]
+		ISNULL(b.[CY 2019] ,0) as [total_2019], 
+		ISNULL(b.[CY 2020] ,0) as [total_2020]
 from 
 		(	select	* 
 			from	eeiuser.acctg_csm_base_part_mnemonic

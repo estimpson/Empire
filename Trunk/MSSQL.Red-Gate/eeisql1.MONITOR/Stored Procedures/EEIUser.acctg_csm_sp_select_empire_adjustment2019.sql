@@ -7,8 +7,7 @@ GO
 
 
 
-
-CREATE procedure [EEIUser].[acctg_csm_sp_select_empire_adjustment] 
+create procedure [EEIUser].[acctg_csm_sp_select_empire_adjustment2019] 
   @base_part varchar(30),
   @release_id varchar(30)
 as
@@ -84,11 +83,73 @@ select	@base_part as [base_part],
 		ISNULL(b.[dec 2018],0) as [dec2018], 
 		(ISNULL(b.[jan 2018],0)+ISNULL(b.[feb 2018],0)+ISNULL(b.[mar 2018],0)+ISNULL(b.[apr 2018],0)+ISNULL(b.[may 2018],0)+ISNULL(b.[jun 2018],0)+ISNULL(b.[jul 2018],0)+ISNULL(b.[aug 2018],0)+ISNULL(b.[sep 2018],0)+ISNULL(b.[oct 2018],0)+ISNULL(b.[nov 2018],0)+ISNULL(b.[dec 2018],0)) as [total_2018],
  
-		ISNULL(b.[CY 2019] ,0) as [total_2019], 
-		ISNULL(b.[CY 2020] ,0) as [total_2020]
+		ISNULL(b.[jan 2019],0) as [jan2019], 
+		ISNULL(b.[feb 2019],0) as [feb2019], 
+		ISNULL(b.[mar 2019],0) as [mar2019], 
+		ISNULL(b.[apr 2019],0) as [apr2019], 
+		ISNULL(b.[may 2019],0) as [may2019], 
+		ISNULL(b.[jun 2019],0) as [jun2019], 
+		ISNULL(b.[jul 2019],0) as [jul2019], 
+		ISNULL(b.[aug 2019],0) as [aug2019], 
+		ISNULL(b.[sep 2019],0) as [sep2019], 
+		ISNULL(b.[oct 2019],0) as [oct2019], 
+		ISNULL(b.[nov 2019],0) as [nov2019], 
+		ISNULL(b.[dec 2019],0) as [dec2019], 
+		(ISNULL(b.[jan 2019],0)+ISNULL(b.[feb 2019],0)+ISNULL(b.[mar 2019],0)+ISNULL(b.[apr 2019],0)+ISNULL(b.[may 2019],0)+ISNULL(b.[jun 2019],0)+ISNULL(b.[jul 2019],0)+ISNULL(b.[aug 2019],0)+ISNULL(b.[sep 2019],0)+ISNULL(b.[oct 2019],0)+ISNULL(b.[nov 2019],0)+ISNULL(b.[dec 2019],0)) as [total_2019],
+ 
+		ISNULL(b.[jan 2020],0) as [jan2020], 
+		ISNULL(b.[feb 2020],0) as [feb2020], 
+		ISNULL(b.[mar 2020],0) as [mar2020], 
+		ISNULL(b.[apr 2020],0) as [apr2020], 
+		ISNULL(b.[may 2020],0) as [may2020], 
+		ISNULL(b.[jun 2020],0) as [jun2020], 
+		ISNULL(b.[jul 2020],0) as [jul2020], 
+		ISNULL(b.[aug 2020],0) as [aug2020], 
+		ISNULL(b.[sep 2020],0) as [sep2020], 
+		ISNULL(b.[oct 2020],0) as [oct2020], 
+		ISNULL(b.[nov 2020],0) as [nov2020], 
+		ISNULL(b.[dec 2020],0) as [dec2020], 
+		(ISNULL(b.[jan 2020],0)+ISNULL(b.[feb 2020],0)+ISNULL(b.[mar 2020],0)+ISNULL(b.[apr 2020],0)+ISNULL(b.[may 2020],0)+ISNULL(b.[jun 2020],0)+ISNULL(b.[jul 2020],0)+ISNULL(b.[aug 2020],0)+ISNULL(b.[sep 2020],0)+ISNULL(b.[oct 2020],0)+ISNULL(b.[nov 2020],0)+ISNULL(b.[dec 2020],0)) as [total_2020],
+
+		ISNULL(b.[jan 2021],0) as [jan2021], 
+		ISNULL(b.[feb 2021],0) as [feb2021], 
+		ISNULL(b.[mar 2021],0) as [mar2021], 
+		ISNULL(b.[apr 2021],0) as [apr2021], 
+		ISNULL(b.[may 2021],0) as [may2021], 
+		ISNULL(b.[jun 2021],0) as [jun2021], 
+		ISNULL(b.[jul 2021],0) as [jul2021], 
+		ISNULL(b.[aug 2021],0) as [aug2021], 
+		ISNULL(b.[sep 2021],0) as [sep2021], 
+		ISNULL(b.[oct 2021],0) as [oct2021], 
+		ISNULL(b.[nov 2021],0) as [nov2021], 
+		ISNULL(b.[dec 2021],0) as [dec2021], 
+		(ISNULL(b.[jan 2021],0)+ISNULL(b.[feb 2021],0)+ISNULL(b.[mar 2021],0)+ISNULL(b.[apr 2021],0)+ISNULL(b.[may 2021],0)+ISNULL(b.[jun 2021],0)+ISNULL(b.[jul 2021],0)+ISNULL(b.[aug 2021],0)+ISNULL(b.[sep 2021],0)+ISNULL(b.[oct 2021],0)+ISNULL(b.[nov 2021],0)+ISNULL(b.[dec 2021],0)) as [total_2021],
+
+		/*
+		ISNULL(b.[jan 2022],0) as [jan2022], 
+		ISNULL(b.[feb 2022],0) as [feb2022], 
+		ISNULL(b.[mar 2022],0) as [mar2022], 
+		ISNULL(b.[apr 2022],0) as [apr2022], 
+		ISNULL(b.[may 2022],0) as [may2022], 
+		ISNULL(b.[jun 2022],0) as [jun2022], 
+		ISNULL(b.[jul 2022],0) as [jul2022], 
+		ISNULL(b.[aug 2022],0) as [aug2022], 
+		ISNULL(b.[sep 2022],0) as [sep2022], 
+		ISNULL(b.[oct 2022],0) as [oct2022], 
+		ISNULL(b.[nov 2022],0) as [nov2022], 
+		ISNULL(b.[dec 2022],0) as [dec2022], 
+		(ISNULL(b.[jan 2022],0)+ISNULL(b.[feb 2022],0)+ISNULL(b.[mar 2022],0)+ISNULL(b.[apr 2022],0)+ISNULL(b.[may 2022],0)+ISNULL(b.[jun 2022],0)+ISNULL(b.[jul 2022],0)+ISNULL(b.[aug 2022],0)+ISNULL(b.[sep 2022],0)+ISNULL(b.[oct 2022],0)+ISNULL(b.[nov 2022],0)+ISNULL(b.[dec 2022],0)) as [total_2022],
+		*/
+		
+		ISNULL(b.[CY 2022] ,0) as [total_2022],
+		ISNULL(b.[CY 2023] ,0) as [total_2023],
+		ISNULL(b.[CY 2024] ,0) as [total_2024],
+		ISNULL(b.[CY 2025] ,0) as [total_2025],
+		ISNULL(b.[CY 2026] ,0) as [total_2026]
 from 
 		(	select	* 
 			from	eeiuser.acctg_csm_base_part_mnemonic
+			where	release_id = @release_id
 		) a 
 		left outer join 
 		(	select	* 
@@ -96,11 +157,13 @@ from
 			where	release_id = @release_id
 		) b
 		on b.[Mnemonic-Vehicle/Plant] = a.mnemonic
+		and a.release_id = b.release_id
 		where	a.base_part = @base_part 
 			and b.[Mnemonic-Vehicle/Plant] is not null
 			and b.VERSION = 'Empire Adjustment'
  
 	
+
 
 
 

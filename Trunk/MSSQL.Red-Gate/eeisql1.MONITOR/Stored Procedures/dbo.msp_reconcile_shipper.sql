@@ -2,8 +2,6 @@ SET QUOTED_IDENTIFIER ON
 GO
 SET ANSI_NULLS ON
 GO
-
-
 CREATE procedure [dbo].[msp_reconcile_shipper]
 (	@shipper	integer )
 as
@@ -92,6 +90,32 @@ update	shipper_detail
 			box.type is null and 
 			box.shipper = @shipper )
  where	shipper = @shipper 
+
+-- 4.5 Validate quantity package are not more than Qty Required if destination doesn't allow it.
+--Required by Linda Sibrian/Ossman Fajardo
+--Issue: Due to an incident at the Customer, Ford reported a problem with the receipt of extra pieces or pieces less than those requested in the Purchase Order.
+--Implement date: 2019-01-10
+
+if exists
+	(	select
+			*
+		from
+			dbo.shipper_detail sd
+				join dbo.shipper s
+					on s.id = sd.shipper
+			join dbo.destination_shipping ds
+				on ds.destination = s.destination
+		where
+			sd.shipper = @shipper
+			and sd.qty_packed > sd.qty_required
+			and ds.allow_overstage = 'N'
+	) begin
+	raiserror('Error:  One or more part are overload the Qty packed vrs Qty Required!', 16, 1)
+
+	rollback tran
+
+	return -4
+end
 
 --	5. Refresh shipper container information.
 delete	shipper_container

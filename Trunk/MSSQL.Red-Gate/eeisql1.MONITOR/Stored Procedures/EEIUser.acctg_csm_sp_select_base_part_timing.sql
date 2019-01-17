@@ -2,6 +2,7 @@ SET QUOTED_IDENTIFIER ON
 GO
 SET ANSI_NULLS ON
 GO
+
 CREATE proc [EEIUser].[acctg_csm_sp_select_base_part_timing] (@base_part varchar(30), @release_id char(7)) 
 as 
 
@@ -34,8 +35,10 @@ from eeiuser.acctg_csm_vw_select_sales_forecast a
 join eeiuser.acctg_csm_mid_model b 
  on a.program = b.program and a.vehicle = b.brand+' '+b.productionnameplate
 where	base_part = @base_part 
+	and release_id = @release_id
 	and b.changetype <> 'EN - End' 
 	and b.changedate <> b.sop
+
 
 
 GO
