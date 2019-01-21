@@ -4,23 +4,23 @@ SET ANSI_NULLS ON
 GO
 
 
-
-
-
-
-
 -- select * from eeiuser.sales_1 where forecast_name like '%Actual%' and forecast_name like '%2018%' order by 2
 
--- select * from eeiuser.sales_1 where forecast_name = '2018/03/31 ACTUAL'
+-- select * from eeiuser.sales_1 where forecast_name = '2019/01/13 ACTUAL'
 
+-- delete from eeiuser.sales_1 where forecast_name like '%Actual%' and forecast_name like '%2019%' 
 
--- delete from eeiuser.sales_1 where forecast_name like '%Actual%' and forecast_name like '%2018%' 
-
--- exec eeiuser.acctg_sales_sp_insert_historical_sales '2018/10/31 ACTUAL', '2018-10-31 12:00:00.000', '2016-01-01','2018-10-31'
+-- exec eeiuser.acctg_sales_sp_insert_historical_sales '2019/01/13 ACTUAL', '2019-01-13 12:00:00.000', '2019-01-01','2019-01-13'
 
 
 CREATE procedure [EEIUser].[acctg_sales_sp_insert_historical_sales] (@forecast_name varchar(100),@time_stamp datetime,@FromDate datetime , @throughDate datetime)
 as
+
+--declare @forecast_name varchar(100) = '2019/01/13 Actual'
+--declare @time_stamp datetime = '2019-01-13 12:00:00.000'
+--declare @fromdate datetime = '2019-01-01'
+--declare @throughdate datetime = '2019-01-13'
+
 
 declare 
 @TruncatedFromDT datetime,
@@ -49,6 +49,7 @@ group by	team,
 		basepart, 
 		datepart(MONTH, date_shipped),
 		datepart(YEAR, date_shipped)
+
 
 
 

@@ -2,7 +2,7 @@ SET QUOTED_IDENTIFIER ON
 GO
 SET ANSI_NULLS ON
 GO
-create procedure [Andre].[eeisp_ars_nonorderstatus_fxDelete]
+create procedure [dbo].[eeisp_ars_nonorderstatus_fxDelete]
 as 
 
 begin

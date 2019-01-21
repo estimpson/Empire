@@ -12,8 +12,6 @@ CREATE procedure [EDI].[usp_CustomerEDI_SendShipNotices]
 as
 
 -- 01/09/2018 asb Fore-Thought, LLC : Update shipper status for shippers to be ignored for ASN and remove same shipper IDs from @PendingShipNotices..
-
-
 set nocount on
 set ansi_warnings on
 set ansi_nulls on
@@ -116,8 +114,6 @@ else begin
 		
 end
 
-
-
 declare
 	PendingShipNotices cursor local for
 select
@@ -211,7 +207,7 @@ while
 	--- <Call>
 	set @CallProcName = 'FS.usp_XMLShipNotice_CreateOutboundFile'
 	execute
-		@ProcReturn = EEISQL2.FxEDI.FS.usp_XMLShipNotice_CreateOutboundFile
+		@ProcReturn = FxEDI.FS.usp_XMLShipNotice_CreateOutboundFile
 		@XMLData = @xmlData
 	,	@ShipperID = @shipperID
 	,	@FTPMailBox = @ftpMailBox
@@ -254,9 +250,9 @@ if	exists
 	) begin
 
 	--- <Call>	
-	set @CallProcName = 'FxEDI.FTP.usp_SendCustomerEDI'
+	set @CallProcName = 'FxEdi.FTP.usp_SendCustomerEDI'
 	execute
-		@ProcReturn = EEISQL2.FxEDI.FTP.usp_SendCustomerEDI
+		@ProcReturn = FxEdi.FTP.usp_SendCustomerEDI
 	--	@SendFileFromFolderRoot = '\RawEDIData\CustomerEDI\OutBound'
 	--,	@SendFileNamePattern = '%[0-9][0-9][0-9][0-9][0-9].xml'
 	--,
@@ -295,7 +291,7 @@ if	exists
 	--- <Call>	
 	set @CallProcName = 'FxEDI.FTP.usp_SendCustomerEDI_TestMailBox'
 	execute
-		@ProcReturn = EEISQL2.FxEDI.FTP.usp_SendCustomerEDI_TestMailBox
+		@ProcReturn = FxEdi.FTP.usp_SendCustomerEDI_TestMailBox
 	--	@SendFileFromFolderRoot sysname = '\RawEDIData\CustomerEDI_TestMailBox\OutBound'
 	--,	@SendFileNamePattern sysname = '%[0-9][0-9][0-9][0-9][0-9].xml'
 	--,
@@ -394,7 +390,7 @@ go
 select
 	*
 from
-	EEISQL2.FxEDI.FTP.LogDetails fld
+	FxEdi.FTP.LogDetails fld
 go
 
 if	@@trancount > 0 begin
@@ -411,9 +407,4 @@ go
 Results {
 }
 */
-
-
-
-
-
 GO
