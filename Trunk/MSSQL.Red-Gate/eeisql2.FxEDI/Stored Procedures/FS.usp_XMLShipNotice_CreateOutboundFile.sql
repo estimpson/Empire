@@ -65,7 +65,7 @@ values
 )
 
 insert
-	EEISQL1.MONITOR.dbo.CustomerEDI_GenerationLog
+	MONITOR.dbo.CustomerEDI_GenerationLog
 (	FileStreamID
 ,	Type
 ,	ShipperID

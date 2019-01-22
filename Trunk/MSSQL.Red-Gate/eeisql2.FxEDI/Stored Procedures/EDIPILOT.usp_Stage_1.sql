@@ -546,10 +546,10 @@ if exists (
 	and o.id = object_id(N'tempdb..#210InvoiceHeader')
 )	begin
 	--- <Insert rows="*">
-	set	@TableName = '[EEISQL1].[MONITOR].EDIPILOT.StagingDoc210Headers'
+	set	@TableName = '[MONITOR].EDIPILOT.StagingDoc210Headers'
 
 	insert
-		[EEISQL1].[MONITOR].EDIPILOT.StagingInvoice210Docs
+		[MONITOR].EDIPILOT.StagingInvoice210Docs
 	(	RawDocumentGUID
 	,	DocumentImportDT
 	,	TradingPartner
@@ -587,10 +587,10 @@ END
 	and o.id = object_id(N'tempdb..#210InvoiceHeader')
 )	begin
 	--- <Insert rows="*">
-	set	@TableName = '[EEISQL1].[MONITOR].EDIPILOT.StagingInvoice210Headers'
+	set	@TableName = '[MONITOR].EDIPILOT.StagingInvoice210Headers'
 	
 	insert 
-		[EEISQL1].[MONITOR].EDIPILOT.StagingInvoice210Headers
+		[MONITOR].EDIPILOT.StagingInvoice210Headers
 	(	RawDocumentGUID 
 	,	b3ShipmentQualifier 
 	,	b3InvoiceNumber 
@@ -686,10 +686,10 @@ END
 	and o.id = object_id(N'tempdb..#210InvoiceN9REF')
 )	begin
 	--- <Insert rows="*">
-	set	@TableName = '[EEISQL1].[MONITOR].EDIPILOT.StagingInvoice210N9REF'
+	set	@TableName = '[MONITOR].EDIPILOT.StagingInvoice210N9REF'
 	
 	insert 
-		[EEISQL1].[MONITOR].EDIPILOT.StagingInvoice210N9REF
+		[MONITOR].EDIPILOT.StagingInvoice210N9REF
 	(	RawDocumentGUID  
 	,	b3InvoiceNumber 
 	,	N9IDQualifier 
@@ -747,9 +747,9 @@ END
 	and o.id = object_id(N'tempdb..#210InvoiceAddress')
 )	begin
 	--- <Insert rows="*">
-	set	@TableName = '[EEISQL1].[MONITOR].EDIPILOT.StagingInvoice210Address'
+	set	@TableName = '[MONITOR].EDIPILOT.StagingInvoice210Address'
 	
-	INSERT [EEISQL1].[MONITOR].[EDIPILOT].[StagingInvoice210Address]
+	INSERT [MONITOR].[EDIPILOT].[StagingInvoice210Address]
            (
             [RawDocumentGUID]
            ,[InvoiceNumber]
@@ -828,10 +828,10 @@ END
 	and o.id = object_id(N'tempdb..#210InvoiceDetail')
 )	begin
 	--- <Insert rows="*">
-	set	@TableName = '[EEISQL1].[MONITOR].EDIPILOT.StagingInvoice210Detail'
+	set	@TableName = '[MONITOR].EDIPILOT.StagingInvoice210Detail'
 	
 	insert 
-		[EEISQL1].[MONITOR].EDIPILOT.StagingInvoice210Detail
+		[MONITOR].EDIPILOT.StagingInvoice210Detail
 	(	RawDocumentGUID
 	,	InvoiceNumber
 	,	b3lXAssignedNumber
@@ -933,10 +933,10 @@ END	-- </Insert>
 	and o.id = object_id(N'tempdb..#210InvoiceSummary')
 )	begin
 	--- <Insert rows="*">
-	set	@TableName = '[EEISQL1].[MONITOR].EDIPILOT.StagingInvoice210Summary'
+	set	@TableName = '[MONITOR].EDIPILOT.StagingInvoice210Summary'
 	
 	insert 
-		[EEISQL1].[MONITOR].EDIPILOT.StagingInvoice210Summary
+		[MONITOR].EDIPILOT.StagingInvoice210Summary
 	(	[RawDocumentGUID] ,
 	[b3InvoiceNumber],
 	[l3Weight] ,
@@ -1097,13 +1097,13 @@ Select 'Staging210Docs'
 select
 	*
 from
-	[EEISQL1].[MONITOR].EDIPILOT.StagingInvoice210Docs sfh
+	[MONITOR].EDIPILOT.StagingInvoice210Docs sfh
 
 Select 'Staging210Headers'
 select
 	*
 from
-	[EEISQL1].[MONITOR].EDIPILOT.StagingInvoice210Headers sfr
+	[MONITOR].EDIPILOT.StagingInvoice210Headers sfr
 
 
 

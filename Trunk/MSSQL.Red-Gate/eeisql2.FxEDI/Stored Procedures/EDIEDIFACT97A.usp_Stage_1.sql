@@ -939,10 +939,10 @@ if exists (
    and o.id = object_id(N'tempdb..#ShipScheduleHeaders')
 ) begin
 	--- <Insert rows="*">
-	set	@TableName = '[EEISQL1].[MONITOR].EDIEDIFACT97A.StagingShipScheduleHeaders'
+	set	@TableName = '[MONITOR].EDIEDIFACT97A.StagingShipScheduleHeaders'
 
 	insert
-		[EEISQL1].[MONITOR].EDIEDIFACT97A.StagingShipScheduleHeaders
+		[MONITOR].EDIEDIFACT97A.StagingShipScheduleHeaders
 	(	RawDocumentGUID
 	,	DocumentImportDT
 	,	TradingPartner
@@ -986,10 +986,10 @@ if exists (
    and o.id = object_id(N'tempdb..#ShipScheduleSupplemental')
 ) begin
 	--- <Insert rows="*">
-	set	@TableName = '[EEISQL1].[MONITOR].EDIEDIFACT97A.StagingShipScheduleSupplemental'
+	set	@TableName = '[MONITOR].EDIEDIFACT97A.StagingShipScheduleSupplemental'
 	
 	insert 
-		[EEISQL1].[MONITOR].EDIEDIFACT97A.StagingShipScheduleSupplemental
+		[MONITOR].EDIEDIFACT97A.StagingShipScheduleSupplemental
 	(	RawDocumentGUID
     ,	ReleaseNo
 	,	ShipToCode
@@ -1079,9 +1079,9 @@ if exists (
    and o.id = object_id(N'tempdb..#ShipScheduleAccums')
 ) begin
 	--- <Insert rows="*">
-	set	@TableName = '[EEISQL1].[MONITOR].EDIEDIFACT97A.StagingShipScheduleAccums'
+	set	@TableName = '[MONITOR].EDIEDIFACT97A.StagingShipScheduleAccums'
 
-	insert  [EEISQL1].[MONITOR].EDIEDIFACT97A.StagingShipScheduleAccums
+	insert  [MONITOR].EDIEDIFACT97A.StagingShipScheduleAccums
     (	RawDocumentGUID
 	,	ReleaseNo
 	,	ShipToCode
@@ -1141,10 +1141,10 @@ if exists (
    and o.id = object_id(N'tempdb..#ShipScheduleAuthAccums')
 ) begin
 	--- <Insert rows="*">
-	set	@TableName = '[EEISQL1].[MONITOR].EDIEDIFACT97A.StagingShipScheduleAuthAccums'
+	set	@TableName = '[MONITOR].EDIEDIFACT97A.StagingShipScheduleAuthAccums'
 
 	insert
-		[EEISQL1].[MONITOR].EDIEDIFACT97A.StagingShipScheduleAuthAccums
+		[MONITOR].EDIEDIFACT97A.StagingShipScheduleAuthAccums
 	(	
 		RawDocumentGUID
 	,	ReleaseNo
@@ -1204,10 +1204,10 @@ if exists (
    and o.id = object_id(N'tempdb..#ShipSchedules')
 ) begin
 	--- <Insert rows="*">
-	set	@TableName = '[EEISQL1].[MONITOR].EDIEDIFACT97A.StagingShipSchedules'
+	set	@TableName = '[MONITOR].EDIEDIFACT97A.StagingShipSchedules'
 
 	insert
-		[EEISQL1].[MONITOR].EDIEDIFACT97A.StagingShipSchedules
+		[MONITOR].EDIEDIFACT97A.StagingShipSchedules
 	(	RawDocumentGUID
 	,	ReleaseNo
 	,	ShipToCode
@@ -1273,10 +1273,10 @@ if exists (
 	and o.id = object_id(N'tempdb..#PlanningHeaders')
 )	begin
 	--- <Insert rows="*">
-	set	@TableName = '[EEISQL1].[MONITOR].EDIEDIFACT97A.StagingPlanningHeaders'
+	set	@TableName = '[MONITOR].EDIEDIFACT97A.StagingPlanningHeaders'
 
 	insert
-		[EEISQL1].[MONITOR].EDIEDIFACT97A.StagingPlanningHeaders
+		[MONITOR].EDIEDIFACT97A.StagingPlanningHeaders
 	(	RawDocumentGUID
 	,	DocumentImportDT
 	,	TradingPartner
@@ -1320,10 +1320,10 @@ end
 	and o.id = object_id(N'tempdb..#PlanningSupplemental')
 )	begin
 	--- <Insert rows="*">
-	set	@TableName = '[EEISQL1].[MONITOR].EDIEDIFACT97A.StagingShipScheduleSupplemental'
+	set	@TableName = '[MONITOR].EDIEDIFACT97A.StagingShipScheduleSupplemental'
 	
 	insert 
-		[EEISQL1].[MONITOR].EDIEDIFACT97A.StagingPlanningSupplemental
+		[MONITOR].EDIEDIFACT97A.StagingPlanningSupplemental
 	(	RawDocumentGUID
     ,	ReleaseNo
 	,	ShipToCode
@@ -1412,10 +1412,10 @@ if exists (
    and o.id = object_id(N'tempdb..#PlanningAccums')
 ) begin
 	--- <Insert rows="*">
-	set	@TableName = '[EEISQL1].[MONITOR].EDIEDIFACT97A.StagingPlanningAccums'
+	set	@TableName = '[MONITOR].EDIEDIFACT97A.StagingPlanningAccums'
 
 	insert
-		[EEISQL1].[MONITOR].EDIEDIFACT97A.StagingPlanningAccums
+		[MONITOR].EDIEDIFACT97A.StagingPlanningAccums
 	(	RawDocumentGUID
 	,	ReleaseNo
 	,	ShipToCode
@@ -1474,10 +1474,10 @@ if exists (
    and o.id = object_id(N'tempdb..#PlanningAuthAccums')
 ) begin
 	--- <Insert rows="*">
-	set	@TableName = '[EEISQL1].[MONITOR].EDIEDIFACT97A.StagingPlanningAuthAccums'
+	set	@TableName = '[MONITOR].EDIEDIFACT97A.StagingPlanningAuthAccums'
 
 	insert
-		[EEISQL1].[MONITOR].EDIEDIFACT97A.StagingPlanningAuthAccums
+		[MONITOR].EDIEDIFACT97A.StagingPlanningAuthAccums
 	(	
 		RawDocumentGUID
 	,	ReleaseNo
@@ -1544,10 +1544,10 @@ if exists (
    and o.id = object_id(N'tempdb..#PlanningReleases')
 ) begin
 	--- <Insert rows="*">
-	set	@TableName = '[EEISQL1].[MONITOR].EDIEDIFACT97A.StagingPlanningReleases'
+	set	@TableName = '[MONITOR].EDIEDIFACT97A.StagingPlanningReleases'
 
 	insert
-		[EEISQL1].[MONITOR].EDIEDIFACT97A.StagingPlanningReleases
+		[MONITOR].EDIEDIFACT97A.StagingPlanningReleases
 	(	RawDocumentGUID
 	,	ReleaseNo
 	,	ShipToCode
@@ -1738,56 +1738,56 @@ Select 'StagingSSHeaders'
 select
 	*
 from
-	[EEISQL1].[MONITOR].EDIEDIFACT97A.StagingShipScheduleHeaders sfh
+	[MONITOR].EDIEDIFACT97A.StagingShipScheduleHeaders sfh
 
 Select 'StagingSSchedules'
 select
 	*
 from
-	[EEISQL1].[MONITOR].EDIEDIFACT97A.StagingShipSchedules sfr
+	[MONITOR].EDIEDIFACT97A.StagingShipSchedules sfr
 
 Select 'StagingSSAccums'
 select 
 	*
 from
-	[EEISQL1].[MONITOR].EDIEDIFACT97A.StagingShipScheduleAccums sfs
+	[MONITOR].EDIEDIFACT97A.StagingShipScheduleAccums sfs
 
 Select 'StagingSSSupplemental'
 select 
 	*
 from
-	[EEISQL1].[MONITOR].EDIEDIFACT97A.StagingShipScheduleSupplemental sfs
+	[MONITOR].EDIEDIFACT97A.StagingShipScheduleSupplemental sfs
 go
 
 Select 'PlanningHeaders'
 select
 	*
 from
-	[EEISQL1].[MONITOR].EDIEDIFACT97A.StagingPlanningHeaders sfh
+	[MONITOR].EDIEDIFACT97A.StagingPlanningHeaders sfh
 
 Select 'PlanningReleases'
 select
 	*
 from
-	[EEISQL1].[MONITOR].EDIEDIFACT97A.StagingPlanningReleases sfr
+	[MONITOR].EDIEDIFACT97A.StagingPlanningReleases sfr
 
 Select 'PlanningAccums'	
 select 
 	*
 from
-	[EEISQL1].[MONITOR].EDIEDIFACT97A.StagingPlanningAccums sfa
+	[MONITOR].EDIEDIFACT97A.StagingPlanningAccums sfa
 Select 'PlanningAuthAccums'	
 
 select 
 	*
 from
-	[EEISQL1].[MONITOR].EDIEDIFACT97A.StagingPlanningAuthAccums sfa
+	[MONITOR].EDIEDIFACT97A.StagingPlanningAuthAccums sfa
 
 Select 'PlanningSupplemental'	
 select 
 	*
 from
-	[EEISQL1].[MONITOR].EDIEDIFACT97A.StagingPlanningSupplemental sfa
+	[MONITOR].EDIEDIFACT97A.StagingPlanningSupplemental sfa
 
 
 

@@ -48,7 +48,7 @@ into  #MissingData
 
 	--print @emailBody
 
-EXEC		[eeisql1].msdb.dbo.sp_send_dbmail
+EXEC		msdb.dbo.sp_send_dbmail
 			@profile_name = 'DBMail'-- sysname
 	,		@recipients = 'Gurbina@empireelect.com' -- varchar(max)
 	,		@copy_recipients = 'aboulanger@fore-thought.com;dwest@empireelect.com' -- varchar(max)

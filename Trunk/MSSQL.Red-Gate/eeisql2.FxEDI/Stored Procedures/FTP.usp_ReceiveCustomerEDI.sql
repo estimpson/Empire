@@ -118,10 +118,10 @@ if	exists
 end
 
 /*	Use an administrative account. */
-execute as login = 'empireelect\aboulanger'
+--execute as login = 'empireelect\aboulanger'
 
 declare
-	@Command varchar(max) = '\\srvsql2\fx\FxEDI\RawEDIData\CustomerEDI\FTPCommands\ReceiveInbound_v3.cmd'
+	@Command varchar(max) = '\\eei-sqlpwv03\MSSQLSERVER\FxEDI\RawEDIData\CustomerEDI\FTPCommands\ReceiveInbound_v3.cmd'
 ,	@CommandOutput varchar(max)
 
 /*	Perform ftp. */
@@ -130,7 +130,7 @@ exec
 	@Command = @Command
 ,	@CommandOutput = @CommandOutput out
 
-revert
+--revert
 
 insert
 	FTP.LogDetails

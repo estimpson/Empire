@@ -2,6 +2,7 @@ SET QUOTED_IDENTIFIER ON
 GO
 SET ANSI_NULLS ON
 GO
+
 CREATE procedure [FTP].[usp_SendCustomerEDI]
 	@SendFileFromFolderRoot sysname = '\RawEDIData\CustomerEDI\OutBound'
 ,	@SendFileNamePattern sysname = '%[0-9][0-9][0-9][0-9][0-9].xml'
@@ -154,7 +155,7 @@ update
 	cegl
 set	CurrentFilePath = redOutboundFiles.file_stream.GetFileNamespacePath()
 from
-	EEISQL1.MONITOR.dbo.CustomerEDI_GenerationLog cegl
+	MONITOR.dbo.CustomerEDI_GenerationLog cegl
 	join dbo.RawEDIData redOutboundFolder
 		join dbo.RawEDIData redOutboundFiles
 			on redOutboundFiles.parent_path_locator = redOutboundFolder.path_locator
@@ -194,10 +195,10 @@ select
 
 /*	Use an administrative account. */
 --execute as login = 'empireelect\estimpson'
-execute as login = 'empireelect\aboulanger'
+--execute as login = 'empireelect\aboulanger'
 
 declare
-	@Command varchar(max) = '\\srvsql2\fx\FxEDI\RawEDIData\CustomerEDI\FTPCommands\SendOutbound_v3.cmd'
+	@Command varchar(max) = '\\eei-sqlpwv03\MSSQLSERVER\FxEDI\RawEDIData\CustomerEDI\FTPCommands\SendOutbound_v3.cmd'
 ,	@CommandOutput varchar(max)
 
 /*	Perform ftp. */
@@ -220,7 +221,7 @@ select
 ,	Command = @Command
 ,	CommandOutput = @CommandOutput
 
-revert
+--revert
 
 /*	Check for known error conditions and raise an error. */
 if	@CommandOutput like '%Unknown host%'
@@ -278,7 +279,7 @@ update
 set	CurrentFilePath = redOutboundFiles.file_stream.GetFileNamespacePath()
 ,	FileSendDT = getdate()
 from
-	EEISQL1.MONITOR.dbo.CustomerEDI_GenerationLog cegl
+	MONITOR.dbo.CustomerEDI_GenerationLog cegl
 	join dbo.RawEDIData redOutboundFolder
 		join dbo.RawEDIData redOutboundFiles
 			on redOutboundFiles.parent_path_locator = redOutboundFolder.path_locator
@@ -379,6 +380,7 @@ go
 Results {
 }
 */
+
 
 
 GO

@@ -904,10 +904,10 @@ if exists (
    and o.id = object_id(N'tempdb..#ShipScheduleHeaders')
 ) begin
 	--- <Insert rows="*">
-	set	@TableName = '[EEISQL1].[MONITOR].EDINAL.StagingShipScheduleHeaders'
+	set	@TableName = '[MONITOR].EDINAL.StagingShipScheduleHeaders'
 
 	insert
-		[EEISQL1].[MONITOR].EDINAL.StagingShipScheduleHeaders
+		[MONITOR].EDINAL.StagingShipScheduleHeaders
 	(	RawDocumentGUID
 	,	DocumentImportDT
 	,	TradingPartner
@@ -951,10 +951,10 @@ if exists (
    and o.id = object_id(N'tempdb..#ShipScheduleSupplemental')
 ) begin
 	--- <Insert rows="*">
-	set	@TableName = '[EEISQL1].[MONITOR].EDINAL.StagingShipScheduleSupplemental'
+	set	@TableName = '[MONITOR].EDINAL.StagingShipScheduleSupplemental'
 	
 	insert 
-		[EEISQL1].[MONITOR].EDINAL.StagingShipScheduleSupplemental
+		[MONITOR].EDINAL.StagingShipScheduleSupplemental
 	(	RawDocumentGUID
     ,	ReleaseNo
 	,	ShipToCode
@@ -1044,9 +1044,9 @@ if exists (
    and o.id = object_id(N'tempdb..#ShipScheduleAccums')
 ) begin
 	--- <Insert rows="*">
-	set	@TableName = '[EEISQL1].[MONITOR].EDINAL.StagingShipScheduleAccums'
+	set	@TableName = '[MONITOR].EDINAL.StagingShipScheduleAccums'
 
-	insert  [EEISQL1].[MONITOR].EDINAL.StagingShipScheduleAccums
+	insert  [MONITOR].EDINAL.StagingShipScheduleAccums
     (	RawDocumentGUID
 	,	ReleaseNo
 	,	ShipToCode
@@ -1116,10 +1116,10 @@ if exists (
    and o.id = object_id(N'tempdb..#ShipScheduleAuthAccums')
 ) begin
 	--- <Insert rows="*">
-	set	@TableName = '[EEISQL1].[MONITOR].EDINAL.StagingShipScheduleAuthAccums'
+	set	@TableName = '[MONITOR].EDINAL.StagingShipScheduleAuthAccums'
 
 	insert
-		[EEISQL1].[MONITOR].EDINAL.StagingShipScheduleAuthAccums
+		[MONITOR].EDINAL.StagingShipScheduleAuthAccums
 	(	
 		RawDocumentGUID
 	,	ReleaseNo
@@ -1185,10 +1185,10 @@ if exists (
    and o.id = object_id(N'tempdb..#ShipSchedules')
 ) begin
 	--- <Insert rows="*">
-	set	@TableName = '[EEISQL1].[MONITOR].EDINAL.StagingShipSchedules'
+	set	@TableName = '[MONITOR].EDINAL.StagingShipSchedules'
 
 	insert
-		[EEISQL1].[MONITOR].EDINAL.StagingShipSchedules
+		[MONITOR].EDINAL.StagingShipSchedules
 	(	RawDocumentGUID
 	,	ReleaseNo
 	,	ShipToCode
@@ -1259,10 +1259,10 @@ if exists (
 	and o.id = object_id(N'tempdb..#PlanningHeaders')
 )	begin
 	--- <Insert rows="*">
-	set	@TableName = '[EEISQL1].[MONITOR].EDINAL.StagingPlanningHeaders'
+	set	@TableName = '[MONITOR].EDINAL.StagingPlanningHeaders'
 
 	insert
-		[EEISQL1].[MONITOR].EDINAL.StagingPlanningHeaders
+		[MONITOR].EDINAL.StagingPlanningHeaders
 	(	RawDocumentGUID
 	,	DocumentImportDT
 	,	TradingPartner
@@ -1306,10 +1306,10 @@ end
 	and o.id = object_id(N'tempdb..#PlanningSupplemental')
 )	begin
 	--- <Insert rows="*">
-	set	@TableName = '[EEISQL1].[MONITOR].EDINAL.StagingShipScheduleSupplemental'
+	set	@TableName = '[MONITOR].EDINAL.StagingShipScheduleSupplemental'
 	
 	insert 
-		[EEISQL1].[MONITOR].EDINAL.StagingPlanningSupplemental
+		[MONITOR].EDINAL.StagingPlanningSupplemental
 	(	RawDocumentGUID
     ,	ReleaseNo
 	,	ShipToCode
@@ -1398,10 +1398,10 @@ if exists (
    and o.id = object_id(N'tempdb..#PlanningAccums')
 ) begin
 	--- <Insert rows="*">
-	set	@TableName = '[EEISQL1].[MONITOR].EDINAL.StagingPlanningAccums'
+	set	@TableName = '[MONITOR].EDINAL.StagingPlanningAccums'
 
 	insert
-		[EEISQL1].[MONITOR].EDINAL.StagingPlanningAccums
+		[MONITOR].EDINAL.StagingPlanningAccums
 	(	RawDocumentGUID
 	,	ReleaseNo
 	,	ShipToCode
@@ -1475,10 +1475,10 @@ if exists (
    and o.id = object_id(N'tempdb..#PlanningAuthAccums')
 ) begin
 	--- <Insert rows="*">
-	set	@TableName = '[EEISQL1].[MONITOR].EDINAL.StagingPlanningAuthAccums'
+	set	@TableName = '[MONITOR].EDINAL.StagingPlanningAuthAccums'
 
 	insert
-		[EEISQL1].[MONITOR].EDINAL.StagingPlanningAuthAccums
+		[MONITOR].EDINAL.StagingPlanningAuthAccums
 	(	
 		RawDocumentGUID
 	,	ReleaseNo
@@ -1587,10 +1587,10 @@ if exists (
    and o.id = object_id(N'tempdb..#PlanningReleases')
 ) begin
 	--- <Insert rows="*">
-	set	@TableName = '[EEISQL1].[MONITOR].EDINAL.StagingPlanningReleases'
+	set	@TableName = '[MONITOR].EDINAL.StagingPlanningReleases'
 
 	insert
-		[EEISQL1].[MONITOR].EDINAL.StagingPlanningReleases
+		[MONITOR].EDINAL.StagingPlanningReleases
 	(	RawDocumentGUID
 	,	ReleaseNo
 	,	ShipToCode
@@ -1785,56 +1785,56 @@ Select 'StagingSSHeaders'
 select
 	*
 from
-	[EEISQL1].[MONITOR].EDINAL.StagingShipScheduleHeaders sfh
+	[MONITOR].EDINAL.StagingShipScheduleHeaders sfh
 
 Select 'StagingSSchedules'
 select
 	*
 from
-	[EEISQL1].[MONITOR].EDINAL.StagingShipSchedules sfr
+	[MONITOR].EDINAL.StagingShipSchedules sfr
 
 Select 'StagingSSAccums'
 select 
 	*
 from
-	[EEISQL1].[MONITOR].EDINAL.StagingShipScheduleAccums sfs
+	[MONITOR].EDINAL.StagingShipScheduleAccums sfs
 
 Select 'StagingSSSupplemental'
 select 
 	*
 from
-	[EEISQL1].[MONITOR].EDINAL.StagingShipScheduleSupplemental sfs
+	[MONITOR].EDINAL.StagingShipScheduleSupplemental sfs
 go
 
 Select 'PlanningHeaders'
 select
 	*
 from
-	[EEISQL1].[MONITOR].EDINAL.StagingPlanningHeaders sfh
+	[MONITOR].EDINAL.StagingPlanningHeaders sfh
 
 Select 'PlanningReleases'
 select
 	*
 from
-	[EEISQL1].[MONITOR].EDINAL.StagingPlanningReleases sfr
+	[MONITOR].EDINAL.StagingPlanningReleases sfr
 
 Select 'PlanningAccums'	
 select 
 	*
 from
-	[EEISQL1].[MONITOR].EDINAL.StagingPlanningAccums sfa
+	[MONITOR].EDINAL.StagingPlanningAccums sfa
 Select 'PlanningAuthAccums'	
 
 select 
 	*
 from
-	[EEISQL1].[MONITOR].EDINAL.StagingPlanningAuthAccums sfa
+	[MONITOR].EDINAL.StagingPlanningAuthAccums sfa
 
 Select 'PlanningSupplemental'	
 select 
 	*
 from
-	[EEISQL1].[MONITOR].EDINAL.StagingPlanningSupplemental sfa
+	[MONITOR].EDINAL.StagingPlanningSupplemental sfa
 
 
 
