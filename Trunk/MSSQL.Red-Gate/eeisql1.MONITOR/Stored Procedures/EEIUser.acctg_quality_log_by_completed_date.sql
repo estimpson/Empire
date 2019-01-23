@@ -6,13 +6,14 @@ GO
 
 
 
+
 CREATE proc [EEIUser].[acctg_quality_log_by_completed_date] (@beg_date date, @end_date date) 
 as 
 
 --For Testing:
 
--- exec eeiuser.acctg_quality_log_by_reported_date '2019-01-07', '2019-01-14'
--- exec eeiuser.acctg_quality_log_by_completed_date '2019-01-01', '2019-01-14'
+ exec eeiuser.acctg_quality_log_by_reported_date '2018-01-01', '2019-01-14'
+ exec eeiuser.acctg_quality_log_by_completed_date '2019-01-01', '2019-01-14'
 
 
 --declare @base_part varchar(20)
@@ -21,7 +22,7 @@ as
 --select @release_id = '2018-10'
 select 
 [CDR]
-,datepart(ww,date_reported_customer) as [Year]
+,datepart(yyyy,date_reported_customer) as [Year]
 ,datepart(ww,date_reported_customer) as [Week No]
 ,[Date_Reported_Customer] as [Reported Date]
 ,[Part_number_EEH] as [Part]
@@ -45,7 +46,8 @@ left join eehsql1.sistema.[dbo].SQC_defects b on a.defectid = b.id
 --left join eehsql1.sistema.dbo.sqc_8d_root_cause c on a.CDR = c.CDR
 
 where	[Complete_analysis_date] >= @beg_date and [Complete_analysis_date] < @end_date
-order by 3
+order by 4
+
 
 
 GO

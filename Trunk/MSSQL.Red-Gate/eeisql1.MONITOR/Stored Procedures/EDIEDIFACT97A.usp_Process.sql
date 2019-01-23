@@ -5,6 +5,7 @@ GO
 
 
 
+
 CREATE PROCEDURE [EDIEDIFACT97A].[usp_Process]
 	@TranDT DATETIME = NULL OUT
 ,	@Result INTEGER = NULL OUT
@@ -1796,7 +1797,7 @@ SELECT
 	EXEC msdb.dbo.sp_send_dbmail
 		@profile_name = 'DBMail'-- sysname
 	,	@recipients = @EmailAddress -- varchar(max)
-	,	@copy_recipients = 'dwest@empireelect.com;aboulanger@fore-thought.com; shesse@empireelect.com; iaragon@empireelect.com' -- varchar(max)
+	,	@copy_recipients = 'dwest@empireelect.com;aboulanger@fore-thought.com; iaragon@empireelect.com' -- varchar(max)
 	, 	@subject = @EmailHeader
 	,  	@body = @EmailBody
 	,  	@body_format = 'HTML'
@@ -1964,9 +1965,6 @@ select
 	@Error, @ProcReturn, @TranDT, @ProcResult
 go
 
-
-go
-
 --commit transaction
 rollback transaction
 
@@ -1981,6 +1979,7 @@ go
 Results {
 }
 */
+
 
 
 
