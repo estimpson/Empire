@@ -77,7 +77,7 @@ from
 		on wo.QuoteNumber = ql.QuoteNumber
 		and wo.QuoteNumber is not null	
 where
-	ql.Awarded = 'Y'
+	left(isnull(ql.Awarded, ''), 1) = 'Y'
 	and not exists (
 			select
 				1
@@ -98,7 +98,7 @@ insert into eeiuser.acctg_csm_base_prices
 ,	EffectiveDT
 )
 select
-	left(wo.Part, 7) as BasePart
+	left(wo.Part, 7)
 ,	ql.QuoteNumber
 ,	ql.QuotePrice
 ,	woapqp.EEHShipDate
@@ -111,6 +111,7 @@ from
 		and wo.QuoteNumber is not null	
 where
 	wo.WOEngineerID in (select WOEngineerID from @temp)
+	and ql.QuotePrice is not null
 	and woapqp.EEHShipDate = (
 				select
 					min(EEHShipDate)
@@ -118,8 +119,13 @@ where
 					eehsql1.eeh.dbo.ENG_WOAPQP
 				where
 					WOEngineerID = wo.WOEngineerID )
-order by
-	BasePart
+		and woapqp.ID = (
+				select
+					max(ID)
+				from
+					eehsql1.eeh.dbo.ENG_WOAPQP
+				where
+						WOEngineerID = wo.WOEngineerID )
 	
 
 select

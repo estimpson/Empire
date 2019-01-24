@@ -4,7 +4,7 @@ SET ANSI_NULLS ON
 GO
 
 
-create procedure [EEIUser].[acctg_csm_sp_price_adjustments_insert_quote]
+CREATE procedure [EEIUser].[acctg_csm_sp_price_adjustments_insert_quote]
 	@OperatorCode varchar(5)
 ,	@TranDT datetime = null out
 ,	@Result integer = null  out
@@ -76,15 +76,6 @@ from
 	join eeiuser.QT_QuoteLog ql 
 		on wo.QuoteNumber = ql.QuoteNumber
 		and wo.QuoteNumber is not null	
-where
-	ql.Awarded = 'Y'
-	and exists (
-			select
-				1
-			from
-				eeiuser.acctg_csm_price_adjustments pa
-			where
-				pa.BasePart = left(wo.Part, 7) )
 group by
 	left(wo.Part, 7)
 
@@ -100,7 +91,7 @@ insert into eeiuser.acctg_csm_price_adjustments
 ,	EffectiveDT
 )
 select
-	left(wo.Part, 7) -- base part
+	left(wo.Part, 7)
 ,	wo.Part	
 ,	ql.QuoteNumber
 ,	coalesce(ql.QuoteReason, 'N/A')

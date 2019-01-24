@@ -178,6 +178,9 @@ CREATE TABLE [EEIUser].[acctg_csm_selling_prices_change_log]
 [DEC_23] [decimal] (18, 6) NULL,
 [DEC_24] [decimal] (18, 6) NULL,
 [DEC_25] [decimal] (18, 6) NULL,
-[DEC_26] [decimal] (18, 6) NULL
+[DEC_26] [decimal] (18, 6) NULL,
+[RowID] [int] NOT NULL IDENTITY(1, 1)
 ) ON [PRIMARY]
+GO
+ALTER TABLE [EEIUser].[acctg_csm_selling_prices_change_log] ADD CONSTRAINT [PK__acctg_cs__FFEE7451C6FCA7CC] PRIMARY KEY CLUSTERED  ([RowID]) ON [PRIMARY]
 GO

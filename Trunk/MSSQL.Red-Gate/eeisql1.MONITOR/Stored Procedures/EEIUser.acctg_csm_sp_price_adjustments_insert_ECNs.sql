@@ -4,7 +4,7 @@ SET ANSI_NULLS ON
 GO
 
 
-create procedure [EEIUser].[acctg_csm_sp_price_adjustments_insert_ECNs]
+CREATE procedure [EEIUser].[acctg_csm_sp_price_adjustments_insert_ECNs]
 	@OperatorCode varchar(5)
 ,	@TranDT datetime = null out
 ,	@Result integer = null  out
@@ -77,14 +77,14 @@ from
 		on wo.QuoteNumber = ql.QuoteNumber
 		and wo.QuoteNumber is not null	
 where
-	ql.Awarded = 'Y'
-	and exists (
+	left(isnull(ql.Awarded, ''), 1) = 'Y'
+	and not exists (
 			select
 				1
 			from
-				eeiuser.acctg_csm_base_prices bp
+				eeiuser.acctg_csm_price_adjustments pa
 			where
-				bp.BasePart = left(wo.Part, 7) )
+				pa.Part = wo.Part )
 group by
 	left(wo.Part, 7)
 
@@ -101,7 +101,7 @@ insert into eeiuser.acctg_csm_price_adjustments
 ,	EffectiveDT
 )
 select
-	left(wo.Part, 7) -- base part
+	left(wo.Part, 7)
 ,	wo.Part -- full part number
 ,	ql.QuoteNumber
 ,	'ECN'
@@ -116,15 +116,25 @@ from
 		on wo.QuoteNumber = ql.QuoteNumber
 		and wo.QuoteNumber is not null	
 where
-	ql.Awarded = 'Y'
-	and wo.WOEngineerID in (select WOEngineerID from @temp) 
-	and not exists (
-			select
-				1
-			from
-				eeiuser.acctg_csm_price_adjustments pa
-			where
-				pa.Part = wo.Part ) -- new ECNs only
+	wo.WOEngineerID in (select WOEngineerID from @temp) 
+	and ql.QuotePrice is not null
+	and woapqp.EEHShipDate = (
+				select
+					min(EEHShipDate)
+				from
+					eehsql1.eeh.dbo.ENG_WOAPQP
+				where
+					WOEngineerID = wo.WOEngineerID 
+					and EEHShipDate is not null ) -- limit to one ship date
+	and woapqp.ID = (
+				select
+					max(ID)
+				from
+					eehsql1.eeh.dbo.ENG_WOAPQP
+				where
+						WOEngineerID = wo.WOEngineerID
+						and EEHShipDate is not null ) -- limit to one row
+
 
 select
 	@Error = @@Error,
