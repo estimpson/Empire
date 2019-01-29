@@ -1,0 +1,1 @@
+copy ..\dbo.vwft_ActivePartMaterialAccum.sql
