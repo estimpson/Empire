@@ -2,8 +2,7 @@ SET QUOTED_IDENTIFIER ON
 GO
 SET ANSI_NULLS ON
 GO
-
-create procedure FS.usp_FileTable_FileMove
+CREATE procedure [FS].[usp_FileTable_FileMove]
 	@FromFolder sysname = '%'
 ,	@ToFolder sysname
 ,	@FileNamePattern sysname
@@ -105,6 +104,7 @@ where
 	re.parent_path_locator = @fromPathLocator
 	and re.is_directory = 0
 	and re.name like @FileNamePattern
+option (maxdop 1)
 
 --update
 --	redOutboundFiles

@@ -63,6 +63,7 @@ values
 ,	FxEDI.FS.udf_GetNextRawEDIData_OutboundXML_FileName (@outboundPath)
 ,	FxEDI.FS.udf_GetFilePathLocator(@outboundPath)
 )
+option (maxdop 1)
 
 insert
 	MONITOR.dbo.CustomerEDI_GenerationLog
