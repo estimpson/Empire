@@ -2,7 +2,7 @@ SET QUOTED_IDENTIFIER ON
 GO
 SET ANSI_NULLS ON
 GO
-CREATE procedure [dbo].[ReleaseAnalysis] @part varchar(25)
+CREATE procedure [dbo].[ReleaseAnalysis] @part varchar(25), @FromDT datetime = null
 as
 
 SELECT a.ReleasePlanID, 
@@ -32,6 +32,7 @@ a.ReleaseNo,
 a.LineID
 FROM MONITOR.dbo.CustomerReleasePlanRaw a join MONITOR.dbo.customerreleaseplans b on a.releaseplanid = b.id 
 WHERE a.Part like @part + '%'
+		and generateddt > isnull(@FromDT, '2005-08-01')
 order by a.releaseplanid, 
 a.duedt
 GO

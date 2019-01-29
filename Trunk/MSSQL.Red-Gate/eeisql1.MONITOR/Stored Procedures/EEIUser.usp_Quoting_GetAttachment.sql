@@ -102,9 +102,9 @@ begin
 		set @TocMsg = 'Delete attachment'
 		begin
 			--- <Call>	
-			set	@CallProcName = ' EEISQL2.FxUtilities.FS.usp_QT_Files_GetAttachment'
+			set	@CallProcName = ' FxUtilities.FS.usp_QT_Files_GetAttachment'
 			
-			execute @ProcReturn = EEISQL2.FxUtilities.FS.usp_QT_Files_GetAttachment
+			execute @ProcReturn = FxUtilities.FS.usp_QT_Files_GetAttachment
 				@QuoteNumber = @QuoteNumber
 			,	@AttachmentCategory = @AttachmentCategory
 			,	@FileName = @FileName
@@ -257,7 +257,7 @@ select
 select
 	[FileContents] = convert(varchar(max), qf.[FileContents])
 from
-	EEISQL2.FxUtilities.FS.QT_Files qf
+	FxUtilities.FS.QT_Files qf
 where
 	qf.stream_id = @NewStreamID
 go

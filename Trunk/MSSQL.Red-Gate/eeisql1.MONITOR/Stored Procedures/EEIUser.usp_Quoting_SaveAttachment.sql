@@ -2,7 +2,6 @@ SET QUOTED_IDENTIFIER ON
 GO
 SET ANSI_NULLS ON
 GO
-
 CREATE procedure [EEIUser].[usp_Quoting_SaveAttachment]
 	@QuoteNumber varchar(50)
 ,	@AttachmentCategory varchar(50)
@@ -105,9 +104,9 @@ begin
 		set @TocMsg = 'Write attachment'
 		begin
 			--- <Call>	
-			set	@CallProcName = ' EEISQL2.FxUtilities.FS.usp_QT_Files_WriteAttachment'
+			set	@CallProcName = ' FxUtilities.FS.usp_QT_Files_WriteAttachment'
 			
-			execute @ProcReturn = EEISQL2.FxUtilities.FS.usp_QT_Files_WriteAttachment
+			execute @ProcReturn = FxUtilities.FS.usp_QT_Files_WriteAttachment
 				@QuoteNumber = @QuoteNumber
 			,	@AttachmentCategory = @AttachmentCategory
 			,	@FileName = @FileName
@@ -263,7 +262,7 @@ select
 select
 	[FileContents] = convert(varchar(max), qf.[FileContents])
 from
-	EEISQL2.FxUtilities.FS.QT_Files qf
+	FxUtilities.FS.QT_Files qf
 where
 	qf.stream_id = @NewStreamID
 go

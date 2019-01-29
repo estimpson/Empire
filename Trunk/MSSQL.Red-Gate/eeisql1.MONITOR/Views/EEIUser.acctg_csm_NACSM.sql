@@ -12,6 +12,7 @@ GO
 
 
 
+
 CREATE view [EEIUser].[acctg_csm_NACSM]
 as
 select
@@ -297,6 +298,19 @@ select
 ,	OCT_20 = acn.[Oct 2020]
 ,	NOV_20 = acn.[Nov 2020]
 ,	DEC_20 = acn.[Dec 2020]
+,	JAN_21 = acn.[Jan 2021]
+,	FEB_21 = acn.[Feb 2021]
+,	MAR_21 = acn.[Mar 2021]
+,	APR_21 = acn.[Apr 2021]
+,	MAY_21 = acn.[May 2021]
+,	JUN_21 = acn.[Jun 2021]
+,	JUL_21 = acn.[Jul 2021]
+,	AUG_21 = acn.[Aug 2021]
+,	SEP_21 = acn.[Sep 2021]
+,	OCT_21 = acn.[Oct 2021]
+,	NOV_21 = acn.[Nov 2021]
+,	DEC_21 = acn.[Dec 2021]
+
 ,	ONE08 = acn.[Q1 2008]
 ,	TWO08 = acn.[Q2 2008]
 ,	THREE08 = acn.[Q3 2008]

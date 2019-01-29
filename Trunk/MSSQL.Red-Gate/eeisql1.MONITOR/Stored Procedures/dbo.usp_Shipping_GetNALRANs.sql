@@ -3,6 +3,7 @@ GO
 SET ANSI_NULLS ON
 GO
 
+
 /*
 Create procedure FX.dbo.usp_Shipping_GetNALRANs
 */
@@ -45,7 +46,7 @@ set	@ProcName = user_name(objectproperty(@@procid, 'OwnerId')) + '.' + object_na
 /*	Record Audit data for all key decision data used in this process. */
 declare
 	@TranDT datetime = getdate()
-
+/* ASB FT, LLC 01/29/2019 : Commenting for now until Eric can optimize query performance. Begin Comment ASB
 insert
 	FT.AuditRAN_shipper
 (	ShipperID
@@ -202,7 +203,9 @@ from
 		on s.destination = boi.DestinationCode
 		and sd.customer_part = boi.CustomerPart
 where
-	sd.shipper = @ShipperID
+	sd.shipper = @ShipperID 
+	
+	END COMMENT ASB*/
 
 /*	Calculate a summary of the packed quantity against each customer part
 	and the "Active" order.

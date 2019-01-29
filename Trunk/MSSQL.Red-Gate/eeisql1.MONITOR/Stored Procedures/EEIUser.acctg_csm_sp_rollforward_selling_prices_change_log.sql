@@ -5,7 +5,7 @@ GO
 
 
 
-create procedure [EEIUser].[acctg_csm_sp_rollforward_selling_prices_change_log]
+CREATE procedure [EEIUser].[acctg_csm_sp_rollforward_selling_prices_change_log]
 	@OperatorCode varchar(5)
 ,	@CurrentRelease char(7)
 ,	@PriorRelease char(7)
@@ -70,6 +70,7 @@ insert
 (
 	[ReleaseID]
 ,	[BasePart]
+,	[QuoteNumber]
 ,	[EffectiveDT]
 ,	[Reason]
 ,	[PriceAdjustmentID]
@@ -94,6 +95,7 @@ insert
 select
 	@CurrentRelease
 ,	[BasePart]
+,	[QuoteNumber]
 ,	[EffectiveDT]
 ,	[Reason]
 ,	[PriceAdjustmentID]

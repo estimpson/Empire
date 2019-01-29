@@ -4,7 +4,7 @@ SET ANSI_NULLS ON
 GO
 
 
-CREATE procedure [EEIUser].[acctg_csm_sp_price_adjustments_insert_ECNs]
+CREATE procedure [EEIUser].[acctg_csm_sp_price_adjustments_insert_quotes]
 	@OperatorCode varchar(5)
 ,	@TranDT datetime = null out
 ,	@Result integer = null  out
@@ -59,17 +59,15 @@ end
 
 
 --- <Body>
--- Insert ECN price changes into the price adjustments table
+-- Insert non-NJB quote price changes (quotes that don't exist in NJB) from quote log into the price adjustments table
 declare @temp table
 (
 	QuoteNumber varchar(50)
-,	Part varchar(50)
 )
 
 insert into @temp
 (
 	QuoteNumber
-,	Part
 )
 select
 	*
@@ -77,7 +75,6 @@ from
 	openquery(eehsql1, '
 select
 	rtrim(wo.QuoteNumber)
-,	min(wo.Part)
 from
 	eeh.dbo.ENG_WOEngineer wo
 where
@@ -101,20 +98,20 @@ insert into EEIUser.acctg_csm_price_adjustments
 ,	EffectiveDT
 )
 select
-	left(t.Part, 7)
-,	t.Part
+	left(ql.EEIPartNumber, 7)
+,	ql.EEIPartNumber
 ,	ql.QuoteNumber
-,	ql.QuoteReason -- *** need to force data entry
+,	coalesce(ql.QuoteReason, 'QL Undefined') -- *** need to force data entry
 ,	coalesce(ql.QuotePrice, 0) -- SellingPrice
 ,	null -- price adjustment will be calculated later
 ,	null -- *** need to force data entry of selling price effective date
 from
 	@temp t
-	join eeiuser.QT_QuoteLog ql
+	right join eeiuser.QT_QuoteLog ql
 		on ql.QuoteNumber = t.QuoteNumber
 where
-	left(isnull(ql.Awarded, ''), 1) = 'Y'
-	and ql.QuoteReason = 'New Print/ECN'
+	t.QuoteNumber is null
+	and left(isnull(ql.Awarded, ''), 1) = 'Y'
 	and not exists (
 			select
 				*
@@ -122,6 +119,7 @@ where
 				eeiuser.acctg_csm_price_adjustments pa
 			where
 				pa.QuoteNumber = ql.QuoteNumber )
+
 
 select
 	@Error = @@Error,

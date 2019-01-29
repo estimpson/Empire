@@ -5,7 +5,7 @@ GO
 
 
 
-create procedure [EEIUser].[acctg_csm_sp_insert_selling_prices_change_log]
+CREATE procedure [EEIUser].[acctg_csm_sp_insert_selling_prices_change_log]
 	@OperatorCode varchar(5)
 ,	@TranDT datetime = null out
 ,	@Result integer = null  out
@@ -196,7 +196,7 @@ select
 ,	[DEC_26] = (select min(Price) from eeiuser.acctg_csm_base_prices where BasePart = bp.BasePart)
 from
 	eeiuser.acctg_csm_base_prices bp
-	join eeiuser.acctg_csm_selling_prices_change_log cl
+	left join eeiuser.acctg_csm_selling_prices_change_log cl
 		on cl.BasePart = bp.BasePart
 where
 	cl.ReleaseID = ( select max(ReleaseID) from eeiuser.acctg_csm_selling_prices_change_log )
@@ -361,7 +361,7 @@ select
 ,	[DEC_26] = (select sum(SellingPrice) from eeiuser.acctg_csm_price_adjustments where BasePart = pa.BasePart and EffectiveDT < '20261201')
 from
 	eeiuser.acctg_csm_price_adjustments pa
-	join eeiuser.acctg_csm_selling_prices_change_log cl
+	left join eeiuser.acctg_csm_selling_prices_change_log cl
 		on cl.PriceAdjustmentID = pa.RowID
 where
 	cl.ReleaseID = ( select max(ReleaseID) from eeiuser.acctg_csm_selling_prices_change_log )

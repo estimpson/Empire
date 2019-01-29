@@ -189,5 +189,7 @@ create trigger [EEIUser].[tr_csm_selling_prices_tabular_DeleteInsertOnly] on [EE
 as
 rollback
 GO
+DISABLE TRIGGER [EEIUser].[tr_csm_selling_prices_tabular_DeleteInsertOnly] ON [EEIUser].[acctg_csm_selling_prices_tabular]
+GO
 ALTER TABLE [EEIUser].[acctg_csm_selling_prices_tabular] ADD CONSTRAINT [PK_acctg_csm_selling_prices_tabular_pk] PRIMARY KEY CLUSTERED  ([RELEASE_ID], [ROW_ID], [BASE_PART]) ON [PRIMARY]
 GO

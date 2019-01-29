@@ -62,31 +62,39 @@ end
 -- Insert from new job build into base prices table - new parts, awarded quotes
 declare @temp table
 (
-	WOEngineerID int
+	QuoteNumber varchar(50)
+,	BasePart char(7)
+,	WOEngineerID int
+,	EEHShipDate datetime
 )
 
 insert into @temp
 (
-	WOEngineerID
+	QuoteNumber
+,	BasePart
+,	WOEngineerID
+,	EEHShipDate
 )
 select
-	min(wo.WOEngineerID)
+	*
 from
-	eehsql1.eeh.dbo.ENG_WOEngineer wo
-	join eeiuser.QT_QuoteLog ql 
-		on wo.QuoteNumber = ql.QuoteNumber
-		and wo.QuoteNumber is not null	
+	openquery(eehsql1, '
+select
+	rtrim(wo.QuoteNumber)
+,	min(left(wo.Part, 7))
+,	min(wo.WOEngineerID)
+,	min(wop.EEHShipDate)
+from
+	eeh.dbo.ENG_WOEngineer wo
+	join eeh.dbo.ENG_WOAPQP wop
+		on wop.WOEngineerID = wo.WOEngineerID
+			and wop.EEHShipDate is not null
 where
-	left(isnull(ql.Awarded, ''), 1) = 'Y'
-	and not exists (
-			select
-				1
-			from
-				eeiuser.acctg_csm_base_prices bp
-			where
-				bp.BasePart = left(wo.Part, 7) )
+	wo.QuoteNumber is not null
 group by
-	left(wo.Part, 7)
+	wo.QuoteNumber
+	'
+)
 
 
 --- <Insert>
@@ -95,38 +103,32 @@ insert into eeiuser.acctg_csm_base_prices
 (	BasePart
 ,	QuoteNumber 
 ,	Price
-,	EffectiveDT
+,	EffectiveDT 
 )
 select
-	left(wo.Part, 7)
-,	ql.QuoteNumber
-,	ql.QuotePrice
-,	woapqp.EEHShipDate
+	t.BasePart
+,	min(t.QuoteNumber)
+,	max(coalesce(ql.QuotePrice, 0))
+,	min(t.EEHShipDate)
 from
-	eehsql1.eeh.dbo.ENG_WOEngineer wo
-	join eehsql1.eeh.dbo.ENG_WOAPQP woapqp
-		on wo.WOEngineerID = woapqp.WOEngineerID
-	join eeiuser.QT_QuoteLog ql 
-		on wo.QuoteNumber = ql.QuoteNumber
-		and wo.QuoteNumber is not null	
+	@temp t
+	join eeiuser.QT_QuoteLog ql
+		on ql.QuoteNumber = t.QuoteNumber
+	left join eeiuser.acctg_csm_base_prices bp
+		on bp.BasePart = t.BasePart
 where
-	wo.WOEngineerID in (select WOEngineerID from @temp)
-	and ql.QuotePrice is not null
-	and woapqp.EEHShipDate = (
-				select
-					min(EEHShipDate)
-				from
-					eehsql1.eeh.dbo.ENG_WOAPQP
-				where
-					WOEngineerID = wo.WOEngineerID )
-		and woapqp.ID = (
-				select
-					max(ID)
-				from
-					eehsql1.eeh.dbo.ENG_WOAPQP
-				where
-						WOEngineerID = wo.WOEngineerID )
-	
+	bp.BasePart is null
+	and left(isnull(ql.Awarded, ''), 1) = 'Y'
+	and t.EEHShipDate = (
+			select
+				min(t2.EEHShipDate)
+			from
+				@temp t2
+			where
+				t2.BasePart = t.BasePart )
+group by
+	t.BasePart
+
 
 select
 	@Error = @@Error,
