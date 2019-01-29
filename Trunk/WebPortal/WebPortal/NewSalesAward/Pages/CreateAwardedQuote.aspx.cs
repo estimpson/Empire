@@ -62,9 +62,8 @@ namespace WebPortal.NewSalesAward.Pages
 
                 //pnlDocument.Visible = false;
 
-
                 //pnlQuoteDetails.Enabled = pnlDocument.Enabled = false;
-                cbxReplacingBasePart.Enabled = false;
+
                 cbxQuoteNumber.Focus(); 
             }
         }
@@ -93,7 +92,12 @@ namespace WebPortal.NewSalesAward.Pages
                 SqlDataSource1.ConnectionString = System.Configuration.ConfigurationManager.ConnectionStrings["QuoteTabSql"].ConnectionString;
 
                 SqlDataSource1.SelectCommand =
-                       @"SELECT [QuoteNumber], [EEIPartNumber], [Program] FROM (select [QuoteNumber], [EEIPartNumber], [Program], row_number()over(order by q.[QuoteNumber]) as [rn] from [NSA].[QuoteLog] as q where (([QuoteNumber] + ' ' + [EEIPartNumber] + ' ' + [Program]) LIKE @filter)) as st where st.[rn] between @startIndex and @endIndex";
+                //@"SELECT [QuoteNumber], [EEIPartNumber], [Program] FROM (select [QuoteNumber], [EEIPartNumber], [Program], row_number()over(order by q.[QuoteNumber]) as [rn] from [NSA].[QuoteLog] as q where (([QuoteNumber] + ' ' + [EEIPartNumber] + ' ' + [Program]) LIKE @filter)) as st where st.[rn] between @startIndex and @endIndex";
+
+                @"SELECT [QuoteNumber], [EEIPartNumber], [Program], [QuoteStatus], [QuotePriceConverted], [PrintNo], [PrintDateConverted], [Notes] 
+                    FROM (  select [QuoteNumber], [EEIPartNumber], [Program], [QuoteStatus], [QuotePriceConverted], [PrintNo], [PrintDateConverted], [Notes], row_number()over(order by q.[QuoteNumber]) as [rn] 
+                            from [NSA].[QuoteLog] as q 
+                            where (([QuoteNumber] + ' ' + [EEIPartNumber] + ' ' + [Program] + ' ' + [QuoteStatus] + ' ' + [QuotePriceConverted] + ' ' + [PrintNo] + ' ' + [PrintDateConverted] + ' ' + [Notes]) LIKE @filter)) as st where st.[rn] between @startIndex and @endIndex";
 
                 SqlDataSource1.SelectParameters.Clear();
                 SqlDataSource1.SelectParameters.Add("filter", TypeCode.String, string.Format("%{0}%", e.Filter));
@@ -136,13 +140,33 @@ namespace WebPortal.NewSalesAward.Pages
             ShowQuoteFiles("CustomerCommitment");
         }
 
-        protected void cbxQuoteReason_SelectedIndexChanged(object sender, EventArgs e)
+        protected void cbxReplacingBasePart_Callback(object sender, CallbackEventArgsBase e)
         {
-            //cbxReplacingBasePart.Enabled = (cbxQuoteReason.Text == "New Part");
+            if (e.Parameter == "Replacement" && string.IsNullOrEmpty(cbxReplacingBasePart.Text))
+            {
+                GetActiveBaseParts();
+            }
+            else
+            {
+                cbxReplacingBasePart.Items.Clear();
+                cbxReplacingBasePart.DataSource = null;
+            }
         }
 
         protected void btnSubmit_Click(object sender, EventArgs e)
         {
+            //if (Session["QuoteNumber"] == null) return;
+
+            // Make sure a replacement base part has been selected if Quote Reason = Replacement 
+            if (cbxQuoteReason.Text == "Replacement" && cbxReplacingBasePart.SelectedIndex < 1)
+            {
+                lblReplacementPartWarning.Visible = true;
+                return;
+            }
+            else
+            {
+                lblReplacementPartWarning.Visible = false;
+            }
             if (Session["QuoteNumber"] == null) return;
 
             if (cbxFormOfCommitment.SelectedIndex < 0) cbxFormOfCommitment.BackColor = Color.LightGreen;
@@ -211,9 +235,8 @@ namespace WebPortal.NewSalesAward.Pages
         {
             if (GetSalespeople() == 0) return;
             if (GetProgramManagers() == 0) return;
-            //if (GetQuoteReasons() == 0) return;
+            if (GetQuoteReasons() == 0) return;
             if (GetCustomerCommitmentForms() == 0) return;
-            GetActiveBaseParts();
         }
 
         private int GetQuoteLog()
@@ -251,7 +274,7 @@ namespace WebPortal.NewSalesAward.Pages
 
                 //ListEditItem itemQuoteReason = cbxQuoteReason.Items.FindByValue(ViewModel.QuoteReason);
                 //if (itemQuoteReason != null) cbxQuoteReason.Value = ViewModel.QuoteReason;
-                tbxQuoteReason.Text = ViewModel.QuoteReason;
+                //tbxQuoteReason.Text = ViewModel.QuoteReason;
 
                 ListEditItem itemFormOfCommitment = cbxFormOfCommitment.Items.FindByValue(ViewModel.FormOfCommitment);
                 if (itemFormOfCommitment != null) cbxFormOfCommitment.Value = ViewModel.FormOfCommitment;
@@ -279,17 +302,35 @@ namespace WebPortal.NewSalesAward.Pages
 
         private int GetSalespeople()
         {
-            var salesPeople = ViewModel.GetSalespeople();
+            // 01.11.2019 - switched to hardcoding using a View, per Dan
+
+            var salesPeople = ViewModel.GetSalesPeople();
             if (ViewModel.Error != "")
             {
-                lblError.Text = String.Format("Error at GetSalespeople. {0}", ViewModel.Error);
+                lblError.Text = String.Format("Error at GetSalesPeople. {0}", ViewModel.Error);
                 pcError.ShowOnPageLoad = true;
                 return 0;
             }
             cbxSalesperson.DataSource = salesPeople;
-            cbxSalesperson.TextField = "UserName";
-            cbxSalesperson.ValueField = "UserCode";
+            //cbxSalesperson.TextField = "UserName";
+            //cbxSalesperson.ValueField = "UserCode";
             cbxSalesperson.DataBind();
+            return 1;
+        }
+
+        private int GetQuoteReasons()
+        {
+            // 01.15.2019 - switched to hardcoding using a View, per Dan
+
+            var quoteReasons = ViewModel.GetQuoteReasons();
+            if (ViewModel.Error != "")
+            {
+                lblError.Text = String.Format("Error at GetQuoteReasons. {0}", ViewModel.Error);
+                pcError.ShowOnPageLoad = true;
+                return 0;
+            }
+            cbxQuoteReason.DataSource = quoteReasons;
+            cbxQuoteReason.DataBind();
             return 1;
         }
 
@@ -364,7 +405,7 @@ namespace WebPortal.NewSalesAward.Pages
             ViewModel.AwardDate = awardDt;
 
             //ViewModel.QuoteReason = Convert.ToByte(cbxQuoteReason.Value);
-            ViewModel.QuoteReason = tbxQuoteReason.Text.Trim();
+            ViewModel.QuoteReason = cbxQuoteReason.Text;
             ViewModel.Comments = memoComments.Text.Trim();
             ViewModel.FormOfCommitment = cbxFormOfCommitment.Text;
             ViewModel.ProgramManager = cbxProgramManager.Value.ToString();
@@ -416,7 +457,7 @@ namespace WebPortal.NewSalesAward.Pages
             {
                 case "CustomerCommitment":
                     tbxDocName.Text = DocsViewModel.QuoteFileName;
-                    //btnDocGet.Enabled = true;
+                    btnDocGet.Enabled = true;
                     break;
                 case "BomLabor":
                     //tbxDocName3.Text = DocsViewModel.QuoteFileName;
@@ -486,7 +527,7 @@ namespace WebPortal.NewSalesAward.Pages
             Session["FileName"] = fileName;
             Session["FileLength"] = fileContents.Length;
             Session["FilePath"] = filePathQuotePrint;
-            string s = "window.open('Documents.aspx', 'popup_window', 'width=600,height=400,left=100,top=100,resizable=yes');";
+            string s = "window.open('DocumentGet.aspx', 'popup_window', 'width=600,height=400,left=100,top=100,resizable=yes');";
             ClientScript.RegisterStartupScript(this.GetType(), "script", s, true);
 
             btnDocGet.Focus();
@@ -505,7 +546,6 @@ namespace WebPortal.NewSalesAward.Pages
             }
             return 1;
         }
-
 
         #endregion
 

@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="e4b118e2c8a643ffac73d30c9cb9b219" Name="Diagram1" ZoomLevel="36" >
+      <Diagram DiagramId="e4b118e2c8a643ffac73d30c9cb9b219" Name="Diagram1" ZoomLevel="75" >
         <EntityTypeShape EntityType="FxPLMModel.QuoteLog" Width="2.125" PointX="0.75" PointY="0.75" />
         <EntityTypeShape EntityType="FxPLMModel.Salespeople" Width="1.5" PointX="5.375" PointY="0.75" />
         <EntityTypeShape EntityType="FxPLMModel.CustomerCommitmentForm" Width="1.5" PointX="3.375" PointY="3.125" />
@@ -19,6 +19,8 @@
         <EntityTypeShape EntityType="FxPLMModel.EmpireFacility" Width="1.5" PointX="5.375" PointY="6.75" />
         <EntityTypeShape EntityType="FxPLMModel.FreightTerm" Width="1.5" PointX="7.375" PointY="6.75" />
         <EntityTypeShape EntityType="FxPLMModel.User" Width="1.5" PointX="9.75" PointY="6.75" />
+        <EntityTypeShape EntityType="FxPLMModel.NewQuoteAward_SalesPeople" Width="2.375" PointX="12" PointY="6.75" />
+        <EntityTypeShape EntityType="FxPLMModel.NewQuoteAward_QuoteReasons" Width="2.375" PointX="12" PointY="8.25" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

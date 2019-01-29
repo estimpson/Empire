@@ -28,6 +28,22 @@
                 postponedCallbackRequired = false;
             }
         }
+
+
+        var lastReason = null;
+        function OnQuoteReasonChanged(quoteReasonComboBox) {
+            if (cbxReplacingBasePartClient.InCallback())
+                lastReason = quoteReasonComboBox.GetValue().toString();
+            else
+                cbxReplacingBasePartClient.PerformCallback(quoteReasonComboBox.GetValue().toString());
+        }
+        function OnEndCallback(s, e) {
+            if (lastReason) {
+                cbxReplacingBasePartClient.PerformCallback(lastReason);
+                lastReason = null;
+            }
+        }
+
     </script>
 
 </asp:Content>
@@ -80,6 +96,11 @@
                                         <dx:ListBoxColumn FieldName="QuoteNumber" />
                                         <dx:ListBoxColumn FieldName="EEIPartNumber" />
                                         <dx:ListBoxColumn FieldName="Program" />
+                                        <dx:ListBoxColumn FieldName="QuoteStatus" />
+                                        <dx:ListBoxColumn FieldName="QuotePriceConverted" Caption="QuotePrice" Width="100" />
+                                        <dx:ListBoxColumn FieldName="PrintNo" Width="80" />
+                                        <dx:ListBoxColumn FieldName="PrintDateConverted" Caption="PrintDate" Width="100" />
+                                        <dx:ListBoxColumn FieldName="Notes" Width="430" />
                                     </Columns>
                                     <ValidationSettings CausesValidation="false">
                                     </ValidationSettings>
@@ -121,23 +142,11 @@
                             </tr>
                             <tr>
                                 <td>
-                                    <dx:ASPxLabel ID="lblQuoteReason" runat="server" Text="QuoteReason:"></dx:ASPxLabel>
+                                    <dx:ASPxLabel ID="lblQuoteReason" runat="server" Text="Quote Reason:"></dx:ASPxLabel>
                                 </td>
                                 <td>
-                                    <dx:ASPxTextBox ID="tbxQuoteReason" runat="server">
-                                        <ValidationSettings SetFocusOnError="True" ErrorText="" Display="Dynamic" ErrorTextPosition="Right" ValidationGroup="G">
-                                            <RequiredField IsRequired="True" ErrorText="" />
-                                        </ValidationSettings>
-                                        <InvalidStyle BackColor="LightPink" />
-                                    </dx:ASPxTextBox>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <dx:ASPxLabel ID="lblReplacingBasePart" runat="server" Text="Replacing BasePart:"></dx:ASPxLabel>
-                                </td>
-                                <td>
-                                    <dx:ASPxComboBox ID="cbxReplacingBasePart" runat="server" TabIndex="4" Width="220">
+                                    <dx:ASPxComboBox ID="cbxQuoteReason" runat="server" TabIndex="4" Width="220">
+                                        <ClientSideEvents SelectedIndexChanged="function(s, e) { OnQuoteReasonChanged(s); }" />
                                         <ValidationSettings SetFocusOnError="True" ErrorText="" Display="Dynamic" ErrorTextPosition="Right" ValidationGroup="G">
                                             <RequiredField IsRequired="True" ErrorText="" />
                                         </ValidationSettings>
@@ -147,10 +156,21 @@
                             </tr>
                             <tr>
                                 <td>
+                                    <dx:ASPxLabel ID="lblReplacingBasePart" runat="server" Text="Replacing Base Part:"></dx:ASPxLabel>
+                                </td>
+                                <td>
+                                    <dx:ASPxComboBox ID="cbxReplacingBasePart" runat="server" TabIndex="5" Width="220" ClientInstanceName="cbxReplacingBasePartClient" OnCallback="cbxReplacingBasePart_Callback">
+                                        <ClientSideEvents EndCallback=" OnEndCallback" />
+                                    </dx:ASPxComboBox>
+                                    <asp:Label ID="lblReplacementPartWarning" runat="server" Visible="false" ForeColor="Red" Text="* Must select a replacing base part if quote reason is Replacement."></asp:Label>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
                                     <dx:ASPxLabel ID="lblSalesperson" runat="server" Text="Salesperson:"></dx:ASPxLabel>
                                 </td>
                                 <td>
-                                    <dx:ASPxComboBox ID="cbxSalesperson" runat="server" TabIndex="5" Width="220">
+                                    <dx:ASPxComboBox ID="cbxSalesperson" runat="server" TabIndex="6" Width="220">
                                         <ValidationSettings SetFocusOnError="True" ErrorText="" Display="Dynamic" ErrorTextPosition="Right" ValidationGroup="G">
                                             <RequiredField IsRequired="True" ErrorText="" />
                                         </ValidationSettings>
@@ -163,7 +183,7 @@
                                     <dx:ASPxLabel ID="lblProgramManager" runat="server" Text="Program Manager:"></dx:ASPxLabel>
                                 </td>
                                 <td>
-                                    <dx:ASPxComboBox ID="cbxProgramManager" runat="server" TabIndex="6" Width="220">
+                                    <dx:ASPxComboBox ID="cbxProgramManager" runat="server" TabIndex="7" Width="220">
                                         <ValidationSettings SetFocusOnError="True" ErrorText="" Display="Dynamic" ErrorTextPosition="Right" ValidationGroup="G">
                                             <RequiredField IsRequired="True" ErrorText="" />
                                         </ValidationSettings>
@@ -176,7 +196,7 @@
                                     <dx:ASPxLabel ID="lblComments" runat="server" Text="Comments:"></dx:ASPxLabel>
                                 </td>
                                 <td>
-                                    <dx:ASPxMemo ID="memoComments" runat="server" Width="420" Height="80" TabIndex="7"></dx:ASPxMemo>
+                                    <dx:ASPxMemo ID="memoComments" runat="server" Width="420" Height="80" TabIndex="8"></dx:ASPxMemo>
                                 </td>
                             </tr>
                             <tr>
@@ -184,7 +204,9 @@
                                     &nbsp;
                                 </td>
                                 <td>
-                                    <dx:ASPxButton ID="btnSubmit" runat="server" Text="Submit" OnClick="btnSubmit_Click" TabIndex="8" ValidationGroup="G"></dx:ASPxButton>
+                                    <dx:ASPxButton ID="btnSubmit" runat="server" Text="Submit" OnClick="btnSubmit_Click" 
+                                        TabIndex="9" ValidationGroup="G">
+                                    </dx:ASPxButton>
                                 </td>
                             </tr>
                             <tr>

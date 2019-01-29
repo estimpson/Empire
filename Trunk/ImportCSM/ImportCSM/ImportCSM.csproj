@@ -58,6 +58,7 @@
     <Compile Include="Controls\CustomMessageBox.Designer.cs">
       <DependentUpon>CustomMessageBox.cs</DependentUpon>
     </Compile>
+    <Compile Include="DataAccess\CsmNaGc.cs" />
     <Compile Include="DataAccess\ProcessData.cs" />
     <Compile Include="formMain.cs">
       <SubType>Form</SubType>
@@ -79,6 +80,21 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Model1.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Model\ModelTest.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ModelTest.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\ModelTest.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ModelTest.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\ModelTest.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ModelTest.edmx</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="ClearTabs.cs" />
@@ -116,6 +132,13 @@
       <DependentUpon>Model1.edmx</DependentUpon>
       <LastGenOutput>Model1.cs</LastGenOutput>
     </None>
+    <EntityDeploy Include="Model\ModelTest.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>ModelTest.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="Model\ModelTest.edmx.diagram">
+      <DependentUpon>ModelTest.edmx</DependentUpon>
+    </None>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -129,6 +152,18 @@
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Model\ModelTest.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>ModelTest.edmx</DependentUpon>
+      <LastGenOutput>ModelTest.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Model\ModelTest.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>ModelTest.edmx</DependentUpon>
+      <LastGenOutput>ModelTest.cs</LastGenOutput>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -85,5 +85,7 @@ namespace WebPortal.NewSalesAward.Models
         public string FileServerQuotePrint { get; set; }
         public string FileServerCustomerQuote { get; set; }
         public Nullable<int> MinimumOrderQuantity { get; set; }
+        public string QuotePriceConverted { get; set; }
+        public string PrintDateConverted { get; set; }
     }
 }

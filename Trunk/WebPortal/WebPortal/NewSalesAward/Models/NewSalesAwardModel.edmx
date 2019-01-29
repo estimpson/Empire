@@ -111,6 +111,22 @@ warning 6002: The table/view 'FxPLM.NSA.FreightTerms' does not have a primary ke
           <Property Name="RowID" Type="bigint" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
+warning 6002: The table/view 'FxPLM.NSA.NewQuoteAward_QuoteReasons' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="NewQuoteAward_QuoteReasons">
+          <Key>
+            <PropertyRef Name="QuoteReason" />
+          </Key>
+          <Property Name="QuoteReason" Type="varchar" MaxLength="11" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'FxPLM.NSA.NewQuoteAward_SalesPeople' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="NewQuoteAward_SalesPeople">
+          <Key>
+            <PropertyRef Name="SalesPerson" />
+          </Key>
+          <Property Name="SalesPerson" Type="varchar" MaxLength="13" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
 warning 6002: The table/view 'FxPLM.NSA.ProductLine' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="ProductLine">
           <Key>
@@ -213,6 +229,8 @@ warning 6002: The table/view 'FxPLM.NSA.QuoteLog' does not have a primary key de
           <Property Name="FileServerQuotePrint" Type="varchar" MaxLength="50" />
           <Property Name="FileServerCustomerQuote" Type="varchar" MaxLength="50" />
           <Property Name="MinimumOrderQuantity" Type="int" />
+          <Property Name="QuotePriceConverted" Type="varchar" MaxLength="20" />
+          <Property Name="PrintDateConverted" Type="char" MaxLength="10" />
         </EntityType>
         <!--Errors Found During Generation:
 warning 6002: The table/view 'FxPLM.NSA.QuoteReasons' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
@@ -512,6 +530,16 @@ warning 6002: The table/view 'FxPLM.NSA.Users' does not have a primary key defin
     [FreightTerms].[RowID] AS [RowID]
     FROM [NSA].[FreightTerms] AS [FreightTerms]</DefiningQuery>
           </EntitySet>
+          <EntitySet Name="NewQuoteAward_QuoteReasons" EntityType="Self.NewQuoteAward_QuoteReasons" store:Type="Views" store:Schema="NSA">
+            <DefiningQuery>SELECT 
+    [NewQuoteAward_QuoteReasons].[QuoteReason] AS [QuoteReason]
+    FROM [NSA].[NewQuoteAward_QuoteReasons] AS [NewQuoteAward_QuoteReasons]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="NewQuoteAward_SalesPeople" EntityType="Self.NewQuoteAward_SalesPeople" store:Type="Views" store:Schema="NSA">
+            <DefiningQuery>SELECT 
+    [NewQuoteAward_SalesPeople].[SalesPerson] AS [SalesPerson]
+    FROM [NSA].[NewQuoteAward_SalesPeople] AS [NewQuoteAward_SalesPeople]</DefiningQuery>
+          </EntitySet>
           <EntitySet Name="ProductLine" EntityType="Self.ProductLine" store:Type="Views" store:Schema="NSA">
             <DefiningQuery>SELECT 
     [ProductLine].[ProductLine] AS [ProductLine], 
@@ -598,7 +626,9 @@ warning 6002: The table/view 'FxPLM.NSA.Users' does not have a primary key defin
     [QuoteLog].[QuoteReason] AS [QuoteReason], 
     [QuoteLog].[FileServerQuotePrint] AS [FileServerQuotePrint], 
     [QuoteLog].[FileServerCustomerQuote] AS [FileServerCustomerQuote], 
-    [QuoteLog].[MinimumOrderQuantity] AS [MinimumOrderQuantity]
+    [QuoteLog].[MinimumOrderQuantity] AS [MinimumOrderQuantity], 
+    [QuoteLog].[QuotePriceConverted] AS [QuotePriceConverted], 
+    [QuoteLog].[PrintDateConverted] AS [PrintDateConverted]
     FROM [NSA].[QuoteLog] AS [QuoteLog]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="QuoteReasons" EntityType="Self.QuoteReasons" store:Type="Views" store:Schema="NSA">
@@ -842,6 +872,8 @@ warning 6002: The table/view 'FxPLM.NSA.Users' does not have a primary key defin
             <Parameter Name="Debug" Mode="In" Type="Int32" />
             <Parameter Name="DebugMsg" Mode="InOut" Type="String" />
           </FunctionImport>
+          <EntitySet Name="NewQuoteAward_SalesPeople" EntityType="FxPLMModel.NewQuoteAward_SalesPeople" />
+          <EntitySet Name="NewQuoteAward_QuoteReasons" EntityType="FxPLMModel.NewQuoteAward_QuoteReasons" />
           </EntityContainer>
         <ComplexType Name="usp_LookupProgramManagerByInit_Result">
           <Property Type="String" Name="UserName" Nullable="false" MaxLength="40" />
@@ -932,6 +964,8 @@ warning 6002: The table/view 'FxPLM.NSA.Users' does not have a primary key defin
           <Property Name="FileServerQuotePrint" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="FileServerCustomerQuote" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="MinimumOrderQuantity" Type="Int32" />
+          <Property Name="QuotePriceConverted" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="PrintDateConverted" Type="String" MaxLength="10" FixedLength="true" Unicode="false" />
         </EntityType>
         <EntityType Name="Salespeople">
           <Key>
@@ -1186,6 +1220,18 @@ warning 6002: The table/view 'FxPLM.NSA.Users' does not have a primary key defin
           <Property Type="Int32" Name="ValidQuoteNumberFlag" Nullable="false" />
           <Property Type="String" Name="CustomerCommitmentAttachment" Nullable="true" MaxLength="255" />
         </ComplexType>
+        <EntityType Name="NewQuoteAward_SalesPeople">
+          <Key>
+            <PropertyRef Name="SalesPerson" />
+          </Key>
+          <Property Name="SalesPerson" Type="String" Nullable="false" MaxLength="13" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="NewQuoteAward_QuoteReasons">
+          <Key>
+            <PropertyRef Name="QuoteReason" />
+          </Key>
+          <Property Name="QuoteReason" Type="String" Nullable="false" MaxLength="11" FixedLength="false" Unicode="false" />
+        </EntityType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1214,6 +1260,8 @@ warning 6002: The table/view 'FxPLM.NSA.Users' does not have a primary key defin
           <EntitySetMapping Name="QuoteLogs">
             <EntityTypeMapping TypeName="FxPLMModel.QuoteLog">
               <MappingFragment StoreEntitySet="QuoteLog">
+                <ScalarProperty Name="PrintDateConverted" ColumnName="PrintDateConverted" />
+                <ScalarProperty Name="QuotePriceConverted" ColumnName="QuotePriceConverted" />
                 <ScalarProperty Name="MinimumOrderQuantity" ColumnName="MinimumOrderQuantity" />
                 <ScalarProperty Name="FileServerCustomerQuote" ColumnName="FileServerCustomerQuote" />
                 <ScalarProperty Name="FileServerQuotePrint" ColumnName="FileServerQuotePrint" />
@@ -1632,6 +1680,20 @@ warning 6002: The table/view 'FxPLM.NSA.Users' does not have a primary key defin
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <EntitySetMapping Name="NewQuoteAward_SalesPeople">
+            <EntityTypeMapping TypeName="FxPLMModel.NewQuoteAward_SalesPeople">
+              <MappingFragment StoreEntitySet="NewQuoteAward_SalesPeople">
+                <ScalarProperty Name="SalesPerson" ColumnName="SalesPerson" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="NewQuoteAward_QuoteReasons">
+            <EntityTypeMapping TypeName="FxPLMModel.NewQuoteAward_QuoteReasons">
+              <MappingFragment StoreEntitySet="NewQuoteAward_QuoteReasons">
+                <ScalarProperty Name="QuoteReason" ColumnName="QuoteReason" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
