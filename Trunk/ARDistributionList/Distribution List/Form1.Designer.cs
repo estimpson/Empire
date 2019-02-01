@@ -46,8 +46,8 @@
             this.textBox3 = new System.Windows.Forms.TextBox();
             this.button3 = new System.Windows.Forms.Button();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.companynameDataGridViewTextBoxColumn = new DataGridViewAutoFilter.DataGridViewAutoFilterTextBoxColumn();
-            this.distributionlistDataGridViewTextBoxColumn = new DataGridViewAutoFilter.DataGridViewAutoFilterTextBoxColumn();
+            //this.companynameDataGridViewTextBoxColumn = new DataGridViewAutoFilter.DataGridViewAutoFilterTextBoxColumn();
+            //this.distributionlistDataGridViewTextBoxColumn = new DataGridViewAutoFilter.DataGridViewAutoFilterTextBoxColumn();
             this.eeaccountsreceivableBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.mONITORDataSet = new Distribution_List.MONITORDataSet();
             this.ee_accounts_receivableTableAdapter = new Distribution_List.MONITORDataSetTableAdapters.ee_accounts_receivableTableAdapter();
@@ -295,8 +295,8 @@
         private System.Windows.Forms.TextBox textBox3;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label3;
-        private DataGridViewAutoFilter.DataGridViewAutoFilterTextBoxColumn companynameDataGridViewTextBoxColumn;
-        private DataGridViewAutoFilter.DataGridViewAutoFilterTextBoxColumn distributionlistDataGridViewTextBoxColumn;
+        //private DataGridViewAutoFilter.DataGridViewAutoFilterTextBoxColumn companynameDataGridViewTextBoxColumn;
+        //private DataGridViewAutoFilter.DataGridViewAutoFilterTextBoxColumn distributionlistDataGridViewTextBoxColumn;
     }
 }
 
