@@ -5,14 +5,6 @@ GO
 
 
 
-
-
-
-
-
-
-
-
 /*
 Select	*
 from	[HN].[vw_Picklist_Object]
@@ -30,7 +22,14 @@ SELECT
 	o.parent_serial,
 	locationvalid.group_no, 
 	Shipper = case when location like 'ran-%' then o.ShipperToRAN else o.Shipper end,
-	weeks_on_stock=case when datediff(week,o.ObjectBirthday,getdate())>12 or location like 'E%-dom-%' then 13 else datediff(week,o.ObjectBirthday,getdate()) end,
+	weeks_on_stock=
+				case 
+					when LocationValid.plant='EEP' and locationvalid.code like 'tran%' then -1000000
+					when LocationValid.plant='EEP' and locationvalid.code not like 'tran%'
+						then convert(int,replace(replace(isnull(WarehouseFreightLot,'0'),'-',''),'VAF',''))*-1
+				else
+ 					case when datediff(week,o.ObjectBirthday,getdate())>12 or location like 'E%-dom-%' then 13 else datediff(week,o.ObjectBirthday,getdate()) end
+				end,
 	weeks_on_stock_original=datediff(week,o.ObjectBirthday,getdate()),
 	plant= locationValid.plant, -- isnull(case when l.group_no like '%warehouse%' then ltrim(rtrim(replace(l.group_no,'warehouse',''))) else  l.plant end,l.plant),
 	CrossRef = Part.Cross_ref,
@@ -45,7 +44,8 @@ FROM MONITOR.dbo.object o with (readuncommitted)
 				from	location with (readuncommitted)
 				where	( plant like '%eei%'
 						or plant like '%eea%'
-						or plant like '%eep%')
+						or plant like '%eep%'
+						or plant like '%eeg%')
 						and ((group_no like '%warehouse%' and isnull(secured_location,'N')='N') 
 								or (group_no in ('FINISHED GOODS')))
 				union all
@@ -59,14 +59,20 @@ FROM MONITOR.dbo.object o with (readuncommitted)
 					and part <> 'PALLET') TransLocation 
 					cross join ( Select Plant='EEI' union all 
 								 Select Plant='EEA' union all 
+								 Select Plant='EEG' union all 
 								 Select Plant='EEP') Data
 						) LocationValid
 		on LocationValid.code = o.location
 WHERE	o.status='a' 
 		and o.quantity>0				
 		and o.location not like '%FIS'
-		and o.location not like '%-%F'
+		--and o.location not like '%-%F'
 		--and o.location not like '%ran%'
+
+
+
+
+
 
 
 

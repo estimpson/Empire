@@ -21,7 +21,8 @@ returns @Objects table
 ,	BoxesPicked int
 ,	[Status] varchar(15)
 ,	Comments varchar(1000)
-,	QtyPicked int
+,	QtyPicked INT
+,	Scheduler VARCHAR(15)
 )
 as 
 begin
@@ -41,8 +42,9 @@ begin
 	,	[Status]
 	,	Comments
 	,	QtyPicked
+	,	Scheduler
 	)
-	Select	Detail.Shipper,
+	Select	 distinct Detail.Shipper,
 		CrossRef = Part.Cross_Ref,
 		Detail.Part,
 		QtyRequired = convert(int, Qty_Required),		
@@ -77,7 +79,8 @@ begin
 					case when isnull(BoxOnShipper,0) <> ceiling(Qty_Required / (Part_Inventory.Standard_Pack *1.0)) and
 						isnull(QtyOnShipper,0) >=convert(int, Qty_Required)
 						then 'Fix standard pack issue to display more serials. ' else '' end,
-		QtyOnShipper = isnull(QtyOnShipper,0)
+		QtyOnShipper = isnull(QtyOnShipper,0),
+		destination.scheduler
 from	shipper_detail Detail
 	inner join Part
 		on Detail.Part = Part.Part
@@ -98,7 +101,12 @@ from	shipper_detail Detail
 					group by shipper, part) PartStage
 				group by Part					
 			  ) SerialStage 
-		on SerialStage.Part = Detail.part			
+		on SerialStage.Part = Detail.part
+	LEFT JOIN dbo.order_header oHeader
+		 ON Detail.order_no =oHeader.order_no
+	LEFT JOIN dbo.destination destination
+		 ON destination.destination = oHeader.destination
+
 where Detail.Shipper= @ShipperID
 end else begin
 
@@ -115,8 +123,9 @@ insert
 	,	[Status]
 	,	Comments
 	,	QtyPicked
+	,	Scheduler
 	)
-	Select	Detail.Shipper,
+	Select distinct	Detail.Shipper,
 		CrossRef = Part.Cross_Ref,
 		Detail.Part,
 		QtyRequired = convert(int, Qty_Required),		
@@ -151,7 +160,8 @@ insert
 					case when isnull(BoxOnShipper,0) <> ceiling(Qty_Required / (Part_Inventory.Standard_Pack *1.0)) and
 						isnull(QtyOnShipper,0) >=convert(int, Qty_Required)
 						then 'Fix standard pack issue to display more serials.' else '' end,
-		QtyOnShipper = isnull(QtyOnShipper,0)
+		QtyOnShipper = isnull(QtyOnShipper,0),
+		destination.scheduler
 from	shipper_detail Detail with (readuncommitted)
 	inner join Part with (readuncommitted)
 		on Detail.Part = Part.Part
@@ -173,6 +183,10 @@ from	shipper_detail Detail with (readuncommitted)
 				group by Part					
 			  ) SerialStage 
 		on SerialStage.Part = Detail.part			
+	LEFT JOIN dbo.order_header oHeader
+		 ON Detail.order_no =oHeader.order_no
+	LEFT JOIN dbo.destination destination
+		 ON destination.destination = oHeader.destination
 where Detail.Shipper= @ShipperID and detail.part= @Part
 
 end

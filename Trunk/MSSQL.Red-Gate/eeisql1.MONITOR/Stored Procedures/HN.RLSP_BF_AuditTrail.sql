@@ -2,7 +2,7 @@ SET QUOTED_IDENTIFIER ON
 GO
 SET ANSI_NULLS ON
 GO
-create PROC [HN].[RLSP_BF_AuditTrail] ( @Condition AS varchar(1000) = NULL,
+CREATE PROC [HN].[RLSP_BF_AuditTrail] ( @Condition AS varchar(1000) = NULL,
 @OrderBy AS varchar(1000) = NULL )						 
 as	 
 DECLARE @SQLMain AS varchar(2000)
@@ -28,7 +28,8 @@ SET @SQLMain = 'SELECT	serial AS Serial,
 						notes, 
 						parent_serial, 
 						part_name,
-						shipper
+						shipper,
+						warehousefreightlot
 				FROM	Audit_Trail'
 
 --

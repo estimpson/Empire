@@ -14,6 +14,7 @@ GO
 
 
 
+
 CREATE VIEW [EDI4010].[BlanketOrders]
 AS
 
@@ -53,8 +54,8 @@ SELECT
 									else 0
 									end
 											
-,	ReferenceAccum = COALESCE(ReferenceAccum,'O')
-,	AdjustmentAccum = COALESCE(AdjustmentAccum,'C')
+,	ReferenceAccum = COALESCE(ReferenceAccum,'O') 
+,	AdjustmentAccum = CASE WHEN es.asn_overlay_group = 'FNG' THEN 'P' ELSE  COALESCE(AdjustmentAccum,'C') END
 ,	PlanningReleaseHorizonDaysBack = -1*(COALESCE(PlanningReleaseHorizonDaysBack,30))
 ,	ShipScheduleHorizonDaysBack = -1*(COALESCE(ShipScheduleHorizonDaysBack,30))
 ,	ProcessPlanningRelease = COALESCE(es.ProcessPlanningRelease,1)
@@ -74,6 +75,7 @@ WHERE
  AND COALESCE(oh.status,'') = 'A'
  aND es.destination not in ( 'IISTANLEY','SUS', 'SUSJAPAN')--turn of Stanley until Joanie and Andre discuss gameplan
 --	es.InboundProcessGroup in ( 'EDI2001' )
+
 
 
 

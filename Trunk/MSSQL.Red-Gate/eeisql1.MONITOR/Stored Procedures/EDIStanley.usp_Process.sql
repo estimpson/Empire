@@ -3,7 +3,6 @@ GO
 SET ANSI_NULLS ON
 GO
 
-
 CREATE procedure [EDIStanley].[usp_Process]
 	@TranDT datetime = null out
 ,	@Result integer = null out
@@ -636,21 +635,28 @@ select
 ,	ReleaseNo = case  WHEN fr.suppliercode =  'A0144' then fr.Userdefined5 WHEN fr.suppliercode IN ( 'ARM701', 'ARM101' ) AND fr.Userdefined5 IS NOT NULL THEN fr.UserDefined5 ELSE fr.ReleaseNo end
 ,	QtyRelease = fr.ReleaseQty
 ,	StdQtyRelease = fr.ReleaseQty
-,	ReferenceAccum = case  'N' -- bo.ReferenceAccum 
+,	ReferenceAccum = case bo.ReferenceAccum 
 												When 'N' 
 												then coalesce(convert(int,bo.AccumShipped),0)
 												When 'C' 
 												then coalesce(convert(int,fa.LastAccumQty),0)
 												else coalesce(convert(int,bo.AccumShipped),0)
 												end
-,	CustomerAccum = case  'N'-- bo.AdjustmentAccum 
+,	CustomerAccum = case bo.AdjustmentAccum 
 												When 'N' 
 												then coalesce(convert(int,bo.AccumShipped),0)
 												When 'P' 
 												then coalesce(convert(int,faa.PriorCUM),0)
 												else coalesce(convert(int,fa.LastAccumQty),0)
 												end
-,	NewDocument =1
+,	NewDocument =
+		(	select
+				min(c.NewDocument)
+			from
+				@Current830s c
+			where
+				c.RawDocumentGUID = fh.RawDocumentGUID
+		)
 from
 	EDIStanley.PlanningHeaders fh
 	join EDIStanley.PlanningReleases fr
@@ -667,7 +673,7 @@ from
 		and	faa.ShipToCode = fr.ShipToCode
 		and	coalesce(faa.CustomerPO,'') = coalesce(fr.CustomerPO,'')
 		and	coalesce(faa.CustomerModelYear,'') = coalesce(fr.CustomerModelYear,'')
-	left join EDIStanley.BlanketOrders bo
+	join EDIStanley.BlanketOrders bo
 		on bo.EDIShipToCode = fr.ShipToCode
 		and bo.CustomerPart = fr.CustomerPart
 		and
@@ -678,16 +684,16 @@ from
 		(	bo.CheckModelYearPlanning = 0
 			or bo.ModelYear830 = fr.CustomerModelYear
 		)
-		left join
+		join
 				(Select * From @Current830s) c 
 			on
 				c.CustomerPart = bo.customerpart and
 				c.ShipToCode = bo.EDIShipToCode and
-				(	bo.CheckCustomerPOPlanning = 0
+				(	bo.CheckCustomerPOShipSchedule = 0
 							or bo.CustomerPO = c.CustomerPO
 				)
-					and	(	bo.CheckModelYearplanning = 0
-							or bo.ModelYear830 = c.CustomerModelYear
+					and	(	bo.CheckModelYearShipSchedule = 0
+							or bo.ModelYear862 = c.CustomerModelYear
 				)
 where		c.RawDocumentGUID = fr.RawDocumentGUID
 	and		fh.Status = 1 --(select dbo.udf_StatusValue('EDIStanley.PlanningHeaders', 'Status', 'Active'))
@@ -761,6 +767,102 @@ end
 --	where
 --		rr.NewDocument = 0
 --end
+
+--ASB FT, LLC 08-09-2016 Write NAL Releases to @Releases2
+
+declare
+	@RawReleases2 table
+(	RowID int not null IDENTITY(1, 1) primary key
+,	Status int default(0)
+,	ReleaseType int
+,	OrderNo int
+,	Type tinyint
+,	ReleaseDT datetime
+,	BlanketPart varchar(25)
+,	CustomerPart varchar(35)
+,	ShipToID varchar(20)
+,	CustomerPO varchar(20)
+,	ModelYear varchar(4)
+,	OrderUnit char(2)
+,	QtyShipper numeric(20,6)
+,	Line int
+,	ReleaseNo varchar(30)
+,	DockCode varchar(30) null
+,	LineFeedCode varchar(30) null
+,	ReserveLineFeedCode varchar(30) null
+,	QtyRelease numeric(20,6)
+,	StdQtyRelease numeric(20,6)
+,	ReferenceAccum numeric(20,6)
+,	CustomerAccum numeric(20,6)
+,	RelPrior numeric(20,6)
+,	RelPost numeric(20,6)
+,	NewDocument int
+,	unique
+	(	OrderNo
+	,	NewDocument
+	,	RowID
+	)
+,	unique
+	(	OrderNo
+	,	RowID
+	,	RelPost
+	,	QtyRelease
+	,	StdQtyRelease
+	)
+,	unique
+	(	OrderNo
+	,	Type
+	,	RowID
+	)
+)
+
+
+Insert @RawReleases2
+(	ReleaseType
+,	OrderNo
+,	Type
+,	ReleaseDT
+,	BlanketPart
+,	CustomerPart
+,	ShipToID
+,	CustomerPO
+,	ModelYear
+,	OrderUnit
+,	ReleaseNo
+,	QtyRelease
+,	StdQtyRelease
+,	ReferenceAccum
+,	CustomerAccum
+,	NewDocument
+)
+Select 
+	ReleaseType
+,	OrderNo
+,	Type
+,	ReleaseDT
+,	BlanketPart
+,	CustomerPart
+,	ShipToID
+,	CustomerPO
+,	ModelYear
+,	OrderUnit
+,	ReleaseNo
+,	QtyRelease
+,	StdQtyRelease
+,	ReferenceAccum
+,	CustomerAccum
+,	NewDocument
+from 
+@RawReleases where BlanketPart like 'NAL%'
+
+
+Delete @RawReleases where BlanketPart like 'NAL%'
+
+delete		rr2
+from		@RawReleases2 rr2
+ OUTER APPLY ( Select max(rr3.ReleaseDT) as LastSSDT from @RawReleases2 rr3 where rr3.CustomerPart = rr2.customerPart and rr3.ShipToID =  rr2.ShipToID and rr3.type = 1 group by rr3.CustomerPart, rr3.ShipToID ) ShipSched
+where rr2.Type =  2 and
+rr2.ReleaseDT <= LastSSDT
 
 update
 	@RawReleases
@@ -1021,10 +1123,29 @@ group by
 ,		bor.ReleaseDT
 ,		bor.Type
 
+
+UNION
+
+select
+		bor.OrderNo
+,		bor.ReleaseNo
+,		bor.ReleaseDT
+,		bor.Type
+,		sum(bor.QtyRelease)
+from
+	@RawReleases2 bor
+group by
+		bor.OrderNo
+,		bor.ReleaseNo
+,		bor.ReleaseDT
+,		bor.Type
+
 order by
-	bor.orderNo
-,	bor.ReleaseDT
-,	bor.ReleaseNo
+1,
+3,
+2
+
+
 
 --select	* from ##BlanketOrderReleases_Edit
 --select	* from	@Rawreleases
@@ -1049,7 +1170,7 @@ EXECUTE @RC3 = [MONITOR].[dbo].[usp_SaveBlanketOrderDistributedReleases]
    @TranDT3 OUTPUT
   ,@Result3 output
 
-
+--select * Into TempBOReleases from ##BlanketOrderReleases_Edit
 delete
 	##BlanketOrderReleases_Edit
 where
@@ -1370,7 +1491,7 @@ end
 
 --- <Closetran AutoRollback=Yes>
 if	@TranCount = 0 begin
-	commit tran @ProcName
+	rollback tran @ProcName
 end
 --- </Closetran>
 
@@ -1813,7 +1934,7 @@ EXEC msdb.dbo.sp_send_dbmail
 
 
 Select 
-	'EDI3060'
+	'EDI5050'
 	,*
 From
 	#EDIAlerts
@@ -1825,7 +1946,6 @@ END
 
 
 /* End E-Mail and Exceptions */
-
 
 
 ---	<Return>
@@ -1870,9 +1990,6 @@ select
 	@Error, @ProcReturn, @TranDT, @ProcResult
 go
 
-
-go
-
 commit transaction
 --rollback transaction
 
@@ -1887,6 +2004,67 @@ go
 Results {
 }
 */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 GO

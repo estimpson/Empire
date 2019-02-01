@@ -3,7 +3,7 @@ GO
 SET ANSI_NULLS ON
 GO
 
-create function [FS].[udf_GetFilePathLocator]
+CREATE function [FS].[udf_GetFilePathLocator]
 (	@folderPath nvarchar(max)
 )
 returns hierarchyid
@@ -14,15 +14,17 @@ begin
 		@outputPath hierarchyid
 
 	select
-		@outputPath = FS.udf_GetNewChildHierarchyID(path_locator)
+		@outputPath = FS.udf_GetNewChildHierarchyID(red.path_locator)
 	from
-		dbo.RawEDIData re
+		dbo.RawEDIData red
 	where
-		re.file_stream.GetFileNamespacePath() = @folderPath
+		red.is_directory = 1
+		and red.file_stream.GetFileNamespacePath() = @folderPath
 --- </Body>
 
 ---	<Return>
 	return
 		@outputPath
 end
+
 GO

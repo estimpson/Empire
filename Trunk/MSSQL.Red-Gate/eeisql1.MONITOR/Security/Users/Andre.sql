@@ -3,4 +3,3 @@ CREATE LOGIN [Andre] WITH PASSWORD = 'p@ssw0rd'
 GO
 CREATE USER [Andre] FOR LOGIN [Andre]
 GO
-REVOKE CONNECT TO [Andre]

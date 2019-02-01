@@ -179,7 +179,8 @@ SELECT @Delete_Scarpped_object = parameters.delete_scrapped_objects FROM paramet
 		package_type,
 		std_cost,
 		user_defined_status,
-		tare_weight)
+		tare_weight,
+		warehousefreightlot)
 	SELECT	object.serial,
 		object.last_date,
 		'Q',
@@ -199,7 +200,8 @@ SELECT @Delete_Scarpped_object = parameters.delete_scrapped_objects FROM paramet
 		object.package_type,
 		object.cost,
 		object.user_defined_status,
-		object.tare_weight
+		object.tare_weight,
+		object.warehousefreightlot
 	FROM	object object
 	WHERE	object.serial = @Serial
 

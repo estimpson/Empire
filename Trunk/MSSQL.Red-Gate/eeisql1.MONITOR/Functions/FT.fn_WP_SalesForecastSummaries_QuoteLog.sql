@@ -34,7 +34,7 @@ as
 begin
 
 --- <Body>
-if (@Filter = 'Customer') begin
+if (@Filter = 'Customer' or @Filter = 'Customer Actual') begin
 
 	insert into @QuoteData
 	(
@@ -99,7 +99,7 @@ if (@Filter = 'Customer') begin
 	,	ql.EEIPartNumber
 
 end
-else if (@Filter = 'Parent Customer') begin
+else if (@Filter = 'Parent Customer' or @Filter = 'Parent Customer Actual') begin
 
 	with customers_cte (Customer)
 	as
@@ -175,7 +175,7 @@ else if (@Filter = 'Parent Customer') begin
 	,	ql.EEIPartNumber
 
 end
-else if (@Filter = 'Salesperson') begin
+else if (@Filter = 'Salesperson' or @Filter = 'Salesperson Actual') begin
 
 	declare
 		@salesInitials varchar(3)
@@ -320,7 +320,7 @@ else if (@Filter = 'Segment') begin
 
 end
 */
-else if (@Filter = 'Vehicle') begin
+else if (@Filter = 'Vehicle' or @Filter = 'Vehicle Forecast') begin
 
 	declare
 		@FilterValSecondHalf varchar(50)
@@ -392,7 +392,7 @@ else if (@Filter = 'Vehicle') begin
 	,	ql.EEIPartNumber
 
 end
-else if (@Filter = 'Program') begin
+else if (@Filter = 'Program' or @Filter = 'Program Forecast') begin
 
 	insert into @QuoteData
 	(
@@ -455,7 +455,7 @@ else if (@Filter = 'Program') begin
 	,	ql.EEIPartNumber
 
 end
-else if (@Filter = 'Product Line') begin
+else if (@Filter = 'Product Line' or @Filter = 'Product Line Actual') begin
 
 	insert into @QuoteData
 	(
@@ -722,25 +722,6 @@ end
 ---	<Return>
 return
 end
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

@@ -153,7 +153,7 @@ if	exists
 	set	@TableName = 'FxTSM.EDIIConnect.ShipNoticeAcknowledgements'
 	
 	insert
-		EEISQL1.MONITOR.EDI_iConnect.ShipNoticeAcknowledgements
+		MONITOR.EDI_iConnect.ShipNoticeAcknowledgements
 	(   RawDocumentGUID
 	,	Type
 	,	DocumentImportDT

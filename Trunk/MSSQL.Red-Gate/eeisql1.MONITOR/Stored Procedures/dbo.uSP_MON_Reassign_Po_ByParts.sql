@@ -71,7 +71,7 @@ CREATE TABLE #Part_Temporal(
 			UPDATE MONITOR.dbo.po_header
 			SET Buyer=@BuyerAssig
 			WHERE Buyer=@BuyerActual  
-			AND LEFT(blanket_part,3) in (Select Part from #Part_Temporal)
+			AND LEFT(blanket_part,7) in (Select Part from #Part_Temporal)
 
 
 			

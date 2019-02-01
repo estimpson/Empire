@@ -195,6 +195,8 @@
     <Compile Include="Controllers\Administration\AdministrationController.Users.cs" />
     <Compile Include="Controllers\Administration\ViewModels\RoleViewModel.cs" />
     <Compile Include="Controllers\Administration\ViewModels\UserViewModel.cs" />
+    <Compile Include="Controllers\Evision\EvisionController.cs" />
+    <Compile Include="Controllers\Evision\ViewModels\LegacyViewModel.cs" />
     <Compile Include="Controllers\Home\HomeController.cs" />
     <Compile Include="Controllers\Home\ViewModels\ModuleMenuViewModel.cs" />
     <Compile Include="Global.asax.cs">
@@ -295,6 +297,7 @@
     <Content Include="Views\Shared\_loginPopup.cshtml" />
     <Content Include="Views\Administration\_rolesGridView.cshtml" />
     <Content Include="Views\Administration\_roleMembersGridView.cshtml" />
+    <Content Include="Views\Evision\Legacy.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

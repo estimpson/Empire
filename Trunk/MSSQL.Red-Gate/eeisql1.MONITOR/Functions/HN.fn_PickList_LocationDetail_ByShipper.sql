@@ -27,8 +27,8 @@ as
 begin
 
 Insert into @Objects
-Select	Object.location,
-		BoxesAvailable = count(object.serial),
+Select 	Object.location,
+		BoxesAvailable = count(distinct object.serial),
 		Object.CrossRef, 
 		Object.weeks_on_stock,		
 		BoxesToPick = ShipperDetail.BoxesPending,		
@@ -62,7 +62,7 @@ declare @ObjectsTemp table
 )
 
 Insert into @ObjectsTemp
-Select	Location, BoxesAvailable, CrossRef, WeekOnStock, BoxesToPickUp, Part
+Select distinct	Location, BoxesAvailable, CrossRef, WeekOnStock, BoxesToPickUp, Part
 from	@Objects
 order by Part, CrossRef, WeekOnStock, BoxesAvailable desc
 

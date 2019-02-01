@@ -3,7 +3,7 @@ GO
 SET ANSI_NULLS ON
 GO
 
-create procedure [FTP].[usp_ReceiveCustomerEDI_OutboundErrorFolderNotEmpty_Notification]
+CREATE procedure [FTP].[usp_ReceiveCustomerEDI_OutboundErrorFolderNotEmpty_Notification]
 	@TranDT datetime = null out
 ,	@Result integer = null out
 as
@@ -100,9 +100,9 @@ from
 print @emailBody
 
 exec msdb.dbo.sp_send_dbmail
-	@profile_name = 'SRVSQL2dBMail'
+	@profile_name = 'DBMAIL'
 ,   @recipients = 'SQLServeralert@empireelect.com'
-,	@copy_recipients = 'spetrovski@empireelect.com;estimpson@fore-thought.com;aboulanger@fore-thought.com;dwest@empireelect.com' -- varchar(max)
+,	@copy_recipients = 'rlambert@empireelect.com;estimpson@fore-thought.com;aboulanger@fore-thought.com;dwest@empireelect.com' -- varchar(max)
 ,   @subject = @EmailHeader
 ,   @body = @EmailBody
 ,   @body_format = 'HTML'

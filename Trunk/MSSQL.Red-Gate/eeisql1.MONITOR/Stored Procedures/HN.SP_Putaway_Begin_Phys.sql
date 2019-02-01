@@ -81,16 +81,24 @@ set	@TranDT = coalesce(@TranDT, GetDate())
 				VALUES(@fromloc,@Operator,Getdate(),'InProcess',@type ) 
 	end
 
-declare
-    @TranType char(1) = 'G'
+/*
+Solicitado por Dorian Cano para no forzar la lectura de las series de las cajas, ya que en esta location se mueven
+todo aquello que ya no cabe en las rackas.
+Implementado por el problema de espacio encontrado en PILOT Freghit Service el 2018-08-24
+Realizado por Roberto Larios.
+*/
+if @fromloc not like '%floor%'
+begin
+			declare
+@TranType char(1) = 'G'
 ,   @Remark varchar(10) = 'Begin Phys'
-,   @Notes varchar(50) = 'Begin a physical inventory.'
+,   @Notes varchar(50) = 'Begin a physical inventory.1'
 
 --- <Insert rows="*">
 set	@TableName = 'dbo.audit_trail'
 
-insert
-	dbo.audit_trail
+																																																				insert
+dbo.audit_trail
 (	serial
 ,	date_stamp
 ,	type
@@ -113,9 +121,10 @@ insert
 ,	std_cost
 ,	user_defined_status
 ,	tare_weight
+,	warehousefreightlot
 )
 select
-	o.serial
+o.serial
 ,	date_stamp = @TranDT
 ,	type = @TranType
 ,	o.part
@@ -137,49 +146,51 @@ select
 ,	std_cost = o.cost
 ,	o.user_defined_status
 ,	o.tare_weight
+,	o.warehousefreightlot
 from
-	dbo.object o
+dbo.object o
 where o.location=@fromloc
 	
 
-select
-	@Error = @@Error,
-	@RowCount = @@Rowcount
+		select
+@Error = @@Error,
+@RowCount = @@Rowcount
 
-if	@Error != 0 begin
-	set	@Result = 999999
-	RAISERROR ('Error inserting into table %s in procedure %s.  Error: %d', 16, 1, @TableName, @ProcName, @Error)
-	rollback tran @ProcName
-	return
+					if	@Error != 0 begin
+set	@Result = 999999
+RAISERROR ('Error inserting into table %s in procedure %s.  Error: %d', 16, 1, @TableName, @ProcName, @Error)
+rollback tran @ProcName
+return
 end
 --- </Insert>
 
 --- <Update rows="*">
 set	@TableName = 'dbo.object'
 
-update
-	dbo.object 
+									update
+dbo.object 
 set
-	operator = @Operator
+operator = @Operator
 ,	location =@toloc
 ,	last_date = @TranDT
 ,	last_time = @TranDT
 from
-	dbo.object 
+dbo.object 
 where location=@fromloc
 
-select
-	@Error = @@Error,
-	@RowCount = @@Rowcount
+		select
+@Error = @@Error,
+@RowCount = @@Rowcount
 
-if	@Error != 0 begin
-	set	@Result = 999999
-	RAISERROR ('Error updating table %s in procedure %s.  Error: %d', 16, 1, @TableName, @ProcName, @Error)
-	rollback tran @ProcName
-	return
+					if	@Error != 0 begin
+set	@Result = 999999
+RAISERROR ('Error updating table %s in procedure %s.  Error: %d', 16, 1, @TableName, @ProcName, @Error)
+rollback tran @ProcName
+return
 end
 --- </Update>
 --- </Body>
+end
 
 ---	<CloseTran AutoCommit=Yes>
 if	@TranCount = 0 begin

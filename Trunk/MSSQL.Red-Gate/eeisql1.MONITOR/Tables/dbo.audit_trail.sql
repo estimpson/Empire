@@ -66,7 +66,8 @@ CREATE TABLE [dbo].[audit_trail]
 [dbdate] [datetime] NULL CONSTRAINT [DF_audit_trail_dbdate] DEFAULT (getdate()),
 [id] [int] NOT NULL IDENTITY(1, 1),
 [gl_segment] [varchar] (50) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
-[ShipperToRAN] [int] NULL
+[ShipperToRAN] [int] NULL,
+[WarehouseFreightLot] [varchar] (20) COLLATE SQL_Latin1_General_CP1_CI_AS NULL
 ) ON [PRIMARY]
 GO
 SET QUOTED_IDENTIFIER ON
@@ -408,7 +409,7 @@ CREATE NONCLUSTERED INDEX [type_for_objhist_u] ON [dbo].[audit_trail] ([type], [
 GO
 CREATE NONCLUSTERED INDEX [audit_trail_workorder_type_ix] ON [dbo].[audit_trail] ([workorder], [type]) ON [PRIMARY]
 GO
-GRANT SELECT ON  [dbo].[audit_trail] TO [APPUser]
-GO
 GRANT INSERT ON  [dbo].[audit_trail] TO [APPUser]
+GO
+GRANT SELECT ON  [dbo].[audit_trail] TO [APPUser]
 GO

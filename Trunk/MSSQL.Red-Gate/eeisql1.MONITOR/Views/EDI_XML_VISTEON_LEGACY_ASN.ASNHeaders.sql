@@ -9,8 +9,11 @@ GO
 
 
 
+
 CREATE view [EDI_XML_VISTEON_LEGACY_ASN].[ASNHeaders]
 as
+
+--Set Truck number to '001' for all ASNs becuase Empire does not use the truck number for these shipments and sometimes users enter pro number in trailer numer filed casuing the asn to fail
 select
 	ShipperID = s.id 
 ,	TradingPartnerID = es.trading_partner_code
@@ -23,7 +26,7 @@ select
 ,	SCAC = coalesce(bol.scac_transfer, s.ship_via) 
 ,	SCACPickUp = bol.scac_pickup
 ,	TransMode = s.trans_mode
-,	TruckNumber = coalesce(nullif(s.truck_number,''), convert(varchar(25), s.id))
+,	TruckNumber = coalesce('001', nullif(s.truck_number,''), convert(varchar(25), s.id))
 ,	SLINumber = s.seal_number
 ,	SupplierCode = es.supplier_code
 ,	EquipmentInitial = bol.equipment_initial
@@ -126,6 +129,7 @@ from
 		on s.bill_of_lading_number = bol.bol_number
 	left join dbo.trans_mode tm 
 		on tm.code = s.trans_mode
+
 
 
 

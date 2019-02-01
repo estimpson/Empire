@@ -2,6 +2,7 @@ SET QUOTED_IDENTIFIER ON
 GO
 SET ANSI_NULLS ON
 GO
+
  CREATE view [HN].[vw_Inventory_LocationValid]
  as
 
@@ -11,8 +12,10 @@ GO
 						 on location.code = limits.location_code
 				where	( plant like '%eei%'
 						or plant like '%eea%'
-						or plant like '%eep%')
+						or plant like '%eep%'
+						or plant like '%eeg%')
 						and code not like '%stage%' 
 						and code not like '%ran-%' 
 						and code not like '%LTL-CLAIMS%' 
+
 GO

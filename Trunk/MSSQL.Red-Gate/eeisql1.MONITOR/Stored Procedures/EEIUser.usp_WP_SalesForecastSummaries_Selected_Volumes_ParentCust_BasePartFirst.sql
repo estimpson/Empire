@@ -26,6 +26,9 @@ declare @forecastData table
 ,	Cal_20_Volume decimal (38,6)
 ,	Cal_21_Volume decimal (38,6)
 ,	Cal_22_Volume decimal (38,6)
+,	Cal_23_Volume decimal (38,6)
+,	Cal_24_Volume decimal (38,6)
+,	Cal_25_Volume decimal (38,6)
 )
 
 
@@ -37,17 +40,20 @@ select
 ,	sf.empire_application
 ,	sf.empire_market_subsegment
 ,	sf.base_part
-,	coalesce(sf.Total_2016_TotalDemand, 0)
-,	coalesce(sf.Total_2017_TotalDemand, 0)
-,	coalesce(sf.Total_2018_TotalDemand, 0)
-,	coalesce(sf.Total_2019_TotalDemand, 0)
-,	coalesce(sf.Cal20_TotalDemand, 0)
-,	coalesce(sf.Cal21_TotalDemand, 0)
-,	coalesce(sf.Cal22_TotalDemand, 0)
+,	coalesce(sf.Cal_16_TotalDemand, 0)
+,	coalesce(sf.Cal_17_TotalDemand, 0)
+,	coalesce(sf.Cal_18_TotalDemand, 0)
+,	coalesce(sf.Cal_19_TotalDemand, 0)
+,	coalesce(sf.Cal_20_TotalDemand, 0)
+,	coalesce(sf.Cal_21_TotalDemand, 0)
+,	coalesce(sf.Cal_22_TotalDemand, 0)
+,	coalesce(sf.Cal_23_TotalDemand, 0)
+,	coalesce(sf.Cal_24_TotalDemand, 0)
+,	coalesce(sf.Cal_25_TotalDemand, 0)
 from 
 	eeiuser.acctg_csm_vw_select_sales_forecast sf
 where 	
-	@Filter = 'Parent Customer'
+	@Filter = 'Parent Customer' or @Filter = 'Parent Customer Actual'
 	and sf.parent_customer = @FilterValue
 
 
@@ -64,12 +70,18 @@ select
 ,	sum(Cal_20_Volume) as TotalDemand_2020
 ,	sum(Cal_21_Volume) as TotalDemand_2021
 ,	sum(Cal_22_Volume) as TotalDemand_2022
+,	sum(Cal_23_Volume) as TotalDemand_2023
+,	sum(Cal_24_Volume) as TotalDemand_2024
+,	sum(Cal_25_Volume) as TotalDemand_2025
 ,	(sum(Cal_17_Volume) - sum(Cal_16_Volume)) as Change_2017
 ,	(sum(Cal_18_Volume) - sum(Cal_17_Volume)) as Change_2018
 ,	(sum(Cal_19_Volume) - sum(Cal_18_Volume)) as Change_2019
 ,	(sum(Cal_20_Volume) - sum(Cal_19_Volume)) as Change_2020
 ,	(sum(Cal_21_Volume) - sum(Cal_20_Volume)) as Change_2021
 ,	(sum(Cal_22_Volume) - sum(Cal_21_Volume)) as Change_2022
+,	(sum(Cal_23_Volume) - sum(Cal_22_Volume)) as Change_2023
+,	(sum(Cal_24_Volume) - sum(Cal_23_Volume)) as Change_2024
+,	(sum(Cal_25_Volume) - sum(Cal_24_Volume)) as Change_2025
 from 
 	@forecastData fd
 group by 

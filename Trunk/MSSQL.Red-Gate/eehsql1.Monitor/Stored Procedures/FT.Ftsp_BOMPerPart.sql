@@ -3,11 +3,13 @@ GO
 SET ANSI_NULLS ON
 GO
 
+--**DO NOT CHANGE THIS QUERY WITHOUT DW APPROVAL!!!!**
+
 
 CREATE procedure [FT].[Ftsp_BOMPerPart] (@part varchar(25))
 
 --
---FT.Ftsp_BOMPerPart 'AUT0105-HB07'
+--FT.Ftsp_BOMPerPart 'VNA0159-HC04'
 
 as
 select
@@ -33,12 +35,12 @@ select
 ,	ScrapFactor = BOM.scrap_factor
 ,	MaterialCum = avg(material_cum)
 ,	ExtendedMaterialCUM = avg(material_cum) * sum(XRT.XQty)
-,	SPI_MasterialAccum = min(spsSPI.MaterialAccum)
-,	SPI_LaborAccum = min(spsSPI.LaborAccum)
-,	SPI_BurdenAccum = min(spsSPI.BurdenAccum)
-,	CN_MasterialAccum = min(spsCN.MaterialAccum)
-,	CN_LaborAccum = min(spsCN.LaborAccum)
-,	CN_BurdenAccum = min(spsCN.BurdenAccum)
+,	SPI_MasterialAccum = avg(spsSPI.MaterialAccum) * sum(XRT.XQty)
+,	SPI_LaborAccum = avg(spsSPI.LaborAccum) * sum(XRT.xQty)
+,	SPI_BurdenAccum = avg(spsSPI.BurdenAccum) *sum(XRT.XQTY)
+,	CN_MasterialAccum = avg(spsCN.MaterialAccum) * SUM(XRT.XQTY)
+,	CN_LaborAccum = avg(spsCN.LaborAccum) * sum(XRT.XQTY)
+,	CN_BurdenAccum = avg(spsCN.BurdenAccum) * sum(XRT.XQTY)
 from
 	FT.XRt XRT
 	join part
@@ -51,7 +53,7 @@ from
 	join part_standard
 		on part.part = part_standard.part
 	left join dbo.PartStandard_SPI spsSPI
-		on spsSPI.Part = XRT.TopPart
+		on spsSPI.Part = XRT.ChildPart
 	left join dbo.PartStandard_CN spsCN
 		on spsCN.Part = XRT.TopPart
 	left join dbo.bill_of_material_ec BOM
@@ -86,6 +88,7 @@ order by
 	XRT.TopPart
 ,	default_vendor
 ,	XRT.ChildPart;
+
 
 
 GO

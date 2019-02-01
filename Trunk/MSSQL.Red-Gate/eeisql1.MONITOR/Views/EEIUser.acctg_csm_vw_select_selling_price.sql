@@ -6,6 +6,7 @@ GO
 
 
 
+
 CREATE view [EEIUser].[acctg_csm_vw_select_selling_price]
 as
 select		base_part, 
@@ -155,13 +156,15 @@ select		base_part,
 			sum(dec_21) as sp_dec_21,
 			sum(dec_22) as sp_dec_22,
 			sum(dec_23) as sp_dec_23,
-			sum(dec_24) as sp_dec_24
+			sum(dec_24) as sp_dec_24,
+			sum(dec_25) as sp_dec_25
 
 from		eeiuser.acctg_csm_selling_prices_tabular 
 
 where		release_id = (Select	[dbo].[fn_ReturnLatestCSMRelease] ('CSM') ) 
 
 group by	base_part
+
 
 
 

@@ -25,7 +25,7 @@ begin
 
 
 	Insert into @Objects
-	Select	Object.serial,
+	Select distinct	Object.serial,
 			Object.CrossRef, 
 			Object.Quantity,
 			Object.Part,

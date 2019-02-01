@@ -34,7 +34,7 @@ if exists (
 	select	1
 	  from	shipper
 	 where	id = @ShipperID and
-		( type = 'C' or type = 'Z' ) )
+		( status = 'C' or status = 'Z' ) )
 		return -2
 
 --	2. Ensure shipper exists.

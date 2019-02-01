@@ -115,9 +115,9 @@ sum(ISNULL(dec_21,0)) as dec2021,
 
 sum(ISNULL(dec_21,0)) as total_2021,
 sum(ISNULL(dec_22,0)) as total_2022,
-sum(ISNULL(dec_23,0)) as total_2023
---sum(ISNULL(dec_24,0)) as total_2024,
---sum(ISNULL(dec_25,0)) as total_2025
+sum(ISNULL(dec_23,0)) as total_2023,
+sum(ISNULL(dec_24,0)) as total_2024,
+sum(ISNULL(dec_25,0)) as total_2025
 
 from  eeiuser.acctg_csm_material_cost_tabular 
 where base_part = @base_part 

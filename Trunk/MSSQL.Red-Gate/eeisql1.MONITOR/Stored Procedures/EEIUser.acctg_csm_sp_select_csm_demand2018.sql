@@ -130,11 +130,12 @@ select	@base_part as [base_part],
 		ISNULL((case when b.version in ('Empire Factor','Empire Adjustment') then (ISNULL(b.[Jan 2021],0)+ISNULL(b.[Feb 2021],0)+ISNULL(b.[Mar 2021],0)+ISNULL(b.[Apr 2021],0)+ISNULL(b.[May 2021],0)+ISNULL(b.[Jun 2021],0)+ISNULL(b.[Jul 2021],0)+ISNULL(b.[Aug 2021],0)+ISNULL(b.[Sep 2021],0)+ISNULL(b.[Oct 2021],0)+ISNULL(b.[Nov 2021],0)+ISNULL(b.[Dec 2021],0)) else a.qty_per*a.take_rate*a.family_allocation*(b.[Jan 2021]+b.[Feb 2021]+b.[Mar 2021]+b.[Apr 2021]+b.[May 2021]+b.[Jun 2021]+b.[Jul 2021]+b.[Aug 2021]+b.[Sep 2021]+b.[Oct 2021]+b.[Nov 2021]+b.[Dec 2021]) end),0) as [total_2021],
 		*/
 
-		ISNULL((case when b.version in ('Empire Factor','Empire Adjustment') then ISNULL(b.[CY 2020],0) else a.qty_per*a.take_rate*a.family_allocation*b.[CY 2020] end),0) as [total_2020], 
+		 
 		ISNULL((case when b.version in ('Empire Factor','Empire Adjustment') then ISNULL(b.[CY 2021],0) else a.qty_per*a.take_rate*a.family_allocation*b.[CY 2021] end),0) as [total_2021], 
 		ISNULL((case when b.version in ('Empire Factor','Empire Adjustment') then ISNULL(b.[CY 2022],0) else a.qty_per*a.take_rate*a.family_allocation*b.[CY 2022] end),0) as [total_2022],
-		ISNULL((case when b.version in ('Empire Factor','Empire Adjustment') then ISNULL(b.[CY 2023],0) else a.qty_per*a.take_rate*a.family_allocation*b.[CY 2023] end),0) as [total_2023]
-
+		ISNULL((case when b.version in ('Empire Factor','Empire Adjustment') then ISNULL(b.[CY 2023],0) else a.qty_per*a.take_rate*a.family_allocation*b.[CY 2023] end),0) as [total_2023],
+		ISNULL((case when b.version in ('Empire Factor','Empire Adjustment') then ISNULL(b.[CY 2024],0) else a.qty_per*a.take_rate*a.family_allocation*b.[CY 2024] end),0) as [total_2024],
+		ISNULL((case when b.version in ('Empire Factor','Empire Adjustment') then ISNULL(b.[CY 2025],0) else a.qty_per*a.take_rate*a.family_allocation*b.[CY 2025] end),0) as [total_2025]
 from 
 		(	select	* 
 			from	eeiuser.acctg_csm_base_part_mnemonic

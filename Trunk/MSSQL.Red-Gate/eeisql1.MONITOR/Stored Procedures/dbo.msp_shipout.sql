@@ -2,7 +2,10 @@ SET QUOTED_IDENTIFIER ON
 GO
 SET ANSI_NULLS ON
 GO
-CREATE procedure [dbo].[msp_shipout]
+
+
+
+CREATE PROCEDURE [dbo].[msp_shipout]
 	@shipper INTEGER,
 	@invdate DATETIME = NULL
 AS
@@ -114,8 +117,8 @@ if	exists(	select	1
            16, -- Severity,
            1 -- State
            )
-          return -1
-end
+          RETURN -1
+END
 --1(a) End
 
 -- 1(b) Begin . Determine if any objects exist that are not 'Approved' or in a 'PREOBJECT' Location. If So, return -1
@@ -183,13 +186,76 @@ exec msdb.dbo.sp_send_dbmail @profile_name = 'DBMail', -- sysname
            1, -- State,
            @ShipperString
            )
-          return -1
+          RETURN -1
 
 		  
-		end
+		END
 
 
 --1(b) End
+
+-- 1(b) Begin . Determine if pronumber not entered on Chrysler. If So, return -1
+
+Declare @ShipmentProNumberalert table
+		(	Shipper int,
+			Destination varchar(25),
+			TradingPartner varchar(25)
+		)
+
+Insert	@ShipmentProNumberalert
+	
+	Select	shipper.id,
+			shipper.destination,
+			edi_setups.trading_partner_code
+	From 
+		Shipper
+		Join edi_setups ON edi_setups.destination = shipper.destination
+	Where	edi_setups.asn_overlay_group in ('FD5', 'GM2', 'GM5', 'C16') and
+			id = @shipper AND
+			COALESCE(shipper.type,'X') != 'V' and
+			nullif(shipper.pro_number,'') is NULL
+
+if exists ( Select 1 from @ShipmentProNumberalert ) begin
+
+		DECLARE @tableHTMLPro  NVARCHAR(MAX) ;
+
+SET @tableHTMLPro =
+    N'<H1>ProNumberNotEnteredForShipper</H1>' +
+    N'<table border="1">' +
+    N'<tr><th>ShipperID</th>' +
+    N'<th>Destination</th><th>TradingPartner</th></tr>' +
+    CAST ( ( SELECT td = eo.Shipper, '',
+                   td = eo.Destination, '',
+                    td = eo.TradingPartner
+              FROM @ShipmentProNumberalert  eo
+            order by 1  
+              FOR XML PATH('tr'), TYPE 
+    ) AS NVARCHAR(MAX) ) +
+    N'</table>' ;
+    
+exec msdb.dbo.sp_send_dbmail @profile_name = 'DBMail', -- sysname
+    @recipients ='aboulanger@fore-thought.com;Shipping@empireelect.com', 
+	@copy_recipients = 'Mcalix@empireelect.com;Shipping@empireelect.com',
+    @subject = N'Pro Number Not entered on Shipper', -- nvarchar(255)
+    @body = @tableHTMLPro, -- nvarchar(max)
+    @body_format = 'HTML', -- varchar(20)
+    @importance = 'High' -- varchar(6)
+		
+		declare		@ShipperStringA varchar(10)
+		select		@ShipperStringA = convert(varchar(10), @shipper)
+		
+		RAISERROR (N'Enter Pronumber on this Shipper %s.', -- Message text.
+           16, -- Severity,
+           1, -- State,
+           @ShipperStringA
+           )
+          RETURN -1
+
+		  
+		END
+
+
+--1(c) End
 
 --	2.	Update shipper header to show shipped status and date and time shipped.
 --if	@invdate is null 
@@ -410,6 +476,56 @@ FROM	part_online
 		shipper_detail.part_original = part_online.part
 
 --	8.	Relieve order requirements.
+delete
+	spoc
+from
+	dbo.ShipperPriorOrderChecksum spoc
+where
+	spoc.Shipper = @Shipper
+
+delete
+	spoc
+from
+	dbo.ShipperPostOrderChecksum spoc
+where
+	spoc.Shipper = @Shipper
+
+insert
+	dbo.ShipperPriorOrderChecksum
+(	Shipper
+,	OrderNo
+,	PriorOrderQtyChecksum
+,	ShipQtyChecksum
+,	PriorOrderDetailXML
+)
+select
+	sd.shipper
+,	sd.order_no
+,	(	select
+ 			sum(od.std_qty)
+ 		from
+ 			dbo.order_detail od
+		where
+			od.order_no = sd.order_no
+ 	)
+,	sum(sd.qty_packed)
+,	(	select
+ 			*
+ 		from
+ 			dbo.order_detail od2
+		where
+			od2.order_no = sd.order_no
+		for xml auto
+ 	)
+from
+	dbo.shipper_detail sd
+where
+	sd.shipper = @Shipper
+	AND sd.order_no != 0 AND NOT EXISTS (SELECT 1 FROM dbo.ShipperPriorOrderChecksum scs WHERE scs.Shipper = sd.shipper AND scs.OrderNo = sd.order_no) 
+group by
+	sd.shipper
+,	sd.order_no
+
 IF	EXISTS
 		(SELECT
 			1
@@ -431,6 +547,14 @@ IF	EXISTS
 
 	 BEGIN
 	
+	update
+		spoc
+	set	spoc.Type = 1
+	from
+		dbo.ShipperPriorOrderChecksum spoc
+	where
+		spoc.Shipper = @shipper
+
 	DECLARE
 		@TranDT DATETIME
 	
@@ -498,6 +622,119 @@ ELSE BEGIN
 		RETURN @returnvalue
 END
 
+insert
+	dbo.ShipperPostOrderChecksum
+(	Shipper
+,	OrderNo
+,	PostOrderQtyChecksum
+,	PostOrderDetailXML
+)
+select
+	sd.shipper
+,	sd.order_no
+,	coalesce
+	(	(	select
+ 				sum(od.std_qty)
+ 			from
+ 				dbo.order_detail od
+			where
+				od.order_no = sd.order_no
+ 		)
+	,	0
+	)
+,	(	select
+ 			*
+ 		from
+ 			dbo.order_detail od2
+		where
+			od2.order_no = sd.order_no
+		for xml auto
+ 	)
+from
+	dbo.shipper_detail sd
+where
+	sd.shipper = @Shipper 
+	AND sd.order_no != 0 AND NOT EXISTS (SELECT 1 FROM dbo.ShipperPostOrderChecksum scs WHERE scs.Shipper = sd.shipper AND scs.OrderNo = sd.order_no) 
+group by
+	sd.shipper
+,	sd.order_no
+
+declare
+	@ShipoutOrderUpdateAlert table
+(	Shipper int
+,	OrderNo int
+,	PriorOrderQtyChecksum numeric(20,6)
+,	ShipQtyChecksum numeric(20,6)
+,	PostOrderQtyChecksum numeric(20,6)
+,	ExpectedPostOrderQtyChecksum numeric(20,6)
+)
+
+insert
+	@ShipoutOrderUpdateAlert
+(	Shipper
+,	OrderNo
+,	PriorOrderQtyChecksum
+,	ShipQtyChecksum
+,	PostOrderQtyChecksum
+,	ExpectedPostOrderQtyChecksum
+)
+select
+	souh.Shipper
+,	souh.OrderNo
+,	souh.PriorOrderQtyChecksum
+,	souh.ShipQtyChecksum
+,	souh.PostOrderQtyChecksum
+,	souh.ExpectedPostOrderQtyChecksum
+from
+	dbo.ShipoutOrderUpdateHistory souh
+where
+	souh.ExpectedPostOrderQtyChecksum != souh.PostOrderQtyChecksum
+	and souh.Shipper = @shipper
+
+if	exists
+	(	select
+			*
+		from
+			@ShipoutOrderUpdateAlert soua
+	) begin
+
+	declare @ShipoutOrderUpdateAlertHTML nvarchar(max) = N'<H1>Shipout Order Update Alert</H1>' + N'<table border="1">' + N'<tr><th>Shipper ID</th>'
+		  + N'<th>Order No</th><th>Prior Orders Checksum</th><th>Ship Qty</th>' + N'<th>Post Order Checksum</th><th>Expected Post Order Checksum</th><th>Discrepancy</th></tr>'
+		  + convert
+			(	nvarchar(max)
+			,	(	 select
+						 td = eo.Shipper
+					 ,	 ''
+					 ,	 td = eo.OrderNo
+					 ,	 ''
+					 ,	 td = eo.PriorOrderQtyChecksum
+					 ,	 ''
+					 ,	 td = eo.ShipQtyChecksum
+					 ,	 ''
+					 ,	 td = eo.PostOrderQtyChecksum
+					 ,	 ''
+					 ,	 td = eo.ExpectedPostOrderQtyChecksum
+					 ,	 ''
+					 ,	 td = eo.ExpectedPostOrderQtyChecksum - eo.PostOrderQtyChecksum
+					 from
+						 @ShipoutOrderUpdateAlert eo
+					 order by
+						 5
+					 ,	 1 desc
+					 for xml path('tr'), type
+				 )
+			) + N'</table>'
+    
+	EXEC msdb.dbo.sp_send_dbmail
+		@profile_name = 'DBMail'
+	,	@recipients = 'estimpson@fore-thought.com;iaragon@empireelect.com;aboulanger@fore-thought.com'
+	,	@subject = N'Shipout Order Update Alert'
+	,	@body = @ShipoutOrderUpdateAlertHTML
+	,	@body_format = 'HTML'
+	,	@importance = 'High'
+END
+
+
 --	9.	Close bill of lading.
 SELECT	@bol = bill_of_lading_number
 FROM	shipper
@@ -540,24 +777,12 @@ UPDATE	shipper
 SET	invoice_number = @invoicenumber
 WHERE	id = @shipper
 
-EXEC dbo.ftsp_AuditAccumsPerShipper @shipper
+--EXEC dbo.ftsp_AuditAccumsPerShipper @shipper
 
 COMMIT TRANSACTION -- (1T)
 
 SELECT 0
 RETURN 0
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

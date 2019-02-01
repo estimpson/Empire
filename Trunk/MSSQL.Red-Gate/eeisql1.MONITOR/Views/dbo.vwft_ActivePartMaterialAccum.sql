@@ -3,7 +3,6 @@ GO
 SET ANSI_NULLS ON
 GO
 
-
 CREATE  view [dbo].[vwft_ActivePartMaterialAccum] as
 
 select		
@@ -33,7 +32,7 @@ select
 from		
 	part_eecustom peec
 join		
-	srvsql1.monitor.dbo.part_standard ps on peec.part = ps.part
+	monitor.dbo.part_standard ps on peec.part = ps.part
 where		
 	peec.CurrentRevLevel = 'Y' 
 group by	

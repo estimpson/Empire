@@ -12,7 +12,7 @@ set nocount on
 set ansi_warnings on
 
 
--- Insert unique identities and tracking identities into variance
+-- Insert unique identities and tracking identities into temp table
 declare @Variance table
 (
 	ID int
@@ -45,7 +45,7 @@ order by
 
 
 
---Get unique identities within date range for further processing
+--Prepare for processing
 declare @UniqueIdentities table
 (
 	ID int
@@ -143,18 +143,70 @@ while ((select count(*) from @UniqueIdentities ui where ui.Processed = 0) > 0) b
 			v.ID = @ID
 
 	end	
+	else if (@ServiceType = 'FedEx Intl Economy Frt') begin
+	           	
+		select @Estimate = 
+			case
+				when v.ZoneCode = 'A' then (select r.ZoneA from fedex.IPE_Rates r where r.Weight = v.NormalizedWeightRounded)
+				when v.ZoneCode = 'B' then (select r.ZoneB from fedex.IPE_Rates r where r.Weight = v.NormalizedWeightRounded)
+				when v.ZoneCode = 'C' then (select r.ZoneC from fedex.IPE_Rates r where r.Weight = v.NormalizedWeightRounded)
+				when v.ZoneCode = 'D' then (select r.ZoneD from fedex.IPE_Rates r where r.Weight = v.NormalizedWeightRounded)
+				when v.ZoneCode = 'E' then (select r.ZoneE from fedex.IPE_Rates r where r.Weight = v.NormalizedWeightRounded)
+				when v.ZoneCode = 'F' then (select r.ZoneF from fedex.IPE_Rates r where r.Weight = v.NormalizedWeightRounded)
+				when v.ZoneCode = 'G' then (select r.ZoneG from fedex.IPE_Rates r where r.Weight = v.NormalizedWeightRounded)
+				when v.ZoneCode = 'H' then (select r.ZoneH from fedex.IPE_Rates r where r.Weight = v.NormalizedWeightRounded)
+				when v.ZoneCode = 'I' then (select r.ZoneI from fedex.IPE_Rates r where r.Weight = v.NormalizedWeightRounded)
+				when v.ZoneCode = 'J' then (select r.ZoneJ from fedex.IPE_Rates r where r.Weight = v.NormalizedWeightRounded)
+				when v.ZoneCode = 'K' then (select r.ZoneK from fedex.IPE_Rates r where r.Weight = v.NormalizedWeightRounded)
+				when v.ZoneCode = 'L' then (select r.ZoneL from fedex.IPE_Rates r where r.Weight = v.NormalizedWeightRounded)
+				when v.ZoneCode = 'M' then (select r.ZoneM from fedex.IPE_Rates r where r.Weight = v.NormalizedWeightRounded)
+				when v.ZoneCode = 'N' then (select r.ZoneN from fedex.IPE_Rates r where r.Weight = v.NormalizedWeightRounded)
+				when v.ZoneCode = 'O' then (select r.ZoneO from fedex.IPE_Rates r where r.Weight = v.NormalizedWeightRounded)
+			end
+		from
+			FedEx.Variance v
+		where
+			v.ID = @ID
+
+	end
+	else if (@ServiceType = 'FedEx Intl Priority Frt') begin
+
+		select @Estimate = 
+			case
+				when v.ZoneCode = 'A' then (select r.ZoneA from fedex.IPF_Rates r where r.Weight = v.NormalizedWeightRounded)
+				when v.ZoneCode = 'B' then (select r.ZoneB from fedex.IPF_Rates r where r.Weight = v.NormalizedWeightRounded)
+				when v.ZoneCode = 'C' then (select r.ZoneC from fedex.IPF_Rates r where r.Weight = v.NormalizedWeightRounded)
+				when v.ZoneCode = 'D' then (select r.ZoneD from fedex.IPF_Rates r where r.Weight = v.NormalizedWeightRounded)
+				when v.ZoneCode = 'E' then (select r.ZoneE from fedex.IPF_Rates r where r.Weight = v.NormalizedWeightRounded)
+				when v.ZoneCode = 'F' then (select r.ZoneF from fedex.IPF_Rates r where r.Weight = v.NormalizedWeightRounded)
+				when v.ZoneCode = 'G' then (select r.ZoneG from fedex.IPF_Rates r where r.Weight = v.NormalizedWeightRounded)
+				when v.ZoneCode = 'H' then (select r.ZoneH from fedex.IPF_Rates r where r.Weight = v.NormalizedWeightRounded)
+				when v.ZoneCode = 'I' then (select r.ZoneI from fedex.IPF_Rates r where r.Weight = v.NormalizedWeightRounded)
+				when v.ZoneCode = 'J' then (select r.ZoneJ from fedex.IPF_Rates r where r.Weight = v.NormalizedWeightRounded)
+				when v.ZoneCode = 'K' then (select r.ZoneK from fedex.IPF_Rates r where r.Weight = v.NormalizedWeightRounded)
+				when v.ZoneCode = 'L' then (select r.ZoneL from fedex.IPF_Rates r where r.Weight = v.NormalizedWeightRounded)
+				when v.ZoneCode = 'M' then (select r.ZoneM from fedex.IPF_Rates r where r.Weight = v.NormalizedWeightRounded)
+				when v.ZoneCode = 'N' then (select r.ZoneN from fedex.IPF_Rates r where r.Weight = v.NormalizedWeightRounded)
+				when v.ZoneCode = 'O' then (select r.ZoneO from fedex.IPF_Rates r where r.Weight = v.NormalizedWeightRounded)
+			end
+		from
+			FedEx.Variance v
+		where
+			v.ID = @ID
+
+	end
 	else if (@ServiceType = 'FedEx Express Saver') begin
 
 		select @Estimate = 
 			case
-				when v.ZoneCode = '2' then (select r.Zone02 from fedex.ESP_Rates r where r.Weight = v.NormalizedWeightRounded)
-				when v.ZoneCode = '3' then (select r.Zone03 from fedex.ESP_Rates r where r.Weight = v.NormalizedWeightRounded)
-				when v.ZoneCode = '4' then (select r.Zone04 from fedex.ESP_Rates r where r.Weight = v.NormalizedWeightRounded)
-				when v.ZoneCode = '5' then (select r.Zone05 from fedex.ESP_Rates r where r.Weight = v.NormalizedWeightRounded)
-				when v.ZoneCode = '6' then (select r.Zone06 from fedex.ESP_Rates r where r.Weight = v.NormalizedWeightRounded)
-				when v.ZoneCode = '7' then (select r.Zone07 from fedex.ESP_Rates r where r.Weight = v.NormalizedWeightRounded)
-				when v.ZoneCode = '8' then (select r.Zone08 from fedex.ESP_Rates r where r.Weight = v.NormalizedWeightRounded)
-				when v.ZoneCode = '9' then (select r.Zone09 from fedex.ESP_Rates r where r.Weight = v.NormalizedWeightRounded)
+				when v.ZoneCode in ('2', '02') then (select r.Zone02 from fedex.ESP_Rates r where r.Weight = v.NormalizedWeightRounded)
+				when v.ZoneCode in ('3', '03') then (select r.Zone03 from fedex.ESP_Rates r where r.Weight = v.NormalizedWeightRounded)
+				when v.ZoneCode in ('4', '04') then (select r.Zone04 from fedex.ESP_Rates r where r.Weight = v.NormalizedWeightRounded)
+				when v.ZoneCode in ('5', '05') then (select r.Zone05 from fedex.ESP_Rates r where r.Weight = v.NormalizedWeightRounded)
+				when v.ZoneCode in ('6', '06') then (select r.Zone06 from fedex.ESP_Rates r where r.Weight = v.NormalizedWeightRounded)
+				when v.ZoneCode in ('7', '07') then (select r.Zone07 from fedex.ESP_Rates r where r.Weight = v.NormalizedWeightRounded)
+				when v.ZoneCode in ('8', '08') then (select r.Zone08 from fedex.ESP_Rates r where r.Weight = v.NormalizedWeightRounded)
+				when v.ZoneCode in ('9', '09') then (select r.Zone09 from fedex.ESP_Rates r where r.Weight = v.NormalizedWeightRounded)
 				when v.ZoneCode = '10' then (select r.Zone10 from fedex.ESP_Rates r where r.Weight = v.NormalizedWeightRounded)
 				when v.ZoneCode = '11' then (select r.Zone11 from fedex.ESP_Rates r where r.Weight = v.NormalizedWeightRounded)
 				when v.ZoneCode = '12' then (select r.Zone12 from fedex.ESP_Rates r where r.Weight = v.NormalizedWeightRounded)
@@ -173,14 +225,14 @@ while ((select count(*) from @UniqueIdentities ui where ui.Processed = 0) > 0) b
 
 		select @Estimate = 
 			case
-				when v.ZoneCode = '2' then (select r.Zone02 from fedex.PO_Rates r where r.Weight = v.NormalizedWeightRounded)
-				when v.ZoneCode = '3' then (select r.Zone03 from fedex.PO_Rates r where r.Weight = v.NormalizedWeightRounded)
-				when v.ZoneCode = '4' then (select r.Zone04 from fedex.PO_Rates r where r.Weight = v.NormalizedWeightRounded)
-				when v.ZoneCode = '5' then (select r.Zone05 from fedex.PO_Rates r where r.Weight = v.NormalizedWeightRounded)
-				when v.ZoneCode = '6' then (select r.Zone06 from fedex.PO_Rates r where r.Weight = v.NormalizedWeightRounded)
-				when v.ZoneCode = '7' then (select r.Zone07 from fedex.PO_Rates r where r.Weight = v.NormalizedWeightRounded)
-				when v.ZoneCode = '8' then (select r.Zone08 from fedex.PO_Rates r where r.Weight = v.NormalizedWeightRounded)
-				when v.ZoneCode = '9' then (select r.Zone09 from fedex.PO_Rates r where r.Weight = v.NormalizedWeightRounded)
+				when v.ZoneCode in ('2', '02') then (select r.Zone02 from fedex.PO_Rates r where r.Weight = v.NormalizedWeightRounded)
+				when v.ZoneCode in ('3', '03') then (select r.Zone03 from fedex.PO_Rates r where r.Weight = v.NormalizedWeightRounded)
+				when v.ZoneCode in ('4', '04') then (select r.Zone04 from fedex.PO_Rates r where r.Weight = v.NormalizedWeightRounded)
+				when v.ZoneCode in ('5', '05') then (select r.Zone05 from fedex.PO_Rates r where r.Weight = v.NormalizedWeightRounded)
+				when v.ZoneCode in ('6', '06') then (select r.Zone06 from fedex.PO_Rates r where r.Weight = v.NormalizedWeightRounded)
+				when v.ZoneCode in ('7', '07') then (select r.Zone07 from fedex.PO_Rates r where r.Weight = v.NormalizedWeightRounded)
+				when v.ZoneCode in ('8', '08') then (select r.Zone08 from fedex.PO_Rates r where r.Weight = v.NormalizedWeightRounded)
+				when v.ZoneCode in ('9', '09') then (select r.Zone09 from fedex.PO_Rates r where r.Weight = v.NormalizedWeightRounded)
 				when v.ZoneCode = '10' then (select r.Zone10 from fedex.PO_Rates r where r.Weight = v.NormalizedWeightRounded)
 				when v.ZoneCode = '11' then (select r.Zone11 from fedex.PO_Rates r where r.Weight = v.NormalizedWeightRounded)
 				when v.ZoneCode = '12' then (select r.Zone12 from fedex.PO_Rates r where r.Weight = v.NormalizedWeightRounded)
@@ -199,14 +251,14 @@ while ((select count(*) from @UniqueIdentities ui where ui.Processed = 0) > 0) b
 
 		select @Estimate = 
 			case
-				when v.ZoneCode = '2' then (select r.Zone02 from fedex.SO_Rates r where r.Weight = v.NormalizedWeightRounded)
-				when v.ZoneCode = '3' then (select r.Zone03 from fedex.SO_Rates r where r.Weight = v.NormalizedWeightRounded)
-				when v.ZoneCode = '4' then (select r.Zone04 from fedex.SO_Rates r where r.Weight = v.NormalizedWeightRounded)
-				when v.ZoneCode = '5' then (select r.Zone05 from fedex.SO_Rates r where r.Weight = v.NormalizedWeightRounded)
-				when v.ZoneCode = '6' then (select r.Zone06 from fedex.SO_Rates r where r.Weight = v.NormalizedWeightRounded)
-				when v.ZoneCode = '7' then (select r.Zone07 from fedex.SO_Rates r where r.Weight = v.NormalizedWeightRounded)
-				when v.ZoneCode = '8' then (select r.Zone08 from fedex.SO_Rates r where r.Weight = v.NormalizedWeightRounded)
-				when v.ZoneCode = '9' then (select r.Zone09 from fedex.SO_Rates r where r.Weight = v.NormalizedWeightRounded)
+				when v.ZoneCode in ('2', '02') then (select r.Zone02 from fedex.SO_Rates r where r.Weight = v.NormalizedWeightRounded)
+				when v.ZoneCode in ('3', '03') then (select r.Zone03 from fedex.SO_Rates r where r.Weight = v.NormalizedWeightRounded)
+				when v.ZoneCode in ('4', '04') then (select r.Zone04 from fedex.SO_Rates r where r.Weight = v.NormalizedWeightRounded)
+				when v.ZoneCode in ('5', '05') then (select r.Zone05 from fedex.SO_Rates r where r.Weight = v.NormalizedWeightRounded)
+				when v.ZoneCode in ('6', '06') then (select r.Zone06 from fedex.SO_Rates r where r.Weight = v.NormalizedWeightRounded)
+				when v.ZoneCode in ('7', '07') then (select r.Zone07 from fedex.SO_Rates r where r.Weight = v.NormalizedWeightRounded)
+				when v.ZoneCode in ('8', '08') then (select r.Zone08 from fedex.SO_Rates r where r.Weight = v.NormalizedWeightRounded)
+				when v.ZoneCode in ('9', '09') then (select r.Zone09 from fedex.SO_Rates r where r.Weight = v.NormalizedWeightRounded)
 				when v.ZoneCode = '10' then (select r.Zone10 from fedex.SO_Rates r where r.Weight = v.NormalizedWeightRounded)
 				when v.ZoneCode = '11' then (select r.Zone11 from fedex.SO_Rates r where r.Weight = v.NormalizedWeightRounded)
 				when v.ZoneCode = '12' then (select r.Zone12 from fedex.SO_Rates r where r.Weight = v.NormalizedWeightRounded)
@@ -225,14 +277,14 @@ while ((select count(*) from @UniqueIdentities ui where ui.Processed = 0) > 0) b
 
 		select @Estimate = 
 			case
-				when v.ZoneCode = '2' then (select r.Zone02 from fedex.GR_Rates r where r.Weight = v.NormalizedWeightRounded)
-				when v.ZoneCode = '3' then (select r.Zone03 from fedex.GR_Rates r where r.Weight = v.NormalizedWeightRounded)
-				when v.ZoneCode = '4' then (select r.Zone04 from fedex.GR_Rates r where r.Weight = v.NormalizedWeightRounded)
-				when v.ZoneCode = '5' then (select r.Zone05 from fedex.GR_Rates r where r.Weight = v.NormalizedWeightRounded)
-				when v.ZoneCode = '6' then (select r.Zone06 from fedex.GR_Rates r where r.Weight = v.NormalizedWeightRounded)
-				when v.ZoneCode = '7' then (select r.Zone07 from fedex.GR_Rates r where r.Weight = v.NormalizedWeightRounded)
-				when v.ZoneCode = '8' then (select r.Zone08 from fedex.GR_Rates r where r.Weight = v.NormalizedWeightRounded)
-				when v.ZoneCode = '9' then (select r.Zone09 from fedex.GR_Rates r where r.Weight = v.NormalizedWeightRounded)
+				when v.ZoneCode in ('2', '02') then (select r.Zone02 from fedex.GR_Rates r where r.Weight = v.NormalizedWeightRounded)
+				when v.ZoneCode in ('3', '03') then (select r.Zone03 from fedex.GR_Rates r where r.Weight = v.NormalizedWeightRounded)
+				when v.ZoneCode in ('4', '04') then (select r.Zone04 from fedex.GR_Rates r where r.Weight = v.NormalizedWeightRounded)
+				when v.ZoneCode in ('5', '05') then (select r.Zone05 from fedex.GR_Rates r where r.Weight = v.NormalizedWeightRounded)
+				when v.ZoneCode in ('6', '06') then (select r.Zone06 from fedex.GR_Rates r where r.Weight = v.NormalizedWeightRounded)
+				when v.ZoneCode in ('7', '07') then (select r.Zone07 from fedex.GR_Rates r where r.Weight = v.NormalizedWeightRounded)
+				when v.ZoneCode in ('8', '08') then (select r.Zone08 from fedex.GR_Rates r where r.Weight = v.NormalizedWeightRounded)
+				when v.ZoneCode in ('9', '09') then (select r.Zone09 from fedex.GR_Rates r where r.Weight = v.NormalizedWeightRounded)
 				when v.ZoneCode = '10' then (select r.Zone10 from fedex.GR_Rates r where r.Weight = v.NormalizedWeightRounded)
 				when v.ZoneCode = '11' then (select r.Zone11 from fedex.GR_Rates r where r.Weight = v.NormalizedWeightRounded)
 				when v.ZoneCode = '12' then (select r.Zone12 from fedex.GR_Rates r where r.Weight = v.NormalizedWeightRounded)
@@ -251,14 +303,14 @@ while ((select count(*) from @UniqueIdentities ui where ui.Processed = 0) > 0) b
 
 		select @Estimate = 
 			case
-				when v.ZoneCode = '2' then (select r.Zone02 from fedex.E2_Rates r where r.Weight = v.NormalizedWeightRounded)
-				when v.ZoneCode = '3' then (select r.Zone03 from fedex.E2_Rates r where r.Weight = v.NormalizedWeightRounded)
-				when v.ZoneCode = '4' then (select r.Zone04 from fedex.E2_Rates r where r.Weight = v.NormalizedWeightRounded)
-				when v.ZoneCode = '5' then (select r.Zone05 from fedex.E2_Rates r where r.Weight = v.NormalizedWeightRounded)
-				when v.ZoneCode = '6' then (select r.Zone06 from fedex.E2_Rates r where r.Weight = v.NormalizedWeightRounded)
-				when v.ZoneCode = '7' then (select r.Zone07 from fedex.E2_Rates r where r.Weight = v.NormalizedWeightRounded)
-				when v.ZoneCode = '8' then (select r.Zone08 from fedex.E2_Rates r where r.Weight = v.NormalizedWeightRounded)
-				when v.ZoneCode = '9' then (select r.Zone09 from fedex.E2_Rates r where r.Weight = v.NormalizedWeightRounded)
+				when v.ZoneCode in ('2', '02') then (select r.Zone02 from fedex.E2_Rates r where r.Weight = v.NormalizedWeightRounded)
+				when v.ZoneCode in ('3', '03') then (select r.Zone03 from fedex.E2_Rates r where r.Weight = v.NormalizedWeightRounded)
+				when v.ZoneCode in ('4', '04') then (select r.Zone04 from fedex.E2_Rates r where r.Weight = v.NormalizedWeightRounded)
+				when v.ZoneCode in ('5', '05') then (select r.Zone05 from fedex.E2_Rates r where r.Weight = v.NormalizedWeightRounded)
+				when v.ZoneCode in ('6', '06') then (select r.Zone06 from fedex.E2_Rates r where r.Weight = v.NormalizedWeightRounded)
+				when v.ZoneCode in ('7', '07') then (select r.Zone07 from fedex.E2_Rates r where r.Weight = v.NormalizedWeightRounded)
+				when v.ZoneCode in ('8', '08') then (select r.Zone08 from fedex.E2_Rates r where r.Weight = v.NormalizedWeightRounded)
+				when v.ZoneCode in ('9', '09') then (select r.Zone09 from fedex.E2_Rates r where r.Weight = v.NormalizedWeightRounded)
 				when v.ZoneCode = '10' then (select r.Zone10 from fedex.E2_Rates r where r.Weight = v.NormalizedWeightRounded)
 				when v.ZoneCode = '11' then (select r.Zone11 from fedex.E2_Rates r where r.Weight = v.NormalizedWeightRounded)
 				when v.ZoneCode = '12' then (select r.Zone12 from fedex.E2_Rates r where r.Weight = v.NormalizedWeightRounded)
@@ -287,14 +339,14 @@ while ((select count(*) from @UniqueIdentities ui where ui.Processed = 0) > 0) b
 
 		select @Estimate = 
 			case
-				when v.ZoneCode = '2' then (select r.Zone02 from fedex.E2AM_Rates r where r.Weight = v.NormalizedWeightRounded)
-				when v.ZoneCode = '3' then (select r.Zone03 from fedex.E2AM_Rates r where r.Weight = v.NormalizedWeightRounded)
-				when v.ZoneCode = '4' then (select r.Zone04 from fedex.E2AM_Rates r where r.Weight = v.NormalizedWeightRounded)
-				when v.ZoneCode = '5' then (select r.Zone05 from fedex.E2AM_Rates r where r.Weight = v.NormalizedWeightRounded)
-				when v.ZoneCode = '6' then (select r.Zone06 from fedex.E2AM_Rates r where r.Weight = v.NormalizedWeightRounded)
-				when v.ZoneCode = '7' then (select r.Zone07 from fedex.E2AM_Rates r where r.Weight = v.NormalizedWeightRounded)
-				when v.ZoneCode = '8' then (select r.Zone08 from fedex.E2AM_Rates r where r.Weight = v.NormalizedWeightRounded)
-				when v.ZoneCode = '9' then (select r.Zone09 from fedex.E2AM_Rates r where r.Weight = v.NormalizedWeightRounded)
+				when v.ZoneCode in ('2', '02') then (select r.Zone02 from fedex.E2AM_Rates r where r.Weight = v.NormalizedWeightRounded)
+				when v.ZoneCode in ('3', '03') then (select r.Zone03 from fedex.E2AM_Rates r where r.Weight = v.NormalizedWeightRounded)
+				when v.ZoneCode in ('4', '04') then (select r.Zone04 from fedex.E2AM_Rates r where r.Weight = v.NormalizedWeightRounded)
+				when v.ZoneCode in ('5', '05') then (select r.Zone05 from fedex.E2AM_Rates r where r.Weight = v.NormalizedWeightRounded)
+				when v.ZoneCode in ('6', '06') then (select r.Zone06 from fedex.E2AM_Rates r where r.Weight = v.NormalizedWeightRounded)
+				when v.ZoneCode in ('7', '07') then (select r.Zone07 from fedex.E2AM_Rates r where r.Weight = v.NormalizedWeightRounded)
+				when v.ZoneCode in ('8', '08') then (select r.Zone08 from fedex.E2AM_Rates r where r.Weight = v.NormalizedWeightRounded)
+				when v.ZoneCode in ('9', '09') then (select r.Zone09 from fedex.E2AM_Rates r where r.Weight = v.NormalizedWeightRounded)
 				when v.ZoneCode = '10' then (select r.Zone10 from fedex.E2AM_Rates r where r.Weight = v.NormalizedWeightRounded)
 				when v.ZoneCode = '11' then (select r.Zone11 from fedex.E2AM_Rates r where r.Weight = v.NormalizedWeightRounded)
 				when v.ZoneCode = '12' then (select r.Zone12 from fedex.E2AM_Rates r where r.Weight = v.NormalizedWeightRounded)
@@ -309,6 +361,85 @@ while ((select count(*) from @UniqueIdentities ui where ui.Processed = 0) > 0) b
 			v.ID = @ID
 
 	end
+	else if (@ServiceType = 'FedEx 1Day Freight') begin
+
+		select @Estimate = 
+			case
+				when v.ZoneCode in ('2', '02') then (select r.Zone02 from fedex.F1_Rates r where r.Weight = v.NormalizedWeightRounded)
+				when v.ZoneCode in ('3', '03') then (select r.Zone03 from fedex.F1_Rates r where r.Weight = v.NormalizedWeightRounded)
+				when v.ZoneCode in ('4', '04') then (select r.Zone04 from fedex.F1_Rates r where r.Weight = v.NormalizedWeightRounded)
+				when v.ZoneCode in ('5', '05') then (select r.Zone05 from fedex.F1_Rates r where r.Weight = v.NormalizedWeightRounded)
+				when v.ZoneCode in ('6', '06') then (select r.Zone06 from fedex.F1_Rates r where r.Weight = v.NormalizedWeightRounded)
+				when v.ZoneCode in ('7', '07') then (select r.Zone07 from fedex.F1_Rates r where r.Weight = v.NormalizedWeightRounded)
+				when v.ZoneCode in ('8', '08') then (select r.Zone08 from fedex.F1_Rates r where r.Weight = v.NormalizedWeightRounded)
+				when v.ZoneCode in ('9', '09') then (select r.Zone09 from fedex.F1_Rates r where r.Weight = v.NormalizedWeightRounded)
+				when v.ZoneCode = '10' then (select r.Zone10 from fedex.F1_Rates r where r.Weight = v.NormalizedWeightRounded)
+				when v.ZoneCode = '11' then (select r.Zone11 from fedex.F1_Rates r where r.Weight = v.NormalizedWeightRounded)
+				when v.ZoneCode = '12' then (select r.Zone12 from fedex.F1_Rates r where r.Weight = v.NormalizedWeightRounded)
+				when v.ZoneCode = '13' then (select r.Zone13 from fedex.F1_Rates r where r.Weight = v.NormalizedWeightRounded)
+				when v.ZoneCode = '14' then (select r.Zone14 from fedex.F1_Rates r where r.Weight = v.NormalizedWeightRounded)
+				when v.ZoneCode = '15' then (select r.Zone15 from fedex.F1_Rates r where r.Weight = v.NormalizedWeightRounded)
+				when v.ZoneCode = '16' then (select r.Zone16 from fedex.F1_Rates r where r.Weight = v.NormalizedWeightRounded)
+			end
+		from
+			FedEx.Variance v
+		where
+			v.ID = @ID
+
+	end
+	else if (@ServiceType = 'FedEx 2Day Freight') begin
+
+		select @Estimate = 
+			case
+				when v.ZoneCode in ('2', '02') then (select r.Zone02 from fedex.F2_Rates r where r.Weight = v.NormalizedWeightRounded)
+				when v.ZoneCode in ('3', '03') then (select r.Zone03 from fedex.F2_Rates r where r.Weight = v.NormalizedWeightRounded)
+				when v.ZoneCode in ('4', '04') then (select r.Zone04 from fedex.F2_Rates r where r.Weight = v.NormalizedWeightRounded)
+				when v.ZoneCode in ('5', '05') then (select r.Zone05 from fedex.F2_Rates r where r.Weight = v.NormalizedWeightRounded)
+				when v.ZoneCode in ('6', '06') then (select r.Zone06 from fedex.F2_Rates r where r.Weight = v.NormalizedWeightRounded)
+				when v.ZoneCode in ('7', '07') then (select r.Zone07 from fedex.F2_Rates r where r.Weight = v.NormalizedWeightRounded)
+				when v.ZoneCode in ('8', '08') then (select r.Zone08 from fedex.F2_Rates r where r.Weight = v.NormalizedWeightRounded)
+				when v.ZoneCode in ('9', '09') then (select r.Zone09 from fedex.F2_Rates r where r.Weight = v.NormalizedWeightRounded)
+				when v.ZoneCode = '10' then (select r.Zone10 from fedex.F2_Rates r where r.Weight = v.NormalizedWeightRounded)
+				when v.ZoneCode = '11' then (select r.Zone11 from fedex.F2_Rates r where r.Weight = v.NormalizedWeightRounded)
+				when v.ZoneCode = '12' then (select r.Zone12 from fedex.F2_Rates r where r.Weight = v.NormalizedWeightRounded)
+				when v.ZoneCode = '13' then (select r.Zone13 from fedex.F2_Rates r where r.Weight = v.NormalizedWeightRounded)
+				when v.ZoneCode = '14' then (select r.Zone14 from fedex.F2_Rates r where r.Weight = v.NormalizedWeightRounded)
+				when v.ZoneCode = '15' then (select r.Zone15 from fedex.F2_Rates r where r.Weight = v.NormalizedWeightRounded)
+				when v.ZoneCode = '16' then (select r.Zone16 from fedex.F2_Rates r where r.Weight = v.NormalizedWeightRounded)
+			end
+		from
+			FedEx.Variance v
+		where
+			v.ID = @ID
+
+	end
+	else if (@ServiceType = 'FedEx 3Day Freight') begin
+
+		select @Estimate = 
+			case
+				when v.ZoneCode in ('2', '02') then (select r.Zone02 from fedex.F3_Rates r where r.Weight = v.NormalizedWeightRounded)
+				when v.ZoneCode in ('3', '03') then (select r.Zone03 from fedex.F3_Rates r where r.Weight = v.NormalizedWeightRounded)
+				when v.ZoneCode in ('4', '04') then (select r.Zone04 from fedex.F3_Rates r where r.Weight = v.NormalizedWeightRounded)
+				when v.ZoneCode in ('5', '05') then (select r.Zone05 from fedex.F3_Rates r where r.Weight = v.NormalizedWeightRounded)
+				when v.ZoneCode in ('6', '06') then (select r.Zone06 from fedex.F3_Rates r where r.Weight = v.NormalizedWeightRounded)
+				when v.ZoneCode in ('7', '07') then (select r.Zone07 from fedex.F3_Rates r where r.Weight = v.NormalizedWeightRounded)
+				when v.ZoneCode in ('8', '08') then (select r.Zone08 from fedex.F3_Rates r where r.Weight = v.NormalizedWeightRounded)
+				when v.ZoneCode in ('9', '09') then (select r.Zone09 from fedex.F3_Rates r where r.Weight = v.NormalizedWeightRounded)
+				when v.ZoneCode = '10' then (select r.Zone10 from fedex.F3_Rates r where r.Weight = v.NormalizedWeightRounded)
+				when v.ZoneCode = '11' then (select r.Zone11 from fedex.F3_Rates r where r.Weight = v.NormalizedWeightRounded)
+				when v.ZoneCode = '12' then (select r.Zone12 from fedex.F3_Rates r where r.Weight = v.NormalizedWeightRounded)
+				when v.ZoneCode = '13' then (select r.Zone13 from fedex.F3_Rates r where r.Weight = v.NormalizedWeightRounded)
+				when v.ZoneCode = '14' then (select r.Zone14 from fedex.F3_Rates r where r.Weight = v.NormalizedWeightRounded)
+				when v.ZoneCode = '15' then (select r.Zone15 from fedex.F3_Rates r where r.Weight = v.NormalizedWeightRounded)
+				when v.ZoneCode = '16' then (select r.Zone16 from fedex.F3_Rates r where r.Weight = v.NormalizedWeightRounded)
+			end
+		from
+			FedEx.Variance v
+		where
+			v.ID = @ID
+
+	end
+
 
 
 	update

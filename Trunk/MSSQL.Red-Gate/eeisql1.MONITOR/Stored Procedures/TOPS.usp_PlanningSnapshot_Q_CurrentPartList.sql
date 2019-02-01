@@ -108,6 +108,12 @@ begin
 					on ph.blanket_part = psh.FinishedPart
 			where
 				ph.buyer = coalesce(@SchedulerID, ph.buyer)
+				and psh.Revision =
+					(	select
+							max(psh2.Revision)
+						from
+							TOPS.PlanningSnapshotHeaders psh2
+					)
 			order by
 				psh.FinishedPart
 

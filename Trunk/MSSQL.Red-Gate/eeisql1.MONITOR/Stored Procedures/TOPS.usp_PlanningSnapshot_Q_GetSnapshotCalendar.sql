@@ -219,7 +219,7 @@ begin
 		/*	Read Initial Inventory and EAU. */
 		begin
 			declare
-				@InitOnHand numeric(20,6) = @psXML.value('(/PlanningSnapshot/PlanningHeader/PH/@InitOnHand)[1]', 'numeric(20,6)')
+				@InitOnHand numeric(20,6) = coalesce(@psXML.value('(/PlanningSnapshot/PlanningHeader/PH/@InitOnHand)[1]', 'numeric(20,6)'), 0)
 			,	@EAU_EEI numeric(20,6) = @psXML.value('(/PlanningSnapshot/PlanningHeader/PH/@EAU_EEI)[1]', 'numeric(20,6)')
 			,	@ABC_Class_1 tinyint = @psXML.value('(/PlanningSnapshot/PlanningHeader/PH/@ABC_Class_1)[1]', 'tinyint')
 			,	@ABC_Class_2 tinyint = @psXML.value('(/PlanningSnapshot/PlanningHeader/PH/@ABC_Class_2)[1]', 'tinyint')
@@ -281,6 +281,73 @@ begin
 			set @cDebugMsg = null
 		end
 
+		/*	Retrieve Customer Requirement Overrides. */
+		begin
+			declare
+				@croXML xml
+
+			select top(1)
+				@croXML = cro.OverrideXML
+			from
+				TOPS.PlanningSnapshotHeaders psh
+				join TOPS.CustomerRequirementOverrides cro
+					on psh.CustomerRequirementOverridesGUID = cro.RowGUID
+			where
+				psh.FinishedPart = @FinishedPart
+				and psh.Revision = @Revision
+			order by
+				psh.RowID
+			
+			--- <TOC>
+			if	@Debug & 0x01 = 0x01 begin
+				exec FXSYS.usp_SPTock
+					@StepDescription = N'Retrieve Customer Requirement Overrides'
+				,	@TicDT = @TicDT
+				,	@TocDT = @TocDT out
+				,	@Debug = @Debug
+				,	@DebugMsg = @DebugMsg out
+							
+				set @TicDT = @TocDT
+			end
+			--- </TOC>
+			set @DebugMsg += coalesce(char(13) + char(10) + @cDebugMsg, N'')
+			set @cDebugMsg = null
+		end
+
+		/*	Extract Overrides. */
+		begin
+			declare
+				@Overrides table
+			(	CalendarDT datetime primary key
+			,	Requirement numeric(20,6) not null
+			)
+			insert
+				@Overrides
+			(	CalendarDT
+			,	Requirement
+			)
+			select
+				CalendarDT = cro.OverrideEntry.value('(@CalendarDT)[1]', 'datetime')
+			,	Requirement = cro.OverrideEntry.value('(@Requirement)[1]', 'numeric(20,6)')
+			from
+				@croXML.nodes('/OverrideEntry') as cro(OverrideEntry)
+
+			--- <TOC>
+			if	@Debug & 0x01 = 0x01 begin
+				exec FXSYS.usp_SPTock
+					@StepDescription = N'Extract Overrides'
+				,	@TicDT = @TicDT
+				,	@TocDT = @TocDT out
+				,	@Debug = @Debug
+				,	@DebugMsg = @DebugMsg out
+							
+				set @TicDT = @TocDT
+			end
+			--- </TOC>
+			set @DebugMsg += coalesce(char(13) + char(10) + @cDebugMsg, N'')
+			set @cDebugMsg = null
+		end
+
 		/*	Read In-Transit Inventory Data. */
 		begin
 			declare
@@ -325,6 +392,73 @@ begin
 			,	OrderQty = ooe.OnOrderEEH.value('(@OrderQty)[1]', 'numeric(20,6)')
 			from
 				@psXML.nodes('/PlanningSnapshot/OnOrderEEH/OOE') as ooe(OnOrderEEH)
+		end
+
+		/*	Retrieve New EEH Planning. */
+		begin
+			declare
+				@nepXML xml
+
+			select top(1)
+				@nepXML = nep.NewEEHPlanningXML
+			from
+				TOPS.PlanningSnapshotHeaders psh
+				join TOPS.NewEEHPlanning nep
+					on psh.NewEEHPlanningGUID = nep.RowGUID
+			where
+				psh.FinishedPart = @FinishedPart
+				and psh.Revision = @Revision
+			order by
+				psh.RowID
+			
+			--- <TOC>
+			if	@Debug & 0x01 = 0x01 begin
+				exec FXSYS.usp_SPTock
+					@StepDescription = N'Retrieve New EEH Planning'
+				,	@TicDT = @TicDT
+				,	@TocDT = @TocDT out
+				,	@Debug = @Debug
+				,	@DebugMsg = @DebugMsg out
+							
+				set @TicDT = @TocDT
+			end
+			--- </TOC>
+			set @DebugMsg += coalesce(char(13) + char(10) + @cDebugMsg, N'')
+			set @cDebugMsg = null
+		end
+
+		/*	Extract New EEH Planning. */
+		begin
+			declare
+				@NewEEHPlanning table
+			(	CalendarDT datetime primary key
+			,	OnOrderEEH numeric(20,6) not null
+			)
+			insert
+				@NewEEHPlanning
+			(	CalendarDT
+			,	OnOrderEEH
+			)
+			select
+				CalendarDT = nep.NewEEHPlanningEntry.value('(@CalendarDT)[1]', 'datetime')
+			,	Requirement = nep.NewEEHPlanningEntry.value('(@OnOrderEEH)[1]', 'numeric(20,6)')
+			from
+				@nepXML.nodes('/NewEEHPlanningEntry') as nep(NewEEHPlanningEntry)
+
+			--- <TOC>
+			if	@Debug & 0x01 = 0x01 begin
+				exec FXSYS.usp_SPTock
+					@StepDescription = N'Extract New EEH Planning'
+				,	@TicDT = @TicDT
+				,	@TocDT = @TocDT out
+				,	@Debug = @Debug
+				,	@DebugMsg = @DebugMsg out
+							
+				set @TicDT = @TocDT
+			end
+			--- </TOC>
+			set @DebugMsg += coalesce(char(13) + char(10) + @cDebugMsg, N'')
+			set @cDebugMsg = null
 		end
 
 		/*	Build Results. */
@@ -375,10 +509,10 @@ begin
 			,	pt.SchedulingDT
 			,	pt.PlanningDays
 			,	CustomerRequirement = coalesce(cr.OrderQty, 0)
-			,	OverrideCustomerRequirement = null
+			,	OverrideCustomerRequirement = cro.OverrideCustomerRequirement
 			,	InTransQty = coalesce(iti.InTransQty, 0)
 			,	OnOrderEEH = coalesce(oee.OrderQty, 0)
-			,	NewOnOrderEEH = null
+			,	NewOnOrderEEH = nep.NewOnOrderEEH
 			,	pt.RowID
 			from
 				@PlanningTable pt
@@ -406,6 +540,14 @@ begin
 								when cr.DailyWeekly = 'W' then cr.WeekNo
 							end
 					) cr
+				outer apply
+					(	select
+							OverrideCustomerRequirement = sum(o.Requirement)
+						from
+							@Overrides o
+						where
+							o.CalendarDT = pt.CalendarDT
+					) cro
 				outer apply
 					(	select
 					 		InTransQty = sum(iti.InTransQty)
@@ -438,6 +580,14 @@ begin
 								when ooe.DailyWeekly = 'W' then ooe.WeekNo
 							end							
 					) oee
+				outer apply
+					(	select
+							NewOnOrderEEH = nep.OnOrderEEH
+						from
+							@NewEEHPlanning nep
+						where
+							nep.CalendarDT = pt.CalendarDT
+					) nep
 			order by
 				pt.CalendarDT
 

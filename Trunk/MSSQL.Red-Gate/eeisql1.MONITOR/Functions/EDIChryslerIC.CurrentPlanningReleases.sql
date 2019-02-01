@@ -7,6 +7,7 @@ GO
 
 
 
+
 CREATE FUNCTION [EDIChryslerIC].[CurrentPlanningReleases]
 ()
 RETURNS @CurrentPlanningReleases TABLE
@@ -47,7 +48,7 @@ BEGIN
 			,	ConsigneeCode = ''
 			,	CustomerPart = pr.CustomerPart
 			,	CustomerPO = ''
-			,	CustomerModelYear =  COALESCE(pr.CustomerModelYear,'')
+			,	CustomerModelYear =  MAX(COALESCE(pr.CustomerModelYear,''))
 			,	CheckLast = MAX
 				(	  CONVERT(CHAR(20), ph.DocumentImportDT, 120)
 										
@@ -65,7 +66,7 @@ BEGIN
 				pr.ShipToCode
 			,	LEFT(COALESCE(pr.ShipFromCode,''),15)
 			,	pr.CustomerPart
-			,	COALESCE(pr.CustomerModelYear,'')
+			--,	COALESCE(pr.CustomerModelYear,'')
 		) cl
 		JOIN EDIChryslerIC.PlanningHeaders ph
 			JOIN EDIChryslerIC.PlanningReleases pr
@@ -89,6 +90,7 @@ BEGIN
 ---	<Return>
 	RETURN
 END
+
 
 
 

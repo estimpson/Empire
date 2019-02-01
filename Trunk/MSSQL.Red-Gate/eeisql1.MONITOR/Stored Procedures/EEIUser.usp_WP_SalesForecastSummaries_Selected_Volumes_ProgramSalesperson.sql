@@ -4,7 +4,7 @@ SET ANSI_NULLS ON
 GO
 
 
-create procedure [EEIUser].[usp_WP_SalesForecastSummaries_Selected_Volumes_ProgramSalesperson]
+CREATE procedure [EEIUser].[usp_WP_SalesForecastSummaries_Selected_Volumes_ProgramSalesperson]
 	@Filter varchar(50)
 ,	@FilterValue varchar(250)
 as
@@ -62,23 +62,23 @@ select
 ,	sf.empire_application
 ,	sf.empire_market_subsegment
 ,	sf.base_part
-,	coalesce(sf.Total_2016_TotalDemand, 0)
-,	coalesce(sf.Total_2017_TotalDemand, 0)
-,	coalesce(sf.Total_2018_TotalDemand, 0)
-,	coalesce(sf.Total_2019_TotalDemand, 0)
-,	coalesce(sf.Cal20_TotalDemand, 0)
-,	coalesce(sf.Cal21_TotalDemand, 0)
-,	coalesce(sf.Cal22_TotalDemand, 0)
+,	coalesce(sf.Cal_16_TotalDemand, 0)
+,	coalesce(sf.Cal_17_TotalDemand, 0)
+,	coalesce(sf.Cal_18_TotalDemand, 0)
+,	coalesce(sf.Cal_19_TotalDemand, 0)
+,	coalesce(sf.Cal_20_TotalDemand, 0)
+,	coalesce(sf.Cal_21_TotalDemand, 0)
+,	coalesce(sf.Cal_22_TotalDemand, 0)
 from 
 	eeiuser.acctg_csm_vw_select_sales_forecast sf
 where 
 (	
-	@Filter = 'Program'
+	@Filter = 'Program' or @Filter = 'Program Forecast'
 	and sf.program = @FilterValue
 )
 or
 (	
-	@Filter = 'Salesperson'
+	@Filter = 'Salesperson' or @Filter = 'Salesperson Actual'
 	and sf.salesperson = @FilterValue
 )
 

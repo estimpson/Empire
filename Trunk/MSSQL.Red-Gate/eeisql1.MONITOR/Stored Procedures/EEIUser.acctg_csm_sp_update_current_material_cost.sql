@@ -4,43 +4,68 @@ SET ANSI_NULLS ON
 GO
 
 
-
-
-
 CREATE procedure [EEIUser].[acctg_csm_sp_update_current_material_cost] (@release_id varchar(10))
 
--- exec eeiuser.acctg_csm_sp_update_current_material_cost '2017-08'
-
-
 as
+
+
+-- exec eeiuser.acctg_csm_sp_update_current_material_cost '2018-08'
+
+-- for testing:  DECLARE @release_id varchar(10) = '2018-04'
+
+IF OBJECT_ID('tempdb...#a') IS NOT NULL
+DROP TABLE #a
+
 
 create table #a 
 ( base_part1 varchar(25),
   base_part2 varchar(25), 
-  part1 varchar(25), 
+  part varchar(25), 
   currentrevlevel varchar(1), 
-  part2 varchar(25), 
+  eeh_part varchar(25), 
+  eeh_material_cum decimal(18,6),
+  eei_part varchar(25),
+  eei_product_line varchar(25),
+  eei_frozen_material_cum decimal(18,6),
   material_cum decimal(18,6)
 )
 
 
+-- 1. Get current costs from EEH or from EEI (in the case of bulbed parts)
+
 insert into #a
-select * from 
 
-(select distinct(BASE_PART) base_part from eeiuser.acctg_csm_base_part_mnemonic) a
- left join
+select	base_part1, 
+		base_part2, 
+		part, 
+		currentrevlevel, 
+		eeh_part, 
+		eeh_material_cum, 
+		eei_part, 
+		eei_product_line, 
+		eei_frozen_material_cum,
+		(case when eei_product_line in ('Bulbed Wire Harn - EEH','Bulbed ES3 Components') then eei_frozen_material_cum else eeh_material_cum end)
 
-(select left(part,7)as base_part, part, CurrentRevLevel from part_eecustom where CurrentRevLevel = 'Y') b
+from 
 
-on a.base_part = b.base_part
+	(select distinct(BASE_PART) as base_part1 from eeiuser.acctg_csm_base_part_mnemonic) a
+ 
+	left join  (select left(part,7) as base_part2, part, CurrentRevLevel from part_eecustom where CurrentRevLevel = 'Y') b
+	on a.base_part1 = b.base_part2
 
-left join
+	left join (select part as eeh_part, material_cum as eeh_material_cum from eehsql1.eeh.dbo.part_standard) c
+	on b.part = c.eeh_part
 
-(select part, material_cum from eehsql1.eeh.dbo.part_standard ) c
+	left join (select part_standard.part as eei_part, product_line as eei_product_line, frozen_material_cum as eei_frozen_material_cum  from part_standard join part on part_standard.part = part.part) d
+	on b.part = d.eei_part
 
-on b.part = c.part
 
-delete from eeiuser.acctg_csm_material_cost_tabular where release_id = @release_id and base_part in (select base_part1 from #a)
+-- 2. Only delete rows from the MSF where eeh costs exist.  For parts where an EEH costs does not exist, we will maintain the previously input quoted material cost.
+
+delete from eeiuser.acctg_csm_material_cost_tabular where release_id = @release_id and base_part in (select base_part1 from #a where isnull(eeh_part,'') <> '')
+
+
+-- 3. Insert the new costs into the MSF tables
 
 Insert into eeiuser.acctg_csm_material_cost_tabular (release_id, row_id, base_part, version, inclusion, partusedforcost, 
 jan_12, feb_12, mar_12, apr_12, may_12, jun_12, jul_12, aug_12, sep_12, oct_12, nov_12, dec_12, 
@@ -51,13 +76,14 @@ jan_16, feb_16, mar_16, apr_16, may_16, jun_16, jul_16, aug_16, sep_16, oct_16, 
 jan_17, feb_17, mar_17, apr_17, may_17, jun_17, jul_17, aug_17, sep_17, oct_17, nov_17, dec_17,
 jan_18, feb_18, mar_18, apr_18, may_18, jun_18, jul_18, aug_18, sep_18, oct_18, nov_18, dec_18,
 jan_19, feb_19, mar_19, apr_19, may_19, jun_19, jul_19, aug_19, sep_19, oct_19, nov_19, dec_19,
-dec_20,
+jan_20, feb_20, mar_20, apr_20, may_20, jun_20, jul_20, aug_20, sep_20, oct_20, nov_20, dec_20,
 dec_21,
 dec_22,
 dec_23,
-dec_24)
+dec_24,
+dec_25)
 
-select @release_id,1, base_part1, 'Current Cost 2017-08-21', 'Y', part2, 
+select @release_id, 1, base_part1, 'Current Cost 2018-10-08', 'Y', eeh_part, 
 material_cum, material_cum, material_cum, material_cum, material_cum, material_cum, material_cum, material_cum, material_cum, material_cum, material_cum, material_cum, --2012
 material_cum, material_cum, material_cum, material_cum, material_cum, material_cum, material_cum, material_cum, material_cum, material_cum, material_cum, material_cum, --2013
 material_cum, material_cum, material_cum, material_cum, material_cum, material_cum, material_cum, material_cum, material_cum, material_cum, material_cum, material_cum, --2014
@@ -66,12 +92,14 @@ material_cum, material_cum, material_cum, material_cum, material_cum, material_c
 material_cum, material_cum, material_cum, material_cum, material_cum, material_cum, material_cum, material_cum, material_cum, material_cum, material_cum, material_cum, --2017
 material_cum, material_cum, material_cum, material_cum, material_cum, material_cum, material_cum, material_cum, material_cum, material_cum, material_cum, material_cum, --2018
 material_cum, material_cum, material_cum, material_cum, material_cum, material_cum, material_cum, material_cum, material_cum, material_cum, material_cum, material_cum, --2019
-material_cum, --2020
+material_cum, material_cum, material_cum, material_cum, material_cum, material_cum, material_cum, material_cum, material_cum, material_cum, material_cum, material_cum, --2020
 material_cum, --2021
 material_cum, --2022
 material_cum, --2023
-material_cum  --2024
+material_cum, --2024
+material_cum  --2025
 from #a
+where isnull(eeh_part,'') <> ''
 
 
 

@@ -1,0 +1,172 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!--
+  For more information on how to configure your ASP.NET application, please visit
+  https://go.microsoft.com/fwlink/?LinkId=169433
+  -->
+<configuration>
+  <configSections>
+    <section name="entityFramework" type="System.Data.Entity.Internal.ConfigFile.EntityFrameworkSection, EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" requirePermission="false" />
+    <sectionGroup name="devExpress">
+      <section name="themes" type="DevExpress.Web.ThemesConfigurationSection, DevExpress.Web.v17.2, Version=17.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" requirePermission="false" />
+      <section name="compression" type="DevExpress.Web.CompressionConfigurationSection, DevExpress.Web.v17.2, Version=17.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" requirePermission="false" />
+      <section name="settings" type="DevExpress.Web.SettingsConfigurationSection, DevExpress.Web.v17.2, Version=17.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" requirePermission="false" />
+      <section name="errors" type="DevExpress.Web.ErrorsConfigurationSection, DevExpress.Web.v17.2, Version=17.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" requirePermission="false" />
+      <section name="resources" type="DevExpress.Web.ResourcesConfigurationSection, DevExpress.Web.v17.2, Version=17.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" requirePermission="false" />
+    </sectionGroup>
+    <!-- For more information on Entity Framework configuration, visit http://go.microsoft.com/fwlink/?LinkID=237468 -->
+  </configSections>
+  <system.web>
+    <caching>
+      <outputCacheSettings>
+        <outputCacheProfiles>
+          <add name="CacheProfile1" duration="1" />
+        </outputCacheProfiles>
+      </outputCacheSettings>
+    </caching>
+    <compilation targetFramework="4.6.1">
+      <assemblies>
+        <add assembly="DevExpress.Web.v17.2, Version=17.2.4.0, Culture=neutral, PublicKeyToken=B88D1754D700E49A" />
+        <add assembly="DevExpress.Data.v17.2, Version=17.2.4.0, Culture=neutral, PublicKeyToken=B88D1754D700E49A" />
+        <add assembly="DevExpress.Printing.v17.2.Core, Version=17.2.4.0, Culture=neutral, PublicKeyToken=B88D1754D700E49A" />
+        <add assembly="DevExpress.Office.v17.2.Core, Version=17.2.4.0, Culture=neutral, PublicKeyToken=B88D1754D700E49A" />
+        <add assembly="System.Design, Version=4.0.0.0, Culture=neutral, PublicKeyToken=B03F5F7F11D50A3A" />
+        <add assembly="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=B77A5C561934E089" />
+        <add assembly="DevExpress.RichEdit.v17.2.Core, Version=17.2.4.0, Culture=neutral, PublicKeyToken=B88D1754D700E49A" />
+        <add assembly="System.Web.Entity, Version=4.0.0.0, Culture=neutral, PublicKeyToken=B77A5C561934E089" />
+        <add assembly="System.Data.Linq, Version=4.0.0.0, Culture=neutral, PublicKeyToken=B77A5C561934E089" />
+        <add assembly="DevExpress.Web.ASPxThemes.v17.2, Version=17.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+        <add assembly="DevExpress.RichEdit.v17.2.Export, Version=17.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+        <add assembly="DevExpress.Web.ASPxHtmlEditor.v17.2, Version=17.2.4.0, Culture=neutral, PublicKeyToken=B88D1754D700E49A" />
+        <add assembly="DevExpress.Web.ASPxSpellChecker.v17.2, Version=17.2.4.0, Culture=neutral, PublicKeyToken=B88D1754D700E49A" />
+        <add assembly="DevExpress.SpellChecker.v17.2.Core, Version=17.2.4.0, Culture=neutral, PublicKeyToken=B88D1754D700E49A" />
+        <add assembly="DevExpress.Utils.v17.2, Version=17.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+        <add assembly="DevExpress.Web.Mvc5.v17.2, Version=17.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+        <add assembly="DevExpress.Web.ASPxPivotGrid.v17.2, Version=17.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+        <add assembly="DevExpress.PivotGrid.v17.2.Core, Version=17.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+        <add assembly="DevExpress.Web.ASPxTreeList.v17.2, Version=17.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+      </assemblies>
+    </compilation>
+    <httpRuntime targetFramework="4.6.1" maxRequestLength="4096" requestValidationMode="4.0" executionTimeout="110" />
+    <pages validateRequest="true" clientIDMode="Predictable" enableViewState="true">
+      <namespaces>
+        <add namespace="System.Web.Optimization" />
+        <add namespace="DevExpress.Utils" />
+        <add namespace="DevExpress.Web.ASPxThemes" />
+        <add namespace="DevExpress.Web" />
+        <add namespace="DevExpress.Web.Mvc" />
+        <add namespace="DevExpress.Web.Mvc.UI" />
+        <add namespace="DevExpress.Web.ASPxPivotGrid" />
+        <add namespace="DevExpress.Data.PivotGrid" />
+        <add namespace="DevExpress.XtraPivotGrid" />
+        <add namespace="DevExpress.Web.ASPxHtmlEditor" />
+        <add namespace="DevExpress.Web.ASPxTreeList" />
+      </namespaces>
+      <controls>
+        <add assembly="Microsoft.AspNet.Web.Optimization.WebForms" namespace="Microsoft.AspNet.Web.Optimization.WebForms" tagPrefix="webopt" />
+        <add tagPrefix="dx" namespace="DevExpress.Web" assembly="DevExpress.Web.v17.2, Version=17.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+      </controls>
+    </pages>
+    <httpModules>
+      <add name="ApplicationInsightsWebTracking" type="Microsoft.ApplicationInsights.Web.ApplicationInsightsHttpModule, Microsoft.AI.Web" />
+      <remove name="ASPxHttpHandlerModule" />
+      <add type="DevExpress.Web.ASPxHttpHandlerModule, DevExpress.Web.v17.2, Version=17.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" name="ASPxHttpHandlerModule" />
+    </httpModules>
+    <httpHandlers>
+      <add type="DevExpress.Web.ASPxHttpHandlerModule, DevExpress.Web.v17.2, Version=17.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" verb="GET,POST" path="DX.ashx" validate="false" />
+      <add verb="GET,POST" path="ASPxUploadProgressHandlerPage.ashx" type="DevExpress.Web.ASPxUploadProgressHttpHandler, DevExpress.Web.v17.2, Version=17.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    </httpHandlers>
+    <globalization culture="" uiCulture="" />
+  </system.web>
+  <runtime>
+    <assemblyBinding xmlns="urn:schemas-microsoft-com:asm.v1">
+      <dependentAssembly>
+        <assemblyIdentity name="Newtonsoft.Json" culture="neutral" publicKeyToken="30ad4fe6b2a6aeed" />
+        <bindingRedirect oldVersion="0.0.0.0-6.0.0.0" newVersion="6.0.0.0" />
+      </dependentAssembly>
+      <dependentAssembly>
+        <assemblyIdentity name="WebGrease" culture="neutral" publicKeyToken="31bf3856ad364e35" />
+        <bindingRedirect oldVersion="0.0.0.0-1.5.2.14234" newVersion="1.5.2.14234" />
+      </dependentAssembly>
+      <dependentAssembly>
+        <assemblyIdentity name="System.Web.Helpers" publicKeyToken="31bf3856ad364e35" />
+        <bindingRedirect oldVersion="1.0.0.0-3.0.0.0" newVersion="3.0.0.0" />
+      </dependentAssembly>
+      <dependentAssembly>
+        <assemblyIdentity name="System.Web.WebPages" publicKeyToken="31bf3856ad364e35" />
+        <bindingRedirect oldVersion="1.0.0.0-3.0.0.0" newVersion="3.0.0.0" />
+      </dependentAssembly>
+      <dependentAssembly>
+        <assemblyIdentity name="System.Web.Mvc" publicKeyToken="31bf3856ad364e35" />
+        <bindingRedirect oldVersion="0.0.0.0-5.2.6.0" newVersion="5.2.6.0" />
+      </dependentAssembly>
+    </assemblyBinding>
+  </runtime>
+  <system.webServer>
+    <validation validateIntegratedModeConfiguration="false" />
+    <modules>
+      <remove name="ApplicationInsightsWebTracking" />
+      <add name="ApplicationInsightsWebTracking" type="Microsoft.ApplicationInsights.Web.ApplicationInsightsHttpModule, Microsoft.AI.Web" preCondition="managedHandler" />
+      <remove name="ASPxHttpHandlerModule" />
+      <add type="DevExpress.Web.ASPxHttpHandlerModule, DevExpress.Web.v17.2, Version=17.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" name="ASPxHttpHandlerModule" />
+    </modules>
+    <defaultDocument>
+      <files>
+        <add value="Pages/Login.aspx" />
+      </files>
+    </defaultDocument>
+    <handlers>
+      <remove name="ASPxHttpHandlerModule" />
+      <add type="DevExpress.Web.ASPxHttpHandlerModule, DevExpress.Web.v17.2, Version=17.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" verb="GET,POST" path="DX.ashx" name="ASPxHttpHandlerModule" preCondition="integratedMode" />
+      <remove name="ASPxUploadProgressHandler" />
+      <add name="ASPxUploadProgressHandler" preCondition="integratedMode" verb="GET,POST" path="ASPxUploadProgressHandlerPage.ashx" type="DevExpress.Web.ASPxUploadProgressHttpHandler, DevExpress.Web.v17.2, Version=17.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    </handlers>
+    <security>
+      <requestFiltering>
+        <requestLimits maxAllowedContentLength="30000000" />
+      </requestFiltering>
+    </security>
+  </system.webServer>
+  <system.codedom>
+    <compilers>
+      <compiler language="c#;cs;csharp" extension=".cs" type="Microsoft.CodeDom.Providers.DotNetCompilerPlatform.CSharpCodeProvider, Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=1.0.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" warningLevel="4" compilerOptions="/langversion:default /nowarn:1659;1699;1701" />
+      <compiler language="vb;vbs;visualbasic;vbscript" extension=".vb" type="Microsoft.CodeDom.Providers.DotNetCompilerPlatform.VBCodeProvider, Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=1.0.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" warningLevel="4" compilerOptions="/langversion:default /nowarn:41008 /define:_MYTYPE=\&quot;Web\&quot; /optionInfer+" />
+    </compilers>
+  </system.codedom>
+  <connectionStrings>
+    <add name="MONITOREntities" connectionString="metadata=res://*/Models.Model1.csdl|res://*/Models.Model1.ssdl|res://*/Models.Model1.msl;provider=System.Data.SqlClient;provider connection string=&quot;data source=eeisql1;initial catalog=MONITOR;persist security info=True;user id=EEIUser;MultipleActiveResultSets=True;App=EntityFramework&quot;" providerName="System.Data.EntityClient" />
+    <add name="MONITOREntitiesScheduling" connectionString="metadata=res://*/Scheduling.Models.ModelScheduling.csdl|res://*/Scheduling.Models.ModelScheduling.ssdl|res://*/Scheduling.Models.ModelScheduling.msl;provider=System.Data.SqlClient;provider connection string=&quot;data source=eeisql1;initial catalog=MONITOR;persist security info=True;user id=EEIUser;multipleactiveresultsets=True;application name=EntityFramework&quot;" providerName="System.Data.EntityClient" />
+    <add name="MONITOREntitiesSalesForecast" connectionString="metadata=res://*/SalesForecast.Models.ModelSalesForecast.csdl|res://*/SalesForecast.Models.ModelSalesForecast.ssdl|res://*/SalesForecast.Models.ModelSalesForecast.msl;provider=System.Data.SqlClient;provider connection string=&quot;data source=eeisql1;initial catalog=MONITOR;persist security info=True;user id=EEIUser;multipleactiveresultsets=True;application name=EntityFramework&quot;" providerName="System.Data.EntityClient" />
+    <add name="MONITOREntities1" connectionString="metadata=res://*/SalesForecast.Models.ModelSalesForecast.csdl|res://*/SalesForecast.Models.ModelSalesForecast.ssdl|res://*/SalesForecast.Models.ModelSalesForecast.msl;provider=System.Data.SqlClient;provider connection string=&quot;data source=eeisql1;initial catalog=MONITOR;persist security info=True;user id=estimpson;password=)Kc0mput3r;MultipleActiveResultSets=True;App=EntityFramework&quot;" providerName="System.Data.EntityClient" />
+    <add name="MONITOREntities2" connectionString="metadata=res://*/Models.Model1.csdl|res://*/Models.Model1.ssdl|res://*/Models.Model1.msl;provider=System.Data.SqlClient;provider connection string=&quot;data source=eeisql1;initial catalog=MONITOR;persist security info=True;user id=estimpson;password=)Kc0mput3r;multipleactiveresultsets=True;application name=EntityFramework&quot;" providerName="System.Data.EntityClient" />
+    <add name="MONITOREntities3" connectionString="metadata=res://*/Scheduling.Models.ModelScheduling.csdl|res://*/Scheduling.Models.ModelScheduling.ssdl|res://*/Scheduling.Models.ModelScheduling.msl;provider=System.Data.SqlClient;provider connection string=&quot;data source=eeisql1;initial catalog=MONITOR;persist security info=True;user id=estimpson;password=)Kc0mput3r;multipleactiveresultsets=True;application name=EntityFramework&quot;" providerName="System.Data.EntityClient" />
+    <add name="MONITOREntities4" connectionString="metadata=res://*/Areas.PartVendorQuotes.Models.Model1.csdl|res://*/Areas.PartVendorQuotes.Models.Model1.ssdl|res://*/Areas.PartVendorQuotes.Models.Model1.msl;provider=System.Data.SqlClient;provider connection string=&quot;data source= eeisql1;initial catalog=MONITOR;persist security info=True;user id=estimpson;password=)Kc0mput3r;multipleactiveresultsets=True;application name=EntityFramework&quot;" providerName="System.Data.EntityClient" />
+    <add name="MONITOREntitiesQuteLog" connectionString="metadata=res://*/QuoteLogIntegration.Models.ModelMarketSegmentSubsegment.csdl|res://*/QuoteLogIntegration.Models.ModelMarketSegmentSubsegment.ssdl|res://*/QuoteLogIntegration.Models.ModelMarketSegmentSubsegment.msl;provider=System.Data.SqlClient;provider connection string=&quot;data source=eeisql1;initial catalog=MONITOR;persist security info=True;user id=estimpson;password=)Kc0mput3r;multipleactiveresultsets=True;application name=EntityFramework&quot;" providerName="System.Data.EntityClient" />
+    <add name="MONITOREntitiesQuoteLogIntegrationCustomer" connectionString="metadata=res://*/QuoteLogIntegration.Models.ModelNewCustomer.csdl|res://*/QuoteLogIntegration.Models.ModelNewCustomer.ssdl|res://*/QuoteLogIntegration.Models.ModelNewCustomer.msl;provider=System.Data.SqlClient;provider connection string=&quot;data source=eeisql1;initial catalog=MONITOR;persist security info=True;user id=estimpson;password=)Kc0mput3r;multipleactiveresultsets=True;application name=EntityFramework&quot;" providerName="System.Data.EntityClient" />
+    <add name="MONITOREntitiesQuoteLogIntegrationQuoteTransfer" connectionString="metadata=res://*/QuoteLogIntegration.Models.ModelQuoteTransfer.csdl|res://*/QuoteLogIntegration.Models.ModelQuoteTransfer.ssdl|res://*/QuoteLogIntegration.Models.ModelQuoteTransfer.msl;provider=System.Data.SqlClient;provider connection string=&quot;data source=eeisql1;initial catalog=MONITOR;persist security info=True;user id=estimpson;password=)Kc0mput3r;multipleactiveresultsets=True;application name=EntityFramework&quot;" providerName="System.Data.EntityClient" />
+    <add name="FxPLMEntities" connectionString="metadata=res://*/NewSalesAward.Models.NewSalesAwardModel.csdl|res://*/NewSalesAward.Models.NewSalesAwardModel.ssdl|res://*/NewSalesAward.Models.NewSalesAwardModel.msl;provider=System.Data.SqlClient;provider connection string=&quot;data source=eeisql1;initial catalog=FxPLM;persist security info=True;user id=estimpson;password=)Kc0mput3r;MultipleActiveResultSets=True;App=EntityFramework&quot;" providerName="System.Data.EntityClient" />
+    <add name="EntityNotesEntities" connectionString="metadata=res://*/NewSalesAward.Models.EntityNotesModel.csdl|res://*/NewSalesAward.Models.EntityNotesModel.ssdl|res://*/NewSalesAward.Models.EntityNotesModel.msl;provider=System.Data.SqlClient;provider connection string=&quot;data source=eeisql1;initial catalog=FxPLM;persist security info=True;user id=estimpson;password=)Kc0mput3r;multipleactiveresultsets=True;application name=EntityFramework&quot;" providerName="System.Data.EntityClient" />
+    <add name="QuoteTabSql" connectionString="data source=eeisql1;initial catalog=FxPLM;persist security info=True;user id=estimpson;password=)Kc0mput3r" />
+  </connectionStrings>
+  <entityFramework>
+    <defaultConnectionFactory type="System.Data.Entity.Infrastructure.LocalDbConnectionFactory, EntityFramework">
+      <parameters>
+        <parameter value="v13.0" />
+      </parameters>
+    </defaultConnectionFactory>
+    <providers>
+      <provider invariantName="System.Data.SqlClient" type="System.Data.Entity.SqlServer.SqlProviderServices, EntityFramework.SqlServer" />
+    </providers>
+  </entityFramework>
+  <devExpress>
+    <themes enableThemesAssembly="true" theme="MaterialCompact" customThemeAssemblies="" baseColor="#007bf7" font="" />
+    <compression enableHtmlCompression="true" enableCallbackCompression="true" enableResourceCompression="true" enableResourceMerging="true" />
+    <settings accessibilityCompliant="false" bootstrapMode="Bootstrap3" doctypeMode="Html5" rightToLeft="false" checkReferencesToExternalScripts="true" protectControlState="true" ieCompatibilityVersion="edge" />
+    <errors callbackErrorRedirectUrl="" />
+  </devExpress>
+  <appSettings>
+    <add key="vs:EnableBrowserLink" value="false" />
+    <add key="ClientValidationEnabled" value="true" />
+    <add key="UnobtrusiveJavaScriptEnabled" value="true" />
+  </appSettings>
+</configuration>
+<!--ProjectGuid: E88F47B9-839C-4CC7-A8BA-48C76BEFC325-->

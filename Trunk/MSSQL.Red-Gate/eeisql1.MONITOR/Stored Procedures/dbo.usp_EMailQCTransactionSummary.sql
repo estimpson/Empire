@@ -142,7 +142,7 @@ BEGIN
 
 	EXEC msdb.dbo.sp_send_dbmail
 		@profile_name = 'DBMail'-- sysname
-	,	@recipients = 'wwilcox@empireelect.com;nmcdonald@empireelect.com;Shipping@empireelect.com;mminth@empireelect.com;jstoehr@empireelect.com;gurbina@empireelect.com;shesse@empireelect.com' -- varchar(max)
+	,	@recipients = 'wwilcox@empireelect.com;nmcdonald@empireelect.com;Shipping@empireelect.com;EEISchedulers@empire.hn' -- varchar(max)
 	,	@copy_recipients = 'dwest@empireelect.com;aboulanger@fore-thought.com' -- varchar(max)
 	, 	@subject = @EmailHeader
 	,  	@body = @EmailBody

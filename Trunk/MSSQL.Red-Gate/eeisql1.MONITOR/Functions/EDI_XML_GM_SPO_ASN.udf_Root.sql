@@ -2,101 +2,108 @@ SET QUOTED_IDENTIFIER ON
 GO
 SET ANSI_NULLS ON
 GO
-CREATE function [EDI_XML_GM_SPO_ASN].[udf_Root]
-(	@ShipperID int
-,	@Purpose char(2)
-,	@partialComplete int
+
+CREATE FUNCTION [EDI_XML_GM_SPO_ASN].[udf_Root]
+(	@ShipperID INT
+,	@Purpose CHAR(2)
+,	@partialComplete INT
 )
-returns xml
-as
-begin
+RETURNS XML
+AS
+BEGIN
 --- <Body>
 	declare
 		@xmlOutput xml
 
-	set
+	SET
 		@xmlOutput =
-			(	select
-					(	select
-							EDI_XML.TRN_INFO('00D97A', 'DESADV', ah.TradingPartner, ah.IConnectID, ah.ShipperID, null)
-						,	EDI_XML_VD97A.SEG_BGM('351', null, ah.ShipperID, '9')
+			(	SELECT
+					(	SELECT
+							EDI_XML.TRN_INFO('00D97A', 'DESADV', ah.TradingPartner, ah.IConnectID, ah.ShipperID, NULL)
+						,	EDI_XML_VD97A.SEG_BGM('351', NULL, ah.ShipperID, '9')
 						,	EDI_XML_VD97A.SEG_DTM('137', ah.ShipDateTime, '203')
 						,	EDI_XML_VD97A.SEG_DTM('11', ah.ASNDate, '203')
 						,	EDI_XML_VD97A.SEG_MEA('AAX', 'G', 'LBR', ah.GrossWeightLbs)
 						,	EDI_XML_VD97A.SEG_MEA('AAX', 'SQ', 'C62', ah.StagedObjs)
 						,	EDI_XML_VD97A.SEG_MEA('AAX', 'N', 'LBR', ah.NetWeightLbs)
-						,	(	select
+						,	(	SELECT
+						 							EDI_XML.LOOP_INFO('RFF')
+												,	EDI_XML_VD97A.SEG_RFF('CN', ah.CNNumber)
+						 						FOR XML RAW ('LOOP-RFF'), TYPE
+						 					)
+						,	(	SELECT
 						 			EDI_XML.LOOP_INFO('NAD')
-								,	EDI_XML_VD97A.SEG_NAD('MI', ah.MaterialIssuer, null, '92')
-						 		for xml raw ('LOOP-NAD'), type
+								,	EDI_XML_VD97A.SEG_NAD('MI', ah.MaterialIssuer, NULL, '92')
+						 		FOR XML RAW ('LOOP-NAD'), TYPE
 						 	)
-						,	(	select
+						,	(	SELECT
 						 			EDI_XML.LOOP_INFO('NAD')
-								,	EDI_XML_VD97A.SEG_NAD('ST', ah.Destination, null, '92')
+								,	EDI_XML_VD97A.SEG_NAD('ST', ah.Destination, NULL, '92')
 								,	EDI_XML_VD97A.SEG_LOC('11', ah.ShippingDock)
-						 		for xml raw ('LOOP-NAD'), type
+						 		FOR XML RAW ('LOOP-NAD'), TYPE
 						 	)
-						,	(	select
+						,	(	SELECT
 						 			EDI_XML.LOOP_INFO('NAD')
-								,	EDI_XML_VD97A.SEG_NAD('SU', ah.SupplierCode, null, '16')
-						 		for xml raw ('LOOP-NAD'), type
+								,	EDI_XML_VD97A.SEG_NAD('SU', ah.SupplierCode, NULL, '16')
+						 		FOR XML RAW ('LOOP-NAD'), TYPE
 						 	)
-						,	(	select
+						,	(	SELECT
 						 			EDI_XML.LOOP_INFO('TDT')
-								,	EDI_XML_VD97A.SEG_TDT('12', null, ah.TransMode, ah.SCAC, null, '182', null)
-						 		for xml raw ('LOOP-TDT'), type
+								,	EDI_XML_VD97A.SEG_TDT('12', NULL, ah.TransMode, ah.SCAC, NULL, '182', NULL)
+						 		FOR XML RAW ('LOOP-TDT'), TYPE
 						 	)
-						,	(	select
+						,	(	SELECT
 						 			EDI_XML.LOOP_INFO('EQD')
 								,	EDI_XML_VD97A.SEG_EQD('TE', ah.TruckNo)
-						 		for xml raw ('LOOP-EQD'), type
+						 		FOR XML RAW ('LOOP-EQD'), TYPE
 						 	)
 							--CPS Loop
-						,	(	select
+						,	(	SELECT
 						 			EDI_XML.LOOP_INFO('CPS')
-								,	EDI_XML_VD97A.SEG_CPS(al.RowNumber, null, al.PackagingIndicator)
+								,	EDI_XML_VD97A.SEG_CPS(al.RowNumber, NULL, al.PackagingIndicator)
 								--PAC Loop
-								,	(	select
+								,	(	SELECT
 						 					EDI_XML.LOOP_INFO('PAC')
-										,	EDI_XML_VD97A.SEG_PAC(al.ObjectPackCount, null)
-										,	(	select
+										,	EDI_XML_VD97A.SEG_PAC(al.ObjectPackCount, NULL)
+										,	(	SELECT
 								 					EDI_XML.LOOP_INFO('PCI')
 												,	EDI_XML_VD97A.SEG_PCI('16')
 												,	EDI_XML_VD97A.SEG_RFF('CN', ah.ProNumber)
-								 				for xml raw ('LOOP-PCI'), type
+								 				FOR XML RAW ('LOOP-PCI'), TYPE
 								 			)
-						 				for xml raw ('LOOP-PAC'), type
+						 				FOR XML RAW ('LOOP-PAC'), TYPE
 						 			)
 								--LIN Loop
-								,	(	select
+								,	(	SELECT
 						 					EDI_XML.LOOP_INFO('LIN')
-										,	EDI_XML_VD97A.SEG_LIN(null, null, al.CustomerPart, 'IN')
+										,	EDI_XML_VD97A.SEG_LIN(NULL, NULL, al.CustomerPart, 'IN')
 										,	EDI_XML_VD97A.SEG_QTY('12', al.ObjectQty, 'C62')
 										,	EDI_XML_VD97A.SEG_QTY('3', al.AccumQty, 'C62')
 										--RFF Loop
-										,	(	select
+										,	(	SELECT
 						 							EDI_XML.LOOP_INFO('RFF')
 												,	EDI_XML_VD97A.SEG_RFF('ON', al.CustomerPO)
-						 						for xml raw ('LOOP-RFF'), type
+						 						FOR XML RAW ('LOOP-RFF'), TYPE
 						 					)
-						 				for xml raw ('LOOP-LIN'), type
+						 				FOR XML RAW ('LOOP-LIN'), TYPE
 						 			)
-								from
+								FROM
 									EDI_XML_GM_SPO_ASN.udf_ASNLines (@ShipperID) al
-						 		for xml raw ('LOOP-CPS'), type
+						 		FOR XML RAW ('LOOP-CPS'), TYPE
 						 	)
-						from
+						FROM
 							EDI_XML_GM_SPO_ASN.ASNHeaders ah
-						where
+						WHERE
 							ah.ShipperID = @ShipperID
-						for xml raw ('TRN-DESADV'), type
+						FOR XML RAW ('TRN-DESADV'), TYPE
 					)
-				for xml raw ('TRN'), type
+				FOR XML RAW ('TRN'), TYPE
 			)
 --- </Body>
 
 ---	<Return>
-	return
+	RETURN
 		@xmlOutput
-end
+END
+
 GO

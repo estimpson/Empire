@@ -115,7 +115,9 @@ select
 
 (YY.[Total_2021]*ZZ.[Total_2021]) as [Total_2021],
 (YY.[Total_2022]*ZZ.[Total_2022]) as [Total_2022],
-(YY.[Total_2023]*ZZ.[Total_2023]) as [Total_2023]
+(YY.[Total_2023]*ZZ.[Total_2023]) as [Total_2023],
+(YY.[Total_2024]*ZZ.[Total_2024]) as [Total_2024],
+(YY.[Total_2025]*ZZ.[Total_2025]) as [Total_2025]
 from
 
 (select	@base_part as [base_part],
@@ -222,7 +224,9 @@ from
 		
 		AA.[total_2021]*BB.[total_2021] as [total_2021],
 		AA.[total_2022]*BB.[total_2022] as [total_2022],
-		AA.[total_2023]*BB.[total_2023] as [total_2023]
+		AA.[total_2023]*BB.[total_2023] as [total_2023],
+		AA.[total_2024]*BB.[total_2024] as [total_2024],
+		AA.[total_2025]*BB.[total_2025] as [total_2025]
 from 
 		(	select	a.BASE_PART, 
 				    ISNULL(sum(a.qty_per*a.take_rate*a.family_allocation*b.[Jan 2015]),0) as [jan 2015], 
@@ -327,7 +331,9 @@ from
 					
 					ISNULL(sum(a.qty_per*a.take_rate*a.family_allocation*b.[CY 2021]),0) as [total_2021], 
 					ISNULL(sum(a.qty_per*a.take_rate*a.family_allocation*b.[CY 2022]),0) as [total_2022],
-					ISNULL(sum(a.qty_per*a.take_rate*a.family_allocation*b.[CY 2023]),0) as [total_2023]
+					ISNULL(sum(a.qty_per*a.take_rate*a.family_allocation*b.[CY 2023]),0) as [total_2023],
+					ISNULL(sum(a.qty_per*a.take_rate*a.family_allocation*b.[CY 2024]),0) as [total_2024],
+					ISNULL(sum(a.qty_per*a.take_rate*a.family_allocation*b.[CY 2025]),0) as [total_2025]
 					
 			from 
 					(	select	* 
@@ -450,7 +456,9 @@ from
 					
 					ISNULL(b.[CY 2021],0) as [total_2021], 
 					ISNULL(b.[CY 2022],0) as [total_2022],
-					ISNULL(b.[CY 2023],0) as [total_2023]
+					ISNULL(b.[CY 2023],0) as [total_2023],
+					ISNULL(b.[CY 2024],0) as [total_2024],
+					ISNULL(b.[CY 2025],0) as [total_2025]
 			from 
 					(	select	* 
 						from	eeiuser.acctg_csm_base_part_mnemonic
@@ -575,7 +583,9 @@ left outer join
 		
 		ISNULL(dec_21,0) as [Total_2021],
 		ISNULL(dec_22,0) as [Total_2022],
-		ISNULL(dec_23,0) as [Total_2023]
+		ISNULL(dec_23,0) as [Total_2023],
+		ISNULL(dec_24,0) as [Total_2024],
+		ISNULL(dec_25,0) as [Total_2025]
 from eeiuser.acctg_csm_material_cost_tabular where BASE_PART = @base_part and release_id = @release_id) ZZ
 on YY.base_part = ZZ.base_part
 

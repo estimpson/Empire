@@ -135,7 +135,7 @@ if	not exists
 	execute as login = 'empireelect\estimpson'
 
 	declare
-		@Command varchar(max) = '\\srvsql2\fx\FxEDI\RawEDIData\CustomerEDI_TestMailBox\FTPCommands\ReceiveInbound_v3.cmd'
+		@Command varchar(max) = '\\eei-sqlpwv03\MSSQLSERVER\FxEDI\RawEDIData\CustomerEDI_TestMailBox\FTPCommands\ReceiveInbound_v3.cmd'
 	,	@CommandOutput varchar(max)
 
 	/*	Perform ftp. */

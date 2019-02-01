@@ -3,6 +3,7 @@ GO
 SET ANSI_NULLS ON
 GO
 
+
 --Select *
 --from [HN].[vw_Picklist_LocationValid]
 
@@ -16,7 +17,9 @@ GO
 				from	location with (readuncommitted)
 				where	( plant like '%eei%'
 						or plant like '%eea%'
-						or plant like '%eep%')
+						or plant like '%eep%'
+						or plant like '%eeg%')
 						and ((group_no like '%warehouse%' and isnull(secured_location,'N')='N') 
 								or (group_no in ('FINISHED GOODS')))
+
 GO

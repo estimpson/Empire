@@ -190,14 +190,14 @@ ELSE
 				status, plant, name, last_time,	start_date,
 				user_defined_status, cost,
 				std_cost, Custom1, Custom2, Custom3,
-				Custom4, Custom5, field1,	note,po_number, ShipperToRAN,ObjectBirthday)
+				Custom4, Custom5, field1,	note,po_number, ShipperToRAN,ObjectBirthday,warehousefreightlot)
 			SELECT	@NewObjectSerial + @Counter,
 				part, quantity = @QtyPerObject,
 				std_quantity = @QtyPerObject,
 				lot, location= @Location, last_date = @TransDT, unit_measure,
 				@Operator, status, plant, name, @TransDT, start_date,
 				user_defined_status, cost, std_cost, Custom1, Custom2,
-				Custom3, Custom4, Custom5, field1, note, po_number, ShipperToRAN, ObjectBirthday
+				Custom3, Custom4, Custom5, field1, note, po_number, ShipperToRAN, ObjectBirthday, warehousefreightlot
 			FROM Object
 			WHERE	Serial = @Serial
 
@@ -225,7 +225,7 @@ ELSE
 				unit, std_quantity,	plant, notes,
 				package_type, std_cost, user_defined_status,
 				tare_weight, Custom1, Custom2, Custom3,
-				Custom4, Custom5, start_date, field1, po_number, ShipperToRAN )
+				Custom4, Custom5, start_date, field1, po_number, ShipperToRAN, warehousefreightlot )
 			SELECT	serial,	@TransDT, type = 'B',
 				part, quantity, remarks = 'Break', operator,
 				from_loc = convert(varchar, @Serial),
@@ -233,7 +233,7 @@ ELSE
 				unit_measure, std_quantity, plant, Note,
 				package_type, cost, user_defined_status,
 				tare_weight, Custom1,Custom2,Custom3,
-				Custom4,Custom5,start_date,	field1,	po_number, ShipperToRAN
+				Custom4,Custom5,start_date,	field1,	po_number, ShipperToRAN, warehousefreightlot
 			FROM	object
 			WHERE	object.serial = @NewObjectSerial + @Counter
 
@@ -291,13 +291,13 @@ ELSE
 	(	serial, date_stamp, type, part, quantity, remarks, operator, from_loc,
 		to_loc, lot, weight, status, unit, std_quantity, plant, notes,
 		package_type, std_cost, user_defined_status, tare_weight,  Custom1, custom2,
-		custom3, Custom4, custom5, start_date, po_number, field1, ShipperToRAN )
+		custom3, Custom4, custom5, start_date, po_number, field1, ShipperToRAN, warehousefreightlot )
 	SELECT	serial, date_stamp = @TransDT, type = 'B', part, quantity,
 		Remark = 'Break-Out', operator, from_loc = location, to_loc = location,
 		lot, weight, status, unit_measure, std_quantity, plant, Note,
 		package_type, cost, user_defined_status, tare_weight, 
 		Custom1 = '', custom2 = convert( varchar,  (@QtyPerObject * @QtyOfObjects)),
-		custom3, custom4, custom5, start_date, po_number, field1, ShipperToRAN
+		custom3, custom4, custom5, start_date, po_number, field1, ShipperToRAN, warehousefreightlot
 	from	object object
 	where	object.serial = @Serial
 

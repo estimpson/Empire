@@ -2,13 +2,6 @@ SET QUOTED_IDENTIFIER ON
 GO
 SET ANSI_NULLS ON
 GO
-
-
-
-
-
-
-
 CREATE procedure [FTP].[usp_ReceiveCustomerEDI]
 	@ReceiveFileFromFolderRoot sysname = '\RawEDIData\CustomerEDI\Inbound'
 ,	@TranDT datetime = null out
@@ -125,10 +118,10 @@ if	exists
 end
 
 /*	Use an administrative account. */
-execute as login = 'empireelect\aboulanger'
+--execute as login = 'empireelect\aboulanger'
 
 declare
-	@Command varchar(max) = '\\srvsql2\fx\FxEDI\RawEDIData\CustomerEDI\FTPCommands\ReceiveInbound_v3.cmd'
+	@Command varchar(max) = '\\eei-sqlpwv03\MSSQLSERVER\FxEDI\RawEDIData\CustomerEDI\FTPCommands\ReceiveInbound_v3.cmd'
 ,	@CommandOutput varchar(max)
 
 /*	Perform ftp. */
@@ -137,7 +130,7 @@ exec
 	@Command = @Command
 ,	@CommandOutput = @CommandOutput out
 
-revert
+--revert
 
 insert
 	FTP.LogDetails
@@ -183,6 +176,50 @@ end
 --- </Call>
 
 /*	Copy data from file table into raw XML table.*/
+declare
+	@red table
+(	GUID uniqueidentifier
+,	FileName sysname
+,	Data xml
+)
+
+insert
+	@red
+select
+	GUID = red.stream_id
+,	FileName = red.name
+,	Data = red.Data
+from
+	(	select
+			redInboundFiles.stream_id
+		,	redInboundFiles.file_stream
+		,	redInboundFiles.name
+		,	redInboundFiles.path_locator
+		,	redInboundFiles.parent_path_locator
+		,	redInboundFiles.file_type
+		,	redInboundFiles.cached_file_size
+		,	redInboundFiles.creation_time
+		,	redInboundFiles.last_write_time
+		,	redInboundFiles.last_access_time
+		,	redInboundFiles.is_directory
+		,	redInboundFiles.is_offline
+		,	redInboundFiles.is_hidden
+		,	redInboundFiles.is_readonly
+		,	redInboundFiles.is_archive
+		,	redInboundFiles.is_system
+		,	redInboundFiles.is_temporary
+		,	Data = convert(xml, redInboundFiles.file_stream)
+		from
+			FxEDI.dbo.RawEDIData redInboundFolder
+			join FxEDI.dbo.RawEDIData redInboundFiles
+				on redInboundFiles.parent_path_locator = redInboundFolder.path_locator
+				and redInboundFiles.is_directory = 0
+				and redInboundFiles.name like '%'
+		where
+			redInboundFolder.file_stream.GetFileNamespacePath() = @inProcessFolder
+			and redInboundFolder.is_directory = 1
+	) red
+
 --- <Insert rows="*">
 set	@TableName = 'EDI.RawEDIDocuments'
 
@@ -206,8 +243,8 @@ insert
 ,	VersionEDIFACTorX12
 )
 select
-	GUID = redInboundFiles.stream_id
-,	FileName = redInboundFiles.name
+	GUID = red.GUID
+,	FileName = red.FileName
 ,	HeaderData = red.Data.query('/*[1]/TRN-INFO[1]')
 ,	Data = red.Data
 ,	TradingPartner = EDI.udf_EDIDocument_TradingPartner(red.Data)
@@ -273,18 +310,7 @@ select
 				else EDI.udf_EDIDocument_Version(red.data)
 		end
 from
-	FxEDI.dbo.RawEDIData redInboundFolder
-	join FxEDI.dbo.RawEDIData redInboundFiles
-		on redInboundFiles.parent_path_locator = redInboundFolder.path_locator
-		and redInboundFiles.is_directory = 0
-		and redInboundFiles.name like '%'
-	cross apply
-		(	select
-				Data = convert(xml, redInboundFiles.file_stream)
-		) red
-where
-	redInboundFolder.file_stream.GetFileNamespacePath() = @inProcessFolder
-	and redInboundFolder.is_directory = 1
+	@red red
 
 select
 	@Error = @@Error,

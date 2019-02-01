@@ -1,0 +1,6 @@
+IF NOT EXISTS (SELECT * FROM master.dbo.syslogins WHERE loginname = N'EMPIRE\ecramos')
+CREATE LOGIN [EMPIRE\ecramos] FROM WINDOWS
+GO
+CREATE USER [EMPIRE\ecramos] FOR LOGIN [EMPIRE\ecramos] WITH DEFAULT_SCHEMA=[EMPIRE\ecramos]
+GO
+REVOKE CONNECT TO [EMPIRE\ecramos]

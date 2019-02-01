@@ -48,7 +48,8 @@ CREATE TABLE [dbo].[object]
 [varying_dimension_code] [numeric] (2, 0) NULL,
 [posted] [varchar] (1) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
 [ObjectBirthday] [datetime] NULL CONSTRAINT [DF__object__ObjectBi__032B1B27] DEFAULT (getdate()),
-[ShipperToRAN] [int] NULL
+[ShipperToRAN] [int] NULL,
+[WarehouseFreightLot] [varchar] (20) COLLATE SQL_Latin1_General_CP1_CI_AS NULL
 ) ON [PRIMARY]
 GO
 SET QUOTED_IDENTIFIER ON
@@ -682,11 +683,11 @@ CREATE STATISTICS [_dta_stat_792389892_1_20_2] ON [dbo].[object] ([part], [seria
 GO
 CREATE STATISTICS [_dta_stat_792389892_1_2] ON [dbo].[object] ([serial], [part])
 GO
-GRANT SELECT ON  [dbo].[object] TO [APPUser]
+GRANT DELETE ON  [dbo].[object] TO [APPUser]
 GO
 GRANT INSERT ON  [dbo].[object] TO [APPUser]
 GO
-GRANT DELETE ON  [dbo].[object] TO [APPUser]
+GRANT SELECT ON  [dbo].[object] TO [APPUser]
 GO
 GRANT UPDATE ON  [dbo].[object] TO [APPUser]
 GO

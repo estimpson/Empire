@@ -171,7 +171,7 @@ declare
 
 /*	Perform ftp. */
 set	@processStep = 0.1
-set @command = '\\srvsql2\fx\FxEDI\RawEDIData\CustomerEDI\FTPCommands\ReceiveInbound_v2.cmd'
+set @command = '\\eei-sqlpwv03\MSSQLSERVER\FxEDI\RawEDIData\CustomerEDI\FTPCommands\ReceiveInbound_v2.cmd'
 
 exec
 	FxEDI.EDI.usp_CommandShell_Execute
@@ -190,7 +190,7 @@ insert
 select
 	FLHRowID = @fhlRow
 ,	Line = 1
-,	Command = '\\srvsql2\fx\FxEDI\RawEDIData\CustomerEDI\FTPCommands\ReceiveInbound_v2.cmd'
+,	Command = @command
 ,	CommandOutput = @CommandOutput
 
 

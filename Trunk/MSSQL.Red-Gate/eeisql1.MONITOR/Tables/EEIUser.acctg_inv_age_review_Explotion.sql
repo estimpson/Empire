@@ -48,6 +48,7 @@ CREATE TABLE [EEIUser].[acctg_inv_age_review_Explotion]
 [Area] [varchar] (50) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
 [Scheduler] [varchar] (20) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
 [Customer] [varchar] (10) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
-[IsActive] [int] NULL
-) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+[IsActive] [int] NULL,
+[ExcessOverride] [int] NULL
+) ON [PRIMARY]
 GO

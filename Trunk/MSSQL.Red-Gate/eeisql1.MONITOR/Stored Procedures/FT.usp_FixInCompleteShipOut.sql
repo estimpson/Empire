@@ -4,11 +4,12 @@ SET ANSI_NULLS ON
 GO
 
 
-CREATE PROCEDURE [FT].[usp_FixInCompleteShipOut] (@shipper INT = NULL, @DateStamp DATETIME, @partNumber VARCHAR(25), @LocationCode varchar(25) = NULL)
+
+CREATE PROCEDURE [FT].[usp_FixInCompleteShipOut] (@shipper INT = NULL, @DateStamp DATETIME, @partNumber VARCHAR(25), @LocationCode VARCHAR(25) = NULL)
 AS BEGIN
 
 
---Exec FT.usp_FixInCompleteShipOut 106692, '2017-03-13', 'NAL0092-HA01', 'ALA-SOPEND'
+--Exec FT.usp_FixInCompleteShipOut 116726, '2018-03-02', 'NALC274-ASA01', 'ALA-DMCAGE'
 
 --Clear Object Historical Data
 --Select * from [HistoricalData].dbo.object_historical
@@ -17,7 +18,7 @@ WHERE Time_stamp >= @DateStamp AND Serial IN
 ( 
 SELECT  object.serial FROM object 
 OUTER APPLY ( SELECT TOP 1 serial FROM audit_trail WHERE type = 'S' AND audit_trail.serial = object.serial AND shipper = @shipper ) atShipout
-WHERE /*location LIKE '%'+@LocationCode+'%' AND part!='PALLET' AND  */ part = @partNumber    AND COALESCE(atShipout.serial,-1)!=dbo.object.serial
+WHERE location LIKE '%'+@LocationCode+'%' AND part!='PALLET' AND   part = @partNumber    AND COALESCE(atShipout.serial,-1)!=dbo.object.serial
 
 
 )
@@ -107,30 +108,30 @@ INSERT	audit_trail (
 	varying_dimension_code )
 	
 	
-	select	object.serial,
+	SELECT	object.serial,
 		@DateStamp,
-		IsNull ( shipper.type, 'S' ),
+		ISNULL ( shipper.type, 'S' ),
 		object.part,
-		IsNull ( object.quantity, 1),
-		(	case	shipper.type
-				when 'Q' then 'Shipping'
-				when 'O' then 'Out Proc'
-				when 'V' then 'Ret Vendor'
-				else 'Shipping'
-			end ),
-		IsNull ( shipper_detail.price, 0 ),
+		ISNULL ( object.quantity, 1),
+		(	CASE	shipper.type
+				WHEN 'Q' THEN 'Shipping'
+				WHEN 'O' THEN 'Out Proc'
+				WHEN 'V' THEN 'Ret Vendor'
+				ELSE 'Shipping'
+			END ),
+		ISNULL ( shipper_detail.price, 0 ),
 		shipper_detail.salesman,
 		destination.customer,
 		destination.vendor,
 		object.po_number,
-		IsNull ( shipper_detail.operator, '' ),
-		left(object.location,10),
-		left(destination.destination,10),
+		ISNULL ( shipper_detail.operator, '' ),
+		LEFT(object.location,10),
+		LEFT(destination.destination,10),
 		part_online.on_hand,
 		object.lot,
 		object.weight,
 		object.status,
-		convert ( varchar, @shipper ),
+		CONVERT ( VARCHAR, @shipper ),
 		object.unit_measure,
 		object.workorder,
 		object.std_quantity,
@@ -147,8 +148,8 @@ INSERT	audit_trail (
 		object.suffix,
 		object.date_due,
 		shipper_detail.group_no,
-		convert ( varchar, shipper_detail.order_no ),
-		left(shipper_detail.release_no,15),
+		CONVERT ( VARCHAR, shipper_detail.order_no ),
+		LEFT(shipper_detail.release_no,15),
 		object.std_cost,
 		object.user_defined_status,
 		object.engineering_level,
@@ -166,8 +167,8 @@ INSERT	audit_trail (
 		object.dimension_qty_string,
 		object.dim_qty_string_other,
 		object.varying_dimension_code
-	from	object
-		join shipper on shipper.id = @shipper
+	FROM	object
+		JOIN shipper ON shipper.id = @shipper
 		LEFT OUTER JOIN shipper_detail ON shipper_detail.shipper = @shipper AND
 			OBJECT.part = shipper_detail.part_original AND
 			COALESCE ( OBJECT.suffix, (
@@ -179,11 +180,22 @@ INSERT	audit_trail (
 		LEFT OUTER JOIN part_online ON OBJECT.part = part_online.part
 	WHERE	object.shipper = @shipper
 
+	--Fix Shipper_detail
+
+	UPDATE Shipper_detail SET qty_packed = at.at_Qty
+FROM dbo.shipper_detail
+OUTER APPLY 
+
+( SELECT SUM(quantity) at_Qty, part FROM audit_trail WHERE type = 'S' AND shipper =  CONVERT(VARCHAR(25), shipper_detail.shipper) AND dbo.audit_trail.part =  part_original GROUP BY part ) at
+WHERE 
+			shipper_detail.qty_packed != at.at_Qty   AND shipper = @shipper
+
 	--Delete Objects 
 
 	DELETE Object WHERE shipper =  @shipper
 	
 
 END
+
 
 GO

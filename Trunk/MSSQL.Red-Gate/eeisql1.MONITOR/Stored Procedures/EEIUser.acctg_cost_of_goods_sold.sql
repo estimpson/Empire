@@ -13,7 +13,7 @@ CREATE proc [EEIUser].[acctg_cost_of_goods_sold] (@beg_date date, @end_date date
 
 as
 
---    EXEC EEIUSER.ACCTG_COST_OF_GOODS_SOLD @BEG_DATE = '2017-06-01', @END_DATE = '2017-06-30'
+--    EXEC EEIUSER.ACCTG_COST_OF_GOODS_SOLD @BEG_DATE = '2018-04-01', @END_DATE = '2018-04-30'
 
 
 /* Created:				2012-06-06		Dan West	Created stored procedure to return EEI COGS 
@@ -77,7 +77,7 @@ set		@Syntax = N'delete #eeh_costs
 
 				insert	#eeh_costs
 				select	*
-				from	OpenQuery ( [EEHREPORT1], ''SELECT     convert(datetime,pshd.time_stamp) as time_stamp,
+				from	OpenQuery ( [EEHSQL1], ''SELECT     convert(datetime,pshd.time_stamp) as time_stamp,
 															pshd.part,
 															isnull(phd.product_line,''''Not Specified'''') as product_line,
 															phd.type,
@@ -94,7 +94,7 @@ set		@Syntax = N'delete #eeh_costs
 
 												''										   
 								  )'
--- select distinct(time_stamp), reason from eehsql1.historicaldata.dbo.part_standard_historical_daily where time_stamp >= '2017-06-01' and time_stamp < '2017-07-01'
+-- select distinct(time_stamp), reason from eehsql1.historicaldata.dbo.part_standard_historical_daily where time_stamp >= '2018-01-01' and time_stamp < '2018-02-01'
 
 execute	sp_executesql
 	@Syntax
@@ -147,10 +147,33 @@ WHERE
 
 
 -------------------------------------------------------------------
+
+IF object_id(N'tempdb..#csm_costs') IS NOT NULL
+	DROP TABLE #csm_costs
+	
+CREATE TABLE #csm_costs 
+	(
+		base_part varchar(25) not null,
+		mc_Jan_18 decimal(18,6)
+		primary key (base_part)
+	)
+--create nonclustered index IDX_eei_costs_time_stamp on #eei_costs(time_stamp)
+
+INSERT #csm_costs
+SELECT		base_part,
+			mc_jan_19
+from [EEIUser].[acctg_csm_vw_select_material_cost]
+			
+
+--select * from #csm_costs where base_part = 'DFN0002' order by 1
+
+
+--------------------------------------------------------------------------------------------------------------------------------------
 --4. Return the result set
 -------------------------------------------------------------------
 
- SELECT		isnull(eei_costs.product_line,'Not Specified') as product_line, 
+ SELECT		--(case when left(shipper_detail.part_original,7) in (select distinct base_part from eeiuser.acctg_csm_base_part_attributes where product_line = 'PCBe' and release_id = '2018-12') then 'PCBe' else isnull(eei_costs.product_line,'Not Specified') end) as product_line, 
+			eei_costs.product_line,
 			shipper_detail.shipper,			
 			shipper.type,
 			shipper.customer,			
@@ -168,6 +191,8 @@ WHERE
 			isnull(shipper_detail.qty_packed,0)*isnull(eei_costs.frozen_material_cum,0) as ext_frozen_material_cum,
 			eeh_costs.material_cum,
 			isnull(shipper_detail.qty_packed,0)*isnull(eeh_costs.material_cum,0) as ext_eeh_material_cum,
+			csm_costs.mc_Jan_18,
+			isnull(shipper_detail.qty_packed,0)*isnull(csm_costs.mc_jan_18,0) as ext_csm_material_cum,
 			ic.TopPart, 
 			ic.ChildPart, 
 			ic.BulbedPrice,
@@ -182,11 +207,12 @@ WHERE
 			isnull(shipper_detail.qty_packed,0)*isnull(ic.UnbulbedMaterialCost,0) as ext_unBulbed_material_cost,
 			ic.IncrementalMaterialCost,
 			isnull(shipper_detail.qty_packed,0)*isnull(ic.incrementalMaterialCost,0) as ext_incremental_material_cost
- FROM       MONITOR.dbo.shipper shipper 
-	JOIN MONITOR.dbo.shipper_detail shipper_detail		ON shipper.id = shipper_detail.shipper
+ FROM        shipper shipper 
+ 		JOIN shipper_detail shipper_detail		ON shipper.id = shipper_detail.shipper
 	LEFT OUTER JOIN #eei_costs eei_costs				ON shipper_detail.part_original = eei_costs.part AND convert(date,shipper.date_shipped) = convert(date, eei_costs.time_stamp)
 	LEFT OUTER JOIN #eeh_costs eeh_costs				ON shipper_detail.part_original = eeh_costs.part AND convert(date,shipper.date_shipped) = convert(date, eeh_costs.time_stamp)
 	LEFT OUTER JOIN FT.Ftsp_BOMPerPart_incremental IC	ON ic.toppart = shipper_detail.part_original
+	LEFT OUTER JOIN #csm_costs csm_costs				ON left(shipper_detail.part_original,7) = csm_costs.base_part 
  WHERE		shipper.destination <> 'EMPHOND' 
 		AND shipper.date_shipped >= @beg_datetime
 		AND shipper.date_shipped <  @end_datetime
@@ -194,12 +220,9 @@ WHERE
 order by	eei_costs.product_line, 
 			shipper_detail.part_original
 
-option(recompile)
+--option(recompile)
 
 end
-
-
-
 
 
 GO

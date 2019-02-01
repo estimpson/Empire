@@ -1,4 +1,10 @@
 SET IDENTITY_INSERT [FT].[WebPagesUsers] ON
+INSERT INTO [FT].[WebPagesUsers] ([RowID], [User], [PageName], [DefaultPage], [Status], [RowCreateDT], [RowCreateUser], [RowModifiedDT], [RowModifiedUser]) VALUES (26, 'EES', 'QuoteTransferList', 0, 0, '2018-08-28 14:38:50.500', N'dbo', '2018-08-28 14:38:50.500', N'dbo')
+INSERT INTO [FT].[WebPagesUsers] ([RowID], [User], [PageName], [DefaultPage], [Status], [RowCreateDT], [RowCreateUser], [RowModifiedDT], [RowModifiedUser]) VALUES (27, 'DW', 'QuoteTransferList', 0, 0, '2018-08-28 17:17:56.457', N'dbo', '2018-08-28 17:17:56.457', N'dbo')
+INSERT INTO [FT].[WebPagesUsers] ([RowID], [User], [PageName], [DefaultPage], [Status], [RowCreateDT], [RowCreateUser], [RowModifiedDT], [RowModifiedUser]) VALUES (28, 'KDOM', 'QuoteTransferList', 0, 0, '2018-08-28 17:18:00.090', N'dbo', '2018-08-28 17:18:00.090', N'dbo')
+INSERT INTO [FT].[WebPagesUsers] ([RowID], [User], [PageName], [DefaultPage], [Status], [RowCreateDT], [RowCreateUser], [RowModifiedDT], [RowModifiedUser]) VALUES (29, 'KDOM', 'PartVendorQuotes', 0, 0, '2018-09-28 15:36:09.937', N'dbo', '2018-09-28 15:36:09.937', N'dbo')
+SET IDENTITY_INSERT [FT].[WebPagesUsers] OFF
+SET IDENTITY_INSERT [FT].[WebPagesUsers] ON
 INSERT INTO [FT].[WebPagesUsers] ([RowID], [User], [PageName], [DefaultPage], [Status], [RowCreateDT], [RowCreateUser], [RowModifiedDT], [RowModifiedUser]) VALUES (5, 'KBD', 'SalesForecastUpdated', 1, 0, '2018-03-08 15:22:42.107', N'dbo', '2018-03-08 15:22:42.107', N'dbo')
 INSERT INTO [FT].[WebPagesUsers] ([RowID], [User], [PageName], [DefaultPage], [Status], [RowCreateDT], [RowCreateUser], [RowModifiedDT], [RowModifiedUser]) VALUES (7, 'KDOM', 'SalesForecastUpdated', 0, 0, '2018-03-16 10:59:59.690', N'dbo', '2018-03-16 10:59:59.690', N'dbo')
 INSERT INTO [FT].[WebPagesUsers] ([RowID], [User], [PageName], [DefaultPage], [Status], [RowCreateDT], [RowCreateUser], [RowModifiedDT], [RowModifiedUser]) VALUES (8, 'GU', 'SalesForecastUpdated', 1, 0, '2018-03-16 11:00:18.147', N'dbo', '2018-03-16 11:00:18.147', N'dbo')

@@ -249,8 +249,8 @@ select
 ,	Payor = t.Payor
 ,	GroundTrackingIdPrefix = convert(int, t.GroundTrackingIdPrefix) 
 ,	ExpressOrGroundTrackingId = convert(bigint, replace(t.ExpressOrGroundTrackingId, ',', ''))
-,	TransportationChargeAmount = convert(decimal(12,6), nullif(substring(replace(t.TransportationChargeAmount, ',', ''), 2, 20), '')) 
-,	NetChargeAmount = convert(decimal(12,6), nullif(substring(replace(t.NetChargeAmount, ',', ''), 2, 20), ''))
+,	TransportationChargeAmount = convert(decimal(12,6), nullif(substring(replace(t.TransportationChargeAmount, ',', ''), 1, 20), '')) 
+,	NetChargeAmount = convert(decimal(12,6), nullif(substring(replace(t.NetChargeAmount, ',', ''), 1, 20), ''))
 ,	ServiceType = t.ServiceType
 ,	GroundService = t.GroundService
 ,	ShipmentDate = convert(datetime, nullif(t.ShipmentDate, '')) 

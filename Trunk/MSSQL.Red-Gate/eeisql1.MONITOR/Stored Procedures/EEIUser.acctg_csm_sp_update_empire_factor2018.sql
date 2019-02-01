@@ -112,7 +112,9 @@ CREATE procedure [EEIUser].[acctg_csm_sp_update_empire_factor2018]
      
      @Total_2021 decimal(16,2),
      @Total_2022 decimal(16,2),  
-     @Total_2023 decimal(16,2)
+     @Total_2023 decimal(16,2),
+	 @Total_2024 decimal(16,2),
+	 @Total_2025 decimal(16,2)
     
 as
 
@@ -222,8 +224,8 @@ set
 		,[CY 2021] = ISNULL(@TOTAL_2021 ,0)
 		,[CY 2022] = ISNULL(@TOTAL_2022 ,0)
 		,[CY 2023] = ISNULL(@TOTAL_2023 ,0)
-		,[CY 2024] = ISNULL(@TOTAL_2023 ,0)
-		,[CY 2025] = ISNULL(@TOTAL_2023 ,0)
+		,[CY 2024] = ISNULL(@TOTAL_2024 ,0)
+		,[CY 2025] = ISNULL(@TOTAL_2025 ,0)
 
 where	[mnemonic-vehicle/plant] = @mnemonicvehicleplant 
 		and	release_id = @release_id

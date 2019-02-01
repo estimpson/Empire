@@ -109,7 +109,9 @@ CREATE procedure [EEIUser].[acctg_csm_sp_update_selling_prices2018]
 
      @Total_2021 decimal(10,4),
      @Total_2022 decimal(10,4),
-	 @Total_2023 decimal(10,4)
+	 @Total_2023 decimal(10,4),
+	 @Total_2024 decimal(10,4),
+	 @Total_2025 decimal(10,4)
 as
 update	eeiuser.acctg_csm_selling_prices_tabular
 
@@ -208,7 +210,9 @@ set		jan_15 = @jan2015,
 
 		DEC_21 = @Total_2021,
 		DEC_22 = @Total_2022,
-		DEC_23 = @Total_2023
+		DEC_23 = @Total_2023,
+		DEC_24 = @Total_2024,
+		DEC_25 = @Total_2025
 
 where	release_id = @release_id
 		and base_part = @base_part

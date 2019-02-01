@@ -19,8 +19,7 @@ SET QUOTED_IDENTIFIER ON
 GO
 SET ANSI_NULLS ON
 GO
-
-create trigger [FXSYS].[tr_USP_Calls_uRowModified] on [FXSYS].[USP_Calls] after update
+CREATE trigger [FXSYS].[tr_USP_Calls_uRowModified] on [FXSYS].[USP_Calls] after update
 as
 declare
 	@TranDT datetime
@@ -51,7 +50,7 @@ begin try
 
 	set	@TranCount = @@TranCount
 	set	@TranDT = coalesce(@TranDT, GetDate())
-	save tran @ProcName
+	--save tran @ProcName
 	--- </Tran>
 
 	---	<ArgumentValidation>

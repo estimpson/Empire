@@ -3,7 +3,7 @@ GO
 SET ANSI_NULLS ON
 GO
 
-create view [EDI_XML_NALPLEX_ASN].[ASNLines]
+CREATE view [EDI_XML_NALPLEX_ASN].[ASNLines]
 as
 select
 	ShipperID = s.id
@@ -12,7 +12,7 @@ select
 ,	AccumShipped = sd.accum_shipped
 ,	CustomerPO = sd.customer_po
 ,	RowNumber = row_number() over (partition by s.id order by sd.customer_part)
-,	CustomerECL = oh.engineering_level
+,	CustomerECL =  '1' /*oh.engineering_level*/
 from
 	dbo.shipper s
 	join dbo.shipper_detail sd

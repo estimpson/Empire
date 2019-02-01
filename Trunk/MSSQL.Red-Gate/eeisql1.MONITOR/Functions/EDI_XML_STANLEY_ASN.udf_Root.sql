@@ -4,6 +4,8 @@ SET ANSI_NULLS ON
 GO
 
 
+
+
 CREATE FUNCTION [EDI_XML_STANLEY_ASN].[udf_Root]
 (	@ShipperID INT
 ,	@Purpose CHAR(2)
@@ -13,6 +15,8 @@ RETURNS XML
 AS
 BEGIN
 --- <Body>
+
+--Andre FT, LLC 2018/07/05 - Changed packing slip identifier to PS per Stanley's request 
 	declare
 		@xmlOutput xml
 
@@ -44,7 +48,7 @@ BEGIN
 								,	EDI_XML_V4010.SEG_TD5('B', '2', ah.Carrier, ah.TransMode, NULL, NULL)
 								,	EDI_XML_V4010.SEG_TD3(ah.EquipDesc, ah.EquipInitial, ah.TrailerNumber)
 								,	EDI_XML_V4010.SEG_REF('BM', ah.BOLNumber)
-								,	EDI_XML_V4010.SEG_REF('PK', ah.ShipperID)
+								,	EDI_XML_V4010.SEG_REF('PS', ah.ShipperID)
 								,	(	SELECT
 						 					EDI_XML.LOOP_INFO('N1')
 										,	EDI_XML_V4010.SEG_N1_NAME('ST', '92', ah.ShipToID, ah.ShipToName)
@@ -61,32 +65,32 @@ BEGIN
 				 					EDI_XML.LOOP_INFO('HL')
 								,	EDI_XML_V4010.SEG_HL(1+al.RowNumber, 1, 'I', NULL)
 								,	EDI_XML_V4010.SEG_LIN(NULL, 'BP', al.CustomerPart, 'PO', al.CustomerPO)
-								,	EDI_XML_V4010.SEG_SN1(NULL, al.QtyPacked, 'PC', NULL)
+								,	EDI_XML_V4010.SEG_SN1(NULL, al.Quantity, 'PC', NULL)
 								--CLD Segments
 								,	(	SELECT
 											EDI_XML_V4010.SEG_CLD(alpqd.PackCount, alpqd.PackQty, alpqd.PackageType)
 										,	(	SELECT
-										 			EDI_XML_V4010.SEG_REF('LS', ao.CustomerSerial )
+										 			EDI_XML_V4010.SEG_REF('LS', ao.Serial )
 										 		FROM
-										 			EDI_XML_STANLEY_ASN.ASNObjects ao
+										 			[EDI_XML_STANLEY_ASN].[udf_ASNSerials](@ShipperID) ao
 												WHERE
 													ao.ShipperID = alpqd.ShipperID
 													AND ao.CustomerPart = alpqd.CustomerPart
+													AND ao.DiscretePO = alpqd.DiscretePO
 													AND ao.PackageType = alpqd.PackageType
-													AND ao.Quantity = alpqd.PackQty
+													AND ao.SerialQty = alpqd.PackQty
 												FOR XML PATH (''), TYPE
 										 	)
 										FROM
-											EDI_XML_STANLEY_ASN.ASNLinePackQtyDetails alpqd
+											[EDI_XML_STANLEY_ASN].[udf_ASNLinePackQtyDetails](ShipperID) alpqd
 										WHERE
 											alpqd.ShipperID = al.ShipperID
 											AND alpqd.CustomerPart = al.CustomerPart
+											AND alpqd.DiscretePO = al.CustomerPO
 										FOR XML PATH (''), TYPE
 									)	
 								FROM
-									EDI_XML_STANLEY_ASN.ASNLines al
-								WHERE
-									al.ShipperID = @ShipperID
+									 [EDI_XML_STANLEY_ASN].[udf_ASNLines] (@ShipperID) al
 								ORDER BY
 									al.RowNumber
 				 				FOR XML RAW ('LOOP-HL'), TYPE
@@ -106,5 +110,7 @@ BEGIN
 	RETURN
 		@xmlOutput
 END
+
+
 
 GO

@@ -13,6 +13,7 @@ GO
 
 
 
+
 CREATE PROCEDURE [FT].[ftsp_EMailAlert_ShipperCreation] 
 
 --Returns  shipper_detail data in an EMail aleret sent to EEI Schedulers and EEIShipping; it is called by insert trigger on shipper table
@@ -97,7 +98,7 @@ SELECT @SchedulerInitials
 
 SELECT @ShippingEmailAddress
 = CASE  WHEN plant = 'EEA' then 'mcalix@empireelect.com;JBucy@empireelect.com'
-		WHEN plant = 'EEP' then 'RDominguez@empireelect.com;LQuintero@trans-expedite.com;RGarcia@trans-expedite.com'
+		WHEN plant = 'EEP' then 'RDominguez@empireelect.com;salvadorperez@pilotdelivers.com'
 		When plant = 'EEI' then 'shipping@empireelect.com'
 		ELSE ''
 		END
@@ -204,6 +205,7 @@ go
 Results {
 }
 */
+
 
 
 

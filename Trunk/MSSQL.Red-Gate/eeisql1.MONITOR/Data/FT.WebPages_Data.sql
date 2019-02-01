@@ -1,4 +1,8 @@
 SET IDENTITY_INSERT [FT].[WebPages] ON
+INSERT INTO [FT].[WebPages] ([RowID], [PageName], [FilePath], [PageGroup], [Status], [ParentID], [RowCreateDT], [RowCreateUser], [RowModifiedDT], [RowModifiedUser]) VALUES (10, 'QuoteTransferList', 'QuoteLogIntegration/Pages/', NULL, 0, 3, '2018-08-28 14:38:06.523', N'dbo', '2018-08-28 14:38:06.523', N'dbo')
+INSERT INTO [FT].[WebPages] ([RowID], [PageName], [FilePath], [PageGroup], [Status], [ParentID], [RowCreateDT], [RowCreateUser], [RowModifiedDT], [RowModifiedUser]) VALUES (11, 'PartVendorQuotes', 'PartVendorQuotes/', NULL, 0, 3, '2018-09-28 15:35:47.780', N'dbo', '2018-09-28 15:35:47.780', N'dbo')
+SET IDENTITY_INSERT [FT].[WebPages] OFF
+SET IDENTITY_INSERT [FT].[WebPages] ON
 INSERT INTO [FT].[WebPages] ([RowID], [PageName], [FilePath], [PageGroup], [Status], [ParentID], [RowCreateDT], [RowCreateUser], [RowModifiedDT], [RowModifiedUser]) VALUES (1, 'SalesForecastUpdated', 'SalesForecast/Pages/', NULL, 0, 3, '2018-03-08 15:19:42.800', N'dbo', '2018-03-08 15:19:42.800', N'dbo')
 INSERT INTO [FT].[WebPages] ([RowID], [PageName], [FilePath], [PageGroup], [Status], [ParentID], [RowCreateDT], [RowCreateUser], [RowModifiedDT], [RowModifiedUser]) VALUES (2, 'SchedulingMain', 'Scheduling/Pages/', NULL, 0, 3, '2018-03-08 15:20:13.883', N'dbo', '2018-03-08 15:20:13.883', N'dbo')
 INSERT INTO [FT].[WebPages] ([RowID], [PageName], [FilePath], [PageGroup], [Status], [ParentID], [RowCreateDT], [RowCreateUser], [RowModifiedDT], [RowModifiedUser]) VALUES (3, 'Home', 'Pages/', NULL, 0, NULL, '2018-03-16 11:56:52.533', N'dbo', '2018-03-16 11:56:52.533', N'dbo')

@@ -14,25 +14,31 @@ set ansi_warnings on
 
 
 --- <Body>
-if (@Filter = 'Customer') begin
+if (@Filter = 'Customer' or @Filter = 'Customer Actual') begin
 
 	if (@FilterValue is null) begin
 
 		select 
 			customer as Filter
-		,	sum(Total_2016_TotalDemand) as TotalDemand_2016
-		,	sum(Total_2017_TotalDemand) as TotalDemand_2017
-		,	sum(Total_2018_TotalDemand) as TotalDemand_2018
-		,	sum(Total_2019_TotalDemand) as TotalDemand_2019
-		,	sum(Cal20_TotalDemand) as TotalDemand_2020
-		,	sum(Cal21_TotalDemand) as TotalDemand_2021
-		,	sum(Cal22_TotalDemand) as TotalDemand_2022
-		,	(sum(Total_2017_TotalDemand) - sum(Total_2016_TotalDemand)) as Change_2017
-		,	(sum(Total_2018_TotalDemand) - sum(Total_2017_TotalDemand)) as Change_2018
-		,	(sum(Total_2019_TotalDemand) - sum(Total_2018_TotalDemand)) as Change_2019
-		,	(sum(Cal20_TotalDemand) - sum(Total_2019_TotalDemand)) as Change_2020
-		,	(sum(Cal21_TotalDemand) - sum(Cal20_TotalDemand)) as Change_2021
-		,	(sum(Cal22_TotalDemand) - sum(Cal21_TotalDemand)) as Change_2022
+		,	sum(Cal_16_TotalDemand) as TotalDemand_2016
+		,	sum(Cal_17_TotalDemand) as TotalDemand_2017
+		,	sum(Cal_18_TotalDemand) as TotalDemand_2018
+		,	sum(Cal_19_TotalDemand) as TotalDemand_2019
+		,	sum(Cal_20_TotalDemand) as TotalDemand_2020
+		,	sum(Cal_21_TotalDemand) as TotalDemand_2021
+		,	sum(Cal_22_TotalDemand) as TotalDemand_2022
+		,	sum(Cal_23_TotalDemand) as TotalDemand_2023
+		,	sum(Cal_24_TotalDemand) as TotalDemand_2024
+		,	sum(Cal_25_TotalDemand) as TotalDemand_2025
+		,	(sum(Cal_17_TotalDemand) - sum(Cal_16_TotalDemand)) as Change_2017
+		,	(sum(Cal_18_TotalDemand) - sum(Cal_17_TotalDemand)) as Change_2018
+		,	(sum(Cal_19_TotalDemand) - sum(Cal_18_TotalDemand)) as Change_2019
+		,	(sum(Cal_20_TotalDemand) - sum(Cal_19_TotalDemand)) as Change_2020
+		,	(sum(Cal_21_TotalDemand) - sum(Cal_20_TotalDemand)) as Change_2021
+		,	(sum(Cal_22_TotalDemand) - sum(Cal_21_TotalDemand)) as Change_2022
+		,	(sum(Cal_23_TotalDemand) - sum(Cal_22_TotalDemand)) as Change_2023
+		,	(sum(Cal_24_TotalDemand) - sum(Cal_23_TotalDemand)) as Change_2024
+		,	(sum(Cal_25_TotalDemand) - sum(Cal_24_TotalDemand)) as Change_2025
 		from 
 			eeiuser.acctg_csm_vw_select_sales_forecast sf
 		--where 
@@ -46,19 +52,25 @@ if (@Filter = 'Customer') begin
 
 			select 
 				customer as Filter
-			,	sum(Total_2016_TotalDemand) as TotalDemand_2016
-			,	sum(Total_2017_TotalDemand) as TotalDemand_2017
-			,	sum(Total_2018_TotalDemand) as TotalDemand_2018
-			,	sum(Total_2019_TotalDemand) as TotalDemand_2019
-			,	sum(Cal20_TotalDemand) as TotalDemand_2020
-			,	sum(Cal21_TotalDemand) as TotalDemand_2021
-			,	sum(Cal22_TotalDemand) as TotalDemand_2022
-			,	(sum(Total_2017_TotalDemand) - sum(Total_2016_TotalDemand)) as Change_2017
-			,	(sum(Total_2018_TotalDemand) - sum(Total_2017_TotalDemand)) as Change_2018
-			,	(sum(Total_2019_TotalDemand) - sum(Total_2018_TotalDemand)) as Change_2019
-			,	(sum(Cal20_TotalDemand) - sum(Total_2019_TotalDemand)) as Change_2020
-			,	(sum(Cal21_TotalDemand) - sum(Cal20_TotalDemand)) as Change_2021
-			,	(sum(Cal22_TotalDemand) - sum(Cal21_TotalDemand)) as Change_2022
+			,	sum(Cal_16_TotalDemand) as TotalDemand_2016
+			,	sum(Cal_17_TotalDemand) as TotalDemand_2017
+			,	sum(Cal_18_TotalDemand) as TotalDemand_2018
+			,	sum(Cal_19_TotalDemand) as TotalDemand_2019
+			,	sum(Cal_20_TotalDemand) as TotalDemand_2020
+			,	sum(Cal_21_TotalDemand) as TotalDemand_2021
+			,	sum(Cal_22_TotalDemand) as TotalDemand_2022
+			,	sum(Cal_23_TotalDemand) as TotalDemand_2023
+			,	sum(Cal_24_TotalDemand) as TotalDemand_2024
+			,	sum(Cal_25_TotalDemand) as TotalDemand_2025
+			,	(sum(Cal_17_TotalDemand) - sum(Cal_16_TotalDemand)) as Change_2017
+			,	(sum(Cal_18_TotalDemand) - sum(Cal_17_TotalDemand)) as Change_2018
+			,	(sum(Cal_19_TotalDemand) - sum(Cal_18_TotalDemand)) as Change_2019
+			,	(sum(Cal_20_TotalDemand) - sum(Cal_19_TotalDemand)) as Change_2020
+			,	(sum(Cal_21_TotalDemand) - sum(Cal_20_TotalDemand)) as Change_2021
+			,	(sum(Cal_22_TotalDemand) - sum(Cal_21_TotalDemand)) as Change_2022
+			,	(sum(Cal_23_TotalDemand) - sum(Cal_22_TotalDemand)) as Change_2023
+			,	(sum(Cal_24_TotalDemand) - sum(Cal_23_TotalDemand)) as Change_2024
+			,	(sum(Cal_25_TotalDemand) - sum(Cal_24_TotalDemand)) as Change_2025
 			from 
 				eeiuser.acctg_csm_vw_select_sales_forecast sf
 			where 
@@ -69,25 +81,31 @@ if (@Filter = 'Customer') begin
 	end
 
 end
-else if (@Filter = 'Parent Customer') begin
+else if (@Filter = 'Parent Customer' or @Filter = 'Parent Customer Actual') begin
 
 	if (@FilterValue is null) begin
 
 		select 
 			parent_customer as Filter
-		,	sum(Total_2016_TotalDemand) as TotalDemand_2016
-		,	sum(Total_2017_TotalDemand) as TotalDemand_2017
-		,	sum(Total_2018_TotalDemand) as TotalDemand_2018
-		,	sum(Total_2019_TotalDemand) as TotalDemand_2019
-		,	sum(Cal20_TotalDemand) as TotalDemand_2020
-		,	sum(Cal21_TotalDemand) as TotalDemand_2021
-		,	sum(Cal22_TotalDemand) as TotalDemand_2022
-		,	(sum(Total_2017_TotalDemand) - sum(Total_2016_TotalDemand)) as Change_2017
-		,	(sum(Total_2018_TotalDemand) - sum(Total_2017_TotalDemand)) as Change_2018
-		,	(sum(Total_2019_TotalDemand) - sum(Total_2018_TotalDemand)) as Change_2019
-		,	(sum(Cal20_TotalDemand) - sum(Total_2019_TotalDemand)) as Change_2020
-		,	(sum(Cal21_TotalDemand) - sum(Cal20_TotalDemand)) as Change_2021
-		,	(sum(Cal22_TotalDemand) - sum(Cal21_TotalDemand)) as Change_2022
+		,	sum(Cal_16_TotalDemand) as TotalDemand_2016
+		,	sum(Cal_17_TotalDemand) as TotalDemand_2017
+		,	sum(Cal_18_TotalDemand) as TotalDemand_2018
+		,	sum(Cal_19_TotalDemand) as TotalDemand_2019
+		,	sum(Cal_20_TotalDemand) as TotalDemand_2020
+		,	sum(Cal_21_TotalDemand) as TotalDemand_2021
+		,	sum(Cal_22_TotalDemand) as TotalDemand_2022
+		,	sum(Cal_23_TotalDemand) as TotalDemand_2023
+		,	sum(Cal_24_TotalDemand) as TotalDemand_2024
+		,	sum(Cal_25_TotalDemand) as TotalDemand_2025
+		,	(sum(Cal_17_TotalDemand) - sum(Cal_16_TotalDemand)) as Change_2017
+		,	(sum(Cal_18_TotalDemand) - sum(Cal_17_TotalDemand)) as Change_2018
+		,	(sum(Cal_19_TotalDemand) - sum(Cal_18_TotalDemand)) as Change_2019
+		,	(sum(Cal_20_TotalDemand) - sum(Cal_19_TotalDemand)) as Change_2020
+		,	(sum(Cal_21_TotalDemand) - sum(Cal_20_TotalDemand)) as Change_2021
+		,	(sum(Cal_22_TotalDemand) - sum(Cal_21_TotalDemand)) as Change_2022
+		,	(sum(Cal_23_TotalDemand) - sum(Cal_22_TotalDemand)) as Change_2023
+		,	(sum(Cal_24_TotalDemand) - sum(Cal_23_TotalDemand)) as Change_2024
+		,	(sum(Cal_25_TotalDemand) - sum(Cal_24_TotalDemand)) as Change_2025
 		from 
 			eeiuser.acctg_csm_vw_select_sales_forecast sf
 		group by 
@@ -100,19 +118,25 @@ else if (@Filter = 'Parent Customer') begin
 
 		select 
 			parent_customer as Filter
-		,	sum(Total_2016_TotalDemand) as TotalDemand_2016
-		,	sum(Total_2017_TotalDemand) as TotalDemand_2017
-		,	sum(Total_2018_TotalDemand) as TotalDemand_2018
-		,	sum(Total_2019_TotalDemand) as TotalDemand_2019
-		,	sum(Cal20_TotalDemand) as TotalDemand_2020
-		,	sum(Cal21_TotalDemand) as TotalDemand_2021
-		,	sum(Cal22_TotalDemand) as TotalDemand_2022
-		,	(sum(Total_2017_TotalDemand) - sum(Total_2016_TotalDemand)) as Change_2017
-		,	(sum(Total_2018_TotalDemand) - sum(Total_2017_TotalDemand)) as Change_2018
-		,	(sum(Total_2019_TotalDemand) - sum(Total_2018_TotalDemand)) as Change_2019
-		,	(sum(Cal20_TotalDemand) - sum(Total_2019_TotalDemand)) as Change_2020
-		,	(sum(Cal21_TotalDemand) - sum(Cal20_TotalDemand)) as Change_2021
-		,	(sum(Cal22_TotalDemand) - sum(Cal21_TotalDemand)) as Change_2022
+		,	sum(Cal_16_TotalDemand) as TotalDemand_2016
+		,	sum(Cal_17_TotalDemand) as TotalDemand_2017
+		,	sum(Cal_18_TotalDemand) as TotalDemand_2018
+		,	sum(Cal_19_TotalDemand) as TotalDemand_2019
+		,	sum(Cal_20_TotalDemand) as TotalDemand_2020
+		,	sum(Cal_21_TotalDemand) as TotalDemand_2021
+		,	sum(Cal_22_TotalDemand) as TotalDemand_2022
+		,	sum(Cal_23_TotalDemand) as TotalDemand_2023
+		,	sum(Cal_24_TotalDemand) as TotalDemand_2024
+		,	sum(Cal_25_TotalDemand) as TotalDemand_2025
+		,	(sum(Cal_17_TotalDemand) - sum(Cal_16_TotalDemand)) as Change_2017
+		,	(sum(Cal_18_TotalDemand) - sum(Cal_17_TotalDemand)) as Change_2018
+		,	(sum(Cal_19_TotalDemand) - sum(Cal_18_TotalDemand)) as Change_2019
+		,	(sum(Cal_20_TotalDemand) - sum(Cal_19_TotalDemand)) as Change_2020
+		,	(sum(Cal_21_TotalDemand) - sum(Cal_20_TotalDemand)) as Change_2021
+		,	(sum(Cal_22_TotalDemand) - sum(Cal_21_TotalDemand)) as Change_2022
+		,	(sum(Cal_23_TotalDemand) - sum(Cal_22_TotalDemand)) as Change_2023
+		,	(sum(Cal_24_TotalDemand) - sum(Cal_23_TotalDemand)) as Change_2024
+		,	(sum(Cal_25_TotalDemand) - sum(Cal_24_TotalDemand)) as Change_2025
 		from 
 			eeiuser.acctg_csm_vw_select_sales_forecast sf
 		where
@@ -123,25 +147,31 @@ else if (@Filter = 'Parent Customer') begin
 	end
 
 end
-else if (@Filter = 'Salesperson') begin
+else if (@Filter = 'Salesperson' or @Filter = 'Salesperson Actual') begin
 
 	if (@FilterValue is null) begin
 	
 		select 
 			salesperson as Filter
-		,	sum(Total_2016_TotalDemand) as TotalDemand_2016
-		,	sum(Total_2017_TotalDemand) as TotalDemand_2017
-		,	sum(Total_2018_TotalDemand) as TotalDemand_2018
-		,	sum(Total_2019_TotalDemand) as TotalDemand_2019
-		,	sum(Cal20_TotalDemand) as TotalDemand_2020
-		,	sum(Cal21_TotalDemand) as TotalDemand_2021
-		,	sum(Cal22_TotalDemand) as TotalDemand_2022
-		,	(sum(Total_2017_TotalDemand) - sum(Total_2016_TotalDemand)) as Change_2017
-		,	(sum(Total_2018_TotalDemand) - sum(Total_2017_TotalDemand)) as Change_2018
-		,	(sum(Total_2019_TotalDemand) - sum(Total_2018_TotalDemand)) as Change_2019
-		,	(sum(Cal20_TotalDemand) - sum(Total_2019_TotalDemand)) as Change_2020
-		,	(sum(Cal21_TotalDemand) - sum(Cal20_TotalDemand)) as Change_2021
-		,	(sum(Cal22_TotalDemand) - sum(Cal21_TotalDemand)) as Change_2022
+		,	sum(Cal_16_TotalDemand) as TotalDemand_2016
+		,	sum(Cal_17_TotalDemand) as TotalDemand_2017
+		,	sum(Cal_18_TotalDemand) as TotalDemand_2018
+		,	sum(Cal_19_TotalDemand) as TotalDemand_2019
+		,	sum(Cal_20_TotalDemand) as TotalDemand_2020
+		,	sum(Cal_21_TotalDemand) as TotalDemand_2021
+		,	sum(Cal_22_TotalDemand) as TotalDemand_2022
+		,	sum(Cal_23_TotalDemand) as TotalDemand_2023
+		,	sum(Cal_24_TotalDemand) as TotalDemand_2024
+		,	sum(Cal_25_TotalDemand) as TotalDemand_2025
+		,	(sum(Cal_17_TotalDemand) - sum(Cal_16_TotalDemand)) as Change_2017
+		,	(sum(Cal_18_TotalDemand) - sum(Cal_17_TotalDemand)) as Change_2018
+		,	(sum(Cal_19_TotalDemand) - sum(Cal_18_TotalDemand)) as Change_2019
+		,	(sum(Cal_20_TotalDemand) - sum(Cal_19_TotalDemand)) as Change_2020
+		,	(sum(Cal_21_TotalDemand) - sum(Cal_20_TotalDemand)) as Change_2021
+		,	(sum(Cal_22_TotalDemand) - sum(Cal_21_TotalDemand)) as Change_2022
+		,	(sum(Cal_23_TotalDemand) - sum(Cal_22_TotalDemand)) as Change_2023
+		,	(sum(Cal_24_TotalDemand) - sum(Cal_23_TotalDemand)) as Change_2024
+		,	(sum(Cal_25_TotalDemand) - sum(Cal_24_TotalDemand)) as Change_2025
 		from 
 			eeiuser.acctg_csm_vw_select_sales_forecast sf
 		where
@@ -153,19 +183,25 @@ else if (@Filter = 'Salesperson') begin
 
 		select 
 			'Jeff Michaels' as Filter
-		,	sum(Total_2016_TotalDemand) as TotalDemand_2016
-		,	sum(Total_2017_TotalDemand) as TotalDemand_2017
-		,	sum(Total_2018_TotalDemand) as TotalDemand_2018
-		,	sum(Total_2019_TotalDemand) as TotalDemand_2019
-		,	sum(Cal20_TotalDemand) as TotalDemand_2020
-		,	sum(Cal21_TotalDemand) as TotalDemand_2021
-		,	sum(Cal22_TotalDemand) as TotalDemand_2022
-		,	(sum(Total_2017_TotalDemand) - sum(Total_2016_TotalDemand)) as Change_2017
-		,	(sum(Total_2018_TotalDemand) - sum(Total_2017_TotalDemand)) as Change_2018
-		,	(sum(Total_2019_TotalDemand) - sum(Total_2018_TotalDemand)) as Change_2019
-		,	(sum(Cal20_TotalDemand) - sum(Total_2019_TotalDemand)) as Change_2020
-		,	(sum(Cal21_TotalDemand) - sum(Cal20_TotalDemand)) as Change_2021
-		,	(sum(Cal22_TotalDemand) - sum(Cal21_TotalDemand)) as Change_2022
+		,	sum(Cal_16_TotalDemand) as TotalDemand_2016
+		,	sum(Cal_17_TotalDemand) as TotalDemand_2017
+		,	sum(Cal_18_TotalDemand) as TotalDemand_2018
+		,	sum(Cal_19_TotalDemand) as TotalDemand_2019
+		,	sum(Cal_20_TotalDemand) as TotalDemand_2020
+		,	sum(Cal_21_TotalDemand) as TotalDemand_2021
+		,	sum(Cal_22_TotalDemand) as TotalDemand_2022
+		,	sum(Cal_23_TotalDemand) as TotalDemand_2023
+		,	sum(Cal_24_TotalDemand) as TotalDemand_2024
+		,	sum(Cal_25_TotalDemand) as TotalDemand_2025
+		,	(sum(Cal_17_TotalDemand) - sum(Cal_16_TotalDemand)) as Change_2017
+		,	(sum(Cal_18_TotalDemand) - sum(Cal_17_TotalDemand)) as Change_2018
+		,	(sum(Cal_19_TotalDemand) - sum(Cal_18_TotalDemand)) as Change_2019
+		,	(sum(Cal_20_TotalDemand) - sum(Cal_19_TotalDemand)) as Change_2020
+		,	(sum(Cal_21_TotalDemand) - sum(Cal_20_TotalDemand)) as Change_2021
+		,	(sum(Cal_22_TotalDemand) - sum(Cal_21_TotalDemand)) as Change_2022
+		,	(sum(Cal_23_TotalDemand) - sum(Cal_22_TotalDemand)) as Change_2023
+		,	(sum(Cal_24_TotalDemand) - sum(Cal_23_TotalDemand)) as Change_2024
+		,	(sum(Cal_25_TotalDemand) - sum(Cal_24_TotalDemand)) as Change_2025
 		from 
 			eeiuser.acctg_csm_vw_select_sales_forecast sf
 		where
@@ -180,19 +216,25 @@ else if (@Filter = 'Salesperson') begin
 
 			select 
 				'Jeff Michaels' as Filter
-			,	sum(Total_2016_TotalDemand) as TotalDemand_2016
-			,	sum(Total_2017_TotalDemand) as TotalDemand_2017
-			,	sum(Total_2018_TotalDemand) as TotalDemand_2018
-			,	sum(Total_2019_TotalDemand) as TotalDemand_2019
-			,	sum(Cal20_TotalDemand) as TotalDemand_2020
-			,	sum(Cal21_TotalDemand) as TotalDemand_2021
-			,	sum(Cal22_TotalDemand) as TotalDemand_2022
-			,	(sum(Total_2017_TotalDemand) - sum(Total_2016_TotalDemand)) as Change_2017
-			,	(sum(Total_2018_TotalDemand) - sum(Total_2017_TotalDemand)) as Change_2018
-			,	(sum(Total_2019_TotalDemand) - sum(Total_2018_TotalDemand)) as Change_2019
-			,	(sum(Cal20_TotalDemand) - sum(Total_2019_TotalDemand)) as Change_2020
-			,	(sum(Cal21_TotalDemand) - sum(Cal20_TotalDemand)) as Change_2021
-			,	(sum(Cal22_TotalDemand) - sum(Cal21_TotalDemand)) as Change_2022
+			,	sum(Cal_16_TotalDemand) as TotalDemand_2016
+			,	sum(Cal_17_TotalDemand) as TotalDemand_2017
+			,	sum(Cal_18_TotalDemand) as TotalDemand_2018
+			,	sum(Cal_19_TotalDemand) as TotalDemand_2019
+			,	sum(Cal_20_TotalDemand) as TotalDemand_2020
+			,	sum(Cal_21_TotalDemand) as TotalDemand_2021
+			,	sum(Cal_22_TotalDemand) as TotalDemand_2022
+			,	sum(Cal_23_TotalDemand) as TotalDemand_2023
+			,	sum(Cal_24_TotalDemand) as TotalDemand_2024
+			,	sum(Cal_25_TotalDemand) as TotalDemand_2025
+			,	(sum(Cal_17_TotalDemand) - sum(Cal_16_TotalDemand)) as Change_2017
+			,	(sum(Cal_18_TotalDemand) - sum(Cal_17_TotalDemand)) as Change_2018
+			,	(sum(Cal_19_TotalDemand) - sum(Cal_18_TotalDemand)) as Change_2019
+			,	(sum(Cal_20_TotalDemand) - sum(Cal_19_TotalDemand)) as Change_2020
+			,	(sum(Cal_21_TotalDemand) - sum(Cal_20_TotalDemand)) as Change_2021
+			,	(sum(Cal_22_TotalDemand) - sum(Cal_21_TotalDemand)) as Change_2022
+			,	(sum(Cal_23_TotalDemand) - sum(Cal_22_TotalDemand)) as Change_2023
+			,	(sum(Cal_24_TotalDemand) - sum(Cal_23_TotalDemand)) as Change_2024
+			,	(sum(Cal_25_TotalDemand) - sum(Cal_24_TotalDemand)) as Change_2025
 			from 
 				eeiuser.acctg_csm_vw_select_sales_forecast sf
 			where
@@ -203,19 +245,25 @@ else if (@Filter = 'Salesperson') begin
 
 			select 
 				salesperson as Filter
-			,	sum(Total_2016_TotalDemand) as TotalDemand_2016
-			,	sum(Total_2017_TotalDemand) as TotalDemand_2017
-			,	sum(Total_2018_TotalDemand) as TotalDemand_2018
-			,	sum(Total_2019_TotalDemand) as TotalDemand_2019
-			,	sum(Cal20_TotalDemand) as TotalDemand_2020
-			,	sum(Cal21_TotalDemand) as TotalDemand_2021
-			,	sum(Cal22_TotalDemand) as TotalDemand_2022
-			,	(sum(Total_2017_TotalDemand) - sum(Total_2016_TotalDemand)) as Change_2017
-			,	(sum(Total_2018_TotalDemand) - sum(Total_2017_TotalDemand)) as Change_2018
-			,	(sum(Total_2019_TotalDemand) - sum(Total_2018_TotalDemand)) as Change_2019
-			,	(sum(Cal20_TotalDemand) - sum(Total_2019_TotalDemand)) as Change_2020
-			,	(sum(Cal21_TotalDemand) - sum(Cal20_TotalDemand)) as Change_2021
-			,	(sum(Cal22_TotalDemand) - sum(Cal21_TotalDemand)) as Change_2022
+			,	sum(Cal_16_TotalDemand) as TotalDemand_2016
+			,	sum(Cal_17_TotalDemand) as TotalDemand_2017
+			,	sum(Cal_18_TotalDemand) as TotalDemand_2018
+			,	sum(Cal_19_TotalDemand) as TotalDemand_2019
+			,	sum(Cal_20_TotalDemand) as TotalDemand_2020
+			,	sum(Cal_21_TotalDemand) as TotalDemand_2021
+			,	sum(Cal_22_TotalDemand) as TotalDemand_2022
+			,	sum(Cal_23_TotalDemand) as TotalDemand_2023
+			,	sum(Cal_24_TotalDemand) as TotalDemand_2024
+			,	sum(Cal_25_TotalDemand) as TotalDemand_2025
+			,	(sum(Cal_17_TotalDemand) - sum(Cal_16_TotalDemand)) as Change_2017
+			,	(sum(Cal_18_TotalDemand) - sum(Cal_17_TotalDemand)) as Change_2018
+			,	(sum(Cal_19_TotalDemand) - sum(Cal_18_TotalDemand)) as Change_2019
+			,	(sum(Cal_20_TotalDemand) - sum(Cal_19_TotalDemand)) as Change_2020
+			,	(sum(Cal_21_TotalDemand) - sum(Cal_20_TotalDemand)) as Change_2021
+			,	(sum(Cal_22_TotalDemand) - sum(Cal_21_TotalDemand)) as Change_2022
+			,	(sum(Cal_23_TotalDemand) - sum(Cal_22_TotalDemand)) as Change_2023
+			,	(sum(Cal_24_TotalDemand) - sum(Cal_23_TotalDemand)) as Change_2024
+			,	(sum(Cal_25_TotalDemand) - sum(Cal_24_TotalDemand)) as Change_2025
 			from 
 				eeiuser.acctg_csm_vw_select_sales_forecast sf
 			where
@@ -228,25 +276,31 @@ else if (@Filter = 'Salesperson') begin
 	end
 
 end
-else if (@Filter = 'Segment') begin
+else if (@Filter = 'Segment' or @Filter = 'Segment Actual') begin
 
 	if (@FilterValue is null) begin
 
 		select 
 			empire_market_segment as Filter
-		,	sum(Total_2016_TotalDemand) as TotalDemand_2016
-		,	sum(Total_2017_TotalDemand) as TotalDemand_2017
-		,	sum(Total_2018_TotalDemand) as TotalDemand_2018
-		,	sum(Total_2019_TotalDemand) as TotalDemand_2019
-		,	sum(Cal20_TotalDemand) as TotalDemand_2020
-		,	sum(Cal21_TotalDemand) as TotalDemand_2021
-		,	sum(Cal22_TotalDemand) as TotalDemand_2022
-		,	(sum(Total_2017_TotalDemand) - sum(Total_2016_TotalDemand)) as Change_2017
-		,	(sum(Total_2018_TotalDemand) - sum(Total_2017_TotalDemand)) as Change_2018
-		,	(sum(Total_2019_TotalDemand) - sum(Total_2018_TotalDemand)) as Change_2019
-		,	(sum(Cal20_TotalDemand) - sum(Total_2019_TotalDemand)) as Change_2020
-		,	(sum(Cal21_TotalDemand) - sum(Cal20_TotalDemand)) as Change_2021
-		,	(sum(Cal22_TotalDemand) - sum(Cal21_TotalDemand)) as Change_2022
+		,	sum(Cal_16_TotalDemand) as TotalDemand_2016
+		,	sum(Cal_17_TotalDemand) as TotalDemand_2017
+		,	sum(Cal_18_TotalDemand) as TotalDemand_2018
+		,	sum(Cal_19_TotalDemand) as TotalDemand_2019
+		,	sum(Cal_20_TotalDemand) as TotalDemand_2020
+		,	sum(Cal_21_TotalDemand) as TotalDemand_2021
+		,	sum(Cal_22_TotalDemand) as TotalDemand_2022
+		,	sum(Cal_23_TotalDemand) as TotalDemand_2023
+		,	sum(Cal_24_TotalDemand) as TotalDemand_2024
+		,	sum(Cal_25_TotalDemand) as TotalDemand_2025
+		,	(sum(Cal_17_TotalDemand) - sum(Cal_16_TotalDemand)) as Change_2017
+		,	(sum(Cal_18_TotalDemand) - sum(Cal_17_TotalDemand)) as Change_2018
+		,	(sum(Cal_19_TotalDemand) - sum(Cal_18_TotalDemand)) as Change_2019
+		,	(sum(Cal_20_TotalDemand) - sum(Cal_19_TotalDemand)) as Change_2020
+		,	(sum(Cal_21_TotalDemand) - sum(Cal_20_TotalDemand)) as Change_2021
+		,	(sum(Cal_22_TotalDemand) - sum(Cal_21_TotalDemand)) as Change_2022
+		,	(sum(Cal_23_TotalDemand) - sum(Cal_22_TotalDemand)) as Change_2023
+		,	(sum(Cal_24_TotalDemand) - sum(Cal_23_TotalDemand)) as Change_2024
+		,	(sum(Cal_25_TotalDemand) - sum(Cal_24_TotalDemand)) as Change_2025
 		from 
 			eeiuser.acctg_csm_vw_select_sales_forecast sf
 		where
@@ -261,19 +315,25 @@ else if (@Filter = 'Segment') begin
 
 		select 
 			empire_market_segment as Filter
-		,	sum(Total_2016_TotalDemand) as TotalDemand_2016
-		,	sum(Total_2017_TotalDemand) as TotalDemand_2017
-		,	sum(Total_2018_TotalDemand) as TotalDemand_2018
-		,	sum(Total_2019_TotalDemand) as TotalDemand_2019
-		,	sum(Cal20_TotalDemand) as TotalDemand_2020
-		,	sum(Cal21_TotalDemand) as TotalDemand_2021
-		,	sum(Cal22_TotalDemand) as TotalDemand_2022
-		,	(sum(Total_2017_TotalDemand) - sum(Total_2016_TotalDemand)) as Change_2017
-		,	(sum(Total_2018_TotalDemand) - sum(Total_2017_TotalDemand)) as Change_2018
-		,	(sum(Total_2019_TotalDemand) - sum(Total_2018_TotalDemand)) as Change_2019
-		,	(sum(Cal20_TotalDemand) - sum(Total_2019_TotalDemand)) as Change_2020
-		,	(sum(Cal21_TotalDemand) - sum(Cal20_TotalDemand)) as Change_2021
-		,	(sum(Cal22_TotalDemand) - sum(Cal21_TotalDemand)) as Change_2022
+		,	sum(Cal_16_TotalDemand) as TotalDemand_2016
+		,	sum(Cal_17_TotalDemand) as TotalDemand_2017
+		,	sum(Cal_18_TotalDemand) as TotalDemand_2018
+		,	sum(Cal_19_TotalDemand) as TotalDemand_2019
+		,	sum(Cal_20_TotalDemand) as TotalDemand_2020
+		,	sum(Cal_21_TotalDemand) as TotalDemand_2021
+		,	sum(Cal_22_TotalDemand) as TotalDemand_2022
+		,	sum(Cal_23_TotalDemand) as TotalDemand_2023
+		,	sum(Cal_24_TotalDemand) as TotalDemand_2024
+		,	sum(Cal_25_TotalDemand) as TotalDemand_2025
+		,	(sum(Cal_17_TotalDemand) - sum(Cal_16_TotalDemand)) as Change_2017
+		,	(sum(Cal_18_TotalDemand) - sum(Cal_17_TotalDemand)) as Change_2018
+		,	(sum(Cal_19_TotalDemand) - sum(Cal_18_TotalDemand)) as Change_2019
+		,	(sum(Cal_20_TotalDemand) - sum(Cal_19_TotalDemand)) as Change_2020
+		,	(sum(Cal_21_TotalDemand) - sum(Cal_20_TotalDemand)) as Change_2021
+		,	(sum(Cal_22_TotalDemand) - sum(Cal_21_TotalDemand)) as Change_2022
+		,	(sum(Cal_23_TotalDemand) - sum(Cal_22_TotalDemand)) as Change_2023
+		,	(sum(Cal_24_TotalDemand) - sum(Cal_23_TotalDemand)) as Change_2024
+		,	(sum(Cal_25_TotalDemand) - sum(Cal_24_TotalDemand)) as Change_2025
 		from 
 			eeiuser.acctg_csm_vw_select_sales_forecast sf
 		where
@@ -284,25 +344,31 @@ else if (@Filter = 'Segment') begin
 	end
 
 end
-else if (@Filter = 'Vehicle') begin
+else if (@Filter = 'Vehicle' or @Filter = 'Vehicle Forecast') begin
 
 	if (@FilterValue is null) begin
 
 		select 
 			vehicle as Filter 
-		,	sum(Total_2016_TotalDemand) as TotalDemand_2016
-		,	sum(Total_2017_TotalDemand) as TotalDemand_2017
-		,	sum(Total_2018_TotalDemand) as TotalDemand_2018
-		,	sum(Total_2019_TotalDemand) as TotalDemand_2019
-		,	sum(Cal20_TotalDemand) as TotalDemand_2020
-		,	sum(Cal21_TotalDemand) as TotalDemand_2021
-		,	sum(Cal22_TotalDemand) as TotalDemand_2022
-		,	(sum(Total_2017_TotalDemand) - sum(Total_2016_TotalDemand)) as Change_2017
-		,	(sum(Total_2018_TotalDemand) - sum(Total_2017_TotalDemand)) as Change_2018
-		,	(sum(Total_2019_TotalDemand) - sum(Total_2018_TotalDemand)) as Change_2019
-		,	(sum(Cal20_TotalDemand) - sum(Total_2019_TotalDemand)) as Change_2020
-		,	(sum(Cal21_TotalDemand) - sum(Cal20_TotalDemand)) as Change_2021
-		,	(sum(Cal22_TotalDemand) - sum(Cal21_TotalDemand)) as Change_2022
+		,	sum(Cal_16_TotalDemand) as TotalDemand_2016
+		,	sum(Cal_17_TotalDemand) as TotalDemand_2017
+		,	sum(Cal_18_TotalDemand) as TotalDemand_2018
+		,	sum(Cal_19_TotalDemand) as TotalDemand_2019
+		,	sum(Cal_20_TotalDemand) as TotalDemand_2020
+		,	sum(Cal_21_TotalDemand) as TotalDemand_2021
+		,	sum(Cal_22_TotalDemand) as TotalDemand_2022
+		,	sum(Cal_23_TotalDemand) as TotalDemand_2023
+		,	sum(Cal_24_TotalDemand) as TotalDemand_2024
+		,	sum(Cal_25_TotalDemand) as TotalDemand_2025
+		,	(sum(Cal_17_TotalDemand) - sum(Cal_16_TotalDemand)) as Change_2017
+		,	(sum(Cal_18_TotalDemand) - sum(Cal_17_TotalDemand)) as Change_2018
+		,	(sum(Cal_19_TotalDemand) - sum(Cal_18_TotalDemand)) as Change_2019
+		,	(sum(Cal_20_TotalDemand) - sum(Cal_19_TotalDemand)) as Change_2020
+		,	(sum(Cal_21_TotalDemand) - sum(Cal_20_TotalDemand)) as Change_2021
+		,	(sum(Cal_22_TotalDemand) - sum(Cal_21_TotalDemand)) as Change_2022
+		,	(sum(Cal_23_TotalDemand) - sum(Cal_22_TotalDemand)) as Change_2023
+		,	(sum(Cal_24_TotalDemand) - sum(Cal_23_TotalDemand)) as Change_2024
+		,	(sum(Cal_25_TotalDemand) - sum(Cal_24_TotalDemand)) as Change_2025
 		from 
 			eeiuser.acctg_csm_vw_select_sales_forecast sf
 		where
@@ -314,19 +380,25 @@ else if (@Filter = 'Vehicle') begin
 
 		select 
 			'Other' as Filter 
-		,	sum(Total_2016_TotalDemand) as TotalDemand_2016
-		,	sum(Total_2017_TotalDemand) as TotalDemand_2017
-		,	sum(Total_2018_TotalDemand) as TotalDemand_2018
-		,	sum(Total_2019_TotalDemand) as TotalDemand_2019
-		,	sum(Cal20_TotalDemand) as TotalDemand_2020
-		,	sum(Cal21_TotalDemand) as TotalDemand_2021
-		,	sum(Cal22_TotalDemand) as TotalDemand_2022
-		,	(sum(Total_2017_TotalDemand) - sum(Total_2016_TotalDemand)) as Change_2017
-		,	(sum(Total_2018_TotalDemand) - sum(Total_2017_TotalDemand)) as Change_2018
-		,	(sum(Total_2019_TotalDemand) - sum(Total_2018_TotalDemand)) as Change_2019
-		,	(sum(Cal20_TotalDemand) - sum(Total_2019_TotalDemand)) as Change_2020
-		,	(sum(Cal21_TotalDemand) - sum(Cal20_TotalDemand)) as Change_2021
-		,	(sum(Cal22_TotalDemand) - sum(Cal21_TotalDemand)) as Change_2022
+		,	sum(Cal_16_TotalDemand) as TotalDemand_2016
+		,	sum(Cal_17_TotalDemand) as TotalDemand_2017
+		,	sum(Cal_18_TotalDemand) as TotalDemand_2018
+		,	sum(Cal_19_TotalDemand) as TotalDemand_2019
+		,	sum(Cal_20_TotalDemand) as TotalDemand_2020
+		,	sum(Cal_21_TotalDemand) as TotalDemand_2021
+		,	sum(Cal_22_TotalDemand) as TotalDemand_2022
+		,	sum(Cal_23_TotalDemand) as TotalDemand_2023
+		,	sum(Cal_24_TotalDemand) as TotalDemand_2024
+		,	sum(Cal_25_TotalDemand) as TotalDemand_2025
+		,	(sum(Cal_17_TotalDemand) - sum(Cal_16_TotalDemand)) as Change_2017
+		,	(sum(Cal_18_TotalDemand) - sum(Cal_17_TotalDemand)) as Change_2018
+		,	(sum(Cal_19_TotalDemand) - sum(Cal_18_TotalDemand)) as Change_2019
+		,	(sum(Cal_20_TotalDemand) - sum(Cal_19_TotalDemand)) as Change_2020
+		,	(sum(Cal_21_TotalDemand) - sum(Cal_20_TotalDemand)) as Change_2021
+		,	(sum(Cal_22_TotalDemand) - sum(Cal_21_TotalDemand)) as Change_2022
+		,	(sum(Cal_23_TotalDemand) - sum(Cal_22_TotalDemand)) as Change_2023
+		,	(sum(Cal_24_TotalDemand) - sum(Cal_23_TotalDemand)) as Change_2024
+		,	(sum(Cal_25_TotalDemand) - sum(Cal_24_TotalDemand)) as Change_2025
 		from 
 			eeiuser.acctg_csm_vw_select_sales_forecast sf
 		where
@@ -340,19 +412,25 @@ else if (@Filter = 'Vehicle') begin
 
 		select 
 			vehicle as Filter
-		,	sum(Total_2016_TotalDemand) as TotalDemand_2016
-		,	sum(Total_2017_TotalDemand) as TotalDemand_2017
-		,	sum(Total_2018_TotalDemand) as TotalDemand_2018
-		,	sum(Total_2019_TotalDemand) as TotalDemand_2019
-		,	sum(Cal20_TotalDemand) as TotalDemand_2020
-		,	sum(Cal21_TotalDemand) as TotalDemand_2021
-		,	sum(Cal22_TotalDemand) as TotalDemand_2022
-		,	(sum(Total_2017_TotalDemand) - sum(Total_2016_TotalDemand)) as Change_2017
-		,	(sum(Total_2018_TotalDemand) - sum(Total_2017_TotalDemand)) as Change_2018
-		,	(sum(Total_2019_TotalDemand) - sum(Total_2018_TotalDemand)) as Change_2019
-		,	(sum(Cal20_TotalDemand) - sum(Total_2019_TotalDemand)) as Change_2020
-		,	(sum(Cal21_TotalDemand) - sum(Cal20_TotalDemand)) as Change_2021
-		,	(sum(Cal22_TotalDemand) - sum(Cal21_TotalDemand)) as Change_2022
+		,	sum(Cal_16_TotalDemand) as TotalDemand_2016
+		,	sum(Cal_17_TotalDemand) as TotalDemand_2017
+		,	sum(Cal_18_TotalDemand) as TotalDemand_2018
+		,	sum(Cal_19_TotalDemand) as TotalDemand_2019
+		,	sum(Cal_20_TotalDemand) as TotalDemand_2020
+		,	sum(Cal_21_TotalDemand) as TotalDemand_2021
+		,	sum(Cal_22_TotalDemand) as TotalDemand_2022
+		,	sum(Cal_23_TotalDemand) as TotalDemand_2023
+		,	sum(Cal_24_TotalDemand) as TotalDemand_2024
+		,	sum(Cal_25_TotalDemand) as TotalDemand_2025
+		,	(sum(Cal_17_TotalDemand) - sum(Cal_16_TotalDemand)) as Change_2017
+		,	(sum(Cal_18_TotalDemand) - sum(Cal_17_TotalDemand)) as Change_2018
+		,	(sum(Cal_19_TotalDemand) - sum(Cal_18_TotalDemand)) as Change_2019
+		,	(sum(Cal_20_TotalDemand) - sum(Cal_19_TotalDemand)) as Change_2020
+		,	(sum(Cal_21_TotalDemand) - sum(Cal_20_TotalDemand)) as Change_2021
+		,	(sum(Cal_22_TotalDemand) - sum(Cal_21_TotalDemand)) as Change_2022
+		,	(sum(Cal_23_TotalDemand) - sum(Cal_22_TotalDemand)) as Change_2023
+		,	(sum(Cal_24_TotalDemand) - sum(Cal_23_TotalDemand)) as Change_2024
+		,	(sum(Cal_25_TotalDemand) - sum(Cal_24_TotalDemand)) as Change_2025
 		from 
 			eeiuser.acctg_csm_vw_select_sales_forecast sf
 		where
@@ -363,25 +441,31 @@ else if (@Filter = 'Vehicle') begin
 	end
 
 end
-else if (@Filter = 'Program') begin
+else if (@Filter = 'Program' or @Filter = 'Program Forecast') begin
 
 	if (@FilterValue is null) begin
 
 		select 
 			program as Filter 
-		,	sum(Total_2016_TotalDemand) as TotalDemand_2016
-		,	sum(Total_2017_TotalDemand) as TotalDemand_2017
-		,	sum(Total_2018_TotalDemand) as TotalDemand_2018
-		,	sum(Total_2019_TotalDemand) as TotalDemand_2019
-		,	sum(Cal20_TotalDemand) as TotalDemand_2020
-		,	sum(Cal21_TotalDemand) as TotalDemand_2021
-		,	sum(Cal22_TotalDemand) as TotalDemand_2022
-		,	(sum(Total_2017_TotalDemand) - sum(Total_2016_TotalDemand)) as Change_2017
-		,	(sum(Total_2018_TotalDemand) - sum(Total_2017_TotalDemand)) as Change_2018
-		,	(sum(Total_2019_TotalDemand) - sum(Total_2018_TotalDemand)) as Change_2019
-		,	(sum(Cal20_TotalDemand) - sum(Total_2019_TotalDemand)) as Change_2020
-		,	(sum(Cal21_TotalDemand) - sum(Cal20_TotalDemand)) as Change_2021
-		,	(sum(Cal22_TotalDemand) - sum(Cal21_TotalDemand)) as Change_2022
+		,	sum(Cal_16_TotalDemand) as TotalDemand_2016
+		,	sum(Cal_17_TotalDemand) as TotalDemand_2017
+		,	sum(Cal_18_TotalDemand) as TotalDemand_2018
+		,	sum(Cal_19_TotalDemand) as TotalDemand_2019
+		,	sum(Cal_20_TotalDemand) as TotalDemand_2020
+		,	sum(Cal_21_TotalDemand) as TotalDemand_2021
+		,	sum(Cal_22_TotalDemand) as TotalDemand_2022
+		,	sum(Cal_23_TotalDemand) as TotalDemand_2023
+		,	sum(Cal_24_TotalDemand) as TotalDemand_2024
+		,	sum(Cal_25_TotalDemand) as TotalDemand_2025
+		,	(sum(Cal_17_TotalDemand) - sum(Cal_16_TotalDemand)) as Change_2017
+		,	(sum(Cal_18_TotalDemand) - sum(Cal_17_TotalDemand)) as Change_2018
+		,	(sum(Cal_19_TotalDemand) - sum(Cal_18_TotalDemand)) as Change_2019
+		,	(sum(Cal_20_TotalDemand) - sum(Cal_19_TotalDemand)) as Change_2020
+		,	(sum(Cal_21_TotalDemand) - sum(Cal_20_TotalDemand)) as Change_2021
+		,	(sum(Cal_22_TotalDemand) - sum(Cal_21_TotalDemand)) as Change_2022
+		,	(sum(Cal_23_TotalDemand) - sum(Cal_22_TotalDemand)) as Change_2023
+		,	(sum(Cal_24_TotalDemand) - sum(Cal_23_TotalDemand)) as Change_2024
+		,	(sum(Cal_25_TotalDemand) - sum(Cal_24_TotalDemand)) as Change_2025
 		from 
 			eeiuser.acctg_csm_vw_select_sales_forecast sf
 		where
@@ -393,19 +477,25 @@ else if (@Filter = 'Program') begin
 
 		select 
 			'Other' as Filter 
-		,	sum(Total_2016_TotalDemand) as TotalDemand_2016
-		,	sum(Total_2017_TotalDemand) as TotalDemand_2017
-		,	sum(Total_2018_TotalDemand) as TotalDemand_2018
-		,	sum(Total_2019_TotalDemand) as TotalDemand_2019
-		,	sum(Cal20_TotalDemand) as TotalDemand_2020
-		,	sum(Cal21_TotalDemand) as TotalDemand_2021
-		,	sum(Cal22_TotalDemand) as TotalDemand_2022
-		,	(sum(Total_2017_TotalDemand) - sum(Total_2016_TotalDemand)) as Change_2017
-		,	(sum(Total_2018_TotalDemand) - sum(Total_2017_TotalDemand)) as Change_2018
-		,	(sum(Total_2019_TotalDemand) - sum(Total_2018_TotalDemand)) as Change_2019
-		,	(sum(Cal20_TotalDemand) - sum(Total_2019_TotalDemand)) as Change_2020
-		,	(sum(Cal21_TotalDemand) - sum(Cal20_TotalDemand)) as Change_2021
-		,	(sum(Cal22_TotalDemand) - sum(Cal21_TotalDemand)) as Change_2022
+		,	sum(Cal_16_TotalDemand) as TotalDemand_2016
+		,	sum(Cal_17_TotalDemand) as TotalDemand_2017
+		,	sum(Cal_18_TotalDemand) as TotalDemand_2018
+		,	sum(Cal_19_TotalDemand) as TotalDemand_2019
+		,	sum(Cal_20_TotalDemand) as TotalDemand_2020
+		,	sum(Cal_21_TotalDemand) as TotalDemand_2021
+		,	sum(Cal_22_TotalDemand) as TotalDemand_2022
+		,	sum(Cal_23_TotalDemand) as TotalDemand_2023
+		,	sum(Cal_24_TotalDemand) as TotalDemand_2024
+		,	sum(Cal_25_TotalDemand) as TotalDemand_2025
+		,	(sum(Cal_17_TotalDemand) - sum(Cal_16_TotalDemand)) as Change_2017
+		,	(sum(Cal_18_TotalDemand) - sum(Cal_17_TotalDemand)) as Change_2018
+		,	(sum(Cal_19_TotalDemand) - sum(Cal_18_TotalDemand)) as Change_2019
+		,	(sum(Cal_20_TotalDemand) - sum(Cal_19_TotalDemand)) as Change_2020
+		,	(sum(Cal_21_TotalDemand) - sum(Cal_20_TotalDemand)) as Change_2021
+		,	(sum(Cal_22_TotalDemand) - sum(Cal_21_TotalDemand)) as Change_2022
+		,	(sum(Cal_23_TotalDemand) - sum(Cal_22_TotalDemand)) as Change_2023
+		,	(sum(Cal_24_TotalDemand) - sum(Cal_23_TotalDemand)) as Change_2024
+		,	(sum(Cal_25_TotalDemand) - sum(Cal_24_TotalDemand)) as Change_2025
 		from 
 			eeiuser.acctg_csm_vw_select_sales_forecast sf
 		where
@@ -419,19 +509,25 @@ else if (@Filter = 'Program') begin
 
 		select 
 			program as Filter
-		,	sum(Total_2016_TotalDemand) as TotalDemand_2016
-		,	sum(Total_2017_TotalDemand) as TotalDemand_2017
-		,	sum(Total_2018_TotalDemand) as TotalDemand_2018
-		,	sum(Total_2019_TotalDemand) as TotalDemand_2019
-		,	sum(Cal20_TotalDemand) as TotalDemand_2020
-		,	sum(Cal21_TotalDemand) as TotalDemand_2021
-		,	sum(Cal22_TotalDemand) as TotalDemand_2022
-		,	(sum(Total_2017_TotalDemand) - sum(Total_2016_TotalDemand)) as Change_2017
-		,	(sum(Total_2018_TotalDemand) - sum(Total_2017_TotalDemand)) as Change_2018
-		,	(sum(Total_2019_TotalDemand) - sum(Total_2018_TotalDemand)) as Change_2019
-		,	(sum(Cal20_TotalDemand) - sum(Total_2019_TotalDemand)) as Change_2020
-		,	(sum(Cal21_TotalDemand) - sum(Cal20_TotalDemand)) as Change_2021
-		,	(sum(Cal22_TotalDemand) - sum(Cal21_TotalDemand)) as Change_2022
+		,	sum(Cal_16_TotalDemand) as TotalDemand_2016
+		,	sum(Cal_17_TotalDemand) as TotalDemand_2017
+		,	sum(Cal_18_TotalDemand) as TotalDemand_2018
+		,	sum(Cal_19_TotalDemand) as TotalDemand_2019
+		,	sum(Cal_20_TotalDemand) as TotalDemand_2020
+		,	sum(Cal_21_TotalDemand) as TotalDemand_2021
+		,	sum(Cal_22_TotalDemand) as TotalDemand_2022
+		,	sum(Cal_23_TotalDemand) as TotalDemand_2023
+		,	sum(Cal_24_TotalDemand) as TotalDemand_2024
+		,	sum(Cal_25_TotalDemand) as TotalDemand_2025
+		,	(sum(Cal_17_TotalDemand) - sum(Cal_16_TotalDemand)) as Change_2017
+		,	(sum(Cal_18_TotalDemand) - sum(Cal_17_TotalDemand)) as Change_2018
+		,	(sum(Cal_19_TotalDemand) - sum(Cal_18_TotalDemand)) as Change_2019
+		,	(sum(Cal_20_TotalDemand) - sum(Cal_19_TotalDemand)) as Change_2020
+		,	(sum(Cal_21_TotalDemand) - sum(Cal_20_TotalDemand)) as Change_2021
+		,	(sum(Cal_22_TotalDemand) - sum(Cal_21_TotalDemand)) as Change_2022
+		,	(sum(Cal_23_TotalDemand) - sum(Cal_22_TotalDemand)) as Change_2023
+		,	(sum(Cal_24_TotalDemand) - sum(Cal_23_TotalDemand)) as Change_2024
+		,	(sum(Cal_25_TotalDemand) - sum(Cal_24_TotalDemand)) as Change_2025
 		from 
 			eeiuser.acctg_csm_vw_select_sales_forecast sf
 		where
@@ -442,25 +538,31 @@ else if (@Filter = 'Program') begin
 	end
 
 end
-else if (@Filter = 'Product Line') begin
+else if (@Filter = 'Product Line' or @Filter = 'Product Line Actual') begin
 
 	if (@FilterValue is null) begin
 
 		select 
 			product_line as Filter 
-		,	sum(Total_2016_TotalDemand) as TotalDemand_2016
-		,	sum(Total_2017_TotalDemand) as TotalDemand_2017
-		,	sum(Total_2018_TotalDemand) as TotalDemand_2018
-		,	sum(Total_2019_TotalDemand) as TotalDemand_2019
-		,	sum(Cal20_TotalDemand) as TotalDemand_2020
-		,	sum(Cal21_TotalDemand) as TotalDemand_2021
-		,	sum(Cal22_TotalDemand) as TotalDemand_2022
-		,	(sum(Total_2017_TotalDemand) - sum(Total_2016_TotalDemand)) as Change_2017
-		,	(sum(Total_2018_TotalDemand) - sum(Total_2017_TotalDemand)) as Change_2018
-		,	(sum(Total_2019_TotalDemand) - sum(Total_2018_TotalDemand)) as Change_2019
-		,	(sum(Cal20_TotalDemand) - sum(Total_2019_TotalDemand)) as Change_2020
-		,	(sum(Cal21_TotalDemand) - sum(Cal20_TotalDemand)) as Change_2021
-		,	(sum(Cal22_TotalDemand) - sum(Cal21_TotalDemand)) as Change_2022
+		,	sum(Cal_16_TotalDemand) as TotalDemand_2016
+		,	sum(Cal_17_TotalDemand) as TotalDemand_2017
+		,	sum(Cal_18_TotalDemand) as TotalDemand_2018
+		,	sum(Cal_19_TotalDemand) as TotalDemand_2019
+		,	sum(Cal_20_TotalDemand) as TotalDemand_2020
+		,	sum(Cal_21_TotalDemand) as TotalDemand_2021
+		,	sum(Cal_22_TotalDemand) as TotalDemand_2022
+		,	sum(Cal_23_TotalDemand) as TotalDemand_2023
+		,	sum(Cal_24_TotalDemand) as TotalDemand_2024
+		,	sum(Cal_25_TotalDemand) as TotalDemand_2025
+		,	(sum(Cal_17_TotalDemand) - sum(Cal_16_TotalDemand)) as Change_2017
+		,	(sum(Cal_18_TotalDemand) - sum(Cal_17_TotalDemand)) as Change_2018
+		,	(sum(Cal_19_TotalDemand) - sum(Cal_18_TotalDemand)) as Change_2019
+		,	(sum(Cal_20_TotalDemand) - sum(Cal_19_TotalDemand)) as Change_2020
+		,	(sum(Cal_21_TotalDemand) - sum(Cal_20_TotalDemand)) as Change_2021
+		,	(sum(Cal_22_TotalDemand) - sum(Cal_21_TotalDemand)) as Change_2022
+		,	(sum(Cal_23_TotalDemand) - sum(Cal_22_TotalDemand)) as Change_2023
+		,	(sum(Cal_24_TotalDemand) - sum(Cal_23_TotalDemand)) as Change_2024
+		,	(sum(Cal_25_TotalDemand) - sum(Cal_24_TotalDemand)) as Change_2025
 		from 
 			eeiuser.acctg_csm_vw_select_sales_forecast sf
 		where
@@ -475,19 +577,25 @@ else if (@Filter = 'Product Line') begin
 
 		select 
 			product_line as Filter
-		,	sum(Total_2016_TotalDemand) as TotalDemand_2016
-		,	sum(Total_2017_TotalDemand) as TotalDemand_2017
-		,	sum(Total_2018_TotalDemand) as TotalDemand_2018
-		,	sum(Total_2019_TotalDemand) as TotalDemand_2019
-		,	sum(Cal20_TotalDemand) as TotalDemand_2020
-		,	sum(Cal21_TotalDemand) as TotalDemand_2021
-		,	sum(Cal22_TotalDemand) as TotalDemand_2022
-		,	(sum(Total_2017_TotalDemand) - sum(Total_2016_TotalDemand)) as Change_2017
-		,	(sum(Total_2018_TotalDemand) - sum(Total_2017_TotalDemand)) as Change_2018
-		,	(sum(Total_2019_TotalDemand) - sum(Total_2018_TotalDemand)) as Change_2019
-		,	(sum(Cal20_TotalDemand) - sum(Total_2019_TotalDemand)) as Change_2020
-		,	(sum(Cal21_TotalDemand) - sum(Cal20_TotalDemand)) as Change_2021
-		,	(sum(Cal22_TotalDemand) - sum(Cal21_TotalDemand)) as Change_2022
+		,	sum(Cal_16_TotalDemand) as TotalDemand_2016
+		,	sum(Cal_17_TotalDemand) as TotalDemand_2017
+		,	sum(Cal_18_TotalDemand) as TotalDemand_2018
+		,	sum(Cal_19_TotalDemand) as TotalDemand_2019
+		,	sum(Cal_20_TotalDemand) as TotalDemand_2020
+		,	sum(Cal_21_TotalDemand) as TotalDemand_2021
+		,	sum(Cal_22_TotalDemand) as TotalDemand_2022
+		,	sum(Cal_23_TotalDemand) as TotalDemand_2023
+		,	sum(Cal_24_TotalDemand) as TotalDemand_2024
+		,	sum(Cal_25_TotalDemand) as TotalDemand_2025
+		,	(sum(Cal_17_TotalDemand) - sum(Cal_16_TotalDemand)) as Change_2017
+		,	(sum(Cal_18_TotalDemand) - sum(Cal_17_TotalDemand)) as Change_2018
+		,	(sum(Cal_19_TotalDemand) - sum(Cal_18_TotalDemand)) as Change_2019
+		,	(sum(Cal_20_TotalDemand) - sum(Cal_19_TotalDemand)) as Change_2020
+		,	(sum(Cal_21_TotalDemand) - sum(Cal_20_TotalDemand)) as Change_2021
+		,	(sum(Cal_22_TotalDemand) - sum(Cal_21_TotalDemand)) as Change_2022
+		,	(sum(Cal_23_TotalDemand) - sum(Cal_22_TotalDemand)) as Change_2023
+		,	(sum(Cal_24_TotalDemand) - sum(Cal_23_TotalDemand)) as Change_2024
+		,	(sum(Cal_25_TotalDemand) - sum(Cal_24_TotalDemand)) as Change_2025
 		from 
 			eeiuser.acctg_csm_vw_select_sales_forecast sf
 		where

@@ -252,7 +252,7 @@ begin
 						from
 							TOPS.HolidaySchedule hs
 						where
-							datediff(week, @ThisMonday, hs.SchedulingDT) + 1 = c.WeekNo
+							datediff(week, @ThisMonday, hs.EEIContainerDT) + 1 = c.WeekNo
 					) hs
 
 			--- <TOC>

@@ -1,0 +1,30 @@
+﻿@using EmpirePortal.Mvc.Controllers.Evision
+@model LegacyViewModel
+
+    <div id="frameContainer">
+        <iframe id="LegacyFrame" width="100%" height="800" src="@Model.LegacyUrl"></iframe>
+    </div>
+
+    @section AdditionalResources {
+        <script>
+            $(document).ready((s, e) => {
+                var LegacyFrame = document.getElementById("LegacyFrame");
+
+                $(window).on("resize",
+                    function () {
+                        adjustHeight(LegacyFrame);
+                    });
+
+                adjustHeight(LegacyFrame);
+            });
+
+            function adjustHeight(legacyFrame) {
+                var height = document.getElementById("FooterPane").getBoundingClientRect().y -
+                    legacyFrame.getBoundingClientRect().y -
+                    30;
+                legacyFrame.height = height;
+                $("#frameContainer").css("visibility", "");
+            }
+
+        </script>
+    }

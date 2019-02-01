@@ -19,7 +19,8 @@ CREATE TABLE [dbo].[part_characteristics]
 [lbs_plastics_waste] [numeric] (14, 10) NULL,
 [plastics_recycling_rate] [numeric] (14, 10) NULL,
 [lbs_recycling_rate] [numeric] (20, 6) NULL CONSTRAINT [DF__part_char__lbs_r__0B129727] DEFAULT ((0)),
-[InfoRecord] [varchar] (15) COLLATE SQL_Latin1_General_CP1_CI_AS NULL
+[InfoRecord] [varchar] (15) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
+[IndexNo] [varchar] (15) COLLATE SQL_Latin1_General_CP1_CI_AS NULL
 ) ON [PRIMARY]
 GO
 ALTER TABLE [dbo].[part_characteristics] ADD CONSTRAINT [PK__part_characteris__3F7B726E] PRIMARY KEY CLUSTERED  ([part]) ON [PRIMARY]

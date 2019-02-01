@@ -3,23 +3,25 @@ GO
 SET ANSI_NULLS ON
 GO
 
-create view [EDI_XML_NORPLAS_ASN].[ASNObjects]
-as
-select
+
+CREATE VIEW [EDI_XML_NORPLAS_ASN].[ASNObjects]
+AS
+SELECT
 	ShipperID = s.id
 ,	CustomerPart = sd.customer_part
-,	PackQty = convert(int,(at.quantity))
-,	PackType = coalesce(at.package_type, 'CNT90')
-,	ParentSerialN = coalesce(at.parent_serial, 0)
+,	PackQty = CONVERT(INT,(at.quantity))
+,	PackType = COALESCE(NULLIF(at.package_type,''), 'CTN90')
+,	ParentSerialN = COALESCE(at.parent_serial, 0)
 ,	SerialN = at.serial
-from
+FROM
 	dbo.shipper s
-	join dbo.shipper_detail sd
-		on sd.shipper = s.id
-	join dbo.audit_trail at
-		on at.type ='S'
-		and at.shipper = convert(varchar, sd.shipper)
-		and at.part = sd.part
-where
-	coalesce(s.type, 'N') in ('N', 'M')
+	JOIN dbo.shipper_detail sd
+		ON sd.shipper = s.id
+	JOIN dbo.audit_trail at
+		ON at.type ='S'
+		AND at.shipper = CONVERT(VARCHAR, sd.shipper)
+		AND at.part = sd.part
+WHERE
+	COALESCE(s.type, 'N') IN ('N', 'M')
+
 GO

@@ -41,9 +41,12 @@ CREATE TABLE [EEIUser].[QT_QuoteLog]
 [TotalQuotedSales] AS ([QuotePrice]*[EAU]),
 [QuoteStatus] [varchar] (10) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
 [Awarded] [char] (3) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
+[AwardedDate] [datetime] NULL,
 [ProductionLevel] [varchar] (25) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
 [RevLevel] [varchar] (50) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
 [ProductionMaterialRollup] [numeric] (20, 6) NULL,
+[EmpireMarketSegment] [varchar] (200) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
+[EmpireMarketSubsegment] [varchar] (200) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
 [RowID] [int] NOT NULL IDENTITY(1, 1),
 [RowCreateDT] [datetime] NULL CONSTRAINT [DF__QT_QuoteL__RowCr__34C8720E] DEFAULT (getdate()),
 [RowCreateUser] [sys].[sysname] NOT NULL CONSTRAINT [DF__QT_QuoteL__RowCr__35BC9647] DEFAULT (suser_name()),
@@ -61,8 +64,15 @@ CREATE TABLE [EEIUser].[QT_QuoteLog]
 [CustomerQuoteFilePath] [varchar] (255) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
 [StdHours] [numeric] (20, 4) NULL,
 [PackageNumber] [varchar] (20) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
-[NumberOfDaysLate] AS ([EEIUser].[fn_QT_GetDaysLateForQuote]([QuoteNumber]))
-) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+[NumberOfDaysLate] AS ([EEIUser].[fn_QT_GetDaysLateForQuote]([QuoteNumber])),
+[ProductLine] [varchar] (25) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
+[QuoteReason] [varchar] (100) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
+[FileServerQuotePrint] [varchar] (50) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
+[FileServerCustomerQuote] [varchar] (50) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
+[MinimumOrderQuantity] [int] NULL,
+[QuoteTransferComplete] [char] (1) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
+[QuoteTransferCompletedDate] [datetime] NULL
+) ON [PRIMARY]
 GO
 SET QUOTED_IDENTIFIER ON
 GO
@@ -99,7 +109,6 @@ begin try
 
 	set	@TranCount = @@TranCount
 	set	@TranDT = coalesce(@TranDT, GetDate())
-	save tran @ProcName
 	--- </Tran>
 
 	---	<ArgumentValidation>
@@ -212,7 +221,6 @@ begin try
 
 	set	@TranCount = @@TranCount
 	set	@TranDT = coalesce(@TranDT, GetDate())
-	save tran @ProcName
 	--- </Tran>
 
 	---	<ArgumentValidation>
@@ -406,7 +414,6 @@ begin try
 
 	set	@TranCount = @@TranCount
 	set	@TranDT = coalesce(@TranDT, GetDate())
-	save tran @ProcName
 	--- </Tran>
 
 	---	<ArgumentValidation>

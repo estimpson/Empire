@@ -154,7 +154,7 @@ update
 	cegl
 set	CurrentFilePath = redOutboundFiles.file_stream.GetFileNamespacePath()
 from
-	EEISQL1.MONITOR.dbo.CustomerEDI_GenerationLog cegl
+	MONITOR.dbo.CustomerEDI_GenerationLog cegl
 	join dbo.RawEDIData redOutboundFolder
 		join dbo.RawEDIData redOutboundFiles
 			on redOutboundFiles.parent_path_locator = redOutboundFolder.path_locator
@@ -196,7 +196,7 @@ select
 execute as login = 'empireelect\estimpson'
 
 declare
-	@Command varchar(max) = '\\srvsql2\fx\FxEDI\RawEDIData\CustomerEDI_TestMailBox\FTPCommands\SendOutbound_v3.cmd'
+	@Command varchar(max) = '\\eei-sqlpwv03\MSSQLSERVER\FxEDI\RawEDIData\CustomerEDI_TestMailBox\FTPCommands\SendOutbound_v3.cmd'
 ,	@CommandOutput varchar(max)
 
 /*	Perform ftp. */
@@ -277,7 +277,7 @@ update
 set	CurrentFilePath = redOutboundFiles.file_stream.GetFileNamespacePath()
 ,	FileSendDT = getdate()
 from
-	EEISQL1.MONITOR.dbo.CustomerEDI_GenerationLog cegl
+	MONITOR.dbo.CustomerEDI_GenerationLog cegl
 	join dbo.RawEDIData redOutboundFolder
 		join dbo.RawEDIData redOutboundFiles
 			on redOutboundFiles.parent_path_locator = redOutboundFolder.path_locator

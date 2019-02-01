@@ -1,0 +1,3 @@
+CREATE SCHEMA [ediFordic]
+AUTHORIZATION [dbo]
+GO

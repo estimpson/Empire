@@ -4,6 +4,7 @@ SET ANSI_NULLS ON
 GO
 
 
+--SELECT * FROM shipper WHERE Status = 'S'
 
 
 
@@ -13,7 +14,7 @@ CREATE PROCEDURE [dbo].[eeisp_form_d_eei_shipper] ( @shipper VARCHAR(15) )
 AS 
     BEGIN
     
- -- [dbo].[eeisp_form_d_eei_shipper] 113881
+ -- [dbo].[eeisp_form_d_eei_shipper] 117354 
 
  
  /*if exists (	select	1 
@@ -129,7 +130,8 @@ End*/
 					WHEN part.product_line LIKE '%ES3%' THEN 1
 					WHEN part.product_line LIKE '%EPL%' THEN 2
 				ELSE 0
-				END AS Logo
+				END AS Logo,
+				StagedObjects = StagedSerials.SerialCount
                
         FROM    shipper
                 JOIN 
@@ -169,12 +171,23 @@ End*/
                         
 						ORDER BY ph.DocumentDT DESC	
 					) AutoSystemsEDIRelease
+					OUTER APPLY
+					( SELECT Count(object.serial) SerialCount
+						FROM 
+							object
+						 WHERE 
+							Object.shipper = shipper.id
+							AND part ! = 'PALLET'
+						
+                
+					) StagedSerials
 				 
                 CROSS JOIN dbo.parameters
         WHERE   ( ( CONVERT (VARCHAR(15), id) = @shipper  ) )    
 		
 
     END
+
 
 
 

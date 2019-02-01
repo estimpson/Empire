@@ -2,6 +2,8 @@ SET QUOTED_IDENTIFIER ON
 GO
 SET ANSI_NULLS ON
 GO
+
+
 CREATE view [EDI_XML_VALEO_ASN].[ASNHeaders]
 as
 select
@@ -20,7 +22,7 @@ select
 ,	TransMode = s.trans_mode
 ,	EquipDesc = coalesce(es.equipment_description, 'TL')
 ,	EquipInitial = coalesce(bol.equipment_initial, s.ship_via)
-,	TruckNumber = coalesce(s.truck_number, s.id)
+,	TruckNumber = coalesce(nullif(s.truck_number,''), convert(varchar(25),s.id))
 ,	ShipToID = coalesce(es.EDIShipToID, es.parent_destination, es.destination)
 ,	ShipToName = d.name
 ,	SupplierCode = coalesce(es.supplier_code, 'US0811')
@@ -33,4 +35,6 @@ from
 		on d.destination = s.destination
 	left join dbo.bill_of_lading bol 
 			on s.bill_of_lading_number = bol_number
+
+
 GO

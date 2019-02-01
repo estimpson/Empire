@@ -223,7 +223,7 @@ END
 		on_hand,
 		shipper, field1, suffix, sequence, custom1,
 		custom2, custom3, custom4, custom5
-		, parent_serial, ShipperToRAN )
+		, parent_serial, ShipperToRAN, warehousefreightlot )
 	SELECT	serial,last_date,
 		type = 'T',part, quantity, remarks = 'Transfer',
 		operator,from_loc = @FromLoc,
@@ -235,7 +235,7 @@ END
 		user_defined_status,
 		on_hand =0,shipper, field1,
 		suffix, sequence, custom1,
-		custom2, custom3, custom4, custom5, parent_serial, ShipperToRAN
+		custom2, custom3, custom4, custom5, parent_serial, ShipperToRAN, warehousefreightlot
 	FROM	object
 	WHERE	serial = @Serial
 
@@ -268,7 +268,7 @@ END
 		package_type,	std_cost,
 		user_defined_status, field1,
 		suffix, sequence, custom1,
-		custom2, custom3, custom4, custom5, parent_serial, ShipperToRAN )
+		custom2, custom3, custom4, custom5, parent_serial, ShipperToRAN, warehousefreightlot )
 	select Serial,
 		last_date, Type = 'T', part,
 		quantity, Remarks= 'Transfer', operator,
@@ -276,7 +276,7 @@ END
 		unit_measure, std_quantity, plant, @note,
 		package_type, cost, user_defined_status,
 		field1, suffix, sequence, custom1,
-		custom2, custom3, custom4, custom5, parent_serial, ShipperToRAN
+		custom2, custom3, custom4, custom5, parent_serial, ShipperToRAN, warehousefreightlot
 	FROM object
 	Where Parent_serial = @Serial
 
