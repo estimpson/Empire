@@ -2,11 +2,7 @@ SET QUOTED_IDENTIFIER ON
 GO
 SET ANSI_NULLS ON
 GO
-
-
-
-
-CREATE PROCEDURE [EDIEDIFACT04A].[usp_Process]
+CREATE procedure [EDIEDIFACT04A].[usp_Process]
 	@TranDT DATETIME = NULL OUT
 ,	@Result INTEGER = NULL OUT
 ,	@Testing INT = 1
@@ -1018,7 +1014,7 @@ insert
 select
 		bor.OrderNo
 ,   bor.ReleaseNo
-,   bor.ReleaseDT
+,   coalesce(bor.ReleaseDT, FT.fn_TruncDate_monday('wk', getdate())) -- null when there are "BackOrder" releases.
 ,		bor.Type
 ,   sum(bor.QtyRelease)
 from
@@ -1392,7 +1388,7 @@ end
 /* Start E-Mail Alerts and Exceptions*/
 
 Declare @EDIOrdersAlert table (
-	TradingPartner varchar(30) NULL,
+	TradingPartner varchar(100) NULL,
 	DocumentType varchar(30) NULL, --'PR - Planning Release; SS - ShipSchedule'
 	AlertType varchar(100) NULL,
 	ReleaseNo varchar(100) NULL,
@@ -1963,9 +1959,6 @@ set	@Error = @@error
 
 select
 	@Error, @ProcReturn, @TranDT, @ProcResult
-go
-
-
 go
 
 --commit transaction
