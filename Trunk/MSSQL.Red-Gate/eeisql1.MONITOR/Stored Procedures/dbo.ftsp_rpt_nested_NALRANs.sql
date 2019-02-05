@@ -3,6 +3,7 @@ GO
 SET ANSI_NULLS ON
 GO
 
+
 CREATE PROCEDURE [dbo].[ftsp_rpt_nested_NALRANs]
 	@ShipperID INT
 ,	@OrderNo INT
@@ -15,7 +16,7 @@ IF	EXISTS
 			dbo.shipper s
 		WHERE
 			s.id = @shipperID
-			AND s.destination = 'NALPARIS'
+			AND s.destination = '_xxxxNALPARIS'
 	) BEGIN
 	
 	--- <Call>

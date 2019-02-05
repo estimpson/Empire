@@ -16,6 +16,7 @@ GO
 
 
 
+
 CREATE FUNCTION [FT].[fn_ReturnSchedulerEMailAddress]
 (	@SchedulerInitials NVARCHAR(MAX)
 )
@@ -28,7 +29,7 @@ BEGIN
 
 	SELECT @EmailAddress
 		= (CASE COALESCE(UPPER(@SchedulerInitials),'')
-						WHEN 'ERAM'			THEN 'ecramos@empire.hn'
+						WHEN 'SZ'			THEN 'syhernandez@empire.hn'
 						WHEN 'GU'			THEN 'gurbina@empireelect.com'
 						WHEN 'JST'			THEN 'JStoehr@empireelect.com;SSawyers@empireelect.com '
 						WHEN 'SSAW'			THEN 'JStoehr@empireelect.com;SSawyers@empireelect.com '

@@ -4,6 +4,7 @@ SET ANSI_NULLS ON
 GO
 
 
+
 CREATE	VIEW [dbo].[vw_eei_form_std_bol]
 AS
 SELECT		
@@ -35,7 +36,8 @@ SELECT
 			MAX(c2.address_3) AS tpb_add3,
 			MAX(c2.address_4) AS tpb_add4,
 			MAX(c2.address_5) AS tpb_add5,
-			MIN(shipper.id) AS shipper_id	 
+			MIN(shipper.id) AS shipper_id,
+			coalesce(nullif(edi_setups.edishiptoID,''), edi_setups.parent_destination) as EDIPlantCode	 
 FROM 	bill_of_lading
 JOIN		shipper ON bill_of_lading.bol_number = CONVERT (INT,shipper.bill_of_lading_number)
 LEFT JOIN	carrier ON   bill_of_lading.scac_pickup = carrier.scac
@@ -75,6 +77,7 @@ GROUP BY		destination.address_1,
 			COALESCE(PlantAdd1, parameters.address_1) , 
 			COALESCE(PlantAdd2, parameters.address_2 ) , 
 			COALESCE(PlantAdd3, parameters.address_3 ) ,
-			parameters.phone_number
+			parameters.phone_number,
+			coalesce(nullif(edi_setups.edishiptoID,''), edi_setups.parent_destination)
 
 GO

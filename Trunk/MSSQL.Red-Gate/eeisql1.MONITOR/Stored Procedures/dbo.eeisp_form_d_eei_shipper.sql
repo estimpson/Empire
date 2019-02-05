@@ -4,6 +4,7 @@ SET ANSI_NULLS ON
 GO
 
 
+
 --SELECT * FROM shipper WHERE Status = 'S'
 
 
@@ -14,8 +15,9 @@ CREATE PROCEDURE [dbo].[eeisp_form_d_eei_shipper] ( @shipper VARCHAR(15) )
 AS 
     BEGIN
     
- -- [dbo].[eeisp_form_d_eei_shipper] 117354 
+ -- [dbo].[eeisp_form_d_eei_shipper] 126808 
 
+ -- 02/05/2019 ASB : Added last column to get palnt code for packing slip ; requested bt FedMogul Lighting Juarez. Added additional conditions to case staements for company name and log to mirror invoice form
  
  /*if exists (	select	1 
 			from		shipper_detail
@@ -84,11 +86,28 @@ End*/
 							WHEN Shipper.customer = 'ES3DUNCANB' THEN parameters.company_name
 							WHEN Shipper.customer = 'ES3SUMMIT' THEN parameters.company_name
 							WHEN Shipper.customer = 'ES3AUTO' THEN parameters.company_name
-							WHEN product_line LIKE '%ES3%' THEN 'ES3 COMPONENTS' ELSE parameters.company_name END),parameters.company_name) ,
-                COALESCE((CASE WHEN product_line LIKE '%EPL%' THEN '270 REX BLVD. AUBURN HILLS, MI 48236-2953' WHEN product_line LIKE '%ES3%' THEN parameters.address_1 ELSE parameters.address_1 END),parameters.address_1) ,
-                 COALESCE((CASE WHEN product_line LIKE '%EPL%' THEN '' WHEN product_line LIKE '%ES3%' THEN parameters.address_2 ELSE parameters.address_2 END),parameters.address_2) ,
+							WHEN Shipper.customer = 'ES3HELLA' THEN parameters.company_name
+							WHEN Shipper.customer = 'MOLEX' THEN parameters.company_name
+							WHEN Shipper.customer = 'APTIV' THEN parameters.company_name
+							WHEN product_line LIKE '%ES3%' THEN 'ES3 COMPONENTS' ELSE parameters.company_name END),
+							parameters.company_name) ,
+                COALESCE((	CASE WHEN product_line LIKE '%EPL%' 
+							THEN '270 REX BLVD. AUBURN HILLS, MI 48236-2953' 
+							WHEN product_line LIKE '%ES3%' 
+							THEN parameters.address_1 
+							ELSE parameters.address_1 END),
+							parameters.address_1) ,
+                 COALESCE((CASE WHEN product_line LIKE '%EPL%' 
+							THEN '' 
+							WHEN product_line LIKE '%ES3%' 
+							THEN parameters.address_2 
+							ELSE parameters.address_2 END),parameters.address_2) ,
                 parameters.address_3 ,
-                COALESCE((CASE WHEN product_line LIKE '%EPL%' THEN '(248)-853-6363' WHEN product_line LIKE '%ES3%' THEN parameters.phone_number ELSE parameters.phone_number END),parameters.phone_number) ,
+                COALESCE((CASE WHEN product_line LIKE '%EPL%' 
+							THEN '(248)-853-6363' 
+							WHEN product_line LIKE '%ES3%' 
+							THEN parameters.phone_number 
+							ELSE parameters.phone_number END),parameters.phone_number) ,
                 shipper.trans_mode ,
                 part_inventory.standard_pack ,
                 part_inventory.standard_unit ,
@@ -127,11 +146,15 @@ End*/
 					WHEN Shipper.customer = 'ES3DUNCANB' THEN 0
 					WHEN Shipper.customer = 'ES3SUMMIT' THEN 0
 					WHEN Shipper.customer = 'ES3AUTO' THEN 0
+					WHEN Shipper.customer = 'ES3HELLA' THEN 0
+					WHEN Shipper.customer = 'MOLEX' THEN 0
+					WHEN Shipper.customer = 'APTIV' THEN 0
 					WHEN part.product_line LIKE '%ES3%' THEN 1
 					WHEN part.product_line LIKE '%EPL%' THEN 2
 				ELSE 0
 				END AS Logo,
-				StagedObjects = StagedSerials.SerialCount
+				StagedObjects = StagedSerials.SerialCount,
+				EDIPlantCode = coalesce(nullif(edi_setups.edishiptoID,''), edi_setups.parent_destination)
                
         FROM    shipper
                 JOIN 

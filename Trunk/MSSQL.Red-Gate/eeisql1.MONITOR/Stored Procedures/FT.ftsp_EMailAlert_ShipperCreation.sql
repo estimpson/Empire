@@ -14,9 +14,12 @@ GO
 
 
 
+
+
 CREATE PROCEDURE [FT].[ftsp_EMailAlert_ShipperCreation] 
 
 --Returns  shipper_detail data in an EMail aleret sent to EEI Schedulers and EEIShipping; it is called by insert trigger on shipper table
+--01/30/2019 ASB FT, LLC : Added EEG to case statement per Juan's request; now only sending alerts for shippers where type is NULL
 		 @shipper INT
 		,@TranDT DATETIME OUT
 		,@Result INTEGER OUT
@@ -82,7 +85,8 @@ FROM
 JOIN
 		destination d ON d.destination = s.destination
 	WHERE s.id = @shipper and
-			s.destination not like 'EMPHON%'
+		  s.destination not like 'EMPHON%' and
+		  s.type is NULL
 		
 	
 		-- Create HTML and E-Mail
@@ -100,6 +104,7 @@ SELECT @ShippingEmailAddress
 = CASE  WHEN plant = 'EEA' then 'mcalix@empireelect.com;JBucy@empireelect.com'
 		WHEN plant = 'EEP' then 'RDominguez@empireelect.com;salvadorperez@pilotdelivers.com'
 		When plant = 'EEI' then 'shipping@empireelect.com'
+		When plant = 'EEG' then 'jaquino@ew-gl.com;sreyes@ew-gl.com;nsaldate@ew-gl.com;mcalix@empireelect.com;jlopez@ew-gl.com;'
 		ELSE ''
 		END
 From
