@@ -6,11 +6,12 @@ GO
 
 
 
+
 -- select distinct(forecast_name), time_stamp from eeiuser.sales_1 where time_stamp >= '2015-10-01' order by time_stamp
 
 -- delete from eeiuser.sales_1 where forecast_name = '2018/08 OSF' and time_stamp = '2018-10-28 18:00:00'
 
--- exec eeiuser.acctg_sales_sp_insert_official_forecast '2018/10 OSF', '2018-10-29 18:00:00'
+-- exec eeiuser.acctg_sales_sp_insert_official_forecast '2018/12 OSF', '2019-02-07 18:00:00'
 
 
 CREATE procedure [EEIUser].[acctg_sales_sp_insert_official_forecast]
@@ -63,6 +64,19 @@ declare @b table
 	 Nov_20_TOTALDEMAND decimal(18,6), 
 	 Dec_20_TOTALDEMAND decimal(18,6),
 
+	 --Jan_21_TOTALDEMAND decimal(18,6), 
+	 --Feb_21_TOTALDEMAND decimal(18,6), 
+	 --Mar_21_TOTALDEMAND decimal(18,6), 
+	 --Apr_21_TOTALDEMAND decimal(18,6), 
+	 --May_21_TOTALDEMAND decimal(18,6), 
+	 --Jun_21_TOTALDEMAND decimal(18,6), 
+	 --Jul_21_TOTALDEMAND decimal(18,6), 
+	 --Aug_21_TOTALDEMAND decimal(18,6), 
+	 --Sep_21_TOTALDEMAND decimal(18,6), 
+	 --Oct_21_TOTALDEMAND decimal(18,6), 
+	 --Nov_21_TOTALDEMAND decimal(18,6), 
+	 --Dec_21_TOTALDEMAND decimal(18,6),
+	 
 	 Jan_18_Sales decimal(18,6), 
 	 Feb_18_Sales decimal(18,6), 
 	 Mar_18_Sales decimal(18,6), 
@@ -100,6 +114,20 @@ declare @b table
 	 Oct_20_Sales decimal(18,6), 
 	 Nov_20_Sales decimal(18,6), 
 	 Dec_20_Sales decimal(18,6)
+
+	 --,Jan_21_Sales decimal(18,6), 
+	 --Feb_21_Sales decimal(18,6), 
+	 --Mar_21_Sales decimal(18,6), 
+	 --Apr_21_Sales decimal(18,6), 
+	 --May_21_Sales decimal(18,6), 
+	 --Jun_21_Sales decimal(18,6), 
+	 --Jul_21_Sales decimal(18,6), 
+	 --Aug_21_Sales decimal(18,6), 
+	 --Sep_21_Sales decimal(18,6), 
+	 --Oct_21_Sales decimal(18,6), 
+	 --Nov_21_Sales decimal(18,6), 
+	 --Dec_21_Sales decimal(18,6)
+
 	)
 
 insert into @b
@@ -108,10 +136,12 @@ select customer, base_part,
 Jan_18_TOTALDEMAND, Feb_18_TOTALDEMAND, Mar_18_TOTALDEMAND, Apr_18_TOTALDEMAND, May_18_TOTALDEMAND, Jun_18_TOTALDEMAND, Jul_18_TOTALDEMAND, Aug_18_TOTALDEMAND, Sep_18_TOTALDEMAND, Oct_18_TOTALDEMAND, Nov_18_TOTALDEMAND, Dec_18_TOTALDEMAND,
 Jan_19_TOTALDEMAND, Feb_19_TOTALDEMAND, Mar_19_TOTALDEMAND, Apr_19_TOTALDEMAND, May_19_TOTALDEMAND, Jun_19_TOTALDEMAND, Jul_19_TOTALDEMAND, Aug_19_TOTALDEMAND, Sep_19_TOTALDEMAND, Oct_19_TOTALDEMAND, Nov_19_TOTALDEMAND, Dec_19_TOTALDEMAND,
 Jan_20_TOTALDEMAND, Feb_20_TOTALDEMAND, Mar_20_TOTALDEMAND, Apr_20_TOTALDEMAND, May_20_TOTALDEMAND, Jun_20_TOTALDEMAND, Jul_20_TOTALDEMAND, Aug_20_TOTALDEMAND, Sep_20_TOTALDEMAND, Oct_20_TOTALDEMAND, Nov_20_TOTALDEMAND, Dec_20_TOTALDEMAND,
+--Jan_21_TOTALDEMAND, Feb_21_TOTALDEMAND, Mar_21_TOTALDEMAND, Apr_21_TOTALDEMAND, May_21_TOTALDEMAND, Jun_21_TOTALDEMAND, Jul_21_TOTALDEMAND, Aug_21_TOTALDEMAND, Sep_21_TOTALDEMAND, Oct_21_TOTALDEMAND, Nov_21_TOTALDEMAND, Dec_21_TOTALDEMAND,
 
 Jan_18_Sales, Feb_18_Sales, Mar_18_Sales, Apr_18_Sales, May_18_Sales, Jun_18_Sales, Jul_18_Sales, Aug_18_Sales, Sep_18_Sales, Oct_18_Sales, Nov_18_Sales, Dec_18_Sales,
 Jan_19_Sales, Feb_19_Sales, Mar_19_Sales, Apr_19_Sales, May_19_Sales, Jun_19_Sales, Jul_19_Sales, Aug_19_Sales, Sep_19_Sales, Oct_19_Sales, Nov_19_Sales, Dec_19_Sales,
 Jan_20_Sales, Feb_20_Sales, Mar_20_Sales, Apr_20_Sales, May_20_Sales, Jun_20_Sales, Jul_20_Sales, Aug_20_Sales, Sep_20_Sales, Oct_20_Sales, Nov_20_Sales, Dec_20_Sales
+--Jan_21_Sales, Feb_21_Sales, Mar_21_Sales, Apr_21_Sales, May_21_Sales, Jun_21_Sales, Jul_21_Sales, Aug_21_Sales, Sep_21_Sales, Oct_21_Sales, Nov_21_Sales, Dec_21_Sales
 
 from eeiuser.acctg_csm_vw_select_sales_forecast
 

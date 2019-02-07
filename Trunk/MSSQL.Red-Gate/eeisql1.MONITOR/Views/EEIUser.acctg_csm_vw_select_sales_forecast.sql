@@ -2,13 +2,10 @@ SET QUOTED_IDENTIFIER ON
 GO
 SET ANSI_NULLS ON
 GO
-
-
-
 --select * from [EEIUser].[acctg_csm_vw_select_sales_forecast] where mc_last_updated = 'Current Cost 2018-10-08' and isnull(cal_19_TotalDemand,0) > 0 and isnull(cal_19_mc,0)=0
 
 
-CREATE view  [EEIUser].[acctg_csm_vw_select_sales_forecast]
+CREATE view [EEIUser].[acctg_csm_vw_select_sales_forecast]
 as 
 
 /* UPDATES:
@@ -2590,76 +2587,146 @@ select	 cc.[base_part]
 						--(case when isnull(b.nov_15,0)=0 then a.cal_15/NULLIF(b.cal_15,0) else a.nov_15/NULLIF(b.nov_15,0) end) as nov_15_factor,
 						--(case when isnull(b.dec_15,0)=0 then a.cal_15/NULLIF(b.cal_15,0) else a.dec_15/NULLIF(b.dec_15,0) end) as dec_15_factor,
 						
-						(case when isnull(b.jan_16,0)=0 then a.cal_16/nullif(b.cal_16,0) else a.jan_16/nullif(b.jan_16,0) end) as jan_16_factor, 
-						(case when isnull(b.feb_16,0)=0 then a.cal_16/nullif(b.cal_16,0) else a.feb_16/nullif(b.feb_16,0) end) as feb_16_factor,
-						(case when isnull(b.mar_16,0)=0 then a.cal_16/nullif(b.cal_16,0) else a.mar_16/nullif(b.mar_16,0) end) as mar_16_factor,
-						(case when isnull(b.apr_16,0)=0 then a.cal_16/nullif(b.cal_16,0) else a.apr_16/nullif(b.apr_16,0) end) as apr_16_factor,
-						(case when isnull(b.may_16,0)=0 then a.cal_16/nullif(b.cal_16,0) else a.may_16/nullif(b.may_16,0) end) as may_16_factor,
-						(case when isnull(b.jun_16,0)=0 then a.cal_16/nullif(b.cal_16,0) else a.jun_16/nullif(b.jun_16,0) end) as jun_16_factor,
-						(case when isnull(b.jul_16,0)=0 then a.cal_16/nullif(b.cal_16,0) else a.jul_16/nullif(b.jul_16,0) end) as jul_16_factor, 
-						(case when isnull(b.aug_16,0)=0 then a.cal_16/nullif(b.cal_16,0) else a.aug_16/nullif(b.aug_16,0) end) as aug_16_factor,
-						(case when isnull(b.sep_16,0)=0 then a.cal_16/nullif(b.cal_16,0) else a.sep_16/nullif(b.sep_16,0) end) as sep_16_factor,
-						(case when isnull(b.oct_16,0)=0 then a.cal_16/nullif(b.cal_16,0) else a.oct_16/nullif(b.oct_16,0) end) as oct_16_factor,
-						(case when isnull(b.nov_16,0)=0 then a.cal_16/nullif(b.cal_16,0) else a.nov_16/nullif(b.nov_16,0) end) as nov_16_factor,
-						(case when isnull(b.dec_16,0)=0 then a.cal_16/nullif(b.cal_16,0) else a.dec_16/nullif(b.dec_16,0) end) as dec_16_factor,
+						--(case when isnull(b.jan_16,0)=0 then a.cal_16/nullif(b.cal_16,0) else a.jan_16/nullif(b.jan_16,0) end) as jan_16_factor, 
+						--(case when isnull(b.feb_16,0)=0 then a.cal_16/nullif(b.cal_16,0) else a.feb_16/nullif(b.feb_16,0) end) as feb_16_factor,
+						--(case when isnull(b.mar_16,0)=0 then a.cal_16/nullif(b.cal_16,0) else a.mar_16/nullif(b.mar_16,0) end) as mar_16_factor,
+						--(case when isnull(b.apr_16,0)=0 then a.cal_16/nullif(b.cal_16,0) else a.apr_16/nullif(b.apr_16,0) end) as apr_16_factor,
+						--(case when isnull(b.may_16,0)=0 then a.cal_16/nullif(b.cal_16,0) else a.may_16/nullif(b.may_16,0) end) as may_16_factor,
+						--(case when isnull(b.jun_16,0)=0 then a.cal_16/nullif(b.cal_16,0) else a.jun_16/nullif(b.jun_16,0) end) as jun_16_factor,
+						--(case when isnull(b.jul_16,0)=0 then a.cal_16/nullif(b.cal_16,0) else a.jul_16/nullif(b.jul_16,0) end) as jul_16_factor, 
+						--(case when isnull(b.aug_16,0)=0 then a.cal_16/nullif(b.cal_16,0) else a.aug_16/nullif(b.aug_16,0) end) as aug_16_factor,
+						--(case when isnull(b.sep_16,0)=0 then a.cal_16/nullif(b.cal_16,0) else a.sep_16/nullif(b.sep_16,0) end) as sep_16_factor,
+						--(case when isnull(b.oct_16,0)=0 then a.cal_16/nullif(b.cal_16,0) else a.oct_16/nullif(b.oct_16,0) end) as oct_16_factor,
+						--(case when isnull(b.nov_16,0)=0 then a.cal_16/nullif(b.cal_16,0) else a.nov_16/nullif(b.nov_16,0) end) as nov_16_factor,
+						--(case when isnull(b.dec_16,0)=0 then a.cal_16/nullif(b.cal_16,0) else a.dec_16/nullif(b.dec_16,0) end) as dec_16_factor,
 						
-						(case when isnull(b.jan_17,0)=0 then a.cal_17/nullif(b.cal_17,0) else a.jan_17/nullif(b.jan_17,0) end) as jan_17_factor, 
-						(case when isnull(b.feb_17,0)=0 then a.cal_17/nullif(b.cal_17,0) else a.feb_17/nullif(b.feb_17,0) end) as feb_17_factor,
-						(case when isnull(b.mar_17,0)=0 then a.cal_17/nullif(b.cal_17,0) else a.mar_17/nullif(b.mar_17,0) end) as mar_17_factor,
-						(case when isnull(b.apr_17,0)=0 then a.cal_17/nullif(b.cal_17,0) else a.apr_17/nullif(b.apr_17,0) end) as apr_17_factor,
-						(case when isnull(b.may_17,0)=0 then a.cal_17/nullif(b.cal_17,0) else a.may_17/nullif(b.may_17,0) end) as may_17_factor,
-						(case when isnull(b.jun_17,0)=0 then a.cal_17/nullif(b.cal_17,0) else a.jun_17/nullif(b.jun_17,0) end) as jun_17_factor,
-						(case when isnull(b.jul_17,0)=0 then a.cal_17/nullif(b.cal_17,0) else a.jul_17/nullif(b.jul_17,0) end) as jul_17_factor, 
-						(case when isnull(b.aug_17,0)=0 then a.cal_17/nullif(b.cal_17,0) else a.aug_17/nullif(b.aug_17,0) end) as aug_17_factor,
-						(case when isnull(b.sep_17,0)=0 then a.cal_17/nullif(b.cal_17,0) else a.sep_17/nullif(b.sep_17,0) end) as sep_17_factor,
-						(case when isnull(b.oct_17,0)=0 then a.cal_17/nullif(b.cal_17,0) else a.oct_17/nullif(b.oct_17,0) end) as oct_17_factor,
-						(case when isnull(b.nov_17,0)=0 then a.cal_17/nullif(b.cal_17,0) else a.nov_17/nullif(b.nov_17,0) end) as nov_17_factor,
-						(case when isnull(b.dec_17,0)=0 then a.cal_17/nullif(b.cal_17,0) else a.dec_17/nullif(b.dec_17,0) end) as dec_17_factor,
+						--(case when isnull(b.jan_17,0)=0 then a.cal_17/nullif(b.cal_17,0) else a.jan_17/nullif(b.jan_17,0) end) as jan_17_factor, 
+						--(case when isnull(b.feb_17,0)=0 then a.cal_17/nullif(b.cal_17,0) else a.feb_17/nullif(b.feb_17,0) end) as feb_17_factor,
+						--(case when isnull(b.mar_17,0)=0 then a.cal_17/nullif(b.cal_17,0) else a.mar_17/nullif(b.mar_17,0) end) as mar_17_factor,
+						--(case when isnull(b.apr_17,0)=0 then a.cal_17/nullif(b.cal_17,0) else a.apr_17/nullif(b.apr_17,0) end) as apr_17_factor,
+						--(case when isnull(b.may_17,0)=0 then a.cal_17/nullif(b.cal_17,0) else a.may_17/nullif(b.may_17,0) end) as may_17_factor,
+						--(case when isnull(b.jun_17,0)=0 then a.cal_17/nullif(b.cal_17,0) else a.jun_17/nullif(b.jun_17,0) end) as jun_17_factor,
+						--(case when isnull(b.jul_17,0)=0 then a.cal_17/nullif(b.cal_17,0) else a.jul_17/nullif(b.jul_17,0) end) as jul_17_factor, 
+						--(case when isnull(b.aug_17,0)=0 then a.cal_17/nullif(b.cal_17,0) else a.aug_17/nullif(b.aug_17,0) end) as aug_17_factor,
+						--(case when isnull(b.sep_17,0)=0 then a.cal_17/nullif(b.cal_17,0) else a.sep_17/nullif(b.sep_17,0) end) as sep_17_factor,
+						--(case when isnull(b.oct_17,0)=0 then a.cal_17/nullif(b.cal_17,0) else a.oct_17/nullif(b.oct_17,0) end) as oct_17_factor,
+						--(case when isnull(b.nov_17,0)=0 then a.cal_17/nullif(b.cal_17,0) else a.nov_17/nullif(b.nov_17,0) end) as nov_17_factor,
+						--(case when isnull(b.dec_17,0)=0 then a.cal_17/nullif(b.cal_17,0) else a.dec_17/nullif(b.dec_17,0) end) as dec_17_factor,
 						
-						(case when isnull(b.jan_18,0)=0 then a.cal_18/nullif(b.cal_18,0) else a.jan_18/nullif(b.jan_18,0) end) as jan_18_factor, 
-						(case when isnull(b.feb_18,0)=0 then a.cal_18/nullif(b.cal_18,0) else a.feb_18/nullif(b.feb_18,0) end) as feb_18_factor,
-						(case when isnull(b.mar_18,0)=0 then a.cal_18/nullif(b.cal_18,0) else a.mar_18/nullif(b.mar_18,0) end) as mar_18_factor,
-						(case when isnull(b.apr_18,0)=0 then a.cal_18/nullif(b.cal_18,0) else a.apr_18/nullif(b.apr_18,0) end) as apr_18_factor,
-						(case when isnull(b.may_18,0)=0 then a.cal_18/nullif(b.cal_18,0) else a.may_18/nullif(b.may_18,0) end) as may_18_factor,
-						(case when isnull(b.jun_18,0)=0 then a.cal_18/nullif(b.cal_18,0) else a.jun_18/nullif(b.jun_18,0) end) as jun_18_factor,
-						(case when isnull(b.jul_18,0)=0 then a.cal_18/nullif(b.cal_18,0) else a.jul_18/nullif(b.jul_18,0) end) as jul_18_factor, 
-						(case when isnull(b.aug_18,0)=0 then a.cal_18/nullif(b.cal_18,0) else a.aug_18/nullif(b.aug_18,0) end) as aug_18_factor,
-						(case when isnull(b.sep_18,0)=0 then a.cal_18/nullif(b.cal_18,0) else a.sep_18/nullif(b.sep_18,0) end) as sep_18_factor,
-						(case when isnull(b.oct_18,0)=0 then a.cal_18/nullif(b.cal_18,0) else a.oct_18/nullif(b.oct_18,0) end) as oct_18_factor,
-						(case when isnull(b.nov_18,0)=0 then a.cal_18/nullif(b.cal_18,0) else a.nov_18/nullif(b.nov_18,0) end) as nov_18_factor,
-						(case when isnull(b.dec_18,0)=0 then a.cal_18/nullif(b.cal_18,0) else a.dec_18/nullif(b.dec_18,0) end) as dec_18_factor,
+						--(case when isnull(b.jan_18,0)=0 then a.cal_18/nullif(b.cal_18,0) else a.jan_18/nullif(b.jan_18,0) end) as jan_18_factor, 
+						--(case when isnull(b.feb_18,0)=0 then a.cal_18/nullif(b.cal_18,0) else a.feb_18/nullif(b.feb_18,0) end) as feb_18_factor,
+						--(case when isnull(b.mar_18,0)=0 then a.cal_18/nullif(b.cal_18,0) else a.mar_18/nullif(b.mar_18,0) end) as mar_18_factor,
+						--(case when isnull(b.apr_18,0)=0 then a.cal_18/nullif(b.cal_18,0) else a.apr_18/nullif(b.apr_18,0) end) as apr_18_factor,
+						--(case when isnull(b.may_18,0)=0 then a.cal_18/nullif(b.cal_18,0) else a.may_18/nullif(b.may_18,0) end) as may_18_factor,
+						--(case when isnull(b.jun_18,0)=0 then a.cal_18/nullif(b.cal_18,0) else a.jun_18/nullif(b.jun_18,0) end) as jun_18_factor,
+						--(case when isnull(b.jul_18,0)=0 then a.cal_18/nullif(b.cal_18,0) else a.jul_18/nullif(b.jul_18,0) end) as jul_18_factor, 
+						--(case when isnull(b.aug_18,0)=0 then a.cal_18/nullif(b.cal_18,0) else a.aug_18/nullif(b.aug_18,0) end) as aug_18_factor,
+						--(case when isnull(b.sep_18,0)=0 then a.cal_18/nullif(b.cal_18,0) else a.sep_18/nullif(b.sep_18,0) end) as sep_18_factor,
+						--(case when isnull(b.oct_18,0)=0 then a.cal_18/nullif(b.cal_18,0) else a.oct_18/nullif(b.oct_18,0) end) as oct_18_factor,
+						--(case when isnull(b.nov_18,0)=0 then a.cal_18/nullif(b.cal_18,0) else a.nov_18/nullif(b.nov_18,0) end) as nov_18_factor,
+						--(case when isnull(b.dec_18,0)=0 then a.cal_18/nullif(b.cal_18,0) else a.dec_18/nullif(b.dec_18,0) end) as dec_18_factor,
 						
-						(case when isnull(b.jan_19,0)=0 then a.cal_19/nullif(b.cal_19,0) else a.jan_19/nullif(b.jan_19,0) end) as jan_19_factor, 
-						(case when isnull(b.feb_19,0)=0 then a.cal_19/nullif(b.cal_19,0) else a.feb_19/nullif(b.feb_19,0) end) as feb_19_factor,
-						(case when isnull(b.mar_19,0)=0 then a.cal_19/nullif(b.cal_19,0) else a.mar_19/nullif(b.mar_19,0) end) as mar_19_factor,
-						(case when isnull(b.apr_19,0)=0 then a.cal_19/nullif(b.cal_19,0) else a.apr_19/nullif(b.apr_19,0) end) as apr_19_factor,
-						(case when isnull(b.may_19,0)=0 then a.cal_19/nullif(b.cal_19,0) else a.may_19/nullif(b.may_19,0) end) as may_19_factor,
-						(case when isnull(b.jun_19,0)=0 then a.cal_19/nullif(b.cal_19,0) else a.jun_19/nullif(b.jun_19,0) end) as jun_19_factor,
-						(case when isnull(b.jul_19,0)=0 then a.cal_19/nullif(b.cal_19,0) else a.jul_19/nullif(b.jul_19,0) end) as jul_19_factor, 
-						(case when isnull(b.aug_19,0)=0 then a.cal_19/nullif(b.cal_19,0) else a.aug_19/nullif(b.aug_19,0) end) as aug_19_factor,
-						(case when isnull(b.sep_19,0)=0 then a.cal_19/nullif(b.cal_19,0) else a.sep_19/nullif(b.sep_19,0) end) as sep_19_factor,
-						(case when isnull(b.oct_19,0)=0 then a.cal_19/nullif(b.cal_19,0) else a.oct_19/nullif(b.oct_19,0) end) as oct_19_factor,
-						(case when isnull(b.nov_19,0)=0 then a.cal_19/nullif(b.cal_19,0) else a.nov_19/nullif(b.nov_19,0) end) as nov_19_factor,
-						(case when isnull(b.dec_19,0)=0 then a.cal_19/nullif(b.cal_19,0) else a.dec_19/nullif(b.dec_19,0) end) as dec_19_factor,
+						--(case when isnull(b.jan_19,0)=0 then a.cal_19/nullif(b.cal_19,0) else a.jan_19/nullif(b.jan_19,0) end) as jan_19_factor, 
+						--(case when isnull(b.feb_19,0)=0 then a.cal_19/nullif(b.cal_19,0) else a.feb_19/nullif(b.feb_19,0) end) as feb_19_factor,
+						--(case when isnull(b.mar_19,0)=0 then a.cal_19/nullif(b.cal_19,0) else a.mar_19/nullif(b.mar_19,0) end) as mar_19_factor,
+						--(case when isnull(b.apr_19,0)=0 then a.cal_19/nullif(b.cal_19,0) else a.apr_19/nullif(b.apr_19,0) end) as apr_19_factor,
+						--(case when isnull(b.may_19,0)=0 then a.cal_19/nullif(b.cal_19,0) else a.may_19/nullif(b.may_19,0) end) as may_19_factor,
+						--(case when isnull(b.jun_19,0)=0 then a.cal_19/nullif(b.cal_19,0) else a.jun_19/nullif(b.jun_19,0) end) as jun_19_factor,
+						--(case when isnull(b.jul_19,0)=0 then a.cal_19/nullif(b.cal_19,0) else a.jul_19/nullif(b.jul_19,0) end) as jul_19_factor, 
+						--(case when isnull(b.aug_19,0)=0 then a.cal_19/nullif(b.cal_19,0) else a.aug_19/nullif(b.aug_19,0) end) as aug_19_factor,
+						--(case when isnull(b.sep_19,0)=0 then a.cal_19/nullif(b.cal_19,0) else a.sep_19/nullif(b.sep_19,0) end) as sep_19_factor,
+						--(case when isnull(b.oct_19,0)=0 then a.cal_19/nullif(b.cal_19,0) else a.oct_19/nullif(b.oct_19,0) end) as oct_19_factor,
+						--(case when isnull(b.nov_19,0)=0 then a.cal_19/nullif(b.cal_19,0) else a.nov_19/nullif(b.nov_19,0) end) as nov_19_factor,
+						--(case when isnull(b.dec_19,0)=0 then a.cal_19/nullif(b.cal_19,0) else a.dec_19/nullif(b.dec_19,0) end) as dec_19_factor,
 
-						(case when isnull(b.jan_20,0)=0 then a.cal_20/nullif(b.cal_20,0) else a.jan_20/nullif(b.jan_20,0) end) as jan_20_factor, 
-						(case when isnull(b.feb_20,0)=0 then a.cal_20/nullif(b.cal_20,0) else a.feb_20/nullif(b.feb_20,0) end) as feb_20_factor,
-						(case when isnull(b.mar_20,0)=0 then a.cal_20/nullif(b.cal_20,0) else a.mar_20/nullif(b.mar_20,0) end) as mar_20_factor,
-						(case when isnull(b.apr_20,0)=0 then a.cal_20/nullif(b.cal_20,0) else a.apr_20/nullif(b.apr_20,0) end) as apr_20_factor,
-						(case when isnull(b.may_20,0)=0 then a.cal_20/nullif(b.cal_20,0) else a.may_20/nullif(b.may_20,0) end) as may_20_factor,
-						(case when isnull(b.jun_20,0)=0 then a.cal_20/nullif(b.cal_20,0) else a.jun_20/nullif(b.jun_20,0) end) as jun_20_factor,
-						(case when isnull(b.jul_20,0)=0 then a.cal_20/nullif(b.cal_20,0) else a.jul_20/nullif(b.jul_20,0) end) as jul_20_factor, 
-						(case when isnull(b.aug_20,0)=0 then a.cal_20/nullif(b.cal_20,0) else a.aug_20/nullif(b.aug_20,0) end) as aug_20_factor,
-						(case when isnull(b.sep_20,0)=0 then a.cal_20/nullif(b.cal_20,0) else a.sep_20/nullif(b.sep_20,0) end) as sep_20_factor,
-						(case when isnull(b.oct_20,0)=0 then a.cal_20/nullif(b.cal_20,0) else a.oct_20/nullif(b.oct_20,0) end) as oct_20_factor,
-						(case when isnull(b.nov_20,0)=0 then a.cal_20/nullif(b.cal_20,0) else a.nov_20/nullif(b.nov_20,0) end) as nov_20_factor,
-						(case when isnull(b.dec_20,0)=0 then a.cal_20/nullif(b.cal_20,0) else a.dec_20/nullif(b.dec_20,0) end) as dec_20_factor,
+						--(case when isnull(b.jan_20,0)=0 then a.cal_20/nullif(b.cal_20,0) else a.jan_20/nullif(b.jan_20,0) end) as jan_20_factor, 
+						--(case when isnull(b.feb_20,0)=0 then a.cal_20/nullif(b.cal_20,0) else a.feb_20/nullif(b.feb_20,0) end) as feb_20_factor,
+						--(case when isnull(b.mar_20,0)=0 then a.cal_20/nullif(b.cal_20,0) else a.mar_20/nullif(b.mar_20,0) end) as mar_20_factor,
+						--(case when isnull(b.apr_20,0)=0 then a.cal_20/nullif(b.cal_20,0) else a.apr_20/nullif(b.apr_20,0) end) as apr_20_factor,
+						--(case when isnull(b.may_20,0)=0 then a.cal_20/nullif(b.cal_20,0) else a.may_20/nullif(b.may_20,0) end) as may_20_factor,
+						--(case when isnull(b.jun_20,0)=0 then a.cal_20/nullif(b.cal_20,0) else a.jun_20/nullif(b.jun_20,0) end) as jun_20_factor,
+						--(case when isnull(b.jul_20,0)=0 then a.cal_20/nullif(b.cal_20,0) else a.jul_20/nullif(b.jul_20,0) end) as jul_20_factor, 
+						--(case when isnull(b.aug_20,0)=0 then a.cal_20/nullif(b.cal_20,0) else a.aug_20/nullif(b.aug_20,0) end) as aug_20_factor,
+						--(case when isnull(b.sep_20,0)=0 then a.cal_20/nullif(b.cal_20,0) else a.sep_20/nullif(b.sep_20,0) end) as sep_20_factor,
+						--(case when isnull(b.oct_20,0)=0 then a.cal_20/nullif(b.cal_20,0) else a.oct_20/nullif(b.oct_20,0) end) as oct_20_factor,
+						--(case when isnull(b.nov_20,0)=0 then a.cal_20/nullif(b.cal_20,0) else a.nov_20/nullif(b.nov_20,0) end) as nov_20_factor,
+						--(case when isnull(b.dec_20,0)=0 then a.cal_20/nullif(b.cal_20,0) else a.dec_20/nullif(b.dec_20,0) end) as dec_20_factor
 									
-						(case when isnull(b.cal_21,0)=0 then 1 else a.cal_21/nullif(b.cal_21,0) end) as cal_21_factor,
-						(case when isnull(b.cal_22,0)=0 then 1 else a.cal_22/nullif(b.cal_22,0) end) as cal_22_factor,
-						(case when isnull(b.cal_23,0)=0 then 1 else a.cal_23/nullif(b.cal_23,0) end) as cal_23_factor,
-						(case when isnull(b.cal_24,0)=0 then 1 else a.cal_24/nullif(b.cal_24,0) end) as cal_24_factor,
-						(case when isnull(b.cal_25,0)=0 then 1 else a.cal_25/nullif(b.cal_25,0) end) as cal_25_factor
+						--(case when isnull(b.cal_21,0)=0 then 1 else a.cal_21/nullif(b.cal_21,0) end) as cal_21_factor,
+						--(case when isnull(b.cal_22,0)=0 then 1 else a.cal_22/nullif(b.cal_22,0) end) as cal_22_factor,
+						--(case when isnull(b.cal_23,0)=0 then 1 else a.cal_23/nullif(b.cal_23,0) end) as cal_23_factor,
+						--(case when isnull(b.cal_24,0)=0 then 1 else a.cal_24/nullif(b.cal_24,0) end) as cal_24_factor,
+						--(case when isnull(b.cal_25,0)=0 then 1 else a.cal_25/nullif(b.cal_25,0) end) as cal_25_factor
+						coalesce(a.jan_16/nullif(b.jan_16,0),                                                                                                                                                                                                                                         a.cal_16/nullif(b.cal_16,0), 1) as jan_16_factor
+					,	coalesce(a.feb_16/nullif(b.feb_16,0),                                                                                                                                                                                                                                         a.cal_16/nullif(b.cal_16,0), 1) as feb_16_factor
+					,	coalesce(a.mar_16/nullif(b.mar_16,0),                                                                                                                                                                                                                                         a.cal_16/nullif(b.cal_16,0), 1) as mar_16_factor
+					,	coalesce(a.apr_16/nullif(b.apr_16,0),                                                                                                                                                                                                                                         a.cal_16/nullif(b.cal_16,0), 1) as apr_16_factor
+					,	coalesce(a.may_16/nullif(b.may_16,0),                                                                                                                                                                                                                                         a.cal_16/nullif(b.cal_16,0), 1) as may_16_factor
+					,	coalesce(a.jun_16/nullif(b.jun_16,0),                                                                                                                                                                                                                                         a.cal_16/nullif(b.cal_16,0), 1) as jun_16_factor
+					,	coalesce(a.jul_16/nullif(b.jul_16,0),                                                                                                                                                                                                                                         a.cal_16/nullif(b.cal_16,0), 1) as jul_16_factor
+					,	coalesce(a.aug_16/nullif(b.aug_16,0),                                                                                                                                                                                                                                         a.cal_16/nullif(b.cal_16,0), 1) as aug_16_factor
+					,	coalesce(a.sep_16/nullif(b.sep_16,0),                                                                                                                                                                                                                                         a.cal_16/nullif(b.cal_16,0), 1) as sep_16_factor
+					,	coalesce(a.oct_16/nullif(b.oct_16,0),                                                                                                                                                                                                                                         a.cal_16/nullif(b.cal_16,0), 1) as oct_16_factor
+					,	coalesce(a.nov_16/nullif(b.nov_16,0),                                                                                                                                                                                                                                         a.cal_16/nullif(b.cal_16,0), 1) as nov_16_factor
+					,	coalesce(a.dec_16/nullif(b.dec_16,0),                                                                                                                                                                                                                                         a.cal_16/nullif(b.cal_16,0), 1) as dec_16_factor
+
+					,	coalesce(a.jan_17/nullif(b.jan_17,0),                                                                                                                                                                                                            a.cal_17/nullif(b.cal_17,0), a.cal_16/nullif(b.cal_16,0), 1) as jan_17_factor
+					,	coalesce(a.feb_17/nullif(b.feb_17,0),                                                                                                                                                                                                            a.cal_17/nullif(b.cal_17,0), a.cal_16/nullif(b.cal_16,0), 1) as feb_17_factor
+					,	coalesce(a.mar_17/nullif(b.mar_17,0),                                                                                                                                                                                                            a.cal_17/nullif(b.cal_17,0), a.cal_16/nullif(b.cal_16,0), 1) as mar_17_factor
+					,	coalesce(a.apr_17/nullif(b.apr_17,0),                                                                                                                                                                                                            a.cal_17/nullif(b.cal_17,0), a.cal_16/nullif(b.cal_16,0), 1) as apr_17_factor
+					,	coalesce(a.may_17/nullif(b.may_17,0),                                                                                                                                                                                                            a.cal_17/nullif(b.cal_17,0), a.cal_16/nullif(b.cal_16,0), 1) as may_17_factor
+					,	coalesce(a.jun_17/nullif(b.jun_17,0),                                                                                                                                                                                                            a.cal_17/nullif(b.cal_17,0), a.cal_16/nullif(b.cal_16,0), 1) as jun_17_factor
+					,	coalesce(a.jul_17/nullif(b.jul_17,0),                                                                                                                                                                                                            a.cal_17/nullif(b.cal_17,0), a.cal_16/nullif(b.cal_16,0), 1) as jul_17_factor
+					,	coalesce(a.aug_17/nullif(b.aug_17,0),                                                                                                                                                                                                            a.cal_17/nullif(b.cal_17,0), a.cal_16/nullif(b.cal_16,0), 1) as aug_17_factor
+					,	coalesce(a.sep_17/nullif(b.sep_17,0),                                                                                                                                                                                                            a.cal_17/nullif(b.cal_17,0), a.cal_16/nullif(b.cal_16,0), 1) as sep_17_factor
+					,	coalesce(a.oct_17/nullif(b.oct_17,0),                                                                                                                                                                                                            a.cal_17/nullif(b.cal_17,0), a.cal_16/nullif(b.cal_16,0), 1) as oct_17_factor
+					,	coalesce(a.nov_17/nullif(b.nov_17,0),                                                                                                                                                                                                            a.cal_17/nullif(b.cal_17,0), a.cal_16/nullif(b.cal_16,0), 1) as nov_17_factor
+					,	coalesce(a.dec_17/nullif(b.dec_17,0),                                                                                                                                                                                                            a.cal_17/nullif(b.cal_17,0), a.cal_16/nullif(b.cal_16,0), 1) as dec_17_factor
+																																																				                             									
+					,	coalesce(a.jan_18/nullif(b.jan_18,0),                                                                                                                                                                               a.cal_18/nullif(b.cal_18,0), a.cal_17/nullif(b.cal_17,0), a.cal_16/nullif(b.cal_16,0), 1) as jan_18_factor
+					,	coalesce(a.feb_18/nullif(b.feb_18,0),                                                                                                                                                                               a.cal_18/nullif(b.cal_18,0), a.cal_17/nullif(b.cal_17,0), a.cal_16/nullif(b.cal_16,0), 1) as feb_18_factor
+					,	coalesce(a.mar_18/nullif(b.mar_18,0),                                                                                                                                                                               a.cal_18/nullif(b.cal_18,0), a.cal_17/nullif(b.cal_17,0), a.cal_16/nullif(b.cal_16,0), 1) as mar_18_factor
+					,	coalesce(a.apr_18/nullif(b.apr_18,0),                                                                                                                                                                               a.cal_18/nullif(b.cal_18,0), a.cal_17/nullif(b.cal_17,0), a.cal_16/nullif(b.cal_16,0), 1) as apr_18_factor
+					,	coalesce(a.may_18/nullif(b.may_18,0),                                                                                                                                                                               a.cal_18/nullif(b.cal_18,0), a.cal_17/nullif(b.cal_17,0), a.cal_16/nullif(b.cal_16,0), 1) as may_18_factor
+					,	coalesce(a.jun_18/nullif(b.jun_18,0),                                                                                                                                                                               a.cal_18/nullif(b.cal_18,0), a.cal_17/nullif(b.cal_17,0), a.cal_16/nullif(b.cal_16,0), 1) as jun_18_factor
+					,	coalesce(a.jul_18/nullif(b.jul_18,0),                                                                                                                                                                               a.cal_18/nullif(b.cal_18,0), a.cal_17/nullif(b.cal_17,0), a.cal_16/nullif(b.cal_16,0), 1) as jul_18_factor
+					,	coalesce(a.aug_18/nullif(b.aug_18,0),                                                                                                                                                                               a.cal_18/nullif(b.cal_18,0), a.cal_17/nullif(b.cal_17,0), a.cal_16/nullif(b.cal_16,0), 1) as aug_18_factor
+					,	coalesce(a.sep_18/nullif(b.sep_18,0),                                                                                                                                                                               a.cal_18/nullif(b.cal_18,0), a.cal_17/nullif(b.cal_17,0), a.cal_16/nullif(b.cal_16,0), 1) as sep_18_factor
+					,	coalesce(a.oct_18/nullif(b.oct_18,0),                                                                                                                                                                               a.cal_18/nullif(b.cal_18,0), a.cal_17/nullif(b.cal_17,0), a.cal_16/nullif(b.cal_16,0), 1) as oct_18_factor
+					,	coalesce(a.nov_18/nullif(b.nov_18,0),                                                                                                                                                                               a.cal_18/nullif(b.cal_18,0), a.cal_17/nullif(b.cal_17,0), a.cal_16/nullif(b.cal_16,0), 1) as nov_18_factor
+					,	coalesce(a.dec_18/nullif(b.dec_18,0),                                                                                                                                                                               a.cal_18/nullif(b.cal_18,0), a.cal_17/nullif(b.cal_17,0), a.cal_16/nullif(b.cal_16,0), 1) as dec_18_factor
+
+					,	coalesce(a.jan_19/nullif(b.jan_19,0),                                                                                                                                                  a.cal_19/nullif(b.cal_19,0), a.cal_18/nullif(b.cal_18,0), a.cal_17/nullif(b.cal_17,0), a.cal_16/nullif(b.cal_16,0), 1) as jan_19_factor
+					,	coalesce(a.feb_19/nullif(b.feb_19,0),                                                                                                                                                  a.cal_19/nullif(b.cal_19,0), a.cal_18/nullif(b.cal_18,0), a.cal_17/nullif(b.cal_17,0), a.cal_16/nullif(b.cal_16,0), 1) as feb_19_factor
+					,	coalesce(a.mar_19/nullif(b.mar_19,0),                                                                                                                                                  a.cal_19/nullif(b.cal_19,0), a.cal_18/nullif(b.cal_18,0), a.cal_17/nullif(b.cal_17,0), a.cal_16/nullif(b.cal_16,0), 1) as mar_19_factor
+					,	coalesce(a.apr_19/nullif(b.apr_19,0),                                                                                                                                                  a.cal_19/nullif(b.cal_19,0), a.cal_18/nullif(b.cal_18,0), a.cal_17/nullif(b.cal_17,0), a.cal_16/nullif(b.cal_16,0), 1) as apr_19_factor
+					,	coalesce(a.may_19/nullif(b.may_19,0),                                                                                                                                                  a.cal_19/nullif(b.cal_19,0), a.cal_18/nullif(b.cal_18,0), a.cal_17/nullif(b.cal_17,0), a.cal_16/nullif(b.cal_16,0), 1) as may_19_factor
+					,	coalesce(a.jun_19/nullif(b.jun_19,0),                                                                                                                                                  a.cal_19/nullif(b.cal_19,0), a.cal_18/nullif(b.cal_18,0), a.cal_17/nullif(b.cal_17,0), a.cal_16/nullif(b.cal_16,0), 1) as jun_19_factor
+					,	coalesce(a.jul_19/nullif(b.jul_19,0),                                                                                                                                                  a.cal_19/nullif(b.cal_19,0), a.cal_18/nullif(b.cal_18,0), a.cal_17/nullif(b.cal_17,0), a.cal_16/nullif(b.cal_16,0), 1) as jul_19_factor
+					,	coalesce(a.aug_19/nullif(b.aug_19,0),                                                                                                                                                  a.cal_19/nullif(b.cal_19,0), a.cal_18/nullif(b.cal_18,0), a.cal_17/nullif(b.cal_17,0), a.cal_16/nullif(b.cal_16,0), 1) as aug_19_factor
+					,	coalesce(a.sep_19/nullif(b.sep_19,0),                                                                                                                                                  a.cal_19/nullif(b.cal_19,0), a.cal_18/nullif(b.cal_18,0), a.cal_17/nullif(b.cal_17,0), a.cal_16/nullif(b.cal_16,0), 1) as sep_19_factor
+					,	coalesce(a.oct_19/nullif(b.oct_19,0),                                                                                                                                                  a.cal_19/nullif(b.cal_19,0), a.cal_18/nullif(b.cal_18,0), a.cal_17/nullif(b.cal_17,0), a.cal_16/nullif(b.cal_16,0), 1) as oct_19_factor
+					,	coalesce(a.nov_19/nullif(b.nov_19,0),                                                                                                                                                  a.cal_19/nullif(b.cal_19,0), a.cal_18/nullif(b.cal_18,0), a.cal_17/nullif(b.cal_17,0), a.cal_16/nullif(b.cal_16,0), 1) as nov_19_factor
+					,	coalesce(a.dec_19/nullif(b.dec_19,0),                                                                                                                                                  a.cal_19/nullif(b.cal_19,0), a.cal_18/nullif(b.cal_18,0), a.cal_17/nullif(b.cal_17,0), a.cal_16/nullif(b.cal_16,0), 1) as dec_19_factor
+																																																																				
+					,	coalesce(a.jan_20/nullif(b.jan_20,0),                                                                                                                     a.cal_20/nullif(b.cal_20,0), a.cal_19/nullif(b.cal_19,0), a.cal_18/nullif(b.cal_18,0), a.cal_17/nullif(b.cal_17,0), a.cal_16/nullif(b.cal_16,0), 1) as jan_20_factor
+					,	coalesce(a.feb_20/nullif(b.feb_20,0),                                                                                                                     a.cal_20/nullif(b.cal_20,0), a.cal_19/nullif(b.cal_19,0), a.cal_18/nullif(b.cal_18,0), a.cal_17/nullif(b.cal_17,0), a.cal_16/nullif(b.cal_16,0), 1) as feb_20_factor
+					,	coalesce(a.mar_20/nullif(b.mar_20,0),                                                                                                                     a.cal_20/nullif(b.cal_20,0), a.cal_19/nullif(b.cal_19,0), a.cal_18/nullif(b.cal_18,0), a.cal_17/nullif(b.cal_17,0), a.cal_16/nullif(b.cal_16,0), 1) as mar_20_factor
+					,	coalesce(a.apr_20/nullif(b.apr_20,0),                                                                                                                     a.cal_20/nullif(b.cal_20,0), a.cal_19/nullif(b.cal_19,0), a.cal_18/nullif(b.cal_18,0), a.cal_17/nullif(b.cal_17,0), a.cal_16/nullif(b.cal_16,0), 1) as apr_20_factor
+					,	coalesce(a.may_20/nullif(b.may_20,0),                                                                                                                     a.cal_20/nullif(b.cal_20,0), a.cal_19/nullif(b.cal_19,0), a.cal_18/nullif(b.cal_18,0), a.cal_17/nullif(b.cal_17,0), a.cal_16/nullif(b.cal_16,0), 1) as may_20_factor
+					,	coalesce(a.jun_20/nullif(b.jun_20,0),                                                                                                                     a.cal_20/nullif(b.cal_20,0), a.cal_19/nullif(b.cal_19,0), a.cal_18/nullif(b.cal_18,0), a.cal_17/nullif(b.cal_17,0), a.cal_16/nullif(b.cal_16,0), 1) as jun_20_factor
+					,	coalesce(a.jul_20/nullif(b.jul_20,0),                                                                                                                     a.cal_20/nullif(b.cal_20,0), a.cal_19/nullif(b.cal_19,0), a.cal_18/nullif(b.cal_18,0), a.cal_17/nullif(b.cal_17,0), a.cal_16/nullif(b.cal_16,0), 1) as jul_20_factor
+					,	coalesce(a.aug_20/nullif(b.aug_20,0),                                                                                                                     a.cal_20/nullif(b.cal_20,0), a.cal_19/nullif(b.cal_19,0), a.cal_18/nullif(b.cal_18,0), a.cal_17/nullif(b.cal_17,0), a.cal_16/nullif(b.cal_16,0), 1) as aug_20_factor
+					,	coalesce(a.sep_20/nullif(b.sep_20,0),                                                                                                                     a.cal_20/nullif(b.cal_20,0), a.cal_19/nullif(b.cal_19,0), a.cal_18/nullif(b.cal_18,0), a.cal_17/nullif(b.cal_17,0), a.cal_16/nullif(b.cal_16,0), 1) as sep_20_factor
+					,	coalesce(a.oct_20/nullif(b.oct_20,0),                                                                                                                     a.cal_20/nullif(b.cal_20,0), a.cal_19/nullif(b.cal_19,0), a.cal_18/nullif(b.cal_18,0), a.cal_17/nullif(b.cal_17,0), a.cal_16/nullif(b.cal_16,0), 1) as oct_20_factor
+					,	coalesce(a.nov_20/nullif(b.nov_20,0),                                                                                                                     a.cal_20/nullif(b.cal_20,0), a.cal_19/nullif(b.cal_19,0), a.cal_18/nullif(b.cal_18,0), a.cal_17/nullif(b.cal_17,0), a.cal_16/nullif(b.cal_16,0), 1) as nov_20_factor
+					,	coalesce(a.dec_20/nullif(b.dec_20,0),                                                                                                                     a.cal_20/nullif(b.cal_20,0), a.cal_19/nullif(b.cal_19,0), a.cal_18/nullif(b.cal_18,0), a.cal_17/nullif(b.cal_17,0), a.cal_16/nullif(b.cal_16,0), 1) as dec_20_factor
+																																																																				
+					,	coalesce(                                                                                                                    a.cal_21/nullif(b.cal_21,0), a.cal_20/nullif(b.cal_20,0), a.cal_19/nullif(b.cal_19,0), a.cal_18/nullif(b.cal_18,0), a.cal_17/nullif(b.cal_17,0), a.cal_16/nullif(b.cal_16,0), 1) as cal_21_factor
+					,	coalesce(                                                                                       a.cal_22/nullif(b.cal_22,0), a.cal_21/nullif(b.cal_21,0), a.cal_20/nullif(b.cal_20,0), a.cal_19/nullif(b.cal_19,0), a.cal_18/nullif(b.cal_18,0), a.cal_17/nullif(b.cal_17,0), a.cal_16/nullif(b.cal_16,0), 1) as cal_22_factor
+					,	coalesce(                                                          a.cal_23/nullif(b.cal_23,0), a.cal_22/nullif(b.cal_22,0), a.cal_21/nullif(b.cal_21,0), a.cal_20/nullif(b.cal_20,0), a.cal_19/nullif(b.cal_19,0), a.cal_18/nullif(b.cal_18,0), a.cal_17/nullif(b.cal_17,0), a.cal_16/nullif(b.cal_16,0), 1) as cal_23_factor
+					,	coalesce(                             a.cal_24/nullif(b.cal_24,0), a.cal_23/nullif(b.cal_23,0), a.cal_22/nullif(b.cal_22,0), a.cal_21/nullif(b.cal_21,0), a.cal_20/nullif(b.cal_20,0), a.cal_19/nullif(b.cal_19,0), a.cal_18/nullif(b.cal_18,0), a.cal_17/nullif(b.cal_17,0), a.cal_16/nullif(b.cal_16,0), 1) as cal_24_factor
+					,	coalesce(a.cal_25/nullif(b.cal_25,0), a.cal_24/nullif(b.cal_24,0), a.cal_23/nullif(b.cal_23,0), a.cal_22/nullif(b.cal_22,0), a.cal_21/nullif(b.cal_21,0), a.cal_20/nullif(b.cal_20,0), a.cal_19/nullif(b.cal_19,0), a.cal_18/nullif(b.cal_18,0), a.cal_17/nullif(b.cal_17,0), a.cal_16/nullif(b.cal_16,0), 1) as cal_25_factor
 
 						-- THE ABOVE STATEMENT WILL NOT RETURN RESULTS WHEN THE ENTIRE YEAR IS 0 --
 

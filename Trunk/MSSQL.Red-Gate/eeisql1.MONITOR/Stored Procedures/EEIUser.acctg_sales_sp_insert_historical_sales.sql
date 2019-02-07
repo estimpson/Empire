@@ -4,13 +4,14 @@ SET ANSI_NULLS ON
 GO
 
 
+
 -- select * from eeiuser.sales_1 where forecast_name like '%Actual%' and forecast_name like '%2018%' order by 2
 
 -- select * from eeiuser.sales_1 where forecast_name = '2019/01/13 ACTUAL'
 
 -- delete from eeiuser.sales_1 where forecast_name like '%Actual%' and forecast_name like '%2019%' 
 
--- exec eeiuser.acctg_sales_sp_insert_historical_sales '2019/01/13 ACTUAL', '2019-01-13 12:00:00.000', '2019-01-01','2019-01-13'
+-- exec eeiuser.acctg_sales_sp_insert_historical_sales '2019/01/31 ACTUAL', '2019-01-31 12:00:00.000', '2019-01-01','2019-01-31'
 
 
 CREATE procedure [EEIUser].[acctg_sales_sp_insert_historical_sales] (@forecast_name varchar(100),@time_stamp datetime,@FromDate datetime , @throughDate datetime)
