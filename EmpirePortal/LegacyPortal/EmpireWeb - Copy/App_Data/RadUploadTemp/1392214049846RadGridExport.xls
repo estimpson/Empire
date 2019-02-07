@@ -1,0 +1,43 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML//EN">
+<html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:x='urn:schemas-microsoft-com:office:excel' xmlns='http://www.w3.org/TR/REC-html40'>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style>
+
+</style>
+<!--[if gte mso 9]>
+
+<![endif]-->
+</head>
+<body>
+	<div id="RadGrid1_GridData" class="rgDataDiv" style="overflow-x:auto;overflow-y:auto;width:100%;height:300px;">
+
+<table class=" rgClipCells" id="RadGrid1_ctl00" style="width:100%;table-layout:fixed;overflow:hidden;empty-cells:show;">
+	<thead>
+		<tr>
+			<td class="rgCommandCell"><table class="rgCommandTable" summary="Command item for additional functionalities for the grid like adding a new record and exporting." style="width:100%;">
+				<caption>
+					<span style='display: none'>Command item</span>
+				</caption><thead>
+					<tr>
+						<th scope="col"></th>
+					</tr>
+				</thead><tbody>
+					<tr>
+						<td align="left"><input type="submit" name="RadGrid1$ctl00$ctl02$ctl00$AddNewRecordButton" value=" " id="RadGrid1_ctl00_ctl02_ctl00_AddNewRecordButton" title="Add new record" class="rgAdd" /><a id="RadGrid1_ctl00_ctl02_ctl00_InitInsertButton" href="javascript:__doPostBack(&#39;RadGrid1$ctl00$ctl02$ctl00$InitInsertButton&#39;,&#39;&#39;)">Add new record</a></td><td align="right"><input type="submit" name="RadGrid1$ctl00$ctl02$ctl00$RefreshButton" value=" " id="RadGrid1_ctl00_ctl02_ctl00_RefreshButton" title="Refresh" class="rgRefresh" /><a id="RadGrid1_ctl00_ctl02_ctl00_RebindGridButton" href="javascript:__doPostBack(&#39;RadGrid1$ctl00$ctl02$ctl00$RebindGridButton&#39;,&#39;&#39;)">Refresh</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;<input type="submit" name="RadGrid1$ctl00$ctl02$ctl00$ExportToExcelButton" value=" " id="RadGrid1_ctl00_ctl02_ctl00_ExportToExcelButton" title="Export to Excel" class="rgExpXLS" />&nbsp;&nbsp;</td>
+					</tr>
+				</tbody>
+			</table></td>
+		</tr><tr>
+			<th scope="col"><a title="Click here to sort" href="javascript:__doPostBack(&#39;RadGrid1$ctl00$ctl02$ctl01$ctl01&#39;,&#39;&#39;)">VendorName</a></th><th scope="col"><a title="Click here to sort" href="javascript:__doPostBack(&#39;RadGrid1$ctl00$ctl02$ctl01$ctl02&#39;,&#39;&#39;)">Part</a></th><th scope="col"><a title="Click here to sort" href="javascript:__doPostBack(&#39;RadGrid1$ctl00$ctl02$ctl01$ctl05&#39;,&#39;&#39;)">QuotedPrice</a></th><th scope="col"><a title="Click here to sort" href="javascript:__doPostBack(&#39;RadGrid1$ctl00$ctl02$ctl01$ctl06&#39;,&#39;&#39;)">QuotedEAU</a></th><th scope="col"><a title="Click here to sort" href="javascript:__doPostBack(&#39;RadGrid1$ctl00$ctl02$ctl01$ctl07&#39;,&#39;&#39;)">StdPack</a></th><th scope="col"><a title="Click here to sort" href="javascript:__doPostBack(&#39;RadGrid1$ctl00$ctl02$ctl01$ctl08&#39;,&#39;&#39;)">MinOrderQuantity</a></th><th scope="col"><a title="Click here to sort" href="javascript:__doPostBack(&#39;RadGrid1$ctl00$ctl02$ctl01$ctl10&#39;,&#39;&#39;)">LeadTime</a></th><th scope="col">&nbsp;</th><th scope="col">&nbsp;</th>
+		</tr><tr>
+			<td style="white-space:nowrap;"><input name="RadGrid1$ctl00$ctl02$ctl02$FilterTextBox_VendorName" type="text" size="10" id="RadGrid1_ctl00_ctl02_ctl02_FilterTextBox_VendorName" class="rgFilterBox" alt="Filter VendorName column" onkeypress="if((event.keyCode == 13)) return false;" /><input type="submit" name="RadGrid1$ctl00$ctl02$ctl02$Filter_VendorName" value=" " id="RadGrid1_ctl00_ctl02_ctl02_Filter_VendorName" title="Filter" class="rgFilter" /></td><td style="white-space:nowrap;"><input name="RadGrid1$ctl00$ctl02$ctl02$FilterTextBox_Part" type="text" size="10" id="RadGrid1_ctl00_ctl02_ctl02_FilterTextBox_Part" class="rgFilterBox" alt="Filter Part column" onkeypress="if((event.keyCode == 13)) return false;" /><input type="submit" name="RadGrid1$ctl00$ctl02$ctl02$Filter_Part" value=" " id="RadGrid1_ctl00_ctl02_ctl02_Filter_Part" title="Filter" class="rgFilter" /></td><td style="white-space:nowrap;"><input name="RadGrid1$ctl00$ctl02$ctl02$FilterTextBox_QuotedPrice" type="text" size="10" id="RadGrid1_ctl00_ctl02_ctl02_FilterTextBox_QuotedPrice" class="rgFilterBox" alt="Filter QuotedPrice column" onkeypress="if((event.keyCode == 13)) return false;" /><input type="submit" name="RadGrid1$ctl00$ctl02$ctl02$Filter_QuotedPrice" value=" " id="RadGrid1_ctl00_ctl02_ctl02_Filter_QuotedPrice" title="Filter" class="rgFilter" /></td><td style="white-space:nowrap;"><input name="RadGrid1$ctl00$ctl02$ctl02$FilterTextBox_QuotedEAU" type="text" size="10" id="RadGrid1_ctl00_ctl02_ctl02_FilterTextBox_QuotedEAU" class="rgFilterBox" alt="Filter QuotedEAU column" onkeypress="if((event.keyCode == 13)) return false;" /><input type="submit" name="RadGrid1$ctl00$ctl02$ctl02$Filter_QuotedEAU" value=" " id="RadGrid1_ctl00_ctl02_ctl02_Filter_QuotedEAU" title="Filter" class="rgFilter" /></td><td style="white-space:nowrap;"><input name="RadGrid1$ctl00$ctl02$ctl02$FilterTextBox_StdPack" type="text" size="10" id="RadGrid1_ctl00_ctl02_ctl02_FilterTextBox_StdPack" class="rgFilterBox" alt="Filter StdPack column" onkeypress="if((event.keyCode == 13)) return false;" /><input type="submit" name="RadGrid1$ctl00$ctl02$ctl02$Filter_StdPack" value=" " id="RadGrid1_ctl00_ctl02_ctl02_Filter_StdPack" title="Filter" class="rgFilter" /></td><td style="white-space:nowrap;"><input name="RadGrid1$ctl00$ctl02$ctl02$FilterTextBox_MinOrderQuantity" type="text" size="10" id="RadGrid1_ctl00_ctl02_ctl02_FilterTextBox_MinOrderQuantity" class="rgFilterBox" alt="Filter MinOrderQuantity column" onkeypress="if((event.keyCode == 13)) return false;" /><input type="submit" name="RadGrid1$ctl00$ctl02$ctl02$Filter_MinOrderQuantity" value=" " id="RadGrid1_ctl00_ctl02_ctl02_Filter_MinOrderQuantity" title="Filter" class="rgFilter" /></td><td style="white-space:nowrap;"><input name="RadGrid1$ctl00$ctl02$ctl02$FilterTextBox_LeadTime" type="text" size="10" id="RadGrid1_ctl00_ctl02_ctl02_FilterTextBox_LeadTime" class="rgFilterBox" alt="Filter LeadTime column" onkeypress="if((event.keyCode == 13)) return false;" /><input type="submit" name="RadGrid1$ctl00$ctl02$ctl02$Filter_LeadTime" value=" " id="RadGrid1_ctl00_ctl02_ctl02_Filter_LeadTime" title="Filter" class="rgFilter" /></td><td>&nbsp;</td><td>&nbsp;</td>
+		</tr>
+	</thead><tbody>
+	<tr>
+		<td>SPI-AUTOM</td><td>EEP1234</td><td style="mso-number-format:0\.00;">0.070000</td><td style="mso-number-format:0\.00;">&nbsp;</td><td style="mso-number-format:0\.00;">5000.000000</td><td style="mso-number-format:0\.00;">5000.000000</td><td style="mso-number-format:0\.00;">42.00</td><td><a id="RadGrid1_ctl00_ctl04_AutoGeneratedDeleteButton" href="javascript:__doPostBack(&#39;RadGrid1$ctl00$ctl04$AutoGeneratedDeleteButton&#39;,&#39;&#39;)">Delete</a></td><td><a id="RadGrid1_ctl00_ctl04_AutoGeneratedEditButton" href="javascript:__doPostBack(&#39;RadGrid1$ctl00$ctl04$AutoGeneratedEditButton&#39;,&#39;&#39;)">Edit</a></td>
+	</tr>
+	</tbody>
+
+</table>	</div>
+</body></html>

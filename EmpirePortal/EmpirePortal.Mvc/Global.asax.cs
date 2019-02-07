@@ -4,7 +4,9 @@ using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
 using System.Web.Security;
+using Autofac.Integration.Mvc;
 using EmpirePortal.Mvc.App_Start;
+using FxWeb.Mvc.Infrastructure.EventTasks;
 using FxWeb.Mvc.Infrastructure.Security.Authorization;
 using Newtonsoft.Json;
 
@@ -41,5 +43,13 @@ namespace EmpirePortal.Mvc
 
             HttpContext.Current.User = principal;
         }
+        public void Application_BeginRequest()
+        {
+            foreach (var task in AutofacDependencyResolver.Current.GetServices<IRunOnEachRequest>())
+            {
+                task.Execute();
+            }
+        }
+
     }
 }

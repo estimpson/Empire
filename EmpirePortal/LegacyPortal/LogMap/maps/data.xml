@@ -1,0 +1,2187 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<destinations xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<point name="JW WINCO, INC.">
+		<lat>42.993365</lat>
+		<long>-88.128841</long>
+		<type>Supplier</type>
+	</point>
+	<point name="ITW-DELTAR">
+		<lat>41.49761</lat>
+		<long>-87.782672</long>
+		<type>Supplier</type>
+	</point>
+	<point name="DELFINGEN HN-CORTES">
+		<lat>35.266753</lat>
+		<long>-105.36134</long>
+		<type>Supplier</type>
+	</point>
+	<point name="GRAYLINE LLC">
+		<lat>43.030598</lat>
+		<long>-88.229592</long>
+		<type>Supplier</type>
+	</point>
+	<point name="ELGIN DIE MOLD COMPANY">
+		<lat>42.068025</lat>
+		<long>-88.418435</long>
+		<type>Supplier</type>
+	</point>
+	<point name="RPM Plastics, Inc.">
+		<lat>42.552917</lat>
+		<long>-83.041714</long>
+		<type>Supplier</type>
+	</point>
+	<point name="TE Connectivity,LTD">
+		<lat>40.255686</lat>
+		<long>-76.849666</long>
+		<type>Supplier</type>
+	</point>
+	<point name="Pinnacle Tool Works Inc.">
+		<lat>44.6049</lat>
+		<long>-123.08813</long>
+		<type>Supplier</type>
+	</point>
+	<point name="DELFINGEN INDUSTRY">
+		<type>Supplier</type>
+	</point>
+	<point name="Heilind Electronics Inc.">
+		<lat>41.55791</lat>
+		<long>-81.486746</long>
+		<type>Supplier</type>
+	</point>
+	<point name="Astro-Med, Inc.">
+		<lat>41.672179</lat>
+		<long>-71.502395</long>
+		<type>Supplier</type>
+	</point>
+	<point name="Komax Corporation">
+		<lat>42.174578</lat>
+		<long>-87.934706</long>
+		<type>Supplier</type>
+	</point>
+	<point name="Power and Signal Group">
+		<lat>41.377384</lat>
+		<long>-81.452189</long>
+		<type>Supplier</type>
+	</point>
+	<point name="ARROW ELECTRONICS, INC.">
+		<lat>39.462262</lat>
+		<long>-119.769657</long>
+		<type>Supplier</type>
+	</point>
+	<point name="AMERIPLAS MACHINERY CORP.">
+		<lat>41.464117</lat>
+		<long>-81.588631</long>
+		<type>Supplier</type>
+	</point>
+	<point name="ELLIOT TAPE, INC.">
+		<lat>31.817727</lat>
+		<long>-106.394545</long>
+		<type>Supplier</type>
+	</point>
+	<point name="EMPIRE ELECTRONICS, INC.">
+		<lat>42.546773</lat>
+		<long>-83.142469</long>
+		<type>Empire</type>
+	</point>
+	<point name="ANIXTER/WORLD CLASS">
+		<lat>42.097089</lat>
+		<long>-87.823587</long>
+		<type>Supplier</type>
+	</point>
+	<point name="Sumitomo Electric Wiring System,Inc">
+		<lat>42.443483</lat>
+		<long>-83.437412</long>
+		<type>Supplier</type>
+	</point>
+	<point name="AEES-DixieWire-Nashville">
+		<lat>36.163648</lat>
+		<long>-86.859205</long>
+		<type>Supplier</type>
+	</point>
+	<point name="AESCO ELECTRONICS">
+		<lat>32.390695</lat>
+		<long>-94.579209</long>
+		<type>Supplier</type>
+	</point>
+	<point name="HELLA INC.">
+		<lat>35.924701</lat>
+		<long>-86.880445</long>
+		<type>Supplier</type>
+	</point>
+	<point name="MOTION INDUSTRIES INC.">
+		<lat>33.539426</lat>
+		<long>-86.671182</long>
+		<type>Supplier</type>
+	</point>
+	<point name="FOAMADE INDUSTRIES">
+		<lat>-27.977153</lat>
+		<long>153.390095</long>
+		<type>Supplier</type>
+	</point>
+	<point name="Elliott Group International">
+		<type>Supplier</type>
+	</point>
+	<point name="AIR CLEANING TECHNOLOGIES INC.">
+		<lat>36.054723</lat>
+		<long>-95.803674</long>
+		<type>Supplier</type>
+	</point>
+	<point name="PAR INDUSTRIES., LLC">
+		<lat>-27.977153</lat>
+		<long>153.390095</long>
+		<type>Supplier</type>
+	</point>
+	<point name="SG Electronics Co., LTD">
+		<lat>35.163115</lat>
+		<long>-89.758899</long>
+		<type>Supplier</type>
+	</point>
+	<point name="Detronic Industries, Inc.">
+		<lat>42.55632</lat>
+		<long>-83.03953</long>
+		<type>Supplier</type>
+	</point>
+	<point name="A &amp; E FRAME MANUFACTURING">
+		<lat>36.060949</lat>
+		<long>-95.797453</long>
+		<type>Supplier</type>
+	</point>
+	<point name="GRAINGER">
+		<lat>42.53597</lat>
+		<long>-83.102529</long>
+		<type>Supplier</type>
+	</point>
+	<point name="AXIS SYSTEMS">
+		<lat>42.698161</lat>
+		<long>-83.267608</long>
+		<type>Supplier</type>
+	</point>
+	<point name="HOEL MACHINE">
+		<lat>36.074479</lat>
+		<long>-95.841731</long>
+		<type>Supplier</type>
+	</point>
+	<point name="McClain">
+		<lat>36.261177</lat>
+		<long>-95.6602</long>
+		<type>Supplier</type>
+	</point>
+	<point name="FUJI ELECTTRIC CORP.">
+		<lat>39.95</lat>
+		<long>-75.16</long>
+		<type>Supplier</type>
+	</point>
+	<point name="RULE COMPANY">
+		<lat>-2.177535</lat>
+		<long>-79.881305</long>
+		<type>Supplier</type>
+	</point>
+	<point name="ASTRODYNE">
+		<lat>42.019801</lat>
+		<long>-71.241374</long>
+		<type>Supplier</type>
+	</point>
+	<point name="Future Active Industrial Electronic">
+		<lat>41.879785</lat>
+		<long>-87.631788</long>
+		<type>Supplier</type>
+	</point>
+	<point name="MOTION SYSTEMS">
+		<lat>42.453847</lat>
+		<long>-82.98614</long>
+		<type>Supplier</type>
+	</point>
+	<point name="ANIXTER INC.">
+		<lat>42.694505</lat>
+		<long>-83.268143</long>
+		<type>Supplier</type>
+	</point>
+	<point name="LA SALLE ELECTRIC SUPPLY CO">
+		<lat>42.38148</lat>
+		<long>-83.380679</long>
+		<type>Supplier</type>
+	</point>
+	<point name="Madison Electric Company">
+		<lat>42.527126</lat>
+		<long>-83.030196</long>
+		<type>Supplier</type>
+	</point>
+	<point name="NEWARK">
+		<lat>37.78</lat>
+		<long>-122.42</long>
+		<type>Supplier</type>
+	</point>
+	<point name="DP BROWN">
+		<lat>43.453002</lat>
+		<long>-84.027317</long>
+		<type>Supplier</type>
+	</point>
+	<point name="BURNHAM">
+		<lat>42.59309</lat>
+		<long>-83.034729</long>
+		<type>Supplier</type>
+	</point>
+	<point name="MEANWELL">
+		<lat>37.507889</lat>
+		<long>-121.949124</long>
+		<type>Supplier</type>
+	</point>
+	<point name="Southco Manufacturing">
+		<lat>42.955752</lat>
+		<long>-77.573032</long>
+		<type>Supplier</type>
+	</point>
+	<point name="METALFORMS">
+		<lat>36.16378</lat>
+		<long>-95.973327</long>
+		<type>Supplier</type>
+	</point>
+	<point name="Hellermann Tyton">
+		<lat>40.682644</lat>
+		<long>-83.955815</long>
+		<type>Supplier</type>
+	</point>
+	<point name="PLASTIC POLYMER SYSTEMS">
+		<type>Supplier</type>
+	</point>
+	<point name="TRIDENT PRECISION MANUFACTURING">
+		<lat>43.225664</lat>
+		<long>-77.397775</long>
+		<type>Supplier</type>
+	</point>
+	<point name="GEHEB">
+		<lat>35.358953</lat>
+		<long>-95.26562</long>
+		<type>Supplier</type>
+	</point>
+	<point name="ARROW/BELL COMPONENTS">
+		<lat>42.391128</lat>
+		<long>-83.486596</long>
+		<type>Supplier</type>
+	</point>
+	<point name="LIVONIA AUTOMATIC">
+		<lat>42.37551</lat>
+		<long>-83.410994</long>
+		<type>Supplier</type>
+	</point>
+	<point name="TTI, Inc.">
+		<lat>32.838092</lat>
+		<long>-97.318946</long>
+		<type>Supplier</type>
+	</point>
+	<point name="ECP Hardware">
+		<lat>42.556704</lat>
+		<long>-83.108572</long>
+		<type>Supplier</type>
+	</point>
+	<point name="PROMPTUS ELECTRICAL SUPPLY">
+		<type>Supplier</type>
+	</point>
+	<point name="DUNKERNMOTOREN">
+		<lat>42.331245</lat>
+		<long>-71.193843</long>
+		<type>Supplier</type>
+	</point>
+	<point name="TULSA PLASTICS">
+		<lat>36.115587</lat>
+		<long>-95.907406</long>
+		<type>Supplier</type>
+	</point>
+	<point name="REID TOOL SUPPLY">
+		<type>Supplier</type>
+	</point>
+	<point name="Steven Engineering">
+		<lat>37.63049</lat>
+		<long>-122.411084</long>
+		<type>Supplier</type>
+	</point>
+	<point name="MCMASTER CARR">
+		<lat>41.88</lat>
+		<long>-87.64</long>
+		<type>Supplier</type>
+	</point>
+	<point name="RELIZON">
+		<lat>40.44</lat>
+		<long>-79.96</long>
+		<type>Supplier</type>
+	</point>
+	<point name="CARLTON BATES COMPANY">
+		<lat>32.84</lat>
+		<long>-96.8</long>
+		<type>Supplier</type>
+	</point>
+	<point name="PYRAMID">
+		<lat>46.799363</lat>
+		<long>-92.0932</long>
+		<type>Supplier</type>
+	</point>
+	<point name="YATES COMPANY">
+		<lat>41.49</lat>
+		<long>-81.68</long>
+		<type>Supplier</type>
+	</point>
+	<point name="SCHUSTER ELECTRONICS">
+		<lat>39.11</lat>
+		<long>-84.54</long>
+		<type>Supplier</type>
+	</point>
+	<point name="LABEL ID SYSTEMS, INC.">
+		<lat>42.469937</lat>
+		<long>-83.443951</long>
+		<type>Supplier</type>
+	</point>
+	<point name="McKinstry">
+		<lat>42.171442</lat>
+		<long>-72.613821</long>
+		<type>Supplier</type>
+	</point>
+	<point name="SATURN ELECTRONICS CORP.">
+		<lat>42.210762</lat>
+		<long>-83.31752</long>
+		<type>Supplier</type>
+	</point>
+	<point name="D.B. ROBERTS CO.">
+		<lat>41.659971</lat>
+		<long>-81.38021</long>
+		<type>Supplier</type>
+	</point>
+	<point name="DETROIT ELECTRIC">
+		<lat>42.454397</lat>
+		<long>-83.083916</long>
+		<type>Supplier</type>
+	</point>
+	<point name="Fuses Unlimited">
+		<lat>34.239186</lat>
+		<long>-118.594115</long>
+		<type>Supplier</type>
+	</point>
+	<point name="MSC Industrial Supply Company">
+		<lat>35.338021</lat>
+		<long>-77.790978</long>
+		<type>Supplier</type>
+	</point>
+	<point name="US DIGITAL">
+		<lat>45.647159</lat>
+		<long>-122.559095</long>
+		<type>Supplier</type>
+	</point>
+	<point name="SAIA BURGESS ELECT.">
+		<type>Supplier</type>
+	</point>
+	<point name="DIGI-KEY CORPORATION">
+		<lat>35.796851</lat>
+		<long>-78.673021</long>
+		<type>Supplier</type>
+	</point>
+	<point name="IGUS INC.">
+		<lat>41.81649</lat>
+		<long>-71.364624</long>
+		<type>Supplier</type>
+	</point>
+	<point name="TRIANGLE SALES CO.">
+		<type>Supplier</type>
+	</point>
+	<point name="UNIVERSAL ELECTRIC">
+		<lat>42.615865</lat>
+		<long>-83.963801</long>
+		<type>Supplier</type>
+	</point>
+	<point name="CHRIS ELECTRONICS DISTRIBUTORS">
+		<lat>45.027802</lat>
+		<long>-93.185972</long>
+		<type>Supplier</type>
+	</point>
+	<point name="APPLIED INDUSTRIAL TECHNOLOGIES">
+		<lat>41.88</lat>
+		<long>-87.64</long>
+		<type>Supplier</type>
+	</point>
+	<point name="The Western Design Center">
+		<lat>33.437607</lat>
+		<long>-111.784008</long>
+		<type>Supplier</type>
+	</point>
+	<point name="SAYAL ELECTRONIC">
+		<lat>35.532917</lat>
+		<long>-79.179859</long>
+		<type>Supplier</type>
+	</point>
+	<point name="CDW">
+		<type>Supplier</type>
+	</point>
+	<point name="PCBpro">
+		<lat>45.437752</lat>
+		<long>-122.618007</long>
+		<type>Supplier</type>
+	</point>
+	<point name="GLT International">
+		<lat>42.635095</lat>
+		<long>-83.187333</long>
+		<type>Supplier</type>
+	</point>
+	<point name="Huntsman Advanced Materials America">
+		<lat>34.145325</lat>
+		<long>-118.272024</long>
+		<type>Supplier</type>
+	</point>
+	<point name="M&amp;Q PLASTICS PRODUCTS">
+		<lat>42.959848</lat>
+		<long>-83.657084</long>
+		<type>Supplier</type>
+	</point>
+	<point name="YAZAKI NORTH AMERICA INC.">
+		<lat>28.741443</lat>
+		<long>-106.146943</long>
+		<type>Supplier</type>
+	</point>
+	<point name="NTI TTI, Inc">
+		<lat>41.385223</lat>
+		<long>-81.458456</long>
+		<type>Supplier</type>
+	</point>
+	<point name="Dixiewire-Honduras">
+		<type>Supplier</type>
+	</point>
+	<point name="Lee Fung Plastic Manufacturing Fact">
+		<lat>23.020673</lat>
+		<long>113.7518</long>
+		<type>Supplier</type>
+	</point>
+	<point name="MARNER TOOL AND GAUGE">
+		<lat>42.288555</lat>
+		<long>-83.080067</long>
+		<type>Supplier</type>
+	</point>
+	<point name="NYE LUBRICANTS, INC">
+		<lat>41.656657</lat>
+		<long>-70.914294</long>
+		<type>Supplier</type>
+	</point>
+	<point name="Nexeo Solutions">
+		<lat>40.088101</lat>
+		<long>-83.13638</long>
+		<type>Supplier</type>
+	</point>
+	<point name="FCI AUTOMOTIVE">
+		<lat>31.65099</lat>
+		<long>-106.378758</long>
+		<type>Supplier</type>
+	</point>
+	<point name="FCI (CANADA)">
+		<lat>43.861293</lat>
+		<long>-79.364323</long>
+		<type>Supplier</type>
+	</point>
+	<point name="FCI AUTOMOTIVE - NOTH AMERICA">
+		<lat>42.320132</lat>
+		<long>-83.419722</long>
+		<type>Supplier</type>
+	</point>
+	<point name="GE SUPPLY">
+		<lat>32.84</lat>
+		<long>-96.8</long>
+		<type>Supplier</type>
+	</point>
+	<point name="TT ELECTRONICS INTERNATIONAL RESIST">
+		<lat>13.078751</lat>
+		<long>-59.536049</long>
+		<type>Supplier</type>
+	</point>
+	<point name="LEAR CORPORATION">
+		<lat>44.747762</lat>
+		<long>-85.607321</long>
+		<type>Customer</type>
+	</point>
+	<point name="MOLEX LLC">
+		<lat>41.795729</lat>
+		<long>-88.099003</long>
+		<type>Supplier</type>
+	</point>
+	<point name="Panasonic Electric Works (Thailand) Co., Ltd.">
+		<type>Supplier</type>
+	</point>
+	<point name="Senko Advanced Components and Senko America Corporation">
+		<lat>31.679247</lat>
+		<long>-106.32012</long>
+		<type>Supplier</type>
+	</point>
+	<point name="PRECISION FLUID POWER,INC">
+		<lat>35.455836</lat>
+		<long>-97.542433</long>
+		<type>Supplier</type>
+	</point>
+	<point name="CIRCUIT CONTROLS CORPORATION">
+		<lat>45.403086</lat>
+		<long>-84.901557</long>
+		<type>Supplier</type>
+	</point>
+	<point name="FEDERAL MOGUL CORPORATION">
+		<lat>42.486913</lat>
+		<long>-83.31588</long>
+		<type>Supplier</type>
+	</point>
+	<point name="K &amp; K STAMPING COMPANY">
+		<lat>42.469409</lat>
+		<long>-82.916833</long>
+		<type>Supplier</type>
+	</point>
+	<point name="ANSOR  S.R.L.">
+		<lat>45.56932</lat>
+		<long>8.93911</long>
+		<type>Supplier</type>
+	</point>
+	<point name="3 DIMENSIONAL SERVICES">
+		<lat>42.643373</lat>
+		<long>-83.165851</long>
+		<type>Supplier</type>
+	</point>
+	<point name="EMHART TEKNOLOGIES,INC.">
+		<lat>42.662951</lat>
+		<long>-82.84567</long>
+		<type>Supplier</type>
+	</point>
+	<point name="HELLA ELECTRONICS CORPORATION.">
+		<lat>38.670695</lat>
+		<long>-88.469132</long>
+		<type>Supplier</type>
+	</point>
+	<point name="TUSONIX">
+		<lat>32.347569</lat>
+		<long>-111.082647</long>
+		<type>Supplier</type>
+	</point>
+	<point name="INAN ELECTRIC CO., LTD">
+		<lat>42.527617</lat>
+		<long>-83.362623</long>
+		<type>Supplier</type>
+	</point>
+	<point name="ALPHA METALS, INC., An ALENT PLC COMPANY">
+		<lat>40.54988</lat>
+		<long>-74.421895</long>
+		<type>Supplier</type>
+	</point>
+	<point name="Kickhaefer Manufacturing Company">
+		<lat>37.872497</lat>
+		<long>-94.030378</long>
+		<type>Supplier</type>
+	</point>
+	<point name="JKL Components Corporation">
+		<type>Supplier</type>
+	</point>
+	<point name="EDX ELECTRONICS, INC.">
+		<lat>28.644438</lat>
+		<long>-81.271218</long>
+		<type>Supplier</type>
+	</point>
+	<point name="TRW Automotive">
+		<lat>42.558749</lat>
+		<long>-71.871515</long>
+		<type>Customer</type>
+	</point>
+	<point name="Standard Rubber Products (SRP)">
+		<lat>42.024552</lat>
+		<long>-87.966315</long>
+		<type>Supplier</type>
+	</point>
+	<point name="SABIC INNOVATIVE PLASTICS US LLC">
+		<lat>35.403058</lat>
+		<long>-80.860011</long>
+		<type>Supplier</type>
+	</point>
+	<point name="ENGINEERED YARNS">
+		<type>Supplier</type>
+	</point>
+	<point name="ETCO INCORPORATED">
+		<lat>41.764933</lat>
+		<long>-71.398053</long>
+		<type>Supplier</type>
+	</point>
+	<point name="LADD INDUSTRIAL SALES ">
+		<lat>39.675575</lat>
+		<long>-84.138644</long>
+		<type>Supplier</type>
+	</point>
+	<point name="EFC INTERNATIONAL">
+		<lat>38.693099</lat>
+		<long>-90.448198</long>
+		<type>Supplier</type>
+	</point>
+	<point name="HAMILTON PRODUCTS">
+		<lat>44.132139</lat>
+		<long>-72.658998</long>
+		<type>Supplier</type>
+	</point>
+	<point name="FURUKAWA ELECTRIC">
+		<lat>37.79</lat>
+		<long>-122.4</long>
+		<type>Supplier</type>
+	</point>
+	<point name="JUDD WIRE">
+		<lat>42.587696</lat>
+		<long>-72.557438</long>
+		<type>Supplier</type>
+	</point>
+	<point name="Stanley Industries, Inc.">
+		<lat>42.538918</lat>
+		<long>-83.135195</long>
+		<type>Customer</type>
+	</point>
+	<point name="PLYMOUTH RUBBER CO. LLC">
+		<lat>42.169295</lat>
+		<long>-71.108238</long>
+		<type>Supplier</type>
+	</point>
+	<point name="SEBRO PLASTICS, INC.">
+		<type>Supplier</type>
+	</point>
+	<point name="AVERY DENNISON">
+		<type>Supplier</type>
+	</point>
+	<point name="KELNER ZAR MARKETING INC.">
+		<lat>42.314921</lat>
+		<long>-83.293291</long>
+		<type>Supplier</type>
+	</point>
+	<point name="D.A. INC.">
+		<lat>31.867995</lat>
+		<long>-106.698952</long>
+		<type>Supplier</type>
+	</point>
+	<point name="AEES, Inc.">
+		<lat>42.225113</lat>
+		<long>-85.785423</long>
+		<type>Supplier</type>
+	</point>
+	<point name="Performance Packaging, Inc.">
+		<lat>33.714042</lat>
+		<long>-84.645917</long>
+		<type>Supplier</type>
+	</point>
+	<point name="Small Parts Inc.">
+		<lat>40.741296</lat>
+		<long>-86.366982</long>
+		<type>Supplier</type>
+	</point>
+	<point name="A Raymond, Inc">
+		<lat>42.641873</lat>
+		<long>-83.194104</long>
+		<type>Supplier</type>
+	</point>
+	<point name="APPROVED COLOR, LLC">
+		<lat>42.955597</lat>
+		<long>-72.758178</long>
+		<type>Supplier</type>
+	</point>
+	<point name="KOSTAL Kontakt Systeme, Inc.">
+		<lat>42.652752</lat>
+		<long>-83.1617</long>
+		<type>Supplier</type>
+	</point>
+	<point name="AVNET">
+		<lat>42.38197</lat>
+		<long>-83.477013</long>
+		<type>Supplier</type>
+	</point>
+	<point name="PVC COMPOUNDERS">
+		<lat>41.445202</lat>
+		<long>-85.292938</long>
+		<type>Supplier</type>
+	</point>
+	<point name="HIRSCHMANN AUTOMOTIVE GmbH">
+		<lat>47.283656</lat>
+		<long>9.588203</long>
+		<type>Supplier</type>
+	</point>
+	<point name="Dunn Industries Inc.">
+		<lat>42.935228</lat>
+		<long>-71.422879</long>
+		<type>Supplier</type>
+	</point>
+	<point name="CODING PRODUCTS, INC.">
+		<lat>44.732798</lat>
+		<long>-85.168034</long>
+		<type>Supplier</type>
+	</point>
+	<point name="Douglas Autotech">
+		<lat>36.830322</lat>
+		<long>-87.445094</long>
+		<type>Supplier</type>
+	</point>
+	<point name="HOFFER PLASTICS CORPORATION">
+		<lat>41.999006</lat>
+		<long>-88.30239</long>
+		<type>Supplier</type>
+	</point>
+	<point name="General Color &amp; Chemical Company, I">
+		<lat>33.097458</lat>
+		<long>-117.059364</long>
+		<type>Supplier</type>
+	</point>
+	<point name="HILEC, LLC">
+		<lat>42.533148</lat>
+		<long>-78.423054</long>
+		<type>Supplier</type>
+	</point>
+	<point name="WAYTEK, INC.">
+		<lat>44.865931</lat>
+		<long>-93.514157</long>
+		<type>Supplier</type>
+	</point>
+	<point name="FB WRIGHT">
+		<lat>42.315466</lat>
+		<long>-83.15177</long>
+		<type>Supplier</type>
+	</point>
+	<point name="Grand Rapids Rubber">
+		<lat>42.888329</lat>
+		<long>-85.653836</long>
+		<type>Supplier</type>
+	</point>
+	<point name="GLOBE COMPONENT PRODUCTS">
+		<lat>42.460549</lat>
+		<long>-83.12447</long>
+		<type>Supplier</type>
+	</point>
+	<point name="PLASTIC SERVICE CENTER">
+		<lat>42.627143</lat>
+		<long>-82.901337</long>
+		<type>Supplier</type>
+	</point>
+	<point name="GUIDE CORPORATION">
+		<lat>39.886771</lat>
+		<long>-87.096079</long>
+		<type>Supplier</type>
+	</point>
+	<point name="ULINE">
+		<lat>42.320458</lat>
+		<long>-87.885781</long>
+		<type>Supplier</type>
+	</point>
+	<point name="LEXINGTON RUBBER GROUP, INC/ DBA QSR INC">
+		<lat>34.467319</lat>
+		<long>-84.419244</long>
+		<type>Supplier</type>
+	</point>
+	<point name="Osram Sylvania, Inc.">
+		<lat>41.83446</lat>
+		<long>-79.130168</long>
+		<type>Supplier</type>
+	</point>
+	<point name="manufactura estampadas S.A. de C.V.">
+		<lat>31.70779</lat>
+		<long>-106.432709</long>
+		<type>Supplier</type>
+	</point>
+	<point name="EMPIRE OF HONDURAS">
+		<lat>15.51492</lat>
+		<long>-87.992268</long>
+		<type>Empire</type>
+	</point>
+	<point name="JFB MANUFACTURING COMPANY, INC">
+		<lat>42.665011</lat>
+		<long>-83.420511</long>
+		<type>Supplier</type>
+	</point>
+	<point name="Nylon Corporation of America">
+		<lat>42.971217</lat>
+		<long>-71.472327</long>
+		<type>Supplier</type>
+	</point>
+	<point name="PLASTOMER CORPORATION">
+		<lat>42.381111</lat>
+		<long>-83.414297</long>
+		<type>Supplier</type>
+	</point>
+	<point name="AUTOSPLICE INCORPORATED">
+		<lat>32.898548</lat>
+		<long>-117.198516</long>
+		<type>Supplier</type>
+	</point>
+	<point name="Federal Mogul Bentley Harris">
+		<lat>40.061862</lat>
+		<long>-75.64494</long>
+		<type>Supplier</type>
+	</point>
+	<point name="Newark Element 14">
+		<lat>41.657202</lat>
+		<long>-91.541378</long>
+		<type>Supplier</type>
+	</point>
+	<point name="Kern-Liebers Pieron INC. USA">
+		<lat>42.472003</lat>
+		<long>-83.394137</long>
+		<type>Supplier</type>
+	</point>
+	<point name="TICONA CELSTRAN, INC">
+		<lat>44.068065</lat>
+		<long>-91.699786</long>
+		<type>Supplier</type>
+	</point>
+	<point name="ECOTEMP International Inc.">
+		<lat>53.541464</lat>
+		<long>-113.536625</long>
+		<type>Supplier</type>
+	</point>
+	<point name="INALFA">
+		<type>Supplier</type>
+	</point>
+	<point name="ALLIED ELECTRONIC INC.">
+		<lat>21.3403</lat>
+		<long>-157.999933</long>
+		<type>Supplier</type>
+	</point>
+	<point name="KONGSBERG AUTOMOTIVE">
+		<lat>42.460658</lat>
+		<long>-83.424924</long>
+		<type>Supplier</type>
+	</point>
+	<point name="LEXINGTON RUBBER GROUP, INC./dba QSR Inc">
+		<lat>34.467319</lat>
+		<long>-84.419244</long>
+		<type>Supplier</type>
+	</point>
+	<point name="Automotive labels  Inc.">
+		<lat>38.27035</lat>
+		<long>-121.309246</long>
+		<type>Supplier</type>
+	</point>
+	<point name="RELAY SPECIALTIES INC.">
+		<lat>41.025226</lat>
+		<long>-74.232904</long>
+		<type>Supplier</type>
+	</point>
+	<point name="GE CONSUMER &amp; INDUSTRIAL">
+		<lat>34.158332</lat>
+		<long>-118.51559</long>
+		<type>Supplier</type>
+	</point>
+	<point name="INSPECTION TECHNOLOGIES INC.">
+		<lat>42.476472</lat>
+		<long>-83.10231</long>
+		<type>Supplier</type>
+	</point>
+	<point name="FULTON MANUFACTURING IND. LLC">
+		<lat>41.282358</lat>
+		<long>-81.64031</long>
+		<type>Supplier</type>
+	</point>
+	<point name="INDUSTRIAL THERMO POLYMERS LTD.">
+		<lat>43.709814</lat>
+		<long>-79.80768</long>
+		<type>Supplier</type>
+	</point>
+	<point name="TWIN CORPORATION">
+		<lat>42.874751</lat>
+		<long>-83.632366</long>
+		<type>Supplier</type>
+	</point>
+	<point name="Mcmasters Koss Co.">
+		<lat>42.525869</lat>
+		<long>-83.180548</long>
+		<type>Supplier</type>
+	</point>
+	<point name="New Resource">
+		<type>Supplier</type>
+	</point>
+	<point name="SIMTEC SILICONE PARTS LLC.">
+		<lat>43.125151</lat>
+		<long>-89.331543</long>
+		<type>Supplier</type>
+	</point>
+	<point name="Clariant International Ltd">
+		<lat>42.338818</lat>
+		<long>-71.843531</long>
+		<type>Supplier</type>
+	</point>
+	<point name="WIRE PRODUCTS COMPANY,  INC.">
+		<lat>41.391878</lat>
+		<long>-81.967613</long>
+		<type>Supplier</type>
+	</point>
+	<point name="MICHIGAN STEEL SPRING">
+		<lat>42.382931</lat>
+		<long>-83.203123</long>
+		<type>Supplier</type>
+	</point>
+	<point name="Mouser Electronics">
+		<lat>32.578944</lat>
+		<long>-97.147107</long>
+		<type>Supplier</type>
+	</point>
+	<point name="GROUPE LAVERGNE INC.">
+		<lat>52.939916</lat>
+		<long>-73.549136</long>
+		<type>Supplier</type>
+	</point>
+	<point name="WORLD MICRO COMPONENTS">
+		<lat>33.965545</lat>
+		<long>-84.364233</long>
+		<type>Supplier</type>
+	</point>
+	<point name="RADIO SHACK">
+		<lat>42.535573</lat>
+		<long>-83.106913</long>
+		<type>Supplier</type>
+	</point>
+	<point name="LUMILEDS LLC">
+		<lat>42.496624</lat>
+		<long>-83.384831</long>
+		<type>Supplier</type>
+	</point>
+	<point name="EIS">
+		<type>Supplier</type>
+	</point>
+	<point name="JST CORPORATION">
+		<lat>42.477522</lat>
+		<long>-83.422394</long>
+		<type>Supplier</type>
+	</point>
+	<point name="Exxonmobil chemical company">
+		<lat>30.421309</lat>
+		<long>-87.216915</long>
+		<type>Supplier</type>
+	</point>
+	<point name="EXACTO SPRING CORP.">
+		<lat>32.46299</lat>
+		<long>-99.735055</long>
+		<type>Supplier</type>
+	</point>
+	<point name="OMRON ELECTRONIC LLC">
+		<lat>26.271529</lat>
+		<long>-80.251114</long>
+		<type>Supplier</type>
+	</point>
+	<point name="SOLARBOTICS LTD">
+		<lat>51.048615</lat>
+		<long>-114.070846</long>
+		<type>Supplier</type>
+	</point>
+	<point name="Mitsubishi Cable America, Inc.">
+		<lat>34.989304</lat>
+		<long>137.078608</long>
+		<type>Supplier</type>
+	</point>
+	<point name="Barkley Plastic Limited">
+		<lat>52.465456</lat>
+		<long>-1.890048</long>
+		<type>Supplier</type>
+	</point>
+	<point name="SHENZH WEI XIN INDUSTRIAL PRODUCTS">
+		<lat>42.377441</lat>
+		<long>-71.079245</long>
+		<type>Supplier</type>
+	</point>
+	<point name="Hi-Craft Engineering, Inc.">
+		<lat>42.540269</lat>
+		<long>-82.93091</long>
+		<type>Supplier</type>
+	</point>
+	<point name="BASTECH">
+		<lat>39.882736</lat>
+		<long>-84.18303</long>
+		<type>Supplier</type>
+	</point>
+	<point name="Chase Plastic Services, Inc.">
+		<lat>42.731444</lat>
+		<long>-83.382624</long>
+		<type>Supplier</type>
+	</point>
+	<point name="MARKEM-IMAJE">
+		<lat>42.921136</lat>
+		<long>-72.267312</long>
+		<type>Supplier</type>
+	</point>
+	<point name="DSM Engineering Plastics Inc.">
+		<lat>38.027765</lat>
+		<long>-87.596881</long>
+		<type>Supplier</type>
+	</point>
+	<point name="HAWK ELECTRONICS">
+		<lat>27.63593</lat>
+		<long>-82.558515</long>
+		<type>Supplier</type>
+	</point>
+	<point name="AOK TOOLING LTD">
+		<type>Supplier</type>
+	</point>
+	<point name="GS-YUE DG TOOLING CO., LTD.">
+		<lat>23.10945</lat>
+		<long>113.744495</long>
+		<type>Supplier</type>
+	</point>
+	<point name="3M Company">
+		<type>Supplier</type>
+	</point>
+	<point name="AUTOMOTIVE LIGHTING LLC">
+		<lat>31.720521</lat>
+		<long>-106.295521</long>
+		<type>Customer</type>
+	</point>
+	<point name="ANTAYA TECHNOLOGIES CORPORATION">
+		<lat>41.774509</lat>
+		<long>-71.424238</long>
+		<type>Supplier</type>
+	</point>
+	<point name="CREATIVE FOAM CORPORATION">
+		<lat>42.799708</lat>
+		<long>-83.727993</long>
+		<type>Supplier</type>
+	</point>
+	<point name="PERFORMANCE ELASTOMERS">
+		<lat>41.157557</lat>
+		<long>-81.242047</long>
+		<type>Supplier</type>
+	</point>
+	<point name="AVON AUTOMOTIVE ">
+		<lat>42.494235</lat>
+		<long>-83.431764</long>
+		<type>Supplier</type>
+	</point>
+	<point name="Plastic Service Centers, Inc.">
+		<lat>34.446807</lat>
+		<long>-119.838653</long>
+		<type>Supplier</type>
+	</point>
+	<point name="EPOXICAL INC">
+		<lat>44.715689</lat>
+		<long>-92.86599</long>
+		<type>Supplier</type>
+	</point>
+	<point name="CRISTIANA">
+		<lat>25.686614</lat>
+		<long>-100.316113</long>
+		<type>Supplier</type>
+	</point>
+	<point name="EMPIRE WIRE &amp; SUPPLY">
+		<lat>42.636873</lat>
+		<long>-83.235718</long>
+		<type>Supplier</type>
+	</point>
+	<point name="Component Plastics, Inc.">
+		<lat>42.071559</lat>
+		<long>-88.296676</long>
+		<type>Supplier</type>
+	</point>
+	<point name="MONROE SEALS">
+		<lat>42.811378</lat>
+		<long>-86.057143</long>
+		<type>Supplier</type>
+	</point>
+	<point name="Keats Manufacturing Co.">
+		<lat>42.112821</lat>
+		<long>-87.925506</long>
+		<type>Supplier</type>
+	</point>
+	<point name="Royal Die &amp; Stamping">
+		<lat>41.921781</lat>
+		<long>-88.119136</long>
+		<type>Supplier</type>
+	</point>
+	<point name="FEDERAL INDUSTRIAL SALES CORP.">
+		<lat>39.221795</lat>
+		<long>-85.906246</long>
+		<type>Supplier</type>
+	</point>
+	<point name="FOREST CITY TECHNOLOGIES, INC. ">
+		<lat>41.172313</lat>
+		<long>-82.213769</long>
+		<type>Supplier</type>
+	</point>
+	<point name="NATIONAL MOLDING,LLC">
+		<lat>25.905381</lat>
+		<long>-80.297567</long>
+		<type>Supplier</type>
+	</point>
+	<point name="THB DE HONDURAS">
+		<lat>42.56148</lat>
+		<long>-83.049257</long>
+		<type>Supplier</type>
+	</point>
+	<point name="INDUSTRIE ELECTRIK HS GmbH.">
+		<lat>48.54143</lat>
+		<long>10.37196</long>
+		<type>Supplier</type>
+	</point>
+	<point name="INTREPID MOLDING INC.">
+		<lat>42.278616</lat>
+		<long>-88.142371</long>
+		<type>Supplier</type>
+	</point>
+	<point name="FOREMOST PLASTIC PRODUCTS Co.">
+		<lat>41.926901</lat>
+		<long>-87.822813</long>
+		<type>Supplier</type>
+	</point>
+	<point name="CRAFTSMAN PLATING &amp; TINNING">
+		<lat>41.940853</lat>
+		<long>-87.660966</long>
+		<type>Supplier</type>
+	</point>
+	<point name="Stanley Spring &amp;Stamping Corp">
+		<lat>41.975794</lat>
+		<long>-87.754731</long>
+		<type>Supplier</type>
+	</point>
+	<point name="ELECTRO INSULATION CORPORATION">
+		<lat>29.064947</lat>
+		<long>-80.954327</long>
+		<type>Supplier</type>
+	</point>
+	<point name="MOLD SYSTEMS">
+		<lat>42.557716</lat>
+		<long>-83.040198</long>
+		<type>Supplier</type>
+	</point>
+	<point name="FISHER CAST GLOBAL ">
+		<type>Supplier</type>
+	</point>
+	<point name="CHAMPLAIN CABLE CORPORATION">
+		<lat>44.512189</lat>
+		<long>-73.174498</long>
+		<type>Supplier</type>
+	</point>
+	<point name="VALLEY FASTENER GROUP LLC">
+		<lat>41.788432</lat>
+		<long>-88.303871</long>
+		<type>Supplier</type>
+	</point>
+	<point name="CEMM MEX, S.A. DE C.V.">
+		<lat>25.676232</lat>
+		<long>-100.152119</long>
+		<type>Supplier</type>
+	</point>
+	<point name="PROSPECT TOOL COMPANY LLC">
+		<lat>41.939862</lat>
+		<long>-87.857055</long>
+		<type>Supplier</type>
+	</point>
+	<point name="GETTIG ENGINEERING MANUFACT. &amp; CO.">
+		<lat>41.320567</lat>
+		<long>-106.146045</long>
+		<type>Supplier</type>
+	</point>
+	<point name="DROSSBACH N.A. Inc.">
+		<lat>44.123767</lat>
+		<long>-77.565789</long>
+		<type>Supplier</type>
+	</point>
+	<point name="CHICAGO RIVET &amp; MACHINE CO.">
+		<type>Supplier</type>
+	</point>
+	<point name="DerryEnterprises,Inc.DBAfieldfasten">
+		<lat>41.977562</lat>
+		<long>-87.965693</long>
+		<type>Supplier</type>
+	</point>
+	<point name="ICSA INDUSTRIAL COMPONENTS">
+		<lat>25.712661</lat>
+		<long>-100.385574</long>
+		<type>Supplier</type>
+	</point>
+	<point name="CS COLOMBO USA, Inc.">
+		<lat>40.762909</lat>
+		<long>-73.974559</long>
+		<type>Supplier</type>
+	</point>
+	<point name="CONNOR WINFIELD">
+		<lat>41.760585</lat>
+		<long>-88.320072</long>
+		<type>Supplier</type>
+	</point>
+	<point name="TOYOTA TSUSHO AMERICA, INC.">
+		<lat>35.756472</lat>
+		<long>-83.970459</long>
+		<type>Supplier</type>
+	</point>
+	<point name="HALLOCK CLOCK COMPANY, INC.">
+		<lat>42.489784</lat>
+		<long>-83.151277</long>
+		<type>Supplier</type>
+	</point>
+	<point name="SHENZHEN BAOAN FUYONG YONG LI">
+		<type>Supplier</type>
+	</point>
+	<point name="Kipp/Three Star Manufacturing CO">
+		<lat>41.863161</lat>
+		<long>-87.868093</long>
+		<type>Supplier</type>
+	</point>
+	<point name="VERICORR PACKAGING LLC">
+		<lat>42.555307</lat>
+		<long>-83.044985</long>
+		<type>Supplier</type>
+	</point>
+	<point name="CLASSIC COMPONENTS">
+		<lat>33.812554</lat>
+		<long>-118.338911</long>
+		<type>Supplier</type>
+	</point>
+	<point name="ATLAS WIRE">
+		<lat>41.969161</lat>
+		<long>-87.865367</long>
+		<type>Supplier</type>
+	</point>
+	<point name="AVILA ELECTRONICS ">
+		<lat>35.11218</lat>
+		<long>-120.622117</long>
+		<type>Supplier</type>
+	</point>
+	<point name="IEWC HOLDINGS CORP">
+		<lat>41.474751</lat>
+		<long>-81.968372</long>
+		<type>Supplier</type>
+	</point>
+	<point name="E.I. du Pont de Nemours and Co.">
+		<lat>39.266191</lat>
+		<long>-81.665931</long>
+		<type>Supplier</type>
+	</point>
+	<point name="FCI USA LLC">
+		<lat>40.361799</lat>
+		<long>-77.859935</long>
+		<type>Supplier</type>
+	</point>
+	<point name="WHITLAM GROUP, INC.">
+		<lat>42.475906</lat>
+		<long>-83.035862</long>
+		<type>Supplier</type>
+	</point>
+	<point name="HISCO INC.">
+		<lat>39.916568</lat>
+		<long>-105.010789</long>
+		<type>Supplier</type>
+	</point>
+	<point name="DIMENSION MOLDING CORP.">
+		<lat>41.916231</lat>
+		<long>-88.006804</long>
+		<type>Supplier</type>
+	</point>
+	<point name="Western Diversified Plastics, LLC">
+		<lat>42.225113</lat>
+		<long>-85.785423</long>
+		<type>Supplier</type>
+	</point>
+	<point name="EMS-CHEMIE(NORTH AMERICA), Inc.">
+		<lat>33.862301</lat>
+		<long>-80.384159</long>
+		<type>Supplier</type>
+	</point>
+	<point name="INFINITY MOLDING &amp; ASSEMBLY INC.">
+		<lat>37.95774</lat>
+		<long>-87.895677</long>
+		<type>Supplier</type>
+	</point>
+	<point name="Radici Plastics USA, Inc. ">
+		<lat>41.01153</lat>
+		<long>-81.760688</long>
+		<type>Supplier</type>
+	</point>
+	<point name="ACCURATE PRODUCTS,INC">
+		<lat>41.966295</lat>
+		<long>-87.673647</long>
+		<type>Supplier</type>
+	</point>
+	<point name="INTERPLEX DAYSTAR INC.">
+		<lat>41.940095</lat>
+		<long>-87.902993</long>
+		<type>Supplier</type>
+	</point>
+	<point name="Delphi Packard Electric Systems">
+		<lat>31.40618</lat>
+		<long>-92.396174</long>
+		<type>Supplier</type>
+	</point>
+	<point name="Colors For Plastic">
+		<lat>41.997826</lat>
+		<long>-87.947153</long>
+		<type>Supplier</type>
+	</point>
+	<point name="ALPS Automotive Inc.">
+		<lat>36.07377</lat>
+		<long>-97.114404</long>
+		<type>Supplier</type>
+	</point>
+	<point name="Wieland Group">
+		<lat>34.299226</lat>
+		<long>-77.792617</long>
+		<type>Supplier</type>
+	</point>
+	<point name="OSLO SWITCH">
+		<lat>41.548633</lat>
+		<long>-72.882041</long>
+		<type>Supplier</type>
+	</point>
+	<point name="Harison Toshiba Lighting USA, Inc.">
+		<lat>42.527617</lat>
+		<long>-83.362623</long>
+		<type>Supplier</type>
+	</point>
+	<point name="STEWARD">
+		<lat>35.002009</lat>
+		<long>-85.298923</long>
+		<type>Supplier</type>
+	</point>
+	<point name="FAIR-RITE PRODUCTS">
+		<lat>41.484848</lat>
+		<long>-90.588066</long>
+		<type>Supplier</type>
+	</point>
+	<point name="OSRAM SYLVANIA INC">
+		<lat>43.111654</lat>
+		<long>-71.915602</long>
+		<type>Supplier</type>
+	</point>
+	<point name="Automotive Solutions International">
+		<lat>36.778261</lat>
+		<long>-119.417932</long>
+		<type>Supplier</type>
+	</point>
+	<point name="EWAREHOUSE">
+		<lat>34.196629</lat>
+		<long>-119.008718</long>
+		<type>Supplier</type>
+	</point>
+	<point name="R &amp; R SPRING CORPORATION">
+		<lat>41.910624</lat>
+		<long>-87.991385</long>
+		<type>Supplier</type>
+	</point>
+	<point name="TAI LUBRICANTS">
+		<type>Supplier</type>
+	</point>
+	<point name="ALL STAR FASTENER INC.">
+		<lat>41.996268</lat>
+		<long>-87.961695</long>
+		<type>Supplier</type>
+	</point>
+	<point name="4 SLIDES INC.">
+		<lat>42.484155</lat>
+		<long>-83.086953</long>
+		<type>Supplier</type>
+	</point>
+	<point name="SL AMERICA ">
+		<lat>42.594579</lat>
+		<long>-83.053944</long>
+		<type>Customer</type>
+	</point>
+	<point name="STERN MANUFACTURING INC.">
+		<type>Supplier</type>
+	</point>
+	<point name="AEES Inc.">
+		<lat>42.494295</lat>
+		<long>-83.410199</long>
+		<type>Supplier</type>
+	</point>
+	<point name="NISSAN">
+		<type>Supplier</type>
+	</point>
+	<point name="HILLSMAN MODULAR MOLDING INC.">
+		<type>Supplier</type>
+	</point>
+	<point name="SE JIN INDUSTRY CO.">
+		<lat>35.896631</lat>
+		<long>128.576905</long>
+		<type>Supplier</type>
+	</point>
+	<point name="Superior Essex">
+		<lat>41.746846</lat>
+		<long>-87.940739</long>
+		<type>Supplier</type>
+	</point>
+	<point name="M.C.E. di Nigro V.E C. S.a.s.">
+		<lat>45.15279</lat>
+		<long>7.681903</long>
+		<type>Supplier</type>
+	</point>
+	<point name="NORTH AMERICAN LIGTHING">
+		<lat>39.58694</lat>
+		<long>-87.692808</long>
+		<type>Customer</type>
+	</point>
+	<point name="DYNAMIC SUPLLY SOLUTIONS">
+		<lat>42.537811</lat>
+		<long>-83.481048</long>
+		<type>Supplier</type>
+	</point>
+	<point name="LEONI cable S.A. de C.V.">
+		<lat>28.441241</lat>
+		<long>-106.830307</long>
+		<type>Supplier</type>
+	</point>
+	<point name="Gebauer &amp; Griller Kabelwerke Gmbh">
+		<type>Supplier</type>
+	</point>
+	<point name="ChemRep, Inc.">
+		<lat>42.067663</lat>
+		<long>-88.16821</long>
+		<type>Supplier</type>
+	</point>
+	<point name="DAISY CAROLINA GARCIA">
+		<lat>15.51492</lat>
+		<long>-87.992268</long>
+		<type>Supplier</type>
+	</point>
+	<point name="TECHNICAL POLYMERS">
+		<lat>37.125179</lat>
+		<long>-93.342459</long>
+		<type>Supplier</type>
+	</point>
+	<point name="POWER &amp; SIGNAL GROUP">
+		<lat>41.414758</lat>
+		<long>-81.487592</long>
+		<type>Supplier</type>
+	</point>
+	<point name="RICHCO, INC.">
+		<lat>42.437214</lat>
+		<long>-83.335063</long>
+		<type>Supplier</type>
+	</point>
+	<point name="PYLON TOOL CORPORATION">
+		<lat>42.100489</lat>
+		<long>-87.826347</long>
+		<type>Supplier</type>
+	</point>
+	<point name="Bowles Fluidics Corporation">
+		<lat>39.187137</lat>
+		<long>-76.822183</long>
+		<type>Supplier</type>
+	</point>
+	<point name="Prospect Fastener Corporation">
+		<lat>42.283468</lat>
+		<long>-88.149201</long>
+		<type>Supplier</type>
+	</point>
+	<point name="TEXTAPE, INC">
+		<lat>31.724723</lat>
+		<long>-106.320612</long>
+		<type>Supplier</type>
+	</point>
+	<point name="Technische Kunststoffteile GmbH">
+		<lat>48.002677</lat>
+		<long>9.197633</long>
+		<type>Supplier</type>
+	</point>
+	<point name="PATTERER GMBH">
+		<lat>47.61141</lat>
+		<long>10.7151</long>
+		<type>Supplier</type>
+	</point>
+	<point name="HYTECH SPRING">
+		<lat>42.450037</lat>
+		<long>-85.62692</long>
+		<type>Supplier</type>
+	</point>
+	<point name="NEW STAR MOLD CO., LIMITED">
+		<type>Supplier</type>
+	</point>
+	<point name="ABZ Group, Inc.">
+		<lat>42.51916</lat>
+		<long>-83.112375</long>
+		<type>Supplier</type>
+	</point>
+	<point name="YOUR SOURCE CHINA">
+		<type>Supplier</type>
+	</point>
+	<point name="Custom Resins">
+		<lat>42.543903</lat>
+		<long>-83.142812</long>
+		<type>Supplier</type>
+	</point>
+	<point name="TOYOBO Co.,Ltd.">
+		<lat>34.705362</lat>
+		<long>135.510025</long>
+		<type>Supplier</type>
+	</point>
+	<point name="DELPHI CONNECTION SYSTEMS FRANCE">
+		<type>Customer</type>
+	</point>
+	<point name="Asahi Kasei Plastics North America ">
+		<lat>42.648729</lat>
+		<long>-84.056319</long>
+		<type>Supplier</type>
+	</point>
+	<point name="DLH INDUSTRIES">
+		<lat>27.511731</lat>
+		<long>-109.941097</long>
+		<type>Supplier</type>
+	</point>
+	<point name="LORD CORPORATION">
+		<lat>42.080113</lat>
+		<long>-80.108369</long>
+		<type>Supplier</type>
+	</point>
+	<point name="STAFFCO">
+		<lat>30.966863</lat>
+		<long>121.180079</long>
+		<type>Supplier</type>
+	</point>
+	<point name="KUM CO., LTD.HQ &amp; SANBUK PLANT">
+		<lat>35.605965</lat>
+		<long>129.074469</long>
+		<type>Supplier</type>
+	</point>
+	<point name="Alcoa Electrical and Electronics so">
+		<type>Supplier</type>
+	</point>
+	<point name="TERMINAL SUPPLY">
+		<type>Supplier</type>
+	</point>
+	<point name="Auto Kabel of North America, Inc">
+		<lat>31.839351</lat>
+		<long>-106.563108</long>
+		<type>Supplier</type>
+	</point>
+	<point name="SPI AUTOMOTIVE">
+		<lat>-12.046374</lat>
+		<long>-77.042793</long>
+		<type>Empire</type>
+	</point>
+	<point name="Chief Enterprises, Inc">
+		<type>Supplier</type>
+	</point>
+	<point name="1-Source Electronic Components">
+		<type>Supplier</type>
+	</point>
+	<point name="WEB ELECTRIC PRODUCTS">
+		<lat>41.5311</lat>
+		<long>-81.444294</long>
+		<type>Supplier</type>
+	</point>
+	<point name="CAPLUGS">
+		<lat>42.955538</lat>
+		<long>-78.88111</long>
+		<type>Supplier</type>
+	</point>
+	<point name="ICHIKOH INDUSTRIES, LTD.">
+		<lat>35.609226</lat>
+		<long>139.730186</long>
+		<type>Supplier</type>
+	</point>
+	<point name="Michigan Metal  Coatings Co.">
+		<lat>42.952235</lat>
+		<long>-82.44798</long>
+		<type>Supplier</type>
+	</point>
+	<point name="PROMENS München GmbH">
+		<lat>48.15256</lat>
+		<long>11.7453</long>
+		<type>Supplier</type>
+	</point>
+	<point name="Q COMPONENTS">
+		<lat>45.527133</lat>
+		<long>-122.82533</long>
+		<type>Supplier</type>
+	</point>
+	<point name="CITY PLATING">
+		<lat>41.423362</lat>
+		<long>-81.779371</long>
+		<type>Supplier</type>
+	</point>
+	<point name="VALEO SYLVANIA">
+		<type>Customer</type>
+	</point>
+	<point name="Su-Dan Co">
+		<lat>40.22103</lat>
+		<long>-85.404231</long>
+		<type>Supplier</type>
+	</point>
+	<point name="POPPELMANN GMBH &amp; CO.">
+		<lat>52.194142</lat>
+		<long>8.722086</long>
+		<type>Supplier</type>
+	</point>
+	<point name="Force Guided Relays International">
+		<lat>43.157027</lat>
+		<long>-75.380179</long>
+		<type>Supplier</type>
+	</point>
+	<point name="ENTEC POLYMERS,LLC">
+		<type>Supplier</type>
+	</point>
+	<point name="MICHEZD">
+		<lat>42.60641</lat>
+		<long>-83.149775</long>
+		<type>Supplier</type>
+	</point>
+	<point name="Universal Plastic &amp; Pack">
+		<type>Supplier</type>
+	</point>
+	<point name="VISTEON AUTOMOTIVE SYS.">
+		<lat>40.461422</lat>
+		<long>-78.591633</long>
+		<type>Supplier</type>
+	</point>
+	<point name="DORIAN CANO">
+		<lat>15.51492</lat>
+		<long>-87.992268</long>
+		<type>Supplier</type>
+	</point>
+	<point name="Qualtek Electronics Corporation">
+		<lat>41.666526</lat>
+		<long>-81.368713</long>
+		<type>Supplier</type>
+	</point>
+	<point name="FCI ITALIA S.p.A">
+		<lat>45.132583</lat>
+		<long>7.67026</long>
+		<type>Supplier</type>
+	</point>
+	<point name="International Products Corp.">
+		<lat>40.041423</lat>
+		<long>-74.842391</long>
+		<type>Supplier</type>
+	</point>
+	<point name="Coleman Cable, LLC">
+		<lat>41.446647</lat>
+		<long>-86.147209</long>
+		<type>Supplier</type>
+	</point>
+	<point name="Omiotek Coil Spring Co.">
+		<lat>32.740829</lat>
+		<long>-85.896543</long>
+		<type>Supplier</type>
+	</point>
+	<point name="Y SQUARED">
+		<lat>42.536778</lat>
+		<long>-83.175508</long>
+		<type>Supplier</type>
+	</point>
+	<point name="Coroplast Fritz Muller Gmb H &amp; Co. KG">
+		<lat>41.312366</lat>
+		<long>-81.53855</long>
+		<type>Supplier</type>
+	</point>
+	<point name="TELCON">
+		<type>Supplier</type>
+	</point>
+	<point name="Amphenol-Tuchel Electronics">
+		<lat>43.765977</lat>
+		<long>-90.692267</long>
+		<type>Supplier</type>
+	</point>
+	<point name="FEP Fahrzeugelektrik Pirna GmbH &amp; Co. KG">
+		<lat>50.9561</lat>
+		<long>13.91397</long>
+		<type>Supplier</type>
+	</point>
+	<point name="ALLIANCE ELECTRONICS DISTRIBUTOR">
+		<lat>33.661562</lat>
+		<long>-117.705291</long>
+		<type>Supplier</type>
+	</point>
+	<point name="Arnecom, S.A. de C.V.">
+		<type>Supplier</type>
+	</point>
+	<point name="McNAUGHTON-McKAY">
+		<lat>32.477963</lat>
+		<long>-99.701447</long>
+		<type>Supplier</type>
+	</point>
+	<point name="Toray Resin Company">
+		<lat>42.560287</lat>
+		<long>-83.140665</long>
+		<type>Supplier</type>
+	</point>
+	<point name="Maquilados Fronterizos del Norte S.A. de C.V.">
+		<lat>42.449774</lat>
+		<long>-83.410091</long>
+		<type>Supplier</type>
+	</point>
+	<point name="BuyHeatShrink">
+		<type>Supplier</type>
+	</point>
+	<point name="CHANGHWAN PERCISION TERMINALCO.Ltd">
+		<type>Supplier</type>
+	</point>
+	<point name="TYCO ELECTRONICS AMP Gmbh">
+		<lat>49.998284</lat>
+		<long>8.652098</long>
+		<type>Supplier</type>
+	</point>
+	<point name="Avnet, Inc.">
+		<lat>33.302143</lat>
+		<long>-111.955286</long>
+		<type>Supplier</type>
+	</point>
+	<point name="VENTRA">
+		<type>Customer</type>
+	</point>
+	<point name="VENSIK ELECTRONICS CO., LTD.">
+		<lat>43.122523</lat>
+		<long>-77.666572</long>
+		<type>Supplier</type>
+	</point>
+	<point name="FNG">
+		<type>Supplier</type>
+	</point>
+	<point name="STRANCO PRODUCTS">
+		<lat>41.689971</lat>
+		<long>-88.055495</long>
+		<type>Supplier</type>
+	</point>
+	<point name="Vulkor Inc.">
+		<lat>41.24944</lat>
+		<long>-80.809558</long>
+		<type>Supplier</type>
+	</point>
+	<point name="BELDEN">
+		<lat>39.848954</lat>
+		<long>-84.90493</long>
+		<type>Supplier</type>
+	</point>
+	<point name="Freudenberg Sealing Technologies Gm">
+		<type>Supplier</type>
+	</point>
+	<point name="Schlemmer Gmbh">
+		<type>Supplier</type>
+	</point>
+	<point name="SPIROL INDUSTRIES, LTD.">
+		<lat>42.27932</lat>
+		<long>-82.970171</long>
+		<type>Supplier</type>
+	</point>
+	<point name="Lederer GmbH ">
+		<type>Supplier</type>
+	</point>
+	<point name="ESCUBEDO USA">
+		<lat>41.979401</lat>
+		<long>2.821426</long>
+		<type>Supplier</type>
+	</point>
+	<point name="BEIJING SAE-A AUTO PARTS CO.,LTD">
+		<lat>40.140778</lat>
+		<long>117.121342</long>
+		<type>Supplier</type>
+	</point>
+	<point name="Berteau-Lowell Plating Works ">
+		<lat>41.925143</lat>
+		<long>-87.686218</long>
+		<type>Supplier</type>
+	</point>
+	<point name="ELLSWORTH ADHESIVES">
+		<type>Supplier</type>
+	</point>
+	<point name="LG INNOTEK LED BUSINESS UNIT">
+		<lat>37.870245</lat>
+		<long>126.833102</long>
+		<type>Supplier</type>
+	</point>
+	<point name="AEES Manufacturera S. de R.L. de C.V.">
+		<type>Supplier</type>
+	</point>
+	<point name="TRI-WAY">
+		<lat>40.753063</lat>
+		<long>-81.986387</long>
+		<type>Supplier</type>
+	</point>
+	<point name="EIS WIRE&amp;CABLE Co.">
+		<lat>42.217092</lat>
+		<long>-72.553264</long>
+		<type>Supplier</type>
+	</point>
+	<point name="ATLANTIC PACKAGING">
+		<type>Supplier</type>
+	</point>
+	<point name="FUTURE ELECTRONICS INC.">
+		<lat>45.459271</lat>
+		<long>-73.825402</long>
+		<type>Supplier</type>
+	</point>
+	<point name="Cheveron Phillips">
+		<type>Supplier</type>
+	</point>
+	<point name="Weihai KET Electronics Co., Ltd.">
+		<type>Supplier</type>
+	</point>
+	<point name="Kunshan E-TEKNET Electronic Technol">
+		<lat>31.385598</lat>
+		<long>120.980737</long>
+		<type>Supplier</type>
+	</point>
+	<point name="ETS F. MARMILLON SA">
+		<lat>48.755297</lat>
+		<long>17.567463</long>
+		<type>Supplier</type>
+	</point>
+	<point name="S.A.S GROUPE TBI ">
+		<type>Supplier</type>
+	</point>
+	<point name="JAE Oregon Inc.">
+		<lat>45.387812</lat>
+		<long>-122.797732</long>
+		<type>Supplier</type>
+	</point>
+	<point name="LACROIX ELECTRONICS SP">
+		<type>Supplier</type>
+	</point>
+	<point name="OMNI">
+		<type>Supplier</type>
+	</point>
+	<point name="LUMBERG CONNECT GmbH">
+		<lat>51.25855</lat>
+		<long>7.5495</long>
+		<type>Supplier</type>
+	</point>
+	<point name="DRAXLMAIER GROUP">
+		<lat>48.455908</lat>
+		<long>12.339707</long>
+		<type>Supplier</type>
+	</point>
+	<point name="PIOLAX Corporation">
+		<lat>34.245584</lat>
+		<long>-84.47195</long>
+		<type>Supplier</type>
+	</point>
+	<point name="KLASING kabel GmbH">
+		<lat>48.934395</lat>
+		<long>11.463724</long>
+		<type>Supplier</type>
+	</point>
+	<point name="Mid-State bolt &amp; Screw co.">
+		<lat>42.970356</lat>
+		<long>-83.680874</long>
+		<type>Supplier</type>
+	</point>
+	<point name="Microchip Technology, Inc">
+		<lat>42.522326</lat>
+		<long>-83.34884</long>
+		<type>Supplier</type>
+	</point>
+	<point name="Whitesell Canada">
+		<lat>43.834678</lat>
+		<long>-79.500138</long>
+		<type>Supplier</type>
+	</point>
+	<point name="TRAM">
+		<lat>42.388401</lat>
+		<long>-83.507455</long>
+		<type>Supplier</type>
+	</point>
+	<point name="TJR Global">
+		<lat>27.920094</lat>
+		<long>-82.491458</long>
+		<type>Supplier</type>
+	</point>
+	<point name="Flat Cable Solutions">
+		<lat>38.7929</lat>
+		<long>-107.989</long>
+		<type>Supplier</type>
+	</point>
+	<point name="General Cable Industries, Inc. ">
+		<lat>36.058402</lat>
+		<long>-90.497329</long>
+		<type>Supplier</type>
+	</point>
+	<point name="A. SCHULMAN">
+		<lat>41.278681</lat>
+		<long>-82.833731</long>
+		<type>Supplier</type>
+	</point>
+	<point name="D&amp;D Manufacturing, Inc">
+		<lat>41.682225</lat>
+		<long>-88.110846</long>
+		<type>Supplier</type>
+	</point>
+	<point name="DRAKA CABLES">
+		<type>Supplier</type>
+	</point>
+	<point name="Advanced Composites, Inc.">
+		<lat>40.271176</lat>
+		<long>-84.177343</long>
+		<type>Supplier</type>
+	</point>
+	<point name="Unique Fabricating, Inc.">
+		<lat>34.031854</lat>
+		<long>-118.269443</long>
+		<type>Supplier</type>
+	</point>
+	<point name="UNIFORM COLOR COMPANY">
+		<lat>43.130881</lat>
+		<long>-77.660397</long>
+		<type>Supplier</type>
+	</point>
+	<point name="IEWC Holding Corp">
+		<lat>41.474751</lat>
+		<long>-81.968372</long>
+		<type>Supplier</type>
+	</point>
+	<point name="OPTO PLUS LED CORP.">
+		<lat>24.992216</lat>
+		<long>121.503431</long>
+		<type>Supplier</type>
+	</point>
+	<point name="Chase corporation Pittsburgh">
+		<lat>40.504772</lat>
+		<long>-79.861108</long>
+		<type>Supplier</type>
+	</point>
+	<point name="Kensington Electronics">
+		<lat>30.39935</lat>
+		<long>-97.708379</long>
+		<type>Supplier</type>
+	</point>
+	<point name="R.S. Hughes">
+		<lat>42.136999</lat>
+		<long>-83.36314</long>
+		<type>Supplier</type>
+	</point>
+	<point name="SHINDENGEN ELECTRIC MFG. CO. , LTD.">
+		<lat>35.687099</lat>
+		<long>139.764569</long>
+		<type>Supplier</type>
+	</point>
+	<point name="Conductive Containers, Inc.">
+		<lat>45.036716</lat>
+		<long>-93.375872</long>
+		<type>Supplier</type>
+	</point>
+	<point name="QUANTUM MOLD &amp; ENGINEERING">
+		<lat>42.55565</lat>
+		<long>-83.041857</long>
+		<type>Supplier</type>
+	</point>
+	<point name="Parlex USA, Inc.">
+		<lat>42.726202</lat>
+		<long>-71.190892</long>
+		<type>Supplier</type>
+	</point>
+	<point name="Continental Automotive Czech Republic s.r.o.">
+		<lat>50.623544</lat>
+		<long>16.080459</long>
+		<type>Supplier</type>
+	</point>
+	<point name="SUMIKO TEC CO., LTD.">
+		<lat>35.500485</lat>
+		<long>139.469063</long>
+		<type>Supplier</type>
+	</point>
+	<point name="PCB Connect Holding AB">
+		<type>Supplier</type>
+	</point>
+	<point name="KOA  Speer Electronics, Inc.">
+		<lat>41.97568</lat>
+		<long>-78.628171</long>
+		<type>Supplier</type>
+	</point>
+	<point name="Ramcel Engineering Company">
+		<lat>42.148818</lat>
+		<long>-87.85218</long>
+		<type>Supplier</type>
+	</point>
+	<point name="HM Industries LLC">
+		<lat>29.590444</lat>
+		<long>-98.584667</long>
+		<type>Supplier</type>
+	</point>
+	<point name="Chang Hwan Precision Terminal CO., LTD.">
+		<lat>36.981207</lat>
+		<long>126.749626</long>
+		<type>Supplier</type>
+	</point>
+	<point name="Erni Electronics, Inc.">
+		<lat>37.577086</lat>
+		<long>-77.475082</long>
+		<type>Supplier</type>
+	</point>
+	<point name="LUMBERG CONNECT GMBH WERK II">
+		<lat>52.846366</lat>
+		<long>8.07335</long>
+		<type>Supplier</type>
+	</point>
+	<point name="Component Solutions in Time, Inc.">
+		<lat>42.559262</lat>
+		<long>-70.967658</long>
+		<type>Supplier</type>
+	</point>
+	<point name="DEVILLE ASC">
+		<lat>47.534671</lat>
+		<long>-0.090233</long>
+		<type>Supplier</type>
+	</point>
+	<point name="Rose Electronics, Inc.">
+		<lat>27.721748</lat>
+		<long>-82.73837</long>
+		<type>Supplier</type>
+	</point>
+	<point name="3F Electronics Industry Corp">
+		<lat>22.555259</lat>
+		<long>113.88402</long>
+		<type>Supplier</type>
+	</point>
+	<point name="A. Raymond GmbH &amp; Co.KG">
+		<lat>47.6099</lat>
+		<long>7.59278</long>
+		<type>Supplier</type>
+	</point>
+	<point name="SIGNATURE ENGINEERED SOLUTIONS">
+		<lat>41.795727</lat>
+		<long>-88.251066</long>
+		<type>Supplier</type>
+	</point>
+	<point name="Sumida flexible connections GmbH">
+		<lat>51.112996</lat>
+		<long>13.914222</long>
+		<type>Supplier</type>
+	</point>
+	<point name="IWATA BOLT USA, INC">
+		<lat>39.341075</lat>
+		<long>-84.486227</long>
+		<type>Supplier</type>
+	</point>
+	<point name="GUANGZHOU FUKUSOU AUTOPARTS CO., LTD">
+		<type>Supplier</type>
+	</point>
+	<point name="Delphi Corportation">
+		<type>Supplier</type>
+	</point>
+	<point name="PKC SEGU SYSTEMELEKTRIK GMBH">
+		<type>Supplier</type>
+	</point>
+	<point name="Integrated Packaging Films Inc">
+		<type>Supplier</type>
+	</point>
+	<point name="Cambridge America LLC">
+		<type>Supplier</type>
+	</point>
+	<point name="EMA-US,Inc.">
+		<type>Supplier</type>
+	</point>
+	<point name="Dominant Opto Technologies Sdn. Bhd">
+		<type>Supplier</type>
+	</point>
+	<point name="J.V. Converting">
+		<type>Supplier</type>
+	</point>
+	<point name="Peninsula Plastics Co., Inc.">
+		<type>Supplier</type>
+	</point>
+	<point name="Identi-Tape Inc">
+		<type>Supplier</type>
+	</point>
+	<point name="UJU ELECTRONICS Co., Ltd.">
+		<type>Supplier</type>
+	</point>
+	<point name="UJU Electronics Co. LTD">
+		<type>Supplier</type>
+	</point>
+	<point name="Hikari Trading Co., Ltd. ">
+		<type>Supplier</type>
+	</point>
+	<point name="ParkOhio Products, Inc.">
+		<type>Supplier</type>
+	</point>
+	<point name="Delphi Hungary Kft. ">
+		<type>Supplier</type>
+	</point>
+	<point name="Novalux America, Inc.">
+		<type>Supplier</type>
+	</point>
+	<point name="RCS INVERSIONES">
+		<type>Supplier</type>
+	</point>
+	<point name="Tella Tool &amp; Manufacturing Company ">
+		<type>Supplier</type>
+	</point>
+	<point name="PTM Corporation">
+		<type>Supplier</type>
+	</point>
+	<point name="Elematec Corporation">
+		<type>Supplier</type>
+	</point>
+	<point name="Amphenol Corporation  RF Dvision">
+		<type>Supplier</type>
+	</point>
+	<point name="SURFACE MOUNT DISTRIBUTION">
+		<type>Supplier</type>
+	</point>
+	<point name="SUMITOMO ELECTRIC INTERCONNECT PRODUCTS, INC">
+		<type>Supplier</type>
+	</point>
+	<point name="ZF Electronics Systems Juarez S.A. de C.V">
+		<type>Supplier</type>
+	</point>
+	<point name="AXSON MEXICO S.A. DE C.V.">
+		<type>Supplier</type>
+	</point>
+	<point name="TECHNICAL MARKETING SERVICES LLC">
+		<type>Supplier</type>
+	</point>
+	<point name="Viasystems Technologies Corp., L.L.C.">
+		<type>Supplier</type>
+	</point>
+	<point name="ELREHA PRINTED CIRCUITS">
+		<type>Supplier</type>
+	</point>
+	<point name="ACTION FABRICATORS, INC.">
+		<type>Supplier</type>
+	</point>
+	<point name="Tesa Tape Inc.">
+		<type>Supplier</type>
+	</point>
+	<point name="Zhongnan Industrial Group Ltd.">
+		<type>Supplier</type>
+	</point>
+	<point name="WOOBONG ELECTRONICS">
+		<type>Supplier</type>
+	</point>
+	<point name="Mitsubishi Chemical Performance Polymers, Inc.">
+		<type>Supplier</type>
+	</point>
+	<point name="NICHIA CORPORATION">
+		<type>Supplier</type>
+	</point>
+	<point name="ZEBRA TECHNOLOGIES CORPORATION">
+		<type>Supplier</type>
+	</point>
+	<point name="Caledoniea Cables Ltd">
+		<type>Supplier</type>
+	</point>
+	<point name="PLYMOUTH YONGLE TAPE(SHANGHAI) Co., Ltd. ">
+		<type>Supplier</type>
+	</point>
+	<point name="K &amp; F Electronics">
+		<type>Supplier</type>
+	</point>
+	<point name="ROSENBERGER">
+		<type>Supplier</type>
+	</point>
+	<point name="Continental Automotive France SAS">
+		<type>Supplier</type>
+	</point>
+	<point name="Ex-Tech Plastics, Inc.">
+		<type>Supplier</type>
+	</point>
+	<point name="Taiki U.S.A., Inc.">
+		<type>Supplier</type>
+	</point>
+	<point name="Nexus Electronics LLC">
+		<type>Supplier</type>
+	</point>
+	<point name="WAYTEC INCORPORATED">
+		<type>Supplier</type>
+	</point>
+	<point name="ASTRO CARTON HONDURAS">
+		<type>Supplier</type>
+	</point>
+	<point name="Melexis Bulgaria Ltd.">
+		<type>Supplier</type>
+	</point>
+	<point name="Schiffer GmbH Corporation">
+		<type>Supplier</type>
+	</point>
+	<point name="Krayden,Inc.">
+		<type>Supplier</type>
+	</point>
+	<point name="B &amp; K Kunststoffwerke GmbH &amp; Co. KG">
+		<type>Supplier</type>
+	</point>
+	<point name="Pacific Focus Inc.">
+		<type>Supplier</type>
+	</point>
+	<point name="Stanley Electric U.S. Co., Inc.">
+		<type>Supplier</type>
+	</point>
+	<point name="DISPRO">
+		<type>Supplier</type>
+	</point>
+</destinations>

@@ -27,7 +27,7 @@ namespace EmpirePortal.Domain.Sql
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<MenuItemNode> MenuItemNodes { get; set; }
+        public virtual DbSet<MenuItemNode> MenuItemTree { get; set; }
         public virtual DbSet<MenuItem> MenuItems { get; set; }
         public virtual DbSet<Role> Roles { get; set; }
         public virtual DbSet<User> Users { get; set; }

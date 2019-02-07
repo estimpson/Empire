@@ -1,0 +1,100 @@
+<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="SiteTest.master.cs" Inherits="SiteTestMaster" %>
+
+
+<%@ Register TagPrefix="Telerik" Namespace="Telerik.Web.UI" Assembly="Telerik.Web.UI" %>
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Executive Sales Summary</title>
+
+<telerik:RadStyleSheetManager ID="RadStyleSheetManager1" runat="server" />
+<link href="~/Content/Login.css" rel="stylesheet" /> 
+<style type="text/css">
+</style>
+
+<script type="text/javascript">
+function pageLoad()
+{
+}
+</script>
+</head>
+
+
+<body>
+    <form runat="server">
+
+
+	<telerik:RadAjaxLoadingPanel ID="RadAjaxLoadingPanel1" runat="server" Skin="Silk" />
+	<telerik:RadAjaxPanel ID="RadAjaxPanel1" runat="server" ClientEvents-OnRequestStart="pnlRequestStarted" LoadingPanelID="RadAjaxLoadingPanel1">
+
+	<telerik:RadScriptManager ID="RadScriptManager1" runat="server">
+	<Scripts>
+		<%--Needed for JavaScript IntelliSense in VS2010--%>
+        	<%--For VS2008 replace RadScriptManager with ScriptManager--%>
+        	<asp:ScriptReference Assembly="Telerik.Web.UI" Name="Telerik.Web.UI.Common.Core.js" />
+        	<asp:ScriptReference Assembly="Telerik.Web.UI" Name="Telerik.Web.UI.Common.jQuery.js" />
+        	<asp:ScriptReference Assembly="Telerik.Web.UI" Name="Telerik.Web.UI.Common.jQueryInclude.js" />
+	</Scripts>
+	</telerik:RadScriptManager>
+
+
+
+	<header>
+        	<div class="content-wrapper">
+
+
+
+		<asp:Label ID="Label1" runat="server" Text="Username:" Width="80px"></asp:Label>
+                
+		<telerik:RadTextBox RenderMode="Lightweight" runat="server" ID="RadTextBox1" Width="200px" EmptyMessage="Enter username"></telerik:RadTextBox>
+                <asp:RequiredFieldValidator runat="server" ControlToValidate="RadTextBox1" ErrorMessage="!" ForeColor="Red"></asp:RequiredFieldValidator>
+                <br />
+                
+		<asp:Label ID="Label2" runat="server" Text="Password:" Width="80px"></asp:Label>
+                <telerik:RadTextBox RenderMode="Lightweight" runat="server" ID="RadTextBox2" Width="200px" TextMode="Password"></telerik:RadTextBox>
+                <asp:RequiredFieldValidator runat="server" ControlToValidate="RadTextBox2" ErrorMessage="!" ForeColor="Red"></asp:RequiredFieldValidator>
+                <br />
+                
+ 
+                <asp:Label runat="server" ID="ResultLabel" CssClass="resultLabel"></asp:Label>
+                <telerik:RadButton RenderMode="Lightweight" runat="server" ID="RadButtonLogin" Text="Sign in" CssClass="submitButton" Width="100px" Style="float:right;" OnClick="RadButtonLogin_Click"></telerik:RadButton>
+		<br />
+
+                <telerik:RadButton RenderMode="Lightweight" runat="server" ID="RadButtonCookie" Text="Sign in" CssClass="submitButton" Width="100px" Style="float:right;" OnClick="RadButtonCookie_Click"></telerik:RadButton>
+		<br />
+
+                <telerik:RadButton RenderMode="Lightweight" runat="server" ID="RadButtonWebPage" Text="Sign in" CssClass="submitButton" Width="100px" Style="float:right;" OnClick="RadButtonWebPage_Click"></telerik:RadButton>
+		</div>
+		<br />
+
+		<asp:HyperLink id="hyperlink1" 
+                  NavigateUrl="LoggedIn.aspx"
+                  Text="Web Page One"
+                  runat="server"/> 
+
+
+	</header>
+    	
+
+	<div id="body">
+		<asp:ContentPlaceHolder runat="server" ID="MainContent" />
+
+    	</div>
+    
+	<footer>
+        	<div class="content-wrapper">
+            		<div class="float-left">
+                		<p>&copy; <%: DateTime.Now.Year %> - Application</p>
+            		</div>
+        	</div>
+    	</footer>
+
+
+
+
+	</telerik:RadAjaxPanel>
+    </form>
+</body>
+</html>

@@ -84,16 +84,16 @@ as
 			on n.Id = mi.ParentMenuItemRowID
 )
 select
-	n.Id
+	Id = isnull(n.Id, -1)
 ,	n.ShortName
 ,	PartialName = coalesce(right(n.ShortName, len(n.ShortName) - len(n.ParentMenuName) - 1), n.ShortName)
 ,	n.ParentMenuName
 ,	n.Caption
 ,	n.Url
-,	n.MenuOrder
-,	IsModule = convert(bit, n.IsModule)
-,	n.Level
-,	HasChildren = convert
+,	MenuOrder = isnull(n.MenuOrder, 0)
+,	IsModule = isnull(convert(bit, n.IsModule), 0)
+,	Level = isnull(n.Level, 0)
+,	HasChildren = isnull(convert
 		(	bit
 		,	case
 				when exists
@@ -106,7 +106,7 @@ select
 					) then 1
 				else 0
 			end
-		)
+		), 0)
 ,	Sequence = isnull(convert(int, row_number() over (order by n.Chain)), 0)
 from
 	nested n

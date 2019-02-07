@@ -71,6 +71,7 @@
     <Compile Include="MenuItem.cs">
       <DependentUpon>Core.tt</DependentUpon>
     </Compile>
+    <Compile Include="MenuItemNode.Core.cs" />
     <Compile Include="MenuItemNode.cs">
       <DependentUpon>Core.tt</DependentUpon>
     </Compile>

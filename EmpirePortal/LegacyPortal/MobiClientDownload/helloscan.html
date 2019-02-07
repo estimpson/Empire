@@ -1,0 +1,24 @@
+<html>
+   <head>
+      <title>Hello Scan</title>
+	  <meta http-equiv="scanner" 
+	                 content="DecodeEvent:url('Javascript: doScanDecode('%1', '%2', '%6');'); enabled;" />
+	  <meta http-equiv="quitbutton" content="visibility: visible;" />
+   <script>
+      function doScanDecode(data, source, eventtype)
+      {
+         if(eventtype != 'Decode')
+            return;
+			   
+         var divEl = document.getElementById('divOutput');
+         divEl.innerHTML = 'Hello ' + data + '<br/>From: ' + source);
+      }
+   </script>
+   </head>
+   <body>
+      <h2>This is my first PocketBrowser application!</h2>
+
+      <div id="divOutput">Please scan a barcode...</div>
+   </body>
+</html>
+

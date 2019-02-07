@@ -1,0 +1,35 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeFile="MasterPage.master.cs" Inherits="MasterPage" %>
+
+<%@ Register assembly="DevExpress.Web.v13.1, Version=13.1.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" namespace="DevExpress.Web.ASPxMenu" tagprefix="dx" %>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head id="Head1" runat="server">
+    <title>EVision</title>
+ </head>
+ <body>
+     <form id="form1" runat="server">      
+     <asp:ContentPlaceHolder id="head" runat="server">
+
+        <dx:ASPxMenu ID="ASPxMenu1" runat="server">
+                <Items>
+                    <dx:MenuItem NavigateUrl="~/CustomerPOLog.aspx" Text="Customer PO Log">
+                    </dx:MenuItem>
+                    <dx:MenuItem NavigateUrl="~/NALPriceList.aspx" Text="NAL Price List">
+                    </dx:MenuItem>
+                    <dx:MenuItem NavigateUrl="~/PFAMenu.aspx" Text="PFA Menu"></dx:MenuItem>
+                </Items>
+            </dx:ASPxMenu>
+<br />
+<br />
+</asp:ContentPlaceHolder>
+
+
+
+<asp:ContentPlaceHolder id="ContentPlaceHolder1" runat="server" >
+
+</asp:ContentPlaceHolder>     
+    </form>
+</body>
+</html>

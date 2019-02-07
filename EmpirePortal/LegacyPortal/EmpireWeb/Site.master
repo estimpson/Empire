@@ -1,0 +1,47 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeFile="Site.master.cs" Inherits="SiteMaster" %>
+
+<%@ Register Assembly="Telerik.Web.UI" Namespace="Telerik.Web.UI" TagPrefix="telerik" %>
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head runat="server">
+    <meta charset="utf-8" />
+    <title>Home Page</title>
+    <link rel="stylesheet" type="text/css" href="CSS/StyleSheet.css" />
+
+    <asp:ContentPlaceHolder runat="server" ID="HeadContent" />
+</head>
+    
+<body>
+  
+    <form id="form1" runat="server">
+  
+    <div id="masterHeaderTop">
+        Empire Electronics&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <asp:LoginName ID="LoginName1" runat="server" style="font-size: small"/>
+        &nbsp;&nbsp;
+        <asp:LoginStatus ID="LoginStatus1" runat="server" style="font-size: small" ForeColor="White" />
+    </div>
+    <div id="masterHeaderBottom"></div>
+        
+
+    <div id="masterMenu" runat="server">
+        <telerik:RadMenu ID="RadMenu1" runat="server" DataSourceID="SiteMapDataSource1" >
+            <DefaultGroupSettings RepeatColumns="9" RepeatDirection="Horizontal"  />
+        </telerik:RadMenu>
+
+        <asp:SiteMapDataSource ID="SiteMapDataSource1" runat="server" />
+    </div>
+
+    <div id="masterContent" runat="server">
+        <asp:ContentPlaceHolder runat="server" ID="MainContent" />
+    </div>
+
+    <div id="masterFooterTop"></div>
+    <div id="masterFooterBottom"></div>
+           
+    </form>
+           
+</body>
+</html>

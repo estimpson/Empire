@@ -53,7 +53,7 @@ namespace EmpirePortal.Domain.Sql
         IQueryable<IRole> ICoreDataSource.Roles => Roles;
         IQueryable<IUser> ICoreDataSource.Users => Users;
         IQueryable<IMenuItem> ICoreDataSource.MenuItems => MenuItems;
-        public IQueryable<IMenuItemNode> MenuItemTree { get; }
+        IQueryable<IMenuItemNode> ICoreDataSource.MenuItemTree => MenuItemTree;
         public IQueryable<IRoleMenuItemPrivilege> RoleMenuItemPrivilege { get; }
         public IQueryable<IUserMenuItemPrivilege> UserMenuItemPrivilege { get; }
         public IList<ILogAction> GetLogActions()
@@ -116,6 +116,13 @@ namespace EmpirePortal.Domain.Sql
         public void DeleteRole(string roleName)
         {
             var modelItem = Roles.Single(it => it.Name == roleName);
+            RemoveEntity(modelItem);
+            SaveChanges();
+        }
+
+        public void DeleteMenuItem(int menuId)
+        {
+            var modelItem = MenuItems.Single(it => it.Id == menuId);
             RemoveEntity(modelItem);
             SaveChanges();
         }

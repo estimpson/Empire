@@ -1,0 +1,20 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "RadControlsWebSite2", "RadControlsWebSite2.sln", "{1E91185C-6957-4D70-8A64-EFD9CD25F84F}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Production|Any CPU = Production|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{1E91185C-6957-4D70-8A64-EFD9CD25F84F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1E91185C-6957-4D70-8A64-EFD9CD25F84F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1E91185C-6957-4D70-8A64-EFD9CD25F84F}.Production|Any CPU.ActiveCfg = Debug|Any CPU
+		{1E91185C-6957-4D70-8A64-EFD9CD25F84F}.Production|Any CPU.Build.0 = Debug|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

@@ -14,16 +14,16 @@ namespace EmpirePortal.Domain.Sql
     
     public partial class MenuItemNode
     {
-        public Nullable<int> Id { get; set; }
+        public int Id { get; set; }
         public string ShortName { get; set; }
         public string PartialName { get; set; }
         public string ParentMenuName { get; set; }
         public string Caption { get; set; }
         public string Url { get; set; }
-        public Nullable<decimal> MenuOrder { get; set; }
-        public Nullable<bool> IsModule { get; set; }
-        public Nullable<int> Level { get; set; }
-        public Nullable<bool> HasChildren { get; set; }
+        public decimal MenuOrder { get; set; }
+        public bool IsModule { get; set; }
+        public int Level { get; set; }
+        public bool HasChildren { get; set; }
         public int Sequence { get; set; }
     }
 }

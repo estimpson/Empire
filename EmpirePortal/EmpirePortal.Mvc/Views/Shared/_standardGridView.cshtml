@@ -1,0 +1,32 @@
+﻿@using FxWeb.Mvc.Infrastructure.DevExpress.GridView
+@using System.Collections
+
+@model IList
+
+@{
+    var grid = Html.DevExpress().GridView(settings =>
+    {
+        settings.Name = "GridView";
+
+        var gridViewHelper = TempData.GetGridViewHelper();
+        System.Diagnostics.Debug.Assert(gridViewHelper != null, nameof(gridViewHelper) + " != null");
+        gridViewHelper.SetDimensions(settings);
+        gridViewHelper.SetCrudActionRoutes(settings);
+        gridViewHelper.SetEditBehaviors(settings);
+        gridViewHelper.SetAdaptivityBehaviors(settings);
+        gridViewHelper.SetStandardLookAndFeelBehaviors(settings);
+        gridViewHelper.BuildStandardToolbar(settings, Html);
+        gridViewHelper.BuildColumns(settings);
+        gridViewHelper.BuildEditForm(settings);
+        gridViewHelper.BuildServerSideEventHandlers(settings, TempData);
+        gridViewHelper.BuildContextMenu(settings);
+
+        settings.EnableRowsCache = false;
+    });
+    if (ViewData["EditError"] != null)
+    {
+        grid.SetEditErrorText((string) ViewData["EditError"]);
+    }
+}
+@grid.Bind(Model).GetHtml()
+

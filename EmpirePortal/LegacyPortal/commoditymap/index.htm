@@ -1,0 +1,239 @@
+<!doctype html>
+<html>
+<head>
+	<title>Empire Electronics Logistics Map</title>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+	<link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.6.4/leaflet.css" />
+	 <!--[if lte IE 8]>
+	     <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.6.4/leaflet.ie.css" />
+	 <![endif]-->
+
+	 
+ 	<style type="text/css">
+		body {
+			padding: 0;
+			margin: 0;
+		}
+		html, body, #map {
+			height: 100%; 
+		}
+ 	</style>
+ 	
+	<body>
+		
+		<div id="map"></div> 
+		<script src="jquery-3.1.0.min.js"></script>
+		<script src="leaflet/leaflet.js"></script>
+
+
+		<script>
+		var empire = new L.LayerGroup();
+		var LED = new L.LayerGroup();
+		var wire = new L.LayerGroup();
+		var resin = new L.LayerGroup();
+		var connector = new L.LayerGroup();
+		var tape = new L.LayerGroup();
+		var terminal = new L.LayerGroup();
+		var stamp = new L.LayerGroup();
+		var customer = new L.LayerGroup();
+		var supplier = new L.LayerGroup(wire, resin, connector, tape, terminal, stamp, LED);
+
+		var map = L.map('map').setView([42.5, -84.7], 7);
+		//add base map layer
+		L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
+		    attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+		}).addTo(map);
+		
+
+//load empire data
+		$.getJSON("data/empire.js",function(data){
+			L.geoJson(data,{
+				pointToLayer: function(feature,latlng){
+					var smallIcon = L.icon({
+						iconSize:[60,47],
+						iconAnchor:[30,47],
+						popupAnchor:[0,-47],
+						iconUrl:'Images/logo2.png'
+					});
+			return L.marker(latlng, {icon: smallIcon});
+				},
+			onEachFeature: function (feature, layer) {
+      			layer.bindPopup(feature.properties.name + '<br/>' + feature.properties.address);
+  			}
+    		}).addTo(empire);
+  	});
+
+//load wire data
+		$.getJSON("data/wire.js",function(data){
+			L.geoJson(data,{
+				pointToLayer: function(feature,latlng){
+					var smallIcon = L.icon({
+						iconSize:[60,47],
+						iconAnchor:[30,47],
+						popupAnchor:[0,-47],
+						iconUrl:'Images/' + feature.properties.commodity + '.png'
+					});
+			return L.marker(latlng, {icon: smallIcon});
+				},
+			onEachFeature: function (feature, layer) {
+      			layer.bindPopup(feature.properties.name + '<br/>' + feature.properties.address);
+  			}
+    		}).addTo(wire);
+
+  	});
+
+//load LED data
+		$.getJSON("data/LED.js",function(data){
+			L.geoJson(data,{
+				pointToLayer: function(feature,latlng){
+					var smallIcon = L.icon({
+						iconSize:[60,47],
+						iconAnchor:[30,47],
+						popupAnchor:[0,-47],
+						iconUrl:'Images/' + feature.properties.commodity + '.png'
+					});
+			return L.marker(latlng, {icon: smallIcon});
+				},
+			onEachFeature: function (feature, layer) {
+      			layer.bindPopup(feature.properties.name + '<br/>' + feature.properties.address);
+  			}
+    		}).addTo(LED);
+
+  	});
+
+//load resin data
+		$.getJSON("data/resin.js",function(data){
+			L.geoJson(data,{
+				pointToLayer: function(feature,latlng){
+					var smallIcon = L.icon({
+						iconSize:[60,47],
+						iconAnchor:[30,47],
+						popupAnchor:[0,-47],
+						iconUrl:'Images/' + feature.properties.commodity + '.png'
+					});
+			return L.marker(latlng, {icon: smallIcon});
+				},
+			onEachFeature: function (feature, layer) {
+      			layer.bindPopup(feature.properties.name + '<br/>' + feature.properties.address);
+  			}
+    		}).addTo(resin);
+
+  	});
+
+//load connector data
+		$.getJSON("data/connector.js",function(data){
+			L.geoJson(data,{
+				pointToLayer: function(feature,latlng){
+					var smallIcon = L.icon({
+						iconSize:[60,47],
+						iconAnchor:[30,47],
+						popupAnchor:[0,-47],
+						iconUrl:'Images/' + feature.properties.commodity + '.png'
+					});
+			return L.marker(latlng, {icon: smallIcon});
+				},
+			onEachFeature: function (feature, layer) {
+      			layer.bindPopup(feature.properties.name + '<br/>' + feature.properties.address);
+  			}
+    		}).addTo(connector);
+
+  	});
+
+//load tape data
+		$.getJSON("data/tape.js",function(data){
+			L.geoJson(data,{
+				pointToLayer: function(feature,latlng){
+					var smallIcon = L.icon({
+						iconSize:[60,47],
+						iconAnchor:[30,47],
+						popupAnchor:[0,-47],
+						iconUrl:'Images/' + feature.properties.commodity + '.png'
+					});
+			return L.marker(latlng, {icon: smallIcon});
+				},
+			onEachFeature: function (feature, layer) {
+      			layer.bindPopup(feature.properties.name + '<br/>' + feature.properties.address);
+  			}
+    		}).addTo(tape);
+
+  	});
+
+//load terminal data
+		$.getJSON("data/terminal.js",function(data){
+			L.geoJson(data,{
+				pointToLayer: function(feature,latlng){
+					var smallIcon = L.icon({
+						iconSize:[60,47],
+						iconAnchor:[30,47],
+						popupAnchor:[0,-47],
+						iconUrl:'Images/' + feature.properties.commodity + '.png'
+					});
+			return L.marker(latlng, {icon: smallIcon});
+				},
+			onEachFeature: function (feature, layer) {
+      			layer.bindPopup(feature.properties.name + '<br/>' + feature.properties.address);
+  			}
+    		}).addTo(terminal);
+
+  	});
+
+//load stamo data
+		$.getJSON("data/stamp.js",function(data){
+			L.geoJson(data,{
+				pointToLayer: function(feature,latlng){
+					var smallIcon = L.icon({
+						iconSize:[60,47],
+						iconAnchor:[30,47],
+						popupAnchor:[0,-47],
+						iconUrl:'Images/' + feature.properties.commodity + '.png'
+					});
+			return L.marker(latlng, {icon: smallIcon});
+				},
+			onEachFeature: function (feature, layer) {
+      			layer.bindPopup(feature.properties.name + '<br/>' + feature.properties.address);
+  			}
+    		}).addTo(stamp);
+
+  	});
+	
+//load customer data
+		$.getJSON("data/customers.js",function(data){
+			L.geoJson(data,{
+				pointToLayer: function(feature,latlng){
+					var smallIcon = L.icon({
+						iconSize:[60,47],
+						iconAnchor:[30,47],
+						popupAnchor:[0,-47],
+						iconUrl:'Images/customer2.png'
+					});
+			return L.marker(latlng, {icon: smallIcon});
+				},
+			onEachFeature: function (feature, layer) {
+      			layer.bindPopup(feature.properties.name + '<br/>' + feature.properties.address);
+  			}
+    		}).addTo(customer);
+  	});
+
+
+//load overlays		
+	var overlays = {
+		"Empire": empire,
+		//"Suppliers": supplier,
+		"Wire": wire,
+		"Resin": resin,
+		"Connector": connector,
+		"Tape": tape,
+		"Terminal" : terminal,
+		"Stamp" : stamp,
+		"LED" : LED,
+		"Customers": customer,
+	};
+
+		L.control.layers("",overlays).addTo(map);
+
+
+
+		</script>
+	</body>
+</html>

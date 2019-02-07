@@ -1,0 +1,68 @@
+﻿body 
+{
+    background-color: white;
+    font-family: Calibri;
+    font-size: 12px;
+    color: #000000;
+}
+
+
+
+#masterHeaderTop 
+{
+    height: 40px;
+    background-color: #000000;
+    color: #ffffff;
+    font-size: 22px;
+    font-family: Georgia;
+    padding-top: 14px;
+    padding-left: 10px;
+    width: 100%;
+}
+#masterHeaderBottom 
+{
+    height: 4px;
+    background-color: #a9a9a9;
+    padding-left: 10px;
+    width: 100%;
+}
+
+#masterProfile 
+{
+    width: 100%;
+    margin-left: 10px;
+    margin-bottom: 10px;
+}
+
+#masterMenu 
+{
+    width: 100%;
+    margin-left: 10px;
+    margin-top: 7px;
+    margin-bottom: 75px;
+}
+
+#masterContent 
+{
+    margin-left: 10px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    width: 100%;
+}
+
+#masterFooterTop 
+{
+    height: 3px;
+    background-color: #a9a9a9;   
+    width: 100%;
+    margin-top: 10px;
+    padding-left: 10px;
+}
+
+#masterFooterBottom 
+{
+    height: 10px;
+    background-color: #000000;    
+    width: 100%;
+    padding-left: 10px;
+}
