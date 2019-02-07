@@ -13,7 +13,7 @@ using System.Data.OleDb;
 using System.Net.Mail;
 using System.Diagnostics;
 using System.Threading;
-using DataGridViewAutoFilter;
+//using DataGridViewAutoFilter;
 
 namespace Distribution_List
 {
