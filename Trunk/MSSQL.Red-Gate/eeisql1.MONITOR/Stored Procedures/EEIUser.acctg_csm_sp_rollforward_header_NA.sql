@@ -5,7 +5,7 @@ GO
 
 
 
-create procedure [EEIUser].[acctg_csm_sp_rollforward_header_NA]
+CREATE procedure [EEIUser].[acctg_csm_sp_rollforward_header_NA]
 	@OperatorCode varchar(5)
 ,	@CurrentRelease char(7)
 ,	@PriorRelease char(7)
@@ -124,6 +124,7 @@ insert into
 	,	[Global Sales Price Class]
 	,	[Short Term Risk Rating]
 	,	[Long Term Risk Rating]
+	,	[RowCreatedUser]
 	)
 select
 	@CurrentRelease
@@ -179,11 +180,12 @@ select
 ,   c.[Global Sales Price Class]
 ,   c.[Short Term Risk Rating]
 ,   c.[Long Term Risk Rating]
+,	@OperatorCode
 from
 	eeiuser.acctg_csm_NAIHS c
 where
 	c.Release_ID = @PriorRelease
-	and c.Region = @Region
+	and (c.Region = @Region or c.Region is null)
 
 
 select
@@ -218,5 +220,6 @@ set	@Result = 0
 return
 	@Result
 --- </Return>
+
 
 GO

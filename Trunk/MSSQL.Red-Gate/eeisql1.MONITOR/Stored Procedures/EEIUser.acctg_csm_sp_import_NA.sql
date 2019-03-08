@@ -79,18 +79,22 @@ if exists (
 	return
 end
 
+
+
 /* Make sure Selling Prices and Material Cost releases are consistent with North America CSM releases */
 declare 
-	@PriorRelease char(7)
+	@PriorRelease char(7) = '2018-11'
 ,	@PriorReleaseSp char(7)
 ,	@PriorReleaseMc char(7)
-
+/*
 select
 	@PriorRelease = max(h.Release_ID)
 from
 	eeiuser.acctg_csm_NAIHS_header h
 where	
 	Region = @Region
+
+
 
 
 select
@@ -399,6 +403,10 @@ end
 -- </Call>
 
 
+*/
+
+
+
 -- Step 8: roll forward into the header table all CSM, Empire Adjusted and Empire Factor data
 -- <Call>
 set			@CallProcName = 'eeiuser.acctg_csm_sp_rollforward_header_NA'
@@ -529,6 +537,7 @@ end
 -- </Call>
 
 
+/*
 
 -- Step 12: update Selling Prices header records, flagging them as rolled forward
 --- <Update rows>
@@ -589,6 +598,8 @@ end
 --- </Update>
 
 
+*/
+
 
 -- Step 14: update North America CSM header records, flagging them as rolled forward
 --- <Update rows>
@@ -599,7 +610,7 @@ set
 	RolledForward = 1
 where
 	Release_ID = @CurrentRelease
-	and Region = @Region
+	and Region = @Region or Region is null
 
 select
 	@Error = @@Error,

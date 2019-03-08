@@ -15,6 +15,35 @@ SET QUOTED_IDENTIFIER ON
 GO
 SET ANSI_NULLS ON
 GO
+create trigger [EEIUser].[acctg_csm_selling_prices_detail_TriggerUpdate]
+on [EEIUser].[acctg_csm_selling_prices_detail]
+after update as
+begin
+	set nocount on;
+	begin try
+		if exists (
+				select 
+					i.Release_ID, i.Row_ID, i.BasePart, i.[Version], i.EffectiveYear, i.EffectiveDT, i.Header_ID, i.[Period]
+				from
+					Inserted i
+				except
+				select 
+					d.Release_ID, d.Row_ID, d.BasePart, d.[Version], d.EffectiveYear, d.EffectiveDT, d.Header_ID, d.[Period]
+				from
+					Deleted d )
+			throw 50000, 'Updating is only allowed on column SellingPrice.', 1
+	end try
+	begin catch
+		if xact_state() <> 0 
+			rollback transaction;
+		throw;
+	end catch
+end;
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+SET ANSI_NULLS ON
+GO
 create trigger [EEIUser].[tr_csm_selling_prices_detail_IUD] on [EEIUser].[acctg_csm_selling_prices_detail] for insert, update, delete
 as
 delete
@@ -423,7 +452,11 @@ where
 --insert
 --SalesForecast View (table that was once a view)
 GO
+DISABLE TRIGGER [EEIUser].[tr_csm_selling_prices_detail_IUD] ON [EEIUser].[acctg_csm_selling_prices_detail]
+GO
 ALTER TABLE [EEIUser].[acctg_csm_selling_prices_detail] ADD CONSTRAINT [PK__acctg_spd__9E9692CDC3AB6F4] PRIMARY KEY CLUSTERED  ([Release_ID], [EffectiveYear], [Header_ID], [Period]) ON [PRIMARY]
+GO
+CREATE NONCLUSTERED INDEX [RID_Include_SellingPrice] ON [EEIUser].[acctg_csm_selling_prices_detail] ([Release_ID], [BasePart], [EffectiveDT]) INCLUDE ([EffectiveYear], [Period], [SellingPrice], [Version]) ON [PRIMARY]
 GO
 ALTER TABLE [EEIUser].[acctg_csm_selling_prices_detail] ADD CONSTRAINT [UQ__acctg_cs__E728916E9E95230F] UNIQUE NONCLUSTERED  ([Release_ID], [Row_ID], [BasePart], [EffectiveYear], [Period]) ON [PRIMARY]
 GO

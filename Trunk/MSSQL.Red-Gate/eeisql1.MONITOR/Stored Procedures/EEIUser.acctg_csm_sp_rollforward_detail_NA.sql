@@ -76,7 +76,7 @@ insert
 ,	Release_ID
 ,	[Version]
 ,	[Mnemonic-Vehicle/Plant]
-,	Period
+,	[Period]
 ,	EffectiveYear
 ,	EffectiveDT
 ,	SalesDemand
@@ -86,7 +86,7 @@ select
 ,	@CurrentRelease
 ,	d.[Version]
 ,	d.[Mnemonic-Vehicle/Plant]
-,	d.Period
+,	d.[Period]
 ,	d.EffectiveYear
 ,	d.EffectiveDT
 ,	d.SalesDemand
@@ -94,13 +94,13 @@ from
 	eeiuser.acctg_csm_NAIHS_detail d
 	join eeiuser.acctg_csm_NAIHS_header h
 		on h.[Mnemonic-Vehicle/Plant] = d.[Mnemonic-Vehicle/Plant]
-		and h.Version = d.Version
+		and h.[Version] = d.[Version]
 		and h.Release_ID = @CurrentRelease
+		and (h.Region = @Region or h.Region is null)
 where
 	d.Release_ID = @PriorRelease
-	and h.Region = @Region
-	--and ( ( d.[Version] = 'CSM' and d.EffectiveYear < (year(getdate()) - 1) ) or d.[Version] <> 'CSM' )
 	and ( ( d.[Version] = 'CSM' and d.EffectiveYear < (convert(int, left (@CurrentRelease, 4)) - 1) ) or d.[Version] <> 'CSM' )
+	--( ( d.[Version] = 'CSM' and d.EffectiveYear < (year(getdate()) - 1) ) or d.[Version] <> 'CSM' )
 
 
 select
@@ -135,6 +135,7 @@ set	@Result = 0
 return
 	@Result
 --- </Return>
+
 
 
 

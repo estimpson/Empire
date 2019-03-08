@@ -14,6 +14,35 @@ SET QUOTED_IDENTIFIER ON
 GO
 SET ANSI_NULLS ON
 GO
+create trigger [EEIUser].[acctg_csm_NAIHS_detail_TriggerUpdate]
+on [EEIUser].[acctg_csm_NAIHS_detail]
+after update as
+begin
+	set nocount on;
+	begin try
+		if exists (	
+				select
+					i.Release_ID, i.[Mnemonic-Vehicle/Plant], i.[Version], i.EffectiveYear, i.EffectiveDT, i.Header_ID, i.[Period]
+				from
+					Inserted i
+				except
+				select 
+					d.Release_ID, d.[Mnemonic-Vehicle/Plant], d.[Version], d.EffectiveYear, d.EffectiveDT, d.Header_ID, d.[Period]
+				from
+					Deleted d )
+			throw 50000, 'Updating is only allowed on column SalesDemand.', 1
+	end try
+	begin catch
+		if xact_state() <> 0
+			rollback transaction;
+		throw;
+	end catch
+end;
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+SET ANSI_NULLS ON
+GO
 
 CREATE trigger [EEIUser].[tr_csm_NAIHS_detail_IUD] on [EEIUser].[acctg_csm_NAIHS_detail] for insert, update, delete
 as
@@ -683,6 +712,8 @@ GO
 DISABLE TRIGGER [EEIUser].[tr_csm_NAIHS_detail_IUD] ON [EEIUser].[acctg_csm_NAIHS_detail]
 GO
 ALTER TABLE [EEIUser].[acctg_csm_NAIHS_detail] ADD CONSTRAINT [PK__acctg_cs__9E9692CD7C598B98] PRIMARY KEY CLUSTERED  ([Release_ID], [EffectiveYear], [Header_ID], [Period]) ON [PRIMARY]
+GO
+CREATE NONCLUSTERED INDEX [RID_Include_SalesDemand] ON [EEIUser].[acctg_csm_NAIHS_detail] ([Release_ID], [Mnemonic-Vehicle/Plant], [EffectiveDT]) INCLUDE ([EffectiveYear], [Period], [SalesDemand], [Version]) ON [PRIMARY]
 GO
 ALTER TABLE [EEIUser].[acctg_csm_NAIHS_detail] ADD CONSTRAINT [UQ__acctg_cs__EBBF137B4B63B087] UNIQUE NONCLUSTERED  ([Release_ID], [Version], [Mnemonic-Vehicle/Plant], [EffectiveYear], [Period]) ON [PRIMARY]
 GO

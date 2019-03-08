@@ -54,7 +54,9 @@ CREATE TABLE [EEIUser].[acctg_csm_NAIHS_header]
 [Global Sales Price Class] [int] NULL,
 [Short Term Risk Rating] [int] NULL,
 [Long Term Risk Rating] [int] NULL,
-[RolledForward] [int] NULL
+[RolledForward] [int] NULL,
+[RowCreatedUser] [varchar] (5) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
+[RowCreatedDT] [datetime2] NULL CONSTRAINT [DF__acctg_csm__RowCr__3207C9EA] DEFAULT (sysdatetime())
 ) ON [PRIMARY]
 GO
 ALTER TABLE [EEIUser].[acctg_csm_NAIHS_header] ADD CONSTRAINT [PK_acctg_csm_NAIHS_header] PRIMARY KEY CLUSTERED  ([ID]) ON [PRIMARY]

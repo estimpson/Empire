@@ -119,6 +119,7 @@ insert into eeiuser.acctg_csm_NAIHS_header
 ,	[Global Sales Price Class]
 ,	[Short Term Risk Rating]
 ,	[Long Term Risk Rating]
+,	[RowCreatedUser]
 )
 select
 	@CurrentRelease
@@ -174,6 +175,7 @@ select
 ,   t.[Global Sales Price Class]
 ,   t.[Short-Term Risk Rating]
 ,   t.[Long-Term Risk Rating]
+,	@OperatorCode
 from
 	dbo.tempCSM t
 where
