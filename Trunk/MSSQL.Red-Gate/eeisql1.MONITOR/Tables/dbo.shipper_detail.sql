@@ -151,6 +151,7 @@ GO
 SET ANSI_NULLS ON
 GO
 
+
 CREATE TRIGGER [dbo].[mtr_shipper_detail_i] ON [dbo].[shipper_detail] FOR INSERT
 AS
 BEGIN
@@ -204,8 +205,8 @@ BEGIN
 				
 				exec msp_calculate_committed_qty @order_number, @part_original, @suffix
 				
-				if	@ShipperType = 'R'
-				Begin
+				IF	@ShipperType = 'R'
+				BEGIN
 				--Begin Added 02/15/2012 - Andre S.Boulanger Fore-Thought, LLC
 				update	shipper_detail
 				set		account_code = coalesce((select sales_return_account from dbo.part_eecustom where part = @part and nullif(sales_return_account,'') is not null), i.account_code,'')
@@ -216,8 +217,23 @@ BEGIN
 							shipper_detail.part_original = @part_original and
 							isNull(shipper.type,'X') = 'R'
 				--End	Added 02/15/2012
-				end
-				
+				END
+
+				-- Begin Added  02/22/2019 Andre S. Boulanger Fore-Thought, LLC : Set shipper = 1 for CUM_CHANGE inserts. These records are cosuing an issue with the Empower import of invoices
+
+				UPDATE sd
+				SET		sd.shipper = 1,
+							sd.part =  LEFT(sd.part+CONVERT(VARCHAR(25), getdate(), 114),25)
+				FROM
+					shipper_detail sd
+				JOIN
+					inserted i ON i.shipper = sd.shipper AND
+					i.part = sd.part AND
+                    sd.part LIKE 'CUM_CHANGE%' AND
+                    sd.shipper != 1 AND
+					sd.shipper = @shipper
+
+				--end Added  02/22/2019 Andre S. Boulanger Fore-Thought, LLC
 --				IF EXISTS (SELECT 1 FROM shipper_detail sd JOIN shipper s ON sd.shipper = s.id WHERE s.status IN  ('O', 'A', 'S') AND sd.order_no = @order_number AND sd.shipper != @shipper AND @CustomerCode LIKE '%NAL%')
 --				--Begin Added 02/17/2012 - Andre S.Boulanger Fore-Thought, LLC
 				
@@ -424,6 +440,7 @@ BEGIN
 	END
 
 END
+
 
 GO
 SET QUOTED_IDENTIFIER ON

@@ -24,7 +24,7 @@ insert	@tran_locations
 select	NULL as CustomsEntryNo,
 		NULL as ClientCode,
 		NULL as Warehouse,
-		NULL as Reference,
+		audit_Trail.part as Reference,
 		@arrival_date as ArrivalDate,
 		cross_ref as ProductCode,
 		SUM(quantity) as Quantity,

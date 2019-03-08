@@ -3,12 +3,12 @@ GO
 SET ANSI_NULLS ON
 GO
 
-create view [EEA].[FinishedGoodHeaders_NewIntransit]
+CREATE view [EEA].[FinishedGoodHeaders_NewIntransit]
 as
 select
 	psr.ProgramCode
 ,	psr.PartCode
-,	psr.CustomerPart
+,	CustomerPart = max(psr.CustomerPart)
 ,	psr.BillTo
 ,	psr.ShipTo
 ,	StandardPack = max(StandardPack)
@@ -66,7 +66,8 @@ from
 group by
 	psr.ProgramCode
 ,	psr.PartCode
-,	psr.CustomerPart
+--,	psr.CustomerPart
 ,	psr.BillTo
 ,	psr.ShipTo
+
 GO

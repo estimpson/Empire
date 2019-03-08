@@ -12,3 +12,5 @@ CREATE TABLE [HN].[Picklist_RF_SerialPickedLog]
 GO
 ALTER TABLE [HN].[Picklist_RF_SerialPickedLog] ADD CONSTRAINT [PK__Picklist__3214EC0724E5D8B7] PRIMARY KEY CLUSTERED  ([Id]) ON [PRIMARY]
 GO
+CREATE NONCLUSTERED INDEX [ix_Picklist_RF_SerialPickedLog_1] ON [HN].[Picklist_RF_SerialPickedLog] ([Serial], [ShipperID]) ON [PRIMARY]
+GO

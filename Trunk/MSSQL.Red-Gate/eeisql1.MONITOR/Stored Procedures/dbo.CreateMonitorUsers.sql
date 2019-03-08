@@ -9,6 +9,7 @@ CREATE procedure [dbo].[CreateMonitorUsers]( @Name varchar(40), @EmpleadoID varc
 		@EmpleadoID= '17162',
 		@Password = 'do25z',
 		@CoWorkerEmpleadoID = '15124'
+		@name = ''
 */
 declare @smallPassword  varchar(5)
 
@@ -52,7 +53,7 @@ IF  EXISTS (SELECT 1 FROM monitor.dbo.adm_usr_usuarios WHERE usr_Codigo_Empleado
 				(SELECT usr_codigo  FROM monitor.dbo.adm_usr_usuarios WHERE usr_Codigo_Empleado=@EmpleadoID)
 		from	monitor.dbo.adm_rus_role_usuarios
 		where	rus_codusr = (SELECT usr_codigo  FROM monitor.dbo.adm_usr_usuarios WHERE usr_Codigo_Empleado=@CoWorkerEmpleadoID)
-		and rus_role<>2
+		--and rus_role<>2
 	end
 end
 

@@ -104,7 +104,9 @@ FROM	eehsql1.EEH.dbo.ENG_WOEngineer
 WHERE	WOEngineerID=@WOEngineerID
 
 --AutomaticTroyPO
-IF (@AutomaticTroyPO > 0)
+IF (@AutomaticTroyPO > 0) AND NOT EXISTS (SELECT 1 
+										  from	po_header 
+										  WHERE BLANKET_Part =@blanket_part )
 BEGIN
 
 	if	exists(	select	1
@@ -241,6 +243,12 @@ if @PONumber=0 begin
 		RETURN @Result
 	END
 
+	IF	not exists(	select	1
+					from	ft.xrt
+					where	toppart=@blanket_part ) begin 
+		execute FT.ftsp_IncUpdXRt
+	end
+
 	--2.2 CALL RollUp Part
 	exec msp_calc_costs_FT @blanket_part
 	
@@ -361,4 +369,7 @@ end
 set @PONumber=@PONumber
 set @Result = 0
 return @Result
+
+
+
 GO

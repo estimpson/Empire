@@ -169,6 +169,7 @@ BEGIN
 				from	location with (readuncommitted)
 				where	( plant like '%eei%'
 						or plant like '%eea%'
+						or plant like '%eeg%'
 						or plant like '%eep%')
 						and ((group_no like '%warehouse%' and isnull(secured_location,'N')='N') 
 								or (group_no in ('FINISHED GOODS')))
@@ -183,6 +184,7 @@ BEGIN
 					and part <> 'PALLET') TransLocation 
 					cross join ( Select Plant='EEI' union all 
 								 Select Plant='EEA' union all 
+								 Select Plant='EEG' union all 
 								 Select Plant='EEP') Data
 						) LocationValid
 		on LocationValid.code = object.location
@@ -192,7 +194,13 @@ BEGIN
 		and object.location not like '%FIS'
 		and object.location not like '%-%F'
 	
-
+		set	@RowCount = @@rowcount
+		if	@RowCount = 0 begin
+			set	@Result = 999999
+			rollback tran @ProcName			
+			RAISERROR ('Error staging staging this serial. Posible causes: The series has quantity zero, the series belongs to an FIS location or The series does not belong to a valid warehouse.', 16, 1)
+			return @Result
+		end
 	
 	if exists (
 		Select 1

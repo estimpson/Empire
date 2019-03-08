@@ -5,6 +5,7 @@ GO
 
 
 
+
 --SELECT * FROM shipper WHERE Status = 'S'
 
 
@@ -154,7 +155,9 @@ End*/
 				ELSE 0
 				END AS Logo,
 				StagedObjects = StagedSerials.SerialCount,
-				EDIPlantCode = coalesce(nullif(edi_setups.edishiptoID,''), edi_setups.parent_destination)
+				EDIPlantCode = coalesce(nullif(edi_setups.edishiptoID,''), edi_setups.parent_destination),
+				CustomerContact = customer.contact,
+				CustomerPhone = customer.phone
                
         FROM    shipper
                 JOIN 

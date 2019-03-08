@@ -1,8 +1,14 @@
 CREATE TABLE [EEIUser].[customer_po]
 (
-[CustomerCode] [varchar] (10) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL,
-[CustomerPO] [varchar] (50) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL,
-[CustomerPORev] [varchar] (10) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL,
+[ID] [int] NOT NULL IDENTITY(1, 1),
+[CustomerCode] [varchar] (10) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
+[CustomerMasterContractID] [varchar] (50) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
+[CustomerMasterContractRev] [varchar] (10) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
+[BuyerName] [varchar] (100) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
+[SupplierCode] [varchar] (50) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
+[EDICode] [varchar] (50) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
+[CustomerPO] [varchar] (50) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
+[CustomerPORev] [varchar] (10) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
 [CustomerPOType] [varchar] (25) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
 [CustomerPODateReceived] [datetime] NULL,
 [CustomerPOEffDate] [datetime] NULL,
@@ -16,8 +22,11 @@ CREATE TABLE [EEIUser].[customer_po]
 [CustomerSellingPrice] [decimal] (18, 4) NULL,
 [CustomerSellingPriceBegDate] [datetime] NULL,
 [CustomerSellingPriceEndDate] [datetime] NULL,
+[HasLTA] [varchar] (3) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
+[LTA] [varchar] (100) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
+[LTAEffectiveDates] [varchar] (200) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
+[ReplacingPriorPart] [varchar] (50) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
+[Comments] [varchar] (200) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
 [CustomerPOFileLocation] [varchar] (200) COLLATE SQL_Latin1_General_CP1_CI_AS NULL
 ) ON [PRIMARY]
-GO
-ALTER TABLE [EEIUser].[customer_po] ADD CONSTRAINT [PK_customer_po] PRIMARY KEY CLUSTERED  ([CustomerCode], [CustomerPO], [CustomerPORev]) ON [PRIMARY]
 GO

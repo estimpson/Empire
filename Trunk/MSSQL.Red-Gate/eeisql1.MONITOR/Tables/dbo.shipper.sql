@@ -713,6 +713,8 @@ CREATE NONCLUSTERED INDEX [bwa_shipper_cust_indx] ON [dbo].[shipper] ([customer]
 GO
 CREATE NONCLUSTERED INDEX [ix_shipper_1] ON [dbo].[shipper] ([id], [status], [type]) ON [PRIMARY]
 GO
+CREATE NONCLUSTERED INDEX [idx_InvoiceNumber_1] ON [dbo].[shipper] ([invoice_number]) INCLUDE ([invoice_printed]) ON [PRIMARY]
+GO
 CREATE NONCLUSTERED INDEX [bi_shipper_pl1] ON [dbo].[shipper] ([status], [date_stamp]) ON [PRIMARY]
 GO
 CREATE NONCLUSTERED INDEX [ix_shipper_4] ON [dbo].[shipper] ([status], [id]) INCLUDE ([destination]) ON [PRIMARY]

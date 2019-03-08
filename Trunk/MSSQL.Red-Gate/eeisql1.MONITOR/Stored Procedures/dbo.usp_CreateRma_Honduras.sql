@@ -45,15 +45,15 @@ execute @ProcReturn = eehsql1.EEH.dbo.eeisp_insert_EEH_RMA_from_EEI_RTV_withLoca
 ,	@Result = @Result out
 
 set	@Error = @@Error
-if	@Error != 0 begin
+if	@Error <> 0 begin
 	set	@Result = 900503
-	--raiserror ('Error encountered in %s.  Error: %d while calling %s', 16, 1, @ProcName, @Error, @CallProcName)
+	raiserror ('Error encountered in %s.  Error: %d while calling %s', 16, 1, @ProcName, @Error, @CallProcName)
 	rollback tran @ProcName
 	return
 end
-if	@ProcReturn != 0 begin
+if	@ProcReturn <> 0 begin
 	set	@Result = 900504
-	--raiserror ('Error encountered in %s.  ProcReturn: %d while calling %s', 16, 1, @ProcName, @ProcReturn, @CallProcName)
+	raiserror ('Error encountered in %s.  ProcReturn: %d while calling %s', 16, 1, @ProcName, @ProcReturn, @CallProcName)
 	rollback tran @ProcName
 	return
 end

@@ -5,6 +5,7 @@ GO
 
 
 
+
 CREATE FUNCTION [EDIEDIFACT97A].[CurrentShipSchedules]
 ()
 RETURNS @CurrentSS TABLE
@@ -48,10 +49,7 @@ BEGIN
 			,	CustomerModelYear = COALESCE(ss.CustomerModelYear,'')
 			,	CheckLast = MAX
 				(	  CONVERT(CHAR(20), ssh.DocumentImportDT, 120)
-					+ CONVERT(CHAR(20), ssh.DocumentDT, 120)
-					+ CONVERT(CHAR(10), ssh.DocNumber)
-					+ CONVERT(CHAR(10), ssh.ControlNumber)
-					
+										
 				)
 			FROM
 				EDIEDIFACT97A.ShipScheduleHeaders ssh
@@ -75,15 +73,10 @@ BEGIN
 			AND COALESCE(ss.ShipFromCode, '') = cl.ShipFromCode
 			AND ss.CustomerPart = cl.CustomerPart
 			AND COALESCE(ss.CustomerModelYear,'') = cl.CustomerModelYear
-			AND	(	CONVERT(CHAR(20), ssh.DocumentImportDT, 120)
-					+ CONVERT(CHAR(20), ssh.DocumentDT, 120)
-					+ CONVERT(CHAR(10), ssh.DocNumber)
-					+ CONVERT(CHAR(10), ssh.ControlNumber)
-					
-				) = cl.CheckLast
-			LEFT JOIN
-				EDIEDIFACT97A.BlanketOrders bo ON bo.EDIShipToCode = ss.ShipToCode
-			WHERE ssh.RowCreateDT>= DATEADD(dd, bo.ShipScheduleHorizonDaysBack, GETDATE())
+			AND	(	CONVERT(CHAR(20), ssh.DocumentImportDT, 120)) = cl.CheckLast
+			--LEFT JOIN
+			--	EDIEDIFACT97A.BlanketOrders bo ON bo.EDIShipToCode = ss.ShipToCode
+			--WHERE ssh.RowCreateDT>= DATEADD(dd, isNULL(bo.ShipScheduleHorizonDaysBack,-30), GETDATE())
 --- </Body>
 
 ---	<Return>

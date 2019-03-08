@@ -7,11 +7,14 @@ GO
 
 
 
+
 CREATE FUNCTION [dbo].[fn_returnPSFSnapShots]
 ()
 RETURNS @PSF TABLE
 (	ForecastPeriodName VARCHAR(100),
 	ForecastTimeStamp DATETIME,
+	ForecastYear INT,
+	ForecastPeriod INT,
 	Totalsales NUMERIC(20,6)
 )
 AS
@@ -27,13 +30,15 @@ SELECT	@PSFHorizonStartDT  =  DATEADD( WEEK, -3, (ft.fn_TruncDate_monday('wk', G
 
 
 INSERT @PSF
-        ( ForecastPeriodName, ForecastTimeStamp, Totalsales )
+        ( ForecastPeriodName, ForecastTimeStamp, forecastyear, forecastperiod, Totalsales )
 
 
 	
 SELECT  
 	forecast_name ,
     time_stamp ,
+	forecast_year,
+	forecast_period,
 	SUM(forecast_sales)		
 
 FROM
@@ -43,7 +48,9 @@ WHERE
 	time_stamp >= @PSFHorizonStartDT
 GROUP BY
 	forecast_name,
-	time_stamp
+	time_stamp,
+	forecast_year,
+	forecast_period
 
 ORDER BY
 	2

@@ -37,9 +37,13 @@ CREATE TABLE [FT].[CommonSerialShipLog]
 GO
 ALTER TABLE [FT].[CommonSerialShipLog] ADD CONSTRAINT [PK__CommonSerialShip__5788D180] PRIMARY KEY CLUSTERED  ([ID]) ON [PRIMARY]
 GO
+CREATE NONCLUSTERED INDEX [idx_ConnonSerialShipLog_6] ON [FT].[CommonSerialShipLog] ([Part], [ShipDT]) INCLUDE ([Quantity]) ON [PRIMARY]
+GO
 CREATE NONCLUSTERED INDEX [idx_CommonSerialShipLog_3] ON [FT].[CommonSerialShipLog] ([RowStatus], [Shipper], [ShipDT]) ON [PRIMARY]
 GO
 CREATE NONCLUSTERED INDEX [idx_CommonSerialShipLog_4] ON [FT].[CommonSerialShipLog] ([Serial]) INCLUDE ([MfgDT]) ON [PRIMARY]
+GO
+CREATE NONCLUSTERED INDEX [idx_ConnonSerialShipLog_5] ON [FT].[CommonSerialShipLog] ([ShipDT], [Part]) INCLUDE ([Quantity]) ON [PRIMARY]
 GO
 CREATE NONCLUSTERED INDEX [idx_CommonSerialShipLog_1] ON [FT].[CommonSerialShipLog] ([ShipDT], [Shipper]) ON [PRIMARY]
 GO

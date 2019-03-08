@@ -6,6 +6,7 @@ GO
 
 
 
+
 CREATE function [EDIEDIFACT04A].[CurrentPlanningReleases]
 ()
 returns @CurrentPlanningReleases table
@@ -27,7 +28,7 @@ begin
 	select distinct
 		RawDocumentGUID = ph.RawDocumentGUID
 	,	ReleaseNo = CASE WHEN coalesce(pr.ReleaseNo,'') like '%:%' 
-					THEN SUBSTRING(pr.ReleaseNo, 1,  (PatINDEX('%:%', pr.ReleaseNo))-1) ELSE 0 END 
+					THEN SUBSTRING(pr.ReleaseNo, 1,  (PatINDEX('%:%', pr.ReleaseNo))-1) ELSE pr.ReleaseNo END 
 	,	ShipToCode = pr.ShipToCode
 	,	ShipFromCode = coalesce(pr.ShipFromCode,'')
 	,	ConsigneeCode = coalesce(pr.ConsigneeCode,'')

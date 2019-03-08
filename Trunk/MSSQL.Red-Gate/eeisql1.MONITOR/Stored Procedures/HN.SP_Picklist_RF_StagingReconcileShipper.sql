@@ -2,7 +2,6 @@ SET QUOTED_IDENTIFIER ON
 GO
 SET ANSI_NULLS ON
 GO
-
 /*
 begin tran
 
@@ -66,29 +65,32 @@ if exists (
 		SAVE TRANSACTION @ProcName
 --</Tran>
 
-update	shipper_detail
-   set	qty_packed =
-		(select	sum ( box.quantity )
-		  from	object box
-		 where	shipper_detail.part_original = box.part and
-			isnull ( shipper_detail.suffix, 0 ) = isnull ( box.suffix, 0 ) and
-			box.type is null and
-			box.shipper = @ShipperID ),
-	alternative_qty =
-		(select	sum ( box.std_quantity )
-		  from	object box
-		 where	shipper_detail.part_original = box.part and
-				isnull ( shipper_detail.suffix, 0 ) = isnull ( box.suffix, 0 ) and
-				box.type is null and
-				box.shipper = @ShipperID ),	
-	boxes_staged = 
-		(select count ( 1 )
-		 from object box 
-		 where shipper_detail.part_original = box.part and
-			isnull ( shipper_detail.suffix, 0 ) = isnull ( box.suffix, 0 ) and
-			box.type is null and 
-			box.shipper = @ShipperID )
- where	shipper = @ShipperID 
+update	
+	sd
+set
+	sd.qty_packed = coalesce(box.qty_packed, 0)
+,	sd.alternative_qty = coalesce(box.alternative_qty, 0)
+,	sd.boxes_staged = coalesce(box.boxes_staged, 0)
+from
+	dbo.shipper_detail sd
+	left join (
+		select	sum ( o.quantity ) as qty_packed
+			,	sum ( o.std_quantity ) as alternative_qty
+			,	count ( 1 ) as boxes_staged
+			,	o.part
+			,	isnull ( o.suffix, 0 ) as suffix
+		from	
+			dbo.object o
+		where	
+			o.type is null and
+			o.shipper = @ShipperID
+		group by 
+			o.part
+		,	isnull ( o.suffix, 0 ) ) as box
+	on  sd.part_original = box.part
+	and isnull ( sd.suffix, 0 ) = box.suffix
+where	
+	sd.shipper = @ShipperID
 
 --	5. Refresh shipper container information.
 delete	shipper_container

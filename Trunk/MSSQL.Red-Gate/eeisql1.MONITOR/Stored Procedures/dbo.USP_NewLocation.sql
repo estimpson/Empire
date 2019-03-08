@@ -20,6 +20,8 @@ CREATE PROCEDURE [dbo].[USP_NewLocation]
 					,@Label_on_transfer		VARCHAR(1)=NULL
 					,@Cantransfer				VARCHAR(1)	
 					,@AllowMultiplePallet	VARCHAR(1)	
+					,@box_type              VARCHAR(50)=NULL
+					,@maxSerialloc           int=NULL
 					,@Process				VARCHAR(25)=NULL
 					,@Result				INT OUT	
 	
@@ -57,7 +59,7 @@ BEGIN
 	IF @PROCESS='UPDATE'
 		BEGIN
 		UPDATE  MONITOR.dbo.location SET name=@NAME,group_no=@group_no,type=@TYPE,sequence=@sequence,plant=@plant,status=@status,secured_location=@secured_location,label_on_transfer=@label_on_transfer,
-										 AllowMultiplePallet=@AllowMultiplePallet WHERE code=@CODE
+										 AllowMultiplePallet=@AllowMultiplePallet ,box_type=@box_type , maxSerialloc=@maxSerialloc WHERE code=@CODE
 
 
 			SET	@Error = @@Error
@@ -76,8 +78,8 @@ BEGIN
 	ELSE
 	BEGIN
 
-		INSERT INTO MONITOR.dbo.location(code,name,type,group_no,sequence,plant,status,secured_location,label_on_transfer,AllowMultiplePallet)
-		VALUES(@CODE,@NAME,@TYPE,@group_no,@sequence,@plant,@status,@secured_location,@label_on_transfer,@AllowMultiplePallet)
+		INSERT INTO MONITOR.dbo.location(code,name,type,group_no,sequence,plant,status,secured_location,label_on_transfer,AllowMultiplePallet,box_type,maxSerialloc)
+		VALUES(@CODE,@NAME,@TYPE,@group_no,@sequence,@plant,@status,@secured_location,@label_on_transfer,@AllowMultiplePallet,@box_type,@maxSerialloc)
 						
 			SET	@Error = @@Error
 			IF	@Error != 0 BEGIN

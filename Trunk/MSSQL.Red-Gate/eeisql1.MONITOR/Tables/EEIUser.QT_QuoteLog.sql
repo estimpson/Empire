@@ -71,7 +71,22 @@ CREATE TABLE [EEIUser].[QT_QuoteLog]
 [FileServerCustomerQuote] [varchar] (50) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
 [MinimumOrderQuantity] [int] NULL,
 [QuoteTransferComplete] [char] (1) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
-[QuoteTransferCompletedDate] [datetime] NULL
+[QuoteTransferCompletedDate] [datetime] NULL,
+[AmortizationAmount] [numeric] (20, 6) NULL,
+[AmortizationQuantity] [numeric] (20, 6) NULL,
+[AmortizationPrice] AS ([AmortizationAmount]/nullif([AmortizationQuantity],(0))),
+[TotalPrice] AS ([QuotePrice]+([AmortizationAmount]/nullif([AmortizationQuantity],(0)))),
+[AmortizationToolingDescription] [varchar] (max) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
+[HardToolingAmount] [numeric] (20, 6) NULL,
+[HardToolingTrigger] [varchar] (max) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
+[HardToolingDescription] [varchar] (max) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
+[AssemblyTesterToolingAmount] [numeric] (20, 6) NULL,
+[AssemblyTesterToolingQuantity] [numeric] (20, 6) NULL,
+[AssemblyTesterToolingTrigger] [varchar] (max) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
+[AssemblyTesterToolingDescription] [varchar] (max) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
+[SetupChargeAmount] [numeric] (20, 6) NULL,
+[SetupTrigger] [varchar] (max) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
+[SetupDescription] [varchar] (max) COLLATE SQL_Latin1_General_CP1_CI_AS NULL
 ) ON [PRIMARY]
 GO
 SET QUOTED_IDENTIFIER ON

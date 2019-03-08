@@ -12,6 +12,22 @@ CREATE PROC [HN].[SP_Picklist_ScreenData]
 AS
 BEGIN
 
+/*
+
+EXEC [HN].[SP_Picklist_ScreenData] 'SerialPicked',127037,'EEA',1 ,0
+
+Select BoxesRequired= Sum(BoxesRequired) from [HN].[fn_PickList_ShipperSummary_ByShipper](127037,'EEA',1,NULL)
+
+
+Select	Serial, CrossRef, obj.Part, Quantity, LastDate = Last_Date, pinv.standard_pack
+		from	hn.vw_Picklist_Object obj
+			 inner join part_inventory  pinv
+			  on obj.part = pinv.part
+		where	plant='EEA'
+			and isnull(shipper,-1) = 127095
+			--and [IsFullStdPack]>= 1
+		order by Last_Date desc
+*/
 
 SET nocount ON
 set	@Result = 999999

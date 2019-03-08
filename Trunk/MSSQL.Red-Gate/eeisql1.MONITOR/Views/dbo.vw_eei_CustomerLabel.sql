@@ -10,6 +10,7 @@ GO
 
 
 
+
 CREATE view [dbo].[vw_eei_CustomerLabel]
 as
 select		object.serial as objectserial,
@@ -191,7 +192,10 @@ left join			(	Select	oh1.order_no	oh1OrderderNo,
 							s1.id = sd1.shipper and
 							sd1.part_original = o1.part and
 							sd1.order_no = oh1.order_no) shipperorder on object.serial = o1serial
-left join		FT.CommonSerialShipLog on object.serial = FT.CommonSerialShipLog.serial
+left join	  (Select serial,shipper=max(shipper ) ,MfgDT
+										from FT.CommonSerialShipLog
+									group by Serial,MfgDT
+											 ) CommonSerialShipLog on object.serial = CommonSerialShipLog.serial
 
 
 
