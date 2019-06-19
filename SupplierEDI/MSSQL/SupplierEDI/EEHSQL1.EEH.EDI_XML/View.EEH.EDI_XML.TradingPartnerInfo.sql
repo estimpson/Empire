@@ -1,18 +1,18 @@
 
 /*
-Create View.EEH.EDI_XML_NET_830.TradingPartnerInfo.sql
+Create View.EEH.EDI_XML.TradingPartnerInfo.sql
 */
 
 use EEH
 go
 
---drop table EDI_XML_NET_830.TradingPartnerInfo
-if	objectproperty(object_id('EDI_XML_NET_830.TradingPartnerInfo'), 'IsView') = 1 begin
-	drop view EDI_XML_NET_830.TradingPartnerInfo
+--drop table EDI_XML.TradingPartnerInfo
+if	objectproperty(object_id('EDI_XML.TradingPartnerInfo'), 'IsView') = 1 begin
+	drop view EDI_XML.TradingPartnerInfo
 end
 go
 
-create view EDI_XML_NET_830.TradingPartnerInfo
+create view EDI_XML.TradingPartnerInfo
 as
 select distinct
 	EmpireVendorCode = ev.vendor
@@ -37,16 +37,9 @@ from
 		on tpog.TradingPartnerCode = ev.trading_partner_code
 	left join SupplierEDI.XML_ReleasePlanDataRootFunctions xrpdrf
 		on xrpdrf.OverlayGroup = tpog.OverlayGroup
-where
-	tpog.OverlayGroup in
-	(	'NET'
-	,	'TE'
-	,	'DIXIE'
-	,	'NETNOPRICE'
-	)
 go
 
 select
 	*
 from
-	EDI_XML_NET_830.TradingPartnerInfo tpi
+	EDI_XML.TradingPartnerInfo tpi

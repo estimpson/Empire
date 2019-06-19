@@ -1,6 +1,8 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 11.00
-# SQL Server Management Studio Solution File, Format Version 11.00
+Microsoft Visual Studio Solution File, Format Version 12.00
+# SQL Server Management Studio Solution File, Format Version 14.00
+VisualStudioVersion = 14.0.23107.0
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{4F2E2C19-372F-40D8-9FA7-9D2138C6997A}") = "EEHSQL1.EEH.SupplierEDI", "EEHSQL1.EEH.SupplierEDI\EEHSQL1.EEH.SupplierEDI.ssmssqlproj", "{07CE3BE4-40B1-4BEB-A29E-ABC5E889B495}"
 EndProject
 Project("{4F2E2C19-372F-40D8-9FA7-9D2138C6997A}") = "EEHSQL1.EEH.dbo.Legacy.ACCUM", "EEHSQL1.EEH.dbo.Legacy.ACCUM\EEHSQL1.EEH.dbo.Legacy.ACCUM.ssmssqlproj", "{C228FEA7-20D1-44D3-A767-97F41A092FD2}"
@@ -29,6 +31,14 @@ Project("{4F2E2C19-372F-40D8-9FA7-9D2138C6997A}") = "EEHSQL1.FxEDI.EDI_XML", "EE
 EndProject
 Project("{4F2E2C19-372F-40D8-9FA7-9D2138C6997A}") = "EEHSQL1.FxEDI.EDI_DICT", "EEHSQL1.FxEDI.EDI_DICT\EEHSQL1.FxEDI.EDI_DICT.ssmssqlproj", "{2BF856F1-72CE-49F0-9000-E73129DD4E0D}"
 EndProject
+Project("{4F2E2C19-372F-40D8-9FA7-9D2138C6997A}") = "EEHSQL1.FxEDI.RAWEDIDATA_FS", "EEHSQL1.FxEDI.RAWEDIDATA_FS\EEHSQL1.FxEDI.RAWEDIDATA_FS.ssmssqlproj", "{A885BCDD-8981-423F-BCC3-B2238E8B71A1}"
+EndProject
+Project("{4F2E2C19-372F-40D8-9FA7-9D2138C6997A}") = "FxEDI.FTP", "EEHSQL1.FxEDI.FTP\FxEDI.FTP.ssmssqlproj", "{BBA9FA08-A89A-4B5F-AADC-D0FD410669A8}"
+EndProject
+Project("{4F2E2C19-372F-40D8-9FA7-9D2138C6997A}") = "FxEDI.EDI", "EEHSQL1.FxEDI.EDI\FxEDI.EDI.ssmssqlproj", "{30939AD8-FA9A-4D9A-AC3D-56E991CB855D}"
+EndProject
+Project("{4F2E2C19-372F-40D8-9FA7-9D2138C6997A}") = "EEHSQL1.EEH.EDI_ACCUM_830", "EEHSQL1.EEH.EDI_ACCUM_830\EEHSQL1.EEH.EDI_ACCUM_830.ssmssqlproj", "{36F06505-C08F-4E72-BAA3-065631B18F40}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Default|Default = Default|Default
@@ -47,8 +57,12 @@ Global
 		{C1E8160F-A236-470B-8F45-A351AB047B8D}.Default|Default.ActiveCfg = Default
 		{A5FC36D1-29F5-4AFE-B82E-9A659031C304}.Default|Default.ActiveCfg = Default
 		{610AD35F-3A0F-43B7-81ED-D74CCFC14368}.Default|Default.ActiveCfg = Default
-		{7F8B2BE1-7C6F-4BA1-A32D-C6CF1027B25A}.Default|Default.ActiveCfg = Default
 		{2BF856F1-72CE-49F0-9000-E73129DD4E0D}.Default|Default.ActiveCfg = Default
+		{A885BCDD-8981-423F-BCC3-B2238E8B71A1}.Default|Default.ActiveCfg = Default
+		{BBA9FA08-A89A-4B5F-AADC-D0FD410669A8}.Default|Default.ActiveCfg = Default
+		{30939AD8-FA9A-4D9A-AC3D-56E991CB855D}.Default|Default.ActiveCfg = Default
+		{5A7358F0-F88E-4440-BD7A-D2A4837F9A50}.Default|Default.ActiveCfg = Default
+		{36F06505-C08F-4E72-BAA3-065631B18F40}.Default|Default.ActiveCfg = Default
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

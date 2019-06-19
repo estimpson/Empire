@@ -1,18 +1,18 @@
 
 /*
-Create Procedure.FxEDI.FTP.usp_SendCustomerEDI.sql
+Create Procedure.FxEDI.FTP.usp_SendSupplierEDI.sql
 */
 
 use FxEDI
 go
 
-if	objectproperty(object_id('FTP.usp_SendCustomerEDI'), 'IsProcedure') = 1 begin
-	drop procedure FTP.usp_SendCustomerEDI
+if	objectproperty(object_id('FTP.usp_SendSupplierEDI'), 'IsProcedure') = 1 begin
+	drop procedure FTP.usp_SendSupplierEDI
 end
 go
 
-create procedure FTP.usp_SendCustomerEDI
-	@SendFileFromFolderRoot sysname = '\RawEDIData\CustomerEDI\OutBound'
+create procedure FTP.usp_SendSupplierEDI
+	@SendFileFromFolderRoot sysname = '\RawEDIData\SupplierEDI\OutBound'
 ,	@SendFileNamePattern sysname = '%[0-9][0-9][0-9][0-9][0-9].xml'
 ,	@TranDT datetime = null out
 ,	@Result integer = null out
@@ -66,7 +66,7 @@ insert
 )
 select
 	Type = 2
-,	Description = 'Send Customer EDI.'
+,	Description = 'Send Supplier EDI.'
 
 set	@fhlRow = scope_identity()
 
@@ -97,9 +97,9 @@ if	exists
 	,	CommandOutput = 'Output Queue not empty.'
 
 	--- <Call>
-	set	@CallProcName = 'FS.usp_FileTable_FileMove'
+	set	@CallProcName = 'RAWEDIDATA_FS.usp_FileMove'
 	execute
-		@ProcReturn = FS.usp_FileTable_FileMove
+		@ProcReturn = RAWEDIDATA_FS.usp_FileMove
 			@FromFolder = @inProcessFolder
 		,   @ToFolder = @errorFolder
 		,   @FileNamePattern = @SendFileNamePattern
@@ -130,9 +130,9 @@ if	exists
 end
 
 --- <Call>
-set	@CallProcName = 'FS.usp_FileTable_FileMove'
+set	@CallProcName = 'RAWEDIDATA_FS.usp_FileMove'
 execute
-	@ProcReturn = FS.usp_FileTable_FileMove
+	@ProcReturn = RAWEDIDATA_FS.usp_FileMove
 	    @FromFolder = @stagingFolder
 	,   @ToFolder = @inProcessFolder
 	,   @FileNamePattern = @SendFileNamePattern
@@ -163,7 +163,7 @@ update
 	cegl
 set	CurrentFilePath = redOutboundFiles.file_stream.GetFileNamespacePath()
 from
-	FxAztec.dbo.CustomerEDI_GenerationLog cegl
+	EEH.SupplierEDI.GenerationLog cegl
 	join dbo.RawEDIData redOutboundFolder
 		join dbo.RawEDIData redOutboundFiles
 			on redOutboundFiles.parent_path_locator = redOutboundFolder.path_locator
@@ -198,20 +198,21 @@ insert
 select
 	FLHRowID = @fhlRow
 ,	Line = 1
-,	Command = 'Output Customer EDI Queue'
+,	Command = 'Output Supplier EDI Queue'
 ,	CommandOutput = @outboundFileList
 
 /*	Use an administrative account. */
-execute as login = 'AZTEC\estimpson'
+execute as login = 'sa'
 
 declare
 	@CommandOutput varchar(max)
+,	@Command varchar(max) = '\\Eehsql1\mssqlserver\FxEDI\RawEDIData\SupplierEDI\FTPCommands\SendOutbound_v3.cmd'
 
 /*	Perform ftp. */
 exec
 --	loopback.FxEDI.EDI.usp_CommandShell_Execute
 	FxEDI.EDI.usp_CommandShell_Execute
-	@Command = '\\aztec-sql01\fx\FxEDI\RawEDIData\CustomerEDI\FTPCommands\SendOutbound_v2.cmd'
+	@Command = @Command
 ,	@CommandOutput = @CommandOutput out
 
 insert
@@ -224,7 +225,7 @@ insert
 select
 	FLHRowID = @fhlRow
 ,	Line = 2
-,	Command = '\\aztec-sql01\fx\FxEDI\RawEDIData\CustomerEDI\FTPCommands\SendOutbound_v2.cmd'
+,	Command = @Command
 ,	CommandOutput = @CommandOutput
 
 revert
@@ -253,9 +254,9 @@ end
 
 /*	Move outbound files to archive folder. */
 --- <Call>
-set	@CallProcName = 'FS.usp_FileTable_FileMove'
+set	@CallProcName = 'RAWEDIDATA_FS.usp_FileMove'
 execute
-	@ProcReturn = FS.usp_FileTable_FileMove
+	@ProcReturn = RAWEDIDATA_FS.usp_FileMove
 	    @FromFolder = @inProcessFolder
 	,   @ToFolder = @sentFolder
 	,   @FileNamePattern = '%'
@@ -285,7 +286,7 @@ update
 set	CurrentFilePath = redOutboundFiles.file_stream.GetFileNamespacePath()
 ,	FileSendDT = getdate()
 from
-	FxAztec.dbo.CustomerEDI_GenerationLog cegl
+	EEH.SupplierEDI.GenerationLog cegl
 	join dbo.RawEDIData redOutboundFolder
 		join dbo.RawEDIData redOutboundFiles
 			on redOutboundFiles.parent_path_locator = redOutboundFolder.path_locator
@@ -308,9 +309,9 @@ ERROR_HANDLING:
 
 /*	Move outbound files to error folder. */
 --- <Call>
-set	@CallProcName = 'FS.usp_FileTable_FileMove'
+set	@CallProcName = 'RAWEDIDATA_FS.usp_FileMove'
 execute
-	@ProcReturn = FS.usp_FileTable_FileMove
+	@ProcReturn = RAWEDIDATA_FS.usp_FileMove
 		@FromFolder = @inProcessFolder
 	,   @ToFolder = @errorFolder
 	,   @FileNamePattern = '%'
@@ -357,7 +358,7 @@ declare
 ,	@Error integer
 
 execute
-	@ProcReturn = FTP.usp_SendCustomerEDI
+	@ProcReturn = FTP.usp_SendSupplierEDI
 	@TranDT = @TranDT out
 ,	@Result = @ProcResult out
 

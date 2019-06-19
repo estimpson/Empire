@@ -25,11 +25,17 @@
           <AssociatedConnUserName>estimpson</AssociatedConnUserName>
           <FullPath>Procedure.FxEDI.FTP.usp_ReceiveCustomerEDI.sql</FullPath>
         </FileNode>
-        <FileNode Name="Procedure.FxEDI.FTP.usp_SendCustomerEDI.sql">
-          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:aztec:False:estimpson</AssociatedConnectionMoniker>
-          <AssociatedConnSrvName>aztec</AssociatedConnSrvName>
-          <AssociatedConnUserName>estimpson</AssociatedConnUserName>
-          <FullPath>Procedure.FxEDI.FTP.usp_SendCustomerEDI.sql</FullPath>
+        <FileNode Name="Procedure.FxEDI.FTP.usp_SendSupplierEDI.sql">
+          <AssociatedConnectionMoniker />
+          <AssociatedConnSrvName />
+          <AssociatedConnUserName />
+          <FullPath>Procedure.FxEDI.FTP.usp_SendSupplierEDI.sql</FullPath>
+        </FileNode>
+        <FileNode Name="Procedure.FxEDI.FTP.usp_SendSupplierEDI_TestMailBox.sql">
+          <AssociatedConnectionMoniker />
+          <AssociatedConnSrvName />
+          <AssociatedConnUserName />
+          <FullPath>Procedure.FxEDI.FTP.usp_SendSupplierEDI_TestMailBox.sql</FullPath>
         </FileNode>
         <FileNode Name="Schema.FxEDI.FTP.sql">
           <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:aztec:False:estimpson</AssociatedConnectionMoniker>

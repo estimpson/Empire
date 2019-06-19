@@ -1,17 +1,17 @@
 
 /*
-Create ScalarFunction.EEH.EDI_XML_NET_830.Get830.sql
+Create ScalarFunction.EEH.EDI_XML_NET_830.Get830_NoPrice.sql
 */
 
 use EEH
 go
 
-if	objectproperty(object_id('EDI_XML_NET_830.Get830'), 'IsScalarFunction') = 1 begin
-	drop function EDI_XML_NET_830.Get830
+if	objectproperty(object_id('EDI_XML_NET_830.Get830_NoPrice'), 'IsScalarFunction') = 1 begin
+	drop function EDI_XML_NET_830.Get830_NoPrice
 end
 go
 
-create function EDI_XML_NET_830.Get830
+create function EDI_XML_NET_830.Get830_NoPrice
 (	@TradingPartnerCode varchar(12)
 ,	@purcharOrderList varchar(max) = null
 ,	@purpose char(2)
@@ -36,7 +36,6 @@ begin
 	,	VendorPart varchar(25)
 	,	PartDescription varchar(80)
 	,	Unit varchar(2)
-	,	Price varchar(11)
 	,	AccumReceived int
 	,	AccumStartDT datetime
 	,	AccumEndDT datetime
@@ -56,7 +55,6 @@ begin
 	,	VendorPart
 	,	PartDescription
 	,	Unit
-	,	Price
 	,	AccumReceived
 	,	AccumStartDT
 	,	AccumEndDT
@@ -74,7 +72,6 @@ begin
 	,	poi.VendorPart
 	,	poi.PartDescription
 	,	poi.Unit
-	,	poi.Price
 	,	poi.AccumReceived
 	,	poi.AccumStartDT
 	,	poi.AccumEndDT
@@ -123,7 +120,6 @@ begin
 						,	(	select
 						 			FxEDI.EDI_XML.LOOP_INFO('LIN')
 								,	FxEDI.EDI_XML.SEG_LIN(@dictionaryVersion, 'BP', poi.EmpireBlanketPart, /* 'PD', poi.PartDescription, */ '', '', 'PO', poi.PurchaseOrderNumber, 'VP', poi.VendorPart, default, default)
-								,	FxEDI.EDI_XML.SEG_UIT(@dictionaryVersion, poi.Unit, poi.Price)
 								,	FxEDI.EDI_XML.SEG_PID(@dictionaryVersion, 'F', poi.PartDescription)
 								,	FxEDI.EDI_XML.SEG_ATH(@dictionaryVersion, 'MT', poi.RawEndDT, poi.RawAccum, default, poi.AccumStartDT)
 								,	FxEDI.EDI_XML.SEG_ATH(@dictionaryVersion, 'FI', poi.FabEndDT, poi.FabAccum, default, poi.AccumStartDT)
@@ -192,7 +188,7 @@ end
 go
 
 select
-	EDI_XML_NET_830.Get830('PSG', '52721,48236', '05', 1)
+	EDI_XML_NET_830.Get830_NoPrice('PSG', '52721,48236', '05', 1)
 
 
 select
@@ -250,7 +246,7 @@ declare
 	@result xml
 
 select
-	@result = EDI_XML_NET_830.Get830('PSG', default, '05', 1)
+	@result = EDI_XML_NET_830.Get830_NoPrice('PSG', default, '05', 1)
 */
 
 select
@@ -270,4 +266,4 @@ where
 	)
 
 select
-	EDI_XML_NET_830.Get830('ARROW', '16832, 31017, 31458, 31459, 31460, 31461, 31482, 31524, 31530, 31912, 31993', '05', 1)
+	EDI_XML_NET_830.Get830_NoPrice('ARROW', '16832, 31017, 31458, 31459, 31460, 31461, 31482, 31524, 31530, 31912, 31993', '05', 1)

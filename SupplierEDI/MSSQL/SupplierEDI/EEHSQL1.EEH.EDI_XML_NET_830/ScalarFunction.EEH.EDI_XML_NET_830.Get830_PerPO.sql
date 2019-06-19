@@ -1,17 +1,17 @@
 
 /*
-Create ScalarFunction.EEH.EDI_XML_NET_830.Get830.sql
+Create ScalarFunction.EEH.EDI_XML_NET_830.Get830_PerPO.sql
 */
 
 use EEH
 go
 
-if	objectproperty(object_id('EDI_XML_NET_830.Get830'), 'IsScalarFunction') = 1 begin
-	drop function EDI_XML_NET_830.Get830
+if	objectproperty(object_id('EDI_XML_NET_830.Get830_PerPO'), 'IsScalarFunction') = 1 begin
+	drop function EDI_XML_NET_830.Get830_PerPO
 end
 go
 
-create function EDI_XML_NET_830.Get830
+create function EDI_XML_NET_830.Get830_PerPO
 (	@TradingPartnerCode varchar(12)
 ,	@purcharOrderList varchar(max) = null
 ,	@purpose char(2)
@@ -98,6 +98,7 @@ begin
 						dbo.fn_SplitStringToRows(@purcharOrderList, ',') fsstr
 				)
 		)
+		and getdate() < '2019/06/26'
 
 	set
 		@xmlOutput =
@@ -165,6 +166,8 @@ begin
 									end
 						 		from
 						 			@purchaseOrders poi
+								where
+									poi.PurchaseOrderNumber = ht.PurchaseOrderNumber
 								for xml raw ('LOOP-LIN'), type
 						 	)
 						,	FxEDI.EDI_XML.SEG_CTT(@dictionaryVersion, ht.LineItems, ht.HashTotal)
@@ -174,10 +177,13 @@ begin
 								(	select
 										LineItems = count(distinct pod.PurchaseOrderNumber)
 									,	HashTotal = sum(pod.Quantity)
+									,	po.PurchaseOrderNumber
 									from
 										EDI_XML_NET_830.PurchaseOrderDetails pod
 										join @purchaseOrders po
 											on po.PurchaseOrderNumber = pod.PurchaseOrderNumber
+									group by
+										po.PurchaseOrderNumber
 								) ht
 						where
 							tpi.TradingPartnerCode = @TradingPartnerCode
@@ -192,82 +198,4 @@ end
 go
 
 select
-	EDI_XML_NET_830.Get830('PSG', '52721,48236', '05', 1)
-
-
-select
-	poi.PurchaseOrderNumber
-from
-	EDI_XML_NET_830.PurchaseOrderInfo poi
-where
-	poi.TradingPartnerCode = 'PSG'
-	and
-	(	null is null
-		or convert(varchar(12), poi.PurchaseOrderNumber) in
-			(	select
-					fsstr.Value
-				from
-					dbo.fn_SplitStringToRows(null, ',') fsstr
-			)
-	)
-
-
---declare
---	@dictionaryVersion varchar(12) = '004010'
-
-select
-	FxEDI.EDI_XML.LOOP_INFO('LIN')
---,	FxEDI.EDI_XML.SEG_LIN(@dictionaryVersion, 'BP', poi.EmpireBlanketPart, 'PO', poi.PurchaseOrderNumber, 'VP', poi.VendorPart, 'PD', poi.PartDescription, default, default)
---,	FxEDI.EDI_XML.SEG_UNT(@dictionaryVersion, poi.Unit, poi.Price, default)
---,	FxEDI.EDI_XML.SEG_ATH(@dictionaryVersion, 'PQ', poi.AccumStartDT, poi.AccumReceived, default, poi.AccumEndDT)
---,	FxEDI.EDI_XML.SEG_ATH(@dictionaryVersion, 'FI', poi.AccumStartDT, poi.FabAccum, default, poi.FabEndDT)
---,	FxEDI.EDI_XML.SEG_ATH(@dictionaryVersion, 'MT', poi.AccumStartDT, poi.RawAccum, default, poi.RawEndDT)
-----,	FxEDI.EDI_XML.SEG_FST(@dictionaryVersion, )
---from
---	EDI_XML_NET_830.PurchaseOrderInfo poi
---where
---	poi.PurchaseOrderNumber in
---		(	select
---				poi.PurchaseOrderNumber
---			from
---				EDI_XML_NET_830.PurchaseOrderInfo poi
---			where
---				poi.TradingPartnerCode = 'PSG'
---				and
---				(	'35531,41340' is null
---					or convert(varchar(12), poi.PurchaseOrderNumber) in
---						(	select
---								fsstr.Value
---							from
---								dbo.fn_SplitStringToRows('15449,15450,15451', ',') fsstr
---						)
---				)
---		)
---for xml raw ('LOOP-LIN'), type
-
-/*
-declare
-	@result xml
-
-select
-	@result = EDI_XML_NET_830.Get830('PSG', default, '05', 1)
-*/
-
-select
-	*
-from
-	EDI_XML_NET_830.PurchaseOrderInfo poi
-where
-	poi.TradingPartnerCode = 'ARROW'
-	and
-	(	'16832, 31017, 31458, 31459, 31460, 31461, 31482, 31524, 31530, 31912, 31993' is null
-		or convert(varchar(12), poi.PurchaseOrderNumber) in
-			(	select
-					ltrim(rtrim(fsstr.Value))
-				from
-					dbo.fn_SplitStringToRows('16832, 31017, 31458, 31459, 31460, 31461, 31482, 31524, 31530, 31912, 31993', ',') fsstr
-			)
-	)
-
-select
-	EDI_XML_NET_830.Get830('ARROW', '16832, 31017, 31458, 31459, 31460, 31461, 31482, 31524, 31530, 31912, 31993', '05', 1)
+	EDI_XML_NET_830.Get830_PerPO('PSG', '52721,48236', '05', 1)

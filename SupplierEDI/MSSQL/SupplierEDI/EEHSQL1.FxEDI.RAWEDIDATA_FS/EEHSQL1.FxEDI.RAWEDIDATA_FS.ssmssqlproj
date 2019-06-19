@@ -1,0 +1,106 @@
+<?xml version="1.0"?>
+<SqlWorkbenchSqlProject xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" Name="EEHSQL1.FxEDI.RAWEDIDATA_FS">
+  <Items>
+    <LogicalFolder Name="Connections" Type="2" Sorted="true">
+      <Items>
+        <ConnectionNode Name="eehsql1:sa">
+          <Created>2019-03-05T14:30:26.6648407-05:00</Created>
+          <Type>SQL</Type>
+          <Server>eehsql1</Server>
+          <UserName>sa</UserName>
+          <Authentication>SQL</Authentication>
+          <InitialDB />
+          <LoginTimeout>30</LoginTimeout>
+          <ExecutionTimeout>0</ExecutionTimeout>
+          <ConnectionProtocol>NotSpecified</ConnectionProtocol>
+          <ApplicationName>Microsoft SQL Server Management Studio - Query</ApplicationName>
+        </ConnectionNode>
+        <ConnectionNode Name="eeisql1:estimpson">
+          <Created>2019-03-19T09:51:36.1055827-04:00</Created>
+          <Type>SQL</Type>
+          <Server>eeisql1</Server>
+          <UserName>estimpson</UserName>
+          <Authentication>SQL</Authentication>
+          <InitialDB />
+          <LoginTimeout>30</LoginTimeout>
+          <ExecutionTimeout>0</ExecutionTimeout>
+          <ConnectionProtocol>NotSpecified</ConnectionProtocol>
+          <ApplicationName>Microsoft SQL Server Management Studio - Query</ApplicationName>
+        </ConnectionNode>
+      </Items>
+    </LogicalFolder>
+    <LogicalFolder Name="Queries" Type="0" Sorted="true">
+      <Items>
+        <FileNode Name="Procedure.FxEDI.RAWEDIDATA_FS.usp_FileMove.sql">
+          <AssociatedConnectionMoniker />
+          <AssociatedConnSrvName />
+          <AssociatedConnUserName />
+          <FullPath>Procedure.FxEDI.RAWEDIDATA_FS.usp_FileMove.sql</FullPath>
+        </FileNode>
+        <FileNode Name="Procedure.FxEDI.RAWEDIDATA_FS.usp_XMLReleasePlan_CreateOutboundFile.sql">
+          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:eeisql1:False:estimpson</AssociatedConnectionMoniker>
+          <AssociatedConnSrvName>eeisql1</AssociatedConnSrvName>
+          <AssociatedConnUserName>estimpson</AssociatedConnUserName>
+          <FullPath>Procedure.FxEDI.RAWEDIDATA_FS.usp_XMLReleasePlan_CreateOutboundFile.sql</FullPath>
+        </FileNode>
+        <FileNode Name="ScalarFunction.FxEDI.FS.udf_GetNewChildHierarchyID.sql">
+          <AssociatedConnectionMoniker />
+          <AssociatedConnSrvName />
+          <AssociatedConnUserName />
+          <FullPath>ScalarFunction.FxEDI.FS.udf_GetNewChildHierarchyID.sql</FullPath>
+        </FileNode>
+        <FileNode Name="ScalarFunction.FxEDI.FS.udf_GetNewID.sql">
+          <AssociatedConnectionMoniker />
+          <AssociatedConnSrvName />
+          <AssociatedConnUserName />
+          <FullPath>ScalarFunction.FxEDI.FS.udf_GetNewID.sql</FullPath>
+        </FileNode>
+        <FileNode Name="ScalarFunction.FxEDI.RAWEDIDATA_FS.udf_GetFilePathLocator.sql">
+          <AssociatedConnectionMoniker />
+          <AssociatedConnSrvName />
+          <AssociatedConnUserName />
+          <FullPath>ScalarFunction.FxEDI.RAWEDIDATA_FS.udf_GetFilePathLocator.sql</FullPath>
+        </FileNode>
+        <FileNode Name="ScalarFunction.FxEDI.RAWEDIDATA_FS.udf_GetNextOutboundXMLFileName.sql">
+          <AssociatedConnectionMoniker />
+          <AssociatedConnSrvName />
+          <AssociatedConnUserName />
+          <FullPath>ScalarFunction.FxEDI.RAWEDIDATA_FS.udf_GetNextOutboundXMLFileName.sql</FullPath>
+        </FileNode>
+        <FileNode Name="Schema.FxEDI.FS.sql">
+          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:eehsql1:False:sa</AssociatedConnectionMoniker>
+          <AssociatedConnSrvName>eehsql1</AssociatedConnSrvName>
+          <AssociatedConnUserName>sa</AssociatedConnUserName>
+          <FullPath>Schema.FxEDI.FS.sql</FullPath>
+        </FileNode>
+        <FileNode Name="Schema.FxEDI.RAWEDIDATA_FS.sql">
+          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:eehsql1:False:sa</AssociatedConnectionMoniker>
+          <AssociatedConnSrvName>eehsql1</AssociatedConnSrvName>
+          <AssociatedConnUserName>sa</AssociatedConnUserName>
+          <FullPath>Schema.FxEDI.RAWEDIDATA_FS.sql</FullPath>
+        </FileNode>
+        <FileNode Name="TableFunction.FxEDI.RAWEDIDATA_FS.udf_DIR.sql">
+          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:eehsql1:False:sa</AssociatedConnectionMoniker>
+          <AssociatedConnSrvName>eehsql1</AssociatedConnSrvName>
+          <AssociatedConnUserName>sa</AssociatedConnUserName>
+          <FullPath>TableFunction.FxEDI.RAWEDIDATA_FS.udf_DIR.sql</FullPath>
+        </FileNode>
+        <FileNode Name="TableFunction.FxEDI.RAWEDIDATA_FS.udf_DIR_Summary.sql">
+          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:eehsql1:False:sa</AssociatedConnectionMoniker>
+          <AssociatedConnSrvName>eehsql1</AssociatedConnSrvName>
+          <AssociatedConnUserName>sa</AssociatedConnUserName>
+          <FullPath>TableFunction.FxEDI.RAWEDIDATA_FS.udf_DIR_Summary.sql</FullPath>
+        </FileNode>
+        <FileNode Name="View.FxEDI.FS.GetNewID.sql">
+          <AssociatedConnectionMoniker />
+          <AssociatedConnSrvName />
+          <AssociatedConnUserName />
+          <FullPath>View.FxEDI.FS.GetNewID.sql</FullPath>
+        </FileNode>
+      </Items>
+    </LogicalFolder>
+    <LogicalFolder Name="Miscellaneous" Type="3" Sorted="true">
+      <Items />
+    </LogicalFolder>
+  </Items>
+</SqlWorkbenchSqlProject>

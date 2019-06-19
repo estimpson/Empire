@@ -3,14 +3,14 @@
   <Items>
     <LogicalFolder Name="Connections" Type="2" Sorted="true">
       <Items>
-        <ConnectionNode Name="eehsql1:estimpson">
-          <Created>2018-06-20T16:09:10.8053036-04:00</Created>
+        <ConnectionNode Name="eehsql1:sa">
+          <Created>2019-03-19T17:22:40.2813841-04:00</Created>
           <Type>SQL</Type>
           <Server>eehsql1</Server>
-          <UserName>estimpson</UserName>
+          <UserName>sa</UserName>
           <Authentication>SQL</Authentication>
-          <InitialDB>EEH</InitialDB>
-          <LoginTimeout>15</LoginTimeout>
+          <InitialDB />
+          <LoginTimeout>30</LoginTimeout>
           <ExecutionTimeout>0</ExecutionTimeout>
           <ConnectionProtocol>NotSpecified</ConnectionProtocol>
           <ApplicationName>Microsoft SQL Server Management Studio - Query</ApplicationName>
@@ -20,160 +20,178 @@
     <LogicalFolder Name="Queries" Type="0" Sorted="true">
       <Items>
         <FileNode Name="ScalarFunction.FxEDI.EDI_XML.CE.sql">
-          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:eehsql1:False:estimpson</AssociatedConnectionMoniker>
-          <AssociatedConnSrvName>eehsql1</AssociatedConnSrvName>
-          <AssociatedConnUserName>estimpson</AssociatedConnUserName>
+          <AssociatedConnectionMoniker />
+          <AssociatedConnSrvName />
+          <AssociatedConnUserName />
           <FullPath>ScalarFunction.FxEDI.EDI_XML.CE.sql</FullPath>
         </FileNode>
         <FileNode Name="ScalarFunction.FxEDI.EDI_XML.DE.sql">
-          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:eehsql1:False:estimpson</AssociatedConnectionMoniker>
-          <AssociatedConnSrvName>eehsql1</AssociatedConnSrvName>
-          <AssociatedConnUserName>estimpson</AssociatedConnUserName>
+          <AssociatedConnectionMoniker />
+          <AssociatedConnSrvName />
+          <AssociatedConnUserName />
           <FullPath>ScalarFunction.FxEDI.EDI_XML.DE.sql</FullPath>
         </FileNode>
         <FileNode Name="ScalarFunction.FxEDI.EDI_XML.FormatDate.sql">
-          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:eehsql1:False:estimpson</AssociatedConnectionMoniker>
-          <AssociatedConnSrvName>eehsql1</AssociatedConnSrvName>
-          <AssociatedConnUserName>estimpson</AssociatedConnUserName>
+          <AssociatedConnectionMoniker />
+          <AssociatedConnSrvName />
+          <AssociatedConnUserName />
           <FullPath>ScalarFunction.FxEDI.EDI_XML.FormatDate.sql</FullPath>
         </FileNode>
         <FileNode Name="ScalarFunction.FxEDI.EDI_XML.FormatDT.sql">
-          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:eehsql1:False:estimpson</AssociatedConnectionMoniker>
-          <AssociatedConnSrvName>eehsql1</AssociatedConnSrvName>
-          <AssociatedConnUserName>estimpson</AssociatedConnUserName>
+          <AssociatedConnectionMoniker />
+          <AssociatedConnSrvName />
+          <AssociatedConnUserName />
           <FullPath>ScalarFunction.FxEDI.EDI_XML.FormatDT.sql</FullPath>
         </FileNode>
         <FileNode Name="ScalarFunction.FxEDI.EDI_XML.FormatTime.sql">
-          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:eehsql1:False:estimpson</AssociatedConnectionMoniker>
-          <AssociatedConnSrvName>eehsql1</AssociatedConnSrvName>
-          <AssociatedConnUserName>estimpson</AssociatedConnUserName>
+          <AssociatedConnectionMoniker />
+          <AssociatedConnSrvName />
+          <AssociatedConnUserName />
           <FullPath>ScalarFunction.FxEDI.EDI_XML.FormatTime.sql</FullPath>
         </FileNode>
         <FileNode Name="ScalarFunction.FxEDI.EDI_XML.LOOP_INFO.sql">
-          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:eehsql1:False:estimpson</AssociatedConnectionMoniker>
-          <AssociatedConnSrvName>eehsql1</AssociatedConnSrvName>
-          <AssociatedConnUserName>estimpson</AssociatedConnUserName>
+          <AssociatedConnectionMoniker />
+          <AssociatedConnSrvName />
+          <AssociatedConnUserName />
           <FullPath>ScalarFunction.FxEDI.EDI_XML.LOOP_INFO.sql</FullPath>
         </FileNode>
         <FileNode Name="ScalarFunction.FxEDI.EDI_XML.SEG_ATH.sql">
-          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:eehsql1:False:estimpson</AssociatedConnectionMoniker>
-          <AssociatedConnSrvName>eehsql1</AssociatedConnSrvName>
-          <AssociatedConnUserName>estimpson</AssociatedConnUserName>
+          <AssociatedConnectionMoniker />
+          <AssociatedConnSrvName />
+          <AssociatedConnUserName />
           <FullPath>ScalarFunction.FxEDI.EDI_XML.SEG_ATH.sql</FullPath>
         </FileNode>
         <FileNode Name="ScalarFunction.FxEDI.EDI_XML.SEG_BFR.sql">
-          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:eehsql1:False:estimpson</AssociatedConnectionMoniker>
-          <AssociatedConnSrvName>eehsql1</AssociatedConnSrvName>
-          <AssociatedConnUserName>estimpson</AssociatedConnUserName>
+          <AssociatedConnectionMoniker />
+          <AssociatedConnSrvName />
+          <AssociatedConnUserName />
           <FullPath>ScalarFunction.FxEDI.EDI_XML.SEG_BFR.sql</FullPath>
         </FileNode>
         <FileNode Name="ScalarFunction.FxEDI.EDI_XML.SEG_CTT.sql">
-          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:eehsql1:False:estimpson</AssociatedConnectionMoniker>
-          <AssociatedConnSrvName>eehsql1</AssociatedConnSrvName>
-          <AssociatedConnUserName>estimpson</AssociatedConnUserName>
+          <AssociatedConnectionMoniker />
+          <AssociatedConnSrvName />
+          <AssociatedConnUserName />
           <FullPath>ScalarFunction.FxEDI.EDI_XML.SEG_CTT.sql</FullPath>
         </FileNode>
         <FileNode Name="ScalarFunction.FxEDI.EDI_XML.SEG_DTM.sql">
-          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:eehsql1:False:estimpson</AssociatedConnectionMoniker>
-          <AssociatedConnSrvName>eehsql1</AssociatedConnSrvName>
-          <AssociatedConnUserName>estimpson</AssociatedConnUserName>
+          <AssociatedConnectionMoniker />
+          <AssociatedConnSrvName />
+          <AssociatedConnUserName />
           <FullPath>ScalarFunction.FxEDI.EDI_XML.SEG_DTM.sql</FullPath>
         </FileNode>
         <FileNode Name="ScalarFunction.FxEDI.EDI_XML.SEG_FST.sql">
-          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:eehsql1:False:estimpson</AssociatedConnectionMoniker>
-          <AssociatedConnSrvName>eehsql1</AssociatedConnSrvName>
-          <AssociatedConnUserName>estimpson</AssociatedConnUserName>
+          <AssociatedConnectionMoniker />
+          <AssociatedConnSrvName />
+          <AssociatedConnUserName />
           <FullPath>ScalarFunction.FxEDI.EDI_XML.SEG_FST.sql</FullPath>
         </FileNode>
         <FileNode Name="ScalarFunction.FxEDI.EDI_XML.SEG_INFO.sql">
-          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:eehsql1:False:estimpson</AssociatedConnectionMoniker>
-          <AssociatedConnSrvName>eehsql1</AssociatedConnSrvName>
-          <AssociatedConnUserName>estimpson</AssociatedConnUserName>
+          <AssociatedConnectionMoniker />
+          <AssociatedConnSrvName />
+          <AssociatedConnUserName />
           <FullPath>ScalarFunction.FxEDI.EDI_XML.SEG_INFO.sql</FullPath>
         </FileNode>
         <FileNode Name="ScalarFunction.FxEDI.EDI_XML.SEG_LIN.sql">
-          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:eehsql1:False:estimpson</AssociatedConnectionMoniker>
-          <AssociatedConnSrvName>eehsql1</AssociatedConnSrvName>
-          <AssociatedConnUserName>estimpson</AssociatedConnUserName>
+          <AssociatedConnectionMoniker />
+          <AssociatedConnSrvName />
+          <AssociatedConnUserName />
           <FullPath>ScalarFunction.FxEDI.EDI_XML.SEG_LIN.sql</FullPath>
         </FileNode>
         <FileNode Name="ScalarFunction.FxEDI.EDI_XML.SEG_MEA.sql">
-          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:eehsql1:False:estimpson</AssociatedConnectionMoniker>
-          <AssociatedConnSrvName>eehsql1</AssociatedConnSrvName>
-          <AssociatedConnUserName>estimpson</AssociatedConnUserName>
+          <AssociatedConnectionMoniker />
+          <AssociatedConnSrvName />
+          <AssociatedConnUserName />
           <FullPath>ScalarFunction.FxEDI.EDI_XML.SEG_MEA.sql</FullPath>
         </FileNode>
         <FileNode Name="ScalarFunction.FxEDI.EDI_XML.SEG_N1.sql">
-          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:eehsql1:False:estimpson</AssociatedConnectionMoniker>
-          <AssociatedConnSrvName>eehsql1</AssociatedConnSrvName>
-          <AssociatedConnUserName>estimpson</AssociatedConnUserName>
+          <AssociatedConnectionMoniker />
+          <AssociatedConnSrvName />
+          <AssociatedConnUserName />
           <FullPath>ScalarFunction.FxEDI.EDI_XML.SEG_N1.sql</FullPath>
         </FileNode>
         <FileNode Name="ScalarFunction.FxEDI.EDI_XML.SEG_PID.sql">
-          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:eehsql1:False:estimpson</AssociatedConnectionMoniker>
-          <AssociatedConnSrvName>eehsql1</AssociatedConnSrvName>
-          <AssociatedConnUserName>estimpson</AssociatedConnUserName>
+          <AssociatedConnectionMoniker />
+          <AssociatedConnSrvName />
+          <AssociatedConnUserName />
           <FullPath>ScalarFunction.FxEDI.EDI_XML.SEG_PID.sql</FullPath>
         </FileNode>
         <FileNode Name="ScalarFunction.FxEDI.EDI_XML.SEG_REF.sql">
-          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:eehsql1:False:estimpson</AssociatedConnectionMoniker>
-          <AssociatedConnSrvName>eehsql1</AssociatedConnSrvName>
-          <AssociatedConnUserName>estimpson</AssociatedConnUserName>
+          <AssociatedConnectionMoniker />
+          <AssociatedConnSrvName />
+          <AssociatedConnUserName />
           <FullPath>ScalarFunction.FxEDI.EDI_XML.SEG_REF.sql</FullPath>
         </FileNode>
         <FileNode Name="ScalarFunction.FxEDI.EDI_XML.SEG_SDP.sql">
-          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:eehsql1:False:estimpson</AssociatedConnectionMoniker>
-          <AssociatedConnSrvName>eehsql1</AssociatedConnSrvName>
-          <AssociatedConnUserName>estimpson</AssociatedConnUserName>
+          <AssociatedConnectionMoniker />
+          <AssociatedConnSrvName />
+          <AssociatedConnUserName />
           <FullPath>ScalarFunction.FxEDI.EDI_XML.SEG_SDP.sql</FullPath>
         </FileNode>
         <FileNode Name="ScalarFunction.FxEDI.EDI_XML.SEG_SHP.sql">
-          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:eehsql1:False:estimpson</AssociatedConnectionMoniker>
-          <AssociatedConnSrvName>eehsql1</AssociatedConnSrvName>
-          <AssociatedConnUserName>estimpson</AssociatedConnUserName>
+          <AssociatedConnectionMoniker />
+          <AssociatedConnSrvName />
+          <AssociatedConnUserName />
           <FullPath>ScalarFunction.FxEDI.EDI_XML.SEG_SHP.sql</FullPath>
         </FileNode>
         <FileNode Name="ScalarFunction.FxEDI.EDI_XML.SEG_TD1.sql">
-          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:eehsql1:False:estimpson</AssociatedConnectionMoniker>
-          <AssociatedConnSrvName>eehsql1</AssociatedConnSrvName>
-          <AssociatedConnUserName>estimpson</AssociatedConnUserName>
+          <AssociatedConnectionMoniker />
+          <AssociatedConnSrvName />
+          <AssociatedConnUserName />
           <FullPath>ScalarFunction.FxEDI.EDI_XML.SEG_TD1.sql</FullPath>
         </FileNode>
         <FileNode Name="ScalarFunction.FxEDI.EDI_XML.SEG_TD3.sql">
-          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:eehsql1:False:estimpson</AssociatedConnectionMoniker>
-          <AssociatedConnSrvName>eehsql1</AssociatedConnSrvName>
-          <AssociatedConnUserName>estimpson</AssociatedConnUserName>
+          <AssociatedConnectionMoniker />
+          <AssociatedConnSrvName />
+          <AssociatedConnUserName />
           <FullPath>ScalarFunction.FxEDI.EDI_XML.SEG_TD3.sql</FullPath>
         </FileNode>
         <FileNode Name="ScalarFunction.FxEDI.EDI_XML.SEG_UIT.sql">
-          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:eehsql1:False:estimpson</AssociatedConnectionMoniker>
-          <AssociatedConnSrvName>eehsql1</AssociatedConnSrvName>
-          <AssociatedConnUserName>estimpson</AssociatedConnUserName>
+          <AssociatedConnectionMoniker />
+          <AssociatedConnSrvName />
+          <AssociatedConnUserName />
           <FullPath>ScalarFunction.FxEDI.EDI_XML.SEG_UIT.sql</FullPath>
         </FileNode>
         <FileNode Name="ScalarFunction.FxEDI.EDI_XML.SEG_UNT.sql">
-          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:eehsql1:False:estimpson</AssociatedConnectionMoniker>
-          <AssociatedConnSrvName>eehsql1</AssociatedConnSrvName>
-          <AssociatedConnUserName>estimpson</AssociatedConnUserName>
+          <AssociatedConnectionMoniker />
+          <AssociatedConnSrvName />
+          <AssociatedConnUserName />
           <FullPath>ScalarFunction.FxEDI.EDI_XML.SEG_UNT.sql</FullPath>
         </FileNode>
         <FileNode Name="ScalarFunction.FxEDI.EDI_XML.TD5.sql">
-          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:eehsql1:False:estimpson</AssociatedConnectionMoniker>
-          <AssociatedConnSrvName>eehsql1</AssociatedConnSrvName>
-          <AssociatedConnUserName>estimpson</AssociatedConnUserName>
+          <AssociatedConnectionMoniker />
+          <AssociatedConnSrvName />
+          <AssociatedConnUserName />
           <FullPath>ScalarFunction.FxEDI.EDI_XML.TD5.sql</FullPath>
         </FileNode>
         <FileNode Name="ScalarFunction.FxEDI.EDI_XML.TRN_INFO.sql">
-          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:eehsql1:False:estimpson</AssociatedConnectionMoniker>
-          <AssociatedConnSrvName>eehsql1</AssociatedConnSrvName>
-          <AssociatedConnUserName>estimpson</AssociatedConnUserName>
+          <AssociatedConnectionMoniker />
+          <AssociatedConnSrvName />
+          <AssociatedConnUserName />
           <FullPath>ScalarFunction.FxEDI.EDI_XML.TRN_INFO.sql</FullPath>
         </FileNode>
         <FileNode Name="Schema.FxEDI.EDI_XML.sql">
-          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:eehsql1:False:estimpson</AssociatedConnectionMoniker>
-          <AssociatedConnSrvName>eehsql1</AssociatedConnSrvName>
-          <AssociatedConnUserName>estimpson</AssociatedConnUserName>
+          <AssociatedConnectionMoniker />
+          <AssociatedConnSrvName />
+          <AssociatedConnUserName />
           <FullPath>Schema.FxEDI.EDI_XML.sql</FullPath>
+        </FileNode>
+        <FileNode Name="View.EEH.EDI_XML.PurchaseOrderDetails.sql">
+          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:eehsql1:False:sa</AssociatedConnectionMoniker>
+          <AssociatedConnSrvName>eehsql1</AssociatedConnSrvName>
+          <AssociatedConnUserName>sa</AssociatedConnUserName>
+          <FullPath>View.EEH.EDI_XML.PurchaseOrderDetails.sql</FullPath>
+        </FileNode>
+        <FileNode Name="View.EEH.EDI_XML.PurchaseOrderInfo.sql">
+          <AssociatedConnectionMoniker />
+          <AssociatedConnSrvName />
+          <AssociatedConnUserName />
+          <FullPath>View.EEH.EDI_XML.PurchaseOrderInfo.sql</FullPath>
+        </FileNode>
+        <FileNode Name="View.EEH.EDI_XML.TradingPartnerInfo.sql">
+          <AssociatedConnectionMoniker />
+          <AssociatedConnSrvName />
+          <AssociatedConnUserName />
+          <FullPath>View.EEH.EDI_XML.TradingPartnerInfo.sql</FullPath>
         </FileNode>
       </Items>
     </LogicalFolder>

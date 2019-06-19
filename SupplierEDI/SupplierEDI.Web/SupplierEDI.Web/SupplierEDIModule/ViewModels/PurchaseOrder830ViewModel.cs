@@ -21,6 +21,10 @@ namespace SupplierEDI.Web.SupplierEDIModule.ViewModels
                 context.usp_Get830XML(tradingPartnerCode, purchaseOrderNumber.ToString(), null, "05", false, xml830, result,
                     tranDT, 0, debugMsg);
 
+                if (xml830.Value is System.DBNull)
+                {
+                    return "<xml>Invalid map or no map defined.</xml>";
+                }
                 return (string) xml830.Value;
             }
         }

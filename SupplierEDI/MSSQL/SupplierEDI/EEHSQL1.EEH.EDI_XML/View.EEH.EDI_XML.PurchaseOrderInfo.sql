@@ -1,18 +1,18 @@
 
 /*
-Create View.EEH.EDI_XML_NET_830.PurchaseOrderInfo.sql
+Create View.EEH.EDI_XML.PurchaseOrderInfo.sql
 */
 
 use EEH
 go
 
---drop table EDI_XML_NET_830.PurchaseOrderInfo
-if	objectproperty(object_id('EDI_XML_NET_830.PurchaseOrderInfo'), 'IsView') = 1 begin
-	drop view EDI_XML_NET_830.PurchaseOrderInfo
+--drop table EDI_XML.PurchaseOrderInfo
+if	objectproperty(object_id('EDI_XML.PurchaseOrderInfo'), 'IsView') = 1 begin
+	drop view EDI_XML.PurchaseOrderInfo
 end
 go
 
-create view EDI_XML_NET_830.PurchaseOrderInfo
+create view EDI_XML.PurchaseOrderInfo
 with encryption
 as
 select
@@ -22,16 +22,7 @@ select
 ,	ReleaseNumber = po.EmpireVendorCode + '-' + convert(varchar(6), getdate(), 12)
 ,	po.EmpireBlanketPart
 ,	VendorPart = coalesce(pv.vendor_part, po.EmpireBlanketPart)
-,	PartDescription =
-		left(SupplierEDI.udf_CleanString(p.name), 78)
-		--left(p.cleanName, 78)
-		--(	select top(1)
-		--		left(cpd.cleanName, 78)
-		--	from
-		--		SupplierEDI.CleanPartDescription cpd
-		--	where
-		--		cpd.part = po.EmpireBlanketPart
-		--)
+,	PartDescription = left(SupplierEDI.udf_CleanString(p.name), 78)
 ,	Unit = pInv.standard_unit
 ,	Price =
 		case
@@ -67,8 +58,6 @@ from
 		on es.destination = po.EmpireVendorCode
 	join dbo.part p
 		on p.part = po.EmpireBlanketPart
-	--join SupplierEDI.CleanPartDescription p
-	--	on p.part = po.EmpireBlanketPart
 	join dbo.part_inventory pInv
 		on pInv.part = po.EmpireBlanketPart
 	left join dbo.part_vendor pv
@@ -148,18 +137,11 @@ from
 							at.date_stamp desc
 					)
 		) lr
-where
-	po.OverlayGroup in
-	(	'NET'
-	,	'TE'
-	,	'DIXIE'
-	,	'NETNOPRICE'
-	)
 go
 
 select
 	*
 from
-	EDI_XML_NET_830.PurchaseOrderInfo poi
+	EDI_XML.PurchaseOrderInfo poi
 where
 	poi.TradingPartnerCode = 'PSG'

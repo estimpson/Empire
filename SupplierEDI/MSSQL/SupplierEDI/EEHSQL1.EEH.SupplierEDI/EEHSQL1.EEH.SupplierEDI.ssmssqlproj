@@ -15,6 +15,18 @@
           <ConnectionProtocol>NotSpecified</ConnectionProtocol>
           <ApplicationName>Microsoft SQL Server Management Studio - Query</ApplicationName>
         </ConnectionNode>
+        <ConnectionNode Name="eeisql1:estimpson">
+          <Created>2019-06-10T11:20:32.309439-04:00</Created>
+          <Type>SQL</Type>
+          <Server>eeisql1</Server>
+          <UserName>estimpson</UserName>
+          <Authentication>SQL</Authentication>
+          <InitialDB />
+          <LoginTimeout>30</LoginTimeout>
+          <ExecutionTimeout>0</ExecutionTimeout>
+          <ConnectionProtocol>NotSpecified</ConnectionProtocol>
+          <ApplicationName>Microsoft SQL Server Management Studio - Query</ApplicationName>
+        </ConnectionNode>
       </Items>
     </LogicalFolder>
     <LogicalFolder Name="Queries" Type="0" Sorted="true">
@@ -55,15 +67,27 @@
           <AssociatedConnUserName>estimpson</AssociatedConnUserName>
           <FullPath>Procedure.EEH.SupplierEDI.usp_PurchaseOrder_GetXML_830.sql</FullPath>
         </FileNode>
+        <FileNode Name="Procedure.EEH.SupplierEDI.usp_SendReleasePlans.sql">
+          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:eehsql1:False:estimpson</AssociatedConnectionMoniker>
+          <AssociatedConnSrvName>eehsql1</AssociatedConnSrvName>
+          <AssociatedConnUserName>estimpson</AssociatedConnUserName>
+          <FullPath>Procedure.EEH.SupplierEDI.usp_SendReleasePlans.sql</FullPath>
+        </FileNode>
         <FileNode Name="Schema.EEH.SupplierEDI.sql">
           <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:eehsql1:False:estimpson</AssociatedConnectionMoniker>
           <AssociatedConnSrvName>eehsql1</AssociatedConnSrvName>
           <AssociatedConnUserName>estimpson</AssociatedConnUserName>
           <FullPath>Schema.EEH.SupplierEDI.sql</FullPath>
         </FileNode>
+        <FileNode Name="Table.EEH.SupplierEDI.GenerationLog.sql">
+          <AssociatedConnectionMoniker />
+          <AssociatedConnSrvName />
+          <AssociatedConnUserName />
+          <FullPath>Table.EEH.SupplierEDI.GenerationLog.sql</FullPath>
+        </FileNode>
         <FileNode Name="Table.EEH.SupplierEDI.XML_ReleasePlanDataRootFunctions.sql">
-          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:eehsql1:False:estimpson</AssociatedConnectionMoniker>
-          <AssociatedConnSrvName>eehsql1</AssociatedConnSrvName>
+          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:eeisql1:False:estimpson</AssociatedConnectionMoniker>
+          <AssociatedConnSrvName>eeisql1</AssociatedConnSrvName>
           <AssociatedConnUserName>estimpson</AssociatedConnUserName>
           <FullPath>Table.EEH.SupplierEDI.XML_ReleasePlanDataRootFunctions.sql</FullPath>
         </FileNode>

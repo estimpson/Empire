@@ -13,6 +13,7 @@ end
 go
 
 create view SupplierEDI.PurchaseOrders
+with encryption
 as
 select
 	PurchaseOrderNumber = ph.po_number
