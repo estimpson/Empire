@@ -73,6 +73,12 @@
           <AssociatedConnUserName>estimpson</AssociatedConnUserName>
           <FullPath>Procedure.EEH.SupplierEDI.usp_SendReleasePlans.sql</FullPath>
         </FileNode>
+        <FileNode Name="ScalarFunction.EEH.SupplierEDI.udf_CleanString.sql">
+          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:eehsql1:False:estimpson</AssociatedConnectionMoniker>
+          <AssociatedConnSrvName>eehsql1</AssociatedConnSrvName>
+          <AssociatedConnUserName>estimpson</AssociatedConnUserName>
+          <FullPath>ScalarFunction.EEH.SupplierEDI.udf_CleanString.sql</FullPath>
+        </FileNode>
         <FileNode Name="Schema.EEH.SupplierEDI.sql">
           <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:eehsql1:False:estimpson</AssociatedConnectionMoniker>
           <AssociatedConnSrvName>eehsql1</AssociatedConnSrvName>
@@ -90,6 +96,12 @@
           <AssociatedConnSrvName>eeisql1</AssociatedConnSrvName>
           <AssociatedConnUserName>estimpson</AssociatedConnUserName>
           <FullPath>Table.EEH.SupplierEDI.XML_ReleasePlanDataRootFunctions.sql</FullPath>
+        </FileNode>
+        <FileNode Name="View.EEH.SupplierEDI.CleanPartDescription.sql">
+          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:eehsql1:False:estimpson</AssociatedConnectionMoniker>
+          <AssociatedConnSrvName>eehsql1</AssociatedConnSrvName>
+          <AssociatedConnUserName>estimpson</AssociatedConnUserName>
+          <FullPath>View.EEH.SupplierEDI.CleanPartDescription.sql</FullPath>
         </FileNode>
         <FileNode Name="View.EEH.SupplierEDI.PurchaseOrders.sql">
           <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:eehsql1:False:estimpson</AssociatedConnectionMoniker>
