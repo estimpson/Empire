@@ -13,6 +13,7 @@ end
 go
 
 create view SupplierEDI.TradingPartnerOverlayGroups
+with encryption
 as
 select
 	TradingPartnerCode = ev.trading_partner_code
@@ -25,8 +26,6 @@ select
 				,	'3M'
 				,	'GPOLYMER'
 				,	'PSG'
-				,	'NEXEO'
-				,	'DELFINGEN'
 				,	'ARROW'
 				,	'FUTURE'
 				,	'KOSTAL'
@@ -39,6 +38,9 @@ select
 			when ev.trading_partner_code in
 				(	'TE'
 				) then 'TE'
+			when ev.trading_partner_code in
+				(	'DELFINGEN'
+				) then 'NETNOPRICE'
 			when ev.trading_partner_code is not null then 'ACCUM'
 			else 'UNDEFINED'
 		end
