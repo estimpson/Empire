@@ -304,6 +304,7 @@ namespace WebPortal.NewSalesAward.Pages
             decimal? qtyPer;
             decimal? familyAlloc;
             decimal? quotedEau;
+            decimal? awardedEau;
             decimal? csmDemand;
             decimal? takeRate;
 
@@ -328,7 +329,9 @@ namespace WebPortal.NewSalesAward.Pages
             //decimal qtyPer = Convert.ToDecimal(sQtyPer);
             //decimal familyAllocation = Convert.ToDecimal(sFamilyAllocation);
 
-            ViewModel.GetCalculatedTakeRate(quote, out qtyPer, out familyAlloc, out quotedEau, out csmDemand, out takeRate);
+
+
+            ViewModel.GetCalculatedTakeRate(quote, out qtyPer, out familyAlloc, out quotedEau, out awardedEau, out csmDemand, out takeRate);
             if (ViewModel.Error != "")
             {
                 lblError.Text = String.Format("Error at CalculateTakeRate. {0}", ViewModel.Error);
@@ -341,6 +344,17 @@ namespace WebPortal.NewSalesAward.Pages
             if (quotedEau.HasValue) tbxQuotedEauCalc.Text = quotedEau.ToString();
             if (csmDemand.HasValue) tbxForecastDemandCalc.Text = csmDemand.ToString();
             if (takeRate.HasValue) tbxCalculatedTakeRate.Text = takeRate.ToString();
+            if (awardedEau.HasValue)
+            {
+                tbxAwardedEauCalc.Text = awardedEau.ToString();
+
+                // Indicate to the user that Awarded EAU will be used in the calculation instead of Quoted EAU
+                tbxQuotedEauCalc.BackColor = Color.Gray;
+            }
+            else
+            {
+                tbxAwardedEauCalc.BackColor = Color.Gray;
+            }
         }
 
         private void GetActiveMnemonics()

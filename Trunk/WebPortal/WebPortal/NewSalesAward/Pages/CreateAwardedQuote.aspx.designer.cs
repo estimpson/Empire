@@ -229,6 +229,42 @@ namespace WebPortal.NewSalesAward.Pages {
         protected global::DevExpress.Web.ASPxComboBox cbxProgramManager;
         
         /// <summary>
+        /// lblAwardedEAU control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::DevExpress.Web.ASPxLabel lblAwardedEAU;
+        
+        /// <summary>
+        /// spinEditAwardedEAU control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::DevExpress.Web.ASPxSpinEdit spinEditAwardedEAU;
+        
+        /// <summary>
+        /// lblAwardedPrice control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::DevExpress.Web.ASPxLabel lblAwardedPrice;
+        
+        /// <summary>
+        /// spinEditAwardedPrice control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::DevExpress.Web.ASPxSpinEdit spinEditAwardedPrice;
+        
+        /// <summary>
         /// lblComments control.
         /// </summary>
         /// <remarks>

@@ -19,5 +19,6 @@ namespace WebPortal.NewSalesAward.Models
         public Nullable<decimal> QuotedEau { get; set; }
         public Nullable<decimal> CsmForeCastDemand { get; set; }
         public Nullable<decimal> TakeRate { get; set; }
+        public Nullable<decimal> AwardedEau { get; set; }
     }
 }

@@ -41,10 +41,20 @@
             quoteTransferCallbackPanel.PerformCallback("New");
         }
     </script>
-    <dx:ASPxButton runat="server" Text="New Quote Transfer" AutoPostBack="False">
-        <ClientSideEvents
-            Click="OnNewQuoteTransferClick"/>
-    </dx:ASPxButton>
+
+    <div style="margin: 0px 0px 5px 0px;">
+        <dx:ASPxButton ID="btnClose" runat="server" Text="" RenderMode="Link" ToolTip="Close" OnClick="btnClose_Click" TabIndex="9">
+            <Image IconID="actions_close_32x32gray" />
+        </dx:ASPxButton>
+    </div>
+
+    <div>
+        <dx:ASPxButton runat="server" Text="New Quote Transfer" AutoPostBack="False">
+            <ClientSideEvents
+                Click="OnNewQuoteTransferClick"/>
+        </dx:ASPxButton>
+    </div>
+
     <div id="quoteTransferGridViewContainer" style="margin-top: 5px">
         <dx:ASPxCallbackPanel ID="QuoteTransferCallbackPanel" ClientInstanceName="quoteTransferCallbackPanel" runat="server"
                               OnCallback="QuoteTransferCallbackPanel_OnCallback">

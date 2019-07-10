@@ -112,6 +112,11 @@
                                         Text="Quote Transfer" Width="100%" OnClick="btnQuoteTransfer_Click">
                                     </dx:ASPxButton>
                                 </td>
+                                <td>
+                                    <dx:ASPxButton ID="btnQuoteTransferGrid" runat="server" AutoPostBack="true" CausesValidation="false" UseSubmitBehavior="false"
+                                        Text="Quote Transfer Grid" Width="100%" OnClick="btnQuoteTransferGrid_Click">
+                                    </dx:ASPxButton>
+                                </td>
                             </tr>
                         </table>
                         <div id="quoteGridViewContainer" style="margin-top: 5px; visibility: hidden;">
@@ -237,9 +242,13 @@
                                     <dx:GridViewDataTextColumn FieldName="QuotedEAU" Width="120" VisibleIndex="33">
                                         <Settings AutoFilterCondition="Contains" />
                                     </dx:GridViewDataTextColumn>
+                                    <dx:GridViewDataTextColumn FieldName="AwardedEAU" Width="120" VisibleIndex="33">
+                                    </dx:GridViewDataTextColumn>
                                     <dx:GridViewDataTextColumn FieldName="MinimumOrderQuantity" Width="180" VisibleIndex="34">
                                     </dx:GridViewDataTextColumn>
                                     <dx:GridViewDataTextColumn FieldName="QuotedPrice" Width="120" VisibleIndex="35">
+                                    </dx:GridViewDataTextColumn>
+                                    <dx:GridViewDataTextColumn FieldName="AwardedPrice" Width="120" VisibleIndex="35">
                                     </dx:GridViewDataTextColumn>
                                     <dx:GridViewDataTextColumn FieldName="QuotedMaterialCost" Width="160" VisibleIndex="36">
                                     </dx:GridViewDataTextColumn>

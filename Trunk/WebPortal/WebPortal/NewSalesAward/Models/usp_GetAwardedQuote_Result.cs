@@ -12,7 +12,7 @@ namespace WebPortal.NewSalesAward.Models
     using System;
     
     [Serializable]
-    public partial class usp_GetAwardedQuotes_Result
+    public partial class usp_GetAwardedQuote_Result
     {
         public string QuoteNumber { get; set; }
         public string BasePart { get; set; }

@@ -15,6 +15,11 @@ namespace WebPortal.QuoteLogIntegration.Pages
 
         }
 
+        protected void btnClose_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("~/NewSalesAward/Pages/NewSalesAward.aspx");
+        }
+
         protected void QuoteTransfersGrid_OnCustomCallback(object sender, ASPxGridViewCustomCallbackEventArgs e)
         {
             switch (e.Parameters)

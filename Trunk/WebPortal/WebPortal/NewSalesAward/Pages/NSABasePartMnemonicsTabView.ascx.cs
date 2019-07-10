@@ -45,6 +45,7 @@ namespace WebPortal.NewSalesAward.Pages
             var takeRate = (AwardedQuote.TakeRate.HasValue) ? AwardedQuote.TakeRate.ToString() : "0";
             var familyAllocation = (AwardedQuote.FamilyAllocation.HasValue) ? AwardedQuote.FamilyAllocation.ToString() : "0";
             var quotedEau = (AwardedQuote.QuotedEAU.HasValue) ? AwardedQuote.QuotedEAU.ToString() : "0";
+            var awardedEau = (AwardedQuote.AwardedEAU.HasValue) ? AwardedQuote.AwardedEAU.ToString() : "0";
 
             Session["QuoteNumber"] = quote;
             Session["BasePart"] = basePart;
@@ -53,6 +54,7 @@ namespace WebPortal.NewSalesAward.Pages
             Session["TakeRate"] = takeRate;
             Session["FamilyAllocation"] = familyAllocation;
             Session["QuotedEau"] = quotedEau;
+            Session["AwardedEau"] = awardedEau;
         }
 
 

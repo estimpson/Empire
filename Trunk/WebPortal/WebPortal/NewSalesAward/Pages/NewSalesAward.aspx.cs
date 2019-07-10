@@ -50,7 +50,36 @@ namespace WebPortal.NewSalesAward.Pages
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (!Page.IsPostBack) PopulateModeList();
+            if (!Page.IsPostBack)
+            { 
+                PopulateModeList();
+
+                // Coming from another page, if it was the Create Awarded Quote page, check if a quote was awarded
+                if (Session["QuoteAwarded"] != null && Session["QuoteNumber"] != null)
+                {
+                    // Refresh the grid
+                    QuoteList = ViewModel.GetAwardedQuotes();
+                    gvQuote.DataBind();
+
+                    string quoteNumber = Session["QuoteNumber"].ToString();
+
+                    // If a quote was awarded, show the pop-up edit form for that quote, else exit this block
+                    var awardedQuote = QuoteList.FirstOrDefault(q => q.QuoteNumber == quoteNumber);
+                    if (awardedQuote == null) return;
+
+                    AwardedQuote = awardedQuote;
+                    Mode = "edit";
+
+                    NSAEditPopupContents.SetQuote();
+                    pcEdit.ShowOnPageLoad = true;
+                }
+                else
+                {
+                    Mode = "Quote";
+                }
+
+                Session["QuoteAwarded"] = null;
+            }
         }
 
         private enum LoadingPanelTrigger
@@ -194,6 +223,11 @@ where
             Session["ModeIndex"] = cbxMode.SelectedIndex;
             Session["FocusedRowIndex"] = gvQuote.FocusedRowIndex;
             Response.Redirect("~/QuoteLogIntegration/Pages/QuoteTransfer.aspx");
+        }
+
+        protected void btnQuoteTransferGrid_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("~/QuoteLogIntegration/Pages/QuoteTransferList.aspx");
         }
 
         #endregion
@@ -344,5 +378,7 @@ where
             QuoteList = ViewModel.GetAwardedQuotes();
             gvQuote.DataBind();
         }
+
+
     }
 }

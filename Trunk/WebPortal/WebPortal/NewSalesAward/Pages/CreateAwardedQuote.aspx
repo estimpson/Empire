@@ -90,7 +90,7 @@
                                     ValidateRequestMode="Disabled" ValueType="System.String" ValueField="QuoteNumber" ValidationSettings-CausesValidation="false"
                                     OnItemsRequestedByFilterCondition="cbxQuoteNumber_OnItemsRequestedByFilterCondition_SQL"
                                     OnItemRequestedByValue="cbxQuoteNumber_OnItemRequestedByValue_SQL" TextFormatString="{0}  {1}  {2}"
-                                    Width="298px" DropDownStyle="DropDown"
+                                    Width="298px" DropDownStyle="DropDownList"
                                     OnSelectedIndexChanged="cbxQuoteNumber_SelectedIndexChanged" AutoPostBack="true" TabIndex="0">
                                     <Columns>
                                         <dx:ListBoxColumn FieldName="QuoteNumber" />
@@ -190,6 +190,26 @@
                                         <InvalidStyle BackColor="LightPink" />
                                     </dx:ASPxComboBox>
                                 </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <dx:ASPxLabel ID="lblAwardedEAU" runat="server" Text="Awarded EAU:"></dx:ASPxLabel>
+                                </td>
+                                <td>
+                                    <dx:ASPxSpinEdit ID="spinEditAwardedEAU" runat="server" DecimalPlaces="0">
+                                        <SpinButtons ShowIncrementButtons="false" />
+                                    </dx:ASPxSpinEdit>
+                                </td> 
+                            </tr>
+                            <tr>
+                                <td>
+                                    <dx:ASPxLabel ID="lblAwardedPrice" runat="server" Text="Awarded Price:"></dx:ASPxLabel>
+                                </td>
+                                <td>
+                                    <dx:ASPxSpinEdit ID="spinEditAwardedPrice" runat="server" DecimalPlaces="4">
+                                        <SpinButtons ShowIncrementButtons="false" />
+                                    </dx:ASPxSpinEdit>
+                                </td> 
                             </tr>
                             <tr>
                                 <td>

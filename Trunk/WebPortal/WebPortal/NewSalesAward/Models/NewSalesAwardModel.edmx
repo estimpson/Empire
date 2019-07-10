@@ -6,7 +6,7 @@
     <edmx:StorageModels>
     <Schema Namespace="FxPLMModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <!--Errors Found During Generation:
-warning 6002: The table/view 'FxPLM.NSA.ActiveBaseParts' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'FxPlm.NSA.ActiveBaseParts' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="ActiveBaseParts">
           <Key>
             <PropertyRef Name="RowID" />
@@ -15,7 +15,7 @@ warning 6002: The table/view 'FxPLM.NSA.ActiveBaseParts' does not have a primary
           <Property Name="RowID" Type="bigint" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'FxPLM.NSA.BasePartMnemonics' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'FxPlm.NSA.BasePartMnemonics' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="BasePartMnemonics">
           <Key>
             <PropertyRef Name="QuoteNumber" />
@@ -44,7 +44,7 @@ warning 6002: The table/view 'FxPLM.NSA.BasePartMnemonics' does not have a prima
           <Property Name="QuotedEAU" Type="numeric" Precision="20" Scale="0" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'FxPLM.NSA.CustomerCommitmentForms' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'FxPlm.NSA.CustomerCommitmentForms' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="CustomerCommitmentForms">
           <Key>
             <PropertyRef Name="FormOfCommitment" />
@@ -54,7 +54,7 @@ warning 6002: The table/view 'FxPLM.NSA.CustomerCommitmentForms' does not have a
           <Property Name="RowID" Type="bigint" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'FxPLM.NSA.CustomerShipTos' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'FxPlm.NSA.CustomerShipTos' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="CustomerShipTos">
           <Key>
             <PropertyRef Name="CustomerCode" />
@@ -73,7 +73,7 @@ warning 6002: The table/view 'FxPLM.NSA.CustomerShipTos' does not have a primary
           <Property Name="Address6" Type="varchar" MaxLength="40" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'FxPLM.NSA.EmpireFacilities' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'FxPlm.NSA.EmpireFacilities' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="EmpireFacilities">
           <Key>
             <PropertyRef Name="Code" />
@@ -82,7 +82,7 @@ warning 6002: The table/view 'FxPLM.NSA.EmpireFacilities' does not have a primar
           <Property Name="Name" Type="varchar" MaxLength="50" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'FxPLM.NSA.EmpireMarketSegment' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'FxPlm.NSA.EmpireMarketSegment' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="EmpireMarketSegment">
           <Key>
             <PropertyRef Name="EmpireMarketSegment" />
@@ -92,7 +92,7 @@ warning 6002: The table/view 'FxPLM.NSA.EmpireMarketSegment' does not have a pri
           <Property Name="RowID" Type="bigint" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'FxPLM.NSA.EmpireMarketSubsegment' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'FxPlm.NSA.EmpireMarketSubsegment' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="EmpireMarketSubsegment">
           <Key>
             <PropertyRef Name="EmpireMarketSubsegment" />
@@ -102,7 +102,7 @@ warning 6002: The table/view 'FxPLM.NSA.EmpireMarketSubsegment' does not have a 
           <Property Name="RowID" Type="bigint" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'FxPLM.NSA.FreightTerms' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'FxPlm.NSA.FreightTerms' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="FreightTerms">
           <Key>
             <PropertyRef Name="RowID" />
@@ -111,7 +111,7 @@ warning 6002: The table/view 'FxPLM.NSA.FreightTerms' does not have a primary ke
           <Property Name="RowID" Type="bigint" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'FxPLM.NSA.NewQuoteAward_QuoteReasons' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'FxPlm.NSA.NewQuoteAward_QuoteReasons' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="NewQuoteAward_QuoteReasons">
           <Key>
             <PropertyRef Name="QuoteReason" />
@@ -119,7 +119,7 @@ warning 6002: The table/view 'FxPLM.NSA.NewQuoteAward_QuoteReasons' does not hav
           <Property Name="QuoteReason" Type="varchar" MaxLength="11" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'FxPLM.NSA.NewQuoteAward_SalesPeople' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'FxPlm.NSA.NewQuoteAward_SalesPeople' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="NewQuoteAward_SalesPeople">
           <Key>
             <PropertyRef Name="SalesPerson" />
@@ -127,7 +127,7 @@ warning 6002: The table/view 'FxPLM.NSA.NewQuoteAward_SalesPeople' does not have
           <Property Name="SalesPerson" Type="varchar" MaxLength="13" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'FxPLM.NSA.ProductLine' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'FxPlm.NSA.ProductLine' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="ProductLine">
           <Key>
             <PropertyRef Name="ProductLine" />
@@ -137,7 +137,7 @@ warning 6002: The table/view 'FxPLM.NSA.ProductLine' does not have a primary key
           <Property Name="RowID" Type="bigint" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'FxPLM.NSA.ProgramManagers' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'FxPlm.NSA.ProgramManagers' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="ProgramManagers">
           <Key>
             <PropertyRef Name="RowID" />
@@ -149,7 +149,7 @@ warning 6002: The table/view 'FxPLM.NSA.ProgramManagers' does not have a primary
           <Property Name="RowID" Type="bigint" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'FxPLM.NSA.QuoteLog' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'FxPlm.NSA.QuoteLog' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="QuoteLog">
           <Key>
             <PropertyRef Name="QuoteNumber" />
@@ -233,7 +233,7 @@ warning 6002: The table/view 'FxPLM.NSA.QuoteLog' does not have a primary key de
           <Property Name="PrintDateConverted" Type="char" MaxLength="10" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'FxPLM.NSA.QuoteReasons' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'FxPlm.NSA.QuoteReasons' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="QuoteReasons">
           <Key>
             <PropertyRef Name="QuoteReasonID" />
@@ -245,7 +245,7 @@ warning 6002: The table/view 'FxPLM.NSA.QuoteReasons' does not have a primary ke
           <Property Name="RowID" Type="int" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'FxPLM.NSA.Salespeople' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'FxPlm.NSA.Salespeople' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="Salespeople">
           <Key>
             <PropertyRef Name="RowID" />
@@ -257,7 +257,7 @@ warning 6002: The table/view 'FxPLM.NSA.Salespeople' does not have a primary key
           <Property Name="RowID" Type="bigint" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'FxPLM.NSA.Users' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'FxPlm.NSA.Users' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="Users">
           <Key>
             <PropertyRef Name="UserName" />
@@ -293,6 +293,8 @@ warning 6002: The table/view 'FxPLM.NSA.Users' does not have a primary key defin
           <Parameter Name="ReplacingBasePart" Type="char" Mode="In" />
           <Parameter Name="Salesperson" Type="varchar" Mode="In" />
           <Parameter Name="ProgramManager" Type="varchar" Mode="In" />
+          <Parameter Name="AwardedEAU" Type="numeric" Mode="In" />
+          <Parameter Name="AwardedPrice" Type="numeric" Mode="In" />
           <Parameter Name="Comments" Type="varchar(max)" Mode="In" />
           <Parameter Name="TranDT" Type="datetime" Mode="InOut" />
           <Parameter Name="Result" Type="int" Mode="InOut" />
@@ -851,6 +853,8 @@ warning 6002: The table/view 'FxPLM.NSA.Users' does not have a primary key defin
             <Parameter Name="ReplacingBasePart" Mode="In" Type="String" />
             <Parameter Name="Salesperson" Mode="In" Type="String" />
             <Parameter Name="ProgramManager" Mode="In" Type="String" />
+            <Parameter Name="AwardedEAU" Mode="In" Type="Decimal" />
+            <Parameter Name="AwardedPrice" Mode="In" Type="Decimal" />
             <Parameter Name="Comments" Mode="In" Type="String" />
             <Parameter Name="TranDT" Mode="InOut" Type="DateTime" />
             <Parameter Name="Result" Mode="InOut" Type="Int32" />
@@ -1067,7 +1071,8 @@ warning 6002: The table/view 'FxPLM.NSA.Users' does not have a primary key defin
           <Property Type="Decimal" Name="FamilyAllocation" Nullable="true" Precision="20" Scale="4" />
           <Property Type="Decimal" Name="QuotedEau" Nullable="true" Precision="20" Scale="4" />
           <Property Type="Decimal" Name="CsmForeCastDemand" Nullable="true" Precision="20" Scale="4" />
-          <Property Type="Decimal" Name="TakeRate" Nullable="true" Precision="38" Scale="6" />
+          <Property Type="Decimal" Name="TakeRate" Nullable="true" Precision="10" Scale="6" />
+          <Property Type="Decimal" Name="AwardedEau" Nullable="true" Precision="20" Scale="4" />
         </ComplexType>
         <EntityType Name="EmpireMarketSegment">
           <Key>
@@ -1153,7 +1158,19 @@ warning 6002: The table/view 'FxPLM.NSA.Users' does not have a primary key defin
           <Property Type="Decimal" Name="DemandYear3" Nullable="true" Precision="10" Scale="2" />
           <Property Type="Int64" Name="RowID" Nullable="false" />
         </ComplexType>
-        <ComplexType Name="usp_GetAwardedQuotes_Result">
+        <EntityType Name="NewQuoteAward_SalesPeople">
+          <Key>
+            <PropertyRef Name="SalesPerson" />
+          </Key>
+          <Property Name="SalesPerson" Type="String" Nullable="false" MaxLength="13" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="NewQuoteAward_QuoteReasons">
+          <Key>
+            <PropertyRef Name="QuoteReason" />
+          </Key>
+          <Property Name="QuoteReason" Type="String" Nullable="false" MaxLength="11" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <ComplexType Name="usp_GetAwardedQuote_Result">
           <Property Type="String" Name="QuoteNumber" Nullable="false" MaxLength="100" />
           <Property Type="String" Name="BasePart" Nullable="true" MaxLength="50" />
           <Property Type="String" Name="ExcelSpreadsheetBasePart" Nullable="true" MaxLength="100" />
@@ -1161,6 +1178,7 @@ warning 6002: The table/view 'FxPLM.NSA.Users' does not have a primary key defin
           <Property Type="String" Name="ProgramManager" Nullable="true" MaxLength="40" />
           <Property Type="DateTime" Name="AwardDate" Nullable="true" Precision="23" />
           <Property Type="String" Name="FormOfCommitment" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="CustomerCommitmentAttachment" Nullable="true" MaxLength="255" />
           <Property Type="DateTime" Name="QuoteTrasferMeetingDT" Nullable="true" Precision="23" />
           <Property Type="DateTime" Name="SalesForecastDT" Nullable="true" Precision="23" />
           <Property Type="String" Name="BasePartCustomer" Nullable="true" MaxLength="50" />
@@ -1182,9 +1200,9 @@ warning 6002: The table/view 'FxPLM.NSA.Users' does not have a primary key defin
           <Property Type="String" Name="BasePart_Comments" Nullable="true" />
           <Property Type="String" Name="SourcePlantRegion" Nullable="true" />
           <Property Type="Decimal" Name="QtyPer" Nullable="true" Precision="10" Scale="0" />
-          <Property Type="Decimal" Name="TakeRate" Nullable="true" Precision="10" Scale="6" />
-          <Property Type="Decimal" Name="FamilyAllocation" Nullable="true" Precision="10" Scale="6" />
-          <Property Type="Decimal" Name="CSMEAU" Nullable="true" Precision="38" Scale="9" />
+          <Property Type="Decimal" Name="TakeRate" Nullable="true" Precision="10" Scale="2" />
+          <Property Type="Decimal" Name="FamilyAllocation" Nullable="true" Precision="10" Scale="2" />
+          <Property Type="Decimal" Name="CSMEAU" Nullable="true" Precision="38" Scale="6" />
           <Property Type="DateTime" Name="QuoteDate" Nullable="true" Precision="23" />
           <Property Type="Int32" Name="QuotedEAU" Nullable="true" />
           <Property Type="Int32" Name="MinimumOrderQuantity" Nullable="true" />
@@ -1217,21 +1235,79 @@ warning 6002: The table/view 'FxPLM.NSA.Users' does not have a primary key defin
           <Property Type="String" Name="FreightTerms" Nullable="true" MaxLength="100" />
           <Property Type="String" Name="CustomerShipTos" Nullable="true" />
           <Property Type="String" Name="Comments" Nullable="true" />
+          <Property Type="Decimal" Name="AwardedEAU" Nullable="true" Precision="20" Scale="0" />
+          <Property Type="Decimal" Name="AwardedPrice" Nullable="true" Precision="20" Scale="4" />
           <Property Type="Int32" Name="ValidQuoteNumberFlag" Nullable="false" />
-          <Property Type="String" Name="CustomerCommitmentAttachment" Nullable="true" MaxLength="255" />
         </ComplexType>
-        <EntityType Name="NewQuoteAward_SalesPeople">
-          <Key>
-            <PropertyRef Name="SalesPerson" />
-          </Key>
-          <Property Name="SalesPerson" Type="String" Nullable="false" MaxLength="13" FixedLength="false" Unicode="false" />
-        </EntityType>
-        <EntityType Name="NewQuoteAward_QuoteReasons">
-          <Key>
-            <PropertyRef Name="QuoteReason" />
-          </Key>
-          <Property Name="QuoteReason" Type="String" Nullable="false" MaxLength="11" FixedLength="false" Unicode="false" />
-        </EntityType>
+        <ComplexType Name="usp_GetAwardedQuotes_Result">
+          <Property Type="String" Name="QuoteNumber" Nullable="false" MaxLength="100" />
+          <Property Type="String" Name="BasePart" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="ExcelSpreadsheetBasePart" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="Salesperson" Nullable="true" MaxLength="40" />
+          <Property Type="String" Name="ProgramManager" Nullable="true" MaxLength="40" />
+          <Property Type="DateTime" Name="AwardDate" Nullable="true" Precision="23" />
+          <Property Type="String" Name="FormOfCommitment" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="CustomerCommitmentAttachment" Nullable="true" MaxLength="255" />
+          <Property Type="DateTime" Name="QuoteTrasferMeetingDT" Nullable="true" Precision="23" />
+          <Property Type="DateTime" Name="SalesForecastDT" Nullable="true" Precision="23" />
+          <Property Type="String" Name="BasePartCustomer" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="QuoteReason" Nullable="false" MaxLength="25" />
+          <Property Type="String" Name="ReplacingBasePart" Nullable="true" MaxLength="7" />
+          <Property Type="String" Name="CustomerPart" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="VehiclePlantMnemonic" Nullable="true" />
+          <Property Type="String" Name="Family" Nullable="true" />
+          <Property Type="String" Name="Program" Nullable="true" />
+          <Property Type="String" Name="Vehicle" Nullable="true" />
+          <Property Type="String" Name="EmpireApplication" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="BasePartFamily" Nullable="true" MaxLength="400" />
+          <Property Type="String" Name="EmpireMarketSegment" Nullable="true" MaxLength="200" />
+          <Property Type="String" Name="EmpireMarketSubsegment" Nullable="true" MaxLength="200" />
+          <Property Type="String" Name="ProductLine" Nullable="true" MaxLength="25" />
+          <Property Type="DateTime" Name="EmpireSOP" Nullable="true" Precision="16" />
+          <Property Type="DateTime" Name="EmpireEOP" Nullable="true" Precision="16" />
+          <Property Type="String" Name="EmpireEOPNote" Nullable="true" MaxLength="250" />
+          <Property Type="String" Name="BasePart_Comments" Nullable="true" />
+          <Property Type="String" Name="SourcePlantRegion" Nullable="true" />
+          <Property Type="Decimal" Name="QtyPer" Nullable="true" Precision="10" Scale="0" />
+          <Property Type="Decimal" Name="TakeRate" Nullable="true" Precision="10" Scale="2" />
+          <Property Type="Decimal" Name="FamilyAllocation" Nullable="true" Precision="10" Scale="2" />
+          <Property Type="Decimal" Name="CSMEAU" Nullable="true" Precision="38" Scale="6" />
+          <Property Type="DateTime" Name="QuoteDate" Nullable="true" Precision="23" />
+          <Property Type="Int32" Name="QuotedEAU" Nullable="true" />
+          <Property Type="Int32" Name="MinimumOrderQuantity" Nullable="true" />
+          <Property Type="Decimal" Name="QuotedPrice" Nullable="true" Precision="20" Scale="4" />
+          <Property Type="Decimal" Name="QuotedMaterialCost" Nullable="true" Precision="20" Scale="6" />
+          <Property Type="Decimal" Name="QuotedSales" Nullable="true" Precision="38" Scale="4" />
+          <Property Type="String" Name="QuotedLTA" Nullable="true" MaxLength="100" />
+          <Property Type="DateTime" Name="PurchaseOrderDate" Nullable="true" Precision="23" />
+          <Property Type="String" Name="CustomerProductionPurchaseOrderNumber" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="AlternativeCustomerCommitment" Nullable="true" MaxLength="100" />
+          <Property Type="Decimal" Name="PurchaseOrderSellingPrice" Nullable="true" Precision="20" Scale="6" />
+          <Property Type="DateTime" Name="PurchaseOrderSOP" Nullable="true" Precision="23" />
+          <Property Type="DateTime" Name="PurchaseOrderEOP" Nullable="true" Precision="23" />
+          <Property Type="Decimal" Name="PurchaseOrderPriceVariace" Nullable="true" Precision="23" Scale="6" />
+          <Property Type="String" Name="CustomerProductionPurchaseOrderComments" Nullable="true" />
+          <Property Type="Decimal" Name="AmortizationAmount" Nullable="true" Precision="20" Scale="6" />
+          <Property Type="Int32" Name="AmortizationQuantity" Nullable="true" />
+          <Property Type="Decimal" Name="AmortizationPrice" Nullable="true" Precision="38" Scale="18" />
+          <Property Type="String" Name="AmortizationToolingDescription" Nullable="true" />
+          <Property Type="String" Name="AmortizationCAPEXID" Nullable="true" MaxLength="100" />
+          <Property Type="Decimal" Name="HardToolingAmount" Nullable="true" Precision="20" Scale="6" />
+          <Property Type="String" Name="HardToolingTrigger" Nullable="true" />
+          <Property Type="String" Name="HardToolingDescription" Nullable="true" />
+          <Property Type="String" Name="HardToolingCAPEXID" Nullable="true" MaxLength="100" />
+          <Property Type="Decimal" Name="AssemblyTesterToolingAmount" Nullable="true" Precision="20" Scale="6" />
+          <Property Type="String" Name="AssemblyTesterToolingTrigger" Nullable="true" />
+          <Property Type="String" Name="AssemblyTesterToolingDescription" Nullable="true" />
+          <Property Type="String" Name="AssemblyTesterToolingCAPEXID" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="EmpireFacility" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="FreightTerms" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="CustomerShipTos" Nullable="true" />
+          <Property Type="String" Name="Comments" Nullable="true" />
+          <Property Type="Decimal" Name="AwardedEAU" Nullable="true" Precision="20" Scale="0" />
+          <Property Type="Decimal" Name="AwardedPrice" Nullable="true" Precision="20" Scale="4" />
+          <Property Type="Int32" Name="ValidQuoteNumberFlag" Nullable="false" />
+        </ComplexType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1442,6 +1518,7 @@ warning 6002: The table/view 'FxPLM.NSA.Users' does not have a primary key defin
                 <ScalarProperty Name="QuotedEau" ColumnName="QuotedEau" />
                 <ScalarProperty Name="CsmForeCastDemand" ColumnName="CsmForeCastDemand" />
                 <ScalarProperty Name="TakeRate" ColumnName="TakeRate" />
+                <ScalarProperty Name="AwardedEau" ColumnName="AwardedEau" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
@@ -1524,6 +1601,7 @@ warning 6002: The table/view 'FxPLM.NSA.Users' does not have a primary key defin
                 <ScalarProperty Name="ProgramManager" ColumnName="ProgramManager" />
                 <ScalarProperty Name="AwardDate" ColumnName="AwardDate" />
                 <ScalarProperty Name="FormOfCommitment" ColumnName="FormOfCommitment" />
+                <ScalarProperty Name="CustomerCommitmentAttachment" ColumnName="CustomerCommitmentAttachment" />
                 <ScalarProperty Name="QuoteTrasferMeetingDT" ColumnName="QuoteTrasferMeetingDT" />
                 <ScalarProperty Name="SalesForecastDT" ColumnName="SalesForecastDT" />
                 <ScalarProperty Name="BasePartCustomer" ColumnName="BasePartCustomer" />
@@ -1580,8 +1658,9 @@ warning 6002: The table/view 'FxPLM.NSA.Users' does not have a primary key defin
                 <ScalarProperty Name="FreightTerms" ColumnName="FreightTerms" />
                 <ScalarProperty Name="CustomerShipTos" ColumnName="CustomerShipTos" />
                 <ScalarProperty Name="Comments" ColumnName="Comments" />
+                <ScalarProperty Name="AwardedEAU" ColumnName="AwardedEAU" />
+                <ScalarProperty Name="AwardedPrice" ColumnName="AwardedPrice" />
                 <ScalarProperty Name="ValidQuoteNumberFlag" ColumnName="ValidQuoteNumberFlag" />
-                <ScalarProperty Name="CustomerCommitmentAttachment" ColumnName="CustomerCommitmentAttachment" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
@@ -1595,6 +1674,7 @@ warning 6002: The table/view 'FxPLM.NSA.Users' does not have a primary key defin
                 <ScalarProperty Name="ProgramManager" ColumnName="ProgramManager" />
                 <ScalarProperty Name="AwardDate" ColumnName="AwardDate" />
                 <ScalarProperty Name="FormOfCommitment" ColumnName="FormOfCommitment" />
+                <ScalarProperty Name="CustomerCommitmentAttachment" ColumnName="CustomerCommitmentAttachment" />
                 <ScalarProperty Name="QuoteTrasferMeetingDT" ColumnName="QuoteTrasferMeetingDT" />
                 <ScalarProperty Name="SalesForecastDT" ColumnName="SalesForecastDT" />
                 <ScalarProperty Name="BasePartCustomer" ColumnName="BasePartCustomer" />
@@ -1651,6 +1731,8 @@ warning 6002: The table/view 'FxPLM.NSA.Users' does not have a primary key defin
                 <ScalarProperty Name="FreightTerms" ColumnName="FreightTerms" />
                 <ScalarProperty Name="CustomerShipTos" ColumnName="CustomerShipTos" />
                 <ScalarProperty Name="Comments" ColumnName="Comments" />
+                <ScalarProperty Name="AwardedEAU" ColumnName="AwardedEAU" />
+                <ScalarProperty Name="AwardedPrice" ColumnName="AwardedPrice" />
                 <ScalarProperty Name="ValidQuoteNumberFlag" ColumnName="ValidQuoteNumberFlag" />
               </ComplexTypeMapping>
             </ResultMapping>

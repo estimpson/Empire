@@ -638,6 +638,9 @@
     <Compile Include="NewSalesAward\Models\usp_GetAwardedQuotes_Result.cs">
       <DependentUpon>NewSalesAwardModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="NewSalesAward\Models\usp_GetAwardedQuote_Result.cs">
+      <DependentUpon>NewSalesAwardModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="NewSalesAward\Models\usp_GetCalculatedTakeRate_Result.cs">
       <DependentUpon>NewSalesAwardModel.tt</DependentUpon>
     </Compile>

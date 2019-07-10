@@ -238,6 +238,24 @@ namespace WebPortal.NewSalesAward.Pages {
         protected global::DevExpress.Web.ASPxTextBox tbxQuotedEauCalc;
         
         /// <summary>
+        /// lblAwardedEauCalc control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::DevExpress.Web.ASPxLabel lblAwardedEauCalc;
+        
+        /// <summary>
+        /// tbxAwardedEauCalc control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::DevExpress.Web.ASPxTextBox tbxAwardedEauCalc;
+        
+        /// <summary>
         /// lblQtyPerCalc control.
         /// </summary>
         /// <remarks>

@@ -94,10 +94,36 @@ namespace WebPortal.NewSalesAward.Pages
                 SqlDataSource1.SelectCommand =
                 //@"SELECT [QuoteNumber], [EEIPartNumber], [Program] FROM (select [QuoteNumber], [EEIPartNumber], [Program], row_number()over(order by q.[QuoteNumber]) as [rn] from [NSA].[QuoteLog] as q where (([QuoteNumber] + ' ' + [EEIPartNumber] + ' ' + [Program]) LIKE @filter)) as st where st.[rn] between @startIndex and @endIndex";
 
-                @"SELECT [QuoteNumber], [EEIPartNumber], [Program], [QuoteStatus], [QuotePriceConverted], [PrintNo], [PrintDateConverted], [Notes] 
-                    FROM (  select [QuoteNumber], [EEIPartNumber], [Program], [QuoteStatus], [QuotePriceConverted], [PrintNo], [PrintDateConverted], [Notes], row_number()over(order by q.[QuoteNumber]) as [rn] 
-                            from [NSA].[QuoteLog] as q 
-                            where (([QuoteNumber] + ' ' + [EEIPartNumber] + ' ' + [Program] + ' ' + [QuoteStatus] + ' ' + [QuotePriceConverted] + ' ' + [PrintNo] + ' ' + [PrintDateConverted] + ' ' + [Notes]) LIKE @filter)) as st where st.[rn] between @startIndex and @endIndex";
+                @"
+select 
+    QuoteNumber
+,   EEIPartNumber
+,   Program
+,   QuoteStatus
+,   QuotePriceConverted
+,   PrintNo
+,   PrintDateConverted
+,   Notes 
+from (   
+        select 
+            QuoteNumber
+            ,   EEIPartNumber
+            ,   Program
+            ,   QuoteStatus
+            ,   QuotePriceConverted
+            ,   PrintNo
+            ,   PrintDateConverted
+            ,   Notes
+            ,   row_number()over(order by q.QuoteNumber) as rn 
+        from 
+            NSA.QuoteLog as q
+        where
+            QuoteNumber + ' ' + EEIPartNumber + ' ' + Program like @filter
+    ) st
+where 
+    st.rn between @startIndex and @endIndex";
+
+                // + ' ' + [QuoteStatus] + ' ' + [QuotePriceConverted] + ' ' + [PrintNo] + ' ' + [PrintDateConverted] + ' ' + [Notes]
 
                 SqlDataSource1.SelectParameters.Clear();
                 SqlDataSource1.SelectParameters.Add("filter", TypeCode.String, string.Format("%{0}%", e.Filter));
@@ -116,16 +142,23 @@ namespace WebPortal.NewSalesAward.Pages
 
         protected void cbxQuoteNumber_OnItemRequestedByValue_SQL(object source, ListEditItemRequestedByValueEventArgs e)
         {
-            //long value = 0;
-            //if (e.Value == null || !Int64.TryParse(e.Value.ToString(), out value))
-            //    return;
-            //ASPxComboBox comboBox = (ASPxComboBox)source;
-            //SqlDataSource1.SelectCommand = @"SELECT ID, LastName, [Phone], FirstName FROM Persons WHERE (ID = @ID) ORDER BY FirstName";
-
-            //SqlDataSource1.SelectParameters.Clear();
-            //SqlDataSource1.SelectParameters.Add("ID", TypeCode.Int64, e.Value.ToString());
-            //comboBox.DataSource = SqlDataSource1;
-            //comboBox.DataBind();
+            long value = 0;
+            if (e.Value == null || !long.TryParse(e.Value.ToString(), out value)) return;
+            var comboBox = (ASPxComboBox)source;
+            SqlDataSource1.SelectCommand =
+                @"
+select
+	st.QuoteNumber
+,	st.EEIPartNumber
+,	st.Program
+from
+	NSA.QuoteLog st
+where
+	st.QuoteNumber = @QuoteNumber";
+            SqlDataSource1.SelectParameters.Clear();
+            SqlDataSource1.SelectParameters.Add("QuoteNumber", TypeCode.String, e.Value.ToString());
+            comboBox.DataSource = SqlDataSource1;
+            comboBox.DataBind();
         }
 
         protected void cbxQuoteNumber_SelectedIndexChanged(object sender, EventArgs e)
@@ -167,10 +200,12 @@ namespace WebPortal.NewSalesAward.Pages
             {
                 lblReplacementPartWarning.Visible = false;
             }
+
             if (Session["QuoteNumber"] == null) return;
 
-            if (cbxFormOfCommitment.SelectedIndex < 0) cbxFormOfCommitment.BackColor = Color.LightGreen;
+            //if (cbxFormOfCommitment.SelectedIndex < 0) cbxFormOfCommitment.BackColor = Color.LightGreen;
 
+            Session["QuoteAwarded"] = "true";
             if (SaveAwardedQuote() == 0) return;
 
             Response.Redirect("NewSalesAward.aspx");
@@ -412,6 +447,8 @@ namespace WebPortal.NewSalesAward.Pages
             ViewModel.QuoteNumber = cbxQuoteNumber.Value.ToString();
             ViewModel.ReplacingBasePart = cbxReplacingBasePart.Text;
             ViewModel.Salesperson = cbxSalesperson.Value.ToString();
+            ViewModel.AwardedEau = (decimal)spinEditAwardedEAU.Value;
+            ViewModel.AwardedPrice = (decimal)spinEditAwardedPrice.Value;
 
             ViewModel.CreateAwardedQuote();
             if (ViewModel.Error != "")

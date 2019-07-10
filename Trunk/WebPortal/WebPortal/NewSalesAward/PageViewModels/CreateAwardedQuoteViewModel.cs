@@ -23,8 +23,8 @@ namespace WebPortal.NewSalesAward.PageViewModels
         public String Salesperson { get; set; }
         public String ProgramManager { get; set; }
         public String Comments { get; set; }
-        public String QuotedEau { get; set; }
-        public String QuotedPrice { get; set; }
+        public Decimal AwardedEau { get; set; }
+        public Decimal AwardedPrice { get; set; }
         public String QuotedMaterialCost { get; set; }
         public String Error { get; private set; }
 
@@ -323,7 +323,7 @@ namespace WebPortal.NewSalesAward.PageViewModels
             {
                 using (var context = new FxPLMEntities())
                 {
-                    context.usp_CreateAwardedQuote(OperatorCode, QuoteNumber, AwardDate, FormOfCommitment, QuoteReason, ReplacingBasePart, Salesperson, ProgramManager, Comments, tranDT, result, debug, debugMsg);
+                    context.usp_CreateAwardedQuote(OperatorCode, QuoteNumber, AwardDate, FormOfCommitment, QuoteReason, ReplacingBasePart, Salesperson, ProgramManager, AwardedEau, AwardedPrice, Comments, tranDT, result, debug, debugMsg);
                 }
             }
             catch (Exception ex)

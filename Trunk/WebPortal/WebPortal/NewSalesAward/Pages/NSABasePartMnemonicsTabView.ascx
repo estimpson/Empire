@@ -90,6 +90,19 @@
                             </dx:LayoutItemNestedControlContainer>
                         </LayoutItemNestedControlCollection>
                     </dx:LayoutItem>
+                    <dx:LayoutItem Caption="Awarded EAU" FieldName="AwardedEAU">
+                        <LayoutItemNestedControlCollection>
+                            <dx:LayoutItemNestedControlContainer runat="server">
+                                <dx:ASPxTextBox ID="ASPxTextBox1" Width="100%" runat="server" ReadOnly="True">
+                                    <ClientSideEvents
+                                        GotFocus="OnEditControl_GotFocus"
+                                        Init="function (s,e) { RegisterURI(s, 'BasePartMnemonics.AwardedEAU'); }" 
+                                    />
+                                    <MaskSettings Mask="<0..999999999g>" IncludeLiterals="DecimalSymbol" ErrorText="*"/>
+                                </dx:ASPxTextBox>
+                            </dx:LayoutItemNestedControlContainer>
+                        </LayoutItemNestedControlCollection>
+                    </dx:LayoutItem>
                     <dx:LayoutItem ShowCaption="False">
                         <LayoutItemNestedControlCollection>
                             <dx:LayoutItemNestedControlContainer runat="server">

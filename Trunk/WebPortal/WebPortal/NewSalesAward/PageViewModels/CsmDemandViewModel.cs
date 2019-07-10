@@ -158,10 +158,10 @@ namespace WebPortal.NewSalesAward.PageViewModels
         }
 
         public void GetCalculatedTakeRate(string quote, out decimal? qtyPer, out decimal? familyAlloc,
-            out decimal? quotedEau, out decimal? csmDemand, out decimal? takeRate)
+            out decimal? quotedEau, out decimal? awardedEau, out decimal? csmDemand, out decimal? takeRate)
         {
             Error = "";
-            qtyPer = familyAlloc = quotedEau = csmDemand = takeRate = 0;
+            qtyPer = familyAlloc = quotedEau = awardedEau = csmDemand = takeRate = 0;
             try
             {
                 using (var context = new FxPLMEntities())
@@ -172,6 +172,7 @@ namespace WebPortal.NewSalesAward.PageViewModels
                         qtyPer = item.QtyPer;
                         familyAlloc = item.FamilyAllocation;
                         quotedEau = item.QuotedEau;
+                        awardedEau = item.AwardedEau;
                         csmDemand = item.CsmForeCastDemand;
                         takeRate = item.TakeRate;
                     }

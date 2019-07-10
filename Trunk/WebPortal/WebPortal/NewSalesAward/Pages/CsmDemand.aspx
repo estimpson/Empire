@@ -231,6 +231,15 @@
                             </tr>
                             <tr>
                                 <td>
+                                    <dx:ASPxLabel ID="lblAwardedEauCalc" runat="server" Text="or Awarded EAU:" />
+                                </td>
+                                <td>
+                                    <dx:ASPxTextBox ID="tbxAwardedEauCalc" runat="server" ReadOnly="true" DisplayFormatString="{0:N}" Width="194">
+                                    </dx:ASPxTextBox>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
                                     <dx:ASPxLabel ID="lblQtyPerCalc" runat="server" Text="/ (Qty Per:" />
                                 </td>
                                 <td>
