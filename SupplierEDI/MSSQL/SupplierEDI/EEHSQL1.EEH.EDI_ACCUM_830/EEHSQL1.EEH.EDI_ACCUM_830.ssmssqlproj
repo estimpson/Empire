@@ -37,6 +37,12 @@
           <AssociatedConnUserName>estimpson</AssociatedConnUserName>
           <FullPath>ScalarFunction.EEH.EDI_XML_ACCUM_830.Get830.sql</FullPath>
         </FileNode>
+        <FileNode Name="ScalarFunction.EEH.EDI_XML_ACCUM_830.Get830_NoPrice.sql">
+          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:eehsql1:False:estimpson</AssociatedConnectionMoniker>
+          <AssociatedConnSrvName>eehsql1</AssociatedConnSrvName>
+          <AssociatedConnUserName>estimpson</AssociatedConnUserName>
+          <FullPath>ScalarFunction.EEH.EDI_XML_ACCUM_830.Get830_NoPrice.sql</FullPath>
+        </FileNode>
         <FileNode Name="ScalarFunction.EEH.EDI_XML_ACCUM_830.Get830_PerPO.sql">
           <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:eehsql1:False:estimpson</AssociatedConnectionMoniker>
           <AssociatedConnSrvName>eehsql1</AssociatedConnSrvName>

@@ -3,6 +3,18 @@
   <Items>
     <LogicalFolder Name="Connections" Type="2" Sorted="true">
       <Items>
+        <ConnectionNode Name="(localdb)\mssqllocaldb:FORE-THOUGHT\estimpson">
+          <Created>2019-07-09T15:36:01.7003912-04:00</Created>
+          <Type>SQL</Type>
+          <Server>(localdb)\mssqllocaldb</Server>
+          <UserName />
+          <Authentication>Windows Authentication</Authentication>
+          <InitialDB />
+          <LoginTimeout>30</LoginTimeout>
+          <ExecutionTimeout>0</ExecutionTimeout>
+          <ConnectionProtocol>NotSpecified</ConnectionProtocol>
+          <ApplicationName>Microsoft SQL Server Management Studio - Query</ApplicationName>
+        </ConnectionNode>
         <ConnectionNode Name="eehsql1:estimpson">
           <Created>2019-06-18T16:50:16.6616397-04:00</Created>
           <Type>SQL</Type>
@@ -19,6 +31,30 @@
           <Created>2019-03-19T17:22:40.2813841-04:00</Created>
           <Type>SQL</Type>
           <Server>eehsql1</Server>
+          <UserName>sa</UserName>
+          <Authentication>SQL</Authentication>
+          <InitialDB />
+          <LoginTimeout>30</LoginTimeout>
+          <ExecutionTimeout>0</ExecutionTimeout>
+          <ConnectionProtocol>NotSpecified</ConnectionProtocol>
+          <ApplicationName>Microsoft SQL Server Management Studio - Query</ApplicationName>
+        </ConnectionNode>
+        <ConnectionNode Name="eeisql1:estimpson">
+          <Created>2019-07-24T14:09:36.1017574-04:00</Created>
+          <Type>SQL</Type>
+          <Server>eeisql1</Server>
+          <UserName>estimpson</UserName>
+          <Authentication>SQL</Authentication>
+          <InitialDB>master</InitialDB>
+          <LoginTimeout>30</LoginTimeout>
+          <ExecutionTimeout>0</ExecutionTimeout>
+          <ConnectionProtocol>NotSpecified</ConnectionProtocol>
+          <ApplicationName>Microsoft SQL Server Management Studio - Query</ApplicationName>
+        </ConnectionNode>
+        <ConnectionNode Name="Titan2017:sa">
+          <Created>2019-06-21T13:34:15.9205472-04:00</Created>
+          <Type>SQL</Type>
+          <Server>Titan2017</Server>
           <UserName>sa</UserName>
           <Authentication>SQL</Authentication>
           <InitialDB />
@@ -86,9 +122,9 @@
           <FullPath>ScalarFunction.FxEDI.EDI_XML.SEG_CTT.sql</FullPath>
         </FileNode>
         <FileNode Name="ScalarFunction.FxEDI.EDI_XML.SEG_DTM.sql">
-          <AssociatedConnectionMoniker />
-          <AssociatedConnSrvName />
-          <AssociatedConnUserName />
+          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:Titan2017:False:sa</AssociatedConnectionMoniker>
+          <AssociatedConnSrvName>Titan2017</AssociatedConnSrvName>
+          <AssociatedConnUserName>sa</AssociatedConnUserName>
           <FullPath>ScalarFunction.FxEDI.EDI_XML.SEG_DTM.sql</FullPath>
         </FileNode>
         <FileNode Name="ScalarFunction.FxEDI.EDI_XML.SEG_FST.sql">
@@ -188,21 +224,21 @@
           <FullPath>Schema.FxEDI.EDI_XML.sql</FullPath>
         </FileNode>
         <FileNode Name="View.EEH.EDI_XML.PurchaseOrderDetails.sql">
-          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:eehsql1:False:sa</AssociatedConnectionMoniker>
+          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:eehsql1:False:estimpson</AssociatedConnectionMoniker>
           <AssociatedConnSrvName>eehsql1</AssociatedConnSrvName>
-          <AssociatedConnUserName>sa</AssociatedConnUserName>
+          <AssociatedConnUserName>estimpson</AssociatedConnUserName>
           <FullPath>View.EEH.EDI_XML.PurchaseOrderDetails.sql</FullPath>
         </FileNode>
         <FileNode Name="View.EEH.EDI_XML.PurchaseOrderInfo.sql">
-          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:eehsql1:False:estimpson</AssociatedConnectionMoniker>
-          <AssociatedConnSrvName>eehsql1</AssociatedConnSrvName>
+          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:eeisql1:False:estimpson</AssociatedConnectionMoniker>
+          <AssociatedConnSrvName>eeisql1</AssociatedConnSrvName>
           <AssociatedConnUserName>estimpson</AssociatedConnUserName>
           <FullPath>View.EEH.EDI_XML.PurchaseOrderInfo.sql</FullPath>
         </FileNode>
         <FileNode Name="View.EEH.EDI_XML.TradingPartnerInfo.sql">
-          <AssociatedConnectionMoniker />
-          <AssociatedConnSrvName />
-          <AssociatedConnUserName />
+          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:eehsql1:False:estimpson</AssociatedConnectionMoniker>
+          <AssociatedConnSrvName>eehsql1</AssociatedConnSrvName>
+          <AssociatedConnUserName>estimpson</AssociatedConnUserName>
           <FullPath>View.EEH.EDI_XML.TradingPartnerInfo.sql</FullPath>
         </FileNode>
       </Items>

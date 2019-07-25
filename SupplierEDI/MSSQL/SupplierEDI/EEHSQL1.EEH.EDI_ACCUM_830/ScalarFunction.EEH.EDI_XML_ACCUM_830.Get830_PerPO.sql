@@ -32,6 +32,7 @@ begin
 	declare
 		@purchaseOrders table
 	(	PurchaseOrderNumber int primary key
+	,	EmpireVendorCode varchar(20)
 	,	EmpireBlanketPart varchar(25)
 	,	VendorPart varchar(25)
 	,	PartDescription varchar(80)
@@ -51,6 +52,7 @@ begin
 	insert
 		@purchaseOrders
 	(	PurchaseOrderNumber
+	,	EmpireVendorCode	
 	,	EmpireBlanketPart
 	,	VendorPart
 	,	PartDescription
@@ -68,6 +70,7 @@ begin
 	)
 	select
 		poi.PurchaseOrderNumber
+	,	poi.EmpireVendorCode
 	,	poi.EmpireBlanketPart
 	,	poi.VendorPart
 	,	poi.PartDescription
@@ -95,14 +98,13 @@ begin
 						dbo.fn_SplitStringToRows(@purcharOrderList, ',') fsstr
 				)
 		)
-		and getdate() < '2019/06/26'
 
 	set
 		@xmlOutput =
 			(	select
 					(	select
 							FxEDI.EDI_XML.TRN_INFO(@dictionaryVersion, '830', tpi.TradingPartnerCode, '@iConnectID', tpi.TradingPartnerCode, @partialComplete)
-						,	FxEDI.EDI_XML.SEG_BFR(@dictionaryVersion, @purpose, default, tpi.ReleaseNumber, 'DL', 'A', tpi.HorizonStartDT, tpi.HorizonEndDT, tpi.GenerationDT, default, default, default, default, default)
+						,	FxEDI.EDI_XML.SEG_BFR(@dictionaryVersion, @purpose, default, tpi.ReleaseNumber, 'DL', 'C', tpi.HorizonStartDT, tpi.HorizonEndDT, tpi.GenerationDT, default, default, default, default, default)
 						,	(	select
 						 			FxEDI.EDI_XML.LOOP_INFO('N1')
 								,	FxEDI.EDI_XML.SEG_N1(@dictionaryVersion, 'MI', default, tpi.MaterialIssuerType, tpi.MaterialIssuer)
@@ -121,6 +123,7 @@ begin
 						,	(	select
 						 			FxEDI.EDI_XML.LOOP_INFO('LIN')
 								,	FxEDI.EDI_XML.SEG_LIN(@dictionaryVersion, 'BP', poi.EmpireBlanketPart, /* 'PD', poi.PartDescription, */ '', '', 'PO', poi.PurchaseOrderNumber, 'VP', poi.VendorPart, default, default)
+								,	FxEDI.EDI_XML.SEG_UIT(@dictionaryVersion, poi.Unit, null)
 								,	FxEDI.EDI_XML.SEG_PID(@dictionaryVersion, 'F', poi.PartDescription)
 								,	FxEDI.EDI_XML.SEG_ATH(@dictionaryVersion, 'MT', poi.RawEndDT, poi.RawAccum, default, poi.AccumStartDT)
 								,	FxEDI.EDI_XML.SEG_ATH(@dictionaryVersion, 'FI', poi.FabEndDT, poi.FabAccum, default, poi.AccumStartDT)
@@ -178,6 +181,8 @@ begin
 										EDI_XML.PurchaseOrderDetails pod
 										join @purchaseOrders po
 											on po.PurchaseOrderNumber = pod.PurchaseOrderNumber
+									where
+										po.EmpireVendorCode = tpi.EmpireVendorCode
 									group by
 										po.PurchaseOrderNumber
 								) ht
@@ -194,4 +199,4 @@ end
 go
 
 select
-	EDI_XML_ACCUM_830.Get830_PerPO('PSG', '52721,48236', '05', 1)
+	EDI_XML_ACCUM_830.Get830_PerPO('TE', '35775', '05', 1)
