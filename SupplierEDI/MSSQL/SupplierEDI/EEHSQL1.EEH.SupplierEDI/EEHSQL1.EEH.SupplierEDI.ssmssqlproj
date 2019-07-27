@@ -98,9 +98,9 @@
           <FullPath>View.EEH.SupplierEDI.PurchaseOrders.sql</FullPath>
         </FileNode>
         <FileNode Name="View.EEH.SupplierEDI.TradingPartnerOverlayGroups.sql">
-          <AssociatedConnectionMoniker />
-          <AssociatedConnSrvName />
-          <AssociatedConnUserName />
+          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:eehsql1:False:estimpson</AssociatedConnectionMoniker>
+          <AssociatedConnSrvName>eehsql1</AssociatedConnSrvName>
+          <AssociatedConnUserName>estimpson</AssociatedConnUserName>
           <FullPath>View.EEH.SupplierEDI.TradingPartnerOverlayGroups.sql</FullPath>
         </FileNode>
       </Items>
