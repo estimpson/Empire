@@ -150,6 +150,23 @@
           <Property Name="FileServerQuotePrint" Type="varchar" MaxLength="50" />
           <Property Name="FileServerCustomerQuote" Type="varchar" MaxLength="50" />
           <Property Name="MinimumOrderQuantity" Type="int" />
+          <Property Name="QuoteTransferComplete" Type="char" MaxLength="1" />
+          <Property Name="QuoteTransferCompletedDate" Type="datetime" />
+          <Property Name="AmortizationAmount" Type="numeric" Precision="20" Scale="6" />
+          <Property Name="AmortizationQuantity" Type="numeric" Precision="20" Scale="6" />
+          <Property Name="AmortizationPrice" Type="numeric" Precision="38" Scale="18" StoreGeneratedPattern="Computed" />
+          <Property Name="TotalPrice" Type="numeric" Precision="38" Scale="18" StoreGeneratedPattern="Computed" />
+          <Property Name="AmortizationToolingDescription" Type="varchar(max)" />
+          <Property Name="HardToolingAmount" Type="numeric" Precision="20" Scale="6" />
+          <Property Name="HardToolingTrigger" Type="varchar(max)" />
+          <Property Name="HardToolingDescription" Type="varchar(max)" />
+          <Property Name="AssemblyTesterToolingAmount" Type="numeric" Precision="20" Scale="6" />
+          <Property Name="AssemblyTesterToolingQuantity" Type="numeric" Precision="20" Scale="6" />
+          <Property Name="AssemblyTesterToolingTrigger" Type="varchar(max)" />
+          <Property Name="AssemblyTesterToolingDescription" Type="varchar(max)" />
+          <Property Name="SetupChargeAmount" Type="numeric" Precision="20" Scale="6" />
+          <Property Name="SetupTrigger" Type="varchar(max)" />
+          <Property Name="SetupDescription" Type="varchar(max)" />
         </EntityType>
         <EntityType Name="QT_QuoteLTA">
           <Key>
@@ -245,7 +262,7 @@
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'MONITOR.EEIUser.QT_CSM_Mnemonics' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'Monitor.EEIUser.QT_CSM_Mnemonics' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="QT_CSM_Mnemonics">
           <Key>
             <PropertyRef Name="Release_ID" />
@@ -296,7 +313,7 @@ warning 6002: The table/view 'MONITOR.EEIUser.QT_CSM_Mnemonics' does not have a 
           <Property Name="CY 2019" Type="decimal" Precision="10" Scale="2" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'MONITOR.EEIUser.QT_QuoteTreeList' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'Monitor.EEIUser.QT_QuoteTreeList' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="QT_QuoteTreeList">
           <Key>
             <PropertyRef Name="RowID" />
@@ -313,7 +330,7 @@ warning 6002: The table/view 'MONITOR.EEIUser.QT_QuoteTreeList' does not have a 
           <Property Name="Notes" Type="varchar(max)" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'MONITOR.EEIUser.vw_QT_EmpireMarketSegment' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'Monitor.EEIUser.vw_QT_EmpireMarketSegment' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="vw_QT_EmpireMarketSegment">
           <Key>
             <PropertyRef Name="EmpireMarketSegment" />
@@ -322,7 +339,7 @@ warning 6002: The table/view 'MONITOR.EEIUser.vw_QT_EmpireMarketSegment' does no
           <Property Name="RowId" Type="bigint" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'MONITOR.EEIUser.vw_QT_EmpireMarketSubsegment' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'Monitor.EEIUser.vw_QT_EmpireMarketSubsegment' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="vw_QT_EmpireMarketSubsegment">
           <Key>
             <PropertyRef Name="EmpireMarketSubsegment" />
@@ -331,7 +348,7 @@ warning 6002: The table/view 'MONITOR.EEIUser.vw_QT_EmpireMarketSubsegment' does
           <Property Name="RowId" Type="bigint" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'MONITOR.EEIUser.vw_QT_Functions' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'Monitor.EEIUser.vw_QT_Functions' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="vw_QT_Functions">
           <Key>
             <PropertyRef Name="FunctionCode" />
@@ -340,7 +357,7 @@ warning 6002: The table/view 'MONITOR.EEIUser.vw_QT_Functions' does not have a p
           <Property Name="RowId" Type="bigint" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'MONITOR.EEIUser.vw_QT_ProductLines' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'Monitor.EEIUser.vw_QT_ProductLines' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="vw_QT_ProductLines">
           <Key>
             <PropertyRef Name="ProductLine" />
@@ -349,7 +366,7 @@ warning 6002: The table/view 'MONITOR.EEIUser.vw_QT_ProductLines' does not have 
           <Property Name="RowId" Type="bigint" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'MONITOR.EEIUser.vw_QT_QuoteReasons' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'Monitor.EEIUser.vw_QT_QuoteReasons' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="vw_QT_QuoteReasons">
           <Key>
             <PropertyRef Name="QuoteReason" />
@@ -1619,6 +1636,23 @@ FROM [EEIUser].[vw_QT_QuoteReasons] AS [vw_QT_QuoteReasons]</DefiningQuery>
           <Property Name="MinimumOrderQuantity" Type="Int32" />
           <NavigationProperty Name="QT_QuoteLog1" Relationship="QuoteLogModel.FK__QT_QuoteL__Paren__33D44DD5" FromRole="QT_QuoteLog" ToRole="QT_QuoteLog1" />
           <NavigationProperty Name="QT_QuoteLog2" Relationship="QuoteLogModel.FK__QT_QuoteL__Paren__33D44DD5" FromRole="QT_QuoteLog1" ToRole="QT_QuoteLog" />
+          <Property Name="QuoteTransferComplete" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="QuoteTransferCompletedDate" Type="DateTime" Precision="3" />
+          <Property Name="AmortizationAmount" Type="Decimal" Precision="20" Scale="6" />
+          <Property Name="AmortizationQuantity" Type="Decimal" Precision="20" Scale="6" />
+          <Property Name="AmortizationPrice" Type="Decimal" Precision="38" Scale="18" annotation:StoreGeneratedPattern="Computed" />
+          <Property Name="TotalPrice" Type="Decimal" Precision="38" Scale="18" annotation:StoreGeneratedPattern="Computed" />
+          <Property Name="AmortizationToolingDescription" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="HardToolingAmount" Type="Decimal" Precision="20" Scale="6" />
+          <Property Name="HardToolingTrigger" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="HardToolingDescription" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="AssemblyTesterToolingAmount" Type="Decimal" Precision="20" Scale="6" />
+          <Property Name="AssemblyTesterToolingQuantity" Type="Decimal" Precision="20" Scale="6" />
+          <Property Name="AssemblyTesterToolingTrigger" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="AssemblyTesterToolingDescription" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="SetupChargeAmount" Type="Decimal" Precision="20" Scale="6" />
+          <Property Name="SetupTrigger" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="SetupDescription" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
         </EntityType>
         <Association Name="FK__QT_QuoteL__Paren__33D44DD5">
           <End Type="QuoteLogModel.QuoteEntry" Role="QT_QuoteLog" Multiplicity="0..1" />
@@ -2206,6 +2240,23 @@ FROM [EEIUser].[vw_QT_QuoteReasons] AS [vw_QT_QuoteReasons]</DefiningQuery>
           <EntitySetMapping Name="QuoteLog">
             <EntityTypeMapping TypeName="QuoteLogModel.QuoteEntry">
               <MappingFragment StoreEntitySet="QT_QuoteLog">
+                <ScalarProperty Name="SetupDescription" ColumnName="SetupDescription" />
+                <ScalarProperty Name="SetupTrigger" ColumnName="SetupTrigger" />
+                <ScalarProperty Name="SetupChargeAmount" ColumnName="SetupChargeAmount" />
+                <ScalarProperty Name="AssemblyTesterToolingDescription" ColumnName="AssemblyTesterToolingDescription" />
+                <ScalarProperty Name="AssemblyTesterToolingTrigger" ColumnName="AssemblyTesterToolingTrigger" />
+                <ScalarProperty Name="AssemblyTesterToolingQuantity" ColumnName="AssemblyTesterToolingQuantity" />
+                <ScalarProperty Name="AssemblyTesterToolingAmount" ColumnName="AssemblyTesterToolingAmount" />
+                <ScalarProperty Name="HardToolingDescription" ColumnName="HardToolingDescription" />
+                <ScalarProperty Name="HardToolingTrigger" ColumnName="HardToolingTrigger" />
+                <ScalarProperty Name="HardToolingAmount" ColumnName="HardToolingAmount" />
+                <ScalarProperty Name="AmortizationToolingDescription" ColumnName="AmortizationToolingDescription" />
+                <ScalarProperty Name="TotalPrice" ColumnName="TotalPrice" />
+                <ScalarProperty Name="AmortizationPrice" ColumnName="AmortizationPrice" />
+                <ScalarProperty Name="AmortizationQuantity" ColumnName="AmortizationQuantity" />
+                <ScalarProperty Name="AmortizationAmount" ColumnName="AmortizationAmount" />
+                <ScalarProperty Name="QuoteTransferCompletedDate" ColumnName="QuoteTransferCompletedDate" />
+                <ScalarProperty Name="QuoteTransferComplete" ColumnName="QuoteTransferComplete" />
                 <ScalarProperty Name="MinimumOrderQuantity" ColumnName="MinimumOrderQuantity" />
                 <ScalarProperty Name="FileServerCustomerQuote" ColumnName="FileServerCustomerQuote" />
                 <ScalarProperty Name="FileServerQuotePrint" ColumnName="FileServerQuotePrint" />

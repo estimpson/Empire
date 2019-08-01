@@ -91,10 +91,16 @@
             this.colCustomerQuoteDate = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colStraightMaterialCost = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colStdHours = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colAmortizationToolingDescription = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colAmortizationAmount = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colAmortizationQuantity = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colQuotePrice = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colAmortizationPrice = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colTotalPrice = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colTotalQuotedSales = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colQuoteStatus = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colAwarded = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colAssemblyTesterToolingQuantity = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colProductionLevel = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colRevLevel = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colProductionMaterialRollup = new DevExpress.XtraGrid.Columns.GridColumn();
@@ -131,6 +137,10 @@
             this.colEmpireMarketSubsegment = new DevExpress.XtraGrid.Columns.GridColumn();
             this.marketSubsegmentItemGridLookUpEdit = new DevExpress.XtraEditors.Repository.RepositoryItemGridLookUpEdit();
             this.gridView16 = new DevExpress.XtraGrid.Views.Grid.GridView();
+            this.colFileServerQuotePrint = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colFileServerCustomerQuote = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colMinimumOrderQuantity = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colAwardedDate = new DevExpress.XtraGrid.Columns.GridColumn();
             this.applicationNamesItemGridLookUpEdit = new DevExpress.XtraEditors.Repository.RepositoryItemGridLookUpEdit();
             this.gridView10 = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.QuoteLogLinqServerModeSource = new DevExpress.Data.Linq.LinqServerModeSource();
@@ -140,10 +150,15 @@
             this.btnSave = new System.Windows.Forms.Button();
             this.btnExportToExcel = new System.Windows.Forms.Button();
             this.xtraGridBlending1 = new DevExpress.XtraGrid.Blending.XtraGridBlending();
-            this.colFileServerQuotePrint = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colFileServerCustomerQuote = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colMinimumOrderQuantity = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colAwardedDate = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colAssemblyTesterToolingAmount = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colAssemblyTesterToolingDescription = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colAssemblyTesterToolingTrigger = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colHardToolingAmount = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colHardToolingDescription = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colHardToolingTrigger = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colSetupChargeAmount = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colSetupChargeDescription = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colSetupChargeTrigger = new DevExpress.XtraGrid.Columns.GridColumn();
             ((System.ComponentModel.ISupportInitialize)(this.gridControl)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.customerItemGridLookUpEdit)).BeginInit();
@@ -191,11 +206,9 @@
             this.gridControl.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.gridControl.Dock = System.Windows.Forms.DockStyle.Fill;
             this.gridControl.EmbeddedNavigator.Enabled = false;
-            this.gridControl.EmbeddedNavigator.Margin = new System.Windows.Forms.Padding(4);
             this.gridControl.EmbeddedNavigator.Click += new System.EventHandler(this.gridControl_EmbeddedNavigator_Click);
-            this.gridControl.Location = new System.Drawing.Point(4, 4);
+            this.gridControl.Location = new System.Drawing.Point(3, 3);
             this.gridControl.MainView = this.gridView1;
-            this.gridControl.Margin = new System.Windows.Forms.Padding(4);
             this.gridControl.Name = "gridControl";
             this.gridControl.RepositoryItems.AddRange(new DevExpress.XtraEditors.Repository.RepositoryItem[] {
             this.customerItemGridLookUpEdit,
@@ -216,7 +229,7 @@
             this.productLineItemGridLookUpEdit,
             this.marketSegmentItemGridLookUpEdit,
             this.marketSubsegmentItemGridLookUpEdit});
-            this.gridControl.Size = new System.Drawing.Size(1092, 476);
+            this.gridControl.Size = new System.Drawing.Size(842, 412);
             this.gridControl.TabIndex = 2;
             this.gridControl.UseEmbeddedNavigator = true;
             this.gridControl.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
@@ -270,10 +283,25 @@
             this.colCustomerQuoteDate,
             this.colStraightMaterialCost,
             this.colStdHours,
+            this.colAmortizationToolingDescription,
+            this.colAmortizationAmount,
+            this.colAmortizationQuantity,
             this.colQuotePrice,
+            this.colAmortizationPrice,
+            this.colTotalPrice,
             this.colTotalQuotedSales,
             this.colQuoteStatus,
             this.colAwarded,
+            this.colSetupChargeAmount,
+            this.colSetupChargeDescription,
+            this.colSetupChargeTrigger,
+            this.colAssemblyTesterToolingQuantity,
+            this.colAssemblyTesterToolingAmount,
+            this.colAssemblyTesterToolingDescription,
+            this.colAssemblyTesterToolingTrigger,
+            this.colHardToolingAmount,
+            this.colHardToolingDescription,
+            this.colHardToolingTrigger,
             this.colProductionLevel,
             this.colRevLevel,
             this.colProductionMaterialRollup,
@@ -795,54 +823,102 @@
             this.colStdHours.Visible = true;
             this.colStdHours.VisibleIndex = 37;
             // 
+            // colAmortizationToolingDescription
+            // 
+            this.colAmortizationToolingDescription.Caption = "Amortization Tooling Description";
+            this.colAmortizationToolingDescription.FieldName = "AmortizationToolingDescription";
+            this.colAmortizationToolingDescription.Name = "colAmortizationToolingDescription";
+            this.colAmortizationToolingDescription.Visible = true;
+            this.colAmortizationToolingDescription.VisibleIndex = 38;
+            // 
+            // colAmortizationAmount
+            // 
+            this.colAmortizationAmount.Caption = "Amortization Amount";
+            this.colAmortizationAmount.FieldName = "AmortizationAmount";
+            this.colAmortizationAmount.Name = "colAmortizationAmount";
+            this.colAmortizationAmount.Visible = true;
+            this.colAmortizationAmount.VisibleIndex = 39;
+            // 
+            // colAmortizationQuantity
+            // 
+            this.colAmortizationQuantity.Caption = "Amortization Quantity";
+            this.colAmortizationQuantity.FieldName = "AmortizationQuantity";
+            this.colAmortizationQuantity.Name = "colAmortizationQuantity";
+            this.colAmortizationQuantity.Visible = true;
+            this.colAmortizationQuantity.VisibleIndex = 40;
+            // 
             // colQuotePrice
             // 
+            this.colQuotePrice.Caption = "Quote Price";
             this.colQuotePrice.FieldName = "QuotePrice";
             this.colQuotePrice.Name = "colQuotePrice";
             this.colQuotePrice.Visible = true;
-            this.colQuotePrice.VisibleIndex = 38;
+            this.colQuotePrice.VisibleIndex = 41;
+            // 
+            // colAmortizationPrice
+            // 
+            this.colAmortizationPrice.Caption = "Amortization Price";
+            this.colAmortizationPrice.FieldName = "AmortizationPrice";
+            this.colAmortizationPrice.Name = "colAmortizationPrice";
+            this.colAmortizationPrice.Visible = true;
+            this.colAmortizationPrice.VisibleIndex = 42;
+            // 
+            // colTotalPrice
+            // 
+            this.colTotalPrice.Caption = "Total Price";
+            this.colTotalPrice.FieldName = "TotalPrice";
+            this.colTotalPrice.Name = "colTotalPrice";
+            this.colTotalPrice.Visible = true;
+            this.colTotalPrice.VisibleIndex = 43;
             // 
             // colTotalQuotedSales
             // 
             this.colTotalQuotedSales.FieldName = "TotalQuotedSales";
             this.colTotalQuotedSales.Name = "colTotalQuotedSales";
             this.colTotalQuotedSales.Visible = true;
-            this.colTotalQuotedSales.VisibleIndex = 39;
+            this.colTotalQuotedSales.VisibleIndex = 44;
             // 
             // colQuoteStatus
             // 
             this.colQuoteStatus.FieldName = "QuoteStatus";
             this.colQuoteStatus.Name = "colQuoteStatus";
             this.colQuoteStatus.Visible = true;
-            this.colQuoteStatus.VisibleIndex = 40;
+            this.colQuoteStatus.VisibleIndex = 45;
             // 
             // colAwarded
             // 
             this.colAwarded.FieldName = "Awarded";
             this.colAwarded.Name = "colAwarded";
             this.colAwarded.Visible = true;
-            this.colAwarded.VisibleIndex = 41;
+            this.colAwarded.VisibleIndex = 46;
+            // 
+            // colAssemblyTesterToolingQuantity
+            // 
+            this.colAssemblyTesterToolingQuantity.Caption = "gridColumn1";
+            this.colAssemblyTesterToolingQuantity.Name = "colAssemblyTesterToolingQuantity";
+            this.colAssemblyTesterToolingQuantity.Visible = true;
+            this.colAssemblyTesterToolingQuantity.VisibleIndex = 50;
             // 
             // colProductionLevel
             // 
             this.colProductionLevel.FieldName = "ProductionLevel";
             this.colProductionLevel.Name = "colProductionLevel";
             this.colProductionLevel.Visible = true;
-            this.colProductionLevel.VisibleIndex = 43;
+            this.colProductionLevel.VisibleIndex = 58;
             // 
             // colRevLevel
             // 
             this.colRevLevel.FieldName = "RevLevel";
             this.colRevLevel.Name = "colRevLevel";
             this.colRevLevel.Visible = true;
-            this.colRevLevel.VisibleIndex = 44;
+            this.colRevLevel.VisibleIndex = 59;
             // 
             // colProductionMaterialRollup
             // 
             this.colProductionMaterialRollup.FieldName = "ProductionMaterialRollup";
             this.colProductionMaterialRollup.Name = "colProductionMaterialRollup";
             this.colProductionMaterialRollup.Visible = true;
-            this.colProductionMaterialRollup.VisibleIndex = 45;
+            this.colProductionMaterialRollup.VisibleIndex = 60;
             // 
             // colRowID
             // 
@@ -886,7 +962,7 @@
             this.colProgramComputed.OptionsColumn.AllowEdit = false;
             this.colProgramComputed.OptionsColumn.AllowFocus = false;
             this.colProgramComputed.Visible = true;
-            this.colProgramComputed.VisibleIndex = 46;
+            this.colProgramComputed.VisibleIndex = 61;
             // 
             // colOEMComputed
             // 
@@ -895,7 +971,7 @@
             this.colOEMComputed.OptionsColumn.AllowEdit = false;
             this.colOEMComputed.OptionsColumn.AllowFocus = false;
             this.colOEMComputed.Visible = true;
-            this.colOEMComputed.VisibleIndex = 47;
+            this.colOEMComputed.VisibleIndex = 62;
             // 
             // colNameplateComputed
             // 
@@ -904,21 +980,21 @@
             this.colNameplateComputed.OptionsColumn.AllowEdit = false;
             this.colNameplateComputed.OptionsColumn.AllowFocus = false;
             this.colNameplateComputed.Visible = true;
-            this.colNameplateComputed.VisibleIndex = 48;
+            this.colNameplateComputed.VisibleIndex = 63;
             // 
             // colTooling
             // 
             this.colTooling.FieldName = "Tooling";
             this.colTooling.Name = "colTooling";
             this.colTooling.Visible = true;
-            this.colTooling.VisibleIndex = 49;
+            this.colTooling.VisibleIndex = 64;
             // 
             // colPrototypePrice
             // 
             this.colPrototypePrice.FieldName = "PrototypePrice";
             this.colPrototypePrice.Name = "colPrototypePrice";
             this.colPrototypePrice.Visible = true;
-            this.colPrototypePrice.VisibleIndex = 50;
+            this.colPrototypePrice.VisibleIndex = 65;
             // 
             // colLTA
             // 
@@ -950,7 +1026,7 @@
             this.colPrintNo.FieldName = "PrintNo";
             this.colPrintNo.Name = "colPrintNo";
             this.colPrintNo.Visible = true;
-            this.colPrintNo.VisibleIndex = 51;
+            this.colPrintNo.VisibleIndex = 66;
             // 
             // colPrintDate
             // 
@@ -958,7 +1034,7 @@
             this.colPrintDate.FieldName = "PrintDate";
             this.colPrintDate.Name = "colPrintDate";
             this.colPrintDate.Visible = true;
-            this.colPrintDate.VisibleIndex = 52;
+            this.colPrintDate.VisibleIndex = 67;
             // 
             // colCustomerQuoteFilePath
             // 
@@ -983,7 +1059,7 @@
             this.colPackageNumber.FieldName = "PackageNumber";
             this.colPackageNumber.Name = "colPackageNumber";
             this.colPackageNumber.Visible = true;
-            this.colPackageNumber.VisibleIndex = 53;
+            this.colPackageNumber.VisibleIndex = 68;
             // 
             // colNumberOfDaysLate
             // 
@@ -993,7 +1069,7 @@
             this.colNumberOfDaysLate.OptionsColumn.AllowEdit = false;
             this.colNumberOfDaysLate.OptionsColumn.AllowFocus = false;
             this.colNumberOfDaysLate.Visible = true;
-            this.colNumberOfDaysLate.VisibleIndex = 54;
+            this.colNumberOfDaysLate.VisibleIndex = 69;
             // 
             // colProductLine
             // 
@@ -1002,7 +1078,7 @@
             this.colProductLine.FieldName = "ProductLine";
             this.colProductLine.Name = "colProductLine";
             this.colProductLine.Visible = true;
-            this.colProductLine.VisibleIndex = 56;
+            this.colProductLine.VisibleIndex = 71;
             // 
             // productLineItemGridLookUpEdit
             // 
@@ -1029,7 +1105,7 @@
             this.colQuoteReason.FieldName = "QuoteReason";
             this.colQuoteReason.Name = "colQuoteReason";
             this.colQuoteReason.Visible = true;
-            this.colQuoteReason.VisibleIndex = 55;
+            this.colQuoteReason.VisibleIndex = 70;
             // 
             // quoteReasonItemGridLookUpEdit
             // 
@@ -1056,7 +1132,7 @@
             this.colEmpireMarketSegment.FieldName = "EmpireMarketSegment";
             this.colEmpireMarketSegment.Name = "colEmpireMarketSegment";
             this.colEmpireMarketSegment.Visible = true;
-            this.colEmpireMarketSegment.VisibleIndex = 57;
+            this.colEmpireMarketSegment.VisibleIndex = 72;
             // 
             // marketSegmentItemGridLookUpEdit
             // 
@@ -1083,7 +1159,7 @@
             this.colEmpireMarketSubsegment.FieldName = "EmpireMarketSubsegment";
             this.colEmpireMarketSubsegment.Name = "colEmpireMarketSubsegment";
             this.colEmpireMarketSubsegment.Visible = true;
-            this.colEmpireMarketSubsegment.VisibleIndex = 58;
+            this.colEmpireMarketSubsegment.VisibleIndex = 73;
             // 
             // marketSubsegmentItemGridLookUpEdit
             // 
@@ -1102,6 +1178,39 @@
             this.gridView16.Name = "gridView16";
             this.gridView16.OptionsSelection.EnableAppearanceFocusedCell = false;
             this.gridView16.OptionsView.ShowGroupPanel = false;
+            // 
+            // colFileServerQuotePrint
+            // 
+            this.colFileServerQuotePrint.Caption = "FileServerQuotePrint";
+            this.colFileServerQuotePrint.FieldName = "FileServerQuotePrint";
+            this.colFileServerQuotePrint.Name = "colFileServerQuotePrint";
+            this.colFileServerQuotePrint.Visible = true;
+            this.colFileServerQuotePrint.VisibleIndex = 1;
+            // 
+            // colFileServerCustomerQuote
+            // 
+            this.colFileServerCustomerQuote.Caption = "FileServerCustomerQuote";
+            this.colFileServerCustomerQuote.FieldName = "FileServerCustomerQuote";
+            this.colFileServerCustomerQuote.Name = "colFileServerCustomerQuote";
+            this.colFileServerCustomerQuote.Visible = true;
+            this.colFileServerCustomerQuote.VisibleIndex = 2;
+            this.colFileServerCustomerQuote.Width = 79;
+            // 
+            // colMinimumOrderQuantity
+            // 
+            this.colMinimumOrderQuantity.Caption = "MinimumOrderQuantity";
+            this.colMinimumOrderQuantity.FieldName = "MinimumOrderQuantity";
+            this.colMinimumOrderQuantity.Name = "colMinimumOrderQuantity";
+            this.colMinimumOrderQuantity.Visible = true;
+            this.colMinimumOrderQuantity.VisibleIndex = 74;
+            // 
+            // colAwardedDate
+            // 
+            this.colAwardedDate.Caption = "AwardedDate";
+            this.colAwardedDate.FieldName = "AwardedDate";
+            this.colAwardedDate.Name = "colAwardedDate";
+            this.colAwardedDate.Visible = true;
+            this.colAwardedDate.VisibleIndex = 57;
             // 
             // applicationNamesItemGridLookUpEdit
             // 
@@ -1134,12 +1243,11 @@
             this.tableLayoutPanel1.Controls.Add(this.flowLayoutPanel1, 0, 1);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
-            this.tableLayoutPanel1.Margin = new System.Windows.Forms.Padding(4);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 2;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 43F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(1100, 527);
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35F));
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(848, 453);
             this.tableLayoutPanel1.TabIndex = 3;
             // 
             // flowLayoutPanel1
@@ -1149,18 +1257,16 @@
             this.flowLayoutPanel1.Controls.Add(this.btnExportToExcel);
             this.flowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.flowLayoutPanel1.FlowDirection = System.Windows.Forms.FlowDirection.RightToLeft;
-            this.flowLayoutPanel1.Location = new System.Drawing.Point(4, 488);
-            this.flowLayoutPanel1.Margin = new System.Windows.Forms.Padding(4);
+            this.flowLayoutPanel1.Location = new System.Drawing.Point(3, 421);
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
-            this.flowLayoutPanel1.Size = new System.Drawing.Size(1092, 35);
+            this.flowLayoutPanel1.Size = new System.Drawing.Size(842, 29);
             this.flowLayoutPanel1.TabIndex = 3;
             // 
             // btnRefresh
             // 
-            this.btnRefresh.Location = new System.Drawing.Point(988, 4);
-            this.btnRefresh.Margin = new System.Windows.Forms.Padding(4);
+            this.btnRefresh.Location = new System.Drawing.Point(764, 3);
             this.btnRefresh.Name = "btnRefresh";
-            this.btnRefresh.Size = new System.Drawing.Size(100, 28);
+            this.btnRefresh.Size = new System.Drawing.Size(75, 23);
             this.btnRefresh.TabIndex = 0;
             this.btnRefresh.Text = "Refresh";
             this.btnRefresh.UseVisualStyleBackColor = true;
@@ -1169,10 +1275,9 @@
             // btnSave
             // 
             this.btnSave.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnSave.Location = new System.Drawing.Point(755, 4);
-            this.btnSave.Margin = new System.Windows.Forms.Padding(4);
+            this.btnSave.Location = new System.Drawing.Point(589, 3);
             this.btnSave.Name = "btnSave";
-            this.btnSave.Size = new System.Drawing.Size(225, 28);
+            this.btnSave.Size = new System.Drawing.Size(169, 23);
             this.btnSave.TabIndex = 1;
             this.btnSave.Text = "Save Changes";
             this.btnSave.UseVisualStyleBackColor = true;
@@ -1180,10 +1285,10 @@
             // 
             // btnExportToExcel
             // 
-            this.btnExportToExcel.Location = new System.Drawing.Point(583, 4);
-            this.btnExportToExcel.Margin = new System.Windows.Forms.Padding(4, 4, 27, 4);
+            this.btnExportToExcel.Location = new System.Drawing.Point(460, 3);
+            this.btnExportToExcel.Margin = new System.Windows.Forms.Padding(3, 3, 20, 3);
             this.btnExportToExcel.Name = "btnExportToExcel";
-            this.btnExportToExcel.Size = new System.Drawing.Size(141, 28);
+            this.btnExportToExcel.Size = new System.Drawing.Size(106, 23);
             this.btnExportToExcel.TabIndex = 2;
             this.btnExportToExcel.Text = "Export to Excel";
             this.btnExportToExcel.UseVisualStyleBackColor = true;
@@ -1193,47 +1298,85 @@
             // 
             this.xtraGridBlending1.GridControl = this.gridControl;
             // 
-            // colFileServerQuotePrint
+            // colAssemblyTesterToolingAmount
             // 
-            this.colFileServerQuotePrint.Caption = "FileServerQuotePrint";
-            this.colFileServerQuotePrint.FieldName = "FileServerQuotePrint";
-            this.colFileServerQuotePrint.Name = "colFileServerQuotePrint";
-            this.colFileServerQuotePrint.Visible = true;
-            this.colFileServerQuotePrint.VisibleIndex = 1;
+            this.colAssemblyTesterToolingAmount.Caption = "Assembly Tester Tooling Amount";
+            this.colAssemblyTesterToolingAmount.FieldName = "AssemblyTesterToolingAmount";
+            this.colAssemblyTesterToolingAmount.Name = "colAssemblyTesterToolingAmount";
+            this.colAssemblyTesterToolingAmount.Visible = true;
+            this.colAssemblyTesterToolingAmount.VisibleIndex = 51;
             // 
-            // colFileServerCustomerQuote
+            // colAssemblyTesterToolingDescription
             // 
-            this.colFileServerCustomerQuote.Caption = "FileServerCustomerQuote";
-            this.colFileServerCustomerQuote.FieldName = "FileServerCustomerQuote";
-            this.colFileServerCustomerQuote.Name = "colFileServerCustomerQuote";
-            this.colFileServerCustomerQuote.Visible = true;
-            this.colFileServerCustomerQuote.VisibleIndex = 2;
-            this.colFileServerCustomerQuote.Width = 79;
+            this.colAssemblyTesterToolingDescription.Caption = "Assembly Tester Tooling Description";
+            this.colAssemblyTesterToolingDescription.FieldName = "AssemblyTesterToolingDescription";
+            this.colAssemblyTesterToolingDescription.Name = "colAssemblyTesterToolingDescription";
+            this.colAssemblyTesterToolingDescription.Visible = true;
+            this.colAssemblyTesterToolingDescription.VisibleIndex = 52;
             // 
-            // colMinimumOrderQuantity
+            // colAssemblyTesterToolingTrigger
             // 
-            this.colMinimumOrderQuantity.Caption = "MinimumOrderQuantity";
-            this.colMinimumOrderQuantity.FieldName = "MinimumOrderQuantity";
-            this.colMinimumOrderQuantity.Name = "colMinimumOrderQuantity";
-            this.colMinimumOrderQuantity.Visible = true;
-            this.colMinimumOrderQuantity.VisibleIndex = 59;
+            this.colAssemblyTesterToolingTrigger.Caption = "Assembly Tester Tooling Trigger";
+            this.colAssemblyTesterToolingTrigger.FieldName = "AssemblyTesterToolingTrigger";
+            this.colAssemblyTesterToolingTrigger.Name = "colAssemblyTesterToolingTrigger";
+            this.colAssemblyTesterToolingTrigger.Visible = true;
+            this.colAssemblyTesterToolingTrigger.VisibleIndex = 53;
             // 
-            // colAwardedDate
+            // colHardToolingAmount
             // 
-            this.colAwardedDate.Caption = "AwardedDate";
-            this.colAwardedDate.FieldName = "AwardedDate";
-            this.colAwardedDate.Name = "colAwardedDate";
-            this.colAwardedDate.Visible = true;
-            this.colAwardedDate.VisibleIndex = 42;
+            this.colHardToolingAmount.Caption = "Hard Tooling Amount";
+            this.colHardToolingAmount.FieldName = "HardToolingAmount";
+            this.colHardToolingAmount.Name = "colHardToolingAmount";
+            this.colHardToolingAmount.Visible = true;
+            this.colHardToolingAmount.VisibleIndex = 54;
+            // 
+            // colHardToolingDescription
+            // 
+            this.colHardToolingDescription.Caption = "Hard Tooling Description";
+            this.colHardToolingDescription.FieldName = "HardToolingDescription";
+            this.colHardToolingDescription.Name = "colHardToolingDescription";
+            this.colHardToolingDescription.Visible = true;
+            this.colHardToolingDescription.VisibleIndex = 55;
+            // 
+            // colHardToolingTrigger
+            // 
+            this.colHardToolingTrigger.Caption = "Hard Tooling Trigger";
+            this.colHardToolingTrigger.FieldName = "HardToolingTrigger";
+            this.colHardToolingTrigger.Name = "colHardToolingTrigger";
+            this.colHardToolingTrigger.Visible = true;
+            this.colHardToolingTrigger.VisibleIndex = 56;
+            // 
+            // colSetupChargeAmount
+            // 
+            this.colSetupChargeAmount.Caption = "Setup Charge Amount";
+            this.colSetupChargeAmount.FieldName = "SetupChargeAmount";
+            this.colSetupChargeAmount.Name = "colSetupChargeAmount";
+            this.colSetupChargeAmount.Visible = true;
+            this.colSetupChargeAmount.VisibleIndex = 47;
+            // 
+            // colSetupChargeDescription
+            // 
+            this.colSetupChargeDescription.Caption = "Setup Charge Description";
+            this.colSetupChargeDescription.FieldName = "SetupChargeDescription";
+            this.colSetupChargeDescription.Name = "colSetupChargeDescription";
+            this.colSetupChargeDescription.Visible = true;
+            this.colSetupChargeDescription.VisibleIndex = 48;
+            // 
+            // colSetupChargeTrigger
+            // 
+            this.colSetupChargeTrigger.Caption = "Setup Charge Trigger";
+            this.colSetupChargeTrigger.FieldName = "SetupChargeTrigger";
+            this.colSetupChargeTrigger.Name = "colSetupChargeTrigger";
+            this.colSetupChargeTrigger.Visible = true;
+            this.colSetupChargeTrigger.VisibleIndex = 49;
             // 
             // SimpleQuoteLogView
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.tableLayoutPanel1);
-            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "SimpleQuoteLogView";
-            this.Size = new System.Drawing.Size(1100, 527);
+            this.Size = new System.Drawing.Size(848, 453);
             ((System.ComponentModel.ISupportInitialize)(this.gridControl)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridView1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.customerItemGridLookUpEdit)).EndInit();
@@ -1396,5 +1539,20 @@
         private DevExpress.XtraGrid.Columns.GridColumn colFileServerCustomerQuote;
         private DevExpress.XtraGrid.Columns.GridColumn colMinimumOrderQuantity;
         private DevExpress.XtraGrid.Columns.GridColumn colAwardedDate;
+        private DevExpress.XtraGrid.Columns.GridColumn colAmortizationAmount;
+        private DevExpress.XtraGrid.Columns.GridColumn colAmortizationQuantity;
+        private DevExpress.XtraGrid.Columns.GridColumn colAmortizationPrice;
+        private DevExpress.XtraGrid.Columns.GridColumn colTotalPrice;
+        private DevExpress.XtraGrid.Columns.GridColumn colAmortizationToolingDescription;
+        private DevExpress.XtraGrid.Columns.GridColumn colAssemblyTesterToolingQuantity;
+        private DevExpress.XtraGrid.Columns.GridColumn colSetupChargeAmount;
+        private DevExpress.XtraGrid.Columns.GridColumn colSetupChargeDescription;
+        private DevExpress.XtraGrid.Columns.GridColumn colSetupChargeTrigger;
+        private DevExpress.XtraGrid.Columns.GridColumn colAssemblyTesterToolingAmount;
+        private DevExpress.XtraGrid.Columns.GridColumn colAssemblyTesterToolingDescription;
+        private DevExpress.XtraGrid.Columns.GridColumn colAssemblyTesterToolingTrigger;
+        private DevExpress.XtraGrid.Columns.GridColumn colHardToolingAmount;
+        private DevExpress.XtraGrid.Columns.GridColumn colHardToolingDescription;
+        private DevExpress.XtraGrid.Columns.GridColumn colHardToolingTrigger;
     }
 }

@@ -138,6 +138,9 @@ namespace QuoteLogGrid.Views
                 gridView1.Columns["CustomerQuoteFilePath"].OptionsColumn.ReadOnly = true;
                 gridView1.Columns["FileServerQuotePrint"].OptionsColumn.ReadOnly = true;
                 gridView1.Columns["FileServerCustomerQuote"].OptionsColumn.ReadOnly = true;
+                gridView1.Columns["AmortizationPrice"].OptionsColumn.ReadOnly = true;
+                gridView1.Columns["TotalPrice"].OptionsColumn.ReadOnly = true;
+               
 
                 //gridView1.Columns["QuoteReason"].OptionsColumn.ReadOnly = true;
 

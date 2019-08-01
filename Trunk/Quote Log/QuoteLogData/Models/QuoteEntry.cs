@@ -89,6 +89,23 @@ namespace QuoteLogData.Models
         public string FileServerQuotePrint { get; set; }
         public string FileServerCustomerQuote { get; set; }
         public Nullable<int> MinimumOrderQuantity { get; set; }
+        public string QuoteTransferComplete { get; set; }
+        public Nullable<System.DateTime> QuoteTransferCompletedDate { get; set; }
+        public Nullable<decimal> AmortizationAmount { get; set; }
+        public Nullable<decimal> AmortizationQuantity { get; set; }
+        public Nullable<decimal> AmortizationPrice { get; set; }
+        public Nullable<decimal> TotalPrice { get; set; }
+        public string AmortizationToolingDescription { get; set; }
+        public Nullable<decimal> HardToolingAmount { get; set; }
+        public string HardToolingTrigger { get; set; }
+        public string HardToolingDescription { get; set; }
+        public Nullable<decimal> AssemblyTesterToolingAmount { get; set; }
+        public Nullable<decimal> AssemblyTesterToolingQuantity { get; set; }
+        public string AssemblyTesterToolingTrigger { get; set; }
+        public string AssemblyTesterToolingDescription { get; set; }
+        public Nullable<decimal> SetupChargeAmount { get; set; }
+        public string SetupTrigger { get; set; }
+        public string SetupDescription { get; set; }
     
         public virtual ICollection<QuoteEntry> QT_QuoteLog1 { get; set; }
         public virtual QuoteEntry QT_QuoteLog2 { get; set; }
