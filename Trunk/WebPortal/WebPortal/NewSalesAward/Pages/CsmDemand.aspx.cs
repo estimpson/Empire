@@ -63,6 +63,7 @@ namespace WebPortal.NewSalesAward.Pages
                     tbxFamilyAllocation.Text = tbxFamilyAllocationCalc.Text = Session["FamilyAllocation"].ToString();
                 }
                 
+                //tbxAwardedEauCalc.Text = Session["AwardedEau"].ToString();
                 //tbxQuotedEauCalc.Text = Session["QuotedEau"].ToString();
 
                 GetCalculatedTakeRate();
@@ -348,11 +349,21 @@ namespace WebPortal.NewSalesAward.Pages
             {
                 tbxAwardedEauCalc.Text = awardedEau.ToString();
 
-                // Indicate to the user that Awarded EAU will be used in the calculation instead of Quoted EAU
-                tbxQuotedEauCalc.BackColor = Color.Gray;
+                if(awardedEau > 0)
+                { 
+                    // Indicate to the user that Awarded EAU will be used in the calculation instead of Quoted EAU
+                    tbxQuotedEauCalc.BackColor = Color.Gray;
+                    tbxAwardedEauCalc.BackColor = Color.White;
+                }
+                else
+                {
+                    tbxQuotedEauCalc.BackColor = Color.White;
+                    tbxAwardedEauCalc.BackColor = Color.Gray;
+                }
             }
             else
             {
+                tbxQuotedEauCalc.BackColor = Color.White;
                 tbxAwardedEauCalc.BackColor = Color.Gray;
             }
         }

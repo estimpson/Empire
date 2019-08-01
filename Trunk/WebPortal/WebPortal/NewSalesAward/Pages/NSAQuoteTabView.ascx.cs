@@ -61,6 +61,14 @@ namespace WebPortal.NewSalesAward.Pages
                 ? Convert.ToDateTime(AwardDateEdit.Value)
                 : (DateTime?)null;
 
+            var awardedEau = (AwardedEAUTextBox.Value != null)
+                ? Convert.ToDecimal(AwardedEAUTextBox.Value)
+                : (Decimal?)null;
+
+            var awardedPrice = (AwardedPriceTextBox.Value != null)
+                ? Convert.ToDecimal(AwardedPriceTextBox.Value)
+                : (Decimal?)null;
+
             var formOfCommitment = FormOfCommitmentComboBox.Text.Trim();
             var quoteReason = QuoteReasonComboBox.Text.Trim();
             var replacingBasePart = ReplacingBasePartComboBox.Text.Trim();
@@ -75,7 +83,7 @@ namespace WebPortal.NewSalesAward.Pages
             var comments = CommentsTextBox.Text.Trim();
 
             ViewModel.SetQuoteDetails(quote, awardDate, formOfCommitment, quoteReason,
-                replacingBasePart, salesperson, programManager, comments);
+                replacingBasePart, salesperson, programManager, awardedEau, awardedPrice, comments);
             return ViewModel.Error != "" ? 0 : 1;
         }
 

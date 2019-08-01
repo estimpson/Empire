@@ -107,7 +107,7 @@ namespace WebPortal.NewSalesAward.PageViewModels
         }
 
         public void SetQuoteDetails(string quoteNumber, DateTime? awardDate, string formOfCommitment, string quoteReason,
-            string replacingBasePart, string salesperson, string programManager, string comments)
+            string replacingBasePart, string salesperson, string programManager, decimal? awardedEau, decimal? awardedPrice, string comments)
         {
             ObjectParameter tranDT = new ObjectParameter("TranDT", typeof(DateTime?));
             ObjectParameter result = new ObjectParameter("Result", typeof(Int32?));
@@ -119,7 +119,7 @@ namespace WebPortal.NewSalesAward.PageViewModels
                 using (var context = new FxPLMEntities())
                 {
                     context.usp_SetQuoteDetails(OperatorCode, quoteNumber, awardDate, formOfCommitment, quoteReason,
-                        replacingBasePart, salesperson, programManager, comments, tranDT, result, 0, debugMsg);
+                        replacingBasePart, salesperson, programManager, awardedEau, awardedPrice, comments, tranDT, result, 0, debugMsg);
                 }
             }
             catch (Exception ex)

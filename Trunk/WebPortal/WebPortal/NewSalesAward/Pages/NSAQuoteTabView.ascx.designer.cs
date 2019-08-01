@@ -148,6 +148,24 @@ namespace WebPortal.NewSalesAward.Pages {
         protected global::DevExpress.Web.ASPxTextBox QuotedPriceTextBox;
         
         /// <summary>
+        /// AwardedEAUTextBox control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::DevExpress.Web.ASPxTextBox AwardedEAUTextBox;
+        
+        /// <summary>
+        /// AwardedPriceTextBox control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::DevExpress.Web.ASPxTextBox AwardedPriceTextBox;
+        
+        /// <summary>
         /// QuotedMaterialCostTextBox control.
         /// </summary>
         /// <remarks>

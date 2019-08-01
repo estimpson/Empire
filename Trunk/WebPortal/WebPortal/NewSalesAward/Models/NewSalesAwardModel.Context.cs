@@ -519,7 +519,7 @@ namespace WebPortal.NewSalesAward.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("usp_CreateAwardedQuote", userParameter, quoteNumberParameter, awardDateParameter, formOfCommitmentParameter, quoteReasonParameter, replacingBasePartParameter, salespersonParameter, programManagerParameter, awardedEAUParameter, awardedPriceParameter, commentsParameter, tranDT, result, debugParameter, debugMsg);
         }
     
-        public virtual int usp_SetQuoteDetails(string user, string quoteNumber, Nullable<System.DateTime> awardDate, string formOfCommitment, string quoteReason, string replacingBasePart, string salesperson, string programManager, string comments, ObjectParameter tranDT, ObjectParameter result, Nullable<int> debug, ObjectParameter debugMsg)
+        public virtual int usp_SetQuoteDetails(string user, string quoteNumber, Nullable<System.DateTime> awardDate, string formOfCommitment, string quoteReason, string replacingBasePart, string salesperson, string programManager, Nullable<decimal> awardedEAU, Nullable<decimal> awardedPrice, string comments, ObjectParameter tranDT, ObjectParameter result, Nullable<int> debug, ObjectParameter debugMsg)
         {
             var userParameter = user != null ?
                 new ObjectParameter("User", user) :
@@ -553,6 +553,14 @@ namespace WebPortal.NewSalesAward.Models
                 new ObjectParameter("ProgramManager", programManager) :
                 new ObjectParameter("ProgramManager", typeof(string));
     
+            var awardedEAUParameter = awardedEAU.HasValue ?
+                new ObjectParameter("AwardedEAU", awardedEAU) :
+                new ObjectParameter("AwardedEAU", typeof(decimal));
+    
+            var awardedPriceParameter = awardedPrice.HasValue ?
+                new ObjectParameter("AwardedPrice", awardedPrice) :
+                new ObjectParameter("AwardedPrice", typeof(decimal));
+    
             var commentsParameter = comments != null ?
                 new ObjectParameter("Comments", comments) :
                 new ObjectParameter("Comments", typeof(string));
@@ -561,7 +569,7 @@ namespace WebPortal.NewSalesAward.Models
                 new ObjectParameter("Debug", debug) :
                 new ObjectParameter("Debug", typeof(int));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("usp_SetQuoteDetails", userParameter, quoteNumberParameter, awardDateParameter, formOfCommitmentParameter, quoteReasonParameter, replacingBasePartParameter, salespersonParameter, programManagerParameter, commentsParameter, tranDT, result, debugParameter, debugMsg);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("usp_SetQuoteDetails", userParameter, quoteNumberParameter, awardDateParameter, formOfCommitmentParameter, quoteReasonParameter, replacingBasePartParameter, salespersonParameter, programManagerParameter, awardedEAUParameter, awardedPriceParameter, commentsParameter, tranDT, result, debugParameter, debugMsg);
         }
     }
 }

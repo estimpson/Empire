@@ -118,7 +118,12 @@ from (
         from 
             NSA.QuoteLog as q
         where
-            QuoteNumber + ' ' + EEIPartNumber + ' ' + Program like @filter
+	        q.QuoteNumber not in (
+			        select
+				        aq.QuoteNumber
+			        from
+				        NSA.AwardedQuotes aq )
+            and QuoteNumber + ' ' + EEIPartNumber + ' ' + Program like @filter
     ) st
 where 
     st.rn between @startIndex and @endIndex";

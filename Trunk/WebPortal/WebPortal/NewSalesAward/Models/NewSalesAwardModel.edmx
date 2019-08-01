@@ -440,6 +440,8 @@ warning 6002: The table/view 'FxPlm.NSA.Users' does not have a primary key defin
           <Parameter Name="ReplacingBasePart" Type="char" Mode="In" />
           <Parameter Name="Salesperson" Type="varchar" Mode="In" />
           <Parameter Name="ProgramManager" Type="varchar" Mode="In" />
+          <Parameter Name="AwardedEAU" Type="decimal" Mode="In" />
+          <Parameter Name="AwardedPrice" Type="decimal" Mode="In" />
           <Parameter Name="Comments" Type="varchar(max)" Mode="In" />
           <Parameter Name="TranDT" Type="datetime" Mode="InOut" />
           <Parameter Name="Result" Type="int" Mode="InOut" />
@@ -870,6 +872,8 @@ warning 6002: The table/view 'FxPlm.NSA.Users' does not have a primary key defin
             <Parameter Name="ReplacingBasePart" Mode="In" Type="String" />
             <Parameter Name="Salesperson" Mode="In" Type="String" />
             <Parameter Name="ProgramManager" Mode="In" Type="String" />
+            <Parameter Name="AwardedEAU" Mode="In" Type="Decimal" />
+            <Parameter Name="AwardedPrice" Mode="In" Type="Decimal" />
             <Parameter Name="Comments" Mode="In" Type="String" />
             <Parameter Name="TranDT" Mode="InOut" Type="DateTime" />
             <Parameter Name="Result" Mode="InOut" Type="Int32" />

@@ -171,6 +171,37 @@
                             </dx:LayoutItemNestedControlContainer>
                         </LayoutItemNestedControlCollection>
                     </dx:LayoutItem>
+
+                    <dx:LayoutItem Caption="Awarded EAU" FieldName="AwardedEAU">
+                        <LayoutItemNestedControlCollection>
+                            <dx:LayoutItemNestedControlContainer runat="server">
+                                <dx:ASPxTextBox ID="AwardedEAUTextBox" ClientInstanceName="awardedEAUEditor" runat="server"
+                                                Width="100%" ReadOnly="False">
+                                    <ClientSideEvents
+                                        GotFocus="OnEditControl_GotFocus"
+                                        Init="function (s,e) { RegisterURI(s, 'QuoteLog.AwardedEAU'); }" 
+                                    />
+                                    <MaskSettings Mask="<0..99999999g>" IncludeLiterals="DecimalSymbol" ErrorText="*"/>
+                                </dx:ASPxTextBox>
+                            </dx:LayoutItemNestedControlContainer>
+                        </LayoutItemNestedControlCollection>
+                    </dx:LayoutItem>
+                    <dx:EmptyLayoutItem />
+                    <dx:LayoutItem Caption="Awarded Price" FieldName="AwardedPrice">
+                        <LayoutItemNestedControlCollection>
+                            <dx:LayoutItemNestedControlContainer runat="server">
+                                <dx:ASPxTextBox ID="AwardedPriceTextBox" ClientInstanceName="awardedPriceEditor" runat="server"
+                                                Width="100%" ReadOnly="False">
+                                    <ClientSideEvents
+                                        GotFocus="OnEditControl_GotFocus"
+                                        Init="function (s,e) { RegisterURI(s, 'QuoteLog.AwardedPrice'); }" 
+                                    />
+                                    <MaskSettings Mask="$<0..99999999g>.<000000..999999>" IncludeLiterals="DecimalSymbol" ErrorText="*"/>
+                                </dx:ASPxTextBox>
+                            </dx:LayoutItemNestedControlContainer>
+                        </LayoutItemNestedControlCollection>
+                    </dx:LayoutItem>
+
                     <dx:LayoutItem Caption="Quoted Material Cost" FieldName="QuotedMaterialCost">
                         <LayoutItemNestedControlCollection>
                             <dx:LayoutItemNestedControlContainer runat="server">
