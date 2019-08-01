@@ -16,8 +16,8 @@ namespace ImportCSM.DataAccess
 
         #region Constructor
 
+        public CsmNaGc()
         {
-            _operatorCode = operatorCode;
         }
 
         #endregion
