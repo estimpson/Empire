@@ -144,5 +144,14 @@ namespace ImportCSM.Model
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("acctg_csm_sp_check_datecolumns", operatorCodeParameter, currentReleaseParameter, message, tranDT, result);
         }
+    
+        public virtual int acctg_csm_sp_validate_operator(string operatorCode, ObjectParameter operatorName, ObjectParameter tranDT, ObjectParameter result)
+        {
+            var operatorCodeParameter = operatorCode != null ?
+                new ObjectParameter("OperatorCode", operatorCode) :
+                new ObjectParameter("OperatorCode", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("acctg_csm_sp_validate_operator", operatorCodeParameter, operatorName, tranDT, result);
+        }
     }
 }

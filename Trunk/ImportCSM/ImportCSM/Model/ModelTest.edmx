@@ -24,6 +24,12 @@
           <Parameter Name="TranDT" Type="datetime" Mode="InOut" />
           <Parameter Name="Result" Type="int" Mode="InOut" />
         </Function>
+        <Function Name="acctg_csm_sp_validate_operator" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="EEIUser">
+          <Parameter Name="OperatorCode" Type="varchar" Mode="In" />
+          <Parameter Name="OperatorName" Type="varchar" Mode="InOut" />
+          <Parameter Name="TranDT" Type="datetime" Mode="InOut" />
+          <Parameter Name="Result" Type="int" Mode="InOut" />
+        </Function>
         <Function Name="acctg_csm_sp_validate_release" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="EEIUser">
           <Parameter Name="OperatorCode" Type="varchar" Mode="In" />
           <Parameter Name="CurrentRelease" Type="char" Mode="In" />
@@ -91,6 +97,12 @@
             <Parameter Name="TranDT" Mode="InOut" Type="DateTime" />
             <Parameter Name="Result" Mode="InOut" Type="Int32" />
           </FunctionImport>
+          <FunctionImport Name="acctg_csm_sp_validate_operator">
+            <Parameter Name="OperatorCode" Mode="In" Type="String" />
+            <Parameter Name="OperatorName" Mode="InOut" Type="String" />
+            <Parameter Name="TranDT" Mode="InOut" Type="DateTime" />
+            <Parameter Name="Result" Mode="InOut" Type="Int32" />
+          </FunctionImport>
         </EntityContainer>
       </Schema>
     </edmx:ConceptualModels>
@@ -102,6 +114,7 @@
           <FunctionImportMapping FunctionImportName="acctg_csm_sp_import_NA" FunctionName="MONITORModel1.Store.acctg_csm_sp_import_NA" />
           <FunctionImportMapping FunctionImportName="acctg_csm_sp_import_GC" FunctionName="MONITORModel1.Store.acctg_csm_sp_import_GC" />
           <FunctionImportMapping FunctionImportName="acctg_csm_sp_check_datecolumns" FunctionName="MONITORModel1.Store.acctg_csm_sp_check_datecolumns" />
+          <FunctionImportMapping FunctionImportName="acctg_csm_sp_validate_operator" FunctionName="MONITORModel1.Store.acctg_csm_sp_validate_operator" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

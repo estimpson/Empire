@@ -9,14 +9,13 @@ namespace ImportCSM.DataAccess
     {
         #region Variables
 
-        string _operatorCode;
+        private string _operatorCode;
 
         #endregion
 
 
         #region Constructor
 
-        public CsmNaGc(string operatorCode)
         {
             _operatorCode = operatorCode;
         }
@@ -25,6 +24,29 @@ namespace ImportCSM.DataAccess
 
 
         #region Methods
+
+        public void ValidateOperator(string enteredOperatorCode, out string operatorName, out string  error)
+        {
+            var returnName = new ObjectParameter("OperatorName", typeof(String));
+            var dt = new ObjectParameter("TranDT", typeof(DateTime));
+            var res = new ObjectParameter("Result", typeof(Int32));
+            error = operatorName = "";
+
+            try
+            {
+                using (var context = new MONITOREntities())
+                {
+                    context.acctg_csm_sp_validate_operator(enteredOperatorCode, returnName, dt, res);
+
+                    operatorName = returnName.Value.ToString();
+                    _operatorCode = enteredOperatorCode;
+                }
+            }
+            catch (Exception ex)
+            {
+                error = (ex.InnerException != null) ? ex.InnerException.Message : ex.Message;
+            }
+        }
 
         public void ValidateRelease(string currentRelease, string region, out string message, out string error)
         {
@@ -35,7 +57,7 @@ namespace ImportCSM.DataAccess
 
             try
             {
-                using (var context = new MONITOREntitiesTest())
+                using (var context = new MONITOREntities())
                 {
                     context.acctg_csm_sp_validate_release(_operatorCode, currentRelease, region, returnMessage, dt, res);
 
@@ -57,7 +79,7 @@ namespace ImportCSM.DataAccess
 
             try
             {
-                using (var context = new MONITOREntitiesTest())
+                using (var context = new MONITOREntities())
                 {
                     context.acctg_csm_sp_check_datecolumns(_operatorCode, currentRelease, returnMessage, dt, res);
 
@@ -78,9 +100,9 @@ namespace ImportCSM.DataAccess
 
             try
             {
-                using (var context = new MONITOREntitiesTest())
+                using (var context = new MONITOREntities())
                 {
-                    ((IObjectContextAdapter)context).ObjectContext.CommandTimeout = 300;
+                    ((IObjectContextAdapter)context).ObjectContext.CommandTimeout = 1200;
                     context.acctg_csm_sp_import_NA(_operatorCode, currentRelease, dt, res);
                 }
             }
@@ -98,9 +120,9 @@ namespace ImportCSM.DataAccess
 
             try
             {
-                using (var context = new MONITOREntitiesTest())
+                using (var context = new MONITOREntities())
                 {
-                    ((IObjectContextAdapter)context).ObjectContext.CommandTimeout = 300;
+                    ((IObjectContextAdapter)context).ObjectContext.CommandTimeout = 1200;
                     context.acctg_csm_sp_import_GC(_operatorCode, currentRelease, dt, res);
                 }
             }

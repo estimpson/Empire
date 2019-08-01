@@ -101,5 +101,70 @@ namespace ImportCSM.Model
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("acctg_csm_sp_roll_forward_EmpireForecast_data_one_year_fall_off", prior_release_idParameter, current_release_idParameter, tranDT, result);
         }
+    
+        public virtual int acctg_csm_sp_check_datecolumns(string operatorCode, string currentRelease, ObjectParameter message, ObjectParameter tranDT, ObjectParameter result)
+        {
+            var operatorCodeParameter = operatorCode != null ?
+                new ObjectParameter("OperatorCode", operatorCode) :
+                new ObjectParameter("OperatorCode", typeof(string));
+    
+            var currentReleaseParameter = currentRelease != null ?
+                new ObjectParameter("CurrentRelease", currentRelease) :
+                new ObjectParameter("CurrentRelease", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("acctg_csm_sp_check_datecolumns", operatorCodeParameter, currentReleaseParameter, message, tranDT, result);
+        }
+    
+        public virtual int acctg_csm_sp_import_GC(string operatorCode, string currentRelease, ObjectParameter tranDT, ObjectParameter result)
+        {
+            var operatorCodeParameter = operatorCode != null ?
+                new ObjectParameter("OperatorCode", operatorCode) :
+                new ObjectParameter("OperatorCode", typeof(string));
+    
+            var currentReleaseParameter = currentRelease != null ?
+                new ObjectParameter("CurrentRelease", currentRelease) :
+                new ObjectParameter("CurrentRelease", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("acctg_csm_sp_import_GC", operatorCodeParameter, currentReleaseParameter, tranDT, result);
+        }
+    
+        public virtual int acctg_csm_sp_import_NA(string operatorCode, string currentRelease, ObjectParameter tranDT, ObjectParameter result)
+        {
+            var operatorCodeParameter = operatorCode != null ?
+                new ObjectParameter("OperatorCode", operatorCode) :
+                new ObjectParameter("OperatorCode", typeof(string));
+    
+            var currentReleaseParameter = currentRelease != null ?
+                new ObjectParameter("CurrentRelease", currentRelease) :
+                new ObjectParameter("CurrentRelease", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("acctg_csm_sp_import_NA", operatorCodeParameter, currentReleaseParameter, tranDT, result);
+        }
+    
+        public virtual int acctg_csm_sp_validate_operator(string operatorCode, ObjectParameter operatorName, ObjectParameter tranDT, ObjectParameter result)
+        {
+            var operatorCodeParameter = operatorCode != null ?
+                new ObjectParameter("OperatorCode", operatorCode) :
+                new ObjectParameter("OperatorCode", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("acctg_csm_sp_validate_operator", operatorCodeParameter, operatorName, tranDT, result);
+        }
+    
+        public virtual int acctg_csm_sp_validate_release(string operatorCode, string currentRelease, string region, ObjectParameter message, ObjectParameter tranDT, ObjectParameter result)
+        {
+            var operatorCodeParameter = operatorCode != null ?
+                new ObjectParameter("OperatorCode", operatorCode) :
+                new ObjectParameter("OperatorCode", typeof(string));
+    
+            var currentReleaseParameter = currentRelease != null ?
+                new ObjectParameter("CurrentRelease", currentRelease) :
+                new ObjectParameter("CurrentRelease", typeof(string));
+    
+            var regionParameter = region != null ?
+                new ObjectParameter("Region", region) :
+                new ObjectParameter("Region", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("acctg_csm_sp_validate_release", operatorCodeParameter, currentReleaseParameter, regionParameter, message, tranDT, result);
+        }
     }
 }

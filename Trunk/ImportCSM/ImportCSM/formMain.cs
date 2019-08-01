@@ -24,6 +24,17 @@ namespace ImportCSM
         #endregion
 
 
+        #region Enums
+
+        public enum GeoRegion
+        {
+            NorthAmerica,
+            GreaterChina
+        }
+
+        #endregion
+
+
         #region Constructor, Load Event
 
         public formMain()
@@ -32,8 +43,7 @@ namespace ImportCSM
 
             _processData = new ProcessData();
             _messageBox = new CustomMessageBox();
-
-            _csmNaGc = new CsmNaGc("ASB");
+            _csmNaGc = new CsmNaGc();
 
             linkLblClose.LinkBehavior = LinkBehavior.NeverUnderline;
 
@@ -41,12 +51,18 @@ namespace ImportCSM
             SetReleaseIDs();
             SetInitialOfficialForecastForm();
 
-            //tbxPriorReleaseId.Focus();
+            // Hide the old CSM import tab
             tabControl1.TabPages.Remove(tpCsm);
+
+            // Lockdown until logged in
+            ToggleScreenstate("");
         }
+
+       
 
         private void formMain_Activated(object sender, EventArgs e)
         {
+            tbxOperatorCode.Focus();
         }
 
         #endregion
@@ -464,7 +480,7 @@ namespace ImportCSM
                 //new SqlConnection(
                 //    "data source=eeisql1.empireelect.local;initial catalog=MONITOR;persist security info=True;user id=Andre");
                 new SqlConnection(
-                    "data source=eeisql2;initial catalog=MONITOR;persist security info=True;user id=cdipaola;password=emp1reFt1");
+                    "data source=eeisql1.empireelect.local;initial catalog=MONITOR;persist security info=True;user id=cdipaola;password=emp1reFt1");
 
             try
             {
@@ -472,11 +488,12 @@ namespace ImportCSM
                                              "select * " +
                                              "from sys.tables " +
                                              "where name like 'tempCSM' ) begin " +
-                                             "drop table tempCSM " +
-                                             "create table tempCSM(" +
+                                             "truncate table dbo.tempCSM " +
+                                             "drop table dbo.tempCSM " +
+                                             "create table dbo.tempCSM(" +
                                              columns + ") end " +
                                              "else begin " +
-                                             "create table tempCSM(" +
+                                             "create table dbo.tempCSM(" +
                                              columns + ") end",
                                              con);
 
@@ -503,7 +520,7 @@ namespace ImportCSM
         {
             var con =
                 new SqlConnection(
-                    "data source=eeisql2;initial catalog=MONITOR;persist security info=True;user id=cdipaola;password=emp1reFt1");
+                    "data source=eeisql1.empireelect.local;initial catalog=MONITOR;persist security info=True;user id=cdipaola;password=emp1reFt1");
 
             try
             {
@@ -1644,9 +1661,15 @@ namespace ImportCSM
 
         #region Events CSM North America
 
+        private void btnImportNA_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            btnImportNA.Enabled = false;
+        }
+
         private void btnImportNA_Click(object sender, EventArgs e)
         {
             ProcessCsmNa();
+            btnImportNA.Enabled = true;
         }
 
         #endregion
@@ -1655,9 +1678,15 @@ namespace ImportCSM
 
         #region Events CSM Greater China
 
+        private void btnImportGC_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            btnImportGC.Enabled = false;
+        }
+
         private void btnImportGC_Click(object sender, EventArgs e)
         {
             ProcessCsmGc();
+            btnImportGC.Enabled = true;
         }
 
         #endregion
@@ -1669,7 +1698,7 @@ namespace ImportCSM
         private void ProcessCsmNa()
         {
             string release;
-            string returnMessage = CheckReleaseFormat(out release);
+            string returnMessage = CheckReleaseFormat(GeoRegion.NorthAmerica, out release);
             if (returnMessage != "")
             {
                 _messageBox.Message = returnMessage;
@@ -1683,12 +1712,13 @@ namespace ImportCSM
 
             if (ImportRawCsmData() == 0) return;
 
-            //// Move raw data into CSM tables
-            //if (ImportNa(release) == 1)
-            //{
-            //    MessageBox.Show("Success!");
-            //    lblNaImportComplete.Visible = true;
-            //}
+            // Move raw data into CSM tables
+            if (ImportNa(release) == 1)
+            {
+                MessageBox.Show("Success!");
+                tbxCurrentReleaseNA.Text = "";
+                lblNaImportComplete.Visible = true;
+            }
         }
 
         private int ValidateReleaseNa(string release)
@@ -1736,7 +1766,7 @@ namespace ImportCSM
         private void ProcessCsmGc()
         {
             string release;
-            string returnMessage = CheckReleaseFormat(out release);
+            string returnMessage = CheckReleaseFormat(GeoRegion.GreaterChina, out release);
             if (returnMessage != "")
             {
                 _messageBox.Message = returnMessage;
@@ -1754,6 +1784,7 @@ namespace ImportCSM
             if (ImportGc(release) == 1)
             {
                 MessageBox.Show("Success!");
+                tbxCurrentReleaseGC.Text = "";
                 lblGcImportComplete.Visible = true;
             }
         }
@@ -1800,11 +1831,11 @@ namespace ImportCSM
 
         #region Methods shared by CSM North America and Greater China
 
-        private string CheckReleaseFormat(out string currentRelease)
+        private string CheckReleaseFormat(GeoRegion geoRegion, out string currentRelease)
         {
             string message = "";
 
-            currentRelease = tbxCurrentReleaseNA.Text.Trim();
+            currentRelease = (geoRegion == GeoRegion.NorthAmerica) ? tbxCurrentReleaseNA.Text.Trim() : tbxCurrentReleaseGC.Text.Trim();
             if (string.IsNullOrWhiteSpace(currentRelease)) message = "Please enter the current Release ID.";
 
             if (message == "")
@@ -1897,8 +1928,7 @@ namespace ImportCSM
                 {
                     // Exit if an empty row is found
                     var row = rowRaw.Replace("\n", "");
-                    row = row.Replace("\0", "");
-                    //if (row == "\0") break;
+                    if (row.Contains("\0")) break;
                     if (row == "") break;
 
                     // Create an array of data fields
@@ -1952,6 +1982,63 @@ namespace ImportCSM
             }
             return 1;
         }
+
+
+        #endregion
+
+
+
+        #region Login Events
+
+        private void tbxOperatorCode_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == (char)13) ValidateOperator();
+        }
+
+        private void btnSubmitOperator_Click(object sender, EventArgs e)
+        {
+            ValidateOperator();
+        }
+
+        #endregion
+
+
+
+        #region Login Methods
+
+        private void ValidateOperator()
+        {
+            string error, operatorName;
+            string opCode = tbxOperatorCode.Text.Trim();
+
+            _csmNaGc.ValidateOperator(opCode, out operatorName, out error);
+            if (error != "")
+            {
+                tbxOperatorCode.Text = "";
+                _messageBox.Message = error;
+                _messageBox.ShowDialog();
+                return;
+            }
+            ToggleScreenstate(operatorName);
+        }
+
+        private void ToggleScreenstate(string operatorName)
+        {
+            if (operatorName != "") // Logged in
+            {
+                lblOperatorName.Text = string.Format("{0} logged in.", operatorName);
+                pnlLogin.Visible = false;
+                tabControl1.SelectedTab = tabPage2;
+                tabControl1.Visible = true;
+            }
+            else
+            {
+                lblOperatorName.Text = operatorName;
+                pnlLogin.Visible = true;
+                tabControl1.Visible = false;
+            }
+        }
+
 
         #endregion
 

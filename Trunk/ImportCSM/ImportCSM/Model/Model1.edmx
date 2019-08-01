@@ -5,9 +5,28 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="MONITORModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+        <Function Name="acctg_csm_sp_check_datecolumns" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="EEIUser">
+          <Parameter Name="OperatorCode" Type="varchar" Mode="In" />
+          <Parameter Name="CurrentRelease" Type="char" Mode="In" />
+          <Parameter Name="Message" Type="varchar" Mode="InOut" />
+          <Parameter Name="TranDT" Type="datetime" Mode="InOut" />
+          <Parameter Name="Result" Type="int" Mode="InOut" />
+        </Function>
         <Function Name="acctg_csm_sp_import_CSM_demand" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="EEIUser">
           <Parameter Name="Release_ID" Type="char" Mode="In" />
           <Parameter Name="Version" Type="varchar" Mode="In" />
+          <Parameter Name="TranDT" Type="datetime" Mode="InOut" />
+          <Parameter Name="Result" Type="int" Mode="InOut" />
+        </Function>
+        <Function Name="acctg_csm_sp_import_GC" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="EEIUser">
+          <Parameter Name="OperatorCode" Type="varchar" Mode="In" />
+          <Parameter Name="CurrentRelease" Type="char" Mode="In" />
+          <Parameter Name="TranDT" Type="datetime" Mode="InOut" />
+          <Parameter Name="Result" Type="int" Mode="InOut" />
+        </Function>
+        <Function Name="acctg_csm_sp_import_NA" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="EEIUser">
+          <Parameter Name="OperatorCode" Type="varchar" Mode="In" />
+          <Parameter Name="CurrentRelease" Type="char" Mode="In" />
           <Parameter Name="TranDT" Type="datetime" Mode="InOut" />
           <Parameter Name="Result" Type="int" Mode="InOut" />
         </Function>
@@ -20,6 +39,20 @@
         <Function Name="acctg_csm_sp_roll_forward_EmpireForecast_data_one_year_fall_off" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="EEIUser">
           <Parameter Name="prior_release_id" Type="varchar" Mode="In" />
           <Parameter Name="current_release_id" Type="varchar" Mode="In" />
+          <Parameter Name="TranDT" Type="datetime" Mode="InOut" />
+          <Parameter Name="Result" Type="int" Mode="InOut" />
+        </Function>
+        <Function Name="acctg_csm_sp_validate_operator" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="EEIUser">
+          <Parameter Name="OperatorCode" Type="varchar" Mode="In" />
+          <Parameter Name="OperatorName" Type="varchar" Mode="InOut" />
+          <Parameter Name="TranDT" Type="datetime" Mode="InOut" />
+          <Parameter Name="Result" Type="int" Mode="InOut" />
+        </Function>
+        <Function Name="acctg_csm_sp_validate_release" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="EEIUser">
+          <Parameter Name="OperatorCode" Type="varchar" Mode="In" />
+          <Parameter Name="CurrentRelease" Type="char" Mode="In" />
+          <Parameter Name="Region" Type="varchar" Mode="In" />
+          <Parameter Name="Message" Type="varchar" Mode="InOut" />
           <Parameter Name="TranDT" Type="datetime" Mode="InOut" />
           <Parameter Name="Result" Type="int" Mode="InOut" />
         </Function>
@@ -67,6 +100,39 @@
             <Parameter Name="TranDT" Mode="InOut" Type="DateTime" />
             <Parameter Name="Result" Mode="InOut" Type="Int32" />
           </FunctionImport>
+          <FunctionImport Name="acctg_csm_sp_check_datecolumns">
+            <Parameter Name="OperatorCode" Mode="In" Type="String" />
+            <Parameter Name="CurrentRelease" Mode="In" Type="String" />
+            <Parameter Name="Message" Mode="InOut" Type="String" />
+            <Parameter Name="TranDT" Mode="InOut" Type="DateTime" />
+            <Parameter Name="Result" Mode="InOut" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="acctg_csm_sp_import_GC">
+            <Parameter Name="OperatorCode" Mode="In" Type="String" />
+            <Parameter Name="CurrentRelease" Mode="In" Type="String" />
+            <Parameter Name="TranDT" Mode="InOut" Type="DateTime" />
+            <Parameter Name="Result" Mode="InOut" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="acctg_csm_sp_import_NA">
+            <Parameter Name="OperatorCode" Mode="In" Type="String" />
+            <Parameter Name="CurrentRelease" Mode="In" Type="String" />
+            <Parameter Name="TranDT" Mode="InOut" Type="DateTime" />
+            <Parameter Name="Result" Mode="InOut" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="acctg_csm_sp_validate_operator">
+            <Parameter Name="OperatorCode" Mode="In" Type="String" />
+            <Parameter Name="OperatorName" Mode="InOut" Type="String" />
+            <Parameter Name="TranDT" Mode="InOut" Type="DateTime" />
+            <Parameter Name="Result" Mode="InOut" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="acctg_csm_sp_validate_release">
+            <Parameter Name="OperatorCode" Mode="In" Type="String" />
+            <Parameter Name="CurrentRelease" Mode="In" Type="String" />
+            <Parameter Name="Region" Mode="In" Type="String" />
+            <Parameter Name="Message" Mode="InOut" Type="String" />
+            <Parameter Name="TranDT" Mode="InOut" Type="DateTime" />
+            <Parameter Name="Result" Mode="InOut" Type="Int32" />
+          </FunctionImport>
         </EntityContainer>
       </Schema>
     </edmx:ConceptualModels>
@@ -79,6 +145,11 @@
           <FunctionImportMapping FunctionImportName="acctg_sales_sp_insert_historical_sales" FunctionName="MONITORModel.Store.acctg_sales_sp_insert_historical_sales" />
           <FunctionImportMapping FunctionImportName="acctg_sales_sp_insert_official_forecast" FunctionName="MONITORModel.Store.acctg_sales_sp_insert_official_forecast" />
           <FunctionImportMapping FunctionImportName="acctg_csm_sp_roll_forward_EmpireForecast_data_one_year_fall_off" FunctionName="MONITORModel.Store.acctg_csm_sp_roll_forward_EmpireForecast_data_one_year_fall_off" />
+          <FunctionImportMapping FunctionImportName="acctg_csm_sp_check_datecolumns" FunctionName="MONITORModel.Store.acctg_csm_sp_check_datecolumns" />
+          <FunctionImportMapping FunctionImportName="acctg_csm_sp_import_GC" FunctionName="MONITORModel.Store.acctg_csm_sp_import_GC" />
+          <FunctionImportMapping FunctionImportName="acctg_csm_sp_import_NA" FunctionName="MONITORModel.Store.acctg_csm_sp_import_NA" />
+          <FunctionImportMapping FunctionImportName="acctg_csm_sp_validate_operator" FunctionName="MONITORModel.Store.acctg_csm_sp_validate_operator" />
+          <FunctionImportMapping FunctionImportName="acctg_csm_sp_validate_release" FunctionName="MONITORModel.Store.acctg_csm_sp_validate_release" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
