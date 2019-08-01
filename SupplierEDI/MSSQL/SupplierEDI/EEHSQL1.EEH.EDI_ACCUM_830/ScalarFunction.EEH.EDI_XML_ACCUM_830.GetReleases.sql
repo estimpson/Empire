@@ -30,7 +30,7 @@ begin
   <SEG-INFO code="FST" name="FORECAST SCHEDULE" />
   <DE code="0380" name="QUANTITY" type="R">' + convert(varchar(17), convert(int, poi.AccumReceived + sum(pod.Quantity) over (order by pod.WeekNo))) + '</DE>
   <DE code="0680" name="FORECAST QUALIFIER" type="ID" desc="' + case when pod.SchedType = 'C' then 'Firm' when pod.SchedType = 'D' then 'Planning' else 'UNK' end + '">' + pod.SchedType + '</DE>
-  <DE code="0681" name="FORECAST TIMING QUALIFIER" type="ID" desc="Mutualy Defined">Z</DE>
+  <DE code="0681" name="FORECAST TIMING QUALIFIER" type="ID" desc="Discrete">D</DE>
   <DE code="0373" name="DATE" type="DT">' + FxEDI.EDI_XML.FormatDate(@dictionaryVersion, pod.DueDT) + '</DE>
 </SEG-FST>'
 	from

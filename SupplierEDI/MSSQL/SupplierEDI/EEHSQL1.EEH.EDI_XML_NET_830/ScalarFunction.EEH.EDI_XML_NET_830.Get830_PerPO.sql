@@ -32,6 +32,7 @@ begin
 	declare
 		@purchaseOrders table
 	(	PurchaseOrderNumber int primary key
+	,	EmpireVendorCode varchar(20)
 	,	EmpireBlanketPart varchar(25)
 	,	VendorPart varchar(25)
 	,	PartDescription varchar(80)
@@ -52,6 +53,7 @@ begin
 	insert
 		@purchaseOrders
 	(	PurchaseOrderNumber
+	,	EmpireVendorCode	
 	,	EmpireBlanketPart
 	,	VendorPart
 	,	PartDescription
@@ -70,6 +72,7 @@ begin
 	)
 	select
 		poi.PurchaseOrderNumber
+	,	poi.EmpireVendorCode
 	,	poi.EmpireBlanketPart
 	,	poi.VendorPart
 	,	poi.PartDescription
@@ -98,7 +101,6 @@ begin
 						dbo.fn_SplitStringToRows(@purcharOrderList, ',') fsstr
 				)
 		)
-		and getdate() < '2019/06/26'
 
 	set
 		@xmlOutput =
@@ -182,6 +184,8 @@ begin
 										EDI_XML_NET_830.PurchaseOrderDetails pod
 										join @purchaseOrders po
 											on po.PurchaseOrderNumber = pod.PurchaseOrderNumber
+									where
+										po.EmpireVendorCode = tpi.EmpireVendorCode
 									group by
 										po.PurchaseOrderNumber
 								) ht

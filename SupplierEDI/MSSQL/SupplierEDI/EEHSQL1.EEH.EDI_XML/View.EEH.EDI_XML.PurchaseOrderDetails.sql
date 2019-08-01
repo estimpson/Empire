@@ -13,6 +13,7 @@ end
 go
 
 create view EDI_XML.PurchaseOrderDetails
+with encryption
 as
 with
 	FDW
@@ -46,7 +47,7 @@ with
 		,	PlanWeeks =
 				case
 					when PWTD.PlanWeekToDisplayEDI = 0 then
-						case when TW.TotalWeeks > 0 then PWTD.PlanWeekToDisplayEDI else 26 end
+						case when TW.TotalWeeks > 0 then TW.TotalWeeks else 26 end
 					else
 						case
 							when FD.FirmDays%7 + 1 <= VDD.VendorDeliveryDay then floor(FD.FirmDays / 7)

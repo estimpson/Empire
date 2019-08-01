@@ -15,18 +15,6 @@
           <ConnectionProtocol>NotSpecified</ConnectionProtocol>
           <ApplicationName>Microsoft SQL Server Management Studio - Query</ApplicationName>
         </ConnectionNode>
-        <ConnectionNode Name="eehsql1:sa">
-          <Created>2019-03-19T17:23:52.7899098-04:00</Created>
-          <Type>SQL</Type>
-          <Server>eehsql1</Server>
-          <UserName>sa</UserName>
-          <Authentication>SQL</Authentication>
-          <InitialDB />
-          <LoginTimeout>30</LoginTimeout>
-          <ExecutionTimeout>0</ExecutionTimeout>
-          <ConnectionProtocol>NotSpecified</ConnectionProtocol>
-          <ApplicationName>Microsoft SQL Server Management Studio - Query</ApplicationName>
-        </ConnectionNode>
         <ConnectionNode Name="eeisql1:estimpson">
           <Created>2019-06-10T10:52:36.5069308-04:00</Created>
           <Type>SQL</Type>
@@ -50,8 +38,8 @@
           <FullPath>ScalarFunction.EEH.EDI_XML_NET_830.Get830.sql</FullPath>
         </FileNode>
         <FileNode Name="ScalarFunction.EEH.EDI_XML_NET_830.Get830_NoPrice.sql">
-          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:eeisql1:False:estimpson</AssociatedConnectionMoniker>
-          <AssociatedConnSrvName>eeisql1</AssociatedConnSrvName>
+          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:eehsql1:False:estimpson</AssociatedConnectionMoniker>
+          <AssociatedConnSrvName>eehsql1</AssociatedConnSrvName>
           <AssociatedConnUserName>estimpson</AssociatedConnUserName>
           <FullPath>ScalarFunction.EEH.EDI_XML_NET_830.Get830_NoPrice.sql</FullPath>
         </FileNode>
@@ -62,15 +50,15 @@
           <FullPath>ScalarFunction.EEH.EDI_XML_NET_830.Get830_PerPO.sql</FullPath>
         </FileNode>
         <FileNode Name="ScalarFunction.EEH.EDI_XML_NET_830.Get830_valid.sql">
-          <AssociatedConnectionMoniker />
-          <AssociatedConnSrvName />
-          <AssociatedConnUserName />
+          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:eehsql1:False:estimpson</AssociatedConnectionMoniker>
+          <AssociatedConnSrvName>eehsql1</AssociatedConnSrvName>
+          <AssociatedConnUserName>estimpson</AssociatedConnUserName>
           <FullPath>ScalarFunction.EEH.EDI_XML_NET_830.Get830_valid.sql</FullPath>
         </FileNode>
         <FileNode Name="ScalarFunction.EEH.EDI_XML_NET_830.GetReleases.sql">
-          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:eehsql1:False:sa</AssociatedConnectionMoniker>
-          <AssociatedConnSrvName>eehsql1</AssociatedConnSrvName>
-          <AssociatedConnUserName>sa</AssociatedConnUserName>
+          <AssociatedConnectionMoniker />
+          <AssociatedConnSrvName />
+          <AssociatedConnUserName />
           <FullPath>ScalarFunction.EEH.EDI_XML_NET_830.GetReleases.sql</FullPath>
         </FileNode>
         <FileNode Name="ScalarFunction.EEH.EDI_XML_NET_830.GetReleases_valid.sql">
@@ -86,8 +74,8 @@
           <FullPath>Schema.EEH.EDI_XML_NET_830.sql</FullPath>
         </FileNode>
         <FileNode Name="View.EEH.EDI_XML_NET_830.PurchaseOrderDetails.sql">
-          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:eeisql1:False:estimpson</AssociatedConnectionMoniker>
-          <AssociatedConnSrvName>eeisql1</AssociatedConnSrvName>
+          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:eehsql1:False:estimpson</AssociatedConnectionMoniker>
+          <AssociatedConnSrvName>eehsql1</AssociatedConnSrvName>
           <AssociatedConnUserName>estimpson</AssociatedConnUserName>
           <FullPath>View.EEH.EDI_XML_NET_830.PurchaseOrderDetails.sql</FullPath>
         </FileNode>

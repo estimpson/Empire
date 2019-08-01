@@ -13,6 +13,7 @@ end
 go
 
 create view EDI_XML_NET_830.PurchaseOrderDetails
+with encryption
 as
 with
 	FDW
@@ -20,7 +21,7 @@ with
 	)
 	as
 	(	select
-			FirstDayOfWeek = dateadd ( day, datediff ( day, '2001-01-01', dateadd ( day, 1 - ( datepart ( dw, getdate () ) ), getdate () ) ), '2001-01-01' )
+			FirstDayOfWeek = dateadd( day, datediff ( day, '2001-01-01', dateadd ( day, 1 - ( datepart ( dw, getdate () ) ), getdate () ) ), '2001-01-01' )
 	)
 ,	WK
 	(	PurchaseOrderNumber
@@ -45,8 +46,17 @@ with
 		,	PWTD.PlanWeekToDisplayEDI
 		,	PlanWeeks =
 				case
+					when PWTD.PlanWeekToDisplayEDI = -1 then
+						(	select
+								max(datediff(wk, FDW.FirstDayOfWeek, pd.date_due)) + 1
+							from
+								dbo.po_detail pd
+								cross join FDW
+							where
+								pd.po_number = FD.PurchaseOrderNumber
+						)
 					when PWTD.PlanWeekToDisplayEDI = 0 then
-						case when TW.TotalWeeks > 0 then PWTD.PlanWeekToDisplayEDI else 26 end
+						case when TW.TotalWeeks > 0 then TW.TotalWeeks else 26 end
 					else
 						case
 							when FD.FirmDays%7 + 1 <= VDD.VendorDeliveryDay then floor(FD.FirmDays / 7)

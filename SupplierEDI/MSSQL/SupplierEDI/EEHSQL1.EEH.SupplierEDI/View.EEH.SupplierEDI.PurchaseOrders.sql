@@ -52,12 +52,34 @@ from
 				TodaySendDay = substring('NMTWHFS', datepart(weekday, getdate()), 1)
 		) td
 where
-	ph.release_control in
-			(	'L'
-			,	'A'
-			)
+	ph.release_control in (	'L', 'A')
 	and ph.status != 'C'
 	and ph.type = 'B'
+	and case when ev.auto_create_po = 'Y' then 1 else 0 end = 1
+	and
+	(	exists
+			(	select
+					*
+				from
+					FT.ReleasePlanRaw rpr
+					join FT.ReleasePlans rp
+						on rp.ID = rpr.ReleasePlanID
+				where
+					rp.GeneratedDT >= getdate() - 6 * 7
+					and rpr.StdQty > 0
+					and rpr.PONumber = ph.po_number
+			)
+		or exists
+		(	select
+				*
+			from
+				FT.WkNMPS wn
+			where
+				wn.PriorDemandAccum > 0
+				and wn.PONumber = ph.po_number
+		)
+	)
+	and getdate() <= '2019-08-01'
 go
 
 select

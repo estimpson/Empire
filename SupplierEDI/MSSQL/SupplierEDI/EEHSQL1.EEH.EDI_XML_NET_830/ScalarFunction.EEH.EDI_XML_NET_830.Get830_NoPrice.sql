@@ -32,6 +32,7 @@ begin
 	declare
 		@purchaseOrders table
 	(	PurchaseOrderNumber int primary key
+	,	EmpireVendorCode varchar(20)
 	,	EmpireBlanketPart varchar(25)
 	,	VendorPart varchar(25)
 	,	PartDescription varchar(80)
@@ -51,6 +52,7 @@ begin
 	insert
 		@purchaseOrders
 	(	PurchaseOrderNumber
+	,	EmpireVendorCode	
 	,	EmpireBlanketPart
 	,	VendorPart
 	,	PartDescription
@@ -68,6 +70,7 @@ begin
 	)
 	select
 		poi.PurchaseOrderNumber
+	,	poi.EmpireVendorCode
 	,	poi.EmpireBlanketPart
 	,	poi.VendorPart
 	,	poi.PartDescription
@@ -161,6 +164,8 @@ begin
 									end
 						 		from
 						 			@purchaseOrders poi
+								where
+									poi.EmpireVendorCode = tpi.EmpireVendorCode
 								for xml raw ('LOOP-LIN'), type
 						 	)
 						,	FxEDI.EDI_XML.SEG_CTT(@dictionaryVersion, ht.LineItems, ht.HashTotal)
@@ -177,6 +182,14 @@ begin
 								) ht
 						where
 							tpi.TradingPartnerCode = @TradingPartnerCode
+							and exists
+								(	select
+										*
+									from
+										@purchaseOrders po
+									where
+										po.EmpireVendorCode = tpi.EmpireVendorCode
+								)
 						for xml raw ('TRN-830'), type
 					)
 				for xml raw ('TRN'), type
@@ -206,48 +219,6 @@ where
 					dbo.fn_SplitStringToRows(null, ',') fsstr
 			)
 	)
-
-
---declare
---	@dictionaryVersion varchar(12) = '004010'
-
-select
-	FxEDI.EDI_XML.LOOP_INFO('LIN')
---,	FxEDI.EDI_XML.SEG_LIN(@dictionaryVersion, 'BP', poi.EmpireBlanketPart, 'PO', poi.PurchaseOrderNumber, 'VP', poi.VendorPart, 'PD', poi.PartDescription, default, default)
---,	FxEDI.EDI_XML.SEG_UNT(@dictionaryVersion, poi.Unit, poi.Price, default)
---,	FxEDI.EDI_XML.SEG_ATH(@dictionaryVersion, 'PQ', poi.AccumStartDT, poi.AccumReceived, default, poi.AccumEndDT)
---,	FxEDI.EDI_XML.SEG_ATH(@dictionaryVersion, 'FI', poi.AccumStartDT, poi.FabAccum, default, poi.FabEndDT)
---,	FxEDI.EDI_XML.SEG_ATH(@dictionaryVersion, 'MT', poi.AccumStartDT, poi.RawAccum, default, poi.RawEndDT)
-----,	FxEDI.EDI_XML.SEG_FST(@dictionaryVersion, )
---from
---	EDI_XML_NET_830.PurchaseOrderInfo poi
---where
---	poi.PurchaseOrderNumber in
---		(	select
---				poi.PurchaseOrderNumber
---			from
---				EDI_XML_NET_830.PurchaseOrderInfo poi
---			where
---				poi.TradingPartnerCode = 'PSG'
---				and
---				(	'35531,41340' is null
---					or convert(varchar(12), poi.PurchaseOrderNumber) in
---						(	select
---								fsstr.Value
---							from
---								dbo.fn_SplitStringToRows('15449,15450,15451', ',') fsstr
---						)
---				)
---		)
---for xml raw ('LOOP-LIN'), type
-
-/*
-declare
-	@result xml
-
-select
-	@result = EDI_XML_NET_830.Get830_NoPrice('PSG', default, '05', 1)
-*/
 
 select
 	*
