@@ -4,7 +4,6 @@ SET ANSI_NULLS ON
 GO
 
 
-
 CREATE procedure [EEIUser].[acctg_csm_sp_import_NA]
 	@OperatorCode varchar(5)
 ,	@CurrentRelease char(7)
@@ -50,7 +49,7 @@ if not exists (
 		from
 			dbo.employee e
 		where	
-			e.operator_code = @OperatorCode ) begin
+			e.operator_code = @OperatorCode and e.operator_code = 'dw' ) begin
 
 	set	@Result = 999999
 	RAISERROR ('Invalid operator code.  Procedure %s.', 16, 1, @ProcName)
@@ -66,11 +65,11 @@ if exists (
 		select
 			coalesce(h.RolledForward, 0)
 		from
-			acctg_csm_NAIHS_header h
+			eeiuser.acctg_csm_NAIHS_header h
 		where
 			h.Region = @Region
 			and h.Release_ID = @CurrentRelease
-			and h.[Version] = 'CSM'
+			and h.[Version] <> 'CSM'
 			and h.RolledForward = 1 ) begin
 
 	set	@Result = 999999
@@ -83,10 +82,10 @@ end
 
 /* Make sure Selling Prices and Material Cost releases are consistent with North America CSM releases */
 declare 
-	@PriorRelease char(7) = '2018-11'
+	@PriorRelease char(7)
 ,	@PriorReleaseSp char(7)
 ,	@PriorReleaseMc char(7)
-/*
+
 select
 	@PriorRelease = max(h.Release_ID)
 from
@@ -125,6 +124,8 @@ if ( @PriorReleaseMc <> @PriorRelease ) begin
 end
 
 /* Make sure base part attributes, mnemonic and notes releases are consistent with North America CSM releases */
+
+-- DAN UNCOMMENT HERE
 declare 
 	@PriorReleaseBpa char(7)
 ,	@PriorReleaseBpm char(7)
@@ -168,12 +169,16 @@ if ( @PriorReleaseBpn <> @PriorRelease ) begin
 	rollback tran @ProcName
 	return
 end
+
+-- TO HERE
 ---	</ArgumentValidation>
 
 
 --- <Body>
 -- Step 1: roll forward base part attributes
 -- <Call>
+
+-- DAN UNCOMMENT HERE
 set			@CallProcName = 'eeiuser.acctg_csm_sp_rollforward_base_part_attributes'
 execute		@ProcReturn = eeiuser.acctg_csm_sp_rollforward_base_part_attributes
 			@OperatorCode = @OperatorCode,
@@ -202,11 +207,15 @@ if	@ProcResult != 0 begin
 	rollback tran @ProcName
 	return	@Result
 end
+
+-- TO HERE
 -- </Call>
 
 
 -- Step 2: roll forward base part mnemonic
 -- <Call>
+
+-- DAN UNCOMMENT HERE
 set			@CallProcName = 'eeiuser.acctg_csm_sp_rollforward_base_part_mnemonic'
 execute		@ProcReturn = eeiuser.acctg_csm_sp_rollforward_base_part_mnemonic
 			@OperatorCode = @OperatorCode,
@@ -235,11 +244,15 @@ if	@ProcResult != 0 begin
 	rollback tran @ProcName
 	return	@Result
 end
+-- TO HERE
+
 -- </Call>
 
 
 -- Step 3: roll forward base part notes
 -- <Call>
+
+-- DAN UNCOMMENT HERE
 set			@CallProcName = 'eeiuser.acctg_csm_sp_rollforward_base_part_notes'
 execute		@ProcReturn = eeiuser.acctg_csm_sp_rollforward_base_part_notes
 			@OperatorCode = @OperatorCode,
@@ -268,6 +281,8 @@ if	@ProcResult != 0 begin
 	rollback tran @ProcName
 	return	@Result
 end
+
+-- TO HERE
 -- </Call>
 
 
@@ -403,11 +418,7 @@ end
 -- </Call>
 
 
-*/
-
-
-
--- Step 8: roll forward into the header table all CSM, Empire Adjusted and Empire Factor data
+-- Step 8: roll forward into the header table Empire Adjusted and Empire Factor data
 -- <Call>
 set			@CallProcName = 'eeiuser.acctg_csm_sp_rollforward_header_NA'
 execute		@ProcReturn = eeiuser.acctg_csm_sp_rollforward_header_NA
@@ -472,7 +483,7 @@ end
 -- </Call>
 
 
--- Step 10: roll forward into the detail table all CSM, Empire Adjusted and Empire Factor data
+-- Step 10: roll forward into the detail table Empire Adjusted and Empire Factor data
 -- <Call>
 set			@CallProcName = 'eeiuser.acctg_csm_sp_rollforward_detail_NA'
 execute		@ProcReturn = eeiuser.acctg_csm_sp_rollforward_detail_NA
@@ -537,8 +548,6 @@ end
 -- </Call>
 
 
-/*
-
 -- Step 12: update Selling Prices header records, flagging them as rolled forward
 --- <Update rows>
 set	@TableName = 'eeiuser.acctg_csm_selling_prices_header'	
@@ -566,7 +575,6 @@ if	@RowCount < 1 begin
 	return
 end
 --- </Update>
-
 
 
 -- Step 13: update Material Cost header records, flagging them as rolled forward
@@ -598,10 +606,7 @@ end
 --- </Update>
 
 
-*/
-
-
--- Step 14: update North America CSM header records, flagging them as rolled forward
+-- Step 14: update North America Empire Factor and Empire Adjustment records, flagging them as rolled forward
 --- <Update rows>
 set	@TableName = 'eeiuser.acctg_csm_NAIHS_header'	
 update
@@ -611,6 +616,7 @@ set
 where
 	Release_ID = @CurrentRelease
 	and Region = @Region or Region is null
+	and [Version] <> 'CSM'
 
 select
 	@Error = @@Error,

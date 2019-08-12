@@ -7,6 +7,7 @@ GO
 
 
 
+
 CREATE view [EEIUser].[acctg_csm_vw_select_selling_price]
 as
 select		base_part, 
@@ -153,11 +154,24 @@ select		base_part,
 			sum(nov_20) as sp_nov_20,
 			sum(dec_20) as sp_dec_20,
 
+			sum(jan_21) as sp_jan_21,
+			sum(feb_21) as sp_feb_21,
+			sum(mar_21) as sp_mar_21,
+			sum(apr_21) as sp_apr_21,
+			sum(may_21) as sp_may_21,
+			sum(jun_21) as sp_jun_21,
+			sum(jul_21) as sp_jul_21,
+			sum(aug_21) as sp_aug_21,
+			sum(sep_21) as sp_sep_21,
+			sum(oct_21) as sp_oct_21,
+			sum(nov_21) as sp_nov_21,
 			sum(dec_21) as sp_dec_21,
+
 			sum(dec_22) as sp_dec_22,
 			sum(dec_23) as sp_dec_23,
 			sum(dec_24) as sp_dec_24,
-			sum(dec_25) as sp_dec_25
+			sum(dec_25) as sp_dec_25,
+			sum(dec_26) as sp_dec_26
 
 from		eeiuser.acctg_csm_selling_prices_tabular 
 

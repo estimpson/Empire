@@ -5,6 +5,7 @@ GO
 
 
 
+
 CREATE view [EDILiteTek].[BlanketOrders_ManualImport]
 AS
 SELECT
@@ -53,7 +54,7 @@ FROM
 WHERE
 	oh.order_type = 'B'
 	and oh.model_year = 'P'
-	and es.trading_partner_code = 'DECOFINMEX'
+	and es.trading_partner_code like '%DECOFINMEX%'
 	--and coalesce(oh.status, '') = 'A'
 	--and COALESCE(es.ProcessEDI,1) = 1
 

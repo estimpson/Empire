@@ -3,7 +3,15 @@ GO
 SET ANSI_NULLS ON
 GO
 
+--Select *
+--from shipper
+--where id= 131666
 
+--begin tran
+
+--exec [dbo].[msp_shipout] '131666', null
+
+--rollback
 
 CREATE PROCEDURE [dbo].[msp_shipout]
 	@shipper INTEGER,
@@ -433,6 +441,7 @@ insert	audit_trail (
 --	5.	Call EDI shipout procedure.
 EXECUTE edi_msp_shipout @shipper
 
+
 --	6.	Relieve inventory.
 DELETE	object
 FROM	object
@@ -526,6 +535,9 @@ group by
 	sd.shipper
 ,	sd.order_no
 
+
+
+
 IF	EXISTS
 		(SELECT
 			1
@@ -547,6 +559,7 @@ IF	EXISTS
 
 	 BEGIN
 	
+	--print 'a'
 	update
 		spoc
 	set	spoc.Type = 1
@@ -581,6 +594,7 @@ IF	EXISTS
 	SET	@TranDT = COALESCE(@TranDT, GETDATE())
 	--- </Tran>
 
+--	print 'b'
 	--- <Call>	
 	SET	@CallProcName = 'dbo.usp_Shipping_ShipoutReleiveOrders'
 	EXECUTE
@@ -616,6 +630,7 @@ IF	EXISTS
 	END
 END
 ELSE BEGIN
+	--print 'c'
 	EXECUTE @returnvalue = msp_update_orders @shipper
 
 	IF @returnvalue < 0

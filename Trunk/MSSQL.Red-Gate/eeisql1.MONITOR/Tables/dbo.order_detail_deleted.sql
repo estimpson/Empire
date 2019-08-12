@@ -44,6 +44,7 @@ CREATE TABLE [dbo].[order_detail_deleted]
 [pallet_label] [varchar] (25) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
 [id] [int] NOT NULL IDENTITY(1, 1),
 [EEIEntry] [varchar] (1) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
-[eeiqty] [decimal] (20, 6) NULL
+[eeiqty] [decimal] (20, 6) NULL,
+[CreateDT] [datetime] NULL
 ) ON [PRIMARY]
 GO

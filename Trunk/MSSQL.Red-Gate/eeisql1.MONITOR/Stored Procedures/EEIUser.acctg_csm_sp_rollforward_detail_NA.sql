@@ -62,7 +62,7 @@ end
 
 
 --- <Body>
--- Roll forward all data for CSM, Empire Adjusted and Empire Factor into the current release
+-- Roll forward all data for Empire Adjusted and Empire Factor into the current release (exclude CSM)
 --  (Trigger will fire, creating new records in the data warehouse (legacy) table)
 declare @Region varchar(50)
 set @Region = 'North America'
@@ -94,13 +94,14 @@ from
 	eeiuser.acctg_csm_NAIHS_detail d
 	join eeiuser.acctg_csm_NAIHS_header h
 		on h.[Mnemonic-Vehicle/Plant] = d.[Mnemonic-Vehicle/Plant]
-		and h.[Version] = d.[Version]
+		and (h.[Version] = d.[Version] or (h.[Version] is null and d.[Version] is null))
 		and h.Release_ID = @CurrentRelease
 		and (h.Region = @Region or h.Region is null)
 where
 	d.Release_ID = @PriorRelease
-	and ( ( d.[Version] = 'CSM' and d.EffectiveYear < (convert(int, left (@CurrentRelease, 4)) - 1) ) or d.[Version] <> 'CSM' )
-	--( ( d.[Version] = 'CSM' and d.EffectiveYear < (year(getdate()) - 1) ) or d.[Version] <> 'CSM' )
+	--and ( ( d.[Version] = 'CSM' and d.EffectiveYear < (convert(int, left (@CurrentRelease, 4)) - 1) ) or d.[Version] <> 'CSM' )
+	and d.[Version] <> 'CSM'
+	
 
 
 select

@@ -7,6 +7,7 @@ GO
 
 
 
+
 CREATE procedure [EEIUser].[acctg_intercompany_reconcile_RMA_RTV]
 (	@Fiscal_Year varchar (4),
 	@Fiscal_Period varchar (2),
@@ -19,7 +20,7 @@ SET NOCOUNT ON
 SET transaction isolation level read uncommitted
 
 
---  execute	EEIUser.acctg_intercompany_reconcile_RMA_RTV @Fiscal_Year = '2017',	@FiscalPeriod = '6', @Beg_date = '2017-06-01', @End_date = '2017-06-20'
+--  execute	EEIUser.acctg_intercompany_reconcile_RMA_RTV @Fiscal_Year = '2019',	@Fiscal_Period = '6', @Beg_date = '2019-06-01', @End_date = '2019-06-30'
 
 --  select * from eeiuser.acctg_transfer_price_corrections where fiscal_year = '2016' and period = 4
 
@@ -178,38 +179,51 @@ select distinct(item), EEHinvoice from
 
 -- 10. Return the full reconciliation results
 
+
+-- DW 7/3/2019:  Replacing below logic with full outer join.  (The below fails when there isn't an EEHINvoice to Join on.)
+--select		FiscalYear = @fiscal_year,
+--			FiscalPeriod = @fiscal_period,
+--			Part = PartCostList.part,
+
+--			EEHRMA = TransDetailsRMA.EEHInvoice,
+--			EEHRMAGLDATE = TransDetailsRMA.GLDate,
+--			EEHQuantityRMA = coalesce (TransDetailsRMA.ItemQtyRMA, 0),
+--			EEHTransferPriceRMA = coalesce (TransDetailsRMA.ItemPrice, 0),
+--			EEHExtendedPriceRMA = coalesce (TransDetailsRMA.ItemExtendedPrice, 0),
+			
+--			EEIRTV = TransDetailsRTV.EEIInvoice,
+--			EEHRMA = TransDetailsRTV.EEHInvoice,
+--			EEIRTVGLDate = TransDetailsRTV.GLDate,
+--			EEIQuantityReturned = coalesce (TransDetailsRTV.ItemQtyReturned, 0),
+--			EEITransferPriceRTV = coalesce (TransDetailsRTV.ItemCost, 0),
+--			EEIExtendedCostReturned = coalesce (TransDetailsRTV.ItemExtendedCost, 0),
+
+--			RMARTVQtyVariance = coalesce (TransDetailsRMA.ItemQtyRMA,0) - coalesce(TransDetailsRTV.ItemQtyReturned,0),
+--			RMARTVPriceVariance = coalesce (TransDetailsRMA.ItemPrice,0) - coalesce(TransDetailsRTV.ItemCost,0),
+--			RMARTVExtVariance = coalesce (TransDetailsRMA.ItemExtendedPrice,0) - coalesce(TransDetailsRTV.ItemExtendedCost,0)
+
+
+--from	@partlist PartCostList
+
+--	left join #TransDetailsRMA TransDetailsRMA on PartCostList.Part = TransDetailsRMA.Item and PartCostList.EEHInvoice = TransDetailsRMA.EEHInvoice
+--	left join #TransDetailsRTV TransDetailsRTV on PartCostList.Part = TransDetailsRTV.Item and PartCostList.EEHInvoice = TransDetailsRTV.EEHInvoice
+
+----WHERE	coalesce (TransDetailsShipping.ItemQtyShipped, 0) <> coalesce (TransDetailsReceiving.ItemQtyReceived, 0) -- to limit results to only the errors
+
+--order by part, isnull(TransDetailsRMA.GLDate,TransDetailsRTV.GLDate)
+
+
+
+
 select		FiscalYear = @fiscal_year,
 			FiscalPeriod = @fiscal_period,
-			Part = PartCostList.part,
-
-			EEHRMA = TransDetailsRMA.EEHInvoice,
-			EEHRMAGLDATE = TransDetailsRMA.GLDate,
-			EEHQuantityRMA = coalesce (TransDetailsRMA.ItemQtyRMA, 0),
-			EEHTransferPriceRMA = coalesce (TransDetailsRMA.ItemPrice, 0),
-			EEHExtendedPriceRMA = coalesce (TransDetailsRMA.ItemExtendedPrice, 0),
-			
-			EEIRTV = TransDetailsRTV.EEIInvoice,
-			EEHRMA = TransDetailsRTV.EEHInvoice,
-			EEIRTVGLDate = TransDetailsRTV.GLDate,
-			EEIQuantityReturned = coalesce (TransDetailsRTV.ItemQtyReturned, 0),
-			EEITransferPriceRTV = coalesce (TransDetailsRTV.ItemCost, 0),
-			EEIExtendedCostReturned = coalesce (TransDetailsRTV.ItemExtendedCost, 0),
-
-			RMARTVQtyVariance = coalesce (TransDetailsRMA.ItemQtyRMA,0) - coalesce(TransDetailsRTV.ItemQtyReturned,0),
-			RMARTVPriceVariance = coalesce (TransDetailsRMA.ItemPrice,0) - coalesce(TransDetailsRTV.ItemCost,0),
-			RMARTVExtVariance = coalesce (TransDetailsRMA.ItemExtendedPrice,0) - coalesce(TransDetailsRTV.ItemExtendedCost,0)
-
-
-from	@partlist PartCostList
-
-	left join #TransDetailsRMA TransDetailsRMA on PartCostList.Part = TransDetailsRMA.Item and PartCostList.EEHInvoice = TransDetailsRMA.EEHInvoice
-	left join #TransDetailsRTV TransDetailsRTV on PartCostList.Part = TransDetailsRTV.Item and PartCostList.EEHInvoice = TransDetailsRTV.EEHInvoice
-
---WHERE	coalesce (TransDetailsShipping.ItemQtyShipped, 0) <> coalesce (TransDetailsReceiving.ItemQtyReceived, 0) -- to limit results to only the errors
-
-order by part, isnull(TransDetailsRMA.GLDate,TransDetailsRTV.GLDate)
-
-
+			*
+from 
+(select EEHInvoice, GLDate, Item, Avg(ItemPrice) as ItemPrice, sum(ItemQtyRMA) as ItemQtyRMA, sum(ItemExtendedPrice) as ItemExtendedPrice from #TransDetailsRMA group by EEHInvoice, GLDate, Item) TransDetailsRMA
+full outer join 
+(select EEHInvoice, EEIInvoice, GLDate, Item, Avg(ItemCost) as ItemCost, sum(ItemQtyReturned) as ItemQtyReturned, sum(ItemExtendedCost) as ItemExtendedCost from #TransDetailsRTV group by EEIInvoice, EEHInvoice, GLDate, Item) TransDetailsRTV
+on TransDetailsRMA.EEHInvoice = TransDetailsRTV.EEHInvoice and TransDetailsRMA.Item = TransDetailsRTV.Item
+order by isnull(TransDetailsRMA.item, TransDetailsRTV.Item), isnull(TransDetailsRMA.GLDate,TransDetailsRTV.GLDate)
 
 
 

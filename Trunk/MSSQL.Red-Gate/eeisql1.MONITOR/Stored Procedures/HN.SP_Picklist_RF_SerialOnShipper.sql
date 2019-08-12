@@ -228,6 +228,22 @@ BEGIN
 	
 	Declare @ListPart varchar(max)
 
+	Select	@ListPart = coalesce(@ListPart + ', ' + serial,  serial)
+	from (
+		Select	serial =convert(varchar,serial) +  ' > Shipper: '+ convert(varchar,shipper) 
+		from	#ObjectInformation object
+		where	Shipper is not null and part !='PALLET') ListSerialPicked
+	
+	if isnull(@ListPart,'') != ''
+	BEGIN
+		SET	@Result = 100001
+		RAISERROR ('Serials: %s are stage', 16, 1,@ListPart)
+		ROLLBACK TRAN @ProcName
+		RETURN	@Result
+	END
+
+	set @ListPart = null
+
 	Select	@ListPart = coalesce(@ListPart + ', ' + part,  part)
 	from (
 		Select	distinct part
@@ -277,21 +293,7 @@ BEGIN
 		RETURN	@Result
 	END
 
-	set @ListPart = null
-
-	Select	distinct @ListPart = coalesce(@ListPart + ', ' + serial,  serial)
-	from (
-		Select	serial = convert(varchar,serial)
-		from	#ObjectInformation object
-		where	Shipper is not null and part !='PALLET') ListSerialPicked
 	
-	if isnull(@ListPart,'') != ''
-	BEGIN
-		SET	@Result = 100001
-		RAISERROR ('Serials: %s are stage in this or another ShipperID', 16, 1,@ListPart)
-		ROLLBACK TRAN @ProcName
-		RETURN	@Result
-	END
 
 	if @IsFullStandardPack = 1
 	begin
@@ -315,9 +317,28 @@ BEGIN
 
 	set @ListPart = null
 
-	Select	distinct @ListPart = coalesce(@ListPart + ', ' + serial,  serial)
+	--declare @tblSerialDetailByShipper table (
+	--	Serial int,
+	--	part varchar(25),
+	--	Fifo int)
+
+	--Insert into @tblSerialDetailByShipper (Serial ,part, Fifo)
+	--SELECT Serial,part, isnull(lot,13)
+	--from [HN].[fn_PickList_SerialDetail_ByShipper]( @ShipperID, @plant, @IsFullStandardPack,@SerialPart)
+
+	--Declare @MaxFifo int=13
+
+	--if @SerialPart is not null
+	--begin
+	--	Select @MaxFifo = max(Fifo)
+	--	from @tblSerialDetailByShipper
+	--	where part=@SerialPart
+	--end
+
+	
+	Select	@ListPart = coalesce(@ListPart + ', ' + serial,  serial)
 	from (
-		Select	serial = convert(varchar,serial)
+	Select	serial = convert(varchar,serial)
 		from	#ObjectInformation object
 		where	serial not in (	SELECT Serial
 								from [HN].[fn_PickList_SerialDetail_ByShipper]( @ShipperID, @plant, @IsFullStandardPack,@SerialPart))

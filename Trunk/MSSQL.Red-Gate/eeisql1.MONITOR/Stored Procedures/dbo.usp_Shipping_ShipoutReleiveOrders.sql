@@ -3,13 +3,6 @@ GO
 SET ANSI_NULLS ON
 GO
 
-
-
-
-
-
-
-
 /*
 Create procedure FX.dbo.usp_Shipping_ShipoutReleiveOrders
 */
@@ -156,6 +149,7 @@ insert
 ,	quantity
 ,	std_qty
 ,	id
+,	CreateRowDTOrderDetail
 )
 select
 	ShipperID = @ShipperID
@@ -170,6 +164,7 @@ select
 ,	od.quantity
 ,	od.std_qty
 ,	od.id
+,	od.CreateDT
 from
 	dbo.order_detail od
 	join dbo.shipper_detail sd
@@ -259,7 +254,8 @@ select
 	ShipTo = s.destination
 ,	CustomerPart = sd.customer_part
 ,	QtyPacked = sum(sd.qty_packed) -- was sd.qty_required Andre S. Boulanger FT, LLC 2017-09-11
-,	ActiveOrderNo = max(coalesce(boa.ActiveOrderNo, sd.order_no))
+--,	ActiveOrderNo = max(coalesce(boa.ActiveOrderNo, sd.order_no))	Original Line, change the order, in case we don't have an order we are going to get the active for the Customer Part
+,	ActiveOrderNo = max(coalesce(sd.order_no, boa.ActiveOrderNo ))
 from
 	dbo.shipper_detail sd
 		join dbo.shipper s
@@ -819,13 +815,18 @@ end
 
 /*	... adjust partially met releases. */
 --- <Update rows="*">
+
+IF	@Debug = 1 BEGIN
+	select	TableName = '#releases',*
+	from	#releases
+end
 set	@TableName = 'dbo.order_detail'
 
 update
 	od
 set
-	quantity = od.quantity - r.ReleiveQty
-,	std_qty = od.std_qty - r.ReleiveQty
+	quantity = od.quantity - isnull(r.ReleiveQty,0)
+,	std_qty = od.std_qty - isnull(r.ReleiveQty,0)
 from
 	dbo.order_detail od
 	join #releases r
@@ -941,6 +942,21 @@ DELETE
 	##BlanketOrderReleases_Edit
 WHERE
 	SPID = @@SPID
+
+
+IF	@Debug = 1 BEGIN
+	SELECT
+		*
+	FROM
+		##BlanketOrderReleases_Edit bore
+	WHERE
+		bore.SPID = @@SPID
+
+	select	*
+	FROM
+		dbo.BlanketOrderReleases bor
+	WHERE	ActiveOrderNo = 39481
+END
 
 INSERT
 	##BlanketOrderReleases_Edit

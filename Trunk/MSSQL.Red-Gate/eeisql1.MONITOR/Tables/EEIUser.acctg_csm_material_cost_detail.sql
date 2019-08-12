@@ -41,6 +41,8 @@ begin
 	end catch
 end;
 GO
+DISABLE TRIGGER [EEIUser].[acctg_csm_material_cost_detail_TriggerUpdate] ON [EEIUser].[acctg_csm_material_cost_detail]
+GO
 SET QUOTED_IDENTIFIER ON
 GO
 SET ANSI_NULLS ON
@@ -246,11 +248,24 @@ insert
 ,   [NOV_20]
 ,   [DEC_20]
 
+,	[JAN_21]
+,   [FEB_21]
+,   [MAR_21]
+,   [APR_21]
+,   [MAY_21]
+,   [JUN_21]
+,   [JUL_21]
+,   [AUG_21]
+,   [SEP_21]
+,   [OCT_21]
+,   [NOV_21]
 ,   [DEC_21]
+
 ,   [DEC_22]
 ,   [DEC_23]
 ,   [DEC_24]
 ,   [DEC_25]
+,   [DEC_26]
 )
 select
 	h.ID
@@ -430,12 +445,25 @@ select
 ,   [OCT_20] = (select min(MaterialCost) from EEIUser.acctg_csm_material_cost_detail where Header_ID = ID and EffectiveYear = 2020 and Period = 'M10')
 ,   [NOV_20] = (select min(MaterialCost) from EEIUser.acctg_csm_material_cost_detail where Header_ID = ID and EffectiveYear = 2020 and Period = 'M11')
 ,   [DEC_20] = (select min(MaterialCost) from EEIUser.acctg_csm_material_cost_detail where Header_ID = ID and EffectiveYear = 2020 and Period = 'M12')
+
+,	[JAN_21] = (select min(MaterialCost) from EEIUser.acctg_csm_material_cost_detail where Header_ID = ID and EffectiveYear = 2021 and Period = 'M01')
+,   [FEB_21] = (select min(MaterialCost) from EEIUser.acctg_csm_material_cost_detail where Header_ID = ID and EffectiveYear = 2021 and Period = 'M02')
+,   [MAR_21] = (select min(MaterialCost) from EEIUser.acctg_csm_material_cost_detail where Header_ID = ID and EffectiveYear = 2021 and Period = 'M03')
+,   [APR_21] = (select min(MaterialCost) from EEIUser.acctg_csm_material_cost_detail where Header_ID = ID and EffectiveYear = 2021 and Period = 'M04')
+,   [MAY_21] = (select min(MaterialCost) from EEIUser.acctg_csm_material_cost_detail where Header_ID = ID and EffectiveYear = 2021 and Period = 'M05')
+,   [JUN_21] = (select min(MaterialCost) from EEIUser.acctg_csm_material_cost_detail where Header_ID = ID and EffectiveYear = 2021 and Period = 'M06')
+,   [JUL_21] = (select min(MaterialCost) from EEIUser.acctg_csm_material_cost_detail where Header_ID = ID and EffectiveYear = 2021 and Period = 'M07')
+,   [AUG_21] = (select min(MaterialCost) from EEIUser.acctg_csm_material_cost_detail where Header_ID = ID and EffectiveYear = 2021 and Period = 'M08')
+,   [SEP_21] = (select min(MaterialCost) from EEIUser.acctg_csm_material_cost_detail where Header_ID = ID and EffectiveYear = 2021 and Period = 'M09')
+,   [OCT_21] = (select min(MaterialCost) from EEIUser.acctg_csm_material_cost_detail where Header_ID = ID and EffectiveYear = 2021 and Period = 'M10')
+,   [NOV_21] = (select min(MaterialCost) from EEIUser.acctg_csm_material_cost_detail where Header_ID = ID and EffectiveYear = 2021 and Period = 'M11')
+,   [DEC_21] = (select min(MaterialCost) from EEIUser.acctg_csm_material_cost_detail where Header_ID = ID and EffectiveYear = 2021 and Period = 'M12')
 						  
-,   [DEC_21] = (select min(MaterialCost) from EEIUser.acctg_csm_material_cost_detail where Header_ID = ID and EffectiveYear = 2021 and Period = 'CY')
 ,   [DEC_22] = (select min(MaterialCost) from EEIUser.acctg_csm_material_cost_detail where Header_ID = ID and EffectiveYear = 2022 and Period = 'CY')
 ,   [DEC_23] = (select min(MaterialCost) from EEIUser.acctg_csm_material_cost_detail where Header_ID = ID and EffectiveYear = 2023 and Period = 'CY')
 ,   [DEC_24] = (select min(MaterialCost) from EEIUser.acctg_csm_material_cost_detail where Header_ID = ID and EffectiveYear = 2024 and Period = 'CY')
 ,   [DEC_25] = (select min(MaterialCost) from EEIUser.acctg_csm_material_cost_detail where Header_ID = ID and EffectiveYear = 2025 and Period = 'CY')
+,   [DEC_26] = (select min(MaterialCost) from EEIUser.acctg_csm_material_cost_detail where Header_ID = ID and EffectiveYear = 2026 and Period = 'CY')
 
 from
 	EEIUser.acctg_csm_material_cost_header h
@@ -459,9 +487,9 @@ where
 --insert
 --SalesForecast View (table that was once a view)
 GO
-DISABLE TRIGGER [EEIUser].[tr_csm_material_cost_detail_IUD] ON [EEIUser].[acctg_csm_material_cost_detail]
-GO
 ALTER TABLE [EEIUser].[acctg_csm_material_cost_detail] ADD CONSTRAINT [PK__acctg_mcd__9E9692CDC3AB6F4] PRIMARY KEY CLUSTERED  ([Release_ID], [EffectiveYear], [Header_ID], [Period]) ON [PRIMARY]
+GO
+CREATE NONCLUSTERED INDEX [ix_acctg_csm_material_cost_detail_1] ON [EEIUser].[acctg_csm_material_cost_detail] ([Header_ID], [EffectiveYear], [Period], [MaterialCost]) ON [PRIMARY]
 GO
 CREATE NONCLUSTERED INDEX [RID_Include_MaterialCost] ON [EEIUser].[acctg_csm_material_cost_detail] ([Release_ID], [BasePart], [EffectiveDT]) INCLUDE ([EffectiveYear], [MaterialCost], [PartUsedForCost], [Period], [Version]) ON [PRIMARY]
 GO

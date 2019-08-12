@@ -14,6 +14,7 @@ GO
 
 
 
+
 CREATE VIEW [EDIValsylv].[BlanketOrders]
 AS
 SELECT
@@ -63,7 +64,7 @@ WHERE
 	oh.order_type = 'B' 
  AND COALESCE(ProcessEDI,1) = 1
  AND COALESCE(oh.status,'') = 'A' AND
- es.trading_partner_code = 'VALEO SYLVANIA'
+ es.trading_partner_code like '%VALEO SYLVANIA%'
 --	es.InboundProcessGroup in ( 'EDI2001' )
 
 

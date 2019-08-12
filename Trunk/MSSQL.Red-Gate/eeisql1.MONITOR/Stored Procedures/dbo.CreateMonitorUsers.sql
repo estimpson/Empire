@@ -6,10 +6,10 @@ GO
 CREATE procedure [dbo].[CreateMonitorUsers]( @Name varchar(40), @EmpleadoID varchar(10), @Password varchar(15), @CoWorkerEmpleadoID varchar(15) )as
 /*
 	exec CreateMonitorUsers
-		@EmpleadoID= '17162',
-		@Password = 'do25z',
-		@CoWorkerEmpleadoID = '15124'
-		@name = ''
+		@EmpleadoID= 'EDGUT',
+		@Password = 'ed001',
+		@CoWorkerEmpleadoID = 'MAREY',
+		@name = 'Eduardo Gutierrez'
 */
 declare @smallPassword  varchar(5)
 

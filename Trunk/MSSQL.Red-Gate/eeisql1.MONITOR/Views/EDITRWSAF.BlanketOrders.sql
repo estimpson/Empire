@@ -5,6 +5,7 @@ GO
 
 
 
+
 CREATE VIEW [EDITRWSAF].[BlanketOrders]
 AS
 SELECT
@@ -43,7 +44,7 @@ FROM
 		ON s.id = oh.shipper
 WHERE
 	oh.order_type = 'B'
-	and es.destination = 'TRWSAF'
+	and es.destination like '%TRWSAF%'
 	--and es.trading_partner_code = 'DECOFINMEX'
 	and coalesce(oh.status, '') = 'A'
 

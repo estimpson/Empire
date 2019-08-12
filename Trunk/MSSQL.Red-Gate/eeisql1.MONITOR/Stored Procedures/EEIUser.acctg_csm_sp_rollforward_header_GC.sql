@@ -5,7 +5,7 @@ GO
 
 
 
-create procedure [EEIUser].[acctg_csm_sp_rollforward_header_GC]
+CREATE procedure [EEIUser].[acctg_csm_sp_rollforward_header_GC]
 	@OperatorCode varchar(5)
 ,	@CurrentRelease char(7)
 ,	@PriorRelease char(7)
@@ -62,7 +62,7 @@ end
 
 
 --- <Body>
--- Roll forward all data for CSM, Empire Adjusted and Empire Factor into the current release
+-- Roll forward all data for Empire Adjusted and Empire Factor into the current release (exclude CSM)
 declare @Region varchar(50)
 set @Region = 'Greater China'
 
@@ -184,6 +184,7 @@ from
 where
 	c.Release_ID = @PriorRelease
 	and c.Region = @Region
+	and c.[Version] <> 'CSM'
 
 
 select

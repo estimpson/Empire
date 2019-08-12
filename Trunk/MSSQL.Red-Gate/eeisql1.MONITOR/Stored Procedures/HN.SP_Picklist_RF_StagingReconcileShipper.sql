@@ -92,6 +92,32 @@ from
 where	
 	sd.shipper = @ShipperID
 
+
+-- 4.5 Validate quantity package are not more than Qty Required if destination doesn't allow it.
+--Required by Linda Sibrian/Ossman Fajardo
+--Issue: Due to an incident at the Customer, Ford reported a problem with the receipt of extra pieces or pieces less than those requested in the Purchase Order.
+--Implement date: 2019-01-10
+
+if exists
+	(	select 1
+		from
+			dbo.shipper_detail sd
+				join dbo.shipper s
+					on s.id = sd.shipper
+			join dbo.destination_shipping ds
+				on ds.destination = s.destination
+		where
+			sd.shipper = @ShipperID
+			and sd.qty_packed > sd.qty_required
+			and isnull(ds.allow_overstage,'N') = 'N'
+	) 
+	begin
+		SET	@Result = -4
+		RAISERROR ('Error:  One or more part are overload the Qty packed vrs Qty Required!', 16, 1)
+		ROLLBACK TRAN @ProcName
+		RETURN	@Result
+	end
+
 --	5. Refresh shipper container information.
 delete	shipper_container
  where	shipper = @ShipperID

@@ -2,7 +2,45 @@ SET QUOTED_IDENTIFIER ON
 GO
 SET ANSI_NULLS ON
 GO
-create PROC [HN].[RLSP_PS_PrintLabel_Manual](@FieldName varchar(15),
+
+/*
+declare @r int,
+		@Serial int,
+		@Part varchar(25),
+		@LabelFormat varchar(50)
+
+Set @Serial=92487402
+
+Select @Part = part
+from object
+where serial=@Serial
+
+Select @LabelFormat= eehlabel
+from part_inventory
+where part=@Part
+
+Select Serial = @Serial, Part=@Part, LabelFormat_USA = @LabelFormat, LabelFormat_HN= label_format
+from eehsql1.eeh.dbo.part_inventory
+where part=@part
+
+exec [HN].[RLSP_PS_PrintLabel_Manual] 'serial',@Serial,'HN.VW_PS_DataLabel_CustomerGeneral',@LabelFormat,@r out
+Select @r
+
+/*
+	Si LabelFormat_USA <> LabelFormat_HN, ejecutar el JOB que esta en Troy llamado:  "Custom - Update label format information HND-Troy"
+		esto se encarga de sincronizar la informacion de HN en USA. El se ejecuta cada hora reloj.
+		
+
+	El procedimiento RLSP_PS_PrintLabel_Manual devuelve la cadena ZPL de la etiqueta a imprimir.
+	Copiar la codena, luego ir a http://labelary.com/viewer.html
+	reemplazar el texto de ejemplo que esta en el sitio, pegar la cadena del paso 1.
+	dar click en el boton Redraw.
+
+	La informacion que se imprime en los labels se obtiene de los PO's que crea el depto. de Scheduling.
+*/
+*/
+
+CREATE PROC [HN].[RLSP_PS_PrintLabel_Manual](@FieldName varchar(15),
 		@FieldValue int,
 		@LabelFormatView varchar(35),
 		@LabelFormatName varchar(15),

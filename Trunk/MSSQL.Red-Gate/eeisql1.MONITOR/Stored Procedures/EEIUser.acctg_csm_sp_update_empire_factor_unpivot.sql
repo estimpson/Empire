@@ -5,56 +5,18 @@ GO
 
 
 
+
+
 CREATE procedure [EEIUser].[acctg_csm_sp_update_empire_factor_unpivot]
 --	@OperatorCode varchar(5)
-	@Release_ID char(7)
-,	@MnemonicVehiclePlant varchar(30)    
 
-,	@Base_Part varchar(30)
+  
+
+	@Base_Part varchar(30)
 ,	@Version varchar(30)
-,	@Suggested_Take_Rate decimal(15,2)  
-
-,	@Jan2015 decimal(10,2)
-,	@Feb2015 decimal(10,2) 
-,	@Mar2015 decimal(10,2) 
-,	@Apr2015 decimal(10,2) 
-,	@May2015 decimal(10,2) 
-,	@Jun2015 decimal(10,2) 
-,	@Jul2015 decimal(10,2) 
-,	@Aug2015 decimal(10,2) 
-,	@Sep2015 decimal(10,2) 
-,	@Oct2015 decimal(10,2) 
-,	@Nov2015 decimal(10,2) 
-,	@Dec2015 decimal(10,2)
-,	@Total_2015 decimal(10,2)
-	 
-,	@Jan2016 decimal(10,2) 
-,	@Feb2016 decimal(10,2) 
-,	@Mar2016 decimal(10,2) 
-,	@Apr2016 decimal(10,2) 
-,	@May2016 decimal(10,2) 
-,	@Jun2016 decimal(10,2) 
-,	@Jul2016 decimal(10,2) 
-,	@Aug2016 decimal(10,2) 
-,	@Sep2016 decimal(10,2) 
-,	@Oct2016 decimal(10,2) 
-,	@Nov2016 decimal(10,2) 
-,	@Dec2016 decimal(10,2)
-,	@Total_2016 decimal(10,2)
-
-,	@Jan2017 decimal(10,2) 
-,	@Feb2017 decimal(10,2) 
-,	@Mar2017 decimal(10,2) 
-,	@Apr2017 decimal(10,2) 
-,	@May2017 decimal(10,2) 
-,	@Jun2017 decimal(10,2) 
-,	@Jul2017 decimal(10,2) 
-,	@Aug2017 decimal(10,2) 
-,	@Sep2017 decimal(10,2) 
-,	@Oct2017 decimal(10,2) 
-,	@Nov2017 decimal(10,2) 
-,	@Dec2017 decimal(10,2)
-,	@Total_2017 decimal(10,2) 
+,	@Release_ID char(7)	
+,	@MnemonicVehiclePlant varchar(30)  
+,   @Suggested_Take_Rate decimal(10,2)  
 
 ,	@Jan2018 decimal(10,2) 
 ,	@Feb2018 decimal(10,2) 
@@ -111,22 +73,7 @@ CREATE procedure [EEIUser].[acctg_csm_sp_update_empire_factor_unpivot]
 ,	@Nov2021 decimal(10,2) 
 ,	@Dec2021 decimal(10,2)
 ,	@Total_2021 decimal(10,2) 
-
-/*
-,	@Jan2022 decimal(10,2) 
-,	@Feb2022 decimal(10,2) 
-,	@Mar2022 decimal(10,2) 
-,	@Apr2022 decimal(10,2) 
-,	@May2022 decimal(10,2) 
-,	@Jun2022 decimal(10,2) 
-,	@Jul2022 decimal(10,2) 
-,	@Aug2022 decimal(10,2) 
-,	@Sep2022 decimal(10,2) 
-,	@Oct2022 decimal(10,2) 
-,	@Nov2022 decimal(10,2) 
-,	@Dec2022 decimal(10,2)
-*/
-   
+  
 ,	@Total_2022 decimal(10,2)  
 ,	@Total_2023 decimal(10,2)
 ,	@Total_2024 decimal(10,2)
@@ -194,45 +141,6 @@ update eeiuser.acctg_csm_naihs_detail
 set		
 	SalesDemand =
 		case
-			when EffectiveYear = 2015 and Period = 'M01' then @Jan2015
-			when EffectiveYear = 2015 and Period = 'M02' then @Feb2015
-			when EffectiveYear = 2015 and Period = 'M03' then @Mar2015
-			when EffectiveYear = 2015 and Period = 'M04' then @Apr2015
-			when EffectiveYear = 2015 and Period = 'M05' then @May2015
-			when EffectiveYear = 2015 and Period = 'M06' then @Jun2015
-			when EffectiveYear = 2015 and Period = 'M07' then @Jul2015
-			when EffectiveYear = 2015 and Period = 'M08' then @Aug2015
-			when EffectiveYear = 2015 and Period = 'M09' then @Sep2015
-			when EffectiveYear = 2015 and Period = 'M10' then @Oct2015
-			when EffectiveYear = 2015 and Period = 'M11' then @Nov2015
-			when EffectiveYear = 2015 and Period = 'M12' then @Dec2015
-
-			when EffectiveYear = 2016 and Period = 'M01' then @Jan2016
-			when EffectiveYear = 2016 and Period = 'M02' then @Feb2016
-			when EffectiveYear = 2016 and Period = 'M03' then @Mar2016
-			when EffectiveYear = 2016 and Period = 'M04' then @Apr2016
-			when EffectiveYear = 2016 and Period = 'M05' then @May2016
-			when EffectiveYear = 2016 and Period = 'M06' then @Jun2016
-			when EffectiveYear = 2016 and Period = 'M07' then @Jul2016
-			when EffectiveYear = 2016 and Period = 'M08' then @Aug2016
-			when EffectiveYear = 2016 and Period = 'M09' then @Sep2016
-			when EffectiveYear = 2016 and Period = 'M10' then @Oct2016
-			when EffectiveYear = 2016 and Period = 'M11' then @Nov2016
-			when EffectiveYear = 2016 and Period = 'M12' then @Dec2016
-
-			when EffectiveYear = 2017 and Period = 'M01' then @Jan2017
-			when EffectiveYear = 2017 and Period = 'M02' then @Feb2017
-			when EffectiveYear = 2017 and Period = 'M03' then @Mar2017
-			when EffectiveYear = 2017 and Period = 'M04' then @Apr2017
-			when EffectiveYear = 2017 and Period = 'M05' then @May2017
-			when EffectiveYear = 2017 and Period = 'M06' then @Jun2017
-			when EffectiveYear = 2017 and Period = 'M07' then @Jul2017
-			when EffectiveYear = 2017 and Period = 'M08' then @Aug2017
-			when EffectiveYear = 2017 and Period = 'M09' then @Sep2017
-			when EffectiveYear = 2017 and Period = 'M10' then @Oct2017
-			when EffectiveYear = 2017 and Period = 'M11' then @Nov2017
-			when EffectiveYear = 2017 and Period = 'M12' then @Dec2017
-
 			when EffectiveYear = 2018 and Period = 'M01' then @Jan2018
 			when EffectiveYear = 2018 and Period = 'M02' then @Feb2018
 			when EffectiveYear = 2018 and Period = 'M03' then @Mar2018
@@ -286,9 +194,6 @@ set
 			when EffectiveYear = 2021 and Period = 'M12' then @Dec2021
 
 			-- Calculated Years
-			when EffectiveYear = 2015 and Period = 'CY' then isnull(@Total_2015, 0)
-			when EffectiveYear = 2016 and Period = 'CY' then isnull(@Total_2016, 0)
-			when EffectiveYear = 2017 and Period = 'CY' then isnull(@Total_2017, 0)
 			when EffectiveYear = 2018 and Period = 'CY' then isnull(@Total_2018, 0)
 			when EffectiveYear = 2019 and Period = 'CY' then isnull(@Total_2019, 0)
 			when EffectiveYear = 2020 and Period = 'CY' then isnull(@Total_2020, 0)
@@ -303,6 +208,7 @@ where
 	Release_ID = @Release_ID
 	and [Mnemonic-Vehicle/Plant] = @MnemonicVehiclePlant
 	and [Version] = @Version
+	and EffectiveYear >= 2018
 
 
 select

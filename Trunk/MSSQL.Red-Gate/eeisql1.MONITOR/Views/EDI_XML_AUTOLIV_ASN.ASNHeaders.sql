@@ -4,8 +4,11 @@ SET ANSI_NULLS ON
 GO
 
 
+
 CREATE view [EDI_XML_AUTOLIV_ASN].[ASNHeaders]
 as
+
+
 select
 	ShipperID = s.id
 ,	ShipDateTime = s.date_shipped
@@ -22,8 +25,18 @@ select
 ,	SupplierName = 'Empire Electronics'
 ,	GrossWeight = convert(int, round(s.gross_weight, 0))
 ,	NetWeight = convert(int, round(s.net_weight, 0))
-,	Carrier = s.ship_via
-,	TransMode = s.trans_mode
+,	Carrier = COALESCE (Nullif(s.ship_via, ''),
+				CASE WHEN s.plant = 'EEP' THEN 'TMQJ'
+				WHEN s.plant = 'EEI' THEN 'BRYN'
+				WHEN s.plant = 'EEH' THEN 'FEDE'
+				ELSE 'TMQJ'
+				END)
+,	TransMode = COALESCE (Nullif(s.trans_mode, ''),
+				CASE WHEN s.plant = 'EEP' THEN 'LT'
+				WHEN s.plant = 'EEI' THEN 'LT'
+				WHEN s.plant = 'EEH' THEN 'A'
+				ELSE 'LT'
+				END)
 ,	TruckNumber = upper(coalesce(nullif(s.truck_number,''), 'TRUCKNO'))
 ,	BOLNumber = s.id
 ,	iConnectID =  es.IConnectID

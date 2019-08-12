@@ -195,3 +195,5 @@ DISABLE TRIGGER [EEIUser].[tr_csm_material_cost_tabular_DeleteInsertOnly] ON [EE
 GO
 ALTER TABLE [EEIUser].[acctg_csm_material_cost_tabular] ADD CONSTRAINT [PK_acctg_csm_material_cost_tabular_pk] PRIMARY KEY CLUSTERED  ([RELEASE_ID], [ROW_ID], [BASE_PART]) ON [PRIMARY]
 GO
+CREATE NONCLUSTERED INDEX [ix_acctg_csm_material_cost_tabular_id] ON [EEIUser].[acctg_csm_material_cost_tabular] ([ID]) ON [PRIMARY]
+GO

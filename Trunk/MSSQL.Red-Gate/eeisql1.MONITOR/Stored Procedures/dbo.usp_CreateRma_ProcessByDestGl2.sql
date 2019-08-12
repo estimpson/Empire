@@ -4,6 +4,7 @@ SET ANSI_NULLS ON
 GO
 
 
+
 CREATE procedure [dbo].[usp_CreateRma_ProcessByDestGl2]
 	@OperatorCode varchar(5)
 ,	@RmaRtvNumber varchar(50) out
@@ -234,12 +235,12 @@ insert into
 exec 
 	sp_executesql @OpenQuerySyntax
 
-if (( select t.serialCount from @temp t) > 0 ) begin
-	set	@Result = 999200
-	RAISERROR ('One or more of the serials are already in the Honduras database (object table).', 16, 1)
-	rollback tran @ProcName
-	return
-end
+--if (( select t.serialCount from @temp t) > 0 ) begin
+--	set	@Result = 999200
+--	RAISERROR ('One or more of the serials are already in the Honduras database (object table).', 16, 1)
+--	rollback tran @ProcName
+--	return
+--end
 ---	</ArgumentValidation>
 
 

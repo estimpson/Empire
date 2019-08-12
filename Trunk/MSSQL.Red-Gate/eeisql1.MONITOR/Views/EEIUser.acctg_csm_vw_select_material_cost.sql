@@ -5,6 +5,7 @@ GO
 
 
 
+
 -- select * from eeiuser.acctg_csm_vw_select_material_cost where version <> 'Current Cost 2018-10-08'
 
 
@@ -157,11 +158,24 @@ select		base_part,
 			sum(nov_20) as mc_nov_20,
 			sum(dec_20) as mc_dec_20,
 
+			sum(jan_21) as mc_jan_21,
+			sum(feb_21) as mc_feb_21,
+			sum(mar_21) as mc_mar_21,
+			sum(apr_21) as mc_apr_21,
+			sum(may_21) as mc_may_21,
+			sum(jun_21) as mc_jun_21,
+			sum(jul_21) as mc_jul_21,
+			sum(aug_21) as mc_aug_21,
+			sum(sep_21) as mc_sep_21,
+			sum(oct_21) as mc_oct_21,
+			sum(nov_21) as mc_nov_21,
 			sum(dec_21) as mc_dec_21,
+			
 			sum(dec_22) as mc_dec_22,
 			sum(dec_23) as mc_dec_23,
 			sum(dec_24) as mc_dec_24,
-			sum(dec_25) as mc_dec_25
+			sum(dec_25) as mc_dec_25,
+			sum(dec_26) as mc_dec_26
 
 from		eeiuser.acctg_csm_material_cost_tabular	 
 

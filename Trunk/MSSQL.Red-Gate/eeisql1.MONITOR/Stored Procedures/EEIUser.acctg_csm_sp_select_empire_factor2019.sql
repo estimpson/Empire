@@ -8,12 +8,13 @@ GO
 
 
 
-create procedure [EEIUser].[acctg_csm_sp_select_empire_factor2019] 
+
+CREATE procedure [EEIUser].[acctg_csm_sp_select_empire_factor2019] 
   @base_part varchar(30),
   @release_id varchar(30)
 as
 
---exec [EEIUser].[acctg_csm_sp_select_empire_factor_dw] 'NOR0015', '2015-06'
+--exec [EEIUser].[acctg_csm_sp_select_empire_factor2019] 'NOR0015', '2019-04'
 
 
 declare @actual table (

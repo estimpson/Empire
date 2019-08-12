@@ -2,6 +2,7 @@ SET QUOTED_IDENTIFIER ON
 GO
 SET ANSI_NULLS ON
 GO
+
 --select * from [EEIUser].[acctg_csm_vw_select_sales_forecast] where mc_last_updated = 'Current Cost 2018-10-08' and isnull(cal_19_TotalDemand,0) > 0 and isnull(cal_19_mc,0)=0
 
 
@@ -862,11 +863,25 @@ select	 cc.[base_part]
 	,[Dec_20_TOTALdemand]
 	,[Cal_20_TOTALdemand]
 
+	,[Jan_21_TOTALdemand]
+	,[Feb_21_TOTALdemand]
+	,[Mar_21_TOTALdemand]
+	,[Apr_21_TOTALdemand]
+	,[May_21_TOTALdemand]
+	,[Jun_21_TOTALdemand]
+	,[Jul_21_TOTALdemand]
+	,[Aug_21_TOTALdemand]
+	,[Sep_21_TOTALdemand]
+	,[Oct_21_TOTALdemand]
+	,[Nov_21_TOTALdemand]
+	,[Dec_21_TOTALdemand]
 	,[Cal_21_TOTALdemand]
+
 	,[Cal_22_TOTALdemand]
 	,[Cal_23_TOTALdemand]		
 	,[CAL_24_TOTALdemand]
 	,[CAL_25_TOTALdemand]
+	,[CAL_26_TOTALdemand]
 		
 	--,[sp_Dec_10]
 	--,[sp_Dec_11]
@@ -884,6 +899,7 @@ select	 cc.[base_part]
 	,[sp_Dec_23]
 	,[sp_Dec_24]
 	,[sp_Dec_25]
+	,[sp_Dec_26]
 
 	--,[mc_Dec_10]
 	--,[mc_Dec_11]
@@ -922,6 +938,10 @@ select	 cc.[base_part]
 
 	,[mc_Dec_25]
 	,(case isnull(sp_dec_25,0) when 0 then 0 else mc_dec_25/sp_dec_25 end) as mcp_dec_25
+
+	,[mc_Dec_26]
+	,(case isnull(sp_dec_26,0) when 0 then 0 else mc_dec_26/sp_dec_26 end) as mcp_dec_26
+
 		
 	--,[Jan_10_TOTALdemand]*[sp_Jan_10] as 'Jan_10_Sales'
 	--,[Feb_10_TOTALdemand]*[sp_Feb_10] as 'Feb_10_Sales'
@@ -1099,11 +1119,27 @@ select	 cc.[base_part]
 	+([May_20_TOTALdemand]*[sp_May_20])+([Jun_20_TOTALdemand]*[sp_Jun_20])+([Jul_20_TOTALdemand]*[sp_Jul_20])+([Aug_20_TOTALdemand]*[sp_Aug_20])
 	+([Sep_20_TOTALdemand]*[sp_Sep_20])+([Oct_20_TOTALdemand]*[sp_Oct_20])+([Nov_20_TOTALdemand]*[sp_Nov_20])+([Dec_20_TOTALdemand]*[sp_Dec_20]) as 'Cal_20_Sales' 
 			
-	,[Cal_21_TOTALdemand]*[sp_Dec_21] as 'Cal_21_Sales'
+	,[Jan_21_TOTALdemand]*[sp_Jan_21] as 'Jan_21_Sales'
+	,[Feb_21_TOTALdemand]*[sp_Feb_21] as 'Feb_21_Sales'
+	,[Mar_21_TOTALdemand]*[sp_Mar_21] as 'Mar_21_Sales'
+	,[Apr_21_TOTALdemand]*[sp_Apr_21] as 'Apr_21_Sales'
+	,[May_21_TOTALdemand]*[sp_May_21] as 'May_21_Sales'
+	,[Jun_21_TOTALdemand]*[sp_Jun_21] as 'Jun_21_Sales'
+	,[Jul_21_TOTALdemand]*[sp_Jul_21] as 'Jul_21_Sales'
+	,[Aug_21_TOTALdemand]*[sp_Aug_21] as 'Aug_21_Sales'
+	,[Sep_21_TOTALdemand]*[sp_Sep_21] as 'Sep_21_Sales'
+	,[Oct_21_TOTALdemand]*[sp_Oct_21] as 'Oct_21_Sales'
+	,[Nov_21_TOTALdemand]*[sp_Nov_21] as 'Nov_21_Sales'
+	,[Dec_21_TOTALdemand]*[sp_Dec_21] as 'Dec_21_Sales'
+	,([Jan_21_TOTALdemand]*[sp_Jan_21])+([Feb_21_TOTALdemand]*[sp_Feb_21])+([Mar_21_TOTALdemand]*[sp_Mar_21])+([Apr_21_TOTALdemand]*[sp_Apr_21])
+	+([May_21_TOTALdemand]*[sp_May_21])+([Jun_21_TOTALdemand]*[sp_Jun_21])+([Jul_21_TOTALdemand]*[sp_Jul_21])+([Aug_21_TOTALdemand]*[sp_Aug_21])
+	+([Sep_21_TOTALdemand]*[sp_Sep_21])+([Oct_21_TOTALdemand]*[sp_Oct_21])+([Nov_21_TOTALdemand]*[sp_Nov_21])+([Dec_21_TOTALdemand]*[sp_Dec_21]) as 'Cal_21_Sales' 
+	
 	,[Cal_22_TOTALdemand]*[sp_Dec_22] as 'Cal_22_Sales'
 	,[Cal_23_TOTALdemand]*[sp_Dec_23] as 'Cal_23_Sales'
 	,[Cal_24_TOTALdemand]*[sp_Dec_24] as 'Cal_24_Sales'
 	,[Cal_25_TOTALdemand]*[sp_Dec_25] as 'Cal_25_Sales'
+	,[Cal_26_TOTALdemand]*[sp_Dec_26] as 'Cal_26_Sales'
 				
 	--,([Jan_15_TOTALdemand]*[sp_Jan_15])+([Feb_15_TOTALdemand]*[sp_Feb_15])+([Mar_15_TOTALdemand]*[sp_Mar_15])+([Apr_15_TOTALdemand]*[sp_Apr_15])
 	--+([May_15_TOTALdemand]*[sp_May_15])+([Jun_15_TOTALdemand]*[sp_Jun_15])+([Jul_15_TOTALdemand]*[sp_Jul_15])+([Aug_15_TOTALdemand]*[sp_Aug_15])
@@ -1123,11 +1159,14 @@ select	 cc.[base_part]
 	+([Jan_20_TOTALdemand]*[sp_Jan_20])+([Feb_20_TOTALdemand]*[sp_Feb_20])+([Mar_20_TOTALdemand]*[sp_Mar_20])+([Apr_20_TOTALdemand]*[sp_Apr_20])
 	+([May_20_TOTALdemand]*[sp_May_20])+([Jun_20_TOTALdemand]*[sp_Jun_20])+([Jul_20_TOTALdemand]*[sp_Jul_20])+([Aug_20_TOTALdemand]*[sp_Aug_20])
 	+([Sep_20_TOTALdemand]*[sp_Sep_20])+([Oct_20_TOTALdemand]*[sp_Oct_20])+([Nov_20_TOTALdemand]*[sp_Nov_20])+([Dec_20_TOTALdemand]*[sp_Dec_20])
-	+([Cal_21_TOTALdemand]*[sp_Dec_21])
+	+([Jan_21_TOTALdemand]*[sp_Jan_21])+([Feb_21_TOTALdemand]*[sp_Feb_21])+([Mar_21_TOTALdemand]*[sp_Mar_21])+([Apr_21_TOTALdemand]*[sp_Apr_21])
+	+([May_21_TOTALdemand]*[sp_May_21])+([Jun_21_TOTALdemand]*[sp_Jun_21])+([Jul_21_TOTALdemand]*[sp_Jul_21])+([Aug_21_TOTALdemand]*[sp_Aug_21])
+	+([Sep_21_TOTALdemand]*[sp_Sep_21])+([Oct_21_TOTALdemand]*[sp_Oct_21])+([Nov_21_TOTALdemand]*[sp_Nov_21])+([Dec_21_TOTALdemand]*[sp_Dec_21])
 	+([Cal_22_TOTALdemand]*[sp_Dec_22])
 	+([Cal_23_TOTALdemand]*[sp_Dec_23])
 	+([Cal_24_TOTALdemand]*[sp_Dec_24])
-	+([Cal_25_TOTALdemand]*[sp_Dec_25]) as '2016-2025 Sales'
+	+([Cal_25_TOTALdemand]*[sp_Dec_25])
+	+([Cal_26_TOTALdemand]*[sp_Dec_26]) as '2016-2026 Sales'
 		
 	--,[Jan_14_TOTALdemand]*[mc_Jan_14] as 'Jan_14_MC'
 	--,[Feb_14_TOTALdemand]*[mc_Feb_14] as 'Feb_14_MC'
@@ -1241,12 +1280,28 @@ select	 cc.[base_part]
 	+([May_20_TOTALdemand]*[mc_May_20])+([Jun_20_TOTALdemand]*[mc_Jun_20])+([Jul_20_TOTALdemand]*[mc_Jul_20])+([Aug_20_TOTALdemand]*[mc_Aug_20])
 	+([Sep_20_TOTALdemand]*[mc_Sep_20])+([Oct_20_TOTALdemand]*[mc_Oct_20])+([Nov_20_TOTALdemand]*[mc_Nov_20])+([Dec_20_TOTALdemand]*[mc_Dec_20]) as 'Cal_20_MC' 
 
-	,[Cal_21_TOTALdemand]*[mc_Dec_21] as 'Cal_21_MC'
+	,[Jan_21_TOTALdemand]*[mc_Jan_21] as 'Jan_21_MC'
+	,[Feb_21_TOTALdemand]*[mc_Feb_21] as 'Feb_21_MC'
+	,[Mar_21_TOTALdemand]*[mc_Mar_21] as 'Mar_21_MC'
+	,[Apr_21_TOTALdemand]*[mc_Apr_21] as 'Apr_21_MC'
+	,[May_21_TOTALdemand]*[mc_May_21] as 'May_21_MC'
+	,[Jun_21_TOTALdemand]*[mc_Jun_21] as 'Jun_21_MC'
+	,[Jul_21_TOTALdemand]*[mc_Jul_21] as 'Jul_21_MC'
+	,[Aug_21_TOTALdemand]*[mc_Aug_21] as 'Aug_21_MC'
+	,[Sep_21_TOTALdemand]*[mc_Sep_21] as 'Sep_21_MC'
+	,[Oct_21_TOTALdemand]*[mc_Oct_21] as 'Oct_21_MC'
+	,[Nov_21_TOTALdemand]*[mc_Nov_21] as 'Nov_21_MC'
+	,[Dec_21_TOTALdemand]*[mc_Dec_21] as 'Dec_21_MC'
+	,([Jan_21_TOTALdemand]*[mc_Jan_21])+([Feb_21_TOTALdemand]*[mc_Feb_21])+([Mar_21_TOTALdemand]*[mc_Mar_21])+([Apr_21_TOTALdemand]*[mc_Apr_21])
+	+([May_21_TOTALdemand]*[mc_May_21])+([Jun_21_TOTALdemand]*[mc_Jun_21])+([Jul_21_TOTALdemand]*[mc_Jul_21])+([Aug_21_TOTALdemand]*[mc_Aug_21])
+	+([Sep_21_TOTALdemand]*[mc_Sep_21])+([Oct_21_TOTALdemand]*[mc_Oct_21])+([Nov_21_TOTALdemand]*[mc_Nov_21])+([Dec_21_TOTALdemand]*[mc_Dec_21]) as 'Cal_21_MC' 
+
 	,[Cal_22_TOTALdemand]*[mc_Dec_22] as 'Cal_22_MC'
 	,[Cal_23_TOTALdemand]*[mc_Dec_23] as 'Cal_23_MC'
 	,[Cal_24_TOTALdemand]*[mc_Dec_24] as 'Cal_24_MC'
 	,[Cal_25_TOTALdemand]*[mc_Dec_25] as 'Cal_25_MC'
-		
+	,[Cal_26_TOTALdemand]*[mc_Dec_26] as 'Cal_26_MC'
+			
 	--,Coalesce((XX.CurrentRevPart),'NoActivePartDefined') as ActiveRevLevel
 	--,Coalesce(XX.CurrentRevMaterialAccum,MC.mc_Dec_15) as ActiveRevPartMaterialAccum
 		
@@ -1620,11 +1675,25 @@ select	 cc.[base_part]
 				isnull(aa.Dec_20_CSMdemand,0) as Dec_20_CSMdemand,
 				isnull(aa.Cal_20_CSMdemand,0) as Cal_20_CSMdemand,
 				
+				isnull(aa.Jan_21_CSMdemand,0) as Jan_21_CSMdemand,
+				isnull(aa.Feb_21_CSMdemand,0) as Feb_21_CSMdemand,
+				isnull(aa.Mar_21_CSMdemand,0) as Mar_21_CSMdemand,
+				isnull(aa.Apr_21_CSMdemand,0) as Apr_21_CSMdemand,
+				isnull(aa.May_21_CSMdemand,0) as May_21_CSMdemand,
+				isnull(aa.Jun_21_CSMdemand,0) as Jun_21_CSMdemand,
+				isnull(aa.Jul_21_CSMdemand,0) as Jul_21_CSMdemand,
+				isnull(aa.Aug_21_CSMdemand,0) as Aug_21_CSMdemand,
+				isnull(aa.Sep_21_CSMdemand,0) as Sep_21_CSMdemand,
+				isnull(aa.Oct_21_CSMdemand,0) as Oct_21_CSMdemand,
+				isnull(aa.Nov_21_CSMdemand,0) as Nov_21_CSMdemand,
+				isnull(aa.Dec_21_CSMdemand,0) as Dec_21_CSMdemand,
 				isnull(aa.Cal_21_CSMdemand,0) as Cal_21_CSMdemand,
+		
 				isnull(aa.Cal_22_CSMdemand,0) as Cal_22_CSMdemand,
 				isnull(aa.Cal_23_CSMdemand,0) as Cal_23_CSMdemand,
 				isnull(aa.Cal_24_CSMdemand,0) as Cal_24_CSMdemand,
 				isnull(aa.Cal_25_CSMdemand,0) as Cal_25_CSMdemand,
+				isnull(aa.Cal_26_CSMdemand,0) as Cal_26_CSMdemand,
 
 				--isnull(aa.Jan_10_factor,1) as Jan_10_factor,
 				--isnull(aa.Feb_10_factor,1) as Feb_10_factor,
@@ -1769,11 +1838,24 @@ select	 cc.[base_part]
 				isnull(aa.Nov_20_factor,1) as Nov_20_factor,
 				isnull(aa.Dec_20_factor,1) as Dec_20_factor,
 						
-				isnull(aa.Cal_21_factor,1) as Cal_21_factor,
+				isnull(aa.Jan_21_factor,1) as Jan_21_factor,
+				isnull(aa.Feb_21_factor,1) as Feb_21_factor,
+				isnull(aa.Mar_21_factor,1) as Mar_21_factor,
+				isnull(aa.Apr_21_factor,1) as Apr_21_factor,
+				isnull(aa.May_21_factor,1) as May_21_factor,
+				isnull(aa.Jun_21_factor,1) as Jun_21_factor,
+				isnull(aa.Jul_21_factor,1) as Jul_21_factor,
+				isnull(aa.Aug_21_factor,1) as Aug_21_factor,
+				isnull(aa.Sep_21_factor,1) as Sep_21_factor,
+				isnull(aa.Oct_21_factor,1) as Oct_21_factor,
+				isnull(aa.Nov_21_factor,1) as Nov_21_factor,
+				isnull(aa.Dec_21_factor,1) as Dec_21_factor,
+				
 				isnull(aa.Cal_22_factor,1) as Cal_22_factor,
 				isnull(aa.CAL_23_factor,1) as Cal_23_factor,	
 				isnull(aa.CAL_24_factor,1) as Cal_24_factor,
 				isnull(aa.CAL_25_factor,1) as Cal_25_factor,
+				isnull(aa.CAL_26_factor,1) as Cal_26_factor,
 
 				--isnull(bb.Jan_10,0) as Jan_10_Empire_Adj,
 				--isnull(bb.Feb_10,0) as Feb_10_Empire_Adj,
@@ -1928,12 +2010,26 @@ select	 cc.[base_part]
 				isnull(bb.Nov_20,0) as Nov_20_Empire_Adj,
 				isnull(bb.Dec_20,0) as Dec_20_Empire_Adj,
 				isnull(bb.Cal_20,0) as Cal_20_Empire_Adj,
-				
+		
+				isnull(bb.Jan_21,0) as Jan_21_Empire_Adj,
+				isnull(bb.Feb_21,0) as Feb_21_Empire_Adj,
+				isnull(bb.Mar_21,0) as Mar_21_Empire_Adj,
+				isnull(bb.Apr_21,0) as Apr_21_Empire_Adj,
+				isnull(bb.May_21,0) as May_21_Empire_Adj,
+				isnull(bb.Jun_21,0) as Jun_21_Empire_Adj,		
+				isnull(bb.Jul_21,0) as Jul_21_Empire_Adj,
+				isnull(bb.Aug_21,0) as Aug_21_Empire_Adj,
+				isnull(bb.Sep_21,0) as Sep_21_Empire_Adj,		
+				isnull(bb.Oct_21,0) as Oct_21_Empire_Adj,
+				isnull(bb.Nov_21,0) as Nov_21_Empire_Adj,
+				isnull(bb.Dec_21,0) as Dec_21_Empire_Adj,
 				isnull(bb.Cal_21,0) as Cal_21_Empire_Adj,
+								
 				isnull(bb.Cal_22,0) as Cal_22_Empire_Adj,
 				isnull(bb.Cal_23,0) as Cal_23_Empire_Adj,	
 				isnull(bb.Cal_24,0) as Cal_24_Empire_Adj,		
 				isnull(bb.Cal_25,0) as Cal_25_Empire_Adj,
+				isnull(bb.Cal_26,0) as Cal_26_Empire_Adj,
 
 				--isnull(aa.Jan_10_factor,1)*bb.Jan_10 as Jan_10_Allocated_Empire_Adj,
 				--isnull(aa.Feb_10_factor,1)*bb.Feb_10 as Feb_10_Allocated_Empire_Adj,
@@ -2122,11 +2218,28 @@ select	 cc.[base_part]
 				+ (isnull(aa.Jul_20_factor,1)*bb.Jul_20) + (isnull(aa.Aug_20_factor,1)*bb.Aug_20) + (isnull(aa.Sep_20_factor,1)*bb.Sep_20) 
 				+ (isnull(aa.Oct_20_factor,1)*bb.Oct_20) + (isnull(aa.Nov_20_factor,1)*bb.Nov_20) + (isnull(aa.Dec_20_factor,1)*bb.Dec_20)) as Cal_20_Allocated_Empire_Adj,
 
-				isnull(aa.Cal_21_factor,1)*bb.Cal_21 as Cal_21_Allocated_Empire_Adj,
+				isnull(aa.Jan_21_factor,1)*bb.Jan_21 as Jan_21_Allocated_Empire_Adj,
+				isnull(aa.Feb_21_factor,1)*bb.Feb_21 as Feb_21_Allocated_Empire_Adj,
+				isnull(aa.Mar_21_factor,1)*bb.Mar_21 as Mar_21_Allocated_Empire_Adj,
+				isnull(aa.Apr_21_factor,1)*bb.Apr_21 as Apr_21_Allocated_Empire_Adj,
+				isnull(aa.May_21_factor,1)*bb.May_21 as May_21_Allocated_Empire_Adj,
+				isnull(aa.Jun_21_factor,1)*bb.Jun_21 as Jun_21_Allocated_Empire_Adj,
+				isnull(aa.Jul_21_factor,1)*bb.Jul_21 as Jul_21_Allocated_Empire_Adj,
+				isnull(aa.Aug_21_factor,1)*bb.Aug_21 as Aug_21_Allocated_Empire_Adj,
+				isnull(aa.Sep_21_factor,1)*bb.Sep_21 as Sep_21_Allocated_Empire_Adj,
+				isnull(aa.Oct_21_factor,1)*bb.Oct_21 as Oct_21_Allocated_Empire_Adj,
+				isnull(aa.Nov_21_factor,1)*bb.Nov_21 as Nov_21_Allocated_Empire_Adj,
+				isnull(aa.Dec_21_factor,1)*bb.Dec_21 as Dec_21_Allocated_Empire_Adj,
+				( (isnull(aa.Jan_21_factor,1)*bb.Jan_21) + (isnull(aa.Feb_21_factor,1)*bb.Feb_21) + (isnull(aa.Mar_21_factor,1)*bb.Mar_21) 
+				+ (isnull(aa.Apr_21_factor,1)*bb.Apr_21) + (isnull(aa.May_21_factor,1)*bb.May_21) + (isnull(aa.Jun_21_factor,1)*bb.Jun_21) 
+				+ (isnull(aa.Jul_21_factor,1)*bb.Jul_21) + (isnull(aa.Aug_21_factor,1)*bb.Aug_21) + (isnull(aa.Sep_21_factor,1)*bb.Sep_21) 
+				+ (isnull(aa.Oct_21_factor,1)*bb.Oct_21) + (isnull(aa.Nov_21_factor,1)*bb.Nov_21) + (isnull(aa.Dec_21_factor,1)*bb.Dec_21)) as Cal_21_Allocated_Empire_Adj,
+
 				isnull(aa.Cal_22_factor,1)*bb.Cal_22 as Cal_22_Allocated_Empire_Adj,
 				isnull(aa.CAL_23_factor,1)*bb.CAL_23 as CAL_23_Allocated_Empire_Adj,
 				isnull(aa.CAL_24_factor,1)*bb.CAL_24 as CAL_24_Allocated_Empire_Adj,
 				isnull(aa.CAL_25_factor,1)*bb.CAL_25 as CAL_25_Allocated_Empire_Adj,
+				isnull(aa.CAL_26_factor,1)*bb.CAL_26 as CAL_26_Allocated_Empire_Adj,
 
 				--isnull(aa.Jan_10_CSMdemand,0) + (isnull(aa.Jan_10_factor,1)*isnull(bb.Jan_10,0)) as Jan_10_TOTALdemand,
 				--isnull(aa.Feb_10_CSMdemand,0) + (isnull(aa.Feb_10_factor,1)*isnull(bb.Feb_10,0)) as Feb_10_TOTALdemand,
@@ -2317,12 +2430,30 @@ select	 cc.[base_part]
 											  +  (isnull(aa.Jul_20_factor,1)*isnull(bb.Jul_20,0)) + (isnull(aa.Aug_20_factor,1)*isnull(bb.Aug_20,0)) + (isnull(aa.Sep_20_factor,1)*isnull(bb.Sep_20,0)) 
 											  +  (isnull(aa.Oct_20_factor,1)*isnull(bb.Oct_20,0)) + (isnull(aa.Nov_20_factor,1)*isnull(bb.Nov_20,0)) + (isnull(aa.Dec_20_factor,1)*isnull(bb.Dec_20,0))) as Cal_20_TOTALdemand,						
 	
-				isnull(aa.Cal_21_CSMdemand,0) + (isnull(aa.cal_21_factor,1)*isnull(bb.Cal_21,0)) as Cal_21_TOTALdemand,	
+					
+				isnull(aa.Jan_21_CSMdemand,0) + (isnull(aa.Jan_21_factor,1)*isnull(bb.Jan_21,0)) as Jan_21_TOTALdemand,
+				isnull(aa.Feb_21_CSMdemand,0) + (isnull(aa.Feb_21_factor,1)*isnull(bb.Feb_21,0)) as Feb_21_TOTALdemand,
+				isnull(aa.Mar_21_CSMdemand,0) + (isnull(aa.Mar_21_factor,1)*isnull(bb.Mar_21,0)) as Mar_21_TOTALdemand,
+				isnull(aa.Apr_21_CSMdemand,0) + (isnull(aa.Apr_21_factor,1)*isnull(bb.Apr_21,0)) as Apr_21_TOTALdemand,
+				isnull(aa.May_21_CSMdemand,0) + (isnull(aa.May_21_factor,1)*isnull(bb.May_21,0)) as May_21_TOTALdemand,
+				isnull(aa.Jun_21_CSMdemand,0) + (isnull(aa.Jun_21_factor,1)*isnull(bb.Jun_21,0)) as Jun_21_TOTALdemand,
+				isnull(aa.Jul_21_CSMdemand,0) + (isnull(aa.Jul_21_factor,1)*isnull(bb.Jul_21,0)) as Jul_21_TOTALdemand,
+				isnull(aa.Aug_21_CSMdemand,0) + (isnull(aa.Aug_21_factor,1)*isnull(bb.Aug_21,0)) as Aug_21_TOTALdemand,
+				isnull(aa.Sep_21_CSMdemand,0) + (isnull(aa.Sep_21_factor,1)*isnull(bb.Sep_21,0)) as Sep_21_TOTALdemand,
+				isnull(aa.Oct_21_CSMdemand,0) + (isnull(aa.Oct_21_factor,1)*isnull(bb.Oct_21,0)) as Oct_21_TOTALdemand,
+				isnull(aa.Nov_21_CSMdemand,0) + (isnull(aa.Nov_21_factor,1)*isnull(bb.Nov_21,0)) as Nov_21_TOTALdemand,
+				isnull(aa.Dec_21_CSMdemand,0) + (isnull(aa.Dec_21_factor,1)*isnull(bb.Dec_21,0)) as Dec_21_TOTALdemand,		
+				isnull(aa.Cal_21_CSMdemand,0) + ((isnull(aa.Jan_21_factor,1)*isnull(bb.Jan_21,0)) + (isnull(aa.Feb_21_factor,1)*isnull(bb.Feb_21,0)) + (isnull(aa.Mar_21_factor,1)*isnull(bb.Mar_21,0)) 
+				                              +  (isnull(aa.Apr_21_factor,1)*isnull(bb.Apr_21,0)) + (isnull(aa.May_21_factor,1)*isnull(bb.May_21,0)) + (isnull(aa.Jun_21_factor,1)*isnull(bb.Jun_21,0)) 
+											  +  (isnull(aa.Jul_21_factor,1)*isnull(bb.Jul_21,0)) + (isnull(aa.Aug_21_factor,1)*isnull(bb.Aug_21,0)) + (isnull(aa.Sep_21_factor,1)*isnull(bb.Sep_21,0)) 
+											  +  (isnull(aa.Oct_21_factor,1)*isnull(bb.Oct_21,0)) + (isnull(aa.Nov_21_factor,1)*isnull(bb.Nov_21,0)) + (isnull(aa.Dec_21_factor,1)*isnull(bb.Dec_21,0))) as Cal_21_TOTALdemand,						
+	
+	
 				isnull(aa.Cal_22_CSMdemand,0) + (isnull(aa.Cal_22_factor,1)*isnull(bb.Cal_22,0)) as Cal_22_TOTALdemand,	
 				isnull(aa.Cal_23_CSMdemand,0) + (isnull(aa.Cal_23_factor,1)*isnull(bb.Cal_23,0)) as Cal_23_TOTALdemand,
 				isnull(aa.Cal_24_CSMdemand,0) + (isnull(aa.Cal_24_factor,1)*isnull(bb.Cal_24,0)) as Cal_24_TOTALdemand,
-				isnull(aa.Cal_25_CSMdemand,0) + (isnull(aa.Cal_25_factor,1)*isnull(bb.Cal_25,0)) as Cal_25_TOTALdemand	
-	
+				isnull(aa.Cal_25_CSMdemand,0) + (isnull(aa.Cal_25_factor,1)*isnull(bb.Cal_25,0)) as Cal_25_TOTALdemand,
+				isnull(aa.Cal_26_CSMdemand,0) + (isnull(aa.Cal_26_factor,1)*isnull(bb.Cal_26,0)) as Cal_26_TOTALdemand		
 	-- THE ABOVE STATEMENT WILL ASSUME A 1 WHEN THE FACTOR IS NULL, THE FACTOR WILL BE NULL WHEN THERE IS NO DEMAND IN THE YEAR; THE RESULT WILL BE MULTIPLIED bY THE NUMBER OF ROWS RETURNED FOR THE PART -- 
 
 	
@@ -2502,12 +2633,26 @@ select	 cc.[base_part]
 						a.nov_20 as Nov_20_CSMdemand,
 						a.dec_20 as Dec_20_CSMdemand, 
 						a.cal_20 as Cal_20_CSMdemand,	
-						
-						a.cal_21 as Cal_21_CSMdemand,
+
+						a.jan_21 as Jan_21_CSMdemand,
+						a.feb_21 as Feb_21_CSMdemand,
+						a.mar_21 as Mar_21_CSMdemand,
+						a.apr_21 as Apr_21_CSMdemand,
+						a.may_21 as May_21_CSMdemand,
+						a.jun_21 as Jun_21_CSMdemand,
+						a.jul_21 as Jul_21_CSMdemand,
+						a.aug_21 as Aug_21_CSMdemand,
+						a.sep_21 as Sep_21_CSMdemand,
+						a.oct_21 as Oct_21_CSMdemand,
+						a.nov_21 as Nov_21_CSMdemand,
+						a.dec_21 as Dec_21_CSMdemand, 
+						a.cal_21 as Cal_21_CSMdemand,	
+												
 						a.cal_22 as Cal_22_CSMdemand,
 						a.cal_23 as Cal_23_CSMdemand,
 						a.cal_24 as Cal_24_CSMdemand,
 						a.cal_25 as Cal_25_CSMdemand,
+						a.cal_26 as Cal_26_CSMdemand,
 
 						--(case when isnull(b.jan_10,0)=0 then a.cal_10/NULLIF(b.cal_10,0) else a.jan_10/NULLIF(b.jan_10,0) end) as jan_10_factor, 
 						--(case when isnull(b.feb_10,0)=0 then a.cal_10/NULLIF(b.cal_10,0) else a.feb_10/NULLIF(b.feb_10,0) end) as feb_10_factor,
@@ -2722,12 +2867,24 @@ select	 cc.[base_part]
 					,	coalesce(a.nov_20/nullif(b.nov_20,0),                                                                                                                     a.cal_20/nullif(b.cal_20,0), a.cal_19/nullif(b.cal_19,0), a.cal_18/nullif(b.cal_18,0), a.cal_17/nullif(b.cal_17,0), a.cal_16/nullif(b.cal_16,0), 1) as nov_20_factor
 					,	coalesce(a.dec_20/nullif(b.dec_20,0),                                                                                                                     a.cal_20/nullif(b.cal_20,0), a.cal_19/nullif(b.cal_19,0), a.cal_18/nullif(b.cal_18,0), a.cal_17/nullif(b.cal_17,0), a.cal_16/nullif(b.cal_16,0), 1) as dec_20_factor
 																																																																				
-					,	coalesce(                                                                                                                    a.cal_21/nullif(b.cal_21,0), a.cal_20/nullif(b.cal_20,0), a.cal_19/nullif(b.cal_19,0), a.cal_18/nullif(b.cal_18,0), a.cal_17/nullif(b.cal_17,0), a.cal_16/nullif(b.cal_16,0), 1) as cal_21_factor
-					,	coalesce(                                                                                       a.cal_22/nullif(b.cal_22,0), a.cal_21/nullif(b.cal_21,0), a.cal_20/nullif(b.cal_20,0), a.cal_19/nullif(b.cal_19,0), a.cal_18/nullif(b.cal_18,0), a.cal_17/nullif(b.cal_17,0), a.cal_16/nullif(b.cal_16,0), 1) as cal_22_factor
-					,	coalesce(                                                          a.cal_23/nullif(b.cal_23,0), a.cal_22/nullif(b.cal_22,0), a.cal_21/nullif(b.cal_21,0), a.cal_20/nullif(b.cal_20,0), a.cal_19/nullif(b.cal_19,0), a.cal_18/nullif(b.cal_18,0), a.cal_17/nullif(b.cal_17,0), a.cal_16/nullif(b.cal_16,0), 1) as cal_23_factor
-					,	coalesce(                             a.cal_24/nullif(b.cal_24,0), a.cal_23/nullif(b.cal_23,0), a.cal_22/nullif(b.cal_22,0), a.cal_21/nullif(b.cal_21,0), a.cal_20/nullif(b.cal_20,0), a.cal_19/nullif(b.cal_19,0), a.cal_18/nullif(b.cal_18,0), a.cal_17/nullif(b.cal_17,0), a.cal_16/nullif(b.cal_16,0), 1) as cal_24_factor
-					,	coalesce(a.cal_25/nullif(b.cal_25,0), a.cal_24/nullif(b.cal_24,0), a.cal_23/nullif(b.cal_23,0), a.cal_22/nullif(b.cal_22,0), a.cal_21/nullif(b.cal_21,0), a.cal_20/nullif(b.cal_20,0), a.cal_19/nullif(b.cal_19,0), a.cal_18/nullif(b.cal_18,0), a.cal_17/nullif(b.cal_17,0), a.cal_16/nullif(b.cal_16,0), 1) as cal_25_factor
-
+					,	coalesce(a.jan_20/nullif(b.jan_20,0),                                                                                        a.cal_21/nullif(b.cal_21,0), a.cal_20/nullif(b.cal_20,0), a.cal_19/nullif(b.cal_19,0), a.cal_18/nullif(b.cal_18,0), a.cal_17/nullif(b.cal_17,0), a.cal_16/nullif(b.cal_16,0), 1) as jan_21_factor
+					,	coalesce(a.feb_20/nullif(b.feb_20,0),                                                                                        a.cal_21/nullif(b.cal_21,0), a.cal_20/nullif(b.cal_20,0), a.cal_19/nullif(b.cal_19,0), a.cal_18/nullif(b.cal_18,0), a.cal_17/nullif(b.cal_17,0), a.cal_16/nullif(b.cal_16,0), 1) as feb_21_factor
+					,	coalesce(a.mar_20/nullif(b.mar_20,0),                                                                                        a.cal_21/nullif(b.cal_21,0), a.cal_20/nullif(b.cal_20,0), a.cal_19/nullif(b.cal_19,0), a.cal_18/nullif(b.cal_18,0), a.cal_17/nullif(b.cal_17,0), a.cal_16/nullif(b.cal_16,0), 1) as mar_21_factor
+					,	coalesce(a.apr_20/nullif(b.apr_20,0),                                                                                        a.cal_21/nullif(b.cal_21,0), a.cal_20/nullif(b.cal_20,0), a.cal_19/nullif(b.cal_19,0), a.cal_18/nullif(b.cal_18,0), a.cal_17/nullif(b.cal_17,0), a.cal_16/nullif(b.cal_16,0), 1) as apr_21_factor
+					,	coalesce(a.may_20/nullif(b.may_20,0),                                                                                        a.cal_21/nullif(b.cal_21,0), a.cal_20/nullif(b.cal_20,0), a.cal_19/nullif(b.cal_19,0), a.cal_18/nullif(b.cal_18,0), a.cal_17/nullif(b.cal_17,0), a.cal_16/nullif(b.cal_16,0), 1) as may_21_factor
+					,	coalesce(a.jun_20/nullif(b.jun_20,0),                                                                                        a.cal_21/nullif(b.cal_21,0),  a.cal_20/nullif(b.cal_20,0), a.cal_19/nullif(b.cal_19,0), a.cal_18/nullif(b.cal_18,0), a.cal_17/nullif(b.cal_17,0), a.cal_16/nullif(b.cal_16,0), 1) as jun_21_factor
+					,	coalesce(a.jul_20/nullif(b.jul_20,0),                                                                                        a.cal_21/nullif(b.cal_21,0),  a.cal_20/nullif(b.cal_20,0), a.cal_19/nullif(b.cal_19,0), a.cal_18/nullif(b.cal_18,0), a.cal_17/nullif(b.cal_17,0), a.cal_16/nullif(b.cal_16,0), 1) as jul_21_factor
+					,	coalesce(a.aug_20/nullif(b.aug_20,0),                                                                                        a.cal_21/nullif(b.cal_21,0),  a.cal_20/nullif(b.cal_20,0), a.cal_19/nullif(b.cal_19,0), a.cal_18/nullif(b.cal_18,0), a.cal_17/nullif(b.cal_17,0), a.cal_16/nullif(b.cal_16,0), 1) as aug_21_factor
+					,	coalesce(a.sep_20/nullif(b.sep_20,0),                                                                                        a.cal_21/nullif(b.cal_21,0),  a.cal_20/nullif(b.cal_20,0), a.cal_19/nullif(b.cal_19,0), a.cal_18/nullif(b.cal_18,0), a.cal_17/nullif(b.cal_17,0), a.cal_16/nullif(b.cal_16,0), 1) as sep_21_factor
+					,	coalesce(a.oct_20/nullif(b.oct_20,0),                                                                                        a.cal_21/nullif(b.cal_21,0),  a.cal_20/nullif(b.cal_20,0), a.cal_19/nullif(b.cal_19,0), a.cal_18/nullif(b.cal_18,0), a.cal_17/nullif(b.cal_17,0), a.cal_16/nullif(b.cal_16,0), 1) as oct_21_factor
+					,	coalesce(a.nov_20/nullif(b.nov_20,0),                                                                                        a.cal_21/nullif(b.cal_21,0),  a.cal_20/nullif(b.cal_20,0), a.cal_19/nullif(b.cal_19,0), a.cal_18/nullif(b.cal_18,0), a.cal_17/nullif(b.cal_17,0), a.cal_16/nullif(b.cal_16,0), 1) as nov_21_factor
+					,	coalesce(a.dec_20/nullif(b.dec_20,0),                                                                                        a.cal_21/nullif(b.cal_21,0),  a.cal_20/nullif(b.cal_20,0), a.cal_19/nullif(b.cal_19,0), a.cal_18/nullif(b.cal_18,0), a.cal_17/nullif(b.cal_17,0), a.cal_16/nullif(b.cal_16,0), 1) as dec_21_factor
+																																																																									
+                    ,	coalesce(                                                                                                                    a.cal_22/nullif(b.cal_22,0), a.cal_21/nullif(b.cal_21,0), a.cal_20/nullif(b.cal_20,0), a.cal_19/nullif(b.cal_19,0), a.cal_18/nullif(b.cal_18,0), a.cal_17/nullif(b.cal_17,0), a.cal_16/nullif(b.cal_16,0), 1) as cal_22_factor
+					,	coalesce(                                                                                       a.cal_23/nullif(b.cal_23,0), a.cal_22/nullif(b.cal_22,0), a.cal_21/nullif(b.cal_21,0), a.cal_20/nullif(b.cal_20,0), a.cal_19/nullif(b.cal_19,0), a.cal_18/nullif(b.cal_18,0), a.cal_17/nullif(b.cal_17,0), a.cal_16/nullif(b.cal_16,0), 1) as cal_23_factor
+					,	coalesce(                                                          a.cal_24/nullif(b.cal_24,0), a.cal_23/nullif(b.cal_23,0), a.cal_22/nullif(b.cal_22,0), a.cal_21/nullif(b.cal_21,0), a.cal_20/nullif(b.cal_20,0), a.cal_19/nullif(b.cal_19,0), a.cal_18/nullif(b.cal_18,0), a.cal_17/nullif(b.cal_17,0), a.cal_16/nullif(b.cal_16,0), 1) as cal_24_factor
+					,	coalesce(                             a.cal_25/nullif(b.cal_25,0), a.cal_24/nullif(b.cal_24,0), a.cal_23/nullif(b.cal_23,0), a.cal_22/nullif(b.cal_22,0), a.cal_21/nullif(b.cal_21,0), a.cal_20/nullif(b.cal_20,0), a.cal_19/nullif(b.cal_19,0), a.cal_18/nullif(b.cal_18,0), a.cal_17/nullif(b.cal_17,0), a.cal_16/nullif(b.cal_16,0), 1) as cal_25_factor
+					,	coalesce(a.cal_26/nullif(b.cal_26,0), a.cal_25/nullif(b.cal_25,0), a.cal_24/nullif(b.cal_24,0), a.cal_23/nullif(b.cal_23,0), a.cal_22/nullif(b.cal_22,0), a.cal_21/nullif(b.cal_21,0), a.cal_20/nullif(b.cal_20,0), a.cal_19/nullif(b.cal_19,0), a.cal_18/nullif(b.cal_18,0), a.cal_17/nullif(b.cal_17,0), a.cal_16/nullif(b.cal_16,0), 1) as cal_26_factor
 						-- THE ABOVE STATEMENT WILL NOT RETURN RESULTS WHEN THE ENTIRE YEAR IS 0 --
 
 				from
@@ -2940,11 +3097,29 @@ select	 cc.[base_part]
 																			+isnull(b.jul_20*c.jul_20,0)+isnull(b.aug_20*c.aug_20,0)+isnull(b.sep_20*c.sep_20,0)
 																			+isnull(b.oct_20*c.oct_20,0)+isnull(b.nov_20*c.nov_20,0)+isnull(b.dec_20*c.dec_20,0)) as cal_20,
 				
-								isnull(a.qty_per*a.take_rate*a.family_allocation*b.CAL_21*c.cal_21,0) as cal_21, 
+								isnull(a.qty_per*a.take_rate*a.family_allocation*b.jan_21*c.jan_21,0) as jan_21, 
+								isnull(a.qty_per*a.take_rate*a.family_allocation*b.feb_21*c.feb_21,0) as feb_21,
+								isnull(a.qty_per*a.take_rate*a.family_allocation*b.mar_21*c.mar_21,0) as mar_21, 
+								isnull(a.qty_per*a.take_rate*a.family_allocation*b.apr_21*c.apr_21,0) as apr_21, 
+								isnull(a.qty_per*a.take_rate*a.family_allocation*b.may_21*c.may_21,0) as may_21,
+								isnull(a.qty_per*a.take_rate*a.family_allocation*b.jun_21*c.jun_21,0) as jun_21, 
+								isnull(a.qty_per*a.take_rate*a.family_allocation*b.jul_21*c.jul_21,0) as jul_21, 
+								isnull(a.qty_per*a.take_rate*a.family_allocation*b.aug_21*c.aug_21,0) as aug_21, 
+								isnull(a.qty_per*a.take_rate*a.family_allocation*b.sep_21*c.sep_21,0) as sep_21,  
+								isnull(a.qty_per*a.take_rate*a.family_allocation*b.oct_21*c.oct_21,0) as oct_21, 
+								isnull(a.qty_per*a.take_rate*a.family_allocation*b.nov_21*c.nov_21,0) as nov_21, 
+								isnull(a.qty_per*a.take_rate*a.family_allocation*b.dec_21*c.dec_21,0) as dec_21,  
+								(a.qty_per*a.take_rate*a.family_allocation)*(isnull(b.jan_21*c.jan_21,0)+isnull(b.feb_21*c.feb_21,0)+isnull(b.mar_21*c.mar_21,0)
+								                                            +isnull(b.apr_21*c.apr_21,0)+isnull(b.may_21*c.may_21,0)+isnull(b.jun_21*c.jun_21,0)
+																			+isnull(b.jul_21*c.jul_21,0)+isnull(b.aug_21*c.aug_21,0)+isnull(b.sep_21*c.sep_21,0)
+																			+isnull(b.oct_21*c.oct_21,0)+isnull(b.nov_21*c.nov_21,0)+isnull(b.dec_21*c.dec_21,0)) as cal_21,
+				
+ 
 								isnull(a.qty_per*a.take_rate*a.family_allocation*b.CAL_22*c.cal_22,0) as cal_22,
 								isnull(a.qty_per*a.take_rate*a.family_allocation*b.CAL_23*c.cal_23,0) as cal_23,
 								isnull(a.qty_per*a.take_rate*a.family_allocation*b.CAL_24*c.cal_24,0) as cal_24,
-								isnull(a.qty_per*a.take_rate*a.family_allocation*b.CAL_25*c.cal_25,0) as cal_25
+								isnull(a.qty_per*a.take_rate*a.family_allocation*b.CAL_25*c.cal_25,0) as cal_25,
+								isnull(a.qty_per*a.take_rate*a.family_allocation*b.CAL_26*c.cal_26,0) as cal_26
 						from	
 					
 								/* LEVEL 5 */
@@ -3144,12 +3319,27 @@ select	 cc.[base_part]
 										isnull(b.dec_20,0) as dec_20,  
 										(isnull(b.jan_20,0)+isnull(b.feb_20,0)+isnull(b.mar_20,0)+isnull(b.apr_20,0)+isnull(b.may_20,0)+isnull(b.jun_20,0)
 										+isnull(b.jul_20,0)+isnull(b.aug_20,0)+isnull(b.sep_20,0)+isnull(b.oct_20,0)+isnull(b.nov_20,0)+isnull(b.dec_20,0)) as cal_20,
-					
-										isnull(b.CAL_21,0) as cal_21,
+										
+										isnull(b.jan_21,0) as jan_21, 
+										isnull(b.feb_21,0) as feb_21,
+										isnull(b.mar_21,0) as mar_21, 
+										isnull(b.apr_21,0) as apr_21, 
+										isnull(b.may_21,0) as may_21,
+										isnull(b.jun_21,0) as jun_21, 
+										isnull(b.jul_21,0) as jul_21, 
+										isnull(b.aug_21,0) as aug_21, 
+										isnull(b.sep_21,0) as sep_21,  
+										isnull(b.oct_21,0) as oct_21, 
+										isnull(b.nov_21,0) as nov_21, 
+										isnull(b.dec_21,0) as dec_21,  
+										(isnull(b.jan_21,0)+isnull(b.feb_21,0)+isnull(b.mar_21,0)+isnull(b.apr_21,0)+isnull(b.may_21,0)+isnull(b.jun_21,0)
+										+isnull(b.jul_21,0)+isnull(b.aug_21,0)+isnull(b.sep_21,0)+isnull(b.oct_21,0)+isnull(b.nov_21,0)+isnull(b.dec_21,0)) as cal_21,
+
 										isnull(b.CAL_22,0) as cal_22,
 										isnull(b.CAL_23,0) as cal_23, 
 										isnull(b.CAL_24,0) as cal_24,
-										isnull(b.CAL_25,0) as cal_25
+										isnull(b.CAL_25,0) as cal_25,
+										isnull(b.CAL_26,0) as cal_26
 								from 
 								
 										/* LEVEL 6 */
@@ -3171,7 +3361,7 @@ select	 cc.[base_part]
 								on a.base_part = c.base_part
 								
 							 	where b.mnemonic is not null 
-									and (isnull(b.cal_16,0)+isnull(b.cal_17,0)+isnull(b.cal_18,0)+isnull(b.cal_19,0)+isnull(b.cal_20,0)+isnull(b.cal_21,0)+isnull(b.cal_22,0)+isnull(b.cal_23,0)+isnull(b.cal_24,0)+isnull(b.cal_25,0)) <>  0 
+									and (isnull(b.cal_16,0)+isnull(b.cal_17,0)+isnull(b.cal_18,0)+isnull(b.cal_19,0)+isnull(b.cal_20,0)+isnull(b.cal_21,0)+isnull(b.cal_22,0)+isnull(b.cal_23,0)+isnull(b.cal_24,0)+isnull(b.cal_25,0)+isnull(b.cal_26,0)) <>  0 
 												
 						)a
 
@@ -3343,12 +3533,27 @@ select	 cc.[base_part]
 								sum(a.dec_20*b.dec_20) as dec_20,
 								(sum(a.jan_20*b.jan_20)+sum(a.feb_20*b.feb_20)+sum(a.mar_20*b.mar_20)+sum(a.apr_20*b.apr_20)+sum(a.may_20*b.may_20)+sum(a.jun_20*b.jun_20)
 								+sum(a.jul_20*b.jul_20)+sum(a.aug_20*b.aug_20)+sum(a.sep_20*b.sep_20)+sum(a.oct_20*b.oct_20)+sum(a.nov_20*b.nov_20)+sum(a.dec_20*b.dec_20)) as cal_20,
-							
-								sum(a.cal_21*b.cal_21) as cal_21,
+								
+								sum(a.jan_21*b.jan_21) as jan_21, 
+								sum(a.feb_21*b.feb_21) as feb_21, 
+								sum(a.mar_21*b.mar_21) as mar_21, 
+								sum(a.apr_21*b.apr_21) as apr_21, 
+								sum(a.may_21*b.may_21) as may_21, 
+								sum(a.jun_21*b.jun_21) as jun_21, 
+								sum(a.jul_21*b.jul_21) as jul_21, 
+								sum(a.aug_21*b.aug_21) as aug_21,
+								sum(a.sep_21*b.sep_21) as sep_21, 
+								sum(a.oct_21*b.oct_21) as oct_21, 
+								sum(a.nov_21*b.nov_21) as nov_21, 
+								sum(a.dec_21*b.dec_21) as dec_21,
+								(sum(a.jan_21*b.jan_21)+sum(a.feb_21*b.feb_21)+sum(a.mar_21*b.mar_21)+sum(a.apr_21*b.apr_21)+sum(a.may_21*b.may_21)+sum(a.jun_21*b.jun_21)
+								+sum(a.jul_21*b.jul_21)+sum(a.aug_21*b.aug_21)+sum(a.sep_21*b.sep_21)+sum(a.oct_21*b.oct_21)+sum(a.nov_21*b.nov_21)+sum(a.dec_21*b.dec_21)) as cal_21,
+
 								sum(a.cal_22*b.cal_22) as cal_22,
 								sum(a.cal_23*b.cal_23) as cal_23,
 								sum(a.cal_24*b.cal_24) as cal_24,
-								sum(a.cal_25*b.cal_25) as cal_25
+								sum(a.cal_25*b.cal_25) as cal_25,
+								sum(a.cal_26*b.cal_26) as cal_26
 						
 						from 
 												
@@ -3536,11 +3741,26 @@ select	 cc.[base_part]
 										(a.qty_per*a.take_rate*a.family_allocation)*(isnull(b.jan_20,0)+isnull(b.feb_20,0)+isnull(b.mar_20,0)+isnull(b.apr_20,0)+isnull(b.may_20,0)+isnull(b.jun_20,0)
 										                                            +isnull(b.jul_20,0)+isnull(b.aug_20,0)+isnull(b.sep_20,0)+isnull(b.oct_20,0)+isnull(b.nov_20,0)+isnull(b.dec_20,0)) as cal_20,	
 
-										isnull(a.qty_per*a.take_rate*a.family_allocation*b.cal_21,0) as cal_21, 
+										isnull(a.qty_per*a.take_rate*a.family_allocation*b.jan_21,0) as jan_21, 
+										isnull(a.qty_per*a.take_rate*a.family_allocation*b.feb_21,0) as feb_21,
+										isnull(a.qty_per*a.take_rate*a.family_allocation*b.mar_21,0) as mar_21, 
+										isnull(a.qty_per*a.take_rate*a.family_allocation*b.apr_21,0) as apr_21, 
+										isnull(a.qty_per*a.take_rate*a.family_allocation*b.may_21,0) as may_21,
+										isnull(a.qty_per*a.take_rate*a.family_allocation*b.jun_21,0) as jun_21, 
+										isnull(a.qty_per*a.take_rate*a.family_allocation*b.jul_21,0) as jul_21, 
+										isnull(a.qty_per*a.take_rate*a.family_allocation*b.aug_21,0) as aug_21, 
+										isnull(a.qty_per*a.take_rate*a.family_allocation*b.sep_21,0) as sep_21,  
+										isnull(a.qty_per*a.take_rate*a.family_allocation*b.oct_21,0) as oct_21, 
+										isnull(a.qty_per*a.take_rate*a.family_allocation*b.nov_21,0) as nov_21, 
+										isnull(a.qty_per*a.take_rate*a.family_allocation*b.dec_21,0) as dec_21,  
+										(a.qty_per*a.take_rate*a.family_allocation)*(isnull(b.jan_21,0)+isnull(b.feb_21,0)+isnull(b.mar_21,0)+isnull(b.apr_21,0)+isnull(b.may_21,0)+isnull(b.jun_21,0)
+										                                            +isnull(b.jul_21,0)+isnull(b.aug_21,0)+isnull(b.sep_21,0)+isnull(b.oct_21,0)+isnull(b.nov_21,0)+isnull(b.dec_21,0)) as cal_21,	
+
 										isnull(a.qty_per*a.take_rate*a.family_allocation*b.cal_22,0) as cal_22,
 										isnull(a.qty_per*a.take_rate*a.family_allocation*b.cal_23,0) as cal_23,  								
 										isnull(a.qty_per*a.take_rate*a.family_allocation*b.cal_24,0) as cal_24,
-										isnull(a.qty_per*a.take_rate*a.family_allocation*b.cal_25,0) as cal_25
+										isnull(a.qty_per*a.take_rate*a.family_allocation*b.cal_25,0) as cal_25,
+										isnull(a.qty_per*a.take_rate*a.family_allocation*b.cal_26,0) as cal_26
 
 										from	
 							
@@ -3750,11 +3970,26 @@ select	 cc.[base_part]
 										(isnull(b.jan_20,0)+isnull(b.feb_20,0)+isnull(b.mar_20,0)+isnull(b.apr_20,0)+isnull(b.may_20,0)+isnull(b.jun_20,0)
 										+isnull(b.jul_20,0)+isnull(b.aug_20,0)+isnull(b.sep_20,0)+isnull(b.oct_20,0)+isnull(b.nov_20,0)+isnull(b.dec_20,0)) as cal_20,
 						
-										isnull(b.cal_21,0) as cal_21, 
+										isnull(b.jan_21,0) as jan_21, 
+										isnull(b.feb_21,0) as feb_21,
+										isnull(b.mar_21,0) as mar_21, 
+										isnull(b.apr_21,0) as apr_21, 
+										isnull(b.may_21,0) as may_21,
+										isnull(b.jun_21,0) as jun_21, 
+										isnull(b.jul_21,0) as jul_21, 
+										isnull(b.aug_21,0) as aug_21, 
+										isnull(b.sep_21,0) as sep_21,  
+										isnull(b.oct_21,0) as oct_21, 
+										isnull(b.nov_21,0) as nov_21, 
+										isnull(b.dec_21,0) as dec_21,  
+										(isnull(b.jan_21,0)+isnull(b.feb_21,0)+isnull(b.mar_21,0)+isnull(b.apr_21,0)+isnull(b.may_21,0)+isnull(b.jun_21,0)
+										+isnull(b.jul_21,0)+isnull(b.aug_21,0)+isnull(b.sep_21,0)+isnull(b.oct_21,0)+isnull(b.nov_21,0)+isnull(b.dec_21,0)) as cal_21,
+												
 										isnull(b.cal_22,0) as cal_22,
 										isnull(b.cal_23,0) as cal_23,
 										isnull(b.cal_24,0) as cal_24,
-										isnull(b.cal_25,0) as cal_25
+										isnull(b.cal_25,0) as cal_25,
+										isnull(b.cal_26,0) as cal_26
 								from 
 							
 										(select * 
@@ -3967,12 +4202,27 @@ select	 cc.[base_part]
 						isnull(b.dec_20,0) as dec_20, 
 						(isnull(b.jan_20,0)+isnull(b.feb_20,0)+isnull(b.mar_20,0)+isnull(b.apr_20,0)+isnull(b.may_20,0)+isnull(b.jun_20,0)
 						+isnull(b.jul_20,0)+isnull(b.aug_20,0)+isnull(b.sep_20,0)+isnull(b.oct_20,0)+isnull(b.nov_20,0)+isnull(b.dec_20,0))  as cal_20,
-				
-						isnull(b.cal_21,0) as cal_21,
+						
+						isnull(b.jan_21,0) as jan_21, 
+						isnull(b.feb_21,0) as feb_21, 
+						isnull(b.mar_21,0) as mar_21, 
+						isnull(b.apr_21,0) as apr_21, 
+						isnull(b.may_21,0) as may_21, 
+						isnull(b.jun_21,0) as jun_21, 
+						isnull(b.jul_21,0) as jul_21, 
+						isnull(b.aug_21,0) as aug_21, 
+						isnull(b.sep_21,0) as sep_21, 
+						isnull(b.oct_21,0) as oct_21, 
+						isnull(b.nov_21,0) as nov_21, 
+						isnull(b.dec_21,0) as dec_21, 
+						(isnull(b.jan_21,0)+isnull(b.feb_21,0)+isnull(b.mar_21,0)+isnull(b.apr_21,0)+isnull(b.may_21,0)+isnull(b.jun_21,0)
+						+isnull(b.jul_21,0)+isnull(b.aug_21,0)+isnull(b.sep_21,0)+isnull(b.oct_21,0)+isnull(b.nov_21,0)+isnull(b.dec_21,0))  as cal_21,
+
 						isnull(b.cal_22,0) as cal_22,
 						isnull(b.cal_23,0) as cal_23,
 						isnull(b.cal_24,0) as cal_24,
-						isnull(b.cal_25,0) as cal_25
+						isnull(b.cal_25,0) as cal_25,
+						isnull(b.cal_26,0) as cal_26
 				from    
 						(select * 
 						 from	eeiuser.acctg_csm_base_part_mnemonic
@@ -3989,7 +4239,7 @@ select	 cc.[base_part]
 						and a.release_id = b.release_id
 						where	version = 'Empire Adjustment'
 								and b.mnemonic is not null
-								and (isnull(b.cal_16,0)+isnull(b.CAL_17,0)+isnull(b.CAL_18,0)+isnull(b.CAL_19,0)+isnull(b.CAL_20,0)+isnull(b.CAL_21,0)+isnull(b.CAL_22,0)+isnull(b.CAL_23,0)+isnull(b.CAL_24,0)+isnull(b.CAL_25,0)) <>  0
+								and (isnull(b.cal_16,0)+isnull(b.CAL_17,0)+isnull(b.CAL_18,0)+isnull(b.CAL_19,0)+isnull(b.CAL_20,0)+isnull(b.CAL_21,0)+isnull(b.CAL_22,0)+isnull(b.CAL_23,0)+isnull(b.CAL_24,0)+isnull(b.CAL_25,0)+isnull(b.CAL_26,0)) <>  0
 				) bb
 				/* STATEMENT 3bb ENDS */
 				

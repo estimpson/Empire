@@ -5,6 +5,8 @@ GO
 
 
 
+
+
 CREATE procedure [EDI4010].[usp_Process]
 	@TranDT datetime = null out
 ,	@Result integer = null out
@@ -131,8 +133,33 @@ select distinct
 ,   CustomerPO
 ,	CustomerModelYear
 ,   NewDocument
+
 from
 	EDI4010.CurrentPlanningReleases ()
+
+	
+	
+	--Truncate table dbo.EDI41010CurrentPlanningReleases
+	
+	--Insert dbo.EDI41010CurrentPlanningReleases
+
+--select distinct
+--	RawDocumentGUID
+--,	ReleaseNo
+--,   ShipToCode
+--,   ShipFromCode
+--,   ConsigneeCode
+--,   CustomerPart
+--,   CustomerPO
+--,	CustomerModelYear
+--,   NewDocument
+
+
+--from
+--	EDI4010.CurrentPlanningReleases ()
+--	where CustomerPart = '22008-8A04S'
+
+ 
 
 --<Debug>
 if @Debug & 1 = 1 begin
@@ -1608,7 +1635,7 @@ end
 /* Start E-Mail Alerts and Exceptions*/
 
 Declare @EDIOrdersAlert table (
-	TradingPartner varchar(30) NULL,
+	TradingPartner varchar(50) NULL,
 	DocumentType varchar(30) NULL, --'PR - Planning Release; SS - ShipSchedule'
 	AlertType varchar(100) NULL,
 	ReleaseNo varchar(100) NULL,
@@ -1988,6 +2015,7 @@ SELECT
 
 SELECT 
 		@EmailAddress = [FT].[fn_ReturnSchedulerEMailAddress] (@scheduler)
+
 		
 		
 
@@ -2014,7 +2042,7 @@ SELECT
 EXEC msdb.dbo.sp_send_dbmail
 			@profile_name = 'DBMail'-- sysname
 	,		@recipients = @EmailAddress -- varchar(max)
-	,		@copy_recipients = 'aboulanger@fore-thought.com;dwest@empireelect.com' -- varchar(max)
+	,		@copy_recipients = 'jflores@empireelect.com;aboulanger@fore-thought.com;dwest@empireelect.com' -- varchar(max)
 	, 		@subject = @EmailHeader
 	,  		@body = @EmailBody
 	,  		@body_format = 'HTML'
@@ -2093,9 +2121,6 @@ set	@Error = @@error
 
 select
 	@Error, @ProcReturn, @TranDT, @ProcResult
-go
-
-
 go
 
 commit transaction

@@ -34,8 +34,15 @@ CREATE TABLE [dbo].[customer]
 [region_code] [varchar] (10) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
 [empower_flag] [varchar] (8) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
 [auto_profile] [varchar] (1) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
-[check_standard_pack] [varchar] (1) COLLATE SQL_Latin1_General_CP1_CI_AS NULL
-) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+[check_standard_pack] [varchar] (1) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
+[contact_email] [nvarchar] (50) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
+[contact_mobile] [varchar] (20) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
+[regdt] [datetime] NOT NULL CONSTRAINT [DF_customer_regdt] DEFAULT (getdate()),
+[regby] [varchar] (15) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
+[lastupdatedt] [datetime] NULL,
+[lastupdateby] [varchar] (15) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
+[position] [varchar] (50) COLLATE SQL_Latin1_General_CP1_CI_AS NULL
+) ON [PRIMARY]
 GO
 SET QUOTED_IDENTIFIER ON
 GO

@@ -108,13 +108,11 @@ if exists
 		where
 			sd.shipper = @shipper
 			and sd.qty_packed > sd.qty_required
-			and ds.allow_overstage = 'N'
+			and isnull(ds.allow_overstage,'N') = 'N'
 	) begin
-	raiserror('Error:  One or more part are overload the Qty packed vrs Qty Required!', 16, 1)
-
-	rollback tran
-
-	return -4
+		raiserror('Error:  One or more part are overload the Qty packed vrs Qty Required!!', 16, 1)
+		rollback tran
+		return -4
 end
 
 --	5. Refresh shipper container information.

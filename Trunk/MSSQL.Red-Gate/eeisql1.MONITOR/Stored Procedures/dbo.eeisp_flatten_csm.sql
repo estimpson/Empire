@@ -4,6 +4,7 @@ SET ANSI_NULLS ON
 GO
 
 
+
 CREATE	procedure	[dbo].[eeisp_flatten_csm]
 
 as
@@ -18,7 +19,7 @@ select  distinct(base_part) as base_part,
    b.program as program, 
    b.badge+' '+b.nameplate as vehicle 
 from  eeiuser.acctg_csm_base_part_mnemonic a 
-   left join eeiuser.acctg_csm_nacsm b on a.mnemonic = b.mnemonic 
+   left join eeiuser.acctg_csm_nacsm b on a.mnemonic = b.mnemonic and a.release_id = b.release_id
 where  b.release_id = (Select max(release_id) from eeiuser.acctg_csm_NACSM) 
    and b.program <> '' 
    and a.take_rate*a.family_allocation*a.qty_per <> 0 

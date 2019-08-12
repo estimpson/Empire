@@ -435,5 +435,7 @@ DISABLE TRIGGER [EEIUser].[tr_csm_NAIHS_DeleteInsertOnly] ON [EEIUser].[acctg_cs
 GO
 ALTER TABLE [EEIUser].[acctg_csm_NAIHS] ADD CONSTRAINT [ACCTG_CSM_NAIHS_2_PK] PRIMARY KEY CLUSTERED  ([Release_ID], [Version], [Mnemonic-Vehicle/Plant]) ON [PRIMARY]
 GO
+CREATE NONCLUSTERED INDEX [ix_acctg_csm_NAIHS_id] ON [EEIUser].[acctg_csm_NAIHS] ([ID]) ON [PRIMARY]
+GO
 CREATE NONCLUSTERED INDEX [ix_acctg_csm_NAIHS_oem] ON [EEIUser].[acctg_csm_NAIHS] ([Manufacturer]) INCLUDE ([EOP], [Mnemonic-Vehicle/Plant], [Release_ID]) ON [PRIMARY]
 GO

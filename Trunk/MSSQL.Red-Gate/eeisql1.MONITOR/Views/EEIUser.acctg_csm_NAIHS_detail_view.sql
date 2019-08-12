@@ -4,7 +4,8 @@ SET ANSI_NULLS ON
 GO
 
 
-create view [EEIUser].[acctg_csm_NAIHS_detail_view]
+
+CREATE view [EEIUser].[acctg_csm_NAIHS_detail_view]
 as
 select
 	ReleaseID
@@ -188,6 +189,19 @@ from
 	,	[Oct 2020] = coalesce(n.[Oct 2020], 0)
 	,	[Nov 2020] = coalesce(n.[Nov 2020], 0)
 	,	[Dec 2020] = coalesce(n.[Dec 2020], 0)
+
+	,	[Jan 2021] = coalesce(n.[Jan 2021], 0)
+	,	[Feb 2021] = coalesce(n.[Feb 2021], 0)
+	,	[Mar 2021] = coalesce(n.[Mar 2021], 0)
+	,	[Apr 2021] = coalesce(n.[Apr 2021], 0)
+	,	[May 2021] = coalesce(n.[May 2021], 0)
+	,	[Jun 2021] = coalesce(n.[Jun 2021], 0)
+	,	[Jul 2021] = coalesce(n.[Jul 2021], 0)
+	,	[Aug 2021] = coalesce(n.[Aug 2021], 0)
+	,	[Sep 2021] = coalesce(n.[Sep 2021], 0)
+	,	[Oct 2021] = coalesce(n.[Oct 2021], 0)
+	,	[Nov 2021] = coalesce(n.[Nov 2021], 0)
+	,	[Dec 2021] = coalesce(n.[Dec 2021], 0)
 	from
 		eeiuser.acctg_csm_NAIHS n
 ) as np
@@ -351,6 +365,18 @@ unpivot
 	,	[Oct 2020]
 	,	[Nov 2020]
 	,	[Dec 2020]	
+	,	[Jan 2021]
+	,	[Feb 2021]
+	,	[Mar 2021]
+	,	[Apr 2021]
+	,	[May 2021]
+	,	[Jun 2021]
+	,	[Jul 2021]
+	,	[Aug 2021]
+	,	[Sep 2021]
+	,	[Oct 2021]
+	,	[Nov 2021]
+	,	[Dec 2021]	
 	)
 ) as nu
 

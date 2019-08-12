@@ -4,8 +4,6 @@ SET ANSI_NULLS ON
 GO
 
 
-
-
 CREATE PROCEDURE [EDIEDIFACT97A].[usp_Process]
 	@TranDT DATETIME = NULL OUT
 ,	@Result INTEGER = NULL OUT
@@ -1392,7 +1390,7 @@ end
 /* Start E-Mail Alerts and Exceptions*/
 
 Declare @EDIOrdersAlert table (
-	TradingPartner varchar(30) NULL,
+	TradingPartner varchar(50) NULL,
 	DocumentType varchar(30) NULL, --'PR - Planning Release; SS - ShipSchedule'
 	AlertType varchar(100) NULL,
 	ReleaseNo varchar(100) NULL,
@@ -1963,9 +1961,6 @@ set	@Error = @@error
 
 select
 	@Error, @ProcReturn, @TranDT, @ProcResult
-go
-
-
 go
 
 --commit transaction

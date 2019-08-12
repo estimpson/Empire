@@ -6,6 +6,7 @@ GO
 
 
 
+
 CREATE VIEW [EDIAutoSystems].[BlanketOrders]
 AS
 SELECT
@@ -41,7 +42,7 @@ FROM
 		ON s.id = oh.shipper
 WHERE
 	oh.order_type = 'B'
-AND	trading_partner_code = 'AUTOSYSTEMS'
+AND	trading_partner_code like '%AUTOSYSTEMS%'
 AND	COALESCE(oh.status,'X') = 'A'
 	
 

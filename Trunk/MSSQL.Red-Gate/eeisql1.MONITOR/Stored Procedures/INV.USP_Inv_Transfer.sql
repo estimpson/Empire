@@ -62,7 +62,7 @@ DECLARE @ProcReturn integer, @ProcResult integer
 DECLARE @Error integer,	@RowCount integer
 
 --</Error Handling>
-DECLARE @FromLoc varchar(10), @Plant varchar(10)
+DECLARE @FromLoc varchar(10), @Plant varchar(10), @PlantFromLoc varchar(10), @GroupFromLoc varchar(25), @GroupToLoc varchar(25)
 DECLARE @QtyON_Hand_Result numeric(20,6), @Part varchar(25)
 Declare @TranDT datetime
 
@@ -149,17 +149,46 @@ IF	Exists(SELECT 1
 			FROM	object
 			WHERE	serial = @Serial and Quantity < 0) BEGIN
 	SET	@Result = 100030
-	RAISERROR ('Error:  Cantidad en Object <= 0', 16, 1)
+	RAISERROR ('Error:  Quantity in Object <= 0', 16, 1)
 	ROLLBACK TRAN @ProcName
 	RETURN	@Result
 END
 
+
+IF (@Toloc  like 'QC%') and NOT EXISTS(SELECT 1 from  adm_rus_role_usuarios roles_usuarios  
+INNER JOIN [adm_usr_usuarios] usuarios  ON roles_usuarios.rus_codusr=usuarios.usr_codigo
+where  usuarios.usr_usuario=@operator and rus_role=7) 
+BEGIN
+	SET	@Result = 100030
+	RAISERROR ('Error:  You are not authorized to make this transfer', 16, 1)
+	ROLLBACK TRAN @ProcName
+	RETURN	@Result
+END
+
+
 		
 -- Get the plant designated for the new location
-	SELECT @Plant = location.plant FROM location  WHERE location.code = @Toloc 
+	SELECT @Plant = location.plant, @GroupToLoc= isnull(group_no,'') FROM location  WHERE location.code = @Toloc 
 
 --Get the location for serial pass
 	Select	@FromLoc = location from object where	serial=@Serial
+
+
+	SELECT @PlantFromloc = location.plant, @GroupFromLoc = ISNULL(group_no,'') FROM location  WHERE location.code = @FromLoc 
+
+
+	--No es posible transferir material entre bodegas a solicitud de Luis Nava (Gte. Materiales Troy). Realizado por: Roberto Larios. 
+	--Fecha Creaction: 2019-06-18
+
+	if (@GroupFromLoc like '%warehouse%' and @GroupToLoc like '%warehouse%')
+	and (ISNULL(@Plant,'EEI') <> ISNULL(@PlantFromloc,'EEI'))
+	begin
+			SET	@Result = 99999
+			RAISERROR ('Error:  Is not allowed move serials between plants, you must transfert to a Container location if you want transfer to another Warehouse!', 16, 1)
+			ROLLBACK TRAN @ProcName
+			RETURN	@Result
+	end
+
 
 --Update the location for the serial
 	UPDATE	object 

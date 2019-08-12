@@ -3,6 +3,7 @@ GO
 SET ANSI_NULLS ON
 GO
 
+
 CREATE procedure [EEIUser].[acctg_base_part_njb_ecn_query_list]
 as 
 
@@ -10,6 +11,8 @@ as
 se creo este SP apartir del acctg_base_part_njb_ecn_query
 ya que irene queria ver listado sin filtro de parte.
 2019-02-19 
+
+DW 2019-07-31 Added Time Base Pricing table to this query
 
 EXEC eeiuser.acctg_base_part_njb_ecn_query_list 
 
@@ -38,12 +41,23 @@ SELECT	distinct(p.product_line)
 		,OH.destination
 		,round(OH.price,4) as SO_SellingPrice
 		,round(OH.price*.83,2) as SO_TransferPrice
+		,aa.customer as TBP_Customer
+		,aa.part as TBP_Part
+		,aa.effect_date as TBP_EffectiveDate
+		,aa.price as TBP_Price
 		--,TransferPrice=ROUND(WO.ContPrice *0.83,2)
 FROM part p
 	LEfT JOIN part_standard ps on ps.part = p.part
 	LEFT JOIN eehsql1.eeh.dbo.ENG_WOEngineer WO on ps.part = WO.part
 	LEFT JOIN eeiuser.qt_quotelog Q on	WO.QuoteNumber = Q.QuoteNumber 
 	LEFT JOIN order_header OH on ps.part = OH.blanket_part
+	LEFT JOIN (select a.customer, a.part, a.customer_part_number, a.effect_date, a.price from part_customer_tbp a 
+
+join (select customer, part, max(effect_date) as effect_date from part_customer_tbp group by customer, part) b
+
+on a.customer = b.customer and a.part = b.part
+
+) aa on p.part = aa.part
 	--LEFT JOIN (	select	Part,TransferPrice=AVG(ROUND(ContPrice *0.83,2)),TransDT=Max(TransDT )
 	--			from	eehsql1.eeh.dbo.ENG_WOEngineer 
 	--			where	ContPrice>0 AND Status in ('A','D') -- and part='ALC0818-DV02'

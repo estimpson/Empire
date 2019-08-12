@@ -6,6 +6,7 @@ GO
 
 
 
+
 CREATE VIEW [EDI_XML_STANLEY_ASN].[ASNHeaders]
 AS
 SELECT
@@ -35,7 +36,7 @@ FROM
 	dbo.shipper s
 	JOIN dbo.edi_setups es
 		ON s.destination = es.destination
-		   AND es.trading_partner_code = 'STANLEY'
+		   AND es.trading_partner_code like '%STANLEY%'
 	JOIN dbo.destination d
 		ON es.destination = d.destination
 	LEFT JOIN dbo.bill_of_lading bol
