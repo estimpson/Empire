@@ -70,6 +70,7 @@ namespace WebPortal.NewSalesAward.Models
         public string HardToolingTrigger { get; set; }
         public string HardToolingDescription { get; set; }
         public string HardToolingCAPEXID { get; set; }
+        public string HardToolingCustomerPO { get; set; }
         public Nullable<decimal> AssemblyTesterToolingAmount { get; set; }
         public string AssemblyTesterToolingTrigger { get; set; }
         public string AssemblyTesterToolingDescription { get; set; }

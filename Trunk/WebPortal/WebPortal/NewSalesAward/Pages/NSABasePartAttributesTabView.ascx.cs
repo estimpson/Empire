@@ -63,7 +63,7 @@ namespace WebPortal.NewSalesAward.Pages
             var productLine = ProductLineComboBox.Text.Trim();
             var marketSegment = EmpireMarketSegmentComboBox.Text.Trim();
             var marketSubsegment = EmpireMarketSubsegmentComboBox.Text.Trim();
-            var application = EmpireApplicationTextBox.Text.Trim();
+            var application = EmpireApplicationComboBox.Text.Trim();
 
             var sop = EmpireSOPDateEdit.Value != null
                 ? Convert.ToDateTime(EmpireSOPDateEdit.Value)

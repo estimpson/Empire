@@ -163,6 +163,162 @@
                             </dx:LayoutItemNestedControlContainer>
                         </LayoutItemNestedControlCollection>
                     </dx:LayoutItem>
+
+
+
+
+
+
+
+                    <dx:EmptyLayoutItem />
+                    <dx:LayoutItem Caption="Customer PO File Upload">
+                        <LayoutItemNestedControlCollection>
+                            <dx:LayoutItemNestedControlContainer runat="server">
+                                <script>
+                                    function onFileUploaderInit(s, e) {
+                                        s.SetEnabled(!(customerCommitmentAttachmentTextBox.GetText() > ""));
+                                    }
+
+                                    function onFileUploadComplete(s, e) {
+                                        console.log("onFileUploadComplete");
+                                        if(e.callbackData) {
+                                            var fileData = e.callbackData.split('|');
+                                            var fileName = fileData[0],
+                                                fileUrl = fileData[1],
+                                                fileSize = fileData[2];
+                                            console.log("fileName: " + fileName);
+                                            console.log("fileUrl: " + fileUrl);
+                                            console.log("fileSize: " + fileSize);
+                                            customerCommitmentAttachmentTextBox.SetText(fileName);
+                                            s.SetEnabled(false);
+                                            SetCommitmentFileActionsEnabled(true);
+                                        }
+                                    }
+                                </script>
+                                <%--<div style="padding-top: 10px">--%>
+                                    <div class="uploadContainer">
+                                        <dx:ASPxUploadControl ID="CustomerPOUploadControl" ClientInstanceName="customerPOUploadControl" runat="server"
+                                                              NullText="Select a file..." UploadMode="Advanced"
+                                                              ShowUploadButton="True" ShowAddRemoveButtons="True" ShowProgressPanel="True"
+                                                              OnFileUploadComplete="CustomerPOUploadControl_OnFileUploadComplete">
+                                            <AdvancedModeSettings EnableMultiSelect="False" EnableDragAndDrop="True" />
+                                            <ValidationSettings MaxFileSize="41943040" />
+                                            <ClientSideEvents
+                                                Init="onFileUploaderInit"
+                                                FileUploadComplete="onFileUploadComplete" />
+                                        </dx:ASPxUploadControl>
+                                    </div>
+                                <%--</div>--%>
+                            </dx:LayoutItemNestedControlContainer>
+                        </LayoutItemNestedControlCollection>
+                    </dx:LayoutItem>
+                    <dx:LayoutItem Caption="Customer PO File" FieldName="CustomerPOAttachment">
+                        <LayoutItemNestedControlCollection>
+                            <dx:LayoutItemNestedControlContainer runat="server">
+                                <div style="width: 100%">
+                                    <table style="width: 100%">
+                                        <tr>
+                                            <td style="width: 100%">
+                                                <dx:ASPxTextBox ClientInstanceName="customerPOAttachmentTextBox" runat="server" ReadOnly="True" Width="100%"/>
+                                            </td>
+                                            <td>
+                                                <script>
+                                                    var postponedCallbackFileActions;
+                                                    var callbackType;
+
+                                                    function OnDeleteCustomerPOClick(s, e) {
+                                                        ConfirmationPrompt(null,
+                                                            function() {
+                                                                callbackType = "Delete";
+                                                                if (fileActionsCallback.InCallback()) {
+                                                                    var postponedCallbackFileActions = true;
+                                                                } else {
+                                                                    callbackType = "Delete";
+                                                                    fileActionsCallback.PerformCallback(callbackType);
+                                                                }
+                                                            },
+                                                            null, 'Confirmation', 'Are you sure you want to delete the customer PO attachment?');
+                                                    }
+
+                                                    function OnOpenCustomerPOClick(s, e) {
+                                                        callbackType = "Open";
+                                                        if (fileActionsCallback.InCallback()) {
+                                                            var postponedCallbackFileActions = true;
+                                                        } else {
+                                                            fileActionsCallback.PerformCallback(callbackType);
+                                                        }
+                                                    }
+
+                                                    function OnInitFileActions(s, e) {
+                                                        SetCommitmentFileActionsEnabled(customerPOAttachmentTextBox.GetText() > "");
+                                                    }
+
+                                                    function OnEndCallbackHandleFileActions(s, e) {
+                                                        if (postponedCallbackFileActions) {
+                                                            fileActionsCallback.PerformCallback(callbackType);
+                                                            return;
+                                                        }
+
+                                                        switch (callbackType) {
+                                                            case "Open":
+                                                                var src = customerPOFile.cpFilePath;
+                                                                window.open(src, "_blank", "resizable=true", true);
+                                                                break;
+                                                            case "Delete":
+                                                                customerPOAttachmentTextBox.SetText("");
+                                                                customerPOUploadControl.SetEnabled(true);
+                                                                SetPOFileActionsEnabled(false);
+                                                                break;
+                                                        }
+                                                    }
+
+                                                    function SetPOFileActionsEnabled(e) {
+                                                        console.log("POFileActionsEnabled: " + e);
+                                                        customerPOFile.SetEnabled(e);
+                                                        deletePOFile.SetEnabled(e);
+                                                    }
+                                                </script>
+                                                <dx:ASPxCallbackPanel runat="server" ID="HandleFileActionsCallback" ClientInstanceName="fileActionsCallback"
+                                                                      OnCallback="HandleFileActionsCallback_OnCallback">
+                                                    <ClientSideEvents
+                                                        Init="OnInitFileActions"
+                                                        EndCallback="OnEndCallbackHandleFileActions"/>
+                                                    <PanelCollection>
+                                                        <dx:PanelContent runat="server">
+                                                            <table>
+                                                                <tr>
+                                                                    <td>
+                                                                        <dx:ASPxButton ID="OpenCustomerPOFileButton" ClientInstanceName="customerPOFile" runat="server" 
+                                                                                       RenderMode="Link" AutoPostBack="False" UseSubmitBehavior="False">
+                                                                            <Image IconID="print_preview_32x32gray"></Image>
+                                                                            <ClientSideEvents Click="OnOpenCustomerPOClick" />
+                                                                        </dx:ASPxButton>
+                                                                    </td>
+                                                                    <td>
+                                                                        <dx:ASPxButton ClientInstanceName="deletePOFile" runat="server" 
+                                                                                       RenderMode="Link" AutoPostBack="False" UseSubmitBehavior="False">
+                                                                            <Image IconID="actions_deleteitem_32x32gray"></Image>
+                                                                            <ClientSideEvents Click="OnDeleteCustomerPOClick" />
+                                                                        </dx:ASPxButton>
+                                                                    </td>
+                                                                </tr>
+                                                            </table>
+                                                        </dx:PanelContent>
+                                                    </PanelCollection>
+                                                </dx:ASPxCallbackPanel>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                                
+                            </dx:LayoutItemNestedControlContainer>
+                        </LayoutItemNestedControlCollection>
+                    </dx:LayoutItem>
+
+
+
+
+
                 </Items>
             </dx:ASPxFormLayout>
         </dx:PanelContent>

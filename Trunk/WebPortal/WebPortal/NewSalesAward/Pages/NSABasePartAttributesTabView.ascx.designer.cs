@@ -94,13 +94,22 @@ namespace WebPortal.NewSalesAward.Pages {
         protected global::System.Web.UI.WebControls.EntityDataSource EmpireMarketSubsegmentEntityDataSource;
         
         /// <summary>
-        /// EmpireApplicationTextBox control.
+        /// EmpireApplicationComboBox control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::DevExpress.Web.ASPxTextBox EmpireApplicationTextBox;
+        protected global::DevExpress.Web.ASPxComboBox EmpireApplicationComboBox;
+        
+        /// <summary>
+        /// ApplicationEntityDataSource control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.EntityDataSource ApplicationEntityDataSource;
         
         /// <summary>
         /// EmpireSOPDateEdit control.

@@ -5,6 +5,77 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="FxPLMModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="EditTabs_Application">
+          <Key>
+            <PropertyRef Name="RowID" />
+          </Key>
+          <Property Name="Status" Type="int" Nullable="false" />
+          <Property Name="Type" Type="int" Nullable="false" />
+          <Property Name="Application" Type="varchar" MaxLength="250" Nullable="false" />
+          <Property Name="RowID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RowCreateDT" Type="datetime" />
+          <Property Name="RowCreateUser" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="RowModifiedDT" Type="datetime" />
+          <Property Name="RowModifiedUser" Type="nvarchar" MaxLength="128" Nullable="false" />
+        </EntityType>
+        <EntityType Name="EditTabs_EmpireMarketSegment">
+          <Key>
+            <PropertyRef Name="RowID" />
+          </Key>
+          <Property Name="Status" Type="int" Nullable="false" />
+          <Property Name="Type" Type="int" Nullable="false" />
+          <Property Name="EmpireMarketSegment" Type="varchar" MaxLength="250" Nullable="false" />
+          <Property Name="RowID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RowCreateDT" Type="datetime" />
+          <Property Name="RowCreateUser" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="RowModifiedDT" Type="datetime" />
+          <Property Name="RowModifiedUser" Type="nvarchar" MaxLength="128" Nullable="false" />
+        </EntityType>
+        <EntityType Name="EditTabs_EmpireMarketSubsegment">
+          <Key>
+            <PropertyRef Name="RowID" />
+          </Key>
+          <Property Name="Status" Type="int" Nullable="false" />
+          <Property Name="Type" Type="int" Nullable="false" />
+          <Property Name="EmpireMarketSubsegment" Type="varchar" MaxLength="250" Nullable="false" />
+          <Property Name="RowID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RowCreateDT" Type="datetime" />
+          <Property Name="RowCreateUser" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="RowModifiedDT" Type="datetime" />
+          <Property Name="RowModifiedUser" Type="nvarchar" MaxLength="128" Nullable="false" />
+        </EntityType>
+        <EntityType Name="EditTabs_ProgramManagers">
+          <Key>
+            <PropertyRef Name="RowID" />
+          </Key>
+          <Property Name="Status" Type="int" Nullable="false" />
+          <Property Name="Type" Type="int" Nullable="false" />
+          <Property Name="FirstName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="MiddleName" Type="varchar" MaxLength="50" />
+          <Property Name="LastName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="RowID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RowCreateDT" Type="datetime" />
+          <Property Name="RowCreateUser" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="RowModifiedDT" Type="datetime" />
+          <Property Name="RowModifiedUser" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="FullName" Type="varchar" MaxLength="152" StoreGeneratedPattern="Computed" Nullable="false" />
+        </EntityType>
+        <EntityType Name="EditTabs_Salespeople">
+          <Key>
+            <PropertyRef Name="RowID" />
+          </Key>
+          <Property Name="Status" Type="int" Nullable="false" />
+          <Property Name="Type" Type="int" Nullable="false" />
+          <Property Name="FirstName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="MiddleName" Type="varchar" MaxLength="50" />
+          <Property Name="LastName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="RowID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RowCreateDT" Type="datetime" />
+          <Property Name="RowCreateUser" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="RowModifiedDT" Type="datetime" />
+          <Property Name="RowModifiedUser" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="FullName" Type="varchar" MaxLength="152" StoreGeneratedPattern="Computed" Nullable="false" />
+        </EntityType>
         <!--Errors Found During Generation:
 warning 6002: The table/view 'FxPlm.NSA.ActiveBaseParts' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="ActiveBaseParts">
@@ -401,6 +472,7 @@ warning 6002: The table/view 'FxPlm.NSA.Users' does not have a primary key defin
           <Parameter Name="HardToolingTrigger" Type="varchar(max)" Mode="In" />
           <Parameter Name="HardToolingDescription" Type="varchar(max)" Mode="In" />
           <Parameter Name="HardToolingCAPEXID" Type="varchar" Mode="In" />
+          <Parameter Name="HardToolingCustomerPO" Type="varchar" Mode="In" />
           <Parameter Name="TranDT" Type="datetime" Mode="InOut" />
           <Parameter Name="Result" Type="int" Mode="InOut" />
           <Parameter Name="Debug" Type="int" Mode="In" />
@@ -461,6 +533,11 @@ warning 6002: The table/view 'FxPlm.NSA.Users' does not have a primary key defin
           <Parameter Name="DebugMsg" Type="varchar(max)" Mode="InOut" />
         </Function>
         <EntityContainer Name="FxPLMModelStoreContainer">
+          <EntitySet Name="EditTabs_Application" EntityType="Self.EditTabs_Application" Schema="NSA" store:Type="Tables" />
+          <EntitySet Name="EditTabs_EmpireMarketSegment" EntityType="Self.EditTabs_EmpireMarketSegment" Schema="NSA" store:Type="Tables" />
+          <EntitySet Name="EditTabs_EmpireMarketSubsegment" EntityType="Self.EditTabs_EmpireMarketSubsegment" Schema="NSA" store:Type="Tables" />
+          <EntitySet Name="EditTabs_ProgramManagers" EntityType="Self.EditTabs_ProgramManagers" Schema="NSA" store:Type="Tables" />
+          <EntitySet Name="EditTabs_Salespeople" EntityType="Self.EditTabs_Salespeople" Schema="NSA" store:Type="Tables" />
           <EntitySet Name="ActiveBaseParts" EntityType="Self.ActiveBaseParts" store:Type="Views" store:Schema="NSA">
             <DefiningQuery>SELECT 
     [ActiveBaseParts].[BasePart] AS [BasePart], 
@@ -742,6 +819,7 @@ warning 6002: The table/view 'FxPlm.NSA.Users' does not have a primary key defin
             <Parameter Name="HardToolingTrigger" Mode="In" Type="String" />
             <Parameter Name="HardToolingDescription" Mode="In" Type="String" />
             <Parameter Name="HardToolingCAPEXID" Mode="In" Type="String" />
+            <Parameter Name="HardToolingCustomerPO" Mode="In" Type="String" />
             <Parameter Name="TranDT" Mode="InOut" Type="DateTime" />
             <Parameter Name="Result" Mode="InOut" Type="Int32" />
             <Parameter Name="Debug" Mode="In" Type="Int32" />
@@ -828,8 +906,8 @@ warning 6002: The table/view 'FxPlm.NSA.Users' does not have a primary key defin
             <Parameter Name="Debug" Mode="In" Type="Int32" />
             <Parameter Name="DebugMsg" Mode="InOut" Type="String" />
           </FunctionImport>
-          <FunctionImport Name="usp_GetAwardedQuotes" ReturnType="Collection(FxPLMModel.usp_GetAwardedQuotes_Result)" />
-          <FunctionImport Name="usp_GetAwardedQuote" ReturnType="Collection(FxPLMModel.usp_GetAwardedQuotes_Result)">
+          <FunctionImport Name="usp_GetAwardedQuotes" ReturnType="Collection(FxPLMModel.usp_GetAwardedQuote_Result)" />
+          <FunctionImport Name="usp_GetAwardedQuote" ReturnType="Collection(FxPLMModel.usp_GetAwardedQuote_Result)">
           <Parameter Name="QuoteNumber" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="usp_GetAwardedQuoteDetails">
@@ -882,6 +960,11 @@ warning 6002: The table/view 'FxPlm.NSA.Users' does not have a primary key defin
           </FunctionImport>
           <EntitySet Name="NewQuoteAward_SalesPeople" EntityType="FxPLMModel.NewQuoteAward_SalesPeople" />
           <EntitySet Name="NewQuoteAward_QuoteReasons" EntityType="FxPLMModel.NewQuoteAward_QuoteReasons" />
+          <EntitySet Name="EditTabs_Application" EntityType="FxPLMModel.EditTabs_Application" />
+          <EntitySet Name="EditTabs_EmpireMarketSegment" EntityType="FxPLMModel.EditTabs_EmpireMarketSegment" />
+          <EntitySet Name="EditTabs_EmpireMarketSubsegment" EntityType="FxPLMModel.EditTabs_EmpireMarketSubsegment" />
+          <EntitySet Name="EditTabs_ProgramManagers" EntityType="FxPLMModel.EditTabs_ProgramManagers" />
+          <EntitySet Name="EditTabs_Salespeople" EntityType="FxPLMModel.EditTabs_Salespeople" />
           </EntityContainer>
         <ComplexType Name="usp_LookupProgramManagerByInit_Result">
           <Property Type="String" Name="UserName" Nullable="false" MaxLength="40" />
@@ -1174,7 +1257,7 @@ warning 6002: The table/view 'FxPlm.NSA.Users' does not have a primary key defin
           </Key>
           <Property Name="QuoteReason" Type="String" Nullable="false" MaxLength="11" FixedLength="false" Unicode="false" />
         </EntityType>
-        <ComplexType Name="usp_GetAwardedQuote_Result">
+        <ComplexType Name="usp_GetAwardedQuotes_Result">
           <Property Type="String" Name="QuoteNumber" Nullable="false" MaxLength="100" />
           <Property Type="String" Name="BasePart" Nullable="true" MaxLength="50" />
           <Property Type="String" Name="ExcelSpreadsheetBasePart" Nullable="true" MaxLength="100" />
@@ -1242,8 +1325,80 @@ warning 6002: The table/view 'FxPlm.NSA.Users' does not have a primary key defin
           <Property Type="Decimal" Name="AwardedEAU" Nullable="true" Precision="20" Scale="0" />
           <Property Type="Decimal" Name="AwardedPrice" Nullable="true" Precision="20" Scale="4" />
           <Property Type="Int32" Name="ValidQuoteNumberFlag" Nullable="false" />
+          <Property Type="String" Name="HardToolingCustomerPO" Nullable="true" MaxLength="50" />
         </ComplexType>
-        <ComplexType Name="usp_GetAwardedQuotes_Result">
+        <EntityType Name="EditTabs_Application">
+          <Key>
+            <PropertyRef Name="RowID" />
+          </Key>
+          <Property Name="Status" Type="Int32" Nullable="false" />
+          <Property Name="Type" Type="Int32" Nullable="false" />
+          <Property Name="Application" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="RowID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RowCreateDT" Type="DateTime" Precision="3" />
+          <Property Name="RowCreateUser" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="RowModifiedDT" Type="DateTime" Precision="3" />
+          <Property Name="RowModifiedUser" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="EditTabs_EmpireMarketSegment">
+          <Key>
+            <PropertyRef Name="RowID" />
+          </Key>
+          <Property Name="Status" Type="Int32" Nullable="false" />
+          <Property Name="Type" Type="Int32" Nullable="false" />
+          <Property Name="EmpireMarketSegment" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="RowID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RowCreateDT" Type="DateTime" Precision="3" />
+          <Property Name="RowCreateUser" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="RowModifiedDT" Type="DateTime" Precision="3" />
+          <Property Name="RowModifiedUser" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="EditTabs_EmpireMarketSubsegment">
+          <Key>
+            <PropertyRef Name="RowID" />
+          </Key>
+          <Property Name="Status" Type="Int32" Nullable="false" />
+          <Property Name="Type" Type="Int32" Nullable="false" />
+          <Property Name="EmpireMarketSubsegment" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="RowID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RowCreateDT" Type="DateTime" Precision="3" />
+          <Property Name="RowCreateUser" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="RowModifiedDT" Type="DateTime" Precision="3" />
+          <Property Name="RowModifiedUser" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="EditTabs_ProgramManagers">
+          <Key>
+            <PropertyRef Name="RowID" />
+          </Key>
+          <Property Name="Status" Type="Int32" Nullable="false" />
+          <Property Name="Type" Type="Int32" Nullable="false" />
+          <Property Name="FirstName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="MiddleName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="LastName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="RowID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RowCreateDT" Type="DateTime" Precision="3" />
+          <Property Name="RowCreateUser" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="RowModifiedDT" Type="DateTime" Precision="3" />
+          <Property Name="RowModifiedUser" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="FullName" Type="String" Nullable="false" MaxLength="152" FixedLength="false" Unicode="false" annotation:StoreGeneratedPattern="Computed" />
+        </EntityType>
+        <EntityType Name="EditTabs_Salespeople">
+          <Key>
+            <PropertyRef Name="RowID" />
+          </Key>
+          <Property Name="Status" Type="Int32" Nullable="false" />
+          <Property Name="Type" Type="Int32" Nullable="false" />
+          <Property Name="FirstName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="MiddleName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="LastName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="RowID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RowCreateDT" Type="DateTime" Precision="3" />
+          <Property Name="RowCreateUser" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="RowModifiedDT" Type="DateTime" Precision="3" />
+          <Property Name="RowModifiedUser" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="FullName" Type="String" Nullable="false" MaxLength="152" FixedLength="false" Unicode="false" annotation:StoreGeneratedPattern="Computed" />
+        </EntityType>
+        <ComplexType Name="usp_GetAwardedQuote_Result">
           <Property Type="String" Name="QuoteNumber" Nullable="false" MaxLength="100" />
           <Property Type="String" Name="BasePart" Nullable="true" MaxLength="50" />
           <Property Type="String" Name="ExcelSpreadsheetBasePart" Nullable="true" MaxLength="100" />
@@ -1300,6 +1455,7 @@ warning 6002: The table/view 'FxPlm.NSA.Users' does not have a primary key defin
           <Property Type="String" Name="HardToolingTrigger" Nullable="true" />
           <Property Type="String" Name="HardToolingDescription" Nullable="true" />
           <Property Type="String" Name="HardToolingCAPEXID" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="HardToolingCustomerPO" Nullable="true" MaxLength="50" />
           <Property Type="Decimal" Name="AssemblyTesterToolingAmount" Nullable="true" Precision="20" Scale="6" />
           <Property Type="String" Name="AssemblyTesterToolingTrigger" Nullable="true" />
           <Property Type="String" Name="AssemblyTesterToolingDescription" Nullable="true" />
@@ -1596,8 +1752,8 @@ warning 6002: The table/view 'FxPlm.NSA.Users' does not have a primary key defin
           <FunctionImportMapping FunctionImportName="usp_AwardedQuoteFirstMnemonicEmail" FunctionName="FxPLMModel.Store.usp_AwardedQuoteFirstMnemonicEmail" />
           <FunctionImportMapping FunctionImportName="usp_AwardedQuote_ChangeQuoteNumber" FunctionName="FxPLMModel.Store.usp_AwardedQuote_ChangeQuoteNumber" />
           <FunctionImportMapping FunctionImportName="usp_GetAwardedQuotes" FunctionName="FxPLMModel.Store.usp_GetAwardedQuotes">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="FxPLMModel.usp_GetAwardedQuotes_Result">
+          <ResultMapping>
+              <ComplexTypeMapping TypeName="FxPLMModel.usp_GetAwardedQuote_Result">
                 <ScalarProperty Name="QuoteNumber" ColumnName="QuoteNumber" />
                 <ScalarProperty Name="BasePart" ColumnName="BasePart" />
                 <ScalarProperty Name="ExcelSpreadsheetBasePart" ColumnName="ExcelSpreadsheetBasePart" />
@@ -1654,6 +1810,7 @@ warning 6002: The table/view 'FxPlm.NSA.Users' does not have a primary key defin
                 <ScalarProperty Name="HardToolingTrigger" ColumnName="HardToolingTrigger" />
                 <ScalarProperty Name="HardToolingDescription" ColumnName="HardToolingDescription" />
                 <ScalarProperty Name="HardToolingCAPEXID" ColumnName="HardToolingCAPEXID" />
+                <ScalarProperty Name="HardToolingCustomerPO" ColumnName="HardToolingCustomerPO" />
                 <ScalarProperty Name="AssemblyTesterToolingAmount" ColumnName="AssemblyTesterToolingAmount" />
                 <ScalarProperty Name="AssemblyTesterToolingTrigger" ColumnName="AssemblyTesterToolingTrigger" />
                 <ScalarProperty Name="AssemblyTesterToolingDescription" ColumnName="AssemblyTesterToolingDescription" />
@@ -1670,7 +1827,7 @@ warning 6002: The table/view 'FxPlm.NSA.Users' does not have a primary key defin
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="usp_GetAwardedQuote" FunctionName="FxPLMModel.Store.usp_GetAwardedQuote">
           <ResultMapping>
-              <ComplexTypeMapping TypeName="FxPLMModel.usp_GetAwardedQuotes_Result">
+              <ComplexTypeMapping TypeName="FxPLMModel.usp_GetAwardedQuote_Result">
                 <ScalarProperty Name="QuoteNumber" ColumnName="QuoteNumber" />
                 <ScalarProperty Name="BasePart" ColumnName="BasePart" />
                 <ScalarProperty Name="ExcelSpreadsheetBasePart" ColumnName="ExcelSpreadsheetBasePart" />
@@ -1727,6 +1884,7 @@ warning 6002: The table/view 'FxPlm.NSA.Users' does not have a primary key defin
                 <ScalarProperty Name="HardToolingTrigger" ColumnName="HardToolingTrigger" />
                 <ScalarProperty Name="HardToolingDescription" ColumnName="HardToolingDescription" />
                 <ScalarProperty Name="HardToolingCAPEXID" ColumnName="HardToolingCAPEXID" />
+                <ScalarProperty Name="HardToolingCustomerPO" ColumnName="HardToolingCustomerPO" />
                 <ScalarProperty Name="AssemblyTesterToolingAmount" ColumnName="AssemblyTesterToolingAmount" />
                 <ScalarProperty Name="AssemblyTesterToolingTrigger" ColumnName="AssemblyTesterToolingTrigger" />
                 <ScalarProperty Name="AssemblyTesterToolingDescription" ColumnName="AssemblyTesterToolingDescription" />
@@ -1777,6 +1935,82 @@ warning 6002: The table/view 'FxPlm.NSA.Users' does not have a primary key defin
             <EntityTypeMapping TypeName="FxPLMModel.NewQuoteAward_QuoteReasons">
               <MappingFragment StoreEntitySet="NewQuoteAward_QuoteReasons">
                 <ScalarProperty Name="QuoteReason" ColumnName="QuoteReason" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="EditTabs_Application">
+            <EntityTypeMapping TypeName="FxPLMModel.EditTabs_Application">
+              <MappingFragment StoreEntitySet="EditTabs_Application">
+                <ScalarProperty Name="RowModifiedUser" ColumnName="RowModifiedUser" />
+                <ScalarProperty Name="RowModifiedDT" ColumnName="RowModifiedDT" />
+                <ScalarProperty Name="RowCreateUser" ColumnName="RowCreateUser" />
+                <ScalarProperty Name="RowCreateDT" ColumnName="RowCreateDT" />
+                <ScalarProperty Name="RowID" ColumnName="RowID" />
+                <ScalarProperty Name="Application" ColumnName="Application" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="EditTabs_EmpireMarketSegment">
+            <EntityTypeMapping TypeName="FxPLMModel.EditTabs_EmpireMarketSegment">
+              <MappingFragment StoreEntitySet="EditTabs_EmpireMarketSegment">
+                <ScalarProperty Name="RowModifiedUser" ColumnName="RowModifiedUser" />
+                <ScalarProperty Name="RowModifiedDT" ColumnName="RowModifiedDT" />
+                <ScalarProperty Name="RowCreateUser" ColumnName="RowCreateUser" />
+                <ScalarProperty Name="RowCreateDT" ColumnName="RowCreateDT" />
+                <ScalarProperty Name="RowID" ColumnName="RowID" />
+                <ScalarProperty Name="EmpireMarketSegment" ColumnName="EmpireMarketSegment" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="EditTabs_EmpireMarketSubsegment">
+            <EntityTypeMapping TypeName="FxPLMModel.EditTabs_EmpireMarketSubsegment">
+              <MappingFragment StoreEntitySet="EditTabs_EmpireMarketSubsegment">
+                <ScalarProperty Name="RowModifiedUser" ColumnName="RowModifiedUser" />
+                <ScalarProperty Name="RowModifiedDT" ColumnName="RowModifiedDT" />
+                <ScalarProperty Name="RowCreateUser" ColumnName="RowCreateUser" />
+                <ScalarProperty Name="RowCreateDT" ColumnName="RowCreateDT" />
+                <ScalarProperty Name="RowID" ColumnName="RowID" />
+                <ScalarProperty Name="EmpireMarketSubsegment" ColumnName="EmpireMarketSubsegment" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="EditTabs_ProgramManagers">
+            <EntityTypeMapping TypeName="FxPLMModel.EditTabs_ProgramManagers">
+              <MappingFragment StoreEntitySet="EditTabs_ProgramManagers">
+                <ScalarProperty Name="FullName" ColumnName="FullName" />
+                <ScalarProperty Name="RowModifiedUser" ColumnName="RowModifiedUser" />
+                <ScalarProperty Name="RowModifiedDT" ColumnName="RowModifiedDT" />
+                <ScalarProperty Name="RowCreateUser" ColumnName="RowCreateUser" />
+                <ScalarProperty Name="RowCreateDT" ColumnName="RowCreateDT" />
+                <ScalarProperty Name="RowID" ColumnName="RowID" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="MiddleName" ColumnName="MiddleName" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="EditTabs_Salespeople">
+            <EntityTypeMapping TypeName="FxPLMModel.EditTabs_Salespeople">
+              <MappingFragment StoreEntitySet="EditTabs_Salespeople">
+                <ScalarProperty Name="FullName" ColumnName="FullName" />
+                <ScalarProperty Name="RowModifiedUser" ColumnName="RowModifiedUser" />
+                <ScalarProperty Name="RowModifiedDT" ColumnName="RowModifiedDT" />
+                <ScalarProperty Name="RowCreateUser" ColumnName="RowCreateUser" />
+                <ScalarProperty Name="RowCreateDT" ColumnName="RowCreateDT" />
+                <ScalarProperty Name="RowID" ColumnName="RowID" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="MiddleName" ColumnName="MiddleName" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

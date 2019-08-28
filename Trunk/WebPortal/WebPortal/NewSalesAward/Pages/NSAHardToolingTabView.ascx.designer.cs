@@ -58,6 +58,15 @@ namespace WebPortal.NewSalesAward.Pages {
         protected global::DevExpress.Web.ASPxTextBox HardToolingDescriptionTextBox;
         
         /// <summary>
+        /// HardToolingCustomerPOTextBox control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::DevExpress.Web.ASPxTextBox HardToolingCustomerPOTextBox;
+        
+        /// <summary>
         /// HardToolingCAPEXIDTextBox control.
         /// </summary>
         /// <remarks>

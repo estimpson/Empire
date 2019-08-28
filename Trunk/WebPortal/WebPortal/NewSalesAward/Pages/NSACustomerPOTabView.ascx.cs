@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Web.UI;
 using DevExpress.Web;
 using WebPortal.NewSalesAward.Models;
@@ -76,5 +77,70 @@ namespace WebPortal.NewSalesAward.Pages
             ViewModel.SetProductionPO(quote, purchaseOrderDt, po, altCommit, sellingPrice, sop, eop, comments);
             return ViewModel.Error != "" ? 0 : 1;
         }
+
+
+        #region PO File
+
+        private DocumentationViewModel DocsViewModel
+        {
+            get
+            {
+                if (ViewState["DocsViewModel"] != null)
+                {
+                    return (DocumentationViewModel)ViewState["DocsViewModel"];
+                }
+                ViewState["DocsViewModel"] = new DocumentationViewModel();
+                return DocsViewModel;
+            }
+        }
+
+        protected void CustomerPOUploadControl_OnFileUploadComplete(object sender, FileUploadCompleteEventArgs e)
+        {
+            DocsViewModel.SaveQuoteFile(AwardedQuote.QuoteNumber, "CustomerPO", e.UploadedFile.FileName, e.UploadedFile.FileBytes);
+            e.CallbackData =
+                $"{e.UploadedFile.FileName}|{ResolveClientUrl("~/Temp")}|{e.UploadedFile.ContentLength / 1024} KB";
+        }
+
+        protected void HandleFileActionsCallback_OnCallback(object source, CallbackEventArgsBase e)
+        {
+            switch (e.Parameter)
+            {
+                case "Delete":
+                    DeleteCustomerPOFile();
+                    break;
+                case "Open":
+                    OpenCustomerPOFile();
+                    break;
+            }
+        }
+
+        private void DeleteCustomerPOFile()
+        {
+            DocsViewModel.DeleteQuoteFile(AwardedQuote.QuoteNumber, "CustomerPO");
+            if (DocsViewModel.Error != "")
+            {
+                throw new Exception(DocsViewModel.Error);
+            }
+        }
+
+        private void OpenCustomerPOFile()
+        {
+            DocsViewModel.GetQuoteFile(AwardedQuote.QuoteNumber, "CustomerPO", out string fileName, out byte[] fileContents);
+            var attachmentExtension = Path.GetExtension(fileName);
+            var tempFileName =
+                Path.ChangeExtension($"{Path.GetFileNameWithoutExtension(fileName)}-{Path.GetRandomFileName()}",
+                    attachmentExtension);
+            var tempFileServerPath = $"{AppDomain.CurrentDomain.BaseDirectory}/Temp/{tempFileName}";
+            var tempFileClientPath = $"../../Temp/{tempFileName}";
+
+            var fs = new FileStream(tempFileServerPath, FileMode.Create);
+            fs.Write(fileContents, 0, fileContents.Length);
+            fs.Flush();
+            fs.Close();
+
+            OpenCustomerPOFileButton.JSProperties.Add("cpFilePath", tempFileClientPath);
+        }
+
+        #endregion
     }
 }

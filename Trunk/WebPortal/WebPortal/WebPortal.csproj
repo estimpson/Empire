@@ -560,6 +560,21 @@
     <Compile Include="NewSalesAward\Models\CustomerShipTo.cs">
       <DependentUpon>NewSalesAwardModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="NewSalesAward\Models\EditTabs_Application.cs">
+      <DependentUpon>NewSalesAwardModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="NewSalesAward\Models\EditTabs_EmpireMarketSegment.cs">
+      <DependentUpon>NewSalesAwardModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="NewSalesAward\Models\EditTabs_EmpireMarketSubsegment.cs">
+      <DependentUpon>NewSalesAwardModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="NewSalesAward\Models\EditTabs_ProgramManagers.cs">
+      <DependentUpon>NewSalesAwardModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="NewSalesAward\Models\EditTabs_Salespeople.cs">
+      <DependentUpon>NewSalesAwardModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="NewSalesAward\Models\EmpireFacility.cs">
       <DependentUpon>NewSalesAwardModel.tt</DependentUpon>
     </Compile>

@@ -43,6 +43,11 @@ namespace WebPortal.NewSalesAward.Models
         public virtual DbSet<User> Users { get; set; }
         public virtual DbSet<NewQuoteAward_SalesPeople> NewQuoteAward_SalesPeople { get; set; }
         public virtual DbSet<NewQuoteAward_QuoteReasons> NewQuoteAward_QuoteReasons { get; set; }
+        public virtual DbSet<EditTabs_Application> EditTabs_Application { get; set; }
+        public virtual DbSet<EditTabs_EmpireMarketSegment> EditTabs_EmpireMarketSegment { get; set; }
+        public virtual DbSet<EditTabs_EmpireMarketSubsegment> EditTabs_EmpireMarketSubsegment { get; set; }
+        public virtual DbSet<EditTabs_ProgramManagers> EditTabs_ProgramManagers { get; set; }
+        public virtual DbSet<EditTabs_Salespeople> EditTabs_Salespeople { get; set; }
     
         public virtual int usp_SetBasePartAttributes(string user, string quoteNumber, string basePartFamilyList, string productLine, string empireMarketSegment, string empireMarketSubsegment, string empireApplication, Nullable<System.DateTime> empireSOP, Nullable<System.DateTime> empireEOP, string empireEOPNote, string comments, ObjectParameter tranDT, ObjectParameter result, Nullable<int> debug, ObjectParameter debugMsg)
         {
@@ -215,7 +220,7 @@ namespace WebPortal.NewSalesAward.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("usp_SetAssemblyTesterTooling", userParameter, quoteNumberParameter, assemblyTesterToolingAmountParameter, assemblyTesterToolingTriggerParameter, assemblyTesterToolingDescriptionParameter, assemblyTesterToolingCAPEXIDParameter, tranDT, result, debugParameter, debugMsg);
         }
     
-        public virtual int usp_SetHardTooling(string user, string quoteNumber, Nullable<decimal> hardToolingAmount, string hardToolingTrigger, string hardToolingDescription, string hardToolingCAPEXID, ObjectParameter tranDT, ObjectParameter result, Nullable<int> debug, ObjectParameter debugMsg)
+        public virtual int usp_SetHardTooling(string user, string quoteNumber, Nullable<decimal> hardToolingAmount, string hardToolingTrigger, string hardToolingDescription, string hardToolingCAPEXID, string hardToolingCustomerPO, ObjectParameter tranDT, ObjectParameter result, Nullable<int> debug, ObjectParameter debugMsg)
         {
             var userParameter = user != null ?
                 new ObjectParameter("User", user) :
@@ -241,11 +246,15 @@ namespace WebPortal.NewSalesAward.Models
                 new ObjectParameter("HardToolingCAPEXID", hardToolingCAPEXID) :
                 new ObjectParameter("HardToolingCAPEXID", typeof(string));
     
+            var hardToolingCustomerPOParameter = hardToolingCustomerPO != null ?
+                new ObjectParameter("HardToolingCustomerPO", hardToolingCustomerPO) :
+                new ObjectParameter("HardToolingCustomerPO", typeof(string));
+    
             var debugParameter = debug.HasValue ?
                 new ObjectParameter("Debug", debug) :
                 new ObjectParameter("Debug", typeof(int));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("usp_SetHardTooling", userParameter, quoteNumberParameter, hardToolingAmountParameter, hardToolingTriggerParameter, hardToolingDescriptionParameter, hardToolingCAPEXIDParameter, tranDT, result, debugParameter, debugMsg);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("usp_SetHardTooling", userParameter, quoteNumberParameter, hardToolingAmountParameter, hardToolingTriggerParameter, hardToolingDescriptionParameter, hardToolingCAPEXIDParameter, hardToolingCustomerPOParameter, tranDT, result, debugParameter, debugMsg);
         }
     
         public virtual int usp_SetToolingAmortization(string user, string quoteNumber, Nullable<decimal> amortizationAmount, Nullable<decimal> amortizationQuantity, string amortizationToolingDescription, string amortizationCAPEXID, ObjectParameter tranDT, ObjectParameter result, Nullable<int> debug, ObjectParameter debugMsg)
@@ -439,18 +448,18 @@ namespace WebPortal.NewSalesAward.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("usp_AwardedQuote_ChangeQuoteNumber", userParameter, oldQuoteNumberParameter, newQuoteNumberParameter, tranDT, result, debugParameter, debugMsg);
         }
     
-        public virtual ObjectResult<usp_GetAwardedQuotes_Result> usp_GetAwardedQuotes()
+        public virtual ObjectResult<usp_GetAwardedQuote_Result> usp_GetAwardedQuotes()
         {
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_GetAwardedQuotes_Result>("usp_GetAwardedQuotes");
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_GetAwardedQuote_Result>("usp_GetAwardedQuotes");
         }
     
-        public virtual ObjectResult<usp_GetAwardedQuotes_Result> usp_GetAwardedQuote(string quoteNumber)
+        public virtual ObjectResult<usp_GetAwardedQuote_Result> usp_GetAwardedQuote(string quoteNumber)
         {
             var quoteNumberParameter = quoteNumber != null ?
                 new ObjectParameter("QuoteNumber", quoteNumber) :
                 new ObjectParameter("QuoteNumber", typeof(string));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_GetAwardedQuotes_Result>("usp_GetAwardedQuote", quoteNumberParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_GetAwardedQuote_Result>("usp_GetAwardedQuote", quoteNumberParameter);
         }
     
         public virtual int usp_GetAwardedQuoteDetails(string quoteNumber, ObjectParameter awardDate, ObjectParameter formOfCommitment, ObjectParameter quoteReason, ObjectParameter replacingBasePart, ObjectParameter salesperson, ObjectParameter programManager, ObjectParameter comments, ObjectParameter tranDT, ObjectParameter result, Nullable<int> debug, ObjectParameter debugMsg)

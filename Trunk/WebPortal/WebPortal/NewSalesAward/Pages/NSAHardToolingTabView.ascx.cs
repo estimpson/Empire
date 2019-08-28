@@ -64,8 +64,9 @@ namespace WebPortal.NewSalesAward.Pages
             var trigger = HardToolingTriggerTextBox.Text.Trim();
             var description = HardToolingDescriptionTextBox.Text.Trim();
             var capexID = HardToolingCAPEXIDTextBox.Text.Trim();
+            var customerPO = HardToolingCustomerPOTextBox.Text.Trim();
 
-            ViewModel.SetHardTooling(quote, amount, trigger, description, capexID);
+            ViewModel.SetHardTooling(quote, amount, trigger, description, capexID, customerPO);
             return ViewModel.Error != "" ? 0 : 1;
         }
     }

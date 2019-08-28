@@ -105,15 +105,15 @@
                     <dx:LayoutItem Caption="Empire Market Segment" FieldName="EmpireMarketSegment">
                         <LayoutItemNestedControlCollection>
                             <dx:LayoutItemNestedControlContainer runat="server">
-                                <dx:ASPxComboBox ID="EmpireMarketSegmentComboBox" runat="server" Width="100%" DropDownStyle="DropDown" TextField="EmpireMarketSegment1" DataSourceID="EmpireMarketSegmentEntityDataSource"
-                                                 ValueField="EmpireMarketSegment1" TextFormatString="{0}" AllowNull="true" IncrementalFilteringMode="StartsWith">
+                                <dx:ASPxComboBox ID="EmpireMarketSegmentComboBox" runat="server" Width="100%" DropDownStyle="DropDown" TextField="EmpireMarketSegment" DataSourceID="EmpireMarketSegmentEntityDataSource"
+                                                 ValueField="EmpireMarketSegment" TextFormatString="{0}" AllowNull="true" IncrementalFilteringMode="StartsWith">
                                     <ClientSideEvents
                                         GotFocus="OnEditControl_GotFocus"
                                         Init="function (s,e) { RegisterURI(s, 'BasePartAttributes.EmpireMarketSegment'); }" 
                                     />
                                 </dx:ASPxComboBox>
                                 <asp:EntityDataSource ID="EmpireMarketSegmentEntityDataSource" runat="server" ConnectionString="name=FxPLMEntities" DefaultContainerName="FxPLMEntities" EnableFlattening="False"
-                                                      EntitySetName="EmpireMarketSegments" Select="" OrderBy="it.EmpireMarketSegment1" EnableInsert="true">
+                                                      EntitySetName="EditTabs_EmpireMarketSegment" Select="" OrderBy="it.EmpireMarketSegment" EnableInsert="false">
                                 </asp:EntityDataSource>
                             </dx:LayoutItemNestedControlContainer>
                         </LayoutItemNestedControlCollection>
@@ -121,15 +121,15 @@
                     <dx:LayoutItem Caption="Empire Market Subsegment" FieldName="EmpireMarketSubsegment">
                         <LayoutItemNestedControlCollection>
                             <dx:LayoutItemNestedControlContainer runat="server">
-                                <dx:ASPxComboBox ID="EmpireMarketSubsegmentComboBox" runat="server" Width="100%" DropDownStyle="DropDown" TextField="EmpireMarketSubsegment1" DataSourceID="EmpireMarketSubsegmentEntityDataSource"
-                                                 ValueField="EmpireMarketSubsegment1" TextFormatString="{0}" AllowNull="true" IncrementalFilteringMode="StartsWith">
+                                <dx:ASPxComboBox ID="EmpireMarketSubsegmentComboBox" runat="server" Width="100%" DropDownStyle="DropDown" TextField="EmpireMarketSubsegment" DataSourceID="EmpireMarketSubsegmentEntityDataSource"
+                                                 ValueField="EmpireMarketSubsegment" TextFormatString="{0}" AllowNull="true" IncrementalFilteringMode="StartsWith">
                                     <ClientSideEvents
                                         GotFocus="OnEditControl_GotFocus"
                                         Init="function (s,e) { RegisterURI(s, 'BasePartAttributes.EmpireMarketSubsegment'); }" 
                                     />
                                 </dx:ASPxComboBox>
                                 <asp:EntityDataSource ID="EmpireMarketSubsegmentEntityDataSource" runat="server" ConnectionString="name=FxPLMEntities" DefaultContainerName="FxPLMEntities" EnableFlattening="False"
-                                                      EntitySetName="EmpireMarketSubsegments" Select="" OrderBy="it.EmpireMarketSubsegment1" EnableInsert="true">
+                                                      EntitySetName="EditTabs_EmpireMarketSubsegment" Select="" OrderBy="it.EmpireMarketSubsegment" EnableInsert="false">
                                 </asp:EntityDataSource>
                             </dx:LayoutItemNestedControlContainer>
                         </LayoutItemNestedControlCollection>
@@ -137,12 +137,18 @@
                     <dx:LayoutItem Caption="Empire Application" FieldName="EmpireApplication">
                         <LayoutItemNestedControlCollection>
                             <dx:LayoutItemNestedControlContainer runat="server">
-                                <dx:ASPxTextBox ID="EmpireApplicationTextBox" Width="100%" runat="server">
+                                
+                                <dx:ASPxComboBox ID="EmpireApplicationComboBox" runat="server" Width="100%" DropDownStyle="DropDown" TextField="Application" DataSourceID="ApplicationEntityDataSource"
+                                                 ValueField="Application" TextFormatString="{0}" AllowNull="true" IncrementalFilteringMode="StartsWith">
                                     <ClientSideEvents
                                         GotFocus="OnEditControl_GotFocus"
                                         Init="function (s,e) { RegisterURI(s, 'BasePartAttributes.EmpireApplication'); }" 
                                     />
-                                </dx:ASPxTextBox>
+                                </dx:ASPxComboBox>
+                                <asp:EntityDataSource ID="ApplicationEntityDataSource" runat="server" ConnectionString="name=FxPLMEntities" DefaultContainerName="FxPLMEntities" EnableFlattening="False"
+                                                      EntitySetName="EditTabs_Application" Select="" OrderBy="it.Application" EnableInsert="false">
+                                </asp:EntityDataSource>
+
                             </dx:LayoutItemNestedControlContainer>
                         </LayoutItemNestedControlCollection>
                     </dx:LayoutItem>

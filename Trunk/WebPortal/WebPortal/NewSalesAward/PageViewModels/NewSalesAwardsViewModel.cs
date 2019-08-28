@@ -159,7 +159,7 @@ namespace WebPortal.NewSalesAward.PageViewModels
 
         #region Hard Tooling Methods
 
-        public void SetHardTooling(string quote, decimal? amount, string trigger, string description, string capexid)
+        public void SetHardTooling(string quote, decimal? amount, string trigger, string description, string capexid, string customerPO)
         {
             ObjectParameter tranDT = new ObjectParameter("TranDT", typeof(DateTime?));
             ObjectParameter result = new ObjectParameter("Result", typeof(Int32?));
@@ -170,7 +170,7 @@ namespace WebPortal.NewSalesAward.PageViewModels
             {
                 using (var context = new FxPLMEntities())
                 {
-                    context.usp_SetHardTooling(OperatorCode, quote, amount, trigger, description, capexid, tranDT, result, 0, debugMsg);
+                    context.usp_SetHardTooling(OperatorCode, quote, amount, trigger, description, capexid, customerPO, tranDT, result, 0, debugMsg);
                 }
             }
             catch (Exception ex)

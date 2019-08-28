@@ -81,5 +81,6 @@ namespace WebPortal.NewSalesAward.Models
         public Nullable<decimal> AwardedEAU { get; set; }
         public Nullable<decimal> AwardedPrice { get; set; }
         public int ValidQuoteNumberFlag { get; set; }
+        public string HardToolingCustomerPO { get; set; }
     }
 }
