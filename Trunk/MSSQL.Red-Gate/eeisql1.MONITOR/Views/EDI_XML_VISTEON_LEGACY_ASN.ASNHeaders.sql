@@ -10,6 +10,8 @@ GO
 
 
 
+
+
 CREATE view [EDI_XML_VISTEON_LEGACY_ASN].[ASNHeaders]
 as
 
@@ -71,11 +73,12 @@ select
 			when s.trans_mode in ( 'A', 'AE') and  s.pro_number > '' then s.pro_number
 			else ''
 		end
-,	FordMotorCosignee = 
-		case 
-			when s.destination = 'F201C' then es.parent_destination 
-			else coalesce(s.shipping_dock, es.parent_destination) 
-		end
+--,	FordMotorCosignee = COALESCE(ConsigneeCode, s.shipping_dock)
+  ,	FordMotorCosignee = COALESCE(ConsigneeCode, 'F201C')
+		--case 
+		--	when s.destination = 'F201C' then es.parent_destination 
+		--	else coalesce(s.shipping_dock, es.parent_destination) 
+		--end
 --,	LooseCtns = isnull((select	count(serial) 
 --			from	audit_trail at,
 --				package_materials pm
@@ -124,11 +127,13 @@ select
 from
 	dbo.shipper s 
 	join dbo.edi_setups es
-		on es.destination = s.destination	and s.date_shipped > getdate() - 60
+		on es.destination = s.destination	and s.date_shipped > getdate() - 360
 	left join dbo.bill_of_lading bol
 		on s.bill_of_lading_number = bol.bol_number
 	left join dbo.trans_mode tm 
 		on tm.code = s.trans_mode
+Outer Apply
+	( Select top 1 ConsigneeCode From EDIFordIC.CurrentShipSchedules() css where css.ShipToCode = coalesce(nullif(es.EDIShipToID,''), nullif(es.parent_destination,''), es.destination)) LastShipSched
 
 
 

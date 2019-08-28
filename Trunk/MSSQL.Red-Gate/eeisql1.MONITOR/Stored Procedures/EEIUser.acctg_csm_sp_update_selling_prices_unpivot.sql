@@ -293,6 +293,7 @@ where
 	Release_ID = @Release_ID
 	and BasePart = @Base_Part
 	and Row_ID = 1
+	and EffectiveYear >= 2015
 
 
 select

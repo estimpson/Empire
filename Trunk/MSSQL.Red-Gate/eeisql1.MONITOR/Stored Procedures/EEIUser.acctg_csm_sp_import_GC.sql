@@ -5,6 +5,9 @@ GO
 
 
 
+
+
+
 CREATE procedure [EEIUser].[acctg_csm_sp_import_GC]
 	@OperatorCode varchar(5)
 ,	@CurrentRelease char(7)
@@ -50,7 +53,7 @@ if not exists (
 		from
 			dbo.employee e
 		where	
-			e.operator_code = @OperatorCode ) begin
+			e.operator_code = @OperatorCode and e.operator_code = 'dw' ) begin
 
 	set	@Result = 999999
 	RAISERROR ('Invalid operator code.  Procedure %s.', 16, 1, @ProcName)
@@ -63,15 +66,14 @@ if exists (
 		select
 			coalesce(h.RolledForward, 0)
 		from
-			acctg_csm_NAIHS_header h
+			eeiuser.acctg_csm_NAIHS_header h
 		where
 			h.Region = 'Greater China'
 			and h.Release_ID = @CurrentRelease
-			and h.[Version] = 'CSM'
-			and h.RolledForward = 1 ) begin
+			) begin
 
 	set	@Result = 999999
-	RAISERROR ('Greater China CSM data has already been rolled forward and imported for release %s.  Procedure %s.', 16, 1, @CurrentRelease, @ProcName)
+	RAISERROR ('Greater China CSM data has already been imported for release %s.  Procedure %s.', 16, 1, @CurrentRelease, @ProcName)
 	rollback tran @ProcName
 	return
 end
@@ -81,11 +83,11 @@ if not exists (
 		select
 			coalesce(h.RolledForward, 0)
 		from
-			acctg_csm_NAIHS_header h
+			eeiuser.acctg_csm_NAIHS_header h
 		where
 			h.Region = 'North America'
 			and h.Release_ID = @CurrentRelease
-			and h.[Version] = 'CSM'
+			and h.[Version] <> 'CSM'
 			and h.RolledForward = 1 ) begin
 
 	set	@Result = 999999
@@ -111,7 +113,8 @@ where
 	Region = @Region
 
 
--- Step 1: roll forward into the header table all CSM, Empire Adjusted and Empire Factor data
+/*
+-- Step 1: roll forward into the header table Empire Adjusted and Empire Factor data
 -- <Call>
 set			@CallProcName = 'eeiuser.acctg_csm_sp_rollforward_header_GC'
 execute		@ProcReturn = eeiuser.acctg_csm_sp_rollforward_header_GC
@@ -142,9 +145,10 @@ if	@ProcResult != 0 begin
 	return	@Result
 end
 -- </Call>
+*/
 
 
--- Step 2: insert spreadsheet CSM data into the header table
+-- Step 1: insert spreadsheet CSM data into the header table
 -- <Call>
 set			@CallProcName = 'eeiuser.acctg_csm_sp_insert_header'
 execute		@ProcReturn = eeiuser.acctg_csm_sp_insert_header
@@ -176,7 +180,8 @@ end
 -- </Call>
 
 
--- Step 3: roll forward into the detail table all CSM, Empire Adjusted and Empire Factor data
+/*
+-- Step 3: roll forward into the detail table Empire Adjusted and Empire Factor data
 -- <Call>
 set			@CallProcName = 'eeiuser.acctg_csm_sp_rollforward_detail_GC'
 execute		@ProcReturn = eeiuser.acctg_csm_sp_rollforward_detail_GC
@@ -207,9 +212,10 @@ if	@ProcResult != 0 begin
 	return	@Result
 end
 -- </Call>
+*/
 
 
--- Step 4: insert spreadsheet CSM data into the detail table
+-- Step 2: insert spreadsheet CSM data into the detail table
 -- <Call>
 set			@CallProcName = 'eeiuser.acctg_csm_sp_insert_detail'
 execute		@ProcReturn = eeiuser.acctg_csm_sp_insert_detail
@@ -241,6 +247,7 @@ end
 -- </Call>
 
 
+/*
 -- Step 5: update header records, flagging them as rolled forward
 --- <Update rows>
 set	@TableName = 'eeiuser.acctg_csm_NAIHS_header'	
@@ -269,6 +276,7 @@ if	@RowCount < 1 begin
 	return
 end
 --- </Update>
+*/
 --- </Body>
 
 

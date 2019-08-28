@@ -3,6 +3,7 @@ GO
 SET ANSI_NULLS ON
 GO
 
+
 CREATE PROCEDURE [dbo].[ftsp_ASN_Alert]
 
 AS 
@@ -46,7 +47,7 @@ INSERT	@Shipments
 		s.date_shipped >= @Date1 AND  s.date_shipped <= @Date2 
 		AND s.type is NULL
 		AND NOT EXISTS ( SELECT 1 FROM shipper_detail sd WHERE (part_original LIKE '%-PT%' or customer_po like '%SAMPLE%') AND sd.shipper = s.id  ) AND
-		es.trading_partner_code != 'DECOFINMEX'  
+		es.trading_partner_code not like '%DECOFINMEX%'  
 	GROUP BY
 		s.id,
 		s.date_shipped,
@@ -73,7 +74,7 @@ SELECT
 		status in ('C', 'Z') AND 
 		COALESCE(auto_create_asn,'N') = 'Y'AND
 		s.date_shipped >= @Date1 AND  s.date_shipped <= @Date2 AND
-		es.trading_partner_code = 'DECOFINMEX'  
+		es.trading_partner_code like '%DECOFINMEX%'  
 		AND s.type is NULL
 	GROUP BY
 		s.id,

@@ -62,6 +62,20 @@ where	name in (
 						on NuevoFormato.EEHLabel = formato.name
 				where formato.name is null)
 
+
+--Creacion ReportLibrary
+Insert into dbo.report_library (name, report, type, [object_name], library_name, preview, print_setup, printer, copies)
+Select name, report, type, [object_name], library_name, preview, print_setup, printer, copies
+from	eehsql1.eeh.dbo.report_library
+where	name in (
+				Select NuevoFormato.eehlabel
+				from (Select	distinct EEHLabel 
+						from	#ListPartWrongLabel
+						where	TroyLabelREference <> EEHLabel) NuevoFormato
+					left join dbo.report_library formato
+						on NuevoFormato.EEHLabel = formato.name
+				where formato.name is null)
+
 --actualizar formatos correctos
 update dbo.part_inventory
 set eehlabel = listado.EEHLabel
@@ -108,6 +122,15 @@ from eehsql1.monitor.dbo.part_packaging EEHPack
 		on eehpack.part = DistributionPlant.part
 where	eehpack.part not in (Select Part
 					 from part_packaging)
+
+
+
+-- Update Format Label
+
+update dbo.report_library_format
+set FormatLabel=f.FormatLabel
+FROM dbo.report_library_format fu inner join  ( Select *
+ from	eehsql1.eeh.dbo.report_library_format )f on fu.name=f.name
 
 --<CloseTran Required=Yes AutoCreate=Yes>
 IF	@TranCount = 0 BEGIN

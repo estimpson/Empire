@@ -82,9 +82,9 @@ select
 ,	Release_ID
 ,	[Version]
 ,	[Mnemonic-Vehicle/Plant]
-,	Period = 'M' + right('0' + convert(varchar, month(dateadd(month, row_number() over (partition by Release_ID, 'CSM', [Mnemonic-Vehicle/Plant] order by [Mnemonic-Vehicle/Plant]) - 1, '2017-1-1'))), 2)
-,	EffectiveYear = year(dateadd(month, row_number() over (partition by Release_ID, Version, [Mnemonic-Vehicle/Plant] order by [Mnemonic-Vehicle/Plant]) - 1, '2017-1-1'))
-,	EffectiveDT = dateadd(month, row_number() over (partition by Release_ID, Version, [Mnemonic-Vehicle/Plant] order by [Mnemonic-Vehicle/Plant]) - 1, '2017-1-1')
+,	Period = 'M' + right('0' + convert(varchar, month(dateadd(month, row_number() over (partition by Release_ID, 'CSM', [Mnemonic-Vehicle/Plant] order by [Mnemonic-Vehicle/Plant]) - 1, '2018-1-1'))), 2)
+,	EffectiveYear = year(dateadd(month, row_number() over (partition by Release_ID, Version, [Mnemonic-Vehicle/Plant] order by [Mnemonic-Vehicle/Plant]) - 1, '2018-1-1'))
+,	EffectiveDT = dateadd(month, row_number() over (partition by Release_ID, Version, [Mnemonic-Vehicle/Plant] order by [Mnemonic-Vehicle/Plant]) - 1, '2018-1-1')
 ,	SalesDemand
 from
 (	select
@@ -93,6 +93,7 @@ from
 	,	[Version] = 'CSM'
 	,	[Mnemonic-Vehicle/Plant] = t.[Mnemonic-Vehicle/Plant]
 
+	/*
 	,	[Jan 2017] = convert(decimal(10, 2), coalesce(t.[Jan 2017], 0))
 	,   [Feb 2017] = convert(decimal(10, 2), coalesce(t.[Feb 2017], 0))
 	,   [Mar 2017] = convert(decimal(10, 2), coalesce(t.[Mar 2017], 0))
@@ -105,6 +106,7 @@ from
 	,   [Oct 2017] = convert(decimal(10, 2), coalesce(t.[Oct 2017], 0))
 	,   [Nov 2017] = convert(decimal(10, 2), coalesce(t.[Nov 2017], 0))
 	,   [Dec 2017] = convert(decimal(10, 2), coalesce(t.[Dec 2017], 0))
+	*/
 
 	,	[Jan 2018] = convert(decimal(10, 2), coalesce(t.[Jan 2018], 0))
 	,   [Feb 2018] = convert(decimal(10, 2), coalesce(t.[Feb 2018], 0))
@@ -145,6 +147,18 @@ from
 	,   [Nov 2020] = convert(decimal(10, 2), coalesce(t.[Nov 2020], 0))
 	,   [Dec 2020] = convert(decimal(10, 2), coalesce(t.[Dec 2020], 0))
 
+	,	[Jan 2021] = convert(decimal(10, 2), coalesce(t.[Jan 2021], 0))
+	,   [Feb 2021] = convert(decimal(10, 2), coalesce(t.[Feb 2021], 0))
+	,   [Mar 2021] = convert(decimal(10, 2), coalesce(t.[Mar 2021], 0))
+	,   [Apr 2021] = convert(decimal(10, 2), coalesce(t.[Apr 2021], 0))
+	,   [May 2021] = convert(decimal(10, 2), coalesce(t.[May 2021], 0))
+	,   [Jun 2021] = convert(decimal(10, 2), coalesce(t.[Jun 2021], 0))
+	,   [Jul 2021] = convert(decimal(10, 2), coalesce(t.[Jul 2021], 0))
+	,   [Aug 2021] = convert(decimal(10, 2), coalesce(t.[Aug 2021], 0))
+	,   [Sep 2021] = convert(decimal(10, 2), coalesce(t.[Sep 2021], 0))
+	,   [Oct 2021] = convert(decimal(10, 2), coalesce(t.[Oct 2021], 0))
+	,   [Nov 2021] = convert(decimal(10, 2), coalesce(t.[Nov 2021], 0))
+	,   [Dec 2021] = convert(decimal(10, 2), coalesce(t.[Dec 2021], 0))
 from
 	dbo.tempCSM t
 	join eeiuser.acctg_csm_NAIHS_header h
@@ -156,6 +170,7 @@ unpivot
 (
 	SalesDemand for SalesDemands in 
 	(
+	/*
 		[Jan 2017]
 	,	[Feb 2017]
 	,	[Mar 2017]
@@ -168,8 +183,9 @@ unpivot
 	,	[Oct 2017]
 	,	[Nov 2017]
 	,	[Dec 2017]
+	*/
 
-	,	[Jan 2018]
+		[Jan 2018]
 	,	[Feb 2018]
 	,	[Mar 2018]
 	,	[Apr 2018]
@@ -207,6 +223,19 @@ unpivot
 	,	[Oct 2020]
 	,	[Nov 2020]
 	,	[Dec 2020]
+
+	,	[Jan 2021]
+	,	[Feb 2021]
+	,	[Mar 2021]
+	,	[Apr 2021]
+	,	[May 2021]
+	,	[Jun 2021]
+	,	[Jul 2021]
+	,	[Aug 2021]
+	,	[Sep 2021]
+	,	[Oct 2021]
+	,	[Nov 2021]
+	,	[Dec 2021]
 	)
 ) as unpivoted
 
@@ -245,9 +274,9 @@ select
 ,	Release_ID
 ,	[Version]
 ,	[Mnemonic-Vehicle/Plant]
-,	Period = 'Q' + convert(varchar, datepart(quarter, dateadd(quarter, row_number() over (partition by Release_ID, Version, [Mnemonic-Vehicle/Plant] order by [Mnemonic-Vehicle/Plant]) - 1, '2017-1-1')))
-,	EffectiveYear = year(dateadd(quarter, row_number() over (partition by Release_ID, Version, [Mnemonic-Vehicle/Plant] order by [Mnemonic-Vehicle/Plant]) - 1, '2017-1-1'))
-,	EffectiveDT = dateadd(quarter, row_number() over (partition by Release_ID, Version, [Mnemonic-Vehicle/Plant] order by [Mnemonic-Vehicle/Plant]) - 1, '2017-1-1')
+,	Period = 'Q' + convert(varchar, datepart(quarter, dateadd(quarter, row_number() over (partition by Release_ID, Version, [Mnemonic-Vehicle/Plant] order by [Mnemonic-Vehicle/Plant]) - 1, '2018-1-1')))
+,	EffectiveYear = year(dateadd(quarter, row_number() over (partition by Release_ID, Version, [Mnemonic-Vehicle/Plant] order by [Mnemonic-Vehicle/Plant]) - 1, '2018-1-1'))
+,	EffectiveDT = dateadd(quarter, row_number() over (partition by Release_ID, Version, [Mnemonic-Vehicle/Plant] order by [Mnemonic-Vehicle/Plant]) - 1, '2018-1-1')
 ,	SalesDemand
 from
 (	select
@@ -255,12 +284,12 @@ from
 	,	Release_ID = @CurrentRelease
 	,	[Version] = 'CSM'
 	,	[Mnemonic-Vehicle/Plant] = t.[Mnemonic-Vehicle/Plant]								 
-
+	/*
 	,	[Q1 2017] = convert(decimal(10, 2), coalesce(t.[Q1 2017], 0))
 	,   [Q2 2017] = convert(decimal(10, 2), coalesce(t.[Q2 2017], 0))
 	,   [Q3 2017] = convert(decimal(10, 2), coalesce(t.[Q3 2017], 0))
 	,   [Q4 2017] = convert(decimal(10, 2), coalesce(t.[Q4 2017], 0))
-														 
+	*/													 
 	,	[Q1 2018] = convert(decimal(10, 2), coalesce(t.[Q1 2018], 0))
 	,   [Q2 2018] = convert(decimal(10, 2), coalesce(t.[Q2 2018], 0))
 	,   [Q3 2018] = convert(decimal(10, 2), coalesce(t.[Q3 2018], 0))
@@ -301,6 +330,11 @@ from
 	,   [Q3 2025] = convert(decimal(10, 2), coalesce(t.[Q3 2025], 0))
 	,   [Q4 2025] = convert(decimal(10, 2), coalesce(t.[Q4 2025], 0))
 
+	,	[Q1 2026] = convert(decimal(10, 2), coalesce(t.[Q1 2026], 0))
+	,   [Q2 2026] = convert(decimal(10, 2), coalesce(t.[Q2 2026], 0))
+	,   [Q3 2026] = convert(decimal(10, 2), coalesce(t.[Q3 2026], 0))
+	,   [Q4 2026] = convert(decimal(10, 2), coalesce(t.[Q4 2026], 0))
+
 from
 	dbo.tempCSM t
 	join eeiuser.acctg_csm_NAIHS_header h
@@ -312,12 +346,13 @@ unpivot
 (
 	SalesDemand for SalesDemands in 
 	(
+	/*
 		[Q1 2017]
 	,   [Q2 2017]
 	,   [Q3 2017]
 	,   [Q4 2017]
-		
-	,	[Q1 2018]
+	*/	
+		[Q1 2018]
 	,   [Q2 2018]
 	,   [Q3 2018]
 	,   [Q4 2018]
@@ -356,6 +391,11 @@ unpivot
 	,   [Q2 2025]
 	,   [Q3 2025]
 	,   [Q4 2025]
+
+	,	[Q1 2026]
+	,   [Q2 2026]
+	,   [Q3 2026]
+	,   [Q4 2026]
 	)
 ) as unpivoted
 
@@ -403,8 +443,8 @@ select
 ,	[Version]
 ,	[Mnemonic-Vehicle/Plant]
 ,	Period = 'CY'
-,	EffectiveYear = year(dateadd(year, row_number() over (partition by Release_ID, Version, [Mnemonic-Vehicle/Plant] order by [Mnemonic-Vehicle/Plant]) - 1, '2017-1-1'))
-,	EffectiveDT = dateadd(year, row_number() over (partition by Release_ID, Version, [Mnemonic-Vehicle/Plant] order by [Mnemonic-Vehicle/Plant]) - 1, '2017-1-1')
+,	EffectiveYear = year(dateadd(year, row_number() over (partition by Release_ID, Version, [Mnemonic-Vehicle/Plant] order by [Mnemonic-Vehicle/Plant]) - 1, '2018-1-1'))
+,	EffectiveDT = dateadd(year, row_number() over (partition by Release_ID, Version, [Mnemonic-Vehicle/Plant] order by [Mnemonic-Vehicle/Plant]) - 1, '2018-1-1')
 ,	SalesDemand
 from
 (	select
@@ -413,7 +453,7 @@ from
 	,	[Version] = 'CSM'
 	,	[Mnemonic-Vehicle/Plant] = t.[Mnemonic-Vehicle/Plant]	
 
-	,   [CY 2017] = convert(decimal(10, 2), coalesce(t.[CY 2017], 0))
+--	,   [CY 2017] = convert(decimal(10, 2), coalesce(t.[CY 2017], 0))
 	,   [CY 2018] = convert(decimal(10, 2), coalesce(t.[CY 2018], 0))
 	,   [CY 2019] = convert(decimal(10, 2), coalesce(t.[CY 2019], 0))
 	,   [CY 2020] = convert(decimal(10, 2), coalesce(t.[CY 2020], 0))
@@ -422,6 +462,7 @@ from
 	,   [CY 2023] = convert(decimal(10, 2), coalesce(t.[CY 2023], 0))
 	,   [CY 2024] = convert(decimal(10, 2), coalesce(t.[CY 2024], 0))
 	,   [CY 2025] = convert(decimal(10, 2), coalesce(t.[CY 2025], 0))
+	,   [CY 2026] = convert(decimal(10, 2), coalesce(t.[CY 2026], 0))
 
 from
 	dbo.tempCSM t
@@ -434,8 +475,8 @@ unpivot
 (
 	SalesDemand for SalesDemands in 
 	(
-	    [CY 2017]
-	,   [CY 2018]
+--	    [CY 2017]
+	    [CY 2018]
 	,   [CY 2019]
 	,   [CY 2020]
 	,   [CY 2021]
@@ -443,6 +484,7 @@ unpivot
 	,   [CY 2023]
 	,   [CY 2024]
 	,   [CY 2025]
+	,   [CY 2026]
 	)
 ) as unpivoted
 

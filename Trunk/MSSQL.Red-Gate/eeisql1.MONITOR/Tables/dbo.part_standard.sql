@@ -51,6 +51,38 @@ CREATE TABLE [dbo].[part_standard]
 [frozen_changed_date] [datetime] NULL
 ) ON [PRIMARY]
 GO
+SET QUOTED_IDENTIFIER ON
+GO
+SET ANSI_NULLS ON
+GO
+-- =============================================
+-- Author:		Hiran Coello
+-- Create date: Apr/10/2019
+-- Description:	Update the Cost_Change_date to current time when the material cost is changed and do a rollup, so we are reflectig there was a change; 
+--				It is only tracing the change on the material cost because this is convert o transfer price in EEH; and the update of the part_stanard.price in HN
+--				when it detect a change.
+-- =============================================
+CREATE TRIGGER [dbo].[TG_UpdateChangeDate] 
+   ON  [dbo].[part_standard]
+   AFTER UPDATE
+AS 
+BEGIN
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON;
+
+	-- Insert statements for trigger here
+	if	update(material_cum) begin
+		update	part_standard
+		set		cost_changed_date = getdate()
+		from	part_standard
+				join inserted on part_standard.part = inserted.part
+				join deleted on part_standard.part = deleted.part
+		where	isnull(deleted.material_cum,0) <> isnull(inserted.material_cum, 0)
+    end
+
+END
+GO
 ALTER TABLE [dbo].[part_standard] ADD CONSTRAINT [PK__part_standard__18AC8967] PRIMARY KEY NONCLUSTERED  ([part]) WITH (FILLFACTOR=80) ON [PRIMARY]
 GO
 ALTER TABLE [dbo].[part_standard] ADD CONSTRAINT [FK__part_stand__part__0FB750B3] FOREIGN KEY ([part]) REFERENCES [dbo].[part] ([part])

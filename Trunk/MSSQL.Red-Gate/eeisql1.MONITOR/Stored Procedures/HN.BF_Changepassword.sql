@@ -13,9 +13,9 @@ begin tran
 declare	@Result int
 
 exec	[HN].[BF_Changepassword] 
-			@UserWeb = '436',
-			@UserMonitor = '436',
-			@Password = 'empire2016',
+			@UserWeb = 'jaqui',
+			@UserMonitor = 'jaqui',
+			@Password = 'jaq01',
 			@Result = @Result out
 
 select	@Result
@@ -85,7 +85,7 @@ END
 IF	@RowCount = 0 begin
 	SET	@Result = 400
 	ROLLBACK TRAN BF_Changepassword
-	RAISERROR ('Information impossible update Monitor!', 16, 1)
+	RAISERROR ('Information impossible update Monitor2!', 16, 1)
 	RETURN	@Result
 END
 

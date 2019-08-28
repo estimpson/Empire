@@ -8,6 +8,7 @@ GO
 
 
 
+
 CREATE VIEW [dbo].[vw_sales_history]
 AS
 SELECT	shipper.id AS ShipperID,
@@ -53,15 +54,15 @@ SELECT	shipper.id AS ShipperID,
 		COALESCE(NULLIF(part.user_defined_2,''),'PlatformNotDefined') AS [Platform],
 		COALESCE(NULLIF(Customer.custom2,''), 'CustomerGroupNotDefined') AS [CustomerGroup]
 		
-FROM	dbo.shipper
-JOIN	dbo.shipper_detail ON dbo.shipper.id = dbo.shipper_detail.shipper
-LEFT JOIN	dbo.order_header ON dbo.shipper_detail.order_no = dbo.order_header.order_no
-LEFT JOIN	dbo.salesrep ON dbo.shipper_detail.salesman = dbo.salesrep.salesrep	
-JOIN	dbo.customer ON dbo.shipper.customer = dbo.customer.customer
-JOIN	dbo.destination ON dbo.shipper.destination = dbo.destination.destination
-JOIN	dbo.part ON dbo.shipper_detail.part_original = dbo.part.part
-JOIN	dbo.part_standard ON dbo.part.part = dbo.part_standard.part
-JOIN	dbo.part_inventory ON dbo.part.part = dbo.part_inventory.part
+FROM	dbo.shipper with (nolock)
+JOIN	dbo.shipper_detail with (nolock) ON dbo.shipper.id = dbo.shipper_detail.shipper
+LEFT JOIN	dbo.order_header with (nolock) ON dbo.shipper_detail.order_no = dbo.order_header.order_no
+LEFT JOIN	dbo.salesrep with (nolock) ON dbo.shipper_detail.salesman = dbo.salesrep.salesrep	
+JOIN	dbo.customer with (nolock) ON dbo.shipper.customer = dbo.customer.customer
+JOIN	dbo.destination with (nolock) ON dbo.shipper.destination = dbo.destination.destination
+JOIN	dbo.part with (nolock) ON dbo.shipper_detail.part_original = dbo.part.part
+JOIN	dbo.part_standard with (nolock) ON dbo.part.part = dbo.part_standard.part
+JOIN	dbo.part_inventory with (nolock) ON dbo.part.part = dbo.part_inventory.part
 
 
 

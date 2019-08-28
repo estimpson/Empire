@@ -12,7 +12,12 @@ CREATE TABLE [dbo].[location]
 [hazardous] [varchar] (1) COLLATE SQL_Latin1_General_CP1_CI_AS NULL CONSTRAINT [DF__location__hazard__7B0D3CA6] DEFAULT ('N'),
 [AllowMultiplePallet] [varchar] (1) COLLATE SQL_Latin1_General_CP1_CI_AS NULL CONSTRAINT [DF__location__AllowM__672D616A] DEFAULT ('N'),
 [Box_Type] [nvarchar] (50) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
-[MaxSerialLoc] [int] NULL
+[MaxSerialLoc] [int] NULL,
+[Active] [int] NOT NULL CONSTRAINT [DF_location_Active] DEFAULT ((1)),
+[regby] [varchar] (15) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
+[regdate] [datetime] NOT NULL CONSTRAINT [DF_location_regdate] DEFAULT (getdate()),
+[updateby] [varchar] (15) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
+[updatedate] [datetime] NULL
 ) ON [PRIMARY]
 GO
 ALTER TABLE [dbo].[location] ADD CONSTRAINT [PK__location__27A3E8DD] PRIMARY KEY CLUSTERED  ([code]) ON [PRIMARY]

@@ -3,6 +3,7 @@ GO
 SET ANSI_NULLS ON
 GO
 
+
 -- 
 CREATE view [EEIUser].[acctg_csm_selling_prices_tabular_detail]
 as
@@ -176,6 +177,18 @@ from
 	,	OCT_20 = coalesce(spt.OCT_20, 0)
 	,	NOV_20 = coalesce(spt.NOV_20, 0)
 	,	DEC_20 = coalesce(spt.DEC_20, 0)
+	,	JAN_21 = coalesce(spt.JAN_21, 0)
+	,	FEB_21 = coalesce(spt.FEB_21, 0)
+	,	MAR_21 = coalesce(spt.MAR_21, 0)
+	,	APR_21 = coalesce(spt.APR_21, 0)
+	,	MAY_21 = coalesce(spt.MAY_21, 0)
+	,	JUN_21 = coalesce(spt.JUN_21, 0)
+	,	JUL_21 = coalesce(spt.JUL_21, 0)
+	,	AUG_21 = coalesce(spt.AUG_21, 0)
+	,	SEP_21 = coalesce(spt.SEP_21, 0)
+	,	OCT_21 = coalesce(spt.OCT_21, 0)
+	,	NOV_21 = coalesce(spt.NOV_21, 0)
+	,	DEC_21 = coalesce(spt.DEC_21, 0)
 	from
 		eeiuser.acctg_csm_selling_prices_tabular spt
 ) as spp
@@ -339,6 +352,18 @@ unpivot
 	,	OCT_20
 	,	NOV_20
 	,	DEC_20
+	,	JAN_21
+	,	FEB_21
+	,	MAR_21
+	,	APR_21
+	,	MAY_21
+	,	JUN_21
+	,	JUL_21
+	,	AUG_21
+	,	SEP_21
+	,	OCT_21
+	,	NOV_21
+	,	DEC_21
 	)
 ) as spu
 

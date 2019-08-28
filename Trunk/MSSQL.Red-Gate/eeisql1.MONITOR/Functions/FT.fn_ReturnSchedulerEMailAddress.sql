@@ -17,6 +17,7 @@ GO
 
 
 
+
 CREATE FUNCTION [FT].[fn_ReturnSchedulerEMailAddress]
 (	@SchedulerInitials NVARCHAR(MAX)
 )
@@ -36,7 +37,7 @@ BEGIN
 						WHEN 'SLars'		THEN 'shesse@empireelect.com'
 						WHEN 'SHES'			THEN 'shesse@empireelect.com'
 						WHEN 'VC'			THEN 'IAragon@empireelect.com'
-						WHEN 'JJF'			THEN 'jjFlores@empireelect.hn'
+						WHEN 'JJF'			THEN 'jjFlores@empire.hn;jflores@empireelect.com'
 						WHEN 'IA'			THEN 'IAragon@empireelect.com'
 						WHEN 'CV'			THEN 'CVanBibber@empireelect.com'
 						WHEN 'GCHA'			THEN 'gchavez@empire.hn;gchavez@empireelect.com'

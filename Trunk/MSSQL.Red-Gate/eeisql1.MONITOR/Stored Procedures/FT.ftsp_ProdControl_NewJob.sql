@@ -134,12 +134,12 @@ where
 		where
 			code = @Machine
 	)
-if	coalesce( @SourceType, '') = '' begin
-	set	@Result = 999999
-	RAISERROR (@Result, 16, 1, 'ProdControl_NewJob:No Source Material Type')
-	rollback tran NewJob
-	return	@Result
-end
+--if	coalesce( @SourceType, '') = '' begin
+--	set	@Result = 999999
+--	RAISERROR (@Result, 16, 1, 'ProdControl_NewJob:No Source Material Type')
+--	rollback tran NewJob
+--	return	@Result
+--end
 
 --	I.	Create work order header.
 insert

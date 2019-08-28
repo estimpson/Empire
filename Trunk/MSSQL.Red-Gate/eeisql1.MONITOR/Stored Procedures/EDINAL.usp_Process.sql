@@ -8,6 +8,8 @@ GO
 
 
 
+
+
 CREATE PROCEDURE [EDINAL].[usp_Process]
 	@TranDT DATETIME = NULL OUT
 ,	@Result INTEGER = NULL OUT
@@ -1475,7 +1477,7 @@ end
 /* Start E-Mail Alerts and Exceptions*/
 
 Declare @EDIOrdersAlert table (
-	TradingPartner varchar(30) NULL,
+	TradingPartner varchar(50) NULL,
 	DocumentType varchar(30) NULL, --'PR - Planning Release; SS - ShipSchedule'
 	AlertType varchar(100) NULL,
 	ReleaseNo varchar(100) NULL,
@@ -1888,7 +1890,7 @@ WHILE
 EXEC msdb.dbo.sp_send_dbmail
 			@profile_name = 'DBMail'-- sysname
 	,		@recipients = @SchedulerEmailAddress -- varchar(max)
-	,		@copy_recipients = 'aboulanger@fore-thought.com;dwest@empireelect.com' -- varchar(max)
+	,		@copy_recipients = 'aboulanger@fore-thought.com;dwest@empireelect.com;jflores@empireelect.com' -- varchar(max)
 	, 		@subject = @EmailHeader
 	,  		@body = @EmailBody
 	,  		@body_format = 'HTML'

@@ -222,7 +222,8 @@ if @PONumber=0 begin
 	--STEP 2. Update Cost and material cum with trasnfer price in part standard
 	--2.1 update material
 	UPDATE	part_standard
-	SET		material=@TransferPrice		
+	SET		material=@TransferPrice,
+			cost_changed_date=GETDATE()		
 	WHERE	part=@blanket_part
 
 	SET @Error = @@Error 

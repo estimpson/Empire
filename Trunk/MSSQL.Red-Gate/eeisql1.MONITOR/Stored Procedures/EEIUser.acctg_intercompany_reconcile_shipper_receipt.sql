@@ -4,6 +4,7 @@ SET ANSI_NULLS ON
 GO
 
 
+
 --  execute	EEIUser.acctg_intercompany_reconcile_shipper_receipt @Fiscal_year = '2017', @Fiscal_period = 6, @Beg_Date = '2017-06-01',	@End_date = '2017-06-20'
 
 
@@ -109,7 +110,8 @@ set	@Syntax = N'delete	#TransDetailsShipping
 																			    ''''404012'''',
 																			    ''''405012'''',
 																			    ''''406012'''',
-																			    ''''408008'''')
+																			    ''''408008'''',
+																				''''408512'''')
 													and gcd.fiscal_year = '''''+ @Fiscal_Year + '''''
 													and gcd.period = ' + convert(char, @Fiscal_Period) + '
 													and	gcd.gl_date >= ''''' + @beg_datetime_varchar + '''''

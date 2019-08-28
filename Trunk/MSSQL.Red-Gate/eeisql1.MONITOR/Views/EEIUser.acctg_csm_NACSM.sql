@@ -6,13 +6,6 @@ GO
 
 
 
-
-
-
-
-
-
-
 CREATE view [EEIUser].[acctg_csm_NACSM]
 as
 select
@@ -383,6 +376,11 @@ select
 ,	TWO25 = acn.[Q2 2025]
 ,	THREE25 = acn.[Q3 2025]
 ,	FOUR25 = acn.[Q4 2025]
+,	ONE26 = acn.[Q1 2026]
+,	TWO26 = acn.[Q2 2026]
+,	THREE26 = acn.[Q3 2026]
+,	FOUR26 = acn.[Q4 2026]
+
 ,	CAL_00 = acn.[CY 2000]
 ,	CAL_01 = acn.[CY 2001]
 ,	CAL_02 = acn.[CY 2002]
@@ -409,6 +407,7 @@ select
 ,	CAL_23 = acn.[CY 2023]
 ,	CAL_24 = acn.[CY 2024]
 ,	CAL_25 = acn.[CY 2025]
+,	CAL_26 = acn.[CY 2026]
 FROM
 	MONITOR.eeiuser.acctg_csm_NAIHS acn
 

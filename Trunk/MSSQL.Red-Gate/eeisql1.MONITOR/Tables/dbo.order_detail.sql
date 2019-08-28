@@ -44,7 +44,8 @@ CREATE TABLE [dbo].[order_detail]
 [pallet_label] [varchar] (25) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
 [id] [int] NOT NULL IDENTITY(1, 1),
 [EEIEntry] [varchar] (1) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
-[eeiqty] [decimal] (20, 6) NULL
+[eeiqty] [decimal] (20, 6) NULL,
+[CreateDT] [datetime] NULL CONSTRAINT [DF__order_det__Creat__324FB272] DEFAULT (getdate())
 ) ON [PRIMARY]
 GO
 SET QUOTED_IDENTIFIER ON
@@ -431,7 +432,7 @@ CREATE NONCLUSTERED INDEX [ix_order_detail_2] ON [dbo].[order_detail] ([order_no
 GO
 CREATE NONCLUSTERED INDEX [ix_order_detail_3] ON [dbo].[order_detail] ([part_number], [order_no], [packaging_type], [quantity], [due_date], [type], [id], [destination], [std_qty], [custom01]) ON [PRIMARY]
 GO
-CREATE STATISTICS [_dta_stat_1259867555_2_14_43_16_26] ON [dbo].[order_detail] ([destination], [id], [part_number], [due_date], [std_qty], [order_no], [sequence])
+CREATE STATISTICS [_dta_stat_1259867555_2_14_43_16_26] ON [dbo].[order_detail] ([part_number], [due_date], [id], [destination], [std_qty], [order_no], [sequence])
 GO
-CREATE STATISTICS [_dta_stat_1259867555_2_5_14_3_43_16] ON [dbo].[order_detail] ([sequence], [quantity], [due_date], [type], [id], [destination], [order_no], [part_number])
+CREATE STATISTICS [_dta_stat_1259867555_2_5_14_3_43_16] ON [dbo].[order_detail] ([part_number], [quantity], [due_date], [type], [id], [destination], [order_no], [sequence])
 GO

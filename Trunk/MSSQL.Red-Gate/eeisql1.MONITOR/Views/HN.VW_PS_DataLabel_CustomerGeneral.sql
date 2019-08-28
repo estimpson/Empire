@@ -4,15 +4,6 @@ SET ANSI_NULLS ON
 GO
 
 
-
-
-
-
-
-
-
-
-
 CREATE view [HN].[VW_PS_DataLabel_CustomerGeneral]
 as
 
@@ -27,6 +18,7 @@ SELECT	Serial=objectserial,
 		SetPartName=UPPER(PartName), 
 		SetCrossRef=UPPER(Cross_Ref), 
 		SetEngLevel=UPPER(EngineeringLevel), 
+		SetMfgDateBase = CONVERT(varchar, MfgDate, 101),
 		SetMfgDate=UPPER(SUBSTRING(CONVERT(varchar(10), DATEPART(dd, MfgDate)), 1, 4) + CONVERT(varchar(25), 
                          DATEPART(mm, MfgDate)) + CONVERT(varchar(25), DATEPART(yyyy, MfgDate))), 
 		SetShipDate=UPPER(SUBSTRING(CONVERT(varchar(10), DATEPART(dd, ShipDate)), 1, 4) + CONVERT(varchar(25), DATEPART(mm, ShipDate)) + CONVERT(varchar(25), DATEPART(yyyy, ShipDate))), 
@@ -88,7 +80,8 @@ SELECT	Serial=objectserial,
 		SetSecond=SUBSTRING(PartName, 21, 20),
 		SetOperator='MON',
 		--SetOperator='',
-		SetCurrentDate=GETDATE(),SLAInfoRecord=SLAInfoRecord,SLALotNo,Boxes,SetLotMagna='',IndexNo = isnull(IndexNo, '')
+		SetCurrentDate=GETDATE(),SLAInfoRecord=SLAInfoRecord,SLALotNo,Boxes,SetLotMagna='',IndexNo = isnull(IndexNo, ''),
+		SetGMFortmatDate= replace(CONVERT(VARCHAR(10), MfgDate, 111),'/','')
 FROM            vw_eei_CustomerLabel 
 union all
 Select	Serial=convert(varchar,pallet.Serial),
@@ -102,6 +95,7 @@ Select	Serial=convert(varchar,pallet.Serial),
 		SetPartName='',
 		setCrossRef='',
 		setEngLevel='',
+		SetMfgDateBase = CONVERT(varchar, o.last_date, 101),
 		setMFGDate=CONVERT(varchar, o.last_date, 101),
 		setShipDate='',
 		setALCDate='',
@@ -153,13 +147,15 @@ Select	Serial=convert(varchar,pallet.Serial),
 		setsecond=convert(varchar,GETDATE(),108),
 		setoperator='MON',
 		setCurrentDate=CONVERT(varchar, getdate(), 101)	,
-			SLAInfoRecord='',SLALotNo='',Boxes='',SetLotMagna='',IndexNo=''
+		SLAInfoRecord='',SLALotNo='',Boxes='',SetLotMagna='',IndexNo='',
+		SetGMFortmatDate= replace(CONVERT(VARCHAR(10), getdate(), 111),'/','')
 from	monitor.dbo.object o
 	inner join (Select Part, Serial=parent_serial, Qty=sum(Quantity), Lot
 				from monitor.dbo.object
 				group by part, parent_serial, lot) Pallet
 		on o.serial = pallet.Serial
 where	o.part='pallet'
+
 
 
 

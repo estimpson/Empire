@@ -3,6 +3,7 @@ GO
 SET ANSI_NULLS ON
 GO
 
+-- [EEIUser].[acctg_csm_sp_rollback] 'dw'
 
 
 CREATE procedure [EEIUser].[acctg_csm_sp_rollback]
@@ -62,94 +63,94 @@ end
 --- <Body>
 -- Step 1: roll back base part attributes one month 
 -- <Call>
-set			@CallProcName = 'eeiuser.acctg_csm_sp_rollback_base_part_attributes'
-execute		@ProcReturn = eeiuser.acctg_csm_sp_rollback_base_part_attributes
-			@OperatorCode = @OperatorCode,
-			@TranDT = @TranDT out,
-			@Result = @ProcResult out
+--set			@CallProcName = 'eeiuser.acctg_csm_sp_rollback_base_part_attributes'
+--execute		@ProcReturn = eeiuser.acctg_csm_sp_rollback_base_part_attributes
+--			@OperatorCode = @OperatorCode,
+--			@TranDT = @TranDT out,
+--			@Result = @ProcResult out
 			
 				
-set @Error = @@Error
-if @Error > 0 begin
-	set	@Result = 999999
-	RAISERROR ('Error encountered in %s.  Error: %d while calling %s', 16, 1, @ProcName, @Error, @CallProcName)
-	rollback tran @ProcName
-	return @Result
-end
-if @ProcResult != 0 begin
-	set	@Result = 999999
-	RAISERROR ('Error encountered in %s.  ProcResult: %d while calling %s', 16, 1, @ProcName, @ProcResult, @CallProcName)
-	rollback tran @ProcName
-	return	@Result
-end
-if	@ProcResult != 0 begin
-	set	@Result = 999999
-	RAISERROR ('Error encountered in %s.  ProcResult: %d while calling %s', 16, 1, @ProcName, @ProcResult, @CallProcName)
-	rollback tran @ProcName
-	return	@Result
-end
+--set @Error = @@Error
+--if @Error > 0 begin
+--	set	@Result = 999999
+--	RAISERROR ('Error encountered in %s.  Error: %d while calling %s', 16, 1, @ProcName, @Error, @CallProcName)
+--	rollback tran @ProcName
+--	return @Result
+--end
+--if @ProcResult != 0 begin
+--	set	@Result = 999999
+--	RAISERROR ('Error encountered in %s.  ProcResult: %d while calling %s', 16, 1, @ProcName, @ProcResult, @CallProcName)
+--	rollback tran @ProcName
+--	return	@Result
+--end
+--if	@ProcResult != 0 begin
+--	set	@Result = 999999
+--	RAISERROR ('Error encountered in %s.  ProcResult: %d while calling %s', 16, 1, @ProcName, @ProcResult, @CallProcName)
+--	rollback tran @ProcName
+--	return	@Result
+--end
 -- </Call>
 
 
 -- Step 2: roll back base part mnemonic one month 
 -- <Call>
-set			@CallProcName = 'eeiuser.acctg_csm_sp_rollback_base_part_mnemonic'
-execute		@ProcReturn = eeiuser.acctg_csm_sp_rollback_base_part_mnemonic
-			@OperatorCode = @OperatorCode,
-			@TranDT = @TranDT out,
-			@Result = @ProcResult out
+--set			@CallProcName = 'eeiuser.acctg_csm_sp_rollback_base_part_mnemonic'
+--execute		@ProcReturn = eeiuser.acctg_csm_sp_rollback_base_part_mnemonic
+--			@OperatorCode = @OperatorCode,
+--			@TranDT = @TranDT out,
+--			@Result = @ProcResult out
 			
 				
-set @Error = @@Error
-if @Error > 0 begin
-	set	@Result = 999999
-	RAISERROR ('Error encountered in %s.  Error: %d while calling %s', 16, 1, @ProcName, @Error, @CallProcName)
-	rollback tran @ProcName
-	return @Result
-end
-if @ProcResult != 0 begin
-	set	@Result = 999999
-	RAISERROR ('Error encountered in %s.  ProcResult: %d while calling %s', 16, 1, @ProcName, @ProcResult, @CallProcName)
-	rollback tran @ProcName
-	return	@Result
-end
-if	@ProcResult != 0 begin
-	set	@Result = 999999
-	RAISERROR ('Error encountered in %s.  ProcResult: %d while calling %s', 16, 1, @ProcName, @ProcResult, @CallProcName)
-	rollback tran @ProcName
-	return	@Result
-end
+--set @Error = @@Error
+--if @Error > 0 begin
+--	set	@Result = 999999
+--	RAISERROR ('Error encountered in %s.  Error: %d while calling %s', 16, 1, @ProcName, @Error, @CallProcName)
+--	rollback tran @ProcName
+--	return @Result
+--end
+--if @ProcResult != 0 begin
+--	set	@Result = 999999
+--	RAISERROR ('Error encountered in %s.  ProcResult: %d while calling %s', 16, 1, @ProcName, @ProcResult, @CallProcName)
+--	rollback tran @ProcName
+--	return	@Result
+--end
+--if	@ProcResult != 0 begin
+--	set	@Result = 999999
+--	RAISERROR ('Error encountered in %s.  ProcResult: %d while calling %s', 16, 1, @ProcName, @ProcResult, @CallProcName)
+--	rollback tran @ProcName
+--	return	@Result
+--end
 -- </Call>
 
 
 -- Step 3: roll back base part notes one month 
 -- <Call>
-set			@CallProcName = 'eeiuser.acctg_csm_sp_rollback_base_part_notes'
-execute		@ProcReturn = eeiuser.acctg_csm_sp_rollback_base_part_notes
-			@OperatorCode = @OperatorCode,
-			@TranDT = @TranDT out,
-			@Result = @ProcResult out
+--set			@CallProcName = 'eeiuser.acctg_csm_sp_rollback_base_part_notes'
+--execute		@ProcReturn = eeiuser.acctg_csm_sp_rollback_base_part_notes
+--			@OperatorCode = @OperatorCode,
+--			@TranDT = @TranDT out,
+--			@Result = @ProcResult out
 			
 				
-set @Error = @@Error
-if @Error > 0 begin
-	set	@Result = 999999
-	RAISERROR ('Error encountered in %s.  Error: %d while calling %s', 16, 1, @ProcName, @Error, @CallProcName)
-	rollback tran @ProcName
-	return @Result
-end
-if @ProcResult != 0 begin
-	set	@Result = 999999
-	RAISERROR ('Error encountered in %s.  ProcResult: %d while calling %s', 16, 1, @ProcName, @ProcResult, @CallProcName)
-	rollback tran @ProcName
-	return	@Result
-end
-if	@ProcResult != 0 begin
-	set	@Result = 999999
-	RAISERROR ('Error encountered in %s.  ProcResult: %d while calling %s', 16, 1, @ProcName, @ProcResult, @CallProcName)
-	rollback tran @ProcName
-	return	@Result
-end
+--set @Error = @@Error
+--if @Error > 0 begin
+--	set	@Result = 999999
+--	RAISERROR ('Error encountered in %s.  Error: %d while calling %s', 16, 1, @ProcName, @Error, @CallProcName)
+--	rollback tran @ProcName
+--	return @Result
+--end
+--if @ProcResult != 0 begin
+--	set	@Result = 999999
+--	RAISERROR ('Error encountered in %s.  ProcResult: %d while calling %s', 16, 1, @ProcName, @ProcResult, @CallProcName)
+--	rollback tran @ProcName
+--	return	@Result
+--end
+--if	@ProcResult != 0 begin
+--	set	@Result = 999999
+--	RAISERROR ('Error encountered in %s.  ProcResult: %d while calling %s', 16, 1, @ProcName, @ProcResult, @CallProcName)
+--	rollback tran @ProcName
+--	return	@Result
+--end
 -- </Call>
 
 

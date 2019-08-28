@@ -23,6 +23,8 @@ CREATE PROCEDURE [dbo].[USP_NewLocation]
 					,@box_type              VARCHAR(50)=NULL
 					,@maxSerialloc           int=NULL
 					,@Process				VARCHAR(25)=NULL
+					,@Active				int=1
+					,@operator				varchar(15)=NULL
 					,@Result				INT OUT	
 	
 	AS
@@ -46,6 +48,9 @@ BEGIN
 	DECLARE @ProcReturn integer, @ProcResult integer 
 	DECLARE @Error integer, @RowCount integer
 
+	declare @TranDT datetime
+	set @TranDT=getdate()
+
 	IF (SELECT COUNT(*) FROM location WHERE CODE=@CODE)>0 AND @PROCESS<>'UPDATE'
 		BEGIN
 			SET	@Result = 900501
@@ -58,8 +63,22 @@ BEGIN
 
 	IF @PROCESS='UPDATE'
 		BEGIN
-		UPDATE  MONITOR.dbo.location SET name=@NAME,group_no=@group_no,type=@TYPE,sequence=@sequence,plant=@plant,status=@status,secured_location=@secured_location,label_on_transfer=@label_on_transfer,
-										 AllowMultiplePallet=@AllowMultiplePallet ,box_type=@box_type , maxSerialloc=@maxSerialloc WHERE code=@CODE
+		UPDATE  MONITOR.dbo.location 
+		SET		name=@NAME,
+				group_no=@group_no,
+				type=@TYPE,
+				sequence=@sequence,
+				plant=@plant,
+				status=@status,
+				secured_location=@secured_location,
+				label_on_transfer=@label_on_transfer,
+				AllowMultiplePallet=@AllowMultiplePallet,
+				box_type=@box_type , 
+				maxSerialloc=@maxSerialloc ,
+				Active=@Active,
+				updateby=@operator,
+				updatedate=@TranDT
+		WHERE code=@CODE
 
 
 			SET	@Error = @@Error
@@ -78,8 +97,12 @@ BEGIN
 	ELSE
 	BEGIN
 
-		INSERT INTO MONITOR.dbo.location(code,name,type,group_no,sequence,plant,status,secured_location,label_on_transfer,AllowMultiplePallet,box_type,maxSerialloc)
-		VALUES(@CODE,@NAME,@TYPE,@group_no,@sequence,@plant,@status,@secured_location,@label_on_transfer,@AllowMultiplePallet,@box_type,@maxSerialloc)
+		INSERT INTO MONITOR.dbo.location(code,name,type,group_no,sequence,plant,status,secured_location,
+			label_on_transfer,AllowMultiplePallet,box_type,maxSerialloc,
+			Active,regby,regdate )
+		VALUES(@CODE,@NAME,@TYPE,@group_no,@sequence,@plant,@status,@secured_location,
+			@label_on_transfer,@AllowMultiplePallet,@box_type,@maxSerialloc,
+			@Active,@operator,@TranDT)
 						
 			SET	@Error = @@Error
 			IF	@Error != 0 BEGIN

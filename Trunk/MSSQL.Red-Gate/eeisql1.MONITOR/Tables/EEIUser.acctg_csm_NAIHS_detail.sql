@@ -39,6 +39,8 @@ begin
 	end catch
 end;
 GO
+DISABLE TRIGGER [EEIUser].[acctg_csm_NAIHS_detail_TriggerUpdate] ON [EEIUser].[acctg_csm_NAIHS_detail]
+GO
 SET QUOTED_IDENTIFIER ON
 GO
 SET ANSI_NULLS ON
@@ -276,6 +278,19 @@ insert
 ,	[Oct 2020]
 ,	[Nov 2020]
 ,	[Dec 2020]
+,	[Jan 2021]
+,	[Feb 2021]
+,	[Mar 2021]
+,	[Apr 2021]
+,	[May 2021]
+,	[Jun 2021]
+,	[Jul 2021]
+,	[Aug 2021]
+,	[Sep 2021]
+,	[Oct 2021]
+,	[Nov 2021]
+,	[Dec 2021]
+
 ,	[Q1 2008]
 ,	[Q2 2008]
 ,	[Q3 2008]
@@ -348,6 +363,10 @@ insert
 ,	[Q2 2025]
 ,	[Q3 2025]
 ,	[Q4 2025]
+,	[Q1 2026]
+,	[Q2 2026]
+,	[Q3 2026]
+,	[Q4 2026]
 ,	[CY 2008]
 ,	[CY 2009]
 ,	[CY 2010]
@@ -366,6 +385,7 @@ insert
 ,	[CY 2023]
 ,	[CY 2024]
 ,	[CY 2025]
+,	[CY 2026]
 )
 select
 	nh.ID
@@ -578,6 +598,18 @@ select
 ,	[Oct 2020] = (select min(SalesDemand) from EEIUser.acctg_csm_NAIHS_detail where Header_ID = ID and EffectiveYear = 2020 and Period = 'M10')
 ,	[Nov 2020] = (select min(SalesDemand) from EEIUser.acctg_csm_NAIHS_detail where Header_ID = ID and EffectiveYear = 2020 and Period = 'M11')
 ,	[Dec 2020] = (select min(SalesDemand) from EEIUser.acctg_csm_NAIHS_detail where Header_ID = ID and EffectiveYear = 2020 and Period = 'M12')
+,	[Jan 2021] = (select min(SalesDemand) from EEIUser.acctg_csm_NAIHS_detail where Header_ID = ID and EffectiveYear = 2021 and Period = 'M01')
+,	[Feb 2021] = (select min(SalesDemand) from EEIUser.acctg_csm_NAIHS_detail where Header_ID = ID and EffectiveYear = 2021 and Period = 'M02')
+,	[Mar 2021] = (select min(SalesDemand) from EEIUser.acctg_csm_NAIHS_detail where Header_ID = ID and EffectiveYear = 2021 and Period = 'M03')
+,	[Apr 2021] = (select min(SalesDemand) from EEIUser.acctg_csm_NAIHS_detail where Header_ID = ID and EffectiveYear = 2021 and Period = 'M04')
+,	[May 2021] = (select min(SalesDemand) from EEIUser.acctg_csm_NAIHS_detail where Header_ID = ID and EffectiveYear = 2021 and Period = 'M05')
+,	[Jun 2021] = (select min(SalesDemand) from EEIUser.acctg_csm_NAIHS_detail where Header_ID = ID and EffectiveYear = 2021 and Period = 'M06')
+,	[Jul 2021] = (select min(SalesDemand) from EEIUser.acctg_csm_NAIHS_detail where Header_ID = ID and EffectiveYear = 2021 and Period = 'M07')
+,	[Aug 2021] = (select min(SalesDemand) from EEIUser.acctg_csm_NAIHS_detail where Header_ID = ID and EffectiveYear = 2021 and Period = 'M08')
+,	[Sep 2021] = (select min(SalesDemand) from EEIUser.acctg_csm_NAIHS_detail where Header_ID = ID and EffectiveYear = 2021 and Period = 'M09')
+,	[Oct 2021] = (select min(SalesDemand) from EEIUser.acctg_csm_NAIHS_detail where Header_ID = ID and EffectiveYear = 2021 and Period = 'M10')
+,	[Nov 2021] = (select min(SalesDemand) from EEIUser.acctg_csm_NAIHS_detail where Header_ID = ID and EffectiveYear = 2021 and Period = 'M11')
+,	[Dec 2021] = (select min(SalesDemand) from EEIUser.acctg_csm_NAIHS_detail where Header_ID = ID and EffectiveYear = 2021 and Period = 'M12')
 
 ,	[Q1 2008] = (select min(SalesDemand) from EEIUser.acctg_csm_NAIHS_detail where Header_ID = ID and EffectiveYear = 2008 and Period = 'Q1')
 ,	[Q2 2008] = (select min(SalesDemand) from EEIUser.acctg_csm_NAIHS_detail where Header_ID = ID and EffectiveYear = 2008 and Period = 'Q2')
@@ -669,6 +701,11 @@ select
 ,	[Q3 2025] = (select min(SalesDemand) from EEIUser.acctg_csm_NAIHS_detail where Header_ID = ID and EffectiveYear = 2025 and Period = 'Q3')
 ,	[Q4 2025] = (select min(SalesDemand) from EEIUser.acctg_csm_NAIHS_detail where Header_ID = ID and EffectiveYear = 2025 and Period = 'Q4')
 
+,	[Q1 2026] = (select min(SalesDemand) from EEIUser.acctg_csm_NAIHS_detail where Header_ID = ID and EffectiveYear = 2026 and Period = 'Q1')
+,	[Q2 2026] = (select min(SalesDemand) from EEIUser.acctg_csm_NAIHS_detail where Header_ID = ID and EffectiveYear = 2026 and Period = 'Q2')
+,	[Q3 2026] = (select min(SalesDemand) from EEIUser.acctg_csm_NAIHS_detail where Header_ID = ID and EffectiveYear = 2026 and Period = 'Q3')
+,	[Q4 2026] = (select min(SalesDemand) from EEIUser.acctg_csm_NAIHS_detail where Header_ID = ID and EffectiveYear = 2026 and Period = 'Q4')
+
 ,	[CY 2008] = (select min(SalesDemand) from EEIUser.acctg_csm_NAIHS_detail where Header_ID = ID and EffectiveYear = 2008 and Period = 'CY')
 ,	[CY 2009] = (select min(SalesDemand) from EEIUser.acctg_csm_NAIHS_detail where Header_ID = ID and EffectiveYear = 2009 and Period = 'CY')
 ,	[CY 2010] = (select min(SalesDemand) from EEIUser.acctg_csm_NAIHS_detail where Header_ID = ID and EffectiveYear = 2010 and Period = 'CY')
@@ -687,6 +724,7 @@ select
 ,	[CY 2023] = (select min(SalesDemand) from EEIUser.acctg_csm_NAIHS_detail where Header_ID = ID and EffectiveYear = 2023 and Period = 'CY')
 ,	[CY 2024] = (select min(SalesDemand) from EEIUser.acctg_csm_NAIHS_detail where Header_ID = ID and EffectiveYear = 2024 and Period = 'CY')
 ,	[CY 2025] = (select min(SalesDemand) from EEIUser.acctg_csm_NAIHS_detail where Header_ID = ID and EffectiveYear = 2025 and Period = 'CY')
+,	[CY 2026] = (select min(SalesDemand) from EEIUser.acctg_csm_NAIHS_detail where Header_ID = ID and EffectiveYear = 2026 and Period = 'CY')
 from
 	EEIUser.acctg_csm_NAIHS_header nh
 where
@@ -709,9 +747,11 @@ where
 --SalesForecast View (table that was once a view)
 
 GO
-DISABLE TRIGGER [EEIUser].[tr_csm_NAIHS_detail_IUD] ON [EEIUser].[acctg_csm_NAIHS_detail]
-GO
 ALTER TABLE [EEIUser].[acctg_csm_NAIHS_detail] ADD CONSTRAINT [PK__acctg_cs__9E9692CD7C598B98] PRIMARY KEY CLUSTERED  ([Release_ID], [EffectiveYear], [Header_ID], [Period]) ON [PRIMARY]
+GO
+CREATE NONCLUSTERED INDEX [NonClusteredIndex-20190404-170408] ON [EEIUser].[acctg_csm_NAIHS_detail] ([EffectiveYear], [Period]) INCLUDE ([Mnemonic-Vehicle/Plant], [Release_ID], [Version]) ON [PRIMARY]
+GO
+CREATE NONCLUSTERED INDEX [ix_acctg_csm_NAIHS_detail_1] ON [EEIUser].[acctg_csm_NAIHS_detail] ([Header_ID], [EffectiveYear], [Period], [SalesDemand]) ON [PRIMARY]
 GO
 CREATE NONCLUSTERED INDEX [RID_Include_SalesDemand] ON [EEIUser].[acctg_csm_NAIHS_detail] ([Release_ID], [Mnemonic-Vehicle/Plant], [EffectiveDT]) INCLUDE ([EffectiveYear], [Period], [SalesDemand], [Version]) ON [PRIMARY]
 GO

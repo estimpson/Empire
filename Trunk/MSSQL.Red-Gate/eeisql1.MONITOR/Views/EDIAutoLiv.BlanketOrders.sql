@@ -3,6 +3,7 @@ GO
 SET ANSI_NULLS ON
 GO
 
+
 CREATE view [EDIAutoLiv].[BlanketOrders]
 as
 select
@@ -48,8 +49,10 @@ where
 	oh.order_type = 'B' 
  --and Coalesce(ProcessEDI,1) = 1
  and coalesce(oh.status,'X') = 'A' 
- and es.trading_partner_code = 'AUTOLIV'
+ and es.trading_partner_code like '%AUTOLIV%'
 --	es.InboundProcessGroup in ( 'EDI2001' )
+
+
 
 
 

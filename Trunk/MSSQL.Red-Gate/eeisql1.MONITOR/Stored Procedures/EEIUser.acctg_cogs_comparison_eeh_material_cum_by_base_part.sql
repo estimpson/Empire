@@ -6,7 +6,8 @@ GO
 
 
 
--- exec eeiuser.acctg_cogs_comparison_eeh_material_cum_by_base_part '2017-02-01', '2017-02-28', '2018-02-01', '2018-02-28'
+
+-- exec eeiuser.acctg_cogs_comparison_eeh_material_cum_by_base_part '2017-04-01', '2017-04-30', '2019-04-01', '2019-04-30'
 
 
 CREATE procedure [EEIUser].[acctg_cogs_comparison_eeh_material_cum_by_base_part]	
@@ -45,7 +46,31 @@ CREATE TABLE #COGS_1
 		,ext_frozen_material_cum DECIMAL(18,6)
 		,eeh_material_cum DECIMAL(18,6)
 		,ext_eeh_material_cum DECIMAL(18,6)
-		,mc_Jan_18 DECIMAL(18,6)
+		,spi_price DECIMAL(18,6)
+		,ext_spi_price DECIMAL(18,6)
+		,spi_material_cum DECIMAL(18,6)
+		,ext_spi_material_cum DEcIMAL(18,6)
+		,spi_labor_cum DECIMAL(18,6)
+		,ext_spi_labor_cum DECIMAL(18,6)
+		,spi_burden_cum DECIMAL(18,6)
+		,ext_spi_burden_cum DECIMAL(18,6)
+		,spi_cost_cum DECIMAL(18,6)
+		,ext_spi_cost_cum DECIMAL(18,6)
+		,spi_interco_profit DECIMAL(18,6)
+		,ext_spi_interco_profit DECIMAL(18,6)
+		,EEC_price DECIMAL(18,6)
+		,ext_EEC_price DECIMAL(18,6)
+		,EEC_material_cum DECIMAL(18,6)
+		,ext_EEC_material_cum DEcIMAL(18,6)
+		,EEC_labor_cum DECIMAL(18,6)
+		,ext_EEC_labor_cum DECIMAL(18,6)
+		,EEC_burden_cum DECIMAL(18,6)
+		,ext_EEC_burden_cum DECIMAL(18,6)
+		,EEC_cost_cum DECIMAL(18,6)
+		,ext_EEC_cost_cum DECIMAL(18,6)
+		,EEC_interco_profit DECIMAL(18,6)
+		,ext_EEC_interco_profit DECIMAL(18,6)
+		,mc_Apr_19 DECIMAL(18,6)
 		,ext_csm_material_cum decimal(18,6)
 		,TopPart VARCHAR(25)
 		,ChildPart VARCHAR(25)
@@ -90,8 +115,32 @@ CREATE TABLE #COGS_2
 		,ext_frozen_material_cum DECIMAL(18,6)
 		,eeh_material_cum DECIMAL(18,6)
 		,ext_eeh_material_cum DECIMAL(18,6)
-		,mc_Jan_18 DECIMAL(18,6)
-		,ext_csm_material_cum decimal(18,6)
+		,spi_price DECIMAL(18,6)
+		,ext_spi_price DECIMAL(18,6)
+		,spi_material_cum DECIMAL(18,6)
+		,ext_spi_material_cum DEcIMAL(18,6)
+		,spi_labor_cum DECIMAL(18,6)
+		,ext_spi_labor_cum DECIMAL(18,6)
+		,spi_burden_cum DECIMAL(18,6)
+		,ext_spi_burden_cum DECIMAL(18,6)
+		,spi_cost_cum DECIMAL(18,6)
+		,ext_spi_cost_cum DECIMAL(18,6)
+		,spi_interco_profit DECIMAL(18,6)
+		,ext_spi_interco_profit DECIMAL(18,6)
+		,EEC_price DECIMAL(18,6)
+		,ext_EEC_price DECIMAL(18,6)
+		,EEC_material_cum DECIMAL(18,6)
+		,ext_EEC_material_cum DEcIMAL(18,6)
+		,EEC_labor_cum DECIMAL(18,6)
+		,ext_EEC_labor_cum DECIMAL(18,6)
+		,EEC_burden_cum DECIMAL(18,6)
+		,ext_EEC_burden_cum DECIMAL(18,6)
+		,EEC_cost_cum DECIMAL(18,6)
+		,ext_EEC_cost_cum DECIMAL(18,6)
+		,EEC_interco_profit DECIMAL(18,6)
+		,ext_EEC_interco_profit DECIMAL(18,6)
+		,mc_Apr_19 DECIMAL(18,6)
+		,ext_csm_material_cum decimal(18,6)		
 		,TopPart VARCHAR(25)
 		,ChildPart VARCHAR(25)
 		,BulbedPrice DECIMAL(18,6)
@@ -117,14 +166,21 @@ INSERT INTO #COGS_1
 INSERT INTO #COGS_2
 	EXEC EEIUSER.ACCTG_COST_OF_GOODS_SOLD @BEG_DATE_2, @END_DATE_2
 
+
+--select * from #cogs_1 		WHERE isnull(qty_packed,0)<>0
+--select * from #cogs_2 		WHERE isnull(qty_packed,0)<>0
+
 ----------------------------------------------------------------------------------------------------------------------
 SELECT 
 
-	 ISNULL(a.product_line,b.product_line) AS product_line
+	(case when a.product_line is null then 'New Launch' else (case when b.product_line is null then 'Closeout' else 'In Production' end)end) as status
+	
+	,ISNULL(a.product_line,b.product_line) AS product_line
 	,a.product_line
 	,b.product_line
 	
-	,ISNULL(a.base_part,b.base_part)
+	,ISNULL(left(a.base_part,3),left(b.base_part,3)) as customer
+	,ISNULL(a.base_part,b.base_part) as base_part
 	--,ISNULL(a.customer,b.customer) AS customer
 
 	,a.qty_packed AS prior_qty_packed
@@ -147,13 +203,16 @@ SELECT
 
 	,a.ext_csm_material_cum AS prior_ext_csm_material_cum
 	,b.ext_csm_material_cum AS current_ext_csm_material_cum
+
+	,isnull(b.qty_packed,0)*isnull(a.selling_price,b.selling_price) AS what_if_ext_selling_price
+	,isnull(b.qty_packed,0)*ISNULL((CASE WHEN a.product_line IN ('BULBED ES3 COMPONENTS','BULBED WIRE HARN - EEH') THEN a.frozen_material_cum ELSE a.eeh_material_cum END),(CASE WHEN b.product_line IN ('BULBED ES3 COMPONENTS','BULBED WIRE HARN - EEH') THEN b.frozen_material_cum ELSE b.eeh_material_cum END)) as what_if_ext_material_cost
 	
 FROM 
 	(	SELECT 
 
 				 product_line
 				,LEFT(part_original,7) AS base_part
-				,RIGHT(LEFT(part_original,PATINDEX ('%-%' , part_original)+1),1) as base_part_type
+				--,RIGHT(LEFT(part_original,PATINDEX ('%-%' , part_original)+1),1) as base_part_type
 				--,customer
 				,SUM(qty_packed) AS qty_packed
 				,SUM(boxes_staged) AS boxes_staged
@@ -169,9 +228,11 @@ FROM
 				,SUM(ext_csm_material_cum) AS ext_csm_material_cum
 
 		FROM	#COGS_1
+		WHERE isnull(qty_packed,0)<>0
 		GROUP BY product_line
 				,LEFT(part_original,7)
-				,RIGHT(LEFT(part_original,PATINDEX ('%-%' , part_original)+1),1) 
+		
+				--,RIGHT(LEFT(part_original,PATINDEX ('%-%' , part_original)+1),1) 
 				--, customer 
 	)a
 
@@ -181,7 +242,7 @@ FULL OUTER JOIN
 
 			 product_line
 			,LEFT(part_original,7) AS base_part
-			,RIGHT(LEFT(part_original,PATINDEX ('%-%' , part_original)+1),1) as base_part_type
+			--,RIGHT(LEFT(part_original,PATINDEX ('%-%' , part_original)+1),1) as base_part_type
 			--,customer
 			,SUM(qty_packed) AS qty_packed
 			,SUM(boxes_staged) AS boxes_staged
@@ -197,9 +258,10 @@ FULL OUTER JOIN
 			,SUM(ext_csm_material_cum) AS ext_csm_material_cum
 
 		FROM	#COGS_2
+		WHERE isnull(qty_packed,0)<>0
 		GROUP BY product_line
 				,LEFT(part_original,7)
-				,RIGHT(LEFT(part_original,PATINDEX ('%-%' , part_original)+1),1)
+				--,RIGHT(LEFT(part_original,PATINDEX ('%-%' , part_original)+1),1)
 				--,customer 
 	)b
 

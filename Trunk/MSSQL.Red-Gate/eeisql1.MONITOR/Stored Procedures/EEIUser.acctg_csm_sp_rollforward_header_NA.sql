@@ -62,7 +62,7 @@ end
 
 
 --- <Body>
--- Roll forward all data for CSM, Empire Adjusted and Empire Factor into the current release
+-- Roll forward all data for Empire Adjusted and Empire Factor into the current release (exclude CSM)
 declare @Region varchar(50)
 set @Region = 'North America'
 
@@ -186,6 +186,7 @@ from
 where
 	c.Release_ID = @PriorRelease
 	and (c.Region = @Region or c.Region is null)
+	and c.[Version] <> 'CSM'
 
 
 select

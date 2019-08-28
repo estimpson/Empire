@@ -93,7 +93,7 @@ from
 	eeiuser.acctg_csm_selling_prices_detail d
 	join eeiuser.acctg_csm_selling_prices_header h
 		on h.BasePart = d.BasePart
-		and h.[Version] = d.[Version]
+		and (h.[Version] = d.[Version] or (h.[Version] is null and d.[Version] is null))
 		and h.Release_ID = @CurrentRelease
 where
 	d.Release_ID = @PriorRelease

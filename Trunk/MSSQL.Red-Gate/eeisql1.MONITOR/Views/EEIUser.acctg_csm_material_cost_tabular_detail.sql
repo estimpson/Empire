@@ -3,6 +3,7 @@ GO
 SET ANSI_NULLS ON
 GO
 
+
 CREATE view [EEIUser].[acctg_csm_material_cost_tabular_detail]
 as
 select
@@ -175,6 +176,18 @@ from
 	,	OCT_20 = coalesce(mct.OCT_20, 0)
 	,	NOV_20 = coalesce(mct.NOV_20, 0)
 	,	DEC_20 = coalesce(mct.DEC_20, 0)
+	,	JAN_21 = coalesce(mct.JAN_21, 0)
+	,	FEB_21 = coalesce(mct.FEB_21, 0)
+	,	MAR_21 = coalesce(mct.MAR_21, 0)
+	,	APR_21 = coalesce(mct.APR_21, 0)
+	,	MAY_21 = coalesce(mct.MAY_21, 0)
+	,	JUN_21 = coalesce(mct.JUN_21, 0)
+	,	JUL_21 = coalesce(mct.JUL_21, 0)
+	,	AUG_21 = coalesce(mct.AUG_21, 0)
+	,	SEP_21 = coalesce(mct.SEP_21, 0)
+	,	OCT_21 = coalesce(mct.OCT_21, 0)
+	,	NOV_21 = coalesce(mct.NOV_21, 0)
+	,	DEC_21 = coalesce(mct.DEC_21, 0)
 	from
 		eeiuser.acctg_csm_material_cost_tabular mct
 ) as spp
@@ -338,6 +351,18 @@ unpivot
 	,	OCT_20
 	,	NOV_20
 	,	DEC_20
+	,	JAN_21
+	,	FEB_21
+	,	MAR_21
+	,	APR_21
+	,	MAY_21
+	,	JUN_21
+	,	JUL_21
+	,	AUG_21
+	,	SEP_21
+	,	OCT_21
+	,	NOV_21
+	,	DEC_21
 	)
 ) as mcu
 GO

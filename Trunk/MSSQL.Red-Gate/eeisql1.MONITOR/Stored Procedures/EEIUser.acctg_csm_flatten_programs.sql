@@ -20,7 +20,7 @@ select  distinct(base_part) as base_part,
    b.badge+' '+b.nameplate as vehicle 
 from  eeiuser.acctg_csm_base_part_mnemonic a 
    left join eeiuser.acctg_csm_nacsm b on a.mnemonic = b.mnemonic 
-where  b.release_id = '2008-10' 
+where  b.release_id = '2019-03'
    and b.program <> '' 
    and a.take_rate*a.family_allocation*a.qty_per <> 0 
 order by base_part

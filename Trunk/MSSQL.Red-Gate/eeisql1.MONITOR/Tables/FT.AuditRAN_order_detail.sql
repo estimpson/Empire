@@ -16,7 +16,8 @@ CREATE TABLE [FT].[AuditRAN_order_detail]
 [RowCreateDT] [datetime] NULL CONSTRAINT [DF__AuditRAN___RowCr__67E5C15C] DEFAULT (getdate()),
 [RowCreateUser] [sys].[sysname] NOT NULL CONSTRAINT [DF__AuditRAN___RowCr__68D9E595] DEFAULT (suser_name()),
 [RowModifiedDT] [datetime] NULL CONSTRAINT [DF__AuditRAN___RowMo__69CE09CE] DEFAULT (getdate()),
-[RowModifiedUser] [sys].[sysname] NOT NULL CONSTRAINT [DF__AuditRAN___RowMo__6AC22E07] DEFAULT (suser_name())
+[RowModifiedUser] [sys].[sysname] NOT NULL CONSTRAINT [DF__AuditRAN___RowMo__6AC22E07] DEFAULT (suser_name()),
+[CreateRowDTOrderDetail] [datetime] NULL
 ) ON [PRIMARY]
 GO
 ALTER TABLE [FT].[AuditRAN_order_detail] ADD CONSTRAINT [PK__AuditRAN__FFEE745165FD78EA] PRIMARY KEY CLUSTERED  ([RowID]) ON [PRIMARY]

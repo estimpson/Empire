@@ -6,6 +6,7 @@ GO
 
 
 
+
 CREATE FUNCTION [dbo].[fn_SalesHistory]
 (@FromDate DATETIME, @ThroughDate DATETIME )
 RETURNS @SalesHistory TABLE
@@ -64,7 +65,7 @@ SELECT
 			ELSE 'DECEMBER' END AS SalesPeriodName,
 		SUM(extended) AS Extended
 FROM		vw_eei_sales_history
-JOIN		destination ON  vw_eei_sales_history.destination = destination.destination
+JOIN		destination with (nolock) ON  vw_eei_sales_history.destination = destination.destination
 WHERE	date_shipped >= @TruncatedFromDT AND date_shipped < @TruncatedThroughDT
 GROUP BY
 		LEFT(basepart,3),

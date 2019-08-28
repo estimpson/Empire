@@ -6,6 +6,7 @@ GO
 
 
 
+
 --SELECT * FROM shipper WHERE Status = 'S'
 
 
@@ -19,6 +20,7 @@ AS
  -- [dbo].[eeisp_form_d_eei_shipper] 126808 
 
  -- 02/05/2019 ASB : Added last column to get palnt code for packing slip ; requested bt FedMogul Lighting Juarez. Added additional conditions to case staements for company name and log to mirror invoice form
+ -- 03/15/2019 ASB : left join  destination_a1 to get destination contact information for packing slip
  
  /*if exists (	select	1 
 			from		shipper_detail
@@ -157,8 +159,10 @@ End*/
 				StagedObjects = StagedSerials.SerialCount,
 				EDIPlantCode = coalesce(nullif(edi_setups.edishiptoID,''), edi_setups.parent_destination),
 				CustomerContact = customer.contact,
-				CustomerPhone = customer.phone
-               
+				CustomerPhone = customer.phone,
+				DestinationContact = rtrim(da1.field_desc10),
+				DestinationPhone = rtrim(da1.field_desc11),
+                DestinationEmail = rtrim(da1.field_desc12)
         FROM    shipper
                 JOIN 
 					destination ON shipper.destination = destination.destination
@@ -170,6 +174,8 @@ End*/
 					edi_setups ON shipper.destination = edi_setups.destination
                 LEFT JOIN 
 					destination consignee ON shipper.shipping_dock = consignee.destination
+				 LEFT JOIN 
+					destination_a1 da1 ON da1.destination = destination.destination
                 JOIN 
 					customer ON shipper.customer = customer.customer
                 JOIN 

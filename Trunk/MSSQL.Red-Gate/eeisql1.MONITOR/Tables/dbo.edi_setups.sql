@@ -36,36 +36,52 @@ SET ANSI_NULLS ON
 GO
 
 
-create trigger [dbo].[ftr_edi_setups_i] on [dbo].[edi_setups] after insert
-as
-begin
+
+CREATE TRIGGER [dbo].[ftr_edi_setups_i] ON [dbo].[edi_setups] AFTER INSERT
+AS
+BEGIN
 
 	-- 03/27/2017 Andre Boulanger FT, LLC. Created trigger becuase Empire does not maintain the column EDIOffsetdays in Monitor
-	set noCount On;
+	SET NOCOUNT ON;
 	-- declarations
-	declare	@destination varchar(20),
-			@idCodeType varchar(50)
+	DECLARE	@destination VARCHAR(20),
+			@idCodeType VARCHAR(50)
 
 	-- get first updated/inserted row
-	select	@destination = min(destination)
-	from	inserted
+	SELECT	@destination = MIN(destination)
+	FROM	inserted
 	-- get id_code_type from inserted row
-	select	@idCodeType = min(id_code_type)
-	from	inserted
-	Where	inserted.destination = @destination
+	SELECT	@idCodeType = MIN(id_code_type)
+	FROM	inserted
+	WHERE	inserted.destination = @destination
 
 	
-	If isNumeric(@idCodeType) = 1 
-	begin
+	IF ISNUMERIC(@idCodeType) = 1 
+	BEGIN
 
-		update 	edi_setups 
-		set		EDIOffsetDays = @idCodeType
-		from 	edi_setups
-		where	destination = @destination
+		UPDATE 	edi_setups 
+		SET		EDIOffsetDays = @idCodeType
+		FROM 	edi_setups
+		WHERE	destination = @destination
 
-	end
+	END
 
-end
+	UPDATE dbo.edi_setups
+	SET auto_create_asn = ''
+	WHERE auto_create_asn = 'Y'
+	AND destination = @destination
+
+	UPDATE dbo.edi_setups
+	SET IConnectID =			CASE  
+											WHEN PATINDEX('%:%', trading_partner_code) >= 1 
+											THEN SUBSTRING(trading_partner_code,PATINDEX('%:%', trading_partner_code)+1, 20)
+											ELSE trading_partner_code
+											END
+	WHERE destination = @destination
+	AND NULLIF(IConnectID,'') IS NULL
+
+END
+
 
 GO
 SET QUOTED_IDENTIFIER ON
@@ -74,38 +90,63 @@ SET ANSI_NULLS ON
 GO
 
 
-create trigger [dbo].[ftr_edi_setups_u] on [dbo].[edi_setups] after update
-as
-begin
+
+CREATE TRIGGER [dbo].[ftr_edi_setups_u] ON [dbo].[edi_setups] AFTER UPDATE
+AS
+BEGIN
 
 	-- 03/27/2017 Andre Boulanger FT, LLC. Created trigger becuase Empire does not maintain the column EDIOffsetdays in Monitor
-	set noCount On;
+	-- 03/22/2019 Andre Boulanger FT, LLC . Updated so that Empire users have full control over their edi_setups.
+	SET NOCOUNT ON;
 	-- declarations
-	declare	@destination varchar(20),
-			@idCodeType varchar(50)
+	DECLARE	@destination VARCHAR(20),
+			@idCodeType VARCHAR(50)
 
 	-- get first updated/inserted row
-	select	@destination = min(destination)
-	from	inserted
+	SELECT	@destination = MIN(destination)
+	FROM	inserted
 	-- get id_code_type from inserted row
-	select	@idCodeType = min(inserted.id_code_type)
-	from	inserted
-	Join	deleted on deleted.destination = inserted.destination
-	Where	inserted.destination = @destination and
-			coalesce(deleted.id_code_type,'A') != coalesce(inserted.id_code_type,'B')
+	SELECT	@idCodeType = MIN(inserted.id_code_type)
+	FROM	inserted
+	JOIN	deleted ON deleted.destination = inserted.destination
+	WHERE	inserted.destination = @destination 
+
 
 	
-	If isNumeric(@idCodeType) = 1 
-	begin
+	IF ISNUMERIC(@idCodeType) = 1 
+	BEGIN
 
-		update 	edi_setups 
-		set		EDIOffsetDays = @idCodeType
-		from 	edi_setups
-		where	destination = @destination
+		UPDATE 	es 
+		SET		es.EDIOffsetDays = @idCodeType
+		FROM 	edi_setups es
+		JOIN 	inserted i ON i.destination = es.destination
+	    JOIN		deleted D ON D.destination = I.destination
+		WHERE	ES.destination = @destination
+		AND			COALESCE(d.id_code_type,'A') != COALESCE(i.id_code_type,'B')
 
-	end
+	END
 
-end
+	/*UPDATE es
+	SET es.auto_create_asn = '',
+			IConnectID =			CASE  
+											WHEN PATINDEX('%:%', i.trading_partner_code) >= 1 
+											THEN SUBSTRING(i.trading_partner_code,PATINDEX('%:%', i.trading_partner_code)+1, 20)
+											ELSE i.trading_partner_code
+											END
+	FROM 	edi_setups es
+		JOIN 	inserted i ON i.destination = es.destination
+	    JOIN		deleted D ON D.destination = I.destination
+	WHERE i.auto_create_asn = 'Y' AND
+				 ISNUMERIC(NULLIF((CASE  
+											WHEN PATINDEX('%:%', i.trading_partner_code) >= 1 
+											THEN SUBSTRING(i.trading_partner_code,PATINDEX('%:%', i.trading_partner_code)+1, 20)
+											ELSE i.trading_partner_code
+											END),'')) = 1				
+
+	*/
+
+END
+
 
 GO
 ALTER TABLE [dbo].[edi_setups] ADD CONSTRAINT [PK__edi_setups__1C323631] PRIMARY KEY CLUSTERED  ([destination]) ON [PRIMARY]

@@ -4,14 +4,17 @@ SET ANSI_NULLS ON
 GO
 
 
-CREATE procedure [EDI].[usp_CustomerEDI_SendShipNotices]
-	@ShipperList varchar(max) = null
-,	@FTPMailboxOverride int = null
-,	@TranDT datetime = null out
-,	@Result integer = null out
-as
+
+
+CREATE PROCEDURE [EDI].[usp_CustomerEDI_SendShipNotices]
+	@ShipperList VARCHAR(MAX) = NULL
+,	@FTPMailboxOverride INT = NULL
+,	@TranDT DATETIME = NULL OUT
+,	@Result INTEGER = NULL OUT
+AS
 
 -- 01/09/2018 asb Fore-Thought, LLC : Update shipper status for shippers to be ignored for ASN and remove same shipper IDs from @PendingShipNotices..
+--03/22/2019 FT, LLC . Now only looking back 12 hours for ASNs to send; Primarily for purposes of not sending an ASN that had been sent prior via manual method
 set nocount on
 set ansi_warnings on
 set ansi_nulls on
@@ -74,7 +77,7 @@ if	@ShipperList > '' begin
 					and ltrim(rtrim(fsstr.Value)) not like '%[^0-9]%'
 			)
 end
-else begin
+ELSE BEGIN
 	insert
 		@PendingShipNotices
 	select
@@ -93,7 +96,7 @@ else begin
 	where
 		coalesce(s.type, 'N') = 'N'
 		and s.status = 'C'
-		and s.date_shipped > getdate() - 10
+		and s.date_shipped > DATEADD(HOUR, -172, GETDATE() )
 
  -- 01/09/2018 asb Fore-Thought, LLC : Update shipper status for shippers to be ignored for ASN and remove same shipper IDs from @PendingShipNotices..
 
@@ -108,11 +111,11 @@ else begin
 		where
 			isNull(ia.shipperID, 0) = s.id
 
-		delete psn
-		From  @PendingShipNotices [psn]
-		where psn.ShipperID in ( Select ShipperID from [EDI].[vwIgnoreShippersForASN]) 
+		DELETE psn
+		FROM  @PendingShipNotices [psn]
+		WHERE psn.ShipperID IN ( SELECT ShipperID FROM [EDI].[vwIgnoreShippersForASN]) 
 		
-end
+END
 
 declare
 	PendingShipNotices cursor local for
@@ -175,20 +178,20 @@ while
 		set @Result = 900501
 		raiserror ('Error encountered in %s.  Error: %d while calling %s', 16, 1, @ProcName, @Error, @CallProcName)
 		rollback tran @ProcName
-		return
-	end
+		RETURN
+	END
 	if @ProcReturn != 0 begin
 		set @Result = 900502
 		raiserror ('Error encountered in %s.  ProcReturn: %d while calling %s', 16, 1, @ProcName, @ProcReturn, @CallProcName)
 		rollback tran @ProcName
-		return
-	end
+		RETURN
+	END
 	if @ProcResult != 0 begin
 		set @Result = 900502
 		raiserror ('Error encountered in %s.  ProcResult: %d while calling %s', 16, 1, @ProcName, @ProcResult, @CallProcName)
 		rollback tran @ProcName
-		return
-	end
+		RETURN
+	END
 	set @generationEndTime = getdate()	
 	set @generationTimeSpan = @generationEndTime - @generationBeginTime
 
@@ -221,23 +224,23 @@ while
 		set @Result = 900501
 		raiserror ('Error encountered in %s.  Error: %d while calling %s', 16, 1, @ProcName, @Error, @CallProcName)
 		rollback tran @ProcName
-		return	@Result
-	end
+		RETURN	@Result
+	END
 	if @ProcReturn != 0 begin
 		set @Result = 900502
 		raiserror ('Error encountered in %s.  ProcReturn: %d while calling %s', 16, 1, @ProcName, @ProcReturn, @CallProcName)
 		rollback tran @ProcName
-		return	@Result
-	end
-	if @ProcResult != 0 begin
+		RETURN	@Result
+	END
+	IF @ProcResult != 0 BEGIN
 		set @Result = 900502
 		raiserror ('Error encountered in %s.  ProcResult: %d while calling %s', 16, 1, @ProcName, @ProcResult, @CallProcName)
 		rollback tran @ProcName
-		return	@Result
-	end
+		RETURN	@Result
+	END
 	--- </Call>
 	
-end
+END
 
 /*	Send EDI to the production mailbox. */
 if	exists
@@ -263,20 +266,20 @@ if	exists
 	if	@Error != 0 begin
 		set @Result = 900501
 		raiserror ('Error encountered in %s.  Error: %d while calling %s', 16, 1, @ProcName, @Error, @CallProcName)
-		return
-	end
+		RETURN
+	END
 	if	@ProcReturn != 0 begin
 		set @Result = 900502
 		raiserror ('Error encountered in %s.  ProcReturn: %d while calling %s', 16, 1, @ProcName, @ProcReturn, @CallProcName)
-		return
-	end
-	if	@ProcResult != 0 begin
+		RETURN
+	END
+	IF	@ProcResult != 0 BEGIN
 		set @Result = 900502
 		raiserror ('Error encountered in %s.  ProcResult: %d while calling %s', 16, 1, @ProcName, @ProcResult, @CallProcName)
-		return
-	end
+		RETURN
+	END
 	--- </Call>
-end
+END
 
 /*	Send EDI to the test mailbox. */
 if	exists
@@ -302,20 +305,20 @@ if	exists
 	if	@Error != 0 begin
 		set @Result = 900501
 		raiserror ('Error encountered in %s.  Error: %d while calling %s', 16, 1, @ProcName, @Error, @CallProcName)
-		return
-	end
+		RETURN
+	END
 	if	@ProcReturn != 0 begin
 		set @Result = 900502
 		raiserror ('Error encountered in %s.  ProcReturn: %d while calling %s', 16, 1, @ProcName, @ProcReturn, @CallProcName)
-		return
-	end
-	if	@ProcResult != 0 begin
+		RETURN
+	END
+	IF	@ProcResult != 0 BEGIN
 		set @Result = 900502
 		raiserror ('Error encountered in %s.  ProcResult: %d while calling %s', 16, 1, @ProcName, @ProcResult, @CallProcName)
-		return
-	end
+		RETURN
+	END
 	--- </Call>
-end
+END
 
 /*	Mark shippers to production mailbox as EDI Sent. */
 --- <Update rows="*">
@@ -341,14 +344,14 @@ if	@Error != 0 begin
 	set @Result = 999999
 	raiserror ('Error updating table %s in procedure %s.  Error: %d', 16, 1, @TableName, @ProcName, @Error)
 	rollback tran @ProcName
-	return
-end
+	RETURN
+END
 --- </Update>
 --- </Body>
 
 --	<Return>
 set @Result = 0
-return
+RETURN
 	@Result
 --- </Return>
 
@@ -407,4 +410,5 @@ go
 Results {
 }
 */
+
 GO

@@ -1,6 +1,6 @@
 CREATE TABLE [EEIUser].[acctg_csm_NAIHS_Delta]
 (
-[ID] [uniqueidentifier] NOT NULL,
+[ID] [uniqueidentifier] NOT NULL ROWGUIDCOL CONSTRAINT [DF_acctg_csm_NAIHS_Delta_ID] DEFAULT (newid()),
 [Release_ID] [char] (7) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL,
 [Version] [varchar] (30) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL,
 [Manufacturer] [varchar] (255) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,

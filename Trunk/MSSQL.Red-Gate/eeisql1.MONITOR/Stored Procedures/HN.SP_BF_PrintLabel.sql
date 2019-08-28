@@ -10,11 +10,11 @@ BEGIN TRAN
 declare	@Result int,
 		@Serial int
 
-set		@Serial= 34944553
+set		@Serial= 2227174
 
 exec	HN.SP_BF_PrintLabel
 			@FieldValue = @Serial,
-			@LabelFormatName = '',
+			@LabelFormatName = 'FIN_ADC',
 			@Result = @Result out
 			
 SELECT	@Result 
@@ -91,6 +91,7 @@ end else begin
 								when	@LabelFormatName = 'FIN_LTK' then  'HN.VW_PS_DataLabel_CustomerGeneral'
 								when	@LabelFormatName = 'FIN_MAGNA' then  'HN.VW_PS_DataLabel_CustomerGeneral'
 								when	@LabelFormatName = 'FN_ADC_US' then  'HN.VW_PS_DataLabel_CustomerGeneral'
+								when	@LabelFormatName = 'FIN_ADC' then  'HN.VW_PS_DataLabel_CustomerGeneral'
 								when	@LabelFormatName = 'FIN_STE_PCB' then  'HN.VW_PS_DataLabel_CustomerGeneral'
 								when	@LabelFormatName = 'FIN_STE_ENSB' then  'HN.VW_PS_DataLabel_CustomerGeneral'
 								else
