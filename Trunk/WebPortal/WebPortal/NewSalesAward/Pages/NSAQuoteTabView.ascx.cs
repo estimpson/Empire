@@ -72,18 +72,18 @@ namespace WebPortal.NewSalesAward.Pages
             var formOfCommitment = FormOfCommitmentComboBox.Text.Trim();
             var quoteReason = QuoteReasonComboBox.Text.Trim();
             var replacingBasePart = ReplacingBasePartComboBox.Text.Trim();
-            var salesperson = SalespersonComboBox.Text.Trim();
+            var salespersonRowId = (SalespersonComboBox.SelectedIndex > -1) ? SalespersonComboBox.SelectedItem.Value.ToString() : "";
 
             //var salesperson = (SalespersonComboBox.Value == null)
             //    ? null
             //    : SalespersonComboBox.Value.ToString();
             //var programManager = ProgramManagerComboBox.Value.ToString();
 
-            var programManager = ProgramManagerComboBox.Text.Trim();
+            var programManagerRowId = (ProgramManagerComboBox.SelectedIndex > -1) ? ProgramManagerComboBox.SelectedItem.Value.ToString() : "";
             var comments = CommentsTextBox.Text.Trim();
 
             ViewModel.SetQuoteDetails(quote, awardDate, formOfCommitment, quoteReason,
-                replacingBasePart, salesperson, programManager, awardedEau, awardedPrice, comments);
+                replacingBasePart, salespersonRowId, programManagerRowId, awardedEau, awardedPrice, comments);
             return ViewModel.Error != "" ? 0 : 1;
         }
 

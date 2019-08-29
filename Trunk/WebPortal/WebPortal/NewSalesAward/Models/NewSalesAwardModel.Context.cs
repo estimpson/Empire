@@ -448,18 +448,18 @@ namespace WebPortal.NewSalesAward.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("usp_AwardedQuote_ChangeQuoteNumber", userParameter, oldQuoteNumberParameter, newQuoteNumberParameter, tranDT, result, debugParameter, debugMsg);
         }
     
-        public virtual ObjectResult<usp_GetAwardedQuote_Result> usp_GetAwardedQuotes()
+        public virtual ObjectResult<usp_GetAwardedQuotes_Result> usp_GetAwardedQuotes()
         {
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_GetAwardedQuote_Result>("usp_GetAwardedQuotes");
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_GetAwardedQuotes_Result>("usp_GetAwardedQuotes");
         }
     
-        public virtual ObjectResult<usp_GetAwardedQuote_Result> usp_GetAwardedQuote(string quoteNumber)
+        public virtual ObjectResult<usp_GetAwardedQuotes_Result> usp_GetAwardedQuote(string quoteNumber)
         {
             var quoteNumberParameter = quoteNumber != null ?
                 new ObjectParameter("QuoteNumber", quoteNumber) :
                 new ObjectParameter("QuoteNumber", typeof(string));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_GetAwardedQuote_Result>("usp_GetAwardedQuote", quoteNumberParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_GetAwardedQuotes_Result>("usp_GetAwardedQuote", quoteNumberParameter);
         }
     
         public virtual int usp_GetAwardedQuoteDetails(string quoteNumber, ObjectParameter awardDate, ObjectParameter formOfCommitment, ObjectParameter quoteReason, ObjectParameter replacingBasePart, ObjectParameter salesperson, ObjectParameter programManager, ObjectParameter comments, ObjectParameter tranDT, ObjectParameter result, Nullable<int> debug, ObjectParameter debugMsg)

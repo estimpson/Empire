@@ -906,8 +906,8 @@ warning 6002: The table/view 'FxPlm.NSA.Users' does not have a primary key defin
             <Parameter Name="Debug" Mode="In" Type="Int32" />
             <Parameter Name="DebugMsg" Mode="InOut" Type="String" />
           </FunctionImport>
-          <FunctionImport Name="usp_GetAwardedQuotes" ReturnType="Collection(FxPLMModel.usp_GetAwardedQuote_Result)" />
-          <FunctionImport Name="usp_GetAwardedQuote" ReturnType="Collection(FxPLMModel.usp_GetAwardedQuote_Result)">
+          <FunctionImport Name="usp_GetAwardedQuotes" ReturnType="Collection(FxPLMModel.usp_GetAwardedQuotes_Result)" />
+          <FunctionImport Name="usp_GetAwardedQuote" ReturnType="Collection(FxPLMModel.usp_GetAwardedQuotes_Result)">
           <Parameter Name="QuoteNumber" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="usp_GetAwardedQuoteDetails">
@@ -1753,7 +1753,7 @@ warning 6002: The table/view 'FxPlm.NSA.Users' does not have a primary key defin
           <FunctionImportMapping FunctionImportName="usp_AwardedQuote_ChangeQuoteNumber" FunctionName="FxPLMModel.Store.usp_AwardedQuote_ChangeQuoteNumber" />
           <FunctionImportMapping FunctionImportName="usp_GetAwardedQuotes" FunctionName="FxPLMModel.Store.usp_GetAwardedQuotes">
           <ResultMapping>
-              <ComplexTypeMapping TypeName="FxPLMModel.usp_GetAwardedQuote_Result">
+              <ComplexTypeMapping TypeName="FxPLMModel.usp_GetAwardedQuotes_Result">
                 <ScalarProperty Name="QuoteNumber" ColumnName="QuoteNumber" />
                 <ScalarProperty Name="BasePart" ColumnName="BasePart" />
                 <ScalarProperty Name="ExcelSpreadsheetBasePart" ColumnName="ExcelSpreadsheetBasePart" />
@@ -1810,7 +1810,6 @@ warning 6002: The table/view 'FxPlm.NSA.Users' does not have a primary key defin
                 <ScalarProperty Name="HardToolingTrigger" ColumnName="HardToolingTrigger" />
                 <ScalarProperty Name="HardToolingDescription" ColumnName="HardToolingDescription" />
                 <ScalarProperty Name="HardToolingCAPEXID" ColumnName="HardToolingCAPEXID" />
-                <ScalarProperty Name="HardToolingCustomerPO" ColumnName="HardToolingCustomerPO" />
                 <ScalarProperty Name="AssemblyTesterToolingAmount" ColumnName="AssemblyTesterToolingAmount" />
                 <ScalarProperty Name="AssemblyTesterToolingTrigger" ColumnName="AssemblyTesterToolingTrigger" />
                 <ScalarProperty Name="AssemblyTesterToolingDescription" ColumnName="AssemblyTesterToolingDescription" />
@@ -1822,12 +1821,13 @@ warning 6002: The table/view 'FxPlm.NSA.Users' does not have a primary key defin
                 <ScalarProperty Name="AwardedEAU" ColumnName="AwardedEAU" />
                 <ScalarProperty Name="AwardedPrice" ColumnName="AwardedPrice" />
                 <ScalarProperty Name="ValidQuoteNumberFlag" ColumnName="ValidQuoteNumberFlag" />
+                <ScalarProperty Name="HardToolingCustomerPO" ColumnName="HardToolingCustomerPO" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="usp_GetAwardedQuote" FunctionName="FxPLMModel.Store.usp_GetAwardedQuote">
           <ResultMapping>
-              <ComplexTypeMapping TypeName="FxPLMModel.usp_GetAwardedQuote_Result">
+              <ComplexTypeMapping TypeName="FxPLMModel.usp_GetAwardedQuotes_Result">
                 <ScalarProperty Name="QuoteNumber" ColumnName="QuoteNumber" />
                 <ScalarProperty Name="BasePart" ColumnName="BasePart" />
                 <ScalarProperty Name="ExcelSpreadsheetBasePart" ColumnName="ExcelSpreadsheetBasePart" />
@@ -1884,7 +1884,6 @@ warning 6002: The table/view 'FxPlm.NSA.Users' does not have a primary key defin
                 <ScalarProperty Name="HardToolingTrigger" ColumnName="HardToolingTrigger" />
                 <ScalarProperty Name="HardToolingDescription" ColumnName="HardToolingDescription" />
                 <ScalarProperty Name="HardToolingCAPEXID" ColumnName="HardToolingCAPEXID" />
-                <ScalarProperty Name="HardToolingCustomerPO" ColumnName="HardToolingCustomerPO" />
                 <ScalarProperty Name="AssemblyTesterToolingAmount" ColumnName="AssemblyTesterToolingAmount" />
                 <ScalarProperty Name="AssemblyTesterToolingTrigger" ColumnName="AssemblyTesterToolingTrigger" />
                 <ScalarProperty Name="AssemblyTesterToolingDescription" ColumnName="AssemblyTesterToolingDescription" />
@@ -1896,6 +1895,7 @@ warning 6002: The table/view 'FxPlm.NSA.Users' does not have a primary key defin
                 <ScalarProperty Name="AwardedEAU" ColumnName="AwardedEAU" />
                 <ScalarProperty Name="AwardedPrice" ColumnName="AwardedPrice" />
                 <ScalarProperty Name="ValidQuoteNumberFlag" ColumnName="ValidQuoteNumberFlag" />
+                <ScalarProperty Name="HardToolingCustomerPO" ColumnName="HardToolingCustomerPO" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>

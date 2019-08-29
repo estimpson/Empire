@@ -113,15 +113,15 @@
                     <dx:LayoutItem Caption="Salesperson" FieldName="Salesperson">
                         <LayoutItemNestedControlCollection>
                             <dx:LayoutItemNestedControlContainer runat="server">
-                                <dx:ASPxComboBox ID="SalespersonComboBox" runat="server" Width="100%" DropDownStyle="DropDown" TextField="FullName" DataSourceID="SalespeoplesDataSource"
-                                                 ValueField="FullName" TextFormatString="{0}" AllowNull="true" IncrementalFilteringMode="StartsWith">
+                                <dx:ASPxComboBox ID="SalespersonComboBox" runat="server" Width="100%" DropDownStyle="DropDownList" TextField="FullName" DataSourceID="SalespeoplesDataSource"
+                                                 ValueField="RowID" TextFormatString="{0}" AllowNull="true" IncrementalFilteringMode="StartsWith">
                                     <ClientSideEvents
                                         GotFocus="OnEditControl_GotFocus"
                                         Init="function (s,e) { RegisterURI(s, 'ReplacingBasePart'); }" 
                                     />
                                 </dx:ASPxComboBox>
                                 <asp:EntityDataSource ID="SalespeoplesDataSource" runat="server" ConnectionString="name=FxPLMEntities" DefaultContainerName="FxPLMEntities" EnableFlattening="False"
-                                                      EntitySetName="EditTabs_Salespeople" Select="" OrderBy="it.FullName" EnableInsert="false">
+                                                      EntitySetName="EditTabs_Salespeople" Select="" OrderBy="it.FullName" EnableInsert="true">
                                 </asp:EntityDataSource>
                             </dx:LayoutItemNestedControlContainer>
                         </LayoutItemNestedControlCollection>
@@ -129,15 +129,15 @@
                     <dx:LayoutItem Caption="Program Manager" FieldName="ProgramManager">
                         <LayoutItemNestedControlCollection>
                             <dx:LayoutItemNestedControlContainer runat="server">
-                                <dx:ASPxComboBox ID="ProgramManagerComboBox" runat="server" Width="100%" DropDownStyle="DropDown" TextField="FullName" DataSourceID="ProgramManagersEntityDataSource"
-                                                 ValueField="FullName" TextFormatString="{0}" AllowNull="true" IncrementalFilteringMode="StartsWith">
+                                <dx:ASPxComboBox ID="ProgramManagerComboBox" runat="server" Width="100%" DropDownStyle="DropDownList" TextField="FullName" DataSourceID="ProgramManagersEntityDataSource"
+                                                 ValueField="RowID" TextFormatString="{0}" AllowNull="true" IncrementalFilteringMode="StartsWith">
                                     <ClientSideEvents
                                         GotFocus="OnEditControl_GotFocus"
                                         Init="function (s,e) { RegisterURI(s, 'ReplacingBasePart'); }" 
                                     />
                                 </dx:ASPxComboBox>
                                 <asp:EntityDataSource ID="ProgramManagersEntityDataSource" runat="server" ConnectionString="name=FxPLMEntities" DefaultContainerName="FxPLMEntities" EnableFlattening="False"
-                                                      EntitySetName="EditTabs_ProgramManagers" Select="" OrderBy="it.FullName" EnableInsert="false">
+                                                      EntitySetName="EditTabs_ProgramManagers" Select="" OrderBy="it.FullName" EnableInsert="true">
                                 </asp:EntityDataSource>
                             </dx:LayoutItemNestedControlContainer>
                         </LayoutItemNestedControlCollection>
