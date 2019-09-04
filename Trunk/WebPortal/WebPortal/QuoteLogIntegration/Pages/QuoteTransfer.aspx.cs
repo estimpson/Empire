@@ -651,8 +651,8 @@ namespace WebPortal.QuoteLogIntegration.Pages
             foreach (string file in files)
             {
                 FileInfo fi = new FileInfo(file);
-                if (fi.LastAccessTime < DateTime.Now.AddDays(-1)) ;
-                fi.Delete();
+                if (fi.LastAccessTime < DateTime.Now.AddDays(-1)) fi.Delete();
+                
             }
         }
 
